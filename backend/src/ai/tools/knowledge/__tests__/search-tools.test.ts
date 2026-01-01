@@ -3,18 +3,17 @@ import { searchRacesTool } from '../search-races';
 import { searchClassesTool } from '../search-classes';
 import { searchSpellsTool } from '../search-spells';
 import { searchMonstersTool } from '../search-monsters';
-import { z } from 'zod';
 
 const mockFindMany = vi.fn();
 
 vi.stubGlobal('strapi', {
   documents: (uid: string) => ({
-    findMany: (args: any) => mockFindMany(uid, args),
+    findMany: (args: unknown) => mockFindMany(uid, args),
   }),
 });
 
 describe('Knowledge Search Tools', () => {
-  const mockContext = { strapi: (globalThis as any).strapi } as any;
+  const mockContext = { strapi: (globalThis as unknown as { strapi: unknown }).strapi };
 
   beforeEach(() => {
     vi.clearAllMocks();

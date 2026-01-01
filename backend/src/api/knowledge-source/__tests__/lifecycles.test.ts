@@ -51,7 +51,7 @@ describe('Knowledge Source Lifecycles', () => {
         result: { id: 101, content: '# Full Doc', name: 'Rulebook' },
       };
 
-      await knowledgeLifecycles.afterCreate(event as any);
+      await knowledgeLifecycles.afterCreate(event as unknown);
 
       expect(mockDeleteMany).toHaveBeenCalledWith({ where: { source: 101 } });
       expect(mockGenerateEmbedding).toHaveBeenCalledTimes(2);
@@ -60,7 +60,7 @@ describe('Knowledge Source Lifecycles', () => {
 
     it('should skip sync if no content', async () => {
       const event = { result: { id: 102, name: 'Empty' } };
-      await knowledgeLifecycles.afterCreate(event as any);
+      await knowledgeLifecycles.afterCreate(event as unknown);
       expect(chunkMarkdown).not.toHaveBeenCalled();
     });
   });

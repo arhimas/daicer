@@ -71,7 +71,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       timestamp: Date.now(),
     };
 
-    return await (actionEngine as any).dispatch(roomId, [command]);
+    return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
   });
 
   // 3. SPAWN_ENTITY

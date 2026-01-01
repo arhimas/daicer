@@ -54,9 +54,6 @@ export {
 
 export { Popover, PopoverTrigger, PopoverContent } from './popover';
 
-export { Combobox } from './combobox';
-export type { ComboboxOption, ComboboxProps } from './combobox';
-
 export { RandomItem } from './RandomItem';
 
 export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from './table';

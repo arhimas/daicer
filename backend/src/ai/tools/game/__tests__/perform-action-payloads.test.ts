@@ -9,9 +9,9 @@ import { z } from 'zod';
 import { performActionTool } from '../perform-action';
 
 describe('Perform Action Tool Payloads', () => {
-  const mockContext = { strapi: (globalThis as any).strapi } as any;
+  const mockContext = { strapi: (globalThis as unknown).strapi } as unknown;
   const tool = performActionTool(mockContext);
-  const schema = tool.schema as z.ZodObject<any>;
+  const schema = tool.schema as z.AnyZodObject;
 
   const commandTypes = ['ATTACK', 'SKILL_CHECK', 'CAST_SPELL', 'INTERACT', 'LONG_REST', 'MODIFY_TERRAIN'];
 

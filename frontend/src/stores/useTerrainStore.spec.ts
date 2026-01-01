@@ -18,11 +18,7 @@ describe('useTerrainStore', () => {
 
   it('should set and get a chunk', () => {
     const mockChunk: ChunkDTO = {
-      grid: [],
-      worldOffsetX: 0,
-      worldOffsetY: 0,
-      size: 16,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+      tiles: [],
     } as any;
 
     const store = useTerrainStore.getState();
@@ -42,11 +38,8 @@ describe('useTerrainStore', () => {
           .map(() => Array(16).fill({ b: 'plains', t: 'grass' }))
       );
     const mockChunk: ChunkDTO = {
+      tiles: mockGrid,
       grid: mockGrid,
-      worldOffsetX: 0,
-      worldOffsetY: 0,
-      size: 16,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
 
     const store = useTerrainStore.getState();
@@ -57,6 +50,7 @@ describe('useTerrainStore', () => {
 
     // Verify update
     const updatedChunk = store.getChunk(0, 0);
-    expect(updatedChunk?.grid[3][8][8].t).toBe('stone');
+    // @ts-ignore
+    expect(updatedChunk?.tiles[3][8][8].t).toBe('stone');
   });
 });

@@ -1,34 +1,21 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen } from '../../../test/test-utils';
+import { MockedProvider } from '@apollo/client/testing';
 import userEvent from '@testing-library/user-event';
 import GameplayScreen from '../GameplayScreen';
 import { MemoryRouter } from 'react-router-dom';
 import type { Room, Player } from '@daicer/engine';
 
 // Mock components
-vi.mock('../../terrain/TerrainExplorer', () => ({
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TerrainExplorer: ({ onTileClick }: any) => (
-    <div data-testid="terrain-explorer" onClick={() => onTileClick({ x: 10, y: 10, z: 0 }, 'grass')}>
-      Mock Terrain Explorer
-    </div>
-  ),
+vi.mock('../../features/debug/components/MapRenderer', () => ({
+  MapRenderer: () => <div data-testid="map-renderer">Mock Map</div>,
 }));
 
 vi.mock('../GameplayComposer', () => ({
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   default: ({ onSubmit }: any) => (
     <div data-testid="gameplay-composer">
       <button onClick={() => onSubmit('Test Action')}>Send Action</button>
-    </div>
-  ),
-}));
-
-vi.mock('../ActionBar', () => ({
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ActionBar: ({ onActionSelect }: any) => (
-    <div data-testid="action-bar">
-      <button onClick={() => onActionSelect('[Action: Attack]')}>Attack</button>
     </div>
   ),
 }));
@@ -83,7 +70,7 @@ const mockRoom: Room = {
   roomId: 'ABC123',
   documentId: 'room-doc-1',
   ownerId: 'user-1',
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   phase: 'GAMEPLAY' as any, // Cast to any or import GamePhase if available
   createdAt: Date.now(),
   updatedAt: Date.now(),
@@ -158,7 +145,7 @@ const mockPlayers: Player[] = [
       resourcePools: [],
       advancementPoints: { ability: 0, skill: 0, talent: 0 },
       spellcasting: { class: '', ability: '', saveDC: 0, attackBonus: 0, cantrips: [], spellsKnown: [], slots: [] },
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any, // Simplified cast for complex char object
     action: null,
   },
@@ -199,7 +186,11 @@ beforeAll(() => {
 });
 
 const renderWithRouter = (ui: React.ReactElement) => {
-  return render(<MemoryRouter>{ui}</MemoryRouter>);
+  return render(
+    <MockedProvider>
+      <MemoryRouter>{ui}</MemoryRouter>
+    </MockedProvider>
+  );
 };
 
 describe('GameplayScreen', () => {

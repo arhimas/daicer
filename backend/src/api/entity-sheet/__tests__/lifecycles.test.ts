@@ -6,7 +6,7 @@ const mockFindOne = vi.fn();
 const mockFindFirst = vi.fn();
 
 vi.stubGlobal('strapi', {
-  documents: (uid: string) => ({
+  documents: (_uid: string) => ({
     findOne: mockFindOne,
     findFirst: mockFindFirst,
   }),
@@ -20,7 +20,7 @@ vi.mock('../../../../services/mechanics/action-generator', () => ({
 
 vi.mock('../../../../services/mechanics/feature-hydrator', () => ({
   FeatureHydrator: {
-    hydrateFeatures: vi.fn((input) => [{ name: 'Hydrated Feature' }]),
+    hydrateFeatures: vi.fn((_input) => [{ name: 'Hydrated Feature' }]),
   },
 }));
 
@@ -43,7 +43,7 @@ describe('Entity Sheet Lifecycles', () => {
           },
         },
       };
-      expect(async () => await beforeUpdate(event as any)).not.toThrow();
+      expect(async () => await beforeUpdate(event as Parameters<typeof beforeUpdate>[0])).not.toThrow();
     });
 
     it('should throw error on duplicate slots', async () => {
@@ -58,7 +58,9 @@ describe('Entity Sheet Lifecycles', () => {
         },
       };
 
-      await expect(beforeUpdate(event as any)).rejects.toThrow('more than one item equipped in the main_hand slot');
+      await expect(beforeUpdate(event as Parameters<typeof beforeUpdate>[0])).rejects.toThrow(
+        'more than one item equipped in the main_hand slot'
+      );
     });
 
     it('should ignore backpack items', async () => {
@@ -72,7 +74,7 @@ describe('Entity Sheet Lifecycles', () => {
           },
         },
       };
-      await expect(beforeUpdate(event as any)).resolves.not.toThrow();
+      await expect(beforeUpdate(event as Parameters<typeof beforeUpdate>[0])).resolves.not.toThrow();
     });
   });
 
@@ -104,7 +106,7 @@ describe('Entity Sheet Lifecycles', () => {
         damageDice: '1d8',
       });
 
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
 
       // Check mutation
       expect(event.params.data).toHaveProperty('features');
@@ -133,7 +135,7 @@ describe('Entity Sheet Lifecycles', () => {
           features: [],
         });
 
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
 
       // Expect specific call for new class
       expect(mockFindOne).toHaveBeenCalledWith(

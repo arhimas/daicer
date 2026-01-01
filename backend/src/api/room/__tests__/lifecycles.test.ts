@@ -31,7 +31,7 @@ describe('Room Lifecycles', () => {
         },
       };
 
-      await afterCreate(event as any);
+      await afterCreate(event as unknown);
 
       expect(mockUpdate).toHaveBeenCalledWith({
         documentId: 'doc-123',
@@ -50,7 +50,7 @@ describe('Room Lifecycles', () => {
         },
       };
 
-      await afterCreate(event as any);
+      await afterCreate(event as unknown);
 
       expect(mockUpdate).not.toHaveBeenCalled();
     });
@@ -64,7 +64,7 @@ describe('Room Lifecycles', () => {
         },
       };
 
-      await afterCreate(event as any);
+      await afterCreate(event as unknown);
 
       expect(mockLogError).toHaveBeenCalledWith(expect.stringContaining('Failed to generate rune'), expect.any(Error));
     });
@@ -76,7 +76,7 @@ describe('Room Lifecycles', () => {
         },
       };
 
-      await afterCreate(event as any);
+      await afterCreate(event as unknown);
       expect(mockUpdate).not.toHaveBeenCalled();
     });
   });

@@ -74,7 +74,7 @@ export const MultiplePlayersNoActions: Story = {
           race: 'Elf',
           characterClass: 'Wizard',
           background: 'Sage',
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
       }),
       createPlayer({
@@ -91,7 +91,7 @@ export const MultiplePlayersNoActions: Story = {
           race: 'Half-Elf',
           characterClass: 'Rogue',
           background: 'Criminal',
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
       }),
     ],
@@ -154,7 +154,7 @@ export const FullPartyWithEnemies: Story = {
           hp: 18,
           maxHp: 24,
           armorClass: 13,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
         action: 'I prepare a fireball spell',
       }),
@@ -169,7 +169,7 @@ export const FullPartyWithEnemies: Story = {
           hp: 32,
           maxHp: 32,
           armorClass: 18,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
         action: null,
       }),
@@ -184,7 +184,7 @@ export const FullPartyWithEnemies: Story = {
           hp: 20,
           maxHp: 24,
           armorClass: 15,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
         action: 'I scout ahead',
       }),

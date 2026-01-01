@@ -116,7 +116,6 @@ export async function generateStructured<T extends z.ZodType>(
     const response = await structuredModel.invoke(messages, runnableConfig);
     return response as z.infer<T>;
   } catch (error) {
-     
     console.error(`[LLM Structured] Gemini ${geminiModelToken} failed:`, extractErrorDetails(error));
     throw error;
   }

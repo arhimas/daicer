@@ -19,8 +19,7 @@ export const retrieveKnowledgeTool = (context: StrapiContext) =>
       outputSchema: z.string(), // Strict output: markdown string
       func: async ({ query }, { strapi }) => {
         try {
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
-          const { embeddingService } = require('../../services/embedding-service');
+          const { embeddingService } = await import('../../services/embedding-service');
 
           const queryEmbedding = await embeddingService.generateEmbedding(query);
 

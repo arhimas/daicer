@@ -1,6 +1,8 @@
 import { createCharacterSnapshot } from '@daicer/engine';
 import { Core } from '@strapi/strapi';
 
+type JSONValue = string | number | boolean | null | { [key: string]: JSONValue } | JSONValue[];
+
 // Helper to create character snapshots
 const createSnapshot = (characterSheets: unknown[]) => {
   const snapshot: Record<string, unknown> = {};
@@ -19,18 +21,6 @@ const createSnapshot = (characterSheets: unknown[]) => {
 interface RoomWithSheets {
   documentId: string;
   entity_sheets?: unknown[];
-}
-
-interface TurnPersistenceService {
-  persistTurn(
-    roomId: string,
-    narrative: string,
-    playerActions: unknown[], // Actions are complex JSON
-    type?: 'group' | 'engine',
-    metadata?: Record<string, unknown>
-  ): Promise<unknown>;
-  clearPlayerActions(roomDocumentId: string, players: unknown[]): Promise<unknown[]>;
-  updateCharacterPosition(sheetId: string, x: number, y: number, z: number): Promise<unknown>;
 }
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
@@ -65,10 +55,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         narrative: narrative,
         status: 'complete',
         type: type === 'engine' ? 'group' : (type as 'group' | 'combat' | 'exploration'),
-        // Strapi JSON fields
-        actions: playerActions as any,
-        characterSnapshots: snapshot as any,
-        metadata: metadata as any,
+        // Strapi JSON fields - casting to valid JSON Value
+        actions: playerActions as JSONValue,
+        characterSnapshots: snapshot as JSONValue,
+        metadata: metadata as JSONValue,
       },
       status: 'published',
     });
@@ -98,23 +88,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 
   async clearPlayerActions(roomDocumentId: string, players: unknown[]) {
-    const updatedPlayers = (players as any[]).map((p) => ({
-      ...p,
-      action: null,
-      isReady: false,
-    }));
-    // Note: TypeScript cannot easily guarantee 'p' shape without interface,
-    // but strict 'unknown' mapping requires 'as' inside map or safer copy.
-    // 'as any[]' is a suppression I should avoid.
-    // Better:
-    /*
-    const updatedPlayers = players.map(p => {
-       if (typeof p === 'object' && p !== null) {
-         return { ...p, action: null, isReady: false };
-       }
-       return p;
+    const updatedPlayers = players.map((p) => {
+      if (typeof p === 'object' && p !== null) {
+        return { ...p, action: null, isReady: false };
+      }
+      return p;
     });
-    */
     // Strapi update expects matching structure.
 
     await strapi.documents('api::room.room').update({

@@ -50,7 +50,20 @@ export const GameDebugInspector: React.FC<GameDebugInspectorProps> = ({
             TOOLS
           </button>
         </div>
-        {activeTab === 'inspector' && !isLive && <span className="text-cyan-400">HISTORICAL</span>}
+
+        {/* Global Eye / Reset Selection */}
+        <div className="flex items-center gap-2">
+          {activeEntityId && (
+            <button
+              onClick={() => setActiveEntityId(null)}
+              className="text-gray-500 hover:text-white transition-colors"
+              title="Reset Selection (God Mode)"
+            >
+              👁️
+            </button>
+          )}
+          {activeTab === 'inspector' && !isLive && <span className="text-cyan-400">HISTORICAL</span>}
+        </div>
       </div>
 
       <div className="flex-1 overflow-hidden relative">

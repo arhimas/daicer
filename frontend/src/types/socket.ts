@@ -33,7 +33,7 @@ export interface ServerToClientEvents {
   'turn:complete': () => void;
 
   // Tools
- 
+
   'tool:calls': (toolCalls: any[]) => void;
 
   // Messages
@@ -56,7 +56,7 @@ export interface ServerToClientEvents {
   }) => void;
 
   // Presence
- 
+
   'presence:update': (data: { roomId: string; presence: any[] }) => void;
 
   // World chunks
@@ -85,7 +85,7 @@ export interface ServerToClientEvents {
     entities: Entity[];
   }) => void;
   'map:view:error': (data: { error: string }) => void;
- 
+
   'entities:update': (data: { entities: any[] }) => void;
 
   // Errors
@@ -99,7 +99,7 @@ export interface ClientToServerEvents {
   // Room
   'room:join': (data: RoomJoinPayload) => void;
   'room:leave': (data: { roomId: string }) => void;
- 
+
   'room:create': (data: { name: string; config?: any }, callback?: (error: Error | null, room?: Room) => void) => void;
 
   // Player
@@ -109,14 +109,14 @@ export interface ClientToServerEvents {
 
   // Game
   'game:start': (data: { roomId: string }) => void;
- 
+
   'game:submit_turn': (data: { roomId: string; actions: any[] }) => void;
   'turn:process': (data: TurnProcessPayload) => void;
 
   // Combat
- 
+
   'combat:action': (data: any) => void;
- 
+
   'combat:restore': (data: any) => void;
 
   // Messages

@@ -25,7 +25,7 @@ vi.mock('@daicer/engine', () => ({
 }));
 
 describe('Spawn Service Stat Logic', () => {
-  const service = spawnServiceFactory({ strapi: (globalThis as any).strapi });
+  const service = spawnServiceFactory({ strapi: (globalThis as unknown).strapi });
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -75,7 +75,7 @@ describe('Spawn Service Stat Logic', () => {
 
   it.each(statChecks)('should derive %s correctly', async ({ stat, val }) => {
     const stats = { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 };
-    (stats as any)[stat] = val;
+    (stats as unknown)[stat] = val;
 
     mockFindOne
       .mockResolvedValueOnce({

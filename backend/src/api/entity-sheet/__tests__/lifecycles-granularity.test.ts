@@ -6,7 +6,7 @@ const mockFindOne = vi.fn();
 const mockFindFirst = vi.fn();
 
 vi.stubGlobal('strapi', {
-  documents: (uid: string) => ({
+  documents: (_uid: string) => ({
     findOne: mockFindOne,
     findFirst: mockFindFirst,
   }),
@@ -44,7 +44,7 @@ describe('Entity Sheet Granular Logic', () => {
         params: { where: { documentId: 'doc-1' }, data: { level } },
       };
 
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
       if (level >= 1) {
         expect(event.params.data.features).toBeDefined();
       }
@@ -78,7 +78,7 @@ describe('Entity Sheet Granular Logic', () => {
       });
 
       const event = { params: { where: { documentId: 'doc-1' }, data: { level: 5 } } }; // Trigger update
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
 
       // We expect the REAL ActionGenerator output or the mock if it works.
       // Since specific structure failed before, we relax to loose match on name.
@@ -104,7 +104,7 @@ describe('Entity Sheet Granular Logic', () => {
       });
 
       const event = { params: { where: { documentId: 'doc-1' }, data: { level: 1 } } };
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
 
       const features = event.params.data.features;
       // Relaxed expectation: just look for the name in the array
@@ -137,7 +137,7 @@ describe('Entity Sheet Granular Logic', () => {
       });
 
       const event = { params: { where: { documentId: 'doc-1' }, data: { level: 1 } } };
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
 
       const features = event.params.data.features;
       expect(features).toEqual(expect.arrayContaining([expect.objectContaining({ name: `${className} Feature` })]));
@@ -160,7 +160,7 @@ describe('Entity Sheet Granular Logic', () => {
         stats: { strength: stats.str, dexterity: stats.dex },
       });
       const event = { params: { where: { documentId: 'doc-1' }, data: { level: 1 } } };
-      await beforeUpdate(event as any);
+      await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);
       expect(event.params.data).toBeDefined();
     });
   });

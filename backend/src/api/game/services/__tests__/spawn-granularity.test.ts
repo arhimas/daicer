@@ -25,7 +25,7 @@ vi.mock('@daicer/engine', () => ({
 }));
 
 describe('Spawn Service Granularity', () => {
-  const service = spawnServiceFactory({ strapi: (globalThis as any).strapi });
+  const service = spawnServiceFactory({ strapi: (globalThis as unknown).strapi });
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -69,7 +69,7 @@ describe('Spawn Service Granularity', () => {
   ];
 
   it.each(missingFields)('should handle missing %s gracefully', async (scenario) => {
-    const charData: any = {
+    const charData: Record<string, unknown> = {
       documentId: 'char-1',
       name: 'Hero',
       baseStats: { strength: 10, constitution: 10 },

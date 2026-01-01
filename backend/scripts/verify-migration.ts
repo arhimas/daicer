@@ -1,4 +1,3 @@
- 
 /* eslint-disable no-console, @typescript-eslint/no-explicit-any */
 import { getStrapiClient } from './utils/strapi-client';
 

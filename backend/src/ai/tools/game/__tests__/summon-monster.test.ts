@@ -24,9 +24,9 @@ vi.stubGlobal('strapi', {
 
 describe('summonMonsterTool', () => {
   const mockContext = {
-    strapi: (globalThis as any).strapi,
+    strapi: (globalThis as unknown as { strapi: unknown }).strapi,
     roomDocumentId: 'room-123',
-  } as any;
+  };
 
   beforeEach(() => {
     vi.clearAllMocks();

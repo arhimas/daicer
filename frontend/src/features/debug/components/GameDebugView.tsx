@@ -9,6 +9,7 @@ import { TimeControls } from './TimeControls';
 
 import { GameDebugInspector } from './GameDebugInspector';
 import { GameDebugMap } from './GameDebugMap';
+import { GameEventsPanel } from './GameEventsPanel';
 
 // Default config
 const DEFAULT_CONFIG: OldWorldConfig = {
@@ -235,13 +236,28 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
     }
   };
 
-  // --- 3-COLUMN LAYOUT ---
+  // --- 4-COLUMN LAYOUT ---
   return (
     <div className="flex-1 flex flex-col overflow-hidden h-full w-full bg-black">
-      {/* 2. MAIN 3-COLUMN AREA */}
+      {/* 2. MAIN 4-COLUMN AREA */}
       <div className="flex-1 flex min-h-0">
-        {/* COLUMN 1: CHAT (Left) - 1/3 Width */}
-        <div className="flex-1 min-w-0 flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-10 shadow-2xl">
+        {/* COLUMN 1: TOOLS/INSPECTOR (Left) - 20% Width */}
+        <div className="w-[20%] min-w-[250px] flex flex-col border-r border-midnight-800">
+          <GameDebugInspector
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            isLive={isLive}
+            entities={entities}
+            activeEntityId={activeEntityId}
+            setActiveEntityId={setActiveEntityId}
+            activeEntity={activeEntity}
+            activeLocation={activeLocation}
+            onGodModeCommand={handleGodModeCommand}
+          />
+        </div>
+
+        {/* COLUMN 2: CHAT (Middle-Left) - 25% Width */}
+        <div className="w-[25%] min-w-[300px] flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-10 shadow-2xl">
           <div className="p-3 bg-midnight-900 border-b border-midnight-800 font-bold text-xs uppercase tracking-wider text-shadow-300">
             CHAT / LOG
           </div>
@@ -261,31 +277,29 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
           </div>
         </div>
 
-        {/* COLUMN 2: INSPECTOR (Middle) - 1/3 Width */}
-        <GameDebugInspector
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          isLive={isLive}
-          entities={entities}
-          activeEntityId={activeEntityId}
-          setActiveEntityId={setActiveEntityId}
-          activeEntity={activeEntity}
-          activeLocation={activeLocation}
-          onGodModeCommand={handleGodModeCommand}
-        />
+        {/* COLUMN 3: GAME EVENTS (Middle-Right) - 20% Width - NEW */}
+        <div className="w-[20%] min-w-[250px] flex flex-col">
+          <div className="flex-1 min-h-0">
+            {/* Dynamically imported to avoid circular deps if any, but regular import is fine */}
+            {/* We need to import GameEventsPanel */}
+            <GameEventsPanel events={gameEvents} />
+          </div>
+        </div>
 
-        {/* COLUMN 3: MAP (Right) - 1/3 Width */}
-        <GameDebugMap
-          roomId={roomId}
-          socket={socket}
-          activeEntity={activeEntity}
-          entities={entities}
-          activeEntityId={activeEntityId}
-          config={config}
-          onTileClick={handleTileSingleClick}
-          onPathPlanned={handlePathPlanned}
-          onTileHover={handleTileHover}
-        />
+        {/* COLUMN 4: MAP (Right) - Remaining Width */}
+        <div className="flex-1 flex flex-col shadow-2xl z-0">
+          <GameDebugMap
+            roomId={roomId}
+            socket={socket}
+            activeEntity={activeEntity}
+            entities={entities}
+            activeEntityId={activeEntityId}
+            config={config}
+            onTileClick={handleTileSingleClick}
+            onPathPlanned={handlePathPlanned}
+            onTileHover={handleTileHover}
+          />
+        </div>
       </div>
 
       {/* 1. TIME CONTROLS (Bottom, Full Width) */}

@@ -221,7 +221,6 @@ function Scene() {
       <pointLight position={[-10, 0, -10]} intensity={1} color="#7a49d9" />
 
       {diceConfig.map((props, i) => (
-         
         <FallingDie key={i} {...props} />
       ))}
 

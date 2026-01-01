@@ -124,7 +124,12 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
     // Fetch room to get initial state
     const room = await strapi.documents('api::room.room').findOne({
       documentId: roomDocumentId,
-      populate: ['entity_sheets'],
+      populate: {
+        entity_sheets: {
+          populate: ['position'],
+        },
+        world: true, // Also keep world populated as before (it was in the array)
+      },
     });
 
     // Default State

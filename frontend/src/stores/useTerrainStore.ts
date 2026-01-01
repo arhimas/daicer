@@ -68,10 +68,10 @@ export const useTerrainStore = create<TerrainState>((set, get) => ({
             const newChunk = { ...chunk };
 
             // Mutate tile directly (performance tradeoff vs immutability)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if (update.b) tile.biome = update.b as any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if (update.t) tile.block = update.t as any;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (update.b) (tile as any).b = update.b;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (update.t) (tile as any).t = update.t;
 
             newChunks.set(chunkKey, newChunk);
             set({ chunks: newChunks });

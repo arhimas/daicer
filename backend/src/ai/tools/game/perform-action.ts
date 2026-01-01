@@ -9,7 +9,6 @@ import {
   EntitySheet,
   WorldSettings,
   Player,
-  Role,
 } from '@daicer/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 

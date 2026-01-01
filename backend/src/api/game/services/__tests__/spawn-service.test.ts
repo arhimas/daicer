@@ -25,7 +25,7 @@ vi.mock('@daicer/engine', () => ({
 }));
 
 describe('Spawn Service', () => {
-  const service = spawnServiceFactory({ strapi: (globalThis as any).strapi });
+  const service = spawnServiceFactory({ strapi: (globalThis as unknown).strapi });
 
   beforeEach(() => {
     vi.clearAllMocks();

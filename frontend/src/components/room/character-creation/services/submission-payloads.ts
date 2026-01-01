@@ -1,14 +1,13 @@
 import { addCharacter } from '../../../../services/api';
 
 export const createCharacterPayload = (
- 
   formData: any,
   startingLevel: number,
- 
+
   inventory: any[],
- 
+
   equippedItems: any,
- 
+
   equipmentItems: any[],
   equipmentGold: number
 ) => {
@@ -18,9 +17,8 @@ export const createCharacterPayload = (
 
   // Inventory mapping
   const mappedInventory = inventory
- 
+
     .map((i: any) => {
- 
       const item = equipmentItems.find((e: any) => e.index === i.itemIndex);
       return item ? { item: item.id, quantity: i.quantity, slot: 'backpack', isEquipped: false } : null;
     })
@@ -30,7 +28,7 @@ export const createCharacterPayload = (
   const mappedEquipped = Object.entries(equippedItems)
     .map(([uiSlot, itemIndex]) => {
       if (!itemIndex) return null;
- 
+
       const item = equipmentItems.find((e: any) => e.index === itemIndex);
       if (!item) return null;
 
@@ -84,16 +82,15 @@ export const createCharacterPayload = (
 };
 
 export const submitCharacter = async (
- 
   room: any,
- 
+
   payload: any,
   assetMode: boolean,
- 
+
   avatarPreview: any,
- 
+
   onAssetCreated: any,
- 
+
   _onCharacterCreated: any,
 
   _effectiveLevel: number

@@ -11,7 +11,6 @@ import { loadPlaceholderReferences } from '../avatarHelpers';
 import { createCharacterPayload, submitCharacter } from '../services/submission-payloads';
 import { generateRandomCharacter } from '../../../../services/characterGenerator';
 
- 
 export function useCharacterCreationController(props: any) {
   const { room, assetMode = false, settings, onAssetCreated, onCharacterCreated } = props;
   const { user } = useAuth();
@@ -61,7 +60,6 @@ export function useCharacterCreationController(props: any) {
   const pointsUsed = useMemo(() => calculateTotalPoints(formData.attributes), [formData.attributes]);
   const pointsRemaining = attributeBudget - pointsUsed;
 
- 
   const updateField = (field: any, value: any) => setFormData((p) => ({ ...p, [field]: value }));
 
   const ensurePlaceholderReferences = async () => {
@@ -98,7 +96,6 @@ export function useCharacterCreationController(props: any) {
         onCharacterCreated,
         effectiveLevel
       );
- 
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -109,7 +106,7 @@ export function useCharacterCreationController(props: any) {
   const loadTemplate = async (archetype: string) => {
     setLoading(true);
     const generated = generateRandomCharacter(archetype, formData.race);
- 
+
     setFormData((prev) => ({ ...prev, ...generated, attributes: generated.attributes as any }));
     setLoading(false);
   };

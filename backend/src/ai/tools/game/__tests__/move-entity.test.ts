@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { moveEntityTool } from '../move-entity';
-import { z } from 'zod';
 
 const mockGetGameState = vi.fn();
 const mockValidateMove = vi.fn();
@@ -31,9 +30,9 @@ vi.stubGlobal('strapi', {
 
 describe('moveEntityTool', () => {
   const mockContext = {
-    strapi: (globalThis as any).strapi,
+    strapi: (globalThis as unknown as { strapi: unknown }).strapi,
     roomDocumentId: 'room-123',
-  } as any;
+  };
 
   beforeEach(() => {
     vi.clearAllMocks();

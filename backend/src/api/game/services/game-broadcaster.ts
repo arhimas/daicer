@@ -39,7 +39,11 @@ export default ({ strapi }) => ({
     // Logic:
     const roomRaw = await strapi.documents('api::room.room').findOne({
       documentId: roomDocumentId,
-      populate: ['entity_sheets', 'entity_sheets.position'],
+      populate: {
+        entity_sheets: {
+          populate: ['position'],
+        },
+      },
     });
 
     if (!roomRaw) return;

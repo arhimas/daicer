@@ -1,13 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import characterLifecycles from '../content-types/character/lifecycles';
 
 describe('Character Lifecycles', () => {
   describe('validateEquipmentSlots', () => {
     const { beforeCreate, beforeUpdate } = characterLifecycles;
 
-    const runValidation = async (equipment: any[]) => {
+    const runValidation = async (equipment: unknown[]) => {
       const event = { params: { data: { equipment } } };
-      await beforeCreate(event as any);
+      await beforeCreate(event as unknown);
     };
 
     it('should allow valid equipment set', async () => {
@@ -52,7 +52,7 @@ describe('Character Lifecycles', () => {
           },
         },
       };
-      await expect(beforeUpdate(event as any)).rejects.toThrow();
+      await expect(beforeUpdate(event as unknown)).rejects.toThrow();
     });
   });
 });

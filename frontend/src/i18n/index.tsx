@@ -149,7 +149,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const localize = useCallback(
- 
     (data: any, field: string): string => {
       if (!data) return '';
       const fallback = data[field] || '';

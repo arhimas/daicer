@@ -92,6 +92,15 @@ vi.mock('../components/ui/dice-loader', () => {
   };
 });
 
+// Mock react-resizable-panels to avoid CSS parsing errors in JSDOM
+vi.mock('react-resizable-panels', () => ({
+  Group: ({ children }: { children: React.ReactNode }) =>
+    React.createElement('div', { 'data-testid': 'panel-group' }, children),
+  Panel: ({ children }: { children: React.ReactNode }) =>
+    React.createElement('div', { 'data-testid': 'panel' }, children),
+  Separator: () => React.createElement('div', { 'data-testid': 'resize-handle' }),
+}));
+
 // Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

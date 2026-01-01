@@ -56,9 +56,9 @@ describe('performActionTool', () => {
 
   it('should have a valid schema', () => {
     const mockContext = {
-      strapi: (globalThis as any).strapi,
+      strapi: (globalThis as unknown as { strapi: unknown }).strapi,
       roomDocumentId: 'room-123',
-    } as any;
+    };
 
     const tool = performActionTool(mockContext);
     const schema = tool.schema;

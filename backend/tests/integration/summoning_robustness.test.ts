@@ -1,33 +1,33 @@
-/* eslint-disable no-console, @typescript-eslint/no-explicit-any */
+import { vi, describe, it, expect } from 'vitest';
 import { getRegistryTools } from '../../src/api/narrator/services/tool-registry';
+import { Core } from '@strapi/strapi';
 
 // Mocks for Strapi and dependencies
-const mockSpawnMonster = jest.fn(async (roomId, monsterId, pos) => {
-  console.log(`[MockSpawn] Spawning monster ${monsterId} in room ${roomId} at ${JSON.stringify(pos)}`);
+const mockSpawnMonster = vi.fn(async (_roomId, _monsterId, _pos) => {
   return { id: 'new-sheet-id', name: 'Mock Monster' };
 });
 
 const mockStrapi = {
-  service: jest.fn((name) => {
+  service: vi.fn((name) => {
     if (name === 'api::game.spawn-service') {
       return {
         spawnMonster: mockSpawnMonster,
-        spawnCharacter: jest.fn(),
+        spawnCharacter: vi.fn(),
       };
     }
     if (name === 'api::game-event.game-event') {
       return {
-        getGameState: jest.fn().mockResolvedValue({ entities: {} }),
-        validateMove: jest.fn(),
-        logEvent: jest.fn(),
-        inspectTerrain: jest.fn(),
+        getGameState: vi.fn().mockResolvedValue({ entities: {} }),
+        validateMove: vi.fn(),
+        logEvent: vi.fn(),
+        inspectTerrain: vi.fn(),
       };
     }
   }),
-  documents: jest.fn((uid) => {
+  documents: vi.fn((uid) => {
     if (uid === 'api::monster.monster') {
       return {
-        findMany: jest.fn(async ({ filters }) => {
+        findMany: vi.fn(async ({ filters }) => {
           if (filters.name.$contains === 'Goblin') {
             return [{ documentId: 'doc-goblin-123', name: 'Goblin' }];
           }
@@ -37,12 +37,12 @@ const mockStrapi = {
     }
     if (uid === 'api::character.character') {
       return {
-        findMany: jest.fn().mockResolvedValue([]),
+        findMany: vi.fn().mockResolvedValue([]),
       };
     }
     if (uid === 'api::room.room') {
       return {
-        findOne: jest.fn().mockResolvedValue({ documentId: 'doc-room-123' }),
+        findOne: vi.fn().mockResolvedValue({ documentId: 'doc-room-123' }),
       };
     }
   }),
@@ -52,13 +52,13 @@ describe('Narrator Tool Registry Integration', () => {
   const ROOM_DOC_ID = 'doc-room-123';
 
   it('should register summon_entity tool', () => {
-    const tools = getRegistryTools(mockStrapi as any, ROOM_DOC_ID);
+    const tools = getRegistryTools(mockStrapi as unknown as Core.Strapi, ROOM_DOC_ID);
     const summonTool = tools.find((t) => t.name === 'summon_entity');
     expect(summonTool).toBeDefined();
   });
 
   it('should successfully summon a monster exactly matching name', async () => {
-    const tools = getRegistryTools(mockStrapi as any, ROOM_DOC_ID);
+    const tools = getRegistryTools(mockStrapi as unknown as Core.Strapi, ROOM_DOC_ID);
     const summonTool = tools.find((t) => t.name === 'summon_entity');
 
     if (!summonTool) throw new Error('Tool not found');
@@ -77,7 +77,7 @@ describe('Narrator Tool Registry Integration', () => {
   });
 
   it('should fail gracefully for non-existent monster', async () => {
-    const tools = getRegistryTools(mockStrapi as any, ROOM_DOC_ID);
+    const tools = getRegistryTools(mockStrapi as unknown as Core.Strapi, ROOM_DOC_ID);
     const summonTool = tools.find((t) => t.name === 'summon_entity');
 
     const result = await summonTool!.invoke({
