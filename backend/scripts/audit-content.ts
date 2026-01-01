@@ -105,7 +105,7 @@ async function main() {
 
         const countEn = docs.length; // Approximate total (assuming docs are 'en' default)
         missingLocalesCount = Math.max(0, countEn - countEs) + Math.max(0, countEn - countPt);
-      } catch (e) {
+      } catch (_e) {
         // Ignore locale check errors (often 403 if not public)
       }
 

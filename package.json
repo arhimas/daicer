@@ -3,12 +3,20 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "workspaces": [
-    "backend",
-    "frontend",
-    "shared",
-    "engine"
-  ],
+  "workspaces": {
+    "packages": [
+      "backend",
+      "frontend",
+      "shared",
+      "engine"
+    ],
+    "nohoist": [
+      "**/@radix-ui/react-select",
+      "**/@radix-ui/react-select/**",
+      "**/react-remove-scroll",
+      "**/react-remove-scroll/**"
+    ]
+  },
   "scripts": {
     "dev": "concurrently -n \"backend,frontend\" -c \"#4285F4,#0F9D58\" \"yarn workspace @daicer/backend dev\" \"yarn workspace @daicer/frontend dev\"",
     "build": "yarn workspaces run build",

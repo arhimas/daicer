@@ -23,7 +23,6 @@ export const searchClassesTool = (context: StrapiContext) =>
           return `No classes found matching "${query}".`;
         }
 
-        return classes;
         return classes
           .map((c) => {
             const profs =

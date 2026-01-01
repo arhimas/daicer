@@ -119,8 +119,14 @@ export default defineConfig(({ mode }) => {
     },
     envDir: '..', // Load .env files from root directory
     resolve: {
-      dedupe: ['react', 'react-dom'],
       alias: [
+        { find: 'react', replacement: path.resolve(__dirname, './node_modules/react') },
+        { find: 'react/jsx-runtime', replacement: path.resolve(__dirname, './node_modules/react/jsx-runtime.js') },
+        {
+          find: 'react/jsx-dev-runtime',
+          replacement: path.resolve(__dirname, './node_modules/react/jsx-dev-runtime.js'),
+        },
+        { find: 'react-dom', replacement: path.resolve(__dirname, './node_modules/react-dom') },
         { find: '@', replacement: path.resolve(__dirname, './src') },
         { find: '@daicer/engine', replacement: path.resolve(__dirname, '../engine/src/index.ts') },
         { find: '@daicer/shared', replacement: path.resolve(__dirname, '../shared/src/index.ts') },
@@ -136,6 +142,11 @@ export default defineConfig(({ mode }) => {
       setupFiles: './src/test/setup.ts',
       include: ['src/**/*.{test,spec}.{ts,tsx}'],
       exclude: [...configDefaults.exclude, 'e2e/**'],
+      server: {
+        deps: {
+          inline: [/./],
+        },
+      },
       coverage: {
         provider: 'v8',
         reporter: ['text', 'json', 'html', 'lcov'],

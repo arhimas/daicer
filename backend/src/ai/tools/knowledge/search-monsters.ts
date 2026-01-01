@@ -21,6 +21,7 @@ export const searchMonstersTool = (context: StrapiContext) =>
           filters.type = { $containsi: type };
         }
 
+        const monsters = await strapi.documents('api::monster.monster').findMany({
           filters,
           populate: ['stats'],
         });
@@ -35,7 +36,7 @@ export const searchMonstersTool = (context: StrapiContext) =>
             // contentTypes.d.ts will reveal. If "stats" is missing, we use explicit fields.
             const stats = `STR ${m.stats?.strength || 10} DEX ${m.stats?.dexterity || 10} CON ${m.stats?.constitution || 10} INT ${m.stats?.intelligence || 10} WIS ${m.stats?.wisdom || 10} CHA ${m.stats?.charisma || 10}`;
 
-            return `### ${m.name} (${m.size} ${m.type}, CR ${m.challenge_rating})\n- HP: ${m.hp}\n- AC: ${m.ac}\n- Speed: ${JSON.stringify(m.speed)}\n- Stats: ${stats}\n`;
+            return `### ${m.name} (${m.size} ${m.type}, CR ${m.challenge_rating})\n- HP: ${m.hp}\n- AC: ${m.ac}\n- Stats: ${stats}\n`;
           })
           .join('\n---\n');
       },

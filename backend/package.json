@@ -9,7 +9,8 @@
     "build": "NODE_OPTIONS='--max-old-space-size=8192' strapi build",
     "strapi": "strapi",
     "deploy": "strapi deploy",
-    "test": "exit 0",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "codegen": "strapi ts:generate-types",
     "typecheck": "tsc --noEmit",
@@ -46,14 +47,15 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/pngjs": "^6.0.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "ts-jest": "^29.4.6",
+    "@vitest/coverage-v8": "^4.0.16",
+    "better-sqlite3": "^12.5.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.16"
   },
   "engines": {
     "node": ">=20.0.0 <=24.x.x",

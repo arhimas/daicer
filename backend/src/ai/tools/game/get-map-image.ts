@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Creature } from '@daicer/engine';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 
@@ -59,7 +60,7 @@ export const getMapImageTool = (context: StrapiContext) =>
         const creatures = (room.character_sheets || []).map((cs) => ({
           id: cs.documentId,
           name: cs.name,
-          type: (cs.type || 'monster') as 'player' | 'npc' | 'monster' | 'object',
+          type: (cs.type || 'monster') as unknown as Creature['type'],
           position: cs.position,
           stats: cs.stats,
           // Map 'currentHp' to 'hp' as per Creature interface

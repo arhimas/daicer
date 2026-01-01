@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const { Client } = require('pg');
+import { Client } from 'pg';
 
 async function dropTables() {
   console.log('Connecting to DB to force drop legacy tables...');

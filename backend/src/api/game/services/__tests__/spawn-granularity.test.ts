@@ -1,0 +1,111 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import spawnServiceFactory from '../spawn-service';
+
+// Mock Dependencies
+const mockFindOne = vi.fn();
+const mockFindMany = vi.fn();
+const mockCreate = vi.fn();
+
+vi.stubGlobal('strapi', {
+  documents: () => ({
+    findOne: mockFindOne,
+    findMany: mockFindMany,
+    create: mockCreate,
+  }),
+});
+
+vi.mock('@daicer/engine', () => ({
+  EntityDeriver: {
+    derive: vi.fn((input) => ({
+      hp: 10 + (input.attributes.con - 10), // Simple mock logic
+      maxHp: 10 + (input.attributes.con - 10),
+      speed: 30,
+    })),
+  },
+}));
+
+describe('Spawn Service Granularity', () => {
+  const service = spawnServiceFactory({ strapi: (globalThis as any).strapi });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockFindOne.mockResolvedValue({ documentId: 'room-1' });
+    mockFindMany.mockResolvedValue([]);
+    mockCreate.mockResolvedValue({ documentId: 'new-doc' });
+  });
+
+  const statVariations = [
+    { str: 10, dex: 10, con: 10, expectedHp: 10 },
+    { str: 18, dex: 14, con: 14, expectedHp: 14 },
+    { str: 8, dex: 8, con: 8, expectedHp: 8 },
+  ];
+
+  it.each(statVariations)('should spawn character with stats %o', async (stats) => {
+    mockFindOne
+      .mockResolvedValueOnce({
+        documentId: 'char-1',
+        name: 'Hero',
+        baseStats: { strength: stats.str, dexterity: stats.dex, constitution: stats.con },
+        class: { hit_die: '1d8' },
+      })
+      .mockResolvedValueOnce({ documentId: 'room-1' });
+
+    await service.spawnCharacter('room-1', 'char-1', { x: 0, y: 0, z: 0 });
+
+    expect(mockCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          currentHp: stats.expectedHp,
+        }),
+      })
+    );
+  });
+
+  const missingFields = [
+    { field: 'class', val: null },
+    { field: 'race', val: null },
+    { field: 'baseStats', val: null },
+    { field: 'class.hit_die', val: null },
+  ];
+
+  it.each(missingFields)('should handle missing %s gracefully', async (scenario) => {
+    const charData: any = {
+      documentId: 'char-1',
+      name: 'Hero',
+      baseStats: { strength: 10, constitution: 10 },
+      class: { hit_die: '1d8' },
+    };
+
+    if (scenario.field === 'class') charData.class = null;
+    if (scenario.field === 'race') charData.race = null;
+    if (scenario.field === 'baseStats') charData.baseStats = null;
+    if (scenario.field === 'class.hit_die') charData.class.hit_die = null;
+
+    mockFindOne.mockResolvedValueOnce(charData).mockResolvedValueOnce({ documentId: 'room-1' });
+
+    // It should not throw
+    await expect(service.spawnCharacter('room-1', 'char-1', { x: 0, y: 0, z: 0 })).resolves.toBeDefined();
+  });
+
+  // Verify coordinate pass-through (simple extensive check)
+  const coords = [
+    { x: 0, y: 0, z: 0 },
+    { x: 10, y: 10, z: 0 },
+    { x: -5, y: -5, z: 1 },
+    { x: 100, y: 100, z: 2 },
+  ];
+
+  it.each(coords)('should spawn at %o', async (pos) => {
+    mockFindOne
+      .mockResolvedValueOnce({ documentId: 'mon-1', name: 'M', hp: 5 })
+      .mockResolvedValueOnce({ documentId: 'room-1' });
+
+    await service.spawnMonster('room-1', 'mon-1', pos);
+
+    expect(mockCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ position: pos }),
+      })
+    );
+  });
+});

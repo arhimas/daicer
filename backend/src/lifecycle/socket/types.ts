@@ -51,6 +51,7 @@ export interface RoomWithPopulations {
     currentHp: number;
     maxHp: number;
     speed: number;
+    ac?: number;
   }>;
   worldConditions?: unknown[]; // or specific type if known
 }
