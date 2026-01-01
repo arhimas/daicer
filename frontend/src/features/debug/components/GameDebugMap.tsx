@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Socket } from 'socket.io-client';
 import clsx from 'clsx';
 import { useChunkLoader } from '@/hooks/useChunkLoader';
 import { MapRenderer } from './MapRenderer';
 import { DebugEntity, Coordinates, WorldConfig } from '../utils/types';
-import { Socket } from 'socket.io-client';
 
 interface GameDebugMapProps {
   roomId: string;
@@ -18,7 +18,7 @@ interface GameDebugMapProps {
   onTileHover: (target: Coordinates | null) => void;
 }
 
-export const GameDebugMap: React.FC<GameDebugMapProps> = ({
+export function GameDebugMap({
   roomId,
   socket,
   activeEntity,
@@ -28,7 +28,7 @@ export const GameDebugMap: React.FC<GameDebugMapProps> = ({
   onTileClick,
   onPathPlanned,
   onTileHover,
-}) => {
+}: GameDebugMapProps) {
   const [cameraPosition, setCameraPosition] = useState<Coordinates>({ x: 0, y: 0, z: 0 });
   const [viewZ, setViewZ] = useState<number>(0);
   const [zoom, setZoom] = useState<number>(1);
@@ -242,4 +242,4 @@ export const GameDebugMap: React.FC<GameDebugMapProps> = ({
       </div>
     </div>
   );
-};
+}

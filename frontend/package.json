@@ -13,7 +13,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "codegen": "node scripts/codegen-safe.js",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "storybook:preview": "npx http-server storybook-static -p 6007"

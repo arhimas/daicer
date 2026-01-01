@@ -24,6 +24,35 @@ vi.mock('../../room/EntityListModal', () => ({
   EntityListModal: () => <div data-testid="entity-list-modal-mock" />,
 }));
 
+vi.mock('../GameplayChatArea', () => ({
+  default: () => <div data-testid="gameplay-chat-area">Mock Chat Area</div>,
+}));
+
+vi.mock('../../room/RoomTabs', () => ({
+  RoomTabs: () => <div data-testid="room-tabs">Mock Room Tabs</div>,
+}));
+
+vi.mock('../../room/PlayerListTab', () => ({
+  PlayerListTab: () => <div data-testid="player-list-tab">Mock Player List</div>,
+}));
+
+vi.mock('../../room/RoomSettingsTab', () => ({
+  RoomSettingsTab: () => <div data-testid="room-settings-tab">Mock Room Settings</div>,
+}));
+
+vi.mock('../../ui/LoadingOverlay', () => ({
+  LoadingOverlay: () => <div data-testid="loading-overlay">Mock Loading Overlay</div>,
+}));
+
+// Mock Button to avoid issues with radix-slot or forwardRef
+vi.mock('../../ui/button', () => ({
+  Button: ({ children, onClick, ...props }: any) => (
+    <button onClick={onClick} {...props}>
+      {children}
+    </button>
+  ),
+}));
+
 // Mock hooks
 vi.mock('../../../hooks/useAuth', () => ({
   default: () => ({

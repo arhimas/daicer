@@ -6,31 +6,7 @@ interface GameEventsPanelProps {
   events: GameEvent[];
 }
 
-export const GameEventsPanel: React.FC<GameEventsPanelProps> = ({ events }) => {
-  const bottomRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [events]);
-
-  return (
-    <div className="flex-1 min-w-0 flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-10 shadow-2xl">
-      <div className="p-3 bg-midnight-900 border-b border-midnight-800 font-bold text-xs uppercase tracking-wider text-shadow-300 flex justify-between items-center">
-        <span>GAME EVENTS</span>
-        <span className="text-[10px] text-zinc-500">{events.length}</span>
-      </div>
-      <div className="flex-1 overflow-y-auto p-2 space-y-2 font-mono text-xs custom-scrollbar">
-        {events.length === 0 && <div className="text-zinc-600 text-center italic mt-10">No events received...</div>}
-        {events.map((event, i) => (
-          <EventCard key={(event as any).id || i} event={event} />
-        ))}
-        <div ref={bottomRef} />
-      </div>
-    </div>
-  );
-};
-
-const EventCard = ({ event }: { event: GameEvent }) => {
+function EventCard({ event }: { event: GameEvent }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isError = event.type === 'ERROR' || (event.payload && (event.payload as any).error);
 
@@ -50,4 +26,29 @@ const EventCard = ({ event }: { event: GameEvent }) => {
       </pre>
     </div>
   );
-};
+}
+
+export function GameEventsPanel({ events }: GameEventsPanelProps) {
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [events]);
+
+  return (
+    <div className="flex-1 min-w-0 flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-10 shadow-2xl">
+      <div className="p-3 bg-midnight-900 border-b border-midnight-800 font-bold text-xs uppercase tracking-wider text-shadow-300 flex justify-between items-center">
+        <span>GAME EVENTS</span>
+        <span className="text-[10px] text-zinc-500">{events.length}</span>
+      </div>
+      <div className="flex-1 overflow-y-auto p-2 space-y-2 font-mono text-xs custom-scrollbar">
+        {events.length === 0 && <div className="text-zinc-600 text-center italic mt-10">No events received...</div>}
+        {events.map((event, i) => (
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          <EventCard key={(event as any).id || i} event={event} />
+        ))}
+        <div ref={bottomRef} />
+      </div>
+    </div>
+  );
+}

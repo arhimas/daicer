@@ -17,8 +17,6 @@ interface GodModeChatProps {
   activeLocation?: { label: string; x: number; y: number; z: number } | null;
   onClearLocation?: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  entities?: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeEntity?: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events?: any[];

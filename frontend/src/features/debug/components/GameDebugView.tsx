@@ -325,7 +325,6 @@ export function GameDebugView({ roomId }: GameDebugViewProps) {
           setRoom(r);
           setLoading(false);
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         if (mounted) {
           setError(err.message);

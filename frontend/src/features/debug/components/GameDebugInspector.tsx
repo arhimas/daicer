@@ -15,16 +15,17 @@ interface GameDebugInspectorProps {
   onGodModeCommand: (message: string) => Promise<void>;
 }
 
-export const GameDebugInspector: React.FC<GameDebugInspectorProps> = ({
+export function GameDebugInspector({
   activeTab,
   setActiveTab,
   isLive,
   entities,
+  activeEntityId,
   setActiveEntityId,
   activeEntity,
   activeLocation,
   onGodModeCommand,
-}) => {
+}: GameDebugInspectorProps) {
   return (
     <div className="flex-1 min-w-0 flex-shrink-0 bg-midnight-900 border-r border-midnight-800 flex flex-col z-10">
       <div className="p-3 bg-midnight-900 border-b border-midnight-800 font-bold text-xs uppercase tracking-wider text-shadow-300 flex justify-between items-center">
@@ -55,6 +56,7 @@ export const GameDebugInspector: React.FC<GameDebugInspectorProps> = ({
         <div className="flex items-center gap-2">
           {activeEntityId && (
             <button
+              type="button"
               onClick={() => setActiveEntityId(null)}
               className="text-gray-500 hover:text-white transition-colors"
               title="Reset Selection (God Mode)"
@@ -122,4 +124,4 @@ export const GameDebugInspector: React.FC<GameDebugInspectorProps> = ({
       </div>
     </div>
   );
-};
+}
