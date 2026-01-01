@@ -23,11 +23,11 @@ export default ({ strapi }) => ({
 
   async addCharacter(
     roomId: string,
-    characterData: Record<string, any>,
+    characterData: Record<string, unknown>,
     user: { documentId: string; id: string; username: string }
   ) {
     // 1. Fetch Room with populated players
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const filters: Record<string, unknown>[] = [{ documentId: roomId }, { roomId: roomId }];
     if (!isNaN(Number(roomId))) {
       filters.push({ id: Number(roomId) });
@@ -49,7 +49,15 @@ export default ({ strapi }) => ({
 
     // 2. Process Avatar Uploads
     const avatarSlots = ['portrait', 'upperBody', 'fullBody'];
-    const processedAvatarPreview = { ...characterData.avatarPreview };
+    const processedAvatarPreview: Record<
+      string,
+      { id?: string | number; url?: string; data?: string; mimeType?: string }
+    > = {
+      ...((characterData.avatarPreview as Record<
+        string,
+        { id?: string | number; url?: string; data?: string; mimeType?: string }
+      >) || {}),
+    };
 
     if (processedAvatarPreview) {
       for (const slot of avatarSlots) {
@@ -63,7 +71,7 @@ export default ({ strapi }) => ({
               processedAvatarPreview[slot] = {
                 id: uploadResult.id,
                 url: uploadResult.url,
-              };
+              } as { id?: string | number; url?: string; data?: string; mimeType?: string };
               strapi.log.info(`Avatar ${slot} uploaded successfully: ${uploadResult.id}`);
             }
           } catch (err) {
@@ -109,6 +117,11 @@ export default ({ strapi }) => ({
         });
         if (races && races.length > 0) {
           raceId = races[0].documentId;
+          // Capture race speed for stat derivation
+          // Capture race speed for stat derivation
+          if ('speed' in races[0]) {
+            (characterData as Record<string, unknown>)._raceSpeed = races[0].speed;
+          }
         }
       }
 
@@ -123,7 +136,7 @@ export default ({ strapi }) => ({
         }
       }
 
-      const rawStats = characterData.baseStats || characterData.attributes || {};
+      const rawStats = (characterData.baseStats || characterData.attributes || {}) as Record<string, unknown>;
       const baseStats = {
         strength: Number(rawStats.Strength || rawStats.strength || 10),
         dexterity: Number(rawStats.Dexterity || rawStats.dexterity || 10),
@@ -160,7 +173,27 @@ export default ({ strapi }) => ({
       race: createdCharacter.race, // Relation
       level: 1, // Default start level
       experience: 0,
-      stats: createdCharacter.baseStats, // JSON
+
+      stats: {
+        ...(createdCharacter.baseStats as Record<string, number>),
+        // Derive speed logic inline or use defaults
+        ...(() => {
+          const speedVal = (characterData as Record<string, unknown>)._raceSpeed || 30;
+
+          if (typeof speedVal === 'number') {
+            return { walkSpeed: speedVal };
+          }
+
+          if (typeof speedVal === 'object' && speedVal !== null) {
+            const speedObj = speedVal as Record<string, number>;
+            if (speedObj.walk) {
+              return { ...speedObj, walkSpeed: speedObj.walk };
+            }
+            return { walkSpeed: 30, ...speedObj };
+          }
+          return { walkSpeed: 30 };
+        })(),
+      },
       baseStats: createdCharacter.baseStats, // Keep a copy of base
       currentHp: 10, // Placeholder, should derive from CON + Class
       maxHp: 10, // Placeholder
@@ -173,7 +206,7 @@ export default ({ strapi }) => ({
       room: room.documentId,
     };
 
-    const createdSheet = await strapi.documents('api::character-sheet.character-sheet').create({
+    const createdSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
       data: sheetData,
       status: 'published',
     });
@@ -189,13 +222,14 @@ export default ({ strapi }) => ({
       throw new Error('User is not a player in this room');
     }
 
-    const updatedPlayers = [...players];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const updatedPlayers: any[] = [...players];
     updatedPlayers[playerIndex] = {
       ...updatedPlayers[playerIndex],
       character: createdCharacter.documentId, // Keep global link for reference
       characterSheet: createdSheet.documentId, // The Active Sheet
       isReady: false,
-      name: characterData.name,
+      name: characterData.name as string,
     };
 
     await strapi.documents('api::room.room').update({
@@ -214,8 +248,7 @@ export default ({ strapi }) => ({
     mainContext: string,
     language: Language = 'en',
     settings?: WorldSettings,
-    streamId?: string,
-    targetUserId?: string
+    streamId?: string
   ): Promise<string> {
     let dynamicStyleInstructions = 'Standard DM Style';
     if (settings?.dmStyle) {
@@ -228,8 +261,7 @@ export default ({ strapi }) => ({
       class?: { name?: string };
       baseStats?: Record<string, number>;
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cAny = character as any;
+    const cAny = character as unknown as { characterClass?: string };
     const charSummary = `Name: ${character.name}
 Race: ${c.race?.name || character.race || 'Unknown'}
 Class: ${c.class?.name || cAny.characterClass || 'Unknown'}
@@ -268,6 +300,7 @@ Focus on their internal state, their unique perception, and their immediate surr
       systemPrompt = formatPrompt(systemPrompt, { worldDescription, mainContext });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const defaultUser = `Generate a personalized opening for ${character.name} (${character.race} ${character.characterClass || (character as any).class?.name || 'Unknown Class'}).
 Synchronize with the Main Context.
 Describe sensory details, internal state, and prepare for reaction.
@@ -286,7 +319,7 @@ Start with ### Through ${character.name}'s Eyes`;
       });
     }
 
-    return generateText(systemPrompt, userPrompt, language, { metadata: { streamId, targetUserId } });
+    return generateText(systemPrompt, userPrompt, language, { metadata: { streamId } });
   },
 
   async generateMainOpening(
@@ -294,8 +327,7 @@ Start with ### Through ${character.name}'s Eyes`;
     players: Player[],
     language: Language = 'en',
     settings?: WorldSettings,
-    streamId?: string,
-    targetUserId?: string
+    streamId?: string
   ): Promise<string> {
     let dynamicStyleInstructions = 'Standard DM Style';
     if (settings?.dmStyle) {

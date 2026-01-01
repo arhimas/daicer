@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X, Plus, Search, Skull, User } from 'lucide-react';
 import { toast } from 'sonner';
-import type { Player } from '@daicer/engine';
+import type { Player, Creature, EntitySheet } from '@daicer/engine';
 import { useMutation } from '@apollo/client/react';
 import { Button } from '../ui/button';
 import Input from '../ui/input';
@@ -10,45 +10,19 @@ import { ScrollArea } from '../ui/scroll-area';
 import { Badge } from '../ui/badge';
 import { SPAWN_CREATURE_MUTATION } from '../../graphql/mutations';
 
-// Defined locally to match JSON structure from Room.players/creatures
-interface CharacterSheetData {
-  name: string;
-  race: string;
-  characterClass: string;
-  background?: string;
-  level: number;
-  hp: number;
-  maxHp: number;
-  armorClass: number;
-  attributes: Record<string, number>;
-  skills: Record<string, number>;
-  attacks?: Array<{ name: string; bonus: string; damageType: string }>;
-  features?: string;
-  personality?: { traits: string };
-  challenge?: number; // For monsters
-}
-
-interface CreatureEntity {
-  id: string;
-  name: string;
-  type: 'npc' | 'monster' | 'player';
-  hp: number;
-  maxHp: number;
-  ac: number;
-  sheet?: CharacterSheetData;
-  character?: CharacterSheetData; // Structure for players matches sheet
-}
-
 interface EntityListModalProps {
   isOpen: boolean;
   onClose: () => void;
-  creatures: CreatureEntity[];
+  creatures: Creature[];
   players?: Player[];
   roomId: string;
 }
 
+// Helper Type for Union
+type SelectableEntity = Creature | Player;
+
 export function EntityListModal({ isOpen, onClose, creatures, players = [], roomId }: EntityListModalProps) {
-  const [selectedEntity, setSelectedEntity] = useState<CreatureEntity | Player | null>(null);
+  const [selectedEntity, setSelectedEntity] = useState<SelectableEntity | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [newCreature, setNewCreature] = useState({
     type: 'npc', // or 'monster'
@@ -271,15 +245,15 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
                     </h2>
                     <div className="flex gap-2 items-center text-midnight-300">
                       <Badge variant="outline" className="border-midnight-500 text-midnight-300">
-                        {'sheet' in selectedEntity
-                          ? selectedEntity.sheet?.race || selectedEntity.sheet?.characterClass
-                          : selectedEntity.character?.race || selectedEntity.character?.characterClass}
+                        {'role' in selectedEntity
+                          ? selectedEntity.character?.race || selectedEntity.character?.characterClass
+                          : selectedEntity.sheet?.race || selectedEntity.sheet?.characterClass}
                       </Badge>
                       <span>
                         Level{' '}
-                        {'sheet' in selectedEntity
-                          ? selectedEntity.sheet?.level || selectedEntity.sheet?.challenge || 1
-                          : selectedEntity.character?.level || 1}
+                        {'role' in selectedEntity
+                          ? selectedEntity.character?.level || 1
+                          : selectedEntity.sheet?.level || 1}
                       </span>
                     </div>
                   </div>
@@ -288,10 +262,13 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
                       HP:{' '}
                       {'hp' in selectedEntity
                         ? `${selectedEntity.hp}/${selectedEntity.maxHp}`
-                        : `${selectedEntity.character?.hp || '?'}/${selectedEntity.character?.maxHp || '?'}`}
+                        : `${(selectedEntity as Player).character?.hp || '?'}/${(selectedEntity as Player).character?.maxHp || '?'}`}
                     </div>
                     <div className="text-sm text-midnight-400">
-                      AC: {'ac' in selectedEntity ? selectedEntity.ac : selectedEntity.character?.armorClass || '?'}
+                      AC:{' '}
+                      {'ac' in selectedEntity
+                        ? selectedEntity.ac
+                        : (selectedEntity as Player).character?.armorClass || '?'}
                     </div>
                   </div>
                 </div>
@@ -300,7 +277,7 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
               {/* Content */}
               <ScrollArea className="flex-1 p-6">
                 <SheetView
-                  sheet={'sheet' in selectedEntity ? selectedEntity.sheet : selectedEntity.character || undefined}
+                  sheet={'role' in selectedEntity ? (selectedEntity.character as EntitySheet) : selectedEntity.sheet}
                 />
               </ScrollArea>
             </div>
@@ -317,7 +294,7 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
 }
 
 interface SheetViewProps {
-  sheet: CharacterSheetData | undefined;
+  sheet: EntitySheet | undefined | null;
 }
 
 function SheetView({ sheet }: SheetViewProps) {
@@ -327,6 +304,35 @@ function SheetView({ sheet }: SheetViewProps) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
       {/* Stats */}
       <div className="space-y-6">
+        {sheet.speed && (
+          <section>
+            <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Speed</h3>
+            <div className="flex flex-wrap gap-2 text-sm text-white">
+              {typeof sheet.speed === 'object' && sheet.speed !== null ? (
+                Object.entries(sheet.speed).map(([mode, val]) => {
+                  const label = mode === 'walk' ? 'Walk' : mode.replace('Speed', '');
+                  if ((val as number) > 0 || (typeof val === 'boolean' && val)) {
+                    return (
+                      <div
+                        key={mode}
+                        className="bg-midnight-950 px-3 py-1 rounded border border-midnight-800 flex items-center gap-2"
+                      >
+                        <span className="text-midnight-400 uppercase text-xs font-bold">{label}</span>
+                        <span className="font-bold">{val === true ? 'Yes' : `${val} ft`}</span>
+                      </div>
+                    );
+                  }
+                  return null;
+                })
+              ) : (
+                <div className="bg-midnight-950 px-3 py-1 rounded border border-midnight-800">
+                  <span className="font-bold">{sheet.speed} ft</span>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         <section>
           <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Attributes</h3>
           <div className="grid grid-cols-3 gap-2">
@@ -363,19 +369,25 @@ function SheetView({ sheet }: SheetViewProps) {
 
       {/* Right Column: Actions & Features */}
       <div className="space-y-6">
-        {sheet.attacks && sheet.attacks.length > 0 && (
+        {sheet.structuredActions && sheet.structuredActions.length > 0 && (
           <section>
             <h3 className="text-lg font-bold text-red-300 border-b border-red-500/20 mb-3 pb-1">Attacks</h3>
             <div className="space-y-2">
-              {sheet.attacks.map((atk, i) => (
+              {sheet.structuredActions.map((action, i) => (
                 <div
                   key={i}
                   className="bg-midnight-950/50 p-3 rounded border border-midnight-800 flex justify-between items-center"
                 >
-                  <span className="font-bold text-white">{atk.name}</span>
+                  <span className="font-bold text-white">{action.name}</span>
                   <div className="text-sm">
-                    <span className="text-aurora-300 font-mono mr-2">{atk.bonus} to hit</span>
-                    <span className="text-midnight-300">{atk.damageType}</span>
+                    <span className="text-aurora-300 font-mono mr-2">
+                      {'toHit' in action && action.toHit ? `+${action.toHit}` : '+0'} to hit
+                    </span>
+                    <span className="text-midnight-300">
+                      {'damage' in action && action.damage && action.damage.length > 0
+                        ? `${action.damage[0]?.dice} ${action.damage[0]?.type}`
+                        : 'Effect'}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -385,8 +397,14 @@ function SheetView({ sheet }: SheetViewProps) {
 
         <section>
           <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Features</h3>
-          <div className="text-sm text-midnight-200 whitespace-pre-wrap leading-relaxed">
-            {sheet.features || 'No features listed.'}
+          <div className="text-sm text-midnight-200 whitespace-pre-wrap leading-relaxed space-y-2">
+            {sheet.features && Array.isArray(sheet.features)
+              ? sheet.features.map((f: any, i: number) => (
+                  <div key={i}>
+                    <strong className="text-aurora-100">{f.name || f}</strong>: {f.description || ''}
+                  </div>
+                ))
+              : sheet.features || 'No features listed.'}
           </div>
         </section>
 

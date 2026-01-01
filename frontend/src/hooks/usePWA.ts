@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-// @ts-expect-error virtual pwa module
+// @ts-expect-error - Virtual module
+// eslint-disable-next-line import/no-unresolved
 import { useRegisterSW } from 'virtual:pwa-register/react';
 
 export function usePWA() {
@@ -8,11 +9,13 @@ export function usePWA() {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onRegistered(_r: any) {
-      // console.log('SW Registered: ' + r);
+      // console.info('SW Registered: ' + r);
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onRegisterError(error: any) {
-      console.log('SW registration error', error);
+      console.info('SW registration error', error);
     },
   });
 
@@ -39,6 +42,7 @@ export function usePWA() {
 
     // Check if already installed (standalone mode)
     if (window.matchMedia('(display-mode: standalone)').matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsInstalled(true);
     }
 

@@ -7,6 +7,8 @@ export const SpeedSchema = z.union([
     fly: z.number().optional(),
     swim: z.number().optional(),
     climb: z.number().optional(),
+    burrow: z.number().optional(),
+    hover: z.boolean().optional(),
   }),
 ]);
 

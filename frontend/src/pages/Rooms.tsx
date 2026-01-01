@@ -6,10 +6,14 @@ import { listRooms, leaveRoom } from '../services/api';
 import { PrivateLayout } from '../components/layout';
 import { Button } from '../components/ui/button';
 import { useI18n } from '../i18n';
-import CharacterSheetPanel from '../components/game/CharacterSheetPanel';
+import EntitySheetPanel from '../components/game/EntitySheetPanel';
 import { DiceLoader } from '../components/ui/dice-loader';
 
-type RoomMembership = any;
+interface RoomMembership {
+  room: Room;
+  isOwner: boolean;
+  player: Player | null;
+}
 
 interface MembershipState {
   items: RoomMembership[];
@@ -268,8 +272,6 @@ export default function RoomsPage() {
                             {t('rooms.character.identity')}
                           </span>
                           <span className="font-semibold text-shadow-50">
-                            {/* @ts-ignore */}
-                            {player.character.race?.name || 'Unknown Race'} • {/* @ts-ignore */}
                             {player.character.class?.name || 'Unknown Class'}
                           </span>
                         </div>
@@ -293,7 +295,7 @@ export default function RoomsPage() {
           </div>
         )}
       </div>
-      <CharacterSheetPanel player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+      <EntitySheetPanel player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
     </PrivateLayout>
   );
 }

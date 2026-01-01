@@ -73,8 +73,8 @@ async function main() {
             documentId: existingDoc.documentId,
             data: {
               text: p.text_en,
-              category: p.category,
-            } as any,
+              category: p.category as 'system' | 'user' | 'gameplay',
+            },
             status: 'published',
           });
         }
@@ -428,8 +428,10 @@ async function main() {
       const slug = prof.index;
       const existing = await strapi.documents('api::proficiency.proficiency').findMany({ filters: { slug } });
       if (existing.length === 0) {
-        const relatedClasses = (prof.classes || []).map((c: any) => classMap.get(c.index)).filter(Boolean);
-        const relatedRaces = (prof.races || []).map((r: any) => raceMap.get(r.index)).filter(Boolean);
+        const relatedClasses = (prof.classes || [])
+          .map((c: { index: string }) => classMap.get(c.index))
+          .filter(Boolean);
+        const relatedRaces = (prof.races || []).map((r: { index: string }) => raceMap.get(r.index)).filter(Boolean);
 
         await strapi.documents('api::proficiency.proficiency').create({
           data: {
@@ -450,7 +452,7 @@ async function main() {
     // Map proficiencies
     const proficiencyMap = new Map();
     const profDocs = await strapi.documents('api::proficiency.proficiency').findMany({});
-    profDocs.forEach((p: any) => proficiencyMap.set(p.slug, p.documentId));
+    profDocs.forEach((p) => proficiencyMap.set(p.slug, p.documentId));
 
     for (const t of traits) {
       const slug = t.index;
@@ -458,9 +460,9 @@ async function main() {
 
       if (existing.length === 0) {
         // traits.json uses 'index' for related items
-        const relatedRaces = (t.races || []).map((r: any) => raceMap.get(r.index)).filter(Boolean);
+        const relatedRaces = (t.races || []).map((r: { index: string }) => raceMap.get(r.index)).filter(Boolean);
         const relatedProficiencies = (t.proficiencies || [])
-          .map((p: any) => proficiencyMap.get(p.index))
+          .map((p: { index: string }) => proficiencyMap.get(p.index))
           .filter(Boolean);
 
         const description = Array.isArray(t.desc) ? t.desc.join('\n\n') : t.desc;

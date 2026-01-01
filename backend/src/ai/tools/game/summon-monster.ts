@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
+import { formatStrapiError, logStrapiError } from '../../../utils/error-handling';
 
 const summonMonsterSchema = z.object({
   templateId: z.string().describe('The documentId of the monster template to summon (e.g. from search_monsters)'),
@@ -36,7 +37,11 @@ export const summonMonsterTool = (context: StrapiContext) =>
 
           return `Successfully summoned "${instance.name}" (Instance: ${instance.documentId}) at ${x},${y},${z}.`;
         } catch (error) {
-          return `Failed to summon monster: ${error instanceof Error ? error.message : String(error)}`;
+          // Standardized Validation Error Logging
+          const errorMessage = formatStrapiError(error);
+          logStrapiError(strapi.log, 'Tool:SummonMonster', error);
+
+          return `Failed to summon monster: ${errorMessage}`;
         }
       },
     },

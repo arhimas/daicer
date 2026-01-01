@@ -8,7 +8,7 @@ import { LoadingOverlay } from '@/components/ui/LoadingOverlay';
 import CharacterCreation from '@/components/room/CharacterCreation';
 import Navbar from '@/components/layout/Navbar';
 import { LIST_CHARACTERS_QUERY } from '@/graphql/queries';
-import { CREATE_CHARACTER_SHEET_MUTATION } from '@/graphql/mutations';
+import { CREATE_ENTITY_SHEET_MUTATION } from '@/graphql/mutations';
 import { addCharacter } from '@/services/api';
 import { ListCharactersQuery } from '../../../gql/graphql';
 
@@ -31,9 +31,9 @@ export default function CharacterSelectionPage() {
     fetchPolicy: 'network-only',
   });
 
-  const [createCharacterSheet] = useMutation(CREATE_CHARACTER_SHEET_MUTATION);
+  const [createEntitySheet] = useMutation(CREATE_ENTITY_SHEET_MUTATION);
 
-  const characters = data?.characters || [];
+  const characters = (data?.characters || []).filter((c) => !!c);
 
   const handleCharacterSelect = (charId: string) => {
     setSelectedCharacterId(charId);
@@ -44,7 +44,8 @@ export default function CharacterSelectionPage() {
 
     setLoading(true);
     try {
-      const character = characters.find((c: any) => c.documentId === selectedCharacterId);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const character = characters.find((c: any) => c?.documentId === selectedCharacterId);
       if (!character) throw new Error('Character not found');
 
       // Instantiate Character in Room
@@ -58,10 +59,8 @@ export default function CharacterSelectionPage() {
         documentId: character.documentId, // Pass the existing character ID
         name: character.name,
         backstory: character.backstory,
-        // @ts-ignore
-        race: character.race?.name || character.race,
-        // @ts-ignore
-        characterClass: character.class?.name || character.class,
+        race: typeof character.race === 'object' ? character.race?.name || '' : character.race,
+        characterClass: typeof character.class === 'object' ? character.class?.name || '' : character.class || '',
         // We might want to pass more fields if available in the query, or fetch full details first.
         // For now we assume the backend can handle partial or we might need to fetch full details.
         // Wait, LIST_CHARACTERS_QUERY only has basic info.
@@ -89,6 +88,7 @@ export default function CharacterSelectionPage() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCharacterCreated = async (characterData: any) => {
     setLoading(true);
     try {
@@ -111,13 +111,14 @@ export default function CharacterSelectionPage() {
         ...characterData,
       };
 
-      const { data: res } = (await createCharacterSheet({
+      const { data: res } = (await createEntitySheet({
         variables: {
           data: payload,
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       })) as { data: any };
 
-      if (!res?.createCharacterSheet?.documentId) {
+      if (!res?.createEntitySheet?.documentId) {
         throw new Error('Failed to create character sheet');
       }
 
@@ -125,7 +126,7 @@ export default function CharacterSelectionPage() {
       await refetch();
 
       // 3. Select the new character
-      setSelectedCharacterId(res.createCharacterSheet.documentId);
+      setSelectedCharacterId(res.createEntitySheet.documentId);
       setShowCreateModal(false);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save character');
@@ -170,7 +171,7 @@ export default function CharacterSelectionPage() {
             </Card>
 
             {/* Character List */}
-            {characters.map((char: any) => (
+            {characters.map((char) => (
               <Card
                 key={char.documentId}
                 className={`
@@ -213,7 +214,7 @@ export default function CharacterSelectionPage() {
         <div className="sticky bottom-6 mt-auto bg-midnight-950/90 backdrop-blur border border-midnight-800 p-4 rounded-2xl flex justify-between items-center shadow-2xl">
           <div className="flex items-center gap-2 text-sm text-shadow-400">
             <Info className="w-4 h-4" />
-            <span>Selected: {characters.find((c: any) => c.documentId === selectedCharacterId)?.name || 'None'}</span>
+            <span>Selected: {characters.find((c) => c?.documentId === selectedCharacterId)?.name || 'None'}</span>
           </div>
 
           <Button
@@ -242,7 +243,6 @@ export default function CharacterSelectionPage() {
               <CharacterCreation
                 assetMode={false} // Was true, but now we are creating a character not just an asset? Actually it's just 'creation mode'
                 settings={{ attributeBudget: 27, startingLevel: 1 }}
-                // @ts-ignore
                 onAssetCreated={handleCharacterCreated} // We re-use this callback but treat it as handling character data
                 onCharacterCreated={handleCharacterCreated} // Also bind this if component supports it (it seems to support onCharacterCreated in GameRoomPage usage)
               />

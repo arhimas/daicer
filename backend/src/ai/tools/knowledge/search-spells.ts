@@ -14,7 +14,7 @@ export const searchSpellsTool = (context: StrapiContext) =>
       schema: searchSpellsSchema,
       outputSchema: z.string(),
       func: async ({ query, level }, { strapi }) => {
-        const filters: any = {
+        const filters: Record<string, unknown> = {
           name: { $containsi: query },
         };
         if (level !== undefined) {
@@ -31,8 +31,8 @@ export const searchSpellsTool = (context: StrapiContext) =>
         }
 
         return spells
-          .map((s: any) => {
-            return `### ${s.name} (Level ${s.level} ${s.school})\n- Range: ${s.range}\n- Components: ${s.components}\n- Duration: ${s.duration}\n- Description: ${s.desc}\n`;
+          .map((s) => {
+            return `### ${s.name} (Level ${s.level} ${s.school})\n- Range: ${s.range}\n- Components: ${s.components}\n- Duration: ${s.duration}\n- Description: ${s.description}\n`;
           })
           .join('\n---\n');
       },

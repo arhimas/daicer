@@ -21,16 +21,16 @@ export const TimeFrameProvider: React.FC<{
 
   useEffect(() => {
     // If room has timeFrames populated from GraphQL, use them as history
-    if (room && 'timeFrames' in room && Array.isArray((room as any).timeFrames)) {
-      const backendHistory = (room as any).timeFrames;
+    if (room && room.timeFrames && Array.isArray(room.timeFrames)) {
+      const backendHistory = room.timeFrames;
       // Sort by turn number
-      const sorted = [...backendHistory].sort((a: any, b: any) => a.turnNumber - b.turnNumber);
+      const sorted = [...backendHistory].sort((a: TimeFrame, b: TimeFrame) => a.turnNumber - b.turnNumber);
       setHistory(sorted);
     }
   }, [room]);
 
   const currentTimeFrame = localFrameId
-    ? history.find((f) => f.id === localFrameId || (f as any).documentId === localFrameId) || null
+    ? history.find((f) => f.id === localFrameId || f.documentId === localFrameId) || null
     : history[history.length - 1] || null;
 
   const isLive = !localFrameId;

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
+import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 
 const mapImageSchema = z.object({
   x: z.number().describe('Center X coordinate'),
@@ -26,18 +27,25 @@ export const getMapImageTool = (context: StrapiContext) =>
         const { generateMapImage } = await import('../../../api/game/services/map-visualization');
 
         // Fetch Room Data
-        const room = await strapi.documents('api::room.room').findOne({
+        // Fetch Room Data
+        const roomRaw = await strapi.documents('api::room.room').findOne({
           documentId: roomDocumentId,
-          populate: ['character_sheets', 'creatures'],
+          populate: ['character_sheets'],
         });
 
-        if (!room) throw new Error('Room not found.');
+        if (!roomRaw) throw new Error('Room not found.');
+
+        // Cast to our known populated shape
+        const room = roomRaw as unknown as RoomWithPopulations;
 
         const chunkX = Math.floor(x / 32);
         const chunkY = Math.floor(y / 32);
 
         let chunk;
-        const voxelService = strapi.service('api::voxel-engine.voxel-engine');
+        const voxelService = strapi.service('api::voxel-engine.voxel-engine') as unknown as {
+          getChunk: (x: number, y: number, config: unknown) => Promise<unknown>;
+        };
+
         if (voxelService && voxelService.getChunk) {
           const config = room.config || { seed: 'default' };
           chunk = await voxelService.getChunk(chunkX, chunkY, config);
@@ -47,12 +55,26 @@ export const getMapImageTool = (context: StrapiContext) =>
 
         if (!chunk) throw new Error('Failed to load map chunk.');
 
+        // Map sheets to creatures
+        const creatures = (room.character_sheets || []).map((cs) => ({
+          id: cs.documentId,
+          name: cs.name,
+          type: (cs.type || 'monster') as 'player' | 'npc' | 'monster' | 'object',
+          position: cs.position,
+          stats: cs.stats,
+          // Map 'currentHp' to 'hp' as per Creature interface
+          hp: cs.currentHp,
+          maxHp: cs.maxHp,
+          // Add missing Creature props if needed by generator
+          ac: 10, // Default action: cs.ac || 10
+        }));
+
         // Generate Buffer
         const imageBuffer = await generateMapImage(
           chunk,
-          room.character_sheets || [],
-          room.creatures || [],
-          new Set(room.exploredTiles || []),
+          [], // Players - needed? Room players not fully mapped here yet.
+          creatures,
+          new Set((room.exploredTiles as unknown as string[]) || []),
           { x, y }
         );
 

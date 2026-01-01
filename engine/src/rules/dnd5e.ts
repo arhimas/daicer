@@ -1,4 +1,4 @@
-import { CharacterSheet } from '../types';
+import { EntitySheet } from '../types';
 
 /**
  * Calculates the ability modifier for a given ability score.
@@ -6,6 +6,14 @@ import { CharacterSheet } from '../types';
  */
 export function calculateModifier(score: number): number {
   return Math.floor((score - 10) / 2);
+}
+
+/**
+ * Calculates proficiency bonus based on level.
+ * Formula: ceil(level / 4) + 1
+ */
+export function calculateProficiencyBonus(level: number): number {
+  return Math.ceil(level / 4) + 1;
 }
 
 export interface CharacterSnapshot {
@@ -22,19 +30,23 @@ export interface CharacterSnapshot {
  * Creates a lightweight snapshot of a character sheet for persistence/history.
  * This ensures we capture the exact state of a character at a specific turn.
  */
-export function createCharacterSnapshot(sheet: CharacterSheet | Partial<CharacterSheet>): CharacterSnapshot | null {
+export function createCharacterSnapshot(sheet: EntitySheet | Partial<EntitySheet>): CharacterSnapshot | null {
   if (!sheet) return null;
 
   // Handle strict typing if CharacterSheet is fully compatible, otherwise allow partial duck typing
   // since backend sometimes populates loosely.
 
   return {
-    hp: (sheet as any).currentHp ?? 10,
-    maxHp: (sheet as any).maxHp ?? 10,
-    stats: (sheet as any).stats || {},
-    inventory: (sheet as any).inventory || [],
-    level: (sheet as any).level ?? 1,
-    experience: (sheet as any).experience ?? 0,
-    position: (sheet as any).position || { x: 0, y: 0, z: 0 },
+    hp: ((sheet as Record<string, unknown>).currentHp as number) ?? 10,
+    maxHp: ((sheet as Record<string, unknown>).maxHp as number) ?? 10,
+    stats: ((sheet as Record<string, unknown>).stats as Record<string, number>) || {},
+    inventory: ((sheet as Record<string, unknown>).inventory as Record<string, unknown>[]) || [],
+    level: ((sheet as Record<string, unknown>).level as number) ?? 1,
+    experience: ((sheet as Record<string, unknown>).experience as number) ?? 0,
+    position: ((sheet as Record<string, unknown>).position as { x: number; y: number; z: number }) || {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
   };
 }

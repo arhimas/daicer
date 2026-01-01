@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import type { Room, Player, Message, Creature } from '@daicer/engine';
+import type { Room, Player, Message, Creature, GameEvent } from '@daicer/engine';
 import { initSocket, disconnectSocket, getSocket, type ToolCall } from '../services/socket';
 
 /**
@@ -13,6 +13,7 @@ interface SocketState {
   messages: Message[];
   creatures: Creature[];
   toolCalls: ToolCall[];
+  gameEvents: GameEvent[];
   isProcessing: boolean;
 }
 
@@ -30,6 +31,7 @@ export default function useSocket(roomId?: string, userId?: string) {
     messages: [],
     creatures: [],
     toolCalls: [],
+    gameEvents: [],
     isProcessing: false,
   });
 
@@ -153,7 +155,7 @@ export default function useSocket(roomId?: string, userId?: string) {
           },
           onPlayerReadyUpdated: (data) => {
             // Update player ready status
-            console.log('🔔 Received player:ready_updated:', data);
+            console.info('🔔 Received player:ready_updated:', data);
             setState((prev) => ({
               ...prev,
               players: prev.players.map((p) => (p.userId === data.userId ? { ...p, isReady: data.isReady } : p)),
@@ -204,7 +206,7 @@ export default function useSocket(roomId?: string, userId?: string) {
             // Let's verify 'state' has 'creatures'.
             // For God Mode, we might want to map these to 'creatures' for simplicity.
             updateState({
-              creatures: data.entities, // Direct map if possible, or we need a new state field
+              creatures: data.entities as Creature[], // Direct map if possible, or we need a new state field
             });
           },
           onMessageNew: (message) => {
@@ -219,6 +221,13 @@ export default function useSocket(roomId?: string, userId?: string) {
                 messages: [...prev.messages, message],
               };
             });
+          },
+          onGameEvents: (data) => {
+            console.info('⚡ Received Game Events:', data.events);
+            setState((prev) => ({
+              ...prev,
+              gameEvents: [...prev.gameEvents, ...(data.events as GameEvent[])],
+            }));
           },
         });
       } catch (error) {
@@ -243,6 +252,7 @@ export default function useSocket(roomId?: string, userId?: string) {
     messages: state.messages,
     creatures: state.creatures,
     toolCalls: state.toolCalls,
+    gameEvents: state.gameEvents,
     socket: getSocket(),
     isProcessing: state.isProcessing,
   };

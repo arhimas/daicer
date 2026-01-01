@@ -24,9 +24,9 @@ export const searchRacesTool = (context: StrapiContext) =>
         }
 
         return races
-          .map((r: any) => {
-            const traits = r.traits ? r.traits.map((t: any) => t.name).join(', ') : 'None';
-            return `### ${r.name}\n- Speed: ${JSON.stringify(r.speed)}\n- Size: ${r.size}\n- Traits: ${traits}\n- Description: ${r.desc}\n`;
+          .map((r) => {
+            const traits = r.traits ? r.traits.map((t) => t.name).join(', ') : 'None';
+            return `### ${r.name}\n- Speed: ${JSON.stringify(r.speed)}\n- Size: ${r.size}\n- Traits: ${traits}\n- Description: ${r.description}\n`;
           })
           .join('\n---\n');
       },

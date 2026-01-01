@@ -13,3 +13,44 @@ export interface SocketErrorPayload {
   message: string;
   code?: string;
 }
+
+export interface RoomWithPopulations {
+  documentId: string;
+  roomId: string;
+  phase: string;
+  world?: {
+    name: string;
+    description?: string;
+  };
+  config?: Record<string, unknown>; // Map generation config check schema
+  exploredTiles?: string[]; // stored as json array or string? Schema says JSON. So simple array likely.
+  messages?: Array<{
+    documentId: string;
+    content: string;
+    senderName: string;
+    senderType: 'dm' | 'player' | 'system';
+    timestamp: string | number;
+    recipient?: { documentId: string; id: string | number };
+  }>;
+  players?: Array<{
+    id: string | number;
+    documentId: string;
+    user?: { documentId: string; id: string | number };
+    character?: {
+      baseStats: unknown;
+      race: unknown;
+      class: unknown;
+    };
+  }>;
+  character_sheets?: Array<{
+    documentId: string;
+    name: string;
+    type: string;
+    position: { x: number; y: number; z: number };
+    stats: unknown;
+    currentHp: number;
+    maxHp: number;
+    speed: number;
+  }>;
+  worldConditions?: unknown[]; // or specific type if known
+}

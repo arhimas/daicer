@@ -31,9 +31,57 @@
       "type": "integer",
       "default": 10
     },
-    "speed": {
+    "walkSpeed": {
       "type": "integer",
-      "default": 30
+      "default": 0
+    },
+    "flySpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "swimSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "climbSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "burrowSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "hover": {
+      "type": "boolean",
+      "default": false
+    },
+    "saves": {
+      "type": "json",
+      "description": "Array of strings: ['str', 'dex']"
+    },
+    "skills": {
+      "type": "json",
+      "description": "Array of strings: ['perception', 'stealth']"
+    },
+    "passivePerception": {
+      "type": "integer"
+    },
+    "darkvision": {
+      "type": "integer"
+    },
+    "blindsight": {
+      "type": "integer"
+    },
+    "truesight": {
+      "type": "integer"
+    },
+    "tremorsense": {
+      "type": "integer"
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language"
     }
   }
 }

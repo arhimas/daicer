@@ -31,7 +31,7 @@ export async function loadChunk(
   const worldY = chunkY * chunkSize;
 
   try {
-    console.log(`[ChunkLoader] Loading chunk ${chunkX},${chunkY} (mode: ${mode})`);
+    console.info(`[ChunkLoader] Loading chunk ${chunkX},${chunkY} (mode: ${mode})`);
 
     // GRAPHQL API FETCH (game mode)
     // We use standard Strapi GraphQL mutation for chunk generation/fetching
@@ -87,6 +87,7 @@ export async function loadChunk(
                 biome: tileRaw.biome,
                 blockType: tileRaw.block,
                 lightLevel: 15,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
               } as any; // Cast to any/Tile
             }
             // Fallback
@@ -97,6 +98,7 @@ export async function loadChunk(
               biome: 'plains',
               blockType: 'grass',
               lightLevel: 15,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any;
           })
       );

@@ -34,6 +34,7 @@ import {
   SEARCH_ENTITIES_QUERY,
   LIST_MONSTERS_QUERY,
   LIST_SPELLS_QUERY,
+  LIST_CHARACTERS_QUERY,
 } from '../graphql/queries';
 import type {
   CreateRoomMutation,
@@ -87,7 +88,7 @@ export async function getRoomState(roomId: string): Promise<Room> {
     const playersList = r?.players || [];
 
     // Debug log for player actions
-    console.log(
+    console.info(
       '[api.ts] getRoomState RAW Players:',
       JSON.stringify(
         playersList
@@ -115,13 +116,13 @@ export async function getRoomState(roomId: string): Promise<Room> {
       ...(r as unknown as Record<string, unknown>), // Cast to avoid strict type mismatch with partial GraphQL response
       players: mappedPlayers,
       // Map character_sheets (from REST/GraphQL) to generic entities
-      // @ts-ignore
-      entities: (r.character_sheets || []).map((s: any) => ({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      entities: (r?.character_sheets || []).map((s: any) => ({
         id: s.documentId,
         name: s.name,
         type: s.type || 'monster',
         position: s.position || { x: 0, y: 0, z: 0 },
-        speed: s.speed || 30,
+        speed: s.stats?.walkSpeed || s.speed || 30,
         currentHp: s.currentHp,
         maxHp: s.maxHp,
         visionRadius: 10, // Default
@@ -438,7 +439,9 @@ export async function submitAction(roomId: string, action: string): Promise<{ su
  * @param roomId - Room ID
  * @param command - Command text
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendGodModeCommand(roomId: string, command: string): Promise<any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data } = await apolloClient.mutate<{ submitAction: any }>({
     mutation: SUBMIT_ACTION_MUTATION,
     variables: { roomId, action: command, mode: 'debug' },
@@ -480,7 +483,7 @@ export async function processTurn(roomId: string, language = 'en'): Promise<void
   const token = localStorage.getItem('strapi_jwt');
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 
-  console.log(`[api.ts] Processing turn for room ${roomId}`);
+  console.info(`[api.ts] Processing turn for room ${roomId}`);
 
   const response = await fetch(`${API_URL}/api/game/${roomId}/turn`, {
     method: 'POST',
@@ -504,12 +507,13 @@ export async function processTurn(roomId: string, language = 'en'): Promise<void
  */
 export async function executeEngineAction(
   roomId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions: any[]
 ): Promise<{ success: boolean; turnId: string }> {
   const token = localStorage.getItem('strapi_jwt');
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
 
-  console.log(`[api.ts] Executing engine actions for room ${roomId}:`, actions);
+  console.info(`[api.ts] Executing engine actions for room ${roomId}:`, actions);
 
   const response = await fetch(`${API_URL}/api/game/engine/execute`, {
     method: 'POST',
@@ -525,7 +529,7 @@ export async function executeEngineAction(
     throw new Error(`Failed to execute engine action: ${errorText}`);
   }
   const result = await response.json();
-  console.log('[api.ts] executeEngineAction Result:', result);
+  console.info('[api.ts] executeEngineAction Result:', result);
   return result;
 }
 
@@ -546,6 +550,7 @@ export async function searchMonsters(
       fetchPolicy: 'network-only',
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return ((data as any)?.monsters || []).map((m: any) => ({
       id: m.documentId,
       name: m.name,
@@ -575,6 +580,7 @@ export async function searchSpells(
       fetchPolicy: 'network-only',
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return ((data as any)?.spells || []).map((s: any) => ({
       id: s.documentId,
       name: s.name,
@@ -583,6 +589,36 @@ export async function searchSpells(
     }));
   } catch (err) {
     console.error('Search spells failed:', err);
+    return [];
+  }
+}
+
+/**
+ * Search characters by name
+ */
+export async function searchCharacters(
+  query: string
+): Promise<{ id: string; name: string; type: string; description: string }[]> {
+  try {
+    const { data } = await apolloClient.query({
+      query: LIST_CHARACTERS_QUERY,
+      variables: {
+        filters: {
+          name: { containsi: query },
+        },
+      },
+      fetchPolicy: 'network-only',
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return ((data as any)?.characters || []).map((c: any) => ({
+      id: c.documentId,
+      name: c.name,
+      type: 'character',
+      description: `Lvl 1 ${c.race?.name || 'Unknown'} ${c.class?.name || 'Unknown'}`,
+    }));
+  } catch (err) {
+    console.error('Search characters failed:', err);
     return [];
   }
 }

@@ -1,4 +1,8 @@
 import { z } from 'zod';
+import { MinEntitySchema } from './entity-min';
+import { EntitySheetSchema } from './entity-sheet';
+import { CommandSchema } from './commands';
+import { StructureInfoSchema } from './voxel';
 
 export const ScaleLevelSchema = z.union([
   z.literal(0),
@@ -65,7 +69,7 @@ export const WorldSettingsSchema = z.object({
   roadQuality: z.string().optional(),
   terrainComplexity: z.number().optional(),
   seed: z.string().optional(),
-  generationParams: z.record(z.string(), z.any()).optional(), // Explicit key type
+  generationParams: z.record(z.string(), z.unknown()).optional(), // Explicit key type
 });
 
 export const MapConfigSchema = z.object({
@@ -105,13 +109,14 @@ export const AvatarPreviewImageSchema = z.object({
 // Define TimeFrameSchema
 export const TimeFrameSchema = z.object({
   id: z.string(),
+  documentId: z.string().optional(),
   turnNumber: z.number(),
   timestamp: z.string(),
   gameState: z.object({
-    world: z.any(),
-    entities: z.array(z.any()), // EntitySchema circular ref
+    world: z.record(z.string(), z.unknown()),
+    entities: z.array(MinEntitySchema),
     settings: WorldSettingsSchema,
-    mapConfig: z.any(),
+    mapConfig: MapConfigSchema,
   }),
 });
 
@@ -128,8 +133,8 @@ export const PlayerSchema = z.object({
   name: z.string(),
   role: RoleSchema,
   isOnline: z.boolean().optional(),
-  character: z.any().nullable(), // CharacterSheetSchema circular ref
-  characterSheet: z.any().nullable().optional(), // The Instantiated Sheet (ID or Object)
+  character: MinEntitySchema.nullable(),
+  characterSheet: EntitySheetSchema.nullable().optional(),
   action: z.string().nullable(),
   isReady: z.boolean(),
   joinedAt: z.number(),
@@ -150,13 +155,26 @@ export const PlayerSchema = z.object({
     .optional(),
 });
 
+export const MessageSchema = z.object({
+  id: z.string(),
+  documentId: z.string().optional(),
+  sender: z.string(),
+  recipientId: z.string().optional(),
+  text: z.string(),
+  images: z.array(z.string()).optional(),
+  timestamp: z.number(),
+  targetPlayer: z.string().optional(),
+  type: z.enum(['talk', 'narration', 'system', 'text', 'narrative']).optional(),
+  metadata: z.record(z.string(), z.any()).optional(), // Explicit key type
+});
+
 export const RoomSchema = z.object({
   id: z.string(),
   documentId: z.string().optional(),
   roomId: z.string().optional(),
   slug: z.string().optional(),
   name: z.string().optional(),
-  config: z.any().optional(),
+  config: z.unknown().optional(),
   code: z.string(),
   ownerId: z.string(),
   owner: z
@@ -167,37 +185,26 @@ export const RoomSchema = z.object({
     })
     .optional(),
   players: z.array(PlayerSchema).optional(),
+  messages: z.array(MessageSchema).optional(),
   settings: WorldSettingsSchema.nullable(),
   mapConfig: MapConfigSchema.optional(),
   worldDescription: z.string(),
-  worldHistory: z.any().optional(),
-  structures: z.array(z.any()).optional(),
-  roads: z.array(z.any()).optional(),
-  worldConditions: z.array(z.any()).optional(),
+  worldHistory: z.unknown().optional(),
+  structures: z.array(StructureInfoSchema).optional(),
+  roads: z.array(z.unknown()).optional(),
+  worldConditions: z.array(z.unknown()).optional(),
   phase: GamePhaseSchema,
   turnData: z
     .object({
       phase: z.enum(['idle', 'waiting_for_actions', 'processing']),
-      actions: z.array(z.any()),
+      actions: z.array(CommandSchema),
     })
     .optional(),
-  terrainData: z.any().optional(),
+  terrainData: z.unknown().optional(),
   characterCreationLocked: z.boolean().optional(),
-  generationEvents: z.array(z.any()).optional(),
+  generationEvents: z.array(z.unknown()).optional(),
   createdAt: z.number(),
   updatedAt: z.number(),
   isActive: z.boolean().optional(),
   timeFrames: z.array(TimeFrameSchema).optional(),
-});
-
-export const MessageSchema = z.object({
-  id: z.string(),
-  sender: z.string(),
-  recipientId: z.string().optional(),
-  text: z.string(),
-  images: z.array(z.string()).optional(),
-  timestamp: z.number(),
-  targetPlayer: z.string().optional(),
-  type: z.enum(['talk', 'narration', 'system', 'text', 'narrative']).optional(),
-  metadata: z.record(z.string(), z.any()).optional(), // Explicit key type
 });

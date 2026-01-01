@@ -1,7 +1,8 @@
+/* eslint-disable no-console, @typescript-eslint/no-explicit-any */
 import dotenv from 'dotenv';
 dotenv.config();
 
-// @ts-ignore
+// @ts-expect-error - Direct DB access in seed script
 import { strapi } from '@strapi/client';
 
 // Constants

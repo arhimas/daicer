@@ -51,6 +51,7 @@ interface RulesResourceListProps {
 export function RulesResourceList({ category }: RulesResourceListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
+
   const [selectedItem, setSelectedItem] = useState<any>(null);
 
   const config = CATEGORY_CONFIG[category];

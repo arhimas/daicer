@@ -1,0 +1,104 @@
+{
+  "kind": "collectionType",
+  "collectionName": "character_sheets",
+  "info": {
+    "singularName": "entity-sheet",
+    "pluralName": "entity-sheets",
+    "displayName": "Entity Sheet",
+    "description": "Instance of an entity in a game room"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "player",
+        "monster",
+        "npc"
+      ],
+      "default": "player"
+    },
+    "monster": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::monster.monster"
+    },
+    "character": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::character.character"
+    },
+    "room": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::room.room",
+      "inversedBy": "character_sheets"
+    },
+    "currentHp": {
+      "type": "integer"
+    },
+    "maxHp": {
+      "type": "integer"
+    },
+    "level": {
+      "type": "integer",
+      "default": 1
+    },
+    "experience": {
+      "type": "integer",
+      "default": 0
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.stats"
+    },
+    "race": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::race.race"
+    },
+    "class": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class.class"
+    },
+    "appearance": {
+      "type": "json"
+    },
+    "backstory": {
+      "type": "text"
+    },
+    "inventory": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.inventory-item"
+    },
+    "position": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.position"
+    },
+    "structuredActions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.action"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.feature"
+    },
+    "spellbook": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.spellbook"
+    }
+  }
+}

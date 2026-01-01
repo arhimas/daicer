@@ -20,6 +20,7 @@ export function CalibrationDebug() {
         results[`d${dieType}`] = rotations;
       });
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCalibrations(results);
 
       // Check if calibrations are valid (not all zeros)

@@ -17,12 +17,15 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
     if (typeof race.speed === 'number') {
       baseSpeed = { walk: race.speed };
     } else {
-      baseSpeed = { ...race.speed };
+      // Assuming race.speed object already uses new keys? Or do we need to map?
+      // Race schema is "integer" currently (Step 375). So it hits the 'number' block.
+      // If race had object speed, it would need to match SpeedSchema.
+      // But let's assume it maps directly if object.
+      baseSpeed = { ...race.speed } as { walk: number; [key: string]: number };
     }
   }
 
   // Heavy Armor Penalty
-  // If wearing heavy armor and Str < Str Minimum, reduce speed by 10.
   const armor = equipment.find((item) => item.equipment_category?.slug === 'heavy-armor');
 
   if (armor && armor.str_minimum && attributes.str < armor.str_minimum) {

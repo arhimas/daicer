@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 
-import type { Player, CharacterSheet } from '@daicer/engine';
+import type { Player, EntitySheet } from '@daicer/engine';
 import { useCombat } from '../../hooks/useCombat';
 import type { Position } from '../../types/combat';
 import { ResizablePanelGroup, ResizablePanel } from '../ui/resizable';
@@ -29,7 +29,7 @@ export function CombatScreen({ roomId, players = [] }: CombatScreenProps) {
     ? combatState?.characters.find((c) => c.id === selectedCharacterId)
     : null;
 
-  const selectedCharacterSheet: CharacterSheet | null = useMemo(() => {
+  const selectedCharacterSheet: EntitySheet | null = useMemo(() => {
     if (!selectedCharacter || players.length === 0) {
       return null;
     }
@@ -159,8 +159,7 @@ export function CombatScreen({ roomId, players = [] }: CombatScreenProps) {
 
       {/* Main Layout */}
       <div className="flex-1 overflow-hidden">
-        {/* @ts-ignore */}
-        <ResizablePanelGroup direction="horizontal">
+        <ResizablePanelGroup orientation="horizontal">
           {/* Content Area */}
           <ResizablePanel defaultSize={100} minSize={50}>
             <div className="h-full grid grid-cols-12 gap-4 p-4 overflow-hidden">

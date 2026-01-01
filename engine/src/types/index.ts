@@ -7,7 +7,7 @@ import {
   ResourcePoolSchema,
   AdvancementPointsSchema,
   InventoryItemSchema,
-  CharacterSheetSchema,
+  EntitySheetSchema,
   GamePhaseSchema,
   ScaleLevelSchema,
   AdventureLengthSchema,
@@ -65,7 +65,9 @@ export type ResourcePool = z.infer<typeof ResourcePoolSchema>;
 export type AdvancementPoints = z.infer<typeof AdvancementPointsSchema>;
 export type InventoryItem = z.infer<typeof InventoryItemSchema>;
 export type CharacterEquipment = InventoryItem[]; // Alias
-export type CharacterSheet = z.infer<typeof CharacterSheetSchema>;
+export type EntitySheet = z.infer<typeof EntitySheetSchema>;
+/** @deprecated Use EntitySheet instead */
+export type CharacterSheet = EntitySheet;
 
 export type GamePhase = z.infer<typeof GamePhaseSchema>;
 export const GamePhase = {
@@ -106,7 +108,7 @@ export interface Creature {
   damage?: string;
   position: { x: number; y: number; z: number };
   type: 'npc' | 'monster';
-  sheet?: CharacterSheet;
+  sheet?: EntitySheet;
 }
 
 // === Voxel & World Types ===
@@ -143,13 +145,55 @@ export type TimeFrame = z.infer<typeof TimeFrameSchema>;
 
 export type Role = z.infer<typeof RoleSchema>;
 
+export interface EntityStats {
+  strength: number;
+  dexterity: number;
+  constitution: number;
+  intelligence: number;
+  wisdom: number;
+  charisma: number;
+  passivePerception: number;
+  initiativeBonus: number;
+}
+
+export interface EntityAction {
+  name: string;
+  type: 'melee' | 'ranged' | 'spell' | 'utility';
+  toHit?: number;
+  reach?: number;
+  range?: string;
+  damage?: { dice: string; bonus: number; type: string }[];
+  save?: { dc: number; stat: string };
+  description: string;
+}
+
+export interface EntityFeature {
+  name: string;
+  description: string;
+  usage?: { max: number; per: string };
+}
+
 export interface Entity {
   id: string;
   type: 'player' | 'npc' | 'monster' | 'object';
   name: string;
   position: { x: number; y: number; z: number };
+
+  // Instance Vitality
+  hp: number;
+  maxHp: number;
+  ac: number;
+  speed: number;
+
+  // Blueprint
+  stats: EntityStats;
+  actions: EntityAction[];
+  features: EntityFeature[];
+
+  // Visuals
   color: string;
   visionRadius: number;
+  sheet?: EntitySheet; // Link to detailed sheet
 }
 
 export interface RoomMembership {
@@ -195,6 +239,9 @@ import {
   CastSpellCommandSchema,
   InteractCommandSchema,
   EndTurnCommandSchema,
+  LongRestCommandSchema,
+  ModifyTerrainCommandSchema,
+  RollSaveCommandSchema,
 } from '../schemas';
 
 export type Command = z.infer<typeof CommandSchema>;
@@ -204,5 +251,31 @@ export type SkillCheckCommand = z.infer<typeof SkillCheckCommandSchema>;
 export type CastSpellCommand = z.infer<typeof CastSpellCommandSchema>;
 export type InteractCommand = z.infer<typeof InteractCommandSchema>;
 export type EndTurnCommand = z.infer<typeof EndTurnCommandSchema>;
+export type LongRestCommand = z.infer<typeof LongRestCommandSchema>;
+export type ModifyTerrainCommand = z.infer<typeof ModifyTerrainCommandSchema>;
+export type RollSaveCommand = z.infer<typeof RollSaveCommandSchema>;
 
 export * from './engine';
+export * from '../rules/actions';
+export * from '../rules/dice';
+export * from '../rules/combat';
+export * from '../rules/magic';
+export * from '../rules/resting';
+export * from '../rules/leveling';
+export * from '../rules/conditions';
+
+// === Tracing ===
+
+export interface ExecutionStep {
+  type: string;
+  description: string;
+  base?: number;
+  modifiers?: { source: string; value: number }[];
+  total?: number;
+  diceNotation?: string;
+  rolls?: number[];
+  outcome?: string;
+  targetValue?: number;
+}
+
+export type ExecutionTrace = ExecutionStep[];

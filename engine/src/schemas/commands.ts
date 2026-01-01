@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { CoordinatesSchema } from './voxel';
-import { AttributeSchema } from './character';
+import { AttributeSchema } from './entity-sheet';
 
 // === Base Command Types ===
 
@@ -69,6 +69,40 @@ export const EndTurnCommandSchema = BaseCommandSchema.extend({
   }),
 });
 
+export const LongRestCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('LONG_REST'),
+  payload: z.object({
+    actorId: z.string(), // Party leader or area? Maybe just list of actors or single actor triggering it.
+    // Agent tool uses payload directly. Let's assume actorId.
+    // tool-registry simply passes payload.
+    // Let's make payload flexible or minimal.
+    duration: z.number().optional(),
+  }),
+});
+
+export const ModifyTerrainCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('MODIFY_TERRAIN'),
+  payload: z
+    .object({
+      position: CoordinatesSchema.optional(),
+      blockType: z.string().optional(),
+      action: z.enum(['set', 'remove', 'fill']).optional(),
+    })
+    .passthrough(), // Allow flexible payload for voxel engine
+});
+
+export const RollSaveCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('ROLL_SAVE'),
+  payload: z.object({
+    actorId: z.string(),
+    targetId: z.string().optional(), // For flexibility in payload mapping
+    stat: AttributeSchema, // Mapped to 'attribute' in SkillCheck
+    difficultyClass: z.number().optional().default(10),
+    advantage: z.boolean().optional(),
+    disadvantage: z.boolean().optional(),
+  }),
+});
+
 // === Union of All Commands ===
 
 export const CommandSchema = z.union([
@@ -78,6 +112,9 @@ export const CommandSchema = z.union([
   CastSpellCommandSchema,
   InteractCommandSchema,
   EndTurnCommandSchema,
+  LongRestCommandSchema,
+  ModifyTerrainCommandSchema,
+  RollSaveCommandSchema,
 ]);
 
 // Helper to infer discriminated union type

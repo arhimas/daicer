@@ -1,4 +1,9 @@
-import type { WorldSettings, Player, Creature, Message, Language, Chunk } from '@daicer/engine';
+import type { Player, Creature, WorldSettings, Chunk, Language } from '@daicer/engine';
+// Local definition to avoid missing shared export
+interface Message {
+  sender: string;
+  text: string;
+}
 
 export default ({ strapi }) => ({
   async processTurn(
@@ -6,7 +11,7 @@ export default ({ strapi }) => ({
     worldDescription: string,
     messages: Message[],
     players: Player[],
-    creatures: Creature[],
+    // creatures argument removed/deprecated
     language: Language = 'en',
     settings?: WorldSettings,
     worldConditions?: unknown[],
@@ -60,30 +65,43 @@ export default ({ strapi }) => ({
         // Fetch Fresh Room Data (to get updated entity positions and exploredTiles)
         const roomEntity = await strapi.documents('api::room.room').findOne({
           documentId: roomId,
-          populate: ['character_sheets', 'creatures'],
+          populate: [
+            'character_sheets',
+            'character_sheets.monster',
+            'character_sheets.character',
+            'character_sheets.character.baseStats',
+          ], // Populate Blueprint for Adapter
         });
 
         const exploredTiles = new Set<string>((roomEntity?.exploredTiles as string[]) || []);
 
         // Calculate center based on first player or default
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const firstPlayerSheet = (roomEntity.character_sheets as any[])?.[0];
-        const center = firstPlayerSheet?.position || { x: 0, y: 0, z: 0 };
+        const firstPlayerSheet = (roomEntity.character_sheets as unknown as Record<string, unknown>[])?.[0];
+        const center = (firstPlayerSheet?.position as { x: number; y: number; z: number }) || { x: 0, y: 0, z: 0 };
 
         // Re-construct players list with updated positions for visualization
-        // The original 'players' array has the old state. We should use the room entities for the map.
-        // We need to map room entities back to minimal Player/Creature objects for the visualizer
-        const updatedPlayers = ((roomEntity.character_sheets as Record<string, unknown>[]) || []).map((s) => ({
+        // Unify all sheets (players + monsters)
+        const updatedEntities = ((roomEntity.character_sheets as Record<string, unknown>[]) || []).map((s) => ({
+          id: s.documentId,
+          name: s.name,
           position: s.position,
-        }));
-        const updatedCreatures = ((roomEntity.creatures as Record<string, unknown>[]) || []).map((c) => ({
-          position: c.position,
-          hp: c.currentHp || c.hp, // handle schema variance
-          maxHp: c.maxHp,
+          hp: s.currentHp,
+          maxHp: s.maxHp,
+          type: s.type || 'player',
         }));
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        mapImage = await generateMapImage(chunk, updatedPlayers as any, updatedCreatures as any, exploredTiles, center);
+        // Map Renderer likely expects explicit players vs creatures arrays?
+        // For now, let's split them based on type for the legacy signature of generateMapImage
+        const updatedPlayers = updatedEntities.filter((e) => e.type === 'player');
+
+        const creaturesDummy: unknown[] = [];
+        mapImage = await generateMapImage(
+          chunk,
+          updatedPlayers as unknown as Player[],
+          creaturesDummy as unknown as Creature[],
+          exploredTiles,
+          center
+        );
 
         // 4. Upload Map Image to Strapi
         if (mapImage) {
@@ -112,13 +130,34 @@ export default ({ strapi }) => ({
       }
     }
 
+    // 5a. Adapt Entities for Narrative
+    const entityAdapter = strapi.service('api::game.entity-adapter');
+    const allSheets =
+      ((
+        await strapi.documents('api::room.room').findOne({
+          documentId: roomId,
+          populate: [
+            'character_sheets',
+            'character_sheets.monster',
+            'character_sheets.monster.structuredActions',
+            'character_sheets.monster.features',
+            'character_sheets.character',
+            'character_sheets.character.baseStats',
+          ],
+        })
+      ).character_sheets as unknown[]) || [];
+
+    // Use Adapter
+    const unifiedEntities = allSheets.map((s) => entityAdapter.adapt(s));
+
     // 5. Generate Narrative (with new Map Image)
     const response = await narrativeEngine.generateNarrativeResponse(
       roomId,
       worldDescription,
       messages,
       players,
-      creatures,
+      unifiedEntities,
+
       language,
       settings,
       worldConditions,
@@ -223,10 +262,6 @@ export default ({ strapi }) => ({
         id: s.documentId || s.id,
         pos: s.position,
       })),
-      ...(room.creatures || []).map((c: Record<string, unknown>) => ({
-        id: c.documentId || c.id,
-        pos: c.position,
-      })),
     ];
 
     type AnyAction = {
@@ -287,10 +322,7 @@ export default ({ strapi }) => ({
           // Exploration Update
           try {
             const VISION_RADIUS = 8;
-            const currentExplored = new Set(
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (room.exploredTiles as string[]) || []
-            );
+            const currentExplored = new Set((room.exploredTiles as string[]) || []);
             let explorationChanged = false;
 
             for (let dy = -VISION_RADIUS; dy <= VISION_RADIUS; dy++) {
@@ -365,8 +397,7 @@ export default ({ strapi }) => ({
     // We'd ideally want the fresh sheets from `persistenceResult.room` (if we returned it with populated sheets)
     // persistTurn refetches room with sheets, so we can use that.
     const updatedSheets = persistenceResult.room.character_sheets || [];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const updatedEntities = updatedSheets.map((cs: any) => ({
+    const updatedEntities = updatedSheets.map((cs: Record<string, unknown>) => ({
       id: cs.documentId,
       position: cs.position,
       currentHp: cs.currentHp,
@@ -377,8 +408,7 @@ export default ({ strapi }) => ({
     return { success: true, turnId: turn.documentId };
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async submitAction(roomId: string, action: string, user: any, mode?: 'debug' | 'game') {
+  async submitAction(roomId: string, action: string, user: Record<string, unknown>, mode?: 'debug' | 'game') {
     // 0. Handle Debug Mode (Immediate Execution)
     if (mode === 'debug') {
       return strapi.service('api::narrator.narrator').processAction({
@@ -398,13 +428,13 @@ export default ({ strapi }) => ({
     });
 
     if (!rooms || rooms.length === 0) throw new Error('Room not found');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const room = rooms[0] as any;
+    const room = rooms[0] as unknown as { documentId: string; roomId: string; players: Player[] };
     const players = room.players || [];
 
     // 2. Find Player for User
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const playerIndex = players.findIndex((p: any) => p.user?.documentId === user.documentId || p.user?.id === user.id);
+    const playerIndex = players.findIndex(
+      (p: Player) => p.user?.documentId === user.documentId || p.user?.id === user.id
+    );
     if (playerIndex === -1) throw new Error('User is not a player in this room');
 
     // 3. Update Action
@@ -415,8 +445,7 @@ export default ({ strapi }) => ({
       documentId: room.documentId,
       data: {
         players: players,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any,
+      } as unknown as Record<string, unknown>,
     });
 
     // 4. Broadcast Update

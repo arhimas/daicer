@@ -257,7 +257,7 @@ ${JSON.stringify(
     // ---------------------------------------------------------
     if (shouldBroadcastEntities) {
       // Re-fetch character sheets directly to ensure freshness (avoid Room populate cache/lag)
-      const sheets = (await strapi.documents('api::character-sheet.character-sheet').findMany({
+      const sheets = (await strapi.documents('api::entity-sheet.entity-sheet').findMany({
         filters: { room: { documentId: room.documentId } },
       })) as unknown as CharacterSheet[];
 
@@ -290,7 +290,8 @@ ${JSON.stringify(
               timestamp: new Date().toISOString(),
               turnNumber: nextTurnNumber,
               gameState: {
-                entities: entitiesUpdate,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                entities: entitiesUpdate as any,
                 meta: {
                   source: 'tool_update',
                   narration: finalNarratorResponse.narration,
