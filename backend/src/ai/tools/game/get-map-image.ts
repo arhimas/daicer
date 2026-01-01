@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Creature } from '@daicer/engine';
+import { Creature, WorldConfig, Chunk, DEFAULT_WORLD_CONFIG } from '@daicer/engine';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 
@@ -15,6 +15,10 @@ const mapImageOutput = z.object({
   description: z.string(),
 });
 
+interface VoxelEngineService {
+  getChunk(x: number, y: number, config: WorldConfig): Promise<Chunk>;
+}
+
 export const getMapImageTool = (context: StrapiContext) =>
   createDaicerTool(
     {
@@ -28,7 +32,6 @@ export const getMapImageTool = (context: StrapiContext) =>
         const { generateMapImage } = await import('../../../api/game/services/map-visualization');
 
         // Fetch Room Data
-        // Fetch Room Data
         const roomRaw = await strapi.documents('api::room.room').findOne({
           documentId: roomDocumentId,
           populate: ['entity_sheets'],
@@ -36,19 +39,18 @@ export const getMapImageTool = (context: StrapiContext) =>
 
         if (!roomRaw) throw new Error('Room not found.');
 
-        // Cast to our known populated shape
+        // Assert type with a check or direct cast if we trust Strapi schema sync
         const room = roomRaw as unknown as RoomWithPopulations;
 
         const chunkX = Math.floor(x / 32);
         const chunkY = Math.floor(y / 32);
 
-        let chunk;
-        const voxelService = strapi.service('api::voxel-engine.voxel-engine') as unknown as {
-          getChunk: (x: number, y: number, config: unknown) => Promise<unknown>;
-        };
+        let chunk: Chunk | undefined;
+        const voxelService = strapi.service('api::voxel-engine.voxel-engine') as VoxelEngineService;
 
         if (voxelService && voxelService.getChunk) {
-          const config = room.config || { seed: 'default' };
+          // Ensure config matches WorldConfig
+          const config: WorldConfig = (room.config as WorldConfig) || { ...DEFAULT_WORLD_CONFIG, seed: 'default' };
           chunk = await voxelService.getChunk(chunkX, chunkY, config);
         } else {
           throw new Error('Voxel Engine service unavailable.');
@@ -57,25 +59,29 @@ export const getMapImageTool = (context: StrapiContext) =>
         if (!chunk) throw new Error('Failed to load map chunk.');
 
         // Map sheets to creatures
-        const creatures = (room.entity_sheets || []).map((cs) => ({
-          id: cs.documentId,
-          name: cs.name,
-          type: (cs.type || 'monster') as unknown as Creature['type'],
-          position: cs.position,
-          stats: cs.stats,
-          // Map 'currentHp' to 'hp' as per Creature interface
-          hp: cs.currentHp,
-          maxHp: cs.maxHp,
-          // Add missing Creature props if needed by generator
-          ac: 10, // Default action: cs.ac || 10
-        }));
+        const creatures: Creature[] = (room.entity_sheets || []).map((cs) => {
+          // Validate creature type
+          const type: Creature['type'] = (
+            ['player', 'npc', 'monster'].includes(cs.type) ? cs.type : 'monster'
+          ) as Creature['type'];
+
+          return {
+            id: cs.documentId,
+            name: cs.name,
+            type,
+            position: cs.position,
+            hp: cs.currentHp,
+            maxHp: cs.maxHp,
+            ac: cs.ac || 10,
+          };
+        });
 
         // Generate Buffer
         const imageBuffer = await generateMapImage(
           chunk,
           [], // Players - needed? Room players not fully mapped here yet.
           creatures,
-          new Set((room.exploredTiles as unknown as string[]) || []),
+          new Set((room.exploredTiles as string[]) || []),
           { x, y }
         );
 

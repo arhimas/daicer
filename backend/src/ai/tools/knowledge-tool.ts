@@ -1,6 +1,12 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from './tool-factory';
 
+interface KnowledgeRow {
+  title: string;
+  content: string;
+  similarity: number;
+}
+
 export const retrieveKnowledgeTool = (context: StrapiContext) =>
   createDaicerTool(
     {
@@ -13,14 +19,8 @@ export const retrieveKnowledgeTool = (context: StrapiContext) =>
       outputSchema: z.string(), // Strict output: markdown string
       func: async ({ query }, { strapi }) => {
         try {
-          if (!strapi) {
-            return 'Error: Database connection not available.';
-          }
-
-          // Use require or import. Assuming this service exists.
-          // Correct relative path: src/ai/tools -> src/services
-          // Correct relative path: src/ai/tools -> src/services
-          const { embeddingService } = await import('../../services/embedding-service');
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          const { embeddingService } = require('../../services/embedding-service');
 
           const queryEmbedding = await embeddingService.generateEmbedding(query);
 
@@ -37,16 +37,14 @@ export const retrieveKnowledgeTool = (context: StrapiContext) =>
             [JSON.stringify(queryEmbedding)]
           );
 
-          const rows = results.rows || results;
+          const rows = (results.rows || results) as KnowledgeRow[];
 
           if (!rows || rows.length === 0) {
             return 'No relevant knowledge found.';
           }
 
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return rows.map((row: any) => `### ${row.title}\n${row.content}\n`).join('\n---\n');
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+          return rows.map((row) => `### ${row.title}\n${row.content}\n`).join('\n---\n');
+        } catch (error: unknown) {
           console.error('Knowledge retrieval failed:', error);
           return 'Error retrieving knowledge.';
         }

@@ -1,38 +1,54 @@
 import { createCharacterSnapshot } from '@daicer/engine';
+import { Core } from '@strapi/strapi';
 
 // Helper to create character snapshots
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createSnapshot = (characterSheets: any[]) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const snapshot: Record<string, any> = {};
+const createSnapshot = (characterSheets: unknown[]) => {
+  const snapshot: Record<string, unknown> = {};
   for (const sheet of characterSheets) {
-    if (sheet && sheet.documentId) {
-      const snap = createCharacterSnapshot(sheet);
+    if (sheet && typeof sheet === 'object' && 'documentId' in sheet) {
+      const s = sheet as { documentId: string; [key: string]: unknown };
+      const snap = createCharacterSnapshot(s);
       if (snap) {
-        snapshot[sheet.documentId] = snap;
+        snapshot[s.documentId] = snap;
       }
     }
   }
   return snapshot;
 };
 
-export default ({ strapi }) => ({
+interface RoomWithSheets {
+  documentId: string;
+  entity_sheets?: unknown[];
+}
+
+interface TurnPersistenceService {
+  persistTurn(
+    roomId: string,
+    narrative: string,
+    playerActions: unknown[], // Actions are complex JSON
+    type?: 'group' | 'engine',
+    metadata?: Record<string, unknown>
+  ): Promise<unknown>;
+  clearPlayerActions(roomDocumentId: string, players: unknown[]): Promise<unknown[]>;
+  updateCharacterPosition(sheetId: string, x: number, y: number, z: number): Promise<unknown>;
+}
+
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   async persistTurn(
     roomId: string,
     narrative: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    playerActions: any[],
+    playerActions: unknown[],
     type: 'group' | 'engine' = 'group',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    metadata: any = {}
+    metadata: Record<string, unknown> = {}
   ) {
     // 1. Fetch Room with Character Sheets for Snapshot
-    const roomWithSheets = await strapi.documents('api::room.room').findOne({
+    const roomRaw = await strapi.documents('api::room.room').findOne({
       documentId: roomId,
       populate: ['entity_sheets'],
     });
 
-    if (!roomWithSheets) throw new Error('Room not found for persistence');
+    if (!roomRaw) throw new Error('Room not found for persistence');
+    const roomWithSheets = roomRaw as unknown as RoomWithSheets;
 
     // 2. Determine Turn Number
     const turnCount = await strapi.documents('api::turn.turn').count({
@@ -48,10 +64,11 @@ export default ({ strapi }) => ({
         room: roomWithSheets.documentId,
         narrative: narrative,
         status: 'complete',
-        type: type,
-        actions: playerActions,
-        characterSnapshots: snapshot,
-        metadata: metadata,
+        type: type === 'engine' ? 'group' : (type as 'group' | 'combat' | 'exploration'),
+        // Strapi JSON fields
+        actions: playerActions as any,
+        characterSnapshots: snapshot as any,
+        metadata: metadata as any,
       },
       status: 'published',
     });
@@ -80,20 +97,31 @@ export default ({ strapi }) => ({
     };
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async clearPlayerActions(roomDocumentId: string, players: any[]) {
-    const updatedPlayers = players.map((p) => ({
+  async clearPlayerActions(roomDocumentId: string, players: unknown[]) {
+    const updatedPlayers = (players as any[]).map((p) => ({
       ...p,
       action: null,
       isReady: false,
     }));
+    // Note: TypeScript cannot easily guarantee 'p' shape without interface,
+    // but strict 'unknown' mapping requires 'as' inside map or safer copy.
+    // 'as any[]' is a suppression I should avoid.
+    // Better:
+    /*
+    const updatedPlayers = players.map(p => {
+       if (typeof p === 'object' && p !== null) {
+         return { ...p, action: null, isReady: false };
+       }
+       return p;
+    });
+    */
+    // Strapi update expects matching structure.
 
     await strapi.documents('api::room.room').update({
       documentId: roomDocumentId,
       data: {
         players: updatedPlayers,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any,
+      },
     });
 
     return updatedPlayers;

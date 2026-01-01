@@ -19,8 +19,12 @@ export default ({ strapi }) => ({
     entities: Entity[], // Unified Entities (Players + Monsters)
     language: Language = 'en',
     settings?: WorldSettings,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    worldConditions?: any[],
+    worldConditions?: {
+      id: string;
+      name: string;
+      description?: string;
+      effect?: string;
+    }[],
 
     streamId?: string,
     mapImage?: Buffer

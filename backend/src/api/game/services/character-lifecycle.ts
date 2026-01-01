@@ -2,16 +2,38 @@ import { generateText } from '../../../utils/llm';
 import { getPrompt, formatPrompt } from '../../../utils/prompt';
 import { uploadBase64Image } from '../../../utils/upload';
 import { createCharacterSnapshot, formatDmInstruction } from '@daicer/engine';
-import type { WorldSettings, Player, CharacterSheet, Language } from '@daicer/engine';
+import type { WorldSettings, Player, EntitySheet, Language } from '@daicer/engine';
 
 // Helper to format DM style
+
+interface PopulatedEntitySheet extends Omit<EntitySheet, 'race' | 'class' | 'characterClass' | 'personality'> {
+  documentId: string;
+  race?: string | { name: string };
+  class?: string | { name: string };
+  characterClass?: string;
+  personality?: { traits: string; ideals: string; bonds: string; flaws: string };
+}
+
+interface StrapiCharacter {
+  documentId: string;
+  name: string;
+  class?: string;
+  race?: string;
+  baseStats: unknown;
+  appearance?: unknown;
+  backstory?: string;
+  background?: string;
+  equipment?: unknown[];
+}
 
 export default ({ strapi }) => ({
   createSnapshot(characterSheets: unknown[]) {
     const snapshot: Record<string, unknown> = {};
     for (const sheet of characterSheets) {
+      if (!sheet || typeof sheet !== 'object') continue;
+
       const s = sheet as { documentId: string; [key: string]: unknown };
-      if (s && s.documentId) {
+      if (s.documentId) {
         const snap = createCharacterSnapshot(s);
         if (snap) {
           snapshot[s.documentId] = snap;
@@ -41,9 +63,10 @@ export default ({ strapi }) => ({
     if (!rooms || rooms.length === 0) {
       throw new Error('Room not found');
     }
-    const room = rooms[0] as unknown as {
+    const room = rooms[0] as {
       players: Player[];
       documentId: string;
+      config: unknown;
     };
     const players = room.players || [];
 
@@ -71,7 +94,7 @@ export default ({ strapi }) => ({
               processedAvatarPreview[slot] = {
                 id: uploadResult.id,
                 url: uploadResult.url,
-              } as { id?: string | number; url?: string; data?: string; mimeType?: string };
+              };
               strapi.log.info(`Avatar ${slot} uploaded successfully: ${uploadResult.id}`);
             }
           } catch (err) {
@@ -82,16 +105,7 @@ export default ({ strapi }) => ({
     }
 
     // 3. Create OR Link Character Entity
-    let createdCharacter: {
-      documentId: string;
-      name: string;
-      class?: string;
-      race?: string;
-      baseStats?: unknown;
-      appearance?: unknown;
-      backstory?: unknown;
-      equipment?: unknown[];
-    } | null = null;
+    let createdCharacter: StrapiCharacter | null = null;
 
     // Check if we are linking an existing character
     if (characterData.documentId) {
@@ -222,10 +236,9 @@ export default ({ strapi }) => ({
       throw new Error('User is not a player in this room');
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const updatedPlayers: any[] = [...players];
+    const updatedPlayers = [...players] as Record<string, unknown>[];
     updatedPlayers[playerIndex] = {
-      ...updatedPlayers[playerIndex],
+      ...players[playerIndex],
       character: createdCharacter.documentId, // Keep global link for reference
       characterSheet: createdSheet.documentId, // The Active Sheet
       isReady: false,
@@ -244,7 +257,7 @@ export default ({ strapi }) => ({
 
   async generateCharacterOpening(
     worldDescription: string,
-    character: CharacterSheet,
+    character: EntitySheet,
     mainContext: string,
     language: Language = 'en',
     settings?: WorldSettings,
@@ -256,19 +269,29 @@ export default ({ strapi }) => ({
       dynamicStyleInstructions = `DYNAMIC STYLE ADJUSTMENTS:\n${instruction}`;
     }
 
-    const c = character as unknown as {
-      race?: { name?: string };
-      class?: { name?: string };
-      baseStats?: Record<string, number>;
-    };
-    const cAny = character as unknown as { characterClass?: string };
+    const c = character as PopulatedEntitySheet;
+
+    // Safety check for race name
+    let raceName = 'Unknown';
+    if (typeof c.race === 'string') raceName = c.race;
+    else if (c.race && typeof c.race === 'object' && 'name' in c.race)
+      raceName = (c.race as { name: string }).name || 'Unknown';
+
+    // Safety check for class name
+    let className = 'Unknown Class';
+    if (c.characterClass) className = c.characterClass;
+    else if (typeof c.class === 'string') className = c.class;
+    else if (c.class && typeof c.class === 'object' && 'name' in c.class)
+      className = (c.class as { name: string }).name || 'Unknown Class';
+    if (className === 'Unknown Class' && c.characterClass) className = c.characterClass;
+
     const charSummary = `Name: ${character.name}
-Race: ${c.race?.name || character.race || 'Unknown'}
-Class: ${c.class?.name || cAny.characterClass || 'Unknown'}
+Race: ${raceName}
+Class: ${className}
 Background: ${character.background || 'Unknown'}
 Backstory Snippet: ${character.backstory ? character.backstory.substring(0, 300) + '...' : 'None provided'}
-Personality: ${character.personality?.traits || ''} ${character.personality?.ideals || ''}
-Attributes: STR ${c.baseStats?.strength || 10}, DEX ${c.baseStats?.dexterity || 10}, INT ${c.baseStats?.intelligence || 10}, WIS ${c.baseStats?.wisdom || 10}, CHA ${c.baseStats?.charisma || 10}`;
+Personality: ${c.personality?.traits || ''} ${c.personality?.ideals || ''}
+Attributes: STR ${c.attributes?.Strength || 10}, DEX ${c.attributes?.Dexterity || 10}, INT ${c.attributes?.Intelligence || 10}, WIS ${c.attributes?.Wisdom || 10}, CHA ${c.attributes?.Charisma || 10}`;
 
     const defaultSystem = `You are the Dungeon Master (DM) writing a private opening vignette for a specific character.
 
@@ -300,8 +323,7 @@ Focus on their internal state, their unique perception, and their immediate surr
       systemPrompt = formatPrompt(systemPrompt, { worldDescription, mainContext });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const defaultUser = `Generate a personalized opening for ${character.name} (${character.race} ${character.characterClass || (character as any).class?.name || 'Unknown Class'}).
+    const defaultUser = `Generate a personalized opening for ${character.name} (${raceName} ${className}).
 Synchronize with the Main Context.
 Describe sensory details, internal state, and prepare for reaction.
 Start with ### Through ${character.name}'s Eyes`;
@@ -310,12 +332,8 @@ Start with ### Through ${character.name}'s Eyes`;
     if (userPrompt.includes('{{characterName}}')) {
       userPrompt = formatPrompt(userPrompt, {
         characterName: character.name,
-        characterRace:
-          (character as unknown as { race: { name: string } }).race?.name || (character.race as string) || 'Unknown',
-        characterClass:
-          (character as unknown as { class?: { name?: string }; characterClass?: string }).class?.name ||
-          ((character as unknown as { characterClass?: string }).characterClass as string) ||
-          'Unknown',
+        characterRace: raceName,
+        characterClass: className,
       });
     }
 
@@ -339,15 +357,20 @@ Start with ### Through ${character.name}'s Eyes`;
       players.length > 0
         ? players
             .map((p) => {
-              const c = p.character as unknown as {
-                name: string;
-                race?: string | { name: string };
-                class?: string | { name: string };
-                characterClass?: string;
-                description?: string;
-              };
+              const c = p.character as unknown as PopulatedEntitySheet | undefined;
               if (!c) return `- ${p.name}: (No Character)`;
-              return `- ${c.name} (${typeof c.race === 'object' ? c.race.name : c.race || 'Unknown'} ${typeof c.class === 'object' ? c.class.name : c.characterClass || 'Unknown'}): ${c.description || 'A brave adventurer'}`;
+
+              const rName =
+                c.race && typeof c.race === 'object' && 'name' in c.race
+                  ? (c.race as { name: string }).name
+                  : (c.race as string) || 'Unknown';
+              const cName =
+                c.class && typeof c.class === 'object' && 'name' in c.class
+                  ? (c.class as { name: string }).name
+                  : c.characterClass || (c.class as string) || 'Unknown';
+              const desc = (c as unknown as { description?: string }).description || 'A brave adventurer';
+
+              return `- ${c.name} (${rName} ${cName}): ${desc}`;
             })
             .join('\n')
         : 'A group of adventurers form.';

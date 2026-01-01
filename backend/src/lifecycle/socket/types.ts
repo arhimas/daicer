@@ -35,8 +35,9 @@ export interface RoomWithPopulations {
   players?: Array<{
     id: string | number;
     documentId: string;
-    user?: { documentId: string; id: string | number };
+    user?: { documentId: string; id: string | number; username: string };
     character?: {
+      documentId?: string;
       baseStats: unknown;
       race: unknown;
       class: unknown;

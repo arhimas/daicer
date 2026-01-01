@@ -1,6 +1,16 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import { ActionDispatcher, GameState, Entity, Command, EntityStats, EntitySheet } from '@daicer/engine';
+import {
+  ActionDispatcher,
+  GameState,
+  Entity,
+  Command,
+  EntityStats,
+  EntitySheet,
+  WorldSettings,
+  Player,
+  Role,
+} from '@daicer/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 
 // Define Input Schema
@@ -27,7 +37,7 @@ export const performActionTool = (context: StrapiContext) => {
           // 1. Load Room State
           const roomRaw = await strapi.documents('api::room.room').findOne({
             documentId: roomDocumentId,
-            populate: ['entity_sheets'],
+            populate: ['entity_sheets', 'players', 'players.user', 'players.character'],
           });
 
           if (!roomRaw) throw new Error(`Room ${roomDocumentId} not found`);
@@ -36,27 +46,59 @@ export const performActionTool = (context: StrapiContext) => {
           const entities = room.entity_sheets || [];
 
           // 2. Initialize Dispatcher with Room State
-          const state = {
+          const state: GameState = {
+            room: { ...room, players: undefined, messages: undefined } as unknown as Partial<
+              import('@daicer/engine').Room
+            >,
+            world: {}, // Voxel world unavailable in tool context, passed as generic object matching 'unknown'
+            settings: (room.config as WorldSettings) || {
+              seed: 'default',
+              theme: 'medieval',
+              worldType: 'terra',
+              worldSize: 'medium',
+              setting: 'fantasy',
+              tone: 'neutral',
+              worldBackground: '',
+              dmStyle: { verbosity: 3, detail: 3, engagement: 3, narrative: 3, customDirectives: '' },
+              dmSystemPrompt: '',
+              playerCount: 4,
+              adventureLength: 'medium',
+              difficulty: 'medium',
+              startingLevel: 1,
+              attributePointBudget: 27,
+              language: 'en',
+            },
+            players: (room.players || []).map(
+              (p): Player => ({
+                id: String(p.documentId),
+                name: p.user?.username || 'Unknown',
+                role: 'player', // Default to player
+                userId: String(p.user?.documentId || p.user?.id || 'unknown'),
+                action: null,
+                isReady: true,
+                joinedAt: Date.now(),
+                character: null,
+              })
+            ),
             entities: entities.map(
               (e): Entity => ({
                 id: e.documentId,
                 position: e.position,
-                stats: e.stats as unknown as EntityStats, // Mapped to Engine EntityStats (long names)
-                type: e.type as Entity['type'],
+                stats: e.stats as EntityStats, // Validated on write
+                type: (['player', 'npc', 'monster', 'object'].includes(e.type) ? e.type : 'monster') as Entity['type'],
                 name: e.name,
                 hp: e.currentHp,
                 maxHp: e.maxHp,
-                ac: 10,
-                speed: 30,
+                ac: e.ac || 10,
+                speed: e.speed || 30,
                 actions: [],
                 features: [],
                 color: '#fff',
                 visionRadius: 10,
-                sheet: e as unknown as EntitySheet,
+                sheet: e as unknown as EntitySheet, // e is a Strapi EntitySheet, which mirrors Engine EntitySheet. Cast is safe(ish).
               })
             ),
-            map: { width: 100, height: 100, voxels: {} },
-          } as unknown as GameState;
+          };
 
           const dispatcher = new ActionDispatcher();
 
@@ -78,12 +120,12 @@ export const performActionTool = (context: StrapiContext) => {
             type: input.commandType,
             payload: parsedPayload,
             timestamp: Date.now(),
-          };
+          } as Command; // Explicit cast to Command Union
 
           // 4. Dispatch
           strapi.log.info(`[Tool:PerformAction] Dispatching ${input.commandType}`, parsedPayload);
 
-          const result = dispatcher.dispatch(state, command as Command);
+          const result = dispatcher.dispatch(state, command);
 
           // 5. Broadcast Events
           if (result.events.length > 0) {

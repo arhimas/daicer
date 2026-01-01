@@ -18,6 +18,18 @@ interface Strapi {
   };
 }
 
+interface RoomWithWorld {
+  world: Record<string, unknown>;
+  code?: string;
+}
+
+interface RoomWithSheets {
+  entity_sheets?: {
+    documentId: string;
+    position: Coordinates;
+  }[];
+}
+
 const getWorldGenerator = async (strapi: Strapi, roomDocumentId: string) => {
   const room = await strapi.documents('api::room.room').findOne({
     documentId: roomDocumentId,
@@ -26,11 +38,11 @@ const getWorldGenerator = async (strapi: Strapi, roomDocumentId: string) => {
 
   if (!room) throw new Error('Room not found');
 
-  const world = (room as { world: Record<string, unknown> }).world || {};
+  const world = (room as RoomWithWorld).world || {};
 
   const config = {
     ...DEFAULT_WORLD_CONFIG,
-    seed: ((room as { code?: string }).code as string) || (world.seed as string) || 'default_seed',
+    seed: ((room as RoomWithWorld).code as string) || (world.seed as string) || 'default_seed',
   };
 
   return new WorldGenerator(config);
@@ -120,11 +132,10 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
       entities: {} as Record<string, Coordinates>,
     };
 
-    if (room && (room as { entity_sheets?: unknown[] }).entity_sheets) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (room as { entity_sheets: any[] }).entity_sheets.forEach((c: any) => {
+    if (room && (room as RoomWithSheets).entity_sheets) {
+      (room as RoomWithSheets).entity_sheets!.forEach((c) => {
         // Use documentId as the stable public ID
-        const key = c.documentId || String(c.id);
+        const key = c.documentId;
         state.entities[key] = c.position;
       });
     }
