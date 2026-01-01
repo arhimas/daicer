@@ -81,7 +81,7 @@ export default function EntitySheetPanel({ player, onClose }: EntitySheetPanelPr
   }, [onClose, player]);
 
   if (!player?.character) return null;
-  const character = player.character as EntitySheet;
+  const character = player.character as unknown as EntitySheet;
   const { attributes } = character;
   const skillDetails = character.skillDetails ?? [];
 

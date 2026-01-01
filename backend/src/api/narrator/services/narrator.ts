@@ -53,7 +53,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
       filters: {
         $or: [{ documentId: roomId }, { roomId: roomId }],
       },
-      populate: ['character_sheets'],
+      populate: ['entity_sheets'],
     });
     const room = rooms[0];
     if (!room) throw new Error(`Room not found for ID: ${roomId}`);

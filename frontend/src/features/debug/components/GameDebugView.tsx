@@ -49,18 +49,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
   useEffect(() => {
     // Union of possible source types (Player, Creature, EntitySheet)
     // We treat them as generic objects with common fields for mapping
-    let sourceData: Array<{
-      id?: string;
-      documentId?: string;
-      name?: string;
-      type?: string;
-      position?: { x: number; y: number; z: number };
-      speed?: number | string | Record<string, string>;
-      currentHp?: number;
-      maxHp?: number;
-      // Add missing props to satisfy loose downstream usage if needed, or fix downstream
-      [key: string]: unknown;
-    }> = [];
+    let sourceData: any[] = [];
 
     if (isLive) {
       if (socketCreatures && socketCreatures.length > 0) {

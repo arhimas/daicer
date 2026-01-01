@@ -127,7 +127,10 @@ export function LobbyScreen({
                       </div>
                       {playerHasChar ? (
                         <p className="text-xs text-shadow-400 truncate">
-                          Level {player.character?.level} {player.character?.race} {player.character?.characterClass}
+                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                          Level {(player.character as any)?.level || 1}{' '}
+                          {(player.character as any)?.race?.name || (player.character as any)?.race}{' '}
+                          {(player.character as any)?.class?.name || (player.character as any)?.characterClass}
                         </p>
                       ) : (
                         <p className="text-xs text-shadow-500 italic">Creating character...</p>

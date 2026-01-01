@@ -138,9 +138,9 @@ export function RoomSettingsTab({ room, onLeave, asModal = false }: RoomSettings
 
       {/* World Context */}
       {(room.worldDescription ||
-        room.worldHistory ||
-        room.settings?.worldBackground ||
-        room.settings?.dmSystemPrompt) && (
+        !!room.worldHistory ||
+        !!room.settings?.worldBackground ||
+        !!room.settings?.dmSystemPrompt) && (
         <Card className="border-accent/30 bg-gradient-to-br from-midnight-900/70 via-midnight-800/60 to-midnight-700/60">
           <CardHeader>
             <CardTitle className="text-xl text-white">World Context</CardTitle>
@@ -152,7 +152,7 @@ export function RoomSettingsTab({ room, onLeave, asModal = false }: RoomSettings
                 <dd className="mt-1 whitespace-pre-wrap text-sm text-white/90">{room.worldDescription}</dd>
               </div>
             )}
-            {room.worldHistory && (
+            {!!room.worldHistory && (
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">History</dt>
                 <dd className="mt-1 whitespace-pre-wrap text-sm text-white/90">
@@ -191,24 +191,26 @@ export function RoomSettingsTab({ room, onLeave, asModal = false }: RoomSettings
                 <dd className="mt-1 font-mono text-sm text-accent">{room.settings.seed}</dd>
               </div>
 
-              {room.settings.generationParams?.seaLevel !== undefined && (
+              {(room.settings.generationParams as any)?.seaLevel !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Sea Level</dt>
-                  <dd className="mt-1 text-sm text-white">{room.settings.generationParams.seaLevel.toFixed(2)}</dd>
-                </div>
-              )}
-              {room.settings.generationParams?.temperatureOffset !== undefined && (
-                <div>
-                  <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Temp Offset</dt>
                   <dd className="mt-1 text-sm text-white">
-                    {room.settings.generationParams.temperatureOffset.toFixed(2)}
+                    {(room.settings.generationParams as any).seaLevel.toFixed(2)}
                   </dd>
                 </div>
               )}
-              {room.settings.generationParams?.fogRadius !== undefined && (
+              {(room.settings.generationParams as any)?.temperatureOffset !== undefined && (
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Temp Offset</dt>
+                  <dd className="mt-1 text-sm text-white">
+                    {(room.settings.generationParams as any).temperatureOffset.toFixed(2)}
+                  </dd>
+                </div>
+              )}
+              {(room.settings.generationParams as any)?.fogRadius !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Fog Radius</dt>
-                  <dd className="mt-1 text-sm text-white">{room.settings.generationParams.fogRadius}</dd>
+                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).fogRadius}</dd>
                 </div>
               )}
             </dl>
@@ -224,22 +226,22 @@ export function RoomSettingsTab({ room, onLeave, asModal = false }: RoomSettings
           </CardHeader>
           <CardContent>
             <dl className="grid gap-3 sm:grid-cols-2">
-              {room.settings.generationParams?.chunkSize !== undefined && (
+              {(room.settings.generationParams as any)?.chunkSize !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Chunk Size</dt>
-                  <dd className="mt-1 text-sm text-white">{room.settings.generationParams.chunkSize}</dd>
+                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).chunkSize}</dd>
                 </div>
               )}
-              {room.settings.generationParams?.structureChance !== undefined && (
+              {(room.settings.generationParams as any)?.structureChance !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Struct Chance</dt>
-                  <dd className="mt-1 text-sm text-white">{room.settings.generationParams.structureChance}</dd>
+                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).structureChance}</dd>
                 </div>
               )}
-              {room.settings.generationParams?.roadDensity !== undefined && (
+              {(room.settings.generationParams as any)?.roadDensity !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Road Density</dt>
-                  <dd className="mt-1 text-sm text-white">{room.settings.generationParams.roadDensity}</dd>
+                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).roadDensity}</dd>
                 </div>
               )}
             </dl>

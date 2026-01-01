@@ -89,7 +89,7 @@ export default function OpenedRoomPage() {
 
       // If room has generation events, restore them to streamEvents
       if (socket.room.generationEvents && streamEvents.length === 0) {
-        setStreamEvents(socket.room.generationEvents);
+        setStreamEvents((socket.room.generationEvents as any[]) || []);
       }
 
       // Auto-navigate to gameplay when room phase changes to GAMEPLAY

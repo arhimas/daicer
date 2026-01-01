@@ -13,13 +13,13 @@ export default ({ strapi }) => ({
       populate: [
         'players',
         'players.character',
-        'character_sheets',
-        'character_sheets.monster',
-        'character_sheets.monster.structuredActions',
-        'character_sheets.monster.features',
-        'character_sheets.character',
-        'character_sheets.character.baseStats',
-        'character_sheets.position', // Critical for correct entity placement
+        'entity_sheets',
+        'entity_sheets.monster',
+        'entity_sheets.monster.structuredActions',
+        'entity_sheets.monster.features',
+        'entity_sheets.character',
+        'entity_sheets.character.baseStats',
+        'entity_sheets.position', // Critical for correct entity placement
       ],
     });
 
@@ -29,7 +29,7 @@ export default ({ strapi }) => ({
     // This is a partial mapping for now
     // Adapt Entities
     const entityAdapter = strapi.service('api::game.entity-adapter');
-    const unifiedEntities = (room.character_sheets || []).map((s) => entityAdapter.adapt(s));
+    const unifiedEntities = (room.entity_sheets || []).map((s) => entityAdapter.adapt(s));
 
     const initialState: GameState = {
       room: { id: room.documentId, ...room },

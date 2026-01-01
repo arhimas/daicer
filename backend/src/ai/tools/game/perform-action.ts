@@ -27,13 +27,13 @@ export const performActionTool = (context: StrapiContext) => {
           // 1. Load Room State
           const roomRaw = await strapi.documents('api::room.room').findOne({
             documentId: roomDocumentId,
-            populate: ['character_sheets'],
+            populate: ['entity_sheets'],
           });
 
           if (!roomRaw) throw new Error(`Room ${roomDocumentId} not found`);
 
           const room = roomRaw as unknown as RoomWithPopulations;
-          const entities = room.character_sheets || [];
+          const entities = room.entity_sheets || [];
 
           // 2. Initialize Dispatcher with Room State
           const state = {

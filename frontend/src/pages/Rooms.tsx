@@ -272,7 +272,8 @@ export default function RoomsPage() {
                             {t('rooms.character.identity')}
                           </span>
                           <span className="font-semibold text-shadow-50">
-                            {player.character.class?.name || 'Unknown Class'}
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {(player.character.class as any)?.name || 'Unknown Class'}
                           </span>
                         </div>
                         {/* Level removed from Character schema, hiding for now or defaulted */}

@@ -93,7 +93,9 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
                           {p.character?.name || p.name}
                         </div>
                         <div className="text-xs text-midnight-400 truncate">
-                          {p.character?.race} {p.character?.characterClass}
+                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                          {(p.character as any)?.race?.name || (p.character as any)?.race}{' '}
+                          {(p.character as any)?.class?.name || (p.character as any)?.characterClass}
                         </div>
                       </div>
                     </div>
@@ -245,14 +247,18 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
                     </h2>
                     <div className="flex gap-2 items-center text-midnight-300">
                       <Badge variant="outline" className="border-midnight-500 text-midnight-300">
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {'role' in selectedEntity
-                          ? selectedEntity.character?.race || selectedEntity.character?.characterClass
+                          ? (selectedEntity.character as any)?.race?.name ||
+                            (selectedEntity.character as any)?.race ||
+                            (selectedEntity.character as any)?.class?.name ||
+                            (selectedEntity.character as any)?.characterClass
                           : selectedEntity.sheet?.race || selectedEntity.sheet?.characterClass}
                       </Badge>
                       <span>
-                        Level{' '}
+                        Level {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {'role' in selectedEntity
-                          ? selectedEntity.character?.level || 1
+                          ? (selectedEntity.character as any)?.level || 1
                           : selectedEntity.sheet?.level || 1}
                       </span>
                     </div>
@@ -262,13 +268,15 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
                       HP:{' '}
                       {'hp' in selectedEntity
                         ? `${selectedEntity.hp}/${selectedEntity.maxHp}`
-                        : `${(selectedEntity as Player).character?.hp || '?'}/${(selectedEntity as Player).character?.maxHp || '?'}`}
+                        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          `${((selectedEntity as Player).character as any)?.hp || '?'}/${((selectedEntity as Player).character as any)?.maxHp || '?'}`}
                     </div>
                     <div className="text-sm text-midnight-400">
                       AC:{' '}
                       {'ac' in selectedEntity
                         ? selectedEntity.ac
-                        : (selectedEntity as Player).character?.armorClass || '?'}
+                        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          ((selectedEntity as Player).character as any)?.armorClass || '?'}
                     </div>
                   </div>
                 </div>
@@ -277,7 +285,11 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
               {/* Content */}
               <ScrollArea className="flex-1 p-6">
                 <SheetView
-                  sheet={'role' in selectedEntity ? (selectedEntity.character as EntitySheet) : selectedEntity.sheet}
+                  sheet={
+                    'role' in selectedEntity
+                      ? (selectedEntity.character as unknown as EntitySheet)
+                      : selectedEntity.sheet
+                  }
                 />
               </ScrollArea>
             </div>

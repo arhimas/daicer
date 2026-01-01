@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { AgentToolPalette } from './AgentToolPalette';
-import { DebugEntity, Coordinates } from '../utils/types';
+import { DebugEntity } from '../utils/types';
 
 interface GameDebugInspectorProps {
   activeTab: 'inspector' | 'tools';
@@ -20,7 +20,6 @@ export const GameDebugInspector: React.FC<GameDebugInspectorProps> = ({
   setActiveTab,
   isLive,
   entities,
-  activeEntityId,
   setActiveEntityId,
   activeEntity,
   activeLocation,

@@ -39,7 +39,7 @@ export default ({ strapi }) => ({
     // Logic:
     const roomRaw = await strapi.documents('api::room.room').findOne({
       documentId: roomDocumentId,
-      populate: ['character_sheets', 'character_sheets.position'],
+      populate: ['entity_sheets', 'entity_sheets.position'],
     });
 
     if (!roomRaw) return;
@@ -47,7 +47,7 @@ export default ({ strapi }) => ({
     const room = roomRaw as unknown as RoomWithPopulations;
 
     // Format
-    const entities = (room.character_sheets || []).map((sheet) => ({
+    const entities = (room.entity_sheets || []).map((sheet) => ({
       id: sheet.documentId,
       name: sheet.name,
       type: sheet.type || 'monster',

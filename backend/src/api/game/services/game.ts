@@ -198,7 +198,7 @@ export default ({ strapi }) => ({
         'players.character.baseStats',
         'world',
         'dmSettings',
-        'character_sheets',
+        'entity_sheets',
       ],
     });
 
@@ -210,7 +210,7 @@ export default ({ strapi }) => ({
       world: unknown;
       dmSettings: unknown;
       players: Player[];
-      character_sheets: unknown[];
+      entity_sheets: unknown[];
       documentId: string;
       roomId: string; // Rune
     };
@@ -239,15 +239,15 @@ export default ({ strapi }) => ({
     // 1b. Generate Private Openings (Parallel)
     const privateOpeningsPromises = roomPlayers.map(async (p) => {
       // Find character sheet for this player
-      // We assume one sheet per player in 'character_sheets' linked to 'players'?
+      // We assume one sheet per player in 'entity_sheets' linked to 'players'?
       // Or we check 'p.characterSheet' if it was populated?
       // startGame didn't populate p.characterSheet component specifically,
       // but p.character is there.
-      // Wait, 'character_sheets' relation on Room contains all sheets.
+      // Wait, 'entity_sheets' relation on Room contains all sheets.
       // We need to match player to sheet.
       // Player component has 'character' (Asset) and 'characterSheet' (Instance).
       // We need to fetch 'characterSheet' relation for each player to get details like backstory if not fully loaded.
-      // Actually 'character_sheets' on room is a list. We can find the one where sheet.name == p.name? Reliable? NO.
+      // Actually 'entity_sheets' on room is a list. We can find the one where sheet.name == p.name? Reliable? NO.
       // Better: Use `p.characterSheet` ID if available on player component.
       // We need to populate 'players.characterSheet' in startGame then.
 
@@ -256,7 +256,7 @@ export default ({ strapi }) => ({
       if (!pSheetId) return null; // Skip if no sheet
 
       // We need the full sheet data for generation
-      const sheet = ((room.character_sheets as Record<string, unknown>[]) || []).find(
+      const sheet = ((room.entity_sheets as Record<string, unknown>[]) || []).find(
         (s) => s.documentId === pSheetId
       ) as unknown;
       if (!sheet) return null;
@@ -300,7 +300,7 @@ export default ({ strapi }) => ({
     // Needs sheets populated
     const roomWithSheets = await strapi.documents('api::room.room').findOne({
       documentId: room.documentId,
-      populate: ['character_sheets', 'character_sheets.position'],
+      populate: ['entity_sheets', 'entity_sheets.position'],
     });
 
     // Use extracted helper via service or duplicate?
@@ -310,7 +310,7 @@ export default ({ strapi }) => ({
     // Actually, I put `createSnapshot` inside the export of `character-lifecycle`. Using it now:
     const snapshot = strapi
       .service('api::game.character-lifecycle')
-      .createSnapshot(roomWithSheets?.character_sheets || []);
+      .createSnapshot(roomWithSheets?.entity_sheets || []);
 
     const turn0 = await strapi.documents('api::turn.turn').create({
       data: {
@@ -385,13 +385,7 @@ export default ({ strapi }) => ({
   async getRoom(roomId: string) {
     const rooms = await strapi.documents('api::room.room').findMany({
       filters: { $or: [{ roomId }, { documentId: roomId }, { code: roomId }] },
-      populate: [
-        'players',
-        'players.character',
-        'players.characterSheet',
-        'character_sheets',
-        'character_sheets.position',
-      ],
+      populate: ['players', 'players.character', 'players.characterSheet', 'entity_sheets', 'entity_sheets.position'],
     });
 
     if (!rooms || rooms.length === 0) return null;
@@ -400,7 +394,7 @@ export default ({ strapi }) => ({
 
     // Explicitly format/map if needed, or return raw.
     // Frontend `getRoomState` in api.ts expects raw and maps it?
-    // If I return raw 'character_sheets', frontend api.ts needs to map it to 'entities'.
+    // If I return raw 'entity_sheets', frontend api.ts needs to map it to 'entities'.
     return room;
   },
   async executeEngineAction(roomId: string, actions: unknown[], user: unknown) {

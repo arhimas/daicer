@@ -37,7 +37,7 @@ export function CombatScreen({ roomId, players = [] }: CombatScreenProps) {
     const normalizedName = selectedCharacter.name.trim().toLowerCase();
     const matchingPlayer = players.find((player) => player.character?.name.trim().toLowerCase() === normalizedName);
 
-    return matchingPlayer?.character ?? null;
+    return (matchingPlayer?.character as unknown as EntitySheet) ?? null;
   }, [players, selectedCharacter]);
 
   // Calculate reachable squares for movement

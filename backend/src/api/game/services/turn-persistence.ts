@@ -29,7 +29,7 @@ export default ({ strapi }) => ({
     // 1. Fetch Room with Character Sheets for Snapshot
     const roomWithSheets = await strapi.documents('api::room.room').findOne({
       documentId: roomId,
-      populate: ['character_sheets'],
+      populate: ['entity_sheets'],
     });
 
     if (!roomWithSheets) throw new Error('Room not found for persistence');
@@ -39,7 +39,7 @@ export default ({ strapi }) => ({
       filters: { room: { documentId: roomWithSheets.documentId } },
     });
 
-    const snapshot = createSnapshot(roomWithSheets.character_sheets || []);
+    const snapshot = createSnapshot(roomWithSheets.entity_sheets || []);
 
     // 3. Create Turn Entity
     const newTurn = await strapi.documents('api::turn.turn').create({

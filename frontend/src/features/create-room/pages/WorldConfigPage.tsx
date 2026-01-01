@@ -16,19 +16,19 @@ export default function WorldConfigPage() {
 
   const config: WorldConfig = {
     seed: settings.seed || 'default-seed',
-    chunkSize: settings.generationParams?.chunkSize ?? 32,
-    globalScale: settings.generationParams?.globalScale ?? 0.01,
-    seaLevel: settings.generationParams?.seaLevel ?? 0,
-    elevationScale: settings.generationParams?.elevationScale ?? 1,
-    roughness: settings.generationParams?.roughness ?? 0.5,
-    detail: settings.generationParams?.detail ?? 4,
-    moistureScale: settings.generationParams?.moistureScale ?? 1,
-    temperatureOffset: settings.generationParams?.temperatureOffset ?? 0,
-    structureChance: settings.generationParams?.structureChance ?? 0.1,
-    structureSpacing: settings.generationParams?.structureSpacing ?? 10,
-    structureSizeAvg: settings.generationParams?.structureSizeAvg ?? 10,
-    roadDensity: settings.generationParams?.roadDensity ?? 0.5,
-    fogRadius: settings.generationParams?.fogRadius ?? 10,
+    chunkSize: (settings.generationParams as any)?.chunkSize ?? 32,
+    globalScale: (settings.generationParams as any)?.globalScale ?? 0.01,
+    seaLevel: (settings.generationParams as any)?.seaLevel ?? 0,
+    elevationScale: (settings.generationParams as any)?.elevationScale ?? 1,
+    roughness: (settings.generationParams as any)?.roughness ?? 0.5,
+    detail: (settings.generationParams as any)?.detail ?? 4,
+    moistureScale: (settings.generationParams as any)?.moistureScale ?? 1,
+    temperatureOffset: (settings.generationParams as any)?.temperatureOffset ?? 0,
+    structureChance: (settings.generationParams as any)?.structureChance ?? 0.1,
+    structureSpacing: (settings.generationParams as any)?.structureSpacing ?? 10,
+    structureSizeAvg: (settings.generationParams as any)?.structureSizeAvg ?? 10,
+    roadDensity: (settings.generationParams as any)?.roadDensity ?? 0.5,
+    fogRadius: (settings.generationParams as any)?.fogRadius ?? 10,
   };
 
   const handleConfigChange = (newConfig: WorldConfig) => {

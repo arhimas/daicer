@@ -35,7 +35,7 @@ export function RoomSelection({ onSelect, onCreate }: RoomSelectionProps) {
       difficulty?: string;
     };
     players?: unknown[];
-    character_sheets?: unknown[];
+    entity_sheets?: unknown[];
     createdAt?: string;
   }
 
@@ -108,7 +108,7 @@ export function RoomSelection({ onSelect, onCreate }: RoomSelectionProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <ScrollText className="w-4 h-4" />
-                  <span>{room.character_sheets?.length || 0} Sheets</span>
+                  <span>{room.entity_sheets?.length || 0} Sheets</span>
                 </div>
                 <div className="flex items-center gap-2 col-span-2">
                   <Calendar className="w-4 h-4" />

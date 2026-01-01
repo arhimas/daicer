@@ -115,9 +115,9 @@ export async function getRoomState(roomId: string): Promise<Room> {
     mappedRoom = {
       ...(r as unknown as Record<string, unknown>), // Cast to avoid strict type mismatch with partial GraphQL response
       players: mappedPlayers,
-      // Map character_sheets (from REST/GraphQL) to generic entities
+      // Map entity_sheets (from REST/GraphQL) to generic entities
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      entities: (r?.character_sheets || []).map((s: any) => ({
+      entities: (r?.entity_sheets || []).map((s: any) => ({
         id: s.documentId,
         name: s.name,
         type: s.type || 'monster',

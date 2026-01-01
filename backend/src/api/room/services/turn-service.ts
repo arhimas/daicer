@@ -96,10 +96,10 @@ DESCRIPTION: ${room.worldDescription || ''}
 `;
 
     // 2. Character Context (Simplified)
-    // Access pre-populated character_sheets from room
+    // Access pre-populated entity_sheets from room
 
     const charContext =
-      ((room.character_sheets as Record<string, unknown>[]) || [])
+      ((room.entity_sheets as Record<string, unknown>[]) || [])
         ?.map((cs) => {
           const char = cs.character as Record<string, unknown>; // blueprint
           const race = char?.race as Record<string, unknown>;

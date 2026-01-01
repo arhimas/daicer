@@ -42,7 +42,7 @@ export interface RoomWithPopulations {
       class: unknown;
     };
   }>;
-  character_sheets?: Array<{
+  entity_sheets?: Array<{
     documentId: string;
     name: string;
     type: string;

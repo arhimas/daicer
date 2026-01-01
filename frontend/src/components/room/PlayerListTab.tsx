@@ -33,9 +33,13 @@ export function PlayerListTab({ players, currentUserId, asModal = false }: Playe
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-midnight-700" />
                     <div>
-                      <p className="font-semibold text-white">{p.character?.name || 'No character'}</p>
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      <p className="font-semibold text-white">{(p.character as any)?.name || 'No character'}</p>
                       <p className="text-xs text-shadow-400">
-                        {p.character?.characterClass || 'Not created'} • Level {p.character?.level || 1}
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {(p.character as any)?.class?.name || (p.character as any)?.characterClass || 'Not created'} •
+                        Level {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {(p.character as any)?.level || 1}
                       </p>
                     </div>
                   </div>
@@ -67,9 +71,15 @@ export function PlayerListTab({ players, currentUserId, asModal = false }: Playe
                     {p.character?.name?.[0] || '?'}
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold text-white">{p.character?.name || 'Unknown'}</p>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <p className="font-semibold text-white">{(p.character as any)?.name || 'Unknown'}</p>
                     <p className="text-sm text-shadow-400">
-                      {p.character?.race} {p.character?.characterClass} • Level {p.character?.level || 1}
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      {(p.character as any)?.race?.name || (p.character as any)?.race || ''}{' '}
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      {(p.character as any)?.class?.name || (p.character as any)?.characterClass || ''} • Level{' '}
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      {(p.character as any)?.level || 1}
                     </p>
                   </div>
                   {p.isReady && (

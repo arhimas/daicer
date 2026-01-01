@@ -31,7 +31,7 @@ export const getMapImageTool = (context: StrapiContext) =>
         // Fetch Room Data
         const roomRaw = await strapi.documents('api::room.room').findOne({
           documentId: roomDocumentId,
-          populate: ['character_sheets'],
+          populate: ['entity_sheets'],
         });
 
         if (!roomRaw) throw new Error('Room not found.');
@@ -57,7 +57,7 @@ export const getMapImageTool = (context: StrapiContext) =>
         if (!chunk) throw new Error('Failed to load map chunk.');
 
         // Map sheets to creatures
-        const creatures = (room.character_sheets || []).map((cs) => ({
+        const creatures = (room.entity_sheets || []).map((cs) => ({
           id: cs.documentId,
           name: cs.name,
           type: (cs.type || 'monster') as unknown as Creature['type'],

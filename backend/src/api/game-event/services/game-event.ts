@@ -112,7 +112,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
     // Fetch room to get initial state
     const room = await strapi.documents('api::room.room').findOne({
       documentId: roomDocumentId,
-      populate: ['character_sheets'],
+      populate: ['entity_sheets'],
     });
 
     // Default State
@@ -120,9 +120,9 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
       entities: {} as Record<string, Coordinates>,
     };
 
-    if (room && (room as { character_sheets?: unknown[] }).character_sheets) {
+    if (room && (room as { entity_sheets?: unknown[] }).entity_sheets) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (room as { character_sheets: any[] }).character_sheets.forEach((c: any) => {
+      (room as { entity_sheets: any[] }).entity_sheets.forEach((c: any) => {
         // Use documentId as the stable public ID
         const key = c.documentId || String(c.id);
         state.entities[key] = c.position;

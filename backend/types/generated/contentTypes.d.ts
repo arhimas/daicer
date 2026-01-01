@@ -1162,12 +1162,12 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    character_sheets: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'>;
     code: Schema.Attribute.String & Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     currentTimeFrame: Schema.Attribute.Relation<'oneToOne', 'api::time-frame.time-frame'>;
     dmSettings: Schema.Attribute.Relation<'oneToOne', 'api::dm-setting.dm-setting'>;
+    entity_sheets: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'>;
     events: Schema.Attribute.Relation<'oneToMany', 'api::game-event.game-event'>;
     exploredTiles: Schema.Attribute.JSON;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;

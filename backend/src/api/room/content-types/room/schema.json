@@ -53,7 +53,7 @@
       "type": "string",
       "unique": true
     },
-    "character_sheets": {
+    "entity_sheets": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::entity-sheet.entity-sheet",

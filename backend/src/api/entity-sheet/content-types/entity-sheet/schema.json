@@ -38,7 +38,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::room.room",
-      "inversedBy": "character_sheets"
+      "inversedBy": "entity_sheets"
     },
     "currentHp": {
       "type": "integer"

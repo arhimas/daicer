@@ -66,22 +66,22 @@ export default ({ strapi }) => ({
         const roomEntity = await strapi.documents('api::room.room').findOne({
           documentId: roomId,
           populate: [
-            'character_sheets',
-            'character_sheets.monster',
-            'character_sheets.character',
-            'character_sheets.character.baseStats',
+            'entity_sheets',
+            'entity_sheets.monster',
+            'entity_sheets.character',
+            'entity_sheets.character.baseStats',
           ], // Populate Blueprint for Adapter
         });
 
         const exploredTiles = new Set<string>((roomEntity?.exploredTiles as string[]) || []);
 
         // Calculate center based on first player or default
-        const firstPlayerSheet = (roomEntity.character_sheets as unknown as Record<string, unknown>[])?.[0];
+        const firstPlayerSheet = (roomEntity.entity_sheets as unknown as Record<string, unknown>[])?.[0];
         const center = (firstPlayerSheet?.position as { x: number; y: number; z: number }) || { x: 0, y: 0, z: 0 };
 
         // Re-construct players list with updated positions for visualization
         // Unify all sheets (players + monsters)
-        const updatedEntities = ((roomEntity.character_sheets as Record<string, unknown>[]) || []).map((s) => ({
+        const updatedEntities = ((roomEntity.entity_sheets as Record<string, unknown>[]) || []).map((s) => ({
           id: s.documentId,
           name: s.name,
           position: s.position,
@@ -137,15 +137,15 @@ export default ({ strapi }) => ({
         await strapi.documents('api::room.room').findOne({
           documentId: roomId,
           populate: [
-            'character_sheets',
-            'character_sheets.monster',
-            'character_sheets.monster.structuredActions',
-            'character_sheets.monster.features',
-            'character_sheets.character',
-            'character_sheets.character.baseStats',
+            'entity_sheets',
+            'entity_sheets.monster',
+            'entity_sheets.monster.structuredActions',
+            'entity_sheets.monster.features',
+            'entity_sheets.character',
+            'entity_sheets.character.baseStats',
           ],
         })
-      ).character_sheets as unknown[]) || [];
+      ).entity_sheets as unknown[]) || [];
 
     // Use Adapter
     const unifiedEntities = allSheets.map((s) => entityAdapter.adapt(s));
@@ -248,7 +248,7 @@ export default ({ strapi }) => ({
     // 1. Fetch Room
     const room = await strapi.documents('api::room.room').findOne({
       documentId: roomId,
-      populate: ['character_sheets'],
+      populate: ['entity_sheets'],
     });
 
     if (!room) throw new Error('Room not found');
@@ -258,7 +258,7 @@ export default ({ strapi }) => ({
     const movedEntityIds = new Set<string>();
 
     const allEntities = [
-      ...(room.character_sheets || []).map((s: Record<string, unknown>) => ({
+      ...(room.entity_sheets || []).map((s: Record<string, unknown>) => ({
         id: s.documentId || s.id,
         pos: s.position,
       })),
@@ -281,7 +281,7 @@ export default ({ strapi }) => ({
       const action = rawAction as AnyAction;
 
       if (action.type === 'move') {
-        const sheet = room.character_sheets?.find(
+        const sheet = room.entity_sheets?.find(
           (s: Record<string, unknown>) => s.documentId === action.entityId || s.id === action.entityId
         );
 
@@ -396,7 +396,7 @@ export default ({ strapi }) => ({
     // Broadcast generic entities update for moved/spawned things
     // We'd ideally want the fresh sheets from `persistenceResult.room` (if we returned it with populated sheets)
     // persistTurn refetches room with sheets, so we can use that.
-    const updatedSheets = persistenceResult.room.character_sheets || [];
+    const updatedSheets = persistenceResult.room.entity_sheets || [];
     const updatedEntities = updatedSheets.map((cs: Record<string, unknown>) => ({
       id: cs.documentId,
       position: cs.position,

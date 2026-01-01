@@ -7,7 +7,7 @@ export const GET_ROOM_QUERY = gql`
       roomId
       code
       phase
-      character_sheets {
+      entity_sheets {
         documentId
         name
         type
@@ -155,7 +155,7 @@ export const LIST_ROOMS_QUERY = gql`
         setting
         difficulty
       }
-      character_sheets {
+      entity_sheets {
         documentId
       }
       players {
@@ -166,6 +166,10 @@ export const LIST_ROOMS_QUERY = gql`
         character {
           documentId
           name
+          backstory
+          portrait {
+            url
+          }
           race {
             name
           }

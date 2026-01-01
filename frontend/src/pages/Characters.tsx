@@ -32,7 +32,7 @@ export default function CharactersPage() {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
 
   const sortedCharacters = useMemo(
-    () => [...state.characters].sort((a, b) => (b.character?.level || 0) - (a.character?.level || 0)),
+    () => [...state.characters].sort((a, b) => (a.character?.name || '').localeCompare(b.character?.name || '')),
     [state.characters]
   );
 
@@ -47,7 +47,7 @@ export default function CharactersPage() {
       for (const membership of memberships) {
         if (membership.player && membership.room) {
           characters.push({
-            character: membership.player.character!, // Filter ensures this? Actually no, need to be safe
+            character: membership.player.character,
             player: membership.player,
             roomId: membership.room.id,
             roomCode: membership.room.code,
@@ -55,7 +55,7 @@ export default function CharactersPage() {
           });
         }
       }
-      const validCharacters = characters.filter((c) => c.character !== null);
+      const validCharacters = characters.filter((c) => c.character !== null && c.character !== undefined);
       setState({ characters: validCharacters, loading: false, error: null });
     } catch (error) {
       setState({
@@ -132,6 +132,14 @@ export default function CharactersPage() {
               const phaseKey = `rooms.phases.${roomPhase}`;
               const phaseLabel = t(phaseKey);
 
+              // Safe accessors with defaults
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const raceName = (character?.race as any)?.name || 'Unknown Race';
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const className = (character?.class as any)?.name || 'Unknown Class';
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const portraitUrl = (character?.portrait as any)?.url;
+
               return (
                 <article
                   key={player.id}
@@ -139,10 +147,10 @@ export default function CharactersPage() {
                 >
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                     <div className="flex gap-4">
-                      {character?.avatarAssets?.publicUrl ? (
+                      {portraitUrl ? (
                         <img
-                          src={character.avatarAssets.publicUrl}
-                          alt={`${character.name} portrait`}
+                          src={portraitUrl}
+                          alt={`${character?.name} portrait`}
                           className="h-24 w-24 flex-shrink-0 rounded-xl border border-aurora-400/40 object-cover shadow-lg"
                         />
                       ) : (
@@ -155,19 +163,13 @@ export default function CharactersPage() {
                         <div>
                           <h3 className="text-2xl font-bold text-shadow-50">{character?.name}</h3>
                           <p className="text-base text-shadow-300">
-                            {character?.race} • {character?.characterClass}
+                            {raceName} • {className}
                           </p>
                         </div>
 
                         <div className="flex items-center gap-3 text-sm">
                           <span className="rounded-full border border-aurora-400/50 bg-aurora-500/10 px-2.5 py-0.5 font-semibold uppercase tracking-wider text-aurora-100">
-                            {t('characters.labels.level')} {character?.level}
-                          </span>
-                          <span className="text-shadow-400">
-                            {character?.hp}/{character?.maxHp} {t('common.hp')}
-                          </span>
-                          <span className="text-shadow-400">
-                            {t('common.ac')} {character?.armorClass}
+                            ID: {character?.documentId?.slice(0, 8)}
                           </span>
                         </div>
 
@@ -195,12 +197,16 @@ export default function CharactersPage() {
                     </div>
                   </div>
 
-                  {character?.backstory && (
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {!!(character as any)?.backstory && (
                     <div className="mt-4 rounded-2xl border border-shadow-700 bg-shadow-900/60 p-4">
                       <p className="text-xs uppercase tracking-wider text-shadow-500 mb-2">
                         {t('characters.labels.backstory')}
                       </p>
-                      <p className="text-sm leading-relaxed text-shadow-200 line-clamp-3">{character.backstory}</p>
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      <p className="text-sm leading-relaxed text-shadow-200 line-clamp-3">
+                        {(character as any).backstory}
+                      </p>
                     </div>
                   )}
                 </article>

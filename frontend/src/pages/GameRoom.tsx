@@ -146,7 +146,7 @@ export default function GameRoomPage() {
 
       // If room has generation events, restore them to streamEvents
       if (socket.room.generationEvents && streamEvents.length === 0 && socket.room.phase === GamePhase.SETUP) {
-        setStreamEvents(socket.room.generationEvents);
+        setStreamEvents((socket.room.generationEvents as any[]) || []);
       }
     }
     if (socket.players.length > 0) {
