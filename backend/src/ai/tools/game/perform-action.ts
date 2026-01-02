@@ -18,7 +18,7 @@ const PerformActionSchema = z.object({
   payload: z
     .string()
     .describe(
-      'JSON string payload matching the specific command schema in @daicer/engine. Example: "{"targetId": "..."}"'
+      'JSON string payload matching the specific command schema in @daicer/engine. REQUIRED: "actorId" for the entity acting. Example: "{"actorId": "...", "targetId": "..."}"'
     ),
 });
 
@@ -27,7 +27,7 @@ export const performActionTool = (context: StrapiContext) => {
     {
       name: 'perform_action',
       description:
-        'Dispatch a deterministic engine command. Types: ATTACK, SKILL_CHECK, CAST_SPELL, INTERACT, LONG_REST, MODIFY_TERRAIN. Payload must match engine schema.',
+        'Dispatch a deterministic engine command. Types: ATTACK, SKILL_CHECK, CAST_SPELL, INTERACT, LONG_REST, MODIFY_TERRAIN. Payload must match engine schema. ALWAYS use "actorId" for the acting entity.',
       schema: PerformActionSchema,
       func: async (input, ctx) => {
         try {
@@ -102,9 +102,14 @@ export const performActionTool = (context: StrapiContext) => {
           const dispatcher = new ActionDispatcher();
 
           // 3. Construct Command
-          let parsedPayload = {};
+          let parsedPayload: Record<string, any> = {};
           try {
             parsedPayload = typeof input.payload === 'string' ? JSON.parse(input.payload) : input.payload;
+
+            // Normalization: Map common LLM hallucinations to 'actorId'
+            if (parsedPayload.attackerId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.attackerId;
+            if (parsedPayload.casterId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.casterId;
+            if (parsedPayload.performerId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.performerId;
           } catch (e) {
             throw new Error(`Invalid JSON payload: ${e instanceof Error ? e.message : String(e)}`);
           }

@@ -50,6 +50,7 @@ describe('moveEntityTool', () => {
     expect(mockUpdate).toHaveBeenCalledWith({
       documentId: 'ent-1',
       data: { position: { x: 5, y: 5, z: 0 } },
+      status: 'published',
     });
     expect(mockLogEvent).toHaveBeenCalled();
     expect(mockBroadcast).toHaveBeenCalled();

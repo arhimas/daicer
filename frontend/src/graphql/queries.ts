@@ -26,6 +26,20 @@ export const GET_ROOM_QUERY = gql`
           burrowSpeed
           hover
         }
+        structuredActions {
+          id
+          name
+          type
+          description
+          toHit
+          reach
+          damage {
+            id
+            dice
+            bonus
+            type
+          }
+        }
       }
       players {
         id

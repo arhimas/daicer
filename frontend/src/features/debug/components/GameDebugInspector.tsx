@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 import { AgentToolPalette } from './AgentToolPalette';
 import { DebugEntity } from '../utils/types';

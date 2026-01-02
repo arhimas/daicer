@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Socket } from 'socket.io-client';
 import clsx from 'clsx';
 import { useChunkLoader } from '@/hooks/useChunkLoader';

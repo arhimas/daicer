@@ -35,10 +35,31 @@ export const listEntitiesTool = (context: StrapiContext) =>
         }
 
         const lines = entities.map((param) => {
-          const sheet = param as unknown as StrapiEntitySheet;
+          const sheet = param as unknown as StrapiEntitySheet & {
+            structuredActions?: Array<{
+              id: string;
+              name: string;
+              type: string;
+              damage?: Array<{ dice: string; type: string }>;
+            }>;
+          };
           const pos = sheet.position || { x: '?', y: '?', z: '?' };
           const hpStatus = `${sheet.currentHp}/${sheet.maxHp} HP`;
-          return `- [${sheet.type?.toUpperCase() || 'UNKNOWN'}] **${sheet.name}** (ID: ${sheet.documentId}) at (${pos.x}, ${pos.y}, ${pos.z}) | ${hpStatus}`;
+
+          // Format Actions
+          let actionsInfo = '';
+          if (sheet.structuredActions && sheet.structuredActions.length > 0) {
+            const actionList = sheet.structuredActions
+              .slice(0, 5) // Limit to top 5 to avoid context bloat
+              .map((a) => {
+                const dmg = a.damage ? ` (${a.damage.map((d) => d.dice).join('+')} ${a.damage[0]?.type})` : '';
+                return `[${a.type === 'spell' ? 'SPELL' : 'WEAPON'}: "${a.name}" (ID: ${a.id})${dmg}]`;
+              })
+              .join(', ');
+            actionsInfo = ` | Actions: ${actionList}`;
+          }
+
+          return `- [${sheet.type?.toUpperCase() || 'UNKNOWN'}] **${sheet.name}** (ID: ${sheet.documentId}) at (${pos.x}, ${pos.y}, ${pos.z}) | ${hpStatus}${actionsInfo}`;
         });
 
         return `Found ${entities.length} entities:\n${lines.join('\n')}`;
