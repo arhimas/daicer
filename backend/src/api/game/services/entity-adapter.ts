@@ -11,6 +11,7 @@ interface StrapiStats {
 }
 
 interface StrapiAction {
+  id?: string;
   name: string;
   type?: 'melee' | 'ranged' | 'spell' | 'utility';
   toHit?: number;
@@ -51,6 +52,7 @@ interface StrapiSheetInput {
   stats?: StrapiStats;
   character?: StrapiBlueprint;
   monster?: StrapiBlueprint;
+  structuredActions?: StrapiAction[];
   inventory?: StrapiItem[];
   position?: { x: number; y: number; z: number };
 }
@@ -96,10 +98,16 @@ export default () => ({
     }
 
     // Actions Resolution
+    // Actions Resolution
     const actions: EntityAction[] = [];
-    if (blueprint?.structuredActions) {
+
+    // Check Sheet Source (Primary) or Blueprint Source (Fallback)
+    const sourceActions = s.structuredActions || blueprint?.structuredActions;
+
+    if (sourceActions) {
       actions.push(
-        ...blueprint.structuredActions.map((a) => ({
+        ...sourceActions.map((a) => ({
+          id: a.id, // Ensure ID is preserved if available
           name: a.name,
           type: a.type || 'utility',
           toHit: a.toHit,

@@ -11,6 +11,7 @@ import {
   Player,
 } from '@daicer/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
+import EntityAdapter from '../../../api/game/services/entity-adapter';
 
 // Define Input Schema
 const PerformActionSchema = z.object({
@@ -36,12 +37,35 @@ export const performActionTool = (context: StrapiContext) => {
           // 1. Load Room State
           const roomRaw = await strapi.documents('api::room.room').findOne({
             documentId: roomDocumentId,
-            populate: ['entity_sheets', 'players', 'players.user', 'players.character'],
+            populate: {
+              entity_sheets: {
+                populate: {
+                  structuredActions: {
+                    populate: '*',
+                  },
+                  stats: true,
+                  inventory: true,
+                },
+              },
+              players: {
+                populate: {
+                  user: true,
+                  character: {
+                    populate: {
+                      structuredActions: { populate: '*' },
+                      baseStats: true,
+                      equipment: true,
+                    },
+                  },
+                },
+              },
+            },
           });
 
           if (!roomRaw) throw new Error(`Room ${roomDocumentId} not found`);
 
           const room = roomRaw as unknown as RoomWithPopulations;
+          const adapter = EntityAdapter();
           const entities = room.entity_sheets || [];
 
           // 2. Initialize Dispatcher with Room State
@@ -79,24 +103,7 @@ export const performActionTool = (context: StrapiContext) => {
                 character: null,
               })
             ),
-            entities: entities.map(
-              (e): Entity => ({
-                id: e.documentId,
-                position: e.position,
-                stats: e.stats as EntityStats, // Validated on write
-                type: (['player', 'npc', 'monster', 'object'].includes(e.type) ? e.type : 'monster') as Entity['type'],
-                name: e.name,
-                hp: e.currentHp,
-                maxHp: e.maxHp,
-                ac: e.ac || 10,
-                speed: e.speed || 30,
-                actions: [],
-                features: [],
-                color: '#fff',
-                visionRadius: 10,
-                sheet: e as unknown as EntitySheet, // e is a Strapi EntitySheet, which mirrors Engine EntitySheet. Cast is safe(ish).
-              })
-            ),
+            entities: entities.map((e) => adapter.adapt(e)),
           };
 
           const dispatcher = new ActionDispatcher();
@@ -154,7 +161,7 @@ export const performActionTool = (context: StrapiContext) => {
             trace: result.events.find((e) => e.type === 'ATTACK_RESULT' || e.type === 'SKILL_CHECK_RESULT')?.payload,
           };
         } catch (error) {
-          strapi.log.error(`[Tool:PerformAction] Engine Exception:`, error);
+          ctx.strapi.log.error(`[Tool:PerformAction] Engine Exception:`, error);
           return {
             success: false,
             message: `Engine Crash: ${error instanceof Error ? error.message : String(error)}`,

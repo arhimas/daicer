@@ -204,7 +204,7 @@ export class ActionDispatcher {
     // We need to find the action ID. Engine expects actionId.
     // Allow payload to optionally send full intent? For now, we reconstruct.
     let actionId: string | undefined = weaponId;
-    if (!actionId && actor.sheet.structuredActions.length > 0) {
+    if (!actionId && actor.sheet.structuredActions?.length > 0) {
       actionId = actor.sheet.structuredActions[0].id;
     }
 
