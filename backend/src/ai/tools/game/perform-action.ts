@@ -14,7 +14,7 @@ import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 
 // Define Input Schema
 const PerformActionSchema = z.object({
-  commandType: z.enum(['ATTACK', 'SKILL_CHECK', 'CAST_SPELL', 'INTERACT', 'LONG_REST', 'MODIFY_TERRAIN']),
+  commandType: z.enum(['ATTACK', 'SKILL_CHECK', 'CAST_SPELL', 'INTERACT', 'LONG_REST', 'MODIFY_TERRAIN', 'ROLL_SAVE']),
   payload: z
     .string()
     .describe(
@@ -110,6 +110,13 @@ export const performActionTool = (context: StrapiContext) => {
             if (parsedPayload.attackerId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.attackerId;
             if (parsedPayload.casterId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.casterId;
             if (parsedPayload.performerId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.performerId;
+
+            // Normalization: Map skill/stat/ability -> attribute (for SKILL_CHECK)
+            if (input.commandType === 'SKILL_CHECK' || input.commandType === 'ROLL_SAVE') {
+              if (parsedPayload.skill && !parsedPayload.attribute) parsedPayload.attribute = parsedPayload.skill;
+              if (parsedPayload.stat && !parsedPayload.attribute) parsedPayload.attribute = parsedPayload.stat;
+              if (parsedPayload.ability && !parsedPayload.attribute) parsedPayload.attribute = parsedPayload.ability;
+            }
           } catch (e) {
             throw new Error(`Invalid JSON payload: ${e instanceof Error ? e.message : String(e)}`);
           }

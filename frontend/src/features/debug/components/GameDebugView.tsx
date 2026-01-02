@@ -314,7 +314,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
 
         {/* COLUMN 3: GAME EVENTS (Middle-Right) - 20% Width - NEW */}
         <div className="w-[20%] min-w-[250px] flex flex-col">
-          <div className="flex-1 min-h-0">
+          <div className="flex-1 min-h-0 flex flex-col">
             {/* Dynamically imported to avoid circular deps if any, but regular import is fine */}
             {/* We need to import GameEventsPanel */}
             <GameEventsPanel events={gameEvents} />
