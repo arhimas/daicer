@@ -8,7 +8,7 @@
     "description": "Instance of an entity in a game room"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -17,13 +17,22 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["player", "monster", "npc"],
+      "enum": [
+        "player",
+        "monster",
+        "npc"
+      ],
       "default": "player"
     },
     "monster": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::monster.monster"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
     },
     "character": {
       "type": "relation",

@@ -11,6 +11,7 @@ export interface ToolResult {
 export type StrapiContext = {
   strapi: Core.Strapi;
   roomDocumentId: string;
+  user?: { documentId: string; username?: string };
   mode?: 'game' | 'debug';
 };
 

@@ -16,6 +16,12 @@ interface Strapi {
     findMany: (params: unknown) => Promise<unknown[]>;
     create: (params: { data: unknown }) => Promise<unknown>;
   };
+  log: {
+    debug: (msg: string) => void;
+    info: (msg: string, ...args: unknown[]) => void;
+    warn: (msg: string) => void;
+    error: (msg: string, ...args: unknown[]) => void;
+  };
 }
 
 interface RoomWithWorld {
@@ -61,7 +67,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
     const lastEvent = lastEvents.length > 0 ? (lastEvents[0] as { turnNumber?: number }) : null;
     const turnNumber = lastEvent ? (lastEvent.turnNumber || 0) + 1 : 1;
 
-    return await strapi.documents('api::game-event.game-event').create({
+    const event = await strapi.documents('api::game-event.game-event').create({
       data: {
         room: roomDocumentId,
         type,
@@ -71,6 +77,13 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
         turnNumber,
       },
     });
+
+    // Broadcast to Room (Live Socket)
+    const { streamManager } = await import('../../../utils/llm/stream-manager');
+    // Ensure we send an array of events to match frontend expectation
+    streamManager.broadcast(roomDocumentId, 'game:events', { events: [event] });
+
+    return event;
   },
 
   /**
@@ -78,11 +91,13 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
    */
   async validateMove(roomDocumentId: string, from: Coordinates, to: Coordinates) {
     // Validate inputs with Zod (Runtime Safety)
+    // Validate inputs with Zod (Runtime Safety)
     try {
       // Just validating the structure, logic handled below
       MapMovePayloadSchema.shape.from.parse(from);
       MapMovePayloadSchema.shape.to.parse(to);
-    } catch {
+    } catch (e) {
+      strapi.log.warn(`[GameEvent] Invalid move payload: ${e instanceof Error ? e.message : String(e)}`);
       return { valid: false, reason: 'Invalid coordinates' };
     }
 
@@ -91,6 +106,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
 
     // Shared Coordinates z is number, Engine expects strict union. Validated by runtime check in physics.
     const isWalkable = await physics.isWalkable(to as { x: number; y: number; z: 0 | 1 | 2 | 3 | -1 | -2 | -3 });
+    strapi.log.debug(`[GameEvent] Physics check for ${to.x},${to.y},${to.z}: Walkable=${isWalkable}`);
 
     // Also check for entity collision
     const gameState = await this.getGameState(roomDocumentId);
@@ -102,12 +118,13 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
     );
 
     if (occupied) {
+      strapi.log.debug(`[GameEvent] Move blocked by entity at ${to.x},${to.y},${to.z}`);
       return { valid: false, reason: 'Destination occupied' };
     }
 
     return {
       valid: isWalkable,
-      reason: isWalkable ? null : 'Blocked',
+      reason: isWalkable ? null : 'Blocked by terrain',
     };
   },
 
@@ -126,7 +143,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
       documentId: roomDocumentId,
       populate: {
         entity_sheets: {
-          populate: ['position'],
+          populate: '*',
         },
         world: true, // Also keep world populated as before (it was in the array)
       },

@@ -36,7 +36,7 @@ interface GameDebugViewProps {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
   // Config State
-  const [activeTab, setActiveTab] = useState<'inspector' | 'tools'>('inspector');
+  const [activeTab, setActiveTab] = useState<'tools' | 'inspector'>('tools');
   const [config] = useState<OldWorldConfig>(DEFAULT_CONFIG);
 
   // Time Travel Context
@@ -63,24 +63,59 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
     }
 
     if (sourceData) {
-      setEntities((_prev) =>
-        sourceData.map((c) => ({
-          id: c.id || c.documentId || 'unknown',
-          name: c.name || 'Unknown Entity',
-          type: (c.type as 'player' | 'monster') || 'monster',
-          position: c.position ? { ...c.position, z: (c.position.z as ZLevel) || 0 } : { x: 0, y: 0, z: 0 as ZLevel },
-          speed: c.speed || 30,
-          parsedSpeed: typeof c.speed === 'number' ? c.speed : 30,
-          visionRadius: 10,
-          color: c.type === 'player' ? '#4ade80' : '#f87171',
-          exploredTiles: new Set<string>(),
-          pendingPath: undefined,
-          currentHp: c.currentHp,
-          maxHp: c.maxHp,
-        }))
+      setEntities((prevEntities) =>
+        sourceData.map((c) => {
+          const id = c.id || c.documentId || 'unknown';
+          const prev = prevEntities.find((p) => p.id === id);
+
+          let updatedPos = c.position
+            ? { ...c.position, z: (c.position.z as ZLevel) || 0 }
+            : { x: 0, y: 0, z: 0 as ZLevel };
+          const isZero = updatedPos.x === 0 && updatedPos.y === 0 && updatedPos.z === 0;
+
+          // GUARD: If new pos is 0,0,0 but old pos was valid different, keep old pos
+          if (isZero && prev && (prev.position.x !== 0 || prev.position.y !== 0 || prev.position.z !== 0)) {
+            console.warn(`[GameDebugView] Ignored 0,0,0 reset for entity ${c.name} (${id}). Kept at`, prev.position);
+            updatedPos = prev.position;
+          }
+
+          return {
+            id,
+            name: c.name || 'Unknown Entity',
+            type: (c.type as 'player' | 'monster') || 'monster',
+            position: updatedPos,
+            speed: c.speed || 30,
+            parsedSpeed: typeof c.speed === 'number' ? c.speed : 30,
+            visionRadius: 10,
+            color: c.type === 'player' ? '#4ade80' : '#f87171',
+            exploredTiles: new Set<string>(),
+            pendingPath: undefined,
+            currentHp: c.currentHp,
+            maxHp: c.maxHp,
+          };
+        })
       );
     }
   }, [socketCreatures, currentTimeFrame, isLive, room]);
+
+  // SAFE GUARD EFFECT:
+  // We need to prevent override.
+  // Actually, let's change the setEntities above to use the functional update pattern and check previous.
+  /*
+  setEntities(prevEntities => {
+      return sourceData.map(c => {
+          const prev = prevEntities.find(p => p.id === (c.id || c.documentId));
+          let finalPos = c.position || { x:0, y:0, z:0 };
+          const isZero = finalPos.x === 0 && finalPos.y === 0 && finalPos.z === 0;
+          
+          if (isZero && prev && (prev.position.x !== 0 || prev.position.y !== 0 || prev.position.z !== 0)) {
+               console.warn('[GameDebugView] Ignored 0,0,0 reset', c.name);
+               finalPos = prev.position;
+          }
+          ...
+      })
+  })
+  */
 
   // Entity Selection State
   const [activeEntityId, setActiveEntityId] = useState<string | null>(null);

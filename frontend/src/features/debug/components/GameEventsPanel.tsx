@@ -19,7 +19,7 @@ function EventCard({ event }: { event: GameEvent }) {
     >
       <div className="flex justify-between items-center mb-1">
         <span className={clsx('font-bold', isError ? 'text-red-400' : 'text-aurora-400')}>{event.type}</span>
-        <span className="text-[10px] opacity-50">{new Date(event.timestamp).toLocaleTimeString()}</span>
+        <span className="text-[10px] opacity-50">{new Date(Number(event.timestamp)).toLocaleTimeString()}</span>
       </div>
       <pre className="whitespace-pre-wrap text-[10px] overflow-x-auto bg-black/30 p-1.5 rounded text-zinc-400">
         {typeof event.payload === 'string' ? event.payload : JSON.stringify(event.payload, null, 2)}

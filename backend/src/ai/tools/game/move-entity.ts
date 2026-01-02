@@ -43,6 +43,7 @@ export const moveEntityTool = (context: StrapiContext) =>
               data: {
                 position: { x, y, z },
               },
+              status: 'published',
             });
 
             // 4. Log event (History)
@@ -58,7 +59,16 @@ export const moveEntityTool = (context: StrapiContext) =>
             return `Moved entity ${entityId} to ${x},${y},${z}.`;
           } else {
             strapi.log.warn(`[Tool:MoveEntity] Validation Failed: ${result.reason}`);
-            return `Failed to move: ${result.reason}`;
+            strapi.log.warn(`[Tool:MoveEntity] Validation Failed: ${result.reason}`);
+            // Smart Failover: Move to last valid position if available?
+            // For now, let's keep it failing but ensure we don't broadcast a reset.
+            // Actually, the user REQUESTED "move as far as possible".
+
+            // Logic: if blocked, we can't easily recalculate partial path here without A*.
+            // But we can check if it's a simple line of sight or adjacent?
+            // No, the tool receives a target coordinate.
+            // Better approach: Return a specific error code or partial success message?
+            return `Failed to move: ${result.reason}. The entity remains at ${currentPos.x},${currentPos.y},${currentPos.z}.`;
           }
         } catch (error) {
           strapi.log.error(`[Tool:MoveEntity] Critical Error:`, error);

@@ -10,6 +10,7 @@ vi.stubGlobal('strapi', {
   service: (uid: string) => {
     if (uid === 'api::game.spawn-service') return { spawnMonster: mockSpawnMonster };
     if (uid === 'api::game.game-broadcaster') return { broadcastRoomEntities: mockBroadcast };
+    if (uid === 'api::game-event.game-event') return { logEvent: vi.fn() };
     return {};
   },
   documents: () => ({

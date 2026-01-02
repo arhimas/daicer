@@ -35,6 +35,15 @@ export const summonMonsterTool = (context: StrapiContext) =>
           // Broadcast update
           await strapi.service('api::game.game-broadcaster').broadcastRoomEntities(roomDocumentId);
 
+          // Log Event
+          const gameEventService = strapi.service('api::game-event.game-event');
+          await gameEventService.logEvent(roomDocumentId, 'SPAWN_ENTITY', {
+            entityId: instance.documentId,
+            templateId,
+            position: { x, y, z },
+            name: instance.name,
+          });
+
           return `Successfully summoned "${instance.name}" (Instance: ${instance.documentId}) at ${x},${y},${z}.`;
         } catch (error) {
           // Standardized Validation Error Logging

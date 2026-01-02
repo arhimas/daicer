@@ -539,7 +539,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     singularName: 'entity-sheet';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     appearance: Schema.Attribute.JSON;
@@ -558,6 +558,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     maxHp: Schema.Attribute.Integer;
     monster: Schema.Attribute.Relation<'manyToOne', 'api::monster.monster'>;
     name: Schema.Attribute.String;
+    owner: Schema.Attribute.Relation<'manyToOne', 'plugin::users-permissions.user'>;
     position: Schema.Attribute.Component<'game.position', false>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;

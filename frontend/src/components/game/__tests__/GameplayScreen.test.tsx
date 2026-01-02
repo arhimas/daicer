@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen } from '../../../test/test-utils';
 import { MockedProvider } from '@apollo/client/testing';
 import userEvent from '@testing-library/user-event';
-import GameplayScreen from '../GameplayScreen';
+import GameplayScreen from '../GameplayScreen.temp';
 import { MemoryRouter } from 'react-router-dom';
 import type { Room, Player } from '@daicer/engine';
 
@@ -75,7 +75,67 @@ vi.mock('../../../services/socket', () => ({
   sendTypingIndicator: vi.fn(),
 }));
 
-// Mock ChunkLoader service to prevent network requests
+vi.mock('../../hooks/useStreamingSocket', () => ({
+  default: () => ({
+    messages: [],
+    streamingMessages: new Map(),
+    isProcessing: false,
+    presence: [],
+    error: null,
+    creatures: [],
+  }),
+}));
+
+vi.mock('../../hooks/useChunkLoader', () => ({
+  useChunkLoader: () => ({
+    getChunk: vi.fn(),
+  }),
+}));
+
+vi.mock('../../i18n', () => ({
+  useI18n: () => ({
+    t: (key: string) => key,
+  }),
+}));
+
+vi.mock('lucide-react', () => {
+  const IconStub = (props: any) => <svg {...props} />;
+  return {
+    BookOpen: IconStub,
+    MessageSquare: IconStub,
+    Map: IconStub,
+    Users: IconStub,
+    Settings: IconStub,
+    Send: IconStub,
+    Sparkles: IconStub,
+    Loader2: IconStub,
+    // Add default export if needed
+    default: {
+      BookOpen: IconStub,
+      MessageSquare: IconStub,
+      Map: IconStub,
+      Users: IconStub,
+      Settings: IconStub,
+      Send: IconStub,
+      Sparkles: IconStub,
+      Loader2: IconStub,
+    },
+  };
+});
+
+vi.mock('../../services/api', () => ({
+  processTurn: vi.fn(),
+  submitAction: vi.fn(),
+}));
+
+vi.mock('sonner', () => ({
+  toast: {
+    error: vi.fn(),
+    success: vi.fn(),
+  },
+}));
+
+// Mock ChunkLoader service (secondary, but keep if needed for deep imports)
 vi.mock('../../../contexts/infinite-chunks/services/chunkLoader', () => ({
   loadChunk: vi.fn(() =>
     Promise.resolve({

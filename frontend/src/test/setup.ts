@@ -137,3 +137,28 @@ global.ResizeObserver = class ResizeObserver {
   // eslint-disable-next-line class-methods-use-this
   disconnect() {}
 };
+
+// Mock lucide-react globally to prevent undefined component errors
+vi.mock('lucide-react', () => {
+  const IconStub = ({ ...props }: any) => React.createElement('div', { 'data-testid': 'icon-mock', ...props });
+
+  // Create a proxy to handle any icon import
+  return new Proxy(
+    {
+      __esModule: true,
+      default: new Proxy(
+        {},
+        {
+          get: () => IconStub,
+        }
+      ),
+    },
+    {
+      get: (target, prop) => {
+        if (prop === '__esModule') return true;
+        if (prop === 'default') return target.default;
+        return IconStub;
+      },
+    }
+  );
+});

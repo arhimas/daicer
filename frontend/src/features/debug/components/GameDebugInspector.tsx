@@ -32,16 +32,6 @@ export function GameDebugInspector({
         <div className="flex gap-4">
           <button
             type="button"
-            onClick={() => setActiveTab('inspector')}
-            className={clsx(
-              'transition-colors',
-              activeTab === 'inspector' ? 'text-white' : 'text-gray-500 hover:text-gray-400'
-            )}
-          >
-            INSPECTOR
-          </button>
-          <button
-            type="button"
             onClick={() => setActiveTab('tools')}
             className={clsx(
               'transition-colors',
@@ -49,6 +39,16 @@ export function GameDebugInspector({
             )}
           >
             TOOLS
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('inspector')}
+            className={clsx(
+              'transition-colors',
+              activeTab === 'inspector' ? 'text-white' : 'text-gray-500 hover:text-gray-400'
+            )}
+          >
+            INSPECTOR
           </button>
         </div>
 

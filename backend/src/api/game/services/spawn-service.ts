@@ -89,7 +89,8 @@ export default ({ strapi }) => ({
   async spawnCharacter(
     roomId: string | number,
     characterId: string | number,
-    position: { x: number; y: number; z: number }
+    position: { x: number; y: number; z: number },
+    ownerId?: string
   ) {
     const character = await strapi.documents('api::character.character').findOne({
       documentId: characterId as string,
@@ -158,7 +159,8 @@ export default ({ strapi }) => ({
     const newSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
       data: {
         name: character.name,
-        type: 'player', // or 'npc' if spawned by DM
+        type: ownerId ? 'player' : 'npc', // Player if owned, else NCP
+        owner: ownerId, // Assign owner relation
         character: character.documentId,
         room: room.documentId,
         currentHp: derived.hp,

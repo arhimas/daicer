@@ -51,7 +51,10 @@ export function GameDebugMap({
   useEffect(() => {
     if (activeEntity) {
       setCameraPosition(activeEntity.position);
-      setViewZ(activeEntity.position.z);
+      // Clamp viewZ to valid MapRenderer range (-3 to 3) to prevent black screens
+      // If entity is at Z=200, we view Z=3 (closest valid slice)
+      const clampedZ = Math.max(-3, Math.min(3, activeEntity.position.z));
+      setViewZ(clampedZ);
     }
   }, [activeEntityId, activeEntity]);
 

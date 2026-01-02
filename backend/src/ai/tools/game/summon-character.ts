@@ -32,10 +32,20 @@ export const summonCharacterTool = (context: StrapiContext) =>
 
         // 2. Spawn Logic
         try {
-          const instance = await spawnService.spawnCharacter(roomDocumentId, templateId, { x, y, z });
+          const ownerId = context.user?.documentId;
+          const instance = await spawnService.spawnCharacter(roomDocumentId, templateId, { x, y, z }, ownerId);
 
           // Broadcast update
           await strapi.service('api::game.game-broadcaster').broadcastRoomEntities(roomDocumentId);
+
+          // Log Event
+          const gameEventService = strapi.service('api::game-event.game-event');
+          await gameEventService.logEvent(roomDocumentId, 'SPAWN_ENTITY', {
+            entityId: instance.documentId,
+            templateId,
+            position: { x, y, z },
+            name: instance.name,
+          });
 
           return `Successfully summoned "${instance.name}" (Instance: ${instance.documentId}) at ${x},${y},${z}.`;
         } catch (error) {

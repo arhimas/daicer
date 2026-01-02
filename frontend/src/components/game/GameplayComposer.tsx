@@ -1,4 +1,3 @@
-```typescript
 import { useState, useRef, useEffect } from 'react';
 import { sendTypingIndicator } from '../../services/socket'; // Verified content
 import { useI18n } from '../../i18n';

@@ -41,7 +41,13 @@ export default ({ strapi }) => ({
       documentId: roomDocumentId,
       populate: {
         entity_sheets: {
-          populate: ['position'],
+          populate: {
+            position: true,
+            stats: true,
+            inventory: true,
+            character: { populate: ['race', 'class'] },
+            monster: true,
+          },
         },
       },
     });
@@ -51,16 +57,26 @@ export default ({ strapi }) => ({
     const room = roomRaw as unknown as RoomWithPopulations;
 
     // Format
-    const entities = (room.entity_sheets || []).map((sheet) => ({
-      id: sheet.documentId,
-      name: sheet.name,
-      type: sheet.type || 'monster',
-      position: sheet.position || { x: 0, y: 0, z: 0 },
-      // Map other fields needed by DebugEntity in frontend
-      speed: sheet.speed || 30,
-      currentHp: sheet.currentHp,
-      maxHp: sheet.maxHp,
-    }));
+    const entities = (room.entity_sheets || []).map((sheet) => {
+      // DEBUG: Log raw position from DB
+      // DEBUG: Log raw position from DB
+      strapi.log.info(
+        `[Broadcaster] Entity ${sheet.documentId} Raw Pos: ${JSON.stringify(sheet.position)} | Valid: ${
+          !!sheet.position && sheet.position.x !== undefined
+        }`
+      );
+
+      return {
+        id: sheet.documentId,
+        name: sheet.name,
+        type: sheet.type || 'monster',
+        position: sheet.position || { x: 0, y: 0, z: 0 },
+        // Map other fields needed by DebugEntity in frontend
+        speed: sheet.speed || 30,
+        currentHp: sheet.currentHp,
+        maxHp: sheet.maxHp,
+      };
+    });
 
     this.broadcastEntitiesUpdate(room.roomId || room.documentId, entities);
     // Also broadcast to documentId room just in case
