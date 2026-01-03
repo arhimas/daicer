@@ -14,7 +14,7 @@ vi.mock('@daicer/engine', async (importOriginal) => {
 
 describe('Tool Lifecycle Integration', () => {
   let mockContext: StrapiContext;
-  let mockDispatch: any;
+  let mockDispatch: vi.Mock;
 
   beforeEach(() => {
     mockDispatch = vi.fn().mockReturnValue({ events: [], success: true, message: 'Action performed' });
@@ -23,7 +23,7 @@ describe('Tool Lifecycle Integration', () => {
     const functionHelper = function () {
       return { dispatch: mockDispatch };
     };
-    vi.mocked(ActionDispatcher).mockImplementation(functionHelper as any);
+    vi.mocked(ActionDispatcher).mockImplementation(functionHelper as unknown as typeof ActionDispatcher);
 
     mockContext = {
       strapi: {
@@ -106,7 +106,7 @@ describe('Tool Lifecycle Integration', () => {
     if (!dispatchCall) throw new Error('Dispatch not called');
 
     const [state, command] = dispatchCall;
-    const hero = state.entities.find((e: any) => e.id === 'hero-1');
+    const hero = state.entities.find((e: { id: string; actions: any[] }) => e.id === 'hero-1');
 
     expect(hero).toBeDefined();
     // Verify Action Derivation
@@ -162,7 +162,7 @@ describe('Tool Lifecycle Integration', () => {
     );
 
     const [state] = mockDispatch.mock.calls[0];
-    const wizard = state.entities.find((e: any) => e.id === 'wizard-npc');
+    const wizard = state.entities.find((e: { id: string; actions: any[] }) => e.id === 'wizard-npc');
 
     expect(wizard.actions).toHaveLength(1);
     expect(wizard.actions[0].name).toBe('Fireball');

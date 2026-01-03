@@ -12,9 +12,9 @@ vi.mock('../../../../utils/llm/stream-manager', () => ({
 // Mock factories and Strapi global
 vi.mock('@strapi/strapi', () => ({
   factories: {
-    createCoreService: (uid: string, callback: any) => {
+    createCoreService: (uid: string, callback: (opts: unknown) => unknown) => {
       // Return a factory function that executes the callback with the injected strapi
-      return (opts: any) => callback(opts);
+      return (opts: unknown) => callback(opts);
     },
   },
 }));
@@ -22,7 +22,7 @@ vi.mock('@strapi/strapi', () => ({
 import gameEventServiceFactory from '../game-event';
 
 describe('Game Event Service - Broadcasting', () => {
-  let strapi: any;
+  let strapi: unknown;
   let service: any;
 
   beforeEach(() => {

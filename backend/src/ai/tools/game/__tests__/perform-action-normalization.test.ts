@@ -206,7 +206,7 @@ describe('Tool: Perform Action - Payload Normalization (Stress Test)', () => {
   it.each(normalizationCases)('$desc', async ({ input, expected, shouldThrow }) => {
     if (shouldThrow) {
       // Check if it throws or returns "Error ..." string (Tool convention)
-      const result = await tool.func(input as any, mockContext);
+      const result = await tool.func(input as unknown as { commandType: 'ATTACK'; payload: string }, mockContext);
       if (typeof result === 'string' && result.startsWith('Error')) {
         expect(result).toMatch(/Error|Invalid/);
       } else {
@@ -215,7 +215,7 @@ describe('Tool: Perform Action - Payload Normalization (Stress Test)', () => {
         expect(typeof result).toBe('string');
       }
     } else {
-      const result = await tool.func(input as any, mockContext);
+      const result = await tool.func(input as unknown as { commandType: 'ATTACK'; payload: string }, mockContext);
 
       // DEBUG: If dispatch not called, print the error result
       if (mockDispatch.mock.calls.length === 0) {
@@ -242,6 +242,8 @@ describe('Tool: Perform Action - Payload Normalization (Stress Test)', () => {
       { commandType: 'ATTACK', payload: JSON.stringify({ AttackerId: 'test' }) },
       mockContext
     );
+    // @ts-expect-error - Checking for unused variable
+    const _res = res;
     expect(mockDispatch).toHaveBeenCalled();
     const payload = mockDispatch.mock.calls[0][1].payload;
     expect(payload.actorId).toBeUndefined(); // Current logic is strict case

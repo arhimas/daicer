@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { performActionTool } from '../perform-action';
+import { StrapiContext } from '../../tool-factory';
 import { z } from 'zod';
 
 // Mock the Strapi global
@@ -45,7 +46,7 @@ vi.mock('@daicer/engine', () => ({
     })),
   },
   ActionDispatcher: class {
-    dispatch(state: any, command: any) {
+    dispatch(state: unknown, command: unknown) {
       return mockDispatch(state, command);
     }
   },
@@ -66,7 +67,7 @@ describe('performActionTool', () => {
       roomDocumentId: 'room-123',
     };
 
-    const tool = performActionTool(mockContext as any);
+    const tool = performActionTool(mockContext as unknown as StrapiContext);
     const schema = tool.schema;
     expect(schema).toBeInstanceOf(z.ZodObject);
 
@@ -80,13 +81,13 @@ describe('performActionTool', () => {
 
   it('should normalize skill check payload keys (skill/stat -> attribute)', async () => {
     const mockContext = {
-      strapi: (globalThis as unknown as { strapi: any }).strapi,
+      strapi: (globalThis as unknown as { strapi: unknown }).strapi,
       roomDocumentId: 'room-123',
     };
 
     // 1. Mock Room Find setup
     // We expect finding players/entities to return something valid so the tool proceeds
-    mockFindMany.mockImplementation((query) => {
+    mockFindMany.mockImplementation((_query) => {
       // If searching for entities with filters, return match
       return [];
     });
@@ -99,7 +100,8 @@ describe('performActionTool', () => {
     });
 
     // 2. Execute Tool
-    const tool = performActionTool(mockContext as any);
+    // Execute Tool
+    const tool = performActionTool(mockContext as unknown as StrapiContext);
 
     // Simulate Agent sending 'skill' instead of 'attribute'
     await tool.func(
@@ -107,7 +109,7 @@ describe('performActionTool', () => {
         commandType: 'SKILL_CHECK',
         payload: JSON.stringify({ actorId: 'hero-1', skill: 'acrobatics' }),
       },
-      mockContext as any
+      mockContext as unknown as StrapiContext
     );
 
     // 3. Verify Dispatcher Call

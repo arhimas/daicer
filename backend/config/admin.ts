@@ -17,5 +17,13 @@ export default ({ env }) => ({
     nps: env.bool('FLAG_NPS', true),
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
-  watchIgnoreFiles: ['**/script/**', '**/scripts/**', '**/studyCase/**', '**/__tests__/**'],
+  watchIgnoreFiles: [
+    '**/script/**',
+    '**/scripts/**',
+    '**/studyCase/**',
+    '**/__tests__/**',
+    '**/coverage/**',
+    '**/.test-results-*.json',
+    '**/dist/**',
+  ],
 });

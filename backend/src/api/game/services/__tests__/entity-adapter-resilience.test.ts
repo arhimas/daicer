@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import EntityAdapter from '../entity-adapter';
 import { EntitySheetValues, EntityType } from '../../../../lifecycle/socket/types';
+import { Creature } from '@daicer/engine';
 
 describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
   const adapter = EntityAdapter();
@@ -22,7 +23,7 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
         stats: { strength: 16, dexterity: 12, constitution: 14, intelligence: 8, wisdom: 10, charisma: 9 },
         position: { x: 0, y: 0, z: 0 },
       },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.id).toBe('e1');
         expect(e.hp).toBe(10);
         expect(e.maxHp).toBe(15);
@@ -34,14 +35,14 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
     {
       desc: 'Missing Stats Object',
       input: { documentId: 'e2', name: 'Weakling', type: 'monster', stats: null },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.stats.strength).toBe(10); // Check default 10
       },
     },
     {
       desc: 'Partial Stats (Dex only)',
       input: { documentId: 'e3', type: 'monster', stats: { dexterity: 18 } },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.stats.dexterity).toBe(18);
         expect(e.stats.strength).toBe(10); // Default
       },
@@ -51,7 +52,7 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
     {
       desc: 'Current HP > Max HP (Should preserve or clamp? Adapter usually preserves)',
       input: { documentId: 'e4', type: 'monster', currentHp: 20, maxHp: 10 },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.hp).toBe(20);
         expect(e.maxHp).toBe(10);
       },
@@ -59,14 +60,14 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
     {
       desc: 'Negative HP',
       input: { documentId: 'e5', type: 'monster', currentHp: -5, maxHp: 10 },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.hp).toBe(-5);
       },
     },
     {
       desc: 'Zero Max HP',
       input: { documentId: 'e6', type: 'monster', currentHp: 5, maxHp: 0 },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.maxHp).toBe(1); // Falsy 0 defaults to 1 safety
         // Should not be Infinity or NaN
       },
@@ -76,24 +77,24 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
     {
       desc: 'Null Position',
       input: { documentId: 'e7', position: null },
-      assertions: (e) => expect(e.position).toEqual({ x: 0, y: 0, z: 0 }),
+      assertions: (e: Creature) => expect(e.position).toEqual({ x: 0, y: 0, z: 0 }),
     },
     {
       desc: 'Partial Position',
       input: { documentId: 'e8', position: { x: 10 } },
-      assertions: (e) => expect(e.position.x).toBe(10),
+      assertions: (e: Creature) => expect(e.position.x).toBe(10),
     },
 
     // 5. Structure & Inventory (Deep nesting)
     {
       desc: 'Inventory Items',
       input: { documentId: 'e9', inventory: [{ name: 'Sword', effects: [] }] },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         // Adapter usually puts inventory in... inventory?
         // Check implementation if it maps inventory.
         expect(e.inventory).toBeUndefined(); // Adapter does not map inventory to root prop logic check
         // Wait, adapter code maps inventory to actions array if present!
-        expect(e.actions.some((a: any) => a.name === 'Sword')).toBe(true);
+        expect(e.actions.some((a) => a.name === 'Sword')).toBe(true);
       },
     },
 
@@ -101,12 +102,12 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
     {
       desc: 'Type: Character',
       input: { documentId: 'c1', type: 'character' },
-      assertions: (e) => expect(e.type).toBe('character'),
+      assertions: (e: Creature) => expect(e.type).toBe('character'),
     },
     {
       desc: 'Type: Null -> Player',
       input: { documentId: 'm1', type: null },
-      assertions: (e) => expect(e.type).toBe('player'),
+      assertions: (e: Creature) => expect(e.type).toBe('player'),
     },
   ];
 
@@ -124,7 +125,7 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
         currentHp: i % 4 === 0 ? undefined : i, // undefined passed as currentHp? logic might fail
         maxHp: 100,
       },
-      assertions: (e: any) => {
+      assertions: (e: Creature) => {
         expect(e.id).toBe(`j-${i}`);
         if (i % 2 === 0)
           expect(e.stats.strength).toBe(10); // default

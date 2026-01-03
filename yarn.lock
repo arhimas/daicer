@@ -6899,24 +6899,7 @@
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.18.0"
 
-"@vitest/coverage-v8@4.0.16":
-  version "4.0.16"
-  resolved "https://registry.npmjs.org/@vitest/coverage-v8/-/coverage-v8-4.0.16.tgz"
-  integrity sha512-2rNdjEIsPRzsdu6/9Eq0AYAzYdpP6Bx9cje9tL3FE5XzXRQF1fNU9pe/1yE8fCrS0HD+fBtt6gLPh6LI57tX7A==
-  dependencies:
-    "@bcoe/v8-coverage" "^1.0.2"
-    "@vitest/utils" "4.0.16"
-    ast-v8-to-istanbul "^0.3.8"
-    istanbul-lib-coverage "^3.2.2"
-    istanbul-lib-report "^3.0.1"
-    istanbul-lib-source-maps "^5.0.6"
-    istanbul-reports "^3.2.0"
-    magicast "^0.5.1"
-    obug "^2.1.1"
-    std-env "^3.10.0"
-    tinyrainbow "^3.0.3"
-
-"@vitest/coverage-v8@^4.0.16":
+"@vitest/coverage-v8@4.0.16", "@vitest/coverage-v8@^4.0.16":
   version "4.0.16"
   resolved "https://registry.yarnpkg.com/@vitest/coverage-v8/-/coverage-v8-4.0.16.tgz#375fa0c1cbb357443628a1fcbf694154dfee9561"
   integrity sha512-2rNdjEIsPRzsdu6/9Eq0AYAzYdpP6Bx9cje9tL3FE5XzXRQF1fNU9pe/1yE8fCrS0HD+fBtt6gLPh6LI57tX7A==
@@ -8168,6 +8151,11 @@ camelize@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/camelize/-/camelize-1.0.1.tgz"
   integrity sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==
+
+camera-controls@2.9.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/camera-controls/-/camera-controls-2.9.0.tgz#c3f67e702c2b68ae87418ca047c867e6494be2e8"
+  integrity sha512-TpCujnP0vqPppTXXJRYpvIy0xq9Tro6jQf2iYUxlDpPCNxkvE/XGaTuwIxnhINOkVP/ob2CRYXtY3iVYXeMEzA==
 
 caniuse-lite@^1.0.30001759:
   version "1.0.30001760"
@@ -19108,33 +19096,7 @@ vite@5.4.19:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vitest@4.0.16:
-  version "4.0.16"
-  resolved "https://registry.npmjs.org/vitest/-/vitest-4.0.16.tgz"
-  integrity sha512-E4t7DJ9pESL6E3I8nFjPa4xGUd3PmiWDLsDztS2qXSJWfHtbQnwAWylaBvSNY48I3vr8PTqIZlyK8TE3V3CA4Q==
-  dependencies:
-    "@vitest/expect" "4.0.16"
-    "@vitest/mocker" "4.0.16"
-    "@vitest/pretty-format" "4.0.16"
-    "@vitest/runner" "4.0.16"
-    "@vitest/snapshot" "4.0.16"
-    "@vitest/spy" "4.0.16"
-    "@vitest/utils" "4.0.16"
-    es-module-lexer "^1.7.0"
-    expect-type "^1.2.2"
-    magic-string "^0.30.21"
-    obug "^2.1.1"
-    pathe "^2.0.3"
-    picomatch "^4.0.3"
-    std-env "^3.10.0"
-    tinybench "^2.9.0"
-    tinyexec "^1.0.2"
-    tinyglobby "^0.2.15"
-    tinyrainbow "^3.0.3"
-    vite "^6.0.0 || ^7.0.0"
-    why-is-node-running "^2.3.0"
-
-vitest@^4.0.16:
+vitest@4.0.16, vitest@^4.0.16:
   version "4.0.16"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-4.0.16.tgz#7ceaecd4612fa6351923e842a0723c48cdfb6719"
   integrity sha512-E4t7DJ9pESL6E3I8nFjPa4xGUd3PmiWDLsDztS2qXSJWfHtbQnwAWylaBvSNY48I3vr8PTqIZlyK8TE3V3CA4Q==

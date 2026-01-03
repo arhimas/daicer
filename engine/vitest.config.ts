@@ -9,8 +9,9 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.ts'],
-      exclude: ['src/types/**', 'src/**/index.ts'], // Exclude type definitions and barrels
+      exclude: ['src/types/**', 'src/**/index.ts', 'coverage/**', '**/*.d.ts'],
     },
+    exclude: ['**/node_modules/**', '**/dist/**', '**/coverage/**', '**/.test-results-*.json'],
     include: ['src/**/*.{test,spec}.ts', 'test/**/*.{test,spec}.ts'],
   },
 });

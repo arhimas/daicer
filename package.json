@@ -21,9 +21,9 @@
     "dev": "concurrently -n \"backend,frontend\" -c \"#4285F4,#0F9D58\" \"yarn workspace @daicer/backend dev\" \"yarn workspace @daicer/frontend dev\"",
     "build": "yarn workspaces run build",
     "start": "concurrently \"yarn workspace @daicer/backend start\" \"yarn workspace @daicer/frontend start\"",
-    "lint": "yarn workspaces run lint",
-    "typecheck": "yarn workspaces run typecheck",
-    "test": "concurrently \"yarn workspace @daicer/backend test\" \"yarn workspace @daicer/frontend test\" \"yarn workspace @daicer/engine test\"",
+    "lint": "concurrently -n \"engine,backend,frontend\" -c \"blue,magenta,cyan\" \"yarn workspace @daicer/engine lint\" \"yarn workspace @daicer/backend lint\" \"yarn workspace @daicer/frontend lint\"",
+    "typecheck": "concurrently -n \"engine,backend,frontend\" -c \"blue,magenta,cyan\" \"yarn workspace @daicer/engine typecheck\" \"yarn workspace @daicer/backend typecheck\" \"yarn workspace @daicer/frontend typecheck\"",
+    "test": "concurrently -n \"engine,backend,frontend\" -c \"blue,magenta,cyan\" \"yarn workspace @daicer/engine test\" \"yarn workspace @daicer/backend test\" \"yarn workspace @daicer/frontend test\"",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "kill": "lsof -ti:3000,1337 | xargs kill -9 || true",
     "prepare": "husky"
