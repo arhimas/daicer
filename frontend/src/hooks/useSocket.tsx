@@ -224,10 +224,18 @@ export default function useSocket(roomId?: string, userId?: string) {
           },
           onGameEvents: (data) => {
             console.info('⚡ Received Game Events:', data.events);
-            setState((prev) => ({
-              ...prev,
-              gameEvents: [...prev.gameEvents, ...(data.events as GameEvent[])],
-            }));
+            setState((prev) => {
+              const newEvents = (data.events as GameEvent[]).filter(
+                (e) => !prev.gameEvents.some((existing) => existing.id === e.id)
+              );
+
+              if (newEvents.length === 0) return prev;
+
+              return {
+                ...prev,
+                gameEvents: [...prev.gameEvents, ...newEvents],
+              };
+            });
           },
         });
       } catch (error) {

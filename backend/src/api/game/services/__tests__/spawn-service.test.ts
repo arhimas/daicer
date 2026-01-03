@@ -80,7 +80,7 @@ describe('Spawn Service', () => {
 
       mockFindMany.mockResolvedValue([]);
 
-      await service.spawnCharacter('room-1', 'char-1', { x: 1, y: 1, z: 0 });
+      await service.spawnCharacter('room-1', 'char-1', { x: 1, y: 1, z: 0 }, 'user-1');
 
       expect(mockCreate).toHaveBeenCalledWith(
         expect.objectContaining({

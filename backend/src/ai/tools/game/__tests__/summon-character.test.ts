@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { summonCharacterTool } from '../summon-character';
-import { z } from 'zod';
+import { StrapiContext } from '../../../tools/tool-factory';
 
 const mockSpawnCharacter = vi.fn();
 const mockBroadcast = vi.fn();
@@ -42,8 +42,11 @@ describe('summonCharacterTool', () => {
     mockFindOne.mockResolvedValue({ documentId: 'tpl-1', name: 'Guard' });
     mockSpawnCharacter.mockResolvedValue({ documentId: 'inst-1', name: 'Guard', type: 'npc' });
 
-    const tool = summonCharacterTool(mockContext as any);
-    const result = await tool.func({ templateId: 'tpl-1', x: 10, y: 10, z: 0 }, mockContext as any);
+    const tool = summonCharacterTool(mockContext as unknown as StrapiContext);
+    const result = await tool.func(
+      { templateId: 'tpl-1', x: 10, y: 10, z: 0 },
+      mockContext as unknown as StrapiContext
+    );
 
     expect(mockSpawnCharacter).toHaveBeenCalledWith('room-123', 'tpl-1', { x: 10, y: 10, z: 0 }, undefined);
     expect(result).toContain('Successfully summoned "Guard"');
@@ -59,8 +62,8 @@ describe('summonCharacterTool', () => {
     // Service should return player type if ownerId passed
     mockSpawnCharacter.mockResolvedValue({ documentId: 'inst-hero', name: 'Hero', type: 'player' });
 
-    const tool = summonCharacterTool(userContext as any);
-    await tool.func({ templateId: 'tpl-hero', x: 20, y: 20, z: 0 }, userContext as any);
+    const tool = summonCharacterTool(userContext as unknown as StrapiContext);
+    await tool.func({ templateId: 'tpl-hero', x: 20, y: 20, z: 0 }, userContext as unknown as StrapiContext);
 
     expect(mockSpawnCharacter).toHaveBeenCalledWith('room-123', 'tpl-hero', { x: 20, y: 20, z: 0 }, 'user-123');
   });
@@ -69,8 +72,8 @@ describe('summonCharacterTool', () => {
     mockFindOne.mockResolvedValue({ documentId: 'tpl-1', name: 'Guard' });
     mockSpawnCharacter.mockResolvedValue({ documentId: 'inst-1', name: 'Guard', type: 'npc' });
 
-    const tool = summonCharacterTool(mockContext as any);
-    await tool.func({ templateId: 'tpl-1', x: 10, y: 10, z: 0 }, mockContext as any);
+    const tool = summonCharacterTool(mockContext as unknown as StrapiContext);
+    await tool.func({ templateId: 'tpl-1', x: 10, y: 10, z: 0 }, mockContext as unknown as StrapiContext);
 
     expect(mockBroadcast).toHaveBeenCalledWith('room-123');
     expect(mockLogEvent).toHaveBeenCalledWith('room-123', 'SPAWN_ENTITY', expect.any(Object));

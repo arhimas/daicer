@@ -1,15 +1,6 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import {
-  ActionDispatcher,
-  GameState,
-  Entity,
-  Command,
-  EntityStats,
-  EntitySheet,
-  WorldSettings,
-  Player,
-} from '@daicer/engine';
+import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '@daicer/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 import EntityAdapter from '../../../api/game/services/entity-adapter';
 
@@ -109,20 +100,21 @@ export const performActionTool = (context: StrapiContext) => {
           const dispatcher = new ActionDispatcher();
 
           // 3. Construct Command
-          let parsedPayload: Record<string, any> = {};
+          let parsedPayload: Record<string, unknown> = {};
           try {
             parsedPayload = typeof input.payload === 'string' ? JSON.parse(input.payload) : input.payload;
 
             // Normalization: Map common LLM hallucinations to 'actorId'
-            if (parsedPayload.attackerId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.attackerId;
-            if (parsedPayload.casterId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.casterId;
-            if (parsedPayload.performerId && !parsedPayload.actorId) parsedPayload.actorId = parsedPayload.performerId;
+            const payloadAny = parsedPayload as Record<string, string | undefined>;
+            if (payloadAny.attackerId && !payloadAny.actorId) parsedPayload.actorId = payloadAny.attackerId;
+            if (payloadAny.casterId && !payloadAny.actorId) parsedPayload.actorId = payloadAny.casterId;
+            if (payloadAny.performerId && !payloadAny.actorId) parsedPayload.actorId = payloadAny.performerId;
 
             // Normalization: Map skill/stat/ability -> attribute (for SKILL_CHECK)
             if (input.commandType === 'SKILL_CHECK' || input.commandType === 'ROLL_SAVE') {
-              if (parsedPayload.skill && !parsedPayload.attribute) parsedPayload.attribute = parsedPayload.skill;
-              if (parsedPayload.stat && !parsedPayload.attribute) parsedPayload.attribute = parsedPayload.stat;
-              if (parsedPayload.ability && !parsedPayload.attribute) parsedPayload.attribute = parsedPayload.ability;
+              if (payloadAny.skill && !payloadAny.attribute) parsedPayload.attribute = payloadAny.skill;
+              if (payloadAny.stat && !payloadAny.attribute) parsedPayload.attribute = payloadAny.stat;
+              if (payloadAny.ability && !payloadAny.attribute) parsedPayload.attribute = payloadAny.ability;
             }
           } catch (e) {
             throw new Error(`Invalid JSON payload: ${e instanceof Error ? e.message : String(e)}`);
