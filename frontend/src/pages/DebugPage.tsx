@@ -1,19 +1,10 @@
 import { useState } from 'react';
-// import { Loader2 } from 'lucide-react'; // Loader2 was used in the pending state overlay I removed? No I removed the overlay logic? Let me check line 121 in view.
-// Wait, I didn't remove the overlay logic in JSX, just the isCreating state set calls.
-// If I remove isCreating state, I need to remove the overlay JSX too.
-// Let's remove lines 121-128 in the file as well.
-import Navbar from '../components/layout/Navbar';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '../components/ui/breadcrumb';
+import JuicyLayout from '@/components/layout/JuicyLayout'; // [NEW] Import JuicyLayout
+// import Navbar from '../components/layout/Navbar'; // [REMOVED] Handled by JuicyLayout
+
 import { Button } from '../components/ui/button';
 
+import { ChevronLeft } from 'lucide-react';
 import { RoomSelection } from '../features/debug/components/RoomSelection';
 import { GameDebugView } from '../features/debug/components/GameDebugView';
 import { WorldConfigForm } from '../features/debug/components/WorldConfigForm';
@@ -57,88 +48,70 @@ export default function DebugPage() {
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] w-full bg-midnight-950 text-shadow-100 font-sans">
-      <Navbar />
+    <JuicyLayout>
+      <div className="flex flex-col h-full w-full text-shadow-100 font-sans">
+        {/* Local Breadcrumb / Toolbar */}
 
-      <div className="flex px-6 py-2 border-b border-midnight-800 bg-midnight-900/50 backdrop-blur">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setStage('selection');
+        <div className="flex-1 overflow-hidden relative">
+          {stage === 'selection' && (
+            <div className="h-full overflow-y-auto p-6">
+              <RoomSelection
+                onSelect={handleRoomSelect}
+                onCreate={() => {
+                  // Redirect to unified wizard with debug target
+                  window.location.href = '/create?target=debug';
                 }}
-              >
-                Debug
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                {stage === 'selection' && 'Lobby'}
-                {stage === 'dm-setup' && 'Campaign Setup'}
-                {stage === 'world' && 'World Generation'}
-                {stage === 'debug' && 'Engine Debugger'}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-            {activeRoomId && (
-              <>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="font-mono text-xs text-muted-foreground">
-                    {activeRoomId.slice(0, 8)}...
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </>
-            )}
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
-
-      <div className="flex-1 overflow-hidden relative">
-        {stage === 'selection' && (
-          <div className="h-full overflow-y-auto p-6">
-            <RoomSelection
-              onSelect={handleRoomSelect}
-              onCreate={() => {
-                // Redirect to unified wizard with debug target
-                window.location.href = '/create?target=debug';
-              }}
-            />
-          </div>
-        )}
-
-        {stage === 'world' && (
-          <div className="h-full flex flex-col items-center justify-center p-8 space-y-8 animate-in zoom-in-95 duration-500">
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-black text-aurora-500 tracking-tighter">INITIALIZE WORLD</h1>
-              <p className="text-muted-foreground">Configure the physical terrain and biomes</p>
-            </div>
-
-            <div className="w-full max-w-md bg-midnight-900 border border-midnight-800 rounded-xl p-6 shadow-2xl">
-              <WorldConfigForm
-                config={worldConfig}
-                onConfigChange={setWorldConfig}
-                isActive
-                onRegenerate={() => {}} // No-op in this preview view
               />
+            </div>
+          )}
 
-              <div className="mt-8">
-                <Button
-                  onClick={handleLaunchGame}
-                  className="w-full bg-aurora-600 hover:bg-aurora-500 text-midnight-950 font-bold py-3 text-lg"
-                >
-                  Launch Simulation
-                </Button>
+          {stage !== 'selection' && (
+            <div className="absolute top-4 left-4 z-50">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setStage('selection');
+                  setActiveRoomId(null);
+                }}
+                className="gap-2 text-aurora-300 hover:text-aurora-100 hover:bg-midnight-800/50"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                Back to Lobby
+              </Button>
+            </div>
+          )}
+
+          {stage === 'world' && (
+            <div className="h-full flex flex-col items-center justify-center p-8 space-y-8 animate-in zoom-in-95 duration-500">
+              <div className="text-center space-y-2">
+                <h1 className="text-3xl font-black text-aurora-500 tracking-tighter">INITIALIZE WORLD</h1>
+                <p className="text-muted-foreground">Configure the physical terrain and biomes</p>
+              </div>
+
+              <div className="w-full max-w-md bg-midnight-900 border border-midnight-800 rounded-xl p-6 shadow-2xl">
+                <WorldConfigForm
+                  config={worldConfig}
+                  onConfigChange={setWorldConfig}
+                  isActive
+                  onRegenerate={() => {}} // No-op in this preview view
+                />
+
+                <div className="mt-8">
+                  <Button
+                    onClick={handleLaunchGame}
+                    className="w-full bg-aurora-600 hover:bg-aurora-500 text-midnight-950 font-bold py-3 text-lg"
+                  >
+                    Launch Simulation
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {stage === 'debug' && activeRoomId && <GameDebugView roomId={activeRoomId} />}
+          {stage === 'debug' && activeRoomId && <GameDebugView roomId={activeRoomId} />}
+        </div>
       </div>
-    </div>
+    </JuicyLayout>
   );
 }

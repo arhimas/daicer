@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { AgentToolPalette } from './AgentToolPalette';
+import { DebugEntitySheet } from './DebugEntitySheet';
 import { DebugEntity } from '../utils/types';
 
 interface GameDebugInspectorProps {
@@ -70,43 +71,52 @@ export function GameDebugInspector({
       <div className="flex-1 overflow-hidden relative">
         {activeTab === 'inspector' ? (
           <div className="absolute inset-0 overflow-y-auto p-2 space-y-2">
-            {/* ENTITY LIST */}
-            {entities.map((entity) => (
-              <div
-                key={entity.id}
-                onClick={() => setActiveEntityId(entity.id)}
-                className={clsx(
-                  'group p-2 rounded border transition-colors cursor-pointer',
-                  activeEntity?.id === entity.id
-                    ? 'bg-midnight-800 border-aurora-500/50'
-                    : 'bg-midnight-950/40 border-midnight-800 hover:bg-midnight-800/60'
-                )}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded bg-midnight-950 flex items-center justify-center text-lg shadow-inner">
-                    {entity.type === 'player' ? '👤' : '👾'}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="font-bold text-shadow-200 text-sm truncate group-hover:text-white transition-colors">
-                      {entity.name || entity.id}
-                    </div>
-                    <div className="text-[10px] text-shadow-400 font-mono flex gap-2">
-                      <span>
-                        {entity.position.x}, {entity.position.y}, {entity.position.z}
-                      </span>
-                      {entity.currentHp !== undefined && (
-                        <span className={clsx(entity.currentHp <= 0 ? 'text-red-500' : 'text-emerald-400')}>
-                          HP: {entity.currentHp}/{entity.maxHp}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+            {/* ENTITY LIST vs SHEET */}
+            {activeEntity && activeEntityId ? (
+              <div className="h-full overflow-hidden">
+                <DebugEntitySheet entity={activeEntity} onBack={() => setActiveEntityId(null)} />
               </div>
-            ))}
-            {entities.length === 0 && (
-              <div className="text-center text-shadow-500 text-xs py-8">
-                {isLive ? 'No entities in room.' : 'No entities in this snapshot.'}
+            ) : (
+              <div className="space-y-2 p-2">
+                {activeTab === 'inspector' &&
+                  entities.map((entity) => (
+                    <div
+                      key={entity.id}
+                      onClick={() => setActiveEntityId(entity.id)}
+                      className={clsx(
+                        'group p-2 rounded border transition-colors cursor-pointer',
+                        activeEntity?.id === entity.id
+                          ? 'bg-midnight-800 border-aurora-500/50'
+                          : 'bg-midnight-950/40 border-midnight-800 hover:bg-midnight-800/60'
+                      )}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded bg-midnight-950 flex items-center justify-center text-lg shadow-inner">
+                          {entity.type === 'player' ? '👤' : '👾'}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-bold text-shadow-200 text-sm truncate group-hover:text-white transition-colors">
+                            {entity.name || entity.id}
+                          </div>
+                          <div className="text-[10px] text-shadow-400 font-mono flex gap-2">
+                            <span>
+                              {entity.position.x}, {entity.position.y}, {entity.position.z}
+                            </span>
+                            {entity.currentHp !== undefined && (
+                              <span className={clsx(entity.currentHp <= 0 ? 'text-red-500' : 'text-emerald-400')}>
+                                HP: {entity.currentHp}/{entity.maxHp}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                {entities.length === 0 && (
+                  <div className="text-center text-shadow-500 text-xs py-8">
+                    {isLive ? 'No entities in room.' : 'No entities in this snapshot.'}
+                  </div>
+                )}
               </div>
             )}
           </div>

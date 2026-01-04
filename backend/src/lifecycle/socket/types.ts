@@ -53,6 +53,8 @@ export interface RoomWithPopulations {
     maxHp: number;
     speed: number;
     ac?: number;
+    owner?: { documentId: string; id: string | number; username?: string };
+    structuredActions?: unknown[];
   }>;
   worldConditions?: unknown[]; // or specific type if known
 }

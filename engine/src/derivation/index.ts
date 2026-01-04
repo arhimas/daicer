@@ -1,6 +1,6 @@
 import { calculateModifier } from './attributes';
 import { calculateAC, calculateHP } from './defenses';
-import { deriveSpeed } from './capabilities';
+import { deriveSpeed, deriveActions } from './capabilities';
 import { calculateSkillBonus } from './skills';
 import { DerivationContext } from './types';
 
@@ -20,6 +20,7 @@ export class EntityDeriver {
     const ac = calculateAC(context);
     const hp = calculateHP(context);
     const speed = deriveSpeed(context);
+    const actions = this.deriveActions(context);
 
     // We can also derive passive perception, etc.
     const passivePerception =
@@ -39,8 +40,11 @@ export class EntityDeriver {
       maxHp: hp,
       speed,
       passivePerception,
+      structuredActions: actions,
     };
   }
+
+  static deriveActions = deriveActions; // Static alias for direct usage
 
   // TODO: Implement 'create' and 'levelUp' workflows as higher level abstractions
   // if they involve more than just stat calculation (e.g. choice validation).

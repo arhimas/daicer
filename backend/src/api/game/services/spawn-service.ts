@@ -17,6 +17,7 @@ export default ({ strapi }) => ({
     // 1. Fetch Monster Blueprint
     const monster = await strapi.documents('api::monster.monster').findOne({
       documentId: monsterId as string, // Try documentId first
+      populate: ['stats', 'structuredActions', 'structuredActions.damage'],
     });
 
     // Fallback if not string or not found via documentId (though documents API prefers documentId uses standard findOne)
@@ -74,6 +75,7 @@ export default ({ strapi }) => ({
         position: position,
         // Stats component can be populated from monster.stats if structures match
         stats: monster.stats,
+        structuredActions: monster.structuredActions,
 
         // We can add appearance/inventory stubs
       },
@@ -94,7 +96,16 @@ export default ({ strapi }) => ({
   ) {
     const character = await strapi.documents('api::character.character').findOne({
       documentId: characterId as string,
-      populate: ['baseStats', 'race', 'class', 'equipment'],
+      populate: [
+        'baseStats',
+        'race',
+        'class',
+        'equipment',
+        'equipment.item',
+        'equipment.item.damage_type',
+        'equipment.item.equipment_category',
+        'equipment.item.properties',
+      ],
     });
 
     if (!character) throw new Error('Character blueprint not found');
@@ -127,12 +138,18 @@ export default ({ strapi }) => ({
       cha: baseStats.charisma || 10,
     };
 
+    // Extract actual equipment items from the inventory-item component wrapper
+    // EntityDeriver expects Equipment objects (with damage_dice, etc), not the { item: ... } wrapper
+    // We also likely want to filter by 'isEquipped' to only grant actions for equipped items
+    const equipmentForDeriver =
+      character.equipment?.filter((entry) => entry.isEquipped && entry.item).map((entry) => entry.item) || [];
+
     // Calculate Stats
     const derived = EntityDeriver.derive({
       attributes: attributes,
       level: 1,
       proficiencyBonus: 2, // Level 1 default
-      equipment: character.equipment || [],
+      equipment: equipmentForDeriver,
       hitDie: hitDie,
       race: {
         speed: character.race?.speed,
@@ -176,7 +193,8 @@ export default ({ strapi }) => ({
         })(),
         race: character.race?.documentId,
         class: character.class?.documentId,
-        // speed: derived.speed, // Not in schema 'speed' -> stored in stats.walkSpeed? No, schema doesn't have root speed.
+        // speed: derived.speed,
+        structuredActions: derived.structuredActions,
         appearance: character.appearance,
         backstory: character.backstory,
         inventory:

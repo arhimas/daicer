@@ -70,7 +70,14 @@ export const typeDefs = `
     alignments: [Alignment]
     backgrounds: [Background]
     conditions: [GameCondition]
-    voxelPreview(chunks: [ChunkRequestInput]!, config: WorldConfigInput!): [JSON]!
+    conditions: [GameCondition]
+    voxelPreview(chunks: [ChunkRequestInput]!, config: WorldConfigInput!): [VoxelChunk]!
+  }
+
+  type VoxelChunk {
+    x: Int!
+    y: Int!
+    tiles: JSON!
   }
 
   extend type Mutation {

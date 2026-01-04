@@ -1,4 +1,4 @@
-import { Entity, EntityAction, EntityFeature } from '@daicer/engine';
+import { Entity, EntityAction, EntityFeature, EntitySheet } from '@daicer/engine';
 
 interface StrapiStats {
   strength?: number;
@@ -104,12 +104,25 @@ export default () => ({
     // Check Sheet Source (Primary) or Blueprint Source (Fallback)
     const sourceActions = s.structuredActions || blueprint?.structuredActions;
 
+    // Helper to map Strapi types to Engine types
+    const mapActionType = (t: string): EntityAction['type'] => {
+      if (t === 'melee') return 'melee';
+      if (t === 'ranged') return 'ranged';
+      if (t === 'spell') return 'spell';
+      return 'utility';
+    };
+
     if (sourceActions) {
       actions.push(
         ...sourceActions.map((a) => ({
           id: a.id, // Ensure ID is preserved if available
+
           name: a.name,
-          type: a.type || 'utility',
+          type: (() => {
+            const mapped = mapActionType(a.type || 'utility');
+            console.log(`[Adapter] Mapping ${a.name}: ${a.type} -> ${mapped}`);
+            return mapped;
+          })(),
           toHit: a.toHit,
           reach: a.reach,
           range: a.range,
@@ -184,6 +197,7 @@ export default () => ({
       visionRadius: 30, // Stub
       speed: 30,
       position: s.position || { x: 0, y: 0, z: 0 },
+      sheet: s as unknown as EntitySheet,
     };
   },
 });

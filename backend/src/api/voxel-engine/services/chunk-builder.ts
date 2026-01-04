@@ -3,12 +3,10 @@ import { TerrainGenerator } from '@daicer/engine';
 import { CivilizationGenerator } from './generators/civilization-generator';
 
 export class ChunkBuilder {
-  private config: WorldConfig;
   private terrainGen: TerrainGenerator;
   private civGen: CivilizationGenerator;
 
-  constructor(config: WorldConfig) {
-    this.config = config;
+  constructor(private config: WorldConfig) {
     this.terrainGen = new TerrainGenerator(config);
     this.civGen = new CivilizationGenerator(config);
   }

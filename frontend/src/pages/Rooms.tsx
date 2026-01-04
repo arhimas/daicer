@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Player, Room } from '@daicer/engine';
+import cn from '@/lib/utils';
+import { gildedTokens } from '@/theme/gildedTokens';
+import Logo from '@/components/ui/Logo';
+import JuicyLayout from '@/components/layout/JuicyLayout';
 import useAuth from '../hooks/useAuth';
 import { listRooms, leaveRoom } from '../services/api';
-import { PrivateLayout } from '../components/layout';
 import { Button } from '../components/ui/button';
 import { useI18n } from '../i18n';
 import EntitySheetPanel from '../components/game/EntitySheetPanel';
@@ -146,15 +149,19 @@ export default function RoomsPage() {
   );
 
   return (
-    <PrivateLayout showNavbar>
-      <div className="mx-auto flex min-h-dvh w-full flex-col gap-10 px-6 py-12 sm:px-10 lg:px-16 xl:max-w-6xl">
-        <header className="flex flex-col gap-4 text-center sm:gap-6">
-          <h1 className="font-display text-4xl uppercase tracking-[0.32em] text-aurora-200 sm:text-5xl">
-            {t('rooms.title')}
-          </h1>
-          <p className="mx-auto max-w-3xl text-base leading-relaxed text-shadow-100/90 sm:text-lg">
-            {t('rooms.subtitle')}
-          </p>
+    <JuicyLayout showNavbar>
+      {/* Content wrapper */}
+      <div className="flex w-full flex-col gap-10">
+        <header className="flex flex-col items-center gap-6 text-center animate-in fade-in zoom-in-95 duration-1000 pt-12">
+          <div className="relative animate-float mb-4">
+            <Logo size="xl" noShadow className="filter drop-shadow-[0_0_15px_rgba(234,179,8,0.2)]" />
+            <div className="absolute inset-0 bg-aurora-500/20 blur-[50px] -z-10 rounded-full scale-150 pointer-events-none" />
+          </div>
+
+          <div className="space-y-4">
+            <h1 className={`${gildedTokens.heroTitle} !text-5xl sm:!text-6xl text-shadow-100`}>{t('rooms.title')}</h1>
+            <p className={`${gildedTokens.heroBody} text-aurora-100/80`}>{t('rooms.subtitle')}</p>
+          </div>
         </header>
 
         {state.loading ? (
@@ -184,7 +191,7 @@ export default function RoomsPage() {
           </div>
         ) : (
           <div className="grid gap-6">
-            {sortedMemberships.map((membership) => {
+            {sortedMemberships.map((membership, index) => {
               const { room, player, isOwner } = membership;
 
               const isProcessing = processingRoomId === room.id;
@@ -194,7 +201,11 @@ export default function RoomsPage() {
               return (
                 <article
                   key={room.id}
-                  className="rounded-3xl border border-aurora-400/20 bg-midnight-900/60 p-6 shadow-[0_28px_58px_rgba(7,5,10,0.5)] backdrop-blur"
+                  className={cn(
+                    gildedTokens.glassPanelInteractive,
+                    'p-8 animate-in fade-in slide-in-from-bottom-4 duration-700'
+                  )}
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                     <div className="space-y-4">
@@ -297,6 +308,6 @@ export default function RoomsPage() {
         )}
       </div>
       <EntitySheetPanel player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
-    </PrivateLayout>
+    </JuicyLayout>
   );
 }

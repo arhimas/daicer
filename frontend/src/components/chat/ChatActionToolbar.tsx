@@ -261,6 +261,35 @@ export function ChatActionToolbar({
       );
     }
 
+    if (field.type === 'entity_action') {
+      const dependencyField = field.dependency?.field;
+      const actorId = dependencyField ? formData[dependencyField] : null;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const actor = roomEntities?.find((e: any) => e.id === actorId || e.documentId === actorId);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const actions = actor?.structuredActions || [];
+
+      return (
+        <select
+          className={cn(
+            'w-full h-8 bg-black/40 border border-midnight-700 rounded text-xs text-aurora-100 px-2',
+            !actorId && 'opacity-50 cursor-not-allowed'
+          )}
+          value={val}
+          onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+          disabled={!actorId}
+        >
+          <option value="">{actorId ? 'Select Action...' : 'Select Attacker First...'}</option>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {actions.map((action: any, idx: number) => (
+            <option key={`${action.name}-${idx}`} value={action.name}>
+              {action.name} ({action.type})
+            </option>
+          ))}
+        </select>
+      );
+    }
+
     if (field.type === 'json' || field.type === 'position') {
       return (
         <textarea

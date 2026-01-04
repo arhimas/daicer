@@ -1,7 +1,15 @@
 import React from 'react';
 import { Skull, Sparkles, MapPin, Hand, Dice5, Zap, BedDouble, Hammer } from 'lucide-react';
 
-export type ToolFieldType = 'text' | 'number' | 'json' | 'select' | 'entity_search' | 'position' | 'room_entity';
+export type ToolFieldType =
+  | 'text'
+  | 'number'
+  | 'json'
+  | 'select'
+  | 'entity_search'
+  | 'position'
+  | 'room_entity'
+  | 'entity_action';
 
 export interface ToolField {
   name: string;
@@ -88,7 +96,14 @@ export const TOOLS: ToolDefinition[] = [
     fields: [
       { name: 'attackerId', label: 'Attacker', type: 'room_entity', required: true },
       { name: 'targetId', label: 'Target', type: 'room_entity', required: true },
-      { name: 'actionName', label: 'Weapon/Action', type: 'text', placeholder: 'e.g. Longsword' },
+      {
+        name: 'actionName',
+        label: 'Weapon/Action',
+        type: 'entity_action', // Custom type handled in ChatActionToolbar
+        dependency: { field: 'attackerId', map: {} }, // map is explicit but unused for entity_action logic, we just need the dependency pointer
+        placeholder: 'Select Action...',
+        required: true,
+      },
     ],
   },
   {
@@ -158,5 +173,28 @@ export const TOOLS: ToolDefinition[] = [
     icon: <BedDouble className="w-4 h-4" />,
     actionPrefix: 'long_rest',
     fields: [{ name: 'timeRequired', label: 'Hours', type: 'number', placeholder: '8' }],
+  },
+  {
+    id: 'get_map_image',
+    label: 'Map Image',
+    icon: <MapPin className="w-4 h-4" />,
+    actionPrefix: 'get_map_image',
+    description: "Generate a map image from an entity's POV or at a location.",
+    fields: [
+      {
+        name: 'entityId',
+        label: 'POV Entity',
+        type: 'room_entity',
+        description: 'Optional: Render from this entity perspective (Fog of War).',
+      },
+      { name: 'radius', label: 'Radius', type: 'number', placeholder: '16' },
+      {
+        name: 'broadcast',
+        label: 'Broadcast',
+        type: 'select',
+        options: ['true', 'false'],
+        description: 'Show in Game Log?',
+      },
+    ],
   },
 ];

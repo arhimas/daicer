@@ -3,6 +3,7 @@ import { Socket } from 'socket.io-client';
 import clsx from 'clsx';
 import { useChunkLoader } from '@/hooks/useChunkLoader';
 import { MapRenderer } from './MapRenderer';
+import { MapRenderer3D } from './MapRenderer3D';
 import { DebugEntity, Coordinates, WorldConfig } from '../utils/types';
 
 interface GameDebugMapProps {
@@ -32,6 +33,7 @@ export function GameDebugMap({
   const [cameraPosition, setCameraPosition] = useState<Coordinates>({ x: 0, y: 0, z: 0 });
   const [viewZ, setViewZ] = useState<number>(0);
   const [zoom, setZoom] = useState<number>(1);
+  const [is3D, setIs3D] = useState<boolean>(false); // Default to 2D per user request
   const [mapSize, setMapSize] = useState({ w: 800, h: 600 });
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -198,50 +200,79 @@ export function GameDebugMap({
             </button>
           ))}
         </div>
+
+        {/* Simple 2D/3D Toggle */}
+        <div className="bg-midnight-900/90 backdrop-blur border border-midnight-700 rounded-full ml-4 px-4 py-2 shadow-xl flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setIs3D(!is3D)}
+            className="text-xs font-bold text-shadow-400 text-aurora-300 hover:text-white uppercase"
+          >
+            {is3D ? 'View 2D' : 'View 3D'}
+          </button>
+        </div>
       </div>
 
       {/* Map Canvas */}
       <div className="flex-1 relative overflow-hidden">
-        <MapRenderer
-          width={mapSize.w}
-          height={mapSize.h}
-          center={cameraPosition}
-          viewZ={viewZ}
-          scale={zoom}
-          chunkProvider={chunkProvider}
-          visibleTiles={visibleTiles}
-          exploredTiles={activeEntity?.exploredTiles || new Set()}
-          entities={entities}
-          ghostEntities={[]}
-          previewPath={activeEntity?.pendingPath}
-          onTileClick={onTileClick}
-          onTileDoubleClick={handleTileDoubleClick}
-          onTileHover={onTileHover}
-          onZoom={(delta, mouseX, mouseY) => {
-            const SCALE_FACTOR = 0.1;
-            const newZoom = Math.max(0.1, Math.min(5, zoom - delta * SCALE_FACTOR));
+        {is3D ? (
+          <MapRenderer3D
+            width={mapSize.w}
+            height={mapSize.h}
+            center={cameraPosition}
+            viewZ={viewZ}
+            chunkProvider={chunkProvider}
+            visibleTiles={visibleTiles}
+            exploredTiles={activeEntity?.exploredTiles || new Set()}
+            entities={entities}
+            ghostEntities={[]}
+            previewPath={activeEntity?.pendingPath}
+            onTileClick={onTileClick}
+            onTileDoubleClick={handleTileDoubleClick}
+            onTileHover={onTileHover}
+          />
+        ) : (
+          <MapRenderer
+            width={mapSize.w}
+            height={mapSize.h}
+            center={cameraPosition}
+            viewZ={viewZ}
+            scale={zoom}
+            chunkProvider={chunkProvider}
+            visibleTiles={visibleTiles}
+            exploredTiles={activeEntity?.exploredTiles || new Set()}
+            entities={entities}
+            ghostEntities={[]}
+            previewPath={activeEntity?.pendingPath}
+            onTileClick={onTileClick}
+            onTileDoubleClick={handleTileDoubleClick}
+            onTileHover={onTileHover}
+            onZoom={(delta, mouseX, mouseY) => {
+              const SCALE_FACTOR = 0.1;
+              const newZoom = Math.max(0.1, Math.min(5, zoom - delta * SCALE_FACTOR));
 
-            // Mouse-centered zoom logic
-            const TILE_SIZE = 32 * zoom;
-            const wx = cameraPosition.x + (mouseX - mapSize.w / 2) / TILE_SIZE;
-            const wy = cameraPosition.y + (mouseY - mapSize.h / 2) / TILE_SIZE;
+              // Mouse-centered zoom logic
+              const TILE_SIZE = 32 * zoom;
+              const wx = cameraPosition.x + (mouseX - mapSize.w / 2) / TILE_SIZE;
+              const wy = cameraPosition.y + (mouseY - mapSize.h / 2) / TILE_SIZE;
 
-            const NEW_TILE_SIZE = 32 * newZoom;
-            const newCenterX = wx - (mouseX - mapSize.w / 2) / NEW_TILE_SIZE;
-            const newCenterY = wy - (mouseY - mapSize.h / 2) / NEW_TILE_SIZE;
+              const NEW_TILE_SIZE = 32 * newZoom;
+              const newCenterX = wx - (mouseX - mapSize.w / 2) / NEW_TILE_SIZE;
+              const newCenterY = wy - (mouseY - mapSize.h / 2) / NEW_TILE_SIZE;
 
-            setZoom(newZoom);
-            setCameraPosition({ ...cameraPosition, x: newCenterX, y: newCenterY });
-          }}
-          onPan={(dx, dy) => {
-            const TILE_SIZE = 32 * zoom;
-            setCameraPosition((prev) => ({
-              ...prev,
-              x: prev.x - dx / TILE_SIZE,
-              y: prev.y - dy / TILE_SIZE,
-            }));
-          }}
-        />
+              setZoom(newZoom);
+              setCameraPosition({ ...cameraPosition, x: newCenterX, y: newCenterY });
+            }}
+            onPan={(dx, dy) => {
+              const TILE_SIZE = 32 * zoom;
+              setCameraPosition((prev) => ({
+                ...prev,
+                x: prev.x - dx / TILE_SIZE,
+                y: prev.y - dy / TILE_SIZE,
+              }));
+            }}
+          />
+        )}
       </div>
     </div>
   );

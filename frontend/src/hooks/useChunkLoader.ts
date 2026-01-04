@@ -9,7 +9,11 @@ interface UseChunkLoaderProps {
 
 const VOXEL_PREVIEW_QUERY = gql`
   query VoxelPreview($chunks: [ChunkRequestInput]!, $config: WorldConfigInput!) {
-    voxelPreview(chunks: $chunks, config: $config)
+    voxelPreview(chunks: $chunks, config: $config) {
+      x
+      y
+      tiles
+    }
   }
 `;
 
@@ -21,20 +25,28 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
 
   const batchQueue = useRef<Set<string>>(new Set());
   const batchTimeout = useRef<NodeJS.Timeout | null>(null);
+  const generationId = useRef(0);
 
   const getChunkId = useCallback((cx: number, cy: number) => `${cx},${cy}`, []);
 
   // Clear cache when critical config changes
   useEffect(() => {
+    console.log('[useChunkLoader] Config changed!', JSON.stringify(config));
+    generationId.current += 1; // Increment generation ID
     setChunkCache({});
     setLoadingChunks(new Set());
     batchQueue.current.clear();
     setIsRegenerating(true);
 
+    if (batchTimeout.current) {
+      clearTimeout(batchTimeout.current);
+      batchTimeout.current = null;
+    }
+
     // Allow a small tick for the reset to propagate before considered "done" if nothing is fetched
     const t = setTimeout(() => setIsRegenerating(false), 100);
     return () => clearTimeout(t);
-  }, [config.seed, config.seaLevel, config.globalScale, config.moistureScale, config.temperatureOffset]);
+  }, [JSON.stringify(config)]);
 
   const processBatch = async () => {
     if (batchQueue.current.size === 0) return;
@@ -42,6 +54,9 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
     const queuedIds = Array.from(batchQueue.current);
     batchQueue.current.clear();
     batchTimeout.current = null;
+
+    const currentGen = generationId.current; // Capture current generation ID
+    console.log(`[useChunkLoader] Processing batch for Gen ${currentGen}. chunks: ${queuedIds.join(', ')}`);
 
     const chunksToFetch = queuedIds
       .map((id) => {
@@ -61,7 +76,6 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
     }
 
     try {
-      console.info('useChunkLoader: Fetching chunks', chunksToFetch, 'config:', config.seed);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data } = await client.query<any>({
         query: VOXEL_PREVIEW_QUERY,
@@ -72,8 +86,17 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
         fetchPolicy: 'network-only',
       });
 
+      // Check if generation ID has changed during fetch
+      if (generationId.current !== currentGen) {
+        console.warn('useChunkLoader: Discarding stale chunks from Gen', currentGen, 'Current:', generationId.current);
+        return;
+      }
+
       const results = data?.voxelPreview;
-      console.info('useChunkLoader: Received results', results);
+      console.log(
+        `[useChunkLoader] Gen ${currentGen} received ${results?.length} chunks. Sample tile:`,
+        results?.[0]?.tiles?.[0]?.[0]
+      );
 
       if (Array.isArray(results)) {
         setChunkCache((prev) => {
@@ -92,14 +115,17 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
     } catch (e) {
       console.error('Batch Chunk Fetch Failed:', e);
     } finally {
-      setLoadingChunks((prev) => {
-        const next = new Set(prev);
-        queuedIds.forEach((id) => next.delete(id));
-        return next;
-      });
-      // Simple heuristic: if queue empty, regeneration is settled for now
-      if (batchQueue.current.size === 0) {
-        setIsRegenerating(false);
+      // Only update loading state if we correspond to current generation
+      if (generationId.current === currentGen) {
+        setLoadingChunks((prev) => {
+          const next = new Set(prev);
+          queuedIds.forEach((id) => next.delete(id));
+          return next;
+        });
+        // Simple heuristic: if queue empty, regeneration is settled for now
+        if (batchQueue.current.size === 0) {
+          setIsRegenerating(false);
+        }
       }
     }
   };
@@ -125,11 +151,14 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
       }
       batchTimeout.current = setTimeout(processBatch, 50);
     },
+    // We remove config from dependency array to prevent fetchChunk recreation on every keystroke
+    // processBatch needs to be fresh, but that is defined in render scope.
+    // Wait, processBatch captures render scope variables.
+    // fetchChunk captures processBatch.
+    // So if config changes -> component re-renders -> processBatch recreated (capturing NEW config) -> fetchChunk recreated -> good.
+    // With Debounce, this happens less often.
     [getChunkId, config]
-  ); // config is dependency because processBatch uses it, and processBatch is recreated or closure...
-  // Wait, processBatch is defined inside render, so it closes over config.
-  // We need to use ref for processBatch or useCallback with config dependency.
-  // Actually processBatch uses `config` from props. capture it.
+  );
 
   const getChunk = useCallback(
     (x: number, y: number) => {

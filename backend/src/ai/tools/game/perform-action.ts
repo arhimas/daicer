@@ -43,7 +43,6 @@ export const performActionTool = (context: StrapiContext) => {
                   user: true,
                   character: {
                     populate: {
-                      structuredActions: { populate: '*' },
                       baseStats: true,
                       equipment: true,
                     },
@@ -150,6 +149,7 @@ export const performActionTool = (context: StrapiContext) => {
           return {
             success: result.success,
             message: result.message,
+            events: result.events,
             trace: result.events.find((e) => e.type === 'ATTACK_RESULT' || e.type === 'SKILL_CHECK_RESULT')?.payload,
           };
         } catch (error) {

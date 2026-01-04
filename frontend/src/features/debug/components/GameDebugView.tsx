@@ -92,6 +92,9 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
             pendingPath: undefined,
             currentHp: c.currentHp,
             maxHp: c.maxHp,
+            // Backend EntityAdapter returns 'actions', Strapi data might have 'structuredActions'
+            structuredActions: c.actions || c.structuredActions || [],
+            raw: c,
           };
         })
       );

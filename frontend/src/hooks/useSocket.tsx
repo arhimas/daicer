@@ -226,7 +226,8 @@ export default function useSocket(roomId?: string, userId?: string) {
             console.info('⚡ Received Game Events:', data.events);
             setState((prev) => {
               const newEvents = (data.events as GameEvent[]).filter(
-                (e) => !prev.gameEvents.some((existing) => existing.id === e.id)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (e) => !prev.gameEvents.some((existing) => (existing as any).id === (e as any).id)
               );
 
               if (newEvents.length === 0) return prev;

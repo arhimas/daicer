@@ -47,6 +47,7 @@ export default ({ strapi }) => ({
             inventory: true,
             character: { populate: ['race', 'class'] },
             monster: true,
+            structuredActions: { populate: { damage: true } },
           },
         },
       },
@@ -75,6 +76,7 @@ export default ({ strapi }) => ({
         speed: sheet.speed || 30,
         currentHp: sheet.currentHp,
         maxHp: sheet.maxHp,
+        structuredActions: sheet.structuredActions || [],
       };
     });
 

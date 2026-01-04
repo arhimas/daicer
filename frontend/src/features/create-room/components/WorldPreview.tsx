@@ -3,6 +3,7 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useChunkLoader } from '@/hooks/useChunkLoader';
 import { MapRenderer } from '../../debug/components/MapRenderer';
+import { MapRenderer3D } from '../../debug/components/MapRenderer3D';
 import type { WorldConfig, Coordinates } from '../../debug/utils/types';
 
 interface WorldPreviewProps {
@@ -21,6 +22,7 @@ export function WorldPreview({ config, className }: WorldPreviewProps) {
   const [cameraPosition, setCameraPosition] = useState<Coordinates>({ x: 0, y: 0, z: 0 });
   const [zoom, setZoom] = useState<number>(0.5);
   const [viewZ, setViewZ] = useState<number>(0);
+  const [is3D, setIs3D] = useState<boolean>(true);
 
   // Chunk Loader
   const { getChunk, isLoading } = useChunkLoader({ config });
@@ -95,7 +97,8 @@ export function WorldPreview({ config, className }: WorldPreviewProps) {
       </div>
 
       {/* Layer Controls (Bottom Center) */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 transition-opacity opacity-0 group-hover:opacity-100 duration-300">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 transition-opacity opacity-0 group-hover:opacity-100 duration-300 flex flex-col items-center gap-2">
+        {/* Layer Z */}
         <div className="bg-midnight-900/80 backdrop-blur border border-midnight-700 rounded-lg px-2 py-1 flex items-center gap-1 shadow-xl">
           <span className="text-[10px] text-shadow-400 uppercase tracking-wider mr-2">Layer</span>
           {[-1, 0, 1].map((z) => (
@@ -114,32 +117,60 @@ export function WorldPreview({ config, className }: WorldPreviewProps) {
             </button>
           ))}
         </div>
+
+        {/* 3D Toggle */}
+        <div className="bg-midnight-900/80 backdrop-blur border border-midnight-700 rounded-full px-3 py-1 shadow-xl">
+          <button
+            type="button"
+            onClick={() => setIs3D(!is3D)}
+            className="text-[10px] font-bold text-shadow-400 text-aurora-300 hover:text-white uppercase"
+          >
+            {is3D ? 'View 2D' : 'View 3D'}
+          </button>
+        </div>
       </div>
 
-      <MapRenderer
-        width={mapSize.w}
-        height={mapSize.h}
-        center={cameraPosition}
-        viewZ={viewZ}
-        scale={zoom}
-        chunkProvider={chunkProvider}
-        visibleTiles={new Set()}
-        exploredTiles={new Set()}
-        entities={[]}
-        ghostEntities={[]}
-        onTileClick={() => {}}
-        onTileDoubleClick={() => {}}
-        onTileHover={() => {}}
-        onZoom={(delta) => setZoom((z) => Math.max(0.1, Math.min(3, z - delta * 0.1)))}
-        onPan={(dx, dy) => {
-          const TILE_SIZE = 32 * zoom;
-          setCameraPosition((prev) => ({
-            x: prev.x - dx / TILE_SIZE,
-            y: prev.y - dy / TILE_SIZE,
-            z: prev.z,
-          }));
-        }}
-      />
+      {is3D ? (
+        <MapRenderer3D
+          width={mapSize.w}
+          height={mapSize.h}
+          center={cameraPosition}
+          viewZ={viewZ}
+          chunkProvider={chunkProvider}
+          visibleTiles={new Set()}
+          exploredTiles={new Set()}
+          entities={[]}
+          ghostEntities={[]}
+          onTileClick={() => {}}
+          onTileDoubleClick={() => {}}
+          onTileHover={() => {}}
+        />
+      ) : (
+        <MapRenderer
+          width={mapSize.w}
+          height={mapSize.h}
+          center={cameraPosition}
+          viewZ={viewZ}
+          scale={zoom}
+          chunkProvider={chunkProvider}
+          visibleTiles={new Set()}
+          exploredTiles={new Set()}
+          entities={[]}
+          ghostEntities={[]}
+          onTileClick={() => {}}
+          onTileDoubleClick={() => {}}
+          onTileHover={() => {}}
+          onZoom={(delta) => setZoom((z) => Math.max(0.1, Math.min(3, z - delta * 0.1)))}
+          onPan={(dx, dy) => {
+            const TILE_SIZE = 32 * zoom;
+            setCameraPosition((prev) => ({
+              x: prev.x - dx / TILE_SIZE,
+              y: prev.y - dy / TILE_SIZE,
+              z: prev.z,
+            }));
+          }}
+        />
+      )}
     </div>
   );
 }

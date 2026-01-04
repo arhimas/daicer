@@ -8,6 +8,8 @@ import { LoadingOverlay } from '@/components/ui/LoadingOverlay';
 import { useWizard } from '../context/WizardContext';
 import { WorldPreview } from '../components/WorldPreview';
 
+import { useDebounce } from '@/hooks/useDebounce';
+
 export default function WorldConfigPage() {
   const { settings, setSettings } = useWizard();
   const navigate = useNavigate();
@@ -30,6 +32,9 @@ export default function WorldConfigPage() {
     roadDensity: (settings.generationParams as any)?.roadDensity ?? 0.5,
     fogRadius: (settings.generationParams as any)?.fogRadius ?? 10,
   };
+
+  // Debounce config updates to prevent excessive re-fetching during slider dragging
+  const debouncedConfig = useDebounce(config, 500);
 
   const handleConfigChange = (newConfig: WorldConfig) => {
     setSettings((prev: WorldSettings) => ({
@@ -83,13 +88,13 @@ export default function WorldConfigPage() {
         {/* Preview */}
         <div className="lg:col-span-8 order-2 lg:order-1 h-[400px] lg:h-[500px] bg-midnight-950/30 rounded-2xl border border-midnight-700/50 backdrop-blur-sm p-1 shadow-2xl relative">
           <div className="absolute inset-0 rounded-xl overflow-hidden">
-            <WorldPreview config={config} />
+            <WorldPreview config={debouncedConfig} />
           </div>
         </div>
 
         {/* Controls */}
         <div className="lg:col-span-4 order-1 lg:order-2">
-          <section className="card p-6 border border-midnight-700/50 bg-midnight-900/40 backdrop-blur-sm h-full max-h-[500px] overflow-y-auto">
+          <section className="card p-6 border border-midnight-700/50 bg-midnight-900/40 backdrop-blur-sm h-full max-h-[500px] overflow-y-auto overflow-x-hidden">
             <WorldConfigForm
               config={config}
               isActive

@@ -46,6 +46,8 @@ export interface Tile {
   isWalkable: boolean;
   isTransparent: boolean;
   variant?: number; // For visual variety (0-1)
+  elevation?: number;
+  moisture?: number;
 }
 
 export interface Chunk {
@@ -92,4 +94,8 @@ export interface DebugEntity {
   pendingPath?: Coordinates[];
   currentHp?: number;
   maxHp?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  structuredActions?: any[]; // using any for now to avoid deep import if ActionDefinition isn't easily grabbed or to avoid circular deps
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  raw?: any; // Full entity data for deep inspection
 }

@@ -58,6 +58,8 @@ export const TileSchema = z.object({
   isWalkable: z.boolean(),
   isTransparent: z.boolean(),
   variant: z.number().optional(),
+  elevation: z.number().optional(),
+  moisture: z.number().optional(),
 });
 
 export const ChunkDTOSchema = z.object({

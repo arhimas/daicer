@@ -2,7 +2,7 @@ import { Outlet, Navigate, useLocation, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { WizardProvider } from '../context/WizardContext';
 // import { StepsHeader } from '../components/StepsHeader'; // We will create this or inline it
-import PrivateLayout from '../../../components/layout/PrivateLayout';
+import JuicyLayout from '@/components/layout/JuicyLayout';
 
 const STEPS = [
   { path: 'dm-settings', label: 'DM & Scope' },
@@ -21,7 +21,7 @@ export default function CreateRoomLayout() {
   }
 
   return (
-    <PrivateLayout showNavbar>
+    <JuicyLayout showNavbar>
       <WizardProvider>
         <div className="relative mx-auto min-h-screen max-w-6xl px-6 py-16 sm:px-10 lg:px-12">
           <header className="space-y-3 text-center mb-10">
@@ -68,6 +68,6 @@ export default function CreateRoomLayout() {
           <Outlet />
         </div>
       </WizardProvider>
-    </PrivateLayout>
+    </JuicyLayout>
   );
 }

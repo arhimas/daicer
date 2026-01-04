@@ -1,0 +1,3275 @@
+{
+  "monsters": [
+    {
+      "documentId": "kudp9tk1ne7dxrk8jdw3zmkn",
+      "name": "Sprite",
+      "hp": 2,
+      "ac": 15,
+      "stats": {
+        "id": 2094,
+        "strength": 3,
+        "dexterity": 18,
+        "constitution": 10,
+        "intelligence": 14,
+        "wisdom": 13,
+        "charisma": 11,
+        "walkSpeed": 10,
+        "flySpeed": 40,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1420,
+          "name": "Longsword",
+          "type": "melee",
+          "toHit": 2,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 1 slashing damage."
+        },
+        {
+          "id": 1422,
+          "name": "Shortbow",
+          "type": "ranged",
+          "toHit": 6,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "Ranged Weapon Attack: +6 to hit, range 40/160 ft., one target. Hit: 1 piercing damage, and the target must succeed on a DC 10 Constitution saving throw or become poisoned for 1 minute. If its saving throw result is 5 or lower, the poisoned target falls unconscious for the same duration, or until it takes damage or another creature takes an action to shake it awake."
+        },
+        {
+          "id": 1423,
+          "name": "Heart Sight",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The sprite touches a creature and magically knows the creature's current emotional state. If the target fails a DC 10 Charisma saving throw, the sprite also knows the creature's alignment. Celestials, fiends, and undead automatically fail the saving throw."
+        },
+        {
+          "id": 1421,
+          "name": "Invisibility",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The sprite magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell). Any equipment the sprite wears or carries is invisible with it."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "picjnicfvccyi6a9qyogrlvf",
+      "name": "Rakshasa",
+      "hp": 110,
+      "ac": 16,
+      "stats": {
+        "id": 2109,
+        "strength": 14,
+        "dexterity": 17,
+        "constitution": 18,
+        "intelligence": 13,
+        "wisdom": 16,
+        "charisma": 20,
+        "walkSpeed": 40,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1476,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 9 (2d6 + 2) slashing damage, and the target is cursed if it is a creature. The magical curse takes effect whenever the target takes a short or long rest, filling the target's thoughts with horrible images and dreams. The cursed target gains no benefit from finishing a short or long rest. The curse lasts until it is lifted by a remove curse spell or similar magic."
+        }
+      ],
+      "features": [
+        {
+          "id": 331,
+          "name": "Limited Magic Immunity",
+          "description": "The rakshasa can't be affected or detected by spells of 6th level or lower unless it wishes to be. It has advantage on saving throws against all other spells and magical effects.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 332,
+          "name": "Innate Spellcasting",
+          "description": "The rakshasa's innate spellcasting ability is Charisma (spell save DC 18, +10 to hit with spell attacks). The rakshasa can innately cast the following spells, requiring no material components:\n\nAt will: detect thoughts, disguise self, mage hand, minor illusion\n3/day each: charm person, detect magic, invisibility, major image, suggestion\n1/day each: dominate person, fly, plane shift, true seeing",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "chilivmj5jc92vd7zgug58st",
+      "name": "Ogre Zombie",
+      "hp": 85,
+      "ac": 8,
+      "stats": {
+        "id": 2093,
+        "strength": 19,
+        "dexterity": 6,
+        "constitution": 18,
+        "intelligence": 3,
+        "wisdom": 6,
+        "charisma": 5,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1419,
+          "name": "Morningstar",
+          "type": "melee",
+          "toHit": 6,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) bludgeoning damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 304,
+          "name": "Undead Fortitude",
+          "description": "If damage reduces the zombie to 0 hit points, it must make a Constitution saving throw with a DC of 5+the damage taken, unless the damage is radiant or from a critical hit. On a success, the zombie drops to 1 hit point instead.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "tbfp3ck1slnjojiqqiqb1ysi",
+      "name": "Otyugh",
+      "hp": 114,
+      "ac": 14,
+      "stats": {
+        "id": 2113,
+        "strength": 16,
+        "dexterity": 11,
+        "constitution": 19,
+        "intelligence": 6,
+        "wisdom": 13,
+        "charisma": 6,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1488,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 6,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) piercing damage. If the target is a creature, it must succeed on a DC 15 Constitution saving throw against disease or become poisoned until the disease is cured. Every 24 hours that elapse, the target must repeat the saving throw, reducing its hit point maximum by 5 (1d10) on a failure. The disease is cured on a success. The target dies if the disease reduces its hit point maximum to 0. This reduction to the target's hit point maximum lasts until the disease is cured."
+        },
+        {
+          "id": 1486,
+          "name": "Tentacle",
+          "type": "melee",
+          "toHit": 6,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 7 (1d8 + 3) bludgeoning damage plus 4 (1d8) piercing damage. If the target is Medium or smaller, it is grappled (escape DC 13) and restrained until the grapple ends. The otyugh has two tentacles, each of which can grapple one target."
+        },
+        {
+          "id": 1487,
+          "name": "Tentacle Slam",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The otyugh slams creatures grappled by it into each other or a solid surface. Each creature must succeed on a DC 14 Constitution saving throw or take 10 (2d6 + 3) bludgeoning damage and be stunned until the end of the otyugh's next turn. On a successful save, the target takes half the bludgeoning damage and isn't stunned."
+        }
+      ],
+      "features": [
+        {
+          "id": 338,
+          "name": "Limited Telepathy",
+          "description": "The otyugh can magically transmit simple messages and images to any creature within 120 ft. of it that can understand a language. This form of telepathy doesn't allow the receiving creature to telepathically respond.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "c7g1nv7o0x2s9jiyuyodhjf6",
+      "name": "Giant Rat (Diseased)",
+      "hp": 7,
+      "ac": 12,
+      "stats": {
+        "id": 2006,
+        "strength": 7,
+        "dexterity": 15,
+        "constitution": 11,
+        "intelligence": 2,
+        "wisdom": 10,
+        "charisma": 4,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1157,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 3 (1d4 + 2) piercing damage. If the target is a creature, it must succeed on a DC 10 Constitution saving throw or contract a disease. Until the disease is cured, the target can't regain hit points except by magical means, and the target's hit point maximum decreases by 3 (1d6) every 24 hours. If the target's hit point maximum drops to 0 as a result of this disease, the target dies."
+        }
+      ],
+      "features": [
+        {
+          "id": 145,
+          "name": "Keen Smell",
+          "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 146,
+          "name": "Pack Tactics",
+          "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "wvp3iosoyhwuozhnjkv370uo",
+      "name": "Elk",
+      "hp": 13,
+      "ac": 10,
+      "stats": {
+        "id": 2008,
+        "strength": 16,
+        "dexterity": 10,
+        "constitution": 12,
+        "intelligence": 2,
+        "wisdom": 10,
+        "charisma": 6,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1164,
+          "name": "Ram",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage."
+        },
+        {
+          "id": 1165,
+          "name": "Hooves",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one prone creature. Hit: 8 (2d4 + 3) bludgeoning damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 148,
+          "name": "Charge",
+          "description": "If the elk moves at least 20 ft. straight toward a target and then hits it with a ram attack on the same turn, the target takes an extra 7 (2d6) damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "ud65rld13q8qzoyy3myyo3js",
+      "name": "Ice Devil",
+      "hp": 180,
+      "ac": 18,
+      "stats": {
+        "id": 2039,
+        "strength": 21,
+        "dexterity": 14,
+        "constitution": 18,
+        "intelligence": 18,
+        "wisdom": 15,
+        "charisma": 18,
+        "walkSpeed": 40,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1247,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 10,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) piercing damage plus 10 (3d6) cold damage."
+        },
+        {
+          "id": 1248,
+          "name": "Claws",
+          "type": "melee",
+          "toHit": 10,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 10 (2d4 + 5) slashing damage plus 10 (3d6) cold damage."
+        },
+        {
+          "id": 1250,
+          "name": "Tail",
+          "type": "melee",
+          "toHit": 10,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage plus 10 (3d6) cold damage."
+        },
+        {
+          "id": 1251,
+          "name": "Wall of Ice",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The devil magically forms an opaque wall of ice on a solid surface it can see within 60 feet of it. The wall is 1 foot thick and up to 30 feet long and 10 feet high, or it's a hemispherical dome up to 20 feet in diameter.\nWhen the wall appears, each creature in its space is pushed out of it by the shortest route. The creature chooses which side of the wall to end up on, unless the creature is incapacitated. The creature then makes a DC 17 Dexterity saving throw, taking 35 (10d6) cold damage on a failed save, or half as much damage on a successful one.\nThe wall lasts for 1 minute or until the devil is incapacitated or dies. The wall can be damaged and breached; each 10-foot section has AC 5, 30 hit points, vulnerability to fire damage, and immunity to acid, cold, necrotic, poison, and psychic damage. If a section is destroyed, it leaves behind a sheet of frigid air in the space the wall occupied. Whenever a creature finishes moving through the frigid air on a turn, willingly or otherwise, the creature must make a DC 17 Constitution saving throw, taking 17 (5d6) cold damage on a failed save, or half as much damage on a successful one. The frigid air dissipates when the rest of the wall vanishes."
+        }
+      ],
+      "features": [
+        {
+          "id": 209,
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 210,
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "kx19498l1ieb2ds1sjkhft57",
+      "name": "Mimic",
+      "hp": 58,
+      "ac": 12,
+      "stats": {
+        "id": 2095,
+        "strength": 17,
+        "dexterity": 12,
+        "constitution": 15,
+        "intelligence": 5,
+        "wisdom": 13,
+        "charisma": 8,
+        "walkSpeed": 15,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1426,
+          "name": "Pseudopod",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) bludgeoning damage. If the mimic is in object form, the target is subjected to its Adhesive trait."
+        },
+        {
+          "id": 1427,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) piercing damage plus 4 (1d8) acid damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 309,
+          "name": "Shapechanger",
+          "description": "The mimic can use its action to polymorph into an object or back into its true, amorphous form. Its statistics are the same in each form. Any equipment it is wearing or carrying isn 't transformed. It reverts to its true form if it dies.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 310,
+          "name": "Adhesive (Object Form Only)",
+          "description": "The mimic adheres to anything that touches it. A Huge or smaller creature adhered to the mimic is also grappled by it (escape DC 13). Ability checks made to escape this grapple have disadvantage.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 311,
+          "name": "False Appearance (Object Form Only)",
+          "description": "While the mimic remains motionless, it is indistinguishable from an ordinary object.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 312,
+          "name": "Grappler",
+          "description": "The mimic has advantage on attack rolls against any creature grappled by it.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "vn8ey8jbhlh1lnub7al75nmt",
+      "name": "Plesiosaurus",
+      "hp": 68,
+      "ac": 13,
+      "stats": {
+        "id": 2100,
+        "strength": 18,
+        "dexterity": 15,
+        "constitution": 16,
+        "intelligence": 2,
+        "wisdom": 12,
+        "charisma": 5,
+        "walkSpeed": 20,
+        "flySpeed": null,
+        "swimSpeed": 40,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1441,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 6,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 14 (3d6 + 4) piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 320,
+          "name": "Hold Breath",
+          "description": "The plesiosaurus can hold its breath for 1 hour.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "fdxzaouymi0ggj17br6e9a0a",
+      "name": "Green Hag",
+      "hp": 82,
+      "ac": 17,
+      "stats": {
+        "id": 2019,
+        "strength": 18,
+        "dexterity": 12,
+        "constitution": 16,
+        "intelligence": 13,
+        "wisdom": 14,
+        "charisma": 14,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1198,
+          "name": "Claws",
+          "type": "melee",
+          "toHit": 6,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage."
+        },
+        {
+          "id": 1196,
+          "name": "Illusory Appearance",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The hag covers herself and anything she is wearing or carrying with a magical illusion that makes her look like another creature of her general size and humanoid shape. The illusion ends if the hag takes a bonus action to end it or if she dies.\nThe changes wrought by this effect fail to hold up to physical inspection. For example, the hag could appear to have smooth skin, but someone touching her would feel her rough flesh. Otherwise, a creature must take an action to visually inspect the illusion and succeed on a DC 20 Intelligence (Investigation) check to discern that the hag is disguised."
+        },
+        {
+          "id": 1197,
+          "name": "Invisible Passage",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The hag magically turns invisible until she attacks or casts a spell, or until her concentration ends (as if concentrating on a spell). While invisible, she leaves no physical evidence of her passage, so she can be tracked only by magic. Any equipment she wears or carries is invisible with her."
+        }
+      ],
+      "features": [
+        {
+          "id": 168,
+          "name": "Amphibious",
+          "description": "The hag can breathe air and water.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 169,
+          "name": "Innate Spellcasting",
+          "description": "The hag's innate spellcasting ability is Charisma (spell save DC 12). She can innately cast the following spells, requiring no material components:\n\nAt will: dancing lights, minor illusion, vicious mockery",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 170,
+          "name": "Mimicry",
+          "description": "The hag can mimic animal sounds and humanoid voices. A creature that hears the sounds can tell they are imitations with a successful DC 14 Wisdom (Insight) check.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "y7pva9k5wdzmvc9xda5t9481",
+      "name": "Hydra",
+      "hp": 172,
+      "ac": 15,
+      "stats": {
+        "id": 2028,
+        "strength": 20,
+        "dexterity": 12,
+        "constitution": 20,
+        "intelligence": 2,
+        "wisdom": 10,
+        "charisma": 7,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": 30,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1221,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 8,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 10 (1d10 + 5) piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 185,
+          "name": "Hold Breath",
+          "description": "The hydra can hold its breath for 1 hour.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 186,
+          "name": "Multiple Heads",
+          "description": "The hydra has five heads. While it has more than one head, the hydra has advantage on saving throws against being blinded, charmed, deafened, frightened, stunned, and knocked unconscious.\nWhenever the hydra takes 25 or more damage in a single turn, one of its heads dies. If all its heads die, the hydra dies.\nAt the end of its turn, it grows two heads for each of its heads that died since its last turn, unless it has taken fire damage since its last turn. The hydra regains 10 hit points for each head regrown in this way.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 187,
+          "name": "Reactive Heads",
+          "description": "For each head the hydra has beyond one, it gets an extra reaction that can be used only for opportunity attacks.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 188,
+          "name": "Wakeful",
+          "description": "While the hydra sleeps, at least one of its heads is awake.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "r8w0ib8adjmdosqtdw0gya86",
+      "name": "Giant Vulture",
+      "hp": 22,
+      "ac": 10,
+      "stats": {
+        "id": 2032,
+        "strength": 15,
+        "dexterity": 10,
+        "constitution": 15,
+        "intelligence": 6,
+        "wisdom": 12,
+        "charisma": 7,
+        "walkSpeed": 10,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1230,
+          "name": "Beak",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4 + 2) piercing damage."
+        },
+        {
+          "id": 1231,
+          "name": "Talons",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 9 (2d6 + 2) slashing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 195,
+          "name": "Keen Sight and Smell",
+          "description": "The vulture has advantage on Wisdom (Perception) checks that rely on sight or smell.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 196,
+          "name": "Pack Tactics",
+          "description": "The vulture has advantage on an attack roll against a creature if at least one of the vulture's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "ia87j6wp1twtnb52d620lsil",
+      "name": "Efreeti",
+      "hp": 200,
+      "ac": 17,
+      "stats": {
+        "id": 2013,
+        "strength": 22,
+        "dexterity": 12,
+        "constitution": 24,
+        "intelligence": 16,
+        "wisdom": 15,
+        "charisma": 16,
+        "walkSpeed": 40,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1176,
+          "name": "Scimitar",
+          "type": "melee",
+          "toHit": 10,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage plus 7 (2d6) fire damage."
+        },
+        {
+          "id": 1177,
+          "name": "Hurl Flame",
+          "type": "spell",
+          "toHit": 7,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "Ranged Spell Attack: +7 to hit, range 120 ft., one target. Hit: 17 (5d6) fire damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 153,
+          "name": "Elemental Demise",
+          "description": "If the efreeti dies, its body disintegrates in a flash of fire and puff of smoke, leaving behind only equipment the djinni was wearing or carrying.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 154,
+          "name": "Innate Spellcasting",
+          "description": "The efreeti's innate spell casting ability is Charisma (spell save DC 15, +7 to hit with spell attacks). It can innately cast the following spells, requiring no material components:\n\nAt will: detect magic\n3/day: enlarge/reduce, tongues\n1/day each: conjure elemental (fire elemental only), gaseous form, invisibility, major image, plane shift, wall of fire",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "st18qtg3p3vxwmsnjevb3m52",
+      "name": "Deer",
+      "hp": 4,
+      "ac": 13,
+      "stats": {
+        "id": 1720,
+        "strength": 11,
+        "dexterity": 16,
+        "constitution": 11,
+        "intelligence": 2,
+        "wisdom": 14,
+        "charisma": 5,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 60,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 2,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) piercing damage."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "zlsgnobeo0dff1tgbi9ohkk7",
+      "name": "Giant Rat",
+      "hp": 7,
+      "ac": 12,
+      "stats": {
+        "id": 2015,
+        "strength": 7,
+        "dexterity": 15,
+        "constitution": 11,
+        "intelligence": 2,
+        "wisdom": 10,
+        "charisma": 4,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1180,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 157,
+          "name": "Keen Smell",
+          "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 158,
+          "name": "Pack Tactics",
+          "description": "The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "beg4o6058a9xchdwt8cmfj08",
+      "name": "Axe Beak",
+      "hp": 19,
+      "ac": 11,
+      "stats": {
+        "id": 1724,
+        "strength": 14,
+        "dexterity": 12,
+        "constitution": 12,
+        "intelligence": 2,
+        "wisdom": 10,
+        "charisma": 5,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 86,
+          "name": "Beak",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) slashing damage."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "fpj2qn0hnp1wb65l621l8t7s",
+      "name": "Oni",
+      "hp": 110,
+      "ac": 16,
+      "stats": {
+        "id": 2098,
+        "strength": 19,
+        "dexterity": 11,
+        "constitution": 16,
+        "intelligence": 14,
+        "wisdom": 12,
+        "charisma": 15,
+        "walkSpeed": 30,
+        "flySpeed": 30,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1435,
+          "name": "Claw (Oni Form Only)",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) slashing damage."
+        },
+        {
+          "id": 1436,
+          "name": "Glaive",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 15 (2d10 + 4) slashing damage, or 9 (1d10 + 4) slashing damage in Small or Medium form."
+        },
+        {
+          "id": 1434,
+          "name": "Change Shape",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The oni magically polymorphs into a Small or Medium humanoid, into a Large giant, or back into its true form. Other than its size, its statistics are the same in each form. The only equipment that is transformed is its glaive, which shrinks so that it can be wielded in humanoid form. If the oni dies, it reverts to its true form, and its glaive reverts to its normal size."
+        }
+      ],
+      "features": [
+        {
+          "id": 316,
+          "name": "Innate Spellcasting",
+          "description": "The oni's innate spellcasting ability is Charisma (spell save DC 13). The oni can innately cast the following spells, requiring no material components:\n\nAt will: darkness, invisibility\n1/day each: charm person, cone of cold, gaseous form, sleep",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 317,
+          "name": "Magic Weapons",
+          "description": "The oni's weapon attacks are magical.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 318,
+          "name": "Regeneration",
+          "description": "The oni regains 10 hit points at the start of its turn if it has at least 1 hit point.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "n350g0rjo7pb7ca48w59oy4v",
+      "name": "Quipper",
+      "hp": 1,
+      "ac": 13,
+      "stats": {
+        "id": 2102,
+        "strength": 2,
+        "dexterity": 16,
+        "constitution": 9,
+        "intelligence": 1,
+        "wisdom": 7,
+        "charisma": 2,
+        "walkSpeed": null,
+        "flySpeed": null,
+        "swimSpeed": 40,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1450,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 323,
+          "name": "Blood Frenzy",
+          "description": "The quipper has advantage on melee attack rolls against any creature that doesn't have all its hit points.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 324,
+          "name": "Water Breathing",
+          "description": "The quipper can breathe only underwater.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "uzzr0b64kmciz7c07my1xk1k",
+      "name": "Orc",
+      "hp": 15,
+      "ac": 13,
+      "stats": {
+        "id": 2104,
+        "strength": 16,
+        "dexterity": 12,
+        "constitution": 16,
+        "intelligence": 7,
+        "wisdom": 11,
+        "charisma": 10,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1457,
+          "name": "Greataxe",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 9 (1d12 + 3) slashing damage."
+        },
+        {
+          "id": 1458,
+          "name": "Javelin",
+          "type": "ranged",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 6 (1d6 + 3) piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 326,
+          "name": "Aggressive",
+          "description": "As a bonus action, the orc can move up to its speed toward a hostile creature that it can see.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "roansu5vrwlorzn1dortwoi3",
+      "name": "Owl",
+      "hp": 1,
+      "ac": 11,
+      "stats": {
+        "id": 2111,
+        "strength": 3,
+        "dexterity": 13,
+        "constitution": 8,
+        "intelligence": 2,
+        "wisdom": 12,
+        "charisma": 7,
+        "walkSpeed": 5,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1483,
+          "name": "Talons",
+          "type": "melee",
+          "toHit": 3,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 1 slashing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 335,
+          "name": "Flyby",
+          "description": "The owl doesn't provoke opportunity attacks when it flies out of an enemy's reach.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 336,
+          "name": "Keen Hearing and Sight",
+          "description": "The owl has advantage on Wisdom (Perception) checks that rely on hearing or sight.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "fadwx4g1wfuhexo2yyab8wc3",
+      "name": "Tyrannosaurus Rex",
+      "hp": 136,
+      "ac": 13,
+      "stats": {
+        "id": 2116,
+        "strength": 25,
+        "dexterity": 10,
+        "constitution": 19,
+        "intelligence": 2,
+        "wisdom": 12,
+        "charisma": 9,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1496,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 10,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 33 (4d12 + 7) piercing damage. If the target is a Medium or smaller creature, it is grappled (escape DC 17). Until this grapple ends, the target is restrained, and the tyrannosaurus can't bite another target."
+        },
+        {
+          "id": 1497,
+          "name": "Tail",
+          "type": "melee",
+          "toHit": 10,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 20 (3d8 + 7) bludgeoning damage."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "flkfivzoruvcwif4xj47tyzp",
+      "name": "Adult Brass Dragon",
+      "hp": 172,
+      "ac": 18,
+      "stats": {
+        "id": 2106,
+        "strength": 23,
+        "dexterity": 10,
+        "constitution": 21,
+        "intelligence": 14,
+        "wisdom": 13,
+        "charisma": 17,
+        "walkSpeed": 40,
+        "flySpeed": 80,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 40,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1465,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 11,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage."
+        },
+        {
+          "id": 1466,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 11,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage."
+        },
+        {
+          "id": 1467,
+          "name": "Tail",
+          "type": "melee",
+          "toHit": 11,
+          "reach": 15,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +11 to hit, reach 15 ft., one target. Hit: 15 (2d8 + 6) bludgeoning damage."
+        },
+        {
+          "id": 1468,
+          "name": "Frightful Presence",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours ."
+        },
+        {
+          "id": 1469,
+          "name": "Breath Weapons",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon uses one of the following breath weapons.\nFire Breath. The dragon exhales fire in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 45 (13d6) fire damage on a failed save, or half as much damage on a successful one.\nSleep Breath. The dragon exhales sleep gas in a 60-foot cone. Each creature in that area must succeed on a DC 18 Constitution saving throw or fall unconscious for 10 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it."
+        }
+      ],
+      "features": [
+        {
+          "id": 328,
+          "name": "Legendary Resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "zr68h22usacomy0w1c72mecc",
+      "name": "Young Brass Dragon",
+      "hp": 110,
+      "ac": 17,
+      "stats": {
+        "id": 2110,
+        "strength": 19,
+        "dexterity": 10,
+        "constitution": 17,
+        "intelligence": 12,
+        "wisdom": 11,
+        "charisma": 15,
+        "walkSpeed": 40,
+        "flySpeed": 80,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 20,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1480,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 15 (2d10 + 4) piercing damage."
+        },
+        {
+          "id": 1481,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage."
+        },
+        {
+          "id": 1482,
+          "name": "Breath Weapons",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon uses one of the following breath weapons.\nFire Breath. The dragon exhales fire in a 40-foot line that is 5 feet wide. Each creature in that line must make a DC 14 Dexterity saving throw, taking 42 (12d6) fire damage on a failed save, or half as much damage on a successful one.\nSleep Breath. The dragon exhales sleep gas in a 30-foot cone. Each creature in that area must succeed on a DC 14 Constitution saving throw or fall unconscious for 5 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "mcspn22zruwhsh0yi80tebeq",
+      "name": "Ankheg",
+      "hp": 39,
+      "ac": 14,
+      "stats": {
+        "id": 1725,
+        "strength": 17,
+        "dexterity": 11,
+        "constitution": 13,
+        "intelligence": 1,
+        "wisdom": 13,
+        "charisma": 6,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 10,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 89,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage plus 3 (1d6) acid damage. If the target is a Large or smaller creature, it is grappled (escape DC 13). Until this grapple ends, the ankheg can bite only the grappled creature and has advantage on attack rolls to do so."
+        },
+        {
+          "id": 90,
+          "name": "Acid Spray",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The ankheg spits acid in a line that is 30 ft. long and 5 ft. wide, provided that it has no creature grappled. Each creature in that line must make a DC 13 Dexterity saving throw, taking 10 (3d6) acid damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "c2dogp5iebtyxju63k8ma6d3",
+      "name": "Blue Dragon Wyrmling",
+      "hp": 52,
+      "ac": 17,
+      "stats": {
+        "id": 1731,
+        "strength": 17,
+        "dexterity": 10,
+        "constitution": 15,
+        "intelligence": 12,
+        "wisdom": 11,
+        "charisma": 15,
+        "walkSpeed": 30,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 15,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 109,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 8 (1d10 + 3) piercing damage plus 3 (1d6) lightning damage."
+        },
+        {
+          "id": 110,
+          "name": "Lightning Breath",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon exhales lightning in a 30-foot line that is 5 feet wide. Each creature in that line must make a DC 12 Dexterity saving throw, taking 22 (4d10) lightning damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "tiva7bvcj5q2e85pzjrm62bk",
+      "name": "Ape",
+      "hp": 19,
+      "ac": 12,
+      "stats": {
+        "id": 1729,
+        "strength": 16,
+        "dexterity": 14,
+        "constitution": 14,
+        "intelligence": 6,
+        "wisdom": 12,
+        "charisma": 7,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": 30,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 101,
+          "name": "Fist",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage."
+        },
+        {
+          "id": 102,
+          "name": "Rock",
+          "type": "ranged",
+          "toHit": 5,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "Ranged Weapon Attack: +5 to hit, range 25/50 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "sugpujusklmx5gyvzxmg160v",
+      "name": "Brass Dragon Wyrmling",
+      "hp": 16,
+      "ac": 16,
+      "stats": {
+        "id": 1730,
+        "strength": 15,
+        "dexterity": 10,
+        "constitution": 13,
+        "intelligence": 10,
+        "wisdom": 11,
+        "charisma": 13,
+        "walkSpeed": 30,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 15,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 105,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage."
+        },
+        {
+          "id": 106,
+          "name": "Breath Weapons",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon uses one of the following breath weapons.\nFire Breath. The dragon exhales fire in an 20-foot line that is 5 feet wide. Each creature in that line must make a DC 11 Dexterity saving throw, taking 14 (4d6) fire damage on a failed save, or half as much damage on a successful one.\nSleep Breath. The dragon exhales sleep gas in a 15-foot cone. Each creature in that area must succeed on a DC 11 Constitution saving throw or fall unconscious for 1 minute. This effect ends for a creature if the creature takes damage or someone uses an action to wake it."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "mv2d5e01sh4ac2dns2e8ygtv",
+      "name": "Rat",
+      "hp": 1,
+      "ac": 10,
+      "stats": {
+        "id": 2115,
+        "strength": 2,
+        "dexterity": 11,
+        "constitution": 9,
+        "intelligence": 2,
+        "wisdom": 10,
+        "charisma": 4,
+        "walkSpeed": 20,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1495,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 0,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +0 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 340,
+          "name": "Keen Smell",
+          "description": "The rat has advantage on Wisdom (Perception) checks that rely on smell.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "j6ed8vtau3fyljdtxdehpyfc",
+      "name": "Androsphinx",
+      "hp": 199,
+      "ac": 17,
+      "stats": {
+        "id": 2117,
+        "strength": 22,
+        "dexterity": 10,
+        "constitution": 20,
+        "intelligence": 16,
+        "wisdom": 18,
+        "charisma": 23,
+        "walkSpeed": 40,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1500,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 12,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +12 to hit, reach 5 ft., one target. Hit: 17 (2d10 + 6) slashing damage."
+        },
+        {
+          "id": 1501,
+          "name": "Roar",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The sphinx emits a magical roar. Each time it roars before finishing a long rest, the roar is louder and the effect is different, as detailed below. Each creature within 500 feet of the sphinx and able to hear the roar must make a saving throw.\n\nFirst Roar. Each creature that fails a DC 18 Wisdom saving throw is frightened for 1 minute. A frightened creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n\nSecond Roar. Each creature that fails a DC 18 Wisdom saving throw is deafened and frightened for 1 minute. A frightened creature is paralyzed and can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n\nThird Roar. Each creature makes a DC 18 Constitution saving throw. On a failed save, a creature takes 44 (8d10) thunder damage and is knocked prone. On a successful save, the creature takes half as much damage and isn't knocked prone."
+        }
+      ],
+      "features": [
+        {
+          "id": 344,
+          "name": "Inscrutable",
+          "description": "The sphinx is immune to any effect that would sense its emotions or read its thoughts, as well as any divination spell that it refuses. Wisdom (Insight) checks made to ascertain the sphinx's intentions or sincerity have disadvantage.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 345,
+          "name": "Magic Weapons",
+          "description": "The sphinx's weapon attacks are magical.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 346,
+          "name": "Spellcasting",
+          "description": "The sphinx is a 12th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 18, +10 to hit with spell attacks). It requires no material components to cast its spells. The sphinx has the following cleric spells prepared:\n\n- Cantrips (at will): sacred flame, spare the dying, thaumaturgy\n- 1st level (4 slots): command, detect evil and good, detect magic\n- 2nd level (3 slots): lesser restoration, zone of truth\n- 3rd level (3 slots): dispel magic, tongues\n- 4th level (3 slots): banishment, freedom of movement\n- 5th level (2 slots): flame strike, greater restoration\n- 6th level (1 slot): heroes' feast",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "an0atzd5s9au61bq0258109g",
+      "name": "Giant Boar",
+      "hp": 42,
+      "ac": 12,
+      "stats": {
+        "id": 2021,
+        "strength": 17,
+        "dexterity": 10,
+        "constitution": 16,
+        "intelligence": 2,
+        "wisdom": 7,
+        "charisma": 5,
+        "walkSpeed": 40,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1204,
+          "name": "Tusk",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 173,
+          "name": "Charge",
+          "description": "If the boar moves at least 20 ft. straight toward a target and then hits it with a tusk attack on the same turn, the target takes an extra 7 (2d6) slashing damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 174,
+          "name": "Relentless",
+          "description": "If the boar takes 10 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "oopt6jclhqmumcmo1h6duep2",
+      "name": "Giant Crab",
+      "hp": 13,
+      "ac": 15,
+      "stats": {
+        "id": 2023,
+        "strength": 13,
+        "dexterity": 15,
+        "constitution": 11,
+        "intelligence": 1,
+        "wisdom": 9,
+        "charisma": 3,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": 30,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1209,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 3,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) bludgeoning damage, and the target is grappled (escape DC 11). The crab has two claws, each of which can grapple only one target."
+        }
+      ],
+      "features": [
+        {
+          "id": 176,
+          "name": "Amphibious",
+          "description": "The crab can breathe air and water.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "bw1vwmjv2bteob9unywn61wq",
+      "name": "Giant Shark",
+      "hp": 126,
+      "ac": 13,
+      "stats": {
+        "id": 2025,
+        "strength": 23,
+        "dexterity": 11,
+        "constitution": 21,
+        "intelligence": 1,
+        "wisdom": 10,
+        "charisma": 5,
+        "walkSpeed": null,
+        "flySpeed": null,
+        "swimSpeed": 50,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1213,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 9,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 22 (3d10 + 6) piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 179,
+          "name": "Blood Frenzy",
+          "description": "The shark has advantage on melee attack rolls against any creature that doesn't have all its hit points.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 180,
+          "name": "Water Breathing",
+          "description": "The shark can breathe only underwater.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "jghpesq23681p3nthjvqb7hx",
+      "name": "Ancient Bronze Dragon",
+      "hp": 444,
+      "ac": 22,
+      "stats": {
+        "id": 1926,
+        "strength": 29,
+        "dexterity": 10,
+        "constitution": 27,
+        "intelligence": 18,
+        "wisdom": 17,
+        "charisma": 21,
+        "walkSpeed": null,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 917,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 16,
+          "reach": 15,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +16 to hit, reach 15 ft., one target. Hit: 20 (2d10 + 9) piercing damage."
+        },
+        {
+          "id": 918,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 16,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +16 to hit, reach 10 ft., one target. Hit: 16 (2d6 + 9) slashing damage."
+        },
+        {
+          "id": 919,
+          "name": "Tail",
+          "type": "melee",
+          "toHit": 16,
+          "reach": 20,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +16 to hit, reach 20 ft., one target. Hit: 18 (2d8 + 9) bludgeoning damage."
+        },
+        {
+          "id": 920,
+          "name": "Frightful Presence",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 20 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+        },
+        {
+          "id": 921,
+          "name": "Breath Weapons",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon uses one of the following breath weapons.\nLightning Breath. The dragon exhales lightning in a 120-foot line that is 10 feet wide. Each creature in that line must make a DC 23 Dexterity saving throw, taking 88 (16d10) lightning damage on a failed save, or half as much damage on a successful one.\nRepulsion Breath. The dragon exhales repulsion energy in a 30-foot cone. Each creature in that area must succeed on a DC 23 Strength saving throw. On a failed save, the creature is pushed 60 feet away from the dragon."
+        },
+        {
+          "id": 916,
+          "name": "Change Shape",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice).\nIn a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form."
+        }
+      ],
+      "features": [
+        {
+          "id": 17,
+          "name": "Amphibious",
+          "description": "The dragon can breathe air and water.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 18,
+          "name": "Legendary Resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "w9348s9kerhct4zwsl0ayi8v",
+      "name": "Ancient Black Dragon",
+      "hp": 367,
+      "ac": 22,
+      "stats": {
+        "id": 1930,
+        "strength": 27,
+        "dexterity": 14,
+        "constitution": 25,
+        "intelligence": 16,
+        "wisdom": 15,
+        "charisma": 19,
+        "walkSpeed": 40,
+        "flySpeed": 80,
+        "swimSpeed": 40,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 935,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": null,
+          "reach": 15,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack:+ 15 to hit, reach 15 ft., one target. Hit: 19 (2d10 + 8) piercing damage plus 9 (2d8) acid damage."
+        },
+        {
+          "id": 936,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 15,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +15 to hit, reach 10 ft., one target. Hit: 15 (2d6 + 8) slashing damage."
+        },
+        {
+          "id": 937,
+          "name": "Tail",
+          "type": "melee",
+          "toHit": 15,
+          "reach": 20,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +15 to hit, reach 20 ft., one target. Hit: 17 (2d8 + 8) bludgeoning damage."
+        },
+        {
+          "id": 938,
+          "name": "Frightful Presence",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+        },
+        {
+          "id": 939,
+          "name": "Acid Breath",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon exhales acid in a 90-foot line that is 10 feet wide. Each creature in that line must make a DC 22 Dexterity saving throw, taking 67 (15d8) acid damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "features": [
+        {
+          "id": 25,
+          "name": "Amphibious",
+          "description": "The dragon can breathe air and water.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 26,
+          "name": "Legendary Resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "tv477f3y0oqlm1hd4s9i4sno",
+      "name": "Reef Shark",
+      "hp": 22,
+      "ac": 12,
+      "stats": {
+        "id": 2119,
+        "strength": 14,
+        "dexterity": 13,
+        "constitution": 13,
+        "intelligence": 1,
+        "wisdom": 10,
+        "charisma": 4,
+        "walkSpeed": null,
+        "flySpeed": null,
+        "swimSpeed": 40,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1506,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 349,
+          "name": "Pack Tactics",
+          "description": "The shark has advantage on an attack roll against a creature if at least one of the shark's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 350,
+          "name": "Water Breathing",
+          "description": "The shark can breathe only underwater.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "kploxonakz3x6ymoujg117q1",
+      "name": "Panther",
+      "hp": 13,
+      "ac": 12,
+      "stats": {
+        "id": 2124,
+        "strength": 14,
+        "dexterity": 15,
+        "constitution": 10,
+        "intelligence": 3,
+        "wisdom": 14,
+        "charisma": 7,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": 40,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1517,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+        },
+        {
+          "id": 1518,
+          "name": "Claw",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) slashing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 357,
+          "name": "Keen Smell",
+          "description": "The panther has advantage on Wisdom (Perception) checks that rely on smell.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 358,
+          "name": "Pounce",
+          "description": "If the panther moves at least 20 ft. straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 12 Strength saving throw or be knocked prone. If the target is prone, the panther can make one bite attack against it as a bonus action.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "c6rn9vssqpbsaxs4eka30n97",
+      "name": "Raven",
+      "hp": 1,
+      "ac": 12,
+      "stats": {
+        "id": 2126,
+        "strength": 2,
+        "dexterity": 14,
+        "constitution": 8,
+        "intelligence": 2,
+        "wisdom": 12,
+        "charisma": 6,
+        "walkSpeed": 10,
+        "flySpeed": 50,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1524,
+          "name": "Beak",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
+        }
+      ],
+      "features": [
+        {
+          "id": 360,
+          "name": "Mimicry",
+          "description": "The raven can mimic simple sounds it has heard, such as a person whispering, a baby crying, or an animal chittering. A creature that hears the sounds can tell they are imitations with a successful DC 10 Wisdom (Insight) check.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "pz2abdyn2p8h1c5gceqe4j9j",
+      "name": "Swarm of Beetles",
+      "hp": 22,
+      "ac": 12,
+      "stats": {
+        "id": 2132,
+        "strength": 3,
+        "dexterity": 13,
+        "constitution": 10,
+        "intelligence": 1,
+        "wisdom": 7,
+        "charisma": 1,
+        "walkSpeed": 20,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": 20,
+        "burrowSpeed": 5,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1540,
+          "name": "Bites",
+          "type": "melee",
+          "toHit": 3,
+          "reach": 0,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +3 to hit, reach 0 ft., one target in the swarm's space. Hit: 10 (4d4) piercing damage, or 5 (2d4) piercing damage if the swarm has half of its hit points or fewer."
+        }
+      ],
+      "features": [
+        {
+          "id": 370,
+          "name": "Swarm",
+          "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny insect. The swarm can't regain hit points or gain temporary hit points.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "r7y5vxmae7caqxlzc7rsvmwq",
+      "name": "Quasit",
+      "hp": 7,
+      "ac": 13,
+      "stats": {
+        "id": 2122,
+        "strength": 5,
+        "dexterity": 17,
+        "constitution": 10,
+        "intelligence": 7,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 40,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1513,
+          "name": "Claw (Bite in Beast Form)",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) piercing damage, and the target must succeed on a DC 10 Constitution saving throw or take 5 (2d4) poison damage and become poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "id": 1512,
+          "name": "Scare",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "One creature of the quasit's choice within 20 ft. of it must succeed on a DC 10 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, with disadvantage if the quasit is within line of sight, ending the effect on itself on a success."
+        },
+        {
+          "id": 1511,
+          "name": "Invisibility",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The quasit magically turns invisible until it attacks or uses Scare, or until its concentration ends (as if concentrating on a spell). Any equipment the quasit wears or carries is invisible with it."
+        }
+      ],
+      "features": [
+        {
+          "id": 353,
+          "name": "Shapechanger",
+          "description": "The quasit can use its action to polymorph into a beast form that resembles a bat (speed 10 ft. fly 40 ft.), a centipede (40 ft., climb 40 ft.), or a toad (40 ft., swim 40 ft.), or back into its true form . Its statistics are the same in each form, except for the speed changes noted. Any equipment it is wearing or carrying isn't transformed . It reverts to its true form if it dies.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 354,
+          "name": "Magic Resistance",
+          "description": "The quasit has advantage on saving throws against spells and other magical effects.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "a20z8rigavk555awnvp8q5ct",
+      "name": "Wyvern",
+      "hp": 110,
+      "ac": 13,
+      "stats": {
+        "id": 2129,
+        "strength": 19,
+        "dexterity": 10,
+        "constitution": 16,
+        "intelligence": 5,
+        "wisdom": 12,
+        "charisma": 6,
+        "walkSpeed": 20,
+        "flySpeed": 80,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1531,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 10 ft., one creature. Hit: 11 (2d6 + 4) piercing damage."
+        },
+        {
+          "id": 1532,
+          "name": "Claws",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage."
+        },
+        {
+          "id": 1533,
+          "name": "Stinger",
+          "type": "melee",
+          "toHit": 7,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +7 to hit, reach 10 ft., one creature. Hit: 11 (2d6 + 4) piercing damage. The target must make a DC 15 Constitution saving throw, taking 24 (7d6) poison damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "un9lt7jcdp8jcjblnett9mhu",
+      "name": "Camel",
+      "hp": 15,
+      "ac": 9,
+      "stats": {
+        "id": 1736,
+        "strength": 16,
+        "dexterity": 8,
+        "constitution": 14,
+        "intelligence": 2,
+        "wisdom": 8,
+        "charisma": 5,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 128,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "w8o1po9n7ifkz3ojce06pbid",
+      "name": "Commoner",
+      "hp": 4,
+      "ac": 10,
+      "stats": {
+        "id": 1743,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 150,
+          "name": "Club",
+          "type": "melee",
+          "toHit": 2,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."
+        }
+      ],
+      "features": []
+    },
+    {
+      "documentId": "urk9s2holpakmim5bmgedtxd",
+      "name": "Shadow",
+      "hp": 16,
+      "ac": 12,
+      "stats": {
+        "id": 2128,
+        "strength": 6,
+        "dexterity": 14,
+        "constitution": 13,
+        "intelligence": 6,
+        "wisdom": 10,
+        "charisma": 8,
+        "walkSpeed": 40,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1528,
+          "name": "Strength Drain",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 9 (2d6 + 2) necrotic damage, and the target's Strength score is reduced by 1d4. The target dies if this reduces its Strength to 0. Otherwise, the reduction lasts until the target finishes a short or long rest.\nIf a non-evil humanoid dies from this attack, a new shadow rises from the corpse 1d4 hours later."
+        }
+      ],
+      "features": [
+        {
+          "id": 364,
+          "name": "Amorphous",
+          "description": "The shadow can move through a space as narrow as 1 inch wide without squeezing.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 365,
+          "name": "Shadow Stealth",
+          "description": "While in dim light or darkness, the shadow can take the Hide action as a bonus action. Its stealth bonus is also improved to +6.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 366,
+          "name": "Sunlight Weakness",
+          "description": "While in sunlight, the shadow has disadvantage on attack rolls, ability checks, and saving throws.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "u63tfmm1u9zkdlfl9om56y1y",
+      "name": "Purple Worm",
+      "hp": 247,
+      "ac": 18,
+      "stats": {
+        "id": 2130,
+        "strength": 28,
+        "dexterity": 7,
+        "constitution": 22,
+        "intelligence": 1,
+        "wisdom": 8,
+        "charisma": 4,
+        "walkSpeed": 50,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 30,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1535,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 9,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 22 (3d8 + 9) piercing damage. If the target is a Large or smaller creature, it must succeed on a DC 19 Dexterity saving throw or be swallowed by the worm. A swallowed creature is blinded and restrained, it has total cover against attacks and other effects outside the worm, and it takes 21 (6d6) acid damage at the start of each of the worm's turns.\nIf the worm takes 30 damage or more on a single turn from a creature inside it, the worm must succeed on a DC 21 Constitution saving throw at the end of that turn or regurgitate all swallowed creatures, which fall prone in a space within 10 feet of the worm. If the worm dies, a swallowed creature is no longer restrained by it and can escape from the corpse by using 20 feet of movement, exiting prone."
+        },
+        {
+          "id": 1536,
+          "name": "Tail Stinger",
+          "type": "melee",
+          "toHit": 9,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one creature. Hit: 19 (3d6 + 9) piercing damage, and the target must make a DC 19 Constitution saving throw, taking 42 (12d6) poison damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "features": [
+        {
+          "id": 368,
+          "name": "Tunneler",
+          "description": "The worm can burrow through solid rock at half its burrow speed and leaves a 10-foot-diameter tunnel in its wake.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "kt9fhc4avixx73a3qi5ojsjn",
+      "name": "Swarm of Wasps",
+      "hp": 22,
+      "ac": 12,
+      "stats": {
+        "id": 2137,
+        "strength": 3,
+        "dexterity": 13,
+        "constitution": 10,
+        "intelligence": 1,
+        "wisdom": 7,
+        "charisma": 1,
+        "walkSpeed": 5,
+        "flySpeed": 30,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1552,
+          "name": "Bites",
+          "type": "melee",
+          "toHit": 3,
+          "reach": 0,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +3 to hit, reach 0 ft., one target in the swarm's space. Hit: 10 (4d4) piercing damage, or 5 (2d4) piercing damage if the swarm has half of its hit points or fewer."
+        }
+      ],
+      "features": [
+        {
+          "id": 374,
+          "name": "Swarm",
+          "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny insect. The swarm can't regain hit points or gain temporary hit points.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "bu8uydknz0diq9goszxd225n",
+      "name": "Swarm of Centipedes",
+      "hp": 22,
+      "ac": 12,
+      "stats": {
+        "id": 2134,
+        "strength": 3,
+        "dexterity": 13,
+        "constitution": 10,
+        "intelligence": 1,
+        "wisdom": 7,
+        "charisma": 1,
+        "walkSpeed": 20,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": 20,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1545,
+          "name": "Bites",
+          "type": "melee",
+          "toHit": 3,
+          "reach": 0,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +3 to hit, reach 0 ft., one target in the swarm's space. Hit: 10 (4d4) piercing damage, or 5 (2d4) piercing damage if the swarm has half of its hit points or fewer.\nA creature reduced to 0 hit points by a swarm of centipedes is stable but poisoned for 1 hour, even after regaining hit points, and paralyzed while poisoned in this way."
+        }
+      ],
+      "features": [
+        {
+          "id": 372,
+          "name": "Swarm",
+          "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny insect. The swarm can't regain hit points or gain temporary hit points.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "oervl5voe66es74awajgv29u",
+      "name": "Swarm of Ravens",
+      "hp": 24,
+      "ac": 12,
+      "stats": {
+        "id": 2139,
+        "strength": 6,
+        "dexterity": 14,
+        "constitution": 8,
+        "intelligence": 3,
+        "wisdom": 12,
+        "charisma": 6,
+        "walkSpeed": 10,
+        "flySpeed": 50,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1555,
+          "name": "Beaks",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target in the swarm's space. Hit: 7 (2d6) piercing damage, or 3 (1d6) piercing damage if the swarm has half of its hit points or fewer."
+        }
+      ],
+      "features": [
+        {
+          "id": 376,
+          "name": "Swarm",
+          "description": "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny raven. The swarm can't regain hit points or gain temporary hit points.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "oyh2xcb7isa8jeqgqfp1v7qp",
+      "name": "Remorhaz",
+      "hp": 195,
+      "ac": 17,
+      "stats": {
+        "id": 2141,
+        "strength": 24,
+        "dexterity": 13,
+        "constitution": 21,
+        "intelligence": 4,
+        "wisdom": 10,
+        "charisma": 5,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": 20,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1562,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 11,
+          "reach": 10,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 40 (6d10 + 7) piercing damage plus 10 (3d6) fire damage. If the target is a creature, it is grappled (escape DC 17). Until this grapple ends, the target is restrained, and the remorhaz can't bite another target."
+        },
+        {
+          "id": 1563,
+          "name": "Swallow",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The remorhaz makes one bite attack against a Medium or smaller creature it is grappling. If the attack hits, that creature takes the bite's damage and is swallowed, and the grapple ends. While swallowed, the creature is blinded and restrained, it has total cover against attacks and other effects outside the remorhaz, and it takes 21 (6d6) acid damage at the start of each of the remorhaz's turns.\nIf the remorhaz takes 30 damage or more on a single turn from a creature inside it, the remorhaz must succeed on a DC 15 Constitution saving throw at the end of that turn or regurgitate all swallowed creatures, which fall prone in a space within 10 feet of the remorhaz. If the remorhaz dies, a swallowed creature is no longer restrained by it and can escape from the corpse using 15 feet of movement, exiting prone."
+        }
+      ],
+      "features": [
+        {
+          "id": 378,
+          "name": "Heated Body",
+          "description": "A creature that touches the remorhaz or hits it with a melee attack while within 5 feet of it takes 10 (3d6) fire damage.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "vvyupla23gjy4orc8l3j65va",
+      "name": "Sea Hag",
+      "hp": 52,
+      "ac": 14,
+      "stats": {
+        "id": 2145,
+        "strength": 16,
+        "dexterity": 13,
+        "constitution": 16,
+        "intelligence": 12,
+        "wisdom": 12,
+        "charisma": 13,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": 40,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 1576,
+          "name": "Claws",
+          "type": "melee",
+          "toHit": 5,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage."
+        },
+        {
+          "id": 1577,
+          "name": "Death Glare",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The hag targets one frightened creature she can see within 30 ft. of her. If the target can see the hag, it must succeed on a DC 11 Wisdom saving throw against this magic or drop to 0 hit points."
+        },
+        {
+          "id": 1575,
+          "name": "Illusory Appearance",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The hag covers herself and anything she is wearing or carrying with a magical illusion that makes her look like an ugly creature of her general size and humanoid shape. The effect ends if the hag takes a bonus action to end it or if she dies.\nThe changes wrought by this effect fail to hold up to physical inspection. For example, the hag could appear to have no claws, but someone touching her hand might feel the claws. Otherwise, a creature must take an action to visually inspect the illusion and succeed on a DC 16 Intelligence (Investigation) check to discern that the hag is disguised."
+        }
+      ],
+      "features": [
+        {
+          "id": 387,
+          "name": "Amphibious",
+          "description": "The hag can breathe air and water.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        },
+        {
+          "id": 388,
+          "name": "Horrific Appearance",
+          "description": "Any humanoid that starts its turn within 30 feet of the hag and can see the hag's true form must make a DC 11 Wisdom saving throw. On a failed save, the creature is frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, with disadvantage if the hag is within line of sight, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the hag's Horrific Appearance for the next 24 hours.\nUnless the target is surprised or the revelation of the hag's true form is sudden, the target can avert its eyes and avoid making the initial saving throw. Until the start of its next turn, a creature that averts its eyes has disadvantage on attack rolls against the hag.",
+          "source": "monster",
+          "usage_max": null,
+          "usage_per": null
+        }
+      ]
+    },
+    {
+      "documentId": "rak4z7d0wrju7drlrjpgh9s4",
+      "name": "Copper Dragon Wyrmling",
+      "hp": 22,
+      "ac": 16,
+      "stats": {
+        "id": 1744,
+        "strength": 15,
+        "dexterity": 12,
+        "constitution": 13,
+        "intelligence": 14,
+        "wisdom": 11,
+        "charisma": 13,
+        "walkSpeed": 30,
+        "flySpeed": 60,
+        "swimSpeed": null,
+        "climbSpeed": 30,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "structuredActions": [
+        {
+          "id": 153,
+          "name": "Bite",
+          "type": "melee",
+          "toHit": 4,
+          "reach": 5,
+          "duration": "instantaneous",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage."
+        },
+        {
+          "id": 154,
+          "name": "Breath Weapons",
+          "type": "utility",
+          "toHit": null,
+          "reach": null,
+          "duration": "instantaneous",
+          "description": "The dragon uses one of the following breath weapons.\nAcid Breath. The dragon exhales acid in an 20-foot line that is 5 feet wide. Each creature in that line must make a DC 11 Dexterity saving throw, taking 18 (4d8) acid damage on a failed save, or half as much damage on a successful one.\nSlowing Breath. The dragon exhales gas in a 15-foot cone. Each creature in that area must succeed on a DC 11 Constitution saving throw. On a failed save, the creature can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In addition, the creature can use either an action or a bonus action on its turn, but not both. These effects last for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself with a successful save."
+        }
+      ],
+      "features": []
+    }
+  ],
+  "characters": [
+    {
+      "documentId": "up6dy1fp4opctzxro6ru20q5",
+      "name": "Herman Hyatt",
+      "hp": 24,
+      "stats": {
+        "id": 1380,
+        "strength": 10,
+        "dexterity": 13,
+        "constitution": 14,
+        "intelligence": 8,
+        "wisdom": 12,
+        "charisma": 15,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "equipment": [
+        {
+          "id": 134,
+          "quantity": 1,
+          "slot": "backpack",
+          "isEquipped": false
+        },
+        {
+          "id": 135,
+          "quantity": 1,
+          "slot": "main_hand",
+          "isEquipped": true
+        },
+        {
+          "id": 136,
+          "quantity": 1,
+          "slot": "armor",
+          "isEquipped": true
+        }
+      ]
+    },
+    {
+      "documentId": "aaffvdqkgfo5oxa10l8p10jk",
+      "name": "Lola Kessler",
+      "hp": 23,
+      "stats": {
+        "id": 1381,
+        "strength": 14,
+        "dexterity": 8,
+        "constitution": 13,
+        "intelligence": 12,
+        "wisdom": 15,
+        "charisma": 10,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "equipment": [
+        {
+          "id": 137,
+          "quantity": 1,
+          "slot": "backpack",
+          "isEquipped": false
+        },
+        {
+          "id": 138,
+          "quantity": 1,
+          "slot": "main_hand",
+          "isEquipped": true
+        },
+        {
+          "id": 139,
+          "quantity": 1,
+          "slot": "armor",
+          "isEquipped": true
+        }
+      ]
+    },
+    {
+      "documentId": "dxfmpee3t2xmsahesysay84b",
+      "name": "Leroy Grady",
+      "hp": 23,
+      "stats": {
+        "id": 1382,
+        "strength": 8,
+        "dexterity": 14,
+        "constitution": 13,
+        "intelligence": 12,
+        "wisdom": 10,
+        "charisma": 15,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "equipment": [
+        {
+          "id": 140,
+          "quantity": 1,
+          "slot": "main_hand",
+          "isEquipped": true
+        },
+        {
+          "id": 141,
+          "quantity": 1,
+          "slot": "armor",
+          "isEquipped": true
+        }
+      ]
+    },
+    {
+      "documentId": "plgzk6q6yyz6it8zynx4xzc5",
+      "name": "Clifton Runolfsdottir",
+      "hp": 23,
+      "stats": {
+        "id": 1383,
+        "strength": 12,
+        "dexterity": 14,
+        "constitution": 13,
+        "intelligence": 8,
+        "wisdom": 10,
+        "charisma": 15,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "equipment": [
+        {
+          "id": 142,
+          "quantity": 1,
+          "slot": "main_hand",
+          "isEquipped": true
+        },
+        {
+          "id": 143,
+          "quantity": 1,
+          "slot": "armor",
+          "isEquipped": true
+        }
+      ]
+    },
+    {
+      "documentId": "h37nqquddrikyfrkqe6oagd7",
+      "name": "Traci Anderson",
+      "hp": 23,
+      "stats": {
+        "id": 1384,
+        "strength": 10,
+        "dexterity": 14,
+        "constitution": 13,
+        "intelligence": 12,
+        "wisdom": 8,
+        "charisma": 15,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "equipment": [
+        {
+          "id": 144,
+          "quantity": 1,
+          "slot": "main_hand",
+          "isEquipped": true
+        },
+        {
+          "id": 145,
+          "quantity": 1,
+          "slot": "armor",
+          "isEquipped": true
+        }
+      ]
+    },
+    {
+      "documentId": "ejrogjrdck9rz0fukyca055e",
+      "name": "Wanda Steuber",
+      "hp": 23,
+      "stats": {
+        "id": 1385,
+        "strength": 14,
+        "dexterity": 10,
+        "constitution": 13,
+        "intelligence": 12,
+        "wisdom": 15,
+        "charisma": 8,
+        "walkSpeed": 30,
+        "flySpeed": null,
+        "swimSpeed": null,
+        "climbSpeed": null,
+        "burrowSpeed": null,
+        "hover": null,
+        "saves": null,
+        "skills": null,
+        "passivePerception": null,
+        "darkvision": null,
+        "blindsight": null,
+        "truesight": null,
+        "tremorsense": null
+      },
+      "equipment": [
+        {
+          "id": 146,
+          "quantity": 1,
+          "slot": "backpack",
+          "isEquipped": false
+        },
+        {
+          "id": 147,
+          "quantity": 1,
+          "slot": "main_hand",
+          "isEquipped": true
+        },
+        {
+          "id": 148,
+          "quantity": 1,
+          "slot": "armor",
+          "isEquipped": true
+        }
+      ]
+    }
+  ]
+}

@@ -60,7 +60,7 @@ export default function AppBreadcrumb() {
   });
 
   return (
-    <div className="sticky top-0 z-40 border-b border-midnight-500/20 bg-midnight-950/60 backdrop-blur-md">
+    <div className="sticky top-0 z-40">
       <div className="mx-auto max-w-[1400px] px-6 py-2 sm:px-8 lg:px-10">
         <Breadcrumb>
           <BreadcrumbList className="text-[11px] uppercase tracking-[0.15em] sm:text-xs">

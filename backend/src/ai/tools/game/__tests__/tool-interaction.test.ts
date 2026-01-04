@@ -140,7 +140,9 @@ describe('Tool Interaction Hardening', () => {
         [],
         [],
         expect.any(Set),
-        { x: 0, y: 0 } // get-map-image passes {x,y} as center options
+        { x: 0, y: 0 }, // get-map-image passes {x,y} as center options
+        32,
+        32
       );
 
       const parsedJson = JSON.parse(result as string);

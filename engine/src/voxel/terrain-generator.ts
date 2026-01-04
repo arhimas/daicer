@@ -46,18 +46,18 @@ export class TerrainGenerator {
         const { biome, surfaceBlock } = this.determineBiome(elev, moist);
 
         // Z=0 (Surface)
-        tiles[3]![y]![x] = this.createTile(wx, wy, 0, surfaceBlock, biome);
+        tiles[3]![y]![x] = this.createTile(wx, wy, 0, surfaceBlock, biome, elev, moist);
 
         // Z<0 (Underground)
         for (let zIndex = 2; zIndex >= 0; zIndex--) {
           const realZ = (zIndex - 3) as ZLevel;
           const block = realZ === -3 && this.rng.next() > 0.5 ? BlockType.BEDROCK : BlockType.STONE;
-          tiles[zIndex]![y]![x] = this.createTile(wx, wy, realZ, block, biome);
+          tiles[zIndex]![y]![x] = this.createTile(wx, wy, realZ, block, biome, elev, moist);
         }
 
         // Z>0 (Sky)
         for (let zIndex = 4; zIndex <= 6; zIndex++) {
-          tiles[zIndex]![y]![x] = this.createTile(wx, wy, (zIndex - 3) as ZLevel, BlockType.AIR, biome);
+          tiles[zIndex]![y]![x] = this.createTile(wx, wy, (zIndex - 3) as ZLevel, BlockType.AIR, biome, elev, moist);
         }
       }
     }
@@ -89,7 +89,7 @@ export class TerrainGenerator {
       block = BlockType.AIR;
     }
 
-    return this.createTile(x, y, z, block, biome);
+    return this.createTile(x, y, z, block, biome, elev, moist);
   }
 
   private determineBiome(elev: number, moist: number): { biome: BiomeType; surfaceBlock: BlockType } {
@@ -103,7 +103,15 @@ export class TerrainGenerator {
     return { biome: BiomeType.plains, surfaceBlock: BlockType.GRASS };
   }
 
-  private createTile(x: number, y: number, z: ZLevel, block: BlockType, biome: BiomeType): Tile {
+  private createTile(
+    x: number,
+    y: number,
+    z: ZLevel,
+    block: BlockType,
+    biome: BiomeType,
+    elevation: number,
+    moisture: number
+  ): Tile {
     const isTransparent = (
       [
         BlockType.AIR,
@@ -137,7 +145,7 @@ export class TerrainGenerator {
       ] as BlockType[]
     ).includes(block);
 
-    return { x, y, z, block, biome, isWalkable, isTransparent, variant: this.rng.next() };
+    return { x, y, z, block, biome, isWalkable, isTransparent, variant: this.rng.next(), elevation, moisture };
   }
 }
 
