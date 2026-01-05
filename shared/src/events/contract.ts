@@ -49,13 +49,13 @@ export const EntitiesUpdatePayloadSchema = z.object({
 });
 export type EntitiesUpdatePayload = z.infer<typeof EntitiesUpdatePayloadSchema>;
 
-export const TurnProcessPayloadSchema = z.object({
+export const SocketTurnProcessPayloadSchema = z.object({
   roomId: z.string(),
   turnNumber: z.number().optional(),
   activeEntityId: z.string().optional(),
   // Add other fields as strict testing reveals them
 });
-export type TurnProcessPayload = z.infer<typeof TurnProcessPayloadSchema>;
+export type SocketTurnProcessPayload = z.infer<typeof SocketTurnProcessPayloadSchema>;
 
 export const GameUpdatePayloadSchema = z.object({
   type: z.string(),
@@ -75,8 +75,8 @@ export type MessagePayload = z.infer<typeof MessagePayloadSchema>;
 // Union of all possible payloads for generic handling
 export const SocketEventSchema = z.discriminatedUnion('event', [
   z.object({ event: z.literal('entities:update'), payload: EntitiesUpdatePayloadSchema }),
-  z.object({ event: z.literal('turn:processing'), payload: TurnProcessPayloadSchema }),
-  z.object({ event: z.literal('turn:complete'), payload: TurnProcessPayloadSchema }),
+  z.object({ event: z.literal('turn:processing'), payload: SocketTurnProcessPayloadSchema }),
+  z.object({ event: z.literal('turn:complete'), payload: SocketTurnProcessPayloadSchema }),
   z.object({ event: z.literal('message:new'), payload: MessagePayloadSchema }),
   z.object({ event: z.literal('game:update'), payload: GameUpdatePayloadSchema }),
 ]);

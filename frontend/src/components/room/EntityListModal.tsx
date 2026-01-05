@@ -7,7 +7,6 @@ import { Button } from '../ui/button';
 import Input from '../ui/input';
 import Label from '../ui/label';
 import { ScrollArea } from '../ui/scroll-area';
-import { Badge } from '../ui/badge';
 import { SPAWN_CREATURE_MUTATION } from '../../graphql/mutations';
 
 interface EntityListModalProps {
@@ -237,61 +236,9 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
               </div>
             </div>
           ) : selectedEntity ? (
-            <div className="p-0 h-full flex flex-col">
-              {/* Header */}
-              <div className="p-6 border-b border-midnight-700 bg-midnight-800/50">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="text-3xl font-display font-bold text-white mb-1">
-                      {selectedEntity.name || ('character' in selectedEntity ? selectedEntity.character?.name : '')}
-                    </h2>
-                    <div className="flex gap-2 items-center text-midnight-300">
-                      <Badge variant="outline" className="border-midnight-500 text-midnight-300">
-                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                        {'role' in selectedEntity
-                          ? (selectedEntity.character as any)?.race?.name ||
-                            (selectedEntity.character as any)?.race ||
-                            (selectedEntity.character as any)?.class?.name ||
-                            (selectedEntity.character as any)?.characterClass
-                          : selectedEntity.sheet?.race || selectedEntity.sheet?.characterClass}
-                      </Badge>
-                      <span>
-                        Level {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                        {'role' in selectedEntity
-                          ? (selectedEntity.character as any)?.level || 1
-                          : selectedEntity.sheet?.level || 1}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-bold text-green-400">
-                      HP:{' '}
-                      {'hp' in selectedEntity
-                        ? `${selectedEntity.hp}/${selectedEntity.maxHp}`
-                        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          `${((selectedEntity as Player).character as any)?.hp || '?'}/${((selectedEntity as Player).character as any)?.maxHp || '?'}`}
-                    </div>
-                    <div className="text-sm text-midnight-400">
-                      AC:{' '}
-                      {'ac' in selectedEntity
-                        ? selectedEntity.ac
-                        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          ((selectedEntity as Player).character as any)?.armorClass || '?'}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Content */}
-              <ScrollArea className="flex-1 p-6">
-                <SheetView
-                  sheet={
-                    'role' in selectedEntity
-                      ? (selectedEntity.character as unknown as EntitySheet)
-                      : selectedEntity.sheet
-                  }
-                />
-              </ScrollArea>
+            <div className="flex-1 flex flex-col h-full bg-midnight-950 overflow-hidden">
+              {/* Clean Header - just the content, as Content handles header */}
+              <SafeSheetView entity={selectedEntity} />
             </div>
           ) : (
             <div className="flex-1 flex items-center justify-center text-midnight-500 flex-col gap-4">
@@ -305,126 +252,52 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
   );
 }
 
-interface SheetViewProps {
-  sheet: EntitySheet | undefined | null;
+// Helper to adapt to EntitySheet for Universal Viewer
+function getEntitySheet(entity: SelectableEntity): EntitySheet | null {
+  if ('sheet' in entity && entity.sheet) return entity.sheet;
+  if ('character' in entity && entity.character) return entity.character as unknown as EntitySheet;
+  // If it's a monster with flat fields, adapt it (simple stub or check if entity itself is EntitySheet-like)
+  // EntityListModal uses `Creature` which has hp, maxHp, ac, etc.
+  // UniversalEntitySheetContent expects EntitySheet.
+  // We might need to map it on the fly if it's not a full sheet.
+  // But Phase 1/3 standardized entities to have 'sheet' or be compatible?
+  // Let's assume best effort mapping if needed.
+
+  // Temporary mapping for "Creature" without nested "sheet" property (if legacy)
+  if (!('sheet' in entity) && !('character' in entity)) {
+    // It's a raw creature/monster
+    const c = entity as Creature;
+    return {
+      id: c.id,
+      name: c.name,
+      type: c.type === 'monster' ? 'monster' : 'npc',
+      hp: c.hp,
+      maxHp: c.maxHp,
+      ac: c.ac,
+      speed: 30, // Fallback
+      level: (c as any).level || 1, // Fallback
+      stats: (c as any).stats || {
+        strength: 10,
+        dexterity: 10,
+        constitution: 10,
+        intelligence: 10,
+        wisdom: 10,
+        charisma: 10,
+      },
+      // Actions?
+      actions: [],
+      features: [],
+    } as unknown as EntitySheet;
+  }
+  return null;
 }
 
-function SheetView({ sheet }: SheetViewProps) {
-  if (!sheet) return <div>No sheet data</div>;
+import { UniversalEntitySheetContent } from '../game/UniversalEntitySheet';
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-      {/* Stats */}
-      <div className="space-y-6">
-        {sheet.speed && (
-          <section>
-            <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Speed</h3>
-            <div className="flex flex-wrap gap-2 text-sm text-white">
-              {typeof sheet.speed === 'object' && sheet.speed !== null ? (
-                Object.entries(sheet.speed).map(([mode, val]) => {
-                  const label = mode === 'walk' ? 'Walk' : mode.replace('Speed', '');
-                  if ((val as number) > 0 || (typeof val === 'boolean' && val)) {
-                    return (
-                      <div
-                        key={mode}
-                        className="bg-midnight-950 px-3 py-1 rounded border border-midnight-800 flex items-center gap-2"
-                      >
-                        <span className="text-midnight-400 uppercase text-xs font-bold">{label}</span>
-                        <span className="font-bold">{val === true ? 'Yes' : `${val} ft`}</span>
-                      </div>
-                    );
-                  }
-                  return null;
-                })
-              ) : (
-                <div className="bg-midnight-950 px-3 py-1 rounded border border-midnight-800">
-                  <span className="font-bold">{sheet.speed} ft</span>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
+function SafeSheetView({ entity }: { entity: SelectableEntity }) {
+  const sheet = getEntitySheet(entity);
+  if (!sheet) return <div className="p-6 text-midnight-400 italic">No sheet data available for this entity.</div>;
 
-        <section>
-          <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Attributes</h3>
-          <div className="grid grid-cols-3 gap-2">
-            {sheet.attributes &&
-              Object.entries(sheet.attributes).map(([attr, val]) => (
-                <div key={attr} className="bg-midnight-950 p-2 rounded text-center border border-midnight-800">
-                  <div className="text-xs uppercase text-midnight-400 font-bold">{attr.substring(0, 3)}</div>
-                  <div className="text-xl font-bold text-white">{val}</div>
-                  <div className="text-xs text-midnight-300">
-                    {Math.floor((val - 10) / 2) > 0 ? '+' : ''}
-                    {Math.floor((val - 10) / 2)}
-                  </div>
-                </div>
-              ))}
-          </div>
-        </section>
-
-        <section>
-          <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Skills</h3>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-            {sheet.skills &&
-              Object.entries(sheet.skills).map(([skill, val]) => (
-                <div key={skill} className="flex justify-between items-center text-midnight-200">
-                  <span>{skill}</span>
-                  <span className={val >= 0 ? 'text-green-400' : 'text-red-400'}>
-                    {val > 0 ? '+' : ''}
-                    {val}
-                  </span>
-                </div>
-              ))}
-          </div>
-        </section>
-      </div>
-
-      {/* Right Column: Actions & Features */}
-      <div className="space-y-6">
-        {sheet.structuredActions && sheet.structuredActions.length > 0 && (
-          <section>
-            <h3 className="text-lg font-bold text-red-300 border-b border-red-500/20 mb-3 pb-1">Attacks</h3>
-            <div className="space-y-2">
-              {sheet.structuredActions.map((action, i) => (
-                <div
-                  key={i}
-                  className="bg-midnight-950/50 p-3 rounded border border-midnight-800 flex justify-between items-center"
-                >
-                  <span className="font-bold text-white">{action.name}</span>
-                  <div className="text-sm">
-                    <span className="text-aurora-300 font-mono mr-2">
-                      {'toHit' in action && action.toHit ? `+${action.toHit}` : '+0'} to hit
-                    </span>
-                    <span className="text-midnight-300">
-                      {'damage' in action && action.damage && action.damage.length > 0
-                        ? `${action.damage[0]?.dice} ${action.damage[0]?.type}`
-                        : 'Effect'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        <section>
-          <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Features</h3>
-          <div className="text-sm text-midnight-200 whitespace-pre-wrap leading-relaxed space-y-2">
-            {sheet.features && Array.isArray(sheet.features)
-              ? sheet.features.map((f: any, i: number) => (
-                  <div key={i}>
-                    <strong className="text-aurora-100">{f.name || f}</strong>: {f.description || ''}
-                  </div>
-                ))
-              : sheet.features || 'No features listed.'}
-          </div>
-        </section>
-
-        <section>
-          <h3 className="text-lg font-bold text-aurora-200 border-b border-aurora-500/20 mb-3 pb-1">Personality</h3>
-          <div className="text-sm italic text-midnight-300">{sheet.personality?.traits}</div>
-        </section>
-      </div>
-    </div>
-  );
+  // UniversalEntitySheetContent takes full height, ensure container handles it.
+  return <UniversalEntitySheetContent entity={sheet} />;
 }

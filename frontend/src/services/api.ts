@@ -27,6 +27,7 @@ import {
   GENERATE_UPPER_BODY_MUTATION,
   GENERATE_FULL_BODY_MUTATION,
   SUBMIT_ACTION_MUTATION,
+  EXECUTE_TOOL_MUTATION,
 } from '../graphql/mutations';
 import {
   GET_ROOM_QUERY,
@@ -531,6 +532,36 @@ export async function executeEngineAction(
   const result = await response.json();
   console.info('[api.ts] executeEngineAction Result:', result);
   return result;
+}
+
+/**
+ * Execute a tool command string directly (Bypass LLM)
+ * @param roomId
+ * @param command - e.g. spawn_entity(...)
+ */
+export async function executeDirectTool(
+  roomId: string,
+  command: string
+): Promise<{ success: boolean; message: string }> {
+  console.info(`[api.ts] executeDirectTool CALLED. Command: ${command}`);
+
+  if (!EXECUTE_TOOL_MUTATION) {
+    console.error('[api.ts] CRITICAL: EXECUTE_TOOL_MUTATION is undefined! Check mutations.ts export.');
+    throw new Error('Frontend misconfiguration: EXECUTE_TOOL_MUTATION is missing.');
+  }
+
+  try {
+    const { data } = await apolloClient.mutate({
+      mutation: EXECUTE_TOOL_MUTATION,
+      variables: { roomId, command },
+    });
+
+    console.info('[api.ts] executeDirectTool SUCCESS. Result:', data);
+    return (data as any).executeTool;
+  } catch (error) {
+    console.error('[api.ts] executeDirectTool FAILED:', error);
+    throw error;
+  }
 }
 
 /**

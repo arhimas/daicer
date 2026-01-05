@@ -73,8 +73,10 @@ describe('Entity Sheet Granular Logic', () => {
       });
       mockFindFirst.mockResolvedValue({
         name: weapon.name,
-        type: 'weapon',
-        damageDice: weapon.dice,
+        equipment_category: { slug: 'weapon' },
+        damage_dice: weapon.dice,
+        damage_type: { name: 'slashing' }, // Default for test
+        properties: [],
       });
 
       const event = { params: { where: { documentId: 'doc-1' }, data: { level: 5 } } }; // Trigger update

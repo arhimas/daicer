@@ -260,31 +260,51 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
   };
 
   // Chat Handler
-  const handleGodModeCommand = async (message: string) => {
-    // Optimistic UI
+  const handleGodModeCommand = async (message: string, mode: 'chat' | 'direct' = 'chat') => {
+    // Optimistic UI for User Message
     const userMsg: GodModeMessage = {
       id: `msg-${Date.now()}`,
       role: 'user',
-      content: message,
+      content: mode === 'direct' ? `[DIRECT] ${message}` : message,
       timestamp: Date.now(),
     };
     setChatMessages((prev) => [...prev, userMsg]);
     setIsProcessing(true);
 
     try {
-      const { sendGodModeCommand } = await import('@/services/api');
-      const response = await sendGodModeCommand(roomId, message);
+      if (mode === 'direct') {
+        // Direct Tool Execution (Bypass LLM)
+        const { executeDirectTool } = await import('@/services/api');
+        const response = await executeDirectTool(roomId, message);
 
-      if (response && response.message) {
-        setChatMessages((prev) => [
-          ...prev,
-          {
-            id: `sys-${Date.now()}`,
-            role: 'assistant',
-            content: response.message,
-            timestamp: Date.now(),
-          },
-        ]);
+        // Response logic
+        if (response.success) {
+          setChatMessages((prev) => [
+            ...prev,
+            {
+              id: `sys-${Date.now()}`,
+              role: 'system',
+              content: `✅ Execution Successful: ${response.message}`,
+              timestamp: Date.now(),
+            },
+          ]);
+        }
+      } else {
+        // Chat / LLM Mode
+        const { sendGodModeCommand } = await import('@/services/api');
+        const response = await sendGodModeCommand(roomId, message);
+
+        if (response && response.message) {
+          setChatMessages((prev) => [
+            ...prev,
+            {
+              id: `sys-${Date.now()}`,
+              role: 'assistant',
+              content: response.message,
+              timestamp: Date.now(),
+            },
+          ]);
+        }
       }
       setIsProcessing(false);
     } catch (err) {

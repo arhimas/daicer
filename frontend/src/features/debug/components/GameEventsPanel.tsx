@@ -39,7 +39,19 @@ export function GameEventsPanel({ events }: GameEventsPanelProps) {
     <div className="flex-1 min-w-0 flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-10 shadow-2xl">
       <div className="p-3 bg-midnight-900 border-b border-midnight-800 font-bold text-xs uppercase tracking-wider text-shadow-300 flex justify-between items-center">
         <span>GAME EVENTS</span>
-        <span className="text-[10px] text-zinc-500">{events.length}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-zinc-500">{events.length}</span>
+          <button
+            onClick={() => {
+              const logText = JSON.stringify(events, null, 2);
+              navigator.clipboard.writeText(logText);
+            }}
+            className="text-[10px] text-zinc-500 hover:text-white transition-colors"
+            title="Copy All Events"
+          >
+            📋
+          </button>
+        </div>
       </div>
       <div className="flex-1 overflow-y-auto p-2 space-y-2 font-mono text-xs custom-scrollbar">
         {events.length === 0 && <div className="text-zinc-600 text-center italic mt-10">No events received...</div>}

@@ -41,6 +41,11 @@ describe('Game Event Service - Broadcasting', () => {
           create: vi.fn().mockImplementation(({ data }) => Promise.resolve({ id: 'evt-123', ...data })),
         };
       }
+      if (uid === 'api::room.room') {
+        return {
+          findMany: vi.fn().mockResolvedValue([{ documentId: 'room-123', roomId: 'room-123' }]),
+        };
+      }
       return {};
     });
 

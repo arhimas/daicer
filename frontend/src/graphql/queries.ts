@@ -18,6 +18,7 @@ export const GET_ROOM_QUERY = gql`
         }
         currentHp
         maxHp
+        ac
         stats {
           walkSpeed
           flySpeed
@@ -147,6 +148,14 @@ export const GET_ROOM_QUERY = gql`
         turnNumber
         timestamp
         gameState
+      }
+      events(sort: "turnNumber:desc", pagination: { limit: 50 }) {
+        documentId
+        type
+        payload
+        turnNumber
+        timestamp
+        actorId
       }
       owner {
         documentId

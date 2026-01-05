@@ -85,7 +85,31 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
     {
       desc: 'Null Stats',
       dbEntity: { documentId: 'e7', currentHp: null, maxHp: 10 },
-      expected: { currentHp: null }, // Passed through
+      expected: {
+        id: 'e7',
+        name: 'Unknown Entity',
+        type: 'monster',
+        currentHp: 10,
+        maxHp: 10,
+        ac: 10,
+        position: { x: 0, y: 0, z: 0 },
+        stats: {
+          strength: 10,
+          dexterity: 10,
+          constitution: 10,
+          intelligence: 10,
+          wisdom: 10,
+          charisma: 10,
+          passivePerception: 10,
+          initiativeBonus: 0,
+        },
+        speed: 30,
+        visionRadius: 30,
+        color: '#ffffff',
+        features: [],
+        structuredActions: [],
+        proficiencies: [],
+      },
     },
 
     // 5. Array of Nulls (Resilience)
@@ -105,7 +129,7 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
       },
       expected: {
         id: `fuzz-${i}`,
-        type: i % 2 === 0 ? 'monster' : 'character',
+        type: i % 2 === 0 ? 'monster' : 'character', // Preserves character if set
         position: i % 3 === 0 ? { x: 0, y: 0, z: 0 } : { x: i, y: i, z: i },
       },
     });

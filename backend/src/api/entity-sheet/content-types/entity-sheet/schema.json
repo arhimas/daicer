@@ -51,6 +51,10 @@
     "maxHp": {
       "type": "integer"
     },
+    "ac": {
+      "type": "integer",
+      "default": 10
+    },
     "level": {
       "type": "integer",
       "default": 1

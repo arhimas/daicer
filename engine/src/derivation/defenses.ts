@@ -14,7 +14,7 @@ import { DerivationContext } from './types';
  */
 export function calculateAC(context: DerivationContext): number {
   const { attributes, equipment } = context;
-  const dexMod = calculateModifier(attributes.dex);
+  const dexMod = calculateModifier(attributes.dexterity); // Was dex
 
   // Find equipped armor and shield
   // Assuming 'equipment' list contains equipped items.
@@ -73,8 +73,9 @@ export function calculateAC(context: DerivationContext): number {
  * Avg Hit Die = (Die / 2) + 1
  */
 export function calculateHP(context: DerivationContext): number {
-  const { level, attributes, hitDie } = context;
-  const conMod = calculateModifier(attributes.con);
+  const { attributes, hitDie } = context;
+  const level = context.level || 1;
+  const conMod = calculateModifier(attributes.constitution); // Was con
 
   if (!hitDie) {
     // Fallback if no hit die provided (e.g. simple monster or error)

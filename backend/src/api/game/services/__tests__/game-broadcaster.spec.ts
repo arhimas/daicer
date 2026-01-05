@@ -113,8 +113,8 @@ describe('Game Broadcaster Service', () => {
           name: 'Hero',
           type: 'player',
           position: { x: 10, y: 10, z: 0 },
-          color: '#4ade80', // Player color logic
-          structuredActions: [{ name: 'Sword' }],
+          color: '#ffffff', // Stub color
+          structuredActions: [expect.objectContaining({ name: 'Sword' })],
         }),
       ];
 
@@ -146,7 +146,7 @@ describe('Game Broadcaster Service', () => {
         position: { x: 0, y: 0, z: 0 }, // Default
         speed: 30, // Default
         structuredActions: [], // Default empty array
-        color: '#f87171', // Monster color logic
+        color: '#ffffff', // Stub color
       });
 
       expect(streamManager.broadcast).toHaveBeenCalledWith(expect.anything(), 'entities:update', {

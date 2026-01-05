@@ -3,12 +3,12 @@ import { DerivationContext } from '../types';
 
 describe('EntityDeriver', () => {
   const baseAttributes = {
-    str: 10,
-    dex: 10,
-    con: 10,
-    int: 10,
-    wis: 10,
-    cha: 10,
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
   };
 
   it('calculates modifiers correctly', () => {
@@ -20,7 +20,7 @@ describe('EntityDeriver', () => {
 
   it('derives unarmored defense correctly', () => {
     const context: DerivationContext = {
-      attributes: { ...baseAttributes, dex: 14 }, // +2
+      attributes: { ...baseAttributes, dexterity: 14 }, // +2
       level: 1,
       proficiencyBonus: 2,
       equipment: [],
@@ -32,7 +32,7 @@ describe('EntityDeriver', () => {
 
   it('derives armor class with light armor', () => {
     const context: DerivationContext = {
-      attributes: { ...baseAttributes, dex: 14 }, // +2
+      attributes: { ...baseAttributes, dexterity: 14 }, // +2
       level: 1,
       proficiencyBonus: 2,
       equipment: [
@@ -49,9 +49,78 @@ describe('EntityDeriver', () => {
     expect(derived.ac).toBe(13); // 11 + 2
   });
 
+  it('should calculate Proficiency Bonus based on total level (Multiclass)', () => {
+    const context: DerivationContext = {
+      attributes: { ...baseAttributes },
+      classes: [
+        { name: 'Fighter', level: 3 },
+        { name: 'Rogue', level: 2 },
+      ], // Total 5
+      equipment: [],
+    };
+
+    const derived = EntityDeriver.derive(context);
+    expect(derived.level).toBe(5);
+    expect(derived.proficiencyBonus).toBe(3); // Level 5-8 is +3
+  });
+
+  it('should derive weapon actions from equipment', () => {
+    const context: DerivationContext = {
+      attributes: {
+        strength: 16,
+        dexterity: 12,
+        constitution: 10,
+        intelligence: 10,
+        wisdom: 10,
+        charisma: 10, // STR +3, DEX +1
+      },
+      level: 1, // PB +2
+      equipment: [
+        {
+          name: 'Longsword',
+          equipment_category: { slug: 'weapon' },
+          damage_dice: '1d8',
+          damage_type: { name: 'slashing' },
+          isEquipped: true, // Updated from equipped
+        },
+      ],
+    };
+
+    const derived = EntityDeriver.derive(context);
+    const sword = derived.structuredActions.find((a: any) => a.name === 'Longsword');
+
+    expect(sword).toBeDefined();
+    expect(sword.type).toBe('melee_attack');
+    expect(sword.toHit).toBe(3 + 2); // STR +3, PB +2 = +5
+    expect(sword.damage[0].bonus).toBe(3); // STR +3
+  });
+
+  it('should merge innate actions with weapon actions (Hybrid)', () => {
+    const context: DerivationContext = {
+      attributes: { ...baseAttributes },
+      level: 1,
+      equipment: [
+        {
+          name: 'Dagger',
+          equipment_category: { slug: 'weapon' },
+          damage_dice: '1d4',
+          damage_type: { name: 'piercing' },
+          properties: [{ name: 'Finesse', slug: 'finesse' }],
+          isEquipped: true, // Updated from equipped
+        },
+      ],
+      innateActions: [{ name: 'Fire Breath', type: 'actions', description: 'Roarrr' }],
+    };
+
+    const derived = EntityDeriver.derive(context);
+    expect(derived.structuredActions).toHaveLength(2);
+    expect(derived.structuredActions.some((a: any) => a.name === 'Dagger')).toBe(true);
+    expect(derived.structuredActions.some((a: any) => a.name === 'Fire Breath')).toBe(true);
+  });
+
   it('derives armor class with medium armor (capped)', () => {
     const context: DerivationContext = {
-      attributes: { ...baseAttributes, dex: 16 }, // +3
+      attributes: { ...baseAttributes, dexterity: 16 }, // +3
       level: 1,
       proficiencyBonus: 2,
       equipment: [
@@ -70,7 +139,7 @@ describe('EntityDeriver', () => {
 
   it('derives hp correctly at level 1', () => {
     const context: DerivationContext = {
-      attributes: { ...baseAttributes, con: 14 }, // +2
+      attributes: { ...baseAttributes, constitution: 14 }, // +2
       level: 1,
       proficiencyBonus: 2,
       equipment: [],
@@ -83,7 +152,7 @@ describe('EntityDeriver', () => {
 
   it('derives hp correctly at higher levels', () => {
     const context: DerivationContext = {
-      attributes: { ...baseAttributes, con: 14 }, // +2
+      attributes: { ...baseAttributes, constitution: 14 }, // +2
       level: 3,
       proficiencyBonus: 2,
       equipment: [],
@@ -100,7 +169,7 @@ describe('EntityDeriver', () => {
 
   it('calculates speed with penalties', () => {
     const context: DerivationContext = {
-      attributes: { ...baseAttributes, str: 8 },
+      attributes: { ...baseAttributes, strength: 8 },
       level: 1,
       proficiencyBonus: 2,
       equipment: [

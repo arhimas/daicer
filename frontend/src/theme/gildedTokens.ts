@@ -2,7 +2,7 @@ export const gildedTokens = {
   pageShell:
     'relative mx-auto flex min-h-dvh w-full flex-col items-center gap-16 overflow-hidden px-6 pb-20 pt-16 sm:px-10 lg:px-16 xl:max-w-6xl',
   gradientBackdrop:
-    'pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(255,215,166,0.12),transparent_55%),radial-gradient(circle_at_bottom,_rgba(119,71,255,0.25),transparent_62%)]',
+    'pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.03),transparent_40%),radial-gradient(circle_at_bottom,_rgba(0,0,0,0.8),transparent_60%)]',
   heroStack: 'relative z-10 flex w-full max-w-4xl flex-col items-center gap-6 text-center',
   heroEyebrow: 'text-[0.68rem] uppercase tracking-[0.55em] text-aurora-100/75',
   heroTitle: 'font-display text-4xl uppercase tracking-[0.24em] text-aurora-50 sm:text-5xl lg:text-[3.5rem]',

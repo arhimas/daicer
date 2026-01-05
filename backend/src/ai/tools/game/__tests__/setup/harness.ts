@@ -12,6 +12,9 @@ export const createMockStrapi = () => {
     documents: (uid: string) => ({
       findOne: async (args: any) => {
         if (uid === 'api::room.room') return mockRoom;
+        if (uid === 'api::monster.monster') return MOCK_MONSTERS.find((m) => m.documentId === args.documentId) || null;
+        if (uid === 'api::character.character')
+          return MOCK_CHARACTERS.find((c) => c.documentId === args.documentId) || null;
         return null;
       },
       findMany: async (args: any) => [],
@@ -63,9 +66,11 @@ export const adaptSheetToEntity = (sheet: any) => {
       sheet.structuredActions?.map((act: any) => ({
         id: act.id || 'act-1',
         name: act.name,
-        type: act.type === 'melee' ? 'melee' : act.type === 'ranged' ? 'ranged' : act.type,
-        range: act.range,
-        description: act.description,
+        type: act.type === 'melee' ? 'melee_attack' : act.type === 'ranged' ? 'ranged_attack' : act.type,
+        ...(act.type === 'melee' || act.type === 'melee_attack' ? { reach: act.range || 5 } : { range: act.range }),
+        description: act.description || 'Action description',
+        toHit: act.toHit || 5,
+        damage: act.damage || [],
       })) || [],
   };
 };
@@ -114,7 +119,15 @@ export const MOCK_MONSTERS = [
 ].map((m) => ({
   ...m,
   stats: m.stats || { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 },
-  structuredActions: m.structuredActions || [],
+  structuredActions: (m.structuredActions || []).map((act: any) => ({
+    ...act,
+    id: String(act.id || 'act-1'),
+    type: act.type === 'melee' ? 'melee_attack' : act.type === 'ranged' ? 'ranged_attack' : act.type,
+    description: act.description || 'Description',
+    toHit: 5,
+    damage: act.damage && act.damage.length > 0 ? act.damage : [{ dice: '1d6', bonus: 0, type: 'slashing' }],
+    ...(act.type === 'melee' || act.type === 'melee_attack' ? { reach: 5 } : { range: { normal: 60, long: 120 } }),
+  })),
 })); // Ensure stats structure
 
 // Character Templates
@@ -155,9 +168,16 @@ export const MOCK_CHARACTERS = [
     ...char,
     hp: char.hp || 10,
     stats: char.stats || { strength: 10, dexterity: 10 },
-    structuredActions:
-      char.structuredActions && char.structuredActions.length > 0
-        ? char.structuredActions
-        : [{ id: 'act-default', name: 'Unarmed Strike', type: 'melee', range: 5, description: 'Basic attack' }],
+    structuredActions: (char.structuredActions && char.structuredActions.length > 0
+      ? char.structuredActions
+      : [{ id: 'act-default', name: 'Unarmed Strike', type: 'melee_attack', reach: 5, description: 'Basic attack' }]
+    ).map((act: any) => ({
+      ...act,
+      id: String(act.id || 'act-1'),
+      type: act.type === 'melee' ? 'melee_attack' : act.type === 'ranged' ? 'ranged_attack' : act.type,
+      description: act.description || 'Description',
+      toHit: 5,
+      ...(act.type === 'melee' || act.type === 'melee_attack' ? { reach: 5 } : { range: { normal: 60, long: 120 } }),
+    })),
   };
 });

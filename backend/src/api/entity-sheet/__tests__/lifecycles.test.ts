@@ -12,12 +12,6 @@ vi.stubGlobal('strapi', {
   }),
 });
 
-vi.mock('../../../../services/mechanics/action-generator', () => ({
-  ActionGenerator: {
-    generateWeaponAction: vi.fn(() => ({ name: 'Mock Attack', type: 'attack' })),
-  },
-}));
-
 vi.mock('../../../../services/mechanics/feature-hydrator', () => ({
   FeatureHydrator: {
     hydrateFeatures: vi.fn((_input) => [{ name: 'Hydrated Feature' }]),
@@ -102,8 +96,10 @@ describe('Entity Sheet Lifecycles', () => {
       // Mock equipment lookup
       mockFindFirst.mockResolvedValue({
         name: 'Longsword',
-        type: 'weapon',
-        damageDice: '1d8',
+        // EntityDeriver expects damage_dice or equipment_category
+        damage_dice: '1d8',
+        equipment_category: { slug: 'weapon' },
+        damage_type: { name: 'slashing' },
       });
 
       await beforeUpdate(event as Parameters<typeof beforeUpdate>[0]);

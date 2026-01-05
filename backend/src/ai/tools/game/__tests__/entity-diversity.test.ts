@@ -58,6 +58,7 @@ describe('Entity Diversity & Capabilities', () => {
       position: { x: 0, y: 0, z: 0 },
       currentHp: template.hp,
       maxHp: template.hp,
+      ac: template.ac || 10,
       sheet: null as any,
     };
     instance.sheet = instance;

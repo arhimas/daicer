@@ -1,12 +1,17 @@
 // Mock Strapi Factories to capture the service definition callback
 vi.mock('@strapi/strapi', () => ({
   factories: {
-    createCoreService: (uid: string, factoryCallback: <T>(x: T) => T) => factoryCallback,
+    createCoreService: (uid: string, factoryCallback: (opts: any) => any) => {
+      // Return a function that executes the factory callback when called
+      // This mimics the behavior where the service is instantiated
+      return (opts: any) => factoryCallback(opts);
+    },
   },
 }));
 
 import gameEventFactory from '../game-event';
 import { StrapiInterface } from '../../../../ai/tools/tool-factory';
+import { WorldGenerator } from '../../../voxel-engine/services/world-generator-logic';
 
 // Mock External Dependencies
 // Note: Vitest mocks are relative to the test file, but must match the module imported by the source code.
@@ -163,9 +168,17 @@ describe('Game Event Service - State & Validation', () => {
   describe('logEvent', () => {
     it('should create event and broadcast it', async () => {
       const createMock = vi.fn().mockResolvedValue({ id: 1 });
-      (mockStrapi.documents as unknown as vi.Mock).mockReturnValue({
-        findMany: vi.fn().mockResolvedValue([{ turnNumber: 10 }]), // Last event
-        create: createMock,
+      (mockStrapi.documents as unknown as vi.Mock).mockImplementation((uid) => {
+        if (uid === 'api::room.room') {
+          return { findMany: vi.fn().mockResolvedValue([{ documentId: 'room-1' }]) };
+        }
+        if (uid === 'api::game-event.game-event') {
+          return {
+            findMany: vi.fn().mockResolvedValue([{ turnNumber: 10 }]),
+            create: createMock,
+          };
+        }
+        return {};
       });
 
       await service.logEvent('room-1', 'TEST', { foo: 'bar' }, 'actor-1');
@@ -183,6 +196,76 @@ describe('Game Event Service - State & Validation', () => {
       // Broadcast check
       // Broadcast check
       expect(streamManager.broadcast).toHaveBeenCalledWith('room-1', 'game:events', expect.any(Object));
+    });
+  });
+
+  describe('inspectTerrain', () => {
+    it('should return terrain info for valid coordinates', async () => {
+      const mockGetChunk = vi.fn().mockReturnValue({
+        tiles: {
+          0: {
+            10: {
+              10: { biome: 'Plains', block: 'Grass' },
+            },
+          },
+        },
+      });
+
+      // Mock WorldGenerator
+      (WorldGenerator as unknown as vi.Mock).mockImplementation(function () {
+        return { getChunk: mockGetChunk };
+      });
+
+      (mockStrapi.documents as unknown as vi.Mock).mockReturnValue({
+        findOne: vi.fn().mockResolvedValue({ world: { seed: 'test' } }),
+      });
+
+      const result = await service.inspectTerrain('room-1', 10, 10, 1);
+      expect(result).toBe('Terrain: Plains (Grass)');
+    });
+
+    it('should return Void for empty chunks', async () => {
+      // Mock WorldGenerator returning undefined chunk or tiles
+      (WorldGenerator as unknown as vi.Mock).mockImplementation(function () {
+        return { getChunk: vi.fn().mockResolvedValue({}) };
+      });
+
+      (mockStrapi.documents as unknown as vi.Mock).mockReturnValue({
+        findOne: vi.fn().mockResolvedValue({ world: { seed: 'test' } }),
+      });
+
+      const result = await service.inspectTerrain('room-1', 99, 99, 1);
+      expect(result).toBe('Void at 99,99');
+    });
+  });
+
+  describe('getGameState (Replay Logic) - Invalid Payloads', () => {
+    it('should skip invalid MOVE events without crashing', async () => {
+      const events = [
+        { type: 'MOVE', payload: { entityId: 'hero-1', from: { x: 0 }, to: 'nowhere' } }, // Invalid
+      ];
+      (mockStrapi.documents as unknown as vi.Mock).mockReturnValue({
+        findMany: vi.fn().mockResolvedValue(events),
+        findOne: vi.fn().mockResolvedValue({ entity_sheets: [] }),
+      });
+
+      const state = await service.getGameState('room-1');
+      expect(Object.keys(state.entities).length).toBe(0);
+      expect(mockStrapi.log.warn).toHaveBeenCalledWith(expect.stringContaining('Invalid MOVE payload'));
+    });
+
+    it('should skip invalid SPAWN_ENTITY events', async () => {
+      const events = [
+        { type: 'SPAWN_ENTITY', payload: { entityId: 'goblin-1' } }, // Missing position
+      ];
+      (mockStrapi.documents as unknown as vi.Mock).mockReturnValue({
+        findMany: vi.fn().mockResolvedValue(events),
+        findOne: vi.fn().mockResolvedValue({ entity_sheets: [] }),
+      });
+
+      const state = await service.getGameState('room-1');
+      expect(state.entities['goblin-1']).toBeUndefined();
+      expect(mockStrapi.log.warn).toHaveBeenCalledWith(expect.stringContaining('Invalid SPAWN_ENTITY payload'));
     });
   });
 });

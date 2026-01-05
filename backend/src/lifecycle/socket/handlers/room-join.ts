@@ -18,8 +18,8 @@ export const handleRoomJoin =
         populate: [
           'players',
           'players.character',
-          'players.character.baseStats',
-          'players.character.race',
+          'players.character.stats',
+          'players.character.classes.class',
           'players.character.class',
           'messages',
           'messages.recipient',

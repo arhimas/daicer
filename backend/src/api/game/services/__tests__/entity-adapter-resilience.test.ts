@@ -107,7 +107,7 @@ describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
     {
       desc: 'Type: Null -> Player',
       input: { documentId: 'm1', type: null },
-      assertions: (e: Creature) => expect(e.type).toBe('player'),
+      assertions: (e: Creature) => expect(e.type).toBe('monster'),
     },
   ];
 

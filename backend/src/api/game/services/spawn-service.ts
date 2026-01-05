@@ -3,7 +3,7 @@
  * Handles instantiation of Characters and Monsters into the game world.
  */
 
-import { EntityDeriver } from '@daicer/engine';
+import { EntityDeriver, EntitySheet, StatBlock, ActionDefinition } from '@daicer/engine';
 
 export default ({ strapi }) => ({
   /**
@@ -17,33 +17,70 @@ export default ({ strapi }) => ({
     // 1. Fetch Monster Blueprint
     const monster = await strapi.documents('api::monster.monster').findOne({
       documentId: monsterId as string, // Try documentId first
-      populate: ['stats', 'structuredActions', 'structuredActions.damage'],
+      populate: [
+        'stats',
+        'structuredActions',
+        'structuredActions.damage',
+        'features',
+        'equipment',
+        'equipment.item',
+        'equipment.item.equipment_category',
+        'equipment.item.damage_type',
+        'equipment.item.properties',
+      ],
     });
 
-    // Fallback if not string or not found via documentId (though documents API prefers documentId uses standard findOne)
-    // If monsterId is numeric ID, we might need a filter.
-    // Assuming backend receives documentId from frontend.
-
     if (!monster) {
-      // Try finding by numeric id if monsterId is number?
-      // strapi.documents usually uses documentId.
       throw new Error(`Monster blueprint not found: ${monsterId}`);
     }
 
-    // 2. Fetch Room to ensure existence
-    const room = await strapi.documents('api::room.room').findOne({
-      documentId: roomId as string,
+    // 2. Fetch Room from documentId OR roomId field
+    const rooms = await strapi.documents('api::room.room').findMany({
+      filters: {
+        $or: [{ documentId: { $eq: roomId as string } }, { roomId: { $eq: roomId as string } }],
+      },
+      limit: 1,
     });
-    if (!room) throw new Error('Room not found');
+    const room = rooms[0];
+
+    if (!room) {
+      console.error(`[SpawnService] Room not found. Input ID: ${roomId}`);
+      throw new Error(`Room not found: ${roomId}`);
+    }
+
+    console.info(
+      `[SpawnService] Found Room for Monster Spawn: ${room.documentId} (Name: ${room.name}, Locale: ${room.locale})`
+    );
 
     // 3. Create Character Sheet
     // Use monster stats
-    const hp = monster.hp || 10;
-    const maxHp = monster.hp || 10;
+    const stats: Partial<StatBlock> = monster.stats || {};
 
-    // Parse speed? Monster speed is JSON usually e.g. "30 ft" or { walk: 30 }.
-    // We'll store it as is or parse if needed.
-    // CharacterSheet doesn't have a specific 'speed' field, it might be in 'stats' component or we rely on 'monster' relation.
+    // Extract actual equipment items if monster has equipment component (Phase 1.3)
+    const equipmentForDeriver =
+      monster.equipment?.filter((entry: any) => entry.isEquipped && entry.item).map((entry: any) => entry.item) || [];
+
+    const derived = EntityDeriver.derive({
+      attributes: {
+        str: stats.strength || 10,
+        dex: stats.dexterity || 10,
+        con: stats.constitution || 10,
+        int: stats.intelligence || 10,
+        wis: stats.wisdom || 10,
+        cha: stats.charisma || 10,
+      },
+      level: monster.level || Math.max(1, Math.floor(monster.challenge_rating || 1)),
+      isMonster: true,
+      equipment: equipmentForDeriver,
+      innateActions: monster.structuredActions, // Pass blueprint actions as innate
+      race: {
+        speed: monster.speed, // Pass explicit speed if any
+      },
+      // Override derivation with authoritative blueprint values if present
+      ac: monster.ac,
+      hp: monster.hp,
+      maxHp: monster.hp,
+    });
 
     // Check for collision
     const existing = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
@@ -62,27 +99,46 @@ export default ({ strapi }) => ({
       throw new Error(`Position ${position.x},${position.y},${position.z} is occupied by ${existing[0].name}`);
     }
 
-    const newSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
-      data: {
+    try {
+      console.info(`[SpawnService] Creating EntitySheet... Room ID: ${room.documentId}`);
+
+      const sheetData: Partial<EntitySheet> & {
+        monster: string;
+        room: string;
+        type: 'monster';
+        position: { x: number; y: number; z: number };
+      } = {
         name: monster.name,
         type: 'monster',
         monster: monster.documentId,
         room: room.documentId,
-        currentHp: hp,
-        maxHp: maxHp,
-        level: 1, // Default
-        experience: monster.xp || 0,
+        hp: derived.hp,
+        maxHp: derived.maxHp, // Blueprint or derived
+        armorClass: derived.ac, // Blueprint or derived. Mapped to armorClass for EntitySheet
+        speed: { walk: (typeof monster.speed === 'number' ? monster.speed : 0) || derived.speed.walk },
+        level: derived.level,
+        xp: monster.xp || 0,
         position: position,
-        // Stats component can be populated from monster.stats if structures match
-        stats: monster.stats,
-        structuredActions: monster.structuredActions,
+        // stats: monster.stats, // REMOVED: Not in EntitySheet schema, using attributes instead
+        structuredActions: derived.structuredActions,
+        features: monster.features || [],
 
-        // We can add appearance/inventory stubs
-      },
-      status: 'published',
-    });
+        // Satisfy EntitySheet strictness with defaults
+        attributes: monster.stats as any, // Legacy mapping for now until attributes keys are strict
+        initiative: 0,
+        proficiencyBonus: derived.proficiencyBonus || 2,
+      };
 
-    return newSheet;
+      const newSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
+        data: sheetData,
+        status: 'published',
+      });
+      console.info(`[SpawnService] EntitySheet Created: ${newSheet.documentId}`);
+      return newSheet;
+    } catch (err) {
+      console.error('[SpawnService] Creation Error:', err);
+      throw err;
+    }
   },
 
   /**
@@ -97,9 +153,10 @@ export default ({ strapi }) => ({
     const character = await strapi.documents('api::character.character').findOne({
       documentId: characterId as string,
       populate: [
-        'baseStats',
+        'stats',
         'race',
-        'class',
+        'classes',
+        'classes.class',
         'equipment',
         'equipment.item',
         'equipment.item.damage_type',
@@ -110,47 +167,68 @@ export default ({ strapi }) => ({
 
     if (!character) throw new Error('Character blueprint not found');
 
-    const room = await strapi.documents('api::room.room').findOne({
-      documentId: roomId as string,
+    const rooms = await strapi.documents('api::room.room').findMany({
+      filters: {
+        $or: [{ documentId: { $eq: roomId as string } }, { roomId: { $eq: roomId as string } }],
+      },
+      populate: { world: true },
+      limit: 1,
     });
-    if (!room) throw new Error('Room not found');
+    const room = rooms[0];
+
+    if (!room) {
+      console.error(`[SpawnService] Room not found during character spawn. Input ID: ${roomId}`);
+      throw new Error('Room not found');
+    }
+
+    // Resolve Main Class
+    const mainClassComponent = character.classes?.[0];
+    const mainClass = mainClassComponent?.class;
 
     // Parse Hit Die from Class (e.g., "1d8" -> 8)
     let hitDie = 8;
-    if (character.class?.hit_die) {
-      const parts = character.class.hit_die.split('d');
+    if (mainClass?.hit_die) {
+      const parts = mainClass.hit_die.split('d');
       if (parts.length === 2) {
         hitDie = parseInt(parts[1], 10);
       }
     }
 
+    console.info(`[SpawnService] Found Room: ${room.documentId} (Name: ${room.name || 'Unknown'})`);
+    console.info(`[SpawnService] Creating EntitySheet for character: ${character.name} in room: ${room.documentId}`);
+
     // Prepare Derivation Context
-    // Map Strapi 'baseStats' (full names) to Engine 'Attributes' (short names)
-    // Strapi: strength, dexterity, constitution, intelligence, wisdom, charisma
-    // Engine: str, dex, con, int, wis, cha
-    const baseStats = character.baseStats || {};
+    const stats: Partial<StatBlock> = character.stats || {};
     const attributes = {
-      str: baseStats.strength || 10,
-      dex: baseStats.dexterity || 10,
-      con: baseStats.constitution || 10,
-      int: baseStats.intelligence || 10,
-      wis: baseStats.wisdom || 10,
-      cha: baseStats.charisma || 10,
+      str: stats.strength || 10,
+      dex: stats.dexterity || 10,
+      con: stats.constitution || 10,
+      int: stats.intelligence || 10,
+      wis: stats.wisdom || 10,
+      cha: stats.charisma || 10,
     };
 
-    // Extract actual equipment items from the inventory-item component wrapper
-    // EntityDeriver expects Equipment objects (with damage_dice, etc), not the { item: ... } wrapper
-    // We also likely want to filter by 'isEquipped' to only grant actions for equipped items
+    const level = character.level || 1;
+
+    // Extract actual equipment items
     const equipmentForDeriver =
-      character.equipment?.filter((entry) => entry.isEquipped && entry.item).map((entry) => entry.item) || [];
+      character.equipment?.filter((entry: any) => entry.isEquipped && entry.item).map((entry: any) => entry.item) || [];
 
     // Calculate Stats
     const derived = EntityDeriver.derive({
       attributes: attributes,
-      level: 1,
-      proficiencyBonus: 2, // Level 1 default
+      // Pass full classes array for multiclass support (Deriver calculates total level & PB)
+      classes:
+        character.classes?.map((c: any) => ({
+          name: c.class?.name || 'Unknown',
+          level: c.level,
+          hitDie: c.class?.hit_die,
+        })) || [],
+      // Fallback for single class if array empty?
+      level: level,
+      proficiencyBonus: undefined, // Let deriver calculate it
       equipment: equipmentForDeriver,
-      hitDie: hitDie,
+      hitDie: hitDie, // Global hitDie fallback
       race: {
         speed: character.race?.speed,
       },
@@ -173,37 +251,44 @@ export default ({ strapi }) => ({
       throw new Error(`Position ${position.x},${position.y},${position.z} is occupied by ${existing[0].name}`);
     }
 
+    const sheetData: Partial<EntitySheet> & {
+      character: string;
+      room: string;
+      type: 'player' | 'npc';
+      owner?: string;
+      position: { x: number; y: number; z: number };
+    } = {
+      name: character.name,
+      type: ownerId ? 'player' : 'npc',
+      owner: ownerId, // Assign owner relation
+      character: character.documentId,
+      room: room.documentId,
+      hp: derived.hp,
+      maxHp: derived.maxHp,
+      armorClass: derived.ac, // Snapshot Derived AC
+      speed: derived.speed, // Snapshot Speed
+      level: level,
+      xp: 0,
+      position: position,
+      // stats: (() => { ... })(), // REMOVED
+      race: character.race?.documentId,
+      class: mainClass?.documentId,
+      structuredActions: derived.structuredActions?.map((action: ActionDefinition) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { id, ...rest } = action as any; // Remove ID to generate fresh or let DB handle?
+        // If action has ID from blueprint, we might want to keep it or drop it.
+        // EntityDeriver generates IDs for Equipment actions.
+        return rest;
+      }),
+      features: [],
+
+      attributes: character.stats as any,
+      initiative: 0,
+      proficiencyBonus: derived.proficiencyBonus,
+    };
+
     const newSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
-      data: {
-        name: character.name,
-        type: ownerId ? 'player' : 'npc', // Player if owned, else NCP
-        owner: ownerId, // Assign owner relation
-        character: character.documentId,
-        room: room.documentId,
-        currentHp: derived.hp,
-        maxHp: derived.maxHp,
-        level: 1,
-        experience: 0,
-        position: position,
-        stats: (() => {
-          if (!character.baseStats) return undefined;
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { id, ...rest } = character.baseStats;
-          return rest;
-        })(),
-        race: character.race?.documentId,
-        class: character.class?.documentId,
-        // speed: derived.speed,
-        structuredActions: derived.structuredActions,
-        appearance: character.appearance,
-        backstory: character.backstory,
-        inventory:
-          character.equipment?.map((item) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { id, ...rest } = item;
-            return rest;
-          }) || [],
-      },
+      data: sheetData,
       status: 'published',
     });
 

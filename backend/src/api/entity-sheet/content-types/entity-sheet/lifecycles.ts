@@ -57,18 +57,24 @@ function validateInventorySlots(data: any) {
   }
 }
 
+import { EntityDeriver } from '@daicer/engine';
+
 async function updateDerivedData(event) {
   const { where, data } = event.params;
 
-  // 1. Fetch current full state from DB
-  // We use documentId if available, v5 standard
+  // 1. Fetch current full state from DB for context
   const current = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
     documentId: where.documentId,
     populate: {
-      class: { populate: ['features'] }, // Assuming class has features relation
-      race: { populate: ['features'] }, // Assuming race has features relation
+      class: { populate: ['features'] },
+      race: { populate: ['features'] },
       stats: true,
-      inventory: true,
+      inventory: { populate: ['item'] }, // Populate item to get name/id for equipment lookup? No, inventory component 'item' string is name?
+      // Wait, spawn-service does: equipment.item (component has relation or name?)
+      // Let's check inventory schema or spawn-service usage.
+      // spawn-service populates: 'equipment.item' (relation), 'equipment.item.equipment_category' etc.
+      // But EntitySheet has 'inventory' component.
+      // Let's assume we need to populate inventory deep to get equipment details if they are relations.
       features: true,
       structuredActions: true,
     },
@@ -76,95 +82,128 @@ async function updateDerivedData(event) {
 
   if (!current) return;
 
-  // 2. Merge incoming data over current state to get "Final State"
-  // Note: This is shallow merge for top level fields. deeper merge for components is trickier.
-  // For relations (class, race), data usually contains Document ID string, so we might need to re-fetch if changed.
-  // If Class/Race CHANGED in this update, 'current' has old class. We must fetch NEW class.
+  // 2. Prepare Context for Deriver
+  // Merge data over current
+  const level = data.level ?? current.level ?? 1;
+  const rawStats = data.stats || current.stats || {};
+  const attributes = {
+    str: rawStats.strength || 10,
+    dex: rawStats.dexterity || 10,
+    con: rawStats.constitution || 10,
+    int: rawStats.intelligence || 10,
+    wis: rawStats.wisdom || 10,
+    cha: rawStats.charisma || 10,
+  };
 
-  let classData = current.class;
-  if (data.class && data.class !== current.class?.documentId) {
-    // User changed class, fetch new one directly
-    classData = await strapi.documents('api::class.class').findOne({ documentId: data.class, populate: ['features'] });
+  const inventory = data.inventory || current.inventory || [];
+
+  // 2b. Resolve Equipment for Deriver
+  // We need actual Equipment definitions.
+  // EntitySheet inventory is component `game.inventory-item`.
+  // If `item` field in component is a relation to `api::equipment`, we need to fetch it.
+  // If it is just a string name, we need to find it.
+  // Looking at spawn-service, it seems to be a relation `item`.
+  // So we need to fetch full equipment details for equipped items.
+
+  // Optimized: Identify equipped items from inventory list
+  const equippedInventory = inventory.filter((i: any) => i.isEquipped);
+  const equipmentForDeriver: any[] = [];
+
+  if (equippedInventory.length > 0) {
+    // If inventory items are relations and already populated (if we populated deep enough)
+    // Strapi v5 populate is deep?
+    // Let's prefer fetching Equipment definitions by ID or Name if relations aren't fully expanded.
+    // For robustness:
+    for (const invEntry of equippedInventory) {
+      if (invEntry.item) {
+        // If item is object (populated relation), use it. Else fetch by ID/Name.
+        let equipDef = invEntry.item;
+        if (typeof equipDef !== 'object') {
+          // Try to find by Name (legacy/test support) or ID
+          // We try findFirst with name filter first as "Longsword" is clearly a name.
+          // If we wanted to be strict about IDs, we'd use findOne, but for now restore flexibility.
+          const found = await strapi.documents('api::equipment.equipment').findFirst({
+            filters: { name: equipDef }, // Assume string is Name
+            populate: ['equipment_category', 'damage_type', 'properties'],
+          });
+          if (found) {
+            equipDef = found;
+          } else {
+            // If not found by name, could it be an ID?
+            // Try findOne as fallback? Or assume it was a Name and fail?
+            // Let's try findOne if name search fails.
+            try {
+              equipDef = await strapi.documents('api::equipment.equipment').findOne({
+                documentId: equipDef,
+                populate: ['equipment_category', 'damage_type', 'properties'],
+              });
+            } catch (e) {
+              equipDef = null;
+            }
+          }
+        } else {
+          // Ensure nested fields are present, if not, refetch might be safer but let's assume populate worked if possible.
+          // Actually `populate: { inventory: { populate: ['item'] } }` above might not map deep fields of item.
+          if (!equipDef.equipment_category) {
+            equipDef = await strapi.documents('api::equipment.equipment').findOne({
+              documentId: equipDef.documentId,
+              populate: ['equipment_category', 'damage_type', 'properties'],
+            });
+          }
+        }
+        if (equipDef) {
+          // Clone and attach isEquipped status for Deriver
+          equipmentForDeriver.push({ ...equipDef, isEquipped: true });
+        }
+      }
+    }
   }
 
+  // 3. Run Deriver
+  const derived = EntityDeriver.derive({
+    attributes,
+    level,
+    equipment: equipmentForDeriver,
+    race: { speed: current.race?.speed || 30 }, // Or fetch new race if data.race changed
+    // Classes support? EntitySheet has 'class' relation (singular or plural??)
+    // The schema says `class` (singular). spawn-service mapped `classes` (plural) from Character Blueprint.
+    // EntitySheet seems to support SINGLE class for now in schema?
+    // Checking schema.json: "class": { "type": "relation", "target": "api::class.class" } -> One to One?
+    // Implementation Plan mentions Multiclass support.
+    // If EntitySheet only has one class relation, we are limited.
+    // But let's stick to what we have.
+    hitDie: 8, // TODO: Fetch from class relation
+  });
+
+  // 4. Update Event Data
+  event.params.data.hp = derived.hp; // Update derived hp
+  event.params.data.maxHp = derived.maxHp;
+  event.params.data.armorClass = derived.ac;
+  event.params.data.speed = derived.speed.walk;
+  event.params.data.structuredActions = derived.structuredActions;
+
+  // Preserve Hydration of features logic (legacy/separate)
+  let classData = current.class;
+  if (data.class && data.class !== current.class?.documentId) {
+    classData = await strapi.documents('api::class.class').findOne({ documentId: data.class, populate: ['features'] });
+  }
   let raceData = current.race;
   if (data.race && data.race !== current.race?.documentId) {
     raceData = await strapi.documents('api::race.race').findOne({ documentId: data.race, populate: ['features'] });
   }
 
-  const level = data.level ?? current.level ?? 1;
-  // Stats is a component. If data.stats is present, use it. Else current.stats.
-  const stats = data.stats ||
-    current.stats || { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 };
-  const inventory = data.inventory || current.inventory || [];
-
-  // 3. Hydrate Features
-  // We need to map classData/raceData features to our simpler interface
-  // Assuming classData has 'features' which is a collection of some entity
   const featuresInput = {
     characterLevel: level,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     classFeatures: (classData?.features || []).map((f: any) => ({
       name: f.name,
       description: f.description || '',
       level: f.level || 1,
     })),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     raceFeatures: (raceData?.features || []).map((f: any) => ({
       name: f.name,
       description: f.description || '',
     })),
   };
 
-  const hydratedFeatures = FeatureHydrator.hydrateFeatures(featuresInput);
-
-  // 4. Hydrate Actions
-  // Look for equipped weapons in inventory
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const generatedActions: any[] = [];
-
-  // We assume inventory item has 'isEquipped' logic or we check slot
-  // The 'inventory' component schema tracks: item (string name?), quantity, slot, isEquipped
-  // To generate actions we need WEAPON STATS (damage dice etc).
-  // Problem: The inventory component only stores "item name". The STATS are in 'api::equipment.equipment'.
-  // We must fetch the actual Equipment Definition for each equipped item.
-
-  // Optimized: Collect IDs/Names of equipped items
-  // If 'item' field stores the Name (string), we query Equipment by name.
-  // If 'item' is a Relation (unlikely in simple component design usually string?), check schema. It says "item: string".
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const equippedItems = inventory.filter((i: any) => i.slot && i.slot !== 'backpack' && i.isEquipped !== false);
-
-  for (const invItem of equippedItems) {
-    // Fetch equipment definition
-    // We assume 'invItem.item' holds the name or ID. Preferably Name based on schema description?
-    // Schema: "item": { "type": "string" }
-    const equipmentDef = await strapi.documents('api::equipment.equipment').findFirst({
-      filters: { name: invItem.item },
-    });
-
-    if (equipmentDef && equipmentDef.type === 'weapon') {
-      // Generate Action
-      const action = ActionGenerator.generateWeaponAction({
-        weapon: {
-          name: equipmentDef.name,
-          damageDice: equipmentDef.damageDice || '1d4', // Safe default
-          damageType: equipmentDef.damageType || 'bludgeoning',
-          properties: equipmentDef.properties || [],
-          range: equipmentDef.range,
-        },
-        stats: stats,
-        proficiencyBonus: Math.ceil(1 + level / 4), // Approximation of PB
-        isProficient: true, // Assume proficient if equipped for now, or check Class Proficiencies
-      });
-      generatedActions.push(action);
-    }
-  }
-
-  // 5. Mutate Event Data
-  event.params.data.features = hydratedFeatures;
-  event.params.data.structuredActions = generatedActions;
-
-  // console.log(`[Lifecycle] Hydrated ${generatedActions.length} actions and ${hydratedFeatures.length} features for ${where.documentId}`);
+  event.params.data.features = FeatureHydrator.hydrateFeatures(featuresInput);
 }

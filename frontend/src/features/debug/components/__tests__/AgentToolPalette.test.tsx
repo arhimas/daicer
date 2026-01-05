@@ -2,8 +2,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AgentToolPalette } from '../AgentToolPalette';
 
-// Capture props passed to child
-const mockToolbarProps = vi.fn();
+// Hoist the mock function so it can be referenced inside vi.mock factory
+const { mockToolbarProps } = vi.hoisted(() => ({ mockToolbarProps: vi.fn() }));
 
 vi.mock('@/components/chat/ChatActionToolbar', () => ({
   ChatActionToolbar: (props: any) => {
@@ -37,7 +37,8 @@ describe('AgentToolPalette', () => {
   it('should propagate commands from toolbar', () => {
     render(<AgentToolPalette onCommand={onCommand} activeEntity={undefined} activeLocation={null} roomEntities={[]} />);
     fireEvent.click(screen.getByTestId('trigger-cmd'));
-    expect(onCommand).toHaveBeenCalledWith('test_cmd');
+    // Expect default mode 'direct' as second arg
+    expect(onCommand).toHaveBeenCalledWith('test_cmd', 'direct');
   });
 
   it('should pass activeEntity prop correctly', () => {

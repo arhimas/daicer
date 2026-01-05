@@ -66,3 +66,5 @@ export class RoomRuneGenerator {
     return id;
   }
 }
+
+export const generateRoomRune = () => new RoomRuneGenerator().encode(Math.floor(Math.random() * 1000000));

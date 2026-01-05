@@ -143,8 +143,8 @@ export const getMutationResolvers = (strapi) => ({
         'players',
         'players.character',
         'players.character.race',
-        'players.character.class',
-        'players.character.baseStats',
+        'players.character.class.classes',
+        'players.character.stats',
         'world',
         'dmSettings',
       ],
@@ -258,4 +258,14 @@ export const getMutationResolvers = (strapi) => ({
   },
 
   generateTerrain: async () => true,
+
+  executeTool: async (_parent, args, context) => {
+    const { roomId, command } = args;
+    const { user } = context.state;
+    if (!user) throw new Error('Unauthorized');
+
+    strapi.log.info(`[Resolver] executeTool: ${command} for room ${roomId}`);
+    const result = await strapi.service('api::game.tool-executor').execute(roomId, command);
+    return { success: true, message: result };
+  },
 });

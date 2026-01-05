@@ -48,6 +48,27 @@ export interface GameAreaEffect extends Struct.ComponentSchema {
   };
 }
 
+export interface GameCharacterClass extends Struct.ComponentSchema {
+  collectionName: 'components_game_character_classes';
+  info: {
+    description: 'Links a character to a class and level';
+    displayName: 'CharacterClass';
+  };
+  attributes: {
+    class: Schema.Attribute.Relation<'oneToOne', 'api::class.class'>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    subclass: Schema.Attribute.Relation<'oneToOne', 'api::subclass.subclass'>;
+  };
+}
+
 export interface GameDamageDice extends Struct.ComponentSchema {
   collectionName: 'components_game_damage_dice';
   info: {
@@ -231,6 +252,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'game.action': GameAction;
       'game.area-effect': GameAreaEffect;
+      'game.character-class': GameCharacterClass;
       'game.damage-dice': GameDamageDice;
       'game.dm-style': GameDmStyle;
       'game.feature': GameFeature;

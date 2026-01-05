@@ -1,15 +1,17 @@
 import { generateText } from '../../../utils/llm';
 import { getPrompt, formatPrompt } from '../../../utils/prompt';
 import { uploadBase64Image } from '../../../utils/upload';
-import { createCharacterSnapshot, formatDmInstruction } from '@daicer/engine';
+import { createCharacterSnapshot, formatDmInstruction, EntityDeriver } from '@daicer/engine';
 import type { WorldSettings, Player, EntitySheet, Language } from '@daicer/engine';
 
 // Helper to format DM style
 
-interface PopulatedEntitySheet extends Omit<EntitySheet, 'race' | 'class' | 'characterClass' | 'personality'> {
+interface PopulatedEntitySheet
+  extends Omit<EntitySheet, 'race' | 'class' | 'classes' | 'characterClass' | 'personality'> {
   documentId: string;
   race?: string | { name: string };
   class?: string | { name: string };
+  classes?: { class: string | { name: string }; level: number }[];
   characterClass?: string;
   personality?: { traits: string; ideals: string; bonds: string; flaws: string };
 }
@@ -17,9 +19,9 @@ interface PopulatedEntitySheet extends Omit<EntitySheet, 'race' | 'class' | 'cha
 interface StrapiCharacter {
   documentId: string;
   name: string;
-  class?: string;
+  classes?: { class: { name: string; documentId: string }; level: number }[];
   race?: string;
-  baseStats: unknown;
+  stats: unknown;
   appearance?: unknown;
   backstory?: string;
   background?: string;
@@ -164,12 +166,12 @@ export default ({ strapi }) => ({
         data: {
           name: characterData.name,
           race: raceId,
-          class: classId,
+          classes: classId ? [{ class: classId, level: 1 }] : [],
           backstory: characterData.backstory || characterData.background,
           appearance: characterData.appearance,
           equipment: characterData.equipment,
           user: user.documentId,
-          baseStats: baseStats,
+          stats: baseStats,
           portrait: processedAvatarPreview?.portrait?.id,
           upperBody: processedAvatarPreview?.upperBody?.id,
           fullBody: processedAvatarPreview?.fullBody?.id,
@@ -180,44 +182,63 @@ export default ({ strapi }) => ({
 
     // 4. Create Character Sheet (The Gameplay Instance)
     // We create it immediately so the Waiting Room can show real stats/sheet
+
+    // Prepare derivation context for lifecycle sheet too
+    const rawStats = (createdCharacter.stats as Record<string, number>) || {};
+    const attributes = {
+      str: rawStats.strength || 10,
+      dex: rawStats.dexterity || 10,
+      con: rawStats.constitution || 10,
+      int: rawStats.intelligence || 10,
+      wis: rawStats.wisdom || 10,
+      cha: rawStats.charisma || 10,
+    };
+
+    // Extract actual equipment items
+    const equipmentList = (createdCharacter.equipment as any[]) || [];
+    const equipmentForDeriver = equipmentList
+      .filter((entry) => entry.isEquipped && entry.item)
+      .map((entry) => entry.item);
+
+    const derived = EntityDeriver.derive({
+      attributes,
+      classes: createdCharacter.classes?.map((c) => ({
+        name: c.class.name,
+        level: c.level,
+        hitDie: (c.class as any).hit_die,
+      })),
+      level: 1, // Fallback
+      equipment: equipmentForDeriver,
+      race: {
+        speed: (characterData as Record<string, unknown>)._raceSpeed as number,
+      },
+    });
+
     const sheetData = {
       name: createdCharacter.name,
       type: 'player',
-      class: createdCharacter.class, // Relation
+      class: createdCharacter.classes?.[0]?.class, // Relation via Component
       race: createdCharacter.race, // Relation
-      level: 1, // Default start level
+      level: derived.level,
       experience: 0,
 
-      stats: {
-        ...(createdCharacter.baseStats as Record<string, number>),
-        // Derive speed logic inline or use defaults
-        ...(() => {
-          const speedVal = (characterData as Record<string, unknown>)._raceSpeed || 30;
-
-          if (typeof speedVal === 'number') {
-            return { walkSpeed: speedVal };
-          }
-
-          if (typeof speedVal === 'object' && speedVal !== null) {
-            const speedObj = speedVal as Record<string, number>;
-            if (speedObj.walk) {
-              return { ...speedObj, walkSpeed: speedObj.walk };
-            }
-            return { walkSpeed: 30, ...speedObj };
-          }
-          return { walkSpeed: 30 };
-        })(),
-      },
-      baseStats: createdCharacter.baseStats, // Keep a copy of base
-      currentHp: 10, // Placeholder, should derive from CON + Class
-      maxHp: 10, // Placeholder
-      attributes: createdCharacter.baseStats, // Map baseStats to attributes
+      stats: createdCharacter.stats,
+      currentHp: derived.hp,
+      maxHp: derived.maxHp,
+      ac: derived.ac, // Snapshot Derived AC
+      speed: derived.speed.walk, // Snapshot Speed, using walked speed
+      attributes: createdCharacter.stats, // Map stats to attributes (Legacy field?)
       appearance: createdCharacter.appearance,
       backstory: createdCharacter.backstory,
       inventory: createdCharacter.equipment || [],
       position: { x: 0, y: 0, z: 0 }, // Default spawn
       character: createdCharacter.documentId, // Link to global asset
       room: room.documentId,
+      structuredActions: derived.structuredActions?.map((action) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { id, ...rest } = action;
+        return rest;
+      }),
     };
 
     const createdSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
@@ -280,9 +301,17 @@ export default ({ strapi }) => ({
     // Safety check for class name
     let className = 'Unknown Class';
     if (c.characterClass) className = c.characterClass;
+    else if (c.classes && Array.isArray(c.classes) && c.classes.length > 0) {
+      const cls = c.classes[0].class;
+      if (typeof cls === 'string') className = cls;
+      else if (cls && typeof cls === 'object' && 'name' in cls)
+        className = (cls as { name: string }).name || 'Unknown Class';
+    }
+    // Fallback legacy support
     else if (typeof c.class === 'string') className = c.class;
     else if (c.class && typeof c.class === 'object' && 'name' in c.class)
       className = (c.class as { name: string }).name || 'Unknown Class';
+
     if (className === 'Unknown Class' && c.characterClass) className = c.characterClass;
 
     const charSummary = `Name: ${character.name}
@@ -365,8 +394,13 @@ Start with ### Through ${character.name}'s Eyes`;
                   ? (c.race as { name: string }).name
                   : (c.race as string) || 'Unknown';
               const cName =
-                c.class && typeof c.class === 'object' && 'name' in c.class
-                  ? (c.class as { name: string }).name
+                c.classes && Array.isArray(c.classes) && c.classes.length > 0
+                  ? (() => {
+                      const cls = c.classes[0].class;
+                      return cls && typeof cls === 'object' && 'name' in cls
+                        ? (cls as { name: string }).name
+                        : (cls as string) || 'Unknown';
+                    })()
                   : c.characterClass || (c.class as string) || 'Unknown';
               const desc = (c as unknown as { description?: string }).description || 'A brave adventurer';
 

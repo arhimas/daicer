@@ -9,8 +9,16 @@ export const MapMovePayloadSchema = z.object({
 
 export type MapMovePayload = z.infer<typeof MapMovePayloadSchema>;
 
+export const SpawnEntityPayloadSchema = z.object({
+  entityId: z.union([z.string(), z.number()]),
+  position: CoordinatesSchema,
+});
+
+export type SpawnEntityPayload = z.infer<typeof SpawnEntityPayloadSchema>;
+
 export const GameEventPayloadSchema = z.union([
   z.object({ type: z.literal('MOVE'), payload: MapMovePayloadSchema }),
+  z.object({ type: z.literal('SPAWN_ENTITY'), payload: SpawnEntityPayloadSchema }),
   z.object({ type: z.string(), payload: z.record(z.unknown()) }),
 ]);
 

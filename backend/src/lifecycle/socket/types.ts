@@ -38,7 +38,7 @@ export interface RoomWithPopulations {
     user?: { documentId: string; id: string | number; username: string };
     character?: {
       documentId?: string;
-      baseStats: unknown;
+      stats: unknown;
       race: unknown;
       class: unknown;
     };

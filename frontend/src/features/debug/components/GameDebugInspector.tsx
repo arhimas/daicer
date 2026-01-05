@@ -12,7 +12,7 @@ interface GameDebugInspectorProps {
   setActiveEntityId: (id: string | null) => void;
   activeEntity: DebugEntity | null;
   activeLocation: { label: string; x: number; y: number; z: number } | null;
-  onGodModeCommand: (message: string) => Promise<void>;
+  onGodModeCommand: (message: string, mode?: 'chat' | 'direct') => Promise<void>;
 }
 
 export function GameDebugInspector({

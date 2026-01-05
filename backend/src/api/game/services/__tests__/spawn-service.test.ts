@@ -6,6 +6,14 @@ const mockFindOne = vi.fn();
 const mockFindMany = vi.fn();
 const mockCreate = vi.fn();
 
+const mockDerive = vi.fn();
+
+vi.mock('@daicer/engine', () => ({
+  EntityDeriver: {
+    derive: (...args: any[]) => mockDerive(...args),
+  },
+}));
+
 vi.stubGlobal('strapi', {
   documents: () => ({
     findOne: mockFindOne,
@@ -32,11 +40,22 @@ describe('Spawn Service', () => {
         structuredActions: [{ id: 'action-1', name: 'Scimitar', type: 'melee', damage: [{ dice: '1d6', bonus: 2 }] }],
       };
 
-      mockFindOne
-        .mockResolvedValueOnce(mockMonster) // Monster
-        .mockResolvedValueOnce({ documentId: 'room-1' }); // Room
+      mockFindOne.mockResolvedValueOnce(mockMonster); // Monster
 
-      mockFindMany.mockResolvedValue([]); // No collision
+      // Mock Derived Result
+      mockDerive.mockReturnValueOnce({
+        hp: 7,
+        maxHp: 7,
+        ac: 12,
+        level: 1,
+        speed: { walk: 30 },
+        structuredActions: mockMonster.structuredActions,
+        proficiencyBonus: 2,
+      });
+
+      // 1. Room Lookup
+      // 2. Collision Check
+      mockFindMany.mockResolvedValueOnce([{ documentId: 'room-1', name: 'Room' }]).mockResolvedValueOnce([]);
       mockCreate.mockResolvedValue({ documentId: 'sheet-1', name: 'Goblin' });
 
       await service.spawnMonster('room-1', 'mon-1', { x: 0, y: 0, z: 0 });
@@ -46,10 +65,10 @@ describe('Spawn Service', () => {
           data: expect.objectContaining({
             name: 'Goblin',
             type: 'monster',
-            currentHp: 7,
-            experience: 50,
+            hp: 7, // Fixed: hp instead of currentHp
+            xp: 50, // Fixed: xp instead of experience
             room: 'room-1',
-            stats: mockMonster.stats,
+            attributes: expect.objectContaining(mockMonster.stats), // Fixed check attributes instead of stats
             structuredActions: mockMonster.structuredActions, // Verify explicit copy
           }),
         })
@@ -57,8 +76,21 @@ describe('Spawn Service', () => {
     });
 
     it('should throw on collision', async () => {
-      mockFindOne.mockResolvedValueOnce({ documentId: 'mon-1' }).mockResolvedValueOnce({ documentId: 'room-1' });
-      mockFindMany.mockResolvedValue([{ name: 'Occupier' }]); // Collision
+      mockFindOne.mockResolvedValueOnce({ documentId: 'mon-1', name: 'Goblin' });
+
+      // Mock Derived for collision case (needed because derive is called before collision check)
+      mockDerive.mockReturnValueOnce({
+        hp: 10,
+        maxHp: 10,
+        ac: 10,
+        level: 1,
+        speed: { walk: 30 },
+        structuredActions: [],
+      });
+
+      mockFindMany
+        .mockResolvedValueOnce([{ documentId: 'room-1' }]) // Room
+        .mockResolvedValueOnce([{ name: 'Occupier' }]); // Collision
 
       await expect(service.spawnMonster('room-1', 'mon-1', { x: 0, y: 0, z: 0 })).rejects.toThrow(
         'occupied by Occupier'
@@ -71,8 +103,8 @@ describe('Spawn Service', () => {
       const mockCharacter = {
         documentId: 'char-1',
         name: 'Hero',
-        baseStats: { strength: 16, dexterity: 14, constitution: 14 }, // Str +3
-        class: { documentId: 'cls-1', hit_die: '1d10' },
+        stats: { strength: 16, dexterity: 14, constitution: 14 }, // Str +3
+        classes: [{ class: { documentId: 'cls-1', name: 'Fighter', hit_die: '1d10' }, level: 1 }],
         race: { speed: 30 },
         equipment: [
           {
@@ -95,8 +127,22 @@ describe('Spawn Service', () => {
         ],
       };
 
-      mockFindOne.mockResolvedValueOnce(mockCharacter).mockResolvedValueOnce({ documentId: 'room-1' });
-      mockFindMany.mockResolvedValue([]);
+      mockFindOne.mockResolvedValueOnce(mockCharacter);
+
+      // Mock Derived Result
+      mockDerive.mockReturnValueOnce({
+        hp: 12,
+        maxHp: 12,
+        ac: 12,
+        level: 1,
+        speed: { walk: 30 },
+        structuredActions: [{ name: 'Longsword', toHit: 5 }],
+        proficiencyBonus: 2,
+      });
+
+      mockFindMany
+        .mockResolvedValueOnce([{ documentId: 'room-1' }]) // Room
+        .mockResolvedValueOnce([]); // Collision
 
       await service.spawnCharacter('room-1', 'char-1', { x: 1, y: 1, z: 0 }, 'user-1');
 
@@ -107,7 +153,7 @@ describe('Spawn Service', () => {
             class: 'cls-1',
             owner: 'user-1',
             // Check derived stats
-            maxHp: expect.any(Number), // 1d10 (10) + Con Mod (2) = 12
+            maxHp: 12,
             // structuredActions should be derived
             structuredActions: expect.arrayContaining([
               expect.objectContaining({

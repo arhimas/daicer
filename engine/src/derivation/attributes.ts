@@ -17,7 +17,7 @@ export function calculateModifier(score: number): number {
 /**
  * Standard array of ability scores.
  */
-export const ABILITY_SCORES = ['str', 'dex', 'con', 'int', 'wis', 'cha'] as const;
+export const ABILITY_SCORES = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'] as const;
 
 export type AbilityScore = (typeof ABILITY_SCORES)[number];
 

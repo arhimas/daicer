@@ -195,7 +195,7 @@ export default ({ strapi }) => ({
         'players.user',
         'players.character',
         'players.characterSheet',
-        'players.character.baseStats',
+        'players.character.stats',
         'world',
         'dmSettings',
         'entity_sheets',

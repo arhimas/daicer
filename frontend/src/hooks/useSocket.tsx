@@ -82,6 +82,8 @@ export default function useSocket(roomId?: string, userId?: string) {
                 text: msg.text || msg.content || '',
               })) as Message[],
               creatures: data.creatures,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              gameEvents: (data.room as any)?.events || [],
               isProcessing: false,
             });
           },

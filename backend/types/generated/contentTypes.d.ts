@@ -389,18 +389,27 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
   attributes: {
     appearance: Schema.Attribute.JSON;
     backstory: Schema.Attribute.Text;
-    baseStats: Schema.Attribute.Component<'game.stats', false>;
-    class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
+    classes: Schema.Attribute.Component<'game.character-class', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     equipment: Schema.Attribute.Component<'game.inventory-item', true>;
     fullBody: Schema.Attribute.Media<'images'>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::character.character'> & Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     portrait: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
+    stats: Schema.Attribute.Component<'game.stats', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     upperBody: Schema.Attribute.Media<'images'>;
@@ -542,6 +551,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    ac: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     appearance: Schema.Attribute.JSON;
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
@@ -987,12 +997,21 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    equipment: Schema.Attribute.Component<'game.inventory-item', true>;
     features: Schema.Attribute.Component<'game.feature', true>;
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
     image: Schema.Attribute.Media<'images'>;
     languages: Schema.Attribute.String;
     legendary_actions: Schema.Attribute.JSON;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::monster.monster'>;
     name: Schema.Attribute.String &

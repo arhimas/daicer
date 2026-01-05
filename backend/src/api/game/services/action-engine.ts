@@ -18,7 +18,7 @@ export default ({ strapi }) => ({
         'entity_sheets.monster.structuredActions',
         'entity_sheets.monster.features',
         'entity_sheets.character',
-        'entity_sheets.character.baseStats',
+        'entity_sheets.character.stats',
         'entity_sheets.position', // Critical for correct entity placement
       ],
     });

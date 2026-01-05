@@ -94,5 +94,6 @@ export const typeDefs = `
     generateAvatarFullBody(payload: JSON!, portrait: JSON!, upperBody: JSON!, referenceImage: String): JSON
     generateTerrainChunk(roomId: ID!, chunkX: Int!, chunkY: Int!, chunkSize: Int): JSON
     generateTerrain(roomId: ID!): Boolean
+    executeTool(roomId: ID!, command: String!): JSON
   }
 `;

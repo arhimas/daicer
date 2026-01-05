@@ -5,36 +5,11 @@
 import { factories } from '@strapi/strapi';
 import { WorldGenerator } from '../../voxel-engine/services/world-generator-logic';
 import { PhysicsEngine } from '../../voxel-engine/services/utils/physics';
-import { MapMovePayloadSchema } from '@daicer/shared';
+import { MapMovePayloadSchema, SpawnEntityPayloadSchema } from '@daicer/shared';
 import { DEFAULT_WORLD_CONFIG } from '@daicer/engine';
 import type { Coordinates } from '@daicer/shared';
 
-// Minimal Strapi Type Definition for safety
-interface Strapi {
-  documents: (uid: string) => {
-    findOne: (params: unknown) => Promise<unknown>;
-    findMany: (params: unknown) => Promise<unknown[]>;
-    create: (params: { data: unknown }) => Promise<unknown>;
-  };
-  log: {
-    debug: (msg: string) => void;
-    info: (msg: string, ...args: unknown[]) => void;
-    warn: (msg: string) => void;
-    error: (msg: string, ...args: unknown[]) => void;
-  };
-}
-
-interface RoomWithWorld {
-  world: Record<string, unknown>;
-  code?: string;
-}
-
-interface RoomWithSheets {
-  entity_sheets?: {
-    documentId: string;
-    position: Coordinates;
-  }[];
-}
+// ... (existing helper types)
 
 const getWorldGenerator = async (strapi: Strapi, roomDocumentId: string) => {
   const room = await strapi.documents('api::room.room').findOne({
@@ -58,7 +33,26 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
   /**
    * Log an event to the Time Machine
    */
-  async logEvent(roomDocumentId: string, type: string, payload: unknown, actorId?: string) {
+  async logEvent(roomInputId: string, type: string, payload: unknown, actorId?: string) {
+    // Resolve Room ID (Robust Lookup)
+    // We do this to ensure we have the correct documentId for the relation,
+    // even if the user passed the public roomId.
+    const rooms = await strapi.documents('api::room.room').findMany({
+      filters: {
+        $or: [{ documentId: { $eq: roomInputId } }, { roomId: { $eq: roomInputId } }],
+      },
+      limit: 1,
+    });
+    const room = rooms[0];
+
+    if (!room) {
+      strapi.log.error(`[GameEvent] Room not found for event log. Input: ${roomInputId}`);
+      // Fallback or throw? Throwing is safer to signal failure.
+      throw new Error(`Room not found for event: ${roomInputId}`);
+    }
+
+    const roomDocumentId = (room as any).documentId;
+
     const lastEvents = await strapi.documents('api::game-event.game-event').findMany({
       filters: { room: { documentId: roomDocumentId } },
       sort: 'turnNumber:desc',
@@ -135,7 +129,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
     const events = await strapi.documents('api::game-event.game-event').findMany({
       filters: { room: { documentId: roomDocumentId } },
       sort: 'turnNumber:asc',
-      limit: 10000, // Reasonable limit for now
+      limit: 10000,
     });
 
     // Fetch room to get initial state
@@ -145,7 +139,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
         entity_sheets: {
           populate: '*',
         },
-        world: true, // Also keep world populated as before (it was in the array)
+        world: true,
       },
     });
 
@@ -156,26 +150,28 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
 
     if (room && (room as RoomWithSheets).entity_sheets) {
       (room as RoomWithSheets).entity_sheets!.forEach((c) => {
-        // Use documentId as the stable public ID
         const key = c.documentId;
         state.entities[key] = c.position;
       });
     }
 
-    // Replay
+    // Replay with Strict Validation
     for (const event of events as { type: string; payload: unknown }[]) {
       if (event.type === 'MOVE') {
         const result = MapMovePayloadSchema.safeParse(event.payload);
         if (result.success) {
           const p = result.data;
           state.entities[String(p.entityId)] = p.to;
+        } else {
+          strapi.log.warn(`[GameEvent] Invalid MOVE payload skipped in replay: ${JSON.stringify(event.payload)}`);
         }
       } else if (event.type === 'SPAWN_ENTITY') {
-        // Assume payload has { entityId, position }
-        // We need to support this for consistent state
-        const p = event.payload as { entityId: string; position: Coordinates };
-        if (p?.entityId && p?.position) {
+        const result = SpawnEntityPayloadSchema.safeParse(event.payload);
+        if (result.success) {
+          const p = result.data;
           state.entities[String(p.entityId)] = p.position;
+        } else {
+          strapi.log.warn(`[GameEvent] Invalid SPAWN_ENTITY payload skipped: ${JSON.stringify(event.payload)}`);
         }
       }
     }

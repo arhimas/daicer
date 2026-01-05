@@ -212,3 +212,9 @@ export const CREATE_ENTITY_SHEET_MUTATION = gql`
     }
   }
 `;
+
+export const EXECUTE_TOOL_MUTATION = gql`
+  mutation ExecuteTool($roomId: ID!, $command: String!) {
+    executeTool(roomId: $roomId, command: $command)
+  }
+`;

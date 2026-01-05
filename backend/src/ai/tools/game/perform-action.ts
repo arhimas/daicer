@@ -36,10 +36,21 @@ export const performActionTool = (context: StrapiContext) => {
                   },
                   stats: true,
                   inventory: true,
-                  character: { populate: ['race', 'class'] },
+                  character: {
+                    populate: {
+                      race: true,
+                      classes: {
+                        populate: {
+                          class: true,
+                          subclass: true,
+                        },
+                      },
+                    },
+                  },
                   monster: {
                     populate: {
                       stats: true,
+                      equipment: true,
                     },
                   },
                 },
@@ -49,8 +60,15 @@ export const performActionTool = (context: StrapiContext) => {
                   user: true,
                   character: {
                     populate: {
-                      baseStats: true,
+                      classes: {
+                        populate: {
+                          class: true,
+                          subclass: true,
+                        },
+                      },
+                      stats: true,
                       equipment: true,
+                      race: true,
                     },
                   },
                 },
@@ -181,6 +199,7 @@ export const performActionTool = (context: StrapiContext) => {
             trace: result.events.find((e) => e.type === 'ATTACK_RESULT' || e.type === 'SKILL_CHECK_RESULT')?.payload,
           };
         } catch (error) {
+          console.error('[PERFORM ACTION DIAGNOSTICS]', error); // Direct output for Test Trace
           ctx.strapi.log.error(`[Tool:PerformAction] Engine Exception:`, error);
           return {
             success: false,

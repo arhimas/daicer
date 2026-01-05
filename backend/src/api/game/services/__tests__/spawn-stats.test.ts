@@ -17,7 +17,9 @@ vi.stubGlobal('strapi', {
 vi.mock('@daicer/engine', () => ({
   EntityDeriver: {
     derive: vi.fn((input) => {
-      const conMod = Math.floor((input.attributes.con - 10) / 2);
+      // Use fallback for either constitution or con, prioritizing full name
+      const con = input.attributes.constitution ?? input.attributes.con;
+      const conMod = Math.floor((con - 10) / 2);
       const hp = 10 + conMod;
       return { hp, maxHp: hp, speed: 30 };
     }),
@@ -46,20 +48,22 @@ describe('Spawn Service Stat Logic', () => {
   ];
 
   it.each(cases)('should calculate HP for Con %i as %i', async ({ con, hp }) => {
-    mockFindOne
-      .mockResolvedValueOnce({
-        documentId: 'char-1',
-        name: 'Hero',
-        baseStats: { strength: 10, dexterity: 10, constitution: con },
-        class: { hit_die: '1d10' },
-      })
-      .mockResolvedValueOnce({ documentId: 'room-1' });
+    mockFindOne.mockResolvedValueOnce({
+      documentId: 'char-1',
+      name: 'Hero',
+      stats: { strength: 10, dexterity: 10, constitution: con },
+      classes: [{ class: { hit_die: '1d10', documentId: 'cls-1' }, level: 1 }],
+    }); // Character
+
+    // 1. Room Lookup
+    // 2. Collision Check
+    mockFindMany.mockResolvedValueOnce([{ documentId: 'room-1' }]).mockResolvedValueOnce([]); // Collision
 
     await service.spawnCharacter('room-1', 'char-1', { x: 0, y: 0, z: 0 });
 
     expect(mockCreate).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ currentHp: hp }),
+        data: expect.objectContaining({ hp: hp }),
       })
     );
   });
@@ -77,14 +81,14 @@ describe('Spawn Service Stat Logic', () => {
     const stats = { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 };
     (stats as unknown)[stat] = val;
 
-    mockFindOne
-      .mockResolvedValueOnce({
-        documentId: 'char-1',
-        name: 'Hero',
-        baseStats: stats,
-        class: { hit_die: '1d10' },
-      })
-      .mockResolvedValueOnce({ documentId: 'room-1' });
+    mockFindOne.mockResolvedValueOnce({
+      documentId: 'char-1',
+      name: 'Hero',
+      stats: stats,
+      class: { hit_die: '1d10' },
+    });
+
+    mockFindMany.mockResolvedValueOnce([{ documentId: 'room-1' }]).mockResolvedValueOnce([]); // Collision
 
     await service.spawnCharacter('room-1', 'char-1', { x: 0, y: 0, z: 0 });
     // We trust EntityDeriver was called with correct inputs (implicitly tested by mock behavior if we used it, but here just proving test runs)

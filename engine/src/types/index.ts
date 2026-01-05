@@ -155,6 +155,7 @@ export interface EntityStats {
   passivePerception: number;
   initiativeBonus: number;
 }
+export type StatBlock = EntityStats; // Alias for tests and legacy code
 
 export interface EntityAction {
   id?: string;
@@ -184,9 +185,12 @@ export interface Entity {
   hp: number;
   maxHp: number;
   ac: number;
-  speed: number;
+  speed: number | { walk: number; [key: string]: number };
 
   // Blueprint
+  level?: number;
+  classes?: any[]; // Keep loose for now or import ClassInfo
+  equipment?: CharacterEquipment;
   stats: EntityStats;
   actions: EntityAction[];
   features: EntityFeature[];

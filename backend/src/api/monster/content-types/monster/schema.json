@@ -40,13 +40,25 @@
     },
     "size": {
       "type": "enumeration",
-      "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+      "enum": [
+        "Tiny",
+        "Small",
+        "Medium",
+        "Large",
+        "Huge",
+        "Gargantuan"
+      ]
     },
     "type": {
       "type": "string"
     },
     "alignment": {
       "type": "string"
+    },
+    "level": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
     },
     "ac": {
       "type": "integer"
@@ -90,7 +102,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "structuredActions": {
       "type": "component",
@@ -101,6 +115,11 @@
       "type": "component",
       "repeatable": true,
       "component": "game.feature"
+    },
+    "equipment": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.inventory-item"
     }
   }
 }

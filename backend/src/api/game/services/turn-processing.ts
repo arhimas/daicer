@@ -69,7 +69,7 @@ export default ({ strapi }) => ({
             'entity_sheets',
             'entity_sheets.monster',
             'entity_sheets.character',
-            'entity_sheets.character.baseStats',
+            'entity_sheets.character.stats',
           ], // Populate Blueprint for Adapter
         });
 
@@ -142,7 +142,7 @@ export default ({ strapi }) => ({
             'entity_sheets.monster.structuredActions',
             'entity_sheets.monster.features',
             'entity_sheets.character',
-            'entity_sheets.character.baseStats',
+            'entity_sheets.character.stats',
           ],
         })
       ).entity_sheets as unknown[]) || [];

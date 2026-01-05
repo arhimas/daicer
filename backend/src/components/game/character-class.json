@@ -1,0 +1,26 @@
+{
+    "collectionName": "components_game_character_classes",
+    "info": {
+        "displayName": "CharacterClass",
+        "description": "Links a character to a class and level"
+    },
+    "options": {},
+    "attributes": {
+        "class": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::class.class"
+        },
+        "level": {
+            "type": "integer",
+            "required": true,
+            "default": 1,
+            "min": 1
+        },
+        "subclass": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::subclass.subclass"
+        }
+    }
+}

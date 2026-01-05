@@ -64,7 +64,7 @@ describe('MapRenderer', () => {
 
   it('renders without crashing', () => {
     render(<MapRenderer {...defaultProps} />);
-    const canvas = screen.getByRole('presentation', { hidden: true }) || document.querySelector('canvas');
+    const canvas = screen.getByRole('img', { name: /Game Map/i });
     expect(canvas).toBeTruthy();
   });
 

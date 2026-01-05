@@ -386,6 +386,8 @@ export function MapRenderer({
         onTileHover?.(null);
       }}
       onWheel={handleWheel}
+      role="img"
+      aria-label="Game Map"
       className={`block touch-none bg-pink-500 ${isDragging ? 'cursor-grabbing' : 'cursor-crosshair'}`}
     />
   );
