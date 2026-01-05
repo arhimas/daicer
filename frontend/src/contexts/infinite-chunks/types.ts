@@ -3,7 +3,7 @@
  * All interfaces and types for the infinite chunk system
  */
 
-import type { ChunkDTO, Tile } from '@daicer/engine';
+import type { ChunkDTO, Tile } from '@/types/contracts';
 
 export type TerrainChunk = Omit<ChunkDTO, 'tiles'> & {
   tiles: Tile[][];

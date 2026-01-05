@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Player, Room } from '@daicer/engine';
+import type { Player, Room } from '@/types/contracts';
 import cn from '@/lib/utils';
 import { gildedTokens } from '@/theme/gildedTokens';
 import Logo from '@/components/ui/Logo';

@@ -1,4 +1,4 @@
-import type { AdventureLength, Difficulty, WorldSize } from '@daicer/engine';
+import type { AdventureLength, Difficulty, WorldSize } from '@/types/contracts';
 
 export const ADVENTURE_LENGTH_VALUES: AdventureLength[] = ['flash', 'short', 'medium', 'long', 'epic', 'legendary'];
 

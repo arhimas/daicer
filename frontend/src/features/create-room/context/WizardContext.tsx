@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
-import type { WorldSettings, WorldConfig } from '@daicer/engine';
+import type { WorldSettings, WorldConfig } from '@/types/contracts';
 import { useI18n } from '../../../i18n';
 
 interface WizardContextType {

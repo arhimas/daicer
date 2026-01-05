@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import clsx from 'clsx';
-import type { WorldSettings, DMStyle, ScaleLevel } from '@daicer/engine';
+import type { WorldSettings, DMStyle, ScaleLevel } from '@/types/contracts';
 import { useI18n } from '@/i18n';
 import DiscreteSlider, { type SliderMark } from '@/components/forms/DiscreteSlider';
 import { LoadingOverlay } from '@/components/ui/LoadingOverlay';

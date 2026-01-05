@@ -4,7 +4,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import type { Message } from '@daicer/engine';
+import type { Message } from '@/types/contracts';
 import ChatArea from './ChatArea';
 
 const meta = {

@@ -1,4 +1,4 @@
-import type { Player, EntitySheet } from '@daicer/engine';
+import type { Player, EntitySheet } from '@/types/contracts';
 import UniversalEntitySheet from './UniversalEntitySheet';
 
 interface EntitySheetPanelProps {

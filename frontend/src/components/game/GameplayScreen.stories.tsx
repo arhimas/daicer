@@ -4,8 +4,8 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import type { Room, CharacterSheet } from '@daicer/engine';
-import { GamePhase } from '@daicer/engine';
+import type { Room, CharacterSheet } from '@/types/contracts';
+import { GamePhase } from '@/types/contracts';
 import GameplayScreen from './GameplayScreen';
 import { NEW_CHARACTER_TEMPLATE } from '../../constants';
 

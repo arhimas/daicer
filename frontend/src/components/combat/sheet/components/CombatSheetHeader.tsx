@@ -1,4 +1,4 @@
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 import type { CombatCharacter } from '../../../../types/combat';
 
 interface HeaderProps {

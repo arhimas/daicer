@@ -4,7 +4,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import type { Player } from '@daicer/engine';
+import type { Player } from '@/types/contracts';
 import PlayerSidebar from './PlayerSidebar';
 
 const createPlayer = (overrides: Partial<Player>): Player =>

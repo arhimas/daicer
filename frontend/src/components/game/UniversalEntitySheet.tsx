@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { EntitySheet, EntityAction, EntityFeature } from '@daicer/engine';
+import type { EntitySheet, EntityAction, EntityFeature } from '@/types/contracts';
 import { X, Shield, Swords, Zap, Footprints, Heart, Skull, Crown } from 'lucide-react';
 import cn from '../../lib/utils';
 

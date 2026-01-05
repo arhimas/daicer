@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import useSocket from '@/hooks/useSocket';
 import { TimeFrameProvider, useTimeFrame } from '@/contexts/TimeFrameContext';
 import { getRoomState } from '@/services/api';
-import { Room, Message } from '@daicer/engine';
+import { Room, Message } from '@/types/contracts';
 import { WorldConfig as OldWorldConfig, Coordinates, DebugEntity, ZLevel } from '../utils/types';
 import { GodModeChat, type GodModeMessage } from './GodModeChat';
 import { TimeControls } from './TimeControls';

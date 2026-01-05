@@ -4,7 +4,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import { GamePhase } from '@daicer/engine';
+import { GamePhase } from '@/types/contracts';
 import CharacterCreation from './CharacterCreation';
 
 const meta = {

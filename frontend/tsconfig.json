@@ -31,9 +31,7 @@
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@daicer/engine": ["../engine/dist/index.d.ts"],
-      "@daicer/shared": ["../shared/src/index.ts"]
+      "@/*": ["./src/*"]
     },
     "allowSyntheticDefaultImports": true
   },

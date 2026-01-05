@@ -4,7 +4,7 @@
  * NO WebSocket - simple REST API only
  */
 
-import type { ChunkDTO } from '@daicer/engine';
+import type { ChunkDTO } from '@/types/contracts';
 
 // import { gql } from '@apollo/client';
 import { apolloClient } from '../../../lib/apollo';

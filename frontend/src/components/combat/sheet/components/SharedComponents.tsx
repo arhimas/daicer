@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { EntitySheet, SkillDetail } from '@daicer/engine';
+import type { EntitySheet, SkillDetail } from '@/types/contracts';
 import { PROFICIENCY_LABEL_MAP, PROFICIENCY_STYLE_MAP, formatModifier } from '../utils';
 
 type InfoTileProps = {

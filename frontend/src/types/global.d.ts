@@ -1,4 +1,4 @@
-import type { Tile } from '@daicer/engine';
+import type { Tile } from '@/types/contracts';
 
 export {};
 

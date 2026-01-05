@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowLeft, Braces, Search, ChevronRight, ChevronDown } from 'lucide-react';
 import type { DebugEntity } from '../utils/types';
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 import { UniversalEntitySheetContent } from '../../../components/game/UniversalEntitySheet';
 import cn from '@/lib/utils';
 

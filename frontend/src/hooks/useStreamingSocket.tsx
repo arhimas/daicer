@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Room, Player, Message, Creature } from '@daicer/engine';
-import { GamePhase } from '@daicer/engine';
+import type { Room, Player, Message, Creature } from '@/types/contracts';
+import { GamePhase } from '@/types/contracts';
 import { initSocket, disconnectSocket, getSocket, type ToolCall, type PresenceData } from '../services/socket';
 
 /**

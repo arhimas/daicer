@@ -1,4 +1,4 @@
-import type { Room } from '@daicer/engine';
+import type { Room } from '@/types/contracts';
 import type { AvatarGenerationPayload, AvatarPreviewImage, ReferenceImagePayload } from '../../../types/assets';
 import type { CharacterFormState } from './types';
 import {

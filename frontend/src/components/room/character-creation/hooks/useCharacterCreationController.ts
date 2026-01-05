@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useCallback } from 'react';
-import type { Attribute } from '@daicer/engine';
+import type { Attribute } from '@/types/contracts';
 import { useCharacterFormState } from '../useCharacterFormState';
 import { useEquipmentLogic } from './useEquipmentLogic';
 import { useAvatarGeneration } from './useAvatarGeneration';

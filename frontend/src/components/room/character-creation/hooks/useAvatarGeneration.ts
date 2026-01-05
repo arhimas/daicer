@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GamePhase, type Room } from '@daicer/engine';
+import { GamePhase, type Room } from '@/types/contracts';
 import { generateAvatarPortrait, generateAvatarUpperBody, generateAvatarFullBody } from '../../../../services/api';
 import { buildAvatarPayload, appendReference, downscalePreviewImage } from '../avatarHelpers';
 import type { CharacterFormState } from '../types';

@@ -1,4 +1,4 @@
-import { Player, Message, WorldSettings, Creature, Language } from '@daicer/engine';
+import { Player, Message, WorldSettings, Creature, Language } from '@/types/contracts';
 
 export const ActionType = {
   // Language

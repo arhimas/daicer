@@ -22,7 +22,7 @@
  */
 
 import type { ReactNode } from 'react';
-import type { Role } from '@daicer/engine';
+import type { Role } from '@/types/contracts';
 import { useRole } from '../../hooks/useRole';
 
 interface RequireRoleProps {

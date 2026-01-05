@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 
-import type { Player, EntitySheet } from '@daicer/engine';
+import type { Player, EntitySheet } from '@/types/contracts';
 import { useCombat } from '../../hooks/useCombat';
 import type { Position } from '../../types/combat';
 import { ResizablePanelGroup, ResizablePanel } from '../ui/resizable';

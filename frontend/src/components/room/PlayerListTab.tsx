@@ -4,7 +4,7 @@
  */
 
 import { Users } from 'lucide-react';
-import type { Player } from '@daicer/engine';
+import type { Player } from '@/types/contracts';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';

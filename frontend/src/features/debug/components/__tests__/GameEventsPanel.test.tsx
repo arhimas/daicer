@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { GameEventsPanel } from '../GameEventsPanel';
-import type { GameEvent } from '@daicer/engine';
+import type { GameEvent } from '@/types/contracts';
 
 // Mock scrollIntoView
 window.HTMLElement.prototype.scrollIntoView = vi.fn();

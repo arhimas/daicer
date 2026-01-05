@@ -21,8 +21,6 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.11",
-    "@daicer/engine": "*",
-    "@daicer/shared": "*",
     "@heroicons/react": "2.2.0",
     "@playwright/test": "^1.57.0",
     "@radix-ui/react-aspect-ratio": "^1.1.8",

@@ -70,7 +70,7 @@ export class ActionDispatcher {
 
     if (!entity) return { success: false, message: 'Actor not found', events: [] };
 
-    const targetPos = targetPosition; // Rename for clarity
+    const targetPos = { ...targetPosition, z: targetPosition.z ?? 0 }; // Rename for clarity and strict type
 
     // 1. Setup Collision Checker
     let checkCollision = (p: { x: number; y: number; z: number }): boolean => {

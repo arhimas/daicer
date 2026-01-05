@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import type { GameEvent } from '@daicer/engine';
+import type { GameEvent } from '@/types/contracts';
 import clsx from 'clsx';
 
 interface GameEventsPanelProps {

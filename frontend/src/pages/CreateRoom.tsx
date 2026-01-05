@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import type { WorldSettings } from '@daicer/engine';
+import type { WorldSettings } from '@/types/contracts';
 import PrivateLayout from '../components/layout/PrivateLayout';
 import { createRoom } from '../services/api';
 

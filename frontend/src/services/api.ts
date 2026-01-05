@@ -13,7 +13,7 @@ import type {
   HistoricalPeriod,
   WorldCondition,
   CharacterSheet,
-} from '@daicer/engine';
+} from '@/types/contracts';
 import { apolloClient } from '../lib/apollo';
 import type { AvatarGenerationPayload, AvatarPreviewImage, AvatarPreviewResponse } from '../types/assets';
 import {

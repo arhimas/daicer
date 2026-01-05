@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { WorldConfigForm } from '@/features/debug/components/WorldConfigForm';
 import type { WorldConfig } from '@/features/debug/utils/types';
-import type { WorldSettings } from '@daicer/engine';
+import type { WorldSettings } from '@/types/contracts';
 import { createRoom } from '@/services/api';
 import { LoadingOverlay } from '@/components/ui/LoadingOverlay';
 import { useWizard } from '../context/WizardContext';

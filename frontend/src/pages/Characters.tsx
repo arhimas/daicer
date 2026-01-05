@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Player } from '@daicer/engine';
+import type { Player } from '@/types/contracts';
 import { listRooms } from '../services/api';
 import { PrivateLayout } from '../components/layout';
 import { Button } from '../components/ui/button';

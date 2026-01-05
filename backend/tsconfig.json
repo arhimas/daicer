@@ -13,7 +13,14 @@
     "noEmitOnError": true,
     "noImplicitThis": true,
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@daicer/engine": ["src/engine/index.ts"],
+      "@daicer/engine/*": ["src/engine/*"],
+      "@daicer/shared": ["src/shared/index.ts"],
+      "@daicer/shared/*": ["src/shared/*"]
+    }
   },
   "include": [
     // Include root files

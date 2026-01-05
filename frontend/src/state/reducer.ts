@@ -1,4 +1,4 @@
-import { GamePhase, type Message } from '@daicer/engine';
+import { GamePhase, type Message } from '@/types/contracts';
 import { AppState } from './types';
 import { AppAction, ActionType } from './actions';
 

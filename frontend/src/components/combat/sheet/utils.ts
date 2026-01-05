@@ -1,4 +1,4 @@
-import type { SkillDetail } from '@daicer/engine';
+import type { SkillDetail } from '@/types/contracts';
 
 export type AbilityKey = 'strength' | 'dexterity' | 'constitution' | 'intelligence' | 'wisdom' | 'charisma';
 export type PortraitView = 'portrait' | 'upperBody' | 'fullBody';

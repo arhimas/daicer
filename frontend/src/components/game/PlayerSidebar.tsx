@@ -1,4 +1,4 @@
-import type { Player, Creature } from '@daicer/engine';
+import type { Player, Creature } from '@/types/contracts';
 import { useI18n } from '../../i18n';
 
 interface PlayerSidebarProps {

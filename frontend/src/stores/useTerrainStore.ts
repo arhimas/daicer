@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ChunkDTO } from '@daicer/engine';
+import type { ChunkDTO } from '@/types/contracts';
 
 // Type definition for a tile update (delta)
 export interface TileUpdate {

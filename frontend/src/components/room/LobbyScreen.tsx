@@ -1,6 +1,6 @@
 import React from 'react';
 import { Users, Plus, CheckCircle, Crown, Shield } from 'lucide-react';
-import type { Room, Player } from '@daicer/engine';
+import type { Room, Player } from '@/types/contracts';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import type { AvatarPreviewImage } from '../../types/assets';

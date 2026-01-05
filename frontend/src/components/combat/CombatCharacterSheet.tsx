@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 import type { CombatCharacter } from '../../types/combat';
 import { CombatSheetHeader } from './sheet/components/CombatSheetHeader';
 import { PortraitPanel } from './sheet/components/PortraitPanel';

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-import type { Language } from '@daicer/engine';
+import type { Language } from '@/types/contracts';
 import { createDie } from './createDie';
 import type { DiceLoaderProps, DieType, DieVisualStyle } from './types';
 import { AVAILABLE_DIE_TYPES, generateRandomDieColor, generateRandomDieType, generateRandomVisualStyle } from './utils';

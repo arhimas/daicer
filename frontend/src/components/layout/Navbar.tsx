@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
 import { Compass, DoorOpen, Bug, Sparkles } from 'lucide-react';
 
-import type { Room } from '@daicer/engine';
+import type { Room } from '@/types/contracts';
 import cn from '@/lib/utils';
 import {
   Menubar,

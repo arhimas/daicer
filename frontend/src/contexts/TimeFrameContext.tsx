@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { TimeFrame, Room } from '@daicer/engine';
+import { TimeFrame, Room } from '@/types/contracts';
 
 interface TimeFrameContextType {
   currentTimeFrame: TimeFrame | null;

@@ -1,4 +1,4 @@
-import { Attribute, CharacterSheet } from '@daicer/engine';
+import { Attribute, CharacterSheet } from '@/types/contracts';
 
 export const ATTRIBUTES: Attribute[] = [
   Attribute.STR,

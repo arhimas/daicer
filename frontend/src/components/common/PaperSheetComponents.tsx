@@ -1,5 +1,5 @@
-import { calculateModifier } from '@daicer/engine';
-import type { SkillDetail } from '@daicer/engine';
+import { calculateModifier } from '@/types/contracts';
+import type { SkillDetail } from '@/types/contracts';
 
 // Paper Theme Styles
 export const paperStyles = {

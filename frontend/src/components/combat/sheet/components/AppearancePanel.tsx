@@ -1,4 +1,4 @@
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 import { SECTION_TITLE_CLASSES, formatLabel } from '../utils';
 
 export function AppearancePanel({ characterSheet }: { characterSheet?: EntitySheet | null }) {

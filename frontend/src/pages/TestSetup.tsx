@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
 import { Swords, Flame, Puzzle, Ship, FlaskConical } from 'lucide-react';
-import type { WorldSettings, CharacterSheet, Attribute } from '@daicer/engine';
+import type { WorldSettings, CharacterSheet, Attribute } from '@/types/contracts';
 import { createRoom, updateRoomSettings, addCharacter } from '../services/api';
 import { setReady } from '../services/socket';
 import { PrivateLayout } from '../components/layout';

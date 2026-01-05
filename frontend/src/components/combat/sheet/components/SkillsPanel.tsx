@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 import { SECTION_TITLE_CLASSES } from '../utils';
 import { SkillBadge } from './SharedComponents';
 

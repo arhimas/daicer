@@ -1,8 +1,8 @@
-import type { Attribute, CharacterSheet, ResourcePool, Talent } from '@daicer/engine';
+import type { Attribute, CharacterSheet, ResourcePool, Talent } from '@/types/contracts';
 
 export interface CharacterCreationProps {
-  room?: import('@daicer/engine').Room;
-  players?: import('@daicer/engine').Player[];
+  room?: import('@/types/contracts').Room;
+  players?: import('@/types/contracts').Player[];
   assetMode?: boolean;
   settings?: {
     startingLevel: number;
@@ -10,7 +10,7 @@ export interface CharacterCreationProps {
   };
 
   onAssetCreated?: (asset: any) => void;
-  onCharacterCreated?: (player?: import('@daicer/engine').Player) => void;
+  onCharacterCreated?: (player?: import('@/types/contracts').Player) => void;
 }
 
 export type CharacterFormState = {

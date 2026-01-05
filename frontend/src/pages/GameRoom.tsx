@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { Room as SharedRoom, Player, GamePhase } from '@daicer/engine';
+import { Room as SharedRoom, Player, GamePhase } from '@/types/contracts';
 import { getRoomState, startGame } from '../services/api';
 import { setReady } from '../services/socket';
 import useSocket from '../hooks/useSocket';

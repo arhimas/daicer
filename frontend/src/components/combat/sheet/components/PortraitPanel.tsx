@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 import type { CombatCharacter } from '../../../../types/combat';
 import { PORTRAIT_LABELS, type PortraitView, SECTION_TITLE_CLASSES } from '../utils';
 

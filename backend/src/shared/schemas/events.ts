@@ -19,7 +19,7 @@ export type SpawnEntityPayload = z.infer<typeof SpawnEntityPayloadSchema>;
 export const GameEventPayloadSchema = z.union([
   z.object({ type: z.literal('MOVE'), payload: MapMovePayloadSchema }),
   z.object({ type: z.literal('SPAWN_ENTITY'), payload: SpawnEntityPayloadSchema }),
-  z.object({ type: z.string(), payload: z.record(z.unknown()) }),
+  z.object({ type: z.string(), payload: z.record(z.string(), z.unknown()) }),
 ]);
 
 export type GameEventStrict = z.infer<typeof GameEventPayloadSchema>;

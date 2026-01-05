@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { UniversalEntitySheetContent } from '../UniversalEntitySheet';
-import type { EntitySheet } from '@daicer/engine';
+import type { EntitySheet } from '@/types/contracts';
 
 describe('UniversalEntitySheet Content (33 Checks)', () => {
   const baseEntity: EntitySheet = {
