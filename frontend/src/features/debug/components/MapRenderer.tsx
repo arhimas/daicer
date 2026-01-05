@@ -27,6 +27,7 @@ interface MapRendererProps {
   currentTimeFrame?: any;
   onZoom?: (delta: number, mouseX: number, mouseY: number) => void;
   onPan?: (dx: number, dy: number) => void;
+  restrictView?: boolean;
 }
 
 export function MapRenderer({
@@ -48,6 +49,7 @@ export function MapRenderer({
   previewPath,
   onZoom,
   onPan,
+  restrictView = false,
 }: MapRendererProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Timer for single/double click differentiation
@@ -118,8 +120,8 @@ export function MapRenderer({
         const isExplored = exploredTiles.has(key);
         const isVisible = visibleTiles.has(key);
 
-        if (!isExplored && !isVisible && exploredTiles.size > 0) {
-          // Unexplored (Fog of War) - only apply if we have exploration data
+        if ((restrictView && !isExplored && !isVisible) || (!isExplored && !isVisible && exploredTiles.size > 0)) {
+          // Unexplored (Fog of War) - strict if restrictView is on, or loose if we have exploration data
           continue;
         }
 

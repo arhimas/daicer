@@ -81,6 +81,12 @@ export default () => ({
     // Fallback stats
     const stats = blueprint?.stats || blueprint?.baseStats || s.stats || {};
 
+    if (!stats.strength && !stats.dexterity) {
+      console.log(
+        `[Adapter] Warning: Stats missing for ${name}. Type: ${type}. Blueprint keys: ${blueprint ? Object.keys(blueprint).join(',') : 'None'}. Source keys: ${Object.keys(s).join(',')}`
+      );
+    }
+
     const strength = stats.strength || 10;
     const dexterity = stats.dexterity || 10;
     const constitution = stats.constitution || 10;
@@ -106,30 +112,39 @@ export default () => ({
 
     // Helper to map Strapi types to Engine types
     const mapActionType = (t: string): EntityAction['type'] => {
-      if (t === 'melee') return 'melee';
-      if (t === 'ranged') return 'ranged';
+      if (t === 'melee') return 'melee_attack';
+      if (t === 'ranged') return 'ranged_attack';
       if (t === 'spell') return 'spell';
       return 'utility';
     };
 
     if (sourceActions) {
       actions.push(
-        ...sourceActions.map((a) => ({
-          id: a.id, // Ensure ID is preserved if available
+        ...sourceActions.map((a) => {
+          // ID Resolution: Prefer documentId, fallback to prefixed numeric ID for components
+          const rawId = (a as any).documentId || a.id;
+          const id = typeof rawId === 'string' && isNaN(Number(rawId)) ? rawId : `action_${rawId}`; // Prefix numeric IDs to avoid "1999" ambiguity
 
-          name: a.name,
-          type: (() => {
-            const mapped = mapActionType(a.type || 'utility');
-            console.log(`[Adapter] Mapping ${a.name}: ${a.type} -> ${mapped}`);
-            return mapped;
-          })(),
-          toHit: a.toHit,
-          reach: a.reach,
-          range: a.range,
-          damage: a.damage,
-          save: a.save,
-          description: a.description,
-        }))
+          // Type Resolution: explicit type -> inferred from damage -> utility
+          let type: EntityAction['type'] = 'utility';
+          if (a.type) {
+            type = mapActionType(a.type);
+          } else if (a.damage && a.damage.length > 0) {
+            type = 'melee_attack'; // Default to melee if damage exists but no type
+          }
+
+          return {
+            id,
+            name: a.name,
+            type,
+            toHit: a.toHit,
+            reach: a.reach,
+            range: a.range,
+            damage: a.damage,
+            save: a.save,
+            description: a.description,
+          };
+        })
       );
     }
 
@@ -172,6 +187,23 @@ export default () => ({
           usage: f.usage_max ? { max: f.usage_max, per: f.usage_per || 'long_rest' } : undefined,
         }))
       );
+    }
+
+    // Synchronize the raw sheet definition with the adapted actions
+    // This ensures consistency when the Engine inspects sheet.structuredActions directly (e.g. in combat.ts)
+    if (s.structuredActions) {
+      s.structuredActions = actions.map((a) => ({
+        id: a.id,
+        name: a.name,
+        // Override with engine-compatible type
+        type: a.type as any,
+        toHit: a.toHit,
+        reach: a.reach,
+        range: a.range,
+        damage: a.damage,
+        save: a.save,
+        description: a.description,
+      }));
     }
 
     return {

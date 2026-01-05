@@ -157,8 +157,9 @@ export interface EntityStats {
 }
 
 export interface EntityAction {
+  id?: string;
   name: string;
-  type: 'melee' | 'ranged' | 'spell' | 'utility';
+  type: 'melee' | 'ranged' | 'spell' | 'utility' | 'melee_attack' | 'ranged_attack';
   toHit?: number;
   reach?: number;
   range?: string;

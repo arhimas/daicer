@@ -1,5 +1,8 @@
 import { streamManager } from '../../../utils/llm/stream-manager';
-import { RoomWithPopulations, TurnProcessPayload } from '../../../lifecycle/socket/types';
+import EntityAdapter from './entity-adapter';
+
+import { RoomWithPopulations } from '../../../lifecycle/socket/types';
+import { TurnProcessPayload, EntitiesUpdatePayload, EntityUpdate, MessagePayload } from '@daicer/shared';
 
 export default ({ strapi }) => ({
   startProcessing(roomId: string) {
@@ -13,7 +16,7 @@ export default ({ strapi }) => ({
     }
   },
 
-  broadcastNewMessage(roomId: string, documentId: string, message: unknown) {
+  broadcastNewMessage(roomId: string, documentId: string, message: MessagePayload) {
     streamManager.broadcast(roomId, 'message:new', message);
     if (documentId !== roomId) {
       streamManager.broadcast(documentId, 'message:new', message);
@@ -27,8 +30,9 @@ export default ({ strapi }) => ({
     }
   },
 
-  broadcastEntitiesUpdate(roomId: string, entities: unknown[]) {
-    streamManager.broadcast(roomId, 'entities:update', { entities });
+  broadcastEntitiesUpdate(roomId: string, entities: EntityUpdate[]) {
+    const payload: EntitiesUpdatePayload = { entities };
+    streamManager.broadcast(roomId, 'entities:update', payload);
   },
 
   /**
@@ -44,9 +48,14 @@ export default ({ strapi }) => ({
           populate: {
             position: true,
             stats: true,
+            features: true, // Add features
             inventory: true,
             character: { populate: ['race', 'class'] },
-            monster: true,
+            monster: {
+              populate: {
+                stats: true,
+              },
+            },
             structuredActions: { populate: { damage: true } },
           },
         },
@@ -58,27 +67,34 @@ export default ({ strapi }) => ({
     const room = roomRaw as unknown as RoomWithPopulations;
 
     // Format
-    const entities = (room.entity_sheets || []).map((sheet) => {
-      // DEBUG: Log raw position from DB
-      // DEBUG: Log raw position from DB
-      strapi.log.info(
-        `[Broadcaster] Entity ${sheet.documentId} Raw Pos: ${JSON.stringify(sheet.position)} | Valid: ${
-          !!sheet.position && sheet.position.x !== undefined
-        }`
-      );
-
-      return {
-        id: sheet.documentId,
-        name: sheet.name,
-        type: sheet.type || 'monster',
-        position: sheet.position || { x: 0, y: 0, z: 0 },
-        // Map other fields needed by DebugEntity in frontend
-        speed: sheet.speed || 30,
-        currentHp: sheet.currentHp,
-        maxHp: sheet.maxHp,
-        structuredActions: sheet.structuredActions || [],
-      };
-    });
+    const entities: EntityUpdate[] = (room.entity_sheets || [])
+      .map((s) => {
+        try {
+          const entity = EntityAdapter().adapt(s);
+          return {
+            id: entity.id,
+            name: entity.name,
+            type: entity.type,
+            position: entity.position,
+            speed: entity.speed,
+            currentHp: entity.hp,
+            maxHp: entity.maxHp,
+            ac: entity.ac,
+            structuredActions: (entity.sheet as any).structuredActions || [], // Patched by Adapter
+            visionRadius: entity.visionRadius,
+            color: entity.color,
+            stats: entity.stats,
+            features: entity.features,
+            // Adapter doesn't map these yet, so we keep manual access for now or update Adapter later
+            equipment: (s as any).inventory,
+            proficiencies: (s as any).character?.proficiencies || [],
+          };
+        } catch (e) {
+          strapi.log.error(`[Broadcaster] Adaptation failed for ${s.documentId}`, e);
+          return null; // Skip invalid entities
+        }
+      })
+      .filter((e) => e !== null) as EntityUpdate[];
 
     this.broadcastEntitiesUpdate(room.roomId || room.documentId, entities);
     // Also broadcast to documentId room just in case

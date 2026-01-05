@@ -93,8 +93,8 @@ export default ({ strapi }) => ({
     return strapi.service('api::game.character-lifecycle').addCharacter(roomId, characterData, user);
   },
 
-  async submitAction(roomId: string, action: string, user: unknown, mode?: 'debug' | 'game') {
-    return strapi.service('api::game.turn-processing').submitAction(roomId, action, user, mode);
+  async submitAction(roomId: string, action: string, user: unknown, mode?: 'debug' | 'game', direct?: boolean) {
+    return strapi.service('api::game.turn-processing').submitAction(roomId, action, user, mode, direct);
   },
 
   async spawnCreature(roomId: string, creatureData: Partial<Creature>) {

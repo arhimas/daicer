@@ -306,6 +306,14 @@ export function resolveAttack(
     });
   }
 
+  // Debug Logging for User Verification
+  console.log(`[Combat] ${attacker.name} attacks ${target.name} with ${action.name}`);
+  console.log(`[Combat] AC Check: Roll ${totalHit} vs Target AC ${targetAC}`);
+  console.log(`[Combat] Result: ${hit ? 'HIT' : 'MISS'} (Crit: ${isCritical}, Fail: ${isCriticalFail})`);
+  if (hit) {
+    console.log(`[Combat] Damage: ${totalDamage}`);
+  }
+
   return {
     hit,
     isCritical,

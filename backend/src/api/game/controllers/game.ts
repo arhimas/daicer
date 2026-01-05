@@ -179,12 +179,12 @@ export default ({ strapi }) => ({
     try {
       // route: /game/:roomId/action creates params.roomId
       const { roomId } = ctx.params;
-      const { action, mode } = ctx.request.body;
+      const { action, mode, direct } = ctx.request.body;
 
       if (!roomId) return ctx.badRequest('Room ID required');
       if (!action) return ctx.badRequest('Action required');
 
-      const result = await strapi.service('api::game.game').submitAction(roomId, action, ctx.state.user, mode);
+      const result = await strapi.service('api::game.game').submitAction(roomId, action, ctx.state.user, mode, direct);
 
       return ctx.send(result);
     } catch (error) {

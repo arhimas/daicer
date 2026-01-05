@@ -96,6 +96,22 @@ export interface DebugEntity {
   maxHp?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   structuredActions?: any[]; // using any for now to avoid deep import if ActionDefinition isn't easily grabbed or to avoid circular deps
+
+  // Expanded for Inspector
+  stats?: {
+    strength: number;
+    dexterity: number;
+    constitution: number;
+    intelligence: number;
+    wisdom: number;
+    charisma: number;
+    passivePerception: number;
+    initiativeBonus: number;
+  };
+  features?: any[];
+  equipment?: any[];
+  proficiencies?: any;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   raw?: any; // Full entity data for deep inspection
 }

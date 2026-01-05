@@ -274,6 +274,11 @@ export default ({ strapi }) => ({
         id?: string;
         entityType?: string;
         position?: { x: number; y: number; z: number };
+        // Combat props
+        actorId?: string;
+        targetId?: string;
+        weaponId?: string;
+        actionId?: string;
       };
     };
 
@@ -363,6 +368,29 @@ export default ({ strapi }) => ({
         } catch (err) {
           strapi.log.error('Failed to process spawn action', err);
         }
+      } else if (action.type === 'attack') {
+        // Delegate to Action Engine to ensure proper rules processing
+        // We map our loose payload to strict Engine Command
+        const cmd = {
+          type: 'ATTACK',
+          id: `${Date.now()}`,
+          timestamp: Date.now(),
+          payload: {
+            actorId: action.entityId || action.payload?.actorId,
+            targetId: action.payload?.targetId,
+            weaponId: action.payload?.weaponId || action.payload?.actionId,
+          },
+        };
+
+        // We use the action engine to dispatch, but this creates a SEPARATE turn entity logic in current implementation.
+        // To avoid double-turns if mixed with Move, strict 'executeDeterministicTurn' usually handles one 'batch'.
+        // Ideally we'd unify, but for reliability fix now, delegating is safest path to working code.
+        try {
+          await strapi.service('api::game.action-engine').dispatch(roomId, [cmd]);
+          processedActions.push(action);
+        } catch (e) {
+          strapi.log.error('Failed to dispatch attack', e);
+        }
       }
     }
 
@@ -408,7 +436,13 @@ export default ({ strapi }) => ({
     return { success: true, turnId: turn.documentId };
   },
 
-  async submitAction(roomId: string, action: string, user: Record<string, unknown>, mode?: 'debug' | 'game') {
+  async submitAction(
+    roomId: string,
+    action: string,
+    user: Record<string, unknown>,
+    mode?: 'debug' | 'game',
+    direct?: boolean
+  ) {
     // 0. Handle Debug Mode (Immediate Execution)
     if (mode === 'debug') {
       return strapi.service('api::narrator.narrator').processAction({
@@ -416,6 +450,7 @@ export default ({ strapi }) => ({
         input: action,
         mode: 'debug',
         userId: user?.documentId || user?.id,
+        direct,
       });
     }
 

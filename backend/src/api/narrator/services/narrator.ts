@@ -24,6 +24,7 @@ interface NarratorInput {
   input: string;
   mode?: 'debug' | 'game';
   userId?: string; // DocumentID
+  direct?: boolean;
 }
 
 interface CharacterSheet {
@@ -37,7 +38,7 @@ interface CharacterSheet {
 }
 
 export default ({ strapi }: { strapi: StrapiInterface }) => ({
-  async processAction({ roomId, input, mode, userId }: NarratorInput) {
+  async processAction({ roomId, input, mode, userId, direct }: NarratorInput) {
     strapi.log.info(`[Narrator] Processing action in room ${roomId} (mode: ${mode})`);
 
     // ---------------------------------------------------------
@@ -87,169 +88,275 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     });
 
     // ---------------------------------------------------------
-    // 2. Setup Agent & Executor
+    // 2. Setup Agent & Executor OR Direct Execution
     // ---------------------------------------------------------
-    const llm = getGeminiModel(GeminiModel.PRO, { temperature: 0.4 });
     const tools = getRegistryTools(strapi, room.documentId, mode);
-    const promptKey = mode === 'debug' ? 'narrator_debug' : 'narrator_dm';
 
-    // Load Prompt - Fail silently to default if missing, but log error
-    let systemPromptText = `You are the DEBUG CONTROLLER.`;
-    try {
-      const prompts = await strapi.documents('api::prompt.prompt').findMany({
-        filters: { key: promptKey },
-      });
-      if (prompts.length > 0) {
-        systemPromptText = prompts[0].text;
+    // [New] Direct Tool Execution (Bypass LLM)
+    if (direct) {
+      strapi.log.info(`[Narrator] Direct execution mode enabled.`);
+      try {
+        const command = typeof input === 'string' ? safeParseJson(input) : input;
+
+        // Validation
+        if (!command || typeof command !== 'object' || !command.tool) {
+          throw new Error('Direct execution requires JSON with { tool: string, args: any }');
+        }
+
+        const toolName = command.tool;
+        const toolArgs = command.args || {};
+        const targetTool = tools.find((t) => t.name === toolName);
+
+        if (!targetTool) {
+          throw new Error(`Tool '${toolName}' not found in registry for mode ${mode}`);
+        }
+
+        strapi.log.info(`[Narrator] Executing tool direct: ${toolName}`, toolArgs);
+
+        // Execute
+        const result = await targetTool.func(toolArgs);
+
+        // Check for Entity Broadcast triggers
+        if (['summon_entity', 'move_entity', 'perform_attack'].includes(toolName)) {
+          // We might need to manually set this flag or check result?
+          // The original code set `shouldBroadcastEntities` based on AI tool calls.
+          // We can reuse the post-processing logic below.
+          // Let's set a flag variable reachable by post-processing.
+          // Direct tool doesn't populate `shouldBroadcastEntities` variable from AI loop.
+          // We'll set it here.
+        }
+
+        // Since we are inside a different block, let's restructure or use a shared result object.
+        // Or simpler: Return early but we duplicate post-processing?
+        // Better: Set `finalNarratorResponse` and let it fall through to post-processing.
+
+        const outputString = typeof result === 'string' ? result : JSON.stringify(result);
+
+        return {
+          thought_process: 'Direct Execution (No LLM)',
+          narration: `Tool '${toolName}' executed successfully.\nOutput: ${outputString}`,
+          topics: [],
+          // We can attach raw result if needed
+        };
+      } catch (e) {
+        strapi.log.error('Direct execution failed', e);
+        return {
+          thought_process: 'Direct Execution Failed',
+          narration: `Error: ${e.message}`,
+          topics: [],
+        };
       }
-    } catch (e) {
-      strapi.log.error('Failed to load prompt from DB', e);
+      // Note: If we return here, we skip post-processing (Entity Broadcasts).
+      // We should probably NOT return but set state allowing fallthrough?
+      // Refactoring ` NarratorResponse` logic.
     }
 
-    const toolNames = tools.map((t) => t.name).join(', ');
-    systemPromptText = systemPromptText.replace('{senderName}', senderName).replace('{toolNames}', toolNames);
-
-    const agent = await createAgent({
-      model: llm,
-      tools: tools,
-
-      systemPrompt: systemPromptText,
-      middleware: [
-        todoListMiddleware(),
-        llmToolSelectorMiddleware({
-          model: llm,
-          maxTools: 5,
-        }),
-      ],
-    });
-
     // ---------------------------------------------------------
-    // 3. Execution
+    // 3. Execution (Agent OR Direct)
     // ---------------------------------------------------------
     let finalNarratorResponse: NarratorResponse;
     let shouldBroadcastEntities = false;
     let outputText = '';
 
-    try {
-      const result = await agent.invoke({
-        messages: [new HumanMessage(input)],
-      });
-
-      const lastMessage =
-        result.messages && result.messages.length > 0 ? result.messages[result.messages.length - 1] : null;
-
-      if (lastMessage?.content) {
-        outputText =
-          typeof lastMessage.content === 'string' ? lastMessage.content : JSON.stringify(lastMessage.content);
-      } else {
-        outputText = 'I have completed the task.';
-      }
-
-      // --------------------------------------------------------------------------------
-      // AGGRESSIVE DEBUG LOGGING [START]
-      // --------------------------------------------------------------------------------
-      if (result.messages) {
-        for (const msg of result.messages) {
-          // Log Human Input
-          if (msg._getType() === 'human') {
-            strapi.log.debug(`[Narrator] 🗣️ User Input: 
-${JSON.stringify({ input: msg.content }, null, 2)}
-----------------------------------------`);
-          }
-
-          // Log AI Steps
-          if (msg._getType() === 'ai') {
-            const aiMsg = msg as AIMessage;
-            if (aiMsg.tool_calls && aiMsg.tool_calls.length > 0) {
-              // Log Tool Requests
-              for (const tc of aiMsg.tool_calls) {
-                strapi.log.debug(`[Narrator] 🛠️ TOOL CALL REQUEST: 
-${JSON.stringify(
-  {
-    tool: tc.name,
-    args: tc.args,
-    id: tc.id,
-  },
-  null,
-  2
-)}
-----------------------------------------`);
-
-                if (['summon_entity', 'move_entity'].includes(tc.name)) {
-                  shouldBroadcastEntities = true;
-                }
-              }
-            } else if (aiMsg.content) {
-              // Log Thoughts
-              strapi.log.debug(`[Narrator] 🤔 AI THOUGHT: 
-${JSON.stringify({ thought: aiMsg.content }, null, 2)}
-----------------------------------------`);
-            }
-          }
-
-          // Log Tool Outputs
-          if (msg._getType() === 'tool') {
-            strapi.log.debug(`[Narrator] 📦 TOOL RESULT (${msg.name}): 
-${JSON.stringify(
-  {
-    tool: msg.name,
-    output: typeof msg.content === 'string' ? safeParseJson(msg.content) : msg.content,
-  },
-  null,
-  2
-)}
-----------------------------------------`);
-          }
-        }
-      }
-      // --------------------------------------------------------------------------------
-      // AGGRESSIVE DEBUG LOGGING [END]
-      // --------------------------------------------------------------------------------
-
-      strapi.log.debug(`[Narrator] 🧠 FINAL RESPONSE GENERATED:
-${JSON.stringify(
-  {
-    length: outputText.length,
-    shouldBroadcastEntities,
-    rawOutput: outputText.slice(0, 500) + (outputText.length > 500 ? '...' : ''),
-  },
-  null,
-  2
-)}`);
-
-      // Parse Output
-      // Simple logic: Try JSON, if fail, assume text narration
-      const jsonMatch = outputText.match(/```json\n([\s\S]*?)\n```/) || outputText.match(/```([\s\S]*?)```/);
-      const cleanJson = jsonMatch ? jsonMatch[1] : outputText;
+    if (direct) {
+      strapi.log.info(`[Narrator] Direct execution mode enabled.`);
       try {
-        const parsed = JSON.parse(cleanJson);
-        // Validate minimal structure
-        if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed) && 'narration' in parsed) {
-          finalNarratorResponse = parsed;
-        } else {
-          // Fallback for malformed JSON structure (like array or missing fields)
-          finalNarratorResponse = {
-            thought_process: 'Malformed Response',
-            narration: typeof parsed === 'string' ? parsed : JSON.stringify(parsed),
-            topics: [],
-          };
+        const command = typeof input === 'string' ? safeParseJson(input) : input;
+
+        // Validation
+        if (!command || typeof command !== 'object' || !command.tool) {
+          throw new Error('Direct execution requires JSON with { tool: string, args: any }');
         }
-      } catch {
+
+        const toolName = command.tool;
+        const toolArgs = command.args || {};
+        const targetTool = tools.find((t) => t.name === toolName);
+
+        if (!targetTool) {
+          throw new Error(`Tool '${toolName}' not found in registry for mode ${mode}`);
+        }
+
+        strapi.log.info(`[Narrator] Executing tool direct: ${toolName}`, toolArgs);
+
+        // Execute
+        const result = await targetTool.func(toolArgs);
+
+        // Check for Entity Broadcast triggers
+        if (['summon_entity', 'move_entity', 'perform_attack'].includes(toolName)) {
+          shouldBroadcastEntities = true;
+        }
+
+        const outputString = typeof result === 'string' ? result : JSON.stringify(result);
+
         finalNarratorResponse = {
-          thought_process: 'Unstructured Response',
-          narration: outputText,
+          thought_process: 'Direct Execution (No LLM)',
+          narration: `Tool '${toolName}' executed successfully.\nOutput: ${outputString}`,
+          topics: [],
+        };
+      } catch (e) {
+        strapi.log.error('Direct execution failed', e);
+        finalNarratorResponse = {
+          thought_process: 'Direct Execution Failed',
+          narration: `Error: ${e.message}`,
           topics: [],
         };
       }
-    } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      strapi.log.error('Agent execution failed', err);
-      // Fail fast behavior: Retrowing might be too harsh for a game loop, but returning an error response is clear.
-      finalNarratorResponse = {
-        thought_process: 'Agent Error',
-        narration: `I encountered an fatal error: ${errorMessage}`,
-        topics: [],
-      };
+    } else {
+      // --- AGENT EXECUTION ---
+      const llm = getGeminiModel(GeminiModel.PRO, { temperature: 0.4 });
+      const promptKey = mode === 'debug' ? 'narrator_debug' : 'narrator_dm';
+
+      // Load Prompt - Fail silently to default if missing, but log error
+      let systemPromptText = `You are the DEBUG CONTROLLER.`;
+      try {
+        const prompts = await strapi.documents('api::prompt.prompt').findMany({
+          filters: { key: promptKey },
+        });
+        if (prompts.length > 0) {
+          systemPromptText = prompts[0].text;
+        }
+      } catch (e) {
+        strapi.log.error('Failed to load prompt from DB', e);
+      }
+
+      const toolNames = tools.map((t) => t.name).join(', ');
+      systemPromptText = systemPromptText.replace('{senderName}', senderName).replace('{toolNames}', toolNames);
+
+      const agent = await createAgent({
+        model: llm,
+        tools: tools,
+
+        systemPrompt: systemPromptText,
+        middleware: [
+          todoListMiddleware(),
+          llmToolSelectorMiddleware({
+            model: llm,
+            maxTools: 5,
+          }),
+        ],
+      });
+
+      try {
+        const result = await agent.invoke({
+          messages: [new HumanMessage(input)],
+        });
+
+        const lastMessage =
+          result.messages && result.messages.length > 0 ? result.messages[result.messages.length - 1] : null;
+
+        if (lastMessage?.content) {
+          outputText =
+            typeof lastMessage.content === 'string' ? lastMessage.content : JSON.stringify(lastMessage.content);
+        } else {
+          outputText = 'I have completed the task.';
+        }
+
+        // --------------------------------------------------------------------------------
+        // AGGRESSIVE DEBUG LOGGING [START]
+        // --------------------------------------------------------------------------------
+        if (result.messages) {
+          for (const msg of result.messages) {
+            // Log Human Input
+            if (msg._getType() === 'human') {
+              strapi.log.debug(`[Narrator] 🗣️ User Input: 
+    ${JSON.stringify({ input: msg.content }, null, 2)}
+    ----------------------------------------`);
+            }
+
+            // Log AI Steps
+            if (msg._getType() === 'ai') {
+              const aiMsg = msg as AIMessage;
+              if (aiMsg.tool_calls && aiMsg.tool_calls.length > 0) {
+                // Log Tool Requests
+                for (const tc of aiMsg.tool_calls) {
+                  strapi.log.debug(`[Narrator] 🛠️ TOOL CALL REQUEST: 
+    ${JSON.stringify(
+      {
+        tool: tc.name,
+        args: tc.args,
+        id: tc.id,
+      },
+      null,
+      2
+    )}
+    ----------------------------------------`);
+
+                  if (['summon_entity', 'move_entity'].includes(tc.name)) {
+                    shouldBroadcastEntities = true;
+                  }
+                }
+              } else if (aiMsg.content) {
+                // Log Thoughts
+                strapi.log.debug(`[Narrator] 🤔 AI THOUGHT: 
+    ${JSON.stringify({ thought: aiMsg.content }, null, 2)}
+    ----------------------------------------`);
+              }
+            }
+
+            // Log Tool Outputs
+            if (msg._getType() === 'tool') {
+              strapi.log.debug(`[Narrator] 📦 TOOL RESULT (${msg.name}): 
+    ${JSON.stringify(
+      {
+        tool: msg.name,
+        output: typeof msg.content === 'string' ? safeParseJson(msg.content) : msg.content,
+      },
+      null,
+      2
+    )}
+    ----------------------------------------`);
+            }
+          }
+        }
+        // --------------------------------------------------------------------------------
+        // AGGRESSIVE DEBUG LOGGING [END]
+        // --------------------------------------------------------------------------------
+
+        strapi.log.debug(`[Narrator] 🧠 FINAL RESPONSE GENERATED:
+    ${JSON.stringify(
+      {
+        length: outputText.length,
+        shouldBroadcastEntities,
+        rawOutput: outputText.slice(0, 500) + (outputText.length > 500 ? '...' : ''),
+      },
+      null,
+      2
+    )}`);
+
+        // Parse Output
+        // Simple logic: Try JSON, if fail, assume text narration
+        const jsonMatch = outputText.match(/```json\n([\s\S]*?)\n```/) || outputText.match(/```([\s\S]*?)```/);
+        const cleanJson = jsonMatch ? jsonMatch[1] : outputText;
+        try {
+          const parsed = JSON.parse(cleanJson);
+          // Validate minimal structure
+          if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed) && 'narration' in parsed) {
+            finalNarratorResponse = parsed;
+          } else {
+            // Fallback for malformed JSON structure (like array or missing fields)
+            finalNarratorResponse = {
+              thought_process: 'Malformed Response',
+              narration: typeof parsed === 'string' ? parsed : JSON.stringify(parsed),
+              topics: [],
+            };
+          }
+        } catch {
+          finalNarratorResponse = {
+            thought_process: 'Unstructured Response',
+            narration: outputText,
+            topics: [],
+          };
+        }
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        strapi.log.error('Agent execution failed', err);
+        // Fail fast behavior: Retrowing might be too harsh for a game loop, but returning an error response is clear.
+        finalNarratorResponse = {
+          thought_process: 'Agent Error',
+          narration: `I encountered an fatal error: ${errorMessage}`,
+          topics: [],
+        };
+      }
     }
 
     // ---------------------------------------------------------

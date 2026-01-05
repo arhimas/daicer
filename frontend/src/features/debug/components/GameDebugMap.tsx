@@ -66,12 +66,15 @@ export function GameDebugMap({
   // Helper
   const getChunkId = (cx: number, cy: number) => `${cx},${cy}`;
 
-  // Active Entity Visibility (Derived)
-  const visibleTiles = useMemo(() => {
-    if (!activeEntity) return new Set<string>();
+  // Local Exploration State (Client-side Fog of War)
+  const [localExplored, setLocalExplored] = useState<Record<string, Set<string>>>({});
+
+  // Active Entity Visibility (Derived) & Exploration Update
+  const { visibleTiles, currentExplored } = useMemo(() => {
+    if (!activeEntity) return { visibleTiles: new Set<string>(), currentExplored: new Set<string>() };
 
     const visible = new Set<string>();
-    const r = activeEntity.visionRadius;
+    const r = activeEntity.visionRadius || 10;
     const { x, y } = activeEntity.position;
 
     for (let dy = -r; dy <= r; dy++) {
@@ -81,8 +84,29 @@ export function GameDebugMap({
         }
       }
     }
-    return visible;
-  }, [activeEntity]);
+
+    const explored = localExplored[activeEntity.id] || new Set<string>();
+    return { visibleTiles: visible, currentExplored: explored };
+  }, [activeEntity, localExplored]);
+
+  // Effect to update exploration state
+  useEffect(() => {
+    if (!activeEntity || visibleTiles.size === 0) return;
+
+    setLocalExplored((prev) => {
+      const prevSet = prev[activeEntity.id] || new Set();
+      let changed = false;
+      visibleTiles.forEach((t) => {
+        if (!prevSet.has(t)) changed = true;
+      });
+
+      if (!changed) return prev;
+
+      const nextSet = new Set(prevSet);
+      visibleTiles.forEach((t) => nextSet.add(t));
+      return { ...prev, [activeEntity.id]: nextSet };
+    });
+  }, [activeEntity?.id, visibleTiles]);
 
   // Chunk Provider for Renderer
   const chunkProvider = useMemo(
@@ -223,7 +247,7 @@ export function GameDebugMap({
             viewZ={viewZ}
             chunkProvider={chunkProvider}
             visibleTiles={visibleTiles}
-            exploredTiles={activeEntity?.exploredTiles || new Set()}
+            exploredTiles={currentExplored}
             entities={entities}
             ghostEntities={[]}
             previewPath={activeEntity?.pendingPath}
@@ -240,7 +264,8 @@ export function GameDebugMap({
             scale={zoom}
             chunkProvider={chunkProvider}
             visibleTiles={visibleTiles}
-            exploredTiles={activeEntity?.exploredTiles || new Set()}
+            exploredTiles={currentExplored}
+            restrictView={!!activeEntity} // Force restriction if entity is selected
             entities={entities}
             ghostEntities={[]}
             previewPath={activeEntity?.pendingPath}

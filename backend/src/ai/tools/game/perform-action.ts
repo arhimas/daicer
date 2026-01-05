@@ -36,6 +36,12 @@ export const performActionTool = (context: StrapiContext) => {
                   },
                   stats: true,
                   inventory: true,
+                  character: { populate: ['race', 'class'] },
+                  monster: {
+                    populate: {
+                      stats: true,
+                    },
+                  },
                 },
               },
               players: {
@@ -114,6 +120,28 @@ export const performActionTool = (context: StrapiContext) => {
               if (payloadAny.skill && !payloadAny.attribute) parsedPayload.attribute = payloadAny.skill;
               if (payloadAny.stat && !payloadAny.attribute) parsedPayload.attribute = payloadAny.stat;
               if (payloadAny.ability && !payloadAny.attribute) parsedPayload.attribute = payloadAny.ability;
+            }
+            // Normalization: Resolve actionName to actionId for ATTACK
+            if (
+              input.commandType === 'ATTACK' &&
+              (parsedPayload as any).actionName &&
+              !(parsedPayload as any).weaponId
+            ) {
+              const actorId = parsedPayload.actorId || (parsedPayload as any).attackerId;
+              const actor = state.entities.find((e) => e.id === actorId);
+              if (actor) {
+                const targetName = (parsedPayload as any).actionName;
+                // Case insensitive match
+                const foundAction = actor.actions.find((a) => a.name.toLowerCase() === targetName.toLowerCase());
+                if (foundAction && foundAction.id) {
+                  strapi.log.info(`[Tool:PerformAction] Resolved actionName "${targetName}" to ID "${foundAction.id}"`);
+                  parsedPayload.weaponId = foundAction.id;
+                } else {
+                  strapi.log.warn(
+                    `[Tool:PerformAction] Could not resolve actionName "${targetName}" for actor ${actorId} (Action Found: ${!!foundAction}, ID: ${foundAction?.id})`
+                  );
+                }
+              }
             }
           } catch (e) {
             throw new Error(`Invalid JSON payload: ${e instanceof Error ? e.message : String(e)}`);

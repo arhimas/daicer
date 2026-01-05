@@ -37,7 +37,27 @@ interface GameDebugViewProps {
 function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
   // Config State
   const [activeTab, setActiveTab] = useState<'tools' | 'inspector'>('tools');
-  const [config] = useState<OldWorldConfig>(DEFAULT_CONFIG);
+  const [config] = useState<OldWorldConfig>(() => {
+    if (room.world) {
+      return {
+        seed: room.world.seed || DEFAULT_CONFIG.seed,
+        chunkSize: room.world.chunkSize || DEFAULT_CONFIG.chunkSize,
+        globalScale: room.world.globalScale || DEFAULT_CONFIG.globalScale,
+        seaLevel: room.world.seaLevel || DEFAULT_CONFIG.seaLevel,
+        elevationScale: room.world.elevationScale || DEFAULT_CONFIG.elevationScale,
+        roughness: room.world.roughness || DEFAULT_CONFIG.roughness,
+        detail: room.world.detail || DEFAULT_CONFIG.detail,
+        moistureScale: room.world.moistureScale || DEFAULT_CONFIG.moistureScale,
+        temperatureOffset: room.world.temperatureOffset || DEFAULT_CONFIG.temperatureOffset,
+        structureChance: room.world.structureChance || DEFAULT_CONFIG.structureChance,
+        structureSpacing: room.world.structureSpacing || DEFAULT_CONFIG.structureSpacing,
+        structureSizeAvg: room.world.structureSizeAvg || DEFAULT_CONFIG.structureSizeAvg,
+        roadDensity: room.world.roadDensity || DEFAULT_CONFIG.roadDensity,
+        fogRadius: room.world.fogRadius || DEFAULT_CONFIG.fogRadius,
+      };
+    }
+    return DEFAULT_CONFIG;
+  });
 
   // Time Travel Context
   const { currentTimeFrame, isLive } = useTimeFrame();
@@ -94,6 +114,13 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
             maxHp: c.maxHp,
             // Backend EntityAdapter returns 'actions', Strapi data might have 'structuredActions'
             structuredActions: c.actions || c.structuredActions || [],
+
+            // Map expanded fields
+            stats: c.stats,
+            features: c.features,
+            equipment: c.equipment || (c.sheet && c.sheet.inventory), // Try direct or sheet inventory
+            proficiencies: c.proficiencies || (c.sheet && c.sheet.class && c.sheet.class.proficiencies),
+
             raw: c,
           };
         })
