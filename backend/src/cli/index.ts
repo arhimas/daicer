@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { exploreCommand } from './commands/explore';
+import { statusCommand } from './commands/status';
 
 const program = new Command();
 
@@ -9,6 +10,7 @@ program.name('daicer-cli').description('🎲 Daicer Backend CLI - Debug and Insp
 
 // Register Commands
 program.addCommand(exploreCommand);
+program.addCommand(statusCommand);
 
 program.hook('preAction', (thisCommand) => {
   console.log(chalk.bold.hex('#FFD700')(`\n🎲 Daicer Backend CLI\n`));

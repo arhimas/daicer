@@ -24,7 +24,8 @@
     "test": "concurrently -n \"backend,frontend\" -c \"magenta,cyan\" \"yarn workspace @daicer/backend test\" \"yarn workspace @daicer/frontend test\"",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "kill": "lsof -ti:3000,1337 | xargs kill -9 || true",
-    "prepare": "husky"
+    "prepare": "husky",
+    "cli": "yarn workspace @daicer/backend cli"
   },
   "dependencies": {
     "@uidotdev/usehooks": "^2.4.1"
