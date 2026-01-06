@@ -17,7 +17,7 @@ export function SkillsPanel({ characterSheet }: { characterSheet?: EntitySheet |
         <h3 className={SECTION_TITLE_CLASSES}>Skills & Expertise</h3>
         {sortedSkills.length > 0 ? (
           <div className="mt-3 space-y-2 max-h-[320px] overflow-y-auto pr-1">
-            {sortedSkills.map((skill) => (
+            {sortedSkills.map((skill: any) => (
               <SkillBadge key={skill.name} skill={skill} />
             ))}
           </div>
@@ -29,7 +29,7 @@ export function SkillsPanel({ characterSheet }: { characterSheet?: EntitySheet |
         <h4 className="text-xs uppercase tracking-[0.3em] text-shadow-400 font-semibold">Expertises</h4>
         {expertises.length > 0 ? (
           <div className="mt-2 flex flex-wrap gap-2">
-            {expertises.map((expertise) => (
+            {expertises.map((expertise: any) => (
               <span
                 key={expertise}
                 className="rounded-full border border-nebula-400/50 bg-nebula-500/20 px-3 py-1 text-xs font-semibold text-nebula-100"

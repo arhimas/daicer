@@ -8,7 +8,7 @@ import { Strapi } from '@strapi/strapi';
 // --- Mocks ---
 const mockDispatch = vi.fn();
 // Mock ActionDispatcher class
-vi.mock('@daicer/engine', async (importOriginal) => {
+vi.mock('../../../../engine', async (importOriginal) => {
   const actual = await importOriginal();
   // @ts-expect-error Mocking readonly property or mismatched signature
   return {

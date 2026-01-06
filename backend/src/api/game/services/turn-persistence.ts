@@ -1,4 +1,4 @@
-import { createCharacterSnapshot } from '@daicer/engine';
+import { createCharacterSnapshot } from '../../../engine';
 import { Core } from '@strapi/strapi';
 
 type JSONValue = string | number | boolean | null | { [key: string]: JSONValue } | JSONValue[];

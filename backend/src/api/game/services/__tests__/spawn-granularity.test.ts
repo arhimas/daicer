@@ -14,7 +14,7 @@ vi.stubGlobal('strapi', {
   }),
 });
 
-vi.mock('@daicer/engine', () => ({
+vi.mock('../../../../engine', () => ({
   EntityDeriver: {
     derive: vi.fn((input) => ({
       hp: 10 + ((input.attributes.constitution ?? input.attributes.con) - 10), // Simple mock logic

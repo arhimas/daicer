@@ -78,7 +78,7 @@ export function deriveActions(context: DerivationContext) {
       const toHit = statMod + (proficiencyBonus || 2);
       const damageBonus = statMod; // D&D rules: adds stat mod to damage
 
-      const type = isRanged ? 'ranged_attack' : 'melee_attack';
+      const type = isRanged ? 'ranged' : 'melee';
 
       actions.push({
         id: `derived-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
@@ -106,7 +106,7 @@ export function deriveActions(context: DerivationContext) {
     actions.push({
       id: 'action-unarmed',
       name: 'Unarmed Strike',
-      type: 'melee_attack',
+      type: 'melee',
       description: 'Punch, kick, or headbutt.',
       reach: 5,
       toHit: strMod + (proficiencyBonus || 2),

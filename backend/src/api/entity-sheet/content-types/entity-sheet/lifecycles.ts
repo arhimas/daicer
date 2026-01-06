@@ -57,7 +57,7 @@ function validateInventorySlots(data: any) {
   }
 }
 
-import { EntityDeriver } from '@daicer/engine';
+import { EntityDeriver } from '../../../../engine';
 
 async function updateDerivedData(event) {
   const { where, data } = event.params;

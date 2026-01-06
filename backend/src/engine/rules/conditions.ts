@@ -91,19 +91,26 @@ const CONDITION_REGISTRY: Record<string, ConditionModifier> = {
 /**
  * Checks if a character has a specific condition.
  */
-export function hasCondition(sheet: EntitySheet, type: ConditionType | string): boolean {
-  return sheet.conditions?.some((c) => c.name.toLowerCase() === type.toLowerCase()) ?? false;
+export interface ConditionBearer {
+  conditions?: { name: string }[];
+}
+
+/**
+ * Checks if a character has a specific condition.
+ */
+export function hasCondition(bearer: ConditionBearer, type: ConditionType | string): boolean {
+  return bearer.conditions?.some((c) => c.name.toLowerCase() === type.toLowerCase()) ?? false;
 }
 
 /**
  * Aggregates all active modifiers for a character based on their conditions.
  */
-export function getConditionModifiers(sheet: EntitySheet): ConditionModifier {
+export function getConditionModifiers(bearer: ConditionBearer): ConditionModifier {
   const result: ConditionModifier = {};
 
-  if (!sheet.conditions) return result;
+  if (!bearer.conditions) return result;
 
-  for (const cond of sheet.conditions) {
+  for (const cond of bearer.conditions) {
     // Find definition (case insensitive mostly, but Enum preferable)
     const key = Object.keys(CONDITION_REGISTRY).find((k) => k.toLowerCase() === cond.name.toLowerCase());
     if (key) {

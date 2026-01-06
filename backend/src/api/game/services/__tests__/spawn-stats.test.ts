@@ -14,7 +14,7 @@ vi.stubGlobal('strapi', {
 });
 
 // Mock DERIVER to return controlled values based on input
-vi.mock('@daicer/engine', () => ({
+vi.mock('../../../../engine', () => ({
   EntityDeriver: {
     derive: vi.fn((input) => {
       // Use fallback for either constitution or con, prioritizing full name

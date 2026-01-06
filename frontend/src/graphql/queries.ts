@@ -67,7 +67,7 @@ export const GET_ROOM_QUERY = gql`
           fullBody {
             url
           }
-          baseStats {
+          stats {
             strength
             dexterity
             constitution
@@ -196,8 +196,11 @@ export const LIST_ROOMS_QUERY = gql`
           race {
             name
           }
-          class {
-            name
+          classes {
+            class {
+              name
+            }
+            level
           }
         }
       }
@@ -214,8 +217,11 @@ export const LIST_CHARACTERS_QUERY = gql`
       race {
         name
       }
-      class {
-        name
+      classes {
+        class {
+          name
+        }
+        level
       }
       portrait {
         url

@@ -1,5 +1,5 @@
-import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '@daicer/engine';
-import { Alea, FastNoise } from '@daicer/engine';
+import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '../../../engine';
+import { Alea, FastNoise } from '../../../engine';
 import { TileHelper } from './utils/tile-helper';
 
 export class BiomeService {

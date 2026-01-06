@@ -2,7 +2,7 @@
  * Game Controller
  */
 
-import type { WorldSettings, Language } from '@daicer/engine';
+import type { WorldSettings, Language } from '../../../engine';
 
 export default ({ strapi }) => ({
   async generateWorld(ctx) {

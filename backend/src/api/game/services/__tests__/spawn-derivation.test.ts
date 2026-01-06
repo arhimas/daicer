@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { EntityDeriver } from '@daicer/engine';
-import { DerivationContext } from '@daicer/engine';
+import { EntityDeriver } from '../../../../engine';
+import { DerivationContext } from '../../../../engine';
 
 describe('EntityDeriver Action Derivation', () => {
   it('should derive melee attack from sword', () => {

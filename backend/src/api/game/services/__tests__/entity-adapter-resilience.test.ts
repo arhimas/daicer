@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import EntityAdapter from '../entity-adapter';
 import { EntitySheetValues, EntityType } from '../../../../lifecycle/socket/types';
-import { Creature } from '@daicer/engine';
+import { Creature } from '../../../../engine';
 
 describe('Service: Entity Adapter - Hydration Layer (Stress Test)', () => {
   const adapter = EntityAdapter();

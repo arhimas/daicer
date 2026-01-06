@@ -194,6 +194,10 @@ export interface Entity {
   stats: EntityStats;
   actions: EntityAction[];
   features: EntityFeature[];
+  conditions: any[]; // promoted from sheet
+  resistances: string[];
+  immunities: string[];
+  vulnerabilities: string[];
 
   // Visuals
   color: string;

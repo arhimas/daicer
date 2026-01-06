@@ -57,7 +57,7 @@ const mockCharacter: CharacterSheet = {
     flaws: 'Overthinks critical moments',
   },
   backstory: 'Once an apprentice to a reclusive archmage, Elara seeks lost reliquaries.',
-};
+} as any;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockPlayers: any[] = [

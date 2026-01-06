@@ -5,9 +5,9 @@
 import { factories } from '@strapi/strapi';
 import { WorldGenerator } from '../../voxel-engine/services/world-generator-logic';
 import { PhysicsEngine } from '../../voxel-engine/services/utils/physics';
-import { MapMovePayloadSchema, SpawnEntityPayloadSchema } from '@daicer/shared';
-import { DEFAULT_WORLD_CONFIG } from '@daicer/engine';
-import type { Coordinates } from '@daicer/shared';
+import { MapMovePayloadSchema, SpawnEntityPayloadSchema } from '../../../shared';
+import { DEFAULT_WORLD_CONFIG } from '../../../engine';
+import type { Coordinates } from '../../../shared';
 
 // ... (existing helper types)
 

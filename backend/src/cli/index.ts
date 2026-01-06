@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import chalk from 'chalk';
+// import chalk from 'chalk';
 import { exploreCommand } from './commands/explore';
 import { statusCommand } from './commands/status';
 
@@ -12,7 +12,8 @@ program.name('daicer-cli').description('🎲 Daicer Backend CLI - Debug and Insp
 program.addCommand(exploreCommand);
 program.addCommand(statusCommand);
 
-program.hook('preAction', (thisCommand) => {
+program.hook('preAction', async (thisCommand) => {
+  const { default: chalk } = await import('chalk');
   console.log(chalk.bold.hex('#FFD700')(`\n🎲 Daicer Backend CLI\n`));
 });
 

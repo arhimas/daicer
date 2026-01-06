@@ -1,5 +1,5 @@
 import { PNG } from 'pngjs';
-import { Chunk, Player, Creature, ZLevel } from '@daicer/engine';
+import { Chunk, Player, Creature, ZLevel } from '../../../engine';
 
 /**
  * Generates a PNG representation of the map chunk with visibility logic (Fog of War)

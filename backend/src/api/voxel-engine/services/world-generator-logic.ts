@@ -1,4 +1,4 @@
-import { Chunk, WorldConfig } from '@daicer/engine';
+import { Chunk, WorldConfig } from '../../../engine';
 import { ChunkManager } from './chunk-manager';
 
 export class WorldGenerator {

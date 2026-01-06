@@ -1,5 +1,5 @@
-import { Chunk, WorldConfig } from '@daicer/engine';
-import { TerrainGenerator } from '@daicer/engine';
+import { Chunk, WorldConfig } from '../../../engine';
+import { TerrainGenerator } from '../../../engine';
 import { CivilizationGenerator } from './generators/civilization-generator';
 
 export class ChunkBuilder {

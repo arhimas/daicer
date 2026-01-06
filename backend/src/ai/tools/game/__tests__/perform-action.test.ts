@@ -32,7 +32,7 @@ const { mockDispatch } = vi.hoisted(() => ({
 }));
 
 // Mock the Engine's processTurn (since it's imported)
-vi.mock('@daicer/engine', () => ({
+vi.mock('../../../../engine', () => ({
   processTurn: vi.fn(() => ({
     type: 'movement',
     entityId: 'ent-123',

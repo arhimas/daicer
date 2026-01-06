@@ -60,7 +60,7 @@ export default function CharacterSelectionPage() {
         name: character.name,
         backstory: character.backstory,
         race: typeof character.race === 'object' ? character.race?.name || '' : character.race,
-        characterClass: typeof character.class === 'object' ? character.class?.name || '' : character.class || '',
+        characterClass: character.classes?.[0]?.class?.name || '',
         // We might want to pass more fields if available in the query, or fetch full details first.
         // For now we assume the backend can handle partial or we might need to fetch full details.
         // Wait, LIST_CHARACTERS_QUERY only has basic info.
@@ -201,7 +201,7 @@ export default function CharacterSelectionPage() {
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <h3 className="font-bold text-lg text-white truncate">{char.name}</h3>
                     <p className="text-xs text-aurora-300 truncate">
-                      {char.race?.name || 'Unknown Race'} {char.class?.name || 'Unknown Class'}
+                      {char.race?.name || 'Unknown Race'} {char.classes?.[0]?.class?.name || 'Unknown Class'}
                     </p>
                   </div>
                 </div>

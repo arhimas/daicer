@@ -1,4 +1,4 @@
-import { EntityAction, EntityStats } from '@daicer/engine';
+import { EntityAction, EntityStats } from '../../engine';
 
 interface Weapon {
   name: string;

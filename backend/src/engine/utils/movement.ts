@@ -1,4 +1,4 @@
-import { Speed } from '@daicer/shared';
+import { Speed } from '../../shared';
 
 export interface SpeedCapabilities {
   walk: number;

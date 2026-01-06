@@ -1,4 +1,4 @@
-import { Alea, Tile, BiomeType, BlockType, ZLevel } from '@daicer/engine';
+import { Alea, Tile, BiomeType, BlockType, ZLevel } from '../../../../engine';
 import { CHUNK_SIZE } from './constants';
 
 export class TileHelper {

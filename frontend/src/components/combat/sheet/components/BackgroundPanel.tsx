@@ -30,7 +30,7 @@ export function BackgroundPanel({ characterSheet }: { characterSheet?: EntityShe
             <div className="mt-3">
               <h4 className="text-xs uppercase tracking-[0.3em] text-shadow-400 font-semibold">Key Events</h4>
               <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-shadow-300">
-                {keyEvents.map((event) => (
+                {keyEvents.map((event: string) => (
                   <li key={event}>{event}</li>
                 ))}
               </ul>

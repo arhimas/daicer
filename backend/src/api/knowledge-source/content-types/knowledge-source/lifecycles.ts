@@ -1,5 +1,5 @@
 import { embeddingService } from '../../../../services/embedding-service';
-import { chunkMarkdown } from '@daicer/shared';
+import { chunkMarkdown } from '../../../../shared';
 
 export default {
   async afterDelete(event: { result: { id: number } }) {

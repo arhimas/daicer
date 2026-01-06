@@ -3,10 +3,10 @@ import { performActionTool } from '../perform-action';
 import { summonMonsterTool } from '../summon-monster';
 import { summonCharacterTool } from '../summon-character';
 import { StrapiContext } from '../../tool-factory';
-import { ActionDispatcher, GameState, ActionType } from '@daicer/engine';
+import { ActionDispatcher, GameState, ActionType } from '../../../../engine';
 
 // Helper types
-import { EntitySheet } from '@daicer/engine';
+import { EntitySheet } from '../../../../engine';
 
 // We need a persistent "Database" state for the test duration
 let mockRoom: any;

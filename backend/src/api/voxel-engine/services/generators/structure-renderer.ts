@@ -1,4 +1,4 @@
-import { Tile, BlockType } from '@daicer/engine';
+import { Tile, BlockType } from '../../../../engine';
 import { CHUNK_SIZE } from '../utils/constants';
 
 export interface StructureInfo {

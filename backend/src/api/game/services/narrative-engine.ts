@@ -1,9 +1,9 @@
 import { generateStructured } from '../../../utils/llm/structured';
 import { getPrompt, formatPrompt } from '../../../utils/prompt';
-import { formatDmInstruction } from '@daicer/engine';
+import { formatDmInstruction } from '../../../engine';
 // import { getStrapiClient } from '../../../utils/strapi-client'; // Assuming utility location or use strapi global
 // import { EngineEntity } from './entity-adapter'; // Removed
-import type { Player, WorldSettings, Language, Entity } from '@daicer/engine';
+import type { Player, WorldSettings, Language, Entity } from '../../../engine';
 // Local definition
 interface Message {
   sender: string;
@@ -44,7 +44,7 @@ export default ({ strapi }) => ({
         // Find basic class/race info if available (Adapter should standardize or we check raw?)
         // The EngineEntity has stats/hp.
         // We might want to pass more descriptive strings in EngineEntity if needed.
-        return `- ${e.name} | HP: ${e.hp}/${e.maxHp} | AC: ${e.ac}`;
+        return `- ${e.name} | HP: ${e.hp}/${e.maxHp} | AC: ${e.armorClass}`;
       })
       .join('\n');
 
@@ -52,7 +52,7 @@ export default ({ strapi }) => ({
       .filter((e) => e.type !== 'player')
       .map(
         (c) =>
-          `- ${c.name} | HP: ${c.hp}/${c.maxHp} | AC: ${c.ac} | Actions: ${c.actions.map((a) => a.name).join(', ')}`
+          `- ${c.name} | HP: ${c.hp}/${c.maxHp} | AC: ${c.armorClass} | Actions: ${c.actions.map((a) => a.name).join(', ')}`
       )
       .join('\n');
 

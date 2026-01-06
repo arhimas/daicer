@@ -1,5 +1,6 @@
 import { Socket } from 'socket.io'; // Import Socket type
 import { StrapiWithServer, RoomJoinPayload, RoomWithPopulations } from '../types';
+import EntityAdapter from '../../../api/game/services/entity-adapter';
 
 export const handleRoomJoin =
   (strapi: StrapiWithServer) =>
@@ -20,11 +21,11 @@ export const handleRoomJoin =
           'players.character',
           'players.character.stats',
           'players.character.classes.class',
-          'players.character.class',
           'messages',
           'messages.recipient',
           'world', // Populate World Relation
           'entity_sheets', // Populate Entities/Character Sheets
+          'entity_sheets.structuredActions.damage', // Populate Actions & Damage
         ],
       });
 
@@ -67,15 +68,29 @@ export const handleRoomJoin =
 
       // Map entity_sheets to creatures (entities) for frontend
       const rawSheets = room.entity_sheets || [];
-      const creatures = rawSheets.map((cs: Record<string, unknown>) => ({
-        id: cs.documentId,
-        name: cs.name,
-        type: cs.type,
-        position: cs.position,
-        stats: cs.stats,
-        currentHp: cs.currentHp,
-        maxHp: cs.maxHp,
-      }));
+      const creatures = rawSheets
+        .map((cs) => {
+          try {
+            const entity = EntityAdapter().adapt(cs);
+            return {
+              id: entity.id,
+              name: entity.name,
+              type: entity.type,
+              position: entity.position,
+              stats: entity.stats,
+              currentHp: entity.hp,
+              maxHp: entity.maxHp,
+              armorClass: entity.armorClass,
+              structuredActions: entity.actions,
+              features: entity.features,
+              equipment: entity.equipment,
+            };
+          } catch (e) {
+            strapi.log.error(`[RoomJoin] Entity Adaptation failed for ${(cs as any).documentId}`, e);
+            return null;
+          }
+        })
+        .filter((c) => c !== null);
 
       const gameState = {
         room: {

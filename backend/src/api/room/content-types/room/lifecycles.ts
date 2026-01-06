@@ -1,4 +1,4 @@
-import { RoomRuneGenerator } from '@daicer/shared';
+import { RoomRuneGenerator } from '../../../../shared';
 
 const generator = new RoomRuneGenerator();
 

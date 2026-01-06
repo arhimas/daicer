@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createMockStrapi, MOCK_MONSTERS, MOCK_CHARACTERS } from './setup/harness';
-import { ActionDispatcher } from '@daicer/engine';
+import { ActionDispatcher } from '../../../../engine';
 
-vi.mock('@daicer/engine', async (importOriginal) => {
+vi.mock('../../../../engine', async (importOriginal) => {
   const actual: any = await importOriginal();
   return { ...actual };
 });

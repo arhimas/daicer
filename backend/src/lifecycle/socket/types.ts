@@ -7,7 +7,7 @@ export interface StrapiWithServer extends Core.Strapi {
   };
 }
 
-export type { RoomJoinPayload, TurnProcessPayload, PlayerActionPayload, PlayerReadyPayload } from '@daicer/shared';
+export type { RoomJoinPayload, TurnProcessPayload, PlayerActionPayload, PlayerReadyPayload } from '../../shared';
 
 export interface SocketErrorPayload {
   message: string;

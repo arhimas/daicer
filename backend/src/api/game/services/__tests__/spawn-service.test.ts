@@ -8,7 +8,7 @@ const mockCreate = vi.fn();
 
 const mockDerive = vi.fn();
 
-vi.mock('@daicer/engine', () => ({
+vi.mock('../../../../engine', () => ({
   EntityDeriver: {
     derive: (...args: any[]) => mockDerive(...args),
   },

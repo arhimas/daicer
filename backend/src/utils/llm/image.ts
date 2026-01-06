@@ -1,9 +1,11 @@
-import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
+// GoogleGenAI is ESM-only, use dynamic import
+// import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
 
 /**
  * Initialize the Google GenAI client
  */
-function getClient(): GoogleGenAI {
+async function getClient() {
+  const { GoogleGenAI } = await import('@google/genai');
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     console.warn('GEMINI_API_KEY not configured');
@@ -33,7 +35,8 @@ export async function generateImageGemini(
   options: ImageGenerationOptions,
   modelName: string = 'gemini-2.5-flash-image'
 ): Promise<{ url: string; revised_prompt: string }> {
-  const ai = getClient();
+  const { HarmCategory, HarmBlockThreshold } = await import('@google/genai');
+  const ai = await getClient();
   const model = modelName;
 
   try {
@@ -121,7 +124,7 @@ export async function generateImageGemini(
  * Analyze an image using Gemini Vision (Gemini 2.0 Flash Exp) via Google GenAI SDK
  */
 export async function describeImageGemini(options: ImageAnalysisOptions): Promise<string> {
-  const ai = getClient();
+  const ai = await getClient();
   const model = 'gemini-2.5-flash';
 
   const prompt = options.prompt || 'Describe this character.';

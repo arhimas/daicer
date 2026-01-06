@@ -3,7 +3,7 @@
  * Handles instantiation of Characters and Monsters into the game world.
  */
 
-import { EntityDeriver, EntitySheet, StatBlock, ActionDefinition } from '@daicer/engine';
+import { EntityDeriver, EntitySheet, StatBlock, ActionDefinition } from '../../../engine';
 
 export default ({ strapi }) => ({
   /**

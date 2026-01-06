@@ -16,7 +16,7 @@ import {
   ModifyTerrainCommand,
   LongRestCommand,
   Attribute,
-} from '@daicer/engine';
+} from '../../../engine';
 import type { Core } from '@strapi/strapi';
 
 // Generic handler type using unknown for input, strict validation inside

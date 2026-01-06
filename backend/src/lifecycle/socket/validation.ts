@@ -7,7 +7,7 @@ import {
   TurnProcessPayload,
   PlayerActionPayload,
   PlayerReadyPayload,
-} from '@daicer/shared';
+} from '../../shared';
 
 export class SocketValidationError extends Error {
   constructor(message: string) {

@@ -1,13 +1,15 @@
 import { generateText } from '../../../utils/llm';
 import { getPrompt, formatPrompt } from '../../../utils/prompt';
 import { uploadBase64Image } from '../../../utils/upload';
-import { createCharacterSnapshot, formatDmInstruction, EntityDeriver } from '@daicer/engine';
-import type { WorldSettings, Player, EntitySheet, Language } from '@daicer/engine';
+import { createCharacterSnapshot, formatDmInstruction, EntityDeriver } from '../../../engine';
+import type { WorldSettings, Player, EntitySheet, Language } from '../../../engine';
 
 // Helper to format DM style
 
-interface PopulatedEntitySheet
-  extends Omit<EntitySheet, 'race' | 'class' | 'classes' | 'characterClass' | 'personality'> {
+interface PopulatedEntitySheet extends Omit<
+  EntitySheet,
+  'race' | 'class' | 'classes' | 'characterClass' | 'personality'
+> {
   documentId: string;
   race?: string | { name: string };
   class?: string | { name: string };

@@ -2,7 +2,7 @@ import { streamManager } from '../../../utils/llm/stream-manager';
 import EntityAdapter from './entity-adapter';
 
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
-import { TurnProcessPayload, EntitiesUpdatePayload, EntityUpdate, MessagePayload } from '@daicer/shared';
+import { TurnProcessPayload, EntitiesUpdatePayload, EntityUpdate, MessagePayload } from '../../../shared';
 
 export default ({ strapi }) => ({
   startProcessing(roomId: string) {
@@ -50,7 +50,7 @@ export default ({ strapi }) => ({
             stats: true,
             features: true, // Add features
             inventory: true,
-            character: { populate: ['race', 'class'] },
+            character: { populate: ['race', 'classes.class'] },
             monster: {
               populate: {
                 stats: true,
@@ -79,7 +79,7 @@ export default ({ strapi }) => ({
             speed: entity.speed,
             currentHp: entity.hp,
             maxHp: entity.maxHp,
-            ac: entity.ac,
+            ac: entity.armorClass,
             structuredActions: (entity.sheet as any).structuredActions || [], // Patched by Adapter
             visionRadius: entity.visionRadius,
             color: entity.color,

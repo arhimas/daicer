@@ -1,4 +1,4 @@
-import { EntityFeature } from '@daicer/engine';
+import { EntityFeature } from '../../engine';
 
 interface ClassFeatureSource {
   name: string;

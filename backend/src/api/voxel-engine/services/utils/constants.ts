@@ -1,4 +1,4 @@
-import { BlockType } from '@daicer/engine';
+import { BlockType } from '../../../../engine';
 
 export const CHUNK_SIZE = 32;
 export const TILE_SIZE = 32; // Pixels

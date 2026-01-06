@@ -3,7 +3,7 @@
  */
 
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
-import type { Language } from '@daicer/engine';
+import type { Language } from '../../engine';
 import { getFlashModel, extractErrorDetails } from './gemini';
 import { TextGenConfig } from './types';
 import { streamManager } from './stream-manager';

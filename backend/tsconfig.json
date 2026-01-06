@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "lib": ["ES2020"],
     "target": "ES2019",
     "strict": false,
@@ -19,14 +19,11 @@
       "@daicer/engine": ["src/engine/index.ts"],
       "@daicer/engine/*": ["src/engine/*"],
       "@daicer/shared": ["src/shared/index.ts"],
-      "@daicer/shared/*": ["src/shared/*"]
+      "@daicer/shared/*": ["src/shared/*"],
+      "@strapi/client": ["../node_modules/@strapi/client/dist/exports.d.ts"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.json"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.json", "config/**/*.ts"],
 
   "exclude": [
     "node_modules/",

@@ -1,5 +1,5 @@
-import { Alea } from '@daicer/engine';
-import { BlockType, StructureInfo, Tile, WorldConfig } from '@daicer/engine';
+import { Alea } from '../../../engine';
+import { BlockType, StructureInfo, Tile, WorldConfig } from '../../../engine';
 import { TileHelper } from './utils/tile-helper';
 import { StructureService } from './structure-service';
 

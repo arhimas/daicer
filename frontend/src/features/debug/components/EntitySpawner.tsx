@@ -87,14 +87,14 @@ export function EntitySpawner({ onSelectEntity, selectedEntity }: EntitySpawnerP
                     c ? (
                       <CommandItem
                         key={c.documentId}
-                        value={`${c.name} ${c.race?.name} ${c.class?.name}`}
+                        value={`${c.name} ${c.race?.name} ${c.classes?.[0]?.class?.name}`}
                         onSelect={() => onSelectEntity('character', { ...c, id: c.documentId })}
                         className="flex justify-between items-center cursor-pointer"
                       >
                         <div className="flex flex-col">
                           <span>{c.name}</span>
                           <span className="text-[10px] text-muted-foreground">
-                            {c.race?.name} {c.class?.name}
+                            {c.race?.name} {c.classes?.[0]?.class?.name}
                           </span>
                         </div>
                         {selectedEntity?.id === c.documentId && <Check className="h-4 w-4 text-green-500" />}

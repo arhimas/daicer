@@ -1,4 +1,4 @@
-import { Coordinates, BlockType, PHYSICS_CONSTANTS, Chunk } from '@daicer/engine';
+import { Coordinates, BlockType, PHYSICS_CONSTANTS, Chunk } from '../../../../engine';
 import { WorldGenerator } from '../world-generator-logic';
 
 export class PhysicsEngine {

@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import chalk from 'chalk';
+// import chalk from 'chalk';
 import fetch from 'node-fetch'; // Standard fetch might be available in node 20 without import, but using what we have.
 // Actually, backend uses node 20, fetch is native. We can use global fetch.
 import { getStrapiUrl } from '../utils/client';
@@ -7,9 +7,10 @@ import { getStrapiUrl } from '../utils/client';
 export const statusCommand = new Command('status')
   .description('Check the connection status of the Strapi Backend')
   .option('--json', 'Output raw JSON')
-  .action(async (options) => {
-    const url = getStrapiUrl();
+  .action(async function runStatus(options: { json?: boolean }) {
+    const { default: chalk } = await import('chalk');
     const isRaw = !!options.json;
+    const url = getStrapiUrl();
 
     try {
       // Strapi usually has a /_health or we just check /api/users-permissions/roles which is often publicish or returns 403 (which means UP).

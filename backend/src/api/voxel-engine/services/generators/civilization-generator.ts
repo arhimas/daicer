@@ -1,5 +1,5 @@
-import { Alea } from '@daicer/engine';
-import { WorldConfig, Tile, BlockType } from '@daicer/engine';
+import { Alea } from '../../../../engine';
+import { WorldConfig, Tile, BlockType } from '../../../../engine';
 import { StructureInfo, StructureRenderer } from './structure-renderer';
 
 export class CivilizationGenerator {

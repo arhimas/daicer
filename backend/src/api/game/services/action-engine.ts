@@ -1,4 +1,4 @@
-import { ActionDispatcher, GameState, Command } from '@daicer/engine';
+import { ActionDispatcher, GameState, Command } from '../../../engine';
 
 export default ({ strapi }) => ({
   async dispatch(roomId: string, commands: Command[]) {
@@ -59,7 +59,7 @@ export default ({ strapi }) => ({
     return results;
   },
 
-  async persistResult(roomId: string, result: import('@daicer/engine').ActionResult) {
+  async persistResult(roomId: string, result: import('../../../engine').ActionResult) {
     // 1. Apply Immediate Updates (Entity Sync)
     for (const event of result.events) {
       if (event.type === 'ENTITY_MOVED') {

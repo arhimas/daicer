@@ -82,7 +82,7 @@ export type ActionIntent = z.infer<typeof ActionIntentSchema>;
 // These replace the generic `ActionSchema`
 
 export const MeleeAttackDefinitionSchema = z.object({
-  type: z.literal('melee_attack'),
+  type: z.literal('melee'),
   id: z.string(),
   name: z.string(),
   description: z.string(),
@@ -93,7 +93,7 @@ export const MeleeAttackDefinitionSchema = z.object({
 });
 
 export const RangedAttackDefinitionSchema = z.object({
-  type: z.literal('ranged_attack'),
+  type: z.literal('ranged'),
   id: z.string(),
   name: z.string(),
   description: z.string(),

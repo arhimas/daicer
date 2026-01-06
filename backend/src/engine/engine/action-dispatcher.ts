@@ -192,9 +192,10 @@ export class ActionDispatcher {
       return { success: false, message: 'Actor or Target not found', events: [] };
     }
 
-    if (!actor.sheet || !target.sheet) {
-      return { success: false, message: 'Actors missing Character Sheets', events: [] };
-    }
+    // Removed sheet check as we use resolved Entity actions/stats now.
+    // if (!actor.sheet || !target.sheet) {
+    //   return { success: false, message: 'Actors missing Character Sheets', events: [] };
+    // }
 
     // 1. Resolve using Shared Kernel Rule
     // Intent construction
@@ -204,8 +205,8 @@ export class ActionDispatcher {
     // We need to find the action ID. Engine expects actionId.
     // Allow payload to optionally send full intent? For now, we reconstruct.
     let actionId: string | undefined = weaponId;
-    if (!actionId && actor.sheet.structuredActions?.length > 0) {
-      actionId = actor.sheet.structuredActions[0].id;
+    if (!actionId && actor.actions?.length > 0) {
+      actionId = actor.actions[0].id;
     }
 
     if (!actionId) {
@@ -219,20 +220,27 @@ export class ActionDispatcher {
 
     try {
       const result = resolveAttack(
-        actor.sheet,
-        target.sheet,
+        actor, // Passed Entity directly
+        target, // Passed Entity directly
         { type: ActionType.Attack, actionId, targetId }, // Fallback type check inside resolveAttack will validate. Actually resolveAttack checks type match against definition.
         rng
       );
 
       // 2. Apply State (State Mutation)
-      // resolveAttack returns 'damageTotal' but does NOT mutate 'target.sheet.hp' (it mutates local clone? No, it mutates passed reference!).
-      // Wait, 'resolveAttack' takes 'CharacterSheet'. 'state.entities[i].sheet' IS that object.
-      // So HP is ALREADY updated by resolveAttack!
-      // Double check resolveAttack source... "target.hp = Math.max..."
-      // Yes. So we just need to sync Entity.hp if it's separate from Sheet.
-      // Entity interface has 'hp'. Sheet has 'hp'. They should be synced.
-      target.hp = target.sheet.hp;
+      // resolveAttack returns 'damageTotal' and mutates nothing now that we pass Entity?
+      // Wait, resolveAttack logic never mutated input. It returned 'damageTotal'.
+      // Old comment said: "target.hp = Math.max..." but I removed it?
+      // No, checking previous `combat.ts` view... it calculated damage but did NOT apply it.
+      // So ActionDispatcher is responsible for applying damage.
+
+      // Update Target HP
+      if (result.damageTotal > 0) {
+        target.hp = Math.max(0, target.hp - result.damageTotal);
+        // Sync back to sheet if present (for persistence later?)
+        if (target.sheet) {
+          target.sheet.hp = target.hp;
+        }
+      }
 
       // 3. Emit Event with Trace
       return {

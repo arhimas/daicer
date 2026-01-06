@@ -1,4 +1,4 @@
-import { Entity, EntityAction, EntityFeature, EntitySheet, StatBlock } from '@daicer/engine';
+import { Entity, EntityAction, EntityFeature, EntitySheet, StatBlock } from '../../../engine';
 
 // Remove local StrapiStats/StrapiAction in favor of Shared types or partials
 type StrapiStats = Partial<StatBlock>;
@@ -195,6 +195,10 @@ export default () => ({
       equipment,
       actions,
       features,
+      conditions: (raw.conditions || []) as any[],
+      resistances: (raw.resistances || blueprint?.resistances || []) as string[],
+      immunities: (raw.immunities || blueprint?.immunities || []) as string[],
+      vulnerabilities: (raw.vulnerabilities || blueprint?.vulnerabilities || []) as string[],
       color: '#ffffff',
       visionRadius: 30,
       speed: (raw.speed as number) ?? 30, // Use raw speed if present

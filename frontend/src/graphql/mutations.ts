@@ -80,7 +80,7 @@ export const JOIN_ROOM_MUTATION = gql`
           fullBody {
             url
           }
-          baseStats {
+          stats {
             strength
             dexterity
             constitution

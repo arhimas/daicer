@@ -9,7 +9,7 @@ export function AppearancePanel({ characterSheet }: { characterSheet?: EntityShe
       <h3 className={SECTION_TITLE_CLASSES}>Appearance</h3>
       {appearanceEntries.length > 0 ? (
         <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-          {appearanceEntries.map(([key, value]) => (
+          {appearanceEntries.map(([key, value]: [string, any]) => (
             <div key={key}>
               <dt className="text-xs uppercase tracking-wide text-shadow-400">{formatLabel(key)}</dt>
               <dd className="font-semibold text-shadow-50">{value || '—'}</dd>

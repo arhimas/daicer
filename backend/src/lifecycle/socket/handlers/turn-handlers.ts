@@ -19,7 +19,6 @@ export const handleTurnProcess =
           'players.character',
           'players.character.stats',
           'players.character.classes.class',
-          'players.character.class',
           'messages',
           'world',
         ],

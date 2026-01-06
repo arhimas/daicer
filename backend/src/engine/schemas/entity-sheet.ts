@@ -14,4 +14,4 @@ export {
   ConditionSchema,
   SpellbookSchema,
   EntitySheetSchema,
-} from '@daicer/shared';
+} from '../../shared';

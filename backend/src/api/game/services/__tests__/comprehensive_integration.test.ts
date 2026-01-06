@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import spawnServiceFactory from '../spawn-service';
 import entityAdapterFactory from '../entity-adapter';
-import type { EntitySheet, Room, Monster, Character } from '@daicer/engine';
+import type { EntitySheet, Room, Monster, Character } from '../../../../engine';
 
 // Mocks
 const mockFindOne = vi.fn();
@@ -19,7 +19,7 @@ vi.stubGlobal('strapi', {
 });
 
 // Mock Dependencies
-vi.mock('@daicer/engine', async (importOriginal) => {
+vi.mock('../../../../engine', async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...(actual as object),

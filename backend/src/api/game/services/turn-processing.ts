@@ -1,4 +1,4 @@
-import type { Player, Creature, WorldSettings, Chunk, Language } from '@daicer/engine';
+import type { Player, Creature, WorldSettings, Chunk, Language } from '../../../engine';
 // Local definition to avoid missing shared export
 interface Message {
   sender: string;

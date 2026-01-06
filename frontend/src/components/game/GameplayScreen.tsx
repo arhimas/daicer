@@ -180,7 +180,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
         <GameplayChatArea
           messages={socket.messages}
           streamingMessages={socket.streamingMessages}
-          worldDescription={room.worldDescription}
+          worldDescription={room.worldDescription || ''}
           isProcessing={socket.isProcessing}
           presence={socket.presence}
           currentUserId={(currentPlayer as any)?.user?.documentId || user?.uid}

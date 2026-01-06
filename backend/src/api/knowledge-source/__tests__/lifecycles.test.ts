@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import knowledgeLifecycles from '../content-types/knowledge-source/lifecycles';
-import { chunkMarkdown } from '@daicer/shared';
+import { chunkMarkdown } from '../../../shared';
 
 // Mock Dependencies
 const { mockGenerateEmbedding, mockDeleteMany, mockCreate } = vi.hoisted(() => ({
@@ -16,7 +16,7 @@ vi.mock('../../../services/embedding-service', () => ({
 }));
 
 // Ensure @daicer/shared is mocked cleanly
-vi.mock('@daicer/shared', () => ({
+vi.mock('../../../shared', () => ({
   chunkMarkdown: vi.fn(),
 }));
 

@@ -1,7 +1,8 @@
 import { Command, Option } from 'commander';
-import { input, select, confirm } from '@inquirer/prompts';
-import chalk from 'chalk';
-import ora from 'ora';
+// Dynamic imports for ESM modules
+// import { input, select, confirm } from '@inquirer/prompts';
+// import chalk from 'chalk';
+// import ora from 'ora';
 import fs from 'fs';
 import path from 'path';
 import { client } from '../utils/client';
@@ -24,6 +25,7 @@ export const exploreCommand = new Command('explore')
       if (options.json) {
         console.log(JSON.stringify({ error: error.message || String(error) }));
       } else {
+        const { default: chalk } = await import('chalk');
         console.error(chalk.red('\n❌ Error:'), error);
       }
       process.exit(1);
@@ -41,6 +43,10 @@ interface ExploreOptions {
 }
 
 async function runExplore(options: ExploreOptions) {
+  const { default: chalk } = await import('chalk');
+  const { default: ora } = await import('ora');
+  const { input, select, confirm } = await import('@inquirer/prompts');
+
   const isRaw = !!options.json;
 
   // Spinner logic wrapper

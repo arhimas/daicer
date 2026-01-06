@@ -203,7 +203,7 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
 
           {/* Vitals Grid */}
           <div className="grid grid-cols-2 gap-3">
-            <VitalBox icon={Shield} label="Armor" value={ac} />
+            <VitalBox icon={Shield} label="Armor" value={entity.armorClass ?? ac ?? 10} />
             <VitalBox icon={Zap} label="Init" value={formatModifier(attrs.initiativeBonus || 0)} />
             <VitalBox
               icon={Footprints}
