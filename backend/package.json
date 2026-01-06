@@ -16,6 +16,8 @@
     "codegen": "NODE_OPTIONS='--max-old-space-size=8192' strapi ts:generate-types",
     "typecheck": "tsc --noEmit",
     "seed": "ts-node src/scripts/seed.ts",
+    "seed:test": "node scripts/seed-test-db.js",
+    "db:dump": "node scripts/dump-db.js",
     "cli": "ts-node -T src/cli/index.ts"
   },
   "dependencies": {
@@ -58,6 +60,7 @@
     "@types/react-dom": "^18",
     "@vitest/coverage-v8": "^4.0.16",
     "better-sqlite3": "^12.5.0",
+    "jsonwebtoken": "^9.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"

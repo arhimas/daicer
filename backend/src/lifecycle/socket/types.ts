@@ -56,5 +56,6 @@ export interface RoomWithPopulations {
     owner?: { documentId: string; id: string | number; username?: string };
     structuredActions?: unknown[];
   }>;
+  events?: Array<unknown>;
   worldConditions?: unknown[]; // or specific type if known
 }

@@ -60,11 +60,11 @@ export function validateAttack(
 
   const dist = calculateDistance(positions.attacker, positions.target);
 
-  if (action?.type === 'melee') {
+  if (action?.type === 'melee' || action?.type === 'melee_attack') {
     // TS Guard
     const reach = action.reach || 5;
     if (dist > reach) return { valid: false, reason: `Target out of range (${dist.toFixed(1)}ft vs ${reach}ft)` };
-  } else if (action?.type === 'ranged') {
+  } else if (action?.type === 'ranged' || action?.type === 'ranged_attack') {
     const maxRange = (action.range as any)?.long || 120; // Type loose for string vs obj
     if (dist > maxRange) return { valid: false, reason: `Target out of range (${dist.toFixed(1)}ft vs ${maxRange}ft)` };
     // Note: Disadvantage at long range is a resolution mechanic, not a hard validation failure.
@@ -87,7 +87,13 @@ export function resolveAttack(
   }
 
   const action = findAction(attacker, intent.actionId);
-  if (!action || (action.type !== 'melee' && action.type !== 'ranged')) {
+  if (
+    !action ||
+    (action.type !== 'melee' &&
+      action.type !== 'ranged' &&
+      action.type !== 'melee_attack' &&
+      action.type !== 'ranged_attack')
+  ) {
     throw new Error(`Action ${intent.actionId} is not a valid attack definition.`);
   }
 
@@ -111,9 +117,9 @@ export function resolveAttack(
   // - Melee Attack (within 5ft usually, but simplistic 'melee_attack' check): Advantage.
   // - Ranged Attack: Disadvantage.
   if (hasCondition(target, ConditionType.Prone)) {
-    if (action.type === 'melee') {
+    if (action.type === 'melee' || action.type === 'melee_attack') {
       hasAdvantage = true;
-    } else if (action.type === 'ranged') {
+    } else if (action.type === 'ranged' || action.type === 'ranged_attack') {
       hasDisadvantage = true;
     }
   }
@@ -129,7 +135,8 @@ export function resolveAttack(
 
   if (sneakAttackFeature) {
     const isFinesse =
-      action.type === 'ranged' || (action.type === 'melee' && (action as any).properties?.includes('finesse'));
+      ['ranged', 'ranged_attack'].includes(action.type) ||
+      (['melee', 'melee_attack'].includes(action.type) && (action as any).properties?.includes('finesse'));
     if (isFinesse) {
       // Rule: Advantage OR (Ally with 5ft of target AND No Disadvantage)
       // For MVP, we'll stick to: Advantage True OR "AllyAdjacent" (Requires spatial query not yet in inputs).
@@ -156,7 +163,8 @@ export function resolveAttack(
   const totalHit = rollRes.total;
 
   // Auto Crit logic (Paralyzed/Unconscious)
-  const isAutoCrit = (targetMods.autoCritReceived ?? false) && action.type === 'melee';
+  const isAutoCrit =
+    (targetMods.autoCritReceived ?? false) && (action.type === 'melee' || action.type === 'melee_attack');
 
   const isCritical = natural === 20 || isAutoCrit;
   const isCriticalFail = natural === 1;
@@ -182,7 +190,7 @@ export function resolveAttack(
     // Actually, simple heuristic: If has 'Rage' and Melee -> +2.
     const isRaging = hasCondition(attacker, ConditionType.Rage);
     let rageBonus = 0;
-    if (isRaging && action.type === 'melee') {
+    if (isRaging && (action.type === 'melee' || action.type === 'melee_attack')) {
       rageBonus = 2; // MVP Fixed
     }
 

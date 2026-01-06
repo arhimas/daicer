@@ -735,13 +735,18 @@ export interface ApiGameEventGameEvent extends Struct.CollectionTypeSchema {
   };
   attributes: {
     actorId: Schema.Attribute.String;
+    causalityId: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    delta: Schema.Attribute.JSON;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::game-event.game-event'> & Schema.Attribute.Private;
+    meta: Schema.Attribute.JSON;
     payload: Schema.Attribute.JSON & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
+    seed: Schema.Attribute.Integer;
+    sequenceId: Schema.Attribute.BigInteger;
     timeFrames: Schema.Attribute.Relation<'manyToMany', 'api::time-frame.time-frame'>;
     timestamp: Schema.Attribute.BigInteger & Schema.Attribute.Required;
     turnNumber: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;

@@ -375,7 +375,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
       // Force hits? Real engine uses RNG.
       // We can iterate until hit or mock RNG?
       // For now, checks if ANY hp changed over 10 attacks (statistical probability)
-      let startHp = mockRoom.entity_sheets[1].currentHp;
+      const startHp = mockRoom.entity_sheets[1].currentHp;
       let damageDealt = false;
       let lastResult: any;
 
@@ -396,7 +396,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
 
       // let damageDealt = false; // Already declared in scope above
 
-      let checkEvents = lastResult?.events || [];
+      const checkEvents = lastResult?.events || [];
       if (typeof lastResult === 'string') {
         // parse if string
       }

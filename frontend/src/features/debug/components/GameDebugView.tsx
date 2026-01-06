@@ -388,7 +388,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
       </div>
 
       {/* 1. TIME CONTROLS (Bottom, Full Width) */}
-      <TimeControls />
+      <TimeControls roomId={roomId} />
     </div>
   );
 }

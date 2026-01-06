@@ -111,6 +111,7 @@ export default function LobbyPage() {
                 <button
                   type="button"
                   onClick={handleCreateRoom}
+                  data-testid="lobby-create-room-btn"
                   disabled={loading}
                   className={gildedTokens.primaryAction}
                 >

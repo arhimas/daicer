@@ -264,6 +264,8 @@ export type LongRestCommand = z.infer<typeof LongRestCommandSchema>;
 export type ModifyTerrainCommand = z.infer<typeof ModifyTerrainCommandSchema>;
 export type RollSaveCommand = z.infer<typeof RollSaveCommandSchema>;
 
+export type Action = Command; // Alias for generic action usage
+
 export * from './engine';
 export * from '../rules/actions';
 export * from '../rules/dice';

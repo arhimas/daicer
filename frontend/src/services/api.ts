@@ -653,3 +653,31 @@ export async function searchCharacters(
     return [];
   }
 }
+
+/**
+ * Replay history to a specific timestamp
+ * @param roomId
+ * @param timestamp
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function replayHistory(roomId: string, timestamp: number): Promise<any> {
+  const token = localStorage.getItem('strapi_jwt');
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
+
+  console.info(`[api.ts] Replaying history for room ${roomId} to ${timestamp}`);
+
+  const response = await fetch(`${API_URL}/api/game/history/replay`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ roomId, timestamp }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to replay history');
+  }
+
+  return response.json();
+}

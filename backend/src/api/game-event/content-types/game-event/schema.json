@@ -43,6 +43,25 @@
       "relation": "manyToMany",
       "target": "api::time-frame.time-frame",
       "inversedBy": "events"
+    },
+    "sequenceId": {
+      "type": "biginteger",
+      "required": false,
+      "index": true,
+      "private": false
+    },
+    "causalityId": {
+      "type": "string",
+      "index": true
+    },
+    "delta": {
+      "type": "json"
+    },
+    "meta": {
+      "type": "json"
+    },
+    "seed": {
+      "type": "integer"
     }
   }
 }

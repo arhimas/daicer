@@ -1,10 +1,10 @@
-/* eslint-disable no-console, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
+/* eslint-disable no-console, @typescript-eslint/no-require-imports */
 /**
  * Shared Strapi Client Singleton
  * usage: import { getStrapiClient } from './utils/strapi-client';
  */
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+ 
 const { strapi } = require('@strapi/client');
 import dotenv from 'dotenv';
 import path from 'path';

@@ -208,6 +208,22 @@ export default ({ strapi }) => ({
     }
   },
 
+  async replay(ctx) {
+    const { roomId, timestamp } = ctx.request.body;
+
+    if (!roomId || timestamp === undefined) {
+      return ctx.badRequest('Missing roomId or timestamp');
+    }
+
+    try {
+      const result = await strapi.service('api::game.history-service').replayTo(roomId, timestamp);
+      ctx.body = result;
+    } catch (err) {
+      strapi.log.error(err);
+      ctx.internalServerError('Failed to replay history');
+    }
+  },
+
   async toggleReady(ctx) {
     try {
       const { roomId } = ctx.params;

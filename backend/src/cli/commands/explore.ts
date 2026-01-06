@@ -204,7 +204,7 @@ async function runExplore(options: ExploreOptions) {
   } else if (!isRaw) {
     const shouldSave = await confirm({ message: 'Save result to JSON file?', default: false });
     if (shouldSave) {
-      let defaultName = `cli-output/${finalType.uid}-${Date.now()}.json`;
+      const defaultName = `cli-output/${finalType.uid}-${Date.now()}.json`;
       const filePath = await input({ message: 'File path:', default: defaultName });
 
       const dir = path.dirname(filePath);

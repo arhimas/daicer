@@ -88,5 +88,14 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/game/history/replay',
+      handler: 'game.replay',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

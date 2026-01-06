@@ -385,7 +385,32 @@ export default ({ strapi }) => ({
   async getRoom(roomId: string) {
     const rooms = await strapi.documents('api::room.room').findMany({
       filters: { $or: [{ roomId }, { documentId: roomId }, { code: roomId }] },
-      populate: ['players', 'players.character', 'players.characterSheet', 'entity_sheets', 'entity_sheets.position'],
+      populate: {
+        players: {
+          populate: ['character', 'characterSheet', 'characterSheet.structuredActions', 'user'],
+        },
+        entity_sheets: {
+          populate: {
+            position: true,
+            stats: true,
+            features: true,
+            inventory: true,
+            character: { populate: ['race', 'classes.class'] },
+            monster: { populate: ['stats'] },
+            structuredActions: { populate: { damage: true } },
+          },
+        },
+        world: true,
+        messages: {
+          fields: ['content', 'senderName', 'senderType', 'timestamp', 'type'],
+          limit: 50,
+          sort: 'timestamp:desc',
+        },
+        events: {
+          limit: 50,
+          sort: 'timestamp:desc',
+        },
+      },
     });
 
     if (!rooms || rooms.length === 0) return null;

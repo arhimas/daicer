@@ -16,17 +16,32 @@ export const handleRoomJoin =
         filters: {
           $or: [{ roomId: roomId }, { code: roomId }, { documentId: roomId }],
         },
-        populate: [
-          'players',
-          'players.character',
-          'players.character.stats',
-          'players.character.classes.class',
-          'messages',
-          'messages.recipient',
-          'world', // Populate World Relation
-          'entity_sheets', // Populate Entities/Character Sheets
-          'entity_sheets.structuredActions.damage', // Populate Actions & Damage
-        ],
+        populate: {
+          players: {
+            populate: ['character', 'characterSheet', 'characterSheet.structuredActions', 'user'],
+          },
+          entity_sheets: {
+            populate: {
+              position: true,
+              stats: true,
+              features: true,
+              inventory: true,
+              character: { populate: ['race', 'classes.class'] },
+              monster: { populate: ['stats'] },
+              structuredActions: { populate: { damage: true } },
+            },
+          },
+          world: true,
+          messages: {
+            fields: ['content', 'senderName', 'senderType', 'timestamp', 'type'],
+            limit: 50,
+            sort: 'timestamp:desc',
+          },
+          events: {
+            limit: 50,
+            sort: 'timestamp:desc',
+          },
+        },
       });
 
       if (!rooms || rooms.length === 0) {
@@ -34,9 +49,7 @@ export const handleRoomJoin =
         return;
       }
 
-      const room = rooms[0] as unknown as RoomWithPopulations; // Strapi return type is generic, so we cast to our defined shape once safely.
-      // Better yet, if we could type findMany generic... but Strapi types are complex.
-      // This cast is acceptable as it types the boundary between Strapi SDK and our logic.
+      const room = rooms[0] as unknown as RoomWithPopulations;
       const rawMessages = room.messages || [];
       rawMessages.sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
 
@@ -99,6 +112,7 @@ export const handleRoomJoin =
           name: world?.name || 'Adventure',
           phase: room.phase,
           worldDescription: world?.description || '',
+          events: room.events || [], // Pass events to frontend
         },
         players: room.players,
         messages: mappedMessages,

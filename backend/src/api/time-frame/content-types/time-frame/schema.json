@@ -36,5 +36,13 @@
       "target": "api::game-event.game-event",
       "mappedBy": "timeFrames"
     }
+  },
+  "hash": {
+    "type": "string",
+    "index": true
+  },
+  "sequenceId": {
+    "type": "biginteger",
+    "index": true
   }
 }

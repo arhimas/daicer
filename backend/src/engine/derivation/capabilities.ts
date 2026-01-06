@@ -37,6 +37,7 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
  */
 export function deriveActions(context: DerivationContext) {
   const { equipment, attributes, proficiencyBonus, innateActions } = context;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actions: any[] = [];
 
   // 1. Process Innate Actions (from blueprints/JSONs) first
@@ -78,7 +79,7 @@ export function deriveActions(context: DerivationContext) {
       const toHit = statMod + (proficiencyBonus || 2);
       const damageBonus = statMod; // D&D rules: adds stat mod to damage
 
-      const type = isRanged ? 'ranged' : 'melee';
+      const type = isRanged ? 'ranged_attack' : 'melee_attack';
 
       actions.push({
         id: `derived-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
@@ -106,7 +107,7 @@ export function deriveActions(context: DerivationContext) {
     actions.push({
       id: 'action-unarmed',
       name: 'Unarmed Strike',
-      type: 'melee',
+      type: 'melee_attack',
       description: 'Punch, kick, or headbutt.',
       reach: 5,
       toHit: strMod + (proficiencyBonus || 2),
