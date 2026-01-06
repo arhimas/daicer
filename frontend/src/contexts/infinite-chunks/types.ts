@@ -5,7 +5,7 @@
 
 import type { ChunkDTO, Tile } from '@/types/contracts';
 
-export type TerrainChunk = Omit<ChunkDTO, 'tiles'> & {
+export type TerrainChunk = Omit<ChunkDTO, 'tiles' | 'biomes'> & {
   tiles: Tile[][];
   biomes: string[][];
   structures: unknown[];

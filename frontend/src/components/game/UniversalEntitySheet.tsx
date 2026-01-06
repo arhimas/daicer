@@ -54,7 +54,6 @@ function VitalBox({
 // 3. Action Row
 function ActionRow({ action }: { action: EntityAction }) {
   const isSpell = action.type === 'spell';
-  const isRanged = action.type === 'ranged_attack';
 
   return (
     <div className="group flex flex-col gap-2 p-3 bg-midnight-900/40 border border-midnight-700/50 hover:border-gold-700/50 hover:bg-midnight-800/60 rounded transition-all cursor-default">
@@ -92,7 +91,7 @@ function ActionRow({ action }: { action: EntityAction }) {
         {action.damage && action.damage.length > 0 && (
           <div className="flex items-center gap-1">
             <span className="text-gray-300 font-semibold">
-              {action.damage.map((d) => `${d.dice}${d.bonus ? `+${d.bonus}` : ''} ${d.type}`).join(' + ')}
+              {action.damage.map((d: any) => `${d.dice}${d.bonus ? `+${d.bonus}` : ''} ${d.type}`).join(' + ')}
             </span>
           </div>
         )}
@@ -206,7 +205,12 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
           <div className="grid grid-cols-2 gap-3">
             <VitalBox icon={Shield} label="Armor" value={ac} />
             <VitalBox icon={Zap} label="Init" value={formatModifier(attrs.initiativeBonus || 0)} />
-            <VitalBox icon={Footprints} label="Speed" value={speed} sub="ft/rnd" />
+            <VitalBox
+              icon={Footprints}
+              label="Speed"
+              value={typeof speed === 'number' ? speed : speed.walk}
+              sub="ft/rnd"
+            />
             <VitalBox icon={Swords} label="Prof" value={`+${Math.ceil(1 + level / 4)}`} />
           </div>
 
@@ -261,8 +265,8 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
                     <div className="h-px bg-midnight-800 flex-1" />
                   </h3>
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
-                    {entity.actions && entity.actions.length > 0 ? (
-                      entity.actions.map((action: EntityAction) => (
+                    {entity.structuredActions && entity.structuredActions.length > 0 ? (
+                      entity.structuredActions.map((action: EntityAction) => (
                         <ActionRow key={action.id || action.name} action={action} />
                       ))
                     ) : (

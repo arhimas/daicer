@@ -107,7 +107,16 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
         visionRadius: 30,
         color: '#ffffff',
         features: [],
-        structuredActions: [],
+        structuredActions: [
+          {
+            id: 'action-unarmed',
+            name: 'Unarmed Strike',
+            description: 'Punch or Kick',
+            type: 'melee_attack',
+            toHit: 2,
+            damage: [{ dice: '1', bonus: 0, type: 'bludgeoning' }],
+          },
+        ],
         proficiencies: [],
       },
     },

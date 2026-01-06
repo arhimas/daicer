@@ -8,6 +8,8 @@ export default defineConfig({
     hookTimeout: 10000,
     alias: {
       '@': '/src',
+      '@daicer/engine': '/src/engine/index.ts',
+      '@daicer/shared': '/src/shared/index.ts',
     },
     coverage: {
       provider: 'v8',

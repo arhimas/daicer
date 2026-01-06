@@ -9,7 +9,35 @@ export interface Coordinates {
   z: number;
 }
 
-export type Attribute = string;
+// Enum-like object for values + Type for usage
+export const Attribute = {
+  STR: 'Strength',
+  DEX: 'Dexterity',
+  CON: 'Constitution',
+  INT: 'Intelligence',
+  WIS: 'Wisdom',
+  CHA: 'Charisma',
+} as const;
+export type Attribute = (typeof Attribute)[keyof typeof Attribute];
+
+export const calculateModifier = (score: number) => Math.floor((score - 10) / 2);
+
+export interface SkillDetail {
+  name: string;
+  ability: string;
+  proficiency: string;
+  modifier: number;
+}
+
+export interface TimeFrame {
+  id: string;
+  documentId?: string;
+  turnNumber: number;
+  data: any; // Snapshot data
+  gameState: any; // Alias for data
+  timestamp: number; // For debug view
+  createdAt: string;
+}
 
 export interface EntitySheet {
   attributes: Record<string, number>;
@@ -19,10 +47,14 @@ export interface EntitySheet {
   ac?: number;
   armorClass?: number;
   speed: number | { walk: number; [key: string]: number };
-  structuredActions: any[]; // Avoid complex type for now
-  features: any[];
+  structuredActions: EntityAction[];
+  features: EntityFeature[];
   equipment?: any[];
+
   name?: string;
+  stats?: any; // Legacy
+  initiative?: number;
+  initiativeBonus?: number;
   [key: string]: any;
 }
 
@@ -55,6 +87,37 @@ export interface Player {
   isReady: boolean;
   position?: Coordinates;
   documentId?: string;
+  avatarPreview?: { portrait?: any }; // Loose type for now
+}
+
+export interface ResourcePool {
+  name: string;
+  current: number;
+  max: number;
+  refresh: string;
+}
+
+export interface Talent {
+  name: string;
+  description: string;
+  source?: string;
+}
+
+export interface EntityAction {
+  id?: string;
+  name: string;
+  description?: string;
+  type: string;
+  toHit?: number;
+  range?: number;
+  damage?: { dice: string; bonus?: number; type: string }[];
+  save?: { dc: number; stat: string };
+}
+
+export interface EntityFeature {
+  name: string;
+  description: string;
+  usage?: { max: number; per: string };
 }
 
 export interface Message {
@@ -64,6 +127,7 @@ export interface Message {
   timestamp: number;
   type?: 'talk' | 'narration' | 'system' | 'text' | 'narrative';
   metadata?: Record<string, any>;
+  images?: string[];
   targetPlayer?: string;
   recipientId?: string;
   documentId?: string;
@@ -94,6 +158,12 @@ export interface Room {
   updatedAt: number;
   generationEvents?: any[];
   worldDescription?: string;
+  timeFrames?: TimeFrame[];
+  worldHistory?: any[]; // Legacy or alias for timeFrames
+  turnData?: any;
+  config?: any;
+  createdAt?: string | number;
+  structures?: any[];
 }
 
 export interface Creature {
@@ -105,6 +175,8 @@ export interface Creature {
   position: Coordinates;
   type: 'npc' | 'monster';
   sheet?: EntitySheet;
+  attackBonus?: number;
+  damage?: string;
 }
 
 // Map Types
@@ -116,6 +188,7 @@ export interface Tile {
   elevation: number;
   isWalkable: boolean;
   blockType?: string;
+  block?: string; // For compatibility
 }
 
 export interface ChunkDTO {
@@ -241,8 +314,8 @@ export enum ActionType {
 
 // Logic Placeholders (Mocking removed logic types)
 export const DEFAULT_GENERATION_PARAMS = {};
-export const createUnifiedTerrainGenerator = (seed: string, config: any) => {
-  return (chunkX: number, chunkY: number, size: number) => ({
+export const createUnifiedTerrainGenerator = (_seed: string, _config: any) => {
+  return (chunkX: number, chunkY: number, _size: number) => ({
     x: chunkX,
     y: chunkY,
     z: 0,

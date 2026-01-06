@@ -80,7 +80,7 @@ describe('Tool Factory (createDaicerTool)', () => {
     it('should catch invalid output types and return standard error string', async () => {
       const result = await outputValidatingTool.func({}, mockContext);
       expect(result).toContain('Error executing strict_tool: Tool output validation failed');
-      expect(result).toContain('expected number, received string'); // Zod standard message
+      expect(result).toContain('Expected number, received string'); // Zod standard message
       // Actually Zod message might encompass more, checking specifically for "received string" or "expected number"
       expect(result).toContain('received string');
     });
