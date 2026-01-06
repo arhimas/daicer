@@ -116,7 +116,7 @@ export default ({ strapi }) => ({
         creatures,
         (room.settings as { language: Language })?.language || 'en',
         room.settings as WorldSettings,
-        room.worldConditions as unknown[]
+        room.entropyState as unknown[] // Pass entropyState as worldConditions arg
       );
 
       return ctx.send(result);

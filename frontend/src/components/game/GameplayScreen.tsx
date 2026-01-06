@@ -22,6 +22,7 @@ import type { WorldConfig, Coordinates } from '../../features/debug/utils/types'
 
 import GameplayChatArea from './GameplayChatArea';
 import GameplayComposer from './GameplayComposer';
+import { TimeCycleWidget } from './map/TimeCycleWidget';
 import { RoomTabs } from '../room/RoomTabs';
 import { PlayerListTab } from '../room/PlayerListTab';
 import { RoomSettingsTab } from '../room/RoomSettingsTab';
@@ -368,6 +369,12 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
               {z}
             </button>
           ))}
+        </div>
+      </div>
+
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+        <div className="bg-midnight-950/50 backdrop-blur-sm rounded-full px-4 py-1 border border-midnight-800/50 shadow-2xl">
+          <TimeCycleWidget time={(room.turnData?.turnNumber || 0) % 24} className="w-48 h-24" />
         </div>
       </div>
 

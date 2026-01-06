@@ -1193,6 +1193,7 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
     currentTimeFrame: Schema.Attribute.Relation<'oneToOne', 'api::time-frame.time-frame'>;
     dmSettings: Schema.Attribute.Relation<'oneToOne', 'api::dm-setting.dm-setting'>;
     entity_sheets: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'>;
+    entropyState: Schema.Attribute.JSON;
     events: Schema.Attribute.Relation<'oneToMany', 'api::game-event.game-event'>;
     exploredTiles: Schema.Attribute.JSON;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
@@ -1328,6 +1329,7 @@ export interface ApiTimeFrameTimeFrame extends Struct.CollectionTypeSchema {
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    entropySnapshot: Schema.Attribute.JSON;
     events: Schema.Attribute.Relation<'manyToMany', 'api::game-event.game-event'>;
     gameState: Schema.Attribute.JSON & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

@@ -24,7 +24,14 @@
     },
     "phase": {
       "type": "enumeration",
-      "enum": ["lobby", "character_creation", "world_generation", "gameplay", "combat", "ending"],
+      "enum": [
+        "lobby",
+        "character_creation",
+        "world_generation",
+        "gameplay",
+        "combat",
+        "ending"
+      ],
       "default": "lobby"
     },
     "players": {
@@ -36,6 +43,9 @@
       "type": "json"
     },
     "exploredTiles": {
+      "type": "json"
+    },
+    "entropyState": {
       "type": "json"
     },
     "isActive": {

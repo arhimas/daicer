@@ -94,3 +94,66 @@ export function discoverContentTypes(): ContentTypeInfo[] {
 
   return contentTypes.sort((a, b) => a.uid.localeCompare(b.uid));
 }
+
+/**
+ * Reads the schema.json for a specific UID
+ */
+export function readSchema(uid: string): any | null {
+  const all = discoverContentTypes();
+  const found = all.find((t) => t.uid === uid);
+
+  if (!found) {
+    // try direct path lookup if it looks like a standard api
+    return null;
+  }
+
+  // We need to re-scan to find path because discover doesn't store path nicely yet?
+  // Actually we can just reconstruct path from apiName and singularName or just do a quick scan map.
+  // Let's refactor slightly to be more robust: re-use discover logic but just return the object.
+  // Or, since discoverContentTypes is cheap (fs scan), we can just enhance it to return paths or read directly if we added paths to ContentTypeInfo.
+  // For now, let's keep it simple:
+
+  const apiRoot = path.join(process.cwd(), 'src', 'api');
+  const contentTypePath = path.join(
+    apiRoot,
+    found.apiName,
+    'content-types',
+    found.info.singularName || found.info.pluralName // Tricky to reverse engineer folder from info
+  );
+
+  // Re-scanning is safer than guessing folder names from singular/plural which might differ
+  // Let's just do a specialized find.
+
+  if (uid.startsWith('plugin::')) {
+    // Plugin schemas are in node_modules usually, hard to read source for them unless we look in node_modules
+    // For now return null for plugins
+    return null;
+  }
+
+  const parts = uid.replace('api::', '').split('.');
+  const apiName = parts[0];
+  const contentTypeName = parts[1];
+
+  const schemaPath = path.join(apiRoot, apiName, 'content-types', contentTypeName, 'schema.json');
+
+  if (fs.existsSync(schemaPath)) {
+    return JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
+  }
+
+  return null;
+}
+
+export function readAllSchemas(): Record<string, any> {
+  const all = discoverContentTypes();
+  const result: Record<string, any> = {};
+
+  for (const type of all) {
+    if (type.uid.startsWith('api::')) {
+      const schema = readSchema(type.uid);
+      if (schema) {
+        result[type.uid] = schema;
+      }
+    }
+  }
+  return result;
+}

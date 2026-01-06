@@ -30,6 +30,9 @@
       "type": "json",
       "required": true
     },
+    "entropySnapshot": {
+      "type": "json"
+    },
     "events": {
       "type": "relation",
       "relation": "manyToMany",

@@ -3,6 +3,7 @@ import { Command } from 'commander';
 // import chalk from 'chalk';
 import { exploreCommand } from './commands/explore';
 import { statusCommand } from './commands/status';
+import { schemaCommand } from './commands/schema';
 
 const program = new Command();
 
@@ -11,6 +12,7 @@ program.name('daicer-cli').description('🎲 Daicer Backend CLI - Debug and Insp
 // Register Commands
 program.addCommand(exploreCommand);
 program.addCommand(statusCommand);
+program.addCommand(schemaCommand);
 
 program.hook('preAction', async (thisCommand) => {
   const { default: chalk } = await import('chalk');

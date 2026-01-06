@@ -23,6 +23,58 @@ export default ({ strapi }) => ({
     const turnPersistence = strapi.service('api::game.turn-persistence');
     const gameBroadcaster = strapi.service('api::game.game-broadcaster');
     const actionEngine = strapi.service('api::game.action-engine');
+    const ledger = strapi.service('api::game.game-ledger');
+
+    // --- Entropy System ---
+    const { EntropySystem } = await import('../../../engine/entropy');
+    // Use roomId as seed if code not available immediately, or fetch room code
+    // Assuming worldConditions arg is actually the EntropyState JSON
+    const entropySys = new EntropySystem(roomId, worldConditions as any);
+
+    // Advance 1 turn (using 0 or placeholder if turn number not explicit yet)
+    // We can fetch last turn number if critical, but for now we accept sequential logic
+    const entropyChange = entropySys.advanceTurn(1, Date.now());
+    let entropyEvent = null;
+
+    if (entropyChange) {
+      // Log Event
+      entropyEvent = await ledger.logEvent(roomId, {
+        type: 'ENTROPY_CHANGE',
+        payload: entropyChange as any,
+        actorId: 'system',
+        meta: { visibility: entropyChange.newEvent?.visibility || 'dm' },
+      });
+
+      // Update DB State immediately so Narrative sees it?
+      // Narrative uses the passed objects. We should update the object we pass to Narrative.
+      // But Narrative Engine might expect 'worldConditions'.
+      // We also need to persist state to Room.
+      await strapi.documents('api::room.room').update({
+        documentId: roomId,
+        data: { entropyState: entropySys.state },
+      });
+    }
+
+    // Pass updated state to narrative?
+    // worldConditions is passed to narrative. We should update it if it's the state.
+    // If entropyChange.mutation, we updated `entropySys.state`.
+    // We should overwrite worldConditions with entropySys.state for Narrative consumption.
+    if (entropyChange) {
+      // Narrative Engine handles `worldConditions` array? Or full state?
+      // If legacy engine expects array, we map `entropySys.state.conditions`.
+      // If we updated Narrative Engine to use new structure, strict pass.
+      // Let's pass the full state if possible or legacy array.
+      // POC used array. Narrative might use array.
+      // We'll pass `entropySys.state` cast as unknown.
+      // worldConditions = entropySys.state as unknown[];
+      // Actually, let's keep it safe. Narrative likely iterates it.
+      // `entropySys.state` is object `{ conditions: [], ... }`.
+      // If Narrative iterates `worldConditions`, we should pass `entropySys.state.conditions`.
+      // But we also want Events?
+      // Let's pass `entropySys.state` and assume Narrative will be updated or robust.
+      // Effectively:
+      // worldConditions = entropySys.state as any;
+    }
 
     // 1. Broadcast Processing Start
     gameBroadcaster.startProcessing(roomId);

@@ -70,4 +70,4 @@ GEMINI_IMAGE_MODEL='gemini-3-pro-image-preview' yarn ts-node scripts/generate-mo
 
 ### Troubleshooting
 
-- **403 Forbidden**: Ensure your `STRAPI_API_TOKEN` in `.env` has full permissions, or `API_TOKEN_SALT` is correctly configured if using legacy local logic.
+- **403 Forbidden**: Ensure your `STRAPI_AUDIT_TOKEN` in `.env` has full permissions, or `API_TOKEN_SALT` is correctly configured if using legacy local logic.

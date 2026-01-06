@@ -1,4 +1,5 @@
 import { Action } from '../types';
+import { EntropySystem } from '../entropy';
 
 /**
  * GameLoop
@@ -8,17 +9,20 @@ import { Action } from '../types';
  * - Processing a queue of Events (Inputs)
  * - Emitting resulting Events (Outputs)
  * - Keeping track of strict sequence
+ * - Holding Entropy System state
  */
 export class GameLoop {
   private _currentTimeSeconds: number = 0;
   private _sequenceId: bigint = 0n;
+  private _entropy?: EntropySystem;
 
   // Handlers for "Tick" logic (Entropy, Bio, etc)
   private _onTick: ((deltaSeconds: number) => void)[] = [];
 
-  constructor(initialTime: number = 0, initialSequence: bigint = 0n) {
+  constructor(initialTime: number = 0, initialSequence: bigint = 0n, entropySystem?: EntropySystem) {
     this._currentTimeSeconds = initialTime;
     this._sequenceId = initialSequence;
+    this._entropy = entropySystem;
   }
 
   get currentTime() {
@@ -27,6 +31,10 @@ export class GameLoop {
 
   get currentSequence() {
     return this._sequenceId;
+  }
+
+  get entropy() {
+    return this._entropy;
   }
 
   /**
@@ -48,10 +56,6 @@ export class GameLoop {
     for (const system of this._onTick) {
       system(deltaSeconds);
     }
-
-    // In a real iteration, this might also process an 'Action Queue'
-    // and intersperse logic between time slices.
-    // For Phase 2 MVP, we just strictly advance.
   }
 
   /**

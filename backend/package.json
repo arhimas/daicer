@@ -48,6 +48,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
+    "seedrandom": "^3.0.5",
     "socket.io": "^4.8.1",
     "styled-components": "^6.0.0",
     "zod": "^4.3.5"
@@ -58,6 +59,7 @@
     "@types/pngjs": "^6.0.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/seedrandom": "^3.0.8",
     "@vitest/coverage-v8": "^4.0.16",
     "better-sqlite3": "^12.5.0",
     "jsonwebtoken": "^9.0.3",

@@ -65,7 +65,7 @@ async function fetchAll(collectionName: string) {
     }
   } catch (e: any) {
     if (e.status === 401) {
-      console.error(`   ❌ Unauthorized (401) fetching ${collectionName}. Check your STRAPI_API_TOKEN.`);
+      console.error(`   ❌ Unauthorized (401) fetching ${collectionName}. Check your STRAPI_AUDIT_TOKEN.`);
     } else if (e.status === 403) {
       console.warn(`   ⚠️ Forbidden (403) fetching ${collectionName}. Token missing permissions.`);
     } else if (e.status === 404) {

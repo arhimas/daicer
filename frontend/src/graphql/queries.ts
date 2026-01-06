@@ -121,6 +121,9 @@ export const GET_ROOM_QUERY = gql`
           customDirectives
         }
       }
+      entropyState
+      turnData
+      exploredTiles
       messages(sort: "timestamp:asc", pagination: { limit: 100 }) {
         documentId
         content

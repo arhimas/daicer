@@ -1,8 +1,28 @@
 # 🎲 Daicer Backend CLI
 
-> _The lens through which the Agent perceives the World._
+<p align="center">
+  <img src="https://media.giphy.com/media/l41lFw057lAJQM50I/giphy.gif" width="100%" alt="Matrix Data" />
+</p>
+
+> **"The lens through which the Agent perceives the World."**
 
 The **Daicer CLI** (`daicer-cli`) is a high-performance, terminal-native interface for the Daicer backend. It bridges the gap between the headless Strapi architecture and the developer (human or machine), providing instantaneous access to the raw data layer without the overhead of a web browser or the opacity of the database.
+
+---
+
+## 📖 Table of Contents
+
+- [Philosophy](#-philosophy)
+- [Installation & Setup](#-installation--setup)
+- [Core Workflows](#-core-workflows)
+  - [Interactive Mode (Human)](#interactive-mode-human)
+  - [Agent Mode (LLM)](#agent-mode-llm) ✨ **SOTA**
+- [Advanced Usage](#-advanced-usage)
+  - [The Schema-First Strategy](#the-schema-first-strategy)
+  - [Power Filtering](#power-filtering)
+- [Command Reference](#-command-reference)
+
+---
 
 ## 🧠 Philosophy
 
@@ -18,16 +38,6 @@ Traditional workflows force you to open the Strapi Admin Panel to view this trut
 
 ---
 
-## 🚀 Features
-
-- **🔍 Interactive Exploration**: A fuzzy-searchable, navigable tree of your entire Schema.
-- **⚡️ Instant Querying**: Perform complex lookups (`findOne`, `find`, `count`) with zero boilerplate.
-- **🤖 Agent Mode**: dedicated flags (`--json`) to strip visual noise for AI consumption.
-- **💾 Portable State**: One-click JSON export to snapshot database entities for seed creation or debugging.
-- **🛡 Type-Safe**: Built on top of Strapi's generated TypeScript definitions.
-
----
-
 ## 📦 Installation & Setup
 
 The CLI lives inside the `@daicer/backend` workspace. It requires no global installation.
@@ -38,11 +48,13 @@ The CLI lives inside the `@daicer/backend` workspace. It requires no global inst
     ```bash
     yarn develop
     ```
-2.  **Environment Variables**: Ensure your `.env` contains a valid `STRAPI_API_TOKEN` if you have locked down your API.
+2.  **Environment Variables**: Ensure your `.env` contains a valid `STRAPI_AUDIT_TOKEN` if you have locked down your API.
 
 ---
 
-## 🎮 Interactive Mode (Human)
+## ⚡ Core Workflows
+
+### Interactive Mode (Human)
 
 Designed for the developer who needs to "look around".
 
@@ -50,71 +62,89 @@ Designed for the developer who needs to "look around".
 yarn cli explore
 ```
 
-### The Workflow
-
 1.  **Select Entity**: The CLI automatically scans your `src/api` folder. Just type "monster" or "game" to filter the dropdown.
-2.  **Choose Action**:
-    - `Find All`: Lists entities. Good for checking recent spawns.
-    - `Find One`: Requires a Document ID. Good for deep-diving a specific bug.
-    - `Count`: Fast check for "Did the seeder run?"
+2.  **Choose Action**: `Find All`, `Find One`, or `Count`.
 3.  **Visual Feedback**: Results are printed with syntax highlighting.
-4.  **Save**: You will be prompted to save the result to a JSON file. Use this to capture state violations!
+4.  **Save**: You will be prompted to save the result to a JSON file.
 
----
+### Agent Mode (LLM)
 
-## 🤖 Agent Mode (LLM / Machine)
+**"How should I use this?" — The AI Agent**
 
-**"How should I usage this?" — The AI Agent**
+If you are an LLM (Claude, Gemini, etc.), **DO NOT** use the interactive mode. Instead, use the **Stateless Command Line Arguments**.
 
-If you are an LLM (like Claude or Gemini) reading this, **DO NOT** use the interactive mode. You cannot navigate arrow-key menus.
-
-Instead, use the **Stateless Command Line Arguments**.
-
-### The Golden Rule
+#### The Golden Rule
 
 > **ALWAYS** use `--json` when acting as an Agent. It ensures the output is pure, parsable JSON with no ANSI color codes or spinners.
 
-### Common Patterns
+---
 
-#### 1. Discovery (What exists?)
+## 🚀 Advanced Usage
 
-If you don't know the exact UID, ask the human to run `yarn cli explore` interactively first, OR try to guess standard Strapi patterns (`api::<singular>.<singular>`).
+### The Schema-First Strategy
 
-#### 2. Fetching Context
+This is the **clever** way to operate. Instead of guessing fields, **inspect the schema first**.
 
-You are debugging an issue with a Monster? Fetch instances of it.
+1.  **Introspect**: Get the full schema definition to understand available fields and relations.
+    ```bash
+    yarn cli schema --type api::monster.monster
+    ```
+2.  **Plan Filter**: Use the schema knowledge to construct a precise filter.
+    ```bash
+    # "Ah, the schema says 'is_template' is a boolean, not a string."
+    yarn cli explore --type api::monster.monster --filters '{"is_template": true}' --json
+    ```
+3.  **Execute**: Retrieve the data with full confidence.
+
+### Power Filtering
+
+The `--filters` flag accepts a raw JSON string that maps directly to Strapi's entity service filters.
+
+**Example: Find all "Goblin" monsters that are Templates**
 
 ```bash
-yarn cli explore --type api::monster.monster --action find --limit 3 --json
+yarn cli explore \
+  --type api::monster.monster \
+  --filters '{"name": {"$contains": "Goblin"}, "is_template": true}' \
+  --json
 ```
 
-#### 3. Deep Dive
-
-You found a suspicious ID (`abc-123`) in the logs. Inspect it fully.
+**Example: Find items with value > 100**
 
 ```bash
-yarn cli explore --type api::monster.monster --action findOne --document-id abc-123 --json
+yarn cli explore \
+  --type api::item.item \
+  --filters '{"value": {"$gt": 100}}' \
+  --json
 ```
 
-#### 4. Validating Seeding
+---
 
-Did the `GlobalRules` get created?
+## 📚 Command Reference
 
-```bash
-yarn cli explore --type api::rule.rule --action count --json
-```
+### `schema`
 
-### Argument Reference
+Inspect the structural definition of your content types.
 
-| Flag                | Description                                                                                 | Default                         |
-| :------------------ | :------------------------------------------------------------------------------------------ | :------------------------------ |
-| `-t, --type <uid>`  | The Strapi Content Type UID (e.g., `api::game.game`). **Required** in non-interactive mode. | `null`                          |
-| `-a, --action <op>` | Operation: `find`, `findOne`, `count`.                                                      | `find`                          |
-| `-l, --limit <num>` | Number of results to return.                                                                | `50` (Raw) / `10` (Interactive) |
-| `-p, --page <num>`  | Pagination offset.                                                                          | `1`                             |
-| `-d, --document-id` | **Required** if action is `findOne`.                                                        | `null`                          |
-| `--json`            | **Critical**. Disables all interactivity, colors, and spinners.                             | `false`                         |
-| `--save <path>`     | Save output to specific file path.                                                          | `null`                          |
+| Flag            | Description                                    |
+| :-------------- | :--------------------------------------------- |
+| `--list`        | List all available Content Types UIDs.         |
+| `--all`         | Dump ALL schemas as a single JSON map (heavy). |
+| `--type <uid>`  | Dump schema for a specific type.               |
+| `--save <path>` | Save output to file.                           |
+
+### `explore`
+
+Query the actual data in the database.
+
+| Flag                | Description                                              | Default |
+| :------------------ | :------------------------------------------------------- | :------ |
+| `-t, --type <uid>`  | Strapi UID (e.g. `api::game.game`).                      | `null`  |
+| `-a, --action <op>` | `find`, `findOne`, `count`.                              | `find`  |
+| `--filters <json>`  | JSON string for filtering (e.g. `'{"field": "value"}'`). | `null`  |
+| `-l, --limit <num>` | Results limit.                                           | `50`    |
+| `--json`            | **Critical**. Disables interactive mode.                 | `false` |
+| `--save <path>`     | Save output to file.                                     | `null`  |
 
 ---
 
@@ -122,35 +152,12 @@ yarn cli explore --type api::rule.rule --action count --json
 
 ### `fetch failed` / `ECONNREFUSED`
 
-**Cause**: The Strapi server is not running.
 **Fix**: Open a new terminal tab and run `yarn develop` in `backend`.
 
 ### `Forbidden` / `403`
 
-**Cause**: The API Token is missing or invalid.
-**Fix**: Check `backend/.env`. Ensure `STRAPI_API_TOKEN` matches a token in Strapi Admin -> Settings -> API Tokens that has `Full Access` (or at least Read access).
+**Fix**: Check `backend/.env`. Ensure `STRAPI_AUDIT_TOKEN` matches a token in Strapi Admin with proper permissions.
 
 ### `Type not found`
 
-**Cause**: You typed `monster` instead of `api::monster.monster`.
-**Fix**: Strapi UIDs are namespace-specific. UIDs usually follow the format `api::<api-name>.<content-type-name>`.
-
----
-
-## 🏗 Architecture & Contribution
-
-The CLI is built with:
-
-- **Commander.js**: For argument parsing.
-- **Inquirer**: For the interactive TUI.
-- **@strapi/client**: For typed API communication.
-
-### Adding a Command
-
-1.  Create `src/cli/commands/my-command.ts`.
-2.  Export a `new Command('name')`.
-3.  Register it in `src/cli/index.ts`.
-
-### Modifying Schema Discovery
-
-See `src/cli/utils/schema.ts`. Currently, it statically analyzes the file system to find `schema.json` files. This is faster than bootstrapping the full Strapi instance.
+**Fix**: Double check the UID syntax. Use `yarn cli schema --list` to find the correct UID.

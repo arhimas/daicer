@@ -17,6 +17,7 @@ export const exploreCommand = new Command('explore')
   .option('-d, --document-id <id>', 'Document ID for findOne or mutation')
   .option('--json', 'Output raw JSON to stdout (no colors, no spinner) - Ideal for LLMs')
   .option('--save <path>', 'Save result to JSON file (optional)')
+  .option('--filters <json>', 'JSON string for filters (e.g. \'{"name": "foo"}\')')
   .action(async (options) => {
     try {
       await runExplore(options);
@@ -40,6 +41,7 @@ interface ExploreOptions {
   documentId?: string;
   json?: boolean;
   save?: string;
+  filters?: string;
 }
 
 async function runExplore(options: ExploreOptions) {
@@ -142,6 +144,16 @@ async function runExplore(options: ExploreOptions) {
       'pagination[pageSize]': limit,
       'pagination[page]': page,
     };
+
+    // Parse filters
+    if (options.filters) {
+      try {
+        const filters = JSON.parse(options.filters);
+        params = { ...params, filters };
+      } catch (e) {
+        console.error(chalk.red('❌ Invalid JSON filters provided. Ignoring.'));
+      }
+    }
   } else if (action === 'findOne') {
     if (!documentId) {
       if (isRaw) throw new Error('--document-id is required for findOne action');

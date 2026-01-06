@@ -9,12 +9,12 @@ import { strapi } from '@strapi/client';
 const BASE_URL = process.env.STRAPI_URL || 'http://localhost:1337/api';
 // Use process.env.STRAPI_AUDIT_TOKEN as default to match other scripts
 // The user might need to set this if it's not in .env
-const AUTH_TOKEN = process.env.STRAPI_AUDIT_TOKEN || process.env.STRAPI_API_TOKEN;
+const AUTH_TOKEN = process.env.STRAPI_AUDIT_TOKEN;
 
 console.log(`Target: ${BASE_URL}`);
 
 if (!AUTH_TOKEN) {
-  console.warn('⚠️ No Auth Token found (STRAPI_AUDIT_TOKEN or STRAPI_API_TOKEN). Request might fail.');
+  console.warn('⚠️ No Auth Token found (STRAPI_AUDIT_TOKEN). Request might fail.');
 }
 
 const client = strapi({

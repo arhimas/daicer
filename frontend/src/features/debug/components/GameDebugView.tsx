@@ -36,8 +36,16 @@ interface GameDebugViewProps {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
   // Config State
-  const [activeTab, setActiveTab] = useState<'tools' | 'inspector'>('tools');
-  const [config] = useState<OldWorldConfig>(() => {
+  const [activeTab, setActiveTab] = useState<'tools' | 'inspector' | 'entropy'>('tools');
+  // ... (snip) ...
+
+  // Sync Entities... (omitted)
+
+  // ...
+
+  // --- 4-COLUMN LAYOUT ---
+  // Config
+  const config = useMemo(() => {
     if (room.world) {
       return {
         seed: room.world.seed || DEFAULT_CONFIG.seed,
@@ -57,7 +65,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
       };
     }
     return DEFAULT_CONFIG;
-  });
+  }, [room.world]);
 
   // Time Travel Context
   const { currentTimeFrame, isLive } = useTimeFrame();
@@ -338,6 +346,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
             activeEntity={activeEntity}
             activeLocation={activeLocation}
             onGodModeCommand={handleGodModeCommand}
+            entropyState={room.entropyState}
           />
         </div>
 

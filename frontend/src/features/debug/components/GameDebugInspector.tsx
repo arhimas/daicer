@@ -3,9 +3,11 @@ import { AgentToolPalette } from './AgentToolPalette';
 import { DebugEntitySheet } from './DebugEntitySheet';
 import { DebugEntity } from '../utils/types';
 
+import { EntropyDebugPanel } from './EntropyDebugPanel';
+
 interface GameDebugInspectorProps {
-  activeTab: 'inspector' | 'tools';
-  setActiveTab: (tab: 'inspector' | 'tools') => void;
+  activeTab: 'inspector' | 'tools' | 'entropy';
+  setActiveTab: (tab: 'inspector' | 'tools' | 'entropy') => void;
   isLive: boolean;
   entities: DebugEntity[];
   activeEntityId: string | null;
@@ -13,6 +15,7 @@ interface GameDebugInspectorProps {
   activeEntity: DebugEntity | null;
   activeLocation: { label: string; x: number; y: number; z: number } | null;
   onGodModeCommand: (message: string, mode?: 'chat' | 'direct') => Promise<void>;
+  entropyState?: any; // Passed from parent
 }
 
 export function GameDebugInspector({
@@ -25,6 +28,7 @@ export function GameDebugInspector({
   activeEntity,
   activeLocation,
   onGodModeCommand,
+  entropyState,
 }: GameDebugInspectorProps) {
   return (
     <div className="flex-1 min-w-0 flex-shrink-0 bg-midnight-900 border-r border-midnight-800 flex flex-col z-10">
@@ -49,6 +53,16 @@ export function GameDebugInspector({
             )}
           >
             INSPECTOR
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('entropy')}
+            className={clsx(
+              'transition-colors',
+              activeTab === 'entropy' ? 'text-aurora-300' : 'text-gray-500 hover:text-gray-400'
+            )}
+          >
+            ENTROPY
           </button>
         </div>
 
@@ -119,6 +133,10 @@ export function GameDebugInspector({
                 )}
               </div>
             )}
+          </div>
+        ) : activeTab === 'entropy' ? (
+          <div className="absolute inset-0 overflow-y-auto p-4">
+            <EntropyDebugPanel state={entropyState} />
           </div>
         ) : (
           <div className="absolute inset-0">

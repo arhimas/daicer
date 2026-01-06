@@ -126,6 +126,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       data: {
         room: roomId,
         gameState: snapshotData, // TimeFrame usually stores this in 'gameState' json field
+        entropySnapshot: (room as any).entropyState, // Capture entropy state
         sequenceId: sequenceId.toString(),
         hash: hash,
         timestamp: Date.now(),
