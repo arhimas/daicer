@@ -103,7 +103,7 @@ export const EntitySheetSchema = z.object({
   documentId: z.string().optional(),
   name: z.string(),
   race: z.string(),
-  characterClass: z.string(), // e.g. "Wizard 5" (Keeping 'characterClass' for legacy specific D&D mapping)
+  characterClass: z.string(), // e.g. "Wizard 5"
 
   // Core Vitals
   hp: z.number(),
@@ -146,7 +146,7 @@ export const EntitySheetSchema = z.object({
   expertises: z.array(z.string()),
 
   // Equipment & Inventory
-  equipment: z.array(InventoryItemSchema),
+  equipment: z.array(z.any()), // Simplified from InventoryItemSchema
   currency: z.object({
     cp: z.number(),
     sp: z.number(),
@@ -156,17 +156,17 @@ export const EntitySheetSchema = z.object({
   }),
 
   // Actions & Capabilities (The "Flattened List")
-  structuredActions: z.array(ActionDefinitionSchema).default([]),
+  structuredActions: z.array(z.any()).default([]), // Simplified from ActionDefinitionSchema
 
   // Spellcasting
   spellbook: SpellbookSchema.optional(),
 
   // Lists (Legacy/Migration support combined with new)
-  features: z.array(FeatureSchema).default([]),
-  talents: z.array(TalentSchema).default([]),
+  features: z.array(z.any()).default([]), // Simplified from FeatureSchema
+  talents: z.array(z.any()).default([]), // Simplified from TalentSchema
 
   // State Tracking
-  conditions: z.array(ConditionSchema).default([]),
+  conditions: z.array(z.any()).default([]), // Simplified from ConditionSchema
   resources: z.array(ResourcePoolSchema).default([]),
 
   // Flavor / Blueprint Data

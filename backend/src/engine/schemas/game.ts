@@ -134,7 +134,10 @@ export const PlayerSchema = z.object({
   role: RoleSchema,
   isOnline: z.boolean().optional(),
   character: MinEntitySchema.nullable(),
-  characterSheet: EntitySheetSchema.nullable().optional(),
+  characterSheet: z
+    .lazy(() => EntitySheetSchema)
+    .nullable()
+    .optional(),
   action: z.string().nullable(),
   isReady: z.boolean(),
   joinedAt: z.number(),

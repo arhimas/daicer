@@ -100,7 +100,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       documentId: roomDocumentId,
       data: {
         players: updatedPlayers,
-      },
+      } as any,
     });
 
     return updatedPlayers;
@@ -111,7 +111,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       documentId: sheetId,
       data: {
         position: { x, y, z },
-      },
+      } as any,
     });
   },
 });

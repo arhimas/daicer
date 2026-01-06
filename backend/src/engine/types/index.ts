@@ -103,7 +103,7 @@ export interface Creature {
   name: string;
   hp: number;
   maxHp: number;
-  ac: number;
+  armorClass: number;
   attackBonus?: number;
   damage?: string;
   position: { x: number; y: number; z: number };
@@ -184,7 +184,7 @@ export interface Entity {
   // Instance Vitality
   hp: number;
   maxHp: number;
-  ac: number;
+  armorClass: number;
   speed: number | { walk: number; [key: string]: number };
 
   // Blueprint

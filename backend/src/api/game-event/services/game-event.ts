@@ -11,7 +11,12 @@ import type { Coordinates } from '@daicer/shared';
 
 // ... (existing helper types)
 
-const getWorldGenerator = async (strapi: Strapi, roomDocumentId: string) => {
+import type { Core } from '@strapi/strapi';
+import type { RoomWithWorld, RoomWithSheets } from '../../../types';
+
+// ... (existing helper types)
+
+const getWorldGenerator = async (strapi: Core.Strapi, roomDocumentId: string) => {
   const room = await strapi.documents('api::room.room').findOne({
     documentId: roomDocumentId,
     populate: ['world'],
@@ -19,17 +24,17 @@ const getWorldGenerator = async (strapi: Strapi, roomDocumentId: string) => {
 
   if (!room) throw new Error('Room not found');
 
-  const world = (room as RoomWithWorld).world || {};
+  const world = (room as unknown as RoomWithWorld).world || {};
 
   const config = {
     ...DEFAULT_WORLD_CONFIG,
-    seed: ((room as RoomWithWorld).code as string) || (world.seed as string) || 'default_seed',
+    seed: ((room as unknown as RoomWithWorld).code as string) || (world.seed as string) || 'default_seed',
   };
 
   return new WorldGenerator(config);
 };
 
-export default factories.createCoreService('api::game-event.game-event', ({ strapi }: { strapi: Strapi }) => ({
+export default factories.createCoreService('api::game-event.game-event', ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Log an event to the Time Machine
    */
@@ -148,15 +153,15 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
       entities: {} as Record<string, Coordinates>,
     };
 
-    if (room && (room as RoomWithSheets).entity_sheets) {
-      (room as RoomWithSheets).entity_sheets!.forEach((c) => {
+    if (room && (room as unknown as RoomWithSheets).entity_sheets) {
+      (room as unknown as RoomWithSheets).entity_sheets!.forEach((c) => {
         const key = c.documentId;
         state.entities[key] = c.position;
       });
     }
 
     // Replay with Strict Validation
-    for (const event of events as { type: string; payload: unknown }[]) {
+    for (const event of events as unknown as { type: string; payload: unknown }[]) {
       if (event.type === 'MOVE') {
         const result = MapMovePayloadSchema.safeParse(event.payload);
         if (result.success) {

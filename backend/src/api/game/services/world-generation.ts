@@ -83,7 +83,7 @@ Create rich, detailed world descriptions with structured metadata.`;
         theme: settings.theme,
         setting: settings.setting,
         tone: settings.tone,
-        dmStyleSummary: formatDmStyle(settings.dmStyle),
+        dmStyleSummary: formatDmStyle(settings.dmStyle as any),
       });
     }
 

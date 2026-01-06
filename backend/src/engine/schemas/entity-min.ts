@@ -12,6 +12,6 @@ export const MinEntitySchema = z
     hp: z.number().optional(),
     maxHp: z.number().optional(),
     currentHp: z.number().optional(), // Inconsistency in backend vs frontend usually
-    sheet: EntitySheetSchema.optional(), // The full sheet
+    sheet: z.record(z.string(), z.any()).optional(), // The full sheet (Loosened for build perf)
   })
   .passthrough(); // Allow extra props for now

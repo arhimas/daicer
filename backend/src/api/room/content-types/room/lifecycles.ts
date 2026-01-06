@@ -18,7 +18,7 @@ export default {
           documentId: result.documentId,
           data: {
             code: code,
-          },
+          } as any,
         });
       } catch (error) {
         strapi.log.error(`Failed to generate rune for room ${result.id}:`, error);

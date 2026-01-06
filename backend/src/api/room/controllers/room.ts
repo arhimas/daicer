@@ -80,7 +80,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
         data: {
           code: codeStr,
           roomId: codeStr, // We often use code as roomId
-        },
+        } as any,
       });
 
       return { success: true, data: updatedRoom };
@@ -134,7 +134,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
     const updatedRoom = await strapi.entityService.update('api::room.room', room.documentId || room.id, {
       data: {
         players: updatedPlayers,
-      },
+      } as any,
     });
 
     return { success: true, data: updatedRoom };

@@ -62,11 +62,15 @@ export default () => ({
     const hp = (raw.currentHp as number) ?? (raw.hp as number) ?? maxHp;
 
     // AC Resolution
-    let ac = 10 + initiativeBonus; // Default unarmored
-    if (raw.ac !== undefined && raw.ac !== null) {
-      ac = raw.ac as number;
+    let armorClass = 10 + initiativeBonus; // Default unarmored
+    if (raw.armorClass !== undefined && raw.armorClass !== null) {
+      armorClass = raw.armorClass as number;
+    } else if (raw.ac !== undefined && raw.ac !== null) {
+      armorClass = raw.ac as number;
+    } else if (blueprint?.armorClass) {
+      armorClass = blueprint.armorClass as number;
     } else if (blueprint?.ac) {
-      ac = blueprint.ac as number;
+      armorClass = blueprint.ac as number;
     }
 
     // Actions Resolution
@@ -175,7 +179,7 @@ export default () => ({
       type: type as Entity['type'],
       hp,
       maxHp,
-      ac,
+      armorClass,
       stats: {
         strength,
         dexterity,
