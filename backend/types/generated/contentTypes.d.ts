@@ -392,6 +392,7 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     classes: Schema.Attribute.Component<'game.character-class', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment: Schema.Attribute.Component<'game.inventory-item', true>;
     fullBody: Schema.Attribute.Media<'images'>;
     level: Schema.Attribute.Integer &
@@ -426,7 +427,7 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     singularName: 'class';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -442,6 +443,7 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     hit_die: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
@@ -471,7 +473,7 @@ export interface ApiDamageTypeDamageType extends Struct.CollectionTypeSchema {
     singularName: 'damage-type';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -487,6 +489,7 @@ export interface ApiDamageTypeDamageType extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::damage-type.damage-type'>;
@@ -591,7 +594,7 @@ export interface ApiEquipmentCategoryEquipmentCategory extends Struct.Collection
     singularName: 'equipment-category';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -607,6 +610,7 @@ export interface ApiEquipmentCategoryEquipmentCategory extends Struct.Collection
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::equipment-category.equipment-category'>;
@@ -633,7 +637,7 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
     singularName: 'equipment';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -655,6 +659,8 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_category: Schema.Attribute.Relation<'manyToOne', 'api::equipment-category.equipment-category'>;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
@@ -688,7 +694,7 @@ export interface ApiFeatureFeature extends Struct.CollectionTypeSchema {
     singularName: 'feature';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -704,6 +710,7 @@ export interface ApiFeatureFeature extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     level: Schema.Attribute.Integer;
     locale: Schema.Attribute.String;
@@ -798,12 +805,18 @@ export interface ApiKnowledgeSourceKnowledgeSource extends Struct.CollectionType
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::knowledge-source.knowledge-source'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    origin: Schema.Attribute.Enumeration<['manual', 'entity']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'manual'>;
     publishedAt: Schema.Attribute.DateTime;
     snippets: Schema.Attribute.Relation<'oneToMany', 'api::knowledge-snippet.knowledge-snippet'>;
+    tags: Schema.Attribute.JSON;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -818,7 +831,7 @@ export interface ApiLanguageLanguage extends Struct.CollectionTypeSchema {
     singularName: 'language';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -828,6 +841,7 @@ export interface ApiLanguageLanguage extends Struct.CollectionTypeSchema {
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     is_rare: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String;
@@ -861,7 +875,7 @@ export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
     singularName: 'magic-item';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -878,6 +892,7 @@ export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_category: Schema.Attribute.Relation<'manyToOne', 'api::equipment-category.equipment-category'>;
     image: Schema.Attribute.Media<'images'>;
     image_url: Schema.Attribute.String;
@@ -910,7 +925,7 @@ export interface ApiMagicSchoolMagicSchool extends Struct.CollectionTypeSchema {
     singularName: 'magic-school';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -926,6 +941,7 @@ export interface ApiMagicSchoolMagicSchool extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::magic-school.magic-school'>;
@@ -982,7 +998,7 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
     singularName: 'monster';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1002,6 +1018,8 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment: Schema.Attribute.Component<'game.inventory-item', true>;
     features: Schema.Attribute.Component<'game.feature', true>;
     hit_dice: Schema.Attribute.String;
@@ -1050,7 +1068,7 @@ export interface ApiProficiencyProficiency extends Struct.CollectionTypeSchema {
     singularName: 'proficiency';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1061,6 +1079,7 @@ export interface ApiProficiencyProficiency extends Struct.CollectionTypeSchema {
     classes: Schema.Attribute.Relation<'manyToMany', 'api::class.class'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::proficiency.proficiency'>;
@@ -1103,7 +1122,7 @@ export interface ApiPromptPrompt extends Struct.CollectionTypeSchema {
     singularName: 'prompt';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1138,7 +1157,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     singularName: 'race';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1154,6 +1173,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::race.race'>;
@@ -1226,7 +1246,7 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
     singularName: 'spell';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1245,6 +1265,8 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
         };
       }>;
     duration: Schema.Attribute.String;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     is_ritual: Schema.Attribute.Boolean;
     level: Schema.Attribute.Integer;
@@ -1275,7 +1297,7 @@ export interface ApiSubclassSubclass extends Struct.CollectionTypeSchema {
     singularName: 'subclass';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1292,6 +1314,7 @@ export interface ApiSubclassSubclass extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::subclass.subclass'>;
@@ -1352,7 +1375,7 @@ export interface ApiTraitTrait extends Struct.CollectionTypeSchema {
     singularName: 'trait';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1368,6 +1391,7 @@ export interface ApiTraitTrait extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::trait.trait'>;
@@ -1428,7 +1452,7 @@ export interface ApiWeaponPropertyWeaponProperty extends Struct.CollectionTypeSc
     singularName: 'weapon-property';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   pluginOptions: {
     i18n: {
@@ -1444,6 +1468,7 @@ export interface ApiWeaponPropertyWeaponProperty extends Struct.CollectionTypeSc
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::weapon-property.weapon-property'>;

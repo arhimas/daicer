@@ -8,7 +8,7 @@
     "description": "Weapons, armor, and adventuring gear"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -60,6 +60,10 @@
       "relation": "oneToOne",
       "target": "api::damage-type.damage-type"
     },
+    "versatile_damage": {
+      "type": "string",
+      "description": "Alternatively used two-handed (e.g. 1d10)"
+    },
     "range_normal": {
       "type": "integer"
     },
@@ -87,7 +91,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "embeddingMetadata": {
+      "type": "json",
+      "private": true
     }
   }
 }

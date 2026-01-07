@@ -1,0 +1,16 @@
+version: '3'
+services:
+  daicer-db:
+    container_name: daicer-postgres
+    image: pgvector/pgvector:pg14
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi_password
+      POSTGRES_DB: strapi
+    volumes:
+      - daicer-data:/var/lib/postgresql/data
+
+volumes:
+  daicer-data:

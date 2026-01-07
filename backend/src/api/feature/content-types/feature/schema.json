@@ -8,7 +8,7 @@
     "description": "D&D 5e Class Features"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -20,6 +20,10 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
     },
     "name": {
       "type": "string",
@@ -45,7 +49,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

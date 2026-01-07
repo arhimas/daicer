@@ -12,7 +12,7 @@ import path from 'path';
 const BACKEND_DIR = path.resolve(process.cwd(), '../backend');
 const SNAPSHOT_PATH = path.join(BACKEND_DIR, '.tmp/test-snapshot.sql');
 
-async function globalSetup(config: FullConfig) {
+async function globalSetup(_config: FullConfig) {
   console.log('--- GLOBAL SETUP ---');
 
   if (fs.existsSync(SNAPSHOT_PATH)) {

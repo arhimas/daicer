@@ -1,0 +1,80 @@
+
+> @daicer/backend@0.1.0 test
+> vitest run src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts
+
+
+[1m[46m RUN [49m[22m [36mv4.0.16 [39m[90m/Users/lg/lab/daicer/backend[39m
+
+ [31m❯[39m src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 5[2mms[22m[39m
+[31m     [31m×[31m searchManual should construct correct SQL with pgvector operator[39m[32m 4[2mms[22m[39m
+[31m     [31m×[31m searchEntity should inspect metadata and use correct table[39m[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts[2m > [22mVector Service (Plugin)[2m > [22msearchManual should construct correct SQL with pgvector operator
+[31m[1mAssertionError[22m: expected 'SELECT \n                ks.id, \n   …' to contain '(<=> ?)'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- (<=> ?)[39m
+[31m+ SELECT [39m
+[31m+                 ks.id, [39m
+[31m+                 ks.content, [39m
+[31m+                 (ks.embedding <=> ?) as distance,[39m
+[31m+                 src.id as source_id,[39m
+[31m+                 src.name as source_name,[39m
+[31m+                 src.tags as source_tags,[39m
+[31m+                 src.origin as source_origin[39m
+[31m+             FROM knowledge_snippets ks[39m
+[31m+             LEFT JOIN knowledge_snippets_source_links ksl ON ks.id = ksl.knowledge_snippet_id[39m
+[31m+             LEFT JOIN knowledge_sources src ON ksl.knowledge_source_id = src.id[39m
+[31m+             WHERE src.origin = 'manual' OR src.origin IS NULL[39m
+[31m+             ORDER BY distance ASC[39m
+[31m+             LIMIT ?;[39m
+
+[36m [2m❯[22m src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts:[2m35:17[22m[39m
+    [90m 33| [39m
+    [90m 34| [39m    [34mexpect[39m(sql)[33m.[39m[34mtoContain[39m([32m'knowledge_snippets'[39m)[33m;[39m
+    [90m 35| [39m    [34mexpect[39m(sql)[33m.[39m[34mtoContain[39m([32m'(<=> ?)'[39m)[33m;[39m [90m// PGVector operator check[39m
+    [90m   | [39m                [31m^[39m
+    [90m 36| [39m    [34mexpect[39m(sql)[33m.[39m[34mtoContain[39m([32m'ORDER BY distance'[39m)[33m;[39m
+    [90m 37| [39m    [34mexpect[39m(params[[34m0[39m])[33m.[39m[34mtoBe[39m([32m'[0.1,0.2,0.3]'[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts[2m > [22mVector Service (Plugin)[2m > [22msearchEntity should inspect metadata and use correct table
+[31m[1mAssertionError[22m: expected 'SELECT id, (embedding <=> ?) as dista…' to contain '(<=> ?)'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- (<=> ?)[39m
+[31m+ SELECT id, (embedding <=> ?) as distance [39m
+[31m+              FROM custom_spells [39m
+[31m+              ORDER BY distance ASC [39m
+[31m+              LIMIT ?[39m
+
+[36m [2m❯[22m src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts:[2m51:17[22m[39m
+    [90m 49| [39m    [35mconst[39m sql [33m=[39m mockRaw[33m.[39mmock[33m.[39mcalls[[34m0[39m][[34m0[39m][33m;[39m
+    [90m 50| [39m    [34mexpect[39m(sql)[33m.[39m[34mtoContain[39m([32m'FROM custom_spells'[39m)[33m;[39m
+    [90m 51| [39m    [34mexpect[39m(sql)[33m.[39m[34mtoContain[39m([32m'(<=> ?)'[39m)[33m;[39m
+    [90m   | [39m                [31m^[39m
+    [90m 52| [39m  })[33m;[39m
+    [90m 53| [39m})[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 14:06:58
+[2m   Duration [22m 94ms[2m (transform 16ms, setup 0ms, import 23ms, tests 5ms, environment 0ms)[22m
+
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path /Users/lg/lab/daicer/backend
+npm error workspace @daicer/backend@0.1.0
+npm error location /Users/lg/lab/daicer/backend
+npm error command failed
+npm error command sh -c vitest run src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts

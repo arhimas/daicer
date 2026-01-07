@@ -1,0 +1,14 @@
+🚀 Starting Verification...
+/Users/lg/lab/daicer/node_modules/@strapi/database/src/dialects/index.ts:40
+  const { client } = db.config.connection;
+          ^
+TypeError: Cannot destructure property 'client' of 'db.config.connection' as it is undefined.
+    at Object.getDialect (/Users/lg/lab/daicer/node_modules/@strapi/database/src/dialects/index.ts:40:11)
+    at new Database (/Users/lg/lab/daicer/node_modules/@strapi/database/src/index.ts:86:20)
+    at resolver (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:286:16)
+    at Strapi.get (/Users/lg/lab/daicer/node_modules/@strapi/core/src/container.ts:27:35)
+    at Strapi.db (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:82:17)
+    at Object.register (/Users/lg/lab/daicer/node_modules/@strapi/core/src/providers/registries.ts:38:12)
+    at async Strapi.register (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:413:7)
+    at async Strapi.load (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:400:5)
+    at async verify (/Users/lg/lab/daicer/backend/src/scripts/verify-entity-rag.ts:10:18)

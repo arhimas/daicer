@@ -12,7 +12,7 @@ const BACKEND_DIR = path.resolve(process.cwd(), '../backend');
 const DB_PATH = path.join(BACKEND_DIR, '.tmp/data.db');
 const BACKUP_PATH = path.join(BACKEND_DIR, '.tmp/data.backup.db');
 
-async function globalTeardown(config: FullConfig) {
+async function globalTeardown(_config: FullConfig) {
   console.log('--- GLOBAL TEARDOWN ---');
 
   if (fs.existsSync(BACKUP_PATH)) {

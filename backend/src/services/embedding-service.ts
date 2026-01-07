@@ -1,22 +1,24 @@
-import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai';
+import { OpenAIEmbeddings } from '@langchain/openai';
 
 /**
- * Service for generating vector embeddings using Google Gemini via LangChain.
- * Model: text-embedding-004
+ * Service for generating vector embeddings using OpenAI via LangChain.
+ * Model: text-embedding-3-large
  */
 export class EmbeddingService {
-  private embeddings: GoogleGenerativeAIEmbeddings;
-  private modelName = 'text-embedding-004';
+  private embeddings: OpenAIEmbeddings;
+  private modelName = 'text-embedding-3-small';
 
   constructor() {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-      throw new Error('GEMINI_API_KEY is not set in environment variables');
+      throw new Error('OPENAI_API_KEY is not set in environment variables');
     }
 
-    this.embeddings = new GoogleGenerativeAIEmbeddings({
+    this.embeddings = new OpenAIEmbeddings({
       model: this.modelName,
       apiKey: apiKey,
+      // Optional: dimensions can be set if we want to save space, but default (3072) is best for quality
+      // dimensions: 1536,
     });
   }
 
@@ -31,7 +33,6 @@ export class EmbeddingService {
     }
 
     try {
-      // embedQuery is sufficient for singular text chunks or search queries
       const embedding = await this.embeddings.embedQuery(text);
       return embedding;
     } catch (error) {

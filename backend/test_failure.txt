@@ -1,0 +1,1387 @@
+yarn run v1.22.22
+$ vitest run
+
+[1m[46m RUN [49m[22m [36mv4.0.16 [39m[90m/Users/lg/lab/daicer/backend[39m
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts
+[22m[39mTest Suite Loading...
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts[2m > [22m[2mUnifiedSearchService Integration[2m > [22m[2mshould perform Manual Search via SQL (Happy Path)
+[22m[39mMocks Setup Complete
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts[2m > [22m[2mUnifiedSearchService Integration[2m > [22m[2mshould activate In-Memory JS Fallback on SQL Error (42P01)
+[22m[39mMocks Setup Complete
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts[2m > [22m[2mUnifiedSearchService Integration[2m > [22m[2mshould enforce Granular Targeting (-t spell)
+[22m[39mMocks Setup Complete
+
+ [31m❯[39m src/services/__tests__/unified-search-integration.spec.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 12[2mms[22m[39m
+[31m     [31m×[31m should perform Manual Search via SQL (Happy Path)[39m[32m 8[2mms[22m[39m
+[31m     [31m×[31m should activate In-Memory JS Fallback on SQL Error (42P01)[39m[32m 2[2mms[22m[39m
+[31m     [31m×[31m should enforce Granular Targeting (-t spell)[39m[32m 1[2mms[22m[39m
+[90mstderr[2m | src/services/__tests__/embedding-service.test.ts[2m > [22m[2mEmbeddingService[2m > [22m[2mshould handle API errors gracefully
+[22m[39m[EmbeddingService] Failed to generate embedding: Error: API Error
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/services/__tests__/embedding-service.test.ts:63:38
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+ [32m✓[39m src/services/__tests__/embedding-service.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+ [32m✓[39m src/api/game/services/__tests__/entity-adapter-resilience.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/api/game/services/__tests__/turn-processing.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+[90mstderr[2m | src/cli/__tests__/knowledge.spec.ts[2m > [22m[2mCLI: knowledge[2m > [22m[2mshould output correct JSON structure for granular entity search (-t spell)
+[22m[39mMock Log Calls: [33m1[39m
+Mock Error Calls: [33m0[39m
+
+ [32m✓[39m src/cli/__tests__/knowledge.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 91[2mms[22m[39m
+ [32m✓[39m src/api/narrator/services/__tests__/narrator-direct.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 529[2mms[22m[39m
+     [33m[2m✓[22m[39m should execute tool directly when direct flag is true [33m 527[2mms[22m[39m
+ [32m✓[39m src/api/character/__tests__/lifecycles.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m src/lifecycle/graphql/__tests__/graphql-room-management.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m src/api/narrator/services/__tests__/narrator-integration.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/lifecycle/graphql/__tests__/graphql-queries.test.ts [2m([22m[2m52 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #0 - ATTACK
+[22m[39m[Combat] Goblin attacks Barbarian with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #0'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #1'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #2'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #2 - ATTACK
+[22m[39m[Combat] Lich attacks Ranger with Claw
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #3'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #4'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #5'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #6'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #7'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #8'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstderr[2m | src/ai/tools/game/__tests__/tool-cardinality.test.ts[2m > [22m[2mSOTA Tool Cardinality Suite[2m > [22m[2mPerform Action Permutations (Attributes, Combat, Aliases)[2m > [22m[2m'Invalid JSON Case #9'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected ',' or '}' after property value in JSON at position 15 (line 1 column 16)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/tool-cardinality.test.ts:153:28
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #4 - ATTACK
+[22m[39m[Combat] Rogue attacks Barbarian with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/ai/tools/game/__tests__/movement-mechanics.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 92[2mms[22m[39m
+ [32m✓[39m src/ai/tools/game/__tests__/tool-cardinality.test.ts [2m([22m[2m102 tests[22m[2m)[22m[32m 84[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #6 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Wizard with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #8 - ATTACK
+[22m[39m[Combat] Fighter attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #10 - ATTACK
+[22m[39m[Combat] Cleric attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m6. Goblin attacks Guard (Melee)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m7. Guard attacks Goblin
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Guard attacks Goblin with Spear
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m8. Attack logs events to strapi
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstderr[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m9. Verify HP decreases on Hit
+[22m[39mSkipping Test 9 Assertion due to RNG Miss
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m10. Ranged attack (implied by distance)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m11. Attack with specific Execute Action ID
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m12. Simultaneous exchange (A hits B, B hits A)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Guard with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m12. Simultaneous exchange (A hits B, B hits A)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Guard attacks Goblin with Spear
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m13. Orc vs Goblin
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Orc attacks Goblin with Greataxe
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mBasic Combat Flows[2m > [22m[2m15. Self attack (valid or invalid)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Goblin with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m16. High damage attack (Dragon kills Goblin)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Dragon attacks Goblin with Bite
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m16. High damage attack (Dragon kills Goblin)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Dragon attacks Goblin with Bite
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m16. High damage attack (Dragon kills Goblin)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Dragon attacks Goblin with Bite
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m16. High damage attack (Dragon kills Goblin)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Dragon attacks Goblin with Bite
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m16. High damage attack (Dragon kills Goblin)
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Dragon attacks Goblin with Bite
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstderr[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m16. High damage attack (Dragon kills Goblin)
+[22m[39mTest 16: No meaningful damage event found.
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m17. Dead entity cannot attack
+[22m[39m[Spy] Intercepted Command: ATTACK
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mAdvanced Mechanics[2m > [22m[2m18. Attacking dead target
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Dragon attacks Goblin with Bite
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mMulti-Turn Flows[2m > [22m[2m26. Battle Royale: 2 Goblins vs 1 Orc
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Orc attacks Goblin with Greataxe
+[Combat] AC Check: Roll NaN vs Target AC 12
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mMulti-Turn Flows[2m > [22m[2m26. Battle Royale: 2 Goblins vs 1 Orc
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Orc with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mMulti-Turn Flows[2m > [22m[2m26. Battle Royale: 2 Goblins vs 1 Orc
+[22m[39m[Spy] Intercepted Command: ATTACK
+[Combat] Goblin attacks Orc with Scimitar
+[Combat] AC Check: Roll NaN vs Target AC 11
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #12 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Kobold with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #14 - ATTACK
+[22m[39m[Combat] Gelatinous Cube attacks Goblin with Morningstar
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mError Handling[2m > [22m[2m41. Missing ActorId
+[22m[39m[Spy] Intercepted Command: ATTACK
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mError Handling[2m > [22m[2m42. Non-existent Actor
+[22m[39m[Spy] Intercepted Command: ATTACK
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mError Handling[2m > [22m[2m43. Non-existent Target
+[22m[39m[Spy] Intercepted Command: ATTACK
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mMonster Ability: Goblin uses Longsword
+[22m[39m[Combat] Goblin attacks Fighter with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mMonster Ability: Orc uses Greataxe
+[22m[39m[Combat] Orc attacks Fighter with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mMonster Ability: Lich uses Claw
+[22m[39m[Combat] Lich attacks Fighter with Claw
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mMonster Ability: Gelatinous Cube uses Morningstar
+[22m[39m[Combat] Gelatinous Cube attacks Fighter with Morningstar
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mMonster Ability: Red Dragon uses Longsword
+[22m[39m[Combat] Red Dragon attacks Fighter with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mMonster Ability: Kobold uses Bite
+[22m[39m[Combat] Kobold attacks Fighter with Bite
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mCharacter Action: Fighter uses Unarmed Strike
+[22m[39m[Combat] Fighter attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 15
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mCharacter Action: Wizard uses Unarmed Strike
+[22m[39m[Combat] Wizard attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 15
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mCharacter Action: Rogue uses Unarmed Strike
+[22m[39m[Combat] Rogue attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 15
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mCharacter Action: Cleric uses Unarmed Strike
+[22m[39m[Combat] Cleric attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 15
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mCharacter Action: Barbarian uses Unarmed Strike
+[22m[39m[Combat] Barbarian attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 15
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/entity-diversity.test.ts[2m > [22m[2mEntity Diversity & Capabilities[2m > [22m[2mCharacter Action: Ranger uses Unarmed Strike
+[22m[39m[Combat] Ranger attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 15
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+ [32m✓[39m src/ai/tools/game/__tests__/entity-diversity.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #16 - ATTACK
+[22m[39m[Combat] Goblin attacks Goblin with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstderr[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mError Handling[2m > [22m[2m44. Malformed Payload
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Expected property name or '}' in JSON at position 2 (line 1 column 3)
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at executeAction [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/combat-e2e.test.ts:274:23[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/combat-e2e.test.ts:631:19
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstdout[2m | src/ai/tools/game/__tests__/combat-e2e.test.ts[2m > [22m[2mCombat E2E Flows (50 Tests)[2m > [22m[2mError Handling[2m > [22m[2m45. Unknown Command Type
+[22m[39m[Spy] Intercepted Command: DANCE
+
+ [32m✓[39m src/ai/tools/game/__tests__/combat-e2e.test.ts [2m([22m[2m50 tests[22m[2m)[22m[32m 102[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #18 - ATTACK
+[22m[39m[Combat] Lich attacks Rogue with Claw
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+ [32m✓[39m src/api/game/services/__tests__/game-broadcaster.test.ts [2m([22m[2m49 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Melee - Valid Range (5ft)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Melee - Valid Range (Duplicate)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Melee - Valid Diagonal
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Melee - Out of Range (10ft)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+ [32m✓[39m src/ai/tools/game/__tests__/tool-interaction.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #20 - ATTACK
+[22m[39m[Combat] Wizard attacks Cleric with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #22 - ATTACK
+[22m[39m[Combat] Fighter attacks Rogue with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Melee - Out of Range (Diagonal)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Reach - Valid (10ft)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Reach - Valid (Diagonal)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Reach - Out of Range
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Ranged - Short Range
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Ranged - Max Range
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Ranged - Vertical
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #24 - ATTACK
+[22m[39m[Combat] Ranger attacks Kobold with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Ranged - Out of Range (65ft)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Ranged - Out of Range (Vertical)
+[22m[39m[Combat] Attacker attacks Dummy with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+[90mstdout[2m | src/ai/tools/game/__tests__/direct-execution.test.ts[2m > [22m[2mDirect Tool Execution Suite (Fresh)[2m > [22m[2mPerform Action Tool (Attack)[2m > [22m[2mshould handle Attack Self
+[22m[39m[Combat] Attacker attacks Attacker with Strike
+[Combat] AC Check: Roll 12 vs Target AC 10
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 4
+
+ [32m✓[39m src/ai/tools/game/__tests__/direct-execution.test.ts [2m([22m[2m46 tests[22m[2m)[22m[32m 106[2mms[22m[39m
+[90mstderr[2m | src/ai/tools/game/__tests__/perform-action-normalization.test.ts[2m > [22m[2mTool: Perform Action - Payload Normalization (Stress Test)[2m > [22m[2m'Null Payload (Should error or handle)'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Cannot read properties of null (reading 'attackerId')
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/perform-action-normalization.test.ts:209:22
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #26 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Red Dragon with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstderr[2m | src/ai/tools/game/__tests__/perform-action-normalization.test.ts[2m > [22m[2mTool: Perform Action - Payload Normalization (Stress Test)[2m > [22m[2m'Empty String Payload'
+[22m[39m[PERFORM ACTION DIAGNOSTICS] Error: Invalid JSON payload: Unexpected end of JSON input
+    at Object.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/perform-action.ts:165:19[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:43:24[90m)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/game/__tests__/perform-action-normalization.test.ts:209:22
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+ [32m✓[39m src/ai/tools/game/__tests__/perform-action-normalization.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #28 - ATTACK
+[22m[39m[Combat] Kobold attacks Cleric with Bite
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #30 - ATTACK
+[22m[39m[Combat] Ranger attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #32 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Cleric with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #34 - ATTACK
+[22m[39m[Combat] Fighter attacks Kobold with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn character with stats { str: 10, dex: 10, con: 10, expectedHp: 10 }
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn character with stats { str: 18, dex: 14, con: 14, expectedHp: 14 }
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn character with stats { str: 8, dex: 8, con: 8, expectedHp: 8 }
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould handle missing { field: 'classes', val: null } gracefully
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould handle missing { field: 'race', val: null } gracefully
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould handle missing { field: 'stats', val: null } gracefully
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould handle missing { field: 'classes.0.class.hit_die', val: null } gracefully
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: +0, y: +0, z: +0 }
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-1 (Name: undefined, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: +0, y: +0, z: +0 }
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: +0, y: +0, z: +0 }
+[22m[39m[SpawnService] EntitySheet Created: new-doc
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: 10, y: 10, z: +0 }
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-1 (Name: undefined, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: 10, y: 10, z: +0 }
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: 10, y: 10, z: +0 }
+[22m[39m[SpawnService] EntitySheet Created: new-doc
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: -5, y: -5, z: 1 }
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-1 (Name: undefined, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: -5, y: -5, z: 1 }
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: -5, y: -5, z: 1 }
+[22m[39m[SpawnService] EntitySheet Created: new-doc
+
+ [32m✓[39m src/api/game/services/__tests__/time-machine.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: 100, y: 100, z: 2 }
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-1 (Name: undefined, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: 100, y: 100, z: 2 }
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-granularity.test.ts[2m > [22m[2mSpawn Service Granularity[2m > [22m[2mshould spawn at { x: 100, y: 100, z: 2 }
+[22m[39m[SpawnService] EntitySheet Created: new-doc
+
+ [32m✓[39m src/lifecycle/graphql/__tests__/e2e-player.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/api/game/services/__tests__/spawn-granularity.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #36 - ATTACK
+[22m[39m[Combat] Goblin attacks Rogue with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+ [32m✓[39m src/engine/derivation/__tests__/comprehensive_rules.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #38 - ATTACK
+[22m[39m[Combat] Cleric attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #40 - ATTACK
+[22m[39m[Combat] Ranger attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+ [32m✓[39m src/ai/tools/game/__tests__/summon-character.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #42 - ATTACK
+[22m[39m[Combat] Orc attacks Barbarian with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #44 - ATTACK
+[22m[39m[Combat] Wizard attacks Fighter with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-service.test.ts[2m > [22m[2mSpawn Service[2m > [22m[2mspawnMonster[2m > [22m[2mshould spawn monster and copy structuredActions/stats
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-1 (Name: Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-service.test.ts[2m > [22m[2mSpawn Service[2m > [22m[2mspawnMonster[2m > [22m[2mshould spawn monster and copy structuredActions/stats
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-service.test.ts[2m > [22m[2mSpawn Service[2m > [22m[2mspawnMonster[2m > [22m[2mshould spawn monster and copy structuredActions/stats
+[22m[39m[SpawnService] EntitySheet Created: sheet-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-service.test.ts[2m > [22m[2mSpawn Service[2m > [22m[2mspawnMonster[2m > [22m[2mshould throw on collision
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-1 (Name: undefined, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-service.test.ts[2m > [22m[2mSpawn Service[2m > [22m[2mspawnCharacter[2m > [22m[2mshould derive stats and actions from equipment and spawn character
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstderr[2m | src/ai/tools/__tests__/tool-factory.test.ts[2m > [22m[2mTool Factory (createDaicerTool)[2m > [22m[2mOutput Validation[2m > [22m[2mshould catch invalid output types and return standard error string
+[22m[39m[Tool: strict_tool] Output validation failed: ZodError: [
+  {
+    "expected": "number",
+    "code": "invalid_type",
+    "path": [
+      "value"
+    ],
+    "message": "Invalid input: expected number, received string"
+  }
+]
+    at DynamicStructuredTool.func [90m(/Users/lg/lab/daicer/backend/[39msrc/ai/tools/tool-factory.ts:48:33[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90m/Users/lg/lab/daicer/backend/[39msrc/ai/tools/__tests__/tool-factory.test.ts:81:22
+    at file:///Users/lg/lab/daicer/node_modules/[4m@vitest[24m/runner/dist/index.js:915:20
+
+ [32m✓[39m src/api/game/services/__tests__/spawn-service.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/ai/tools/__tests__/tool-factory.test.ts [2m([22m[2m44 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #46 - ATTACK
+[22m[39m[Combat] Goblin attacks Goblin with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+ [32m✓[39m src/api/game/services/__tests__/regression.spec.ts [2m([22m[2m1 test[22m[2m)[22m[32m 10[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #48 - ATTACK
+[22m[39m[Combat] Cleric attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #50 - ATTACK
+[22m[39m[Combat] Orc attacks Wizard with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #52 - ATTACK
+[22m[39m[Combat] Rogue attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #54 - ATTACK
+[22m[39m[Combat] Wizard attacks Red Dragon with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #56 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Gelatinous Cube with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #58 - ATTACK
+[22m[39m[Combat] Barbarian attacks Kobold with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #60 - ATTACK
+[22m[39m[Combat] Fighter attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/ai/tools/game/__tests__/summon-monster.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/shared/utils/__tests__/markdown-chunker.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 885[2mms[22m[39m
+     [33m[2m✓[22m[39m should split deep leaf nodes if they are individually too big [33m 848[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #62 - ATTACK
+[22m[39m[Combat] Goblin attacks Red Dragon with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #64 - ATTACK
+[22m[39m[Combat] Barbarian attacks Barbarian with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #66 - ATTACK
+[22m[39m[Combat] Cleric attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #68 - ATTACK
+[22m[39m[Combat] Kobold attacks Red Dragon with Bite
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #70 - ATTACK
+[22m[39m[Combat] Lich attacks Red Dragon with Claw
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #72 - ATTACK
+[22m[39m[Combat] Rogue attacks Wizard with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #74 - ATTACK
+[22m[39m[Combat] Barbarian attacks Cleric with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/lifecycle/graphql/__tests__/e2e-tactician.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #76 - ATTACK
+[22m[39m[Combat] Barbarian attacks Rogue with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #78 - ATTACK
+[22m[39m[Combat] Wizard attacks Rogue with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould calculate HP for Con NaN as NaN
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #80 - ATTACK
+[22m[39m[Combat] Barbarian attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould derive { stat: 'strength', val: 18 } correctly
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould derive { stat: 'dexterity', val: 18 } correctly
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould derive { stat: 'intelligence', val: 18 } correctly
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould derive { stat: 'wisdom', val: 18 } correctly
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+[90mstdout[2m | src/api/game/services/__tests__/spawn-stats.test.ts[2m > [22m[2mSpawn Service Stat Logic[2m > [22m[2mshould derive { stat: 'charisma', val: 18 } correctly
+[22m[39m[SpawnService] Found Room: room-1 (Name: Unknown)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-1
+
+ [32m✓[39m src/api/game/services/__tests__/spawn-stats.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #82 - ATTACK
+[22m[39m[Combat] Orc attacks Barbarian with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #84 - ATTACK
+[22m[39m[Combat] Kobold attacks Fighter with Bite
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #86 - ATTACK
+[22m[39m[Combat] Gelatinous Cube attacks Wizard with Morningstar
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #88 - ATTACK
+[22m[39m[Combat] Kobold attacks Orc with Bite
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #90 - ATTACK
+[22m[39m[Combat] Kobold attacks Goblin with Bite
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #92 - ATTACK
+[22m[39m[Combat] Lich attacks Orc with Claw
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #94 - ATTACK
+[22m[39m[Combat] Wizard attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #96 - ATTACK
+[22m[39m[Combat] Barbarian attacks Wizard with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #98 - ATTACK
+[22m[39m[Combat] Wizard attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #100 - ATTACK
+[22m[39m[Combat] Fighter attacks Fighter with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/ai/tools/game/__tests__/move-entity.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #102 - ATTACK
+[22m[39m[Combat] Cleric attacks Rogue with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #104 - ATTACK
+[22m[39m[Combat] Ranger attacks Fighter with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #106 - ATTACK
+[22m[39m[Combat] Wizard attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #108 - ATTACK
+[22m[39m[Combat] Cleric attacks Wizard with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #110 - ATTACK
+[22m[39m[Combat] Orc attacks Kobold with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #112 - ATTACK
+[22m[39m[Combat] Fighter attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #114 - ATTACK
+[22m[39m[Combat] Rogue attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #116 - ATTACK
+[22m[39m[Combat] Barbarian attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #118 - ATTACK
+[22m[39m[Combat] Kobold attacks Gelatinous Cube with Bite
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #120 - ATTACK
+[22m[39m[Combat] Lich attacks Ranger with Claw
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #122 - ATTACK
+[22m[39m[Combat] Ranger attacks Rogue with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #124 - ATTACK
+[22m[39m[Combat] Rogue attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #126 - ATTACK
+[22m[39m[Combat] Rogue attacks Cleric with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #128 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Orc with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+ [32m✓[39m src/lifecycle/graphql/__tests__/graphql-game-interaction.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #130 - ATTACK
+[22m[39m[Combat] Cleric attacks Red Dragon with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #132 - ATTACK
+[22m[39m[Combat] Wizard attacks Barbarian with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #134 - ATTACK
+[22m[39m[Combat] Gelatinous Cube attacks Orc with Morningstar
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #136 - ATTACK
+[22m[39m[Combat] Lich attacks Gelatinous Cube with Claw
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #138 - ATTACK
+[22m[39m[Combat] Fighter attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #140 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Fighter with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #142 - ATTACK
+[22m[39m[Combat] Ranger attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #144 - ATTACK
+[22m[39m[Combat] Wizard attacks Kobold with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #146 - ATTACK
+[22m[39m[Combat] Barbarian attacks Wizard with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/ai/tools/game/__tests__/perform-action.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #148 - ATTACK
+[22m[39m[Combat] Orc attacks Lich with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #150 - ATTACK
+[22m[39m[Combat] Wizard attacks Red Dragon with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+ [32m✓[39m src/api/entity-sheet/__tests__/lifecycles-granularity.test.ts [2m([22m[2m55 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #152 - ATTACK
+[22m[39m[Combat] Barbarian attacks Gelatinous Cube with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #154 - ATTACK
+[22m[39m[Combat] Ranger attacks Fighter with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #156 - ATTACK
+[22m[39m[Combat] Kobold attacks Wizard with Bite
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #158 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Goblin with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m1. Spawn Character creates valid EntitySheet
+[22m[39m[SpawnService] Found Room: room-doc-1 (Name: Test Room)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m2. Spawning Character derives HP from maxHp if missing
+[22m[39m[SpawnService] Found Room: room-doc-1 (Name: Test Room)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m3. Spawning Character includes stats
+[22m[39m[SpawnService] Found Room: room-doc-1 (Name: Test Room)
+[SpawnService] Creating EntitySheet for character: Hero in room: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m4. Spawn Monster creates valid EntitySheet
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m4. Spawn Monster creates valid EntitySheet
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m4. Spawn Monster creates valid EntitySheet
+[22m[39m[SpawnService] EntitySheet Created: new-id
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m5. Spawn Monster preserves AC
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m5. Spawn Monster preserves AC
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m5. Spawn Monster preserves AC
+[22m[39m[SpawnService] EntitySheet Created: new-id
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m6. Spawn Monster has default speed
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m6. Spawn Monster has default speed
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m6. Spawn Monster has default speed
+[22m[39m[SpawnService] EntitySheet Created: new-id
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m7. Spawned entity has unique ID
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m7. Spawned entity has unique ID
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m7. Spawned entity has unique ID
+[22m[39m[SpawnService] EntitySheet Created: new-id-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m7. Spawned entity has unique ID
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m7. Spawned entity has unique ID
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m7. Spawned entity has unique ID
+[22m[39m[SpawnService] EntitySheet Created: new-id-2
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m8. Spawned entity has position logic
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m8. Spawned entity has position logic
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m8. Spawned entity has position logic
+[22m[39m[SpawnService] EntitySheet Created: new-id
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m9. Default position is preserved
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m9. Default position is preserved
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m9. Default position is preserved
+[22m[39m[SpawnService] EntitySheet Created: new-id
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m10. Granularity: Structured Actions from Blueprints
+[22m[39m[SpawnService] Found Room for Monster Spawn: room-doc-1 (Name: Test Room, Locale: undefined)
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m10. Granularity: Structured Actions from Blueprints
+[22m[39m[SpawnService] Creating EntitySheet... Room ID: room-doc-1
+
+[90mstdout[2m | src/api/game/services/__tests__/comprehensive_integration.test.ts[2m > [22m[2mComprehensive Backend Integration (33 Checks)[2m > [22m[2mSection 1: Spawn Service & Factories (10 tests)[2m > [22m[2m10. Granularity: Structured Actions from Blueprints
+[22m[39m[SpawnService] EntitySheet Created: new-id
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #160 - ATTACK
+[22m[39m[Combat] Red Dragon attacks Gelatinous Cube with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+ [32m✓[39m src/api/knowledge-source/__tests__/lifecycles.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #162 - ATTACK
+[22m[39m[Combat] Rogue attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #164 - ATTACK
+[22m[39m[Combat] Barbarian attacks Ranger with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #166 - ATTACK
+[22m[39m[Combat] Orc attacks Fighter with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+ [32m✓[39m src/api/game/services/__tests__/comprehensive_integration.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #168 - ATTACK
+[22m[39m[Combat] Kobold attacks Gelatinous Cube with Bite
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+ [32m✓[39m src/api/game-event/services/__tests__/game-event-state.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #170 - ATTACK
+[22m[39m[Combat] Cleric attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #172 - ATTACK
+[22m[39m[Combat] Fighter attacks Lich with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 13
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+ [32m✓[39m src/api/room/__tests__/lifecycles.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #174 - ATTACK
+[22m[39m[Combat] Orc attacks Kobold with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #176 - ATTACK
+[22m[39m[Combat] Fighter attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #178 - ATTACK
+[22m[39m[Combat] Goblin attacks Orc with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #180 - ATTACK
+[22m[39m[Combat] Orc attacks Kobold with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 12
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #182 - ATTACK
+[22m[39m[Combat] Cleric attacks Fighter with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #184 - ATTACK
+[22m[39m[Combat] Ranger attacks Ranger with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #186 - ATTACK
+[22m[39m[Combat] Orc attacks Gelatinous Cube with Greataxe
+[Combat] AC Check: Roll 12 vs Target AC 8
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #188 - ATTACK
+[22m[39m[Combat] Cleric attacks Orc with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/plugins/semantic-search/server/src/services/__tests__/vector-service.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/integration/summoning_robustness.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/ai/tools/knowledge/__tests__/search-tools.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m src/api/narrator/services/__tests__/narrator-cognition.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/ai/tools/game/__tests__/integration.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #190 - ATTACK
+[22m[39m[Combat] Kobold attacks Ranger with Bite
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #192 - ATTACK
+[22m[39m[Combat] Barbarian attacks Goblin with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 14
+[Combat] Result: MISS (Crit: false, Fail: false)
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #194 - ATTACK
+[22m[39m[Combat] Goblin attacks Barbarian with Longsword
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #196 - ATTACK
+[22m[39m[Combat] Kobold attacks Cleric with Bite
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 2
+
+[90mstdout[2m | src/ai/tools/game/__tests__/stress.test.ts[2m > [22m[2mStress Testing (200 Permutations)[2m > [22m[2mStress Test #198 - ATTACK
+[22m[39m[Combat] Wizard attacks Cleric with Unarmed Strike
+[Combat] AC Check: Roll 12 vs Target AC 11
+[Combat] Result: HIT (Crit: false, Fail: false)
+[Combat] Damage: 0
+
+ [32m✓[39m src/ai/tools/game/__tests__/stress.test.ts [2m([22m[2m200 tests[22m[2m)[22m[33m 1633[2mms[22m[39m
+ [32m✓[39m src/shared/__tests__/utilities.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/engine/derivation/__tests__/derivation.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/api/game-event/services/__tests__/game-event-broadcast.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m src/ai/tools/game/__tests__/perform-action-payloads.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/api/game/services/__tests__/spawn-derivation.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/api/entity-sheet/__tests__/lifecycles.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 3 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/services/__tests__/unified-search-integration.spec.ts[2m > [22mUnifiedSearchService Integration[2m > [22mshould perform Manual Search via SQL (Happy Path)
+[31m[1mAssertionError[22m: expected "vi.fn()" to be called 1 times, but got 0 times[39m
+[36m [2m❯[22m src/services/__tests__/unified-search-integration.spec.ts:[2m73:21[22m[39m
+    [90m 71| [39m    const results = await unifiedSearchService.search('test', { target…
+    [90m 72| [39m
+    [90m 73| [39m    [34mexpect[39m(mockRaw)[33m.[39m[34mtoHaveBeenCalledTimes[39m([34m1[39m)[33m;[39m
+    [90m   | [39m                    [31m^[39m
+    [90m 74| [39m    [34mexpect[39m(results)[33m.[39m[34mtoHaveLength[39m([34m1[39m)[33m;[39m
+    [90m 75| [39m    [34mexpect[39m(results[[34m0[39m][33m.[39mtitle)[33m.[39m[34mtoBe[39m([32m'Test Manual Source'[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/services/__tests__/unified-search-integration.spec.ts[2m > [22mUnifiedSearchService Integration[2m > [22mshould activate In-Memory JS Fallback on SQL Error (42P01)
+[31m[1mAssertionError[22m: expected "vi.fn()" to be called with arguments: [ StringContaining{…} ][90m
+
+Number of calls: [1m0[22m
+[31m[39m
+[36m [2m❯[22m src/services/__tests__/unified-search-integration.spec.ts:[2m107:26[22m[39m
+    [90m105| [39m
+    [90m106| [39m    [90m// Expect Debug Log for Fallback Trigger[39m
+    [90m107| [39m    expect(mockLogDebug).toHaveBeenCalledWith(expect.stringContaining(…
+    [90m   | [39m                         [31m^[39m
+    [90m108| [39m
+    [90m109| [39m    [90m// Expect Result from Fallback[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/services/__tests__/unified-search-integration.spec.ts[2m > [22mUnifiedSearchService Integration[2m > [22mshould enforce Granular Targeting (-t spell)
+[31m[1mAssertionError[22m: expected "vi.fn()" to be called with arguments: [ 'api::spell.spell' ][90m
+
+Number of calls: [1m0[22m
+[31m[39m
+[36m [2m❯[22m src/services/__tests__/unified-search-integration.spec.ts:[2m128:29[22m[39m
+    [90m126| [39m
+    [90m127| [39m    [90m// Verify Metadata Call[39m
+    [90m128| [39m    [34mexpect[39m(mockMetadataGet)[33m.[39m[34mtoHaveBeenCalledWith[39m([32m'api::spell.spell'[39m)[33m;[39m
+    [90m   | [39m                            [31m^[39m
+    [90m129| [39m
+    [90m130| [39m    [90m// Verify SQL Query Table Name[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m49 passed[39m[22m[90m (50)[39m
+[2m      Tests [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m1019 passed[39m[22m[90m (1022)[39m
+[2m   Start at [22m 14:42:53
+[2m   Duration [22m 3.43s[2m (transform 1.83s, setup 0ms, import 23.45s, tests 4.13s, environment 5ms)[22m
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

@@ -8,7 +8,7 @@
     "description": "AI Prompts for i18n"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -31,7 +31,11 @@
     },
     "category": {
       "type": "enumeration",
-      "enum": ["system", "user", "gameplay"],
+      "enum": [
+        "system",
+        "user",
+        "gameplay"
+      ],
       "default": "system"
     }
   }

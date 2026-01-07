@@ -8,7 +8,7 @@
     "description": "Character proficiencies"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -29,6 +29,10 @@
         }
       },
       "required": true
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
     },
     "type": {
       "type": "enumeration",
@@ -67,7 +71,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

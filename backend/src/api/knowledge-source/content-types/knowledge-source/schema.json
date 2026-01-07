@@ -21,11 +21,32 @@
       "type": "richtext",
       "required": true
     },
+    "tags": {
+      "type": "json",
+      "required": false
+    },
+    "origin": {
+      "type": "enumeration",
+      "enum": [
+        "manual",
+        "entity"
+      ],
+      "default": "manual",
+      "required": true
+    },
     "snippets": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::knowledge-snippet.knowledge-snippet",
       "mappedBy": "source"
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "embeddingMetadata": {
+      "type": "json",
+      "private": true
     }
   }
 }

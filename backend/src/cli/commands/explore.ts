@@ -1,38 +1,10 @@
-import { Command, Option } from 'commander';
-// Dynamic imports for ESM modules
-// import { input, select, confirm } from '@inquirer/prompts';
-// import chalk from 'chalk';
-// import ora from 'ora';
+import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
 import { client } from '../utils/client';
 import { discoverContentTypes } from '../utils/schema';
 
-export const exploreCommand = new Command('explore')
-  .description('Interactive explorer for Content Types')
-  .option('-t, --type <uid>', 'Content Type UID (e.g. api::monster.monster)')
-  .option('-a, --action <action>', 'Action to perform (find, findOne, count)')
-  .option('-l, --limit <number>', 'Limit for find action (default: 10)')
-  .option('-p, --page <number>', 'Page for find action (default: 1)')
-  .option('-d, --document-id <id>', 'Document ID for findOne or mutation')
-  .option('--json', 'Output raw JSON to stdout (no colors, no spinner) - Ideal for LLMs')
-  .option('--save <path>', 'Save result to JSON file (optional)')
-  .option('--filters <json>', 'JSON string for filters (e.g. \'{"name": "foo"}\')')
-  .action(async (options) => {
-    try {
-      await runExplore(options);
-    } catch (error) {
-      // In JSON mode, output error as JSON
-      if (options.json) {
-        console.log(JSON.stringify({ error: error.message || String(error) }));
-      } else {
-        const { default: chalk } = await import('chalk');
-        console.error(chalk.red('\n❌ Error:'), error);
-      }
-      process.exit(1);
-    }
-  });
-
+// Types
 interface ExploreOptions {
   type?: string;
   action?: 'find' | 'findOne' | 'count';
@@ -44,14 +16,49 @@ interface ExploreOptions {
   filters?: string;
 }
 
-async function runExplore(options: ExploreOptions) {
+export const exploreCommand = new Command('explore')
+  .description('Interactive explorer for Content Types')
+  .option('-t, --type <uid>', 'Content Type UID (e.g. api::monster.monster)')
+  .option('-a, --action <action>', 'Action to perform (find, findOne, count)')
+  .option('-l, --limit <number>', 'Limit for find action (default: 10)')
+  .option('-p, --page <number>', 'Page for find action (default: 1)')
+  .option('-d, --document-id <id>', 'Document ID for findOne or mutation')
+  .option('--json', 'Output raw JSON for Agents (Strict Envelope)')
+  .option('--save <path>', 'Save result to JSON file (optional)')
+  .option('--filters <json>', 'JSON string for filters (e.g. \'{"name": "foo"}\')')
+  .action(async (options) => {
+    try {
+      await runExplore(options);
+    } catch (error) {
+      if (options.json) {
+        console.log(
+          JSON.stringify({
+            meta: { success: false, error: error.message || String(error) },
+            data: null,
+          })
+        );
+      } else {
+        const { default: chalk } = await import('chalk');
+        console.error(chalk.red('\n❌ Error:'), error);
+      }
+      // process.exit(1);
+      throw error;
+    }
+  });
+
+export async function runExplore(options: ExploreOptions) {
+  // Lazy load UI libs
   const { default: chalk } = await import('chalk');
   const { default: ora } = await import('ora');
+  const { default: boxen } = await import('boxen');
+  const { default: gradient } = await import('gradient-string');
+  const { default: Table } = await import('cli-table3');
+  const { default: prettyjson } = await import('prettyjson');
   const { input, select, confirm } = await import('@inquirer/prompts');
 
   const isRaw = !!options.json;
 
-  // Spinner logic wrapper
+  // --- HELPER: Spinner ---
   const withSpinner = async <T>(text: string, fn: () => Promise<T>): Promise<T> => {
     if (isRaw) return fn();
     const spinner = ora(text).start();
@@ -65,62 +72,72 @@ async function runExplore(options: ExploreOptions) {
     }
   };
 
-  // 1. Content Type Selection
+  // --- 1. Selection & Setup ---
   let selectedUid = options.type;
-  let allTypes = [];
-
-  // Discovery is fast, just do it unless we are in raw mode and trusting the input blind (but we need metadata)
-  // Actually we need metadata to know plural/singular names for client
-  allTypes = discoverContentTypes();
+  let allTypes = discoverContentTypes();
 
   if (!selectedUid) {
-    if (isRaw) {
-      throw new Error('Missing required argument: --type <uid> is required in JSON mode.');
-    }
+    if (isRaw) throw new Error('Missing required argument: --type <uid> is required in JSON mode.');
 
     if (allTypes.length === 0) {
-      console.log(chalk.yellow('⚠️  No Content Types found in src/api. Are you in the backend root?'));
+      console.log(
+        boxen(chalk.yellow('⚠️  No Content Types found in src/api.\nAre you in the backend root?'), {
+          padding: 1,
+          borderColor: 'yellow',
+          borderStyle: 'classic',
+        })
+      );
       return;
     }
 
+    console.log(gradient.atlas('\n  🌌  DAICER EXPLORER  🌌  \n'));
+
     selectedUid = await select({
-      message: 'Select Content Type to explore:',
+      message: 'Select Content Type:',
       choices: allTypes.map((t) => ({
         name: `${chalk.bold(t.info.displayName)} ${chalk.dim(`(${t.uid})`)}`,
         value: t.uid,
         description: t.info.description || t.uid,
       })),
-      pageSize: 15,
+      pageSize: 12,
     });
   }
 
   const selectedType = allTypes.find((t) => t.uid === selectedUid);
-
-  // Fallback if type not found locally (maybe plugin?) - Try to construct a minimal type info if forced
+  // Fallback metadata for manual UIDs (plugins, etc)
   const finalType = selectedType || {
     uid: selectedUid,
-    kind: 'collectionType', // Assumption risk, but okay for power users
-    apiName: selectedUid.split('::')[1]?.split('.')[0] || selectedUid, // Hacky parse
+    kind: 'collectionType',
+    apiName: selectedUid.split('::')[1]?.split('.')[0] || selectedUid,
     info: {
-      pluralName: selectedUid.split('.').pop(), // Very hacky guess: api::foo.bar -> bar
+      pluralName: selectedUid.split('.').pop(),
       displayName: selectedUid,
     },
   };
 
-  if (!selectedType && !isRaw) {
-    console.warn(
-      chalk.yellow(`⚠️  Type ${selectedUid} not found in local discovery. Attempting to derive metadata...`)
-    );
-  }
-
-  // 2. Action Selection
+  // --- 2. Action Logic ---
   let action = options.action;
-  if (!action) {
-    if (isRaw)
-      action = 'find'; // Default for flags
-    else {
-      if (!isRaw) console.log(chalk.blue(`\n🔍 Exploring ${chalk.bold(finalType.info.displayName)}`));
-      action = (await select({
+  let currentAction = action || 'find'; // Default
+  let currentPage = parseInt(options.page || '1', 10);
+  let currentLimit = parseInt(options.limit || '10', 10);
+  let currentFilters = options.filters ? JSON.parse(options.filters) : {};
+  let currentDocId = options.documentId;
+
+  // Interactive Loop (Human only)
+  let keepRunning = true;
+
+  while (keepRunning) {
+    if (!isRaw && !action) {
+      // If no action flag, ask user
+      console.log(
+        boxen(
+          `${chalk.bold('Target:')} ${chalk.cyan(finalType.info.displayName)}\n` +
+            `${chalk.bold('UID:')}    ${chalk.dim(finalType.uid)}`,
+          { padding: { top: 0, bottom: 0, left: 1, right: 1 }, borderStyle: 'round', borderColor: 'blue' }
+        )
+      );
+
+      currentAction = (await select({
         message: 'Choose an action:',
         choices: [
           { name: 'Find All (List entries)', value: 'find' },
@@ -129,103 +146,180 @@ async function runExplore(options: ExploreOptions) {
         ],
       })) as any;
     }
-  }
 
-  // 3. Parameters
-  let params: any = { populate: '*' }; // Always populate * for debugging/CLI
-  let documentId = options.documentId;
-
-  if (action === 'find') {
-    const limit = options.limit || (isRaw ? '50' : await input({ message: 'Limit:', default: '10' }));
-    const page = options.page || (isRaw ? '1' : await input({ message: 'Page:', default: '1' }));
-
-    params = {
-      ...params,
-      'pagination[pageSize]': limit,
-      'pagination[page]': page,
-    };
-
-    // Parse filters
-    if (options.filters) {
-      try {
-        const filters = JSON.parse(options.filters);
-        params = { ...params, filters };
-      } catch (e) {
-        console.error(chalk.red('❌ Invalid JSON filters provided. Ignoring.'));
-      }
+    // Prepare Params
+    let params: any = { populate: '*' };
+    if (currentAction === 'find') {
+      params['pagination[pageSize]'] = currentLimit;
+      params['pagination[page]'] = currentPage;
+      params.filters = currentFilters;
+    } else if (currentAction === 'findOne') {
+      if (!currentDocId && isRaw) throw new Error('--document-id is required for findOne');
+      if (!currentDocId) currentDocId = await input({ message: 'Enter Document ID:' });
     }
-  } else if (action === 'findOne') {
-    if (!documentId) {
-      if (isRaw) throw new Error('--document-id is required for findOne action');
-      documentId = await input({ message: 'Enter Document ID:' });
-    }
-  }
 
-  // 4. Execution
-  let result: any;
+    // Execute
+    let result: any;
+    let meta: any = {};
 
-  await withSpinner('Fetching data...', async () => {
-    const resourceName =
-      finalType.kind === 'singleType'
-        ? selectedType
-          ? selectedType.apiName
-          : finalType.info.pluralName // Fallback logic is tricky.
-        : finalType.info.pluralName;
+    await withSpinner('Executing Query...', async () => {
+      const resourceName =
+        finalType.kind === 'singleType'
+          ? selectedType?.apiName || finalType.info.pluralName
+          : finalType.info.pluralName;
 
-    // Safe guard against pluralName being undefined if heuristic failed
-    if (!resourceName) throw new Error(`Could not determine resource name for ${selectedUid}`);
+      if (!resourceName) throw new Error(`Could not determine resource name for ${selectedUid}`);
 
-    const resource: any =
-      finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName);
+      const resource: any =
+        finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName);
 
-    if (finalType.kind === 'singleType') {
-      result = await resource.find(params);
-    } else {
-      if (action === 'findOne') {
-        result = await resource.findOne(documentId, params);
-      } else if (action === 'count') {
-        // Using generic fetch hack or find with meta
-        result = await resource.find({ ...params, 'pagination[withCount]': 'true', 'pagination[pageSize]': 1 }); // Min data
-        if (!isRaw && result.meta) result = result.meta.pagination.total;
-      } else {
+      if (finalType.kind === 'singleType') {
         result = await resource.find(params);
+        meta = { type: 'singleType' };
+      } else {
+        if (currentAction === 'findOne') {
+          result = await resource.findOne(currentDocId, params);
+          meta = { action: 'findOne', documentId: currentDocId };
+        } else if (currentAction === 'count') {
+          // Optimization: standard find with limit 1 and withCount
+          const countRes = await resource.find({
+            ...params,
+            'pagination[withCount]': 'true',
+            'pagination[pageSize]': 1,
+          }); // Min data
+          result = countRes.meta?.pagination?.total || 0;
+          meta = { action: 'count' };
+        } else {
+          const findRes = await resource.find(params);
+          // Standardize Strapi V5 response
+          // Strapi Client often unwraps .data, but sometimes not depending on usage.
+          // Adjust based on observation: @strapi/client usually returns { data: [], meta: {} } OR just []
+          // We normalize to ensure we have data/meta split.
+          if (Array.isArray(findRes)) {
+            result = findRes;
+            meta = {
+              pagination: { page: currentPage, pageSize: currentLimit, total: 'unknown' },
+            };
+          } else {
+            result = findRes.data || findRes;
+            meta = findRes.meta || {};
+          }
+        }
       }
-    }
-  });
+    });
 
-  // 5. Output
-  if (isRaw) {
-    console.log(JSON.stringify(result, null, 2));
-  } else {
-    console.log('\nResult:');
-    console.log(JSON.stringify(result, null, 2));
+    // --- 3. Render Output ---
 
-    if (result && result.meta && result.meta.pagination) {
+    if (isRaw) {
+      // 🤖 LLM Strict Mode
       console.log(
-        chalk.dim(
-          `\nPagination: Page ${result.meta.pagination.page} of ${result.meta.pagination.pageCount} (Total: ${result.meta.pagination.total})`
+        JSON.stringify(
+          {
+            meta: {
+              type: finalType.uid,
+              action: currentAction,
+              filters: currentFilters,
+              ...meta,
+            },
+            data: result,
+          },
+          null,
+          2
         )
       );
-    }
-  }
+      keepRunning = false; // LLM is one-shot
+    } else {
+      // 🧑 Human Mode
+      if (currentAction === 'count') {
+        console.log(`\n${chalk.green('Total Entries:')} ${chalk.bold(result)}`);
+        keepRunning = false;
+      } else if (currentAction === 'findOne' || finalType.kind === 'singleType') {
+        // Pretty Print Single Item
+        console.log('\n' + prettyjson.render(result));
+        keepRunning = false;
+      } else {
+        // Table View for 'find'
+        const data = Array.isArray(result) ? result : [result];
 
-  // 6. Save
-  if (options.save) {
-    fs.writeFileSync(options.save, JSON.stringify(result, null, 2));
-    if (!isRaw) console.log(chalk.green(`✅ Saved to ${options.save}`));
-  } else if (!isRaw) {
-    const shouldSave = await confirm({ message: 'Save result to JSON file?', default: false });
-    if (shouldSave) {
-      const defaultName = `cli-output/${finalType.uid}-${Date.now()}.json`;
-      const filePath = await input({ message: 'File path:', default: defaultName });
+        if (data.length === 0) {
+          console.log(chalk.yellow('\n(No results found)'));
+        } else {
+          // Derive headers from first item (limit to first 5 keys to fit screen)
+          const firstKey = Object.keys(data[0] || {}).filter((k) => k !== 'id' && k !== 'documentId');
+          const headers = ['documentId', 'id', ...firstKey.slice(0, 3)];
 
-      const dir = path.dirname(filePath);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+          const table = new Table({
+            head: headers.map((h) => chalk.cyan(h)),
+            style: { head: [], border: [] }, // minimal style
+          });
+
+          data.forEach((row: any) => {
+            const values = headers.map((h) => {
+              const val = row[h];
+              if (typeof val === 'object') return chalk.dim('[Obj]');
+              return String(val).substring(0, 30); // Truncate
+            });
+            table.push(values);
+          });
+
+          console.log('\n' + table.toString());
+
+          // Pagination Info
+          if (meta.pagination) {
+            const p = meta.pagination;
+            console.log(
+              boxen(
+                `${chalk.dim('Page')} ${chalk.bold(p.page)} ${chalk.dim('of')} ${chalk.bold(p.pageCount)}  ` +
+                  `${chalk.dim('|')}  ${chalk.dim('Total:')} ${chalk.bold(p.total)}`,
+                { padding: { top: 0, bottom: 0, left: 1, right: 1 }, borderStyle: 'classic', borderColor: 'gray' }
+              )
+            );
+          }
+        }
+
+        // --- Interactive Pagination ---
+        const choices = [];
+        if (meta.pagination && meta.pagination.page < meta.pagination.pageCount) {
+          choices.push({ name: 'Next Page ➡️', value: 'next' });
+        }
+        if (currentPage > 1) {
+          choices.push({ name: 'Previous Page ⬅️', value: 'prev' });
+        }
+        choices.push({ name: 'Modify Filters 🔎', value: 'filter' });
+        choices.push({ name: 'Show Detail (findOne) 📄', value: 'detail' });
+        choices.push({ name: 'Exit', value: 'exit' });
+
+        const nextStep = await select({
+          message: 'Navigation:',
+          choices,
+        });
+
+        if (nextStep === 'exit') {
+          keepRunning = false;
+        } else if (nextStep === 'next') {
+          currentPage++;
+        } else if (nextStep === 'prev') {
+          currentPage--;
+        } else if (nextStep === 'filter') {
+          const filterStr = await input({ message: 'Enter JSON filter:', default: JSON.stringify(currentFilters) });
+          try {
+            currentFilters = JSON.parse(filterStr);
+            currentPage = 1; // Reset to page 1 on new filter
+          } catch (e) {
+            console.log(chalk.red('Invalid JSON'));
+          }
+        } else if (nextStep === 'detail') {
+          const did = await input({ message: 'Enter Document ID:' });
+          currentAction = 'findOne';
+          currentDocId = did;
+        }
       }
 
-      fs.writeFileSync(filePath, JSON.stringify(result, null, 2));
-      console.log(chalk.green(`✅ Saved to ${filePath}`));
+      // Handle --save if requested (and only at the end or on demand? For now, standard save logic)
+      if (options.save && !keepRunning) {
+        fs.writeFileSync(options.save, JSON.stringify(result, null, 2));
+        console.log(chalk.green(`\n✅ Saved to ${options.save}`));
+      }
     }
   }
 }

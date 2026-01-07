@@ -8,7 +8,7 @@
     "description": "Types of damage in the game"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -30,6 +30,10 @@
       },
       "required": true
     },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
     "description": {
       "type": "richtext",
       "pluginOptions": {
@@ -42,7 +46,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

@@ -1,0 +1,66 @@
+
+> @daicer/backend@0.1.0 test
+> vitest run src/services/__tests__/unified-search-integration.spec.ts
+
+
+[1m[46m RUN [49m[22m [36mv4.0.16 [39m[90m/Users/lg/lab/daicer/backend[39m
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts
+[22m[39mTest Suite Loading...
+UnifiedSearchService: UnifiedSearchService {}
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts[2m > [22m[2mUnifiedSearchService Integration[2m > [22m[2mshould perform Manual Search via SQL (Happy Path)
+[22m[39mMocks Setup Complete
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts[2m > [22m[2mUnifiedSearchService Integration[2m > [22m[2mshould activate In-Memory JS Fallback on SQL Error (42P01)
+[22m[39mMocks Setup Complete
+
+[90mstdout[2m | src/services/__tests__/unified-search-integration.spec.ts[2m > [22m[2mUnifiedSearchService Integration[2m > [22m[2mshould enforce Granular Targeting (-t spell)
+[22m[39mMocks Setup Complete
+
+ [31m❯[39m src/services/__tests__/unified-search-integration.spec.ts [2m([22m[2m3 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 8[2mms[22m[39m
+     [32m✓[39m should perform Manual Search via SQL (Happy Path)[32m 3[2mms[22m[39m
+[31m     [31m×[31m should activate In-Memory JS Fallback on SQL Error (42P01)[39m[32m 4[2mms[22m[39m
+[31m     [31m×[31m should enforce Granular Targeting (-t spell)[39m[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/services/__tests__/unified-search-integration.spec.ts[2m > [22mUnifiedSearchService Integration[2m > [22mshould activate In-Memory JS Fallback on SQL Error (42P01)
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'join')[39m
+[36m [2m❯[22m UnifiedSearchService.search src/services/unified-search-service.ts:[2m57:37[22m[39m
+    [90m 55| [39m    [35mconst[39m limit [33m=[39m options[33m.[39mlimit [33m||[39m [34m5[39m[33m;[39m
+    [90m 56| [39m    [35mconst[39m vector [33m=[39m [35mawait[39m embeddingService[33m.[39m[34mgenerateEmbedding[39m(query)[33m;[39m
+    [90m 57| [39m    [35mconst[39m vectorString [33m=[39m [32m`[[39m[36m${[39mvector[33m.[39m[34mjoin[39m([32m','[39m)[36m}[39m[32m]`[39m[33m;[39m
+    [90m   | [39m                                    [31m^[39m
+    [90m 58| [39m
+    [90m 59| [39m    [35mconst[39m allResults[33m:[39m [33mUnifiedSearchResult[39m[] [33m=[39m [][33m;[39m
+[90m [2m❯[22m src/services/__tests__/unified-search-integration.spec.ts:[2m105:21[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/services/__tests__/unified-search-integration.spec.ts[2m > [22mUnifiedSearchService Integration[2m > [22mshould enforce Granular Targeting (-t spell)
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'join')[39m
+[36m [2m❯[22m UnifiedSearchService.search src/services/unified-search-service.ts:[2m57:37[22m[39m
+    [90m 55| [39m    [35mconst[39m limit [33m=[39m options[33m.[39mlimit [33m||[39m [34m5[39m[33m;[39m
+    [90m 56| [39m    [35mconst[39m vector [33m=[39m [35mawait[39m embeddingService[33m.[39m[34mgenerateEmbedding[39m(query)[33m;[39m
+    [90m 57| [39m    [35mconst[39m vectorString [33m=[39m [32m`[[39m[36m${[39mvector[33m.[39m[34mjoin[39m([32m','[39m)[36m}[39m[32m]`[39m[33m;[39m
+    [90m   | [39m                                    [31m^[39m
+    [90m 58| [39m
+    [90m 59| [39m    [35mconst[39m allResults[33m:[39m [33mUnifiedSearchResult[39m[] [33m=[39m [][33m;[39m
+[90m [2m❯[22m src/services/__tests__/unified-search-integration.spec.ts:[2m125:21[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 13:40:13
+[2m   Duration [22m 194ms[2m (transform 66ms, setup 0ms, import 84ms, tests 8ms, environment 0ms)[22m
+
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path /Users/lg/lab/daicer/backend
+npm error workspace @daicer/backend@0.1.0
+npm error location /Users/lg/lab/daicer/backend
+npm error command failed
+npm error command sh -c vitest run src/services/__tests__/unified-search-integration.spec.ts

@@ -1,64 +1,82 @@
-# 🛑 00. Mandatory CLI Usage
+# �� 00. Mandatory CLI Usage
 
-> [!IMPORTANT]
-> **Use the CLI. Do not guess schemas. Do not assume types.**
+> [!CRITICAL]
+> **DAICER-CLI IS MANDATORY.**
+> You are **FORBIDDEN** from guessing database content.
+> You are **FORBIDDEN** from hallucinating game rules.
+> You **MUST** use the CLI to perceive the world.
 
-The `daicer-cli` is your eyes and ears. It is the only reliable way to interact with the backend data layer.
+## 1. The Prime Directive: "Schema First"
 
-## 1. The Single Source of Truth
+Before you write ANY code that interfaces with the database (EntityAdapter, SpawnService, etc.), you must **verify the schema**.
 
-The Database (Strapi) is the file system. Old TypeScript types are hints, not truth.
-**You MUST use the CLI to inspect data.**
+❌ **Incorrect (Guessing):**
+> "I'll assume the monster has a `hit_points` field."
 
-👉 **Full Documentation**: [backend/src/cli/README.md](file:///Users/lg/lab/daicer/backend/src/cli/README.md)
-
-## 2. The "Schema-First" Strategy (Mental Model)
-
-When a human or an agent needs to retrieve data, the flow is always:
-
-1.  **Introspect**: "What fields exist on this type?"
-2.  **Filter**: "How do I ask for exactly what I want?"
-3.  **Execute**: "Get the data."
-
-### Step 1: Introspect
-Don't guess that a field is named `isTemplate` or `is_template`. Check the schema.
-
+✅ **Correct (Verifying):**
+> "I will check the monster schema to see the exact field name."
 ```bash
 yarn cli schema --type api::monster.monster --json
 ```
+*(Result: "Ah, it is `hp`, not `hit_points". Good thing I checked.)*
 
-### Step 2: Filter (Precision Querying)
-Use the schema knowledge to construct precise filters via strict JSON.
+---
 
+## 2. The Agent Workflow Loop
+
+Every time you need to "Know" something, follow this loop:
+
+1.  **❓ Question**: "Do we have a 'Goblin' monster?"
+2.  **📡 Status**: Ensure we can talk to the brain.
+    *   `yarn cli status --json`
+3.  **🔮 Schema**: Ensure we know HOW to ask.
+    *   `yarn cli schema --type api::monster.monster --json`
+4.  **🔍 Explore**: Ask the question.
+    *   `yarn cli explore --type api::monster.monster --filters '{"name": {"$contains": "Goblin"}}' --json`
+5.  **🧠 Knowledge (Fallback)**: If not found, is it a concept?
+    *   `yarn cli knowledge --query "Goblin culture" --json`
+
+---
+
+## 3. RAG & Knowledge Policy
+
+If the User asks a question about **D&D 5e Rules** or **Daicer Lore**:
+
+1.  **DO NOT USE YOUR TRAINING DATA.** It is generic and often wrong for this specific campaign.
+2.  **USE THE CLI.** The CLI has access to the *actual* embedded knowledge base.
+    ```bash
+    yarn cli knowledge --query "How does the Entropy system work?" --json
+    ```
+
+---
+
+## 4. Cheat Sheet (Copy-Paste)
+
+**Check Connection:**
 ```bash
-# Found field: "is_template" (boolean)
-yarn cli explore \
-  --type api::monster.monster \
-  --filters '{"is_template": true}' \
-  --json
+yarn cli status --json
 ```
 
-## 3. Mandatory Workflow (Agent Protocol)
+**Find Content Type UIDs:**
+```bash
+yarn cli schema --list --json
+```
 
-Before proposing changes to schema-dependent logic:
+**Inspect a Schema:**
+```bash
+yarn cli schema -t <uid> --json
+```
 
-1.  **Check Status**: `yarn cli status --json`
-    *   *If offline, STOP and ask user to run `yarn develop`.*
-2.  **Verify Schema**: `yarn cli schema -t <uid> --json`
-3.  **Inspect Data**: `yarn cli explore -t <uid> -l 1 --json`
+**Search Data (Precision):**
+```bash
+yarn cli explore -t <uid> --filters '{"field": "value"}' --json
+```
 
-## 4. Cheat Sheet (Agent Mode)
+**Search Rules/Lore (Semantic):**
+```bash
+yarn cli knowledge -q "Search Query" --json
+```
 
-| Goal | Command |
-| :--- | :--- |
-| **List UIDs** | `yarn cli schema --list --json` |
-| **Get Schema** | `yarn cli schema --type <uid> --json` |
-| **Find One** | `yarn cli explore --type <uid> --action findOne --document-id <id> --json` |
-| **Search** | `yarn cli explore --type <uid> --filters '{"field": "value"}' --json` |
-| **Count** | `yarn cli explore --type <uid> --action count --json` |
+---
 
-## 5. Troubleshooting (Self-Healing)
-
-*   **`fetch failed`**: The server is down. Ask user to start it.
-*   **`Type not found`**: You likely guessed the UID. Run `yarn cli schema --list --json` to find the correct one.
-*   **`403 Forbidden`**: Token issue. Do not attempt to fix tokens yourself; report it.
+> **REMEMBER:** The `yarn cli` command (without args) is for HUMANS. You are an AGENT. **ALWAYS USE `--json`**.

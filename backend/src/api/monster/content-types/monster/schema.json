@@ -8,7 +8,7 @@
     "description": "D&D 5e Monsters"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -20,6 +20,14 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "embeddingMetadata": {
+      "type": "json",
+      "private": true
     },
     "name": {
       "type": "string",
@@ -40,7 +48,14 @@
     },
     "size": {
       "type": "enumeration",
-      "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+      "enum": [
+        "Tiny",
+        "Small",
+        "Medium",
+        "Large",
+        "Huge",
+        "Gargantuan"
+      ]
     },
     "type": {
       "type": "string"
@@ -95,7 +110,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "structuredActions": {
       "type": "component",

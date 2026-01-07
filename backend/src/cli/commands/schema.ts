@@ -18,95 +18,100 @@ export const schemaCommand = new Command('schema')
   .option('--json', 'Output raw JSON (Agent Mode)')
   .option('--save <path>', 'Save output to file')
   .action(async (options) => {
-    const { chalk, select } = await getInteractiveTools();
+    await runSchema(options);
+  });
 
-    try {
-      let result: any;
-      let mode: 'list' | 'all' | 'single' = 'single';
+export async function runSchema(options: any) {
+  const { chalk, select } = await getInteractiveTools();
 
-      // 1. Determine Mode & Inputs
-      if (options.list) mode = 'list';
-      else if (options.all) mode = 'all';
-      else if (options.type) mode = 'single';
-      else {
-        // Interactive Mode (Human)
-        if (options.json) {
-          console.error(JSON.stringify({ error: '--type <uid> is required when using --json' }));
-          process.exit(1);
-        }
+  try {
+    let result: any;
+    let mode: 'list' | 'all' | 'single' = 'single';
 
-        console.log(chalk.bold.hex('#FFD700')('\n🔮 Schema Explorer\n'));
-
-        const types = discoverContentTypes();
-        const selectedUid = await select({
-          message: 'Select Content Type to inspect:',
-          choices: types.map((t) => ({
-            name: `${chalk.bold(t.info.displayName)} ${chalk.dim(`(${t.uid})`)}`,
-            value: t.uid,
-            description: t.info.description,
-          })),
-          pageSize: 15,
-        });
-
-        options.type = selectedUid;
-        mode = 'single';
+    // 1. Determine Mode & Inputs
+    if (options.list) mode = 'list';
+    else if (options.all) mode = 'all';
+    else if (options.type) mode = 'single';
+    else {
+      // Interactive Mode (Human)
+      if (options.json) {
+        console.error(JSON.stringify({ error: '--type <uid> is required when using --json' }));
+        process.exit(1);
       }
 
-      // 2. Execute Logic
-      if (mode === 'list') {
-        const types = discoverContentTypes();
-        if (options.json) {
-          console.log(JSON.stringify(types, null, 2));
-          return;
-        }
+      console.log(chalk.bold.hex('#FFD700')('\n🔮 Schema Explorer\n'));
 
-        console.log(chalk.bold('\n📦 Available Content Types:\n'));
-        types.forEach((t) => {
-          console.log(`  • ${chalk.cyan(t.uid)}`);
-          console.log(`    ${chalk.dim(t.info.displayName)} - ${t.info.singularName}/${t.info.pluralName}`);
-        });
-        console.log('');
+      const types = discoverContentTypes();
+      const selectedUid = await select({
+        message: 'Select Content Type to inspect:',
+        choices: types.map((t) => ({
+          name: `${chalk.bold(t.info.displayName)} ${chalk.dim(`(${t.uid})`)}`,
+          value: t.uid,
+          description: t.info.description,
+        })),
+        pageSize: 15,
+      });
+
+      options.type = selectedUid;
+      mode = 'single';
+    }
+
+    // 2. Execute Logic
+    if (mode === 'list') {
+      const types = discoverContentTypes();
+      if (options.json) {
+        console.log(JSON.stringify(types, null, 2));
         return;
       }
 
-      if (mode === 'all') {
-        result = readAllSchemas();
-      } else if (mode === 'single') {
-        result = readSchema(options.type);
-        if (!result) {
-          if (options.json) {
-            console.error(JSON.stringify({ error: `Schema not found for UID: ${options.type}` }));
-          } else {
-            console.error(chalk.red(`\n❌ Schema not found for UID: ${options.type}\n`));
-          }
-          process.exit(1);
-        }
-
-        // Human pretty print for single schema
-        if (!options.json && !options.save) {
-          printHumanSchema(result, chalk);
-          return;
-        }
-      }
-
-      const output = JSON.stringify(result, null, 2);
-
-      if (options.save) {
-        const savePath = path.resolve(process.cwd(), options.save);
-        fs.writeFileSync(savePath, output);
-        if (!options.json) console.log(chalk.green(`\n✅ Saved schema output to ${savePath}\n`));
-      } else {
-        console.log(output);
-      }
-    } catch (error) {
-      if (options.json) {
-        console.error(JSON.stringify({ error: error.message }));
-      } else {
-        console.error(chalk.red('\n❌ Error:'), error);
-      }
-      process.exit(1);
+      console.log(chalk.bold('\n📦 Available Content Types:\n'));
+      types.forEach((t) => {
+        console.log(`  • ${chalk.cyan(t.uid)}`);
+        console.log(`    ${chalk.dim(t.info.displayName)} - ${t.info.singularName}/${t.info.pluralName}`);
+      });
+      console.log('');
+      return;
     }
-  });
+
+    if (mode === 'all') {
+      result = readAllSchemas();
+    } else if (mode === 'single') {
+      result = readSchema(options.type);
+      if (!result) {
+        if (options.json) {
+          console.error(JSON.stringify({ error: `Schema not found for UID: ${options.type}` }));
+        } else {
+          console.error(chalk.red(`\n❌ Schema not found for UID: ${options.type}\n`));
+        }
+        throw new Error('Schema not found');
+      }
+
+      // Human pretty print for single schema
+      if (!options.json && !options.save) {
+        printHumanSchema(result, chalk);
+        return;
+      }
+    }
+
+    const output = JSON.stringify(result, null, 2);
+
+    if (options.save) {
+      const savePath = path.resolve(process.cwd(), options.save);
+      fs.writeFileSync(savePath, output);
+      if (!options.json) console.log(chalk.green(`\n✅ Saved schema output to ${savePath}\n`));
+    } else {
+      console.log(output);
+    }
+  } catch (error) {
+    if (options.json) {
+      console.error(JSON.stringify({ error: error.message }));
+      process.exit(1);
+    } else {
+      console.error(chalk.red('\n❌ Error:'), error);
+      throw error;
+    }
+  }
+}
 
 function printHumanSchema(schema: any, chalk: any) {
   console.log(chalk.bold(`\n📄 Schema: ${chalk.cyan(schema.info.displayName)}\n`));

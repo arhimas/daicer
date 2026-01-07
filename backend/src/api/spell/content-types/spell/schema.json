@@ -5,10 +5,10 @@
     "singularName": "spell",
     "pluralName": "spells",
     "displayName": "Spell",
-    "description": "D&D 5e Spells"
+    "description": "D&D 5e Spells (Structured)"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {
     "i18n": {
@@ -30,6 +30,59 @@
       },
       "required": true
     },
+    "level": {
+      "type": "integer",
+      "min": 0,
+      "max": 9
+    },
+    "school": {
+      "type": "enumeration",
+      "enum": [
+        "Abjuration",
+        "Conjuration",
+        "Divination",
+        "Enchantment",
+        "Evocation",
+        "Illusion",
+        "Necromancy",
+        "Transmutation"
+      ]
+    },
+    "casting_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.casting-config"
+    },
+    "range_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.range-config"
+    },
+    "duration_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.duration-config"
+    },
+    "mechanics_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.mechanics-config"
+    },
+    "damage_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.damage-instance"
+    },
+    "condition_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.condition-instance"
+    },
+    "scaling_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.scaling-config"
+    },
     "description": {
       "type": "richtext",
       "pluginOptions": {
@@ -38,32 +91,21 @@
         }
       }
     },
-    "level": {
-      "type": "integer"
-    },
-    "school": {
-      "type": "string"
-    },
-    "casting_time": {
-      "type": "string"
-    },
-    "range": {
-      "type": "string"
-    },
-    "components": {
-      "type": "json"
-    },
-    "duration": {
-      "type": "string"
-    },
-    "is_ritual": {
-      "type": "boolean"
-    },
     "image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "embeddingMetadata": {
+      "type": "json",
+      "private": true
     }
   }
 }
