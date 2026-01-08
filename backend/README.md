@@ -112,25 +112,17 @@ The defining feature of Daicer. We take unstructured SRD Text and convert it int
 
 ---
 
-## 🗺 Directory Structure
+## 🗺 Documentation Map
 
-```text
-src/
-├── api/
-│   ├── game/           # Orchestrator & Logic
-│   ├── voxel-engine/   # Physics & World Gen
-│   ├── narrator/       # AI Interface
-│   └── game-event/     # Ledger Definitions
-├── engine/             # THE PURE LOGIC (Shared Lib)
-│   ├── rules/          # 5e Mechanics
-│   └── voxel/          # Math & Physics
-├── utils/
-│   ├── llm/            # Gemini & LangChain Wrappers
-│   └── math/           # 3D Math Helpers
-├── lifecycle/
-│   └── socket/         # Real-time Event Stream
-└── scripts/            # Enrichment & Migrations
-```
+> **Click headers to dive deep.**
+
+| Module                                                        | Description                                                    | Key Tech                         |
+| :------------------------------------------------------------ | :------------------------------------------------------------- | :------------------------------- |
+| **[🔌 API (`src/api`)](src/api/README.md)**                   | Strapi Content Types & Game Logic.                             | `game-ledger`, `turn-processing` |
+| **[⚙️ Engine (`src/engine`)](src/engine/README.md)**          | **Pure Logic Core.** Dependency-free Math, Rules, and Entropy. | `voxel-math`, `dnd-5e-srd`       |
+| **[♻️ Lifecycle (`src/lifecycle`)](src/lifecycle/README.md)** | Server Bootstrapping & Socket.IO Events.                       | `socket.io`, `bootstrap`         |
+| **[🛠 Utils (`src/utils`)](src/utils/README.md)**             | Helpers, LLM Wrappers, and Error Handling.                     | `google-gemini`, `langchain`     |
+| **[🔮 Scripts (`scripts/`)](scripts/README.md)**              | Automations, Migrations, and Enrichment.                       | `enrichment-engine`              |
 
 ---
 

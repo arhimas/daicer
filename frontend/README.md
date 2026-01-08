@@ -72,21 +72,16 @@ When a user moves, we _immediately_ update the visual state (Optimistic UI). If 
 
 ---
 
-## 🧩 Directory Structure
+## 🗺 Documentation Map
 
-```text
-src/
-├── components/
-│   ├── ui/             # "Juicy" Primitives (Buttons, Cards)
-│   └── game/           # Gameplay Widgets (TurnTracker, Chat)
-├── three/              # THE VOXEL ENGINE (Frontend)
-│   ├── world/          # Chunk Rendering & Meshing
-│   ├── token/          # Entity Visualization
-│   └── effects/        # Particle Systems
-├── stores/             # Zustand State logic
-├── hooks/              # Business Logic (Socket listeners)
-└── styles/             # Tailwind & CSS Animations
-```
+> **Click headers to dive deep.**
+
+| Module                                                           | Description                                           | Key Tech                   |
+| :--------------------------------------------------------------- | :---------------------------------------------------- | :------------------------- |
+| **[🧱 Components (`src/components`)](src/components/README.md)** | The "Juicy" UI Library. Atomic Design + Game Widgets. | `Atomic Design`, `HUD`     |
+| **[🧠 Stores (`src/stores`)](src/stores/README.md)**             | Client-side State Management.                         | `Zustand`, `Immer`         |
+| **[⚓️ Hooks (`src/hooks`)](src/hooks/README.md)**                | Reusable React Logic & Socket Listeners.              | `useSocket`, `useKeyboard` |
+| **[⚡️ Features (`src/features`)](src/features/README.md)**       | Complex domains like Debug Tools and Room Creation.   | `MapRenderer3D`, `Lobby`   |
 
 ---
 
