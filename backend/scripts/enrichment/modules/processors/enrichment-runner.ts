@@ -7,7 +7,7 @@ import { pMap } from '../concurrency';
 import { getStrapiClient } from '../../../utils/strapi-client';
 import { CONCURRENCY_LIMIT } from '../constants';
 import { fetchRagContext, extractDescription } from '../processor-utils';
-import { generateStructuredContent } from '../generation-service';
+import { generateStructuredContent, reviewStructuredContent } from '../generation-service';
 
 export interface ProcessorContext {
   uid: string;
@@ -67,64 +67,83 @@ export const processCollection = async (ctx: ProcessorContext) => {
       const entities = response.data;
       if (!entities || entities.length === 0) break;
 
-      await pMap(
+      const results = await pMap(
         entities,
         async (entity: any) => {
-          if (processedCount >= ctx.limit) return;
+          if (processedCount >= ctx.limit) return 'skipped_limit'; // Soft check
           const eId = entity.documentId || entity.id;
           const eName = entity.name || entity.title || 'Unknown';
 
           if (processedIds.has(eId)) {
-            skipCount++;
-            processedCount++;
             b1.increment();
             b1.update(processedCount, { status: `Skipping ${eName.substring(0, 15)} (Done)` });
-            return;
-          }
-
-          b1.update(processedCount, { status: `Processing ${eName.substring(0, 15)}...` });
-          const descText = extractDescription(entity);
-          if (!descText || descText.length < 10) {
-            skipCount++;
-            processedCount++;
-            b1.increment();
-            return;
+            return 'skipped_done';
           }
 
           try {
             const ragContext = await fetchRagContext(eName);
-            const result = await generateStructuredContent(
-              ctx.promptTemplate,
-              ctx.schema,
-              `
+            if (ragContext) {
+              b1.update(processedCount, { status: `Processing ${eName.substring(0, 10)}... (+RAG)` });
+            } else {
+              b1.update(processedCount, { status: `Processing ${eName.substring(0, 15)}...` });
+            }
+
+            const descText = extractDescription(entity);
+            const totalContext = (descText || '') + (ragContext || '');
+
+            if (!totalContext || totalContext.length < 10) {
+              b1.increment();
+              b1.update(processedCount, { status: `Skipping ${eName.substring(0, 15)} (No Data)` });
+              return 'skipped_nodata';
+            }
+
+            const generationPrompt = `
             Entity Name: ${eName}
-            Description: ${descText}
-            ${ragContext}
-          `
-            );
+            Description (Base): ${descText || 'No base description provided.'}
+            ${ragContext || 'No rules found.'}
+            `;
+
+            // 1. Generate Draft (Flash)
+            const draftResult = await generateStructuredContent(ctx.promptTemplate, ctx.schema, generationPrompt);
+
+            // 2. Review Draft (Pro)
+            const result = await reviewStructuredContent(draftResult, generationPrompt, ctx.schema);
 
             if (!ctx.isDryRun) {
               await ctx.handler(entity, result, client);
               processedIds.add(eId);
+              const logDir = path.dirname(successLogPath);
+              if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
+
               fs.appendFileSync(
                 successLogPath,
                 JSON.stringify({ timestamp: new Date(), uid: ctx.uid, id: eId, name: eName }) + '\n'
               );
             }
-            successCount++;
+            b1.increment();
+            return 'success';
           } catch (e: any) {
-            // Retry logic omitted for brevity in SOTA 120-line limit but robust error handling assumed
+            const logDir = path.dirname(dlqPath);
+            if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
+
             fs.appendFileSync(
               dlqPath,
               JSON.stringify({ timestamp: new Date(), uid: ctx.uid, id: eId, name: eName, error: e.message }) + '\n'
             );
-            errorCount++;
+            b1.increment();
+            return 'error';
           }
-          processedCount++;
-          b1.increment();
         },
         { concurrency: CONCURRENCY_LIMIT }
       );
+
+      // Aggregate Results
+      for (const r of results) {
+        if (r === 'success') successCount++;
+        else if (r === 'error') errorCount++;
+        else if (r && r.startsWith('skipped')) skipCount++;
+        processedCount++;
+      }
     } catch (err: any) {
       multibar.log(chalk.red(`   Page Fetch Error: ${err.message}\n`));
       break;

@@ -8,13 +8,18 @@ export const getEnrichmentContext = async () => {
   // Load Spells
   let spells: string[] = [];
   try {
-    const spellRes = await client.collection('spells').find({
-      pagination: { limit: 1000 },
-      fields: ['name'],
-    });
-    if (spellRes.data) {
-      spells = spellRes.data.map((s: any) => s.name).sort();
+    let page = 1;
+    while (true) {
+      const res: any = await client.collection('spells').find({
+        pagination: { page, pageSize: 100 },
+        fields: ['name'],
+      });
+      if (!res.data || res.data.length === 0) break;
+      spells.push(...res.data.map((s: any) => s.name));
+      if (res.meta?.pagination?.pageCount <= page) break;
+      page++;
     }
+    spells.sort();
   } catch (e) {
     console.warn('Failed to load spells context', e);
   }
@@ -22,13 +27,18 @@ export const getEnrichmentContext = async () => {
   // Load Equipment
   let equipment: string[] = [];
   try {
-    const eqRes = await client.collection('equipments').find({
-      pagination: { limit: 1000 },
-      fields: ['name'],
-    });
-    if (eqRes.data) {
-      equipment = eqRes.data.map((e: any) => e.name).sort();
+    let page = 1;
+    while (true) {
+      const res: any = await client.collection('equipments').find({
+        pagination: { page, pageSize: 100 },
+        fields: ['name'],
+      });
+      if (!res.data || res.data.length === 0) break;
+      equipment.push(...res.data.map((e: any) => e.name));
+      if (res.meta?.pagination?.pageCount <= page) break;
+      page++;
     }
+    equipment.sort();
   } catch (e) {
     console.warn('Failed to load equipment context', e);
   }

@@ -27,13 +27,17 @@ export const getActionDefinitionId = async (
     }
 
     // Create new Action Definition with Rich Data
+    const sanitizedType = ['melee_weapon', 'melee'].includes(type)
+      ? 'melee'
+      : ['ranged_weapon', 'ranged'].includes(type)
+        ? 'ranged'
+        : ['spell'].includes(type)
+          ? 'spell'
+          : 'utility'; // Default to 'utility' for abilities/other
+
     const payload: any = {
       name: name,
-      type: ['melee_weapon', 'melee'].includes(type)
-        ? 'melee'
-        : ['ranged_weapon', 'ranged'].includes(type)
-          ? 'ranged'
-          : type,
+      type: sanitizedType,
       description: description,
     };
 
@@ -43,7 +47,8 @@ export const getActionDefinitionId = async (
     }
     if (richData.range || richData.reach) {
       payload.range_config = {
-        type: richData.range && richData.range > 5 ? 'Ranged (Feet)' : 'Touch',
+        type:
+          (richData.range && richData.range > 5) || (richData.reach && richData.reach > 5) ? 'Ranged (Feet)' : 'Touch', // Adjusted logic
         distance: richData.range || richData.reach || 5,
       };
     }
@@ -61,8 +66,18 @@ export const getActionDefinitionId = async (
       actionCache.set(slug, id);
       return id;
     }
-  } catch (e) {
-    console.warn(`[ActionUtils] Failed to find/create Action Definition for ${name}:`, e);
+  } catch (e: any) {
+    let errorMessage = e.message;
+    if (e.response?.status === 400) {
+      const details = JSON.stringify(e.response.data, null, 2);
+      console.error(`[ActionUtils] Validation Error for Action '${name}':`, details);
+      errorMessage = `Strapi 400: ${JSON.stringify(e.response.data.error?.message || e.response.data)}`;
+    } else {
+      console.warn(`[ActionUtils] Failed to find/create Action Definition for ${name}:`, e.message);
+    }
+    // CRITICAL: Throw so this ends up in the Monster DLQ.
+    // We do not want to silently skip actions.
+    throw new Error(`Failed to link Action '${name}': ${errorMessage}`);
   }
   return null;
 };

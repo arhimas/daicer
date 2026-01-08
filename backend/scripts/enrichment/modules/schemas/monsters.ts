@@ -5,7 +5,7 @@ const MonsterActionSchema = z.object({
   name: z.string(),
   type: z.enum(['melee_weapon', 'ranged_weapon', 'spell', 'ability', 'other']).default('other'),
   activation_type: z.enum(['action', 'bonus_action', 'reaction', 'legendary', 'mythic', 'lair']).default('action'),
-  description: z.string(),
+  description: z.string().optional().default(''),
   toHit: z.number().int().optional().nullable(),
   range: z.number().int().optional().nullable().describe('Distance in Feet (integer)'),
   reach: z.number().int().optional().nullable().describe('Reach in Feet (integer)'),
@@ -40,7 +40,7 @@ const MonsterActionSchema = z.object({
 });
 
 export const MonsterEnrichmentSchema = z.object({
-  actions: z.array(MonsterActionSchema),
+  actions: z.array(MonsterActionSchema).default([]),
   legendary_actions: z.array(MonsterActionSchema).optional().default([]),
   reactions: z.array(FeatureSchema).optional().default([]),
   features: z.array(FeatureSchema).optional().default([]),

@@ -62,15 +62,21 @@ export const monsterHandler = async (entity: any, result: any, client: any) => {
         save: a.save_dc ? { dc: a.save_dc, stat: (a.save_attribute || 'str').toLowerCase().slice(0, 3) } : null,
       };
 
-      // Only create generic action definition if it's NOT a pure spell or we want both
-      // Usually monsters have specific versions of spells, but if it IS a spell, we prefer the Spell Link.
-      const actionDefId = await getActionDefinitionId(
-        uniqueName,
-        a.type,
-        (a.description || '').substring(0, 1000),
-        richData,
-        client
-      );
+      // 3. Action Definition Logic (Mutual Exclusivity)
+      // IF it is a Spell -> Use Spell Link (action_definition = null)
+      // IF it is Equipment -> Use Equipment Link (action_definition = null)
+      // ELSE -> Create Action Definition (Natural Weapon / Special Ability)
+      let actionDefId = null;
+
+      if (!spellDefId && !equipmentDefId) {
+        actionDefId = await getActionDefinitionId(
+          uniqueName,
+          a.type,
+          (a.description || '').substring(0, 1000),
+          richData,
+          client
+        );
+      }
 
       return {
         name: a.name,

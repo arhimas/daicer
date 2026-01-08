@@ -7,4 +7,5 @@ export const COLLECTION_MAP = {
 };
 
 export const MODEL_NAME = 'gemini-3-flash-preview';
+export const REVIEWER_MODEL_NAME = 'gemini-3-pro-preview'; // User mandated 3.0 Pro
 export const CONCURRENCY_LIMIT = 16;
