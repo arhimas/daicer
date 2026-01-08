@@ -13,7 +13,12 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["melee", "ranged", "spell", "utility"],
+      "enum": [
+        "melee",
+        "ranged",
+        "spell",
+        "utility"
+      ],
       "default": "melee"
     },
     "toHit": {
@@ -25,7 +30,7 @@
     "damage": {
       "type": "component",
       "repeatable": true,
-      "component": "game.damage-dice"
+      "component": "game.damage-instance"
     },
     "save": {
       "type": "component",
@@ -54,6 +59,16 @@
     },
     "description": {
       "type": "text"
+    },
+    "action_definition": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::action.action"
+    },
+    "spell_definition": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::spell.spell"
     }
   }
 }

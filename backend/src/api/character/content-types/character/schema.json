@@ -77,10 +77,25 @@
     "backstory": {
       "type": "text"
     },
-    "equipment": {
+    "equipment_items": {
       "type": "component",
       "repeatable": true,
       "component": "game.inventory-item"
+    },
+    "actions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::action.action"
+    },
+    "spells": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::spell.spell"
+    },
+    "equipments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::equipment.equipment"
     }
   }
 }

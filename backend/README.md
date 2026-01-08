@@ -1,91 +1,157 @@
+<div align="center">
+
 # 🎲 Daicer Backend
 
-> **Server-Authoritative Voxel Roleplaying Engine**
+**The Brain, The Heart, and The Soul.**
 
-This is the Brain and Heart of Project Daicer. It is not just a CMS; it is a hybrid state machine that combines a deterministic Voxel Physics Engine with an agentic LLM Narrator.
+[![Strapi](https://img.shields.io/badge/Back-Strapi_5-4945FF?logo=strapi&style=for-the-badge)](https://strapi.io/)
+[![TypeScript](https://img.shields.io/badge/Code-100%25_TS-3178C6?logo=typescript&style=for-the-badge)](https://www.typescriptlang.org/)
 
-## 🏛 The Trinity Architecture
+> **"A Deterministic State Machine serving a persistent, procedural simulation."**
 
-The backend operates on a tri-fold architectural pattern:
-
-| Component    | Concept           | Responsibility                                                                                                                | Documentation                                     |
-| :----------- | :---------------- | :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
-| **The Body** | **Physics**       | The **Deterministic Voxel Engine**. Handles movement, collision, line-of-sight, and world generation. It never hallucinates.  | [📖 Voxel Engine](src/api/voxel-engine/README.md) |
-| **The Soul** | **Narrator**      | The **AI Dungeon Master**. Interprets user intent, creates flavor text, and invokes engine tools. It brings the math to life. | [📖 Narrator API](src/api/narrator/README.md)     |
-| **The Mind** | **Orchestration** | The **Game Loop**. Manages turns, processes queues, and creates the definitive history of the session.                        | [📖 Game API](src/api/game/README.md)             |
+</div>
 
 ---
 
-## 🔮 Core Systems
+## 🏛 The Technical Architecture
 
-### ⏳ Time-Framed State
+### 1. The Game Loop (`src/api/game`)
 
-Unlike traditional VTTs where the room state is static, Daicer uses a **TimeFrame** architecture. The "Server Truth" is a historical record of snapshots. What the client sees is a computed "Point of View" (POV) derived from specific logic.
+The core of the backend is the `GameLoop`. It is **Server-Authoritative**.
 
-- [Stats & Truth](src/api/time-frame/README.md)
-- [Turn Processing](src/api/turn/README.md)
+- **Logic:** `turn-processing.ts`
+- **State:** `game-ledger.ts`
 
-### ⚡️ Real-Time Event Stream
+**The Cycle:**
 
-The backend broadcasts state changes via Socket.IO. We differentiate between **Global Events** (Roome-wide) and **Local Events** (User-specific streams).
+1.  **Input:** User sends an Intent ("I want to move North").
+2.  **Validation:** The `VoxelEngine` checks collision logic on the server.
+3.  **Execution:** The state is mutated (Entity Position `x,y,z` changes).
+4.  **Snapshot:** A Hash of the new state is created in the `Ledger`.
+5.  **Broadcast:** The new state is pushed via `Socket.IO` to all clients.
+6.  **Narration:** The `Narrator` (LLM) reads the _result_ (not the intent) and describes it.
 
-- [Socket Lifecycle & Events](src/lifecycle/socket/README.md)
+### 2. The Engine Library (`src/engine`)
 
-### 📜 Data & Content
+This is the **Pure Logic Core**.
+Unlike `src/api`, this directory has **NO Strapi Dependencies**.
+It contains the mathematical truth of the universe:
 
-Powered by **Strapi 5**. We use a **GraphQL-first** approach for the frontend API, while maintaining a strict schema for game data (Monsters, Spells, Classes).
+- `voxel/`: Coordinate systems and chunk math.
+- `rules/`: D&D 5e Ruleset implementation (AC, DC, Saving Throws).
+- `entropy/`: Chaos tracking logic.
+  Because it is dependency-free, it can be tested in isolation (Unit Tests) at extreme speeds (~1ms).
 
-- [Character System](src/api/character/README.md) - Blueprints vs. Sheets
-- [Seed Data](seeds/README.md) - Default content loading
+### 3. The API Layer (`Postgres` + `GraphQL`)
 
----
+We use a **Dual-Head** approach:
 
-## 🗺 Documentation Map
-
-### Key Modules
-
-- **Game Logic**: [`src/api/game`](src/api/game/README.md)
-- **Time Frames**: [`src/api/time-frame`](src/api/time-frame/README.md)
-- **Narrator**: [`src/api/narrator`](src/api/narrator/README.md)
-- **Socket**: [`src/lifecycle/socket`](src/lifecycle/socket/README.md)
-- **Character**: [`src/api/character`](src/api/character/README.md)
-- **Game Events**: [`src/api/game-event`](src/api/game-event/README.md)
-
-### Utilities
-
-- **LLM / AI**: [`src/utils/llm`](src/utils/llm/README.md)
-- **Map Generation**: [`src/api/voxel-engine`](src/api/voxel-engine/README.md)
+- **REST:** Used for internal Admin Panel & heavy write operations.
+- **GraphQL:** Used by the **Frontend** for precise data fetching.
+  - _Why?_ To prevent over-fetching massive JSON blobs when we only need `character.name` and `character.hp`.
 
 ---
 
-## 🛠 Developer Cheatsheet
+## 🛠 The CLI (Command Line Interface)
 
-### 🏃‍♂️ Run the Backend
+The Daicer CLI is a developer's best friend. It bridges the gap between the Simulation and the Database.
+
+```bash
+yarn cli <command>
+```
+
+| Command     | Usage                          | Description                                                                      |
+| :---------- | :----------------------------- | :------------------------------------------------------------------------------- |
+| `explore`   | `yarn cli explore`             | **Interactive Browser.** View Mobs, Items, and Spells with full JSON inspection. |
+| `knowledge` | `yarn cli knowledge -q "Lich"` | **Vector Search.** Query the RAG database for lore and rules.                    |
+| `status`    | `yarn cli status`              | **Health Check.** View active rooms, memory usage, and worker status.            |
+
+---
+
+## 🔮 The Enrichment Engine (`scripts/enrichment`)
+
+**"Hallucinating Structure from Chaos."**
+
+The defining feature of Daicer. We take unstructured SRD Text and convert it into Game Logic.
+
+### Example: Fireball
+
+**Input (Raw Text):**
+
+> _A bright streak flashes from your pointing finger to a point you choose..._
+
+**Enrichment Process:**
+
+1.  **Ingest:** Read raw text.
+2.  **Schema Check:** Validate against `z.object({ damage: z.string(), radius: z.number() })`.
+3.  **LLM Transformation:** Gemini extracts the logic.
+4.  **Verification:** If Zod fails, we auto-correct and retry.
+
+**Output (Game Logic):**
+
+```json
+{
+  "type": "spell",
+  "level": 3,
+  "mechanic": {
+    "type": "save",
+    "attribute": "dexterity",
+    "effect": "half_damage"
+  },
+  "damage": {
+    "dice": "8d6",
+    "type": "fire"
+  },
+  "targeting": {
+    "shape": "sphere",
+    "radius": 20,
+    "range": 150
+  }
+}
+```
+
+---
+
+## 🗺 Directory Structure
+
+```text
+src/
+├── api/
+│   ├── game/           # Orchestrator & Logic
+│   ├── voxel-engine/   # Physics & World Gen
+│   ├── narrator/       # AI Interface
+│   └── game-event/     # Ledger Definitions
+├── engine/             # THE PURE LOGIC (Shared Lib)
+│   ├── rules/          # 5e Mechanics
+│   └── voxel/          # Math & Physics
+├── utils/
+│   ├── llm/            # Gemini & LangChain Wrappers
+│   └── math/           # 3D Math Helpers
+├── lifecycle/
+│   └── socket/         # Real-time Event Stream
+└── scripts/            # Enrichment & Migrations
+```
+
+---
+
+## 🧪 Developer Cheatsheet
+
+### 🏃‍♂️ Running the Server
 
 ```bash
 yarn develop
-# Starts Strapi on http://localhost:1337
 ```
 
-### 🌱 Seeding Data
+### ⚡️ Processing a Turn (Manual)
 
-If your database is empty, seed the core game rules (SRD content):
-
-```bash
-yarn seed
-```
-
-_(See [Seeds README](seeds/README.md) for details)_
-
-### 🧪 Processing a Turn (Manual Trigger)
-
-You can manually trigger a turn via the Narrator API or using the God Mode tools in the frontend.
+You can force the engine to tick via cURL:
 
 ```bash
-# Example Payload for /api/narrator/action
-{
-  "roomId": "documentId...",
-  "input": "I attack the goblin",
-  "userId": "user-uid..."
-}
+curl -X POST http://localhost:1337/api/narrator/action \
+  -H "Content-Type: application/json" \
+  -d '{
+    "roomId": "abcd-1234",
+    "input": "I cast Magic Missile at the darkness",
+    "userId": "user-789"
+  }'
 ```

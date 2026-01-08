@@ -375,6 +375,38 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiActionAction extends Struct.CollectionTypeSchema {
+  collectionName: 'actions';
+  info: {
+    description: 'Reusable Action Definitions (Rich Structure - Spell Parity)';
+    displayName: 'Action';
+    pluralName: 'actions';
+    singularName: 'action';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    condition_instances: Schema.Attribute.Component<'game.condition-instance', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    damage_instances: Schema.Attribute.Component<'game.damage-instance', true>;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::action.action'> & Schema.Attribute.Private;
+    mechanics_config: Schema.Attribute.Component<'game.mechanics-config', false>;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    range_config: Schema.Attribute.Component<'game.range-config', false>;
+    save: Schema.Attribute.Component<'game.save-dc', false>;
+    slug: Schema.Attribute.UID<'name'>;
+    type: Schema.Attribute.Enumeration<['melee', 'ranged', 'spell', 'utility', 'ability']> &
+      Schema.Attribute.DefaultTo<'melee'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
   collectionName: 'characters';
   info: {
@@ -387,13 +419,15 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     appearance: Schema.Attribute.JSON;
     backstory: Schema.Attribute.Text;
     classes: Schema.Attribute.Component<'game.character-class', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
-    equipment: Schema.Attribute.Component<'game.inventory-item', true>;
+    equipment_items: Schema.Attribute.Component<'game.inventory-item', true>;
+    equipments: Schema.Attribute.Relation<'oneToMany', 'api::equipment.equipment'>;
     fullBody: Schema.Attribute.Media<'images'>;
     level: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -410,6 +444,7 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     portrait: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
+    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -646,6 +681,7 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     armor_class_base: Schema.Attribute.Integer;
     armor_class_dex_bonus: Schema.Attribute.Boolean;
     cost_quantity: Schema.Attribute.Integer;
@@ -678,6 +714,7 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
     range_long: Schema.Attribute.Integer;
     range_normal: Schema.Attribute.Integer;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stealth_disadvantage: Schema.Attribute.Boolean;
     str_minimum: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
@@ -1017,7 +1054,8 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
   };
   attributes: {
     ac: Schema.Attribute.Integer;
-    actions: Schema.Attribute.JSON;
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
+    actions_json: Schema.Attribute.JSON;
     alignment: Schema.Attribute.String;
     challenge_rating: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
@@ -1030,7 +1068,8 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
-    equipment: Schema.Attribute.Component<'game.inventory-item', true>;
+    equipment_items: Schema.Attribute.Component<'game.inventory-item', true>;
+    equipments: Schema.Attribute.Relation<'oneToMany', 'api::equipment.equipment'>;
     features: Schema.Attribute.Component<'game.feature', true>;
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
@@ -1060,6 +1099,7 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
     size: Schema.Attribute.Enumeration<['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     special_abilities: Schema.Attribute.JSON;
+    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
     structuredActions: Schema.Attribute.Component<'game.action', true>;
     type: Schema.Attribute.String;
@@ -1966,6 +2006,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::action.action': ApiActionAction;
       'api::character.character': ApiCharacterCharacter;
       'api::class.class': ApiClassClass;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;

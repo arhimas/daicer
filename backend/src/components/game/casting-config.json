@@ -20,7 +20,8 @@
                 "Reaction",
                 "Minute",
                 "Hour",
-                "Day"
+                "Day",
+                "Round"
             ],
             "default": "Action",
             "required": true
@@ -32,6 +33,11 @@
         "is_ritual": {
             "type": "boolean",
             "default": false
+        },
+        "is_concentration": {
+            "type": "boolean",
+            "default": false,
+            "description": "Requires Concentration?"
         },
         "components": {
             "type": "component",

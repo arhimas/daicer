@@ -102,6 +102,16 @@
     "embeddingMetadata": {
       "type": "json",
       "private": true
+    },
+    "actions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::action.action"
+    },
+    "spells": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::spell.spell"
     }
   }
 }

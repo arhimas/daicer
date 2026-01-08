@@ -64,7 +64,8 @@
     "short-unique-id": "^5.3.2",
     "socket.io": "^4.8.1",
     "styled-components": "^6.0.0",
-    "zod": "^4.3.5"
+    "zod": "^4.3.5",
+    "zod-to-json-schema": "^3.25.1"
   },
   "devDependencies": {
     "@types/gradient-string": "^1.1.6",

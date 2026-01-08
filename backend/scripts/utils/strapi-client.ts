@@ -75,14 +75,8 @@ export async function updateEntity<T>(collection: string, documentId: string, da
     const response = await client.collection(collection).update(documentId, data);
     return response.data;
   } catch (error: any) {
-    // Log detailed Strapi validation error if available
-    if (error.response?.data) {
-      console.error(
-        `[StrapiClient] Validation Error for ${collection} ${documentId}:`,
-        JSON.stringify(error.response.data, null, 2)
-      );
-    }
-    console.error(`[StrapiClient] Failed to update ${collection} ${documentId}:`, error.message);
-    return null;
+    // Re-throw the error so the calling processor can handle it (DLQ)
+    // and access error.response.data for details.
+    throw error;
   }
 }

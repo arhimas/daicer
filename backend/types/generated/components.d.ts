@@ -8,8 +8,9 @@ export interface GameAction extends Struct.ComponentSchema {
     icon: 'fist-raised';
   };
   attributes: {
+    action_definition: Schema.Attribute.Relation<'oneToOne', 'api::action.action'>;
     area: Schema.Attribute.Component<'game.area-effect', false>;
-    damage: Schema.Attribute.Component<'game.damage-dice', true>;
+    damage: Schema.Attribute.Component<'game.damage-instance', true>;
     description: Schema.Attribute.Text;
     duration: Schema.Attribute.Enumeration<
       [
@@ -28,6 +29,7 @@ export interface GameAction extends Struct.ComponentSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     reach: Schema.Attribute.Integer;
     save: Schema.Attribute.Component<'game.save-dc', false>;
+    spell_definition: Schema.Attribute.Relation<'oneToOne', 'api::spell.spell'>;
     toHit: Schema.Attribute.Integer;
     type: Schema.Attribute.Enumeration<['melee', 'ranged', 'spell', 'utility']> & Schema.Attribute.DefaultTo<'melee'>;
   };
@@ -57,9 +59,10 @@ export interface GameCastingConfig extends Struct.ComponentSchema {
   };
   attributes: {
     components: Schema.Attribute.Component<'game.spell-components', false>;
+    is_concentration: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     is_ritual: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     reaction_trigger: Schema.Attribute.Text;
-    time_unit: Schema.Attribute.Enumeration<['Action', 'Bonus Action', 'Reaction', 'Minute', 'Hour', 'Day']> &
+    time_unit: Schema.Attribute.Enumeration<['Action', 'Bonus Action', 'Reaction', 'Minute', 'Hour', 'Day', 'Round']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Action'>;
     time_value: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<1>;
