@@ -17,7 +17,11 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["player", "monster", "npc"],
+      "enum": [
+        "player",
+        "monster",
+        "npc"
+      ],
       "default": "player"
     },
     "monster": {
@@ -91,9 +95,7 @@
       "component": "game.position"
     },
     "structuredActions": {
-      "type": "component",
-      "repeatable": true,
-      "component": "game.action"
+      "type": "json"
     },
     "features": {
       "type": "component",

@@ -444,6 +444,7 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
         };
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    features: Schema.Attribute.Component<'game.feature', true>;
     hit_die: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
@@ -578,7 +579,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
     spellbook: Schema.Attribute.Component<'game.spellbook', false>;
     stats: Schema.Attribute.Component<'game.stats', false>;
-    structuredActions: Schema.Attribute.Component<'game.action', true>;
+    structuredActions: Schema.Attribute.JSON;
     type: Schema.Attribute.Enumeration<['player', 'monster', 'npc']> & Schema.Attribute.DefaultTo<'player'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -681,6 +682,7 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
     str_minimum: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    versatile_damage: Schema.Attribute.String;
     weight: Schema.Attribute.Float;
   };
 }
@@ -869,7 +871,7 @@ export interface ApiLanguageLanguage extends Struct.CollectionTypeSchema {
 export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
   collectionName: 'magic_items';
   info: {
-    description: 'Magical items and artifacts';
+    description: 'Magical items and artifacts (Structured)';
     displayName: 'Magic Item';
     pluralName: 'magic-items';
     singularName: 'magic-item';
@@ -883,7 +885,10 @@ export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    active_abilities: Schema.Attribute.Component<'game.action', true>;
+    attunement_condition: Schema.Attribute.String;
     attunement_required: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    base_item: Schema.Attribute.Relation<'oneToOne', 'api::equipment.equipment'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -893,12 +898,15 @@ export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
         };
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_category: Schema.Attribute.Relation<'manyToOne', 'api::equipment-category.equipment-category'>;
+    has_charges: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     image: Schema.Attribute.Media<'images'>;
     image_url: Schema.Attribute.String;
     is_variant: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::magic-item.magic-item'>;
+    max_charges: Schema.Attribute.Integer;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -910,6 +918,8 @@ export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
     rarity: Schema.Attribute.Enumeration<
       ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Artifact', 'Varies']
     >;
+    recharge_formula: Schema.Attribute.String;
+    recharge_trigger: Schema.Attribute.Enumeration<['Dawn', 'Dusk', 'Short Rest', 'Long Rest', 'Special']>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1240,7 +1250,7 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
 export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
   collectionName: 'spells';
   info: {
-    description: 'D&D 5e Spells';
+    description: 'D&D 5e Spells (Structured)';
     displayName: 'Spell';
     pluralName: 'spells';
     singularName: 'spell';
@@ -1254,24 +1264,32 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    casting_time: Schema.Attribute.String;
-    components: Schema.Attribute.JSON;
+    casting_config: Schema.Attribute.Component<'game.casting-config', false>;
+    condition_instances: Schema.Attribute.Component<'game.condition-instance', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    damage_instances: Schema.Attribute.Component<'game.damage-instance', true>;
     description: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    duration: Schema.Attribute.String;
+    duration_config: Schema.Attribute.Component<'game.duration-config', false>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
-    is_ritual: Schema.Attribute.Boolean;
-    level: Schema.Attribute.Integer;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 9;
+          min: 0;
+        },
+        number
+      >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
+    mechanics_config: Schema.Attribute.Component<'game.mechanics-config', false>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -1280,8 +1298,11 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    range: Schema.Attribute.String;
-    school: Schema.Attribute.String;
+    range_config: Schema.Attribute.Component<'game.range-config', false>;
+    scaling_config: Schema.Attribute.Component<'game.scaling-config', false>;
+    school: Schema.Attribute.Enumeration<
+      ['Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation']
+    >;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;

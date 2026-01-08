@@ -35,6 +35,7 @@ export default {
 
       // 3. Global Entity Knowledge Subscriber
       // Auto-regenerate RAG embeddings when game entities change.
+      /*
       strapi.db.lifecycles.subscribe((event) => {
         const model = event.model.uid;
         // Filter only for our 16 game entities
@@ -71,15 +72,21 @@ export default {
             }
 
             if (result && result.id) {
-              // Run async, don't block request
-              const { entityKnowledgeService } = require('./services/entity-knowledge-service');
-              entityKnowledgeService
-                .syncEntity(model, result.id)
-                .catch((err: any) => strapi.log.error(`[GlobalSubscriber] Failed to sync ${model}:${result.id}`, err));
+              // Decouple from current transaction using setImmediate
+              // This prevents "Transaction query already complete" errors when the HTTP request finishes early
+              setImmediate(() => {
+                const { entityKnowledgeService } = require('./services/entity-knowledge-service');
+                entityKnowledgeService
+                  .syncEntity(model, result.id)
+                  .catch((err: any) =>
+                    strapi.log.error(`[GlobalSubscriber] Failed to sync ${model}:${result.id}`, err)
+                  );
+              });
             }
           }
         }
       });
+      */
     } catch (error) {
       strapi.log.error('Bootstrap failed:', error);
     }

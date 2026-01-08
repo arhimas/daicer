@@ -57,6 +57,11 @@
       "target": "api::proficiency.proficiency",
       "inversedBy": "classes"
     },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.feature"
+    },
     "image": {
       "type": "media",
       "multiple": false,

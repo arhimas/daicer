@@ -1,14 +1,47 @@
-🚀 Starting Verification...
-/Users/lg/lab/daicer/node_modules/@strapi/database/src/dialects/index.ts:40
-  const { client } = db.config.connection;
-          ^
-TypeError: Cannot destructure property 'client' of 'db.config.connection' as it is undefined.
-    at Object.getDialect (/Users/lg/lab/daicer/node_modules/@strapi/database/src/dialects/index.ts:40:11)
-    at new Database (/Users/lg/lab/daicer/node_modules/@strapi/database/src/index.ts:86:20)
-    at resolver (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:286:16)
-    at Strapi.get (/Users/lg/lab/daicer/node_modules/@strapi/core/src/container.ts:27:35)
-    at Strapi.db (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:82:17)
-    at Object.register (/Users/lg/lab/daicer/node_modules/@strapi/core/src/providers/registries.ts:38:12)
-    at async Strapi.register (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:413:7)
-    at async Strapi.load (/Users/lg/lab/daicer/node_modules/@strapi/core/src/Strapi.ts:400:5)
-    at async verify (/Users/lg/lab/daicer/backend/src/scripts/verify-entity-rag.ts:10:18)
+yarn run v1.22.22
+$ /Users/lg/lab/daicer/node_modules/.bin/tsx backend/scripts/enrichment/enrich-game-data.ts --target=all --limit=5 --dry-run
+[dotenv@17.2.3] injecting env (21) from backend/.env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+DEBUG: Script __dirname: /Users/lg/lab/daicer/backend/scripts/enrichment
+DEBUG: Loading backend .env from: /Users/lg/lab/daicer/backend/.env
+DEBUG: Loading root .env from: /Users/lg/lab/daicer/.env
+[dotenv@17.2.3] injecting env (0) from backend/.env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+DEBUG: Backend .env loaded. Keys: [
+  'HOST',                'PORT',
+  'APP_KEYS',            'API_TOKEN_SALT',
+  'ADMIN_JWT_SECRET',    'TRANSFER_TOKEN_SALT',
+  'ENCRYPTION_KEY',      'DATABASE_CLIENT',
+  'DATABASE_HOST',       'DATABASE_PORT',
+  'DATABASE_NAME',       'DATABASE_USERNAME',
+  'DATABASE_PASSWORD',   'DATABASE_SSL',
+  'DATABASE_FILENAME',   'JWT_SECRET',
+  'STRAPI_AUDIT_TOKEN',  'GCS_BUCKET_NAME',
+  'GCS_PUBLIC_FILES',    'GCS_UNIFORM',
+  'GCS_SERVICE_ACCOUNT', 'GEMINI_API_KEY',
+  'OPENAI_API_KEY'
+]
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+DEBUG: Root .env loaded. Keys: [ 'STRAPI_AUDIT_TOKEN', 'GEMINI_API_KEY', 'OPENAI_API_KEY' ]
+DEBUG: GOOGLE_API_KEY present? true
+Use [yarn tsx backend/scripts/enrichment/enrich-game-data.ts] to run.
+[StrapiClient] Initializing connection to http://localhost:1337/api
+Debug: API Key found (starts with AIza...)
+/Users/lg/lab/daicer/node_modules/@langchain/google-genai/src/chat_models.ts:660
+    this.model = fields.model.replace(/^models\//, "");
+                              ^
+
+
+TypeError: Cannot read properties of undefined (reading 'replace')
+    at new ChatGoogleGenerativeAI (/Users/lg/lab/daicer/node_modules/@langchain/google-genai/src/chat_models.ts:660:31)
+    at run (/Users/lg/lab/daicer/backend/scripts/enrichment/enrich-game-data.ts:233:17)
+    at ShortUniqueId (/Users/lg/lab/daicer/backend/scripts/enrichment/enrich-game-data.ts:422:1)
+    at Object.<anonymous> (/Users/lg/lab/daicer/backend/scripts/enrichment/enrich-game-data.ts:422:5)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object.transformer (/Users/lg/lab/daicer/node_modules/tsx/dist/register-D46fvsV_.cjs:3:1104)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function._load (node:internal/modules/cjs/loader:1108:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:220:24)
+
+Node.js v22.14.0
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

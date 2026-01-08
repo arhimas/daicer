@@ -28,7 +28,8 @@
     "cli": "yarn workspace @daicer/backend cli"
   },
   "dependencies": {
-    "@uidotdev/usehooks": "^2.4.1"
+    "@uidotdev/usehooks": "^2.4.1",
+    "jsonrepair": "^3.13.1"
   },
   "devDependencies": {
     "@google/generative-ai": "^0.21.0",

@@ -48,6 +48,24 @@ export interface GameAreaEffect extends Struct.ComponentSchema {
   };
 }
 
+export interface GameCastingConfig extends Struct.ComponentSchema {
+  collectionName: 'components_game_casting_configs';
+  info: {
+    description: 'Rules for casting time and components';
+    displayName: 'Casting Config';
+    icon: 'hand-sparkles';
+  };
+  attributes: {
+    components: Schema.Attribute.Component<'game.spell-components', false>;
+    is_ritual: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    reaction_trigger: Schema.Attribute.Text;
+    time_unit: Schema.Attribute.Enumeration<['Action', 'Bonus Action', 'Reaction', 'Minute', 'Hour', 'Day']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Action'>;
+    time_value: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<1>;
+  };
+}
+
 export interface GameCharacterClass extends Struct.ComponentSchema {
   collectionName: 'components_game_character_classes';
   info: {
@@ -69,6 +87,49 @@ export interface GameCharacterClass extends Struct.ComponentSchema {
   };
 }
 
+export interface GameConditionInstance extends Struct.ComponentSchema {
+  collectionName: 'components_game_condition_instances';
+  info: {
+    description: 'Applying status effects';
+    displayName: 'Condition Instance';
+    icon: 'dizzy';
+  };
+  attributes: {
+    chance: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<100>;
+    condition: Schema.Attribute.Enumeration<
+      [
+        'Blinded',
+        'Charmed',
+        'Deafened',
+        'Exhaustion',
+        'Frightened',
+        'Grappled',
+        'Incapacitated',
+        'Invisible',
+        'Paralyzed',
+        'Petrified',
+        'Poisoned',
+        'Prone',
+        'Restrained',
+        'Stunned',
+        'Unconscious',
+        'Special',
+      ]
+    > &
+      Schema.Attribute.Required;
+    description: Schema.Attribute.String;
+    duration_rounds: Schema.Attribute.Integer;
+  };
+}
+
 export interface GameDamageDice extends Struct.ComponentSchema {
   collectionName: 'components_game_damage_dice';
   info: {
@@ -80,6 +141,42 @@ export interface GameDamageDice extends Struct.ComponentSchema {
     bonus: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     dice: Schema.Attribute.String & Schema.Attribute.Required;
     type: Schema.Attribute.String;
+  };
+}
+
+export interface GameDamageInstance extends Struct.ComponentSchema {
+  collectionName: 'components_game_damage_instances';
+  info: {
+    description: 'Damage or Healing application';
+    displayName: 'Damage Instance';
+    icon: 'skull-crossbones';
+  };
+  attributes: {
+    damage_type: Schema.Attribute.Enumeration<
+      [
+        'Acid',
+        'Bludgeoning',
+        'Cold',
+        'Fire',
+        'Force',
+        'Lightning',
+        'Necrotic',
+        'Piercing',
+        'Poison',
+        'Psychic',
+        'Radiant',
+        'Slashing',
+        'Thunder',
+      ]
+    >;
+    dice_count: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    dice_value: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
+    effect_type: Schema.Attribute.Enumeration<['Damage', 'Healing', 'TempHP']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Damage'>;
+    flat_bonus: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    timing: Schema.Attribute.Enumeration<['Instant', 'Start of Turn', 'End of Turn', 'One Time Trigger']> &
+      Schema.Attribute.DefaultTo<'Instant'>;
   };
 }
 
@@ -96,6 +193,25 @@ export interface GameDmStyle extends Struct.ComponentSchema {
     narrative: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     specialMode: Schema.Attribute.String;
     verbosity: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+  };
+}
+
+export interface GameDurationConfig extends Struct.ComponentSchema {
+  collectionName: 'components_game_duration_configs';
+  info: {
+    description: 'Duration and Concentration rules';
+    displayName: 'Duration Config';
+    icon: 'hourglass-start';
+  };
+  attributes: {
+    concentration: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    type: Schema.Attribute.Enumeration<
+      ['Instantaneous', 'Concentration', 'Time-Limited', 'Until Dispelled', 'Until Triggered', 'Special']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Instantaneous'>;
+    unit: Schema.Attribute.Enumeration<['Rounds', 'Minutes', 'Hours', 'Days']>;
+    value: Schema.Attribute.Integer;
   };
 }
 
@@ -153,6 +269,34 @@ export interface GameInventoryItem extends Struct.ComponentSchema {
   };
 }
 
+export interface GameMechanicsConfig extends Struct.ComponentSchema {
+  collectionName: 'components_game_mechanics_configs';
+  info: {
+    description: 'Saving Throws and Attack Types';
+    displayName: 'Mechanics Config';
+    icon: 'cog';
+  };
+  attributes: {
+    action_type: Schema.Attribute.Enumeration<
+      [
+        'Melee Spell Attack',
+        'Ranged Spell Attack',
+        'Strength Save',
+        'Dexterity Save',
+        'Constitution Save',
+        'Intelligence Save',
+        'Wisdom Save',
+        'Charisma Save',
+        'Auto-Hit',
+        'None',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'None'>;
+    save_effect: Schema.Attribute.Enumeration<['Negate', 'Half', 'None']>;
+  };
+}
+
 export interface GamePlayer extends Struct.ComponentSchema {
   collectionName: 'components_game_players';
   info: {
@@ -187,6 +331,24 @@ export interface GamePosition extends Struct.ComponentSchema {
   };
 }
 
+export interface GameRangeConfig extends Struct.ComponentSchema {
+  collectionName: 'components_game_range_configs';
+  info: {
+    description: 'Distance and Area of Effect';
+    displayName: 'Range Config';
+    icon: 'ruler-combined';
+  };
+  attributes: {
+    aoe_height: Schema.Attribute.Integer;
+    aoe_shape: Schema.Attribute.Enumeration<['Cone', 'Cube', 'Cylinder', 'Line', 'Sphere', 'Hemisphere']>;
+    aoe_size: Schema.Attribute.Integer;
+    distance: Schema.Attribute.Integer;
+    type: Schema.Attribute.Enumeration<['Self', 'Touch', 'Ranged (Feet)', 'Ranged (Miles)', 'Sight', 'Unlimited']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Ranged (Feet)'>;
+  };
+}
+
 export interface GameSaveDc extends Struct.ComponentSchema {
   collectionName: 'components_game_save_dcs';
   info: {
@@ -198,6 +360,40 @@ export interface GameSaveDc extends Struct.ComponentSchema {
     dc: Schema.Attribute.Integer & Schema.Attribute.Required;
     stat: Schema.Attribute.Enumeration<['str', 'dex', 'con', 'int', 'wis', 'cha']> & Schema.Attribute.Required;
     success_type: Schema.Attribute.Enumeration<['none', 'half', 'other']> & Schema.Attribute.DefaultTo<'none'>;
+  };
+}
+
+export interface GameScalingConfig extends Struct.ComponentSchema {
+  collectionName: 'components_game_scaling_configs';
+  info: {
+    description: 'Rules for Higher Level Casting';
+    displayName: 'Scaling Config';
+    icon: 'sort-amount-up';
+  };
+  attributes: {
+    dice_count: Schema.Attribute.Integer;
+    dice_value: Schema.Attribute.Integer;
+    method: Schema.Attribute.Enumeration<['Per Slot Level', 'Every 2 Slot Levels', 'Specific Thresholds']> &
+      Schema.Attribute.DefaultTo<'Per Slot Level'>;
+    scales: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    type: Schema.Attribute.Enumeration<['Dice', 'Target', 'Duration']> & Schema.Attribute.DefaultTo<'Dice'>;
+  };
+}
+
+export interface GameSpellComponents extends Struct.ComponentSchema {
+  collectionName: 'components_game_spell_components';
+  info: {
+    description: 'V, S, M requirements';
+    displayName: 'Spell Components';
+    icon: 'puzzle-piece';
+  };
+  attributes: {
+    consumed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    cost_gp: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    material: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    material_description: Schema.Attribute.String;
+    somatic: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    verbal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
 
@@ -252,14 +448,22 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'game.action': GameAction;
       'game.area-effect': GameAreaEffect;
+      'game.casting-config': GameCastingConfig;
       'game.character-class': GameCharacterClass;
+      'game.condition-instance': GameConditionInstance;
       'game.damage-dice': GameDamageDice;
+      'game.damage-instance': GameDamageInstance;
       'game.dm-style': GameDmStyle;
+      'game.duration-config': GameDurationConfig;
       'game.feature': GameFeature;
       'game.inventory-item': GameInventoryItem;
+      'game.mechanics-config': GameMechanicsConfig;
       'game.player': GamePlayer;
       'game.position': GamePosition;
+      'game.range-config': GameRangeConfig;
       'game.save-dc': GameSaveDc;
+      'game.scaling-config': GameScalingConfig;
+      'game.spell-components': GameSpellComponents;
       'game.spellbook': GameSpellbook;
       'game.stats': GameStats;
     }

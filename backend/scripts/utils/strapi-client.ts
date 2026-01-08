@@ -4,7 +4,6 @@
  * usage: import { getStrapiClient } from './utils/strapi-client';
  */
 
- 
 const { strapi } = require('@strapi/client');
 import dotenv from 'dotenv';
 import path from 'path';
@@ -75,8 +74,15 @@ export async function updateEntity<T>(collection: string, documentId: string, da
   try {
     const response = await client.collection(collection).update(documentId, data);
     return response.data;
-  } catch (error) {
-    console.error(`[StrapiClient] Failed to update ${collection} ${documentId}:`, error);
+  } catch (error: any) {
+    // Log detailed Strapi validation error if available
+    if (error.response?.data) {
+      console.error(
+        `[StrapiClient] Validation Error for ${collection} ${documentId}:`,
+        JSON.stringify(error.response.data, null, 2)
+      );
+    }
+    console.error(`[StrapiClient] Failed to update ${collection} ${documentId}:`, error.message);
     return null;
   }
 }

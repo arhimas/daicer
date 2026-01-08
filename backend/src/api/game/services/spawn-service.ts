@@ -162,6 +162,21 @@ export default ({ strapi }) => ({
         'equipment.item.damage_type',
         'equipment.item.equipment_category',
         'equipment.item.properties',
+        'spell_config',
+        'spell_config.prepared_spells',
+        'spell_config.prepared_spells.casting_config',
+        'spell_config.prepared_spells.range_config',
+        'spell_config.prepared_spells.duration_config',
+        'spell_config.prepared_spells.mechanics_config',
+        'spell_config.prepared_spells.damage_instances',
+        'spell_config.prepared_spells.condition_instances',
+        'spell_config.known_spells',
+        'spell_config.known_spells.casting_config',
+        'spell_config.known_spells.range_config',
+        'spell_config.known_spells.duration_config',
+        'spell_config.known_spells.mechanics_config',
+        'spell_config.known_spells.damage_instances',
+        'spell_config.known_spells.condition_instances',
       ],
     });
 
@@ -214,6 +229,15 @@ export default ({ strapi }) => ({
     const equipmentForDeriver =
       character.equipment?.filter((entry: any) => entry.isEquipped && entry.item).map((entry: any) => entry.item) || [];
 
+    // Extract Spells (Prepared + Known)
+    // We combine them into a single list for the Deriver to hydrate.
+    // Logic: If prepared casters, use prepared. If known casters, use known.
+    // For now, we just unite them all.
+    const activeSpells = [
+      ...(character.spell_config?.prepared_spells || []),
+      ...(character.spell_config?.known_spells || []),
+    ];
+
     // Calculate Stats
     const derived = EntityDeriver.derive({
       attributes: attributes,
@@ -232,6 +256,7 @@ export default ({ strapi }) => ({
       race: {
         speed: character.race?.speed,
       },
+      spells: activeSpells, // Pass to Context
     });
 
     // Check for collision

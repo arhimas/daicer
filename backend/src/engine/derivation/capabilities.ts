@@ -1,4 +1,5 @@
 import { DerivationContext } from './types';
+import { ActionHydrator } from './ActionHydrator';
 
 /**
  * Derives movement speeds.
@@ -37,77 +38,42 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
  */
 export function deriveActions(context: DerivationContext) {
   const { equipment, attributes, proficiencyBonus, innateActions } = context;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actions: any[] = [];
 
   // 1. Process Innate Actions (from blueprints/JSONs) first
   if (innateActions && Array.isArray(innateActions)) {
+    // TODO: Hydrate these if they follow the new schema
     actions.push(...innateActions);
   }
 
-  // 2. Derive Weapon Actions from Equipment
-  equipment.forEach((item) => {
-    // Skip unequipped items
-    // Shared schema uses 'isEquipped'
-    if (!item.isEquipped) return;
+  // 2. Derive Weapon Actions from Equipment via Hydrator
+  if (equipment) {
+    equipment.forEach((item) => {
+      // Skip unequipped items
+      if (!item.isEquipped) return; // Handle both flag styles
 
-    // Check if item is a weapon
-    // Logic: Has damage_dice OR category is weapon
-    const isWeapon =
-      item.damage_dice ||
-      (item.equipment_category && ['weapon', 'simple-weapon', 'martial-weapon'].includes(item.equipment_category.slug));
+      const hydrated = ActionHydrator.hydrateFromEquipment(item, context);
+      actions.push(...hydrated);
+    });
+  }
 
-    if (isWeapon && item.damage_dice) {
-      // Determine stat (Strength or Dexterity)
-      // Standardize logic on full property names
-      const str = attributes.strength ?? 10;
-      const dex = attributes.dexterity ?? 10;
-
-      let statMod = Math.floor((str - 10) / 2);
-      let statUsed = 'strength';
-
-      const isRanged = (item.range_normal && item.range_normal > 5) || false;
-      const isFinesse = item.properties?.some((p) => p.slug === 'finesse');
-
-      if (isRanged || (isFinesse && dex > str)) {
-        statMod = Math.floor((dex - 10) / 2);
-        statUsed = 'dexterity';
-      }
-
-      // Calculate Total Bonus (Stat + Prof if proficient)
-      // Assuming proficiency with all equipped weapons for now (simplification)
-      const toHit = statMod + (proficiencyBonus || 2);
-      const damageBonus = statMod; // D&D rules: adds stat mod to damage
-
-      const type = isRanged ? 'ranged_attack' : 'melee_attack';
-
-      actions.push({
-        id: `derived-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
-        name: item.name,
-        type: type,
-        description: `Attack with ${item.name}. ${item.range_long ? `Range: ${item.range_normal}/${item.range_long}` : 'Reach: 5ft'}`,
-        reach: item.range_normal || 5,
-        range: item.range_long ? `${item.range_normal}/${item.range_long}` : undefined,
-        toHit: toHit,
-        damage: [
-          {
-            dice: item.damage_dice,
-            bonus: damageBonus,
-            type: item.damage_type?.name || 'slashing',
-          },
-        ],
-      });
-    }
+  // 3. Derive Spells (if present in context)
+  // Context needs to pass 'activeSpells' or similar
+  const spells = (context as any).spells || [];
+  spells.forEach((spell: any) => {
+    const hydrated = ActionHydrator.hydrateFromSpell(spell, context);
+    actions.push(hydrated);
   });
 
   // Default Unarmed Strike if no actions at all
   if (actions.length === 0) {
+    // Keep Unarmed fallback for now
     const str = attributes.strength ?? 10;
     const strMod = Math.floor((str - 10) / 2);
     actions.push({
       id: 'action-unarmed',
       name: 'Unarmed Strike',
-      type: 'melee_attack',
+      type: 'melee_attack', // Legacy type for now, or update to 'melee_weapon'
       description: 'Punch, kick, or headbutt.',
       reach: 5,
       toHit: strMod + (proficiencyBonus || 2),
