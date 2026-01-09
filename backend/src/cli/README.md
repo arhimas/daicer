@@ -49,18 +49,31 @@ You are **prohibited** from guessing database schemas. You are **prohibited** fr
     ```bash
     yarn cli status --json
     ```
-2.  **🔮 Inspect Reality**: What does the data structure look like?
-    ```bash
-    yarn cli schema --type api::monster.monster --json
-    ```
-3.  **💪 Query with Precision**: Fetch exactly what you need.
-    ```bash
-    yarn cli explore --type api::monster.monster --filters '{"challenge_rating": { "$gt": 5 }}' --json
-    ```
-4.  **🧠 Consult Knowledge**: Verify rules via RAG.
-    ```bash
-    yarn cli knowledge --query "How does Legendary Resistance work?" --json
-    ```
+2.  **🔮 Inspect Reality**: What does the data structure look### `schema`
+    Inspect Content Type schemas. Now supports **Deep Recursion** (2 levels) to visualize relation structures.
+
+- `yarn cli schema -t <uid>`: View single schema with nested relations.
+- `yarn cli schema --list`: List all available Content Types.
+- `yarn cli schema --all`: Dump all schemas.
+
+### `explore`
+
+Interactive data explorer. Now supports **Deep Data Population** for `find` and `findOne`.
+
+- `-t <uid>`: Target Content Type.
+- `-a <action>`: Action (find, findOne, count).
+- `--json`: Output strict, deeply populated JSON for Agents.
+
+### `knowledge`
+
+**RAG Interface**. Use this to query the Daicer knowledge base.
+
+> [!IMPORTANT]
+> The `knowledge` command now automatically fetches full entity data for search results, bridging the gap between vector snippets and actual database state.
+
+- `-q <query>`: Semantic search query.
+- `-e`: Restrict to Entity types.
+- `--json`: Strict JSON output.
 
 ---
 
