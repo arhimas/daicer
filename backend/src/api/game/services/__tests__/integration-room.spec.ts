@@ -1,14 +1,14 @@
-import createAdapter from '../entity-adapter';
+import createAdapter, { StrapiEntitySheet } from '../entity-adapter';
 
 describe('Integration: Room Entity Adaptation', () => {
   const adapterService = createAdapter();
 
-  const createMockEntity = (id: string, type: 'monster' | 'player') => ({
+  const createMockEntity = (id: string, type: 'monster' | 'player'): StrapiEntitySheet => ({
     documentId: id,
     name: `Entity ${id}`,
     type,
     stats: { strength: 10, dexterity: 12 },
-    monster: type === 'monster' ? { ac: 14, hp: 20 } : undefined,
+    monster: type === 'monster' ? { documentId: `m_${id}`, name: 'Mon', ac: 14, hp: 20 } : undefined,
     character: type === 'player' ? { documentId: 'c1', name: 'Hero' } : undefined,
     currentHp: 20,
     maxHp: 20,
@@ -21,7 +21,7 @@ describe('Integration: Room Entity Adaptation', () => {
       createMockEntity('m2', 'monster'),
     ];
 
-    const adapted = rawEntities.map((e) => adapterService.adapt(e as any));
+    const adapted = rawEntities.map((e) => adapterService.adapt(e));
 
     expect(adapted).toHaveLength(3);
     expect(adapted[0].type).toBe('monster');
@@ -32,7 +32,7 @@ describe('Integration: Room Entity Adaptation', () => {
 
   // MASSIVE INTEGRATION SIMULATION (100 Entities)
   describe('Massive Room Load', () => {
-    const rawEntities: any[] = [];
+    const rawEntities: StrapiEntitySheet[] = [];
     for (let i = 0; i < 100; i++) {
       rawEntities.push(createMockEntity(`e_${i}`, i % 5 === 0 ? 'player' : 'monster'));
     }

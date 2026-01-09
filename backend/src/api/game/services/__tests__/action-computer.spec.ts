@@ -1,4 +1,4 @@
-import { resolveActions } from '../entity-adapter';
+import { resolveActions, StrapiEntitySheet, StrapiAction } from '../entity-adapter';
 
 describe('Action Computation Logic', () => {
   const baseStats = {
@@ -11,6 +11,13 @@ describe('Action Computation Logic', () => {
     passivePerception: 10,
     initiativeBonus: 0,
   };
+
+  const mockSheet = (actions: StrapiAction[]): StrapiEntitySheet => ({
+    documentId: 'doc_1',
+    name: 'Test',
+    type: 'monster',
+    actions,
+  });
 
   describe('Field Preservation', () => {
     it('preserves complex damage objects', () => {
@@ -26,9 +33,9 @@ describe('Action Computation Logic', () => {
             damage: complexDamage,
           },
         ],
-      } as any;
+      };
 
-      const res = resolveActions(sheet, baseStats);
+      const res = resolveActions(mockSheet(sheet.actions), baseStats);
       expect(res[0].damage).toEqual(complexDamage);
     });
 
@@ -36,9 +43,9 @@ describe('Action Computation Logic', () => {
       const save = { type: 'dexterity', dc: 15, onSave: 'half' };
       const sheet = {
         actions: [{ documentId: 'a2', name: 'Trap', save }],
-      } as any;
+      };
 
-      const res = resolveActions(sheet, baseStats);
+      const res = resolveActions(mockSheet(sheet.actions), baseStats);
       expect(res[0].save).toEqual(save);
     });
 
@@ -47,9 +54,15 @@ describe('Action Computation Logic', () => {
       it(`preserves integrity of random object structure ${i}`, () => {
         const randomData = { index: i, meta: { deep: true, val: i * 2 } };
         const sheet = {
-          actions: [{ documentId: `rnd${i}`, name: 'Rnd', damage: randomData }],
-        } as any;
-        const res = resolveActions(sheet, baseStats);
+          actions: [
+            {
+              documentId: `rnd${i}`,
+              name: 'Rnd',
+              damage: randomData as unknown as StrapiAction['damage'],
+            },
+          ],
+        };
+        const res = resolveActions(mockSheet(sheet.actions), baseStats);
         expect(res[0].damage).toEqual(randomData);
       });
     }
@@ -62,7 +75,7 @@ describe('Action Computation Logic', () => {
       const mod = Math.floor((str - 10) / 2);
       it(`calculates unarmed for Strength ${str} (Mod ${mod})`, () => {
         const stats = { ...baseStats, strength: str };
-        const res = resolveActions({} as any, stats);
+        const res = resolveActions(mockSheet([]), stats);
         // Default 2 prof + mod
         expect(res[0].toHit).toBe(2 + mod);
         expect(res[0].damage?.[0].bonus).toBe(mod);

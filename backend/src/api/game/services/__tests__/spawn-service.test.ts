@@ -68,7 +68,8 @@ describe('Spawn Service', () => {
             type: 'monster',
             hp: 7,
             room: 'room-1',
-            actions: expect.arrayContaining([expect.objectContaining({ name: 'Scimitar', toHit: 4 })]),
+            actions: expect.any(Array),
+            structuredActions: expect.arrayContaining([expect.objectContaining({ name: 'Scimitar', toHit: 4 })]),
           }),
         })
       );

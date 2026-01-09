@@ -1,0 +1,32 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint Backend
+        run: yarn workspace @daicer/backend lint
+
+      - name: Typecheck Backend
+        run: yarn workspace @daicer/backend typecheck
+
+      - name: Test Backend
+        run: yarn workspace @daicer/backend test

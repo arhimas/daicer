@@ -8,6 +8,7 @@ import {
   EntitySpell,
   EntityTrait,
   StatBlock,
+  EntitySheet,
 } from '../../../engine';
 
 // =============================================================================
@@ -233,14 +234,14 @@ export const resolveActions = (sheet: StrapiEntitySheet, stats: StatBlock): Enti
   if (sourceActions && Array.isArray(sourceActions)) {
     actions.push(
       ...sourceActions.map((a) => ({
-        id: String(a.documentId || Math.random()),
+        id: String(a.documentId),
         name: a.name,
-        type: (a.type as any) || 'utility',
+        type: a.type || 'utility',
         toHit: a.toHit,
-        damage: a.damage as any, // Pass-through JSON
-        save: a.save as any,
-        area: a.area as any,
-        range: a.range as any,
+        damage: a.damage?.map((d) => ({ ...d, bonus: d.bonus || 0 })),
+        save: a.save?.dc && a.save?.stat ? { dc: a.save.dc, stat: a.save.stat } : undefined,
+        area: a.area,
+        range: a.range ? String(a.range) : undefined,
         description: a.description,
         action_definition: a.action_definition
           ? {
@@ -310,13 +311,11 @@ export default () => ({
       isRare: l.is_rare,
     }));
 
-    const traits: EntityTrait[] = (sheet.traits || [])
-      .concat((sheet.monster?.features as any) || [] /* legacy mix */)
-      .map((t) => ({
-        documentId: t.documentId,
-        name: t.name,
-        description: t.description,
-      }));
+    const traits: EntityTrait[] = (sheet.traits || []).concat(sheet.monster?.features || []).map((t) => ({
+      documentId: t.documentId,
+      name: t.name,
+      description: t.description,
+    }));
 
     const features: EntityFeature[] = (sheet.features || []).map((f) => ({
       documentId: f.documentId,
@@ -330,14 +329,18 @@ export default () => ({
       id: sheet.documentId, // Strict reliance on documentId
       name: sheet.name || 'Unknown Entity',
       type: sheet.type || 'monster',
-      position: (sheet as any).position || { x: 0, y: 0, z: 0 },
+      position: sheet.position || { x: 0, y: 0, z: 0 },
 
       hp,
       maxHp,
       armorClass,
       speed: sheet.speed || 30,
 
-      level: sheet.character?.classes?.[0] ? 1 : sheet.monster ? (sheet.monster as any).challenge_rating : 1, // Simplistic level for now
+      level: sheet.character?.classes?.[0]
+        ? 1
+        : sheet.monster?.challenge_rating
+          ? Math.floor(sheet.monster.challenge_rating)
+          : 1,
 
       stats,
       // We map inventory to 'equipment' logic if needed,
@@ -348,13 +351,13 @@ export default () => ({
       features,
 
       // Relations
-      conditions: [], // Runtime only, not on sheet usually
-      resistances: sheet.resistances || (sheet.monster?.resistances as any) || [],
-      immunities: sheet.immunities || (sheet.monster?.immunities as any) || [],
-      vulnerabilities: sheet.vulnerabilities || (sheet.monster?.vulnerabilities as any) || [],
+      conditions: [],
+      resistances: sheet.resistances || sheet.monster?.resistances || [],
+      immunities: sheet.immunities || sheet.monster?.immunities || [],
+      vulnerabilities: sheet.vulnerabilities || sheet.monster?.vulnerabilities || [],
 
       // Visuals
-      color: (sheet as any).color || '#ffffff',
+      color: sheet.color || '#ffffff',
       visionRadius: 30, // Default
 
       // Embed the sheet for full detail access
@@ -363,23 +366,16 @@ export default () => ({
         // Ensure strictly typed fields override any loose JSON
         hp,
         maxHp,
-        stats: { ...stats }, // Ensure shape matches
-        inventory: inventory as any, // engine expects exact shape?
-        // Note: engine types might differ slightly on inventory item, checked above, looks compatible (InventoryItem vs EntityItem alias)
+        stats: { ...stats },
+        inventory,
         actions,
         spells,
         proficiencies,
         languages,
         traits,
         features,
-        // Legacy
-        spellbook: sheet.spellbook
-          ? ({
-              ...sheet.spellbook,
-              // normalize IDs if needed? StrapiSpell already has documentId.
-            } as any)
-          : undefined,
-      } as any, // Cast to any to satisfy the complex EntitySheet generic union if needed/inferred
+        spellbook: sheet.spellbook,
+      } as unknown as EntitySheet,
     };
   },
 });

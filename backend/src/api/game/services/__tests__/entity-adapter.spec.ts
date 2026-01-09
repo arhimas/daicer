@@ -4,14 +4,23 @@ import createAdapter, {
   resolveSpells,
   resolveActions,
   StrapiEntitySheet,
+  StrapiInventoryItem,
 } from '../entity-adapter';
+import { StatBlock } from '../../../engine';
 
 describe('EntityAdapter', () => {
   const adapterService = createAdapter();
 
+  const mockSheet = (partial: Partial<StrapiEntitySheet> = {}): StrapiEntitySheet => ({
+    documentId: 'doc_default',
+    name: 'Default Entity',
+    type: 'npc',
+    ...partial,
+  });
+
   describe('resolveBaseStats', () => {
     it('returns default 10s when empty', () => {
-      const stats = resolveBaseStats({} as any);
+      const stats = resolveBaseStats(mockSheet());
       expect(stats.strength).toBe(10);
       expect(stats.dexterity).toBe(10);
       expect(stats.initiativeBonus).toBe(0);
@@ -53,7 +62,7 @@ describe('EntityAdapter', () => {
     const attributes = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
     attributes.forEach((attr) => {
       it(`resolves ${attr} correctly from sheet`, () => {
-        const sheet = { stats: { [attr]: 15 } } as any;
+        const sheet = mockSheet({ stats: { [attr]: 15 } });
         const res = resolveBaseStats(sheet);
         expect(res[attr as keyof typeof res]).toBe(15);
       });
@@ -76,7 +85,7 @@ describe('EntityAdapter', () => {
           item: { documentId: 'i1', name: 'Sword' },
         },
       ];
-      const res = resolveInventory(input as any);
+      const res = resolveInventory(input as StrapiInventoryItem[]);
       expect(res).toHaveLength(1);
       expect(res[0].quantity).toBe(5);
       expect(res[0].isEquipped).toBe(true);
@@ -85,7 +94,7 @@ describe('EntityAdapter', () => {
 
     it('generates ID if missing', () => {
       const input = [{ quantity: 1, slot: 'backpack' }];
-      const res = resolveInventory(input as any);
+      const res = resolveInventory(input as StrapiInventoryItem[]);
       expect(res[0].id).toMatch(/^inv_/);
     });
 
@@ -93,32 +102,53 @@ describe('EntityAdapter', () => {
     for (let i = 0; i < 20; i++) {
       it(`processes inventory item variation ${i}`, () => {
         const input = [{ id: i, quantity: i, slot: 'slot' + i, isEquipped: i % 2 === 0 }];
-        const res = resolveInventory(input as any);
+        const res = resolveInventory(input as StrapiInventoryItem[]);
         expect(res[0].quantity).toBe(i || 1);
         expect(res[0].isEquipped).toBe(i % 2 === 0);
       });
     }
   });
 
+  describe('resolveSpells', () => {
+    it('returns empty if no spellbook', () => {
+      expect(resolveSpells(mockSheet())).toEqual([]);
+    });
+
+    it('maps known spells correctly', () => {
+      const sheet = mockSheet({
+        spellbook: {
+          id: 1,
+          knownSpells: [
+            { documentId: 's1', name: 'Magic Missile', level: 1, casting_time: '1 action', range: '120 ft' },
+          ],
+        },
+      });
+      const spells = resolveSpells(sheet);
+      expect(spells).toHaveLength(1);
+      expect(spells[0].name).toBe('Magic Missile');
+      expect(spells[0].range).toBe('120 ft');
+    });
+  });
+
   describe('resolveActions', () => {
     it('returns empty if no actions', () => {
-      const res = resolveActions({} as any, { strength: 10 } as any);
+      const res = resolveActions(mockSheet(), { strength: 10 } as StatBlock);
       // expect fallback?
       expect(res).toHaveLength(1);
       expect(res[0].id).toBe('action-unarmed');
     });
 
     it('calculates unarmed strike based on strength', () => {
-      const res = resolveActions({} as any, { strength: 20 } as any); // +5 mod
+      const res = resolveActions(mockSheet(), { strength: 20 } as StatBlock); // +5 mod
       expect(res[0].toHit).toBe(7); // 2 + 5
       expect(res[0].damage?.[0].bonus).toBe(5);
     });
 
     it('uses explicit actions from sheet', () => {
-      const sheet = {
+      const sheet = mockSheet({
         actions: [{ documentId: 'a1', name: 'Slash', type: 'melee_attack' }],
-      } as any;
-      const res = resolveActions(sheet, { strength: 10 } as any);
+      });
+      const res = resolveActions(sheet, { strength: 10 } as StatBlock);
       expect(res[0].name).toBe('Slash');
     });
 
@@ -126,7 +156,7 @@ describe('EntityAdapter', () => {
     for (let s = 1; s <= 50; s++) {
       it(`calculates unarmed for Strength ${s}`, () => {
         const mod = Math.floor((s - 10) / 2);
-        const res = resolveActions({} as any, { strength: s } as any);
+        const res = resolveActions(mockSheet(), { strength: s } as StatBlock);
         expect(res[0].damage?.[0].bonus).toBe(mod);
       });
     }
@@ -170,7 +200,7 @@ describe('EntityAdapter', () => {
           name: `Ent ${i}`,
           type: 'npc',
           currentHp: 10 + i,
-        } as any);
+        });
         expect(ent.hp).toBe(10 + i);
         expect(ent.id).toBe(`e${i}`);
       });
@@ -179,7 +209,6 @@ describe('EntityAdapter', () => {
     // MONSTER SPECIFIC (50 Tests)
     for (let i = 1; i <= 50; i++) {
       it(`adapts monster configuration ${i} (HP/AC scale)`, () => {
-        const cr = i;
         const source: StrapiEntitySheet = {
           documentId: `mon_${i}`,
           name: `Beast ${i}`,
