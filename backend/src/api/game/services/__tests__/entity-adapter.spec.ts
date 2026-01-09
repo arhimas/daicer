@@ -123,7 +123,7 @@ describe('EntityAdapter', () => {
           ],
         },
       });
-      const spells = resolveSpells(sheet);
+      const spells = resolveSpells(sheet.spellbook);
       expect(spells).toHaveLength(1);
       expect(spells[0].name).toBe('Magic Missile');
       expect(spells[0].range).toBe('120 ft');
@@ -244,7 +244,7 @@ describe('EntityAdapter', () => {
         };
         const ent = adapterService.adapt(source);
         expect(ent.type).toBe('player');
-        expect(ent.level).toBe(1); // My simplistic logic for now hardcodes level 1 for safety unless complex logic added
+        expect(ent.level).toBe(level);
         expect(ent.stats.strength).toBe(10 + (i % 10));
       });
     }

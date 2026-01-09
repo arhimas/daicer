@@ -53,6 +53,7 @@ export const EntityActionSchema = z.object({
   damage: z.array(z.object({ dice: z.string(), bonus: z.number(), type: z.string() })).optional(),
   range: z.string().optional(),
   save: z.object({ dc: z.number(), stat: z.string() }).optional(),
+  properties: z.array(z.string()).optional(),
   description: z.string().optional(),
   action_definition: z.object({ documentId: z.string().optional(), name: z.string() }).optional(),
 });

@@ -1,0 +1,15 @@
+export type DamageType =
+  | 'slashing'
+  | 'piercing'
+  | 'bludgeoning'
+  | 'fire'
+  | 'cold'
+  | 'lightning'
+  | 'thunder'
+  | 'poison'
+  | 'acid'
+  | 'psychic'
+  | 'necrotic'
+  | 'radiant'
+  | 'force'
+  | 'precision'; // Used for Sneak Attack extra damage bundles often

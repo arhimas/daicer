@@ -1,9 +1,16 @@
 import { ActionDefinition, ActionIntent, ActionType } from './actions';
-import { Entity, ExecutionTrace, ExecutionStep } from '../types';
+import { Entity, ExecutionTrace, ExecutionStep, EntityAction } from '../types';
 import { roll, DiceResult, parseDiceString } from './dice';
 import { calculateDistance } from '../utils/geometry';
 import { getConditionModifiers, hasCondition, ConditionType } from './conditions';
 import { calculateModifier } from './dnd5e';
+
+// SOTA Imports
+import { DamageInstance } from '../mechanics/damage/DamageInstance';
+import { DamageType } from '../mechanics/damage/DamageType';
+import { FeatureRegistry, CombatContext } from '../mechanics/registry/FeatureRegistry';
+import '../mechanics/features/sneak-attack'; // Ensure registration
+import '../mechanics/features/rage'; // Ensure registration
 
 // ============================================================================
 // Types
@@ -74,7 +81,7 @@ export function validateAttack(
 }
 
 /**
- * Resolves a unified Attack Action (Melee or Ranged).
+ * Resolves a unified Attack Action using SRO Architecture.
  */
 export function resolveAttack(
   attacker: Entity,
@@ -97,25 +104,24 @@ export function resolveAttack(
     throw new Error(`Action ${intent.actionId} is not a valid attack definition.`);
   }
 
-  // Conditions Check
+  const trace: ExecutionTrace = [];
+
+  // ===========================================================================
+  // 1. Establish Combat Context
+  // ===========================================================================
   const attackerMods = getConditionModifiers(attacker);
   const targetMods = getConditionModifiers(target);
 
   let hasAdvantage = intent.advantage ?? false;
   let hasDisadvantage = intent.disadvantage ?? false;
 
-  // 1. Attacker Status
+  // Global Context Modifiers
   if (attackerMods.hasAdvantageOnAttack) hasAdvantage = true;
   if (attackerMods.hasDisadvantageOnAttack) hasDisadvantage = true;
-
-  // 2. Target Status (Generic)
   if (targetMods.grantAdvantageToAttacker) hasAdvantage = true;
   if (targetMods.grantDisadvantageToAttacker) hasDisadvantage = true;
 
-  // 3. Prone Nuance
-  // If Target is Prone:
-  // - Melee Attack (within 5ft usually, but simplistic 'melee_attack' check): Advantage.
-  // - Ranged Attack: Disadvantage.
+  // Prone Nuance
   if (hasCondition(target, ConditionType.Prone)) {
     if (action.type === 'melee' || action.type === 'melee_attack') {
       hasAdvantage = true;
@@ -124,29 +130,19 @@ export function resolveAttack(
     }
   }
 
-  // 1. Roll to Hit
-  // Handle Advantage/Disadvantage logic: Roll 2d20, pick best/worst
+  const ctx: CombatContext = {
+    hasAdvantage,
+    hasDisadvantage,
+    isCritical: false, // determined later
+    target,
+    // allyAdjacent: false // TODO: SOTA V2 Map Integration
+  };
+
+  // ===========================================================================
+  // 2. Roll to Hit
+  // ===========================================================================
+
   let rollRes: DiceResult;
-
-  // Sneak Attack Feasibility Check (Before roll to capture intent, but calculated after)
-  // MVP: Check if "Sneak Attack" feature exists
-  const sneakAttackFeature = attacker.features?.find((f) => f.name === 'Sneak Attack');
-  let allowedSneak = false;
-
-  if (sneakAttackFeature) {
-    const isFinesse =
-      ['ranged', 'ranged_attack'].includes(action.type) ||
-      (['melee', 'melee_attack'].includes(action.type) &&
-        (action as unknown as { properties?: string[] }).properties?.includes('finesse'));
-    if (isFinesse) {
-      // Rule: Advantage OR (Ally with 5ft of target AND No Disadvantage)
-      // For MVP, we'll stick to: Advantage True OR "AllyAdjacent" (Requires spatial query not yet in inputs).
-      // We will use Advantage check primarily for MVP auto-detect.
-      if (hasAdvantage) allowedSneak = true;
-      // TODO: Add Ally adjacency check when map context available in resolveAttack
-    }
-  }
-
   if (hasAdvantage && !hasDisadvantage) {
     const r1 = roll({ count: 1, sides: 20, bonus: action.toHit }, rng);
     const r2 = roll({ count: 1, sides: 20, bonus: action.toHit }, rng);
@@ -156,125 +152,24 @@ export function resolveAttack(
     const r2 = roll({ count: 1, sides: 20, bonus: action.toHit }, rng);
     rollRes = r1.total <= r2.total ? r1 : r2;
   } else {
-    // Normal or Cancelled out
     rollRes = roll({ count: 1, sides: 20, bonus: action.toHit }, rng);
   }
 
   const natural = rollRes.rolls[0];
   const totalHit = rollRes.total;
 
-  // Auto Crit logic (Paralyzed/Unconscious)
+  // Auto Crit logic
   const isAutoCrit =
     (targetMods.autoCritReceived ?? false) && (action.type === 'melee' || action.type === 'melee_attack');
-
   const isCritical = natural === 20 || isAutoCrit;
   const isCriticalFail = natural === 1;
 
-  // 2. Determine Hit vs AC
-  const targetAC = target.armorClass || 10;
-  // Auto Hit if Paralyzed? No, technically still roll, but Advantage + Auto Crit makes it likely.
-  // Actually, Paralyzed grants Advantage. Hits are Crits. DOES NOT AUTO HIT.
-  // Unconscious grants Advantage. Hits are Crits. DOES NOT AUTO HIT.
-  // So standard AC check applies.
+  ctx.isCritical = isCritical;
 
+  // Determine Hit
+  const targetAC = target.armorClass || 10;
   const hit = isCritical || (!isCriticalFail && totalHit >= targetAC);
 
-  // 3. Roll Damage (if hit) and Apply Modifiers
-  const damageDetails = [];
-  let totalDamage = 0;
-
-  if (hit) {
-    // Rage Damage Bonus (Attacker)
-    // Rule: Melee Weapon Attack using Strength (Not Finesse used as Dex? Engine assumes Str unless Finesse property implies Dex use?
-    // 5e Rage: "Melee weapon attack using Strength".
-    // MVP: If Melee Attack and NOT Finesse-only (or just standard melee), add +2.
-    // Actually, simple heuristic: If has 'Rage' and Melee -> +2.
-    const isRaging = hasCondition(attacker, ConditionType.Rage);
-    let rageBonus = 0;
-    if (isRaging && (action.type === 'melee' || action.type === 'melee_attack')) {
-      rageBonus = 2; // MVP Fixed
-    }
-
-    // Process Base Action Damage
-    if (action.damage) {
-      for (const d of action.damage) {
-        // Parse dice: "2d6"
-        const def = parseDiceString(d.dice);
-
-        // Critical Hit: Double the DICE (count), not the bonus
-        if (isCritical) {
-          def.count *= 2;
-        }
-
-        // Roll damage
-        const dmgRoll = roll({ ...def, bonus: d.bonus + rageBonus }, rng);
-        // Clear rage bonus after first damage instance? Usually applies once per hit.
-        // Applied to first damage chunk is safest.
-        rageBonus = 0;
-
-        let dmgValue = Math.max(0, dmgRoll.total);
-
-        // Apply Resistances/Immunities/Vulnerabilities (Target)
-        const type = d.type.toLowerCase();
-
-        // Generic Resistance Loop
-        // Rage Resistance Logic (Target)
-        const targetIsRaging = hasCondition(target, ConditionType.Rage);
-        const isRageResisted = targetIsRaging && ['bludgeoning', 'piercing', 'slashing'].includes(type);
-
-        const isResistant = target.resistances?.some((r) => r.toLowerCase() === type) || isRageResisted;
-        const isImmune = target.immunities?.some((i) => i.toLowerCase() === type);
-        const isVulnerable = target.vulnerabilities?.some((v) => v.toLowerCase() === type);
-
-        if (isImmune) {
-          dmgValue = 0;
-        } else {
-          if (isResistant) {
-            dmgValue = Math.floor(dmgValue / 2);
-          }
-          if (isVulnerable) {
-            dmgValue *= 2;
-          }
-        }
-
-        totalDamage += dmgValue;
-        damageDetails.push({
-          type: d.type,
-          total: dmgValue,
-          diceRolls: dmgRoll.rolls,
-          bonus: d.bonus, // Not showing rage bonus explicitly in breakdown for MVP?
-          diceString: isCritical ? `${def.count}d${def.sides}+${d.bonus}` : `${d.dice}+${d.bonus}`,
-        });
-      }
-    }
-
-    // Sneak Attack Damage (Append)
-    if (allowedSneak) {
-      // Calculate Sneak Dice: ceil(level / 2)
-      const rougeLevel = attacker.level || 1; // Assuming pure rogue for MVP or total level
-      const sneakDiceCount = Math.ceil(rougeLevel / 2);
-
-      let sneakDiceTotal = sneakDiceCount;
-      if (isCritical) sneakDiceTotal *= 2;
-
-      const sneakRoll = roll({ count: sneakDiceTotal, sides: 6, bonus: 0 }, rng);
-      const sneakDmg = sneakRoll.total;
-
-      totalDamage += sneakDmg;
-      damageDetails.push({
-        type: 'precision', // or weapon type? Standard is same as weapon.
-        total: sneakDmg,
-        diceRolls: sneakRoll.rolls,
-        bonus: 0,
-        diceString: `${sneakDiceTotal}d6 (Sneak Attack)`,
-      });
-    }
-  }
-
-  // 4. Construct Trace
-  const trace: ExecutionTrace = [];
-
-  // Log Attack Roll
   const attackRollStep: ExecutionStep = {
     type: 'roll_to_hit',
     description: `Attack Roll (${action.name})`,
@@ -286,36 +181,99 @@ export function resolveAttack(
     outcome: hit ? (isCritical ? 'Critical Hit' : 'Hit') : isCriticalFail ? 'Critical Miss' : 'Miss',
     targetValue: targetAC,
   };
-
-  // Log Advantage/Disadvantage sources
-  if (hasAdvantage) attackRollStep.modifiers?.push({ source: 'Advantage', value: 0 }); // Contextual
+  if (hasAdvantage) attackRollStep.modifiers?.push({ source: 'Advantage', value: 0 });
   if (hasDisadvantage) attackRollStep.modifiers?.push({ source: 'Disadvantage', value: 0 });
-
   trace.push(attackRollStep);
 
-  // Log Conditions
-  if (hasCondition(target, ConditionType.Prone)) {
-    trace.push({
-      type: 'condition_effect',
-      description: 'Target is Prone',
-      total: 0,
-      outcome: action.type === 'melee' ? 'Grant Advantage (Melee)' : 'Grant Disadvantage (Ranged)',
-    });
-  }
+  // ===========================================================================
+  // 3. Resolve Damage (SRO Pipeline)
+  // ===========================================================================
+  const damageDetails = [];
+  let totalDamage = 0;
 
-  // Log Damage
   if (hit) {
-    damageDetails.forEach((d) => {
-      trace.push({
-        type: 'roll_damage',
-        description: `Damage (${d.type})`,
-        base: d.total - d.bonus, // Rough reverse engineer or just use d.diceRolls sum
-        modifiers: d.bonus ? [{ source: 'Bonus', value: d.bonus }] : [],
-        total: d.total,
-        diceNotation: d.diceString,
-        rolls: d.diceRolls,
-      });
-    });
+    // A. Base Action Damage
+    if (action.damage) {
+      for (const d of action.damage) {
+        // Parse dice
+        const def = parseDiceString(d.dice);
+        if (isCritical) def.count *= 2;
+
+        // Roll
+        const dmgRoll = roll({ ...def, bonus: d.bonus }, rng);
+        // We create a temporary bonus variable if features add flat damage to this specific type?
+        // SRO Architecture: DamageInstance handles the 'Type' logic against the Target.
+
+        // Resolve against target using DamageInstance
+        const instance = new DamageInstance(dmgRoll.total, d.type as DamageType, action.name);
+        const { finalAmount, logic } = instance.resolveAgainst(target);
+
+        totalDamage += finalAmount;
+        damageDetails.push({
+          type: d.type,
+          total: finalAmount,
+          diceRolls: dmgRoll.rolls,
+          bonus: d.bonus,
+          diceString: isCritical ? `${def.count}d${def.sides}+${d.bonus}` : `${d.dice}+${d.bonus}`,
+        });
+
+        // Trace Logic from SRO
+        if (logic.length > 0) {
+          trace.push({
+            type: 'modifier',
+            description: `Defense Interaction (${d.type})`,
+            total: 0,
+            outcome: logic.join(', '),
+          });
+        }
+      }
+    }
+
+    // B. Feature Injections (Plugin System)
+    // Iterate over Attacker's Features and see if any handlers apply
+    if (attacker.features) {
+      for (const feat of attacker.features) {
+        const handler = FeatureRegistry.get(feat.name);
+        // Cast explicit to avoid any, assuming ActionDefinition is compatible with EntityAction runtime
+        if (handler && handler.canApply(attacker, action as unknown as EntityAction, ctx)) {
+          // Apply Damage Bonus
+          if (handler.applyDamageBonus) {
+            const bonus = handler.applyDamageBonus(attacker, ctx);
+
+            let rollTotal = bonus.amount;
+            let rolls: number[] = [];
+
+            if (bonus.dice && bonus.dice !== '0') {
+              const def = parseDiceString(bonus.dice);
+              if (isCritical) def.count *= 2;
+              const res = roll(def, rng);
+              rollTotal += res.total;
+              rolls = res.rolls;
+            }
+
+            // Resolve SRO
+            const instance = new DamageInstance(rollTotal, bonus.type as DamageType, feat.name);
+            const { finalAmount, logic } = instance.resolveAgainst(target);
+
+            totalDamage += finalAmount;
+            damageDetails.push({
+              type: bonus.type,
+              total: finalAmount,
+              diceRolls: rolls,
+              bonus: bonus.amount,
+              diceString: bonus.dice,
+            });
+
+            trace.push({
+              type: 'feature_trigger',
+              description: `Feature: ${feat.name}`,
+              total: finalAmount,
+              outcome: logic.length > 0 ? `Applied (${logic.join(', ')})` : 'Applied',
+            });
+          }
+        }
+      }
+    }
   }
 
   return {
