@@ -422,16 +422,14 @@ describe('Direct Tool Execution Suite (Fresh)', () => {
       it(`should handle ${testCase.name}`, async () => {
         const schemaType = testCase.type === 'melee' ? 'melee_attack' : 'ranged_attack';
         const actionDef = {
-          id: 'act-1',
+          documentId: 'act-1',
           name: 'Strike',
           type: schemaType,
           description: 'A test strike',
           toHit: 5,
           damage: [{ dice: '1d6', bonus: 2, type: 'slashing' }],
           // Schema specifics
-          ...(schemaType === 'melee_attack'
-            ? { reach: testCase.range }
-            : { range: { normal: testCase.range, long: testCase.range * 4 } }),
+          range: testCase.range,
         };
 
         const attacker = {

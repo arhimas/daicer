@@ -37,7 +37,7 @@ describe('Spawn Service', () => {
         hp: 7,
         xp: 50,
         stats: { strength: 8, dexterity: 14 },
-        actions: [{ id: 'action-1', name: 'Scimitar', type: 'melee_attack', damage: [], toHit: 4 }], // Relation
+        actions: [{ documentId: 'action-1', name: 'Scimitar', type: 'melee_attack', damage: [], toHit: 4 }], // Relation
         inventory: [],
       };
 
@@ -50,7 +50,7 @@ describe('Spawn Service', () => {
         ac: 12,
         level: 1,
         speed: { walk: 30 },
-        formattedActions: [], // No longer used directly?
+        formattedActions: [{ name: 'Scimitar', toHit: 4 }], // Mocking derived action
         proficiencyBonus: 2,
       });
 

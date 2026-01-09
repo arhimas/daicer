@@ -37,8 +37,6 @@ describe('WorldAtlas', () => {
     // Search for a structure (brute force a bit if needed, or rely on known seed)
     // With worried noise, center is jittered.
     const region = atlas.getRegion(0, 0);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _center = atlas.getRegionCenter(0, 0);
 
     // This seed might not have a structure at 0,0 region.
     // But let's check basic API info.

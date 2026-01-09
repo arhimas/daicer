@@ -23,7 +23,7 @@ describe('Action Computation Logic', () => {
     it('preserves complex damage objects', () => {
       const complexDamage = [
         { dice: '2d6', type: 'fire', bonus: 2 },
-        { dice: '1d4', type: 'radiant' },
+        { dice: '1d4', type: 'radiant', bonus: 0 },
       ];
       const sheet = {
         actions: [
@@ -40,7 +40,7 @@ describe('Action Computation Logic', () => {
     });
 
     it('preserves save configuration', () => {
-      const save = { type: 'dexterity', dc: 15, onSave: 'half' };
+      const save = { stat: 'dexterity', dc: 15, onSave: 'half' };
       const sheet = {
         actions: [{ documentId: 'a2', name: 'Trap', save }],
       };
@@ -58,12 +58,13 @@ describe('Action Computation Logic', () => {
             {
               documentId: `rnd${i}`,
               name: 'Rnd',
-              damage: randomData as unknown as StrapiAction['damage'],
+              // Must be array for map
+              damage: [randomData] as unknown as StrapiAction['damage'],
             },
           ],
         };
         const res = resolveActions(mockSheet(sheet.actions), baseStats);
-        expect(res[0].damage).toEqual(randomData);
+        expect(res[0].damage).toEqual([{ ...randomData, bonus: 0 }]); // Expect array with default bonus
       });
     }
   });

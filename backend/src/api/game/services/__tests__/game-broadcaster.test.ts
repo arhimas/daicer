@@ -109,7 +109,7 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
         features: [],
         structuredActions: [],
         proficiencies: [],
-        equipment: [],
+        equipment: undefined,
       },
     },
 

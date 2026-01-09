@@ -64,8 +64,9 @@ describe('Tool Lifecycle Integration', () => {
           currentHp: 20,
           maxHp: 20,
           stats: { strength: 16, dexterity: 12 }, // +3 STR
-          inventory: [inventoryItem],
-          structuredActions: [], // EMPTY - should be derived
+          stats: { strength: 16, dexterity: 12 }, // +3 STR
+          inventory: [{ isEquipped: true, item: inventoryItem } as any],
+          actions: [], // EMPTY - should be derived
           position: { x: 0, y: 0, z: 0 },
         },
       ],
@@ -129,7 +130,7 @@ describe('Tool Lifecycle Integration', () => {
   it('should preserve structuredActions (Spells) from blueprint', async () => {
     // 1. Setup: Monster with Fireball in structuredActions
     const fireballAction = {
-      id: 'spell-fireball',
+      documentId: 'spell-fireball',
       name: 'Fireball',
       type: 'spell',
       damage: [{ dice: '8d6', type: 'fire' }],
@@ -145,8 +146,9 @@ describe('Tool Lifecycle Integration', () => {
           name: 'Wizard',
           stats: { intelligence: 18 },
           inventory: [],
+          inventory: [],
           // Simulation: Populate returns the structured actions component data
-          structuredActions: [fireballAction],
+          actions: [fireballAction] as any,
         },
       ],
     };
