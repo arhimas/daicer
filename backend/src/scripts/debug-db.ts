@@ -1,4 +1,4 @@
-const { createStrapi } = require('@strapi/strapi');
+import { createStrapi } from '@strapi/strapi';
 
 async function main() {
   const strapi = await createStrapi().load();

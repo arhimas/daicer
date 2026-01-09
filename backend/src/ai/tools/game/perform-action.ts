@@ -142,13 +142,13 @@ export const performActionTool = (context: StrapiContext) => {
             // Normalization: Resolve actionName to actionId for ATTACK
             if (
               input.commandType === 'ATTACK' &&
-              (parsedPayload as any).actionName &&
-              !(parsedPayload as any).weaponId
+              (parsedPayload as Record<string, unknown>).actionName &&
+              !(parsedPayload as Record<string, unknown>).weaponId
             ) {
-              const actorId = parsedPayload.actorId || (parsedPayload as any).attackerId;
+              const actorId = parsedPayload.actorId || (parsedPayload as Record<string, unknown>).attackerId;
               const actor = state.entities.find((e) => e.id === actorId);
               if (actor) {
-                const targetName = (parsedPayload as any).actionName;
+                const targetName = (parsedPayload as Record<string, string>).actionName;
                 // Case insensitive match
                 const foundAction = actor.actions.find((a) => a.name.toLowerCase() === targetName.toLowerCase());
                 if (foundAction && foundAction.id) {

@@ -31,6 +31,9 @@ vi.stubGlobal('strapi', {
     info: vi.fn(),
     error: vi.fn(),
   },
+  service: vi.fn().mockReturnValue({
+    sync: vi.fn(),
+  }),
 });
 
 describe('Knowledge Source Lifecycles', () => {
@@ -53,9 +56,12 @@ describe('Knowledge Source Lifecycles', () => {
 
       await knowledgeLifecycles.afterCreate(event as unknown);
 
-      expect(mockDeleteMany).toHaveBeenCalledWith({ where: { source: 101 } });
-      expect(mockGenerateEmbedding).toHaveBeenCalledTimes(2);
-      expect(mockCreate).toHaveBeenCalledTimes(2);
+      const syncMock = strapi.service('api::knowledge-source.knowledge-source').sync;
+      expect(syncMock).toHaveBeenCalledWith(101);
+      // Logic moved to service, so we only test delegation here
+      // expect(mockDeleteMany).toHaveBeenCalledWith({ where: { source: 101 } });
+      // expect(mockGenerateEmbedding).toHaveBeenCalledTimes(2);
+      // expect(mockCreate).toHaveBeenCalledTimes(2);
     });
 
     it('should skip sync if no content', async () => {

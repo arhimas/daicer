@@ -1,4 +1,5 @@
 import { ActionDefinition } from '../../types/ActionDefinition';
+import { Entity } from '../types';
 
 export interface ResolutionResult {
   hit: boolean;
@@ -18,8 +19,8 @@ export class ActionDispatcher {
    * @param action The action being used
    * @param rollSeed (Optional) for deterministic rolling
    */
-  static resolve(source: any, target: any, action: ActionDefinition, rollSeed?: string): ResolutionResult {
-    // Using any for source/target wrapper for now
+  static resolve(source: Entity, target: Entity, action: ActionDefinition, _rollSeed?: string): ResolutionResult {
+    // Using Entity for source/target wrapper
     const log: string[] = [];
     let hit = true;
     let crit = false;
@@ -33,7 +34,7 @@ export class ActionDispatcher {
       const total = d20 + action.attack.bonus;
       crit = d20 >= (action.attack.critRange || 20);
 
-      const ac = target.ac || 10;
+      const ac = target.armorClass || 10;
       hit = total >= ac || crit;
 
       log.push(`Attack Roll: ${d20} + ${action.attack.bonus} = ${total} vs AC ${ac}. Result: ${hit ? 'HIT' : 'MISS'}`);

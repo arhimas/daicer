@@ -33,8 +33,13 @@ interface GameDebugViewProps {
   roomId: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
+function GameDebugInner({
+  roomId,
+  room,
+}: {
+  roomId: string;
+  room: Room & { features?: unknown[]; messages?: Message[] };
+}) {
   // Config State
   const [activeTab, setActiveTab] = useState<'tools' | 'inspector' | 'entropy'>('tools');
   // ... (snip) ...
@@ -78,6 +83,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
   useEffect(() => {
     // Union of possible source types (Player, Creature, EntitySheet)
     // We treat them as generic objects with common fields for mapping
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let sourceData: any[] = [];
 
     if (isLive) {
@@ -183,7 +189,7 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
           | 'system'
           | 'user'
           | 'assistant', // Approximate mapping
-        content: m.text || (m as any).content, // Fallback if schema differs from API (MessageSchema uses 'text')
+        content: m.text || (m as { content?: string }).content || '', // Fallback if schema differs from API (MessageSchema uses 'text')
         timestamp: new Date(m.timestamp).getTime(),
       }));
 
@@ -364,7 +370,6 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
               onInputChange={setChatInput}
               activeLocation={activeLocation}
               onClearLocation={() => setActiveLocation(null)}
-              entities={entities}
               activeEntity={activeEntity}
               events={gameEvents}
             />
@@ -404,7 +409,6 @@ function GameDebugInner({ roomId, room }: { roomId: string; room: any }) {
 
 // Moved to bottom to satisfy no-use-before-define
 export function GameDebugView({ roomId }: GameDebugViewProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [room, setRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -419,9 +423,9 @@ export function GameDebugView({ roomId }: GameDebugViewProps) {
           setRoom(r);
           setLoading(false);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (mounted) {
-          setError(err.message);
+          setError((err as Error).message);
           setLoading(false);
         }
       }

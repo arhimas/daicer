@@ -1,9 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createMockStrapi, MOCK_MONSTERS } from './setup/harness';
+import { StrapiContext } from '../tool-factory';
 import { ActionDispatcher } from '../../../../engine';
 
 // Mock Modules
 vi.mock('../../../../engine', async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actual: any = await importOriginal();
   return {
     ...actual,
@@ -12,10 +14,13 @@ vi.mock('../../../../engine', async (importOriginal) => {
 });
 
 describe('Movement Mechanics E2E', () => {
-  let mockContext: any;
+  let mockContext: StrapiContext;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockRoom: any;
-  let dispatcherSpy: any;
-  let performActionTool: any;
+  // let dispatcherSpy: any;
+  let performActionTool: (context: StrapiContext) => {
+    func: (args: Record<string, unknown>, context?: StrapiContext) => Promise<string>;
+  };
 
   beforeEach(async () => {
     // Reset Setup
@@ -31,34 +36,41 @@ describe('Movement Mechanics E2E', () => {
     };
 
     // Spy on Dispatcher
-    dispatcherSpy = vi.spyOn(ActionDispatcher.prototype, 'dispatch').mockImplementation((state: any, command: any) => {
-      const dispatcher = new ActionDispatcher();
-      // We want to run REAL logic for movement to verify constraints
-      // But we need to patch state like in combat-e2e if we want persistence
-      // For Movement, the Engine returns "newStateDiff", it doesn't mutate heavily unless we rely on refs.
-      // Let's call the real handleMove via the spy's context or just forward it.
-      // Problem: Dispatcher in `dist` vs `src`.
-      // We can use the logic from combat-e2e spy which calls (this as any).handleMove(state, command)
-      // But we need to make sure entities have sheets/positions logic.
+    vi.spyOn(ActionDispatcher.prototype, 'dispatch').mockImplementation(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (state: Record<string, any>, command: { type: string; payload: Record<string, any> }) => {
+        const dispatcher = new ActionDispatcher();
+        // We want to run REAL logic for movement to verify constraints
+        // But we need to patch state like in combat-e2e if we want persistence
+        // For Movement, the Engine returns "newStateDiff", it doesn't mutate heavily unless we rely on refs.
+        // Let's call the real handleMove via the spy's context or just forward it.
+        // Problem: Dispatcher in `dist` vs `src`.
+        // We can use the logic from combat-e2e spy which calls (this as any).handleMove(state, command)
+        // But we need to make sure entities have sheets/positions logic.
 
-      // 1. Patch Entities (Link Sheets)
-      if (state.entities) {
-        state.entities.forEach((ent: any) => {
-          const sheet = mockRoom.entity_sheets.find((s: any) => s.documentId === ent.id);
-          if (sheet) ent.sheet = sheet;
-        });
+        // 1. Patch Entities (Link Sheets)
+        if (state.entities) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          state.entities.forEach((ent: Record<string, any>) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const sheet = mockRoom.entity_sheets.find((s: Record<string, any>) => s.documentId === ent.id);
+            if (sheet) ent.sheet = sheet;
+          });
+        }
+
+        // 2. Call internal handleMove
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return dispatcher.handleMove(state as GameState, command);
       }
-
-      // 2. Call internal handleMove
-      // @ts-ignore
-      return dispatcher.handleMove(state, command);
-    });
+    );
 
     // Dynamic Import Tool
     const module = await import('../perform-action');
     performActionTool = module.performActionTool;
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const spawnEntity = (template: any, pos: { x: number; y: number; z: number }) => {
     const instance = {
       documentId: `inst-${template.documentId}-${Date.now()}`,
@@ -69,6 +81,7 @@ describe('Movement Mechanics E2E', () => {
       maxHp: template.hp,
       stats: template.stats,
       speed: 30, // Default
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       sheet: null as any, // Linked later
     };
     // Link circular for test convenience?
@@ -124,7 +137,7 @@ describe('Movement Mechanics E2E', () => {
 
     // For now, let's verify Entity Collision which is simpler.
     const goblin1 = spawnEntity(MOCK_MONSTERS[0], { x: 5, y: 5, z: 0 });
-    const goblin2 = spawnEntity(MOCK_MONSTERS[1], { x: 6, y: 5, z: 0 }); // Adjacent
+    spawnEntity(MOCK_MONSTERS[1], { x: 6, y: 5, z: 0 }); // Adjacent
 
     // Try to move goblin1 to 6,5,0 (Occupied)
     const res = await executeMove(goblin1.documentId, { x: 6, y: 5, z: 0 });

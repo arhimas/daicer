@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { ArrowLeft, Braces, Search, ChevronRight, ChevronDown } from 'lucide-react';
-import type { DebugEntity } from '../utils/types';
 import type { EntitySheet } from '@/types/contracts';
-import { UniversalEntitySheetContent } from '../../../components/game/UniversalEntitySheet';
 import cn from '@/lib/utils';
+import type { DebugEntity } from '../utils/types';
+import { UniversalEntitySheetContent } from '../../../components/game/UniversalEntitySheet';
 
 interface DebugEntitySheetProps {
-  entity: DebugEntity & { raw?: any };
+  entity: DebugEntity & { raw?: unknown };
   onBack: () => void;
 }
 
 // ----------------------------------------------------------------------------
 // 1. JSON Tree Viewer (Simple Recursive)
 // ----------------------------------------------------------------------------
-function JsonTree({ data, label, level = 0 }: { data: any; label?: string; level?: number }) {
+function JsonTree({ data, label, level = 0 }: { data: unknown; label?: string; level?: number }) {
   const [isOpen, setIsOpen] = useState(level < 1); // Expand top level only
   const isObject = data && typeof data === 'object';
   const isArray = Array.isArray(data);
@@ -71,17 +71,18 @@ function JsonTree({ data, label, level = 0 }: { data: any; label?: string; level
 // ----------------------------------------------------------------------------
 export function DebugEntitySheet({ entity, onBack }: DebugEntitySheetProps) {
   const [tab, setTab] = useState<'sheet' | 'raw'>('sheet');
-  const raw = entity.raw || {};
+  const raw = (entity.raw as Record<string, unknown>) || {};
 
   // Cast raw data to EntitySheet for the universal viewer.
   // In debug mode, raw is usually the direct backend object which matches the schema.
-  const sheetData = raw as EntitySheet;
+  const sheetData = raw as unknown as EntitySheet;
 
   return (
     <div className="flex flex-col h-full bg-midnight-950 text-gray-300">
       {/* Header */}
       <div className="p-2 border-b border-midnight-800 flex items-center gap-2 bg-midnight-900/50 shrink-0">
         <button
+          type="button"
           onClick={onBack}
           className="p-1 hover:bg-white/10 rounded transition-colors text-gray-400 hover:text-white"
         >
@@ -92,12 +93,13 @@ export function DebugEntitySheet({ entity, onBack }: DebugEntitySheetProps) {
           <div className="text-[10px] font-mono text-gray-500 truncate flex gap-2">
             <span>{entity.id}</span>
             <span className="text-aurora-400">
-              {raw.type} | Lvl {raw.level ?? '?'}
+              {String(raw.type || '?')} | Lvl {String(raw.level ?? '?')}
             </span>
           </div>
         </div>
         <div className="flex gap-1">
           <button
+            type="button"
             onClick={() => setTab('sheet')}
             className={cn(
               'p-1.5 rounded',
@@ -108,6 +110,7 @@ export function DebugEntitySheet({ entity, onBack }: DebugEntitySheetProps) {
             <Search size={14} />
           </button>
           <button
+            type="button"
             onClick={() => setTab('raw')}
             className={cn(
               'p-1.5 rounded',
@@ -118,6 +121,7 @@ export function DebugEntitySheet({ entity, onBack }: DebugEntitySheetProps) {
             <Braces size={14} />
           </button>
           <button
+            type="button"
             onClick={() => {
               navigator.clipboard.writeText(JSON.stringify(entity, null, 2));
             }}

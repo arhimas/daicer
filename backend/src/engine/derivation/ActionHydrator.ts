@@ -6,7 +6,11 @@ export class ActionHydrator {
   /**
    * Hydrate Actions from Equipment (Weapons)
    */
-  static hydrateFromEquipment(item: any, context: DerivationContext): ActionDefinition[] {
+  static hydrateFromEquipment(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    item: any,
+    context: DerivationContext
+  ): ActionDefinition[] {
     const actions: ActionDefinition[] = [];
 
     // Check if it's a weapon or has damage dice
@@ -16,7 +20,8 @@ export class ActionHydrator {
 
     if (!isWeapon) return actions;
 
-    const attributes = context.attributes || (context as any).stats || {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const attributes = (context.attributes || context.stats || {}) as any;
     const profBonus = context.proficiencyBonus || 2;
     const str = attributes.strength ?? 10;
     const dex = attributes.dexterity ?? 10;
@@ -26,6 +31,7 @@ export class ActionHydrator {
     let mod = calculateModifier(str);
 
     const isRanged = (item.range_normal && item.range_normal > 5) || false;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const isFinesse = item.properties?.some((p: any) => p.slug === 'finesse');
 
     if (isRanged || (isFinesse && calculateModifier(dex) > mod)) {
@@ -100,11 +106,15 @@ export class ActionHydrator {
   /**
    * Hydrate Actions from Spells
    */
-  static hydrateFromSpell(spell: any, context: DerivationContext): ActionDefinition {
-    const attributes = context.attributes || (context as any).stats || {};
+  static hydrateFromSpell(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    spell: any,
+    context: DerivationContext
+  ): ActionDefinition {
+    const attributes = context.attributes || context.stats || {};
     const profBonus = context.proficiencyBonus || 2;
     // Default to Int if not specified (should be passed in context based on class)
-    const castStat = (context as any).spellcastingAbility || 'intelligence';
+    const castStat = context.spellcastingAbility || 'intelligence';
     const mod = calculateModifier(attributes[castStat] || 10);
     const spellAttackBonus = mod + profBonus;
     const saveDC = 8 + mod + profBonus;
@@ -128,6 +138,7 @@ export class ActionHydrator {
     if (definitions.action_type?.includes('Save')) {
       const saveAttr = definitions.action_type.split(' ')[0].toLowerCase().slice(0, 3); // "Dexterity" -> "dex"
       saveConfig = {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         attribute: saveAttr as any,
         dc: saveDC,
         effect: definitions.save_effect?.toLowerCase() || 'none',
@@ -138,6 +149,7 @@ export class ActionHydrator {
     const effects: ActionDefinition['effects'] = [];
 
     // Damage Effects
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     damage.forEach((d: any) => {
       effects.push({
         type: d.effect_type === 'Healing' ? 'healing' : 'damage',
@@ -150,6 +162,7 @@ export class ActionHydrator {
 
     // Condition Effects
     if (spell.condition_instances) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       spell.condition_instances.forEach((c: any) => {
         effects.push({
           type: 'apply_condition',

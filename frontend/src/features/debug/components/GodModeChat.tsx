@@ -18,11 +18,10 @@ interface GodModeChatProps {
   onClearLocation?: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeEntity?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events?: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  entities?: any[];
 }
 
 export function GodModeChat({

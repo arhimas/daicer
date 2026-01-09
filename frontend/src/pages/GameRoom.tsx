@@ -146,6 +146,7 @@ export default function GameRoomPage() {
 
       // If room has generation events, restore them to streamEvents
       if (socket.room.generationEvents && streamEvents.length === 0 && socket.room.phase === GamePhase.SETUP) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setStreamEvents((socket.room.generationEvents as any[]) || []);
       }
     }

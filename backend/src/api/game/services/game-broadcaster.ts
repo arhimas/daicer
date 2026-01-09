@@ -80,14 +80,14 @@ export default ({ strapi }) => ({
             currentHp: entity.hp,
             maxHp: entity.maxHp,
             ac: entity.armorClass,
-            structuredActions: (entity.sheet as any).structuredActions || [], // Patched by Adapter
+            structuredActions: (entity.sheet as unknown as { structuredActions: unknown[] }).structuredActions || [], // Patched by Adapter
             visionRadius: entity.visionRadius,
             color: entity.color,
             stats: entity.stats,
             features: entity.features,
             // Adapter doesn't map these yet, so we keep manual access for now or update Adapter later
-            equipment: (s as any).inventory,
-            proficiencies: (s as any).character?.proficiencies || [],
+            equipment: (s as unknown as { inventory: unknown }).inventory,
+            proficiencies: (s as unknown as { character: { proficiencies: unknown[] } }).character?.proficiencies || [],
           };
         } catch (e) {
           strapi.log.error(`[Broadcaster] Adaptation failed for ${s.documentId}`, e);

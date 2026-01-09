@@ -2,9 +2,9 @@ import { useState } from 'react';
 import JuicyLayout from '@/components/layout/JuicyLayout'; // [NEW] Import JuicyLayout
 // import Navbar from '../components/layout/Navbar'; // [REMOVED] Handled by JuicyLayout
 
+import { ChevronLeft } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-import { ChevronLeft } from 'lucide-react';
 import { RoomSelection } from '../features/debug/components/RoomSelection';
 import { GameDebugView } from '../features/debug/components/GameDebugView';
 import { WorldConfigForm } from '../features/debug/components/WorldConfigForm';

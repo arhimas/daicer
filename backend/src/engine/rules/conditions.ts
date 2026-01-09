@@ -1,5 +1,3 @@
-import { EntitySheet } from '../types';
-
 export enum ConditionType {
   Blinded = 'Blinded',
   Charmed = 'Charmed',

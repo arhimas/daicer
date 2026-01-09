@@ -80,7 +80,7 @@ export function WizardProvider({
   useEffect(() => {
     if (!settings.seed && !initialValues?.seed) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSettingsState((prev) => ({
+      setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({
         ...prev,
         seed: `daicer-${Math.random().toString(36).substring(7)}`,
       }));
@@ -91,12 +91,12 @@ export function WizardProvider({
     key: K,
     value: (WorldSettings & WorldConfig)[K]
   ) => {
-    setSettingsState((prev) => ({ ...prev, [key]: value }));
+    setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({ ...prev, [key]: value }));
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateDMStyle = <K extends keyof typeof initialSettingsBase.dmStyle>(key: K, value: any) => {
-    setSettingsState((prev) => ({
+    setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({
       ...prev,
       dmStyle: { ...prev.dmStyle, [key]: value },
     }));

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useTimeFrame } from '../../../contexts/TimeFrameContext';
 import { replayHistory } from '@/services/api';
+import { useTimeFrame } from '../../../contexts/TimeFrameContext';
 
 interface TimeControlsProps {
   roomId?: string; // Passed down or retrieved from context if available?
@@ -45,8 +45,9 @@ export function TimeControls({ roomId }: TimeControlsProps) {
 
   const handleGranularReplay = async () => {
     if (!replayTime || !roomId) return;
-    const timestamp = parseInt(replayTime); // Or parse date string
+    const timestamp = parseInt(replayTime, 10); // Or parse date string
     if (isNaN(timestamp)) {
+      // eslint-disable-next-line no-alert
       alert('Invalid Timestamp');
       return;
     }
@@ -59,13 +60,14 @@ export function TimeControls({ roomId }: TimeControlsProps) {
         id: 'replay-adhoc',
         documentId: 'replay-adhoc',
         turnNumber: -1, // Indicates interpolated
-        timestamp: timestamp,
+        timestamp,
         gameState: state,
         events: [],
       };
       injectState(adHocFrame);
     } catch (e) {
       console.error(e);
+      // eslint-disable-next-line no-alert
       alert('Replay Failed');
     } finally {
       setIsReplaying(false);
@@ -102,6 +104,7 @@ export function TimeControls({ roomId }: TimeControlsProps) {
           onChange={(e) => setReplayTime(e.target.value)}
         />
         <button
+          type="button"
           onClick={handleGranularReplay}
           disabled={!roomId || isReplaying}
           className="px-2 py-1 text-xs bg-purple-900 text-purple-200 rounded hover:bg-purple-800 disabled:opacity-50"

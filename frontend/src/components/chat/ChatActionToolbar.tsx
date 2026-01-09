@@ -57,9 +57,9 @@ export function ChatActionToolbar({
         const hasY = selectedTool.fields.some((f) => f.name === 'y');
         const hasZ = selectedTool.fields.some((f) => f.name === 'z');
 
-        if (hasX) updates['x'] = activeLocation.x.toString();
-        if (hasY) updates['y'] = activeLocation.y.toString();
-        if (hasZ) updates['z'] = activeLocation.z.toString();
+        if (hasX) updates.x = activeLocation.x.toString();
+        if (hasY) updates.y = activeLocation.y.toString();
+        if (hasZ) updates.z = activeLocation.z.toString();
 
         // 3. Path Field (Move Tool)
         // If tool has a 'path' field, we assume it's for movement and set a single step path to the target.
@@ -137,12 +137,12 @@ export function ChatActionToolbar({
         // Formatting
         if (field.type === 'number') {
           return `${field.name}=${rawVal}`;
-        } else if (field.type === 'json' || field.type === 'position') {
+        } if (field.type === 'json' || field.type === 'position') {
           return `${field.name}='${rawVal}'`;
-        } else {
+        } 
           // Text, Select, Entity Search (returns ID), Room Entity (returns ID)
           return `${field.name}="${rawVal}"`;
-        }
+        
       })
       .filter(Boolean)
       .join(', ');
@@ -266,7 +266,7 @@ export function ChatActionToolbar({
       const actorId = dependencyField ? formData[dependencyField] : null;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const actor = roomEntities?.find((e: any) => e.id === actorId || e.documentId === actorId);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       
       const actions = actor?.structuredActions || [];
 
       return (

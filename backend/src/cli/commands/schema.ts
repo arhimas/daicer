@@ -1,5 +1,5 @@
-import { Command, Option } from 'commander';
-import { discoverContentTypes, readSchema, readAllSchemas } from '../utils/schema';
+import { Command } from 'commander';
+import { discoverContentTypes, readSchema, readAllSchemas, SchemaDefinition } from '../utils/schema';
 import fs from 'fs';
 import path from 'path';
 
@@ -21,11 +21,17 @@ export const schemaCommand = new Command('schema')
     await runSchema(options);
   });
 
-export async function runSchema(options: any) {
+export async function runSchema(options: {
+  list?: boolean;
+  all?: boolean;
+  type?: string;
+  json?: boolean;
+  save?: string;
+}) {
   const { chalk, select } = await getInteractiveTools();
 
   try {
-    let result: any;
+    let result: SchemaDefinition | Record<string, SchemaDefinition> | undefined;
     let mode: 'list' | 'all' | 'single' = 'single';
 
     // 1. Determine Mode & Inputs
@@ -113,14 +119,15 @@ export async function runSchema(options: any) {
   }
 }
 
-function printHumanSchema(schema: any, chalk: any) {
+function printHumanSchema(schema: SchemaDefinition, _chalk: unknown) {
+  const chalk = _chalk as typeof import('chalk').default;
   console.log(chalk.bold(`\n📄 Schema: ${chalk.cyan(schema.info.displayName)}\n`));
   console.log(`   ${chalk.dim(schema.info.description || 'No description')}`);
   console.log(`   ${chalk.dim('Collection Name:')} ${schema.collectionName}\n`);
 
   console.log(chalk.bold('   Attributes:'));
 
-  Object.entries(schema.attributes).forEach(([key, value]: [string, any]) => {
+  Object.entries(schema.attributes).forEach(([key, value]) => {
     let typeStr = chalk.yellow(value.type);
     if (value.type === 'relation') {
       typeStr = `${chalk.magenta('relation')} -> ${value.target}`;

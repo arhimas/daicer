@@ -87,12 +87,12 @@ describe('EntityDeriver', () => {
     };
 
     const derived = EntityDeriver.derive(context);
-    const sword = derived.structuredActions.find((a: any) => a.name === 'Longsword');
+    const sword = derived.structuredActions.find((a: Record<string, unknown>) => a.name === 'Longsword');
 
     expect(sword).toBeDefined();
-    expect(sword.type).toBe('melee_attack');
-    expect(sword.toHit).toBe(3 + 2); // STR +3, PB +2 = +5
-    expect(sword.damage[0].bonus).toBe(3); // STR +3
+    expect(sword.attack?.type).toBe('melee_weapon');
+    expect(sword.attack?.bonus).toBe(3 + 2); // STR +3, PB +2 = +5
+    expect(sword.effects?.[0].flat).toBe(3); // STR +3
   });
 
   it('should merge innate actions with weapon actions (Hybrid)', () => {
@@ -114,8 +114,8 @@ describe('EntityDeriver', () => {
 
     const derived = EntityDeriver.derive(context);
     expect(derived.structuredActions).toHaveLength(2);
-    expect(derived.structuredActions.some((a: any) => a.name === 'Dagger')).toBe(true);
-    expect(derived.structuredActions.some((a: any) => a.name === 'Fire Breath')).toBe(true);
+    expect(derived.structuredActions.some((a: Record<string, unknown>) => a.name === 'Dagger')).toBe(true);
+    expect(derived.structuredActions.some((a: Record<string, unknown>) => a.name === 'Fire Breath')).toBe(true);
   });
 
   it('derives armor class with medium armor (capped)', () => {

@@ -120,7 +120,7 @@ async function processNode(node: MarkdownNode, path: string[], chunks: Knowledge
       // Wait. The `path` arg passed to processNode IS the path TO this node?
       // No, in my call logic: `path` includes `node.header`?
       // Let's standardize: `path` passed to processNode is the FULL path including self.
-      const childPath = [...path, child.header];
+
       // BUT if node is Root?
       const effectivePath = node.level === 0 ? [child.header] : [...path, child.header];
 

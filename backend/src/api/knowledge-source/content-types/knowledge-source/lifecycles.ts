@@ -12,11 +12,11 @@ export default {
     }
   },
 
-  async beforeCreate(event: any) {
+  async beforeCreate(event: LifecycleEvent) {
     sanitizeTags(event);
   },
 
-  async beforeUpdate(event: any) {
+  async beforeUpdate(event: LifecycleEvent) {
     sanitizeTags(event);
   },
 
@@ -37,7 +37,15 @@ export default {
   },
 };
 
-function sanitizeTags(event: any) {
+interface LifecycleEvent {
+  params: {
+    data: {
+      tags: string | string[];
+    };
+  };
+}
+
+function sanitizeTags(event: LifecycleEvent) {
   if (!event.params || !event.params.data) return;
 
   let tags = event.params.data.tags;
@@ -67,6 +75,6 @@ function sanitizeTags(event: any) {
   }
 
   if (Array.isArray(tags)) {
-    event.params.data.tags = tags.map((t: any) => String(t));
+    event.params.data.tags = tags.map((t: unknown) => String(t));
   }
 }

@@ -9,6 +9,8 @@ import Label from '../ui/label';
 import { ScrollArea } from '../ui/scroll-area';
 import { SPAWN_CREATURE_MUTATION } from '../../graphql/mutations';
 
+import { UniversalEntitySheetContent } from '../game/UniversalEntitySheet';
+
 interface EntityListModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -291,8 +293,6 @@ function getEntitySheet(entity: SelectableEntity): EntitySheet | null {
   }
   return null;
 }
-
-import { UniversalEntitySheetContent } from '../game/UniversalEntitySheet';
 
 function SafeSheetView({ entity }: { entity: SelectableEntity }) {
   const sheet = getEntitySheet(entity);

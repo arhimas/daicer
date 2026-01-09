@@ -18,6 +18,7 @@ export default {
           documentId: result.documentId,
           data: {
             code: code,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any,
         });
       } catch (error) {

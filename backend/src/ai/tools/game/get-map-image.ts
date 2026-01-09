@@ -29,7 +29,7 @@ export const getMapImageTool = (context: StrapiContext) =>
         'Generates a visual map image (PNG). Can be POV (perspective of an entity) or Know World (all explored).',
       schema: mapImageSchema,
       outputSchema: mapImageOutput,
-      func: async ({ x, y, radius, entityId, broadcast }, { strapi, roomDocumentId }) => {
+      func: async ({ x, y, radius: _radius, entityId, broadcast }, { strapi, roomDocumentId }) => {
         // Dynamic import to avoid circular dependencies
         const { generateMapImage } = await import('../../../api/game/services/map-visualization');
         const { streamManager } = await import('../../../utils/llm/stream-manager');

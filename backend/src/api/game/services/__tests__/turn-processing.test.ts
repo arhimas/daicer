@@ -117,7 +117,6 @@ describe('Turn Processing Service', () => {
       mockGameBroadcaster.broadcastTurnEnd.mockResolvedValue(undefined as unknown as void);
       mockNarrativeEngine.generateNarrativeResponse.mockResolvedValue({ summary: 'A turn happened.' });
 
-      const deterministicActions: unknown[] = [{ type: 'MOVE' }];
       // Setup Actions
       const actions = [{ type: 'move', entityId: 'hero-1', payload: { x: 1, y: 0, z: 0 } }];
 

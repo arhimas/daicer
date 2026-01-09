@@ -18,8 +18,7 @@ program.addCommand(knowledgeCommand);
 
 // Parse Arguments
 // Global Pre-Action: Banner logic
-program.hook('preAction', async (thisCommand, actionCommand) => {
-  const opts = actionCommand.opts();
+program.hook('preAction', async (_thisCommand, _actionCommand) => {
   // If JSON flag is strictly present on the command or globally?
   // Commander passes options. But 'explore' might have --json.
   // We need to check process.argv or specific command options.
@@ -116,7 +115,7 @@ if (!process.argv.slice(2).length) {
         } else if (action === 'status') {
           await runStatus({});
         }
-      } catch (error) {
+      } catch {
         // Catch command errors to prevent crashing the menu
         // console.error(chalk.red('\n💥 Command Failed:'), error.message);
       }

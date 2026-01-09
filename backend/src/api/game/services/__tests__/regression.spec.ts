@@ -37,7 +37,7 @@ const mockStrapi = {
 describe('Regression: Combat & Fog', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (global as any).strapi = mockStrapi;
+    vi.stubGlobal('strapi', mockStrapi);
   });
 
   it('TurnProcessing should delegate ATTACK action to ActionEngine', async () => {

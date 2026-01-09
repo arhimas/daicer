@@ -75,13 +75,23 @@ export interface Entity {
 
 export type Role = 'dm' | 'player' | 'spectator' | 'god' | 'premium' | 'free';
 
+export interface MinCharacter {
+  name: string;
+  race?: { name: string };
+  class?: { name: string };
+  classes?: { class: { name: string }; level: number }[];
+  portrait?: { url: string };
+  backstory?: string;
+  documentId?: string;
+}
+
 export interface Player {
   id: string;
   userId: string;
   name: string;
   role: Role;
   isOnline?: boolean;
-  character?: any; // MinEntity
+  character?: MinCharacter;
   characterSheet?: EntitySheet | null;
   action?: string | null;
   isReady: boolean;
@@ -164,6 +174,9 @@ export interface Room {
   config?: any;
   createdAt?: string | number;
   structures?: any[];
+  world?: WorldConfig; // Added for debug view compatibility
+  entities?: any[]; // Added for debug view compatibility
+  entropyState?: any; // Added for debug view compatibility
 }
 
 export interface Creature {
@@ -237,13 +250,26 @@ export interface WorldSettings {
   worldType: WorldType;
   worldSize: WorldSize;
   difficulty: Difficulty;
-  adventureLength: AdventureLength;
+  generationParams?: WorldConfig;
   dmStyle: DMStyle;
   [key: string]: any;
 }
 
 export interface WorldConfig {
   seed: string;
+  chunkSize: number;
+  globalScale: number;
+  seaLevel: number;
+  elevationScale: number;
+  roughness: number;
+  detail: number;
+  moistureScale: number;
+  temperatureOffset: number;
+  structureChance: number;
+  structureSpacing: number;
+  structureSizeAvg: number;
+  roadDensity: number;
+  fogRadius: number;
   [key: string]: any;
 }
 
@@ -314,12 +340,11 @@ export enum ActionType {
 
 // Logic Placeholders (Mocking removed logic types)
 export const DEFAULT_GENERATION_PARAMS = {};
-export const createUnifiedTerrainGenerator = (_seed: string, _config: any) => {
-  return (chunkX: number, chunkY: number, _size: number) => ({
+export const createUnifiedTerrainGenerator =
+  (_seed: string, _config: any) => (chunkX: number, chunkY: number, _size: number) => ({
     x: chunkX,
     y: chunkY,
     z: 0,
     tiles: [], // Empty for mock
     biomes: [],
   });
-};

@@ -189,12 +189,12 @@ export interface Entity {
 
   // Blueprint
   level?: number;
-  classes?: any[]; // Keep loose for now or import ClassInfo
+  classes?: { name: string; level: number }[]; // Keep loose for now or import ClassInfo
   equipment?: CharacterEquipment;
   stats: EntityStats;
   actions: EntityAction[];
   features: EntityFeature[];
-  conditions: any[]; // promoted from sheet
+  conditions: { name: string; [key: string]: unknown }[]; // promoted from sheet
   resistances: string[];
   immunities: string[];
   vulnerabilities: string[];

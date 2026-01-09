@@ -3,7 +3,9 @@
  * It converts the Entity into a formatted Markdown KnowledgeSource with Tags.
  */
 
-declare var strapi: any;
+import type { Core } from '@strapi/strapi';
+
+declare let strapi: Core.Strapi;
 
 const ENTITY_UIDS = [
   'api::character.character',
@@ -37,7 +39,7 @@ export class EntityKnowledgeService {
     // For now, populate: '*' is decent, but deep nesting might require more.
     // Strapi 5 might support 'on' or deep populate plugins, but let's stick to standard '*' for level 1
     // and maybe specific fields if needed. For now '*' + 1 level deep is usually enough for context.
-    const entity = await strapi.entityService.findOne(uid as any, entityId, {
+    const entity = await strapi.entityService.findOne(uid as `api::${string}.${string}`, entityId, {
       populate: '*',
     });
 
@@ -62,6 +64,7 @@ export class EntityKnowledgeService {
 
     // 2.5 Generate Embedding for Entity Record (Core Embeddings Mandate)
     try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { embeddingService } = require('./embedding-service');
       // Create a rich representation for the vector
       const embeddingText = `${typeName}: ${name}\n${entity.description || ''}\n${tags.join(', ')}\n${markdown}`;
@@ -80,7 +83,7 @@ export class EntityKnowledgeService {
     }
   }
 
-  private generateMarkdown(type: string, name: string, data: any): string {
+  private generateMarkdown(type: string, name: string, data: Record<string, unknown>): string {
     // Basic structured dump
     // We filter out system fields (createdAt, etc) to keep it clean?
     // Or just dump it all safely.
@@ -120,20 +123,22 @@ export class EntityKnowledgeService {
       const value = data[key];
       if (value === null || value === undefined) continue;
 
-      if (typeof value === 'object') {
+      const valCheck = value as { name?: string };
+      if (typeof valCheck === 'object' && valCheck !== null) {
         if (Array.isArray(value)) {
-          // List of relations?
-          if (value.length > 0 && value[0].name) {
-            md += `- **${key}**: ${value.map((v: any) => v.name).join(', ')}\n`;
-          } else if (value.length === 0) {
+          // List of relations
+          const list = value as { name?: string }[];
+          if (list.length > 0 && list[0].name) {
+            md += `- **${key}**: ${list.map((v) => v.name).join(', ')}\n`;
+          } else if (list.length === 0) {
             continue;
           } else {
             md += `- **${key}**: ${JSON.stringify(value)}\n`;
           }
         } else {
-          // Single relation?
-          if (value.name) {
-            md += `- **${key}**: ${value.name}\n`;
+          // Single relation
+          if (valCheck.name) {
+            md += `- **${key}**: ${valCheck.name}\n`;
           } else {
             md += `- **${key}**: JSON Object\n`;
           }

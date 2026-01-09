@@ -29,7 +29,7 @@ const mockRoom = {
   dmUserId: 'dm-user-1',
   phase: GamePhase.CHARACTER_CREATION,
   players: [],
-  world: null,
+
   createdAt: Date.now(),
   updatedAt: Date.now(),
   ownerId: 'user-1',

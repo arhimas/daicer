@@ -82,12 +82,6 @@
       "repeatable": false,
       "component": "game.stats"
     },
-    "proficiencies": {
-      "type": "json"
-    },
-    "senses": {
-      "type": "json"
-    },
     "languages": {
       "type": "string"
     },
@@ -97,15 +91,6 @@
     "xp": {
       "type": "integer"
     },
-    "special_abilities": {
-      "type": "json"
-    },
-    "actions_json": {
-      "type": "json"
-    },
-    "legendary_actions": {
-      "type": "json"
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -113,11 +98,6 @@
       "allowedTypes": [
         "images"
       ]
-    },
-    "structuredActions": {
-      "type": "component",
-      "repeatable": true,
-      "component": "game.action"
     },
     "features": {
       "type": "component",
@@ -139,10 +119,5 @@
       "relation": "oneToMany",
       "target": "api::spell.spell"
     },
-    "equipments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::equipment.equipment"
-    }
   }
 }

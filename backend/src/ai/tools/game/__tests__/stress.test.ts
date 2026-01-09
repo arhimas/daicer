@@ -1,16 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createMockStrapi, MOCK_MONSTERS, MOCK_CHARACTERS } from './setup/harness';
+import { StrapiContext } from '../tool-factory';
 import { ActionDispatcher } from '../../../../engine';
 
 vi.mock('../../../../engine', async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actual: any = await importOriginal();
   return { ...actual };
 });
 
 describe('Stress Testing (200 Permutations)', () => {
-  let mockContext: any;
+  let mockContext: StrapiContext;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockRoom: any;
-  let performActionTool: any;
+  let performActionTool: (context: StrapiContext) => {
+    func: (args: Record<string, unknown>, context?: StrapiContext) => Promise<string>;
+  };
 
   beforeEach(async () => {
     const harness = createMockStrapi();
@@ -18,16 +23,21 @@ describe('Stress Testing (200 Permutations)', () => {
     mockRoom = harness.mockRoom;
 
     // Spy / Patch
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     vi.spyOn(ActionDispatcher.prototype, 'dispatch').mockImplementation((state: any, command: any) => {
       const dispatcher = new ActionDispatcher();
       if (state.entities) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         state.entities.forEach((ent: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const sheet = mockRoom.entity_sheets.find((s: any) => s.documentId === ent.id);
           if (sheet) ent.sheet = sheet;
         });
       }
       // Handle types
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (command.type === 'ATTACK') return (dispatcher as any).handleAttack(state, command);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (command.type === 'MOVE') return (dispatcher as any).handleMove(state, command);
       return { success: false, message: 'Unknown', events: [] };
     });
@@ -36,7 +46,8 @@ describe('Stress Testing (200 Permutations)', () => {
     performActionTool = module.performActionTool;
   });
 
-  const createActor = (pool: any[], idPrefix: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const createActor = (pool: Record<string, any>[], idPrefix: string) => {
     const tpl = pool[Math.floor(Math.random() * pool.length)];
     const instance = {
       documentId: `${idPrefix}-${tpl.documentId}-${Math.random().toString(36).substr(2, 5)}`,
@@ -47,7 +58,7 @@ describe('Stress Testing (200 Permutations)', () => {
       stats: tpl.stats,
       speed: 30,
       structuredActions: tpl.structuredActions || [],
-      sheet: null as any,
+      sheet: null as unknown,
     };
     instance.sheet = instance;
     mockRoom.entity_sheets.push(instance);

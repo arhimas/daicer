@@ -109,8 +109,13 @@ export async function getRoomState(roomId: string): Promise<Room> {
       .filter((p) => !!p)
       .map((p) => ({
         ...p,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        userId: (p as any).userId || p!.user?.documentId || (p!.user as any)?.id || p!.id, // Fallback mapping
+        // userId fallback logic
+        userId:
+          (p as unknown as { userId?: string }).userId ||
+          p?.user?.documentId ||
+          (p?.user as unknown as { id?: string })?.id ||
+          p?.id ||
+          '',
       }));
 
     mappedRoom = {
@@ -508,8 +513,7 @@ export async function processTurn(roomId: string, language = 'en'): Promise<void
  */
 export async function executeEngineAction(
   roomId: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  actions: any[]
+  actions: unknown[]
 ): Promise<{ success: boolean; turnId: string }> {
   const token = localStorage.getItem('strapi_jwt');
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
@@ -557,7 +561,7 @@ export async function executeDirectTool(
     });
 
     console.info('[api.ts] executeDirectTool SUCCESS. Result:', data);
-    return (data as any).executeTool;
+    return (data as { executeTool: { success: boolean; message: string } }).executeTool;
   } catch (error) {
     console.error('[api.ts] executeDirectTool FAILED:', error);
     throw error;

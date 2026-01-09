@@ -32,7 +32,7 @@ describe('Vector Service (Plugin)', () => {
     const params = mockRaw.mock.calls[0][1];
     expect(sql).toContain('knowledge_snippets');
     expect(sql).toContain('<=> ?'); // PGVector operator check
-    expect(sql).toContain('ORDER BY distance');
+    expect(sql).toContain('ORDER BY ((ks.embedding::text)::vector <=> ?) ASC');
     expect(params[0]).toBe('[0.1,0.2,0.3]');
   });
 

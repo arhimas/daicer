@@ -16,7 +16,7 @@ export async function runStatus(options: { json?: boolean }) {
 
   try {
     const start = Date.now();
-    await fetch(rootUrl, { method: 'HEAD', timeout: 2000 } as any).catch((e) => {
+    await fetch(rootUrl, { method: 'HEAD', timeout: 2000 } as RequestInit & { timeout?: number }).catch((e) => {
       throw e;
     });
     const duration = Date.now() - start;
@@ -44,7 +44,8 @@ export async function runStatus(options: { json?: boolean }) {
         )
       );
     }
-  } catch (error: any) {
+  } catch (err: unknown) {
+    const error = err as Error & { code?: string; cause?: { code?: string } };
     const isConnRefused = error.cause?.code === 'ECONNREFUSED' || error.code === 'ECONNREFUSED';
 
     if (isRaw) {

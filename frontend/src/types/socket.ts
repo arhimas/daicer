@@ -3,8 +3,7 @@
  * Mirror of backend types for type-safe client
  */
 
-import type { ChunkDTO as GridChunk, Entity, Room, Player, Message, Creature } from './contracts';
-import type { RoomJoinPayload, TurnProcessPayload, PlayerActionPayload } from './contracts';
+import type { ChunkDTO as GridChunk, Entity, Room, Player, Message, Creature , RoomJoinPayload, TurnProcessPayload, PlayerActionPayload } from './contracts';
 
 /**
  * Events received from server (matches backend ServerToClientEvents)

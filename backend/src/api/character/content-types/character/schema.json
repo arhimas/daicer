@@ -92,10 +92,5 @@
       "relation": "oneToMany",
       "target": "api::spell.spell"
     },
-    "equipments": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::equipment.equipment"
-    }
   }
 }

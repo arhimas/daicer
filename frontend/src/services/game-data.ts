@@ -581,11 +581,11 @@ export async function getSpells(): Promise<Spell[]> {
       name: s?.name || '',
       level: s?.level || 0,
       school: s?.school || '',
-      castingTime: s?.casting_time || '',
-      range: s?.range || '',
-      components: Array.isArray(s?.components) ? s.components.map(String) : [],
-      duration: s?.duration || '',
-      isRitual: s?.is_ritual || false,
+      castingTime: '',
+      range: '',
+      components: [],
+      duration: '',
+      isRitual: false,
       description: s?.description || '',
     })) || []
   );

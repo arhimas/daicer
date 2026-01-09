@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import spawnServiceFactory from '../spawn-service';
 import entityAdapterFactory from '../entity-adapter';
-import type { EntitySheet, Room, Monster, Character } from '../../../../engine';
+import type { EntitySheet, Monster } from '../../../../engine';
 
 // Mocks
 const mockFindOne = vi.fn();
@@ -28,26 +28,17 @@ vi.mock('../../../../engine', async (importOriginal) => {
 });
 
 describe('Comprehensive Backend Integration (33 Checks)', () => {
-  let mockRoom: Room;
   let SpawnService: ReturnType<typeof spawnServiceFactory>;
   // Instantiate adapter globally for tests
   const EntityAdapter = entityAdapterFactory();
 
   beforeEach(() => {
-    SpawnService = spawnServiceFactory({ strapi: (globalThis as any).strapi });
-
-    mockRoom = {
-      id: 'room-1',
-      documentId: 'room-doc-1',
-      players: [],
-      entities: [],
-      code: 'TEST',
-    } as unknown as Room;
+    SpawnService = spawnServiceFactory({ strapi: (globalThis as unknown as { strapi: Core.Strapi }).strapi });
 
     vi.clearAllMocks();
 
     // Default mock behaviors
-    mockFindOne.mockImplementation(async (query: any) => {
+    mockFindOne.mockImplementation(async (query: Record<string, unknown>) => {
       // Return a default structure compatible with both Character and Monster logic to prevent crashes
       return {
         documentId: query.documentId || 'default-doc',
@@ -103,7 +94,7 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
       const charData = { documentId: 'char-3', name: 'Hero', stats: { strength: 16 } };
       mockFindOne.mockResolvedValueOnce(charData);
 
-      const sheet = await SpawnService.spawnCharacter('room-1', 'char-3', { x: 0, y: 0, z: 0 });
+      await SpawnService.spawnCharacter('room-1', 'char-3', { x: 0, y: 0, z: 0 });
       // Check capture in create call
       // attributes replaced stats as primary container for derived stats
       const createCall = mockCreate.mock.calls.find((c) => c[0].data.name === 'Hero');
@@ -168,7 +159,7 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
       };
       mockFindOne.mockResolvedValueOnce(monsterData);
 
-      const sheet = await SpawnService.spawnMonster('r', 'm-act', { x: 0, y: 0, z: 0 });
+      await SpawnService.spawnMonster('r', 'm-act', { x: 0, y: 0, z: 0 });
       // Service copies actions logic
       const createArgs = mockCreate.mock.calls.find((c) => c[0].data.name === 'Wolf')[0];
       expect(createArgs.data.structuredActions[0].name).toBe('Bite');
@@ -177,64 +168,64 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
 
   describe('Section 2: Entity Adapter Logic (10 tests)', () => {
     it('11. Adapt Strapi Character (Full)', () => {
-      const input = { documentId: 'c1', name: 'Alice', hp: 10, currentHp: 5 } as any;
+      const input = { documentId: 'c1', name: 'Alice', hp: 10, currentHp: 5 } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'player');
       expect(result.id).toBe('c1');
       expect(result.hp).toBe(5);
     });
 
     it('12. Adapt handles missing currentHp by assuming full', () => {
-      const input = { documentId: 'c2', name: 'Bob', hp: 20 } as any;
+      const input = { documentId: 'c2', name: 'Bob', hp: 20 } as unknown as EntitySheet;
       // Assuming logic: if currentHp missing, use hp (max)
       const result = EntityAdapter.adapt(input, 'player');
       expect(result.hp).toBe(20);
     });
 
     it('13. Adapt Monster (Full)', () => {
-      const input = { documentId: 'm1', name: 'Dragon', hp: 100 } as any;
+      const input = { documentId: 'm1', name: 'Dragon', hp: 100 } as unknown as Monster;
       const result = EntityAdapter.adapt(input, 'monster');
       expect(result.type).toBe('monster');
     });
 
     it('14. Adapt uses raw attributes if stats missing', () => {
-      const input = { name: 'E', attributes: { strength: 18 } } as any;
+      const input = { name: 'E', attributes: { strength: 18 } } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'character');
       expect(result.stats.strength).toBe(18);
     });
 
     it('15. Adapt calculates level defaults', () => {
-      const input = { name: 'F', level: 5 } as any;
+      const input = { name: 'F', level: 5 } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'character');
       expect(result.level).toBe(5);
     });
 
     it('16. Adapt handles null equipment', () => {
-      const input = { name: 'G' } as any; // equipment undefined
+      const input = { name: 'G' } as unknown as EntitySheet; // equipment undefined
       const result = EntityAdapter.adapt(input, 'character');
       expect(result.equipment).toEqual([]);
     });
 
     it('17. Adapt adapts equipment types', () => {
-      const input = { name: 'H', equipment: [{ name: 'Sword', equipped: true }] } as any;
+      const input = { name: 'H', equipments: [{ name: 'Sword', equipped: true }] } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'character');
       expect(result.equipment).toHaveLength(1);
     });
 
     it('18. Adapt handles legacy Action arrays', () => {
-      const input = { name: 'I', actions: [{ name: 'Slash' }] } as any;
+      const input = { name: 'I', actions: [{ name: 'Slash' }] } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'character');
       expect(result.actions).toHaveLength(1);
     });
 
     it('19. Adapt handles separate features array', () => {
-      const input = { name: 'J', features: [{ name: 'Rage' }] } as any;
+      const input = { name: 'J', features: [{ name: 'Rage' }] } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'character');
       expect(result.features).toHaveLength(1);
     });
 
     it('20. Adapt clamps HP to 0 if negative in source but Logic dictates death', () => {
       // Just ensuring it passes value through
-      const input = { name: 'K', hp: -10 } as any;
+      const input = { name: 'K', hp: -10 } as unknown as EntitySheet;
       const result = EntityAdapter.adapt(input, 'player');
       expect(result.hp).toBe(-10);
     });
@@ -242,47 +233,47 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
 
   describe('Section 3: Type Safety & Integrity (13 tests)', () => {
     it('21. Validates ID presence', () => {
-      const input = { name: 'NoID' } as any;
+      const input = { name: 'NoID' } as unknown as Monster;
       // Adapter might generate temporary ID or throw? Assuming generate.
       const result = EntityAdapter.adapt(input, 'monster');
       expect(result.id).toBeDefined();
     });
 
     it('22. Validates Name fallback', () => {
-      const input = { id: '1' } as any;
+      const input = { id: '1' } as unknown as Monster;
       const result = EntityAdapter.adapt(input, 'monster');
       expect(result.name).toBe('Unknown Entity');
     });
 
     it('23. Handles missing speed', () => {
-      const result = EntityAdapter.adapt({} as any, 'monster');
+      const result = EntityAdapter.adapt({} as unknown as Monster, 'monster');
       expect(result.speed).toBeDefined();
     });
 
     it('24. Handles missing initiative', () => {
-      const result = EntityAdapter.adapt({} as any, 'monster');
+      const result = EntityAdapter.adapt({} as unknown as Monster, 'monster');
       expect(result.stats.initiativeBonus).toBeDefined();
     });
 
     it('25. Ensures stats structure exists', () => {
-      const result = EntityAdapter.adapt({} as any, 'monster');
+      const result = EntityAdapter.adapt({} as unknown as Monster, 'monster');
       expect(result.stats).toBeDefined();
     });
 
     it('26. Ensures classes array exists', () => {
-      const result = EntityAdapter.adapt({} as any, 'player');
+      const result = EntityAdapter.adapt({} as unknown as Player, 'player');
       expect(result.classes).toBeInstanceOf(Array);
     });
 
     it('27. Handles nested image URLs safely', () => {
-      const input = { image: { url: '/foo.png' } } as any;
+      const input = { image: { url: '/foo.png' } } as unknown as Monster;
       const result = EntityAdapter.adapt(input, 'monster');
       // Adapter logic for images? we can just check if it doesn't crash
       expect(result).toBeDefined();
     });
 
     it('28. Adapts spells in actions', () => {
-      const input = { spells: [{ name: 'Fireball' }] } as any;
+      const input = { spells: [{ name: 'Fireball' }] } as unknown as EntitySheet;
       // Adapter logic might merge spells into actions
       const result = EntityAdapter.adapt(input, 'character');
       // Assuming adapter merges
@@ -299,17 +290,17 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
     });
 
     it('30. Handles large numeric values', () => {
-      const result = EntityAdapter.adapt({ hp: 9999 } as any, 'monster');
+      const result = EntityAdapter.adapt({ hp: 9999 } as unknown as Monster, 'monster');
       expect(result.hp).toBe(9999);
     });
 
     it('31. Handles special chars in name', () => {
-      const result = EntityAdapter.adapt({ name: 'Grok?!' } as any, 'monster');
+      const result = EntityAdapter.adapt({ name: 'Grok?!' } as unknown as Monster, 'monster');
       expect(result.name).toBe('Grok?!');
     });
 
     it('32. Handles missing type defaults', () => {
-      const result = EntityAdapter.adapt({} as any, undefined as any);
+      const result = EntityAdapter.adapt({} as unknown as Monster, undefined as unknown as 'monster');
       expect(result.type).toBe('monster'); // Default?
     });
 

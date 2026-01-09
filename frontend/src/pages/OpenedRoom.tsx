@@ -89,6 +89,7 @@ export default function OpenedRoomPage() {
 
       // If room has generation events, restore them to streamEvents
       if (socket.room.generationEvents && streamEvents.length === 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setStreamEvents((socket.room.generationEvents as any[]) || []);
       }
 

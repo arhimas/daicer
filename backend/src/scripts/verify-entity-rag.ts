@@ -1,14 +1,16 @@
 export {};
-const dotenv = require('dotenv');
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 async function verify() {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { createStrapi } = require('@strapi/strapi');
   console.log('🚀 Starting Verification...');
   const strapi = await createStrapi({ distDir: './dist' }).load();
-  const { embeddingService } = require('../services/embedding-service');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { unifiedSearchService } = require('../services/unified-search-service');
 
   try {
     const TRACKED_MODELS = [
@@ -26,8 +28,6 @@ async function verify() {
     // Let's test a sample of diverse types to respect time, but ensure coverage.
     // Or strictly all if data exists.
 
-    const { unifiedSearchService } = require('../services/unified-search-service');
-
     async function runTests() {
       const chalk = (await import('chalk')).default;
 
@@ -40,31 +40,33 @@ async function verify() {
           name: 'Global Search (No Targets)',
           query: 'Fireball',
           targets: undefined,
-          expect: (res: any[]) => res.some((r) => r.kind === 'entity' && r.tags.includes('spell')),
+          expect: (res: { kind: string; tags: string[] }[]) =>
+            res.some((r) => r.kind === 'entity' && r.tags.includes('spell')),
         },
         {
           name: 'Strict Entity (Spells Only)',
           query: 'Fireball',
           targets: ['spell'],
-          expect: (res: any[]) => res.length > 0 && res.every((r) => r.kind === 'entity' && r.tags.includes('spell')),
+          expect: (res: { kind: string; tags: string[] }[]) =>
+            res.length > 0 && res.every((r) => r.kind === 'entity' && r.tags.includes('spell')),
         },
         {
           name: 'Negative Test (Monsters Only for Spell query)',
           query: 'Fireball',
           targets: ['monster'],
-          expect: (res: any[]) => !res.some((r) => r.tags.includes('spell')), // Should NOT find the spell fireball
+          expect: (res: { tags: string[] }[]) => !res.some((r) => r.tags.includes('spell')), // Should NOT find the spell fireball
         },
         {
           name: 'Multi-Target (Class + Race)',
           query: 'Magic', // Broad query
           targets: ['class', 'race'],
-          expect: (res: any[]) => res.every((r) => r.tags.includes('class') || r.tags.includes('race')),
+          expect: (res: { tags: string[] }[]) => res.every((r) => r.tags.includes('class') || r.tags.includes('race')),
         },
         {
           name: 'Manual Only',
           query: 'Daicer',
           targets: ['manual'],
-          expect: (res: any[]) => res.every((r) => r.kind === 'knowledge'),
+          expect: (res: { kind: string }[]) => res.every((r) => r.kind === 'knowledge'),
         },
       ];
 
@@ -108,7 +110,7 @@ async function verify() {
 
     for (const model of TRACKED_MODELS) {
       // Get 1 random entity
-      const entities = await strapi.entityService.findMany(model as any, {
+      const entities = await strapi.entityService.findMany(model as `api::${string}.${string}`, {
         limit: 1,
         populate: '*',
       });
@@ -128,7 +130,7 @@ async function verify() {
       // Test 1: Search by Name
       const results = await unifiedSearchService.search(targetName, { limit: 3 });
 
-      const match = results.some((r: any) => r.title.includes(targetName));
+      const match = results.some((r: { title: string }) => r.title.includes(targetName));
 
       if (match) {
         console.log(`  ✅ Name Retrieval: FOUND in top 3`);
@@ -139,7 +141,7 @@ async function verify() {
         if (results.length > 0) {
           console.log(
             '  Top results:',
-            results.map((r: any) => r.title)
+            results.map((r: { title: string }) => r.title)
           );
         }
       }

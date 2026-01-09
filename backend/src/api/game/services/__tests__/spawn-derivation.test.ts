@@ -25,12 +25,12 @@ describe('EntityDeriver Action Derivation', () => {
     expect(actions).toBeDefined();
     expect(actions).toHaveLength(1);
     expect(actions[0].name).toBe('Longsword');
-    expect(actions[0].type).toBe('melee_attack');
-    expect(actions[0].reach).toBe(5);
+    expect(actions[0].attack?.type).toBe('melee_weapon');
+    expect(actions[0].range?.value).toBe(5);
     // Str 16 -> +3 mod. ToHit: +3 + 2 = +5. Damage: +3.
-    expect(actions[0].toHit).toBe(5);
-    expect(actions[0].damage[0].bonus).toBe(3);
-    expect(actions[0].damage[0].dice).toBe('1d8');
+    expect(actions[0].attack?.bonus).toBe(5);
+    expect(actions[0].effects?.[0].flat).toBe(3);
+    expect(actions[0].effects?.[0].dice).toBe('1d8');
   });
 
   it('should derive ranged attack from bow using DEX', () => {
@@ -54,10 +54,10 @@ describe('EntityDeriver Action Derivation', () => {
     const actions = result.structuredActions;
 
     expect(actions).toHaveLength(1);
-    expect(actions[0].type).toBe('ranged_attack');
-    expect(actions[0].reach).toBe(80);
+    expect(actions[0].attack?.type).toBe('ranged_weapon');
+    expect(actions[0].range?.value).toBe(80);
     // Dex 16 -> +3 mod.
-    expect(actions[0].toHit).toBe(5);
+    expect(actions[0].attack?.bonus).toBe(5);
   });
 
   it('should fallback to Unarmed Strike if no weapons', () => {
@@ -71,6 +71,6 @@ describe('EntityDeriver Action Derivation', () => {
     const result = EntityDeriver.derive(context);
     expect(result.structuredActions).toHaveLength(1);
     expect(result.structuredActions[0].name).toBe('Unarmed Strike');
-    expect(result.structuredActions[0].type).toBe('melee_attack');
+    expect(result.structuredActions[0].attack?.type).toBe('melee_weapon');
   });
 });

@@ -272,8 +272,6 @@ export const EXPLORER_GET_SPELLS = gql`
         }
         level
         school
-        casting_time
-        range
       }
       pageInfo {
         ...PaginationFragment

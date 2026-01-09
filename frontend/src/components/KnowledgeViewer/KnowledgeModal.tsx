@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X, BookOpen, Database, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
-import { MarkdownRenderer } from './MarkdownRenderer';
 import { cn } from '@/lib/utils';
+import { MarkdownRenderer } from './MarkdownRenderer';
 // Note: importing UnifiedSearchResult type from backend might be hard if not shared.
 // We define a local interface matching it.
 
@@ -56,7 +56,7 @@ export const KnowledgeModal: React.FC<KnowledgeModalProps> = ({ isOpen, onClose,
         // Fallback to excerpt for demo
         setContent(
           result.content ||
-            (result.excerpt ? result.excerpt + '\n\n*(Full content would be fetched here...)*' : 'Loading...')
+            (result.excerpt ? `${result.excerpt  }\n\n*(Full content would be fetched here...)*` : 'Loading...')
         );
         setLoading(false);
       }, 300);

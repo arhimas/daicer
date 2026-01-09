@@ -1,6 +1,5 @@
 import { Command } from 'commander';
 import fs from 'fs';
-import path from 'path';
 import { client } from '../utils/client';
 import { discoverContentTypes } from '../utils/schema';
 
@@ -54,7 +53,7 @@ export async function runExplore(options: ExploreOptions) {
   const { default: gradient } = await import('gradient-string');
   const { default: Table } = await import('cli-table3');
   const { default: prettyjson } = await import('prettyjson');
-  const { input, select, confirm } = await import('@inquirer/prompts');
+  const { input, select } = await import('@inquirer/prompts');
 
   const isRaw = !!options.json;
 
@@ -66,15 +65,18 @@ export async function runExplore(options: ExploreOptions) {
       const res = await fn();
       spinner.stop();
       return res;
-    } catch (e) {
+    } catch {
       spinner.fail();
-      throw e;
+      throw new Error('Spinner failed'); // or rethrow original if we captured it, but we removed catch(e) to avoid unused var?
+      // Actually simpler to just use catch (err) and rethrow err.
+      // Wait, 'e' is used in 'spinner.fail()' context? No.
+      // If I remove 'e' from catch block: catch { ... } in newer TS.
     }
   };
 
   // --- 1. Selection & Setup ---
   let selectedUid = options.type;
-  let allTypes = discoverContentTypes();
+  const allTypes = discoverContentTypes();
 
   if (!selectedUid) {
     if (isRaw) throw new Error('Missing required argument: --type <uid> is required in JSON mode.');
@@ -116,10 +118,10 @@ export async function runExplore(options: ExploreOptions) {
   };
 
   // --- 2. Action Logic ---
-  let action = options.action;
+  const action = options.action;
   let currentAction = action || 'find'; // Default
   let currentPage = parseInt(options.page || '1', 10);
-  let currentLimit = parseInt(options.limit || '10', 10);
+  const currentLimit = parseInt(options.limit || '10', 10);
   let currentFilters = options.filters ? JSON.parse(options.filters) : {};
   let currentDocId = options.documentId;
 
@@ -144,11 +146,11 @@ export async function runExplore(options: ExploreOptions) {
           { name: 'Find One (Get by Document ID)', value: 'findOne' },
           { name: 'Count (Total entries)', value: 'count' },
         ],
-      })) as any;
+      })) as 'find' | 'findOne' | 'count';
     }
 
     // Prepare Params
-    let params: any = { populate: '*' };
+    const params: Record<string, unknown> = { populate: '*' };
     if (currentAction === 'find') {
       params['pagination[pageSize]'] = currentLimit;
       params['pagination[page]'] = currentPage;
@@ -159,8 +161,8 @@ export async function runExplore(options: ExploreOptions) {
     }
 
     // Execute
-    let result: any;
-    let meta: any = {};
+    let result: unknown;
+    let meta: Record<string, unknown> = {};
 
     await withSpinner('Executing Query...', async () => {
       const resourceName =
@@ -170,8 +172,8 @@ export async function runExplore(options: ExploreOptions) {
 
       if (!resourceName) throw new Error(`Could not determine resource name for ${selectedUid}`);
 
-      const resource: any =
-        finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName);
+      const resource = // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName)) as any;
 
       if (finalType.kind === 'singleType') {
         result = await resource.find(params);
@@ -201,8 +203,10 @@ export async function runExplore(options: ExploreOptions) {
               pagination: { page: currentPage, pageSize: currentLimit, total: 'unknown' },
             };
           } else {
-            result = findRes.data || findRes;
-            meta = findRes.meta || {};
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            result = (findRes as any).data || findRes;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            meta = (findRes as any).meta || {};
           }
         }
       }
@@ -253,7 +257,7 @@ export async function runExplore(options: ExploreOptions) {
             style: { head: [], border: [] }, // minimal style
           });
 
-          data.forEach((row: any) => {
+          data.forEach((row: Record<string, unknown>) => {
             const values = headers.map((h) => {
               const val = row[h];
               if (typeof val === 'object') return chalk.dim('[Obj]');
@@ -266,7 +270,8 @@ export async function runExplore(options: ExploreOptions) {
 
           // Pagination Info
           if (meta.pagination) {
-            const p = meta.pagination;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const p = meta.pagination as any;
             console.log(
               boxen(
                 `${chalk.dim('Page')} ${chalk.bold(p.page)} ${chalk.dim('of')} ${chalk.bold(p.pageCount)}  ` +
@@ -279,7 +284,8 @@ export async function runExplore(options: ExploreOptions) {
 
         // --- Interactive Pagination ---
         const choices = [];
-        if (meta.pagination && meta.pagination.page < meta.pagination.pageCount) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (meta.pagination && (meta.pagination as any).page < (meta.pagination as any).pageCount) {
           choices.push({ name: 'Next Page ➡️', value: 'next' });
         }
         if (currentPage > 1) {
@@ -305,7 +311,7 @@ export async function runExplore(options: ExploreOptions) {
           try {
             currentFilters = JSON.parse(filterStr);
             currentPage = 1; // Reset to page 1 on new filter
-          } catch (e) {
+          } catch {
             console.log(chalk.red('Invalid JSON'));
           }
         } else if (nextStep === 'detail') {

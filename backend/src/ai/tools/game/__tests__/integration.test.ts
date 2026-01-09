@@ -97,7 +97,7 @@ describe('Tool Lifecycle Integration', () => {
       }),
     };
 
-    const result = await tool.func(input, mockContext);
+    await tool.func(input, mockContext);
 
     // 3. Verify: The State passed to ActionDispatcher has the correct derived action
     expect(ActionDispatcher).toHaveBeenCalled();
@@ -106,6 +106,7 @@ describe('Tool Lifecycle Integration', () => {
     if (!dispatchCall) throw new Error('Dispatch not called');
 
     const [state, command] = dispatchCall;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const hero = state.entities.find((e: { id: string; actions: any[] }) => e.id === 'hero-1');
 
     expect(hero).toBeDefined();
@@ -162,6 +163,7 @@ describe('Tool Lifecycle Integration', () => {
     );
 
     const [state] = mockDispatch.mock.calls[0];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const wizard = state.entities.find((e: { id: string; actions: any[] }) => e.id === 'wizard-npc');
 
     expect(wizard.actions).toHaveLength(1);

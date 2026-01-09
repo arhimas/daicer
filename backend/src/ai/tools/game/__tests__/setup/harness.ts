@@ -3,34 +3,34 @@ import { vi } from 'vitest';
 export const createMockStrapi = () => {
   const mockRoom = {
     documentId: 'room-1',
-    entities: [] as any[],
-    entity_sheets: [] as any[], // Persistence layer
+    entities: [] as unknown[],
+    entity_sheets: [] as unknown[], // Persistence layer
     config: {}, // WorldConfig
   };
 
   const mockStrapi = {
     documents: (uid: string) => ({
-      findOne: async (args: any) => {
+      findOne: async (args: { documentId?: string }) => {
         if (uid === 'api::room.room') return mockRoom;
         if (uid === 'api::monster.monster') return MOCK_MONSTERS.find((m) => m.documentId === args.documentId) || null;
         if (uid === 'api::character.character')
           return MOCK_CHARACTERS.find((c) => c.documentId === args.documentId) || null;
         return null;
       },
-      findMany: async (args: any) => [],
+      findMany: async (_args: unknown) => [],
     }),
     service: (uid: string) => {
       // Game Service Mock
       if (uid === 'api::game.game') {
         return {
-          loadGameState: async (roomId: string) => {
+          loadGameState: async (_roomId: string) => {
             // Adapt sheets to entities
             return {
               room: mockRoom,
               entities: mockRoom.entity_sheets.map((s) => adaptSheetToEntity(s)),
             };
           },
-          processAction: async (roomId: string, command: any) => {
+          processAction: async (_roomId: string, _command: unknown) => {
             // We spy on ActionDispatcher usually, but this is the service layer
             return { success: true, events: [] };
           },
@@ -39,7 +39,7 @@ export const createMockStrapi = () => {
       // Entity Service
       if (uid === 'api::game.entity-service') {
         return {
-          adapt: (sheet: any) => adaptSheetToEntity(sheet),
+          adapt: (sheet: Record<string, unknown>) => adaptSheetToEntity(sheet),
         };
       }
       return {};
@@ -52,6 +52,7 @@ export const createMockStrapi = () => {
 };
 
 // Helper: Entity Adapter Logic (Simplified for Test)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const adaptSheetToEntity = (sheet: any) => {
   return {
     id: sheet.documentId,
@@ -63,7 +64,8 @@ export const adaptSheetToEntity = (sheet: any) => {
     speed: sheet.stats?.dexterity ? 30 + (sheet.stats.dexterity - 10) : 30, // Dynamic speed
     sheet: sheet, // Link back
     actions:
-      sheet.structuredActions?.map((act: any) => ({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (sheet.structuredActions as any[])?.map((act) => ({
         id: act.id || 'act-1',
         name: act.name,
         type: act.type === 'melee' ? 'melee_attack' : act.type === 'ranged' ? 'ranged_attack' : act.type,
@@ -119,7 +121,8 @@ export const MOCK_MONSTERS = [
 ].map((m) => ({
   ...m,
   stats: m.stats || { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 },
-  structuredActions: (m.structuredActions || []).map((act: any) => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  structuredActions: ((m.structuredActions || []) as any[]).map((act) => ({
     ...act,
     id: String(act.id || 'act-1'),
     type: act.type === 'melee' ? 'melee_attack' : act.type === 'ranged' ? 'ranged_attack' : act.type,
@@ -163,7 +166,8 @@ export const MOCK_CHARACTERS = [
     name: 'Ranger',
   },
 ].map((c) => {
-  const char = c as any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const char = c as unknown as any;
   return {
     ...char,
     hp: char.hp || 10,
@@ -171,7 +175,7 @@ export const MOCK_CHARACTERS = [
     structuredActions: (char.structuredActions && char.structuredActions.length > 0
       ? char.structuredActions
       : [{ id: 'act-default', name: 'Unarmed Strike', type: 'melee_attack', reach: 5, description: 'Basic attack' }]
-    ).map((act: any) => ({
+    ).map((act) => ({
       ...act,
       id: String(act.id || 'act-1'),
       type: act.type === 'melee' ? 'melee_attack' : act.type === 'ranged' ? 'ranged_attack' : act.type,

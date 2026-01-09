@@ -203,6 +203,8 @@ export function CampaignWizard({
       structureSizeAvg: (initialSettings?.generationParams as any)?.structureSizeAvg ?? 10,
       roadDensity: (initialSettings?.generationParams as any)?.roadDensity ?? 0.5,
       fogRadius: (initialSettings?.generationParams as any)?.fogRadius ?? 10,
+      seed: (initialSettings?.generationParams as any)?.seed ?? 'default-seed',
+      chunkSize: (initialSettings?.generationParams as any)?.chunkSize ?? 32,
       /* eslint-enable @typescript-eslint/no-explicit-any */
     },
     ...initialSettings,
@@ -497,22 +499,23 @@ export function CampaignWizard({
         // Flatten settings to match WorldConfig shape if possible
         // WorldConfig expects: seed, globalScale, etc.
         // WorldSettings has these merged in.
+
         const config: WorldConfig = {
           seed: settings.seed || 'default-seed',
-          chunkSize: (settings.generationParams as any)?.chunkSize ?? 32,
+          chunkSize: (settings.generationParams as WorldConfig)?.chunkSize ?? 32,
           // Map WorldSettings arbitrary keys to WorldConfig known keys
-          globalScale: (settings.generationParams as any)?.globalScale ?? 0.01,
-          seaLevel: (settings.generationParams as any)?.seaLevel ?? 0,
-          elevationScale: (settings.generationParams as any)?.elevationScale ?? 1,
-          roughness: (settings.generationParams as any)?.roughness ?? 0.5,
-          detail: (settings.generationParams as any)?.detail ?? 4,
-          moistureScale: (settings.generationParams as any)?.moistureScale ?? 1,
-          temperatureOffset: (settings.generationParams as any)?.temperatureOffset ?? 0,
-          structureChance: (settings.generationParams as any)?.structureChance ?? 0.1,
-          structureSpacing: (settings.generationParams as any)?.structureSpacing ?? 10,
-          structureSizeAvg: (settings.generationParams as any)?.structureSizeAvg ?? 10,
-          roadDensity: (settings.generationParams as any)?.roadDensity ?? 0.5,
-          fogRadius: (settings.generationParams as any)?.fogRadius ?? 10,
+          globalScale: (settings.generationParams as WorldConfig)?.globalScale ?? 0.01,
+          seaLevel: (settings.generationParams as WorldConfig)?.seaLevel ?? 0,
+          elevationScale: (settings.generationParams as WorldConfig)?.elevationScale ?? 1,
+          roughness: (settings.generationParams as WorldConfig)?.roughness ?? 0.5,
+          detail: (settings.generationParams as WorldConfig)?.detail ?? 4,
+          moistureScale: (settings.generationParams as WorldConfig)?.moistureScale ?? 1,
+          temperatureOffset: (settings.generationParams as WorldConfig)?.temperatureOffset ?? 0,
+          structureChance: (settings.generationParams as WorldConfig)?.structureChance ?? 0.1,
+          structureSpacing: (settings.generationParams as WorldConfig)?.structureSpacing ?? 10,
+          structureSizeAvg: (settings.generationParams as WorldConfig)?.structureSizeAvg ?? 10,
+          roadDensity: (settings.generationParams as WorldConfig)?.roadDensity ?? 0.5,
+          fogRadius: (settings.generationParams as WorldConfig)?.fogRadius ?? 10,
         };
 
         return (
@@ -550,8 +553,9 @@ export function CampaignWizard({
           </div>
         );
       }
+      default:
+        return null;
     }
-    return null;
   };
 
   const getGroupLabel = (group: WizardGroup): string => {

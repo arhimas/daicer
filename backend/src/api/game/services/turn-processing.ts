@@ -1,3 +1,4 @@
+import type { EntropyState } from '../../../engine/entropy';
 import type { Player, Creature, WorldSettings, Chunk, Language } from '../../../engine';
 // Local definition to avoid missing shared export
 interface Message {
@@ -29,18 +30,17 @@ export default ({ strapi }) => ({
     const { EntropySystem } = await import('../../../engine/entropy');
     // Use roomId as seed if code not available immediately, or fetch room code
     // Assuming worldConditions arg is actually the EntropyState JSON
-    const entropySys = new EntropySystem(roomId, worldConditions as any);
+    const entropySys = new EntropySystem(roomId, worldConditions as unknown as EntropyState);
 
     // Advance 1 turn (using 0 or placeholder if turn number not explicit yet)
     // We can fetch last turn number if critical, but for now we accept sequential logic
     const entropyChange = entropySys.advanceTurn(1, Date.now());
-    let entropyEvent = null;
 
-    if (entropyChange) {
+    if (entropyChange && entropyChange.newEvent) {
       // Log Event
-      entropyEvent = await ledger.logEvent(roomId, {
+      await ledger.logEvent(roomId, {
         type: 'ENTROPY_CHANGE',
-        payload: entropyChange as any,
+        payload: entropyChange as Record<string, unknown>,
         actorId: 'system',
         meta: { visibility: entropyChange.newEvent?.visibility || 'dm' },
       });

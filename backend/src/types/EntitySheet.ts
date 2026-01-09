@@ -21,11 +21,25 @@ export interface EntitySheet {
     wis: number;
     cha: number;
   };
-  stats?: any; // Legacy
+  stats?: {
+    strength: number;
+    dexterity: number;
+    constitution: number;
+    intelligence: number;
+    wisdom: number;
+    charisma: number;
+  }; // Legacy
+  savingThrows?: {
+    fortitude: number;
+    reflex: number;
+    will: number;
+  };
+  skills?: Record<string, number>;
 
   // Actions & Features
   structuredActions?: ActionDefinition[];
-  features?: any[];
+  features?: { name: string; description: string }[];
+  conditions?: { name: string; [key: string]: unknown }[];
 
   // Relations (IDs)
   room?: string;

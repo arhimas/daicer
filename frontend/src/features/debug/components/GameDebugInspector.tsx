@@ -15,7 +15,7 @@ interface GameDebugInspectorProps {
   activeEntity: DebugEntity | null;
   activeLocation: { label: string; x: number; y: number; z: number } | null;
   onGodModeCommand: (message: string, mode?: 'chat' | 'direct') => Promise<void>;
-  entropyState?: any; // Passed from parent
+  entropyState?: unknown; // Passed from parent
 }
 
 export function GameDebugInspector({
@@ -136,7 +136,8 @@ export function GameDebugInspector({
           </div>
         ) : activeTab === 'entropy' ? (
           <div className="absolute inset-0 overflow-y-auto p-4">
-            <EntropyDebugPanel state={entropyState} />
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <EntropyDebugPanel state={entropyState as any} />
           </div>
         ) : (
           <div className="absolute inset-0">

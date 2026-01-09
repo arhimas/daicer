@@ -99,7 +99,10 @@ export const handleRoomJoin =
               equipment: entity.equipment,
             };
           } catch (e) {
-            strapi.log.error(`[RoomJoin] Entity Adaptation failed for ${(cs as any).documentId}`, e);
+            strapi.log.error(
+              `[RoomJoin] Entity Adaptation failed for ${(cs as { documentId?: string }).documentId}`,
+              e
+            );
             return null;
           }
         })

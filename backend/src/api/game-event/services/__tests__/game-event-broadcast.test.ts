@@ -23,7 +23,7 @@ import gameEventServiceFactory from '../game-event';
 
 describe('Game Event Service - Broadcasting', () => {
   let strapi: unknown;
-  let service: any;
+  let service: ReturnType<typeof gameEventServiceFactory>;
 
   beforeEach(() => {
     vi.clearAllMocks();

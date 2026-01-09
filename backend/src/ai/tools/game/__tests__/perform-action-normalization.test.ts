@@ -243,7 +243,7 @@ describe('Tool: Perform Action - Payload Normalization (Stress Test)', () => {
       mockContext
     );
     // @ts-expect-error - Checking for unused variable
-    const _res = res;
+    void res;
     expect(mockDispatch).toHaveBeenCalled();
     const payload = mockDispatch.mock.calls[0][1].payload;
     expect(payload.actorId).toBeUndefined(); // Current logic is strict case

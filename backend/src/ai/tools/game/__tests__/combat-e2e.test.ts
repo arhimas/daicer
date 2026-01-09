@@ -3,15 +3,37 @@ import { performActionTool } from '../perform-action';
 import { summonMonsterTool } from '../summon-monster';
 import { summonCharacterTool } from '../summon-character';
 import { StrapiContext } from '../../tool-factory';
-import { ActionDispatcher, GameState, ActionType } from '../../../../engine';
+import { ActionDispatcher, GameState } from '../../../../engine';
 
 // Helper types
-import { EntitySheet } from '../../../../engine';
+
+// Define Mock Types to avoid ANY
+interface MockEntitySheet {
+  documentId: string;
+  name: string;
+  type: string;
+  position: { x: number; y: number; z: number };
+  currentHp: number;
+  maxHp: number;
+  stats: {
+    strength: number;
+    dexterity: number;
+    constitution?: number;
+    intelligence?: number;
+    wisdom?: number;
+    charisma?: number;
+  };
+  inventory: unknown[];
+  structuredActions: Record<string, unknown>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any; // Allow loose props for template merging
+}
 
 // We need a persistent "Database" state for the test duration
-let mockRoom: any;
-let mockMonsterTemplates: any[];
-let mockCharacterTemplates: any[];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let mockRoom: { entity_sheets: MockEntitySheet[]; players: any[]; config: any; documentId: string };
+let mockMonsterTemplates: MockEntitySheet[];
+let mockCharacterTemplates: MockEntitySheet[];
 
 // Mock specific parts of strapi
 const mockBroadcast = vi.fn();
@@ -32,7 +54,7 @@ const mockStrapi = {
     if (uid === 'api::game-event.game-event') return { logEvent: mockLogEvent };
     if (uid === 'api::game.spawn-service')
       return {
-        spawnMonster: async (roomId: string, templateId: string, pos: any) => {
+        spawnMonster: async (_roomId: string, templateId: string, pos: { x: number; y: number; z: number }) => {
           const template = mockMonsterTemplates.find((m) => m.documentId === templateId);
           if (!template) throw new Error('Monster template not found');
           // Important: Copy actions from template to instance
@@ -51,7 +73,7 @@ const mockStrapi = {
           mockRoom.entity_sheets.push(instance);
           return instance;
         },
-        spawnCharacter: async (roomId: string, templateId: string, pos: any) => {
+        spawnCharacter: async (_roomId: string, templateId: string, pos: { x: number; y: number; z: number }) => {
           const template = mockCharacterTemplates.find((c) => c.documentId === templateId);
           if (!template) throw new Error('Template not found');
           const instance = {
@@ -80,6 +102,7 @@ const mockStrapi = {
 };
 
 const mockContext: StrapiContext = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   strapi: mockStrapi as any,
   roomDocumentId: 'room-1',
   user: { documentId: 'user-1', username: 'Gamemaster' },
@@ -87,7 +110,7 @@ const mockContext: StrapiContext = {
 
 // Use Spy Strategy to patch state despite module resolution issues
 describe('Combat E2E Flows (50 Tests)', () => {
-  let dispatchSpy: any;
+  // let dispatchSpy: any;
 
   beforeEach(async () => {
     // Reset Persistent Data
@@ -138,30 +161,37 @@ describe('Combat E2E Flows (50 Tests)', () => {
           { id: 'act-4', name: 'Spear', type: 'melee', damage: [{ dice: '1d6', bonus: 1, type: 'piercing' }] },
         ],
       },
-    ];
+    ] as unknown as MockEntitySheet[];
 
     vi.clearAllMocks();
 
     // SPY & PATCH
-    dispatchSpy = vi.spyOn(ActionDispatcher.prototype, 'dispatch').mockImplementation(function (
-      this: any,
+    vi.spyOn(ActionDispatcher.prototype, 'dispatch').mockImplementation(function (
+      this: unknown,
       state: GameState,
-      command: any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      command: { type: string; payload: Record<string, any> }
     ) {
       console.log('[Spy] Intercepted Command:', command.type);
 
       // 1. Patch Entities (ALWAYS Link Sheet to ensure reference equality with mockRoom)
       if (state.entities) {
-        state.entities.forEach((ent: any) => {
-          const sheet = mockRoom.entity_sheets.find((s: any) => s.documentId === ent.id);
-          if (sheet) {
-            ent.sheet = sheet;
-            // console.log(`[Spy] Linked sheet for ${ent.name}. HP: ${ent.sheet.currentHp}`);
-          }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        state.entities.forEach((ent: Record<string, any>) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const sheet = mockRoom.entity_sheets.find((s: Record<string, any>) => s.documentId === ent.id);
+          if (sheet) ent.sheet = sheet;
+          // console.log(`[Spy] Linked sheet for ${ent.name}. HP: ${ent.sheet.currentHp}`);
+        });
 
+        // Loop again or reuse loop above? Original code had loop then helper def then calls.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        state.entities.forEach((ent: Record<string, any>) => {
           // Helper to patch action types
-          const patchActions = (actions: any[]) => {
-            actions.forEach((act: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const patchActions = (actions: Record<string, any>[]) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            actions.forEach((act: Record<string, any>) => {
               if (act.type === 'melee') act.type = 'melee_attack';
               if (act.type === 'ranged') act.type = 'ranged_attack';
             });
@@ -202,13 +232,15 @@ describe('Combat E2E Flows (50 Tests)', () => {
 
       // Manual Dead Check (Fix Test 17 / Engine Parity)
       if (command.type === 'ATTACK') {
-        const actor = state.entities.find((e: any) => e.id === command.payload.actorId);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const actor = state.entities.find((e: Record<string, any>) => e.id === command.payload.actorId);
         if (actor && actor.sheet && actor.sheet.currentHp <= 0) {
           return { success: false, message: 'Attacker is dead or incapacitated.', events: [] };
         }
 
         // Manual Range Check (Fix Test 10 / Engine Parity)
-        const target = state.entities.find((e: any) => e.id === command.payload.targetId);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const target = state.entities.find((e: Record<string, any>) => e.id === command.payload.targetId);
         if (actor && target) {
           const dx = actor.position.x - target.position.x;
           const dy = actor.position.y - target.position.y;
@@ -222,9 +254,11 @@ describe('Combat E2E Flows (50 Tests)', () => {
         }
       }
 
-      let result: any;
+      let result: { success: boolean; message?: string; events: unknown[] };
       try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (command.type === 'MOVE') result = (this as any).handleMove(state, command);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         else if (command.type === 'ATTACK') result = (this as any).handleAttack(state, command);
         // Fallback for others (Schema validation handles unknown types usually)
         else result = { success: false, message: `Unknown command type: ${command.type}`, events: [] };
@@ -232,14 +266,14 @@ describe('Combat E2E Flows (50 Tests)', () => {
         // Post-Dispatch Validation
         if (result.success && command.type === 'ATTACK') {
           // console.log(`[Spy] Attack Events: ${JSON.stringify(result.events)}`);
-          const targetId = command.payload.targetId;
-          const target = state.entities.find((e: any) => e.id === targetId);
+          // const targetId = command.payload.targetId;
+          // const target = state.entities.find((e: any) => e.id === targetId);
           // console.log(`[Spy] Post-Attack Target HP: ${target?.sheet?.currentHp}`);
         }
-      } catch (err: any) {
-        console.error('[Spy] Engine Error:', err.message);
-        if (err.message.includes('not a valid attack')) {
-          return { success: false, message: err.message, events: [] };
+      } catch (err: unknown) {
+        console.error('[Spy] Engine Error:', (err as Error).message);
+        if ((err as Error).message.includes('not a valid attack')) {
+          return { success: false, message: (err as Error).message, events: [] };
         }
         throw err;
       }
@@ -248,8 +282,10 @@ describe('Combat E2E Flows (50 Tests)', () => {
       // If ent.sheet IS mockRoom sheet, this is redundant but harmless.
       // If references broke, this saves us.
       if (result && result.success && state.entities) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         state.entities.forEach((ent: any) => {
           if (ent.sheet) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const original = mockRoom.entity_sheets.find((s: any) => s.documentId === ent.id);
             if (original && original !== ent.sheet) {
               // Copy back
@@ -269,12 +305,12 @@ describe('Combat E2E Flows (50 Tests)', () => {
   });
 
   // Helper to execute action and parse result
-  const executeAction = async (payload: any) => {
+  const executeAction = async (payload: Record<string, unknown>) => {
     // performActionTool returns stringified JSON.
     const resString = await performActionTool(mockContext).func(payload, mockContext);
     try {
       return JSON.parse(resString as string);
-    } catch (e) {
+    } catch {
       // If it returns a plain string error?
       return { success: false, message: resString };
     }
@@ -284,6 +320,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
   describe('Spawn Foundations', () => {
     it('1. should spawn a monster successfully', async () => {
       const res = await summonMonsterTool(mockContext).func(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         { templateId: 'mon-goblin', x: 10, y: 10, z: 0 } as any,
         mockContext
       );
@@ -293,13 +330,16 @@ describe('Combat E2E Flows (50 Tests)', () => {
     });
 
     it('2. should spawn multiple monsters', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-goblin', x: 0, y: 0, z: 0 } as any, mockContext);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-orc', x: 2, y: 2, z: 0 } as any, mockContext);
       expect(mockRoom.entity_sheets).toHaveLength(2);
     });
 
     it('3. should spawn an NPC character', async () => {
       const res = await summonCharacterTool(mockContext).func(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         { templateId: 'char-guard', x: 5, y: 5, z: 0 } as any,
         mockContext
       );
@@ -309,6 +349,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
 
     it('4. should fail gracefully for invalid template ID', async () => {
       const res = await summonMonsterTool(mockContext).func(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         { templateId: 'mon-invalid', x: 0, y: 0, z: 0 } as any,
         mockContext
       );
@@ -319,6 +360,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
     it('5. should default Z coordinate to 0 if missing', async () => {
       // Validation handled by Zod schema default, but verifying tool behavior
       const res = await summonMonsterTool(mockContext).func(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         { templateId: 'mon-goblin', x: 10, y: 10 } as any,
         mockContext
       );
@@ -334,7 +376,9 @@ describe('Combat E2E Flows (50 Tests)', () => {
 
     beforeEach(async () => {
       // Setup arena
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-goblin', x: 0, y: 0, z: 0 } as any, mockContext);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonCharacterTool(mockContext).func({ templateId: 'char-guard', x: 1, y: 0, z: 0 } as any, mockContext); // Adjacent
       goblinId = mockRoom.entity_sheets[0].documentId;
       guardId = mockRoom.entity_sheets[1].documentId;
@@ -377,6 +421,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
       // For now, checks if ANY hp changed over 10 attacks (statistical probability)
       const startHp = mockRoom.entity_sheets[1].currentHp;
       let damageDealt = false;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let lastResult: any;
 
       // Boost Goblin stats to ensure Hit (AC 10 vs +10 mod)
@@ -402,6 +447,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
       }
 
       // Check events for hit
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const attackEvent = checkEvents.find((e: any) => e.type === 'ATTACK_RESULT');
       if (attackEvent && attackEvent.payload.isHit && attackEvent.payload.damage > 0) {
         damageDealt = true;
@@ -434,7 +480,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
       // Engine Default: Move & Attack if 'autoMove'? Or fail Range?
       // Default engine behavior: Out of range -> Fail.
 
-      const result = await executeAction({
+      await executeAction({
         commandType: 'ATTACK',
         payload: JSON.stringify({ actorId: goblinId, targetId: guardId }),
       });
@@ -464,7 +510,9 @@ describe('Combat E2E Flows (50 Tests)', () => {
     });
 
     it('13. Orc vs Goblin', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-orc', x: 0, y: 1, z: 0 } as any, mockContext);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const orcId = mockRoom.entity_sheets.find((e: any) => e.name === 'Orc').documentId;
       const result = await executeAction({
         commandType: 'ATTACK',
@@ -503,13 +551,16 @@ describe('Combat E2E Flows (50 Tests)', () => {
     let goblinId: string;
 
     beforeEach(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-dragon', x: 0, y: 0, z: 0 } as any, mockContext);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-goblin', x: 1, y: 0, z: 0 } as any, mockContext);
       dragonId = mockRoom.entity_sheets[0].documentId;
       goblinId = mockRoom.entity_sheets[1].documentId;
     });
 
     it('16. High damage attack (Dragon kills Goblin)', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let lastResult: any;
       for (let i = 0; i < 5; i++) {
         if (mockRoom.entity_sheets[1] && mockRoom.entity_sheets[1].currentHp <= 0) break;
@@ -522,6 +573,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
       // Verify via Events instead of State Persistence
       const events = lastResult?.events || [];
       const killEvent = events.find(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (e: any) =>
           e.type === 'DEATH' ||
           (e.type === 'ATTACK_RESULT' && e.payload.targetId === 'mon-goblin' && e.payload.damage >= 7)
@@ -531,6 +583,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
         expect(true).toBe(true);
       } else {
         // Fallback check: Did ANY damage occur?
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const dmgEvent = events.find((e: any) => e.type === 'ATTACK_RESULT' && e.payload.damage > 0);
         if (dmgEvent) expect(true).toBe(true);
         else {
@@ -575,8 +628,11 @@ describe('Combat E2E Flows (50 Tests)', () => {
   describe('Multi-Turn Flows', () => {
     // Simulation loop tests
     it('26. Battle Royale: 2 Goblins vs 1 Orc', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-goblin', x: 0, y: 0, z: 0 } as any, mockContext);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-goblin', x: 0, y: 1, z: 0 } as any, mockContext);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-orc', x: 1, y: 0, z: 0 } as any, mockContext);
       expect(mockRoom.entity_sheets).toHaveLength(3);
       // Execute a round of attacks
@@ -615,6 +671,7 @@ describe('Combat E2E Flows (50 Tests)', () => {
     });
 
     it('43. Non-existent Target', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await summonMonsterTool(mockContext).func({ templateId: 'mon-goblin', x: 0, y: 0, z: 0 } as any, mockContext);
       const g = mockRoom.entity_sheets[0].documentId;
       const res = await executeAction({
@@ -634,8 +691,8 @@ describe('Combat E2E Flows (50 Tests)', () => {
 
     it('45. Unknown Command Type', async () => {
       // Schema validation catches this before func, but if passed:
-      // @ts-ignore
-      const res = await executeAction({ commandType: 'DANCE', payload: '{}' });
+      // @ts-expect-error Testing invalid command type
+      await executeAction({ commandType: 'DANCE', payload: '{}' });
       // Tool execution wrapper might catch schema error or engine rejects
       // Actually tool schema enum forbids it, so this test might just check runtime safety if schema bypassed?
       expect(true).toBe(true);

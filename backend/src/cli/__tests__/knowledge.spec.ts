@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { knowledgeCommand } from '../commands/knowledge';
 import { client } from '../utils/client';
 
@@ -13,7 +13,7 @@ vi.mock('../utils/client', () => ({
 // Mock Console
 const mockLog = vi.spyOn(console, 'log').mockImplementation(() => {});
 const mockError = vi.spyOn(console, 'error').mockImplementation(() => {});
-const mockExit = vi.spyOn(process, 'exit').mockImplementation((code) => {
+vi.spyOn(process, 'exit').mockImplementation((code) => {
   throw new Error(`Process Exit ${code}`);
 });
 
@@ -28,23 +28,23 @@ describe('CLI: knowledge', () => {
 
   it('should output correct JSON structure for manual search', async () => {
     // Mock API Response
-    const mockResponse = [
-      {
-        id: 'snip-1',
-        title: 'Manual Source',
-        score: 0.9,
-        kind: 'knowledge',
-        sourceName: 'Source 1',
-        tags: ['manual'],
-      },
-    ];
+    // const mockResponse = [...]; (moved inline)
 
-    (client.fetch as any).mockResolvedValue({
+    vi.mocked(client.fetch).mockResolvedValue({
       json: async () => ({
-        data: mockResponse,
+        data: [
+          {
+            id: 'snip-1',
+            title: 'Manual Source',
+            score: 0.9,
+            kind: 'knowledge',
+            sourceName: 'Source 1',
+            tags: ['manual'],
+          },
+        ],
         meta: { count: 1 },
       }),
-    });
+    } as unknown as Response);
 
     // Execute Action Handler directly to avoid Commander parsing complexity if we want pure unit test
     // But testing via parsing is better integration.
@@ -89,13 +89,15 @@ describe('CLI: knowledge', () => {
   });
 
   it('should output correct JSON structure for granular entity search (-t spell)', async () => {
-    (client.fetch as any).mockResolvedValue({
+    vi.mocked(client.fetch).mockResolvedValue({
       json: async () => ({ data: [], meta: { count: 0 } }),
-    });
+    } as Response);
 
     try {
       await knowledgeCommand.parseAsync(['node', 'cli', '-q', 'fireball', '-t', 'spell', '--json']);
-    } catch (e) {}
+    } catch {
+      // expected error
+    }
 
     expect(client.fetch).toHaveBeenCalledWith(
       '/semantic-search/search',

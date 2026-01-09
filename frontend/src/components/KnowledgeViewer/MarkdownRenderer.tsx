@@ -10,8 +10,7 @@ interface MarkdownRendererProps {
   className?: string;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className }) => {
-  return (
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className }) => (
     <div
       className={cn(
         'prose prose-invert max-w-none prose-headings:text-amber-400 prose-a:text-blue-400 prose-code:text-rose-300',
@@ -60,4 +59,3 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, cla
       </ReactMarkdown>
     </div>
   );
-};

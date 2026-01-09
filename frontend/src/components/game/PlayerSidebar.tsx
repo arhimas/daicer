@@ -97,7 +97,7 @@ export default function PlayerSidebar({ players, creatures, onSelectPlayer }: Pl
                     <p className="text-shadow-500 text-xs">{t('common.ac')}</p>
                   </div>
                   <div className="bg-shadow-900/70 p-1.5 rounded border border-shadow-700">
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    { }
                     <p className="font-bold text-sm text-shadow-100">
                       {getModifier((char as any).attributes?.Dexterity || 10)}
                     </p>

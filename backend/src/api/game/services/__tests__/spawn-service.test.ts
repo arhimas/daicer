@@ -10,7 +10,7 @@ const mockDerive = vi.fn();
 
 vi.mock('../../../../engine', () => ({
   EntityDeriver: {
-    derive: (...args: any[]) => mockDerive(...args),
+    derive: (...args: unknown[]) => mockDerive(...args),
   },
 }));
 
@@ -168,7 +168,7 @@ describe('Spawn Service', () => {
       // Ensure Dagger is NOT in actions
       const createCall = mockCreate.mock.calls[0][0];
       const actions = createCall.data.structuredActions;
-      expect(actions.find((a: any) => a.name === 'Dagger')).toBeUndefined();
+      expect(actions.find((a: { name: string }) => a.name === 'Dagger')).toBeUndefined();
     });
   });
 });

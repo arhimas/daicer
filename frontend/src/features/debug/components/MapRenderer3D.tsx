@@ -17,10 +17,8 @@ interface MapRenderer3DProps {
   chunkProvider: ChunkProvider;
   visibleTiles: Set<string>;
   exploredTiles: Set<string>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  entities: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ghostEntities?: any[];
+  entities: { position: { x: number; y: number; z: number }; color: string }[];
+  ghostEntities?: unknown[];
   onTileClick: (coords: Coordinates, e: React.MouseEvent) => void;
   onTileDoubleClick?: (coords: Coordinates) => void;
   onTileHover: (coords: Coordinates | null) => void;
@@ -141,11 +139,10 @@ const MapScene = ({
           <mesh
             key={key}
             position={[posX, posY, posZ]}
-            // eslint-disable-next-line react/no-unknown-property
             userData={{ coords: { x: wx, y: wy, z: viewZ } }}
             onClick={(e) => {
               e.stopPropagation();
-              onTileClick({ x: wx, y: wy, z: viewZ as ZLevel }, e as any);
+              onTileClick({ x: wx, y: wy, z: viewZ as ZLevel }, e as unknown as React.MouseEvent);
             }}
             onPointerOver={(e) => {
               e.stopPropagation();
@@ -176,7 +173,7 @@ const MapScene = ({
       {meshes}
 
       {/* Entities */}
-      {entities.map((ent: any, i: number) => {
+      {entities.map((ent, i: number) => {
         if (ent.position.z !== viewZ) return null;
         return (
           <mesh key={`ent-${i}`} position={[ent.position.x, 1.5, -ent.position.y]}>
@@ -189,7 +186,6 @@ const MapScene = ({
   );
 };
 
-// eslint-disable-next-line react/function-component-definition
 export function MapRenderer3D(props: MapRenderer3DProps) {
   const { width, height } = props;
   return (
@@ -212,7 +208,7 @@ export function MapRenderer3D(props: MapRenderer3DProps) {
         />
 
         <ambientLight intensity={0.7} />
-        {/* eslint-disable-next-line react/no-unknown-property */}
+        {}
         <directionalLight position={[10, 20, 5]} intensity={1.2} castShadow />
 
         <MapScene {...props} />

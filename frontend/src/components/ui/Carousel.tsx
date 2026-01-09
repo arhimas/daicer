@@ -71,7 +71,7 @@ export function Carousel({
       setCurrentIndex(0);
       return;
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setCurrentIndex((prev) => {
       if (prev < slideCount) {
         return prev;

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 import { unifiedSearchService } from '../unified-search-service';
 
 // Mock Services
@@ -26,7 +26,7 @@ const mockStrapi = {
 describe('UnifiedSearchService Proxy Integration', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (global as any).strapi = mockStrapi;
+    (global as unknown as { strapi: typeof mockStrapi }).strapi = mockStrapi;
   });
 
   it('should delegate search to semantic-search plugin', async () => {
@@ -46,7 +46,7 @@ describe('UnifiedSearchService Proxy Integration', () => {
 
   it('should handle plugin missing gracefully', async () => {
     // Mock plugin returning null
-    (mockStrapi.plugin as any).mockReturnValueOnce({ service: () => null });
+    (mockStrapi.plugin as unknown as Mock).mockReturnValueOnce({ service: () => null });
 
     const results = await unifiedSearchService.search('test');
     expect(results).toEqual([]);

@@ -9,7 +9,7 @@ const mockFindMany = vi.fn();
 const mockUpdate = vi.fn();
 
 const mockStrapi = {
-  documents: (uid: string) => ({
+  documents: (_uid: string) => ({
     create: mockCreate,
     findMany: mockFindMany,
     update: mockUpdate,
@@ -69,7 +69,7 @@ describe('GraphQL Mutation: Room Management', () => {
       // Check DM Setting Create
       // DM fields are called second usually?
       // Order: World -> DM -> Room
-      const calls = mockCreate.mock.calls;
+      // const calls = mockCreate.mock.calls;
       // Call 0: World
       // Call 1: DM (Logic: create 'api::dm-setting.dm-setting')
       // Call 2: Room

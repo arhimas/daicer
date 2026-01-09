@@ -1,6 +1,6 @@
 import { errors } from '@strapi/utils';
 const { ApplicationError } = errors;
-import { ActionGenerator } from '../../../../services/mechanics/action-generator';
+
 import { FeatureHydrator } from '../../../../services/mechanics/feature-hydrator';
 
 // Helper to access Strapi global safely if needed or type
@@ -106,8 +106,8 @@ async function updateDerivedData(event) {
   // So we need to fetch full equipment details for equipped items.
 
   // Optimized: Identify equipped items from inventory list
-  const equippedInventory = inventory.filter((i: any) => i.isEquipped);
-  const equipmentForDeriver: any[] = [];
+  const equippedInventory = inventory.filter((i: { isEquipped: boolean; item: unknown }) => i.isEquipped);
+  const equipmentForDeriver: Record<string, unknown>[] = [];
 
   if (equippedInventory.length > 0) {
     // If inventory items are relations and already populated (if we populated deep enough)
@@ -137,7 +137,7 @@ async function updateDerivedData(event) {
                 documentId: equipDef,
                 populate: ['equipment_category', 'damage_type', 'properties'],
               });
-            } catch (e) {
+            } catch {
               equipDef = null;
             }
           }
@@ -194,12 +194,12 @@ async function updateDerivedData(event) {
 
   const featuresInput = {
     characterLevel: level,
-    classFeatures: (classData?.features || []).map((f: any) => ({
+    classFeatures: (classData?.features || []).map((f: { name: string; description?: string; level?: number }) => ({
       name: f.name,
       description: f.description || '',
       level: f.level || 1,
     })),
-    raceFeatures: (raceData?.features || []).map((f: any) => ({
+    raceFeatures: (raceData?.features || []).map((f: { name: string; description?: string }) => ({
       name: f.name,
       description: f.description || '',
     })),

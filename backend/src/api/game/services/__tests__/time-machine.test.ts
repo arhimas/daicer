@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import type { Core } from '@strapi/strapi';
 import GameLedgerFactory from '../game-ledger';
 import HistoryServiceFactory from '../history-service';
 import { GameLoop } from '../../../../engine/core/game-loop';
@@ -37,7 +38,7 @@ describe('Time Machine Reliability Suite', () => {
   });
 
   it('Ledger: logEvent should increment sequenceId strictly', async () => {
-    const gameLedger = GameLedgerFactory({ strapi: mockStrapi as any });
+    const gameLedger = GameLedgerFactory({ strapi: mockStrapi as unknown as Core.Strapi });
 
     // 1. findOne (Room exists)
     documentsService.findOne.mockResolvedValueOnce({ documentId: 'room1' });
@@ -69,7 +70,7 @@ describe('Time Machine Reliability Suite', () => {
   });
 
   it('Ledger: createSnapshot should hash and save state', async () => {
-    const gameLedger = GameLedgerFactory({ strapi: mockStrapi as any });
+    const gameLedger = GameLedgerFactory({ strapi: mockStrapi as unknown as Core.Strapi });
 
     // Mock room fetch with populate
     documentsService.findOne.mockResolvedValueOnce({
@@ -98,7 +99,7 @@ describe('Time Machine Reliability Suite', () => {
   });
 
   it('Replay: Should reconstruct state from events', async () => {
-    const historyService = HistoryServiceFactory({ strapi: mockStrapi as any });
+    const historyService = HistoryServiceFactory({ strapi: mockStrapi as unknown as Core.Strapi });
 
     // 1. findMany (TimeFrames - Mock 1 found)
     documentsService.findMany.mockResolvedValueOnce([
@@ -138,7 +139,7 @@ describe('Time Machine Reliability Suite', () => {
   });
 
   it('Replay: Should handle empty history (start from scratch)', async () => {
-    const historyService = HistoryServiceFactory({ strapi: mockStrapi as any });
+    const historyService = HistoryServiceFactory({ strapi: mockStrapi as unknown as Core.Strapi });
 
     // No snapshots
     documentsService.findMany.mockResolvedValueOnce([]);

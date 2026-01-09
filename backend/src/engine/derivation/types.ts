@@ -42,6 +42,7 @@ export interface DerivationContext {
     speed?: number | { walk: number; [key: string]: number };
   };
   // Innate actions (from blueprint/JSON) to be merged with equipment actions
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   innateActions?: any[];
 
   // Overrides allowed in context
@@ -49,5 +50,11 @@ export interface DerivationContext {
   hp?: number;
   maxHp?: number;
   speed?: number | { walk: number; [key: string]: number };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions?: any[];
+  // Alias for legacy support
+  stats?: Attributes;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  spells?: any[];
+  spellcastingAbility?: string;
 }

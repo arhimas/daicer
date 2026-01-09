@@ -32,8 +32,8 @@ describe('EmbeddingService', () => {
     try {
       const { EmbeddingService } = await import('../embedding-service');
       new EmbeddingService();
-    } catch (e: any) {
-      expect(e.message).toContain('OPENAI_API_KEY is not set');
+    } catch (e: unknown) {
+      expect((e as Error).message).toContain('OPENAI_API_KEY is not set');
     }
   });
 

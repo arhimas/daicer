@@ -1,10 +1,10 @@
 // Mock Strapi Factories to capture the service definition callback
 vi.mock('@strapi/strapi', () => ({
   factories: {
-    createCoreService: (uid: string, factoryCallback: (opts: any) => any) => {
+    createCoreService: (uid: string, factoryCallback: (opts: unknown) => unknown) => {
       // Return a function that executes the factory callback when called
       // This mimics the behavior where the service is instantiated
-      return (opts: any) => factoryCallback(opts);
+      return (opts: unknown) => factoryCallback(opts);
     },
   },
 }));

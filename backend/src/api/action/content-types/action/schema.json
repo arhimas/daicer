@@ -59,6 +59,9 @@
             "type": "component",
             "repeatable": false,
             "component": "game.save-dc"
+        },
+        "toHit": {
+            "type": "integer"
         }
     }
 }

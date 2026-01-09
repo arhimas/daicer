@@ -11,7 +11,8 @@ export const loadRealMonsters = () => {
       return [];
     }
     const data = JSON.parse(fs.readFileSync(monstersPath, 'utf-8'));
-    return data.map((m: any) => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return data.map((m: Record<string, any>) => ({
       documentId: `mon-${m.index}`,
       name: m.name,
       type: 'monster',
@@ -26,7 +27,8 @@ export const loadRealMonsters = () => {
         wisdom: m.wisdom,
         charisma: m.charisma,
       },
-      structuredActions: (m.actions || []).map((a: any, idx: number) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      structuredActions: (m.actions || []).map((a: Record<string, any>, idx: number) => {
         let type = 'utility';
         if (a.desc?.toLowerCase().includes('melee weapon attack')) type = 'melee';
         else if (a.desc?.toLowerCase().includes('ranged weapon attack')) type = 'ranged';
@@ -37,7 +39,8 @@ export const loadRealMonsters = () => {
           type,
           toHit: a.attack_bonus,
           range: a.desc?.match(/reach\s(\d+)\sft/)?.[1] || a.desc?.match(/range\s(\d+)\/(\d+)\sft/)?.[1] || '5',
-          damage: a.damage?.map((d: any) => ({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          damage: a.damage?.map((d: Record<string, any>) => ({
             dice: d.damage_dice,
             type: d.damage_type?.index || 'bludgeoning',
             bonus: 0, // baked into dice usually or complex

@@ -53,8 +53,49 @@ export default () => ({
     const classes = (raw.classes || blueprint?.classes || []) as any[];
 
     // Equipment
+
+    // Inventory / Equipment Integration
+    // Priority: equipment_items (Component) > equipment (Relation Legacy) > raw.inventory
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const equipment = (raw.equipment || blueprint?.equipment || []) as any[];
+    const equipmentItems = (raw.equipment_items || blueprint?.equipment_items || []) as any[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawEquipments = (raw.equipments || blueprint?.equipments || []) as any[]; // Legacy fallback
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const equipment: any[] = [];
+
+    if (equipmentItems.length > 0) {
+      // Modern Component Path
+      equipment.push(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...equipmentItems.map((c: any) => {
+          // Handle Relation expansion if populated
+          const itemData = c.item || {};
+          const name = itemData.name || 'Unknown Item';
+
+          return {
+            id: c.id || `eq_${Math.random().toString(36).substr(2, 5)}`,
+            name: name,
+            quantity: c.quantity || 1,
+            slot: c.slot || 'backpack',
+            isEquipped: c.isEquipped || false,
+            definitionId: itemData.documentId || itemData.id, // Link to definition
+          };
+        })
+      );
+    } else if (rawEquipments.length > 0) {
+      // Legacy Relation Path
+      equipment.push(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...rawEquipments.map((e: any) => ({
+          id: e.documentId || e.id,
+          name: e.name || 'Unknown',
+          quantity: 1,
+          slot: 'backpack',
+          isEquipped: false,
+        }))
+      );
+    }
 
     // Use currentHp if available, fallback to hp (often synonymous in DB), fallback to maxHp or blueprint default
     let maxHp = (raw.maxHp as number) ?? (blueprint?.maxHp as number) ?? 10;
@@ -75,6 +116,7 @@ export default () => ({
 
     // Actions Resolution
     const actions: EntityAction[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sourceActions = (raw.structuredActions || blueprint?.structuredActions || raw.actions) as any[]; // Added raw.actions for legacy
 
     // ... (Map Action Type helper)
@@ -102,14 +144,28 @@ export default () => ({
             type = 'melee_attack';
           }
 
+          // Handle Legacy/JSON vs Component/Relation structure
+          const toHit = a.toHit ?? 0; // New api::action field
+
+          // Handle Range/Reach resolution from Component or raw
+          let range = a.range;
+          let reach = a.reach;
+          if (!range && !reach && a.range_config) {
+            if (a.range_config.type === 'Touch' || a.range_config.type === 'Reach') {
+              reach = a.range_config.distance;
+            } else {
+              range = a.range_config.distance;
+            }
+          }
+
           const actionObj = {
             id,
             name: a.name,
             type,
-            toHit: a.toHit,
-            reach: a.reach,
-            range: a.range,
-            damage: a.damage,
+            toHit,
+            reach,
+            range,
+            damage: a.damage_instances || a.damage, // Handle component vs JSON
             save: a.save,
             description: a.description,
           };
@@ -120,6 +176,7 @@ export default () => ({
 
     // Inventory Actions
     if (!blueprint?.structuredActions && raw.inventory) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const inventory = raw.inventory as any[];
       if (Array.isArray(inventory)) {
         inventory.forEach((item) => {
@@ -151,9 +208,11 @@ export default () => ({
 
     // Features Resolution
     const features: EntityFeature[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sourceFeatures = (raw.features || blueprint?.features) as any[]; // check raw.features too
     if (sourceFeatures) {
       features.push(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...sourceFeatures.map((f: any) => ({
           name: f.name,
           description: f.description,
@@ -165,6 +224,7 @@ export default () => ({
     // Sync back to structuredActions (Side effect, maybe remove? Keeping for now)
     // Sync back to structuredActions (ENSURE ID CONSISTENCY)
     if (actions.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (s as any).structuredActions = actions;
     }
 
@@ -195,6 +255,7 @@ export default () => ({
       equipment,
       actions,
       features,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       conditions: (raw.conditions || []) as any[],
       resistances: (raw.resistances || blueprint?.resistances || []) as string[],
       immunities: (raw.immunities || blueprint?.immunities || []) as string[],
@@ -202,6 +263,7 @@ export default () => ({
       color: '#ffffff',
       visionRadius: 30,
       speed: (raw.speed as number) ?? 30, // Use raw speed if present
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       position: (s as any).position || { x: 0, y: 0, z: 0 },
       sheet: s as unknown as EntitySheet,
     };

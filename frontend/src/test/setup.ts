@@ -140,7 +140,9 @@ global.ResizeObserver = class ResizeObserver {
 
 // Mock lucide-react globally to prevent undefined component errors
 vi.mock('lucide-react', () => {
-  const IconStub = ({ ...props }: any) => React.createElement('div', { 'data-testid': 'icon-mock', ...props });
+  function IconStub({ ...props }: Record<string, unknown>) {
+    return React.createElement('div', { 'data-testid': 'icon-mock', ...props });
+  }
 
   // Create a proxy to handle any icon import
   return new Proxy(

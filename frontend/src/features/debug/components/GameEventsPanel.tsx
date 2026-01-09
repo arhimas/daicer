@@ -42,6 +42,7 @@ export function GameEventsPanel({ events }: GameEventsPanelProps) {
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-zinc-500">{events.length}</span>
           <button
+            type="button"
             onClick={() => {
               const logText = JSON.stringify(events, null, 2);
               navigator.clipboard.writeText(logText);

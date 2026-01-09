@@ -56,7 +56,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
       throw new Error(`Room not found for event: ${roomInputId}`);
     }
 
-    const roomDocumentId = (room as any).documentId;
+    const roomDocumentId = (room as unknown as { documentId: string }).documentId;
 
     const lastEvents = await strapi.documents('api::game-event.game-event').findMany({
       filters: { room: { documentId: roomDocumentId } },
@@ -155,8 +155,8 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
 
     if (room && (room as unknown as RoomWithSheets).entity_sheets) {
       (room as unknown as RoomWithSheets).entity_sheets!.forEach((c) => {
-        const key = c.documentId;
-        state.entities[key] = c.position;
+        const key = String(c.documentId);
+        state.entities[key] = c.position as Coordinates;
       });
     }
 

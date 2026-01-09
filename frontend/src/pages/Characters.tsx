@@ -133,12 +133,9 @@ export default function CharactersPage() {
               const phaseLabel = t(phaseKey);
 
               // Safe accessors with defaults
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const raceName = (character?.race as any)?.name || 'Unknown Race';
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const className = (character?.class as any)?.name || 'Unknown Class';
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const portraitUrl = (character?.portrait as any)?.url;
+              const raceName = character?.race?.name || 'Unknown Race';
+              const className = character?.class?.name || 'Unknown Class';
+              const portraitUrl = character?.portrait?.url;
 
               return (
                 <article
@@ -197,16 +194,13 @@ export default function CharactersPage() {
                     </div>
                   </div>
 
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  {!!(character as any)?.backstory && (
+                  {!!character?.backstory && (
                     <div className="mt-4 rounded-2xl border border-shadow-700 bg-shadow-900/60 p-4">
                       <p className="text-xs uppercase tracking-wider text-shadow-500 mb-2">
                         {t('characters.labels.backstory')}
                       </p>
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      <p className="text-sm leading-relaxed text-shadow-200 line-clamp-3">
-                        {(character as any).backstory}
-                      </p>
+                      {}
+                      <p className="text-sm leading-relaxed text-shadow-200 line-clamp-3">{character.backstory}</p>
                     </div>
                   )}
                 </article>

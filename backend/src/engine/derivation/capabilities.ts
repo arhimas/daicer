@@ -1,3 +1,4 @@
+import { ActionDefinition } from '../../types/ActionDefinition';
 import { DerivationContext } from './types';
 import { ActionHydrator } from './ActionHydrator';
 
@@ -38,7 +39,7 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
  */
 export function deriveActions(context: DerivationContext) {
   const { equipment, attributes, proficiencyBonus, innateActions } = context;
-  const actions: any[] = [];
+  const actions: ActionDefinition[] = [];
 
   // 1. Process Innate Actions (from blueprints/JSONs) first
   if (innateActions && Array.isArray(innateActions)) {
@@ -59,7 +60,8 @@ export function deriveActions(context: DerivationContext) {
 
   // 3. Derive Spells (if present in context)
   // Context needs to pass 'activeSpells' or similar
-  const spells = (context as any).spells || [];
+  const spells = context.spells || [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   spells.forEach((spell: any) => {
     const hydrated = ActionHydrator.hydrateFromSpell(spell, context);
     actions.push(hydrated);
@@ -73,11 +75,24 @@ export function deriveActions(context: DerivationContext) {
     actions.push({
       id: 'action-unarmed',
       name: 'Unarmed Strike',
-      type: 'melee_attack', // Legacy type for now, or update to 'melee_weapon'
+      sourceType: 'feature',
+      sourceId: 'system_unarmed',
+      cost: { type: 'action_economy', amount: 1, actionType: 'action' },
+      range: { type: 'melee', value: 5, reach: 5 },
       description: 'Punch, kick, or headbutt.',
-      reach: 5,
-      toHit: strMod + (proficiencyBonus || 2),
-      damage: [{ dice: '1', bonus: strMod, type: 'bludgeoning' }],
+      attack: {
+        type: 'melee_weapon',
+        bonus: strMod + (proficiencyBonus || 2),
+      },
+      effects: [
+        {
+          type: 'damage',
+          subtype: 'bludgeoning',
+          dice: '1',
+          flat: strMod,
+          timing: 'instant',
+        },
+      ],
     });
   }
 

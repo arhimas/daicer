@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getMutationResolvers } from '../mutation-resolvers';
-import { registerGraphQLExtension } from '../resolvers';
+import { getMutationResolvers } from '../mutation-resolvers';
 
 import { StrapiInterface } from '../../../ai/tools/tool-factory';
 

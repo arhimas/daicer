@@ -1,6 +1,6 @@
 export {};
-const dotenv = require('dotenv');
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 async function listKnowledgeTables() {
@@ -18,7 +18,7 @@ async function listKnowledgeTables() {
     // Also get columns for the link table if we find it
     console.table(res.rows || res);
 
-    const tables = (res.rows || res).map((r: any) => r.table_name);
+    const tables = (res.rows || res).map((r: { table_name: string }) => r.table_name);
 
     for (const table of tables) {
       if (table.includes('link') || table.includes('_source')) {

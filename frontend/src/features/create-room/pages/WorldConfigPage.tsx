@@ -5,10 +5,9 @@ import type { WorldConfig } from '@/features/debug/utils/types';
 import type { WorldSettings } from '@/types/contracts';
 import { createRoom } from '@/services/api';
 import { LoadingOverlay } from '@/components/ui/LoadingOverlay';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useWizard } from '../context/WizardContext';
 import { WorldPreview } from '../components/WorldPreview';
-
-import { useDebounce } from '@/hooks/useDebounce';
 
 export default function WorldConfigPage() {
   const { settings, setSettings } = useWizard();
@@ -18,19 +17,19 @@ export default function WorldConfigPage() {
 
   const config: WorldConfig = {
     seed: settings.seed || 'default-seed',
-    chunkSize: (settings.generationParams as any)?.chunkSize ?? 32,
-    globalScale: (settings.generationParams as any)?.globalScale ?? 0.01,
-    seaLevel: (settings.generationParams as any)?.seaLevel ?? 0,
-    elevationScale: (settings.generationParams as any)?.elevationScale ?? 1,
-    roughness: (settings.generationParams as any)?.roughness ?? 0.5,
-    detail: (settings.generationParams as any)?.detail ?? 4,
-    moistureScale: (settings.generationParams as any)?.moistureScale ?? 1,
-    temperatureOffset: (settings.generationParams as any)?.temperatureOffset ?? 0,
-    structureChance: (settings.generationParams as any)?.structureChance ?? 0.1,
-    structureSpacing: (settings.generationParams as any)?.structureSpacing ?? 10,
-    structureSizeAvg: (settings.generationParams as any)?.structureSizeAvg ?? 10,
-    roadDensity: (settings.generationParams as any)?.roadDensity ?? 0.5,
-    fogRadius: (settings.generationParams as any)?.fogRadius ?? 10,
+    chunkSize: (settings.generationParams as WorldConfig)?.chunkSize ?? 32,
+    globalScale: (settings.generationParams as WorldConfig)?.globalScale ?? 0.01,
+    seaLevel: (settings.generationParams as WorldConfig)?.seaLevel ?? 0,
+    elevationScale: (settings.generationParams as WorldConfig)?.elevationScale ?? 1,
+    roughness: (settings.generationParams as WorldConfig)?.roughness ?? 0.5,
+    detail: (settings.generationParams as WorldConfig)?.detail ?? 4,
+    moistureScale: (settings.generationParams as WorldConfig)?.moistureScale ?? 1,
+    temperatureOffset: (settings.generationParams as WorldConfig)?.temperatureOffset ?? 0,
+    structureChance: (settings.generationParams as WorldConfig)?.structureChance ?? 0.1,
+    structureSpacing: (settings.generationParams as WorldConfig)?.structureSpacing ?? 10,
+    structureSizeAvg: (settings.generationParams as WorldConfig)?.structureSizeAvg ?? 10,
+    roadDensity: (settings.generationParams as WorldConfig)?.roadDensity ?? 0.5,
+    fogRadius: (settings.generationParams as WorldConfig)?.fogRadius ?? 10,
   };
 
   // Debounce config updates to prevent excessive re-fetching during slider dragging

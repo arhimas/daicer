@@ -1,5 +1,5 @@
 import { Core } from '@strapi/strapi';
-import { GameLoop } from '../../../engine/core/game-loop';
+
 import { DeterministicTurnProcessor, GameState } from '../../../engine/core/deterministic-turn-processor';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
@@ -19,12 +19,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     });
 
     let baseState: unknown = null;
-    let startSequence = 0n;
 
     if (timeFrames.length > 0) {
       const tf = timeFrames[0];
       baseState = tf.gameState; // Ensure this matches the JSON structure we saved
-      startSequence = BigInt(tf.sequenceId);
+      // startSequence = BigInt(tf.sequenceId);
     } else {
       // No snapshot found? Start from Room Creation (Zero State)
       // Fetch initial room state (empty)

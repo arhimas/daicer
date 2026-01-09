@@ -172,11 +172,6 @@ export const GET_SPELLS_QUERY = gql`
       name
       level
       school
-      casting_time
-      range
-      components
-      duration
-      is_ritual
       description
     }
   }

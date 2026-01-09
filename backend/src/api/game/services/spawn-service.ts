@@ -58,7 +58,9 @@ export default ({ strapi }) => ({
 
     // Extract actual equipment items if monster has equipment component (Phase 1.3)
     const equipmentForDeriver =
-      monster.equipment?.filter((entry: any) => entry.isEquipped && entry.item).map((entry: any) => entry.item) || [];
+      monster.equipment
+        ?.filter((entry: { isEquipped: boolean; item: unknown }) => entry.isEquipped && entry.item)
+        .map((entry: { item: unknown }) => entry.item) || [];
 
     const derived = EntityDeriver.derive({
       attributes: {
@@ -124,7 +126,7 @@ export default ({ strapi }) => ({
         features: monster.features || [],
 
         // Satisfy EntitySheet strictness with defaults
-        attributes: monster.stats as any, // Legacy mapping for now until attributes keys are strict
+        attributes: monster.stats as unknown as Record<string, number>, // Legacy mapping for now until attributes keys are strict
         initiative: 0,
         proficiencyBonus: derived.proficiencyBonus || 2,
       };
@@ -227,7 +229,9 @@ export default ({ strapi }) => ({
 
     // Extract actual equipment items
     const equipmentForDeriver =
-      character.equipment?.filter((entry: any) => entry.isEquipped && entry.item).map((entry: any) => entry.item) || [];
+      character.equipment
+        ?.filter((entry: { isEquipped: boolean; item: unknown }) => entry.isEquipped && entry.item)
+        .map((entry: { item: unknown }) => entry.item) || [];
 
     // Extract Spells (Prepared + Known)
     // We combine them into a single list for the Deriver to hydrate.
@@ -243,7 +247,7 @@ export default ({ strapi }) => ({
       attributes: attributes,
       // Pass full classes array for multiclass support (Deriver calculates total level & PB)
       classes:
-        character.classes?.map((c: any) => ({
+        character.classes?.map((c: { class: { name: string; hit_die: string }; level: number }) => ({
           name: c.class?.name || 'Unknown',
           level: c.level,
           hitDie: c.class?.hit_die,
@@ -300,14 +304,14 @@ export default ({ strapi }) => ({
       class: mainClass?.documentId,
       structuredActions: derived.structuredActions?.map((action: ActionDefinition) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, ...rest } = action as any; // Remove ID to generate fresh or let DB handle?
+        const { id: _id, ...rest } = action as Record<string, unknown>; // Remove ID to generate fresh or let DB handle?
         // If action has ID from blueprint, we might want to keep it or drop it.
         // EntityDeriver generates IDs for Equipment actions.
         return rest;
       }),
       features: [],
 
-      attributes: character.stats as any,
+      attributes: character.stats as unknown as Record<string, number>,
       initiative: 0,
       proficiencyBonus: derived.proficiencyBonus,
     };

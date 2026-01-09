@@ -37,11 +37,9 @@ export const TimeFrameProvider: React.FC<{
   // Else if localFrameId is present, we look up snapshot
   // Else we are Live (null)
 
-  const currentTimeFrame = injectedState
-    ? injectedState // Treat injected state as a TimeFrame-like object
-    : localFrameId
+  const currentTimeFrame = injectedState || (localFrameId
       ? history.find((f) => f.id === localFrameId || f.documentId === localFrameId) || null
-      : history[history.length - 1] || null; // Fallback to last snapshot for "Live Base"? No, Live is socket.
+      : history[history.length - 1] || null); // Fallback to last snapshot for "Live Base"? No, Live is socket.
 
   // "Live" means we are NOT looking at history OR replay.
   // Actually, usually "Live" means we render from Room/Socket.

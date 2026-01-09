@@ -1,4 +1,3 @@
-import { Action } from '../types';
 import { EntropySystem } from '../entropy';
 
 /**

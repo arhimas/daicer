@@ -58,9 +58,9 @@ export default function CharacterSelectionPage() {
       await addCharacter(roomId, {
         documentId: character.documentId, // Pass the existing character ID
         name: character.name,
-        backstory: character.backstory,
-        race: typeof character.race === 'object' ? character.race?.name || '' : character.race,
-        characterClass: character.classes?.[0]?.class?.name || '',
+        backstory: character.backstory || '',
+        race: { name: typeof character.race === 'object' ? character.race?.name || '' : character.race || '' },
+        class: { name: character.classes?.[0]?.class?.name || '' },
         // We might want to pass more fields if available in the query, or fetch full details first.
         // For now we assume the backend can handle partial or we might need to fetch full details.
         // Wait, LIST_CHARACTERS_QUERY only has basic info.

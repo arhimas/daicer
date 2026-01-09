@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { EntityDeriver } from '../index';
-import { EntitySheet, ActionDefinition, StatBlock } from '../../types';
+import { ActionDefinition, StatBlock } from '../../types';
 
 describe('Comprehensive Rules Engine Verification (33 Checks)', () => {
   const baseStats: StatBlock = {
@@ -14,13 +14,13 @@ describe('Comprehensive Rules Engine Verification (33 Checks)', () => {
     passivePerception: 10,
   };
 
-  const createEntity = (partial: any = {}): any => {
+  const createEntity = (partial: Record<string, unknown> = {}): unknown => {
     // Merge stats first
-    const stats = { ...baseStats, ...(partial.stats || {}) };
+    const stats = { ...baseStats, ...((partial.stats || {}) as StatBlock) };
     // Ensure attributes syncs with stats unless explicitly overridden in partial
     const attributes = partial.attributes || stats;
 
-    const type = partial.type || 'character';
+    const type = (partial.type as string) || 'character';
     // Only default classes if character
     const defaultClasses = type === 'character' ? [{ name: 'Fighter', level: 1 }] : [];
 

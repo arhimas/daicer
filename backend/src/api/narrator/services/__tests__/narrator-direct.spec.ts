@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import type { Core } from '@strapi/strapi';
 
 // Mocks
 const mockToolFunc = vi.fn(() => Promise.resolve({ success: true, message: 'Tool executed' }));
@@ -37,7 +38,7 @@ describe('Narrator Service: Direct Execution', () => {
 
   it('should execute tool directly when direct flag is true', async () => {
     const narratorServiceFactory = (await import('../narrator')).default;
-    const narratorService = narratorServiceFactory({ strapi: mockStrapi } as any);
+    const narratorService = narratorServiceFactory({ strapi: mockStrapi as unknown as Core.Strapi });
 
     const input = { tool: 'test_tool', args: { foo: 'bar' } };
 
@@ -63,10 +64,11 @@ describe('Narrator Service: Direct Execution', () => {
     const errorToolFunc = vi.fn(() => Promise.reject(new Error('Tool failed')));
     const errorTools = [{ name: 'fail_tool', func: errorToolFunc }];
 
-    vi.mocked((await import('../tool-registry')).getRegistryTools).mockReturnValueOnce(errorTools as any);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    vi.mocked((await import('../tool-registry')).getRegistryTools).mockReturnValueOnce(errorTools as unknown as any[]);
 
     const narratorServiceFactory = (await import('../narrator')).default;
-    const narratorService = narratorServiceFactory({ strapi: mockStrapi } as any);
+    const narratorService = narratorServiceFactory({ strapi: mockStrapi as unknown as Core.Strapi });
 
     const input = { tool: 'fail_tool', args: {} };
 

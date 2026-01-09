@@ -65,7 +65,7 @@ export function validateAttack(
     const reach = action.reach || 5;
     if (dist > reach) return { valid: false, reason: `Target out of range (${dist.toFixed(1)}ft vs ${reach}ft)` };
   } else if (action?.type === 'ranged' || action?.type === 'ranged_attack') {
-    const maxRange = (action.range as any)?.long || 120; // Type loose for string vs obj
+    const maxRange = (action.range as unknown as { long: number }).long || 120; // Type loose for string vs obj
     if (dist > maxRange) return { valid: false, reason: `Target out of range (${dist.toFixed(1)}ft vs ${maxRange}ft)` };
     // Note: Disadvantage at long range is a resolution mechanic, not a hard validation failure.
   }
@@ -136,7 +136,8 @@ export function resolveAttack(
   if (sneakAttackFeature) {
     const isFinesse =
       ['ranged', 'ranged_attack'].includes(action.type) ||
-      (['melee', 'melee_attack'].includes(action.type) && (action as any).properties?.includes('finesse'));
+      (['melee', 'melee_attack'].includes(action.type) &&
+        (action as unknown as { properties?: string[] }).properties?.includes('finesse'));
     if (isFinesse) {
       // Rule: Advantage OR (Ally with 5ft of target AND No Disadvantage)
       // For MVP, we'll stick to: Advantage True OR "AllyAdjacent" (Requires spatial query not yet in inputs).
@@ -315,14 +316,6 @@ export function resolveAttack(
         rolls: d.diceRolls,
       });
     });
-  }
-
-  // Debug Logging for User Verification
-  console.log(`[Combat] ${attacker.name} attacks ${target.name} with ${action.name}`);
-  console.log(`[Combat] AC Check: Roll ${totalHit} vs Target AC ${targetAC}`);
-  console.log(`[Combat] Result: ${hit ? 'HIT' : 'MISS'} (Crit: ${isCritical}, Fail: ${isCriticalFail})`);
-  if (hit) {
-    console.log(`[Combat] Damage: ${totalDamage}`);
   }
 
   return {

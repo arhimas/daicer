@@ -1,8 +1,8 @@
 import { Outlet, Navigate, useLocation, Link } from 'react-router-dom';
 import clsx from 'clsx';
+import JuicyLayout from '@/components/layout/JuicyLayout';
 import { WizardProvider } from '../context/WizardContext';
 // import { StepsHeader } from '../components/StepsHeader'; // We will create this or inline it
-import JuicyLayout from '@/components/layout/JuicyLayout';
 
 const STEPS = [
   { path: 'dm-settings', label: 'DM & Scope' },

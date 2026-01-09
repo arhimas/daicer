@@ -3,7 +3,7 @@ import { moveEntityTool } from '../move-entity';
 import { performActionTool } from '../perform-action';
 import { summonMonsterTool } from '../summon-monster';
 import { summonCharacterTool } from '../summon-character';
-import { createMockStrapi, MOCK_MONSTERS } from './setup/harness';
+import { createMockStrapi } from './setup/harness';
 
 // --- Test Matrices ---
 
@@ -350,8 +350,8 @@ const SPAWN_TEST_CASES = [
 ];
 
 describe('Direct Tool Execution Suite (Fresh)', () => {
-  let strapi: any;
-  let mockRoom: any;
+  let strapi: unknown;
+  let mockRoom: unknown;
 
   beforeEach(() => {
     const harness = createMockStrapi();
@@ -404,14 +404,14 @@ describe('Direct Tool Execution Suite (Fresh)', () => {
           } else {
             expect(result.toString()).toMatch(/Error|Failed|Occupied|Speed/i);
           }
-        } catch (e: any) {
+        } catch (e: unknown) {
           if (testCase.success) {
-            throw new Error(`Expected success but failed: ${e.message}`);
+            throw new Error(`Expected success but failed: ${(e as Error).message}`);
           }
-          if (testCase.error === 'speed') expect(e.message).toMatch(/speed|range|movement/i);
-          if (testCase.error === 'occupied') expect(e.message).toMatch(/occupied|collision/i);
-          if (testCase.error === 'blocked') expect(e.message).toMatch(/blocked|path/i);
-          if (testCase.error === 'flying') expect(e.message).toMatch(/flying|vertical/i);
+          if (testCase.error === 'speed') expect((e as Error).message).toMatch(/speed|range|movement/i);
+          if (testCase.error === 'occupied') expect((e as Error).message).toMatch(/occupied|collision/i);
+          if (testCase.error === 'blocked') expect((e as Error).message).toMatch(/blocked|path/i);
+          if (testCase.error === 'flying') expect((e as Error).message).toMatch(/flying|vertical/i);
         }
       });
     });
@@ -467,10 +467,13 @@ describe('Direct Tool Execution Suite (Fresh)', () => {
             payload: JSON.stringify(payload),
           });
 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           let result: any = rawResult;
           try {
             result = JSON.parse(rawResult as string);
-          } catch (e) {}
+          } catch {
+            // expected
+          }
 
           if (testCase.success) {
             expect(result).toBeDefined();
@@ -485,12 +488,12 @@ describe('Direct Tool Execution Suite (Fresh)', () => {
             const str = typeof result === 'string' ? result : JSON.stringify(result);
             expect(str).toMatch(/Error|Invalid|Range|Target|found|action|self/i);
           }
-        } catch (e: any) {
-          if (testCase.success) throw new Error(`Expected success but failed: ${e.message}`);
-          if (testCase.error === 'range') expect(e.message).toMatch(/range|distance/i);
-          if (testCase.error === 'found') expect(e.message).toMatch(/found/i);
-          if (testCase.error === 'action') expect(e.message).toMatch(/action/i);
-          if (testCase.error === 'self') expect(e.message).toMatch(/self/i);
+        } catch (e: unknown) {
+          if (testCase.success) throw new Error(`Expected success but failed: ${(e as Error).message}`);
+          if (testCase.error === 'range') expect((e as Error).message).toMatch(/range|distance/i);
+          if (testCase.error === 'found') expect((e as Error).message).toMatch(/found/i);
+          if (testCase.error === 'action') expect((e as Error).message).toMatch(/action/i);
+          if (testCase.error === 'self') expect((e as Error).message).toMatch(/self/i);
         }
       });
     });
@@ -538,7 +541,7 @@ describe('Direct Tool Execution Suite (Fresh)', () => {
         }
 
         try {
-          const result = await tool.func(args as any);
+          const result = await tool.func(args as Record<string, unknown>);
 
           if (testCase.success) {
             expect(result).toBeDefined();
@@ -546,10 +549,10 @@ describe('Direct Tool Execution Suite (Fresh)', () => {
           } else {
             expect(result.toString()).toMatch(/Error|Occupied|Found/i);
           }
-        } catch (e: any) {
-          if (testCase.success) throw new Error(`Expected success but failed: ${e.message}`);
-          if (testCase.error === 'occupied') expect(e.message).toMatch(/occupied/i);
-          if (testCase.error === 'found') expect(e.message).toMatch(/found/i);
+        } catch (e: unknown) {
+          if (testCase.success) throw new Error(`Expected success but failed: ${(e as Error).message}`);
+          if (testCase.error === 'occupied') expect((e as Error).message).toMatch(/occupied/i);
+          if (testCase.error === 'found') expect((e as Error).message).toMatch(/found/i);
         }
       });
     });

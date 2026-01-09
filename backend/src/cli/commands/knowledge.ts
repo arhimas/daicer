@@ -1,14 +1,6 @@
 import { Command } from 'commander';
 import { client } from '../utils/client';
 
-const TARGET_ALIASES = {
-  spell: 'api::spell.spell',
-  monster: 'api::monster.monster',
-  class: 'api::class.class',
-  race: 'api::race.race',
-  character: 'api::character.character',
-};
-
 export const knowledgeCommand = new Command('knowledge')
   .description('RAG Knowledge Base & Snippets')
   .option('-q, --query <text>', 'Semantic search query')
@@ -20,7 +12,13 @@ export const knowledgeCommand = new Command('knowledge')
     await runKnowledge(options);
   });
 
-export async function runKnowledge(options: any) {
+export async function runKnowledge(options: {
+  list?: boolean;
+  query?: string;
+  targets?: string;
+  entities?: boolean;
+  json?: boolean;
+}) {
   // Lazy load tools
   const { default: chalk } = await import('chalk');
   const { default: boxen } = await import('boxen');
@@ -28,14 +26,15 @@ export async function runKnowledge(options: any) {
   const { input } = await import('@inquirer/prompts');
 
   try {
-    let result: any;
-    let meta: any = {};
+    let result: unknown;
+    let meta: Record<string, unknown> = {};
 
     if (options.list) {
       // --- 1. LIST SOURCES ---
       result = await client.collection('knowledge-sources').find({ populate: '*' });
       // Normalize
-      const entries = Array.isArray(result) ? result : result.data || [];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const entries = Array.isArray(result) ? result : (result as any).data || [];
 
       if (options.json) {
         console.log(
@@ -59,9 +58,11 @@ export async function runKnowledge(options: any) {
           chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' },
         });
 
-        entries.forEach((s: any) => {
-          const name = s.name || s.attributes?.name;
-          const snippets = s.snippets || s.attributes?.snippets;
+        entries.forEach((s: Record<string, unknown>) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const name = ((s as any).name || (s as any).attributes?.name) as string;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const snippets = (s as any).snippets || (s as any).attributes?.snippets;
           const snippetCount = Array.isArray(snippets) ? snippets.length : snippets?.data?.length || 0;
           table.push([chalk.bold(name), chalk.yellow(snippetCount)]);
         });
@@ -75,7 +76,7 @@ export async function runKnowledge(options: any) {
 
     // --- 2. SEARCH (Query or Interactive) ---
     let query = options.query;
-    let targets = options.targets ? options.targets.split(',') : undefined;
+    const targets = options.targets ? options.targets.split(',') : undefined;
 
     if (!query && !options.json) {
       // Interactive Prompt
@@ -98,7 +99,8 @@ export async function runKnowledge(options: any) {
       .then((res) => res.json());
 
     // Normalize Result
-    result = result.data || [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result = (result as any).data || [];
     meta = {
       query,
       targets: targets || (options.entities ? ['entity'] : ['unified']),
@@ -126,14 +128,14 @@ export async function runKnowledge(options: any) {
 
       if (Array.isArray(result) && result.length > 0) {
         // Render Results
-        result.forEach((row: any) => {
-          const score = row.score || row.similarity || 0;
+        result.forEach((row: Record<string, unknown>) => {
+          const score = (row.score as number) || (row.similarity as number) || 0;
           const sim = Math.round(score * 100);
           const color = sim > 80 ? chalk.green : sim > 60 ? chalk.yellow : chalk.gray;
           const typeLabel = row.kind === 'entity' ? chalk.magenta('ENTITY') : chalk.blue('KNOWLEDGE');
           const uidLabel = row.entityUid ? chalk.cyan(`(${row.entityUid})`) : '';
 
-          let content = row.excerpt || row.content || '';
+          let content = (row.excerpt as string) || (row.content as string) || '';
           // Clean up context tags "[Tags: foo, bar]"
           content = content.replace(/^\[Tags: .*?\]\s*\n?/i, '');
           // Truncate cleanly if too long
@@ -163,8 +165,8 @@ export async function runKnowledge(options: any) {
         const { runExplore } = await import('./explore');
 
         const choices = result
-          .filter((r: any) => r.kind === 'entity' && r.entityUid && r.documentId) // Only inspectable entities
-          .map((r: any) => ({
+          .filter((r: Record<string, unknown>) => r.kind === 'entity' && r.entityUid && r.documentId) // Only inspectable entities
+          .map((r: Record<string, unknown>) => ({
             name: `🔍 Inspect: ${r.title} (${r.entityUid})`,
             value: r,
           }));
@@ -179,14 +181,14 @@ export async function runKnowledge(options: any) {
             ],
           });
 
-          if (nextAction === 'exit') return;
-          if (nextAction !== 'back') {
+          if ((nextAction as unknown) === 'exit') return;
+          if ((nextAction as unknown) !== 'back') {
             // It's a result object
             console.log(chalk.dim(`\nNavigating to ${nextAction.title}...\n`));
             await runExplore({
               action: 'findOne',
-              type: nextAction.entityUid,
-              documentId: nextAction.documentId,
+              type: nextAction.entityUid as string,
+              documentId: nextAction.documentId as string,
             });
           }
         }

@@ -400,6 +400,7 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
     range_config: Schema.Attribute.Component<'game.range-config', false>;
     save: Schema.Attribute.Component<'game.save-dc', false>;
     slug: Schema.Attribute.UID<'name'>;
+    toHit: Schema.Attribute.Integer;
     type: Schema.Attribute.Enumeration<['melee', 'ranged', 'spell', 'utility', 'ability']> &
       Schema.Attribute.DefaultTo<'melee'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -427,7 +428,6 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_items: Schema.Attribute.Component<'game.inventory-item', true>;
-    equipments: Schema.Attribute.Relation<'oneToMany', 'api::equipment.equipment'>;
     fullBody: Schema.Attribute.Media<'images'>;
     level: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -1055,7 +1055,6 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
   attributes: {
     ac: Schema.Attribute.Integer;
     actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
-    actions_json: Schema.Attribute.JSON;
     alignment: Schema.Attribute.String;
     challenge_rating: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
@@ -1069,13 +1068,11 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_items: Schema.Attribute.Component<'game.inventory-item', true>;
-    equipments: Schema.Attribute.Relation<'oneToMany', 'api::equipment.equipment'>;
     features: Schema.Attribute.Component<'game.feature', true>;
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
     image: Schema.Attribute.Media<'images'>;
     languages: Schema.Attribute.String;
-    legendary_actions: Schema.Attribute.JSON;
     level: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -1093,15 +1090,11 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    proficiencies: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    senses: Schema.Attribute.JSON;
     size: Schema.Attribute.Enumeration<['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    special_abilities: Schema.Attribute.JSON;
     spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
-    structuredActions: Schema.Attribute.Component<'game.action', true>;
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;

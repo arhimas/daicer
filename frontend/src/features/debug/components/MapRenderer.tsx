@@ -386,7 +386,8 @@ export function MapRenderer({
         onTileHover?.(null);
       }}
       onWheel={handleWheel}
-      role="img"
+      // eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role
+      role="application"
       aria-label="Game Map"
       className={`block touch-none bg-pink-500 ${isDragging ? 'cursor-grabbing' : 'cursor-crosshair'}`}
     />

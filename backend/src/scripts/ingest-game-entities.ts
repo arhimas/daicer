@@ -1,6 +1,6 @@
 export {};
-const dotenv = require('dotenv');
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
 
 // 1. Load Environment Variables
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -50,7 +50,7 @@ async function main() {
   // Strapi 5 usually sets global.strapi. Let's verify.
   // Ideally we should have passed strapi instance, but the service is written as singleton.
 
-  const { entityKnowledgeService } = require('../services/entity-knowledge-service');
+  const { entityKnowledgeService } = await import('../services/entity-knowledge-service');
 
   try {
     for (const model of ENTITY_MODELS) {
@@ -58,12 +58,12 @@ async function main() {
       const friendlyName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
 
       // 1. Fetch All IDs only (lightweight)
-      const entries = await strapi.entityService.findMany(model as any, {
+      const entries = await strapi.entityService.findMany(model as `api::${string}.${string}`, {
         fields: ['id'],
         limit: -1, // No limit
       });
 
-      const total = Array.isArray(entries) ? entries.length : (entries as any).length || 0;
+      const total = Array.isArray(entries) ? entries.length : (entries as unknown as { length: number }).length || 0;
 
       if (total === 0) {
         console.log(`\x1b[33m[SKIP] ${friendlyName}: No entries found.\x1b[0m`);
@@ -75,7 +75,7 @@ async function main() {
       bar.start();
 
       // 3. Process in Batches
-      const ids: number[] = Array.isArray(entries) ? entries.map((e: any) => e.id) : [];
+      const ids: number[] = Array.isArray(entries) ? entries.map((e: { id: number }) => e.id) : [];
 
       for (let i = 0; i < ids.length; i += BATCH_CONCURRENCY) {
         const batch = ids.slice(i, i + BATCH_CONCURRENCY);
@@ -94,7 +94,7 @@ async function main() {
               } else {
                 await entityKnowledgeService.syncEntity(model, id);
               }
-            } catch (err: any) {
+            } catch {
               // Silent fail on individual to keep flow, logging to file maybe?
               // For juice, just keep going or print tiny error line?
               // console.error(`Failed ${id}`);

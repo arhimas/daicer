@@ -81,7 +81,8 @@ describe('Spawn Service Granularity', () => {
     if (scenario.field === 'classes') charData.classes = [];
     if (scenario.field === 'race') charData.race = null;
     if (scenario.field === 'stats') charData.stats = null;
-    if (scenario.field === 'classes.0.class.hit_die') (charData.classes as any)[0].class.hit_die = null;
+    if (scenario.field === 'classes.0.class.hit_die')
+      ((charData.classes as unknown as object[])[0] as { class: { hit_die: string | null } }).class.hit_die = null;
 
     mockFindOne.mockResolvedValueOnce(charData);
 

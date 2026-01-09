@@ -19,6 +19,7 @@ export function AgentToolPalette({ onCommand, activeEntity, activeLocation, room
       <div className="p-2 border-b border-midnight-800 flex justify-between items-center bg-black/20">
         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Tool Execution</span>
         <button
+          type="button"
           onClick={() => setDirectMode(!directMode)}
           className="flex items-center gap-2 text-xs font-bold transition-colors hover:text-white"
           title={directMode ? 'Direct Execution (Bypass LLM)' : 'Natural Language (Via LLM)'}

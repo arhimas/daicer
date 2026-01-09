@@ -1,6 +1,6 @@
 export {};
-const dotenv = require('dotenv');
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
 
 // 1. Load Environment Variables
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
@@ -14,7 +14,7 @@ async function runGranularVerification() {
 
   try {
     // 3. Import Service AFTER Strapi is loaded
-    const { unifiedSearchService } = require('../services/unified-search-service');
+    const { unifiedSearchService } = await import('../services/unified-search-service');
 
     // Test 1: Manual Search (Legacy 'origin' check)
     // This previously failed with 'column ks.knowledge_source_link does not exist'
@@ -36,7 +36,7 @@ async function runGranularVerification() {
     });
 
     if (spellResults.length > 0) {
-      const nonSpells = spellResults.filter((r: any) => !r.tags.includes('spell'));
+      const nonSpells = spellResults.filter((r) => !r.tags?.includes('spell'));
       if (nonSpells.length > 0) {
         console.error('❌ FAILED: Granular search returned non-spells:', nonSpells);
         process.exit(1);
@@ -54,7 +54,7 @@ async function runGranularVerification() {
       limit: 5,
     });
     console.log(`✅ Mixed Search executed. Found ${mixedResults.length} items.`);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('❌ FATAL ERROR:', err);
     process.exit(1);
   } finally {

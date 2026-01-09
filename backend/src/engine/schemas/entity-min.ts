@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { EntitySheetSchema } from './entity-sheet';
 
 // We need a lightweight EntitySchema for the world state to replace z.any()
 export const MinEntitySchema = z

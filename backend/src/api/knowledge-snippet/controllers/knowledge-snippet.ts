@@ -4,10 +4,8 @@
 
 import { factories } from '@strapi/strapi';
 
-import { embeddingService } from '../../../services/embedding-service';
-
 // Controller
-export default factories.createCoreController('api::knowledge-snippet.knowledge-snippet', ({ strapi }) => ({
+export default factories.createCoreController('api::knowledge-snippet.knowledge-snippet', ({ strapi: _strapi }) => ({
   async search(ctx) {
     const { q } = ctx.query;
 
@@ -16,7 +14,7 @@ export default factories.createCoreController('api::knowledge-snippet.knowledge-
     }
 
     try {
-      const { unifiedSearchService } = require('../../../services/unified-search-service');
+      const { unifiedSearchService } = await import('../../../services/unified-search-service');
 
       let results;
       const mode = ctx.query.mode as string;
@@ -49,16 +47,3 @@ export default factories.createCoreController('api::knowledge-snippet.knowledge-
     }
   },
 }));
-
-function cosineSimilarity(a: number[], b: number[]): number {
-  if (!a || !b || a.length !== b.length) return 0;
-  let dot = 0,
-    normA = 0,
-    normB = 0;
-  for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i];
-    normA += a[i] * a[i];
-    normB += b[i] * b[i];
-  }
-  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
-}

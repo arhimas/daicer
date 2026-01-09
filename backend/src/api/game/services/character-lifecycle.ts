@@ -6,10 +6,8 @@ import type { WorldSettings, Player, EntitySheet, Language } from '../../../engi
 
 // Helper to format DM style
 
-interface PopulatedEntitySheet extends Omit<
-  EntitySheet,
-  'race' | 'class' | 'classes' | 'characterClass' | 'personality'
-> {
+interface PopulatedEntitySheet
+  extends Omit<EntitySheet, 'race' | 'class' | 'classes' | 'characterClass' | 'personality'> {
   documentId: string;
   race?: string | { name: string };
   class?: string | { name: string };
@@ -197,7 +195,7 @@ export default ({ strapi }) => ({
     };
 
     // Extract actual equipment items
-    const equipmentList = (createdCharacter.equipment as any[]) || [];
+    const equipmentList = (createdCharacter.equipment as { isEquipped: boolean; item: unknown }[]) || [];
     const equipmentForDeriver = equipmentList
       .filter((entry) => entry.isEquipped && entry.item)
       .map((entry) => entry.item);
@@ -207,7 +205,7 @@ export default ({ strapi }) => ({
       classes: createdCharacter.classes?.map((c) => ({
         name: c.class.name,
         level: c.level,
-        hitDie: (c.class as any).hit_die,
+        hitDie: (c.class as unknown as { hit_die: number }).hit_die, // Correctly type the cast
       })),
       level: 1, // Fallback
       equipment: equipmentForDeriver,

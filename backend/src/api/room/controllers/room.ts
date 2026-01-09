@@ -49,7 +49,8 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
 
     // 1. Create with temp code
     const newRoom = await strapi.entityService.create('api::room.room', {
-      data: roomData,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: roomData as any,
     });
 
     try {
@@ -79,7 +80,8 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
       const updatedRoom = await strapi.entityService.update('api::room.room', newRoom.documentId || newRoom.id, {
         data: {
           code: codeStr,
-          roomId: codeStr, // We often use code as roomId
+          roomId: codeStr,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
       });
 
@@ -134,6 +136,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
     const updatedRoom = await strapi.entityService.update('api::room.room', room.documentId || room.id, {
       data: {
         players: updatedPlayers,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any,
     });
 

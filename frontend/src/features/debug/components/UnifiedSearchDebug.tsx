@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:1337';
 
-export const UnifiedSearchDebug: React.FC = () => {
+export function UnifiedSearchDebug() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -119,4 +119,4 @@ export const UnifiedSearchDebug: React.FC = () => {
       <KnowledgeModal isOpen={!!selectedResult} onClose={() => setSelectedResult(null)} result={selectedResult} />
     </div>
   );
-};
+}

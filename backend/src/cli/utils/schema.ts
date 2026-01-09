@@ -1,6 +1,28 @@
 import fs from 'fs';
 import path from 'path';
 
+export interface SchemaDefinition {
+  kind?: string;
+  collectionName?: string;
+  info: {
+    displayName: string;
+    singularName: string;
+    pluralName: string;
+    description?: string;
+  };
+  attributes: Record<
+    string,
+    {
+      type: string;
+      required?: boolean;
+      target?: string;
+      component?: string;
+      repeatable?: boolean;
+      [key: string]: unknown;
+    }
+  >;
+  [key: string]: unknown;
+}
 export interface ContentTypeInfo {
   uid: string;
   apiName: string;
@@ -98,7 +120,7 @@ export function discoverContentTypes(): ContentTypeInfo[] {
 /**
  * Reads the schema.json for a specific UID
  */
-export function readSchema(uid: string): any | null {
+export function readSchema(uid: string): SchemaDefinition | null {
   const all = discoverContentTypes();
   const found = all.find((t) => t.uid === uid);
 
@@ -114,12 +136,6 @@ export function readSchema(uid: string): any | null {
   // For now, let's keep it simple:
 
   const apiRoot = path.join(process.cwd(), 'src', 'api');
-  const contentTypePath = path.join(
-    apiRoot,
-    found.apiName,
-    'content-types',
-    found.info.singularName || found.info.pluralName // Tricky to reverse engineer folder from info
-  );
 
   // Re-scanning is safer than guessing folder names from singular/plural which might differ
   // Let's just do a specialized find.
@@ -143,9 +159,9 @@ export function readSchema(uid: string): any | null {
   return null;
 }
 
-export function readAllSchemas(): Record<string, any> {
+export function readAllSchemas(): Record<string, SchemaDefinition> {
   const all = discoverContentTypes();
-  const result: Record<string, any> = {};
+  const result: Record<string, SchemaDefinition> = {};
 
   for (const type of all) {
     if (type.uid.startsWith('api::')) {

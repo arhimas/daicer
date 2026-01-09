@@ -4,13 +4,12 @@
  * USE WITH CAUTION.
  * deletes all knowledge-source and knowledge-snippet entries.
  */
-import { factories } from '@strapi/strapi';
 import dotenv from 'dotenv';
 import path from 'path';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-const { createStrapi } = require('@strapi/strapi');
+import { createStrapi } from '@strapi/strapi';
 
 async function wipe() {
   const strapi = await createStrapi({

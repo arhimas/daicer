@@ -94,8 +94,7 @@ export interface DebugEntity {
   pendingPath?: Coordinates[];
   currentHp?: number;
   maxHp?: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  structuredActions?: any[]; // using any for now to avoid deep import if ActionDefinition isn't easily grabbed or to avoid circular deps
+  structuredActions?: unknown[];
 
   // Expanded for Inspector
   stats?: {
@@ -108,10 +107,9 @@ export interface DebugEntity {
     passivePerception: number;
     initiativeBonus: number;
   };
-  features?: any[];
-  equipment?: any[];
-  proficiencies?: any;
+  features?: unknown[];
+  equipment?: unknown[];
+  proficiencies?: unknown;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  raw?: any; // Full entity data for deep inspection
+  raw?: unknown; // Full entity data for deep inspection
 }
