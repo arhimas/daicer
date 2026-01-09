@@ -37,6 +37,8 @@
     // Do not include test files
     "**/*.test.*",
     "src/plugins/**",
-    "script/"
+    "script/",
+    "**/*.spec.ts",
+    "src/**/__tests__/"
   ]
 }

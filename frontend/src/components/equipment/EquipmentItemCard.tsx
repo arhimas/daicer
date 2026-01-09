@@ -65,9 +65,9 @@ function convertToGold(quantity: number, unit: string): number {
 }
 
 // Stabilize Icon usage
-function ItemIcon({ cat }: { cat: string }) {
+function ItemIcon({ cat, className }: { cat: string; className?: string }) {
   const I = React.useMemo(() => getItemIcon(cat), [cat]);
-  return <I className="h-5 w-5 text-primary" />;
+  return <I className={className} />;
 }
 
 export function EquipmentItemCard({ item, onBuy, onEquip, currentGold, disabled }: EquipmentItemCardProps) {

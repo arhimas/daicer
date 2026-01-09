@@ -56,66 +56,6 @@ function VitalBox({
 }
 
 // 3. Action Row
-function ActionRow({ action }: { action: EntityAction }) {
-  const isSpell = action.type === 'spell';
-
-  return (
-    <div className="group flex flex-col gap-2 p-3 bg-midnight-900/40 border border-midnight-700/50 hover:border-gold-700/50 hover:bg-midnight-800/60 rounded transition-all cursor-default">
-      {/* Header */}
-      <div className="flex justify-between items-start">
-        <div className="flex items-center gap-2">
-          <div
-            className={cn(
-              'p-1.5 rounded-full border border-midnight-600 bg-midnight-900',
-              isSpell ? 'text-purple-400 border-purple-900/30' : 'text-red-400 border-red-900/30'
-            )}
-          >
-            {isSpell ? <Zap className="w-3.5 h-3.5" /> : <Swords className="w-3.5 h-3.5" />}
-          </div>
-          <span className="font-bold text-gray-200 group-hover:text-gold-400 transition-colors">{action.name}</span>
-        </div>
-
-        {/* Chips */}
-        <div className="flex gap-2 text-xs font-mono">
-          {action.toHit !== undefined && (
-            <span className="px-1.5 py-0.5 bg-midnight-950 border border-midnight-700 text-gold-500 rounded">
-              +{action.toHit} HIT
-            </span>
-          )}
-          {action.save && (
-            <span className="px-1.5 py-0.5 bg-midnight-950 border border-midnight-700 text-purple-400 rounded">
-              DC {action.save.dc} {action.save.stat}
-            </span>
-          )}
-        </div>
-      </div>
-
-      {/* Details Line */}
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400 pl-9">
-        {action.damage && action.damage.length > 0 && (
-          <div className="flex items-center gap-1">
-            <span className="text-gray-300 font-semibold">
-              {action.damage
-                .map(
-                  (d: { dice: string; bonus?: number; type: string }) =>
-                    `${d.dice}${d.bonus ? `+${d.bonus}` : ''} ${d.type}`
-                )
-                .join(' + ')}
-            </span>
-          </div>
-        )}
-        {action.range && <span className="text-midnight-500">• {action.range} ft</span>}
-      </div>
-
-      {/* Description */}
-      {action.description && (
-        <p className="text-xs text-midnight-400 pl-9 italic leading-relaxed border-t border-midnight-800/50 pt-2 mt-1">
-          {action.description}
-        </p>
-      )}
-    </div>
-  );
-}
 
 // 4. Feature Row
 function FeatureRow({ feature }: { feature: EntityFeature }) {
@@ -277,8 +217,11 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
                   </h3>
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
                     {entity.actions && entity.actions.length > 0 ? (
-                      entity.actions.map((action: any, idx: number) => (
-                        <div key={idx} className="p-2 bg-white/5 rounded border border-white/10">
+                      entity.actions.map((action: EntityAction, idx: number) => (
+                        <div
+                          key={idx}
+                          className="group flex flex-col gap-2 p-3 bg-midnight-900/40 border border-midnight-700/50 hover:border-gold-700/50 hover:bg-midnight-800/60 rounded transition-all cursor-default"
+                        >
                           <div className="font-bold text-sm text-primary-gold mb-1">{action.name}</div>
                           {action.description && <div className="text-xs text-gray-400">{action.description}</div>}
                         </div>

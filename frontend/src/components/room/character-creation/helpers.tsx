@@ -45,6 +45,15 @@ export function resolveRaceIcon(name: string) {
   return Wand2;
 }
 
+function stripMarkdown(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/[#*_~`]/g, '') // remove common symbols
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // links
+    .replace(/<[^>]+>/g, '') // html tags
+    .trim();
+}
+
 interface RaceSelectionGridProps {
   options: RaceOption[];
   selectedRace: string;
@@ -97,7 +106,7 @@ export function RaceSelectionGrid({ options, selectedRace, onSelect, loading }: 
             <div className="flex items-start gap-4">
               <div
                 className={clsx(
-                  'flex h-12 w-12 items-center justify-center rounded-xl border-2 transition-all',
+                  'flex h-12 w-12 items-center justify-center rounded-2xl border-2 transition-all',
                   isSelected ? 'border-white/70 bg-white/10 text-white' : 'border-aurora-400/30 text-aurora-200'
                 )}
               >
@@ -115,7 +124,9 @@ export function RaceSelectionGrid({ options, selectedRace, onSelect, loading }: 
                   )}
                 </div>
                 {race.description ? (
-                  <p className="line-clamp-3 text-sm leading-relaxed text-shadow-300">{race.description}</p>
+                  <p className="line-clamp-3 text-sm leading-relaxed text-shadow-300">
+                    {stripMarkdown(race.description)}
+                  </p>
                 ) : null}
               </div>
             </div>

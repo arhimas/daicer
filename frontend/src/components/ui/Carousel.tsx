@@ -1,4 +1,4 @@
-import { Children, useEffect, useId, useMemo, useState, type ReactElement, type ReactNode } from 'react';
+import { Children, useEffect, useId, useMemo, useState, useCallback, type ReactElement, type ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import cn from '../../lib/utils';
 

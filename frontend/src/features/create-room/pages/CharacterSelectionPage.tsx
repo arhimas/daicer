@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { LoadingOverlay } from '@/components/ui/LoadingOverlay';
 import CharacterCreation from '@/components/room/CharacterCreation';
-import Navbar from '@/components/layout/Navbar';
 import { LIST_CHARACTERS_QUERY } from '@/graphql/queries';
 import { CREATE_ENTITY_SHEET_MUTATION } from '@/graphql/mutations';
 import { addCharacter } from '@/services/api';
@@ -137,8 +136,6 @@ export default function CharacterSelectionPage() {
 
   return (
     <div className="min-h-screen bg-midnight-950 flex flex-col font-sans text-shadow-100">
-      <Navbar />
-
       <main className="flex-1 container mx-auto p-6 flex flex-col gap-8 max-w-6xl">
         <header className="space-y-4 text-center">
           <h1 className="text-4xl font-display uppercase tracking-widest text-aurora-300">Choose Your Hero</h1>

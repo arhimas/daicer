@@ -45,15 +45,18 @@ function getEntitySheet(entity: SelectableEntity): EntitySheet | null {
       maxHp: c.maxHp,
       ac: c.ac,
       speed: 30, // Fallback
-      level: (c as any).level || 1, // Fallback
-      stats: (c as any).stats || {
-        strength: 10,
-        dexterity: 10,
-        constitution: 10,
-        intelligence: 10,
-        wisdom: 10,
-        charisma: 10,
-      },
+      level: 'level' in c ? (c as { level: number }).level : 1,
+      stats:
+        'stats' in c
+          ? (c as { stats: EntitySheet['stats'] }).stats
+          : {
+              strength: 10,
+              dexterity: 10,
+              constitution: 10,
+              intelligence: 10,
+              wisdom: 10,
+              charisma: 10,
+            },
       // Actions?
       actions: [],
       features: [],

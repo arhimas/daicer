@@ -54,7 +54,7 @@ function CharacterCreationWizardContent({ ctrl }: { ctrl: ReturnType<typeof useC
           <FormWizardStep step="class">
             <EpicClassSelectionGrid
               options={(data.classes || []).map((c) => ({
-                value: c.id || c.name,
+                value: c.name,
                 label: c.name,
                 description: c.description,
               }))}
@@ -141,13 +141,22 @@ function CharacterCreationWizardContent({ ctrl }: { ctrl: ReturnType<typeof useC
                 </div>
               </div>
             ) : (
-              <EquipmentShop
-                items={equipment.equipmentItems}
-                currentGold={equipment.equipmentGold}
-                inventory={equipment.inventory}
-                equippedItems={equipment.equippedItems}
-                onBuyItem={equipment.handleBuyItem}
-              />
+              <div className="flex flex-col gap-4">
+                <button
+                  type="button"
+                  onClick={equipment.handleResetChoice}
+                  className="self-start text-sm text-muted-foreground hover:text-primary-gold flex items-center gap-2 transition-colors px-1 py-1"
+                >
+                  <span>← Change Selection</span>
+                </button>
+                <EquipmentShop
+                  items={equipment.equipmentItems}
+                  currentGold={equipment.equipmentGold}
+                  inventory={equipment.inventory}
+                  equippedItems={equipment.equippedItems}
+                  onBuyItem={equipment.handleBuyItem}
+                />
+              </div>
             )}
           </FormWizardStep>
         )}

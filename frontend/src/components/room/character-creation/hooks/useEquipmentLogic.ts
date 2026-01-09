@@ -144,6 +144,20 @@ export function useEquipmentLogic({ assetMode, formDataClass, initialGold = 0 }:
     setEquipmentGold(100);
   };
 
+  const handleResetChoice = () => {
+    setEquipmentChoice(null);
+    setInventory([]);
+    setEquippedItems({
+      mainHand: null,
+      offHand: null,
+      armor: null,
+      shield: null,
+      accessory1: null,
+      accessory2: null,
+    });
+    setEquipmentGold(initialGold);
+  };
+
   return {
     equipmentItems,
     setEquipmentItems,
@@ -159,5 +173,6 @@ export function useEquipmentLogic({ assetMode, formDataClass, initialGold = 0 }:
     handleUnequipItem,
     handleChooseStartingPack,
     handleChooseFreeGold,
+    handleResetChoice,
   };
 }

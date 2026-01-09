@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Entity,
   EntityAction,
@@ -11,383 +10,376 @@ import {
   StatBlock,
 } from '../../../engine';
 
-// Helper: Safe Relation Extractor
-const extractRelation = <T>(source: any, field: string, mapper: (item: any) => T): T[] => {
-  const rel = source?.[field];
-  if (!rel) return [];
-  if (Array.isArray(rel)) return rel.filter((i) => !!i).map(mapper);
-  return []; // Should be array for manyToMany
+// =============================================================================
+// STRICT SOURCE TYPES (Mirrors Strapi Schema)
+// =============================================================================
+
+export interface StrapiComponentStats {
+  strength?: number;
+  dexterity?: number;
+  constitution?: number;
+  intelligence?: number;
+  wisdom?: number;
+  charisma?: number;
+  passivePerception?: number;
+  initiativeBonus?: number;
+}
+
+export interface StrapiInventoryItem {
+  id: string | number;
+  quantity: number;
+  slot: string;
+  isEquipped: boolean;
+  item?: {
+    documentId: string;
+    name: string;
+    description?: string;
+    [key: string]: unknown;
+  };
+}
+
+export interface StrapiSpell {
+  documentId: string;
+  name: string;
+  level: number;
+  school?: { name: string };
+  casting_time?: string;
+  range?: string;
+  description?: string;
+}
+
+export interface StrapiSpellbook {
+  id: string | number;
+  knownSpells?: StrapiSpell[];
+  preparedSpells?: StrapiSpell[];
+  spellcastingAbility?: string;
+  spellSaveDc?: number;
+  spellAttackBonus?: number;
+  slots?: unknown[]; // Simplifying generic slots for now
+  concentratingOn?: unknown;
+}
+
+export interface StrapiAction {
+  documentId: string;
+  name: string;
+  type?: EntityAction['type']; // Use engine type
+  toHit?: number;
+  damage?: { dice: string; bonus?: number; type: string }[];
+  save?: { dc?: number; stat?: string };
+  area?: { type: string; size: number };
+  range?: number | string; // 60 or "60/120"
+  description?: string;
+  action_definition?: {
+    documentId: string;
+    name: string;
+  };
+}
+
+export interface StrapiEntitySheet {
+  documentId: string;
+  name: string;
+  type: 'player' | 'monster' | 'npc';
+
+  // Vitals
+  currentHp?: number;
+  maxHp?: number;
+  ac?: number;
+  armorClass?: number; // Legacy/Blueprint fallback
+  speed?: number;
+
+  // Relations/Blueprints
+  character?: {
+    documentId: string;
+    name: string;
+    stats?: StrapiComponentStats;
+    classes?: unknown[];
+    race?: unknown;
+    background?: string;
+  };
+  monster?: {
+    documentId: string;
+    name: string;
+    stats?: StrapiComponentStats;
+    ac?: number;
+    hp?: number;
+    challenge_rating?: number;
+    actions?: StrapiAction[];
+    features?: { documentId: string; name: string; description?: string }[];
+    resistances?: string[];
+    immunities?: string[];
+    vulnerabilities?: string[];
+  };
+
+  // Components
+  stats?: StrapiComponentStats;
+  inventory?: StrapiInventoryItem[];
+  spellbook?: StrapiSpellbook;
+
+  // Direct Relations
+  actions?: StrapiAction[];
+  proficiencies?: { documentId: string; name: string; type?: string }[];
+  languages?: { documentId: string; name: string; is_rare?: boolean }[];
+  traits?: { documentId: string; name: string; description?: string }[];
+  features?: { documentId: string; name: string; description?: string; level?: number }[];
+
+  // Misc
+  resistances?: string[];
+  immunities?: string[];
+  vulnerabilities?: string[];
+  position?: { x: number; y: number; z: number };
+  color?: string;
+
+  // Catch-all
+  [key: string]: unknown;
+}
+
+// =============================================================================
+// ADAPTER LOGIC
+// =============================================================================
+
+export const resolveBaseStats = (sheet: StrapiEntitySheet): StatBlock => {
+  const s = sheet.stats || {};
+  const b = sheet.character?.stats || sheet.monster?.stats || {};
+
+  // Helper to fallback: Sheet > Blueprint > Default 10
+  const getStat = (key: keyof StrapiComponentStats) => s[key] ?? b[key] ?? 10;
+
+  const strength = getStat('strength');
+  const dexterity = getStat('dexterity');
+  const constitution = getStat('constitution');
+  const intelligence = getStat('intelligence');
+  const wisdom = getStat('wisdom');
+  const charisma = getStat('charisma');
+
+  // Derived
+  const initiativeBonus = Math.floor((dexterity - 10) / 2);
+  const passivePerception = getStat('passivePerception') || 10 + Math.floor((wisdom - 10) / 2);
+
+  return {
+    strength,
+    dexterity,
+    constitution,
+    intelligence,
+    wisdom,
+    charisma,
+    passivePerception,
+    initiativeBonus,
+  };
 };
 
-// Remove local StrapiStats/StrapiAction in favor of Shared types or partials
-type StrapiStats = Partial<StatBlock>;
+export const resolveInventory = (inventory?: StrapiInventoryItem[]): EntityItem[] => {
+  if (!inventory || !Array.isArray(inventory)) return [];
+
+  return inventory.map((entry) => ({
+    id: entry.id ? String(entry.id) : `inv_${Math.random().toString(36).substring(2, 7)}`,
+    quantity: entry.quantity || 1,
+    slot: entry.slot || 'backpack',
+    isEquipped: !!entry.isEquipped,
+    item: entry.item
+      ? {
+          documentId: entry.item.documentId,
+          name: entry.item.name,
+          description: entry.item.description,
+        }
+      : undefined,
+  }));
+};
+
+export const resolveSpells = (sheet: StrapiEntitySheet): EntitySpell[] => {
+  const spells: EntitySpell[] = [];
+  const sb = sheet.spellbook;
+
+  if (!sb) return spells;
+
+  const mapSpell = (s: StrapiSpell, source: 'known' | 'prepared'): EntitySpell => ({
+    documentId: s.documentId,
+    name: s.name,
+    level: s.level || 0,
+    school: s.school?.name,
+    source,
+    castingTime: s.casting_time,
+    range: s.range,
+    description: s.description,
+  });
+
+  if (Array.isArray(sb.knownSpells)) {
+    spells.push(...sb.knownSpells.map((s) => mapSpell(s, 'known')));
+  }
+
+  if (Array.isArray(sb.preparedSpells)) {
+    // Avoid duplicates if a spell is both known and prepared (prefer prepared source marker?)
+    // Actually, usually we list all. Frontend can dedupe or show status.
+    // For now, simple push.
+    sb.preparedSpells.forEach((s) => {
+      if (!spells.find((existing) => existing.documentId === s.documentId)) {
+        spells.push(mapSpell(s, 'prepared'));
+      } else {
+        // Update source to 'prepared' if already exists as known?
+        const existing = spells.find((e) => e.documentId === s.documentId);
+        if (existing) existing.source = 'prepared';
+      }
+    });
+  }
+
+  return spells;
+};
+
+export const resolveActions = (sheet: StrapiEntitySheet, stats: StatBlock): EntityAction[] => {
+  const actions: EntityAction[] = [];
+
+  // 1. Explicit Actions from Relation (Sheet > Monster Blueprint)
+  const sourceActions = sheet.actions && sheet.actions.length > 0 ? sheet.actions : sheet.monster?.actions || [];
+
+  if (sourceActions && Array.isArray(sourceActions)) {
+    actions.push(
+      ...sourceActions.map((a) => ({
+        id: String(a.documentId || Math.random()),
+        name: a.name,
+        type: (a.type as any) || 'utility',
+        toHit: a.toHit,
+        damage: a.damage as any, // Pass-through JSON
+        save: a.save as any,
+        area: a.area as any,
+        range: a.range as any,
+        description: a.description,
+        action_definition: a.action_definition
+          ? {
+              documentId: a.action_definition.documentId,
+              name: a.action_definition.name,
+            }
+          : undefined,
+      }))
+    );
+  }
+
+  // 2. Unarmed Strike Fallback
+  if (actions.length === 0) {
+    const strMod = Math.floor((stats.strength - 10) / 2);
+    actions.push({
+      id: 'action-unarmed',
+      name: 'Unarmed Strike',
+      type: 'melee_attack',
+      toHit: 2 + strMod, // Proficiency (2) + Str
+      damage: [{ dice: '1', bonus: strMod, type: 'bludgeoning' }],
+      description: 'Standard unarmed strike',
+    });
+  }
+
+  return actions;
+};
+
+// =============================================================================
+// MAIN SERVICE EXPORT
+// =============================================================================
 
 export default () => ({
-  adapt(s: unknown): Entity {
-    // 1. Identify Type & Blueprint
-    const raw = s as any;
-    let type: Entity['type'] = (raw.type as Entity['type']) || 'monster';
-    let blueprint: Record<string, unknown> | null = null;
-
-    if (raw.character) {
-      type = 'player';
-      blueprint = raw.character;
-    } else if (raw.monster) {
-      type = 'monster';
-      blueprint = raw.monster;
+  adapt(input: unknown): Entity {
+    // 0. Safety Cast
+    const sheet = input as StrapiEntitySheet;
+    if (!sheet || typeof sheet !== 'object') {
+      throw new Error('EntityAdapter received invalid input');
     }
 
-    // 2. Extract Stats
-    // Priority: Sheet Overrides > Blueprint Stats > Raw Attributes (Legacy)
-    const sheetStats = raw.stats as StrapiStats | undefined;
-    const rawAttrs = raw.attributes as StrapiStats | undefined;
+    // 1. Resolve Components
+    const stats = resolveBaseStats(sheet);
+    const inventory = resolveInventory(sheet.inventory);
+    const spells = resolveSpells(sheet);
+    const actions = resolveActions(sheet, stats);
 
-    let blueprintStats: StrapiStats | undefined;
-    if (blueprint?.stats) {
-      blueprintStats = blueprint.stats as StrapiStats;
+    // 2. Resolve Vitals
+    const maxHp = sheet.maxHp || sheet.monster?.hp || 10;
+    const hp = sheet.currentHp ?? maxHp;
+
+    // AC Logic: Sheet Override > Monster AC > 10 + Dex
+    let armorClass = sheet.ac ?? sheet.armorClass;
+    if (armorClass === undefined) {
+      if (sheet.monster?.ac) armorClass = sheet.monster.ac;
+      else armorClass = 10 + stats.initiativeBonus;
     }
 
-    const strength = sheetStats?.strength ?? blueprintStats?.strength ?? rawAttrs?.strength ?? 10;
-    const dexterity = sheetStats?.dexterity ?? blueprintStats?.dexterity ?? rawAttrs?.dexterity ?? 10;
-    const constitution = sheetStats?.constitution ?? blueprintStats?.constitution ?? rawAttrs?.constitution ?? 10;
-    const intelligence = sheetStats?.intelligence ?? blueprintStats?.intelligence ?? rawAttrs?.intelligence ?? 10;
-    const wisdom = sheetStats?.wisdom ?? blueprintStats?.wisdom ?? rawAttrs?.wisdom ?? 10;
-    const charisma = sheetStats?.charisma ?? blueprintStats?.charisma ?? rawAttrs?.charisma ?? 10;
-    const passivePerception =
-      sheetStats?.passivePerception ?? blueprintStats?.passivePerception ?? rawAttrs?.passivePerception ?? 10;
-
-    // 3. Derived Utils
-    const dexMod = Math.floor((dexterity - 10) / 2);
-    const initiativeBonus = dexMod; // Simple rule for now
-
-    // 4. Basic Info
-    const name = (raw.name as string) || (blueprint?.name as string) || 'Unknown Entity';
-
-    // Level & Classes
-    const level = (raw.level as number) || (blueprint?.level as number) || 1;
-
-    const classes = (raw.classes || blueprint?.classes || []) as any[];
-
-    // 5. Inventory (Components)
-    // Priority: Sheet Inventory Component
-    const inventory: EntityItem[] = [];
-    if (raw.inventory && Array.isArray(raw.inventory)) {
-      inventory.push(
-        ...raw.inventory.map((c: any) => ({
-          id: c.id || `inv_${Math.random().toString(36).substr(2, 5)}`,
-          quantity: c.quantity || 1,
-          slot: c.slot || 'backpack',
-          isEquipped: c.isEquipped || false,
-          item: c.item
-            ? {
-                documentId: c.item.documentId || c.item.id,
-                name: c.item.name || 'Unknown Item',
-                description: c.item.description,
-              }
-            : undefined,
-        }))
-      );
-    }
-
-    // 6. Spells (Spellbook Component)
-    const spells: EntitySpell[] = [];
-    if (raw.spellbook) {
-      // Known
-      if (Array.isArray(raw.spellbook.knownSpells)) {
-        spells.push(
-          ...raw.spellbook.knownSpells.map((sp: any) => ({
-            documentId: sp.documentId || sp.id,
-            name: sp.name,
-            level: sp.level,
-            school: sp.school?.name,
-            source: 'known' as const,
-            castingTime: sp.casting_time,
-            range: sp.range,
-            description: sp.description,
-          }))
-        );
-      }
-      // Prepared
-      if (Array.isArray(raw.spellbook.preparedSpells)) {
-        spells.push(
-          ...raw.spellbook.preparedSpells.map((sp: any) => ({
-            documentId: sp.documentId || sp.id,
-            name: sp.name,
-            level: sp.level,
-            school: sp.school?.name,
-            source: 'prepared' as const,
-            castingTime: sp.casting_time,
-            range: sp.range,
-            description: sp.description,
-          }))
-        );
-      }
-    }
-
-    // 7. Actions (Components)
-    // Priority: Sheet Actions Component
-    const actions: EntityAction[] = [];
-    if (raw.actions && Array.isArray(raw.actions)) {
-      actions.push(
-        ...raw.actions.map((a: any) => ({
-          id: String(a.id),
-          name: a.name,
-          type: a.type || 'utility',
-          toHit: a.toHit,
-          damage: a.damage, // Pass through component data
-          save: a.save,
-          area: a.area,
-          range: a.range, // From Component or Relation? Component schema has range? No, relation does. Wait, component game.action DOES have range field? No, schema.json for action has reach, toHit. Let's assume raw action has what we populated.
-          // Fallback if Component lacks fields but Relation has them?
-          // For now, rely on what SpawnService put into the Component.
-          description: a.description,
-          action_definition: a.action_definition
-            ? {
-                documentId: a.action_definition.documentId || a.action_definition.id,
-                name: a.action_definition.name,
-              }
-            : undefined,
-        }))
-      );
-    }
-    // Inventory Actions (Fallback / Legacy Support)
-    if (raw.inventory && Array.isArray(raw.inventory)) {
-      const inv = raw.inventory as any[];
-      inv.forEach((entry) => {
-        const itemName = entry.name || entry.item?.name; // Component or Relation name
-        if (itemName) {
-          if (!actions.some((a) => a.name === itemName)) {
-            actions.push({
-              id: `inv-${itemName.replace(/\s+/g, '-').toLowerCase()}`,
-              name: itemName,
-              type: 'melee_attack',
-              toHit: strength > dexterity ? Math.floor((strength - 10) / 2) + 2 : Math.floor((dexterity - 10) / 2) + 2,
-              damage: [{ dice: '1d6', bonus: 0, type: 'slashing' }],
-              description: `Attack with ${itemName} (Derived)`,
-            });
-          }
-        }
-      });
-    }
-
-    // Fallback: If no actions on sheet, we might want to derive unarmed?
-    if (actions.length === 0) {
-      actions.push({
-        id: 'action-unarmed',
-        name: 'Unarmed Strike',
-        type: 'melee_attack',
-        toHit: Math.floor((strength - 10) / 2) + 2,
-        damage: [{ dice: '1', bonus: Math.floor((strength - 10) / 2), type: 'bludgeoning' }],
-        description: 'Punch or Kick',
-      });
-    }
-
-    // 8. Relations (Proficiencies, Languages, Traits)
-    const probMapper = (p: any): EntityProficiency => ({
-      documentId: p.documentId || p.id,
+    // 3. Relations
+    const proficiencies: EntityProficiency[] = (sheet.proficiencies || []).map((p) => ({
+      documentId: p.documentId,
       name: p.name,
       type: p.type,
-    });
-    const proficiencies = extractRelation(raw, 'proficiencies', probMapper);
+    }));
 
-    const langMapper = (l: any): EntityLanguage => ({
-      documentId: l.documentId || l.id,
+    const languages: EntityLanguage[] = (sheet.languages || []).map((l) => ({
+      documentId: l.documentId,
       name: l.name,
       isRare: l.is_rare,
-    });
-    const languages = extractRelation(raw, 'languages', langMapper);
+    }));
 
-    const traitMapper = (t: any): EntityTrait => ({
-      documentId: t.documentId || t.id,
-      name: t.name,
-      description: t.description,
-    });
-    const traits = extractRelation(raw, 'traits', traitMapper);
+    const traits: EntityTrait[] = (sheet.traits || [])
+      .concat((sheet.monster?.features as any) || [] /* legacy mix */)
+      .map((t) => ({
+        documentId: t.documentId,
+        name: t.name,
+        description: t.description,
+      }));
 
-    // Features Resolution
-    const features: EntityFeature[] = [];
-
-    const sourceFeatures = extractRelation(raw, 'features', (f: any) => ({
-      documentId: f.documentId || f.id,
+    const features: EntityFeature[] = (sheet.features || []).map((f) => ({
+      documentId: f.documentId,
       name: f.name,
       description: f.description,
       level: f.level,
     }));
-    features.push(...sourceFeatures);
 
-    // Sync back to structuredActions (ENSURE ID CONSISTENCY)
-    if (actions.length > 0) {
-      (s as any).structuredActions = actions;
-    }
-
-    // HP & AC
-    let maxHp = (raw.maxHp as number) ?? (blueprint?.maxHp as number) ?? 10;
-    if (maxHp < 1) maxHp = 1;
-    const hp = (raw.currentHp as number) ?? (raw.hp as number) ?? maxHp;
-
-    let armorClass = 10 + initiativeBonus;
-    if (raw.armorClass !== undefined && raw.armorClass !== null) {
-      armorClass = raw.armorClass as number;
-    } else if (raw.ac !== undefined && raw.ac !== null) {
-      armorClass = raw.ac as number;
-    } else if (blueprint?.armorClass) {
-      armorClass = blueprint.armorClass as number;
-    } else if (blueprint?.ac) {
-      armorClass = blueprint.ac as number;
-    }
-
-    // ID Resolution
-
-    const rawId = (s as any).documentId || (s as any).id;
-    const id = rawId ? String(rawId) : `temp_${Math.random().toString(36).substr(2, 9)}`;
-
-    // Legacy equipment field (derived from inventory)
-    const equipment = inventory.map((item) => ({
-      id: item.id,
-      name: item.item?.name || 'Unknown Item',
-      quantity: item.quantity,
-      isEquipped: item.isEquipped,
-      slot: item.slot || 'backpack', // Fix: Added required slot property
-    }));
-
+    // 4. Construct Output
     return {
-      id,
-      name,
-      type: type as Entity['type'],
+      id: sheet.documentId, // Strict reliance on documentId
+      name: sheet.name || 'Unknown Entity',
+      type: sheet.type || 'monster',
+      position: (sheet as any).position || { x: 0, y: 0, z: 0 },
+
       hp,
       maxHp,
       armorClass,
-      stats: {
-        strength,
-        dexterity,
-        constitution,
-        intelligence,
-        wisdom,
-        charisma,
-        passivePerception,
-        initiativeBonus,
-      },
-      level,
-      classes,
-      equipment, // This legacy field is generated from `inventory` / `equipment_items` earlier in file
+      speed: sheet.speed || 30,
+
+      level: sheet.character?.classes?.[0] ? 1 : sheet.monster ? (sheet.monster as any).challenge_rating : 1, // Simplistic level for now
+
+      stats,
+      // We map inventory to 'equipment' logic if needed,
+      // but Engine 'equipment' field is CharacterEquipment (EntityItem[]).
+      equipment: inventory,
+
       actions,
       features,
 
-      conditions: (raw.conditions || []) as any[],
-      resistances: (raw.resistances || blueprint?.resistances || []) as string[],
-      immunities: (raw.immunities || blueprint?.immunities || []) as string[],
-      vulnerabilities: (raw.vulnerabilities || blueprint?.vulnerabilities || []) as string[],
-      color: '#ffffff',
-      visionRadius: 30,
-      sheet: {
-        id: (s as any).documentId || (s as any).id,
-        documentId: (s as any).documentId,
-        name,
-        race: (raw.race as string) || (blueprint?.race as string) || 'Unknown',
-        characterClass: (raw.characterClass as string) || (blueprint?.characterClass as string) || 'Unknown Class',
-        level,
-        xp: (raw.xp as number) ?? (blueprint?.xp as number) ?? 0,
+      // Relations
+      conditions: [], // Runtime only, not on sheet usually
+      resistances: sheet.resistances || (sheet.monster?.resistances as any) || [],
+      immunities: sheet.immunities || (sheet.monster?.immunities as any) || [],
+      vulnerabilities: sheet.vulnerabilities || (sheet.monster?.vulnerabilities as any) || [],
 
-        // Core Vitals
+      // Visuals
+      color: (sheet as any).color || '#ffffff',
+      visionRadius: 30, // Default
+
+      // Embed the sheet for full detail access
+      sheet: {
+        ...sheet,
+        // Ensure strictly typed fields override any loose JSON
         hp,
         maxHp,
-        temporaryHp: (raw.temporaryHp as number) ?? 0,
-        armorClass,
-        speed: (raw.speed as number) ?? 30,
-        initiative: 0,
-        initiativeBonus,
-        proficiencyBonus: (raw.proficiencyBonus as number) ?? 2,
-        inspiration: (raw.inspiration as boolean) ?? false,
-
-        // Defenses
-        resistances: (raw.resistances || blueprint?.resistances || []) as string[],
-        immunities: (raw.immunities || blueprint?.immunities || []) as string[],
-        vulnerabilities: (raw.vulnerabilities || blueprint?.vulnerabilities || []) as string[],
-
-        // Resources
-        hitDice: (raw.hitDice as any) || { total: level, current: level, die: '1d8' },
-        deathSaves: (raw.deathSaves as any) || { successes: 0, failures: 0 },
-        currency: (raw.currency as any) || { cp: 0, sp: 0, ep: 0, gp: 0, pp: 0 },
-        resources: (raw.resources as any[]) || [],
-        conditions: (raw.conditions as any[]) || [],
-
-        // Attributes & Skills
-        attributes: {
-          Strength: strength,
-          Dexterity: dexterity,
-          Constitution: constitution,
-          Intelligence: intelligence,
-          Wisdom: wisdom,
-          Charisma: charisma,
-        },
-        skills: (raw.skills as any) || {},
-        skillDetails: (raw.skillDetails as any[]) || [],
-        expertises: (raw.expertises as string[]) || [],
-        savingThrows: (raw.savingThrows as any) || { fortitude: 0, reflex: 0, will: 0 },
-
-        // Equipment & Actions
+        stats: { ...stats }, // Ensure shape matches
+        inventory: inventory as any, // engine expects exact shape?
+        // Note: engine types might differ slightly on inventory item, checked above, looks compatible (InventoryItem vs EntityItem alias)
         actions,
-        inventory,
-        equipment: (raw.equipment as any[]) || [], // legacy
-        structuredActions: actions, // legacy
-
-        // Magic
         spells,
-        spellbook: raw.spellbook
-          ? {
-              id: raw.spellbook.id,
-              knownSpells: raw.spellbook.knownSpells?.map((s: any) => s.documentId || s.id),
-              preparedSpells: raw.spellbook.preparedSpells?.map((s: any) => s.documentId || s.id),
-              spellcastingAbility: raw.spellbook.spellcastingAbility || 'intelligence',
-              spellSaveDc: raw.spellbook.spellSaveDc || 10,
-              spellAttackBonus: raw.spellbook.spellAttackBonus || 0,
-              concentratingOn: raw.spellbook.concentratingOn,
-              slots: raw.spellbook.slots || [],
-            }
-          : undefined,
-
-        // Relations
         proficiencies,
         languages,
         traits,
         features,
-        talents: (raw.talents as any[]) || [],
-
-        // Flavor
-        class: blueprint?.class || null,
-        background: (raw.background as string) || '',
-        alignment: (raw.alignment as string) || '',
-        appearance: (raw.appearance as any) || {
-          age: '',
-          height: '',
-          weight: '',
-          eyes: '',
-          skin: '',
-          hair: '',
-          description: '',
-        },
-        personality: (raw.personality as any) || {
-          traits: '',
-          ideals: '',
-          bonds: '',
-          flaws: '',
-        },
-        backstory: (raw.backstory as string) || '',
-        backgroundDetails: (raw.backgroundDetails as any) || {
-          origin: '',
-          upbringing: '',
-          motivation: '',
-          keyEvents: [],
-          allies: [],
-        },
-        alliesAndOrganizations: (raw.alliesAndOrganizations as string) || '',
-        treasure: (raw.treasure as string) || '',
-        advancementPoints: (raw.advancementPoints as any) || { ability: 0, skill: 0, talent: 0 },
-        avatarAssets: (raw.avatarAssets as any) || undefined,
-      },
-      // Top Level Flattened for contracts (replaces legacy fields)
-      speed: (raw.speed as number) ?? 30,
-      position: (s as any).position || { x: 0, y: 0, z: 0 },
+        // Legacy
+        spellbook: sheet.spellbook
+          ? ({
+              ...sheet.spellbook,
+              // normalize IDs if needed? StrapiSpell already has documentId.
+            } as any)
+          : undefined,
+      } as any, // Cast to any to satisfy the complex EntitySheet generic union if needed/inferred
     };
   },
 });
