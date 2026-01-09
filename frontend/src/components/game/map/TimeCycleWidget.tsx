@@ -1,4 +1,4 @@
-import {} from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { Moon, Sun } from 'lucide-react';
 
@@ -25,13 +25,10 @@ export function TimeCycleWidget({ time, className }: TimeCycleWidgetProps) {
 
   if (isDay) {
     progress = (cycleTime - 6) / 12;
+  } else if (cycleTime >= 18) {
+    progress = (cycleTime - 18) / 12;
   } else {
-    // Night logic
-    if (cycleTime >= 18) {
-      progress = (cycleTime - 18) / 12;
-    } else {
-      progress = (cycleTime + 6) / 12;
-    }
+    progress = (cycleTime + 6) / 12;
   }
 
   // Clamp

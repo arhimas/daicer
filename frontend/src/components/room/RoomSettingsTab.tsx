@@ -191,26 +191,31 @@ export function RoomSettingsTab({ room, onLeave, asModal = false }: RoomSettings
                 <dd className="mt-1 font-mono text-sm text-accent">{room.settings.seed}</dd>
               </div>
 
-              {(room.settings.generationParams as any)?.seaLevel !== undefined && (
+              {(room.settings.generationParams as unknown as Record<string, number>)?.seaLevel !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Sea Level</dt>
                   <dd className="mt-1 text-sm text-white">
-                    {(room.settings.generationParams as any).seaLevel.toFixed(2)}
+                    {((room.settings.generationParams as unknown as Record<string, number>)?.seaLevel ?? 0).toFixed(2)}
                   </dd>
                 </div>
               )}
-              {(room.settings.generationParams as any)?.temperatureOffset !== undefined && (
+              {(room.settings.generationParams as unknown as Record<string, number>)?.temperatureOffset !==
+                undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Temp Offset</dt>
                   <dd className="mt-1 text-sm text-white">
-                    {(room.settings.generationParams as any).temperatureOffset.toFixed(2)}
+                    {(
+                      (room.settings.generationParams as unknown as Record<string, number>)?.temperatureOffset ?? 0
+                    ).toFixed(2)}
                   </dd>
                 </div>
               )}
-              {(room.settings.generationParams as any)?.fogRadius !== undefined && (
+              {(room.settings.generationParams as unknown as Record<string, number>)?.fogRadius !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Fog Radius</dt>
-                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).fogRadius}</dd>
+                  <dd className="mt-1 text-sm text-white">
+                    {(room.settings.generationParams as unknown as Record<string, number>).fogRadius}
+                  </dd>
                 </div>
               )}
             </dl>
@@ -226,22 +231,28 @@ export function RoomSettingsTab({ room, onLeave, asModal = false }: RoomSettings
           </CardHeader>
           <CardContent>
             <dl className="grid gap-3 sm:grid-cols-2">
-              {(room.settings.generationParams as any)?.chunkSize !== undefined && (
+              {(room.settings.generationParams as unknown as Record<string, number>)?.chunkSize !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Chunk Size</dt>
-                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).chunkSize}</dd>
+                  <dd className="mt-1 text-sm text-white">
+                    {(room.settings.generationParams as unknown as Record<string, number>).chunkSize}
+                  </dd>
                 </div>
               )}
-              {(room.settings.generationParams as any)?.structureChance !== undefined && (
+              {(room.settings.generationParams as unknown as Record<string, number>)?.structureChance !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Struct Chance</dt>
-                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).structureChance}</dd>
+                  <dd className="mt-1 text-sm text-white">
+                    {(room.settings.generationParams as unknown as Record<string, number>).structureChance}
+                  </dd>
                 </div>
               )}
-              {(room.settings.generationParams as any)?.roadDensity !== undefined && (
+              {(room.settings.generationParams as unknown as Record<string, number>)?.roadDensity !== undefined && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-shadow-400">Road Density</dt>
-                  <dd className="mt-1 text-sm text-white">{(room.settings.generationParams as any).roadDensity}</dd>
+                  <dd className="mt-1 text-sm text-white">
+                    {(room.settings.generationParams as unknown as Record<string, number>).roadDensity}
+                  </dd>
                 </div>
               )}
             </dl>

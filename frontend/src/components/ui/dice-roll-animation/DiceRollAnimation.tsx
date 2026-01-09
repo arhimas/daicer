@@ -163,6 +163,7 @@ export function DiceRollAnimation({
   const mountRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number | undefined>(undefined);
   const stateRef = useRef<ThreeState | null>(null);
+  const isCompleteRef = useRef(false);
   const [isComplete, setIsComplete] = useState(false);
 
   // Store latest callbacks in refs to avoid re-running effect
@@ -171,29 +172,21 @@ export function DiceRollAnimation({
     latestOnComplete.current = onComplete;
   }, [onComplete]);
 
-  const canvasStyle = useMemo(() => {
-    // Use explicit style dimensions if provided, otherwise use size map
-    if (style?.width && style?.height) {
-      return {
-        ...style,
-        position: 'relative' as const,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      };
-    }
-
-    const baseSize = CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium;
-    return {
-      width: `${baseSize}px`,
-      height: `${baseSize}px`,
+  const canvasStyle = useMemo(() => 
+    // ... (memo body unchanged) ...
+    // To save tokens I will cut this part out if possible, but replace_file_content needs contiguous block.
+    // I entered a large block replacement.
+    // Let's try targeted replacements.
+     ({
+      width: style?.width ?? `${CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium}px`,
+      height: style?.height ?? `${CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium}px`,
       position: 'relative' as const,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       ...style,
-    };
-  }, [size, style]);
+    })
+  , [size, style]);
 
   const rootClassName = className
     ? `flex flex-col items-center gap-3 ${className}`
@@ -206,6 +199,9 @@ export function DiceRollAnimation({
     }
 
     const mountElement = mountRef.current;
+
+    // Reset completion ref
+    isCompleteRef.current = false;
 
     // Wait for valid dimensions to prevent WebGL zero-size errors
     const width = mountElement.clientWidth || CONTAINER_SIZE_MAP[size] || 280;
@@ -242,19 +238,19 @@ export function DiceRollAnimation({
 
     stateRef.current = { scene, camera, renderer, axes, dice: [] };
 
-    const updateSize = (width: number, height: number) => {
-      if (!width || !height) return;
-      stateRef.current?.renderer.setSize(width, height, false);
+    const updateSize = (w: number, h: number) => {
+      if (!w || !h) return;
+      stateRef.current?.renderer.setSize(w, h, false);
       if (stateRef.current?.camera) {
-        stateRef.current.camera.aspect = width / height;
+        stateRef.current.camera.aspect = w / h;
         stateRef.current.camera.updateProjectionMatrix();
       }
     };
 
     const handleObserverResize = (entries: ResizeObserverEntry[]) => {
       if (!entries[0]) return;
-      const { width, height } = entries[0].contentRect;
-      updateSize(width, height);
+      const { width: w, height: h } = entries[0].contentRect;
+      updateSize(w, h);
     };
 
     const handleWindowResize = () => {
@@ -342,7 +338,8 @@ export function DiceRollAnimation({
           }
         });
 
-        if (allComplete && !isComplete) {
+        if (allComplete && !isCompleteRef.current) {
+          isCompleteRef.current = true;
           setIsComplete(true);
           if (latestOnComplete.current) {
             latestOnComplete.current();
@@ -406,7 +403,7 @@ export function DiceRollAnimation({
         if (ext) {
           ext.loseContext();
         }
-      } catch (e) {
+      } catch {
         // Ignore in test environment
       }
       const canvas = currentRenderer.domElement;

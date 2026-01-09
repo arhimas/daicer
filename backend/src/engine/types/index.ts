@@ -59,11 +59,30 @@ export const Attribute = {
 
 export type SkillDetail = z.infer<typeof SkillDetailSchema>;
 
+// New Exports for Strict Relations
+import {
+  EntityActionSchema,
+  EntitySpellSchema,
+  EntityProficiencySchema,
+  EntityLanguageSchema,
+  EntityTraitSchema,
+  FeatureSchema,
+} from '../schemas';
+
+export type EntityAction = z.infer<typeof EntityActionSchema>;
+export type EntitySpell = z.infer<typeof EntitySpellSchema>;
+export type EntityProficiency = z.infer<typeof EntityProficiencySchema>;
+export type EntityLanguage = z.infer<typeof EntityLanguageSchema>;
+export type EntityTrait = z.infer<typeof EntityTraitSchema>;
+export type EntityFeature = z.infer<typeof FeatureSchema>;
+
 export type Talent = z.infer<typeof TalentSchema>;
 export type BackgroundDetails = z.infer<typeof BackgroundDetailsSchema>;
 export type ResourcePool = z.infer<typeof ResourcePoolSchema>;
 export type AdvancementPoints = z.infer<typeof AdvancementPointsSchema>;
 export type InventoryItem = z.infer<typeof InventoryItemSchema>;
+// Compatibility Alias for EntityAdapter:
+export type EntityItem = InventoryItem;
 export type CharacterEquipment = InventoryItem[]; // Alias
 export type EntitySheet = z.infer<typeof EntitySheetSchema>;
 /** @deprecated Use EntitySheet instead */
@@ -157,23 +176,9 @@ export interface EntityStats {
 }
 export type StatBlock = EntityStats; // Alias for tests and legacy code
 
-export interface EntityAction {
-  id?: string;
-  name: string;
-  type: 'melee' | 'ranged' | 'spell' | 'utility' | 'melee_attack' | 'ranged_attack';
-  toHit?: number;
-  reach?: number;
-  range?: string;
-  damage?: { dice: string; bonus: number; type: string }[];
-  save?: { dc: number; stat: string };
-  description: string;
-}
-
-export interface EntityFeature {
-  name: string;
-  description: string;
-  usage?: { max: number; per: string };
-}
+// Manual interfaces removed in favor of Zod inference above.
+// export interface EntityAction { ... }
+// export interface EntityFeature { ... }
 
 export interface Entity {
   id: string;

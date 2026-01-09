@@ -12,7 +12,7 @@ interface PlayerSidebarProps {
  * @param props - Component props
  * @returns Sidebar UI
  */
-export default function PlayerSidebar({ players, creatures, onSelectPlayer }: PlayerSidebarProps) {
+export function PlayerSidebar({ players, creatures, onSelectPlayer }: PlayerSidebarProps) {
   const { t } = useI18n();
   const hasPlayerAction = (playerAction: Player['action']) =>
     typeof playerAction === 'string' && playerAction.trim().length > 0;
@@ -41,11 +41,9 @@ export default function PlayerSidebar({ players, creatures, onSelectPlayer }: Pl
                 }`}
               >
                 <div className="mb-2 flex items-center gap-3">
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  {(char as any).avatarAssets?.publicUrl ? (
+                  {char.avatarAssets?.publicUrl ? (
                     <img
-                      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                      src={(char as any).avatarAssets.publicUrl}
+                      src={char.avatarAssets.publicUrl}
                       alt={`${char.name} portrait`}
                       className="h-10 w-10 flex-shrink-0 rounded-full border border-shadow-600 object-cover"
                     />
@@ -64,11 +62,9 @@ export default function PlayerSidebar({ players, creatures, onSelectPlayer }: Pl
                       <h3 className="font-bold text-shadow-50 text-sm">{char.name}</h3>
                       {hasAction && <span className="text-aurora-300 text-xs">✓</span>}
                     </div>
-                    <p className="text-xs text-shadow-300">
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {(char as any).race?.name || (char as any).race}{' '}
-                      {(char as any).class?.name || (char as any).characterClass} Lvl {(char as any).level || 1}
-                    </p>
+                    {typeof char.race === 'string' ? char.race : char.race?.name}{' '}
+                    {typeof char.class === 'string' ? char.class : char.class?.name || char.characterClass} Lvl{' '}
+                    {char.level || 1}
                   </div>
                 </div>
 
@@ -86,21 +82,17 @@ export default function PlayerSidebar({ players, creatures, onSelectPlayer }: Pl
                 <div className="grid grid-cols-3 gap-2 text-xs text-center">
                   <div className="bg-shadow-900/70 p-1.5 rounded border border-shadow-700">
                     <p className="text-aurora-300 font-bold text-sm">
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {(char as any).hp}/{(char as any).maxHp}
+                      {char.hp}/{char.maxHp}
                     </p>
                     <p className="text-shadow-500 text-xs">{t('common.hp')}</p>
                   </div>
                   <div className="bg-shadow-900/70 p-1.5 rounded border border-shadow-700">
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    <p className="font-bold text-sm text-shadow-100">{(char as any).armorClass}</p>
+                    <p className="font-bold text-sm text-shadow-100">{char.armorClass}</p>
                     <p className="text-shadow-500 text-xs">{t('common.ac')}</p>
                   </div>
                   <div className="bg-shadow-900/70 p-1.5 rounded border border-shadow-700">
-                    { }
-                    <p className="font-bold text-sm text-shadow-100">
-                      {getModifier((char as any).attributes?.Dexterity || 10)}
-                    </p>
+                    {}
+                    <p className="font-bold text-sm text-shadow-100">{getModifier(char.attributes?.Dexterity || 10)}</p>
                     <p className="text-shadow-500 text-xs">{t('common.init')}</p>
                   </div>
                 </div>

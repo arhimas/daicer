@@ -144,6 +144,7 @@ export function WorldPreview({ config, className }: WorldPreviewProps) {
           onTileClick={() => {}}
           onTileDoubleClick={() => {}}
           onTileHover={() => {}}
+          onCenterChange={setCameraPosition}
         />
       ) : (
         <MapRenderer

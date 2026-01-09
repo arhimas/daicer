@@ -11,7 +11,7 @@ interface ChunkProvider {
 
 interface MapRenderer3DProps {
   width: number;
-  height: number; // Used for aspect ratio
+  height: number;
   center: Coordinates;
   viewZ: number;
   chunkProvider: ChunkProvider;
@@ -22,10 +22,51 @@ interface MapRenderer3DProps {
   onTileClick: (coords: Coordinates, e: React.MouseEvent) => void;
   onTileDoubleClick?: (coords: Coordinates) => void;
   onTileHover: (coords: Coordinates | null) => void;
+  onCenterChange?: (newCenter: Coordinates) => void; // New prop
   previewPath?: Coordinates[] | null | undefined;
   isLive?: boolean;
 }
 
+// Component to sync Camera movement back to parent
+function CameraSync({
+  onCenterChange,
+  sysCenter,
+}: {
+  onCenterChange?: (c: Coordinates) => void;
+  sysCenter: Coordinates;
+}) {
+  const controlsRef = useRef<CameraControls>(null);
+
+  // Sync external center change to camera target (if drastic?)
+  // Actually, we want the camera to FOLLOW internal controls, but REPORT to parent.
+  // Parent update -> moves mesh generation center -> renders new meshes.
+
+  return (
+    <CameraControls
+      ref={controlsRef}
+      minZoom={20}
+      maxZoom={100}
+      onEnd={() => {
+        // Update on interaction end (drag release) to avoid perf hit
+        if (!controlsRef.current || !onCenterChange) return;
+        const target = new THREE.Vector3();
+        controlsRef.current.getTarget(target);
+
+        // Map 3D target back to Tile Coordinates
+        // In MapScene: posX = wx, posZ = -wy.
+        // So wx = target.x, wy = -target.z
+
+        onCenterChange({
+          x: Math.round(target.x),
+          y: Math.round(-target.z),
+          z: sysCenter.z,
+        });
+      }}
+    />
+  );
+}
+
+// ... existing MapScene ...
 // Internal scene component to handle gameplay logic
 // eslint-disable-next-line react/function-component-definition
 const MapScene = ({
@@ -37,7 +78,8 @@ const MapScene = ({
   onTileClick,
   onTileHover,
   entities,
-}: Omit<MapRenderer3DProps, 'width' | 'height'>) => {
+}: Omit<MapRenderer3DProps, 'width' | 'height' | 'onCenterChange'>) => {
+  // ... existing implementation ...
   const groupRef = useRef<THREE.Group>(null);
 
   // Constants
@@ -187,7 +229,7 @@ const MapScene = ({
 };
 
 export function MapRenderer3D(props: MapRenderer3DProps) {
-  const { width, height } = props;
+  const { width, height, center, onCenterChange } = props;
   return (
     <div style={{ width, height }}>
       <Canvas shadows dpr={[1, 2]}>
@@ -197,18 +239,12 @@ export function MapRenderer3D(props: MapRenderer3DProps) {
           zoom={40}
           near={-100}
           far={200}
-          onUpdate={(c) => c.lookAt(0, 0, 0)} // Initial lookat, CameraControls handles interact
+          onUpdate={(c) => c.lookAt(0, 0, 0)} // Initial lookat
         />
 
-        <CameraControls
-          minZoom={20}
-          maxZoom={100}
-          // Lock rotation for pure isometric? Or allow spin?
-          // Starting with free orbit but high damping
-        />
+        <CameraSync onCenterChange={onCenterChange} sysCenter={center} />
 
         <ambientLight intensity={0.7} />
-        {}
         <directionalLight position={[10, 20, 5]} intensity={1.2} castShadow />
 
         <MapScene {...props} />

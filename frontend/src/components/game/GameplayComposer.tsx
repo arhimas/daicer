@@ -43,7 +43,7 @@ export default function GameplayComposer({
     if (isControlled) return;
     const draft = localStorage.getItem(`composer-draft-${roomId}`);
     if (draft) {
-      setInternalAction(draft);
+      setTimeout(() => setInternalAction(draft), 0);
     }
   }, [roomId, isControlled]);
 

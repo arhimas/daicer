@@ -41,36 +41,40 @@ export function ChatActionToolbar({
   // Auto-fill activeLocation into Position fields OR individual x,y,z fields
   useEffect(() => {
     if (selectedTool && activeLocation) {
-      setFormData((prev) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const updates: Record<string, any> = { ...prev };
+      setTimeout(() => {
+        setFormData((prev) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const updates: Record<string, any> = { ...prev };
 
-        // 1. JSON Position Field
-        const posField = selectedTool.fields.find((f) => f.type === 'position');
-        if (posField) {
-          updates[posField.name] = JSON.stringify({ x: activeLocation.x, y: activeLocation.y, z: activeLocation.z });
-        }
+          // 1. JSON Position Field
+          const posField = selectedTool.fields.find((f) => f.type === 'position');
+          if (posField) {
+            updates[posField.name] = JSON.stringify({ x: activeLocation.x, y: activeLocation.y, z: activeLocation.z });
+          }
 
-        // 2. Individual Coordinate Fields
-        // Check if tool has x, y, and z fields
-        const hasX = selectedTool.fields.some((f) => f.name === 'x');
-        const hasY = selectedTool.fields.some((f) => f.name === 'y');
-        const hasZ = selectedTool.fields.some((f) => f.name === 'z');
+          // 2. Individual Coordinate Fields
+          // Check if tool has x, y, and z fields
+          const hasX = selectedTool.fields.some((f) => f.name === 'x');
+          const hasY = selectedTool.fields.some((f) => f.name === 'y');
+          const hasZ = selectedTool.fields.some((f) => f.name === 'z');
 
-        if (hasX) updates.x = activeLocation.x.toString();
-        if (hasY) updates.y = activeLocation.y.toString();
-        if (hasZ) updates.z = activeLocation.z.toString();
+          if (hasX) updates.x = activeLocation.x.toString();
+          if (hasY) updates.y = activeLocation.y.toString();
+          if (hasZ) updates.z = activeLocation.z.toString();
 
-        // 3. Path Field (Move Tool)
-        // If tool has a 'path' field, we assume it's for movement and set a single step path to the target.
-        const pathField = selectedTool.fields.find((f) => f.name === 'path' && f.type === 'json');
-        if (pathField) {
-          // We create a single-step path to the clicked location
-          updates[pathField.name] = JSON.stringify([{ x: activeLocation.x, y: activeLocation.y, z: activeLocation.z }]);
-        }
+          // 3. Path Field (Move Tool)
+          // If tool has a 'path' field, we assume it's for movement and set a single step path to the target.
+          const pathField = selectedTool.fields.find((f) => f.name === 'path' && f.type === 'json');
+          if (pathField) {
+            // We create a single-step path to the clicked location
+            updates[pathField.name] = JSON.stringify([
+              { x: activeLocation.x, y: activeLocation.y, z: activeLocation.z },
+            ]);
+          }
 
-        return updates;
-      });
+          return updates;
+        });
+      }, 0);
     }
   }, [activeLocation, selectedTool]);
 
@@ -84,12 +88,14 @@ export function ChatActionToolbar({
       const fieldToFill = selectedTool.fields.find((f) => actorFields.includes(f.name));
 
       if (fieldToFill) {
-        setFormData((prev) => {
-          if (!prev[fieldToFill.name]) {
-            return { ...prev, [fieldToFill.name]: activeEntity.id };
-          }
-          return prev;
-        });
+        setTimeout(() => {
+          setFormData((prev) => {
+            if (!prev[fieldToFill.name]) {
+              return { ...prev, [fieldToFill.name]: activeEntity.id };
+            }
+            return prev;
+          });
+        }, 0);
       }
     }
   }, [activeEntity, selectedTool]);
@@ -137,12 +143,12 @@ export function ChatActionToolbar({
         // Formatting
         if (field.type === 'number') {
           return `${field.name}=${rawVal}`;
-        } if (field.type === 'json' || field.type === 'position') {
+        }
+        if (field.type === 'json' || field.type === 'position') {
           return `${field.name}='${rawVal}'`;
-        } 
-          // Text, Select, Entity Search (returns ID), Room Entity (returns ID)
-          return `${field.name}="${rawVal}"`;
-        
+        }
+        // Text, Select, Entity Search (returns ID), Room Entity (returns ID)
+        return `${field.name}="${rawVal}"`;
       })
       .filter(Boolean)
       .join(', ');
@@ -207,6 +213,7 @@ export function ChatActionToolbar({
                 results.map((res) => (
                   <button
                     key={res.id}
+                    type="button"
                     className="w-full text-left px-3 py-2 text-xs hover:bg-aurora-500/20 hover:text-white text-aurora-200 flex flex-col"
                     onClick={() => {
                       setFormData({ ...formData, [field.name]: res.id });
@@ -224,6 +231,7 @@ export function ChatActionToolbar({
                 </div>
               )}
               <button
+                type="button"
                 className="w-full text-center py-1 text-[10px] text-red-400 hover:bg-red-500/10 border-t border-midnight-800"
                 onClick={() => setActiveSearchField(null)}
               >
@@ -266,8 +274,8 @@ export function ChatActionToolbar({
       const actorId = dependencyField ? formData[dependencyField] : null;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const actor = roomEntities?.find((e: any) => e.id === actorId || e.documentId === actorId);
-       
-      const actions = actor?.structuredActions || [];
+
+      const actions = actor?.actions || [];
 
       return (
         <select

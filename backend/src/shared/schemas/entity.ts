@@ -45,26 +45,76 @@ export const AdvancementPointsSchema = z.object({
   talent: z.number(),
 });
 
+export const EntityActionSchema = z.object({
+  id: z.string().optional(),
+  name: z.string(),
+  type: z.string(), // "melee_attack", etc.
+  toHit: z.number().optional(),
+  damage: z.array(z.object({ dice: z.string(), bonus: z.number(), type: z.string() })).optional(),
+  range: z.string().optional(),
+  save: z.object({ dc: z.number(), stat: z.string() }).optional(),
+  description: z.string().optional(),
+  action_definition: z.object({ documentId: z.string().optional(), name: z.string() }).optional(),
+});
+
+export const EntitySpellSchema = z.object({
+  documentId: z.string().optional(),
+  name: z.string(),
+  level: z.number(),
+  school: z.string().optional(),
+  source: z.enum(['known', 'prepared']),
+  castingTime: z.string().optional(),
+  range: z.string().optional(),
+  description: z.string().optional(),
+});
+
+export const EntityProficiencySchema = z.object({
+  documentId: z.string().optional(),
+  name: z.string(),
+  type: z.string().optional(),
+});
+
+export const EntityLanguageSchema = z.object({
+  documentId: z.string().optional(),
+  name: z.string(),
+  isRare: z.boolean().optional(),
+});
+
+export const EntityTraitSchema = z.object({
+  documentId: z.string().optional(),
+  name: z.string(),
+  description: z.string().optional(),
+});
+
 export const InventoryItemSchema = z.object({
   id: z.string().optional(),
-  name: z.string(), // Was item
   quantity: z.number(),
   slot: z.string(),
   isEquipped: z.boolean(),
-  // Added for rules consolidation
+  item: z
+    .object({
+      documentId: z.string().optional(),
+      name: z.string(),
+      description: z.string().optional(),
+    })
+    .optional(),
+  // Legacy flat fields support if needed, but per new structure we prefer 'item' relation
+  name: z.string().optional(),
   properties: z.array(z.string()).optional(),
   weight: z.number().optional(),
   cost: z.object({ amount: z.number(), unit: z.string() }).optional(),
 });
 
 export const FeatureSchema = z.object({
+  documentId: z.string().optional(), // Relation ID
   id: z.string().optional(),
   name: z.string(),
-  description: z.string(),
+  description: z.string().optional(),
+  level: z.number().optional(),
   usage: z
     .object({
       max: z.number(),
-      current: z.number().optional(), // Added current state
+      current: z.number().optional(),
       per: z.string(),
     })
     .optional(),
@@ -133,6 +183,7 @@ export const EntitySheetSchema = z.object({
   // Combat Stats
   armorClass: z.number(),
   initiative: z.number(),
+  initiativeBonus: z.number(), // Added
   speed: SpeedSchema,
   proficiencyBonus: z.number(),
   inspiration: z.boolean(),
@@ -145,7 +196,8 @@ export const EntitySheetSchema = z.object({
   expertises: z.array(z.string()),
 
   // Equipment & Inventory
-  equipment: z.array(z.any()), // Simplified from InventoryItemSchema
+  equipment: z.array(z.any()), // Legacy/Flat
+  inventory: z.array(InventoryItemSchema).default([]), // New Strict
   currency: z.object({
     cp: z.number(),
     sp: z.number(),
@@ -154,14 +206,22 @@ export const EntitySheetSchema = z.object({
     pp: z.number(),
   }),
 
-  // Actions & Capabilities (The "Flattened List")
-  structuredActions: z.array(z.any()).default([]), // Simplified from ActionDefinitionSchema
+  // Actions & Capabilities
+  actions: z.array(EntityActionSchema).default([]),
+  // Deprecated support (optional)
+  structuredActions: z.array(z.any()).default([]),
 
   // Spellcasting
+  spells: z.array(EntitySpellSchema).default([]),
   spellbook: SpellbookSchema.optional(),
 
+  // Relations
+  proficiencies: z.array(EntityProficiencySchema).default([]),
+  languages: z.array(EntityLanguageSchema).default([]),
+  traits: z.array(EntityTraitSchema).default([]),
+  features: z.array(FeatureSchema).default([]),
+
   // Lists (Legacy/Migration support combined with new)
-  features: z.array(z.any()).default([]), // Simplified from FeatureSchema
   talents: z.array(z.any()).default([]), // Simplified from TalentSchema
 
   // State Tracking

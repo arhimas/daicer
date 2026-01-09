@@ -16,6 +16,7 @@ export function ReloadPrompt() {
 
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => updateServiceWorker(true)}
             className="p-2 rounded-lg bg-aurora-500/20 text-aurora-100 hover:bg-aurora-500/30 transition-colors"
             title="Reload to update"
@@ -23,6 +24,7 @@ export function ReloadPrompt() {
             <RefreshCw className="w-4 h-4" />
           </button>
           <button
+            type="button"
             onClick={() => closeNeedRefresh()}
             className="p-2 rounded-lg bg-midnight-800 text-shadow-300 hover:bg-midnight-700 transition-colors"
             title="Dismiss"

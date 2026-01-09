@@ -32,36 +32,31 @@ export const KnowledgeModal: React.FC<KnowledgeModalProps> = ({ isOpen, onClose,
   // For now, we mock fetch or assume snippet has content (which it usually does).
   // If snippet content is truncated, we'd fetch source.
 
+  // Derived state pattern to reset loading when result changes
+  const [lastResultId, setLastResultId] = useState<number | null>(null);
+
+  if (result?.id !== lastResultId) {
+    setLastResultId(result?.id ?? null);
+    setLoading(true);
+    setContent('');
+  }
+
   useEffect(() => {
-    if (isOpen && result) {
-      // Mock fetch full content logic
-      // In production: fetch(`/api/knowledge-sources/${result.sourceId}`)
-      // Here we just use what we have or simulate
-      setLoading(true);
-
+    if (isOpen && result && loading) {
       // Simulate fetch delay for "Juicy" feel
-      setTimeout(() => {
-        // If the result has full content, use it.
-        // UnifiedSearchService currently returns snippet content.
-        // Ideally we fetch the FULL KnowledgeSource content.
-        // For this MVP, we will render what we have (snippet) + placeholder text
-        // to show off the visualizer.
-        // In real integration, we'd add a fetch call here.
-
-        // Let's assume result.excerpt IS the content for now or passed in options.
-        // But actually UnifiedSearchService returns `excerpt` which is truncated?
-        // No, query returns `content` column usually.
-        // Let's assume we can pass full content or fetch it.
-
+      const timer = setTimeout(() => {
         // Fallback to excerpt for demo
         setContent(
           result.content ||
-            (result.excerpt ? `${result.excerpt  }\n\n*(Full content would be fetched here...)*` : 'Loading...')
+            (result.excerpt ? `${result.excerpt}\n\n*(Full content would be fetched here...)*` : 'Loading...')
         );
         setLoading(false);
       }, 300);
+
+      return () => clearTimeout(timer);
     }
-  }, [isOpen, result]);
+    return undefined;
+  }, [isOpen, result, loading]);
 
   if (!result) return null;
 
@@ -96,6 +91,7 @@ export const KnowledgeModal: React.FC<KnowledgeModalProps> = ({ isOpen, onClose,
               </div>
 
               <button
+                type="button"
                 onClick={onClose}
                 className="rounded-full p-2 hover:bg-white/10 transition-colors text-white/60 hover:text-white"
               >
@@ -140,11 +136,11 @@ export const KnowledgeModal: React.FC<KnowledgeModalProps> = ({ isOpen, onClose,
             </div>
 
             <div className="flex items-center gap-2">
-              <button className="p-2 hover:bg-white/10 rounded-lg disabled:opacity-30" disabled>
+              <button type="button" className="p-2 hover:bg-white/10 rounded-lg disabled:opacity-30" disabled>
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <span>Page 1 of 1</span>
-              <button className="p-2 hover:bg-white/10 rounded-lg disabled:opacity-30" disabled>
+              <button type="button" className="p-2 hover:bg-white/10 rounded-lg disabled:opacity-30" disabled>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

@@ -38,6 +38,7 @@ export default function WorldConfigPage() {
   const handleConfigChange = (newConfig: WorldConfig) => {
     setSettings((prev: WorldSettings) => ({
       ...prev,
+      seed: newConfig.seed, // Sync top level
       generationParams: {
         ...prev.generationParams,
         ...newConfig,

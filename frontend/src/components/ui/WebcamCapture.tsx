@@ -42,10 +42,12 @@ export function WebcamCapture({ open, onOpenChange, onCapture }: WebcamCapturePr
 
   useEffect(() => {
     if (open) {
-      startCamera();
+      setTimeout(() => startCamera(), 0);
     } else {
-      stopCamera();
-      setCapturedImage(null);
+      setTimeout(() => {
+        stopCamera();
+        setCapturedImage(null);
+      }, 0);
     }
     return () => {
       stopCamera();

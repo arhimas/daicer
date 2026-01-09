@@ -3,15 +3,13 @@ import { Bell, BellOff } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function PushNotificationManager() {
-  const [permission, setPermission] = useState<NotificationPermission>('default');
-  const [subscription, setSubscription] = useState<PushSubscription | null>(null);
-
-  useEffect(() => {
-    if ('Notification' in window) {
-      setPermission(Notification.permission);
-      checkSubscription();
+  const [permission, setPermission] = useState<NotificationPermission>(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      return Notification.permission;
     }
-  }, []);
+    return 'default';
+  });
+  const [subscription, setSubscription] = useState<PushSubscription | null>(null);
 
   const checkSubscription = async () => {
     if ('serviceWorker' in navigator) {
@@ -20,6 +18,13 @@ export function PushNotificationManager() {
       setSubscription(sub);
     }
   };
+
+  useEffect(() => {
+    if ('Notification' in window) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      checkSubscription();
+    }
+  }, []);
 
   const requestPermission = async () => {
     if (!('Notification' in window)) {
@@ -72,6 +77,7 @@ export function PushNotificationManager() {
 
   return (
     <button
+      type="button"
       onClick={requestPermission}
       className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-midnight-800 border border-midnight-600 hover:border-aurora-500/50 transition-colors text-xs text-shadow-200"
     >

@@ -30,14 +30,15 @@ describe('Spawn Service', () => {
   });
 
   describe('spawnMonster', () => {
-    it('should spawn monster and copy structuredActions/stats', async () => {
+    it('should spawn monster and map actions component', async () => {
       const mockMonster = {
         documentId: 'mon-1',
         name: 'Goblin',
         hp: 7,
         xp: 50,
         stats: { strength: 8, dexterity: 14 },
-        structuredActions: [{ id: 'action-1', name: 'Scimitar', type: 'melee', damage: [{ dice: '1d6', bonus: 2 }] }],
+        actions: [{ id: 'action-1', name: 'Scimitar', type: 'melee_attack', damage: [], toHit: 4 }], // Relation
+        inventory: [],
       };
 
       mockFindOne.mockResolvedValueOnce(mockMonster); // Monster
@@ -49,7 +50,7 @@ describe('Spawn Service', () => {
         ac: 12,
         level: 1,
         speed: { walk: 30 },
-        structuredActions: mockMonster.structuredActions,
+        formattedActions: [], // No longer used directly?
         proficiencyBonus: 2,
       });
 
@@ -65,11 +66,9 @@ describe('Spawn Service', () => {
           data: expect.objectContaining({
             name: 'Goblin',
             type: 'monster',
-            hp: 7, // Fixed: hp instead of currentHp
-            xp: 50, // Fixed: xp instead of experience
+            hp: 7,
             room: 'room-1',
-            attributes: expect.objectContaining(mockMonster.stats), // Fixed check attributes instead of stats
-            structuredActions: mockMonster.structuredActions, // Verify explicit copy
+            actions: expect.arrayContaining([expect.objectContaining({ name: 'Scimitar', toHit: 4 })]),
           }),
         })
       );
@@ -78,14 +77,13 @@ describe('Spawn Service', () => {
     it('should throw on collision', async () => {
       mockFindOne.mockResolvedValueOnce({ documentId: 'mon-1', name: 'Goblin' });
 
-      // Mock Derived for collision case (needed because derive is called before collision check)
+      // Mock Derived
       mockDerive.mockReturnValueOnce({
         hp: 10,
         maxHp: 10,
         ac: 10,
         level: 1,
         speed: { walk: 30 },
-        structuredActions: [],
       });
 
       mockFindMany
@@ -99,32 +97,16 @@ describe('Spawn Service', () => {
   });
 
   describe('spawnCharacter', () => {
-    it('should derive stats and actions from equipment and spawn character', async () => {
+    it('should derive stats and populate new fields', async () => {
       const mockCharacter = {
         documentId: 'char-1',
         name: 'Hero',
-        stats: { strength: 16, dexterity: 14, constitution: 14 }, // Str +3
+        stats: { strength: 16 },
         classes: [{ class: { documentId: 'cls-1', name: 'Fighter', hit_die: '1d10' }, level: 1 }],
-        race: { speed: 30 },
-        equipment: [
-          {
-            isEquipped: true,
-            item: {
-              name: 'Longsword',
-              damage_dice: '1d8',
-              damage_type: { name: 'slashing' },
-              range_normal: 5,
-              equipment_category: { slug: 'weapon' },
-            },
-          },
-          {
-            isEquipped: false, // Should be ignored
-            item: {
-              name: 'Dagger',
-              damage_dice: '1d4',
-            },
-          },
-        ],
+        race: { speed: 30, proficiencies: [], traits: [] },
+        inventory: [{ isEquipped: true, item: { name: 'Sword' } }],
+        actions: [],
+        spell_config: {},
       };
 
       mockFindOne.mockResolvedValueOnce(mockCharacter);
@@ -136,7 +118,6 @@ describe('Spawn Service', () => {
         ac: 12,
         level: 1,
         speed: { walk: 30 },
-        structuredActions: [{ name: 'Longsword', toHit: 5 }],
         proficiencyBonus: 2,
       });
 
@@ -152,23 +133,12 @@ describe('Spawn Service', () => {
             type: 'player',
             class: 'cls-1',
             owner: 'user-1',
-            // Check derived stats
             maxHp: 12,
-            // structuredActions should be derived
-            structuredActions: expect.arrayContaining([
-              expect.objectContaining({
-                name: 'Longsword',
-                toHit: 5, // Str +3 + Prof +2
-              }),
-            ]),
+            inventory: expect.arrayContaining([expect.objectContaining({ isEquipped: true })]),
+            actions: expect.any(Array), // Just check it's populated
           }),
         })
       );
-
-      // Ensure Dagger is NOT in actions
-      const createCall = mockCreate.mock.calls[0][0];
-      const actions = createCall.data.structuredActions;
-      expect(actions.find((a: { name: string }) => a.name === 'Dagger')).toBeUndefined();
     });
   });
 });

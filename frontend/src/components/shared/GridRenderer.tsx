@@ -201,7 +201,7 @@ export function GridRenderer({
           aspectRatio: `${width} / ${height}`,
         }}
       >
-        {Array.from({ length: height }, (_, y) => Array.from({ length: width }, (_, x) => renderSquare(x, y)))}
+        {Array.from({ length: height }, (_, y) => Array.from({ length: width }, (__, x) => renderSquare(x, y)))}
       </div>
 
       {/* Hovered cell info */}

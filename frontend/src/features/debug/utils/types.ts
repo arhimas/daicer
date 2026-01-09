@@ -94,7 +94,6 @@ export interface DebugEntity {
   pendingPath?: Coordinates[];
   currentHp?: number;
   maxHp?: number;
-  structuredActions?: unknown[];
 
   // Expanded for Inspector
   stats?: {

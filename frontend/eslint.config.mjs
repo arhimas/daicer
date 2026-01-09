@@ -17,6 +17,8 @@ export default tseslint.config(
   {
     ignores: [
       'dist',
+      'dev-dist',
+      'coverage',
       '.eslintrc.cjs',
       'vite.config.ts',
       'tailwind.config.js',
@@ -69,6 +71,7 @@ export default tseslint.config(
           mts: 'never',
         },
       ],
+      'no-use-before-define': 'off', // Use typescript-eslint version
       'import/no-extraneous-dependencies': [
         'error',
         {
@@ -83,6 +86,8 @@ export default tseslint.config(
             '**/__tests__/**',
             '**/.storybook/**',
             'vite.config.ts',
+            'eslint.config.mjs',
+            'e2e/utils/god-mode.ts',
           ],
         },
       ],

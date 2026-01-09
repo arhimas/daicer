@@ -6,6 +6,7 @@
 import { ShoppingCart, Swords, Shield, Backpack } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import React from 'react';
 import { useI18n } from '../../i18n';
 
 export interface EquipmentItemData {
@@ -63,9 +64,15 @@ function convertToGold(quantity: number, unit: string): number {
   return quantity * (rates[unit] || 1);
 }
 
+// Stabilize Icon usage
+function ItemIcon({ cat }: { cat: string }) {
+  const I = React.useMemo(() => getItemIcon(cat), [cat]);
+  return <I className="h-5 w-5 text-primary" />;
+}
+
 export function EquipmentItemCard({ item, onBuy, onEquip, currentGold, disabled }: EquipmentItemCardProps) {
   const { t, localize } = useI18n();
-  const Icon = getItemIcon(item.equipmentCategory);
+  // Stabilize Icon usage
   const costInGold = convertToGold(item.cost.quantity, item.cost.unit);
   const canAfford = currentGold >= costInGold;
 
@@ -74,7 +81,7 @@ export function EquipmentItemCard({ item, onBuy, onEquip, currentGold, disabled 
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
-            <Icon className="h-5 w-5 text-primary" />
+            <ItemIcon cat={item.equipmentCategory} />
             <CardTitle className="text-lg">{localize(item, 'name')}</CardTitle>
           </div>
           <div className="flex items-center gap-1 text-sm font-medium text-amber-500">

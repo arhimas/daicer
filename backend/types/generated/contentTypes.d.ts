@@ -427,8 +427,8 @@ export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
-    equipment_items: Schema.Attribute.Component<'game.inventory-item', true>;
     fullBody: Schema.Attribute.Media<'images'>;
+    inventory: Schema.Attribute.Component<'game.inventory-item', true>;
     level: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -591,6 +591,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
   };
   attributes: {
     ac: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
+    actions: Schema.Attribute.Relation<'manyToMany', 'api::action.action'>;
     appearance: Schema.Attribute.JSON;
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
@@ -599,8 +600,9 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     currentHp: Schema.Attribute.Integer;
     experience: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    features: Schema.Attribute.Component<'game.feature', true>;
+    features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
+    languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
     level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'> & Schema.Attribute.Private;
@@ -609,12 +611,13 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     owner: Schema.Attribute.Relation<'manyToOne', 'plugin::users-permissions.user'>;
     position: Schema.Attribute.Component<'game.position', false>;
+    proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
     spellbook: Schema.Attribute.Component<'game.spellbook', false>;
     stats: Schema.Attribute.Component<'game.stats', false>;
-    structuredActions: Schema.Attribute.JSON;
+    traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
     type: Schema.Attribute.Enumeration<['player', 'monster', 'npc']> & Schema.Attribute.DefaultTo<'player'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1067,12 +1070,12 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
-    equipment_items: Schema.Attribute.Component<'game.inventory-item', true>;
-    features: Schema.Attribute.Component<'game.feature', true>;
+    features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
     image: Schema.Attribute.Media<'images'>;
-    languages: Schema.Attribute.String;
+    inventory: Schema.Attribute.Component<'game.inventory-item', true>;
+    languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
     level: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -1090,11 +1093,13 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
     size: Schema.Attribute.Enumeration<['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
+    traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;

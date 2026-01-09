@@ -30,8 +30,9 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
   const getChunkId = useCallback((cx: number, cy: number) => `${cx},${cy}`, []);
 
   // Clear cache when critical config changes
+  const configKey = JSON.stringify(config);
   useEffect(() => {
-    console.log('[useChunkLoader] Config changed!', JSON.stringify(config));
+    console.log('[useChunkLoader] Config changed!', configKey);
     generationId.current += 1; // Increment generation ID
     setChunkCache({});
     setLoadingChunks(new Set());
@@ -46,9 +47,9 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
     // Allow a small tick for the reset to propagate before considered "done" if nothing is fetched
     const t = setTimeout(() => setIsRegenerating(false), 100);
     return () => clearTimeout(t);
-  }, [JSON.stringify(config)]);
+  }, [configKey]);
 
-  const processBatch = async () => {
+  const processBatch = useCallback(async () => {
     if (batchQueue.current.size === 0) return;
 
     const queuedIds = Array.from(batchQueue.current);
@@ -95,7 +96,7 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
       const results = data?.voxelPreview;
       console.log(
         `[useChunkLoader] Gen ${currentGen} received ${results?.length} chunks. Sample tile:`,
-        results?.[0]?.tiles?.[0]?.[0]
+        results?.[0]?.tiles?.[0]
       );
 
       if (Array.isArray(results)) {
@@ -128,7 +129,7 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
         }
       }
     }
-  };
+  }, [client, config, getChunkId]);
 
   const fetchChunk = useCallback(
     (cx: number, cy: number) => {
@@ -157,7 +158,7 @@ export function useChunkLoader({ config }: UseChunkLoaderProps) {
     // fetchChunk captures processBatch.
     // So if config changes -> component re-renders -> processBatch recreated (capturing NEW config) -> fetchChunk recreated -> good.
     // With Debounce, this happens less often.
-    [getChunkId, config]
+    [getChunkId, processBatch]
   );
 
   const getChunk = useCallback(

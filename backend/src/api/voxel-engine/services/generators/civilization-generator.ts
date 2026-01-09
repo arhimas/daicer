@@ -1,87 +1,81 @@
 import { Alea } from '../../../../engine';
 import { WorldConfig, Tile, BlockType } from '../../../../engine';
 import { StructureInfo, StructureRenderer } from './structure-renderer';
+import { WorldAtlas } from '../../../../engine/world'; // Import Atlas
 
 export class CivilizationGenerator {
   private config: WorldConfig;
+  private atlas?: WorldAtlas;
 
-  constructor(config: WorldConfig) {
+  constructor(config: WorldConfig, atlas?: WorldAtlas) {
     this.config = config;
+    this.atlas = atlas;
   }
 
   public apply(chunkX: number, chunkY: number, tiles: Tile[][][], wOffX: number, wOffY: number) {
+    if (!this.atlas) return; // Cannot generate without atlas
+
     const regionSize = Math.max(1, Math.floor(this.config.structureSpacing)) * this.config.chunkSize;
     const currentRegionX = Math.floor(wOffX / regionSize);
     const currentRegionY = Math.floor(wOffY / regionSize);
 
     for (let ry = currentRegionY - 1; ry <= currentRegionY + 1; ry++) {
       for (let rx = currentRegionX - 1; rx <= currentRegionX + 1; rx++) {
-        const struct = this.getRegionStructure(rx, ry, regionSize);
-        if (struct.type === 'none') continue;
+        // Use Atlas to get structure in this cell
+        const atlasStruct = this.atlas.getStructureInCell(rx, ry);
+        if (!atlasStruct || atlasStruct.type === 'none') continue;
 
-        this.connectStructureToNeighbors(struct, rx, ry, regionSize, tiles, wOffX, wOffY);
+        // Fix StructureInfo Mapping
+        const mappedStruct: StructureInfo = {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          type: (atlasStruct.type === 'village' ? 'tower' : atlasStruct.type) as any, // Map types if needed. Renderer supports city, castle, tower, dungeon.
+          // If Atlas has 'village', map to 'city' (small) or 'tower'?
+          // Let's map 'village' -> 'city' (small)
+          // 'city' -> 'city'
+          // 'ruin' -> 'dungeon'
+          worldX: Math.floor(atlasStruct.center.x),
+          worldY: Math.floor(atlasStruct.center.y),
+          size: atlasStruct.type === 'city' ? 60 : 30, // Override size for renderer safety
+          seed: atlasStruct.seed,
+        };
 
-        if (this.intersects(wOffX, wOffY, this.config.chunkSize, struct.worldX, struct.worldY, struct.size)) {
-          // We use Strategy pattern or pass context. For now, calling internal methods.
-          this.generateStructure(struct, tiles, wOffX, wOffY);
+        if (atlasStruct.type === 'village') mappedStruct.type = 'city'; // Treat village as small city
+        if (atlasStruct.type === 'ruin') mappedStruct.type = 'dungeon';
+
+        if (mappedStruct.type === 'none') continue;
+
+        // Connect logic (Roads)
+        // We need road logic. Atlas doesn't satisfy roads yet.
+        // We can keep the old Connect Neighbor logic but using Atlas centers.
+        this.connectStructureToNeighbors(mappedStruct, rx, ry, regionSize, tiles, wOffX, wOffY);
+
+        if (
+          this.intersects(
+            wOffX,
+            wOffY,
+            this.config.chunkSize,
+            mappedStruct.worldX,
+            mappedStruct.worldY,
+            mappedStruct.size
+          )
+        ) {
+          this.generateStructure(mappedStruct, tiles, wOffX, wOffY);
         }
       }
     }
   }
 
-  private getRegionStructure(regionX: number, regionY: number, regionSize: number): StructureInfo {
-    // Unique seed for this region's structure
-    const seed = `${this.config.seed}_reg_${regionX}_${regionY}`;
-    const rng = new Alea(seed);
-
-    // Chance check
-    if (rng.next() > this.config.structureChance) {
-      return { type: 'none', worldX: 0, worldY: 0, size: 0, seed };
-    }
-
-    // Position: Center-biased random within region
-    const padding = 20;
-    const availableSize = Math.max(10, regionSize - padding * 2);
-    const offsetX = Math.floor(rng.next() * availableSize) + padding;
-    const offsetY = Math.floor(rng.next() * availableSize) + padding;
-
-    const worldX = regionX * regionSize + offsetX;
-    const worldY = regionY * regionSize + offsetY;
-
-    // Type Selection (Weighted)
-    const roll = rng.next();
-    let type: StructureInfo['type'] = 'tower';
-    let baseSize = this.config.structureSizeAvg;
-
-    if (roll < 0.25) {
-      type = 'city';
-      baseSize = Math.floor(baseSize * 3);
-    } else if (roll < 0.45) {
-      type = 'castle';
-      baseSize = Math.floor(baseSize * 2.5);
-    } else if (roll < 0.7) {
-      type = 'dungeon';
-      baseSize = Math.floor(baseSize * 1.5);
-    } else {
-      type = 'tower';
-      baseSize = Math.floor(baseSize * 1.2);
-    }
-
-    // Clamp size logic
-    const size = Math.min(regionSize - 4, Math.max(8, baseSize));
-
-    return { type, worldX, worldY, size, seed };
-  }
-
+  // ... connectStructureToNeighbors remains similar but queries Atlas for targets
   private connectStructureToNeighbors(
     source: StructureInfo,
     rx: number,
     ry: number,
-    regionSize: number,
+    regionSize: number, // unused mostly if we use atlas
     tiles: Tile[][][],
     chunkOffX: number,
     chunkOffY: number
   ) {
+    if (!this.atlas) return;
     const neighbors = [
       { dx: 1, dy: 0 },
       { dx: 0, dy: 1 },
@@ -90,17 +84,13 @@ export class CivilizationGenerator {
 
     for (const n of neighbors) {
       if (rng.next() > this.config.roadDensity) continue;
-      const target = this.getRegionStructure(rx + n.dx, ry + n.dy, regionSize);
-      if (target.type !== 'none') {
-        this.rasterizeRoad(
-          source.worldX + Math.floor(source.size / 2),
-          source.worldY + Math.floor(source.size / 2),
-          target.worldX + Math.floor(target.size / 2),
-          target.worldY + Math.floor(target.size / 2),
-          tiles,
-          chunkOffX,
-          chunkOffY
-        );
+      const targetAtlas = this.atlas.getStructureInCell(rx + n.dx, ry + n.dy);
+
+      if (targetAtlas) {
+        const tx = Math.floor(targetAtlas.center.x);
+        const ty = Math.floor(targetAtlas.center.y);
+        // Simple road
+        this.rasterizeRoad(source.worldX, source.worldY, tx, ty, tiles, chunkOffX, chunkOffY);
       }
     }
   }

@@ -9,6 +9,7 @@ import { searchMonstersTool } from '../../../ai/tools/knowledge/search-monsters'
 import { searchSpellsTool } from '../../../ai/tools/knowledge/search-spells';
 import { searchClassesTool } from '../../../ai/tools/knowledge/search-classes';
 import { searchRacesTool } from '../../../ai/tools/knowledge/search-races';
+import { getLocationContextTool } from '../../../ai/tools/game/get-location-context';
 import { retrieveKnowledgeTool } from '../../../ai/tools/knowledge-tool';
 import { performActionTool } from '../../../ai/tools/game/perform-action';
 import { StrapiContext, StrapiInterface } from '../../../ai/tools/tool-factory';
@@ -21,6 +22,7 @@ export const getRegistryTools = (strapi: StrapiInterface, roomDocumentId: string
   tools.push(moveEntityTool(context));
   tools.push(inspectMapTool(context));
   tools.push(getMapImageTool(context));
+  tools.push(getLocationContextTool(context));
   tools.push(summonMonsterTool(context));
   tools.push(summonCharacterTool(context));
   tools.push(listEntitiesTool(context));

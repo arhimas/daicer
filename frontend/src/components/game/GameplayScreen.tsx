@@ -264,7 +264,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
       setCameraPosition(currentPlayer.position as Coordinates);
       setViewZ(currentPlayer.position.z);
     }
-  }, [currentPlayer?.position?.x, currentPlayer?.position?.y, currentPlayer?.position?.z]);
+  }, [currentPlayer?.position]);
 
   // Resize Observer for Map Container
   useEffect(() => {
@@ -344,6 +344,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
       <div className="absolute bottom-4 right-4 z-10 flex flex-col gap-2">
         <div className="flex flex-col items-center rounded-lg bg-midnight-900/90 p-2 shadow-xl backdrop-blur">
           <button
+            type="button"
             className="flex h-8 w-8 items-center justify-center rounded hover:bg-midnight-700 text-shadow-200"
             onClick={() => setZoom((z) => Math.min(3, z + 0.1))}
           >
@@ -351,6 +352,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
           </button>
           <span className="text-xs font-mono text-shadow-400">{Math.round(zoom * 100)}%</span>
           <button
+            type="button"
             className="flex h-8 w-8 items-center justify-center rounded hover:bg-midnight-700 text-shadow-200"
             onClick={() => setZoom((z) => Math.max(0.1, z - 0.1))}
           >
@@ -361,6 +363,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
           {([-1, 0, 1] as const).map((z) => (
             <button
               key={z}
+              type="button"
               onClick={() => setViewZ(z)}
               className={`flex h-8 w-8 items-center justify-center rounded text-xs font-bold transition-colors ${
                 viewZ === z ? 'bg-aurora-500 text-midnight-950' : 'text-shadow-400 hover:bg-midnight-700'

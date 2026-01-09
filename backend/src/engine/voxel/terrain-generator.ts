@@ -1,14 +1,17 @@
 import { Alea, FastNoise } from './utils/math';
 import { Tile, BlockType, BiomeType, ZLevel, WorldConfig } from '../types';
+import { WorldAtlas } from '../world';
 
 export class TerrainGenerator {
   private noiseElevation: FastNoise;
   private noiseMoisture: FastNoise;
   private rng: Alea;
   public config: WorldConfig;
+  private atlas?: WorldAtlas;
 
-  constructor(config: WorldConfig) {
+  constructor(config: WorldConfig, atlas?: WorldAtlas) {
     this.config = config;
+    this.atlas = atlas;
     this.rng = new Alea(config.seed);
     this.noiseElevation = new FastNoise(config.seed + '_elev');
     this.noiseMoisture = new FastNoise(config.seed + '_moist');
@@ -33,15 +36,28 @@ export class TerrainGenerator {
         const wx = worldOffsetX + x;
         const wy = worldOffsetY + y;
 
+        // Check Macro Structure
+        const structure = this.atlas?.getStructure(wx, wy);
+
         const nx = wx * this.config.globalScale;
         const ny = wy * this.config.globalScale;
-        const elev = this.noiseElevation.fbm(
+
+        let elev = this.noiseElevation.fbm(
           nx * this.config.elevationScale,
           ny * this.config.elevationScale,
           Math.floor(this.config.detail),
           this.config.roughness
         );
-        const moist = this.noiseMoisture.fbm(nx * this.config.moistureScale, ny * this.config.moistureScale, 2);
+        let moist = this.noiseMoisture.fbm(nx * this.config.moistureScale, ny * this.config.moistureScale, 2);
+
+        // FLATTEN TERRAIN IF INSIDE STRUCTURE
+        // Cities need flat ground roughly at sea level or slightly above
+        if (structure) {
+          // Flatten to 0.1 (just above sea level 0) with slight jitter
+          elev = 0.1;
+          // Override moisture to be pleasant?
+          moist = 0.5;
+        }
 
         const { biome, surfaceBlock } = this.determineBiome(elev, moist);
 
@@ -68,13 +84,20 @@ export class TerrainGenerator {
   public getTileAt(x: number, y: number, z: ZLevel): Tile {
     const nx = x * this.config.globalScale;
     const ny = y * this.config.globalScale;
-    const elev = this.noiseElevation.fbm(
+    let elev = this.noiseElevation.fbm(
       nx * this.config.elevationScale,
       ny * this.config.elevationScale,
       Math.floor(this.config.detail),
       this.config.roughness
     );
-    const moist = this.noiseMoisture.fbm(nx * this.config.moistureScale, ny * this.config.moistureScale, 2);
+    let moist = this.noiseMoisture.fbm(nx * this.config.moistureScale, ny * this.config.moistureScale, 2);
+
+    // Check Macro Structure
+    const structure = this.atlas?.getStructure(x, y);
+    if (structure) {
+      elev = 0.1; // Consistency
+      moist = 0.5;
+    }
 
     const { biome, surfaceBlock } = this.determineBiome(elev, moist);
 
@@ -148,7 +171,6 @@ export class TerrainGenerator {
     return { x, y, z, block, biome, isWalkable, isTransparent, variant: this.rng.next(), elevation, moisture };
   }
 }
-
 export function createUnifiedTerrainGenerator(seed: string, params: Partial<WorldConfig> = {}) {
   // Merge defaults with overrides
   const config: WorldConfig = {

@@ -83,7 +83,9 @@
       "component": "game.stats"
     },
     "languages": {
-      "type": "string"
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::language.language"
     },
     "challenge_rating": {
       "type": "decimal"
@@ -100,11 +102,21 @@
       ]
     },
     "features": {
-      "type": "component",
-      "repeatable": true,
-      "component": "game.feature"
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::feature.feature"
     },
-    "equipment_items": {
+    "traits": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::trait.trait"
+    },
+    "proficiencies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::proficiency.proficiency"
+    },
+    "inventory": {
       "type": "component",
       "repeatable": true,
       "component": "game.inventory-item"
@@ -118,6 +130,6 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::spell.spell"
-    },
+    }
   }
 }

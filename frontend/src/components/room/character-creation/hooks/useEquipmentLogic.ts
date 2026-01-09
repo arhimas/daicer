@@ -7,6 +7,35 @@ interface UseEquipmentLogicProps {
   initialGold?: number;
 }
 
+// Helpers
+
+function addToRefInventory(inv: any[], index: string, qty: number) {
+  const existing = inv.find((i: any) => i.itemIndex === index);
+  if (existing) existing.quantity += qty;
+  else inv.push({ itemIndex: index, quantity: qty });
+}
+
+function getStartingPack(className: string | undefined, packItems: any[]) {
+  // Switch case logic
+  switch (className) {
+    case 'Fighter':
+    case 'Paladin':
+      packItems.push(
+        { itemIndex: 'longsword', quantity: 1, autoEquip: true, slot: 'mainHand' },
+        { itemIndex: 'shield', quantity: 1, autoEquip: true, slot: 'shield' },
+        { itemIndex: 'chain-mail', quantity: 1, autoEquip: true, slot: 'armor' },
+        { itemIndex: 'dagger', quantity: 2 }
+      );
+      break;
+    // ... Add others ...
+    default:
+      packItems.push(
+        { itemIndex: 'dagger', quantity: 1, autoEquip: true, slot: 'mainHand' },
+        { itemIndex: 'leather', quantity: 1, autoEquip: true, slot: 'armor' }
+      );
+  }
+}
+
 export function useEquipmentLogic({ assetMode, formDataClass, initialGold = 0 }: UseEquipmentLogicProps) {
   const [equipmentItems, setEquipmentItems] = useState<EquipmentItemData[]>([]);
   const [equipmentChoice, setEquipmentChoice] = useState<'pack' | 'gold' | null>(null);
@@ -21,21 +50,6 @@ export function useEquipmentLogic({ assetMode, formDataClass, initialGold = 0 }:
     accessory1: null,
     accessory2: null,
   });
-
-  const handleBuyItem = (itemIndex: string) => {
-    const item = equipmentItems.find((i) => i.index === itemIndex);
-    if (!item) return;
-
-    if (assetMode) {
-      updateInventory(itemIndex, 1);
-    } else {
-      const cost = item.cost?.quantity || 0;
-      if (equipmentGold >= cost) {
-        setEquipmentGold((prev) => prev - cost);
-        updateInventory(itemIndex, 1);
-      }
-    }
-  };
 
   const updateInventory = (itemIndex: string, delta: number) => {
     setInventory((prev) => {
@@ -54,6 +68,21 @@ export function useEquipmentLogic({ assetMode, formDataClass, initialGold = 0 }:
       }
       return prev;
     });
+  };
+
+  const handleBuyItem = (itemIndex: string) => {
+    const item = equipmentItems.find((i) => i.index === itemIndex);
+    if (!item) return;
+
+    if (assetMode) {
+      updateInventory(itemIndex, 1);
+    } else {
+      const cost = item.cost?.quantity || 0;
+      if (equipmentGold >= cost) {
+        setEquipmentGold((prev) => prev - cost);
+        updateInventory(itemIndex, 1);
+      }
+    }
   };
 
   const handleEquipItem = (itemIndex: string, slot: string) => {
@@ -131,33 +160,4 @@ export function useEquipmentLogic({ assetMode, formDataClass, initialGold = 0 }:
     handleChooseStartingPack,
     handleChooseFreeGold,
   };
-}
-
-// Helpers
-
-function addToRefInventory(inv: any[], index: string, qty: number) {
-  const existing = inv.find((i: any) => i.itemIndex === index);
-  if (existing) existing.quantity += qty;
-  else inv.push({ itemIndex: index, quantity: qty });
-}
-
-function getStartingPack(className: string | undefined, packItems: any[]) {
-  // Switch case logic
-  switch (className) {
-    case 'Fighter':
-    case 'Paladin':
-      packItems.push(
-        { itemIndex: 'longsword', quantity: 1, autoEquip: true, slot: 'mainHand' },
-        { itemIndex: 'shield', quantity: 1, autoEquip: true, slot: 'shield' },
-        { itemIndex: 'chain-mail', quantity: 1, autoEquip: true, slot: 'armor' },
-        { itemIndex: 'dagger', quantity: 2 }
-      );
-      break;
-    // ... Add others ...
-    default:
-      packItems.push(
-        { itemIndex: 'dagger', quantity: 1, autoEquip: true, slot: 'mainHand' },
-        { itemIndex: 'leather', quantity: 1, autoEquip: true, slot: 'armor' }
-      );
-  }
 }

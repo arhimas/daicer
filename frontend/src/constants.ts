@@ -88,7 +88,7 @@ export const NEW_CHARACTER_TEMPLATE: Omit<CharacterSheet, 'name' | 'race' | 'cha
   talents: [],
   expertises: [],
   equipment: [],
-  structuredActions: [],
+
   features: [],
   currency: { cp: 0, sp: 0, ep: 0, gp: 10, pp: 0 },
   appearance: {

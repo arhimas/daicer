@@ -40,6 +40,8 @@ export interface TimeFrame {
 }
 
 export interface EntitySheet {
+  name?: string;
+  stats?: any; // Legacy
   attributes: Record<string, number>;
   skills: Record<string, { total: number; proficient: boolean }>;
   hp: number;
@@ -47,12 +49,17 @@ export interface EntitySheet {
   ac?: number;
   armorClass?: number;
   speed: number | { walk: number; [key: string]: number };
-  structuredActions: EntityAction[];
-  features: EntityFeature[];
-  equipment?: any[];
 
-  name?: string;
-  stats?: any; // Legacy
+  // Relations & Components
+  actions: EntityAction[];
+  inventory: EntityItem[]; // Was equipment
+  spells: EntitySpell[];
+  proficiencies: EntityProficiency[];
+  languages: EntityLanguage[];
+  traits: EntityTrait[];
+  features: EntityFeature[];
+
+  backstory?: string;
   initiative?: number;
   initiativeBonus?: number;
   [key: string]: any;
@@ -60,6 +67,7 @@ export interface EntitySheet {
 
 export interface Entity {
   id: string;
+  documentId?: string;
   type: 'player' | 'npc' | 'monster' | 'object';
   name: string;
   position: Coordinates;
@@ -77,12 +85,27 @@ export type Role = 'dm' | 'player' | 'spectator' | 'god' | 'premium' | 'free';
 
 export interface MinCharacter {
   name: string;
-  race?: { name: string };
-  class?: { name: string };
+  race?: string | { name: string };
+  class?: string | { name: string };
   classes?: { class: { name: string }; level: number }[];
   portrait?: { url: string };
   backstory?: string;
   documentId?: string;
+  hp?: number;
+  maxHp?: number;
+  armorClass?: number;
+  level?: number;
+  attributes?: Record<string, number>;
+  avatarAssets?: { publicUrl?: string };
+  characterClass?: string; // Legacy/Alternative
+  stats?: {
+    strength: number;
+    dexterity: number;
+    constitution: number;
+    intelligence: number;
+    wisdom: number;
+    charisma: number;
+  };
 }
 
 export interface Player {
@@ -117,17 +140,71 @@ export interface EntityAction {
   id?: string;
   name: string;
   description?: string;
-  type: string;
+  type: string; // melee, ranged, spell, utility
   toHit?: number;
   range?: number;
+  reach?: number;
   damage?: { dice: string; bonus?: number; type: string }[];
   save?: { dc: number; stat: string };
+  area?: { type: string; size: number };
+  action_definition?: string | { documentId: string; name: string };
+}
+
+export interface EntityItem {
+  id: string; // Component ID
+  quantity: number;
+  slot: string;
+  isEquipped: boolean;
+  item?: {
+    documentId: string;
+    name: string;
+    description?: string;
+    // Add other Item fields as needed
+  };
+}
+
+export interface EntitySpell {
+  documentId: string;
+  name: string;
+  level: number;
+  school?: string;
+  castingTime?: string;
+  range?: string;
+  components?: string[];
+  duration?: string;
+  description?: string;
+  source?: 'known' | 'prepared';
+}
+
+export interface EntityProficiency {
+  documentId: string;
+  name: string;
+  type: string; // Armor, Weapons, Skills, etc.
+}
+
+export interface EntityLanguage {
+  documentId: string;
+  name: string;
+  isRare?: boolean;
+}
+
+export interface EntityTrait {
+  documentId: string;
+  name: string;
+  description?: string;
 }
 
 export interface EntityFeature {
+  documentId?: string;
   name: string;
   description: string;
-  usage?: { max: number; per: string };
+  level?: number;
+  image?: any;
+  usage?: {
+    max: number;
+    current?: number;
+    per: string;
+  };
 }
 
 export interface Message {
@@ -181,6 +258,7 @@ export interface Room {
 
 export interface Creature {
   id: string;
+  documentId?: string;
   name: string;
   hp: number;
   maxHp: number;

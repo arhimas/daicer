@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, useMemo, ReactNode } from 'react';
 import type { WorldSettings, WorldConfig } from '@/types/contracts';
 import { useI18n } from '../../../i18n';
 
@@ -55,7 +55,7 @@ const initialSettingsBase = {
   moistureScale: 1,
   temperatureOffset: 0,
   structureChance: 0.1,
-  structureSpacing: 10,
+  structureSpacing: 50, // Approx 1600ft regions
   structureSizeAvg: 10,
   roadDensity: 0.5,
   fogRadius: 10,
@@ -79,11 +79,20 @@ export function WizardProvider({
 
   // Handle seed generation purely (client-side only)
   useEffect(() => {
-    if (!settings.seed && !initialValues?.seed) {
+    // If we have no seed, or if we have a seed but it's not in generationParams (sync issue)
+    const currentSeed = settings.seed || (settings.generationParams as WorldConfig)?.seed;
+
+    if (!currentSeed && !initialValues?.seed) {
+      const newSeed = `daicer-${Math.random().toString(36).substring(7)}`;
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({
         ...prev,
-        seed: `daicer-${Math.random().toString(36).substring(7)}`,
+        seed: newSeed,
+        // Ensure it is also in generationParams for the renderer
+        generationParams: {
+          ...(prev.generationParams as WorldConfig),
+          seed: newSeed,
+        },
       }));
     }
   }, []); // Run once on mount

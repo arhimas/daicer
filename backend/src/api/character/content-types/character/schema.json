@@ -77,7 +77,7 @@
     "backstory": {
       "type": "text"
     },
-    "equipment_items": {
+    "inventory": {
       "type": "component",
       "repeatable": true,
       "component": "game.inventory-item"
@@ -91,6 +91,6 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::spell.spell"
-    },
+    }
   }
 }

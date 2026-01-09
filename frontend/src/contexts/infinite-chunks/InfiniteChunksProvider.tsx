@@ -71,7 +71,7 @@ export function InfiniteChunksProvider({ children, options }: InfiniteChunksProv
     console.info(
       `[InfiniteChunks] Initialized for room ${roomId} (mode: ${chunkGenerator ? 'generator' : 'backend'}, layer: ${layer})`
     );
-  }, [roomId, initialGrid, chunkSize, loadRadius, enabled, chunkGenerator, /* placementMap, */ layer]);
+  }, [roomId, initialGrid, chunkSize, loadRadius, enabled, chunkGenerator, /* placementMap, */ layer, token]);
 
   // Internal chunk loading logic
   const checkChunkLoadingInternal = useCallback(
@@ -140,7 +140,7 @@ export function InfiniteChunksProvider({ children, options }: InfiniteChunksProv
       state.config,
       state.chunks,
       state.loading,
-      state.chunkGenerator /* state.placementMap */,
+      /* state.placementMap */
     ]
   );
 

@@ -77,7 +77,7 @@ export default function GameplayChatArea({
           sender: 'DM',
           content, // Map content to satisfy StreamingMessage type
           text: '',
-          timestamp: Date.now(),
+          timestamp: 0, // Placeholder stable timestamp for streaming logic
           isStreaming: true,
           streamContent: content,
         });

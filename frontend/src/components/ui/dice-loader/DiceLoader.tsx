@@ -272,7 +272,7 @@ export function DiceLoader({
   useEffect(() => {
     const options = localizedMessages.length > 0 ? localizedMessages : Array.from(FALLBACK_MESSAGES.en);
     const index = Math.floor(Math.random() * options.length);
-    setRandomLocalizedMessage(options[index] || 'Loading...');
+    setTimeout(() => setRandomLocalizedMessage(options[index] || 'Loading...'), 0);
   }, [localizedMessages]);
 
   const displayedMessage = showMessage ? (message ?? randomLocalizedMessage) : undefined;

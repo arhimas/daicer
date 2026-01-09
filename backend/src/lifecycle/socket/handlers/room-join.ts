@@ -18,7 +18,14 @@ export const handleRoomJoin =
         },
         populate: {
           players: {
-            populate: ['character', 'characterSheet', 'characterSheet.structuredActions', 'user'],
+            populate: [
+              'character',
+              'characterSheet',
+              'characterSheet.spells',
+              'characterSheet.equipments',
+              'characterSheet.actions',
+              'user',
+            ],
           },
           entity_sheets: {
             populate: {
@@ -26,9 +33,23 @@ export const handleRoomJoin =
               stats: true,
               features: true,
               inventory: true,
-              character: { populate: ['race', 'classes.class'] },
-              monster: { populate: ['stats'] },
-              structuredActions: { populate: { damage: true } },
+              character: {
+                populate: {
+                  race: true,
+                  classes: { populate: ['class'] },
+                  spells: { populate: { damage: true } },
+                  equipment_items: { populate: '*' },
+                  actions: { populate: { damage: true } },
+                },
+              },
+              monster: {
+                populate: {
+                  stats: true,
+                  spells: { populate: { damage: true } },
+                  equipment_items: { populate: '*' },
+                  actions: { populate: { damage: true } },
+                },
+              },
             },
           },
           world: true,

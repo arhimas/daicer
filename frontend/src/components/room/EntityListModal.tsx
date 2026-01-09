@@ -22,6 +22,54 @@ interface EntityListModalProps {
 // Helper Type for Union
 type SelectableEntity = Creature | Player;
 
+// Helper to adapt to EntitySheet for Universal Viewer
+function getEntitySheet(entity: SelectableEntity): EntitySheet | null {
+  if ('sheet' in entity && entity.sheet) return entity.sheet;
+  if ('character' in entity && entity.character) return entity.character as unknown as EntitySheet;
+  // If it's a monster with flat fields, adapt it (simple stub or check if entity itself is EntitySheet-like)
+  // EntityListModal uses `Creature` which has hp, maxHp, ac, etc.
+  // UniversalEntitySheetContent expects EntitySheet.
+  // We might need to map it on the fly if it's not a full sheet.
+  // But Phase 1/3 standardized entities to have 'sheet' or be compatible?
+  // Let's assume best effort mapping if needed.
+
+  // Temporary mapping for "Creature" without nested "sheet" property (if legacy)
+  if (!('sheet' in entity) && !('character' in entity)) {
+    // It's a raw creature/monster
+    const c = entity as Creature;
+    return {
+      id: c.id,
+      name: c.name,
+      type: c.type === 'monster' ? 'monster' : 'npc',
+      hp: c.hp,
+      maxHp: c.maxHp,
+      ac: c.ac,
+      speed: 30, // Fallback
+      level: (c as any).level || 1, // Fallback
+      stats: (c as any).stats || {
+        strength: 10,
+        dexterity: 10,
+        constitution: 10,
+        intelligence: 10,
+        wisdom: 10,
+        charisma: 10,
+      },
+      // Actions?
+      actions: [],
+      features: [],
+    } as unknown as EntitySheet;
+  }
+  return null;
+}
+
+function SafeSheetView({ entity }: { entity: SelectableEntity }) {
+  const sheet = getEntitySheet(entity);
+  if (!sheet) return <div className="p-6 text-midnight-400 italic">No sheet data available for this entity.</div>;
+
+  // UniversalEntitySheetContent takes full height, ensure container handles it.
+  return <UniversalEntitySheetContent entity={sheet} />;
+}
+
 export function EntityListModal({ isOpen, onClose, creatures, players = [], roomId }: EntityListModalProps) {
   const [selectedEntity, setSelectedEntity] = useState<SelectableEntity | null>(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -94,9 +142,10 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
                           {p.character?.name || p.name}
                         </div>
                         <div className="text-xs text-midnight-400 truncate">
-                          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                          {(p.character as any)?.race?.name || (p.character as any)?.race}{' '}
-                          {(p.character as any)?.class?.name || (p.character as any)?.characterClass}
+                          {typeof p.character?.race === 'string' ? p.character.race : p.character?.race?.name}{' '}
+                          {typeof p.character?.class === 'string'
+                            ? p.character.class
+                            : p.character?.class?.name || p.character?.characterClass}
                         </div>
                       </div>
                     </div>
@@ -252,52 +301,4 @@ export function EntityListModal({ isOpen, onClose, creatures, players = [], room
       </div>
     </div>
   );
-}
-
-// Helper to adapt to EntitySheet for Universal Viewer
-function getEntitySheet(entity: SelectableEntity): EntitySheet | null {
-  if ('sheet' in entity && entity.sheet) return entity.sheet;
-  if ('character' in entity && entity.character) return entity.character as unknown as EntitySheet;
-  // If it's a monster with flat fields, adapt it (simple stub or check if entity itself is EntitySheet-like)
-  // EntityListModal uses `Creature` which has hp, maxHp, ac, etc.
-  // UniversalEntitySheetContent expects EntitySheet.
-  // We might need to map it on the fly if it's not a full sheet.
-  // But Phase 1/3 standardized entities to have 'sheet' or be compatible?
-  // Let's assume best effort mapping if needed.
-
-  // Temporary mapping for "Creature" without nested "sheet" property (if legacy)
-  if (!('sheet' in entity) && !('character' in entity)) {
-    // It's a raw creature/monster
-    const c = entity as Creature;
-    return {
-      id: c.id,
-      name: c.name,
-      type: c.type === 'monster' ? 'monster' : 'npc',
-      hp: c.hp,
-      maxHp: c.maxHp,
-      ac: c.ac,
-      speed: 30, // Fallback
-      level: (c as any).level || 1, // Fallback
-      stats: (c as any).stats || {
-        strength: 10,
-        dexterity: 10,
-        constitution: 10,
-        intelligence: 10,
-        wisdom: 10,
-        charisma: 10,
-      },
-      // Actions?
-      actions: [],
-      features: [],
-    } as unknown as EntitySheet;
-  }
-  return null;
-}
-
-function SafeSheetView({ entity }: { entity: SelectableEntity }) {
-  const sheet = getEntitySheet(entity);
-  if (!sheet) return <div className="p-6 text-midnight-400 italic">No sheet data available for this entity.</div>;
-
-  // UniversalEntitySheetContent takes full height, ensure container handles it.
-  return <UniversalEntitySheetContent entity={sheet} />;
 }

@@ -6,7 +6,7 @@ try {
   // Inherit stdio to show colorful output from codegen
   execSync('graphql-codegen', { stdio: 'inherit' });
   console.log('✅ Codegen completed successfully!');
-} catch (error) {
+} catch {
   console.error('\n❌ Codegen Failed!');
   console.error('---------------------------------------------------');
   console.error('⚠️  Most likely cause: The Backend is not running.');

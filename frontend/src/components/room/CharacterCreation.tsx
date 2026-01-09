@@ -166,8 +166,11 @@ function CharacterCreationWizardContent({ ctrl }: { ctrl: ReturnType<typeof useC
                 onPersonalityChange={(k, v) => actions.updateField('personality', { ...formData.personality, [k]: v })}
               />
               <div className="glass-panel p-6 rounded-xl space-y-4">
-                <label className="text-sm font-medium text-muted-foreground">Backstory</label>
+                <label htmlFor="backstory" className="text-sm font-medium text-muted-foreground">
+                  Backstory
+                </label>
                 <Textarea
+                  id="backstory"
                   value={formData.backstory}
                   onChange={(e) => actions.updateField('backstory', e.target.value)}
                   className="min-h-[150px]"

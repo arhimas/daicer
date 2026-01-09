@@ -126,8 +126,7 @@ function GameDebugInner({
             pendingPath: undefined,
             currentHp: c.currentHp,
             maxHp: c.maxHp,
-            // Backend EntityAdapter returns 'actions', Strapi data might have 'structuredActions'
-            structuredActions: c.actions || c.structuredActions || [],
+            structuredActions: c.actions || [],
 
             // Map expanded fields
             stats: c.stats,

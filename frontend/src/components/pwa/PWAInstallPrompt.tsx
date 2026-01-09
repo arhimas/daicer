@@ -8,6 +8,7 @@ export function PWAInstallPrompt() {
 
   return (
     <button
+      type="button"
       onClick={promptInstall}
       className="group relative flex items-center gap-2 px-4 py-2 rounded-lg bg-midnight-800/80 border border-aurora-500/30 text-aurora-100 hover:bg-midnight-700 hover:border-aurora-400 transition-all duration-300 shadow-lg backdrop-blur-sm"
       aria-label="Install App"

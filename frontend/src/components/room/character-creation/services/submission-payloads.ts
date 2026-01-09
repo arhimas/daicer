@@ -112,5 +112,5 @@ export const submitCharacter = async (
     avatarPreview, // Backend expects this key to process uploads?
   };
 
-  return await addCharacter(room.documentId, finalPayload);
+  return addCharacter(room.documentId, finalPayload);
 };

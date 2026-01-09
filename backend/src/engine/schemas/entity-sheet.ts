@@ -14,4 +14,9 @@ export {
   ConditionSchema,
   SpellbookSchema,
   EntitySheetSchema,
+  EntityActionSchema,
+  EntitySpellSchema,
+  EntityProficiencySchema,
+  EntityLanguageSchema,
+  EntityTraitSchema,
 } from '../../shared';

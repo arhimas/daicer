@@ -46,7 +46,7 @@ export function SliderWithMarks({
 
   useEffect(() => {
     if (isDragging && showTooltip) {
-      setShowTooltipState(true);
+      setTimeout(() => setShowTooltipState(true), 0);
     } else {
       const timer = setTimeout(() => setShowTooltipState(false), 500);
       return () => clearTimeout(timer);

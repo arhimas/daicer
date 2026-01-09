@@ -43,27 +43,30 @@ export function Carousel({
     return nodes.filter(isReactElement);
   }, [children]);
   const slideCount = slides.length;
-  const sanitizeIndex = (index: number | undefined) => {
-    if (typeof index !== 'number' || Number.isNaN(index)) {
-      return 0;
-    }
-    const normalized = Math.max(0, Math.floor(index));
-    if (slideCount === 0) {
+  const sanitizeIndex = useCallback(
+    (index: number | undefined) => {
+      if (typeof index !== 'number' || Number.isNaN(index)) {
+        return 0;
+      }
+      const normalized = Math.max(0, Math.floor(index));
+      if (slideCount === 0) {
+        return normalized;
+      }
+      if (normalized >= slideCount) {
+        return Math.max(0, slideCount - 1);
+      }
       return normalized;
-    }
-    if (normalized >= slideCount) {
-      return Math.max(0, slideCount - 1);
-    }
-    return normalized;
-  };
+    },
+    [slideCount]
+  );
   const [currentIndex, setCurrentIndex] = useState(() => sanitizeIndex(initialIndex));
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     if (typeof initialIndex === 'number') {
-      setCurrentIndex(sanitizeIndex(initialIndex));
+      setTimeout(() => setCurrentIndex(sanitizeIndex(initialIndex)), 0);
     }
-  }, [initialIndex, slideCount]);
+  }, [initialIndex, slideCount, sanitizeIndex]);
 
   useEffect(() => {
     if (slideCount === 0) {
@@ -71,7 +74,7 @@ export function Carousel({
       setCurrentIndex(0);
       return;
     }
-     
+
     setCurrentIndex((prev) => {
       if (prev < slideCount) {
         return prev;

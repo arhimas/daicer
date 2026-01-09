@@ -2,7 +2,7 @@
  * Full-screen loading overlay with 3D dice spinner
  */
 
-import { useEffect, useMemo, useRef, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import clsx from 'clsx';
 
 import { DiceLoader } from './dice-loader';
@@ -38,14 +38,15 @@ export function LoadingOverlay({
     minVisibleMs,
   });
 
-  const lastMessageRef = useRef<string | undefined>(message);
+  const [lastMessage, setLastMessage] = useState(message);
+
   useEffect(() => {
     if (message) {
-      lastMessageRef.current = message;
+      setTimeout(() => setLastMessage(message), 0);
     }
   }, [message]);
 
-  const displayedMessage = useMemo(() => message ?? lastMessageRef.current, [message]);
+  const displayedMessage = message ?? lastMessage;
 
   if (!pending) {
     return null;

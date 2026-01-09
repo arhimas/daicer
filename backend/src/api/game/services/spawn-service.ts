@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Spawn Service
  * Handles instantiation of Characters and Monsters into the game world.
  */
 
-import { EntityDeriver, EntitySheet, StatBlock, ActionDefinition } from '../../../engine';
+import { EntityDeriver, StatBlock } from '../../../engine';
 
 export default ({ strapi }) => ({
   /**
@@ -19,14 +20,18 @@ export default ({ strapi }) => ({
       documentId: monsterId as string, // Try documentId first
       populate: [
         'stats',
-        'structuredActions',
-        'structuredActions.damage',
-        'features',
-        'equipment',
-        'equipment.item',
-        'equipment.item.equipment_category',
-        'equipment.item.damage_type',
-        'equipment.item.properties',
+        'actions', // Relation to api::action
+        'actions.damage', // Component inside action? No, relation action has components.
+        'actions.damage.damage_type',
+        'features', // Relation
+        'inventory', // Component (Renamed from equipment_items)
+        'inventory.item',
+        'inventory.item.equipment_category',
+        'inventory.item.damage_type',
+        'inventory.item.properties',
+        'proficiencies', // Relation
+        'languages', // Relation
+        'traits', // Relation
       ],
     });
 
@@ -52,13 +57,13 @@ export default ({ strapi }) => ({
       `[SpawnService] Found Room for Monster Spawn: ${room.documentId} (Name: ${room.name}, Locale: ${room.locale})`
     );
 
-    // 3. Create Character Sheet
+    // 3. Create Entity Sheet
     // Use monster stats
     const stats: Partial<StatBlock> = monster.stats || {};
 
-    // Extract actual equipment items if monster has equipment component (Phase 1.3)
+    // Extract actual equipment items
     const equipmentForDeriver =
-      monster.equipment
+      monster.inventory
         ?.filter((entry: { isEquipped: boolean; item: unknown }) => entry.isEquipped && entry.item)
         .map((entry: { item: unknown }) => entry.item) || [];
 
@@ -74,7 +79,7 @@ export default ({ strapi }) => ({
       level: monster.level || Math.max(1, Math.floor(monster.challenge_rating || 1)),
       isMonster: true,
       equipment: equipmentForDeriver,
-      innateActions: monster.structuredActions, // Pass blueprint actions as innate
+      innateActions: [], // JSON structuredActions deprecated. We rely on relations now.
       race: {
         speed: monster.speed, // Pass explicit speed if any
       },
@@ -104,29 +109,34 @@ export default ({ strapi }) => ({
     try {
       console.info(`[SpawnService] Creating EntitySheet... Room ID: ${room.documentId}`);
 
-      const sheetData: Partial<EntitySheet> & {
-        monster: string;
-        room: string;
-        type: 'monster';
-        position: { x: number; y: number; z: number };
-      } = {
+      // Map Actions from Monster Relations to EntitySheet Relations
+      // The monster.actions is a relation to api::action
+      // We strictly link them via relation now.
+      const mappedActions = (monster.actions || []).map((action: any) => action.documentId);
+
+      const sheetData: any = {
         name: monster.name,
         type: 'monster',
         monster: monster.documentId,
         room: room.documentId,
         hp: derived.hp,
-        maxHp: derived.maxHp, // Blueprint or derived
-        armorClass: derived.ac, // Blueprint or derived. Mapped to armorClass for EntitySheet
+        maxHp: derived.maxHp,
+        ac: derived.ac, // Mapped to ac (or armorClass in schema)
+        armorClass: derived.ac,
         speed: { walk: (typeof monster.speed === 'number' ? monster.speed : 0) || derived.speed.walk },
         level: derived.level,
-        xp: monster.xp || 0,
+        experience: monster.xp || 0,
         position: position,
-        // stats: monster.stats, // REMOVED: Not in EntitySheet schema, using attributes instead
-        structuredActions: derived.structuredActions,
-        features: monster.features || [],
-
-        // Satisfy EntitySheet strictness with defaults
-        attributes: monster.stats as unknown as Record<string, number>, // Legacy mapping for now until attributes keys are strict
+        stats: monster.stats, // Component
+        actions: mappedActions,
+        inventory: monster.inventory, // Copy component list directly?
+        // Note: Copying components directly might not work if IDs conflict, ideally we map them.
+        // Strapi might handle valid component structure.
+        features: monster.features?.map((f: any) => f.documentId), // Relation ID list
+        traits: monster.traits?.map((t: any) => t.documentId), // Relation ID list
+        proficiencies: monster.proficiencies?.map((p: any) => p.documentId), // Relation ID list
+        languages: monster.languages?.map((l: any) => l.documentId), // Relation ID list
+        attributes: monster.stats as unknown as Record<string, number>,
         initiative: 0,
         proficiencyBonus: derived.proficiencyBonus || 2,
       };
@@ -157,28 +167,25 @@ export default ({ strapi }) => ({
       populate: [
         'stats',
         'race',
+        'race.proficiencies',
+        'race.traits',
+        'race.speed', // json
         'classes',
         'classes.class',
-        'equipment',
-        'equipment.item',
-        'equipment.item.damage_type',
-        'equipment.item.equipment_category',
-        'equipment.item.properties',
-        'spell_config',
+        'classes.class.proficiencies',
+        'classes.class.features', // Component in Class
+        'inventory', // Renamed from equipment_items
+        'inventory.item',
+        'inventory.item.damage_type',
+        'inventory.item.equipment_category',
+        'inventory.item.properties',
+        'actions', // Relation
+        'spells', // Relation (top level?) or Component? Character schema has `spells` relation.
+        // Wait, character schema had 'spell_config'. Let's check logic.
+        // Plan says populate spellbook.
+        'spell_config', // If exists
         'spell_config.prepared_spells',
-        'spell_config.prepared_spells.casting_config',
-        'spell_config.prepared_spells.range_config',
-        'spell_config.prepared_spells.duration_config',
-        'spell_config.prepared_spells.mechanics_config',
-        'spell_config.prepared_spells.damage_instances',
-        'spell_config.prepared_spells.condition_instances',
         'spell_config.known_spells',
-        'spell_config.known_spells.casting_config',
-        'spell_config.known_spells.range_config',
-        'spell_config.known_spells.duration_config',
-        'spell_config.known_spells.mechanics_config',
-        'spell_config.known_spells.damage_instances',
-        'spell_config.known_spells.condition_instances',
       ],
     });
 
@@ -202,7 +209,7 @@ export default ({ strapi }) => ({
     const mainClassComponent = character.classes?.[0];
     const mainClass = mainClassComponent?.class;
 
-    // Parse Hit Die from Class (e.g., "1d8" -> 8)
+    // Parse Hit Die
     let hitDie = 8;
     if (mainClass?.hit_die) {
       const parts = mainClass.hit_die.split('d');
@@ -229,14 +236,11 @@ export default ({ strapi }) => ({
 
     // Extract actual equipment items
     const equipmentForDeriver =
-      character.equipment
+      character.inventory
         ?.filter((entry: { isEquipped: boolean; item: unknown }) => entry.isEquipped && entry.item)
         .map((entry: { item: unknown }) => entry.item) || [];
 
-    // Extract Spells (Prepared + Known)
-    // We combine them into a single list for the Deriver to hydrate.
-    // Logic: If prepared casters, use prepared. If known casters, use known.
-    // For now, we just unite them all.
+    // Extract Spells
     const activeSpells = [
       ...(character.spell_config?.prepared_spells || []),
       ...(character.spell_config?.known_spells || []),
@@ -245,22 +249,20 @@ export default ({ strapi }) => ({
     // Calculate Stats
     const derived = EntityDeriver.derive({
       attributes: attributes,
-      // Pass full classes array for multiclass support (Deriver calculates total level & PB)
       classes:
         character.classes?.map((c: { class: { name: string; hit_die: string }; level: number }) => ({
           name: c.class?.name || 'Unknown',
           level: c.level,
           hitDie: c.class?.hit_die,
         })) || [],
-      // Fallback for single class if array empty?
       level: level,
-      proficiencyBonus: undefined, // Let deriver calculate it
+      proficiencyBonus: undefined,
       equipment: equipmentForDeriver,
-      hitDie: hitDie, // Global hitDie fallback
+      hitDie: hitDie,
       race: {
         speed: character.race?.speed,
       },
-      spells: activeSpells, // Pass to Context
+      spells: activeSpells,
     });
 
     // Check for collision
@@ -280,37 +282,58 @@ export default ({ strapi }) => ({
       throw new Error(`Position ${position.x},${position.y},${position.z} is occupied by ${existing[0].name}`);
     }
 
-    const sheetData: Partial<EntitySheet> & {
-      character: string;
-      room: string;
-      type: 'player' | 'npc';
-      owner?: string;
-      position: { x: number; y: number; z: number };
-    } = {
+    // Collect Proficiencies (Race + Class)
+    const profIds = new Set<string>();
+    character.race?.proficiencies?.forEach((p: any) => profIds.add(p.documentId));
+    character.classes?.forEach((c: any) => {
+      c.class?.proficiencies?.forEach((p: any) => profIds.add(p.documentId));
+    });
+
+    // Collect Traits (Race)
+    const traitIds = new Set<string>();
+    character.race?.traits?.forEach((t: any) => traitIds.add(t.documentId));
+
+    // Handle Features (Class - Component vs Relation)
+    // Currently Class uses Features Component. We cannot link them as relations unless we migrate Class schema.
+    // For now, we leave features relation empty for Characters unless we find Entity features.
+    // OPTION: If we want to populate valid data, we might need to convert Class features to text and put them... nowhere?
+    // Since EntitySheet expects Relation.
+    // Given the strict "Entity" directive, we only populate if we have Entities.
+    // If Class Features are components, they are lost in this strict translation until Class is refactored.
+    // However, we can check if `character` has any direct features (not in schema yet).
+
+    const mappedActions = (character.actions || []).map((action: any) => action.documentId);
+
+    const sheetData: any = {
       name: character.name,
       type: ownerId ? 'player' : 'npc',
-      owner: ownerId, // Assign owner relation
+      owner: ownerId,
       character: character.documentId,
       room: room.documentId,
       hp: derived.hp,
       maxHp: derived.maxHp,
-      armorClass: derived.ac, // Snapshot Derived AC
-      speed: derived.speed, // Snapshot Speed
+      ac: derived.ac,
+      armorClass: derived.ac,
+      speed: derived.speed,
       level: level,
-      xp: 0,
+      experience: 0,
       position: position,
-      // stats: (() => { ... })(), // REMOVED
+      stats: character.stats,
       race: character.race?.documentId,
       class: mainClass?.documentId,
-      structuredActions: derived.structuredActions?.map((action: ActionDefinition) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id: _id, ...rest } = action as Record<string, unknown>; // Remove ID to generate fresh or let DB handle?
-        // If action has ID from blueprint, we might want to keep it or drop it.
-        // EntityDeriver generates IDs for Equipment actions.
-        return rest;
-      }),
-      features: [],
-
+      actions: mappedActions,
+      inventory: character.inventory,
+      spellbook: {
+        knownSpells: character.spell_config?.known_spells?.map((s: any) => s.documentId),
+        preparedSpells: character.spell_config?.prepared_spells?.map((s: any) => s.documentId),
+        spellcastingAbility: 'intelligence', // TODO: Derive from Class
+        spellSaveDc: 8 + (derived.proficiencyBonus || 2), // TODO: Add Mod
+        spellAttackBonus: derived.proficiencyBonus || 2, // TODO: Add Mod
+      },
+      proficiencies: Array.from(profIds),
+      traits: Array.from(traitIds),
+      languages: [], // TODO: Race languages relation
+      features: [], // Empty for now as Class features are components
       attributes: character.stats as unknown as Record<string, number>,
       initiative: 0,
       proficiencyBonus: derived.proficiencyBonus,

@@ -57,12 +57,14 @@ interface UseDiceRollStateOptions {
 export function useDiceRollState({ roll, animate = true }: UseDiceRollStateOptions) {
   // Refs for stable state that should never change after mount
   const initializedRef = useRef(false);
-  const shouldAnimateRef = useRef(animate);
 
   // State
-  const [displayValue, setDisplayValue] = useState(animate ? 0 : roll.result);
+  const [animatedValue, setAnimatedValue] = useState(animate ? 0 : roll.result);
   const [animationComplete, setAnimationComplete] = useState(!animate);
-  const [renderError, setRenderError] = useState(false);
+  const [shouldAnimate] = useState(animate); // Capture initial animation state safely
+
+  // Derived display value - if not animating, always match prop
+  const displayValue = shouldAnimate ? animatedValue : roll.result;
 
   // Stable, memoized dice data - only recalculate if roll data actually changes
   const diceData = useMemo<DieRoll[]>(() => {
@@ -86,17 +88,19 @@ export function useDiceRollState({ roll, animate = true }: UseDiceRollStateOptio
       const individualRolls = extractDieRolls(roll.breakdown, count, roll.result, modifier);
 
       // Create stable DieRoll objects
-      return individualRolls.map((rollValue, index) => ({
+      const rolls: DieRoll[] = individualRolls.map((rollValue, index) => ({
         type: type as 2 | 4 | 6 | 8 | 10 | 12 | 20,
         result: rollValue,
         id: `die-${roll.dice}-${index}-${rollValue}`,
       }));
+      return rolls;
     } catch (error) {
       console.error('useDiceRollState: Parse error', error);
-      setRenderError(true);
-      return [];
+      return []; // Return empty array to match DieRoll[] type
     }
   }, [roll.dice, roll.breakdown, roll.result]);
+
+  const internalRenderError = diceData === null;
 
   // Stable critical roll detection
   const criticalType = useMemo<'success' | 'fail' | null>(() => {
@@ -110,7 +114,7 @@ export function useDiceRollState({ roll, animate = true }: UseDiceRollStateOptio
 
   // Number counting animation - only runs once
   useEffect(() => {
-    if (!initializedRef.current && shouldAnimateRef.current) {
+    if (!initializedRef.current && shouldAnimate) {
       initializedRef.current = true;
 
       const duration = 1600;
@@ -124,20 +128,17 @@ export function useDiceRollState({ roll, animate = true }: UseDiceRollStateOptio
         current += increment;
 
         if (step >= steps) {
-          setDisplayValue(roll.result);
+          setAnimatedValue(roll.result);
           clearInterval(interval);
         } else {
-          setDisplayValue(Math.floor(current));
+          setAnimatedValue(Math.floor(current));
         }
       }, duration / steps);
 
       return () => clearInterval(interval);
     }
-    if (!shouldAnimateRef.current) {
-      setDisplayValue(roll.result);
-    }
     return undefined;
-  }, [roll.result]);
+  }, [roll.result, shouldAnimate]);
 
   // Stable animation complete callback
   const handleAnimationComplete = useCallback(() => {
@@ -152,8 +153,8 @@ export function useDiceRollState({ roll, animate = true }: UseDiceRollStateOptio
 
     // State
     animationComplete,
-    renderError,
-    shouldAnimate: shouldAnimateRef.current,
+    renderError: internalRenderError,
+    shouldAnimate,
 
     // Callbacks
     onAnimationComplete: handleAnimationComplete,

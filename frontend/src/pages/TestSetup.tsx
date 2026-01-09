@@ -301,7 +301,17 @@ export default function TestSetupPage() {
         immunities: [],
         vulnerabilities: [],
         talents: [],
-        structuredActions: [],
+
+        actions: [],
+        inventory: [
+          { item: { name: 'Longsword', documentId: '1' }, quantity: 1, slot: 'mainHand', isEquipped: true, id: '1' },
+          { item: { name: 'Shield', documentId: '2' }, quantity: 1, slot: 'offHand', isEquipped: true, id: '2' },
+          { item: { name: 'Chainmail', documentId: '3' }, quantity: 1, slot: 'armor', isEquipped: true, id: '3' },
+        ],
+        spells: [],
+        proficiencies: [],
+        languages: [],
+        traits: [],
         conditions: [],
         resources: [],
         appearance: {

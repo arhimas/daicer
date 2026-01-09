@@ -11,6 +11,10 @@ interface UniversalEntitySheetProps {
 // --- Subcomponents ---
 
 // 1. Stat Box (Attribute)
+function formatModifier(val: number) {
+  return val >= 0 ? `+${val}` : `${val}`;
+}
+
 function AttributeBox({ label, value }: { label: string; value: number }) {
   const mod = Math.floor((value - 10) / 2);
   const sign = mod >= 0 ? '+' : '';
@@ -34,7 +38,7 @@ function VitalBox({
   value,
   sub,
 }: {
-  icon: any;
+  icon: React.ElementType<{ className?: string }>;
   label: string;
   value: string | number;
   sub?: string;
@@ -91,7 +95,12 @@ function ActionRow({ action }: { action: EntityAction }) {
         {action.damage && action.damage.length > 0 && (
           <div className="flex items-center gap-1">
             <span className="text-gray-300 font-semibold">
-              {action.damage.map((d: any) => `${d.dice}${d.bonus ? `+${d.bonus}` : ''} ${d.type}`).join(' + ')}
+              {action.damage
+                .map(
+                  (d: { dice: string; bonus?: number; type: string }) =>
+                    `${d.dice}${d.bonus ? `+${d.bonus}` : ''} ${d.type}`
+                )
+                .join(' + ')}
             </span>
           </div>
         )}
@@ -232,6 +241,7 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
           {/* Tabs */}
           <div className="flex border-b border-midnight-800 bg-midnight-900/20 shrink-0">
             <button
+              type="button"
               onClick={() => setActiveTab('main')}
               className={cn(
                 'px-6 py-3 text-sm font-bold uppercase tracking-wider border-b-2 transition-all hover:bg-midnight-800/50',
@@ -243,6 +253,7 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
               Combat & Actions
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('bio')}
               className={cn(
                 'px-6 py-3 text-sm font-bold uppercase tracking-wider border-b-2 transition-all hover:bg-midnight-800/50',
@@ -265,14 +276,17 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
                     <div className="h-px bg-midnight-800 flex-1" />
                   </h3>
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
-                    {entity.structuredActions && entity.structuredActions.length > 0 ? (
-                      entity.structuredActions.map((action: EntityAction) => (
-                        <ActionRow key={action.id || action.name} action={action} />
+                    {entity.actions && entity.actions.length > 0 ? (
+                      entity.actions.map((action: any, idx: number) => (
+                        <div key={idx} className="p-2 bg-white/5 rounded border border-white/10">
+                          <div className="font-bold text-sm text-primary-gold mb-1">{action.name}</div>
+                          {action.description && <div className="text-xs text-gray-400">{action.description}</div>}
+                        </div>
                       ))
                     ) : (
-                      <p className="text-midnight-500 italic text-sm p-4 text-center border border-dashed border-midnight-800 rounded">
+                      <div className="text-sm text-shadow-500 italic p-4 text-center border border-dashed border-midnight-800 rounded">
                         No actions available.
-                      </p>
+                      </div>
                     )}
                   </div>
                 </section>
@@ -303,7 +317,7 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
                     <div className="h-px bg-midnight-800 flex-1" />
                   </h3>
                   <div className="text-gray-400 text-sm leading-relaxed space-y-2">
-                    <p>{(entity as any).backstory || 'No backstory provided.'}</p>
+                    <p>{entity.backstory || 'No backstory provided.'}</p>
                   </div>
                 </section>
               </div>
@@ -329,6 +343,7 @@ export default function UniversalEntitySheet({ entity, onClose }: UniversalEntit
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-[900px] h-[85vh]">
         <button
+          type="button"
           onClick={onClose}
           className="absolute -top-12 right-0 p-2 text-gray-400 hover:text-white transition-colors"
         >
@@ -339,8 +354,4 @@ export default function UniversalEntitySheet({ entity, onClose }: UniversalEntit
       </div>
     </div>
   );
-}
-
-function formatModifier(val: number) {
-  return val >= 0 ? `+${val}` : `${val}`;
 }

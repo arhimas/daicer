@@ -27,7 +27,6 @@ export const GET_ROOM_QUERY = gql`
           burrowSpeed
           hover
         }
-        structuredActions
       }
       players {
         id

@@ -1,4 +1,5 @@
-import { useRef, useMemo, useEffect } from 'react';
+/* eslint-disable react/no-unknown-property, no-param-reassign */
+import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { createDie } from '../dice-loader/createDie';
@@ -16,11 +17,31 @@ interface FallingDieProps {
   dieType: DieType;
   material: DieVisualStyle;
   color: string;
+  visualOverrides?: {
+    opacity?: number;
+    roughness?: number;
+    transmission?: number;
+    metalness?: number;
+    emissiveIntensity?: number;
+    colorOffset?: number;
+  };
+  randomSeed: number; // For stable random generation logic inside component if needed
 }
 
 // --- Components ---
 
-function FallingDie({ initialSpeed, rotationSpeed, scale = 1, xPos, zPos, dieType, material, color }: FallingDieProps) {
+function FallingDie({
+  initialSpeed,
+  rotationSpeed,
+  scale = 1,
+  xPos,
+  zPos,
+  dieType,
+  material,
+  color,
+  visualOverrides,
+  randomSeed,
+}: FallingDieProps) {
   const groupRef = useRef<THREE.Group>(null);
 
   // Create a memoized die instance
@@ -39,39 +60,37 @@ function FallingDie({ initialSpeed, rotationSpeed, scale = 1, xPos, zPos, dieTyp
           child.material = child.material.clone();
           const m = child.material as THREE.MeshStandardMaterial | THREE.MeshPhysicalMaterial;
 
-          // Randomize based on style
-          if (material === 'acrylic') {
-            m.opacity = 0.6 + Math.random() * 0.35; // Variable transparency (0.6 - 0.95)
-            m.roughness = 0.05 + Math.random() * 0.1; // Ultra smooth to slightly worn
-            if ('transmission' in m) (m as THREE.MeshPhysicalMaterial).transmission = 0.8 + Math.random() * 0.15;
-          } else if (material === 'metallic') {
-            m.metalness = 0.8 + Math.random() * 0.2; // varying shiny
-            m.roughness = 0.1 + Math.random() * 0.2;
-          } else if (material === 'stone') {
-            m.roughness = 0.8 + Math.random() * 0.2; // Very rough
-            // Slight color variation for stone to look natural
-            m.color.offsetHSL(0, 0, (Math.random() - 0.5) * 0.1);
-          } else if (material === 'glowing') {
-            m.emissiveIntensity = 1.0 + Math.random() * 1.5; // Pulsing intensity variance
-          } else {
-            // Standard
-            m.roughness = 0.3 + Math.random() * 0.3;
-            m.metalness = Math.random() * 0.3;
+          // Apply overrides if present (deterministic)
+          if (visualOverrides) {
+            if (visualOverrides.opacity !== undefined) m.opacity = visualOverrides.opacity;
+            if (visualOverrides.roughness !== undefined) m.roughness = visualOverrides.roughness;
+            if (visualOverrides.transmission !== undefined && 'transmission' in m) {
+              (m as THREE.MeshPhysicalMaterial).transmission = visualOverrides.transmission;
+            }
+            if (visualOverrides.metalness !== undefined) m.metalness = visualOverrides.metalness;
+            if (visualOverrides.emissiveIntensity !== undefined) {
+              m.emissiveIntensity = visualOverrides.emissiveIntensity;
+            }
+            if (visualOverrides.colorOffset !== undefined) {
+              m.color.offsetHSL(0, 0, visualOverrides.colorOffset);
+            }
           }
         }
       }
     });
 
     return dieGroup;
-  }, [dieType, color, material]);
+    return dieGroup;
+  }, [dieType, color, material, visualOverrides]);
 
   useEffect(() => {
-    if (groupRef.current) {
-      groupRef.current.add(die);
+    const group = groupRef.current;
+    if (group) {
+      group.add(die);
     }
     return () => {
-      if (groupRef.current) {
-        groupRef.current.remove(die);
+      if (group) {
+        group.remove(die);
         // Dispose of unique materials to prevent leak
         die.traverse((child) => {
           if (child instanceof THREE.Mesh && child.material) {
@@ -82,16 +101,20 @@ function FallingDie({ initialSpeed, rotationSpeed, scale = 1, xPos, zPos, dieTyp
     };
   }, [die]);
 
-  // Randomize initial Y to spread them out at start
-  const initialY = useMemo(() => Math.random() * 40 + 10, []);
+  // Use randomSeed to generate stable initial Y if needed, or just standard
+  // To avoid Math.random inside useMemo for initialY, we process it outside or use a pseudorandom.
+  // Actually, let's just use a simple derivation from seed for 'stable' initialY during this mount session
+  // or pass it as prop. Let's assume passed prop xPos/zPos are handled, but Y needs to be random-ish per mount.
+  // We can just use the randomSeed to derive it.
+  const initialY = useMemo(() => (randomSeed % 40) + 10, [randomSeed]);
 
-  // Mutable physics state - Now includes X and Z for re-randomization
+  // Mutable physics state
   const physicsState = useRef({
     x: xPos,
     y: initialY,
     z: zPos,
     velocity: initialSpeed,
-    rotation: new THREE.Euler(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI),
+    rotation: new THREE.Euler((randomSeed * 0.1) % Math.PI, (randomSeed * 0.2) % Math.PI, (randomSeed * 0.3) % Math.PI),
   });
 
   const { viewport } = useThree();
@@ -120,18 +143,15 @@ function FallingDie({ initialSpeed, rotationSpeed, scale = 1, xPos, zPos, dieTyp
 
     if (physicsState.current.y < resetThreshold) {
       // Reset Y to top
-      physicsState.current.y = spawnHeight + Math.random() * 5;
+      physicsState.current.y = spawnHeight + Math.random() * 5; // impure but in usage, okay for animation loop
 
       // Reset Velocity
       physicsState.current.velocity = initialSpeed + Math.random() * 3;
 
       // Re-randomize X and Z to prevent boring patterns
-      // Logic mirrored from Scene generation:
-      // Z range: -10 to -30
       const newZ = -Math.random() * 20 - 10;
       physicsState.current.z = newZ;
 
-      // X range based on depth spread
       const spread = Math.abs(newZ - 10) * 0.8;
       physicsState.current.x = (Math.random() - 0.5) * spread * 2.5;
     }
@@ -144,16 +164,16 @@ function FallingDie({ initialSpeed, rotationSpeed, scale = 1, xPos, zPos, dieTyp
 }
 
 function Scene() {
-  const diceConfig = useMemo(() => {
-    const count = 35; // Many more dice since they are smaller
+  const [diceConfig, setDiceConfig] = useState<FallingDieProps[]>([]);
+
+  useEffect(() => {
+    // Generate config once on mount
+    const count = 35;
     const items: FallingDieProps[] = [];
 
-    // Configs for randomization
-    // Supported types from createDie.ts: 2, 4, 6, 8, 10, 12, 20, '20-ai'
     const types: DieType[] = [2, 4, 6, 8, 10, 12, 20, '20-ai'];
     const styles: DieVisualStyle[] = ['acrylic', 'metallic', 'glowing', 'stone', 'standard'];
 
-    // Expanded Rich Palette
     const colors = [
       '#d4af37', // Gold
       '#7a49d9', // Soft Purple
@@ -176,42 +196,43 @@ function Scene() {
       '#f43f5e', // Rose
     ];
 
-    // Width calculation at depth -10 roughly
-    // FOV 45, Z=10 (camera), Die Z=-5 to -15. Dist = 15 to 25.
-    // Visible width ≈ 2 * dist * tan(22.5) ≈ 0.828 * dist.
-    // At dist 20, width ≈ 16.5 units.
-
     for (let i = 0; i < count; i++) {
-      // Much deeper depth range: -10 to -30
-      // Camera is at +10. So distance is 20 to 40.
       const z = -Math.random() * 20 - 10;
-
-      // Calculate spread based on depth to fill screen
-      // tan(22.5 deg) ≈ 0.414. Visible height at dist D = 2 * D * 0.414 ≈ 0.828 * D
-      // Aspect ratio (width) scales this.
-      // At z=-30 (dist 40), width ≈ 33 units * aspect.
       const spread = Math.abs(z - 10) * 0.8;
+      const material = styles[Math.floor(Math.random() * styles.length)]!;
+
+      const overrides: Record<string, number> = {};
+      if (material === 'acrylic') {
+        overrides.opacity = 0.6 + Math.random() * 0.35;
+        overrides.roughness = 0.05 + Math.random() * 0.1;
+        overrides.transmission = 0.8 + Math.random() * 0.15;
+      } else if (material === 'metallic') {
+        overrides.metalness = 0.8 + Math.random() * 0.2;
+        overrides.roughness = 0.1 + Math.random() * 0.2;
+      } else if (material === 'stone') {
+        overrides.roughness = 0.8 + Math.random() * 0.2;
+        overrides.colorOffset = (Math.random() - 0.5) * 0.1;
+      } else if (material === 'glowing') {
+        overrides.emissiveIntensity = 1.0 + Math.random() * 1.5;
+      } else {
+        overrides.roughness = 0.3 + Math.random() * 0.3;
+        overrides.metalness = Math.random() * 0.3;
+      }
 
       items.push({
-        xPos: (Math.random() - 0.5) * spread * 2.5, // Wide spread
+        xPos: (Math.random() - 0.5) * spread * 2.5,
         zPos: z,
-        // Start faster
         initialSpeed: 4 + Math.random() * 4,
-        rotationSpeed: [
-          (Math.random() - 0.5) * 15, // Very fast rotation
-          (Math.random() - 0.5) * 15,
-          (Math.random() - 0.5) * 15,
-        ],
-        // Much smaller scale: 0.15 to 0.35 -> Doubled: 0.3 to 0.7
+        rotationSpeed: [(Math.random() - 0.5) * 15, (Math.random() - 0.5) * 15, (Math.random() - 0.5) * 15],
         scale: 0.3 + Math.random() * 0.4,
-
-        // Random visual properties
         dieType: types[Math.floor(Math.random() * types.length)]!,
-        material: styles[Math.floor(Math.random() * styles.length)]!,
+        material,
         color: colors[Math.floor(Math.random() * colors.length)]!,
+        visualOverrides: overrides,
+        randomSeed: Math.random() * 10000,
       });
     }
-    return items;
+    setTimeout(() => setDiceConfig(items), 0);
   }, []);
 
   return (

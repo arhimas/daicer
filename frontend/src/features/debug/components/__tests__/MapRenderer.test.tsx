@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
@@ -64,7 +65,7 @@ describe('MapRenderer', () => {
 
   it('renders without crashing', () => {
     render(<MapRenderer {...defaultProps} />);
-    const canvas = screen.getByRole('img', { name: /Game Map/i });
+    const canvas = screen.getByLabelText(/Game Map/i);
     expect(canvas).toBeTruthy();
   });
 

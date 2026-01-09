@@ -50,13 +50,23 @@ export default ({ strapi }) => ({
             stats: true,
             features: true, // Add features
             inventory: true,
-            character: { populate: ['race', 'classes.class'] },
+            character: {
+              populate: {
+                race: true,
+                classes: { populate: ['class'] },
+                spells: { populate: { damage: true } },
+                equipment_items: { populate: '*' },
+                actions: { populate: { damage: true } },
+              },
+            },
             monster: {
               populate: {
                 stats: true,
+                spells: { populate: { damage: true } },
+                equipment_items: { populate: '*' },
+                actions: { populate: { damage: true } },
               },
             },
-            structuredActions: { populate: { damage: true } },
           },
         },
       },

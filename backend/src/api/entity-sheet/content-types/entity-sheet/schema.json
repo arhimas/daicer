@@ -94,18 +94,35 @@
       "repeatable": false,
       "component": "game.position"
     },
-    "structuredActions": {
-      "type": "json"
-    },
-    "features": {
-      "type": "component",
-      "repeatable": true,
-      "component": "game.feature"
+    "actions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::action.action"
     },
     "spellbook": {
       "type": "component",
       "repeatable": false,
       "component": "game.spellbook"
+    },
+    "proficiencies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::proficiency.proficiency"
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::language.language"
+    },
+    "traits": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::trait.trait"
+    },
+    "features": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::feature.feature"
     }
   }
 }

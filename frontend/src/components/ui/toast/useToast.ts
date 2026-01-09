@@ -49,7 +49,7 @@ function addToRemoveQueue(toastId: string) {
   }
   const timeout = setTimeout(() => {
     toastTimeouts.delete(toastId);
-    // eslint-disable-next-line
+     
     dispatch({ type: actionTypes.REMOVE_TOAST, toastId });
   }, TOAST_REMOVE_DELAY);
   toastTimeouts.set(toastId, timeout);
