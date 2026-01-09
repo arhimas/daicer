@@ -17,7 +17,8 @@ export const MOCK_USERS = {
 // In CI/Test environment, this MUST match the backend's JWT_SECRET
 const TEST_JWT_SECRET = process.env.JWT_SECRET || 'MuuD79Fd8NHnqg9tG1iL9A==';
 
-export const generateGodToken = (userPayload: { id: number; email?: string } = MOCK_USERS.ALICE) => jwt.sign(
+export const generateGodToken = (userPayload: { id: number; email?: string } = MOCK_USERS.ALICE) =>
+  jwt.sign(
     {
       id: userPayload.id,
       iat: Math.floor(Date.now() / 1000),

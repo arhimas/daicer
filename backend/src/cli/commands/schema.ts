@@ -82,7 +82,10 @@ export async function runSchema(options: {
     if (mode === 'all') {
       result = readAllSchemas();
     } else if (mode === 'single') {
-      result = readSchema(options.type);
+      // Use Deep Read by default for single inspection
+      const { readSchemaDeep } = await import('../utils/schema'); // dynamic import or just standard import at top if possible
+      result = readSchemaDeep(options.type!, 2); // Depth 2 as requested
+
       if (!result) {
         if (options.json) {
           console.error(JSON.stringify({ error: `Schema not found for UID: ${options.type}` }));
@@ -94,7 +97,7 @@ export async function runSchema(options: {
 
       // Human pretty print for single schema
       if (!options.json && !options.save) {
-        printHumanSchema(result, chalk);
+        printHumanSchema(result, chalk, 0); // Start depth 0
         return;
       }
     }
@@ -119,24 +122,49 @@ export async function runSchema(options: {
   }
 }
 
-function printHumanSchema(schema: SchemaDefinition, _chalk: unknown) {
+function printHumanSchema(schema: SchemaDefinition, _chalk: unknown, indentLevel = 0) {
   const chalk = _chalk as typeof import('chalk').default;
-  console.log(chalk.bold(`\n📄 Schema: ${chalk.cyan(schema.info.displayName)}\n`));
-  console.log(`   ${chalk.dim(schema.info.description || 'No description')}`);
-  console.log(`   ${chalk.dim('Collection Name:')} ${schema.collectionName}\n`);
+  const pad = ' '.repeat(indentLevel * 3);
 
-  console.log(chalk.bold('   Attributes:'));
+  if (indentLevel === 0) {
+    console.log(chalk.bold(`\n📄 Schema: ${chalk.cyan(schema.info.displayName)}\n`));
+    console.log(`   ${chalk.dim(schema.info.description || 'No description')}`);
+    console.log(`   ${chalk.dim('Collection Name:')} ${schema.collectionName}\n`);
+    console.log(chalk.bold('   Attributes:'));
+  } else {
+    console.log(
+      `${pad} ${chalk.dim('↳')} ${chalk.bold(schema.info.displayName)} ${chalk.dim(`(${schema.collectionName || 'component'})`)}`
+    );
+  }
 
   Object.entries(schema.attributes).forEach(([key, value]) => {
     let typeStr = chalk.yellow(value.type);
+    let extraInfo = '';
+
     if (value.type === 'relation') {
       typeStr = `${chalk.magenta('relation')} -> ${value.target}`;
+      // Check for deep schema
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((value as any).__targetSchema) {
+        extraInfo = `\n${pad}   ${chalk.dim('Deep Relation:')}`;
+      }
     } else if (value.type === 'component') {
       typeStr = `${chalk.blue('component')} <${value.component}> ${value.repeatable ? '(args)' : ''}`;
     }
 
     const required = value.required ? chalk.red('*') : ' ';
-    console.log(`   ${required} ${chalk.green(key.padEnd(20))} ${typeStr}`);
+    console.log(`${pad}   ${required} ${chalk.green(key.padEnd(20))} ${typeStr}`);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((value as any).__targetSchema) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      printHumanSchema((value as any).__targetSchema, chalk, indentLevel + 1);
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((value as any).__schema) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      printHumanSchema((value as any).__schema, chalk, indentLevel + 1);
+    }
   });
-  console.log('');
+  if (indentLevel === 0) console.log('');
 }

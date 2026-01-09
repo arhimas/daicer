@@ -1068,7 +1068,9 @@
         "title": "Backstory"
       },
       "identity": {
-        "title": "Identity"
+        "title": "Identity",
+        "name": "Character Name",
+        "namePlaceholder": "Enter your hero's name"
       },
       "portraits": {
         "title": "Portraits"

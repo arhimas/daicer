@@ -1,67 +1,61 @@
 {
-    "kind": "collectionType",
-    "collectionName": "actions",
-    "info": {
-        "singularName": "action",
-        "pluralName": "actions",
-        "displayName": "Action",
-        "description": "Reusable Action Definitions (Rich Structure - Spell Parity)"
+  "kind": "collectionType",
+  "collectionName": "actions",
+  "info": {
+    "singularName": "action",
+    "pluralName": "actions",
+    "displayName": "Action",
+    "description": "Reusable Action Definitions (Rich Structure - Spell Parity)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
     },
-    "options": {
-        "draftAndPublish": false
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     },
-    "pluginOptions": {},
-    "attributes": {
-        "name": {
-            "type": "string",
-            "required": true,
-            "unique": true
-        },
-        "slug": {
-            "type": "uid",
-            "targetField": "name"
-        },
-        "description": {
-            "type": "text"
-        },
-        "type": {
-            "type": "enumeration",
-            "enum": [
-                "melee",
-                "ranged",
-                "spell",
-                "utility",
-                "ability"
-            ],
-            "default": "melee"
-        },
-        "range_config": {
-            "type": "component",
-            "repeatable": false,
-            "component": "game.range-config"
-        },
-        "mechanics_config": {
-            "type": "component",
-            "repeatable": false,
-            "component": "game.mechanics-config"
-        },
-        "damage_instances": {
-            "type": "component",
-            "repeatable": true,
-            "component": "game.damage-instance"
-        },
-        "condition_instances": {
-            "type": "component",
-            "repeatable": true,
-            "component": "game.condition-instance"
-        },
-        "save": {
-            "type": "component",
-            "repeatable": false,
-            "component": "game.save-dc"
-        },
-        "toHit": {
-            "type": "integer"
-        }
+    "description": {
+      "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["melee", "ranged", "spell", "utility", "ability"],
+      "default": "melee"
+    },
+    "range_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.range-config"
+    },
+    "mechanics_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.mechanics-config"
+    },
+    "damage_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.damage-instance"
+    },
+    "condition_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.condition-instance"
+    },
+    "save": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.save-dc"
+    },
+    "toHit": {
+      "type": "integer"
     }
+  }
 }

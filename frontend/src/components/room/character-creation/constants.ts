@@ -26,8 +26,8 @@ export const SKIN_TONE_OPTIONS = ['Pale', 'Fair', 'Olive', 'Sun-kissed', 'Bronze
 export const HAIR_STYLE_OPTIONS = ['Black', 'Brown', 'Blonde', 'Red', 'White', 'Silver', 'Bald', 'Vibrant'];
 
 export const DEFAULT_APPEARANCE_AGE = 24;
-export const DEFAULT_APPEARANCE_HEIGHT = 170;
-export const DEFAULT_APPEARANCE_WEIGHT = 72;
+export const DEFAULT_APPEARANCE_HEIGHT = 5.7;
+export const DEFAULT_APPEARANCE_WEIGHT = 160;
 
 export const MAX_PREVIEW_DIMENSION = 512;
 export const PREVIEW_OUTPUT_MIME = 'image/webp';

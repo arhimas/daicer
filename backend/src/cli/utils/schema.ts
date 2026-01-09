@@ -173,3 +173,140 @@ export function readAllSchemas(): Record<string, SchemaDefinition> {
   }
   return result;
 }
+
+/**
+ * Reads a schema and recursively populates its relations and components up to a certain depth.
+ */
+export function readSchemaDeep(uid: string, depth: number = 2, seen: Set<string> = new Set()): SchemaDefinition | null {
+  let schema = readSchema(uid);
+
+  // If not found via standard API read, try component read
+  if (!schema && !uid.startsWith('api::') && !uid.startsWith('plugin::')) {
+    schema = readComponentSchema(uid);
+  }
+
+  if (!schema) return null;
+
+  if (depth <= 0) return schema;
+  if (seen.has(uid)) return schema;
+  seen.add(uid);
+
+  const newAttributes = { ...schema.attributes };
+
+  for (const [key, value] of Object.entries(newAttributes)) {
+    // 1. Components
+    if (value.type === 'component' && value.component) {
+      const compUid = value.component as string;
+      const compSchema = readSchemaDeep(compUid, depth - 1, new Set(seen));
+      if (compSchema) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (value as any).__schema = compSchema;
+      }
+    }
+    // 2. Relations
+    else if (value.type === 'relation' && value.target) {
+      const targetUid = value.target as string;
+      if (!targetUid) continue;
+
+      const relSchema = readSchemaDeep(targetUid, depth - 1, new Set(seen));
+      if (relSchema) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (value as any).__targetSchema = relSchema;
+      }
+    }
+  }
+
+  schema.attributes = newAttributes;
+  return schema;
+}
+
+function readComponentSchema(uid: string): SchemaDefinition | null {
+  // uid format: category.name
+  const parts = uid.split('.');
+  if (parts.length < 2) return null;
+
+  const category = parts[0];
+  const name = parts[1];
+
+  const compPath = path.join(process.cwd(), 'src', 'components', category, `${name}.json`);
+  if (fs.existsSync(compPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(compPath, 'utf-8'));
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * Builds a deep populate object for Strapi Entity Service / Client queries.
+ * Depth 2 means: populate relations, and populate relations of relations.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function buildDeepPopulate(uid: string, depth: number = 2, seen: Set<string> = new Set()): any {
+  if (depth <= 0) return true; // End of recursion
+  // If seen, return true to stop recursion but still populate this level?
+  // Actually if we've seen this UID in this branch, we should probably stop.
+  // Ideally we'd use 'true' (populate all 1 level deep) or just omit?
+  // Let's return true to be safe.
+  if (seen.has(uid)) return true;
+
+  // Read schema (deep read not needed, just readSchema to get attrs)
+  const schema = readSchema(uid);
+  // If no schema (e.g. unknown plugin), fallback to wildcard
+  if (!schema && (uid.startsWith('api::') || uid.startsWith('plugin::'))) return '*';
+
+  if (!schema) {
+    // Try component
+    const comp = readComponentSchema(uid);
+    if (!comp) return '*';
+
+    // Component logic
+    seen.add(uid);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const populate: any = {};
+
+    Object.entries(comp.attributes).forEach(([key, value]) => {
+      if (value.type === 'component') {
+        populate[key] = {
+          populate: buildDeepPopulate(value.component as string, depth - 1, new Set(seen)),
+        };
+      } else if (value.type === 'relation') {
+        populate[key] = {
+          populate: buildDeepPopulate(value.target as string, depth - 1, new Set(seen)),
+        };
+      } else if (value.type === 'media') {
+        populate[key] = true;
+      } else if (value.type === 'dynamiczone') {
+        populate[key] = { populate: '*' };
+      }
+    });
+    return populate;
+  }
+
+  seen.add(uid);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const populate: any = {};
+
+  Object.entries(schema.attributes).forEach(([key, value]) => {
+    if (value.type === 'component') {
+      populate[key] = {
+        populate: buildDeepPopulate(value.component as string, depth - 1, new Set(seen)),
+      };
+    } else if (value.type === 'relation') {
+      populate[key] = {
+        populate: buildDeepPopulate(value.target as string, depth - 1, new Set(seen)),
+      };
+    } else if (value.type === 'media') {
+      populate[key] = true;
+    } else if (value.type === 'dynamiczone') {
+      populate[key] = { populate: '*' };
+    }
+  });
+
+  // If empty populate (no relations/components), return true or *
+  if (Object.keys(populate).length === 0) return true;
+
+  return populate;
+}

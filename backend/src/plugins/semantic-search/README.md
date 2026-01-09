@@ -23,7 +23,6 @@ src/plugins/semantic-search/
 ## How It Works
 
 1.  **Ingestion**:
-
     - When a configured entity (e.g. `Spell`, `Monster`) is Created/Updated, the **Lifecycle Hook** (in `server/index.js`) triggers.
     - It concatenates relevant fields (e.g. `name + description`) and calls `embedding-service`.
     - `embedding-service` calls OpenAI `text-embedding-ada-002` to get a 1536d vector.

@@ -172,21 +172,23 @@ export function DiceRollAnimation({
     latestOnComplete.current = onComplete;
   }, [onComplete]);
 
-  const canvasStyle = useMemo(() => 
-    // ... (memo body unchanged) ...
-    // To save tokens I will cut this part out if possible, but replace_file_content needs contiguous block.
-    // I entered a large block replacement.
-    // Let's try targeted replacements.
-     ({
-      width: style?.width ?? `${CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium}px`,
-      height: style?.height ?? `${CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium}px`,
-      position: 'relative' as const,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      ...style,
-    })
-  , [size, style]);
+  const canvasStyle = useMemo(
+    () =>
+      // ... (memo body unchanged) ...
+      // To save tokens I will cut this part out if possible, but replace_file_content needs contiguous block.
+      // I entered a large block replacement.
+      // Let's try targeted replacements.
+      ({
+        width: style?.width ?? `${CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium}px`,
+        height: style?.height ?? `${CONTAINER_SIZE_MAP[size] ?? CONTAINER_SIZE_MAP.medium}px`,
+        position: 'relative' as const,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        ...style,
+      }),
+    [size, style]
+  );
 
   const rootClassName = className
     ? `flex flex-col items-center gap-3 ${className}`

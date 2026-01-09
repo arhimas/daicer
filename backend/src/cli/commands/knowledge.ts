@@ -25,6 +25,9 @@ export async function runKnowledge(options: {
   const { default: Table } = await import('cli-table3');
   const { input } = await import('@inquirer/prompts');
 
+  // Move client import to top of action or before usage
+  // client is already imported at top level
+
   try {
     let result: unknown;
     let meta: Record<string, unknown> = {};
@@ -98,9 +101,62 @@ export async function runKnowledge(options: {
       })
       .then((res) => res.json());
 
+    // DEBUG: Log raw result to see if backend is returning anything
+    if (options.json) {
+      console.error('DEBUG RAM', JSON.stringify(result, null, 2));
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result = (result as any).data || [];
     // Normalize Result
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result = (result as any).data || [];
+
+    // ENRICHMENT STEP: Fetch full entity data for any "entity" kind results
+    // The user wants "all readable fields" so we must go to the DB source, not just the vector snippet.
+    const { buildDeepPopulate } = await import('../utils/schema');
+    // client is already imported at module level
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const enriched = await Promise.all(
+      (result as any[]).map(async (row: any) => {
+        if (row.kind === 'entity' && row.entityUid && row.documentId) {
+          try {
+            // Determine resource name (plural) roughly
+            // strapi client usually handles pluralization or we guide it.
+            // We don't have the clean mapping here easily without discover.
+            // But `row.entityUid` is like `api::spell.spell`.
+            const typeName = row.entityUid.split('.').pop(); // spell
+            // Usually collection name is pluralized. Simple heuristic:
+            const plural = typeName + 's'; // very naive, but client might need it?
+            // Actually `client` helper methods `collection(name)` usually expects just the name part that equates to api URL.
+            // `api/spells`.
+            // Let's try to get more robust name.
+            // Or we can rely on `explore` command logic or `discoverContentTypes` if fast.
+            // For speed, let's try strict name if possible.
+            // Actually, let's just use `client.fetch` directly if we know the path, but `client.collection` is safer.
+
+            // Let's use discover for safety if needed, or try standard plural.
+            // Better: Use `client` generic fetch.
+            const resource = client.collection(typeName); // Strapi client often auto-pluralizes?
+
+            // We need `buildDeepPopulate`.
+            const deepPop = buildDeepPopulate(row.entityUid, 2);
+
+            const fullEntity = await resource.findOne(row.documentId, { populate: deepPop });
+            if (fullEntity) {
+              return { ...row, _fullData: fullEntity };
+            }
+          } catch (e) {
+            // ignore fetch error, fallback to snippet
+          }
+        }
+        return row;
+      })
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result = enriched;
+
     meta = {
       query,
       targets: targets || (options.entities ? ['entity'] : ['unified']),
@@ -128,7 +184,8 @@ export async function runKnowledge(options: {
 
       if (Array.isArray(result) && result.length > 0) {
         // Render Results
-        result.forEach((row: Record<string, unknown>) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        result.forEach((row: any) => {
           const score = (row.score as number) || (row.similarity as number) || 0;
           const sim = Math.round(score * 100);
           const color = sim > 80 ? chalk.green : sim > 60 ? chalk.yellow : chalk.gray;
@@ -136,10 +193,23 @@ export async function runKnowledge(options: {
           const uidLabel = row.entityUid ? chalk.cyan(`(${row.entityUid})`) : '';
 
           let content = (row.excerpt as string) || (row.content as string) || '';
-          // Clean up context tags "[Tags: foo, bar]"
-          content = content.replace(/^\[Tags: .*?\]\s*\n?/i, '');
-          // Truncate cleanly if too long
-          if (content.length > 400) content = content.substring(0, 400) + chalk.dim('...');
+
+          // Replace content with full data summary if available for Humans
+          if (row._fullData) {
+            const keys = Object.keys(row._fullData).filter(
+              (k) => k !== 'id' && k !== 'documentId' && k !== 'createdAt' && k !== 'updatedAt' && k !== 'publishedAt'
+            );
+            const preview = keys
+              .slice(0, 5)
+              .map((k) => `${k}: ${JSON.stringify(row._fullData[k]).substring(0, 50)}`)
+              .join('\n  ');
+            content = `${chalk.green('⚡ Full Data Loaded')}\n  ${preview}\n  ${chalk.dim('...more data in JSON mode...')}`;
+          } else {
+            // Clean up context tags "[Tags: foo, bar]"
+            content = content.replace(/^\[Tags: .*?\]\s*\n?/i, '');
+            // Truncate cleanly if too long
+            if (content.length > 400) content = content.substring(0, 400) + chalk.dim('...');
+          }
 
           const sourceLabel = row.sourceName ? `\n${chalk.dim('├─ Source:')} ${chalk.cyan(row.sourceName)}` : '';
 

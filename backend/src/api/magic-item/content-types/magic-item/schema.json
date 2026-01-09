@@ -40,15 +40,7 @@
     },
     "rarity": {
       "type": "enumeration",
-      "enum": [
-        "Common",
-        "Uncommon",
-        "Rare",
-        "Very Rare",
-        "Legendary",
-        "Artifact",
-        "Varies"
-      ]
+      "enum": ["Common", "Uncommon", "Rare", "Very Rare", "Legendary", "Artifact", "Varies"]
     },
     "equipment_category": {
       "type": "relation",
@@ -82,13 +74,7 @@
     },
     "recharge_trigger": {
       "type": "enumeration",
-      "enum": [
-        "Dawn",
-        "Dusk",
-        "Short Rest",
-        "Long Rest",
-        "Special"
-      ]
+      "enum": ["Dawn", "Dusk", "Short Rest", "Long Rest", "Special"]
     },
     "recharge_formula": {
       "type": "string",
@@ -104,9 +90,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "image_url": {
       "type": "string"

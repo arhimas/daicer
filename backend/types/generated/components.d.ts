@@ -35,6 +35,24 @@ export interface GameAction extends Struct.ComponentSchema {
   };
 }
 
+export interface GameAppearance extends Struct.ComponentSchema {
+  collectionName: 'components_game_appearances';
+  info: {
+    description: 'Physical appearance details';
+    displayName: 'Appearance';
+    icon: 'user';
+  };
+  attributes: {
+    age: Schema.Attribute.Integer;
+    description: Schema.Attribute.Text;
+    eyes: Schema.Attribute.String;
+    hair: Schema.Attribute.String;
+    height: Schema.Attribute.Decimal;
+    skin: Schema.Attribute.String;
+    weight: Schema.Attribute.Decimal;
+  };
+}
+
 export interface GameAreaEffect extends Struct.ComponentSchema {
   collectionName: 'components_game_area_effects';
   info: {
@@ -450,6 +468,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'game.action': GameAction;
+      'game.appearance': GameAppearance;
       'game.area-effect': GameAreaEffect;
       'game.casting-config': GameCastingConfig;
       'game.character-class': GameCharacterClass;

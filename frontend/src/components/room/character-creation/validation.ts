@@ -9,7 +9,7 @@ export function calculateTotalPoints(attributes: Record<string, number>): number
 }
 
 export const parseAppearanceNumber = (value: string, fallback: number): number => {
-  const parsed = Number.parseInt(value, 10);
+  const parsed = Number.parseFloat(value);
   return Number.isFinite(parsed) ? parsed : fallback;
 };
 

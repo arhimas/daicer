@@ -1,13 +1,13 @@
 {
-    "name": "strapi-plugin-semantic-search",
-    "version": "1.0.0",
-    "description": "State of the Art Semantic Search for Daicer",
-    "strapi": {
-        "displayName": "Semantic Search",
-        "name": "semantic-search",
-        "description": "PGVector-based Semantic Search",
-        "kind": "plugin"
-    },
-    "dependencies": {},
-    "main": "strapi-server.js"
+  "name": "strapi-plugin-semantic-search",
+  "version": "1.0.0",
+  "description": "State of the Art Semantic Search for Daicer",
+  "strapi": {
+    "displayName": "Semantic Search",
+    "name": "semantic-search",
+    "description": "PGVector-based Semantic Search",
+    "kind": "plugin"
+  },
+  "dependencies": {},
+  "main": "strapi-server.js"
 }

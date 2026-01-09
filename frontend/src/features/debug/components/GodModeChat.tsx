@@ -19,7 +19,6 @@ interface GodModeChatProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   activeEntity?: any;
 
-   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events?: any[];
 }

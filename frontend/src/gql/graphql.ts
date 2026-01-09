@@ -9,19 +9,19 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
-  DateTime: { input: any; output: any; }
+  DateTime: { input: any; output: any };
   /** A string used to identify an i18n locale */
-  I18NLocaleCode: { input: any; output: any; }
+  I18NLocaleCode: { input: any; output: any };
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any; }
+  JSON: { input: any; output: any };
   /** The `BigInt` scalar type represents non-fractional signed whole numeric values. */
-  Long: { input: any; output: any; }
+  Long: { input: any; output: any };
 };
 
 export type Ability = {
@@ -52,13 +52,11 @@ export type Action = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type ActionCondition_InstancesArgs = {
   filters?: InputMaybe<ComponentGameConditionInstanceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ActionDamage_InstancesArgs = {
   filters?: InputMaybe<ComponentGameDamageInstanceFiltersInput>;
@@ -178,13 +176,11 @@ export type Character = {
   user?: Maybe<UsersPermissionsUser>;
 };
 
-
 export type CharacterActionsArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type CharacterActions_ConnectionArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
@@ -192,13 +188,11 @@ export type CharacterActions_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type CharacterClassesArgs = {
   filters?: InputMaybe<ComponentGameCharacterClassFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type CharacterEquipment_ItemsArgs = {
   filters?: InputMaybe<ComponentGameInventoryItemFiltersInput>;
@@ -206,13 +200,11 @@ export type CharacterEquipment_ItemsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type CharacterSpellsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type CharacterSpells_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -296,13 +288,11 @@ export type Class = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type ClassFeaturesArgs = {
   filters?: InputMaybe<ComponentGameFeatureFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ClassLocalizationsArgs = {
   filters?: InputMaybe<ClassFiltersInput>;
@@ -310,13 +300,11 @@ export type ClassLocalizationsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ClassLocalizations_ConnectionArgs = {
   filters?: InputMaybe<ClassFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ClassProficienciesArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
@@ -324,20 +312,17 @@ export type ClassProficienciesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ClassProficiencies_ConnectionArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ClassSubclassesArgs = {
   filters?: InputMaybe<SubclassFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ClassSubclasses_ConnectionArgs = {
   filters?: InputMaybe<SubclassFiltersInput>;
@@ -402,7 +387,6 @@ export type ComponentGameAction = {
   toHit?: Maybe<Scalars['Int']['output']>;
   type?: Maybe<Enum_Componentgameaction_Type>;
 };
-
 
 export type ComponentGameActionDamageArgs = {
   filters?: InputMaybe<ComponentGameDamageInstanceFiltersInput>;
@@ -924,13 +908,11 @@ export type ComponentGameSpellbook = {
   spellcastingAbility?: Maybe<Enum_Componentgamespellbook_Spellcastingability>;
 };
 
-
 export type ComponentGameSpellbookKnownSpellsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ComponentGameSpellbookKnownSpells_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -938,13 +920,11 @@ export type ComponentGameSpellbookKnownSpells_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ComponentGameSpellbookPreparedSpellsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ComponentGameSpellbookPreparedSpells_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -998,13 +978,11 @@ export type ComponentGameStats = {
   wisdom?: Maybe<Scalars['Int']['output']>;
 };
 
-
 export type ComponentGameStatsLanguagesArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ComponentGameStatsLanguages_ConnectionArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
@@ -1077,13 +1055,11 @@ export type DamageType = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type DamageTypeLocalizationsArgs = {
   filters?: InputMaybe<DamageTypeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type DamageTypeLocalizations_ConnectionArgs = {
   filters?: InputMaybe<DamageTypeFiltersInput>;
@@ -1221,7 +1197,7 @@ export enum Enum_Action_Type {
   Melee = 'melee',
   Ranged = 'ranged',
   Spell = 'spell',
-  Utility = 'utility'
+  Utility = 'utility',
 }
 
 export enum Enum_Componentgameaction_Duration {
@@ -1233,14 +1209,14 @@ export enum Enum_Componentgameaction_Duration {
   Special = 'special',
   TenMinutes = 'ten_minutes',
   TwentyFourHours = 'twenty_four_hours',
-  UntilDispelled = 'until_dispelled'
+  UntilDispelled = 'until_dispelled',
 }
 
 export enum Enum_Componentgameaction_Type {
   Melee = 'melee',
   Ranged = 'ranged',
   Spell = 'spell',
-  Utility = 'utility'
+  Utility = 'utility',
 }
 
 export enum Enum_Componentgameareaeffect_Shape {
@@ -1249,7 +1225,7 @@ export enum Enum_Componentgameareaeffect_Shape {
   Cube = 'cube',
   Cylinder = 'cylinder',
   Line = 'line',
-  Sphere = 'sphere'
+  Sphere = 'sphere',
 }
 
 export enum Enum_Componentgamecastingconfig_Time_Unit {
@@ -1259,7 +1235,7 @@ export enum Enum_Componentgamecastingconfig_Time_Unit {
   Hour = 'Hour',
   Minute = 'Minute',
   Reaction = 'Reaction',
-  Round = 'Round'
+  Round = 'Round',
 }
 
 export enum Enum_Componentgameconditioninstance_Condition {
@@ -1278,7 +1254,7 @@ export enum Enum_Componentgameconditioninstance_Condition {
   Restrained = 'Restrained',
   Special = 'Special',
   Stunned = 'Stunned',
-  Unconscious = 'Unconscious'
+  Unconscious = 'Unconscious',
 }
 
 export enum Enum_Componentgamedamageinstance_Damage_Type {
@@ -1294,20 +1270,20 @@ export enum Enum_Componentgamedamageinstance_Damage_Type {
   Psychic = 'Psychic',
   Radiant = 'Radiant',
   Slashing = 'Slashing',
-  Thunder = 'Thunder'
+  Thunder = 'Thunder',
 }
 
 export enum Enum_Componentgamedamageinstance_Effect_Type {
   Damage = 'Damage',
   Healing = 'Healing',
-  TempHp = 'TempHP'
+  TempHp = 'TempHP',
 }
 
 export enum Enum_Componentgamedamageinstance_Timing {
   EndOfTurn = 'End_of_Turn',
   Instant = 'Instant',
   OneTimeTrigger = 'One_Time_Trigger',
-  StartOfTurn = 'Start_of_Turn'
+  StartOfTurn = 'Start_of_Turn',
 }
 
 export enum Enum_Componentgamedurationconfig_Type {
@@ -1316,14 +1292,14 @@ export enum Enum_Componentgamedurationconfig_Type {
   Special = 'Special',
   TimeLimited = 'Time_Limited',
   UntilDispelled = 'Until_Dispelled',
-  UntilTriggered = 'Until_Triggered'
+  UntilTriggered = 'Until_Triggered',
 }
 
 export enum Enum_Componentgamedurationconfig_Unit {
   Days = 'Days',
   Hours = 'Hours',
   Minutes = 'Minutes',
-  Rounds = 'Rounds'
+  Rounds = 'Rounds',
 }
 
 export enum Enum_Componentgamefeature_Source {
@@ -1332,7 +1308,7 @@ export enum Enum_Componentgamefeature_Source {
   Item = 'item',
   Monster = 'monster',
   Other = 'other',
-  Race = 'race'
+  Race = 'race',
 }
 
 export enum Enum_Componentgamefeature_Usage_Per {
@@ -1341,7 +1317,7 @@ export enum Enum_Componentgamefeature_Usage_Per {
   Dusk = 'dusk',
   LongRest = 'long_rest',
   Other = 'other',
-  ShortRest = 'short_rest'
+  ShortRest = 'short_rest',
 }
 
 export enum Enum_Componentgameinventoryitem_Slot {
@@ -1356,7 +1332,7 @@ export enum Enum_Componentgameinventoryitem_Slot {
   Neck = 'neck',
   OffHand = 'off_hand',
   Ring_1 = 'ring_1',
-  Ring_2 = 'ring_2'
+  Ring_2 = 'ring_2',
 }
 
 export enum Enum_Componentgamemechanicsconfig_Action_Type {
@@ -1369,13 +1345,13 @@ export enum Enum_Componentgamemechanicsconfig_Action_Type {
   None = 'None',
   RangedSpellAttack = 'Ranged_Spell_Attack',
   StrengthSave = 'Strength_Save',
-  WisdomSave = 'Wisdom_Save'
+  WisdomSave = 'Wisdom_Save',
 }
 
 export enum Enum_Componentgamemechanicsconfig_Save_Effect {
   Half = 'Half',
   Negate = 'Negate',
-  None = 'None'
+  None = 'None',
 }
 
 export enum Enum_Componentgamerangeconfig_Aoe_Shape {
@@ -1384,7 +1360,7 @@ export enum Enum_Componentgamerangeconfig_Aoe_Shape {
   Cylinder = 'Cylinder',
   Hemisphere = 'Hemisphere',
   Line = 'Line',
-  Sphere = 'Sphere'
+  Sphere = 'Sphere',
 }
 
 export enum Enum_Componentgamerangeconfig_Type {
@@ -1393,7 +1369,7 @@ export enum Enum_Componentgamerangeconfig_Type {
   Self = 'Self',
   Sight = 'Sight',
   Touch = 'Touch',
-  Unlimited = 'Unlimited'
+  Unlimited = 'Unlimited',
 }
 
 export enum Enum_Componentgamesavedc_Stat {
@@ -1402,31 +1378,31 @@ export enum Enum_Componentgamesavedc_Stat {
   Dex = 'dex',
   Int = 'int',
   Str = 'str',
-  Wis = 'wis'
+  Wis = 'wis',
 }
 
 export enum Enum_Componentgamesavedc_Success_Type {
   Half = 'half',
   None = 'none',
-  Other = 'other'
+  Other = 'other',
 }
 
 export enum Enum_Componentgamescalingconfig_Method {
   Every_2SlotLevels = 'Every_2_Slot_Levels',
   PerSlotLevel = 'Per_Slot_Level',
-  SpecificThresholds = 'Specific_Thresholds'
+  SpecificThresholds = 'Specific_Thresholds',
 }
 
 export enum Enum_Componentgamescalingconfig_Type {
   Dice = 'Dice',
   Duration = 'Duration',
-  Target = 'Target'
+  Target = 'Target',
 }
 
 export enum Enum_Componentgamespellbook_Spellcastingability {
   Charisma = 'charisma',
   Intelligence = 'intelligence',
-  Wisdom = 'wisdom'
+  Wisdom = 'wisdom',
 }
 
 export enum Enum_Dmsetting_Adventurelength {
@@ -1435,7 +1411,7 @@ export enum Enum_Dmsetting_Adventurelength {
   Legendary = 'legendary',
   Long = 'long',
   Medium = 'medium',
-  Short = 'short'
+  Short = 'short',
 }
 
 export enum Enum_Dmsetting_Difficulty {
@@ -1444,18 +1420,18 @@ export enum Enum_Dmsetting_Difficulty {
   Easy = 'easy',
   Gritty = 'gritty',
   Medium = 'medium',
-  Storyteller = 'storyteller'
+  Storyteller = 'storyteller',
 }
 
 export enum Enum_Entitysheet_Type {
   Monster = 'monster',
   Npc = 'npc',
-  Player = 'player'
+  Player = 'player',
 }
 
 export enum Enum_Knowledgesource_Origin {
   Entity = 'entity',
-  Manual = 'manual'
+  Manual = 'manual',
 }
 
 export enum Enum_Magicitem_Rarity {
@@ -1465,7 +1441,7 @@ export enum Enum_Magicitem_Rarity {
   Rare = 'Rare',
   Uncommon = 'Uncommon',
   Varies = 'Varies',
-  VeryRare = 'Very_Rare'
+  VeryRare = 'Very_Rare',
 }
 
 export enum Enum_Magicitem_Recharge_Trigger {
@@ -1473,13 +1449,13 @@ export enum Enum_Magicitem_Recharge_Trigger {
   Dusk = 'Dusk',
   LongRest = 'Long_Rest',
   ShortRest = 'Short_Rest',
-  Special = 'Special'
+  Special = 'Special',
 }
 
 export enum Enum_Message_Sendertype {
   Dm = 'dm',
   Player = 'player',
-  System = 'system'
+  System = 'system',
 }
 
 export enum Enum_Monster_Size {
@@ -1488,7 +1464,7 @@ export enum Enum_Monster_Size {
   Large = 'Large',
   Medium = 'Medium',
   Small = 'Small',
-  Tiny = 'Tiny'
+  Tiny = 'Tiny',
 }
 
 export enum Enum_Proficiency_Type {
@@ -1501,20 +1477,20 @@ export enum Enum_Proficiency_Type {
   Skills = 'Skills',
   Tools = 'Tools',
   Vehicles = 'Vehicles',
-  Weapons = 'Weapons'
+  Weapons = 'Weapons',
 }
 
 export enum Enum_Prompt_Category {
   Gameplay = 'gameplay',
   System = 'system',
-  User = 'user'
+  User = 'user',
 }
 
 export enum Enum_Race_Size {
   Large = 'Large',
   Medium = 'Medium',
   Small = 'Small',
-  Tiny = 'Tiny'
+  Tiny = 'Tiny',
 }
 
 export enum Enum_Room_Phase {
@@ -1523,7 +1499,7 @@ export enum Enum_Room_Phase {
   Ending = 'ending',
   Gameplay = 'gameplay',
   Lobby = 'lobby',
-  WorldGeneration = 'world_generation'
+  WorldGeneration = 'world_generation',
 }
 
 export enum Enum_Spell_School {
@@ -1534,19 +1510,19 @@ export enum Enum_Spell_School {
   Evocation = 'Evocation',
   Illusion = 'Illusion',
   Necromancy = 'Necromancy',
-  Transmutation = 'Transmutation'
+  Transmutation = 'Transmutation',
 }
 
 export enum Enum_Turn_Status {
   Complete = 'complete',
   Processing = 'processing',
-  Waiting = 'waiting'
+  Waiting = 'waiting',
 }
 
 export enum Enum_Turn_Type {
   Combat = 'combat',
   Exploration = 'exploration',
-  Group = 'group'
+  Group = 'group',
 }
 
 export enum Enum_World_Adventurelength {
@@ -1555,7 +1531,7 @@ export enum Enum_World_Adventurelength {
   Legendary = 'legendary',
   Long = 'long',
   Medium = 'medium',
-  Short = 'short'
+  Short = 'short',
 }
 
 export enum Enum_World_Worldsize {
@@ -1564,7 +1540,7 @@ export enum Enum_World_Worldsize {
   Large = 'large',
   Medium = 'medium',
   Small = 'small',
-  Vast = 'vast'
+  Vast = 'vast',
 }
 
 export type EntitySheet = {
@@ -1596,13 +1572,11 @@ export type EntitySheet = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type EntitySheetFeaturesArgs = {
   filters?: InputMaybe<ComponentGameFeatureFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type EntitySheetInventoryArgs = {
   filters?: InputMaybe<ComponentGameInventoryItemFiltersInput>;
@@ -1711,13 +1685,11 @@ export type Equipment = {
   weight?: Maybe<Scalars['Float']['output']>;
 };
 
-
 export type EquipmentActionsArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type EquipmentActions_ConnectionArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
@@ -1725,13 +1697,11 @@ export type EquipmentActions_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type EquipmentLocalizationsArgs = {
   filters?: InputMaybe<EquipmentFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type EquipmentLocalizations_ConnectionArgs = {
   filters?: InputMaybe<EquipmentFiltersInput>;
@@ -1739,13 +1709,11 @@ export type EquipmentLocalizations_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type EquipmentPropertiesArgs = {
   filters?: InputMaybe<WeaponPropertyFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type EquipmentProperties_ConnectionArgs = {
   filters?: InputMaybe<WeaponPropertyFiltersInput>;
@@ -1753,13 +1721,11 @@ export type EquipmentProperties_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type EquipmentSpellsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type EquipmentSpells_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -1782,13 +1748,11 @@ export type EquipmentCategory = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type EquipmentCategoryLocalizationsArgs = {
   filters?: InputMaybe<EquipmentCategoryFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type EquipmentCategoryLocalizations_ConnectionArgs = {
   filters?: InputMaybe<EquipmentCategoryFiltersInput>;
@@ -1912,13 +1876,11 @@ export type Feature = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type FeatureLocalizationsArgs = {
   filters?: InputMaybe<FeatureFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type FeatureLocalizations_ConnectionArgs = {
   filters?: InputMaybe<FeatureFiltersInput>;
@@ -2022,13 +1984,11 @@ export type GameEvent = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type GameEventTimeFramesArgs = {
   filters?: InputMaybe<TimeFrameFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type GameEventTimeFrames_ConnectionArgs = {
   filters?: InputMaybe<TimeFrameFiltersInput>;
@@ -2085,7 +2045,62 @@ export type GameEventRelationResponseCollection = {
   nodes: Array<GameEvent>;
 };
 
-export type GenericMorph = Action | Character | Class | ComponentGameAction | ComponentGameAreaEffect | ComponentGameCastingConfig | ComponentGameCharacterClass | ComponentGameConditionInstance | ComponentGameDamageDice | ComponentGameDamageInstance | ComponentGameDmStyle | ComponentGameDurationConfig | ComponentGameFeature | ComponentGameInventoryItem | ComponentGameMechanicsConfig | ComponentGamePlayer | ComponentGamePosition | ComponentGameRangeConfig | ComponentGameSaveDc | ComponentGameScalingConfig | ComponentGameSpellComponents | ComponentGameSpellbook | ComponentGameStats | DamageType | DmSetting | EntitySheet | Equipment | EquipmentCategory | Feature | GameEvent | I18NLocale | KnowledgeSnippet | KnowledgeSource | Language | MagicItem | MagicSchool | Message | Monster | Proficiency | Prompt | Race | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Room | Spell | Subclass | TimeFrame | Trait | Turn | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WeaponProperty | World;
+export type GenericMorph =
+  | Action
+  | Character
+  | Class
+  | ComponentGameAction
+  | ComponentGameAreaEffect
+  | ComponentGameCastingConfig
+  | ComponentGameCharacterClass
+  | ComponentGameConditionInstance
+  | ComponentGameDamageDice
+  | ComponentGameDamageInstance
+  | ComponentGameDmStyle
+  | ComponentGameDurationConfig
+  | ComponentGameFeature
+  | ComponentGameInventoryItem
+  | ComponentGameMechanicsConfig
+  | ComponentGamePlayer
+  | ComponentGamePosition
+  | ComponentGameRangeConfig
+  | ComponentGameSaveDc
+  | ComponentGameScalingConfig
+  | ComponentGameSpellComponents
+  | ComponentGameSpellbook
+  | ComponentGameStats
+  | DamageType
+  | DmSetting
+  | EntitySheet
+  | Equipment
+  | EquipmentCategory
+  | Feature
+  | GameEvent
+  | I18NLocale
+  | KnowledgeSnippet
+  | KnowledgeSource
+  | Language
+  | MagicItem
+  | MagicSchool
+  | Message
+  | Monster
+  | Proficiency
+  | Prompt
+  | Race
+  | ReviewWorkflowsWorkflow
+  | ReviewWorkflowsWorkflowStage
+  | Room
+  | Spell
+  | Subclass
+  | TimeFrame
+  | Trait
+  | Turn
+  | UploadFile
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsUser
+  | WeaponProperty
+  | World;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -2246,13 +2261,11 @@ export type KnowledgeSource = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type KnowledgeSourceSnippetsArgs = {
   filters?: InputMaybe<KnowledgeSnippetFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type KnowledgeSourceSnippets_ConnectionArgs = {
   filters?: InputMaybe<KnowledgeSnippetFiltersInput>;
@@ -2306,13 +2319,11 @@ export type Language = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type LanguageLocalizationsArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type LanguageLocalizations_ConnectionArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
@@ -2408,20 +2419,17 @@ export type MagicItem = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type MagicItemActive_AbilitiesArgs = {
   filters?: InputMaybe<ComponentGameActionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type MagicItemLocalizationsArgs = {
   filters?: InputMaybe<MagicItemFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type MagicItemLocalizations_ConnectionArgs = {
   filters?: InputMaybe<MagicItemFiltersInput>;
@@ -2502,13 +2510,11 @@ export type MagicSchool = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type MagicSchoolLocalizationsArgs = {
   filters?: InputMaybe<MagicSchoolFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type MagicSchoolLocalizations_ConnectionArgs = {
   filters?: InputMaybe<MagicSchoolFiltersInput>;
@@ -2639,13 +2645,11 @@ export type Monster = {
   xp?: Maybe<Scalars['Int']['output']>;
 };
 
-
 export type MonsterActionsArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type MonsterActions_ConnectionArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
@@ -2653,13 +2657,11 @@ export type MonsterActions_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type MonsterEquipment_ItemsArgs = {
   filters?: InputMaybe<ComponentGameInventoryItemFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type MonsterFeaturesArgs = {
   filters?: InputMaybe<ComponentGameFeatureFiltersInput>;
@@ -2667,13 +2669,11 @@ export type MonsterFeaturesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type MonsterLocalizationsArgs = {
   filters?: InputMaybe<MonsterFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type MonsterLocalizations_ConnectionArgs = {
   filters?: InputMaybe<MonsterFiltersInput>;
@@ -2681,13 +2681,11 @@ export type MonsterLocalizations_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type MonsterSpellsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type MonsterSpells_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -2891,12 +2889,10 @@ export type Mutation = {
   updateWorld?: Maybe<World>;
 };
 
-
 export type MutationAddCharacterArgs = {
   character?: InputMaybe<Scalars['JSON']['input']>;
   roomId: Scalars['ID']['input'];
 };
-
 
 export type MutationChangePasswordArgs = {
   currentPassword: Scalars['String']['input'];
@@ -2904,18 +2900,15 @@ export type MutationChangePasswordArgs = {
   passwordConfirmation: Scalars['String']['input'];
 };
 
-
 export type MutationCreateActionArgs = {
   data: ActionInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateCharacterArgs = {
   data: CharacterInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateClassArgs = {
   data: ClassInput;
@@ -2923,25 +2916,21 @@ export type MutationCreateClassArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateDamageTypeArgs = {
   data: DamageTypeInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateDmSettingArgs = {
   data: DmSettingInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateEntitySheetArgs = {
   data: EntitySheetInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateEquipmentArgs = {
   data: EquipmentInput;
@@ -2949,13 +2938,11 @@ export type MutationCreateEquipmentArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateEquipmentCategoryArgs = {
   data: EquipmentCategoryInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateFeatureArgs = {
   data: FeatureInput;
@@ -2963,24 +2950,20 @@ export type MutationCreateFeatureArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateGameEventArgs = {
   data: GameEventInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateKnowledgeSnippetArgs = {
   data: KnowledgeSnippetInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateKnowledgeSourceArgs = {
   data: KnowledgeSourceInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateLanguageArgs = {
   data: LanguageInput;
@@ -2988,13 +2971,11 @@ export type MutationCreateLanguageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateMagicItemArgs = {
   data: MagicItemInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateMagicSchoolArgs = {
   data: MagicSchoolInput;
@@ -3002,12 +2983,10 @@ export type MutationCreateMagicSchoolArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateMessageArgs = {
   data: MessageInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateMonsterArgs = {
   data: MonsterInput;
@@ -3015,13 +2994,11 @@ export type MutationCreateMonsterArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateProficiencyArgs = {
   data: ProficiencyInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreatePromptArgs = {
   data: PromptInput;
@@ -3029,31 +3006,26 @@ export type MutationCreatePromptArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateRaceArgs = {
   data: RaceInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateReviewWorkflowsWorkflowArgs = {
   data: ReviewWorkflowsWorkflowInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateRoomArgs = {
   data?: InputMaybe<Scalars['JSON']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateSpellArgs = {
   data: SpellInput;
@@ -3061,19 +3033,16 @@ export type MutationCreateSpellArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateSubclassArgs = {
   data: SubclassInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateTimeFrameArgs = {
   data: TimeFrameInput;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationCreateTraitArgs = {
   data: TraitInput;
@@ -3081,22 +3050,18 @@ export type MutationCreateTraitArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateTurnArgs = {
   data: TurnInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
 };
 
-
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
 };
-
 
 export type MutationCreateWeaponPropertyArgs = {
   data: WeaponPropertyInput;
@@ -3104,209 +3069,171 @@ export type MutationCreateWeaponPropertyArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationCreateWorldArgs = {
   data: WorldInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationDeleteActionArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteCharacterArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteClassArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteDamageTypeArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteDmSettingArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteEntitySheetArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteEquipmentArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteEquipmentCategoryArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
-
 
 export type MutationDeleteFeatureArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteGameEventArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteKnowledgeSnippetArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteKnowledgeSourceArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteLanguageArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteMagicItemArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
-
 
 export type MutationDeleteMagicSchoolArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteMessageArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteMonsterArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteProficiencyArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
-
 
 export type MutationDeletePromptArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteRaceArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteReviewWorkflowsWorkflowArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteReviewWorkflowsWorkflowStageArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteRoomArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteSpellArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteSubclassArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteTimeFrameArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteTraitArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteTurnArgs = {
   documentId: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteUploadFileArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteUsersPermissionsRoleArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type MutationDeleteUsersPermissionsUserArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type MutationDeleteWeaponPropertyArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
-
 export type MutationDeleteWorldArgs = {
   documentId: Scalars['ID']['input'];
 };
 
-
 export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String']['input'];
 };
-
 
 export type MutationExecuteToolArgs = {
   command: Scalars['String']['input'];
   roomId: Scalars['ID']['input'];
 };
 
-
 export type MutationForgotPasswordArgs = {
   email: Scalars['String']['input'];
 };
-
 
 export type MutationGenerateAvatarFullBodyArgs = {
   payload: Scalars['JSON']['input'];
@@ -3315,12 +3242,10 @@ export type MutationGenerateAvatarFullBodyArgs = {
   upperBody: Scalars['JSON']['input'];
 };
 
-
 export type MutationGenerateAvatarPortraitArgs = {
   payload: Scalars['JSON']['input'];
   referenceImage?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type MutationGenerateAvatarUpperBodyArgs = {
   payload: Scalars['JSON']['input'];
@@ -3328,11 +3253,9 @@ export type MutationGenerateAvatarUpperBodyArgs = {
   referenceImage?: InputMaybe<Scalars['String']['input']>;
 };
 
-
 export type MutationGenerateTerrainArgs = {
   roomId: Scalars['ID']['input'];
 };
-
 
 export type MutationGenerateTerrainChunkArgs = {
   chunkSize?: InputMaybe<Scalars['Int']['input']>;
@@ -3341,22 +3264,18 @@ export type MutationGenerateTerrainChunkArgs = {
   roomId: Scalars['ID']['input'];
 };
 
-
 export type MutationGenerateWorldArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
   roomId: Scalars['ID']['input'];
 };
 
-
 export type MutationJoinRoomArgs = {
   code: Scalars['String']['input'];
 };
 
-
 export type MutationLoginArgs = {
   input: UsersPermissionsLoginInput;
 };
-
 
 export type MutationProcessTurnArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
@@ -3364,11 +3283,9 @@ export type MutationProcessTurnArgs = {
   roomId: Scalars['ID']['input'];
 };
 
-
 export type MutationRegisterArgs = {
   input: UsersPermissionsRegisterInput;
 };
-
 
 export type MutationResetPasswordArgs = {
   code: Scalars['String']['input'];
@@ -3376,12 +3293,10 @@ export type MutationResetPasswordArgs = {
   passwordConfirmation: Scalars['String']['input'];
 };
 
-
 export type MutationSpawnCreatureArgs = {
   creature?: InputMaybe<Scalars['JSON']['input']>;
   roomId: Scalars['ID']['input'];
 };
-
 
 export type MutationStartGameArgs = {
   language?: InputMaybe<Scalars['String']['input']>;
@@ -3389,13 +3304,11 @@ export type MutationStartGameArgs = {
   streamId?: InputMaybe<Scalars['String']['input']>;
 };
 
-
 export type MutationSubmitActionArgs = {
   action: Scalars['String']['input'];
   mode?: InputMaybe<Scalars['String']['input']>;
   roomId: Scalars['ID']['input'];
 };
-
 
 export type MutationUpdateActionArgs = {
   data: ActionInput;
@@ -3403,13 +3316,11 @@ export type MutationUpdateActionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateCharacterArgs = {
   data: CharacterInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateClassArgs = {
   data: ClassInput;
@@ -3418,7 +3329,6 @@ export type MutationUpdateClassArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateDamageTypeArgs = {
   data: DamageTypeInput;
   documentId: Scalars['ID']['input'];
@@ -3426,20 +3336,17 @@ export type MutationUpdateDamageTypeArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateDmSettingArgs = {
   data: DmSettingInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateEntitySheetArgs = {
   data: EntitySheetInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateEquipmentArgs = {
   data: EquipmentInput;
@@ -3448,14 +3355,12 @@ export type MutationUpdateEquipmentArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateEquipmentCategoryArgs = {
   data: EquipmentCategoryInput;
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateFeatureArgs = {
   data: FeatureInput;
@@ -3464,13 +3369,11 @@ export type MutationUpdateFeatureArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateGameEventArgs = {
   data: GameEventInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateKnowledgeSnippetArgs = {
   data: KnowledgeSnippetInput;
@@ -3478,13 +3381,11 @@ export type MutationUpdateKnowledgeSnippetArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateKnowledgeSourceArgs = {
   data: KnowledgeSourceInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateLanguageArgs = {
   data: LanguageInput;
@@ -3493,14 +3394,12 @@ export type MutationUpdateLanguageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateMagicItemArgs = {
   data: MagicItemInput;
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateMagicSchoolArgs = {
   data: MagicSchoolInput;
@@ -3509,13 +3408,11 @@ export type MutationUpdateMagicSchoolArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateMessageArgs = {
   data: MessageInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateMonsterArgs = {
   data: MonsterInput;
@@ -3524,14 +3421,12 @@ export type MutationUpdateMonsterArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateProficiencyArgs = {
   data: ProficiencyInput;
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdatePromptArgs = {
   data: PromptInput;
@@ -3540,7 +3435,6 @@ export type MutationUpdatePromptArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateRaceArgs = {
   data: RaceInput;
   documentId: Scalars['ID']['input'];
@@ -3548,13 +3442,11 @@ export type MutationUpdateRaceArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateReviewWorkflowsWorkflowArgs = {
   data: ReviewWorkflowsWorkflowInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   data: ReviewWorkflowsWorkflowStageInput;
@@ -3562,13 +3454,11 @@ export type MutationUpdateReviewWorkflowsWorkflowStageArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateRoomArgs = {
   data: RoomInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateSpellArgs = {
   data: SpellInput;
@@ -3577,7 +3467,6 @@ export type MutationUpdateSpellArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateSubclassArgs = {
   data: SubclassInput;
   documentId: Scalars['ID']['input'];
@@ -3585,13 +3474,11 @@ export type MutationUpdateSubclassArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateTimeFrameArgs = {
   data: TimeFrameInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateTraitArgs = {
   data: TraitInput;
@@ -3600,31 +3487,26 @@ export type MutationUpdateTraitArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateTurnArgs = {
   data: TurnInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type MutationUpdateUploadFileArgs = {
   id: Scalars['ID']['input'];
   info?: InputMaybe<FileInfoInput>;
 };
-
 
 export type MutationUpdateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
   id: Scalars['ID']['input'];
 };
 
-
 export type MutationUpdateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
   id: Scalars['ID']['input'];
 };
-
 
 export type MutationUpdateWeaponPropertyArgs = {
   data: WeaponPropertyInput;
@@ -3632,7 +3514,6 @@ export type MutationUpdateWeaponPropertyArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type MutationUpdateWorldArgs = {
   data: WorldInput;
@@ -3676,13 +3557,11 @@ export type Proficiency = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type ProficiencyClassesArgs = {
   filters?: InputMaybe<ClassFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ProficiencyClasses_ConnectionArgs = {
   filters?: InputMaybe<ClassFiltersInput>;
@@ -3690,13 +3569,11 @@ export type ProficiencyClasses_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ProficiencyLocalizationsArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ProficiencyLocalizations_ConnectionArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
@@ -3704,13 +3581,11 @@ export type ProficiencyLocalizations_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ProficiencyRacesArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ProficiencyRaces_ConnectionArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
@@ -3718,13 +3593,11 @@ export type ProficiencyRaces_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type ProficiencyTraitsArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ProficiencyTraits_ConnectionArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
@@ -3786,13 +3659,11 @@ export type Prompt = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type PromptLocalizationsArgs = {
   filters?: InputMaybe<PromptFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type PromptLocalizations_ConnectionArgs = {
   filters?: InputMaybe<PromptFiltersInput>;
@@ -3835,7 +3706,7 @@ export type PromptRelationResponseCollection = {
 
 export enum PublicationStatus {
   Draft = 'DRAFT',
-  Published = 'PUBLISHED'
+  Published = 'PUBLISHED',
 }
 
 export type Query = {
@@ -3953,12 +3824,10 @@ export type Query = {
   worlds_connection?: Maybe<WorldEntityResponseCollection>;
 };
 
-
 export type QueryActionArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryActionsArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
@@ -3967,7 +3836,6 @@ export type QueryActionsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryActions_ConnectionArgs = {
   filters?: InputMaybe<ActionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -3975,12 +3843,10 @@ export type QueryActions_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryCharacterArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryCharactersArgs = {
   filters?: InputMaybe<CharacterFiltersInput>;
@@ -3989,7 +3855,6 @@ export type QueryCharactersArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryCharacters_ConnectionArgs = {
   filters?: InputMaybe<CharacterFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -3997,13 +3862,11 @@ export type QueryCharacters_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryClassArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryClassesArgs = {
   filters?: InputMaybe<ClassFiltersInput>;
@@ -4013,7 +3876,6 @@ export type QueryClassesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryClasses_ConnectionArgs = {
   filters?: InputMaybe<ClassFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4022,13 +3884,11 @@ export type QueryClasses_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryDamageTypeArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryDamageTypesArgs = {
   filters?: InputMaybe<DamageTypeFiltersInput>;
@@ -4038,7 +3898,6 @@ export type QueryDamageTypesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryDamageTypes_ConnectionArgs = {
   filters?: InputMaybe<DamageTypeFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4047,12 +3906,10 @@ export type QueryDamageTypes_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryDmSettingArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryDmSettingsArgs = {
   filters?: InputMaybe<DmSettingFiltersInput>;
@@ -4061,7 +3918,6 @@ export type QueryDmSettingsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryDmSettings_ConnectionArgs = {
   filters?: InputMaybe<DmSettingFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4069,12 +3925,10 @@ export type QueryDmSettings_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryEntitySheetArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryEntitySheetsArgs = {
   filters?: InputMaybe<EntitySheetFiltersInput>;
@@ -4083,7 +3937,6 @@ export type QueryEntitySheetsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryEntitySheets_ConnectionArgs = {
   filters?: InputMaybe<EntitySheetFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4091,13 +3944,11 @@ export type QueryEntitySheets_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryEquipmentArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryEquipmentCategoriesArgs = {
   filters?: InputMaybe<EquipmentCategoryFiltersInput>;
@@ -4107,7 +3958,6 @@ export type QueryEquipmentCategoriesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryEquipmentCategories_ConnectionArgs = {
   filters?: InputMaybe<EquipmentCategoryFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4116,13 +3966,11 @@ export type QueryEquipmentCategories_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryEquipmentCategoryArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryEquipmentsArgs = {
   filters?: InputMaybe<EquipmentFiltersInput>;
@@ -4132,7 +3980,6 @@ export type QueryEquipmentsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryEquipments_ConnectionArgs = {
   filters?: InputMaybe<EquipmentFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4141,13 +3988,11 @@ export type QueryEquipments_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryFeatureArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryFeaturesArgs = {
   filters?: InputMaybe<FeatureFiltersInput>;
@@ -4157,7 +4002,6 @@ export type QueryFeaturesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryFeatures_ConnectionArgs = {
   filters?: InputMaybe<FeatureFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4166,12 +4010,10 @@ export type QueryFeatures_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryGameEventArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryGameEventsArgs = {
   filters?: InputMaybe<GameEventFiltersInput>;
@@ -4180,7 +4022,6 @@ export type QueryGameEventsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryGameEvents_ConnectionArgs = {
   filters?: InputMaybe<GameEventFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4188,12 +4029,10 @@ export type QueryGameEvents_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryI18NLocaleArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
@@ -4202,7 +4041,6 @@ export type QueryI18NLocalesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryI18NLocales_ConnectionArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4210,12 +4048,10 @@ export type QueryI18NLocales_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryKnowledgeSnippetArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryKnowledgeSnippetsArgs = {
   filters?: InputMaybe<KnowledgeSnippetFiltersInput>;
@@ -4224,7 +4060,6 @@ export type QueryKnowledgeSnippetsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryKnowledgeSnippets_ConnectionArgs = {
   filters?: InputMaybe<KnowledgeSnippetFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4232,12 +4067,10 @@ export type QueryKnowledgeSnippets_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryKnowledgeSourceArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryKnowledgeSourcesArgs = {
   filters?: InputMaybe<KnowledgeSourceFiltersInput>;
@@ -4246,7 +4079,6 @@ export type QueryKnowledgeSourcesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryKnowledgeSources_ConnectionArgs = {
   filters?: InputMaybe<KnowledgeSourceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4254,13 +4086,11 @@ export type QueryKnowledgeSources_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryLanguageArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryLanguagesArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
@@ -4270,7 +4100,6 @@ export type QueryLanguagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryLanguages_ConnectionArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4279,13 +4108,11 @@ export type QueryLanguages_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMagicItemArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryMagicItemsArgs = {
   filters?: InputMaybe<MagicItemFiltersInput>;
@@ -4295,7 +4122,6 @@ export type QueryMagicItemsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMagicItems_ConnectionArgs = {
   filters?: InputMaybe<MagicItemFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4304,13 +4130,11 @@ export type QueryMagicItems_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMagicSchoolArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryMagicSchoolsArgs = {
   filters?: InputMaybe<MagicSchoolFiltersInput>;
@@ -4320,7 +4144,6 @@ export type QueryMagicSchoolsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMagicSchools_ConnectionArgs = {
   filters?: InputMaybe<MagicSchoolFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4329,12 +4152,10 @@ export type QueryMagicSchools_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMessageArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryMessagesArgs = {
   filters?: InputMaybe<MessageFiltersInput>;
@@ -4343,7 +4164,6 @@ export type QueryMessagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMessages_ConnectionArgs = {
   filters?: InputMaybe<MessageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4351,13 +4171,11 @@ export type QueryMessages_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMonsterArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryMonstersArgs = {
   filters?: InputMaybe<MonsterFiltersInput>;
@@ -4367,7 +4185,6 @@ export type QueryMonstersArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryMonsters_ConnectionArgs = {
   filters?: InputMaybe<MonsterFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4375,7 +4192,6 @@ export type QueryMonsters_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryProficienciesArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
@@ -4385,7 +4201,6 @@ export type QueryProficienciesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryProficiencies_ConnectionArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4394,20 +4209,17 @@ export type QueryProficiencies_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryProficiencyArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryPromptArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryPromptsArgs = {
   filters?: InputMaybe<PromptFiltersInput>;
@@ -4417,7 +4229,6 @@ export type QueryPromptsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryPrompts_ConnectionArgs = {
   filters?: InputMaybe<PromptFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4426,13 +4237,11 @@ export type QueryPrompts_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryRaceArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryRacesArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
@@ -4442,7 +4251,6 @@ export type QueryRacesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryRaces_ConnectionArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4451,18 +4259,15 @@ export type QueryRaces_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflowArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflowStageArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryReviewWorkflowsWorkflowStagesArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
@@ -4471,14 +4276,12 @@ export type QueryReviewWorkflowsWorkflowStagesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflowStages_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryReviewWorkflowsWorkflowsArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
@@ -4487,7 +4290,6 @@ export type QueryReviewWorkflowsWorkflowsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4495,12 +4297,10 @@ export type QueryReviewWorkflowsWorkflows_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryRoomArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryRoomsArgs = {
   filters?: InputMaybe<RoomFiltersInput>;
@@ -4509,7 +4309,6 @@ export type QueryRoomsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryRooms_ConnectionArgs = {
   filters?: InputMaybe<RoomFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4517,11 +4316,9 @@ export type QueryRooms_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QuerySearchEntitiesArgs = {
   query: Scalars['String']['input'];
 };
-
 
 export type QuerySemanticSearchArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4529,13 +4326,11 @@ export type QuerySemanticSearchArgs = {
   targets?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type QuerySpellArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QuerySpellsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -4545,7 +4340,6 @@ export type QuerySpellsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QuerySpells_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4554,13 +4348,11 @@ export type QuerySpells_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QuerySubclassArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QuerySubclassesArgs = {
   filters?: InputMaybe<SubclassFiltersInput>;
@@ -4570,7 +4362,6 @@ export type QuerySubclassesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QuerySubclasses_ConnectionArgs = {
   filters?: InputMaybe<SubclassFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4579,12 +4370,10 @@ export type QuerySubclasses_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryTimeFrameArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryTimeFramesArgs = {
   filters?: InputMaybe<TimeFrameFiltersInput>;
@@ -4593,7 +4382,6 @@ export type QueryTimeFramesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryTimeFrames_ConnectionArgs = {
   filters?: InputMaybe<TimeFrameFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4601,13 +4389,11 @@ export type QueryTimeFrames_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryTraitArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryTraitsArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
@@ -4617,7 +4403,6 @@ export type QueryTraitsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryTraits_ConnectionArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4626,12 +4411,10 @@ export type QueryTraits_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryTurnArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryTurnsArgs = {
   filters?: InputMaybe<TurnFiltersInput>;
@@ -4640,7 +4423,6 @@ export type QueryTurnsArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryTurns_ConnectionArgs = {
   filters?: InputMaybe<TurnFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4648,12 +4430,10 @@ export type QueryTurns_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUploadFileArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUploadFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
@@ -4662,7 +4442,6 @@ export type QueryUploadFilesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUploadFiles_ConnectionArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4670,12 +4449,10 @@ export type QueryUploadFiles_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsRoleArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUsersPermissionsRolesArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
@@ -4684,7 +4461,6 @@ export type QueryUsersPermissionsRolesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsRoles_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4692,12 +4468,10 @@ export type QueryUsersPermissionsRoles_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsUserArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryUsersPermissionsUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -4706,7 +4480,6 @@ export type QueryUsersPermissionsUsersArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryUsersPermissionsUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
@@ -4714,12 +4487,10 @@ export type QueryUsersPermissionsUsers_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryVoxelPreviewArgs = {
   chunks: Array<InputMaybe<ChunkRequestInput>>;
   config: WorldConfigInput;
 };
-
 
 export type QueryWeaponPropertiesArgs = {
   filters?: InputMaybe<WeaponPropertyFiltersInput>;
@@ -4729,7 +4500,6 @@ export type QueryWeaponPropertiesArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryWeaponProperties_ConnectionArgs = {
   filters?: InputMaybe<WeaponPropertyFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4738,19 +4508,16 @@ export type QueryWeaponProperties_ConnectionArgs = {
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryWeaponPropertyArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
-
 export type QueryWorldArgs = {
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryWorldsArgs = {
   filters?: InputMaybe<WorldFiltersInput>;
@@ -4758,7 +4525,6 @@ export type QueryWorldsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
-
 
 export type QueryWorlds_ConnectionArgs = {
   filters?: InputMaybe<WorldFiltersInput>;
@@ -4788,13 +4554,11 @@ export type Race = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type RaceLocalizationsArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RaceLocalizations_ConnectionArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
@@ -4802,13 +4566,11 @@ export type RaceLocalizations_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RaceProficienciesArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RaceProficiencies_ConnectionArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
@@ -4816,13 +4578,11 @@ export type RaceProficiencies_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RaceTraitsArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RaceTraits_ConnectionArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
@@ -4885,13 +4645,11 @@ export type ReviewWorkflowsWorkflow = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type ReviewWorkflowsWorkflowStagesArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type ReviewWorkflowsWorkflowStages_ConnectionArgs = {
   filters?: InputMaybe<ReviewWorkflowsWorkflowStageFiltersInput>;
@@ -4999,13 +4757,11 @@ export type Room = {
   world?: Maybe<World>;
 };
 
-
 export type RoomEntity_SheetsArgs = {
   filters?: InputMaybe<EntitySheetFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RoomEntity_Sheets_ConnectionArgs = {
   filters?: InputMaybe<EntitySheetFiltersInput>;
@@ -5013,13 +4769,11 @@ export type RoomEntity_Sheets_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RoomEventsArgs = {
   filters?: InputMaybe<GameEventFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RoomEvents_ConnectionArgs = {
   filters?: InputMaybe<GameEventFiltersInput>;
@@ -5027,13 +4781,11 @@ export type RoomEvents_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RoomMessagesArgs = {
   filters?: InputMaybe<MessageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RoomMessages_ConnectionArgs = {
   filters?: InputMaybe<MessageFiltersInput>;
@@ -5041,13 +4793,11 @@ export type RoomMessages_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RoomPlayersArgs = {
   filters?: InputMaybe<ComponentGamePlayerFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RoomTimeFramesArgs = {
   filters?: InputMaybe<TimeFrameFiltersInput>;
@@ -5055,20 +4805,17 @@ export type RoomTimeFramesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RoomTimeFrames_ConnectionArgs = {
   filters?: InputMaybe<TimeFrameFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type RoomTurnsArgs = {
   filters?: InputMaybe<TurnFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type RoomTurns_ConnectionArgs = {
   filters?: InputMaybe<TurnFiltersInput>;
@@ -5175,13 +4922,11 @@ export type Spell = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type SpellCondition_InstancesArgs = {
   filters?: InputMaybe<ComponentGameConditionInstanceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type SpellDamage_InstancesArgs = {
   filters?: InputMaybe<ComponentGameDamageInstanceFiltersInput>;
@@ -5189,13 +4934,11 @@ export type SpellDamage_InstancesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type SpellLocalizationsArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type SpellLocalizations_ConnectionArgs = {
   filters?: InputMaybe<SpellFiltersInput>;
@@ -5297,13 +5040,11 @@ export type Subclass = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type SubclassLocalizationsArgs = {
   filters?: InputMaybe<SubclassFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type SubclassLocalizations_ConnectionArgs = {
   filters?: InputMaybe<SubclassFiltersInput>;
@@ -5364,13 +5105,11 @@ export type TimeFrame = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type TimeFrameEventsArgs = {
   filters?: InputMaybe<GameEventFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type TimeFrameEvents_ConnectionArgs = {
   filters?: InputMaybe<GameEventFiltersInput>;
@@ -5434,13 +5173,11 @@ export type Trait = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type TraitLocalizationsArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type TraitLocalizations_ConnectionArgs = {
   filters?: InputMaybe<TraitFiltersInput>;
@@ -5448,13 +5185,11 @@ export type TraitLocalizations_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type TraitProficienciesArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type TraitProficiencies_ConnectionArgs = {
   filters?: InputMaybe<ProficiencyFiltersInput>;
@@ -5462,13 +5197,11 @@ export type TraitProficiencies_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type TraitRacesArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type TraitRaces_ConnectionArgs = {
   filters?: InputMaybe<RaceFiltersInput>;
@@ -5533,13 +5266,11 @@ export type Turn = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type TurnMessagesArgs = {
   filters?: InputMaybe<MessageFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type TurnMessages_ConnectionArgs = {
   filters?: InputMaybe<MessageFiltersInput>;
@@ -5739,13 +5470,11 @@ export type UsersPermissionsRole = {
   users_connection?: Maybe<UsersPermissionsUserRelationResponseCollection>;
 };
 
-
 export type UsersPermissionsRolePermissionsArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type UsersPermissionsRolePermissions_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
@@ -5753,13 +5482,11 @@ export type UsersPermissionsRolePermissions_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type UsersPermissionsRoleUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type UsersPermissionsRoleUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -5820,13 +5547,11 @@ export type UsersPermissionsUser = {
   username: Scalars['String']['output'];
 };
 
-
 export type UsersPermissionsUserCharactersArgs = {
   filters?: InputMaybe<CharacterFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type UsersPermissionsUserCharacters_ConnectionArgs = {
   filters?: InputMaybe<CharacterFiltersInput>;
@@ -5834,13 +5559,11 @@ export type UsersPermissionsUserCharacters_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-
 export type UsersPermissionsUserRoomsArgs = {
   filters?: InputMaybe<RoomFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type UsersPermissionsUserRooms_ConnectionArgs = {
   filters?: InputMaybe<RoomFiltersInput>;
@@ -5917,13 +5640,11 @@ export type WeaponProperty = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-
 export type WeaponPropertyLocalizationsArgs = {
   filters?: InputMaybe<WeaponPropertyFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
-
 
 export type WeaponPropertyLocalizations_ConnectionArgs = {
   filters?: InputMaybe<WeaponPropertyFiltersInput>;
@@ -6079,128 +5800,412 @@ export type WorldInput = {
   worldType?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type GetAbilitiesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAbilitiesQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetAbilitiesQuery = {
+  __typename?: 'Query';
+  abilities?: Array<{
+    __typename?: 'Ability';
+    documentId: string;
+    name: string;
+    fullName: string;
+    description?: string | null;
+    skills?: Array<{ __typename?: 'Skill'; name: string } | null> | null;
+  } | null> | null;
+};
 
-export type GetAbilitiesQuery = { __typename?: 'Query', abilities?: Array<{ __typename?: 'Ability', documentId: string, name: string, fullName: string, description?: string | null, skills?: Array<{ __typename?: 'Skill', name: string } | null> | null } | null> | null };
+export type GetSkillsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetSkillsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSkillsQuery = {
+  __typename?: 'Query';
+  skills?: Array<{
+    __typename?: 'Skill';
+    documentId: string;
+    name: string;
+    description?: string | null;
+    abilityScore?: { __typename?: 'Ability'; name: string } | null;
+  } | null> | null;
+};
 
+export type GetRacesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetSkillsQuery = { __typename?: 'Query', skills?: Array<{ __typename?: 'Skill', documentId: string, name: string, description?: string | null, abilityScore?: { __typename?: 'Ability', name: string } | null } | null> | null };
+export type GetRacesQuery = {
+  __typename?: 'Query';
+  races: Array<{
+    __typename?: 'Race';
+    documentId: string;
+    name: string;
+    description?: string | null;
+    speed?: any | null;
+    size?: Enum_Race_Size | null;
+  } | null>;
+};
 
-export type GetRacesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetClassesQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetClassesQuery = {
+  __typename?: 'Query';
+  classes: Array<{
+    __typename?: 'Class';
+    documentId: string;
+    name: string;
+    description?: string | null;
+    hit_die?: string | null;
+  } | null>;
+};
 
-export type GetRacesQuery = { __typename?: 'Query', races: Array<{ __typename?: 'Race', documentId: string, name: string, description?: string | null, speed?: any | null, size?: Enum_Race_Size | null } | null> };
+export type GetAlignmentsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetClassesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAlignmentsQuery = {
+  __typename?: 'Query';
+  alignments?: Array<{
+    __typename?: 'Alignment';
+    documentId: string;
+    name: string;
+    abbreviation?: string | null;
+    description?: string | null;
+  } | null> | null;
+};
 
+export type GetBackgroundsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetClassesQuery = { __typename?: 'Query', classes: Array<{ __typename?: 'Class', documentId: string, name: string, description?: string | null, hit_die?: string | null } | null> };
+export type GetBackgroundsQuery = {
+  __typename?: 'Query';
+  backgrounds?: Array<{
+    __typename?: 'Background';
+    documentId: string;
+    name: string;
+    description?: string | null;
+    skillProficiencies?: Array<{ __typename?: 'Skill'; name: string } | null> | null;
+  } | null> | null;
+};
 
-export type GetAlignmentsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetLanguagesQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetLanguagesQuery = {
+  __typename?: 'Query';
+  languages: Array<{ __typename?: 'Language'; documentId: string; name: string; note?: string | null } | null>;
+};
 
-export type GetAlignmentsQuery = { __typename?: 'Query', alignments?: Array<{ __typename?: 'Alignment', documentId: string, name: string, abbreviation?: string | null, description?: string | null } | null> | null };
+export type GetMagicSchoolsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetBackgroundsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMagicSchoolsQuery = {
+  __typename?: 'Query';
+  magicSchools: Array<{
+    __typename?: 'MagicSchool';
+    documentId: string;
+    name: string;
+    description?: string | null;
+  } | null>;
+};
 
+export type GetConditionsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetBackgroundsQuery = { __typename?: 'Query', backgrounds?: Array<{ __typename?: 'Background', documentId: string, name: string, description?: string | null, skillProficiencies?: Array<{ __typename?: 'Skill', name: string } | null> | null } | null> | null };
+export type GetConditionsQuery = {
+  __typename?: 'Query';
+  conditions?: Array<{
+    __typename?: 'GameCondition';
+    documentId: string;
+    name: string;
+    description?: string | null;
+  } | null> | null;
+};
 
-export type GetLanguagesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetDamageTypesQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetDamageTypesQuery = {
+  __typename?: 'Query';
+  damageTypes: Array<{
+    __typename?: 'DamageType';
+    documentId: string;
+    name: string;
+    description?: string | null;
+  } | null>;
+};
 
-export type GetLanguagesQuery = { __typename?: 'Query', languages: Array<{ __typename?: 'Language', documentId: string, name: string, note?: string | null } | null> };
+export type GetEquipmentQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetMagicSchoolsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetEquipmentQuery = {
+  __typename?: 'Query';
+  equipments: Array<{
+    __typename?: 'Equipment';
+    documentId: string;
+    name: string;
+    cost_quantity?: number | null;
+    cost_unit?: string | null;
+    weight?: number | null;
+    description?: string | null;
+    damage_dice?: string | null;
+    range_normal?: number | null;
+    range_long?: number | null;
+    armor_class_base?: number | null;
+    armor_class_dex_bonus?: boolean | null;
+    damage_type?: { __typename?: 'DamageType'; name: string } | null;
+    equipment_category?: { __typename?: 'EquipmentCategory'; name: string } | null;
+    properties: Array<{ __typename?: 'WeaponProperty'; name: string } | null>;
+  } | null>;
+};
 
+export type GetMonstersQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetMagicSchoolsQuery = { __typename?: 'Query', magicSchools: Array<{ __typename?: 'MagicSchool', documentId: string, name: string, description?: string | null } | null> };
+export type GetMonstersQuery = {
+  __typename?: 'Query';
+  monsters: Array<{
+    __typename?: 'Monster';
+    documentId: string;
+    name: string;
+    size?: Enum_Monster_Size | null;
+    type?: string | null;
+    alignment?: string | null;
+    hp?: number | null;
+    ac?: number | null;
+    challenge_rating?: number | null;
+    stats?: {
+      __typename?: 'ComponentGameStats';
+      walkSpeed?: number | null;
+      flySpeed?: number | null;
+      swimSpeed?: number | null;
+      climbSpeed?: number | null;
+      burrowSpeed?: number | null;
+      hover?: boolean | null;
+    } | null;
+  } | null>;
+};
 
-export type GetConditionsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSpellsQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetSpellsQuery = {
+  __typename?: 'Query';
+  spells: Array<{
+    __typename?: 'Spell';
+    documentId: string;
+    name: string;
+    level?: number | null;
+    school?: Enum_Spell_School | null;
+    description?: string | null;
+  } | null>;
+};
 
-export type GetConditionsQuery = { __typename?: 'Query', conditions?: Array<{ __typename?: 'GameCondition', documentId: string, name: string, description?: string | null } | null> | null };
+export type GetFeaturesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetDamageTypesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetFeaturesQuery = {
+  __typename?: 'Query';
+  features: Array<{
+    __typename?: 'Feature';
+    documentId: string;
+    name: string;
+    level?: number | null;
+    description?: string | null;
+  } | null>;
+};
 
+export type GetTraitsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetDamageTypesQuery = { __typename?: 'Query', damageTypes: Array<{ __typename?: 'DamageType', documentId: string, name: string, description?: string | null } | null> };
+export type GetTraitsQuery = {
+  __typename?: 'Query';
+  traits: Array<{
+    __typename?: 'Trait';
+    documentId: string;
+    name: string;
+    description?: string | null;
+    races: Array<{ __typename?: 'Race'; name: string } | null>;
+  } | null>;
+};
 
-export type GetEquipmentQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetSubclassesQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetSubclassesQuery = {
+  __typename?: 'Query';
+  subclasses: Array<{
+    __typename?: 'Subclass';
+    documentId: string;
+    name: string;
+    description?: string | null;
+    class?: { __typename?: 'Class'; name: string } | null;
+  } | null>;
+};
 
-export type GetEquipmentQuery = { __typename?: 'Query', equipments: Array<{ __typename?: 'Equipment', documentId: string, name: string, cost_quantity?: number | null, cost_unit?: string | null, weight?: number | null, description?: string | null, damage_dice?: string | null, range_normal?: number | null, range_long?: number | null, armor_class_base?: number | null, armor_class_dex_bonus?: boolean | null, damage_type?: { __typename?: 'DamageType', name: string } | null, equipment_category?: { __typename?: 'EquipmentCategory', name: string } | null, properties: Array<{ __typename?: 'WeaponProperty', name: string } | null> } | null> };
+export type GetProficienciesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetMonstersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetMonstersQuery = { __typename?: 'Query', monsters: Array<{ __typename?: 'Monster', documentId: string, name: string, size?: Enum_Monster_Size | null, type?: string | null, alignment?: string | null, hp?: number | null, ac?: number | null, challenge_rating?: number | null, stats?: { __typename?: 'ComponentGameStats', walkSpeed?: number | null, flySpeed?: number | null, swimSpeed?: number | null, climbSpeed?: number | null, burrowSpeed?: number | null, hover?: boolean | null } | null } | null> };
-
-export type GetSpellsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSpellsQuery = { __typename?: 'Query', spells: Array<{ __typename?: 'Spell', documentId: string, name: string, level?: number | null, school?: Enum_Spell_School | null, description?: string | null } | null> };
-
-export type GetFeaturesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetFeaturesQuery = { __typename?: 'Query', features: Array<{ __typename?: 'Feature', documentId: string, name: string, level?: number | null, description?: string | null } | null> };
-
-export type GetTraitsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetTraitsQuery = { __typename?: 'Query', traits: Array<{ __typename?: 'Trait', documentId: string, name: string, description?: string | null, races: Array<{ __typename?: 'Race', name: string } | null> } | null> };
-
-export type GetSubclassesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetSubclassesQuery = { __typename?: 'Query', subclasses: Array<{ __typename?: 'Subclass', documentId: string, name: string, description?: string | null, class?: { __typename?: 'Class', name: string } | null } | null> };
-
-export type GetProficienciesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetProficienciesQuery = { __typename?: 'Query', proficiencies: Array<{ __typename?: 'Proficiency', documentId: string, name: string, type?: Enum_Proficiency_Type | null, classes: Array<{ __typename?: 'Class', name: string } | null>, races: Array<{ __typename?: 'Race', name: string } | null> } | null> };
+export type GetProficienciesQuery = {
+  __typename?: 'Query';
+  proficiencies: Array<{
+    __typename?: 'Proficiency';
+    documentId: string;
+    name: string;
+    type?: Enum_Proficiency_Type | null;
+    classes: Array<{ __typename?: 'Class'; name: string } | null>;
+    races: Array<{ __typename?: 'Race'; name: string } | null>;
+  } | null>;
+};
 
 export type CreateRoomMutationVariables = Exact<{
   data: Scalars['JSON']['input'];
 }>;
 
-
-export type CreateRoomMutation = { __typename?: 'Mutation', createRoom?: { __typename?: 'Room', documentId: string, roomId?: string | null, code?: string | null, world?: { __typename?: 'World', name?: string | null, description?: string | null, seed?: string | null, language?: string | null, chunkSize?: number | null, detail?: number | null, fogRadius?: number | null, globalScale?: number | null, seaLevel?: number | null, elevationScale?: number | null, roughness?: number | null, moistureScale?: number | null, temperatureOffset?: number | null, roadDensity?: number | null, structureChance?: number | null, structureSpacing?: number | null, structureSizeAvg?: number | null, worldSize?: Enum_World_Worldsize | null, worldType?: string | null, worldBackground?: string | null } | null, dmSettings?: { __typename?: 'DmSetting', adventureLength?: Enum_Dmsetting_Adventurelength | null, difficulty?: Enum_Dmsetting_Difficulty | null, theme?: string | null, setting?: string | null, tone?: string | null, playerCount?: number | null, startingLevel?: number | null, attributePointBudget?: number | null, dmSystemPrompt?: string | null, dmStyle?: { __typename?: 'ComponentGameDmStyle', verbosity?: number | null, detail?: number | null, engagement?: number | null, narrative?: number | null, specialMode?: string | null, customDirectives?: string | null } | null } | null } | null };
+export type CreateRoomMutation = {
+  __typename?: 'Mutation';
+  createRoom?: {
+    __typename?: 'Room';
+    documentId: string;
+    roomId?: string | null;
+    code?: string | null;
+    world?: {
+      __typename?: 'World';
+      name?: string | null;
+      description?: string | null;
+      seed?: string | null;
+      language?: string | null;
+      chunkSize?: number | null;
+      detail?: number | null;
+      fogRadius?: number | null;
+      globalScale?: number | null;
+      seaLevel?: number | null;
+      elevationScale?: number | null;
+      roughness?: number | null;
+      moistureScale?: number | null;
+      temperatureOffset?: number | null;
+      roadDensity?: number | null;
+      structureChance?: number | null;
+      structureSpacing?: number | null;
+      structureSizeAvg?: number | null;
+      worldSize?: Enum_World_Worldsize | null;
+      worldType?: string | null;
+      worldBackground?: string | null;
+    } | null;
+    dmSettings?: {
+      __typename?: 'DmSetting';
+      adventureLength?: Enum_Dmsetting_Adventurelength | null;
+      difficulty?: Enum_Dmsetting_Difficulty | null;
+      theme?: string | null;
+      setting?: string | null;
+      tone?: string | null;
+      playerCount?: number | null;
+      startingLevel?: number | null;
+      attributePointBudget?: number | null;
+      dmSystemPrompt?: string | null;
+      dmStyle?: {
+        __typename?: 'ComponentGameDmStyle';
+        verbosity?: number | null;
+        detail?: number | null;
+        engagement?: number | null;
+        narrative?: number | null;
+        specialMode?: string | null;
+        customDirectives?: string | null;
+      } | null;
+    } | null;
+  } | null;
+};
 
 export type JoinRoomMutationVariables = Exact<{
   code: Scalars['String']['input'];
 }>;
 
-
-export type JoinRoomMutation = { __typename?: 'Mutation', joinRoom?: { __typename?: 'Room', documentId: string, roomId?: string | null, code?: string | null, phase?: Enum_Room_Phase | null, players?: Array<{ __typename?: 'ComponentGamePlayer', id: string, name?: string | null, isReady?: boolean | null, isOnline?: boolean | null, joinedAt?: any | null, action?: string | null, user?: { __typename?: 'UsersPermissionsUser', documentId: string, username: string } | null, character?: { __typename?: 'Character', documentId: string, name: string, portrait?: { __typename?: 'UploadFile', url: string } | null, upperBody?: { __typename?: 'UploadFile', url: string } | null, fullBody?: { __typename?: 'UploadFile', url: string } | null, stats?: { __typename?: 'ComponentGameStats', strength?: number | null, dexterity?: number | null, constitution?: number | null, intelligence?: number | null, wisdom?: number | null, charisma?: number | null } | null } | null } | null> | null, world?: { __typename?: 'World', name?: string | null, description?: string | null, seed?: string | null, language?: string | null, chunkSize?: number | null, detail?: number | null, fogRadius?: number | null, globalScale?: number | null, seaLevel?: number | null, elevationScale?: number | null, roughness?: number | null, moistureScale?: number | null, temperatureOffset?: number | null, roadDensity?: number | null, structureChance?: number | null, structureSpacing?: number | null, structureSizeAvg?: number | null, worldSize?: Enum_World_Worldsize | null, worldType?: string | null, worldBackground?: string | null } | null, dmSettings?: { __typename?: 'DmSetting', adventureLength?: Enum_Dmsetting_Adventurelength | null, difficulty?: Enum_Dmsetting_Difficulty | null, theme?: string | null, setting?: string | null, tone?: string | null, playerCount?: number | null, startingLevel?: number | null, attributePointBudget?: number | null, dmSystemPrompt?: string | null, dmStyle?: { __typename?: 'ComponentGameDmStyle', verbosity?: number | null, detail?: number | null, engagement?: number | null, narrative?: number | null, specialMode?: string | null, customDirectives?: string | null } | null } | null } | null };
+export type JoinRoomMutation = {
+  __typename?: 'Mutation';
+  joinRoom?: {
+    __typename?: 'Room';
+    documentId: string;
+    roomId?: string | null;
+    code?: string | null;
+    phase?: Enum_Room_Phase | null;
+    players?: Array<{
+      __typename?: 'ComponentGamePlayer';
+      id: string;
+      name?: string | null;
+      isReady?: boolean | null;
+      isOnline?: boolean | null;
+      joinedAt?: any | null;
+      action?: string | null;
+      user?: { __typename?: 'UsersPermissionsUser'; documentId: string; username: string } | null;
+      character?: {
+        __typename?: 'Character';
+        documentId: string;
+        name: string;
+        portrait?: { __typename?: 'UploadFile'; url: string } | null;
+        upperBody?: { __typename?: 'UploadFile'; url: string } | null;
+        fullBody?: { __typename?: 'UploadFile'; url: string } | null;
+        stats?: {
+          __typename?: 'ComponentGameStats';
+          strength?: number | null;
+          dexterity?: number | null;
+          constitution?: number | null;
+          intelligence?: number | null;
+          wisdom?: number | null;
+          charisma?: number | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    world?: {
+      __typename?: 'World';
+      name?: string | null;
+      description?: string | null;
+      seed?: string | null;
+      language?: string | null;
+      chunkSize?: number | null;
+      detail?: number | null;
+      fogRadius?: number | null;
+      globalScale?: number | null;
+      seaLevel?: number | null;
+      elevationScale?: number | null;
+      roughness?: number | null;
+      moistureScale?: number | null;
+      temperatureOffset?: number | null;
+      roadDensity?: number | null;
+      structureChance?: number | null;
+      structureSpacing?: number | null;
+      structureSizeAvg?: number | null;
+      worldSize?: Enum_World_Worldsize | null;
+      worldType?: string | null;
+      worldBackground?: string | null;
+    } | null;
+    dmSettings?: {
+      __typename?: 'DmSetting';
+      adventureLength?: Enum_Dmsetting_Adventurelength | null;
+      difficulty?: Enum_Dmsetting_Difficulty | null;
+      theme?: string | null;
+      setting?: string | null;
+      tone?: string | null;
+      playerCount?: number | null;
+      startingLevel?: number | null;
+      attributePointBudget?: number | null;
+      dmSystemPrompt?: string | null;
+      dmStyle?: {
+        __typename?: 'ComponentGameDmStyle';
+        verbosity?: number | null;
+        detail?: number | null;
+        engagement?: number | null;
+        narrative?: number | null;
+        specialMode?: string | null;
+        customDirectives?: string | null;
+      } | null;
+    } | null;
+  } | null;
+};
 
 export type UpdateRoomMutationVariables = Exact<{
   documentId: Scalars['ID']['input'];
   data: RoomInput;
 }>;
 
-
-export type UpdateRoomMutation = { __typename?: 'Mutation', updateRoom?: { __typename?: 'Room', documentId: string } | null };
+export type UpdateRoomMutation = {
+  __typename?: 'Mutation';
+  updateRoom?: { __typename?: 'Room'; documentId: string } | null;
+};
 
 export type GenerateWorldMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
   language?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type GenerateWorldMutation = { __typename?: 'Mutation', generateWorld?: any | null };
+export type GenerateWorldMutation = { __typename?: 'Mutation'; generateWorld?: any | null };
 
 export type AddCharacterMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
   character: Scalars['JSON']['input'];
 }>;
 
-
-export type AddCharacterMutation = { __typename?: 'Mutation', addCharacter?: any | null };
+export type AddCharacterMutation = { __typename?: 'Mutation'; addCharacter?: any | null };
 
 export type StartGameMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
@@ -6208,8 +6213,7 @@ export type StartGameMutationVariables = Exact<{
   streamId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type StartGameMutation = { __typename?: 'Mutation', startGame?: any | null };
+export type StartGameMutation = { __typename?: 'Mutation'; startGame?: any | null };
 
 export type SubmitActionMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
@@ -6217,16 +6221,14 @@ export type SubmitActionMutationVariables = Exact<{
   mode?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type SubmitActionMutation = { __typename?: 'Mutation', submitAction?: any | null };
+export type SubmitActionMutation = { __typename?: 'Mutation'; submitAction?: any | null };
 
 export type GenerateAvatarPortraitMutationVariables = Exact<{
   payload: Scalars['JSON']['input'];
   referenceImage?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type GenerateAvatarPortraitMutation = { __typename?: 'Mutation', generateAvatarPortrait?: any | null };
+export type GenerateAvatarPortraitMutation = { __typename?: 'Mutation'; generateAvatarPortrait?: any | null };
 
 export type GenerateAvatarUpperBodyMutationVariables = Exact<{
   payload: Scalars['JSON']['input'];
@@ -6234,8 +6236,7 @@ export type GenerateAvatarUpperBodyMutationVariables = Exact<{
   referenceImage?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type GenerateAvatarUpperBodyMutation = { __typename?: 'Mutation', generateAvatarUpperBody?: any | null };
+export type GenerateAvatarUpperBodyMutation = { __typename?: 'Mutation'; generateAvatarUpperBody?: any | null };
 
 export type GenerateAvatarFullBodyMutationVariables = Exact<{
   payload: Scalars['JSON']['input'];
@@ -6244,16 +6245,14 @@ export type GenerateAvatarFullBodyMutationVariables = Exact<{
   referenceImage?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type GenerateAvatarFullBodyMutation = { __typename?: 'Mutation', generateAvatarFullBody?: any | null };
+export type GenerateAvatarFullBodyMutation = { __typename?: 'Mutation'; generateAvatarFullBody?: any | null };
 
 export type SpawnCreatureMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
   creature: Scalars['JSON']['input'];
 }>;
 
-
-export type SpawnCreatureMutation = { __typename?: 'Mutation', spawnCreature?: any | null };
+export type SpawnCreatureMutation = { __typename?: 'Mutation'; spawnCreature?: any | null };
 
 export type GenerateTerrainChunkMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
@@ -6262,73 +6261,299 @@ export type GenerateTerrainChunkMutationVariables = Exact<{
   chunkSize?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type GenerateTerrainChunkMutation = { __typename?: 'Mutation', generateTerrainChunk?: any | null };
+export type GenerateTerrainChunkMutation = { __typename?: 'Mutation'; generateTerrainChunk?: any | null };
 
 export type CreateEntitySheetMutationVariables = Exact<{
   data: EntitySheetInput;
 }>;
 
-
-export type CreateEntitySheetMutation = { __typename?: 'Mutation', createEntitySheet?: { __typename?: 'EntitySheet', documentId: string, name?: string | null } | null };
+export type CreateEntitySheetMutation = {
+  __typename?: 'Mutation';
+  createEntitySheet?: { __typename?: 'EntitySheet'; documentId: string; name?: string | null } | null;
+};
 
 export type ExecuteToolMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
   command: Scalars['String']['input'];
 }>;
 
-
-export type ExecuteToolMutation = { __typename?: 'Mutation', executeTool?: any | null };
+export type ExecuteToolMutation = { __typename?: 'Mutation'; executeTool?: any | null };
 
 export type GetRoomQueryVariables = Exact<{
   filters?: InputMaybe<RoomFiltersInput>;
 }>;
 
-
-export type GetRoomQuery = { __typename?: 'Query', rooms: Array<{ __typename?: 'Room', documentId: string, roomId?: string | null, code?: string | null, phase?: Enum_Room_Phase | null, entropyState?: any | null, turnData?: any | null, exploredTiles?: any | null, entity_sheets: Array<{ __typename?: 'EntitySheet', documentId: string, name?: string | null, type?: Enum_Entitysheet_Type | null, currentHp?: number | null, maxHp?: number | null, ac?: number | null, structuredActions?: any | null, position?: { __typename?: 'ComponentGamePosition', x?: number | null, y?: number | null, z?: number | null } | null, stats?: { __typename?: 'ComponentGameStats', walkSpeed?: number | null, flySpeed?: number | null, swimSpeed?: number | null, climbSpeed?: number | null, burrowSpeed?: number | null, hover?: boolean | null } | null } | null>, players?: Array<{ __typename?: 'ComponentGamePlayer', id: string, name?: string | null, isReady?: boolean | null, isOnline?: boolean | null, joinedAt?: any | null, action?: string | null, user?: { __typename?: 'UsersPermissionsUser', documentId: string, username: string } | null, character?: { __typename?: 'Character', documentId: string, name: string, backstory?: string | null, portrait?: { __typename?: 'UploadFile', url: string } | null, upperBody?: { __typename?: 'UploadFile', url: string } | null, fullBody?: { __typename?: 'UploadFile', url: string } | null, stats?: { __typename?: 'ComponentGameStats', strength?: number | null, dexterity?: number | null, constitution?: number | null, intelligence?: number | null, wisdom?: number | null, charisma?: number | null } | null } | null } | null> | null, world?: { __typename?: 'World', documentId: string, name?: string | null, description?: string | null, history?: string | null, worldBackground?: string | null, seed?: string | null, language?: string | null, chunkSize?: number | null, detail?: number | null, fogRadius?: number | null, globalScale?: number | null, seaLevel?: number | null, elevationScale?: number | null, roughness?: number | null, moistureScale?: number | null, temperatureOffset?: number | null, roadDensity?: number | null, structureChance?: number | null, structureSpacing?: number | null, structureSizeAvg?: number | null, worldSize?: Enum_World_Worldsize | null, worldType?: string | null } | null, dmSettings?: { __typename?: 'DmSetting', documentId: string, adventureLength?: Enum_Dmsetting_Adventurelength | null, difficulty?: Enum_Dmsetting_Difficulty | null, theme?: string | null, setting?: string | null, tone?: string | null, playerCount?: number | null, startingLevel?: number | null, attributePointBudget?: number | null, dmSystemPrompt?: string | null, dmStyle?: { __typename?: 'ComponentGameDmStyle', verbosity?: number | null, detail?: number | null, engagement?: number | null, narrative?: number | null, specialMode?: string | null, customDirectives?: string | null } | null } | null, messages: Array<{ __typename?: 'Message', documentId: string, content: string, senderName?: string | null, senderType?: Enum_Message_Sendertype | null, timestamp?: any | null, turn?: { __typename?: 'Turn', documentId: string, turnNumber: number } | null } | null>, turns: Array<{ __typename?: 'Turn', documentId: string, turnNumber: number, narrative?: string | null, status?: Enum_Turn_Status | null, type?: Enum_Turn_Type | null, characterSnapshots?: any | null, actions?: any | null, createdAt?: any | null } | null>, timeFrames: Array<{ __typename?: 'TimeFrame', documentId: string, turnNumber: number, timestamp: any, gameState: any } | null>, events: Array<{ __typename?: 'GameEvent', documentId: string, type: string, payload: any, turnNumber?: number | null, timestamp: any, actorId?: string | null } | null>, owner?: { __typename?: 'UsersPermissionsUser', documentId: string, username: string } | null } | null> };
+export type GetRoomQuery = {
+  __typename?: 'Query';
+  rooms: Array<{
+    __typename?: 'Room';
+    documentId: string;
+    roomId?: string | null;
+    code?: string | null;
+    phase?: Enum_Room_Phase | null;
+    entropyState?: any | null;
+    turnData?: any | null;
+    exploredTiles?: any | null;
+    entity_sheets: Array<{
+      __typename?: 'EntitySheet';
+      documentId: string;
+      name?: string | null;
+      type?: Enum_Entitysheet_Type | null;
+      currentHp?: number | null;
+      maxHp?: number | null;
+      ac?: number | null;
+      structuredActions?: any | null;
+      position?: {
+        __typename?: 'ComponentGamePosition';
+        x?: number | null;
+        y?: number | null;
+        z?: number | null;
+      } | null;
+      stats?: {
+        __typename?: 'ComponentGameStats';
+        walkSpeed?: number | null;
+        flySpeed?: number | null;
+        swimSpeed?: number | null;
+        climbSpeed?: number | null;
+        burrowSpeed?: number | null;
+        hover?: boolean | null;
+      } | null;
+    } | null>;
+    players?: Array<{
+      __typename?: 'ComponentGamePlayer';
+      id: string;
+      name?: string | null;
+      isReady?: boolean | null;
+      isOnline?: boolean | null;
+      joinedAt?: any | null;
+      action?: string | null;
+      user?: { __typename?: 'UsersPermissionsUser'; documentId: string; username: string } | null;
+      character?: {
+        __typename?: 'Character';
+        documentId: string;
+        name: string;
+        backstory?: string | null;
+        portrait?: { __typename?: 'UploadFile'; url: string } | null;
+        upperBody?: { __typename?: 'UploadFile'; url: string } | null;
+        fullBody?: { __typename?: 'UploadFile'; url: string } | null;
+        stats?: {
+          __typename?: 'ComponentGameStats';
+          strength?: number | null;
+          dexterity?: number | null;
+          constitution?: number | null;
+          intelligence?: number | null;
+          wisdom?: number | null;
+          charisma?: number | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    world?: {
+      __typename?: 'World';
+      documentId: string;
+      name?: string | null;
+      description?: string | null;
+      history?: string | null;
+      worldBackground?: string | null;
+      seed?: string | null;
+      language?: string | null;
+      chunkSize?: number | null;
+      detail?: number | null;
+      fogRadius?: number | null;
+      globalScale?: number | null;
+      seaLevel?: number | null;
+      elevationScale?: number | null;
+      roughness?: number | null;
+      moistureScale?: number | null;
+      temperatureOffset?: number | null;
+      roadDensity?: number | null;
+      structureChance?: number | null;
+      structureSpacing?: number | null;
+      structureSizeAvg?: number | null;
+      worldSize?: Enum_World_Worldsize | null;
+      worldType?: string | null;
+    } | null;
+    dmSettings?: {
+      __typename?: 'DmSetting';
+      documentId: string;
+      adventureLength?: Enum_Dmsetting_Adventurelength | null;
+      difficulty?: Enum_Dmsetting_Difficulty | null;
+      theme?: string | null;
+      setting?: string | null;
+      tone?: string | null;
+      playerCount?: number | null;
+      startingLevel?: number | null;
+      attributePointBudget?: number | null;
+      dmSystemPrompt?: string | null;
+      dmStyle?: {
+        __typename?: 'ComponentGameDmStyle';
+        verbosity?: number | null;
+        detail?: number | null;
+        engagement?: number | null;
+        narrative?: number | null;
+        specialMode?: string | null;
+        customDirectives?: string | null;
+      } | null;
+    } | null;
+    messages: Array<{
+      __typename?: 'Message';
+      documentId: string;
+      content: string;
+      senderName?: string | null;
+      senderType?: Enum_Message_Sendertype | null;
+      timestamp?: any | null;
+      turn?: { __typename?: 'Turn'; documentId: string; turnNumber: number } | null;
+    } | null>;
+    turns: Array<{
+      __typename?: 'Turn';
+      documentId: string;
+      turnNumber: number;
+      narrative?: string | null;
+      status?: Enum_Turn_Status | null;
+      type?: Enum_Turn_Type | null;
+      characterSnapshots?: any | null;
+      actions?: any | null;
+      createdAt?: any | null;
+    } | null>;
+    timeFrames: Array<{
+      __typename?: 'TimeFrame';
+      documentId: string;
+      turnNumber: number;
+      timestamp: any;
+      gameState: any;
+    } | null>;
+    events: Array<{
+      __typename?: 'GameEvent';
+      documentId: string;
+      type: string;
+      payload: any;
+      turnNumber?: number | null;
+      timestamp: any;
+      actorId?: string | null;
+    } | null>;
+    owner?: { __typename?: 'UsersPermissionsUser'; documentId: string; username: string } | null;
+  } | null>;
+};
 
 export type ListRoomsQueryVariables = Exact<{
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
 }>;
 
+export type ListRoomsQuery = {
+  __typename?: 'Query';
+  rooms: Array<{
+    __typename?: 'Room';
+    documentId: string;
+    roomId?: string | null;
+    code?: string | null;
+    createdAt?: any | null;
+    phase?: Enum_Room_Phase | null;
+    dmSettings?: {
+      __typename?: 'DmSetting';
+      theme?: string | null;
+      setting?: string | null;
+      difficulty?: Enum_Dmsetting_Difficulty | null;
+    } | null;
+    entity_sheets: Array<{ __typename?: 'EntitySheet'; documentId: string } | null>;
+    players?: Array<{
+      __typename?: 'ComponentGamePlayer';
+      id: string;
+      user?: { __typename?: 'UsersPermissionsUser'; documentId: string } | null;
+      character?: {
+        __typename?: 'Character';
+        documentId: string;
+        name: string;
+        backstory?: string | null;
+        portrait?: { __typename?: 'UploadFile'; url: string } | null;
+        race?: { __typename?: 'Race'; name: string } | null;
+        classes?: Array<{
+          __typename?: 'ComponentGameCharacterClass';
+          level: number;
+          class?: { __typename?: 'Class'; name: string } | null;
+        } | null> | null;
+      } | null;
+    } | null> | null;
+  } | null>;
+};
 
-export type ListRoomsQuery = { __typename?: 'Query', rooms: Array<{ __typename?: 'Room', documentId: string, roomId?: string | null, code?: string | null, createdAt?: any | null, phase?: Enum_Room_Phase | null, dmSettings?: { __typename?: 'DmSetting', theme?: string | null, setting?: string | null, difficulty?: Enum_Dmsetting_Difficulty | null } | null, entity_sheets: Array<{ __typename?: 'EntitySheet', documentId: string } | null>, players?: Array<{ __typename?: 'ComponentGamePlayer', id: string, user?: { __typename?: 'UsersPermissionsUser', documentId: string } | null, character?: { __typename?: 'Character', documentId: string, name: string, backstory?: string | null, portrait?: { __typename?: 'UploadFile', url: string } | null, race?: { __typename?: 'Race', name: string } | null, classes?: Array<{ __typename?: 'ComponentGameCharacterClass', level: number, class?: { __typename?: 'Class', name: string } | null } | null> | null } | null } | null> | null } | null> };
+export type ListCharactersQueryVariables = Exact<{ [key: string]: never }>;
 
-export type ListCharactersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ListCharactersQuery = { __typename?: 'Query', characters: Array<{ __typename?: 'Character', documentId: string, name: string, backstory?: string | null, race?: { __typename?: 'Race', name: string } | null, classes?: Array<{ __typename?: 'ComponentGameCharacterClass', level: number, class?: { __typename?: 'Class', name: string } | null } | null> | null, portrait?: { __typename?: 'UploadFile', url: string } | null } | null> };
+export type ListCharactersQuery = {
+  __typename?: 'Query';
+  characters: Array<{
+    __typename?: 'Character';
+    documentId: string;
+    name: string;
+    backstory?: string | null;
+    race?: { __typename?: 'Race'; name: string } | null;
+    classes?: Array<{
+      __typename?: 'ComponentGameCharacterClass';
+      level: number;
+      class?: { __typename?: 'Class'; name: string } | null;
+    } | null> | null;
+    portrait?: { __typename?: 'UploadFile'; url: string } | null;
+  } | null>;
+};
 
 export type ListMonstersQueryVariables = Exact<{
   filters?: InputMaybe<MonsterFiltersInput>;
 }>;
 
-
-export type ListMonstersQuery = { __typename?: 'Query', monsters: Array<{ __typename?: 'Monster', documentId: string, name: string, type?: string | null, size?: Enum_Monster_Size | null, hp?: number | null, ac?: number | null, xp?: number | null, challenge_rating?: number | null } | null> };
+export type ListMonstersQuery = {
+  __typename?: 'Query';
+  monsters: Array<{
+    __typename?: 'Monster';
+    documentId: string;
+    name: string;
+    type?: string | null;
+    size?: Enum_Monster_Size | null;
+    hp?: number | null;
+    ac?: number | null;
+    xp?: number | null;
+    challenge_rating?: number | null;
+  } | null>;
+};
 
 export type ListSpellsQueryVariables = Exact<{
   filters?: InputMaybe<SpellFiltersInput>;
 }>;
 
-
-export type ListSpellsQuery = { __typename?: 'Query', spells: Array<{ __typename?: 'Spell', documentId: string, name: string, level?: number | null, school?: Enum_Spell_School | null } | null> };
+export type ListSpellsQuery = {
+  __typename?: 'Query';
+  spells: Array<{
+    __typename?: 'Spell';
+    documentId: string;
+    name: string;
+    level?: number | null;
+    school?: Enum_Spell_School | null;
+  } | null>;
+};
 
 export type SearchEntitiesQueryVariables = Exact<{
   query: Scalars['String']['input'];
 }>;
 
-
-export type SearchEntitiesQuery = { __typename?: 'Query', searchEntities: Array<{ __typename?: 'SearchResult', id: string, name: string, type: string } | null> };
+export type SearchEntitiesQuery = {
+  __typename?: 'Query';
+  searchEntities: Array<{ __typename?: 'SearchResult'; id: string; name: string; type: string } | null>;
+};
 
 export type VoxelPreviewQueryVariables = Exact<{
   chunks: Array<InputMaybe<ChunkRequestInput>> | InputMaybe<ChunkRequestInput>;
   config: WorldConfigInput;
 }>;
 
+export type VoxelPreviewQuery = {
+  __typename?: 'Query';
+  voxelPreview: Array<{ __typename?: 'VoxelChunk'; x: number; y: number; tiles: any } | null>;
+};
 
-export type VoxelPreviewQuery = { __typename?: 'Query', voxelPreview: Array<{ __typename?: 'VoxelChunk', x: number, y: number, tiles: any } | null> };
-
-export type PaginationFragmentFragment = { __typename?: 'Pagination', total: number, page: number, pageSize: number, pageCount: number } & { ' $fragmentName'?: 'PaginationFragmentFragment' };
+export type PaginationFragmentFragment = {
+  __typename?: 'Pagination';
+  total: number;
+  page: number;
+  pageSize: number;
+  pageCount: number;
+} & { ' $fragmentName'?: 'PaginationFragmentFragment' };
 
 export type ExplorerGetClassesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6336,11 +6561,23 @@ export type ExplorerGetClassesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetClassesQuery = { __typename?: 'Query', classes_connection?: { __typename?: 'ClassEntityResponseCollection', nodes: Array<{ __typename?: 'Class', documentId: string, slug: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetClassesQuery = {
+  __typename?: 'Query';
+  classes_connection?: {
+    __typename?: 'ClassEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Class';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetDamageTypesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6348,11 +6585,23 @@ export type ExplorerGetDamageTypesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetDamageTypesQuery = { __typename?: 'Query', damageTypes_connection?: { __typename?: 'DamageTypeEntityResponseCollection', nodes: Array<{ __typename?: 'DamageType', documentId: string, slug: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetDamageTypesQuery = {
+  __typename?: 'Query';
+  damageTypes_connection?: {
+    __typename?: 'DamageTypeEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'DamageType';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetEquipmentQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6360,11 +6609,26 @@ export type ExplorerGetEquipmentQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetEquipmentQuery = { __typename?: 'Query', equipments_connection?: { __typename?: 'EquipmentEntityResponseCollection', nodes: Array<{ __typename?: 'Equipment', documentId: string, slug: string, name: string, description?: string | null, cost_quantity?: number | null, cost_unit?: string | null, weight?: number | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetEquipmentQuery = {
+  __typename?: 'Query';
+  equipments_connection?: {
+    __typename?: 'EquipmentEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Equipment';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      cost_quantity?: number | null;
+      cost_unit?: string | null;
+      weight?: number | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetEquipmentCategoriesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6372,11 +6636,23 @@ export type ExplorerGetEquipmentCategoriesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetEquipmentCategoriesQuery = { __typename?: 'Query', equipmentCategories_connection?: { __typename?: 'EquipmentCategoryEntityResponseCollection', nodes: Array<{ __typename?: 'EquipmentCategory', documentId: string, slug: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetEquipmentCategoriesQuery = {
+  __typename?: 'Query';
+  equipmentCategories_connection?: {
+    __typename?: 'EquipmentCategoryEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'EquipmentCategory';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetFeaturesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6384,11 +6660,23 @@ export type ExplorerGetFeaturesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetFeaturesQuery = { __typename?: 'Query', features_connection?: { __typename?: 'FeatureEntityResponseCollection', nodes: Array<{ __typename?: 'Feature', documentId: string, name: string, description?: string | null, level?: number | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetFeaturesQuery = {
+  __typename?: 'Query';
+  features_connection?: {
+    __typename?: 'FeatureEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Feature';
+      documentId: string;
+      name: string;
+      description?: string | null;
+      level?: number | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetLanguagesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6396,11 +6684,22 @@ export type ExplorerGetLanguagesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetLanguagesQuery = { __typename?: 'Query', languages_connection?: { __typename?: 'LanguageEntityResponseCollection', nodes: Array<{ __typename?: 'Language', documentId: string, name: string, note?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetLanguagesQuery = {
+  __typename?: 'Query';
+  languages_connection?: {
+    __typename?: 'LanguageEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Language';
+      documentId: string;
+      name: string;
+      note?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetMagicItemsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6408,11 +6707,25 @@ export type ExplorerGetMagicItemsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetMagicItemsQuery = { __typename?: 'Query', magicItems_connection?: { __typename?: 'MagicItemEntityResponseCollection', nodes: Array<{ __typename?: 'MagicItem', documentId: string, slug: string, name: string, description?: string | null, rarity?: Enum_Magicitem_Rarity | null, attunement_required?: boolean | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetMagicItemsQuery = {
+  __typename?: 'Query';
+  magicItems_connection?: {
+    __typename?: 'MagicItemEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'MagicItem';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      rarity?: Enum_Magicitem_Rarity | null;
+      attunement_required?: boolean | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetMagicSchoolsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6420,11 +6733,22 @@ export type ExplorerGetMagicSchoolsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetMagicSchoolsQuery = { __typename?: 'Query', magicSchools_connection?: { __typename?: 'MagicSchoolEntityResponseCollection', nodes: Array<{ __typename?: 'MagicSchool', documentId: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetMagicSchoolsQuery = {
+  __typename?: 'Query';
+  magicSchools_connection?: {
+    __typename?: 'MagicSchoolEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'MagicSchool';
+      documentId: string;
+      name: string;
+      description?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetMonstersQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6432,11 +6756,25 @@ export type ExplorerGetMonstersQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetMonstersQuery = { __typename?: 'Query', monsters_connection?: { __typename?: 'MonsterEntityResponseCollection', nodes: Array<{ __typename?: 'Monster', documentId: string, name: string, size?: Enum_Monster_Size | null, type?: string | null, alignment?: string | null, challenge_rating?: number | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetMonstersQuery = {
+  __typename?: 'Query';
+  monsters_connection?: {
+    __typename?: 'MonsterEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Monster';
+      documentId: string;
+      name: string;
+      size?: Enum_Monster_Size | null;
+      type?: string | null;
+      alignment?: string | null;
+      challenge_rating?: number | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetProficienciesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6444,11 +6782,22 @@ export type ExplorerGetProficienciesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetProficienciesQuery = { __typename?: 'Query', proficiencies_connection?: { __typename?: 'ProficiencyEntityResponseCollection', nodes: Array<{ __typename?: 'Proficiency', documentId: string, name: string, type?: Enum_Proficiency_Type | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetProficienciesQuery = {
+  __typename?: 'Query';
+  proficiencies_connection?: {
+    __typename?: 'ProficiencyEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Proficiency';
+      documentId: string;
+      name: string;
+      type?: Enum_Proficiency_Type | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetRacesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6456,11 +6805,25 @@ export type ExplorerGetRacesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetRacesQuery = { __typename?: 'Query', races_connection?: { __typename?: 'RaceEntityResponseCollection', nodes: Array<{ __typename?: 'Race', documentId: string, slug: string, name: string, description?: string | null, size?: Enum_Race_Size | null, speed?: any | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetRacesQuery = {
+  __typename?: 'Query';
+  races_connection?: {
+    __typename?: 'RaceEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Race';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      size?: Enum_Race_Size | null;
+      speed?: any | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetSpellsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6468,11 +6831,25 @@ export type ExplorerGetSpellsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetSpellsQuery = { __typename?: 'Query', spells_connection?: { __typename?: 'SpellEntityResponseCollection', nodes: Array<{ __typename?: 'Spell', documentId: string, slug: string, name: string, description?: string | null, level?: number | null, school?: Enum_Spell_School | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetSpellsQuery = {
+  __typename?: 'Query';
+  spells_connection?: {
+    __typename?: 'SpellEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Spell';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      level?: number | null;
+      school?: Enum_Spell_School | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetSubclassesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6480,11 +6857,24 @@ export type ExplorerGetSubclassesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetSubclassesQuery = { __typename?: 'Query', subclasses_connection?: { __typename?: 'SubclassEntityResponseCollection', nodes: Array<{ __typename?: 'Subclass', documentId: string, slug: string, name: string, description?: string | null, subclass_flavor?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetSubclassesQuery = {
+  __typename?: 'Query';
+  subclasses_connection?: {
+    __typename?: 'SubclassEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Subclass';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      subclass_flavor?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetTraitsQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6492,11 +6882,23 @@ export type ExplorerGetTraitsQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetTraitsQuery = { __typename?: 'Query', traits_connection?: { __typename?: 'TraitEntityResponseCollection', nodes: Array<{ __typename?: 'Trait', documentId: string, slug: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetTraitsQuery = {
+  __typename?: 'Query';
+  traits_connection?: {
+    __typename?: 'TraitEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'Trait';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type ExplorerGetWeaponPropertiesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
@@ -6504,71 +6906,3935 @@ export type ExplorerGetWeaponPropertiesQueryVariables = Exact<{
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 }>;
 
-
-export type ExplorerGetWeaponPropertiesQuery = { __typename?: 'Query', weaponProperties_connection?: { __typename?: 'WeaponPropertyEntityResponseCollection', nodes: Array<{ __typename?: 'WeaponProperty', documentId: string, slug: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
+export type ExplorerGetWeaponPropertiesQuery = {
+  __typename?: 'Query';
+  weaponProperties_connection?: {
+    __typename?: 'WeaponPropertyEntityResponseCollection';
+    nodes: Array<{
+      __typename?: 'WeaponProperty';
+      documentId: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      image?: { __typename?: 'UploadFile'; url: string; alternativeText?: string | null } | null;
+    }>;
+    pageInfo: { __typename?: 'Pagination' } & {
+      ' $fragmentRefs'?: { PaginationFragmentFragment: PaginationFragmentFragment };
+    };
+  } | null;
+};
 
 export type GenerateTerrainMutationVariables = Exact<{
   roomId: Scalars['ID']['input'];
 }>;
 
+export type GenerateTerrainMutation = { __typename?: 'Mutation'; generateTerrain?: boolean | null };
 
-export type GenerateTerrainMutation = { __typename?: 'Mutation', generateTerrain?: boolean | null };
-
-export const PaginationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<PaginationFragmentFragment, unknown>;
-export const GetAbilitiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAbilities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"abilities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"fullName"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"skills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetAbilitiesQuery, GetAbilitiesQueryVariables>;
-export const GetSkillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSkills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"skills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"abilityScore"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;
-export const GetRacesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRaces"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"races"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"speed"}},{"kind":"Field","name":{"kind":"Name","value":"size"}}]}}]}}]} as unknown as DocumentNode<GetRacesQuery, GetRacesQueryVariables>;
-export const GetClassesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetClasses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"hit_die"}}]}}]}}]} as unknown as DocumentNode<GetClassesQuery, GetClassesQueryVariables>;
-export const GetAlignmentsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAlignments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alignments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"abbreviation"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetAlignmentsQuery, GetAlignmentsQueryVariables>;
-export const GetBackgroundsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBackgrounds"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"backgrounds"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"skillProficiencies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetBackgroundsQuery, GetBackgroundsQueryVariables>;
-export const GetLanguagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLanguages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"languages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"note"}}]}}]}}]} as unknown as DocumentNode<GetLanguagesQuery, GetLanguagesQueryVariables>;
-export const GetMagicSchoolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMagicSchools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"magicSchools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetMagicSchoolsQuery, GetMagicSchoolsQueryVariables>;
-export const GetConditionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetConditions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"conditions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetConditionsQuery, GetConditionsQueryVariables>;
-export const GetDamageTypesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetDamageTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"damageTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetDamageTypesQuery, GetDamageTypesQueryVariables>;
-export const GetEquipmentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"equipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"cost_quantity"}},{"kind":"Field","name":{"kind":"Name","value":"cost_unit"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"damage_dice"}},{"kind":"Field","name":{"kind":"Name","value":"damage_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"equipment_category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"properties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"range_normal"}},{"kind":"Field","name":{"kind":"Name","value":"range_long"}},{"kind":"Field","name":{"kind":"Name","value":"armor_class_base"}},{"kind":"Field","name":{"kind":"Name","value":"armor_class_dex_bonus"}}]}}]}}]} as unknown as DocumentNode<GetEquipmentQuery, GetEquipmentQueryVariables>;
-export const GetMonstersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMonsters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monsters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}},{"kind":"Field","name":{"kind":"Name","value":"hp"}},{"kind":"Field","name":{"kind":"Name","value":"ac"}},{"kind":"Field","name":{"kind":"Name","value":"stats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walkSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"flySpeed"}},{"kind":"Field","name":{"kind":"Name","value":"swimSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"climbSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"burrowSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"hover"}}]}},{"kind":"Field","name":{"kind":"Name","value":"challenge_rating"}}]}}]}}]} as unknown as DocumentNode<GetMonstersQuery, GetMonstersQueryVariables>;
-export const GetSpellsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSpells"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"spells"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"school"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetSpellsQuery, GetSpellsQueryVariables>;
-export const GetFeaturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetFeatures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetFeaturesQuery, GetFeaturesQueryVariables>;
-export const GetTraitsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetTraits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"traits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"races"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetTraitsQuery, GetTraitsQueryVariables>;
-export const GetSubclassesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSubclasses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subclasses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"class"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetSubclassesQuery, GetSubclassesQueryVariables>;
-export const GetProficienciesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProficiencies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"proficiencies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"races"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetProficienciesQuery, GetProficienciesQueryVariables>;
-export const CreateRoomDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateRoom"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createRoom"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"roomId"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"world"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"seed"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"chunkSize"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"fogRadius"}},{"kind":"Field","name":{"kind":"Name","value":"globalScale"}},{"kind":"Field","name":{"kind":"Name","value":"seaLevel"}},{"kind":"Field","name":{"kind":"Name","value":"elevationScale"}},{"kind":"Field","name":{"kind":"Name","value":"roughness"}},{"kind":"Field","name":{"kind":"Name","value":"moistureScale"}},{"kind":"Field","name":{"kind":"Name","value":"temperatureOffset"}},{"kind":"Field","name":{"kind":"Name","value":"roadDensity"}},{"kind":"Field","name":{"kind":"Name","value":"structureChance"}},{"kind":"Field","name":{"kind":"Name","value":"structureSpacing"}},{"kind":"Field","name":{"kind":"Name","value":"structureSizeAvg"}},{"kind":"Field","name":{"kind":"Name","value":"worldSize"}},{"kind":"Field","name":{"kind":"Name","value":"worldType"}},{"kind":"Field","name":{"kind":"Name","value":"worldBackground"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dmSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adventureLength"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"theme"}},{"kind":"Field","name":{"kind":"Name","value":"setting"}},{"kind":"Field","name":{"kind":"Name","value":"tone"}},{"kind":"Field","name":{"kind":"Name","value":"playerCount"}},{"kind":"Field","name":{"kind":"Name","value":"startingLevel"}},{"kind":"Field","name":{"kind":"Name","value":"attributePointBudget"}},{"kind":"Field","name":{"kind":"Name","value":"dmSystemPrompt"}},{"kind":"Field","name":{"kind":"Name","value":"dmStyle"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"verbosity"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"engagement"}},{"kind":"Field","name":{"kind":"Name","value":"narrative"}},{"kind":"Field","name":{"kind":"Name","value":"specialMode"}},{"kind":"Field","name":{"kind":"Name","value":"customDirectives"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateRoomMutation, CreateRoomMutationVariables>;
-export const JoinRoomDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"JoinRoom"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"joinRoom"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"roomId"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"players"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isReady"}},{"kind":"Field","name":{"kind":"Name","value":"isOnline"}},{"kind":"Field","name":{"kind":"Name","value":"joinedAt"}},{"kind":"Field","name":{"kind":"Name","value":"action"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"character"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"portrait"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"upperBody"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fullBody"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"strength"}},{"kind":"Field","name":{"kind":"Name","value":"dexterity"}},{"kind":"Field","name":{"kind":"Name","value":"constitution"}},{"kind":"Field","name":{"kind":"Name","value":"intelligence"}},{"kind":"Field","name":{"kind":"Name","value":"wisdom"}},{"kind":"Field","name":{"kind":"Name","value":"charisma"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"phase"}},{"kind":"Field","name":{"kind":"Name","value":"world"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"seed"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"chunkSize"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"fogRadius"}},{"kind":"Field","name":{"kind":"Name","value":"globalScale"}},{"kind":"Field","name":{"kind":"Name","value":"seaLevel"}},{"kind":"Field","name":{"kind":"Name","value":"elevationScale"}},{"kind":"Field","name":{"kind":"Name","value":"roughness"}},{"kind":"Field","name":{"kind":"Name","value":"moistureScale"}},{"kind":"Field","name":{"kind":"Name","value":"temperatureOffset"}},{"kind":"Field","name":{"kind":"Name","value":"roadDensity"}},{"kind":"Field","name":{"kind":"Name","value":"structureChance"}},{"kind":"Field","name":{"kind":"Name","value":"structureSpacing"}},{"kind":"Field","name":{"kind":"Name","value":"structureSizeAvg"}},{"kind":"Field","name":{"kind":"Name","value":"worldSize"}},{"kind":"Field","name":{"kind":"Name","value":"worldType"}},{"kind":"Field","name":{"kind":"Name","value":"worldBackground"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dmSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adventureLength"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"theme"}},{"kind":"Field","name":{"kind":"Name","value":"setting"}},{"kind":"Field","name":{"kind":"Name","value":"tone"}},{"kind":"Field","name":{"kind":"Name","value":"playerCount"}},{"kind":"Field","name":{"kind":"Name","value":"startingLevel"}},{"kind":"Field","name":{"kind":"Name","value":"attributePointBudget"}},{"kind":"Field","name":{"kind":"Name","value":"dmSystemPrompt"}},{"kind":"Field","name":{"kind":"Name","value":"dmStyle"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"verbosity"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"engagement"}},{"kind":"Field","name":{"kind":"Name","value":"narrative"}},{"kind":"Field","name":{"kind":"Name","value":"specialMode"}},{"kind":"Field","name":{"kind":"Name","value":"customDirectives"}}]}}]}}]}}]}}]} as unknown as DocumentNode<JoinRoomMutation, JoinRoomMutationVariables>;
-export const UpdateRoomDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateRoom"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"documentId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RoomInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateRoom"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"documentId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"documentId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}}]}}]}}]} as unknown as DocumentNode<UpdateRoomMutation, UpdateRoomMutationVariables>;
-export const GenerateWorldDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateWorld"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"language"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateWorld"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"language"},"value":{"kind":"Variable","name":{"kind":"Name","value":"language"}}}]}]}}]} as unknown as DocumentNode<GenerateWorldMutation, GenerateWorldMutationVariables>;
-export const AddCharacterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddCharacter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"character"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addCharacter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"character"},"value":{"kind":"Variable","name":{"kind":"Name","value":"character"}}}]}]}}]} as unknown as DocumentNode<AddCharacterMutation, AddCharacterMutationVariables>;
-export const StartGameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"StartGame"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"language"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"streamId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startGame"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"language"},"value":{"kind":"Variable","name":{"kind":"Name","value":"language"}}},{"kind":"Argument","name":{"kind":"Name","value":"streamId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"streamId"}}}]}]}}]} as unknown as DocumentNode<StartGameMutation, StartGameMutationVariables>;
-export const SubmitActionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SubmitAction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"action"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"mode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"submitAction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"action"},"value":{"kind":"Variable","name":{"kind":"Name","value":"action"}}},{"kind":"Argument","name":{"kind":"Name","value":"mode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"mode"}}}]}]}}]} as unknown as DocumentNode<SubmitActionMutation, SubmitActionMutationVariables>;
-export const GenerateAvatarPortraitDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateAvatarPortrait"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"payload"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"referenceImage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateAvatarPortrait"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"payload"},"value":{"kind":"Variable","name":{"kind":"Name","value":"payload"}}},{"kind":"Argument","name":{"kind":"Name","value":"referenceImage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"referenceImage"}}}]}]}}]} as unknown as DocumentNode<GenerateAvatarPortraitMutation, GenerateAvatarPortraitMutationVariables>;
-export const GenerateAvatarUpperBodyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateAvatarUpperBody"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"payload"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"portrait"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"referenceImage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateAvatarUpperBody"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"payload"},"value":{"kind":"Variable","name":{"kind":"Name","value":"payload"}}},{"kind":"Argument","name":{"kind":"Name","value":"portrait"},"value":{"kind":"Variable","name":{"kind":"Name","value":"portrait"}}},{"kind":"Argument","name":{"kind":"Name","value":"referenceImage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"referenceImage"}}}]}]}}]} as unknown as DocumentNode<GenerateAvatarUpperBodyMutation, GenerateAvatarUpperBodyMutationVariables>;
-export const GenerateAvatarFullBodyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateAvatarFullBody"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"payload"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"portrait"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"upperBody"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"referenceImage"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateAvatarFullBody"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"payload"},"value":{"kind":"Variable","name":{"kind":"Name","value":"payload"}}},{"kind":"Argument","name":{"kind":"Name","value":"portrait"},"value":{"kind":"Variable","name":{"kind":"Name","value":"portrait"}}},{"kind":"Argument","name":{"kind":"Name","value":"upperBody"},"value":{"kind":"Variable","name":{"kind":"Name","value":"upperBody"}}},{"kind":"Argument","name":{"kind":"Name","value":"referenceImage"},"value":{"kind":"Variable","name":{"kind":"Name","value":"referenceImage"}}}]}]}}]} as unknown as DocumentNode<GenerateAvatarFullBodyMutation, GenerateAvatarFullBodyMutationVariables>;
-export const SpawnCreatureDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SpawnCreature"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"creature"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"JSON"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"spawnCreature"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"creature"},"value":{"kind":"Variable","name":{"kind":"Name","value":"creature"}}}]}]}}]} as unknown as DocumentNode<SpawnCreatureMutation, SpawnCreatureMutationVariables>;
-export const GenerateTerrainChunkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateTerrainChunk"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chunkX"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chunkY"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chunkSize"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateTerrainChunk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"chunkX"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chunkX"}}},{"kind":"Argument","name":{"kind":"Name","value":"chunkY"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chunkY"}}},{"kind":"Argument","name":{"kind":"Name","value":"chunkSize"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chunkSize"}}}]}]}}]} as unknown as DocumentNode<GenerateTerrainChunkMutation, GenerateTerrainChunkMutationVariables>;
-export const CreateEntitySheetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateEntitySheet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"EntitySheetInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createEntitySheet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<CreateEntitySheetMutation, CreateEntitySheetMutationVariables>;
-export const ExecuteToolDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"ExecuteTool"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"command"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"executeTool"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}},{"kind":"Argument","name":{"kind":"Name","value":"command"},"value":{"kind":"Variable","name":{"kind":"Name","value":"command"}}}]}]}}]} as unknown as DocumentNode<ExecuteToolMutation, ExecuteToolMutationVariables>;
-export const GetRoomDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetRoom"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"RoomFiltersInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rooms"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"roomId"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"phase"}},{"kind":"Field","name":{"kind":"Name","value":"entity_sheets"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"position"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"x"}},{"kind":"Field","name":{"kind":"Name","value":"y"}},{"kind":"Field","name":{"kind":"Name","value":"z"}}]}},{"kind":"Field","name":{"kind":"Name","value":"currentHp"}},{"kind":"Field","name":{"kind":"Name","value":"maxHp"}},{"kind":"Field","name":{"kind":"Name","value":"ac"}},{"kind":"Field","name":{"kind":"Name","value":"stats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walkSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"flySpeed"}},{"kind":"Field","name":{"kind":"Name","value":"swimSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"climbSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"burrowSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"hover"}}]}},{"kind":"Field","name":{"kind":"Name","value":"structuredActions"}}]}},{"kind":"Field","name":{"kind":"Name","value":"players"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isReady"}},{"kind":"Field","name":{"kind":"Name","value":"isOnline"}},{"kind":"Field","name":{"kind":"Name","value":"joinedAt"}},{"kind":"Field","name":{"kind":"Name","value":"action"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"character"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"backstory"}},{"kind":"Field","name":{"kind":"Name","value":"portrait"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"upperBody"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fullBody"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"strength"}},{"kind":"Field","name":{"kind":"Name","value":"dexterity"}},{"kind":"Field","name":{"kind":"Name","value":"constitution"}},{"kind":"Field","name":{"kind":"Name","value":"intelligence"}},{"kind":"Field","name":{"kind":"Name","value":"wisdom"}},{"kind":"Field","name":{"kind":"Name","value":"charisma"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"world"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"history"}},{"kind":"Field","name":{"kind":"Name","value":"worldBackground"}},{"kind":"Field","name":{"kind":"Name","value":"seed"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"chunkSize"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"fogRadius"}},{"kind":"Field","name":{"kind":"Name","value":"globalScale"}},{"kind":"Field","name":{"kind":"Name","value":"seaLevel"}},{"kind":"Field","name":{"kind":"Name","value":"elevationScale"}},{"kind":"Field","name":{"kind":"Name","value":"roughness"}},{"kind":"Field","name":{"kind":"Name","value":"moistureScale"}},{"kind":"Field","name":{"kind":"Name","value":"temperatureOffset"}},{"kind":"Field","name":{"kind":"Name","value":"roadDensity"}},{"kind":"Field","name":{"kind":"Name","value":"structureChance"}},{"kind":"Field","name":{"kind":"Name","value":"structureSpacing"}},{"kind":"Field","name":{"kind":"Name","value":"structureSizeAvg"}},{"kind":"Field","name":{"kind":"Name","value":"worldSize"}},{"kind":"Field","name":{"kind":"Name","value":"worldType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"dmSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"adventureLength"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}},{"kind":"Field","name":{"kind":"Name","value":"theme"}},{"kind":"Field","name":{"kind":"Name","value":"setting"}},{"kind":"Field","name":{"kind":"Name","value":"tone"}},{"kind":"Field","name":{"kind":"Name","value":"playerCount"}},{"kind":"Field","name":{"kind":"Name","value":"startingLevel"}},{"kind":"Field","name":{"kind":"Name","value":"attributePointBudget"}},{"kind":"Field","name":{"kind":"Name","value":"dmSystemPrompt"}},{"kind":"Field","name":{"kind":"Name","value":"dmStyle"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"verbosity"}},{"kind":"Field","name":{"kind":"Name","value":"detail"}},{"kind":"Field","name":{"kind":"Name","value":"engagement"}},{"kind":"Field","name":{"kind":"Name","value":"narrative"}},{"kind":"Field","name":{"kind":"Name","value":"specialMode"}},{"kind":"Field","name":{"kind":"Name","value":"customDirectives"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"entropyState"}},{"kind":"Field","name":{"kind":"Name","value":"turnData"}},{"kind":"Field","name":{"kind":"Name","value":"exploredTiles"}},{"kind":"Field","name":{"kind":"Name","value":"messages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"timestamp:asc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"100"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"senderName"}},{"kind":"Field","name":{"kind":"Name","value":"senderType"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}},{"kind":"Field","name":{"kind":"Name","value":"turn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"turnNumber"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"turns"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"turnNumber:desc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"5"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"turnNumber"}},{"kind":"Field","name":{"kind":"Name","value":"narrative"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"characterSnapshots"}},{"kind":"Field","name":{"kind":"Name","value":"actions"}},{"kind":"Field","name":{"kind":"Name","value":"actions"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timeFrames"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"turnNumber:asc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"100"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"turnNumber"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}},{"kind":"Field","name":{"kind":"Name","value":"gameState"}}]}},{"kind":"Field","name":{"kind":"Name","value":"events"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"turnNumber:desc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"50"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"turnNumber"}},{"kind":"Field","name":{"kind":"Name","value":"timestamp"}},{"kind":"Field","name":{"kind":"Name","value":"actorId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"owner"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<GetRoomQuery, GetRoomQueryVariables>;
-export const ListRoomsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListRooms"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},"defaultValue":{"kind":"ListValue","values":[{"kind":"StringValue","value":"createdAt:desc","block":false}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"rooms"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"50"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"roomId"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"phase"}},{"kind":"Field","name":{"kind":"Name","value":"dmSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"theme"}},{"kind":"Field","name":{"kind":"Name","value":"setting"}},{"kind":"Field","name":{"kind":"Name","value":"difficulty"}}]}},{"kind":"Field","name":{"kind":"Name","value":"entity_sheets"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"players"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"character"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"backstory"}},{"kind":"Field","name":{"kind":"Name","value":"portrait"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"race"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"class"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"level"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ListRoomsQuery, ListRoomsQueryVariables>;
-export const ListCharactersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListCharacters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"characters"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"name:asc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1000"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"backstory"}},{"kind":"Field","name":{"kind":"Name","value":"race"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"class"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"level"}}]}},{"kind":"Field","name":{"kind":"Name","value":"portrait"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<ListCharactersQuery, ListCharactersQueryVariables>;
-export const ListMonstersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListMonsters"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MonsterFiltersInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monsters"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"name:asc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"50"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"hp"}},{"kind":"Field","name":{"kind":"Name","value":"ac"}},{"kind":"Field","name":{"kind":"Name","value":"xp"}},{"kind":"Field","name":{"kind":"Name","value":"challenge_rating"}}]}}]}}]} as unknown as DocumentNode<ListMonstersQuery, ListMonstersQueryVariables>;
-export const ListSpellsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ListSpells"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SpellFiltersInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"spells"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"StringValue","value":"name:asc","block":false}},{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"50"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"school"}}]}}]}}]} as unknown as DocumentNode<ListSpellsQuery, ListSpellsQueryVariables>;
-export const SearchEntitiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchEntities"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchEntities"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode<SearchEntitiesQuery, SearchEntitiesQueryVariables>;
-export const VoxelPreviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"VoxelPreview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chunks"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChunkRequestInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"config"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WorldConfigInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"voxelPreview"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chunks"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chunks"}}},{"kind":"Argument","name":{"kind":"Name","value":"config"},"value":{"kind":"Variable","name":{"kind":"Name","value":"config"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"x"}},{"kind":"Field","name":{"kind":"Name","value":"y"}},{"kind":"Field","name":{"kind":"Name","value":"tiles"}}]}}]}}]} as unknown as DocumentNode<VoxelPreviewQuery, VoxelPreviewQueryVariables>;
-export const ExplorerGetClassesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetClasses"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ClassFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"classes_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetClassesQuery, ExplorerGetClassesQueryVariables>;
-export const ExplorerGetDamageTypesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetDamageTypes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DamageTypeFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"damageTypes_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetDamageTypesQuery, ExplorerGetDamageTypesQueryVariables>;
-export const ExplorerGetEquipmentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetEquipment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EquipmentFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"equipments_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cost_quantity"}},{"kind":"Field","name":{"kind":"Name","value":"cost_unit"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetEquipmentQuery, ExplorerGetEquipmentQueryVariables>;
-export const ExplorerGetEquipmentCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetEquipmentCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EquipmentCategoryFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"equipmentCategories_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetEquipmentCategoriesQuery, ExplorerGetEquipmentCategoriesQueryVariables>;
-export const ExplorerGetFeaturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetFeatures"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"features_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"level"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetFeaturesQuery, ExplorerGetFeaturesQueryVariables>;
-export const ExplorerGetLanguagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetLanguages"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"LanguageFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"languages_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"note"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetLanguagesQuery, ExplorerGetLanguagesQueryVariables>;
-export const ExplorerGetMagicItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetMagicItems"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MagicItemFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"magicItems_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"rarity"}},{"kind":"Field","name":{"kind":"Name","value":"attunement_required"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetMagicItemsQuery, ExplorerGetMagicItemsQueryVariables>;
-export const ExplorerGetMagicSchoolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetMagicSchools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MagicSchoolFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"magicSchools_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetMagicSchoolsQuery, ExplorerGetMagicSchoolsQueryVariables>;
-export const ExplorerGetMonstersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetMonsters"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MonsterFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monsters_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}},{"kind":"Field","name":{"kind":"Name","value":"challenge_rating"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetMonstersQuery, ExplorerGetMonstersQueryVariables>;
-export const ExplorerGetProficienciesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetProficiencies"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProficiencyFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"proficiencies_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetProficienciesQuery, ExplorerGetProficienciesQueryVariables>;
-export const ExplorerGetRacesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetRaces"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"RaceFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"races_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"speed"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetRacesQuery, ExplorerGetRacesQueryVariables>;
-export const ExplorerGetSpellsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetSpells"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SpellFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"spells_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"school"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetSpellsQuery, ExplorerGetSpellsQueryVariables>;
-export const ExplorerGetSubclassesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetSubclasses"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SubclassFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subclasses_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subclass_flavor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetSubclassesQuery, ExplorerGetSubclassesQueryVariables>;
-export const ExplorerGetTraitsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetTraits"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"TraitFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"traits_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetTraitsQuery, ExplorerGetTraitsQueryVariables>;
-export const ExplorerGetWeaponPropertiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetWeaponProperties"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"WeaponPropertyFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"weaponProperties_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetWeaponPropertiesQuery, ExplorerGetWeaponPropertiesQueryVariables>;
-export const GenerateTerrainDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GenerateTerrain"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateTerrain"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"roomId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"roomId"}}}]}]}}]} as unknown as DocumentNode<GenerateTerrainMutation, GenerateTerrainMutationVariables>;
+export const PaginationFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PaginationFragmentFragment, unknown>;
+export const GetAbilitiesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetAbilities' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'abilities' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'fullName' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'skills' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetAbilitiesQuery, GetAbilitiesQueryVariables>;
+export const GetSkillsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetSkills' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'skills' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'abilityScore' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSkillsQuery, GetSkillsQueryVariables>;
+export const GetRacesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetRaces' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'races' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'speed' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'size' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetRacesQuery, GetRacesQueryVariables>;
+export const GetClassesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetClasses' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'classes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'hit_die' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetClassesQuery, GetClassesQueryVariables>;
+export const GetAlignmentsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetAlignments' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'alignments' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'abbreviation' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetAlignmentsQuery, GetAlignmentsQueryVariables>;
+export const GetBackgroundsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetBackgrounds' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'backgrounds' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'skillProficiencies' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetBackgroundsQuery, GetBackgroundsQueryVariables>;
+export const GetLanguagesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetLanguages' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'languages' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'note' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetLanguagesQuery, GetLanguagesQueryVariables>;
+export const GetMagicSchoolsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetMagicSchools' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'magicSchools' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMagicSchoolsQuery, GetMagicSchoolsQueryVariables>;
+export const GetConditionsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetConditions' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'conditions' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetConditionsQuery, GetConditionsQueryVariables>;
+export const GetDamageTypesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetDamageTypes' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'damageTypes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetDamageTypesQuery, GetDamageTypesQueryVariables>;
+export const GetEquipmentDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetEquipment' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'equipments' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'cost_quantity' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'cost_unit' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'weight' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'damage_dice' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'damage_type' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'equipment_category' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'properties' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'range_normal' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'range_long' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'armor_class_base' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'armor_class_dex_bonus' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetEquipmentQuery, GetEquipmentQueryVariables>;
+export const GetMonstersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetMonsters' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'monsters' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'size' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'alignment' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'hp' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ac' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'stats' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'walkSpeed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'flySpeed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'swimSpeed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'climbSpeed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'burrowSpeed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'hover' } },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'challenge_rating' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMonstersQuery, GetMonstersQueryVariables>;
+export const GetSpellsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetSpells' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'spells' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'school' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSpellsQuery, GetSpellsQueryVariables>;
+export const GetFeaturesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetFeatures' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'features' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetFeaturesQuery, GetFeaturesQueryVariables>;
+export const GetTraitsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetTraits' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'traits' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'races' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetTraitsQuery, GetTraitsQueryVariables>;
+export const GetSubclassesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetSubclasses' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subclasses' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'class' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSubclassesQuery, GetSubclassesQueryVariables>;
+export const GetProficienciesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetProficiencies' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proficiencies' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'classes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'races' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetProficienciesQuery, GetProficienciesQueryVariables>;
+export const CreateRoomDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateRoom' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createRoom' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'data' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'roomId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'world' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'seed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'language' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'chunkSize' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'detail' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fogRadius' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'globalScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'seaLevel' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'elevationScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'roughness' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'moistureScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'temperatureOffset' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'roadDensity' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureChance' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureSpacing' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureSizeAvg' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldSize' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldType' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldBackground' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'dmSettings' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'adventureLength' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'difficulty' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'theme' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'setting' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tone' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'playerCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startingLevel' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'attributePointBudget' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'dmSystemPrompt' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'dmStyle' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'verbosity' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'detail' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'engagement' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'narrative' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'specialMode' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'customDirectives' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateRoomMutation, CreateRoomMutationVariables>;
+export const JoinRoomDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'JoinRoom' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'code' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'joinRoom' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'code' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'code' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'roomId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'players' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isReady' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isOnline' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'joinedAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'action' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'character' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'portrait' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'upperBody' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'fullBody' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'stats' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'strength' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'dexterity' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'constitution' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'intelligence' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'wisdom' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'charisma' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'phase' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'world' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'seed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'language' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'chunkSize' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'detail' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fogRadius' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'globalScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'seaLevel' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'elevationScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'roughness' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'moistureScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'temperatureOffset' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'roadDensity' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureChance' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureSpacing' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureSizeAvg' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldSize' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldType' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldBackground' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'dmSettings' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'adventureLength' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'difficulty' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'theme' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'setting' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tone' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'playerCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startingLevel' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'attributePointBudget' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'dmSystemPrompt' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'dmStyle' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'verbosity' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'detail' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'engagement' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'narrative' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'specialMode' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'customDirectives' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<JoinRoomMutation, JoinRoomMutationVariables>;
+export const UpdateRoomDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'UpdateRoom' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'documentId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomInput' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'updateRoom' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'documentId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'documentId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'data' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'documentId' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UpdateRoomMutation, UpdateRoomMutationVariables>;
+export const GenerateWorldDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'GenerateWorld' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'language' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateWorld' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'language' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'language' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GenerateWorldMutation, GenerateWorldMutationVariables>;
+export const AddCharacterDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'AddCharacter' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'character' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'addCharacter' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'character' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'character' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AddCharacterMutation, AddCharacterMutationVariables>;
+export const StartGameDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'StartGame' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'language' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'streamId' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'startGame' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'language' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'language' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'streamId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'streamId' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<StartGameMutation, StartGameMutationVariables>;
+export const SubmitActionDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'SubmitAction' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'action' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'mode' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'submitAction' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'action' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'action' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'mode' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'mode' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SubmitActionMutation, SubmitActionMutationVariables>;
+export const GenerateAvatarPortraitDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'GenerateAvatarPortrait' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'payload' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'referenceImage' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateAvatarPortrait' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'payload' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'payload' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'referenceImage' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'referenceImage' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GenerateAvatarPortraitMutation, GenerateAvatarPortraitMutationVariables>;
+export const GenerateAvatarUpperBodyDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'GenerateAvatarUpperBody' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'payload' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'portrait' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'referenceImage' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateAvatarUpperBody' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'payload' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'payload' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'portrait' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'portrait' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'referenceImage' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'referenceImage' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GenerateAvatarUpperBodyMutation, GenerateAvatarUpperBodyMutationVariables>;
+export const GenerateAvatarFullBodyDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'GenerateAvatarFullBody' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'payload' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'portrait' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'upperBody' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'referenceImage' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateAvatarFullBody' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'payload' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'payload' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'portrait' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'portrait' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'upperBody' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'upperBody' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'referenceImage' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'referenceImage' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GenerateAvatarFullBodyMutation, GenerateAvatarFullBodyMutationVariables>;
+export const SpawnCreatureDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'SpawnCreature' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'creature' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'JSON' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'spawnCreature' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'creature' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'creature' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SpawnCreatureMutation, SpawnCreatureMutationVariables>;
+export const GenerateTerrainChunkDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'GenerateTerrainChunk' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chunkX' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chunkY' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chunkSize' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateTerrainChunk' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'chunkX' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'chunkX' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'chunkY' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'chunkY' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'chunkSize' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'chunkSize' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GenerateTerrainChunkMutation, GenerateTerrainChunkMutationVariables>;
+export const CreateEntitySheetDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateEntitySheet' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'EntitySheetInput' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createEntitySheet' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'data' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateEntitySheetMutation, CreateEntitySheetMutationVariables>;
+export const ExecuteToolDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'ExecuteTool' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'command' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'executeTool' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'command' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'command' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExecuteToolMutation, ExecuteToolMutationVariables>;
+export const GetRoomDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetRoom' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'RoomFiltersInput' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'rooms' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'roomId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'phase' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'entity_sheets' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'x' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'y' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'z' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'currentHp' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'maxHp' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'ac' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'stats' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'walkSpeed' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'flySpeed' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'swimSpeed' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'climbSpeed' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'burrowSpeed' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'hover' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structuredActions' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'players' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isReady' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'isOnline' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'joinedAt' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'action' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'character' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'backstory' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'portrait' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'upperBody' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'fullBody' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'stats' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'strength' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'dexterity' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'constitution' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'intelligence' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'wisdom' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'charisma' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'world' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'history' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldBackground' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'seed' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'language' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'chunkSize' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'detail' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'fogRadius' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'globalScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'seaLevel' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'elevationScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'roughness' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'moistureScale' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'temperatureOffset' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'roadDensity' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureChance' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureSpacing' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'structureSizeAvg' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldSize' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'worldType' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'dmSettings' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'adventureLength' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'difficulty' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'theme' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'setting' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'tone' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'playerCount' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'startingLevel' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'attributePointBudget' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'dmSystemPrompt' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'dmStyle' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'verbosity' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'detail' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'engagement' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'narrative' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'specialMode' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'customDirectives' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'entropyState' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'turnData' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'exploredTiles' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'messages' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: { kind: 'StringValue', value: 'timestamp:asc', block: false },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'pagination' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'limit' },
+                            value: { kind: 'IntValue', value: '100' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'senderName' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'senderType' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'turn' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'turnNumber' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'turns' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: { kind: 'StringValue', value: 'turnNumber:desc', block: false },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'pagination' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'limit' },
+                            value: { kind: 'IntValue', value: '5' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'turnNumber' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'narrative' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'status' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'characterSnapshots' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'actions' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'actions' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'timeFrames' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: { kind: 'StringValue', value: 'turnNumber:asc', block: false },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'pagination' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'limit' },
+                            value: { kind: 'IntValue', value: '100' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'turnNumber' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'gameState' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'events' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'sort' },
+                      value: { kind: 'StringValue', value: 'turnNumber:desc', block: false },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'pagination' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'limit' },
+                            value: { kind: 'IntValue', value: '50' },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'payload' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'turnNumber' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'timestamp' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'actorId' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'owner' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetRoomQuery, GetRoomQueryVariables>;
+export const ListRoomsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ListRooms' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+          type: { kind: 'ListType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+          defaultValue: { kind: 'ListValue', values: [{ kind: 'StringValue', value: 'createdAt:desc', block: false }] },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'rooms' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'sort' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'IntValue', value: '50' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'roomId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'phase' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'dmSettings' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'theme' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'setting' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'difficulty' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'entity_sheets' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'documentId' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'players' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'user' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'documentId' } }],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'character' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'backstory' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'portrait' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'race' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'classes' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'class' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                                    },
+                                  },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ListRoomsQuery, ListRoomsQueryVariables>;
+export const ListCharactersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ListCharacters' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'characters' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: { kind: 'StringValue', value: 'name:asc', block: false },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'IntValue', value: '1000' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'backstory' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'race' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'classes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'class' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'name' } }],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'portrait' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'url' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ListCharactersQuery, ListCharactersQueryVariables>;
+export const ListMonstersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ListMonsters' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MonsterFiltersInput' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'monsters' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: { kind: 'StringValue', value: 'name:asc', block: false },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'IntValue', value: '50' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'size' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'hp' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'ac' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'xp' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'challenge_rating' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ListMonstersQuery, ListMonstersQueryVariables>;
+export const ListSpellsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ListSpells' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SpellFiltersInput' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'spells' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'sort' },
+                value: { kind: 'StringValue', value: 'name:asc', block: false },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'limit' },
+                      value: { kind: 'IntValue', value: '50' },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'school' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ListSpellsQuery, ListSpellsQueryVariables>;
+export const SearchEntitiesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'SearchEntities' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'searchEntities' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'query' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SearchEntitiesQuery, SearchEntitiesQueryVariables>;
+export const VoxelPreviewDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'VoxelPreview' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'chunks' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'ListType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ChunkRequestInput' } } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'config' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'WorldConfigInput' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'voxelPreview' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'chunks' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'chunks' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'config' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'config' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'x' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'y' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'tiles' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<VoxelPreviewQuery, VoxelPreviewQueryVariables>;
+export const ExplorerGetClassesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetClasses' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'ClassFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'classes_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetClassesQuery, ExplorerGetClassesQueryVariables>;
+export const ExplorerGetDamageTypesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetDamageTypes' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'DamageTypeFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'damageTypes_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetDamageTypesQuery, ExplorerGetDamageTypesQueryVariables>;
+export const ExplorerGetEquipmentDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetEquipment' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'EquipmentFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'equipments_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'cost_quantity' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'cost_unit' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'weight' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetEquipmentQuery, ExplorerGetEquipmentQueryVariables>;
+export const ExplorerGetEquipmentCategoriesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetEquipmentCategories' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'EquipmentCategoryFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'equipmentCategories_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetEquipmentCategoriesQuery, ExplorerGetEquipmentCategoriesQueryVariables>;
+export const ExplorerGetFeaturesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetFeatures' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'FeatureFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'features_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetFeaturesQuery, ExplorerGetFeaturesQueryVariables>;
+export const ExplorerGetLanguagesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetLanguages' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'LanguageFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'languages_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'note' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetLanguagesQuery, ExplorerGetLanguagesQueryVariables>;
+export const ExplorerGetMagicItemsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetMagicItems' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MagicItemFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'magicItems_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'rarity' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'attunement_required' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetMagicItemsQuery, ExplorerGetMagicItemsQueryVariables>;
+export const ExplorerGetMagicSchoolsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetMagicSchools' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MagicSchoolFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'magicSchools_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetMagicSchoolsQuery, ExplorerGetMagicSchoolsQueryVariables>;
+export const ExplorerGetMonstersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetMonsters' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'MonsterFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'monsters_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'size' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'alignment' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'challenge_rating' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetMonstersQuery, ExplorerGetMonstersQueryVariables>;
+export const ExplorerGetProficienciesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetProficiencies' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'ProficiencyFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'proficiencies_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetProficienciesQuery, ExplorerGetProficienciesQueryVariables>;
+export const ExplorerGetRacesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetRaces' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'RaceFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'races_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'size' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'speed' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetRacesQuery, ExplorerGetRacesQueryVariables>;
+export const ExplorerGetSpellsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetSpells' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SpellFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'spells_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'school' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetSpellsQuery, ExplorerGetSpellsQueryVariables>;
+export const ExplorerGetSubclassesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetSubclasses' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'SubclassFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subclasses_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'subclass_flavor' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetSubclassesQuery, ExplorerGetSubclassesQueryVariables>;
+export const ExplorerGetTraitsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetTraits' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'TraitFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'traits_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetTraitsQuery, ExplorerGetTraitsQueryVariables>;
+export const ExplorerGetWeaponPropertiesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ExplorerGetWeaponProperties' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'PaginationArg' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'WeaponPropertyFiltersInput' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'I18NLocaleCode' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'weaponProperties_connection' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'pagination' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'pagination' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'filters' } },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'locale' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'locale' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nodes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'documentId' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'image' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'alternativeText' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pageInfo' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'FragmentSpread', name: { kind: 'Name', value: 'PaginationFragment' } }],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PaginationFragment' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Pagination' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'total' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'page' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageSize' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'pageCount' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ExplorerGetWeaponPropertiesQuery, ExplorerGetWeaponPropertiesQueryVariables>;
+export const GenerateTerrainDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'GenerateTerrain' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'generateTerrain' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'roomId' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'roomId' } },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GenerateTerrainMutation, GenerateTerrainMutationVariables>;

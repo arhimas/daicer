@@ -17,11 +17,7 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "player",
-        "monster",
-        "npc"
-      ],
+      "enum": ["player", "monster", "npc"],
       "default": "player"
     },
     "monster": {
@@ -79,7 +75,9 @@
       "target": "api::class.class"
     },
     "appearance": {
-      "type": "json"
+      "type": "component",
+      "repeatable": false,
+      "component": "game.appearance"
     },
     "backstory": {
       "type": "text"

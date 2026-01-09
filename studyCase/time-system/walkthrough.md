@@ -11,14 +11,12 @@ We successfully implemented the "Time Machine" architecture, allowing granular d
 ### Key Components
 
 1.  **GameLedger (`backend/.../game-ledger.ts`)**:
-
     - The single source of truth for all state changes.
     - Enforces `sequenceId` ordering.
     - Handles `Live` broadcasting + `Persisted` logging.
     - Creates separate `TimeFrame` snapshots efficiently.
 
 2.  **HistoryService (`backend/.../history-service.ts`)**:
-
     - The "Time Travel" engine.
     - Can take ANY timestamp, find the nearest snapshot, and replay events to reach the exact state.
     - Powered by the pure `GameLoop` and `DeterministicTurnProcessor`.

@@ -27,10 +27,7 @@
     },
     "origin": {
       "type": "enumeration",
-      "enum": [
-        "manual",
-        "entity"
-      ],
+      "enum": ["manual", "entity"],
       "default": "manual",
       "required": true
     },

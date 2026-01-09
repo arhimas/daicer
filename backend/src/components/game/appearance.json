@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_game_appearances",
+  "info": {
+    "displayName": "Appearance",
+    "icon": "user",
+    "description": "Physical appearance details"
+  },
+  "options": {},
+  "attributes": {
+    "age": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "decimal"
+    },
+    "weight": {
+      "type": "decimal"
+    },
+    "eyes": {
+      "type": "string"
+    },
+    "skin": {
+      "type": "string"
+    },
+    "hair": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

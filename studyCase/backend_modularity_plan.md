@@ -79,12 +79,10 @@ src/engine/
 ### Specific "Module" Actions
 
 1.  **Damage Module**:
-
     - Extract the "Resist/Immune/Vulnerable" logic from `combat.ts` loop into `mechanics/damage.ts`.
     - Function: `calculateDamage(amount: number, type: string, target: Entity): number`.
 
 2.  **Class/Race Modules**:
-
     - Instead of `if (feature.name === 'Sneak Attack')` inside the main loop, loop through `entity.features` and delegate to a `FeatureRegistry`.
     - **Short-term Fix**: Move `Sneak Attack` and `Rage` blocks into helper functions `resolveSneakAttack(...)` and `resolveRage(...)` inside `features/` to clean the main pipeline.
 

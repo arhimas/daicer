@@ -1,4 +1,4 @@
-import type { Preview , ReactRenderer } from '@storybook/react';
+import type { Preview, ReactRenderer } from '@storybook/react';
 import { I18nProvider } from '../src/i18n';
 import '../src/index.css';
 

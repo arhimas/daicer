@@ -39,9 +39,6 @@ export function AppearanceSection({ name, onNameChange, appearance, onAppearance
   const heightValue = parseAppearanceNumber(appearance.height, DEFAULT_APPEARANCE_HEIGHT);
   const weightValue = parseAppearanceNumber(appearance.weight, DEFAULT_APPEARANCE_WEIGHT);
 
-  // Convert feet to cm for display (1 ft = 30.48 cm)
-  const heightCm = Math.round(heightValue * 30.48);
-
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-4">
@@ -70,27 +67,23 @@ export function AppearanceSection({ name, onNameChange, appearance, onAppearance
         </div>
         <div className="rounded-lg border border-midnight-600 bg-midnight-800/70 p-4">
           <SliderWithMarks
-            label={`${t('characterCreation.appearance.height')} (cm)`}
-            value={heightCm}
-            onChange={(value) => {
-              // Convert cm back to feet for storage
-              const feet = value / 30.48;
-              onAppearanceChange('height', String(feet));
-            }}
-            min={120} // ~4ft
-            max={220} // ~7.2ft
-            step={1}
+            label={`${t('characterCreation.appearance.height')} (ft)`}
+            value={heightValue}
+            onChange={(value) => onAppearanceChange('height', String(value))}
+            min={3.0}
+            max={9.0}
+            step={0.1}
             showValue
             showTooltip={false}
           />
         </div>
         <div className="rounded-lg border border-midnight-600 bg-midnight-800/70 p-4">
           <SliderWithMarks
-            label={t('characterCreation.appearance.weight')}
+            label={`${t('characterCreation.appearance.weight')} (lbs)`}
             value={weightValue}
             onChange={(value) => onAppearanceChange('weight', String(value))}
             min={40}
-            max={200}
+            max={400} // Increased range for larger races
             step={1}
             showValue
             showTooltip={false}

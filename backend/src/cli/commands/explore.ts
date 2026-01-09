@@ -65,12 +65,10 @@ export async function runExplore(options: ExploreOptions) {
       const res = await fn();
       spinner.stop();
       return res;
-    } catch {
+    } catch (err) {
       spinner.fail();
-      throw new Error('Spinner failed'); // or rethrow original if we captured it, but we removed catch(e) to avoid unused var?
-      // Actually simpler to just use catch (err) and rethrow err.
-      // Wait, 'e' is used in 'spinner.fail()' context? No.
-      // If I remove 'e' from catch block: catch { ... } in newer TS.
+      // Throw original error to see what happened
+      throw err;
     }
   };
 
@@ -150,7 +148,19 @@ export async function runExplore(options: ExploreOptions) {
     }
 
     // Prepare Params
-    const params: Record<string, unknown> = { populate: '*' };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let params: Record<string, any> = { populate: '*' };
+
+    // Use deep populate for findOne or if JSON mode is requested (likely agent wanting details)
+    // For general 'find' list, deep populate might be too heavy?
+    // Agent asked: "our cli when grabbing a schema of a entity should automaticly grab until 2 levels or relations"
+    // "and also when getting data specially by document id it also need tgo grab the relations"
+    if (currentAction === 'findOne' || isRaw) {
+      const { buildDeepPopulate } = await import('../utils/schema');
+      const deepPop = buildDeepPopulate(finalType.uid, 2);
+      params = { populate: deepPop };
+    }
+
     if (currentAction === 'find') {
       params['pagination[pageSize]'] = currentLimit;
       params['pagination[page]'] = currentPage;
@@ -173,7 +183,7 @@ export async function runExplore(options: ExploreOptions) {
       if (!resourceName) throw new Error(`Could not determine resource name for ${selectedUid}`);
 
       const resource = // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName)) as any;
+        (finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName)) as any;
 
       if (finalType.kind === 'singleType') {
         result = await resource.find(params);

@@ -15,19 +15,8 @@ test.describe('E2E Character Creation Flow', () => {
       const body = req.postDataJSON();
 
       // Mock Avatar Generation to avoid costs/errors
-      if (body?.operationName?.startsWith('GenerateAvatar')) {
-        await route.fulfill({
-          json: {
-            data: {
-              [body.operationName]: {
-                mimeType: 'image/png',
-                data: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGP6DwABBAEKKFE8ZwAAAABJRU5ErkJggg==',
-              },
-            },
-          },
-        });
-        return;
-      }
+      // Real Image Generation Enabled - Mock removed to test api::assets service
+      // if (body?.operationName?.startsWith('GenerateAvatar')) { ... }
 
       // Allow other requests to hit the real backend (or we could mock CreateEntitySheet if needed)
       await route.continue();

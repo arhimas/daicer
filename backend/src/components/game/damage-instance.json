@@ -1,61 +1,52 @@
 {
-    "collectionName": "components_game_damage_instances",
-    "info": {
-        "displayName": "Damage Instance",
-        "icon": "skull-crossbones",
-        "description": "Damage or Healing application"
+  "collectionName": "components_game_damage_instances",
+  "info": {
+    "displayName": "Damage Instance",
+    "icon": "skull-crossbones",
+    "description": "Damage or Healing application"
+  },
+  "options": {},
+  "attributes": {
+    "effect_type": {
+      "type": "enumeration",
+      "enum": ["Damage", "Healing", "TempHP"],
+      "default": "Damage",
+      "required": true
     },
-    "options": {},
-    "attributes": {
-        "effect_type": {
-            "type": "enumeration",
-            "enum": [
-                "Damage",
-                "Healing",
-                "TempHP"
-            ],
-            "default": "Damage",
-            "required": true
-        },
-        "damage_type": {
-            "type": "enumeration",
-            "enum": [
-                "Acid",
-                "Bludgeoning",
-                "Cold",
-                "Fire",
-                "Force",
-                "Lightning",
-                "Necrotic",
-                "Piercing",
-                "Poison",
-                "Psychic",
-                "Radiant",
-                "Slashing",
-                "Thunder"
-            ]
-        },
-        "dice_count": {
-            "type": "integer",
-            "default": 1
-        },
-        "dice_value": {
-            "type": "integer",
-            "default": 6
-        },
-        "flat_bonus": {
-            "type": "integer",
-            "default": 0
-        },
-        "timing": {
-            "type": "enumeration",
-            "enum": [
-                "Instant",
-                "Start of Turn",
-                "End of Turn",
-                "One Time Trigger"
-            ],
-            "default": "Instant"
-        }
+    "damage_type": {
+      "type": "enumeration",
+      "enum": [
+        "Acid",
+        "Bludgeoning",
+        "Cold",
+        "Fire",
+        "Force",
+        "Lightning",
+        "Necrotic",
+        "Piercing",
+        "Poison",
+        "Psychic",
+        "Radiant",
+        "Slashing",
+        "Thunder"
+      ]
+    },
+    "dice_count": {
+      "type": "integer",
+      "default": 1
+    },
+    "dice_value": {
+      "type": "integer",
+      "default": 6
+    },
+    "flat_bonus": {
+      "type": "integer",
+      "default": 0
+    },
+    "timing": {
+      "type": "enumeration",
+      "enum": ["Instant", "Start of Turn", "End of Turn", "One Time Trigger"],
+      "default": "Instant"
     }
+  }
 }

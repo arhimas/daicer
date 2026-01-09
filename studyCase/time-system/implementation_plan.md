@@ -8,7 +8,6 @@
 We must upgrade the `GameEvent` and `TimeFrame` schemas to support the "Blockchain-like" ledger.
 
 - [x] **1.1 Upgrade Game Event Schema**:
-
   - Add `sequenceId` (BigInt/String) for strict ordering.
   - Add `causalityId` (String) for traceability.
   - Add `delta` (JSON) for O(1) Undo/Replay.
@@ -16,7 +15,6 @@ We must upgrade the `GameEvent` and `TimeFrame` schemas to support the "Blockcha
   - **Test**: Verify schema migration and field availability.
 
 - [x] **1.2 Upgrade Time Frame Schema**:
-
   - Add `hash` (String) for state verification.
   - Add `sequenceId` (BigInt/String) to link to the exact last event processed.
   - **Test**: Verify relation integrity with GameEvents.
@@ -30,7 +28,6 @@ We must upgrade the `GameEvent` and `TimeFrame` schemas to support the "Blockcha
 Moving logic from "Controllers" to a pure "Engine".
 
 - [x] **2.1 Create `GameLoop` Class (Engine)**:
-
   - Location: `backend/src/engine/core/game-loop.ts`.
   - Responsibility: Managing `GlobalTime` and processing the `Tick`.
   - **Test**: Unit test `GameLoop.tick(delta)` implies time advancement.
@@ -45,7 +42,6 @@ Moving logic from "Controllers" to a pure "Engine".
 Connecting the Engine to the Database via the Ledger.
 
 - [ ] **3.1 Implement `GameLedger.logEvent`**:
-
   - Enforce `sequenceId` incrementation (Atomic Locks or Optimistic Locking).
   - Save `GameEvent` to DB.
   - Broadcast to Socket (Isomorphic payload).
@@ -58,7 +54,6 @@ Connecting the Engine to the Database via the Ledger.
 ## Phase 4: The Time Machine (Reading the History)
 
 - [x] **4.1 Implement `HistoryService.replayTo(timestamp)`**:
-
   - Fetch nearest Snapshot.
   - Apply `GameEvent` deltas sequentially.
   - Return calculated state.
@@ -70,7 +65,6 @@ Connecting the Engine to the Database via the Ledger.
 ## Phase 5: Verification & Testing (The "Diligent" Part)
 
 - [x] **5.1 Fuzz Testing**:
-
   - Generate 1000 random events.
   - Replay them. Verify `FinalState` matches `LiveState`.
 

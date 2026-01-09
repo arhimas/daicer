@@ -592,7 +592,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
   attributes: {
     ac: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     actions: Schema.Attribute.Relation<'manyToMany', 'api::action.action'>;
-    appearance: Schema.Attribute.JSON;
+    appearance: Schema.Attribute.Component<'game.appearance', false>;
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
     class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
@@ -1059,6 +1059,8 @@ export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
     ac: Schema.Attribute.Integer;
     actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     alignment: Schema.Attribute.String;
+    appearance: Schema.Attribute.Component<'game.appearance', false>;
+    background: Schema.Attribute.RichText;
     challenge_rating: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
