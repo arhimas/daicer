@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Fragment, ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import enTranslations from './locales/en.json';

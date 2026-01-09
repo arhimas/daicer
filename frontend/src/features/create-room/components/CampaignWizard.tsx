@@ -58,7 +58,7 @@ export function CampaignWizard({
         label: VERBOSITY_FALLBACK[key]?.label ?? '',
         description: VERBOSITY_FALLBACK[key]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const detailMarks = useMemo<SliderMark[]>(
@@ -68,7 +68,7 @@ export function CampaignWizard({
         label: DETAIL_FALLBACK[key]?.label ?? '',
         description: DETAIL_FALLBACK[key]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const engagementMarks = useMemo<SliderMark[]>(
@@ -78,7 +78,7 @@ export function CampaignWizard({
         label: ENGAGEMENT_FALLBACK[key]?.label ?? '',
         description: ENGAGEMENT_FALLBACK[key]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const narrativeMarks = useMemo<SliderMark[]>(
@@ -88,7 +88,7 @@ export function CampaignWizard({
         label: NARRATIVE_FALLBACK[key]?.label ?? '',
         description: NARRATIVE_FALLBACK[key]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const specialModeOptions = useMemo(
@@ -98,7 +98,7 @@ export function CampaignWizard({
         label: SPECIAL_MODE_FALLBACK[key]?.label ?? key,
         description: SPECIAL_MODE_FALLBACK[key]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const adventureLengthOptions = useMemo(
@@ -109,7 +109,7 @@ export function CampaignWizard({
         detail: ADVENTURE_LENGTH_FALLBACK[value]?.detail ?? '',
         description: ADVENTURE_LENGTH_FALLBACK[value]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const difficultyOptions = useMemo(
@@ -120,7 +120,7 @@ export function CampaignWizard({
         detail: DIFFICULTY_FALLBACK[value]?.detail ?? '',
         description: DIFFICULTY_FALLBACK[value]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const worldSizeOptions = useMemo(
@@ -131,7 +131,7 @@ export function CampaignWizard({
         detail: WORLD_SIZE_FALLBACK[value]?.detail ?? '',
         description: WORLD_SIZE_FALLBACK[value]?.description ?? '',
       })),
-    [t]
+    []
   );
 
   const worldSizeMarks = useMemo<SliderMark[]>(

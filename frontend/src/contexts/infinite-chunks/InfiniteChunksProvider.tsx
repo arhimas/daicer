@@ -3,6 +3,7 @@
  * Main context provider using reducer pattern for state management
  */
 
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useReducer, useEffect, useCallback, useRef } from 'react';
 import type { InfiniteChunksContextValue, InfiniteChunksOptions } from './types';
 import { infiniteChunksReducer, createInitialState } from './reducer';

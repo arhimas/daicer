@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 import type { WorldSettings, WorldConfig } from '@/types/contracts';
 import { useI18n } from '../../../i18n';
@@ -87,20 +88,20 @@ export function WizardProvider({
     }
   }, []); // Run once on mount
 
-  const updateSetting = <K extends keyof (WorldSettings & WorldConfig)>(
-    key: K,
-    value: (WorldSettings & WorldConfig)[K]
-  ) => {
-    setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({ ...prev, [key]: value }));
-  };
+  const updateSetting = useCallback(
+    <K extends keyof (WorldSettings & WorldConfig)>(key: K, value: (WorldSettings & WorldConfig)[K]) => {
+      setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({ ...prev, [key]: value }));
+    },
+    []
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const updateDMStyle = <K extends keyof typeof initialSettingsBase.dmStyle>(key: K, value: any) => {
+  const updateDMStyle = useCallback(<K extends keyof typeof initialSettingsBase.dmStyle>(key: K, value: any) => {
     setSettingsState((prev: WorldSettings & Partial<WorldConfig>) => ({
       ...prev,
       dmStyle: { ...prev.dmStyle, [key]: value },
     }));
-  };
+  }, []);
 
   const contextValue = useMemo(
     () => ({
@@ -109,7 +110,7 @@ export function WizardProvider({
       updateDMStyle,
       setSettings: setSettingsState,
     }),
-    [settings]
+    [settings, updateSetting, updateDMStyle]
   );
 
   return <WizardContext.Provider value={contextValue}>{children}</WizardContext.Provider>;

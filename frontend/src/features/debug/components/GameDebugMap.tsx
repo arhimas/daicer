@@ -106,7 +106,7 @@ export function GameDebugMap({
       visibleTiles.forEach((t) => nextSet.add(t));
       return { ...prev, [activeEntity.id]: nextSet };
     });
-  }, [activeEntity?.id, visibleTiles]);
+  }, [activeEntity, visibleTiles]);
 
   // Chunk Provider for Renderer
   const chunkProvider = useMemo(

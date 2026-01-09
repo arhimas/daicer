@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src",
+    "e2e",
+    "codegen.ts",
+    "vite.config.ts",
+    ".storybook/**/*",
+    "scripts/**/*",
+    "eslint.config.mjs",
+    "playwright.config.ts"
+  ],
+  "exclude": ["node_modules", "dist", "dev-dist", "coverage"]
+}

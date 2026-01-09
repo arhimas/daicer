@@ -3,6 +3,7 @@
  * @description React context provider for tactical state
  */
 
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useMemo, useSyncExternalStore, type ReactNode } from 'react';
 import { TacticalEngine } from '../state/TacticalEngine';
 import type { TacticalState } from '../types/tactical';

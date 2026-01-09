@@ -285,6 +285,7 @@ export function MapRenderer({
     renderEntities,
     ghostEntities,
     previewPath,
+    restrictView,
   ]);
 
   const getTileCoords = (e: React.MouseEvent): Coordinates => {
