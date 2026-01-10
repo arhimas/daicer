@@ -1,12 +1,32 @@
-/**
- * Terrain Feature Service
- * Bridges procedural generation (FloraGenerator) with persistent world state (ChunkManager).
- */
-
 import { Core } from '@strapi/strapi';
 import { BlockType, Tile, ZLevel } from '../../game/src/engine/types';
 import { FloraGenerator } from '../../voxel-engine/services/generators/flora-generator';
 import { Alea } from '../../voxel-engine/src/utils/math';
+
+// Interface Definitions for Dependencies
+interface SpawnService {
+  spawn(
+    roomId: string,
+    payload: {
+      blueprintId: string;
+      type: 'monster' | 'character';
+      position: { x: number; y: number; z: number };
+      ownerId?: string;
+    }
+  ): Promise<any>;
+}
+
+interface ChunkManager {
+  editVoxel(
+    chunkX: number,
+    chunkY: number,
+    localX: number,
+    localY: number,
+    z: number,
+    type: BlockType,
+    source?: string
+  ): Promise<void>;
+}
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
@@ -29,9 +49,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     if (blueprint && ['plant', 'construct', 'elemental', 'beast'].includes(blueprint.type)) {
       // It's a creature! Spawn it.
-      const spawnService = strapi.service('api::game.spawn-service');
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return await (spawnService as any).spawn(roomId, {
+      const spawnService = strapi.service('api::game.spawn-service') as unknown as SpawnService;
+
+      return await spawnService.spawn(roomId, {
         blueprintId: blueprint.documentId,
         type: 'monster',
         position,
@@ -137,15 +157,21 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     }
 
     // Apply via ChunkManager (batch would be better, but loop is fine for single tree)
-    const chunkManager = strapi.service('api::voxel-engine.chunk-manager');
+    const chunkManager = strapi.service('api::voxel-engine.chunk-manager') as unknown as ChunkManager;
     // const roomIdNum = parseInt(roomId);
     // Actually persistent editing usually goes by chunk coordinates.
     // We ignore RoomID for world editing ?? Or verify room?
     // Let's assume global world for now (Single Room mode usually).
 
+    const chunkSize = 16; // Hardcoded default for now
+
     for (const change of voxelChanges) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (chunkManager as any).editVoxel(change.x, change.y, change.z, change.type);
+      const chunkX = Math.floor(change.x / chunkSize);
+      const chunkY = Math.floor(change.y / chunkSize);
+      const localX = ((change.x % chunkSize) + chunkSize) % chunkSize;
+      const localY = ((change.y % chunkSize) + chunkSize) % chunkSize;
+
+      await chunkManager.editVoxel(chunkX, chunkY, localX, localY, change.z, change.type, 'TerrainFeature');
     }
 
     return { success: true, changes: voxelChanges.length, type: blockType };

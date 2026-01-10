@@ -50,6 +50,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
     // Strapi generated types are apparently missing key fields (code, players) in Input, failing typecheck.
     // We use 'as any' here at the boundary to pass the correctly-shaped object.
     const newRoom = await strapi.entityService.create('api::room.room', {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       data: baseData as any,
     });
 
@@ -77,6 +78,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
       };
 
       const updatedRoom = await strapi.entityService.update('api::room.room', newRoom.documentId || newRoom.id, {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         data: updateData as any,
       });
 
@@ -109,6 +111,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
     const players = Array.isArray(room.players) ? room.players : [];
 
     // Strict fix: check implicit type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const isAlreadyJoined = players.some((p: any) => p.userId == user.id || p.userId == user.documentId);
 
     if (isAlreadyJoined) {
@@ -132,6 +135,7 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
     };
 
     const updatedRoom = await strapi.entityService.update('api::room.room', room.documentId || room.id, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       data: updateData as any,
     });
 

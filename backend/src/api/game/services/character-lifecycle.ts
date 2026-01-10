@@ -6,10 +6,8 @@ import type { WorldSettings, Player, EntitySheet, Language } from '../src/engine
 
 // Helper to format DM style
 
-interface PopulatedEntitySheet extends Omit<
-  EntitySheet,
-  'race' | 'class' | 'classes' | 'characterClass' | 'personality'
-> {
+interface PopulatedEntitySheet
+  extends Omit<EntitySheet, 'race' | 'class' | 'classes' | 'characterClass' | 'personality'> {
   documentId: string;
   race?: string | { name: string };
   class?: string | { name: string };
@@ -188,26 +186,26 @@ export default ({ strapi }) => ({
     // Prepare derivation context for lifecycle sheet too
     const rawStats = (createdCharacter.stats as Record<string, number>) || {};
     const attributes = {
-      str: rawStats.strength || 10,
-      dex: rawStats.dexterity || 10,
-      con: rawStats.constitution || 10,
-      int: rawStats.intelligence || 10,
-      wis: rawStats.wisdom || 10,
-      cha: rawStats.charisma || 10,
+      strength: rawStats.strength || 10,
+      dexterity: rawStats.dexterity || 10,
+      constitution: rawStats.constitution || 10,
+      intelligence: rawStats.intelligence || 10,
+      wisdom: rawStats.wisdom || 10,
+      charisma: rawStats.charisma || 10,
     };
 
     // Extract actual equipment items
     const equipmentList = (createdCharacter.equipment as { isEquipped: boolean; item: unknown }[]) || [];
     const equipmentForDeriver = equipmentList
       .filter((entry) => entry.isEquipped && entry.item)
-      .map((entry) => entry.item);
+      .map((entry) => ({ ...(entry.item as any), name: (entry.item as any).name }));
 
     const derived = EntityDeriver.derive({
       attributes,
       classes: createdCharacter.classes?.map((c) => ({
-        name: c.class.name,
+        name: (c.class as any).name,
         level: c.level,
-        hitDie: (c.class as unknown as { hit_die: number }).hit_die, // Correctly type the cast
+        hitDie: (c.class as any).hit_die, // Cast to any to access standard fields if types missing
       })),
       level: 1, // Fallback
       equipment: equipmentForDeriver,

@@ -25,6 +25,9 @@ import {
 import { CastSpellIntentSchema } from '../../../shared';
 import type { Core, UID } from '@strapi/strapi';
 import { ActionResult } from '../../game/services/action-engine';
+import { WorldAtlas } from '../../game/src/engine/world';
+import { WorldConfig, DEFAULT_WORLD_CONFIG, Chunk, Creature } from '../../game/src/engine';
+import { generateMapImage } from '../../game/services/map-visualization'; // Ensure export
 
 // Define explicit Interfaces for Service interactions
 interface ActionEngineService {
@@ -103,7 +106,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
         targetPosition: p.path[p.path.length - 1], // Goal
         path: p.path,
         mode: 'walk',
-      },
+      } as MoveCommand['payload'],
       timestamp: Date.now(),
     };
 
@@ -222,7 +225,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
   // LEGACY WRAPPERS maintained
   register(
-    'perform_attack_legacy', // Renamed internal key to avoid collision if desired, but register overrides.
+    // 'perform_attack_legacy', // Renamed internal key to avoid collision if desired, but register overrides.
     // Logic: Key matches 'perform_attack' above, so it overrides?
     // Wait, original file had duplicate keys?
     // "1. PERFORM_ATTACK" and "6. PERFORM_ATTACK (Legacy)" registered with SAME key 'perform_attack'.
@@ -248,7 +251,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     const actionEngine = strapi.service('api::game.action-engine') as ActionEngineService;
     const command: CastSpellCommand = {
       type: 'CAST_SPELL',
-      payload: p as CastSpellCommand['payload'],
+      // We need to ensure payload matches CastSpellCommand['payload'] which requires actorId.
+      // CastSpellIntentSchema might be missing actorId.
+      // We need to inject actorId from somewhere (e.g. user or payload fallback).
+      // Assuming payload has it or we can't dispatch.
+      payload: { ...p, actorId: (p as any).actorId || 'unknown' } as CastSpellCommand['payload'],
       timestamp: Date.now(),
     };
     return await actionEngine.dispatch(roomId, [command]);
@@ -261,7 +268,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     const actionEngine = strapi.service('api::game.action-engine') as ActionEngineService;
     const command: InteractCommand = {
       type: 'INTERACT',
-      payload: p,
+      payload: p as InteractCommand['payload'],
       timestamp: Date.now(),
     };
     return await actionEngine.dispatch(roomId, [command]);
@@ -348,7 +355,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     const actionEngine = strapi.service('api::game.action-engine') as ActionEngineService;
     const command: ThrowItemCommand = {
       type: 'THROW_ITEM',
-      payload: p,
+      payload: p as ThrowItemCommand['payload'],
       timestamp: Date.now(),
     };
     return await actionEngine.dispatch(roomId, [command]);
@@ -458,6 +465,295 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       return weather || { key: 'Local Weather', currentValue: 'Unknown' };
     }
     return result;
+  });
+
+  // 19. SEARCH_MONSTERS
+  const SearchMonstersSchema = z.object({
+    query: z.string().describe('The name or partial name of the monster to search for.'),
+    type: z.string().optional().describe('Optional filter for monster type.'),
+  });
+  register('search_monsters', 'Search for monsters', SearchMonstersSchema, async (_roomId, payload, _u) => {
+    const p = SearchMonstersSchema.parse(payload);
+    const filters: Record<string, unknown> = { name: { $containsi: p.query } };
+    if (p.type) filters.type = { $containsi: p.type };
+
+    const monsters = await strapi.documents('api::entity.entity').findMany({ filters, populate: ['stats'] });
+    if (!monsters || monsters.length === 0) return `No monsters found matching "${p.query}".`;
+
+    return monsters
+      .map((m) => {
+        const stats = `STR ${m.stats?.strength || 10} DEX ${m.stats?.dexterity || 10} CON ${m.stats?.constitution || 10} INT ${m.stats?.intelligence || 10} WIS ${m.stats?.wisdom || 10} CHA ${m.stats?.charisma || 10}`;
+        return `### ${m.name} (${m.size || '?'} ${m.type || '?'}, CR ${m.challenge_rating || '?'})\n- HP: ${m.hp}\n- AC: ${m.ac}\n- Stats: ${stats}`;
+      })
+      .join('\n---\n');
+  });
+
+  // 20. SEARCH_SPELLS
+  const SearchSpellsSchema = z.object({
+    query: z.string().describe('The name or partial name of the spell.'),
+    level: z.number().optional().describe('Optional spell level filter.'),
+  });
+  register('search_spells', 'Search for spells', SearchSpellsSchema, async (_roomId, payload, _u) => {
+    const p = SearchSpellsSchema.parse(payload);
+    const filters: Record<string, unknown> = { name: { $containsi: p.query } };
+    if (p.level !== undefined) filters.level = p.level;
+
+    const spells = await strapi.documents('api::spell.spell').findMany({ filters, limit: 5 });
+    if (!spells || spells.length === 0) return `No spells found matching "${p.query}".`;
+
+    return spells
+      .map(
+        (s) =>
+          `### ${s.name} (Level ${s.level} ${s.school || '?'})\n- Range: ${s.range}\n- Components: ${s.components}\n- Duration: ${s.duration}\n- Description: ${s.description}`
+      )
+      .join('\n---\n');
+  });
+
+  // 21. SEARCH_CLASSES
+  const SearchClassesSchema = z.object({ query: z.string() });
+  register('search_classes', 'Search for classes', SearchClassesSchema, async (_roomId, payload, _u) => {
+    const p = SearchClassesSchema.parse(payload);
+    const classes = await strapi.documents('api::class.class').findMany({
+      filters: { name: { $containsi: p.query } },
+      limit: 5,
+      populate: ['proficiencies'],
+    });
+    if (!classes || classes.length === 0) return `No classes found matching "${p.query}".`;
+    return classes
+      .map((c: any) => {
+        const profs = c.proficiencies?.map((pr: any) => pr.name).join(', ') || 'None';
+        return `### ${c.name} (Hit Die: ${c.hit_die})\n- Proficiencies: ${profs}`;
+      })
+      .join('\n---\n');
+  });
+
+  // 22. SEARCH_RACES
+  const SearchRacesSchema = z.object({ query: z.string() });
+  register('search_races', 'Search for races', SearchRacesSchema, async (_roomId, payload, _u) => {
+    const p = SearchRacesSchema.parse(payload);
+    const races = await strapi.documents('api::race.race').findMany({
+      filters: { name: { $containsi: p.query } },
+      limit: 5,
+      populate: ['traits'],
+    });
+    if (!races || races.length === 0) return `No races found matching "${p.query}".`;
+    return races
+      .map((r: any) => {
+        const traits = r.traits?.map((t: any) => t.name).join(', ') || 'None';
+        return `### ${r.name}\n- Speed: ${JSON.stringify(r.speed)}\n- Size: ${r.size}\n- Traits: ${traits}\n- Description: ${r.description}`;
+      })
+      .join('\n---\n');
+  });
+
+  // 23. RETRIEVE_KNOWLEDGE
+  const RetrieveKnowledgeSchema = z.object({ query: z.string() });
+  register('retrieve_knowledge', 'Retrieve verified rules', RetrieveKnowledgeSchema, async (_roomId, payload, _u) => {
+    const p = RetrieveKnowledgeSchema.parse(payload);
+    try {
+      // Dynamic import to avoid strict dependency if not used
+      const { embeddingService } = await import('../../../services/embedding-service');
+      const queryEmbedding = await embeddingService.generateEmbedding(p.query);
+      const results = await strapi.db.connection.raw(
+        `SELECT title, content, 1 - (embedding::vector <=> ?::vector) as similarity FROM knowledge_snippets ORDER BY similarity DESC LIMIT 5`,
+        [JSON.stringify(queryEmbedding)]
+      );
+      const rows = (results.rows || results) as { title: string; content: string }[];
+      if (!rows || rows.length === 0) return 'No relevant knowledge found.';
+      return rows.map((row) => `### ${row.title}\n${row.content}\n`).join('\n---\n');
+    } catch (err) {
+      console.error('Knowledge retrieval failed:', err);
+      return 'Error retrieving knowledge.';
+    }
+  });
+
+  // 24. INSPECT_MAP
+  const InspectMapSchema = z.object({ x: z.number(), y: z.number(), radius: z.number().default(5) });
+  register('inspect_map', 'Inspect terrain', InspectMapSchema, async (roomId, payload, _u) => {
+    const p = InspectMapSchema.parse(payload);
+    const gameEventService = strapi.service('api::game-event.game-event');
+    return await gameEventService.inspectTerrain(roomId, p.x, p.y, p.radius);
+  });
+
+  // 25. LIST_ENTITIES
+  register('list_entities', 'List entities in room', z.object({}), async (roomId, _p, _u) => {
+    interface StrapiEntitySheet {
+      documentId: string;
+      type?: string;
+      name?: string;
+      position?: { x: number; y: number; z: number };
+      currentHp?: number;
+      maxHp?: number;
+      structuredActions?: Array<{
+        id: string;
+        name: string;
+        type: string;
+        damage?: Array<{ dice: string; type: string }>;
+      }>;
+    }
+    const entities = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
+      filters: { room: { documentId: roomId } },
+      populate: ['stats', 'position'],
+      limit: 100,
+    });
+    if (!entities || entities.length === 0) return 'No entities found.';
+    const lines = entities.map((param) => {
+      const sheet = param as unknown as StrapiEntitySheet;
+      const pos = sheet.position || { x: '?', y: '?', z: '?' };
+      const hpStatus = `${sheet.currentHp}/${sheet.maxHp} HP`;
+      return `- [${sheet.type?.toUpperCase() || 'UNKNOWN'}] **${sheet.name}** (ID: ${sheet.documentId}) at (${pos.x}, ${pos.y}, ${pos.z}) | ${hpStatus}`;
+    });
+    return `Found ${entities.length} entities:\n${lines.join('\n')}`;
+  });
+
+  // 26. GET_LOCATION_CONTEXT
+  const LocationContextSchema = z.object({ x: z.number(), y: z.number() });
+  register('get_location_context', 'Get location context', LocationContextSchema, async (roomId, payload, _u) => {
+    const p = LocationContextSchema.parse(payload);
+    const room = await strapi.documents('api::room.room').findOne({ documentId: roomId, populate: ['settings'] });
+    if (!room) throw new Error('Room not found');
+    const seed = room.world?.seed || room.settings?.seed || room.config?.seed || 'default';
+    const config: WorldConfig = {
+      ...(room.world || {}),
+      seed,
+      chunkSize: 32,
+      globalScale: 0.01,
+      seaLevel: 0,
+      elevationScale: 1,
+      roughness: 0.5,
+      detail: 4,
+      moistureScale: 1,
+      temperatureOffset: 0,
+      structureChance: 0.1,
+      structureSpacing: 10,
+      structureSizeAvg: 10,
+      roadDensity: 0.5,
+      fogRadius: 10,
+    };
+    const atlas = new WorldAtlas(config);
+    const region = atlas.getRegion(p.x, p.y);
+    const structure = atlas.getStructure(p.x, p.y);
+    return {
+      region: {
+        name: region.name,
+        biome: region.biome,
+        description: `The region of ${region.name}, a ${region.wealth > 0.7 ? 'prosperous' : 'humble'} ${region.biome.toLowerCase()}.`,
+      },
+      structure: structure
+        ? { type: structure.type, name: structure.name, description: `A ${structure.type} named ${structure.name}.` }
+        : null,
+      nearby: [],
+    };
+  });
+
+  // 27. GET_MAP_IMAGE
+  const GetMapImageSchema = z.object({
+    entityId: z.string().optional(),
+    x: z.number().optional(),
+    y: z.number().optional(),
+    radius: z.number().default(16),
+    broadcast: z.boolean().default(true),
+  });
+  register('get_map_image', 'Get map image', GetMapImageSchema, async (roomId, payload, _u) => {
+    const p = GetMapImageSchema.parse(payload);
+    const { generateMapImage } = await import('../../game/services/map-visualization');
+    const roomRaw = await strapi.documents('api::room.room').findOne({
+      documentId: roomId,
+      populate: ['entity_sheets'],
+    });
+
+    if (!roomRaw) throw new Error('Room not found.');
+    const room = roomRaw as unknown as any;
+    const entities = room.entity_sheets || [];
+
+    let centerX = p.x || 0;
+    let centerY = p.y || 0;
+    let povEntity: Creature | undefined;
+    let visionSources: { x: number; y: number }[] = [];
+
+    if (p.entityId) {
+      const targetSheet = entities.find((e: any) => e.documentId === p.entityId);
+      if (targetSheet && targetSheet.position) {
+        centerX = Math.round(targetSheet.position.x);
+        centerY = Math.round(targetSheet.position.y);
+        povEntity = {
+          id: targetSheet.documentId,
+          name: targetSheet.name,
+          type: (['player', 'npc', 'monster'].includes(targetSheet.type)
+            ? targetSheet.type
+            : 'monster') as Creature['type'],
+          position: targetSheet.position,
+          hp: targetSheet.currentHp,
+          maxHp: targetSheet.maxHp,
+          armorClass: targetSheet.ac || 10,
+        };
+        visionSources = [targetSheet.position];
+      }
+    }
+
+    if (!povEntity) {
+      visionSources = entities
+        .filter((e: any) => (e.type === 'player' || (e.owner && e.owner.documentId)) && e.position)
+        .map((e: any) => e.position);
+      if (p.x === undefined && p.y === undefined && visionSources.length > 0) {
+        centerX = visionSources[0].x;
+        centerY = visionSources[0].y;
+      }
+    }
+
+    const chunkX = Math.floor(centerX / 32);
+    const chunkY = Math.floor(centerY / 32);
+    const voxelService = strapi.service('api::voxel-engine.voxel-engine') as any; // Cast as any because type import issues
+    let chunk: Chunk | undefined;
+    if (voxelService && voxelService.getChunk) {
+      const config: WorldConfig = (room.config as WorldConfig) || { ...DEFAULT_WORLD_CONFIG, seed: 'default' };
+      chunk = await voxelService.getChunk(chunkX, chunkY, config);
+    } else {
+      throw new Error('Voxel Engine service unavailable.');
+    }
+    if (!chunk) throw new Error('Failed to load map chunk.');
+
+    const creatures: Creature[] = entities
+      .filter((cs: any) => cs.position)
+      .map((cs: any) => ({
+        id: cs.documentId,
+        name: cs.name,
+        type: (['player', 'npc', 'monster'].includes(cs.type) ? cs.type : 'monster') as Creature['type'],
+        position: cs.position,
+        hp: cs.currentHp,
+        maxHp: cs.maxHp,
+        armorClass: cs.ac || 10,
+      }));
+
+    const mockPlayers = visionSources.map((pos) => ({
+      position: pos,
+      id: 'pov',
+      name: 'POV',
+      role: 'player',
+      userId: 'sys',
+      action: null,
+      isReady: true,
+      joinedAt: 0,
+      character: null,
+    })) as unknown as import('../../game/src/engine').Player[];
+
+    const imageBuffer = await generateMapImage(
+      chunk,
+      mockPlayers,
+      creatures,
+      new Set((room.exploredTiles as string[]) || []),
+      { x: centerX, y: centerY },
+      32,
+      32
+    );
+
+    const base64 = imageBuffer.toString('base64');
+    return {
+      type: 'image',
+      base64: base64,
+      description: povEntity
+        ? `Map image generated from perspective of ${povEntity.name} at ${centerX},${centerY}.`
+        : `Map image generated at ${centerX},${centerY}.`,
+    };
   });
 
   return {

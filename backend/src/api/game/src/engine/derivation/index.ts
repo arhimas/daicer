@@ -45,6 +45,7 @@ export class EntityDeriver {
         if (map[k]) newAttrs[map[k]] = v as number;
         else newAttrs[k] = v as number; // Preserve others
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       context = { ...context, attributes: newAttrs as any }; // Cast because dynamic construction doesn't match strict Attributes type immediately
     }
 

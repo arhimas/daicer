@@ -49,7 +49,7 @@ export default function GameRoomPage() {
 
   useWakeLock();
 
-  const { room: socketRoom, players: socketPlayers, creatures, toolCalls } = useGamePolling(room?.documentId || roomId);
+  const { room: polledRoom, players: polledPlayers, creatures, toolCalls } = useGamePolling(room?.documentId || roomId);
 
   // Listen to all streams in the room
   const streams = useAgentActivity(undefined, null);
@@ -138,22 +138,22 @@ export default function GameRoomPage() {
     loadRoom();
   }, [roomId, navigate, user?.uid, t]);
 
-  // Update state from socket
+  // Update state from polling
   useEffect(() => {
-    if (socketRoom) {
-      console.info('[GameRoom] Socket room update:', socketRoom.phase);
-      setRoom(socketRoom as SharedRoom);
+    if (polledRoom) {
+      console.info('[GameRoom] Polled room update:', polledRoom.phase);
+      setRoom(polledRoom as SharedRoom);
 
       // If room has generation events, restore them to streamEvents
-      if (socketRoom.generationEvents && streamEvents.length === 0 && socketRoom.phase === GamePhase.SETUP) {
+      if (polledRoom.generationEvents && streamEvents.length === 0 && polledRoom.phase === GamePhase.SETUP) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setStreamEvents((socketRoom.generationEvents as any[]) || []);
+        setStreamEvents((polledRoom.generationEvents as any[]) || []);
       }
     }
-    if (socketPlayers && socketPlayers.length > 0) {
-      setPlayers(socketPlayers);
+    if (polledPlayers && polledPlayers.length > 0) {
+      setPlayers(polledPlayers);
     }
-  }, [socketRoom, socketPlayers, streamEvents.length]);
+  }, [polledRoom, polledPlayers, streamEvents.length]);
 
   // Monitor world generation if room is in SETUP phase
   // const isWorldGenerating = room && room.phase === 'SETUP' && !room.worldDescription;

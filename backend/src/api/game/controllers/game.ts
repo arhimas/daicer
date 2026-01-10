@@ -6,262 +6,46 @@ import type { WorldSettings, Language } from '../src/engine';
 
 export default ({ strapi }) => ({
   async generateWorld(ctx) {
-    strapi.log.warn('DEPRECATED: POST /game/generate-world is deprecated. Use GraphQL Mutation generateWorld.');
-    try {
-      const { settings, language } = ctx.request.body;
-
-      if (!settings) {
-        return ctx.badRequest('Missing settings');
-      }
-
-      const worldDescription = await strapi.service('api::game.game').generateWorld(settings, language);
-
-      return ctx.send({ worldDescription });
-    } catch (error) {
-      strapi.log.error('generateWorld error:', error);
-      return ctx.internalServerError('Failed to generate world');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation generateWorld.');
   },
 
   async searchEntities(ctx) {
-    strapi.log.warn('DEPRECATED: GET /game/search is deprecated. Use GraphQL Query searchEntities.');
-    try {
-      const { query } = ctx.request.query;
-
-      if (!query || typeof query !== 'string') {
-        return ctx.badRequest('Query parameter required');
-      }
-
-      // Parallel search
-      const [monsters, characters] = await Promise.all([
-        strapi.documents('api::entity.entity').findMany({
-          filters: { name: { $contains: query } },
-          fields: ['name', 'documentId', 'type'],
-        }),
-        strapi.documents('api::character.character').findMany({
-          filters: { name: { $contains: query } },
-          fields: ['name', 'documentId'],
-        }),
-      ]);
-
-      // Normalize results
-      const results = [
-        ...((monsters as Array<{ documentId: string; name: string }>) || []).map((m) => ({
-          id: m.documentId,
-          name: m.name,
-          type: 'monster',
-        })),
-        ...((characters as Array<{ documentId: string; name: string }>) || []).map((c) => ({
-          id: c.documentId,
-          name: c.name,
-          type: 'character',
-        })),
-      ];
-
-      return ctx.send(results);
-    } catch (error) {
-      strapi.log.error('searchEntities error:', error);
-      return ctx.internalServerError('Failed to search entities');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Query searchEntities.');
   },
 
   async processTurn(ctx) {
-    strapi.log.warn('DEPRECATED: POST /game/turn is deprecated. Use GraphQL Mutation processTurn.');
-    try {
-      const { roomId } = ctx.params; // or ctx.params.id depending on route config
-
-      if (!roomId) return ctx.badRequest('Room ID required');
-
-      // Robust Room Lookup
-      const filters: Record<string, unknown>[] = [{ documentId: roomId }, { roomId: roomId }];
-      if (!isNaN(Number(roomId))) {
-        filters.push({ id: Number(roomId) });
-      }
-
-      // Fetch Room with necessary data
-      const rooms = await strapi.documents('api::room.room').findMany({
-        filters: { $or: filters },
-        populate: ['players', 'players.character'], // Populate essential data
-      });
-
-      if (!rooms || rooms.length === 0) return ctx.notFound('Room not found');
-      const room: Record<string, unknown> = rooms[0] as Record<string, unknown>;
-
-      // We need "players", "messages", "creatures" to process turn
-      // Currently Room schema has "players" as JSON.
-      // But "messages" are usually sub-collection in Firestore.
-      // In Strapi, do we have a Message content type?
-      // Implementation Plan says: "Re-implement Room Management: Translate Firestore-based room management logic..."
-
-      // If we haven't implemented Message storage yet, we can't fetch messages.
-      // Assuming for MVP migration, we pass messages in body OR we implement Message content type later.
-      // In Firestore, messages are a subcollection.
-      // For now, let's assume the client sends the *context* or we just fetch from a Message content type (if we created one).
-      // We didn't create a Message content type yet.
-      // 'd better create one or accept messages in payload for stateless turn processing (simpler for now).
-      // Backend `resolveTurn` fetches `getMessages(roomId)`.
-
-      // I will accept messages in the body for now to enable stateless testing/migration without full DB schema yet.
-      // Or I stub it.
-
-      const { messages } = ctx.request.body; // Temporary: Client sends history?
-      // Realistically, backend fetches it.
-      // I'll leave a TODO.
-
-      const players = room.players || []; // JSON field
-      const creatures = []; // TODO: fetching creatures
-
-      const result = await strapi.service('api::game.game').processTurn(
-        roomId, // Pass roomId first
-        room.worldDescription,
-        messages || [],
-        players,
-        creatures,
-        (room.settings as { language: Language })?.language || 'en',
-        room.settings as WorldSettings,
-        room.entropyState as unknown[] // Pass entropyState as worldConditions arg
-      );
-
-      return ctx.send(result);
-    } catch (error) {
-      strapi.log.error('processTurn error:', error);
-      return ctx.internalServerError('Failed to process turn');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation processTurn.');
   },
 
   async addCharacter(ctx) {
-    strapi.log.warn('DEPRECATED: Use GraphQL Mutation addCharacter.');
-    try {
-      const { roomId } = ctx.params;
-      const characterData = ctx.request.body;
-
-      if (!roomId) return ctx.badRequest('Room ID required');
-      if (!characterData) return ctx.badRequest('Character data required');
-
-      // Call service to add character
-      const result = await strapi.service('api::game.game').addCharacter(roomId, characterData, ctx.state.user);
-
-      return ctx.send({ success: true, data: result });
-    } catch (error) {
-      strapi.log.error('addCharacter error:', error);
-      return ctx.internalServerError('Failed to add character');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation addCharacter.');
   },
 
   async startGame(ctx) {
-    strapi.log.warn('DEPRECATED: Use GraphQL Mutation startGame.');
-    try {
-      const { roomId } = ctx.params;
-      const { language } = ctx.request.body;
-
-      if (!roomId) return ctx.badRequest('Room ID required');
-
-      const result = await strapi.service('api::game.game').startGame(roomId, language);
-
-      return ctx.send({ success: true, data: result });
-    } catch (error) {
-      strapi.log.error('startGame error:', error);
-      return ctx.internalServerError('Failed to start game');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation startGame.');
   },
 
   async getRoom(ctx) {
-    strapi.log.warn('DEPRECATED: Use GraphQL Query gameView or room.');
-    try {
-      const { roomId } = ctx.params;
-      if (!roomId) return ctx.badRequest('Room ID required');
-
-      const result = await strapi.service('api::game.game').getRoom(roomId);
-      if (!result) return ctx.notFound('Room not found');
-
-      return ctx.send({ success: true, data: result });
-    } catch (error) {
-      strapi.log.error('getRoom error:', error);
-      return ctx.internalServerError('Failed to fetch room');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Query gameView or room.');
   },
 
   async submitAction(ctx) {
-    strapi.log.warn('DEPRECATED: Use GraphQL Mutation submitAction.');
-    try {
-      // route: /game/:roomId/action creates params.roomId
-      const { roomId } = ctx.params;
-      const { action, mode, direct } = ctx.request.body;
-
-      if (!roomId) return ctx.badRequest('Room ID required');
-      if (!action) return ctx.badRequest('Action required');
-
-      const result = await strapi.service('api::game.game').submitAction(roomId, action, ctx.state.user, mode, direct);
-
-      return ctx.send(result);
-    } catch (error) {
-      strapi.log.error('submitAction error:', error);
-      return ctx.internalServerError('Failed to submit action');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation submitAction.');
   },
+
   async executeEngineAction(ctx) {
-    strapi.log.warn('DEPRECATED: executeEngineAction is deprecated.');
-    try {
-      const { roomId, actions } = ctx.request.body;
-
-      if (!roomId) return ctx.badRequest('Room ID required');
-      if (!actions || !Array.isArray(actions)) return ctx.badRequest('Actions array required');
-
-      // Direct usage of ActionEngine service
-      const result = await strapi.service('api::game.action-engine').dispatch(roomId, actions);
-
-      return ctx.send(result);
-    } catch (error) {
-      strapi.log.error('executeEngineAction error:', error);
-      return ctx.internalServerError('Failed to execute engine action');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation executeTool.');
   },
 
   async replay(ctx) {
-    strapi.log.warn('DEPRECATED: Use GraphQL replay functionality if available.');
-    const { roomId, timestamp } = ctx.request.body;
-
-    if (!roomId || timestamp === undefined) {
-      return ctx.badRequest('Missing roomId or timestamp');
-    }
-
-    try {
-      const result = await strapi.service('api::game.history-service').replayTo(roomId, timestamp);
-      ctx.body = result;
-    } catch (err) {
-      strapi.log.error(err);
-      ctx.internalServerError('Failed to replay history');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL replay functionality.');
   },
 
   async toggleReady(ctx) {
-    strapi.log.warn('DEPRECATED: Use simple GraphQL mutation if needed.');
-    try {
-      const { roomId } = ctx.params;
-      const { isReady } = ctx.request.body;
-
-      if (!roomId) return ctx.badRequest('Room ID required');
-      if (typeof isReady !== 'boolean') return ctx.badRequest('isReady boolean required');
-
-      const result = await strapi
-        .service('api::game.game')
-        .togglePlayerReady(roomId, ctx.state.user.id || ctx.state.user.documentId, isReady);
-
-      return ctx.send(result);
-    } catch (error) {
-      strapi.log.error('toggleReady error:', error);
-      return ctx.internalServerError('Failed to toggle ready state');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation.');
   },
+
   async godModeExecute(ctx) {
-    try {
-      const { roomId, command, payload } = ctx.request.body;
-      strapi.log.info(`[GodMode] Executing ${command} in room ${roomId}`);
-      // TODO: Implement God Mode logic linking to ActionEngine or GodModeService
-      return ctx.send({ message: 'God Mode Executed (Stub)', roomId, command });
-    } catch (err) {
-      strapi.log.error(err);
-      return ctx.internalServerError('Failed to execute God Mode command');
-    }
+    return ctx.gone('DEPRECATED: Use GraphQL Mutation executeTool with god mode.');
   },
 });

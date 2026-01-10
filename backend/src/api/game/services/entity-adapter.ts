@@ -14,71 +14,8 @@ export default () => ({
   adapt(input: unknown, options?: { ignoreActiveState?: boolean }): Entity {
     // 0. Safety Cast & Validation
     const sheet = input as StrapiEntitySheet;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const activeState = (sheet as any).activeState;
-
-    if (!options?.ignoreActiveState && activeState) {
-      // Fast Path: Construct Entity from ActiveState
-      return {
-        id: sheet.documentId,
-        name: sheet.name,
-        type: sheet.type,
-        position: sheet.position || { x: 0, y: 0, z: 0 },
-        hp: activeState.currentHp,
-        maxHp: activeState.maxHp,
-        armorClass: activeState.armorClass,
-        speed: activeState.speed,
-        level: activeState.level,
-        stats: activeState.attributes,
-        // Map computedActions back to EntityAction[]
-        actions:
-          activeState.computedActions?.map(
-            (a: {
-              id?: string;
-              name: string;
-              type: string;
-              description?: string;
-              toHit?: number;
-              range?: number;
-              damageDice?: string;
-              damageType?: string;
-            }) => ({
-              id: a.id || 'computed',
-              name: a.name,
-              type: a.type,
-              description: a.description,
-              attack: { bonus: a.toHit, type: a.type },
-              range: { value: a.range },
-              effects: a.damageDice ? [{ type: 'damage', dice: a.damageDice, subtype: a.damageType }] : [],
-            })
-          ) || [],
-        features: [], // ActiveState doesn't store features detailed list yet, fallback or empty?
-        // Implementation Plan said ActiveState has everything?
-        // ActiveState schema has attributes, skills, saves...
-        // But Entity interface needs 'features' property.
-        // If we want FULL parity, ActiveState needs features list.
-        // For now, let's mix: Read fast stats from ActiveState, but maybe Features from Sheet if needed?
-        // Or just return empty if consumers of Entity don't need features (which is risky).
-        // Let's assume for stats/combat (EntityDeriver target), features aren't primary except for derivation.
-        // Actions are present.
-        // Let's return what we have.
-
-        resistances: activeState.resistances || [],
-        immunities: activeState.immunities || [],
-        vulnerabilities: activeState.vulnerabilities || [],
-        conditions: activeState.conditions || [],
-
-        color: sheet.color || '#ffffff',
-        visionRadius: 30, // Default or derived? ActiveState didn't store visionRadius (oops).
-        // Sheet has it? Blueprint has it.
-        // We might need to resolve blueprint for static props like visionRadius if not in ActiveState.
-        // But "Zero Latency" implies avoiding lookups.
-        // Let's use sheet defaults/fallback.
-
-        sheet: sheet as unknown as EntitySheet,
-        // We attach full sheet, so UI can drill down if needed.
-      } as Entity;
-    }
+    // Unified Entity Sheet (Single Truth)
+    // We no longer merge "ActiveState" because EntitySheet IS the ActiveState.
 
     if (!sheet || typeof sheet !== 'object') {
       throw new Error('EntityAdapter received invalid input');
@@ -135,6 +72,7 @@ export default () => ({
     // 3. Resolve Vitals & State
     const maxHp = sheet.maxHp || blueprint.maxHp;
     const currentHp = sheet.currentHp ?? maxHp;
+    const tempHp = sheet.tempHp || 0;
 
     let armorClass = sheet.ac ?? sheet.armorClass;
     if (armorClass === undefined) {
@@ -142,6 +80,30 @@ export default () => ({
     }
 
     const speed = sheet.speed || blueprint.speed;
+
+    // Use Computed Actions if available (derived from derivation service)
+    // otherwise fallback to sheet explicit actions (manual) or blueprint
+    let finalActions = actions;
+    if (sheet.computedActions && sheet.computedActions.length > 0) {
+      finalActions = sheet.computedActions.map((a) => ({
+        id: String(a.id),
+        name: a.name,
+        type: a.type || 'utility',
+        description: a.description,
+        attack: { bonus: a.toHit || 0, type: a.type || 'melee' },
+        range: { value: a.range || 5 },
+        effects: a.damageDice ? [{ type: 'damage', dice: a.damageDice, subtype: a.damageType }] : [],
+      }));
+    }
+
+    // Map Computed Skills/Saves to dictionaries for easier usage?
+    // Entity interface doesn't explicitly have 'skills' yet in the adapter return type.
+    // But we should likely add them if we want to use them.
+    // For now we map defenses.
+    const defenses = sheet.defenses || [];
+    const resistances = defenses.filter((d) => d.modifier === 'resistance').map((d) => d.damageType);
+    const immunities = defenses.filter((d) => d.modifier === 'immunity').map((d) => d.damageType);
+    const vulnerabilities = defenses.filter((d) => d.modifier === 'vulnerability').map((d) => d.damageType);
 
     // 4. Construct Output Entity
     return {
@@ -151,21 +113,25 @@ export default () => ({
       position: sheet.position || { x: 0, y: 0, z: 0 },
 
       hp: currentHp,
+      tempHp,
       maxHp,
       armorClass,
       speed,
-      level: blueprint.level, // Level is intrinsic to blueprint usually, unless sheet overrides?
+      level: sheet.level || blueprint.level,
+
+      initiative: sheet.initiativeBonus || 0, // Entity interface might need 'initiative'
+      passivePerception: sheet.passivePerception || 10,
 
       stats,
       equipment: inventory,
 
-      actions,
+      actions: finalActions,
       features,
       conditions: [], // Runtime only
 
-      resistances: sheet.resistances || blueprint.resistances,
-      immunities: sheet.immunities || blueprint.immunities,
-      vulnerabilities: sheet.vulnerabilities || blueprint.vulnerabilities,
+      resistances: [...(sheet.resistances || []), ...resistances],
+      immunities: [...(sheet.immunities || []), ...immunities],
+      vulnerabilities: [...(sheet.vulnerabilities || []), ...vulnerabilities],
 
       color: sheet.color || '#ffffff',
       visionRadius: blueprint.visionRadius,

@@ -81,7 +81,8 @@ function validateInventorySlots(data: any) {
   }
 }
 
-import { EntityDeriver } from '../../../game/src/engine';
+import { EntityDeriver, Equipment } from '../../../game/src/engine'; // Ensure Index exports Equipment or import from types
+import { Attributes } from '../../../game/src/engine/derivation/types';
 
 async function updateDerivedData(event) {
   const { where, data } = event.params;
@@ -93,12 +94,7 @@ async function updateDerivedData(event) {
       class: { populate: ['features'] },
       race: { populate: ['features'] },
       stats: true,
-      inventory: { populate: ['item'] }, // Populate item to get name/id for equipment lookup? No, inventory component 'item' string is name?
-      // Wait, spawn-service does: equipment.item (component has relation or name?)
-      // Let's check inventory schema or spawn-service usage.
-      // spawn-service populates: 'equipment.item' (relation), 'equipment.item.equipment_category' etc.
-      // But EntitySheet has 'inventory' component.
-      // Let's assume we need to populate inventory deep to get equipment details if they are relations.
+      inventory: { populate: ['item'] },
       features: true,
       structuredActions: true,
     },
@@ -110,28 +106,20 @@ async function updateDerivedData(event) {
   // Merge data over current
   const level = data.level ?? current.level ?? 1;
   const rawStats = data.stats || current.stats || {};
-  const attributes = {
-    str: rawStats.strength || 10,
-    dex: rawStats.dexterity || 10,
-    con: rawStats.constitution || 10,
-    int: rawStats.intelligence || 10,
-    wis: rawStats.wisdom || 10,
-    cha: rawStats.charisma || 10,
+  const attributes: Attributes = {
+    strength: rawStats.strength || 10,
+    dexterity: rawStats.dexterity || 10,
+    constitution: rawStats.constitution || 10,
+    intelligence: rawStats.intelligence || 10,
+    wisdom: rawStats.wisdom || 10,
+    charisma: rawStats.charisma || 10,
   };
 
   const inventory = data.inventory || current.inventory || [];
 
   // 2b. Resolve Equipment for Deriver
-  // We need actual Equipment definitions.
-  // EntitySheet inventory is component `game.inventory-item`.
-  // If `item` field in component is a relation to `api::equipment`, we need to fetch it.
-  // If it is just a string name, we need to find it.
-  // Looking at spawn-service, it seems to be a relation `item`.
-  // So we need to fetch full equipment details for equipped items.
-
-  // Optimized: Identify equipped items from inventory list
   const equippedInventory = inventory.filter((i: { isEquipped: boolean; item: unknown }) => i.isEquipped);
-  const equipmentForDeriver: Record<string, unknown>[] = [];
+  const equipmentForDeriver: Equipment[] = [];
 
   if (equippedInventory.length > 0) {
     // If inventory items are relations and already populated (if we populated deep enough)

@@ -140,18 +140,37 @@
     "active_effects": {
       "type": "json"
     },
-    "activeState": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::active-state.active-state",
-      "mappedBy": "sheet"
+    "tempHp": {
+      "type": "integer",
+      "default": 0
     },
-    "isReady": {
-      "type": "boolean",
-      "default": false
+    "initiativeBonus": {
+      "type": "integer",
+      "default": 0
     },
-    "lastSeenAt": {
-      "type": "datetime"
+    "passivePerception": {
+      "type": "integer",
+      "default": 10
+    },
+    "computedSkills": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.skill-bonus"
+    },
+    "computedSaves": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.save-bonus"
+    },
+    "defenses": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.damage-modifier"
+    },
+    "computedActions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.computed-action"
     }
   }
 }

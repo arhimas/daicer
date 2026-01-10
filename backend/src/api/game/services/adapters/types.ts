@@ -217,6 +217,24 @@ export interface StrapiEntitySheet {
   inventory?: StrapiInventoryItem[];
   spellbook?: StrapiSpellbook;
 
+  computedSkills?: { id: string | number; name: string; value: number; proficient: boolean }[];
+  computedSaves?: { id: string | number; stat: string; value: number; proficient: boolean }[];
+  defenses?: { id: string | number; damageType: string; modifier: 'resistance' | 'immunity' | 'vulnerability' }[];
+  computedActions?: {
+    id: string | number;
+    name: string;
+    type?: string;
+    toHit?: number;
+    damageDice?: string;
+    damageType?: string;
+    damageBonus?: number;
+    range?: number;
+    saveAbility?: string;
+    saveDc?: number;
+    description?: string;
+    resourceCost?: string;
+  }[];
+
   // Direct Relations
   actions?: StrapiAction[];
   proficiencies?: StrapiProficiency[];
@@ -225,13 +243,18 @@ export interface StrapiEntitySheet {
   features?: StrapiFeature[];
 
   // Misc
-  resistances?: string[];
-  immunities?: string[];
-  vulnerabilities?: string[];
+  resistances?: string[]; // Legacy - transition to defneses
+  immunities?: string[]; // Legacy
+  vulnerabilities?: string[]; // Legacy
   conditions?: { documentId: string; name: string }[];
 
   position?: { x: number; y: number; z: number };
   color?: string;
+
+  // New Fields
+  tempHp?: number;
+  initiativeBonus?: number;
+  passivePerception?: number;
 
   // Catch-all safety
   [key: string]: unknown;

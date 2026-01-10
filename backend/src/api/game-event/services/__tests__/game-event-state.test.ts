@@ -10,7 +10,8 @@ vi.mock('@strapi/strapi', () => ({
 }));
 
 import gameEventFactory from '../game-event';
-import { StrapiInterface } from '../../../../ai/tools/tool-factory';
+import type { Core } from '@strapi/strapi';
+type StrapiInterface = Core.Strapi;
 import { WorldGenerator } from '../../../voxel-engine/services/world-generator-logic';
 
 // Mock External Dependencies

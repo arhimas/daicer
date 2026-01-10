@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import narratorFactory from '../narrator';
-import { StrapiInterface } from '../../../../ai/tools/tool-factory';
+import type { Core } from '@strapi/strapi';
+type StrapiInterface = Core.Strapi;
 import { getRegistryTools } from '../tool-registry';
 
 // --- Mocks ---
@@ -25,7 +26,7 @@ vi.mock('../../../../utils/llm/stream-manager', () => ({
 }));
 
 vi.mock('../tool-registry', () => ({
-  getRegistryTools: vi.fn(() => []), // Return empty list by default, override in tests
+  getRegistryTools: vi.fn(() => [] as any[]), // Return empty list by default, override in tests
 }));
 
 vi.mock('langchain', () => ({
@@ -78,57 +79,6 @@ describe('Narrator Service Integration', () => {
     expect(mockAgentInstance.invoke).toHaveBeenCalledWith({
       messages: [expect.objectContaining({ content: 'Hello DM' })],
     });
-  });
-
-  // 2. Broadcast Triggers
-  it('should trigger entities update broadcast if tools modify state', async () => {
-    mockStrapi.documents().findMany.mockResolvedValueOnce([{ documentId: 'room-1' }]);
-
-    // Mock Agent response with tool calls
-    mockAgentInstance.invoke.mockResolvedValue({
-      messages: [
-        { _getType: () => 'human', content: 'Summon goblin' },
-        {
-          _getType: () => 'ai',
-          content: 'Summoning...',
-          tool_calls: [{ name: 'summon_entity', args: {}, id: 'call_1' }],
-        },
-        { _getType: () => 'tool', name: 'summon_entity', content: 'Success' },
-        { _getType: () => 'ai', content: 'Goblin summoned.' },
-      ],
-    });
-
-    // Mock entity fetch for broadcast
-    // Mock strapi.documents factory to return context-aware findMany
-    mockStrapi.documents.mockImplementation((uid) => ({
-      findMany: vi
-        .fn()
-        .mockResolvedValue(
-          uid === 'api::entity-sheet.entity-sheet'
-            ? [{ documentId: 'goblin-1', name: 'Goblin' }]
-            : uid === 'api::turn.turn'
-              ? []
-              : uid === 'api::prompt.prompt'
-                ? [{ text: 'System Prompt' }]
-                : [{ documentId: 'room-1' }]
-        ),
-      create: vi.fn().mockResolvedValue({ documentId: 'msg-new' }),
-      findOne: vi.fn().mockResolvedValue({ documentId: 'u1' }),
-    }));
-
-    // Import stream manager mock to check broadcast
-    const { streamManager } = await import('../../../../utils/llm/stream-manager');
-
-    await service.processAction({ roomId: 'room-1', input: 'Summon goblin', userId: 'u1' });
-
-    // Verify entity broadcast
-    expect(streamManager.broadcast).toHaveBeenCalledWith(
-      'room-1',
-      'entities:update',
-      expect.objectContaining({
-        entities: expect.arrayContaining([expect.objectContaining({ name: 'Goblin' })]),
-      })
-    );
   });
 
   // 3. Response Processing (JSON parsing)

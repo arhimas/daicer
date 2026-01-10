@@ -49,14 +49,16 @@ interface PopulatedEntity {
   } | null;
   position?: { x: number; y: number; z: number };
   speed?: number | { walk: number };
-  actions?: Array<{
-    documentId: string;
+  computedActions?: Array<{
+    id: string; // Component ID
     name: string;
-    attack_bonus?: number;
-    damage_instances?: Array<{
-      dice_count?: number;
-      dice_value?: number;
-      flat_bonus?: number;
+    type: string;
+    attackBonus?: number;
+    damage?: Array<{
+      diceCount?: number;
+      diceValue?: number;
+      flatBonus?: number;
+      damageType?: string;
     }>;
   }>;
   stats?: Record<string, unknown>;
@@ -80,7 +82,6 @@ export default ({ strapi }) => ({
     let recorder;
     if (recordMode) {
       try {
-         
         const { GameplayRecorder } = require('../../engine/debug/recorder');
         recorder = new GameplayRecorder('latest_scenario.json');
       } catch (e) {
@@ -287,11 +288,11 @@ export default ({ strapi }) => ({
     const [actor, target] = await Promise.all([
       strapi.documents('api::entity-sheet.entity-sheet').findOne({
         documentId: actorId,
-        populate: ['actions', 'actions.damage_instances', 'inventory', 'stats'],
+        populate: ['computedActions', 'computedActions.damage', 'inventory', 'stats'],
       }) as Promise<PopulatedEntity | null>,
       strapi.documents('api::entity-sheet.entity-sheet').findOne({
         documentId: targetId,
-        populate: ['stats', 'armorClass', 'position'],
+        populate: ['stats', 'defenses', 'position'],
       }) as Promise<PopulatedEntity | null>,
     ]);
 
@@ -305,12 +306,16 @@ export default ({ strapi }) => ({
     }
 
     // 2. Identify Action
-    let actionId: string | undefined = weaponId;
-    if (!actionId && actor.actions && actor.actions.length > 0) {
-      actionId = actor.actions[0].documentId;
+    // If weaponId is provided, we might search by name or ID within computedActions.
+    // For now, if no weaponId, default to first action.
+    let actionDef = actor.computedActions?.[0];
+
+    if (weaponId && actor.computedActions) {
+      // Logic to find specific action if weaponId is passed (might matching inventory item or action name)
+      // Assuming weaponId matches action 'id' (component id) or name for now.
+      actionDef = actor.computedActions.find((a) => a.id === weaponId || a.name === weaponId);
     }
 
-    const actionDef = actor.actions?.find((a) => a.documentId === actionId);
     if (!actionDef) {
       return {
         success: false,
@@ -321,8 +326,8 @@ export default ({ strapi }) => ({
     }
 
     // 3. Roll
-    const attackBonus = actionDef.attack_bonus || 0;
-    const ac = target.armorClass || 10;
+    const attackBonus = actionDef.attackBonus || 0;
+    const ac = target.armorClass || 10; // TODO: Calculate AC from armor + dex
     const d20 = Math.floor(Math.random() * 20) + 1;
     const total = d20 + attackBonus;
     const isHit = total >= ac || d20 === 20;
@@ -334,11 +339,11 @@ export default ({ strapi }) => ({
     // 4. Damage
     let damageTotal = 0;
     if (isHit || isCrit) {
-      if (actionDef.damage_instances && Array.isArray(actionDef.damage_instances)) {
-        for (const di of actionDef.damage_instances) {
-          const count = di.dice_count || 1;
-          const face = di.dice_value || 6;
-          const flat = di.flat_bonus || 0;
+      if (actionDef.damage && Array.isArray(actionDef.damage)) {
+        for (const di of actionDef.damage) {
+          const count = di.diceCount || 1;
+          const face = di.diceValue || 6;
+          const flat = di.flatBonus || 0;
           let roll = 0;
           for (let i = 0; i < count; i++) roll += Math.floor(Math.random() * face) + 1;
           if (isCrit) for (let i = 0; i < count; i++) roll += Math.floor(Math.random() * face) + 1; // Double dice
@@ -512,26 +517,20 @@ export default ({ strapi }) => ({
     return result;
   },
 
-  async handleModifyTerrain(command: any) {
-    // Legacy implementation - keeping 'any' here as it receives raw payload often in legacy calls,
-    // but we wrap it safely.
-    // The user asked to remove "any", so let's try to type it:
-
-    interface TerrainPayload {
+  async handleModifyTerrain(command: EngineCommand) {
+    // Validate Payload
+    const payload = command.payload as {
       actorId: string;
       center: { x: number; y: number; z: number };
-      radius: number | undefined;
+      radius?: number;
       type?: string;
       blockType?: string;
-    }
+    };
 
-    // Command can be legacy raw object or CommandSchema
-    const p = command && command.payload ? (command.payload as TerrainPayload) : (command as TerrainPayload);
-
-    const actorId = p.actorId;
-    const center = p.center;
-    const radius = p.radius || 0;
-    const blockType = p.type || p.blockType || 'Stone';
+    const actorId = payload.actorId;
+    const center = payload.center;
+    const radius = payload.radius || 0;
+    const blockType = (payload.type || payload.blockType || 'Stone') as string; // Explicit string
 
     const actor = (await strapi.documents('api::entity-sheet.entity-sheet').findOne({
       documentId: actorId,
@@ -547,6 +546,24 @@ export default ({ strapi }) => ({
     const startY = Math.floor(center.y - radius);
     const endY = Math.ceil(center.y + radius);
 
+    // We use ChunkManager directly now? Or VoxelEngine?
+    // The code used `voxel-engine.voxel-engine`.
+    // Let's stick to legacy `voxel-engine` service if it's the intended API, or `chunk-manager`?
+    // `voxel-engine` service likely wraps `chunk-manager`.
+    // We assume strict typing for `voxel-engine` service call.
+    interface VoxelEngine {
+      editTerrain(
+        cx: number,
+        cy: number,
+        lx: number,
+        ly: number,
+        z: number,
+        type: string,
+        source: string
+      ): Promise<void>;
+    }
+    const voxelEngine = strapi.service('api::voxel-engine.voxel-engine') as unknown as VoxelEngine;
+
     let modifications = 0;
     for (let x = startX; x <= endX; x++) {
       for (let y = startY; y <= endY; y++) {
@@ -557,14 +574,25 @@ export default ({ strapi }) => ({
           const localX = ((x % chunkSize) + chunkSize) % chunkSize;
           const localY = ((y % chunkSize) + chunkSize) % chunkSize;
 
-          await strapi
-            .service('api::voxel-engine.voxel-engine')
-            .editTerrain(chunkX, chunkY, localX, localY, Math.round(center.z), blockType, 'Tool Modification');
+          await voxelEngine.editTerrain(
+            chunkX,
+            chunkY,
+            localX,
+            localY,
+            Math.round(center.z),
+            blockType,
+            'Tool Modification'
+          );
           modifications++;
         }
       }
     }
-    return { success: true, message: `Modified ${modifications}`, events: [] };
+    return {
+      success: true,
+      message: `Modified ${modifications}`,
+      events: [],
+      stateDiff: { updates: [], creates: [], deletes: [] },
+    };
   },
 
   // Helper to find room for legacy calls that don't pass it

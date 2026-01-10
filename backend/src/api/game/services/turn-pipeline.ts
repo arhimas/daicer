@@ -124,18 +124,17 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
       const entitiesInRoom = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
         filters: {
           room: { documentId: roomId },
-          activeState: { $notNull: true }, // Only if they have active state
         },
-        populate: ['activeState'],
+        populate: ['stats'], // populate stats if needed, or just basic fields are mostly on root now
       });
 
       const characterSnapshots = entitiesInRoom.map((e) => ({
         name: e.name,
         documentId: e.documentId,
-        hp: e.activeState?.currentHp,
-        maxHp: e.activeState?.maxHp,
-        ac: e.activeState?.armorClass,
-        condition: 'normal', // TODO: track conditions
+        hp: e.currentHp,
+        maxHp: e.maxHp,
+        ac: e.ac || 10,
+        condition: 'normal', // TODO: track conditions via components
       }));
 
       await strapi.documents('api::time-frame.time-frame').create({

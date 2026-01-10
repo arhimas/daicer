@@ -8,7 +8,8 @@ import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import { getRegistryTools } from './tool-registry';
 import { NarratorResponse } from './schemas';
 import { createAgent, todoListMiddleware, llmToolSelectorMiddleware } from 'langchain';
-import { StrapiInterface } from '../../../ai/tools/tool-factory';
+import type { Core } from '@strapi/strapi';
+type StrapiInterface = Core.Strapi;
 
 const safeParseJson = (str: string) => {
   try {

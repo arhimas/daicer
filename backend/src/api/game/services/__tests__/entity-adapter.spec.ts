@@ -49,7 +49,7 @@ describe('EntityDeriver', () => {
         documentId: '1',
         name: 'Gb',
         type: 'monster',
-        monster: {
+        entity: {
           documentId: 'm1',
           name: 'Goblin',
           stats: { dexterity: 14 },
@@ -174,7 +174,7 @@ describe('EntityDeriver', () => {
         documentId: 'doc_goblin_1',
         name: 'Snarg',
         type: 'monster',
-        monster: {
+        entity: {
           documentId: 'm_gob',
           name: 'Goblin',
           stats: { dexterity: 14, strength: 8 },
@@ -215,7 +215,7 @@ describe('EntityDeriver', () => {
           documentId: `mon_${i}`,
           name: `Beast ${i}`,
           type: 'monster',
-          monster: {
+          entity: {
             documentId: `m_${i}`,
             name: `Beast Blueprint ${i}`,
             hp: 10 * i,

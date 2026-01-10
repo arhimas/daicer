@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getMutationResolvers } from '../mutation-resolvers';
 
-import { StrapiInterface } from '../../../ai/tools/tool-factory';
+import type { Core } from '@strapi/strapi';
+type StrapiInterface = Core.Strapi;
 
 // Mock Strapi
 const mockCreate = vi.fn();

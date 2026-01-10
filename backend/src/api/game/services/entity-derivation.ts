@@ -26,20 +26,19 @@ const SKILLS = [
 const ATTRIBUTES = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
 
 interface ResolvedAction {
-  documentId?: string; // Strapi ID (optional if synthesized)
-  id?: string; // Runtime ID
+  documentId?: string;
+  id?: string;
   name: string;
   type?: string;
   attack?: { bonus: number };
   effects?: Array<{ type: string; dice?: string; subtype?: string }>;
   save?: { attribute?: string; stat?: string; dc: number };
   range?: string | { value: number; type?: string };
-  cost?: string | { type: string }; // Handle object cost from RuntimeAction
+  cost?: string | { type: string };
   description?: string;
-  action_definition?: Record<string, unknown>;
 }
 
-export default factories.createCoreService('api::active-state.active-state', ({ strapi }) => ({
+export default factories.createCoreService('api::game.entity-derivation', ({ strapi }) => ({
   async deriveAndPersist(sheetId: string) {
     // 1. Fetch the Sheet (Deep Populate)
     const sheet = await strapi.entityService.findOne('api::entity-sheet.entity-sheet', sheetId, {
@@ -68,7 +67,6 @@ export default factories.createCoreService('api::active-state.active-state', ({ 
         race: true,
         class: true,
         proficiencies: true,
-        activeState: true,
       },
     });
 
@@ -77,25 +75,16 @@ export default factories.createCoreService('api::active-state.active-state', ({ 
     }
 
     // 2. Use EntityAdapter to get the "Engine View" (Base Derivation)
-    // We use the exposed service method 'adapt'
+    // NOTE: 'adapt' previously read activeState. We will refactor it to ONLY read sheet.
+    // For now, assume it returns base stats from sheet/blueprint.
     const entity: Entity = strapi.service('api::game.entity-adapter').adapt(sheet, { ignoreActiveState: true });
 
-    // 3. Calculate Extra Enriched Data (Skills & Saves)
-    // The Entity interface gives us 'stats' (Attributes) and 'proficiencyBonus' (implicit via level usually, but we need it explicit)
-    // EntityAdapter returns 'stats' with modifiers? No, 'stats' are raw scores usually?
-    // Let's check EntityStats type: { strength: number ... } - usually score.
-
-    // Recalculate basic derivation pieces that might be missing from the flat Entity view
+    // 3. Calculate Derived Values
     const stats = entity.stats;
     const proficiencyBonus = EntityDeriver.calculateProficiencyBonus(entity.level || 1);
 
-    // Skills
-    const skills: Record<string, number> = {};
-    for (const skill of SKILLS) {
-      // Simple logic: Attribute Mod + PB (if proficient)
-      // We need to know which attribute maps to which skill.
-      // For now, using standard D&D mapping or looking it up if possible.
-      // Hardcoding standard mapping for robustness.
+    // Skills (Using Components)
+    const computedSkills = SKILLS.map((skill) => {
       let attr = 'wisdom';
       if (['athletics'].includes(skill)) attr = 'strength';
       if (['acrobatics', 'sleight_of_hand', 'stealth'].includes(skill)) attr = 'dexterity';
@@ -104,41 +93,39 @@ export default factories.createCoreService('api::active-state.active-state', ({ 
       if (['deception', 'intimidation', 'performance', 'persuasion'].includes(skill)) attr = 'charisma';
 
       const mod = EntityDeriver.calculateModifier(stats[attr] || 10);
-
-      // Check proficiency from sheet (the Adapter might not expose strictly mapped proficiencies easily)
-      // The sheet has 'proficiencies' relation.
-      // We iterate sheet.proficiencies (if available) to find matches.
       const isProficient = sheet.proficiencies?.some(
         (p: { slug?: string; name: string }) => p.slug === skill || p.name.toLowerCase() === skill.replace('_', ' ')
       );
 
-      skills[skill] = mod + (isProficient ? proficiencyBonus : 0);
-    }
+      return {
+        name: skill,
+        value: mod + (isProficient ? proficiencyBonus : 0),
+        proficient: !!isProficient,
+      };
+    });
 
-    // Saves
-    const saves: Record<string, number> = {};
-    for (const attr of ATTRIBUTES) {
+    // Saves (Using Components)
+    const computedSaves = ATTRIBUTES.map((attr) => {
       const mod = EntityDeriver.calculateModifier(stats[attr] || 10);
-      // Check save proficiency (Class usually grants this)
-      // If sheet.class is populated...
-      // For simplicity in this iteration, we look for 'proficiencies' starting with 'save_' or check class.
-      // This logic might need refinement relative to pure Engine logic, but this is the "Bridge".
       const isProficient = sheet.proficiencies?.some(
         (p: { slug?: string; name: string }) => p.slug === `save_${attr}` || p.name.toLowerCase() === `${attr} save`
       );
 
-      saves[attr] = mod + (isProficient ? proficiencyBonus : 0);
-    }
+      return {
+        stat: attr,
+        value: mod + (isProficient ? proficiencyBonus : 0),
+        proficient: !!isProficient,
+      };
+    });
 
-    // 4. Map Resolved Actions
-    // Entity.actions are already resolved RuntimeActions.
+    // Actions (Using Components)
     const computedActions =
       entity.actions?.map((action: ResolvedAction) => ({
         name: action.name,
         type: determineActionType(action),
         toHit: action.attack?.bonus || 0,
         damageDice: action.effects?.find((e) => e.type === 'damage')?.dice || '',
-        damageBonus: action.attack?.bonus || 0, // Approx (usually damage bonus ~ attack bonus - PB + magic) - simplistic
+        damageBonus: action.attack?.bonus || 0,
         damageType: action.effects?.find((e) => e.type === 'damage')?.subtype || 'physical',
         saveAbility: action.save?.attribute || action.save?.stat,
         saveDc: action.save?.dc,
@@ -147,40 +134,53 @@ export default factories.createCoreService('api::active-state.active-state', ({ 
         resourceCost: typeof action.cost === 'string' ? action.cost : action.cost?.type,
       })) || [];
 
-    // 5. Persist to ActiveState
-    // Upsert logic: Check if exists
-    const existing = await strapi.db.query('api::active-state.active-state').findOne({
-      where: { sheet: sheetId },
+    // Defenses
+    const defenses = [
+      ...(entity.resistances || []).map((t) => ({ damageType: t, modifier: 'resistance' })),
+      ...(entity.immunities || []).map((t) => ({ damageType: t, modifier: 'immunity' })),
+      ...(entity.vulnerabilities || []).map((t) => ({ damageType: t, modifier: 'vulnerability' })),
+    ];
+
+    // 4. Update EntitySheet directly
+    await strapi.entityService.update('api::entity-sheet.entity-sheet', sheetId, {
+      data: {
+        currentHp: entity.hp,
+        maxHp: entity.maxHp,
+        ac: entity.armorClass, // Note: Schema calls it 'ac'
+        // speed: entity.speed, // Schema defines 'speed' component on sheet? No, wait.
+        // EntitySheet schema uses `stats` component which has walkSpeed etc.
+        // But we computed derived speed in Entity.
+        // Let's check EntitySheet schema again (from prev output).
+        // It has `position` component. Attributes `stats` component.
+        // `stats` component has `walkSpeed` etc.
+        // We should update the `stats` component if we want to persist derived speed?
+        // OR rely on derivation every time.
+        // The user wants "ActiveState" gone. That means "Sheet" is the Runtime State.
+        // So we MUST write back the current HP, AC, etc.
+        // We do not need to write back 'stats' if they are just base scores.
+        // But if speed changes (Haste), we need to write it somewhere.
+        // EntitySheet has `active_effects` json? No we deleted it?
+        // We added `tempHp`, `computedSkills` etc.
+        // We did NOT add `speed` component to root.
+        // `stats` component has speed. We can update that.
+
+        tempHp: 0, // Default or tracking? Entity doesn't have tempHp in interface yet?
+        initiativeBonus: stats.initiativeBonus || EntityDeriver.calculateModifier(stats.dexterity),
+        passivePerception: stats.passivePerception || 10 + EntityDeriver.calculateModifier(stats.wisdom),
+
+        computedSkills,
+        computedSaves,
+        computedActions,
+        defenses,
+
+        // If we want to persist derived stats (e.g. enhanced strength), we overwrite stats?
+        // Usually Sheet stats = Base.
+        // Derived stats = effective.
+        // If we overwrite Sheet stats, we lose Base.
+        // For now, we only persist COMPUTED outputs (skills, saves, actions).
+        // Base stats remain as the source.
+      } as unknown as Record<string, unknown>,
     });
-
-    const payload = {
-      sheet: sheetId,
-      attributes: stats,
-      level: entity.level,
-      proficiencyBonus,
-      currentHp: entity.hp,
-      maxHp: entity.maxHp,
-      armorClass: entity.armorClass,
-      speed: entity.speed, // JSON
-      initiativeBonus: stats.initiativeBonus,
-      passivePerception: stats.passivePerception,
-      skills,
-      saves,
-      resistances: entity.resistances,
-      immunities: entity.immunities,
-      vulnerabilities: entity.vulnerabilities,
-      computedActions,
-    };
-
-    if (existing) {
-      return strapi.entityService.update('api::active-state.active-state', existing.id, {
-        data: payload as unknown as Record<string, unknown>,
-      });
-    } else {
-      return strapi.entityService.create('api::active-state.active-state', {
-        data: payload as unknown as Record<string, unknown>,
-      });
-    }
   },
 }));
 

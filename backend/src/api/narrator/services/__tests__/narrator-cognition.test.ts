@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import narratorService from '../narrator';
 import { AIMessage, HumanMessage } from '@langchain/core/messages';
-import { StrapiInterface } from '../../../ai/tools/tool-factory';
+import type { Core } from '@strapi/strapi';
+type StrapiInterface = Core.Strapi;
 
 // Mock Dependencies
 vi.mock('langchain', () => ({
