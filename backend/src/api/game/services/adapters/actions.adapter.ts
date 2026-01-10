@@ -23,7 +23,7 @@ export const resolveActions = (sheet: StrapiEntitySheet, stats: StatBlock): Enti
         })),
 
         // Deep Hydration of Save
-        save: a.save?.dc && a.save?.stat ? { dc: a.save.dc, stat: a.save.stat } : undefined,
+        save: a.save?.dc && a.save?.stat ? { dc: a.save.dc, stat: a.save.stat, onSave: a.save.onSave } : undefined,
 
         area: a.area,
         range: a.range ? String(a.range) : undefined,

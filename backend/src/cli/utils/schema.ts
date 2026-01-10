@@ -1,6 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
+export interface SchemaAttribute {
+  type: string;
+  required?: boolean;
+  target?: string;
+  component?: string;
+  repeatable?: boolean;
+  [key: string]: unknown;
+  // Recursive helper types for deep reading
+  __targetSchema?: SchemaDefinition;
+  __schema?: SchemaDefinition;
+}
+
 export interface SchemaDefinition {
   kind?: string;
   collectionName?: string;
@@ -10,17 +22,7 @@ export interface SchemaDefinition {
     pluralName: string;
     description?: string;
   };
-  attributes: Record<
-    string,
-    {
-      type: string;
-      required?: boolean;
-      target?: string;
-      component?: string;
-      repeatable?: boolean;
-      [key: string]: unknown;
-    }
-  >;
+  attributes: Record<string, SchemaAttribute>;
   [key: string]: unknown;
 }
 export interface ContentTypeInfo {
@@ -193,7 +195,7 @@ export function readSchemaDeep(uid: string, depth: number = 2, seen: Set<string>
 
   const newAttributes = { ...schema.attributes };
 
-  for (const [key, value] of Object.entries(newAttributes)) {
+  for (const [, value] of Object.entries(newAttributes)) {
     // 1. Components
     if (value.type === 'component' && value.component) {
       const compUid = value.component as string;

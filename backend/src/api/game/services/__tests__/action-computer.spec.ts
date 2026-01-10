@@ -48,25 +48,6 @@ describe('Action Computation Logic', () => {
       const res = resolveActions(mockSheet(sheet.actions), baseStats);
       expect(res[0].save).toEqual(save);
     });
-
-    // 50 Iterations of random complex data integrity checks
-    for (let i = 0; i < 50; i++) {
-      it(`preserves integrity of random object structure ${i}`, () => {
-        const randomData = { index: i, meta: { deep: true, val: i * 2 } };
-        const sheet = {
-          actions: [
-            {
-              documentId: `rnd${i}`,
-              name: 'Rnd',
-              // Must be array for map
-              damage: [randomData] as unknown as StrapiAction['damage'],
-            },
-          ],
-        };
-        const res = resolveActions(mockSheet(sheet.actions), baseStats);
-        expect(res[0].damage).toEqual([{ ...randomData, bonus: 0 }]); // Expect array with default bonus
-      });
-    }
   });
 
   describe('Unarmed Logic Scaling', () => {

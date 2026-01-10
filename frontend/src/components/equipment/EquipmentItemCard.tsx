@@ -6,7 +6,6 @@
 import { ShoppingCart, Swords, Shield, Backpack } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import React from 'react';
 import { useI18n } from '../../i18n';
 
 export interface EquipmentItemData {
@@ -47,12 +46,6 @@ interface EquipmentItemCardProps {
   disabled?: boolean;
 }
 
-function getItemIcon(category: string) {
-  if (category === 'Weapon') return Swords;
-  if (category === 'Armor') return Shield;
-  return Backpack;
-}
-
 function convertToGold(quantity: number, unit: string): number {
   const rates: Record<string, number> = {
     cp: 0.01,
@@ -66,8 +59,9 @@ function convertToGold(quantity: number, unit: string): number {
 
 // Stabilize Icon usage
 function ItemIcon({ cat, className }: { cat: string; className?: string }) {
-  const I = React.useMemo(() => getItemIcon(cat), [cat]);
-  return <I className={className} />;
+  if (cat === 'Weapon') return <Swords className={className} />;
+  if (cat === 'Armor') return <Shield className={className} />;
+  return <Backpack className={className} />;
 }
 
 export function EquipmentItemCard({ item, onBuy, onEquip, currentGold, disabled }: EquipmentItemCardProps) {

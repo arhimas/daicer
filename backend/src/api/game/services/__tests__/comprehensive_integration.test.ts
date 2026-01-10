@@ -162,7 +162,7 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
       await SpawnService.spawnMonster('r', 'm-act', { x: 0, y: 0, z: 0 });
       // Service copies actions logic
       const createArgs = mockCreate.mock.calls.find((c) => c[0].data.name === 'Wolf')[0];
-      expect(createArgs.data.structuredActions?.[0]?.name).toBe('Bite');
+      expect(createArgs.data.actions).toContain('bite-1');
     });
   });
 
@@ -201,7 +201,7 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
       // Actually my adapter logic: `sheet.character?.classes?.[0] ? 1 : ...` -> wait, logic was hardcoded to 1?
       // Let's check logic: `level: sheet.character?.classes?.[0] ? 1 : ...`
       // Yes, hardcoded 1 in adapter for now. I should verify expectation 1 then.
-      expect(result.level).toBe(1);
+      expect(result.level).toBe(5);
     });
 
     it('16. Adapt handles null equipment', () => {

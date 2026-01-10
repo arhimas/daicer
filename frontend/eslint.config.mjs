@@ -27,6 +27,8 @@ export default tseslint.config(
       '**/*.test.tsx',
       '**/*.spec.ts',
       '**/*.spec.tsx',
+      'scripts/**',
+      'eslint.config.mjs',
     ],
   },
   js.configs.recommended,

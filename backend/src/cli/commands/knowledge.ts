@@ -62,11 +62,15 @@ export async function runKnowledge(options: {
         });
 
         entries.forEach((s: Record<string, unknown>) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const name = ((s as any).name || (s as any).attributes?.name) as string;
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const snippets = (s as any).snippets || (s as any).attributes?.snippets;
-          const snippetCount = Array.isArray(snippets) ? snippets.length : snippets?.data?.length || 0;
+          const attr = (s.attributes || s) as {
+            name?: string;
+            snippets?: { length: number; data?: unknown[] } | unknown[];
+          };
+          const name = attr.name || '?';
+          const snippets = attr.snippets;
+          const snippetCount = Array.isArray(snippets)
+            ? snippets.length
+            : (snippets as { data: unknown[] })?.data?.length || 0;
           table.push([chalk.bold(name), chalk.yellow(snippetCount)]);
         });
         console.log(table.toString());
@@ -109,16 +113,20 @@ export async function runKnowledge(options: {
     result = (result as any).data || [];
     // Normalize Result
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    result = (result as any).data || [];
 
     // ENRICHMENT STEP: Fetch full entity data for any "entity" kind results
     // The user wants "all readable fields" so we must go to the DB source, not just the vector snippet.
     const { buildDeepPopulate } = await import('../utils/schema');
     // client is already imported at module level
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    interface KnowledgeSearchRow {
+      kind: string;
+      entityUid?: string;
+      documentId?: string;
+      [key: string]: unknown;
+    }
     const enriched = await Promise.all(
-      (result as any[]).map(async (row: any) => {
+      (result as KnowledgeSearchRow[]).map(async (row) => {
         if (row.kind === 'entity' && row.entityUid && row.documentId) {
           try {
             // Determine resource name (plural) roughly
@@ -127,7 +135,9 @@ export async function runKnowledge(options: {
             // But `row.entityUid` is like `api::spell.spell`.
             const typeName = row.entityUid.split('.').pop(); // spell
             // Usually collection name is pluralized. Simple heuristic:
-            const plural = typeName + 's'; // very naive, but client might need it?
+            // Usually collection name is pluralized. Simple heuristic:
+            // const plural = typeName + 's'; // very naive, but client might need it?
+
             // Actually `client` helper methods `collection(name)` usually expects just the name part that equates to api URL.
             // `api/spells`.
             // Let's try to get more robust name.
@@ -146,7 +156,7 @@ export async function runKnowledge(options: {
             if (fullEntity) {
               return { ...row, _fullData: fullEntity };
             }
-          } catch (e) {
+          } catch {
             // ignore fetch error, fallback to snippet
           }
         }
@@ -154,7 +164,6 @@ export async function runKnowledge(options: {
       })
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result = enriched;
 
     meta = {

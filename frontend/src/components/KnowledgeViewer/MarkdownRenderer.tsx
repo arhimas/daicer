@@ -22,6 +22,7 @@ const MarkdownComponents: Record<string, React.ElementType> = {
   }: React.ComponentPropsWithoutRef<'code'> & { inline?: boolean; node?: unknown }) {
     const match = /language-(\w+)/.exec(className || '');
     return !inline && match ? (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       <SyntaxHighlighter style={vscDarkPlus as any} language={match[1]} PreTag="div" {...props}>
         {String(children).replace(/\n$/, '')}
       </SyntaxHighlighter>
@@ -57,15 +58,17 @@ const MarkdownComponents: Record<string, React.ElementType> = {
   },
 };
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className }) => (
-  <div
-    className={cn(
-      'prose prose-invert max-w-none prose-headings:text-amber-400 prose-a:text-blue-400 prose-code:text-rose-300',
-      className
-    )}
-  >
-    <ReactMarkdown remarkPlugins={[remarkGfm]} components={MarkdownComponents}>
-      {content}
-    </ReactMarkdown>
-  </div>
-);
+export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
+  return (
+    <div
+      className={cn(
+        'prose prose-invert max-w-none prose-headings:text-amber-400 prose-a:text-blue-400 prose-code:text-rose-300',
+        className
+      )}
+    >
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={MarkdownComponents}>
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+}

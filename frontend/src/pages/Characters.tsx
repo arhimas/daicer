@@ -133,10 +133,10 @@ export default function CharactersPage() {
               const phaseLabel = t(phaseKey);
 
               // Safe accessors with defaults
-              const getEntityName = (ent: any) => {
+              const getEntityName = (ent: unknown) => {
                 if (!ent) return '';
                 if (typeof ent === 'string') return ent;
-                return ent.name || '';
+                return (ent as { name?: string }).name || '';
               };
 
               const raceName = getEntityName(character?.race) || 'Unknown Race';

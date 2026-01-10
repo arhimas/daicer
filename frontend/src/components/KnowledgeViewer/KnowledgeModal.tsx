@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X, BookOpen, Database, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ interface KnowledgeModalProps {
   result: SearchResult | null;
 }
 
-export const KnowledgeModal: React.FC<KnowledgeModalProps> = ({ isOpen, onClose, result }) => {
+export function KnowledgeModal({ isOpen, onClose, result }: KnowledgeModalProps) {
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
 
@@ -149,4 +149,4 @@ export const KnowledgeModal: React.FC<KnowledgeModalProps> = ({ isOpen, onClose,
       </Dialog.Portal>
     </Dialog.Root>
   );
-};
+}

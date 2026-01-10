@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { discoverContentTypes, readSchema, readAllSchemas, SchemaDefinition } from '../utils/schema';
+import { discoverContentTypes, readAllSchemas, SchemaDefinition, SchemaAttribute } from '../utils/schema';
 import fs from 'fs';
 import path from 'path';
 
@@ -139,14 +139,12 @@ function printHumanSchema(schema: SchemaDefinition, _chalk: unknown, indentLevel
 
   Object.entries(schema.attributes).forEach(([key, value]) => {
     let typeStr = chalk.yellow(value.type);
-    let extraInfo = '';
 
     if (value.type === 'relation') {
       typeStr = `${chalk.magenta('relation')} -> ${value.target}`;
       // Check for deep schema
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if ((value as any).__targetSchema) {
-        extraInfo = `\n${pad}   ${chalk.dim('Deep Relation:')}`;
+      if ((value as SchemaAttribute).__targetSchema) {
+        // Info indicator
       }
     } else if (value.type === 'component') {
       typeStr = `${chalk.blue('component')} <${value.component}> ${value.repeatable ? '(args)' : ''}`;

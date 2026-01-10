@@ -1,16 +1,20 @@
 import { generateImageGemini } from '../../../utils/llm/image';
 
-const SERVICE_UID = 'api::assets.assets';
-
 /**
  * Helper to extract text from Strapi Rich Text or String
  */
-function extractText(content: any): string {
+interface StrapiRichTextNode {
+  type?: string;
+  text?: string;
+  children?: StrapiRichTextNode[];
+}
+
+function extractText(content: unknown): string {
   if (!content) return '';
   if (typeof content === 'string') return content;
   // If it's a Blocks structure (array)
   if (Array.isArray(content)) {
-    return content.map((block: any) => block.children?.map((c: any) => c.text).join('') || '').join('\n');
+    return content.map((block: StrapiRichTextNode) => block.children?.map((c) => c.text).join('') || '').join('\n');
   }
   return '';
 }

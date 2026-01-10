@@ -35,7 +35,7 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "e2e", "codegen.ts", "vite.config.ts"],
+  "include": ["src", "e2e", "codegen.ts", "vite.config.ts", "eslint.config.mjs", "scripts"],
   "exclude": [
     "node_modules",
     "dist",
