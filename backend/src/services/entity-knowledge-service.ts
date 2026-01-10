@@ -17,7 +17,7 @@ const ENTITY_UIDS = [
   'api::language.language',
   'api::magic-item.magic-item',
   'api::magic-school.magic-school',
-  'api::monster.monster',
+  'api::entity.entity',
   'api::proficiency.proficiency',
   'api::race.race',
   'api::spell.spell',

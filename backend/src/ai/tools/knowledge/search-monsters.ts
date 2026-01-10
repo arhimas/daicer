@@ -21,7 +21,7 @@ export const searchMonstersTool = (context: StrapiContext) =>
           filters.type = { $containsi: type };
         }
 
-        const monsters = await strapi.documents('api::monster.monster').findMany({
+        const monsters = await strapi.documents('api::entity.entity').findMany({
           filters,
           populate: ['stats'],
         });
