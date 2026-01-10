@@ -21,6 +21,7 @@ export interface Equipment {
   str_minimum?: number;
   stealth_disadvantage?: boolean;
   isEquipped?: boolean;
+  actions?: import('./types').RuntimeAction[]; // Use import type or moved type to avoid circular dep if needed, or just RuntimeAction if in same file
 }
 
 export interface DerivationContext {
@@ -42,20 +43,17 @@ export interface DerivationContext {
     speed?: number | { walk: number; [key: string]: number };
   };
   // Innate actions (from blueprint/JSON) to be merged with equipment actions
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  innateActions?: any[];
+  innateActions?: RuntimeAction[];
 
   // Overrides allowed in context
   ac?: number;
   hp?: number;
   maxHp?: number;
   speed?: number | { walk: number; [key: string]: number };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  actions?: any[];
+  actions?: RuntimeAction[];
   // Alias for legacy support
   stats?: Attributes;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  spells?: any[];
+  spells?: RuntimeAction[];
   spellcastingAbility?: string;
 }
 

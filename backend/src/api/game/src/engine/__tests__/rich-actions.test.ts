@@ -1,27 +1,9 @@
 import { describe, it, expect } from 'vitest';
-
-// Mock types representing the "Rich" structure from the schema
-interface MockAction {
-  documentId: string;
-  name: string;
-  type: 'melee' | 'ranged' | 'spell' | 'utility';
-  damage?: {
-    dice: string;
-    type: string; // 'fire', 'slashing', etc.
-  }[];
-  save?: {
-    attribute: string;
-    dc: number;
-  };
-  area?: {
-    shape: 'sphere' | 'cone' | 'cube';
-    size: number;
-  };
-}
+import { RuntimeAction, RuntimeEffect } from '../derivation/types';
 
 interface MockEntitySheet {
   name: string;
-  actions: MockAction[]; // The relation resolved
+  actions: RuntimeAction[];
 }
 
 /**
@@ -36,15 +18,16 @@ describe('Rich Actions Logic Integration', () => {
   const areaShapes = ['sphere', 'cone', 'cube'] as const;
 
   // Helper to generate random action permutations
-  const generatePermutations = (count: number): MockAction[] => {
-    const actions: MockAction[] = [];
+  const generatePermutations = (count: number): RuntimeAction[] => {
+    const actions: RuntimeAction[] = [];
     for (let i = 0; i < count; i++) {
       const type = actionTypes[Math.floor(Math.random() * actionTypes.length)];
 
       const damageCount = Math.floor(Math.random() * 3); // 0 to 2 damage instances
-      const damage = Array.from({ length: damageCount }).map(() => ({
+      const effects: RuntimeEffect[] = Array.from({ length: damageCount }).map(() => ({
+        type: 'damage',
         dice: '1d8',
-        type: damageTypes[Math.floor(Math.random() * damageTypes.length)],
+        subtype: damageTypes[Math.floor(Math.random() * damageTypes.length)],
       }));
 
       const hasSave = Math.random() > 0.5;
@@ -56,7 +39,7 @@ describe('Rich Actions Logic Integration', () => {
         : undefined;
 
       const hasArea = Math.random() > 0.7;
-      const area = hasArea
+      const aoe = hasArea
         ? {
             shape: areaShapes[Math.floor(Math.random() * areaShapes.length)],
             size: 15 + Math.floor(Math.random() * 45), // 15 to 60 ft
@@ -64,12 +47,12 @@ describe('Rich Actions Logic Integration', () => {
         : undefined;
 
       actions.push({
-        documentId: `action_doc_${i}`,
+        id: `action_doc_${i}`,
         name: `Generated Action ${i} [${type}]`,
         type,
-        damage: damage.length ? damage : undefined,
+        effects: effects.length ? effects : undefined,
         save,
-        area,
+        aoe,
       });
     }
     return actions;
@@ -78,34 +61,34 @@ describe('Rich Actions Logic Integration', () => {
   const generatedActions = generatePermutations(250);
 
   it.each(generatedActions)('should correctly persist and retrieve rich data for $name', (action) => {
-    // 1. Simulate "DB" state (The relation source)
+    // 1. Simulate "DB" state
     const dbAction = { ...action };
 
-    // 2. Simulate "Linkage" (What spawn-service does: links by ID)
-    const linkId = dbAction.documentId;
+    // 2. Simulate "Linkage"
+    const linkId = dbAction.id;
     expect(linkId).toBeDefined();
 
-    // 3. Simulate "Hydration" (What engine/graphql does: resolves relation)
-    // In a real e2e this comes from Strapi. Here we verify the contract:
+    // 3. Simulate "Hydration"
     // "If I have the relation, do I have the data?"
     const hydratedSheet: MockEntitySheet = {
       name: 'Test Monster',
       actions: [dbAction], // The engine sees the resolved relation
     };
 
-    const targetAction = hydratedSheet.actions.find((a) => a.documentId === linkId);
+    const targetAction = hydratedSheet.actions.find((a) => a.id === linkId);
     expect(targetAction).toBeDefined();
 
     // 4. Verify Richness
     // Type Integrity
     expect(targetAction?.type).toBe(action.type);
 
-    // Damage Integrity
-    if (action.damage) {
-      expect(targetAction?.damage).toHaveLength(action.damage.length);
-      targetAction?.damage?.forEach((d, idx) => {
-        expect(d.type).toBe(action.damage![idx].type);
-        expect(damageTypes).toContain(d.type);
+    // Damage Integrity (via effects)
+    if (action.effects) {
+      expect(targetAction?.effects).toHaveLength(action.effects.length);
+      targetAction?.effects?.forEach((e, idx) => {
+        expect(e.type).toBe('damage');
+        expect(e.subtype).toBe(action.effects![idx].subtype);
+        expect(damageTypes).toContain(e.subtype);
       });
     }
 
@@ -116,34 +99,33 @@ describe('Rich Actions Logic Integration', () => {
       expect(targetAction?.save?.dc).toBeGreaterThan(9);
     }
 
-    // Area Integrity
-    if (action.area) {
-      expect(targetAction?.area).toBeTruthy();
-      expect(areaShapes).toContain(targetAction?.area?.shape);
+    // Area Integrity (aoe)
+    if (action.aoe) {
+      expect(targetAction?.aoe).toBeTruthy();
+      expect(areaShapes).toContain(targetAction?.aoe?.shape);
     }
   });
 
   it('should handle multi-damage complex actions (e.g. Meteor Swarm equivalent)', () => {
-    // Manual "Edge Case" for the 251st test
-    const complexAction: MockAction = {
-      documentId: 'meteor_swarm',
+    const complexAction: RuntimeAction = {
+      id: 'meteor_swarm',
       name: 'Meteor Swarm',
       type: 'spell',
-      damage: [
-        { dice: '20d6', type: 'fire' },
-        { dice: '20d6', type: 'bludgeoning' },
+      effects: [
+        { type: 'damage', dice: '20d6', subtype: 'fire' },
+        { type: 'damage', dice: '20d6', subtype: 'bludgeoning' },
       ],
       save: { attribute: 'dex', dc: 19 },
-      area: { shape: 'sphere', size: 40 },
+      aoe: { shape: 'sphere', size: 40 },
     };
 
     const sheet = { name: 'Archmage', actions: [complexAction] };
     const resolution = sheet.actions[0];
 
-    expect(resolution.damage).toHaveLength(2);
-    expect(resolution.damage![0].type).toBe('fire');
-    expect(resolution.damage![1].type).toBe('bludgeoning');
+    expect(resolution.effects).toHaveLength(2);
+    expect(resolution.effects![0].subtype).toBe('fire');
+    expect(resolution.effects![1].subtype).toBe('bludgeoning');
     expect(resolution.save?.attribute).toBe('dex');
-    expect(resolution.area?.size).toBe(40);
+    expect(resolution.aoe?.size).toBe(40);
   });
 });

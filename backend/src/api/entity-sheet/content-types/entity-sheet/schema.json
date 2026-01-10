@@ -121,6 +121,19 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::feature.feature"
+    },
+    "conditions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.condition-instance"
+    },
+    "resources": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.resource-pool"
+    },
+    "active_effects": {
+      "type": "json"
     }
   }
 }

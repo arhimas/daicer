@@ -1,11 +1,17 @@
 import { getMutationResolvers } from './mutation-resolvers';
-import { typeDefs } from './type-defs';
+import { typeDefs as staticTypeDefs } from './type-defs';
+import { generateToolGraphQL } from './tool-generator';
 
 export const registerGraphQLExtension = (strapi) => {
   const extensionService = strapi.plugin('graphql').service('extension');
 
+  // Generate dynamic tools
+  const { typeDefs: toolTypeDefs, resolvers: toolResolvers } = generateToolGraphQL(strapi);
+
+  const finalTypeDefs = staticTypeDefs + toolTypeDefs;
+
   extensionService.use({
-    typeDefs,
+    typeDefs: finalTypeDefs,
     resolvers: {
       Room: {
         messages: async (parent, _args, context) => {
@@ -42,6 +48,7 @@ export const registerGraphQLExtension = (strapi) => {
         },
       },
       Query: {
+        ...toolResolvers.Query, // Dynamically generated tool queries
         searchEntities: async (_parent, args, _context) => {
           const { query } = args;
           strapi.log.info(`[Resolver] searchEntities: "${query}"`);
@@ -160,7 +167,10 @@ export const registerGraphQLExtension = (strapi) => {
           return results;
         },
       },
-      Mutation: getMutationResolvers(strapi),
+      Mutation: {
+        ...getMutationResolvers(strapi),
+        ...toolResolvers.Mutation,
+      },
     },
     resolversConfig: {
       'Room.messages': { auth: false },
@@ -171,6 +181,7 @@ export const registerGraphQLExtension = (strapi) => {
         },
       },
       'Query.searchEntities': { auth: false },
+      'Query.getAgentTools': { auth: false },
     },
   });
 };

@@ -1,29 +1,29 @@
 {
-    "collectionName": "components_game_class_progressions",
-    "info": {
-        "displayName": "Class Progression",
-        "description": "Features and resources gained at a specific level"
+  "collectionName": "components_game_class_progressions",
+  "info": {
+    "displayName": "Class Progression",
+    "description": "Features and resources gained at a specific level"
+  },
+  "options": {},
+  "attributes": {
+    "level": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 20
     },
-    "options": {},
-    "attributes": {
-        "level": {
-            "type": "integer",
-            "required": true,
-            "min": 1,
-            "max": 20
-        },
-        "features": {
-            "type": "relation",
-            "relation": "oneToMany",
-            "target": "api::feature.feature"
-        },
-        "spell_slots": {
-            "type": "json",
-            "required": false
-        },
-        "class_specifics": {
-            "type": "json",
-            "required": false
-        }
+    "features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::feature.feature"
+    },
+    "spell_slots": {
+      "type": "json",
+      "required": false
+    },
+    "class_specifics": {
+      "type": "json",
+      "required": false
     }
+  }
 }

@@ -593,10 +593,12 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
   attributes: {
     ac: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     actions: Schema.Attribute.Relation<'manyToMany', 'api::action.action'>;
+    active_effects: Schema.Attribute.JSON;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
     class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
+    conditions: Schema.Attribute.Component<'game.condition-instance', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     currentHp: Schema.Attribute.Integer;
@@ -615,6 +617,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
+    resources: Schema.Attribute.Component<'game.resource-pool', true>;
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
     spellbook: Schema.Attribute.Component<'game.spellbook', false>;
     stats: Schema.Attribute.Component<'game.stats', false>;
@@ -818,6 +821,60 @@ export interface ApiGameEventGameEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiItemItem extends Struct.CollectionTypeSchema {
+  collectionName: 'items';
+  info: {
+    description: 'Unified item model (Equipment, Magic Items, Loot, Tools)';
+    displayName: 'Item';
+    pluralName: 'items';
+    singularName: 'item';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    custom_data: Schema.Attribute.JSON;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    equipment_data: Schema.Attribute.Component<'game.equipment-data', false>;
+    image: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    rarity: Schema.Attribute.Enumeration<['common', 'uncommon', 'rare', 'very_rare', 'legendary', 'artifact']> &
+      Schema.Attribute.DefaultTo<'common'>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    spell_data: Schema.Attribute.Component<'game.spell-data', false>;
+    type: Schema.Attribute.Enumeration<
+      ['weapon', 'armor', 'consumable', 'tool', 'loot', 'spell_scroll', 'feature', 'container']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'loot'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    value: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    weight: Schema.Attribute.Float & Schema.Attribute.DefaultTo<0>;
   };
 }
 
@@ -2088,6 +2145,7 @@ declare module '@strapi/strapi' {
       'api::equipment.equipment': ApiEquipmentEquipment;
       'api::feature.feature': ApiFeatureFeature;
       'api::game-event.game-event': ApiGameEventGameEvent;
+      'api::item.item': ApiItemItem;
       'api::knowledge-snippet.knowledge-snippet': ApiKnowledgeSnippetKnowledgeSnippet;
       'api::knowledge-source.knowledge-source': ApiKnowledgeSourceKnowledgeSource;
       'api::language.language': ApiLanguageLanguage;

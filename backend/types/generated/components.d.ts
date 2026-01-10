@@ -258,6 +258,27 @@ export interface GameDurationConfig extends Struct.ComponentSchema {
   };
 }
 
+export interface GameEquipmentData extends Struct.ComponentSchema {
+  collectionName: 'components_game_equipment_data';
+  info: {
+    description: 'Stats for weapons, armor, and gear';
+    displayName: 'Equipment Data';
+    icon: 'shield-alt';
+  };
+  attributes: {
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
+    armor_class_base: Schema.Attribute.Integer;
+    armor_class_dex_bonus: Schema.Attribute.Boolean;
+    damage_dice: Schema.Attribute.String;
+    damage_type: Schema.Attribute.Relation<'oneToOne', 'api::damage-type.damage-type'>;
+    properties: Schema.Attribute.Relation<'manyToMany', 'api::weapon-property.weapon-property'>;
+    range_long: Schema.Attribute.Integer;
+    range_normal: Schema.Attribute.Integer;
+    stealth_disadvantage: Schema.Attribute.Boolean;
+    str_minimum: Schema.Attribute.Integer;
+  };
+}
+
 export interface GameFeature extends Struct.ComponentSchema {
   collectionName: 'components_game_features';
   info: {
@@ -392,6 +413,22 @@ export interface GameRangeConfig extends Struct.ComponentSchema {
   };
 }
 
+export interface GameResourcePool extends Struct.ComponentSchema {
+  collectionName: 'components_game_resource_pools';
+  info: {
+    description: 'Trackable resources (HP, Spell Slots, Ki Points)';
+    displayName: 'Resource Pool';
+    icon: 'battery-full';
+  };
+  attributes: {
+    current: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0>;
+    max: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<1>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    reset_on: Schema.Attribute.Enumeration<['short_rest', 'long_rest', 'never', 'dawn']> &
+      Schema.Attribute.DefaultTo<'long_rest'>;
+  };
+}
+
 export interface GameSaveDc extends Struct.ComponentSchema {
   collectionName: 'components_game_save_dcs';
   info: {
@@ -437,6 +474,33 @@ export interface GameSpellComponents extends Struct.ComponentSchema {
     material_description: Schema.Attribute.String;
     somatic: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     verbal: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+  };
+}
+
+export interface GameSpellData extends Struct.ComponentSchema {
+  collectionName: 'components_game_spell_data';
+  info: {
+    description: 'Spellcasting logic attached to items';
+    displayName: 'Spell Data';
+    icon: 'magic';
+  };
+  attributes: {
+    casting_config: Schema.Attribute.Component<'game.casting-config', false>;
+    condition_instances: Schema.Attribute.Component<'game.condition-instance', true>;
+    damage_instances: Schema.Attribute.Component<'game.damage-instance', true>;
+    duration_config: Schema.Attribute.Component<'game.duration-config', false>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 9;
+          min: 0;
+        },
+        number
+      >;
+    range_config: Schema.Attribute.Component<'game.range-config', false>;
+    school: Schema.Attribute.Enumeration<
+      ['Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation']
+    >;
   };
 }
 
@@ -500,15 +564,18 @@ declare module '@strapi/strapi' {
       'game.damage-instance': GameDamageInstance;
       'game.dm-style': GameDmStyle;
       'game.duration-config': GameDurationConfig;
+      'game.equipment-data': GameEquipmentData;
       'game.feature': GameFeature;
       'game.inventory-item': GameInventoryItem;
       'game.mechanics-config': GameMechanicsConfig;
       'game.player': GamePlayer;
       'game.position': GamePosition;
       'game.range-config': GameRangeConfig;
+      'game.resource-pool': GameResourcePool;
       'game.save-dc': GameSaveDc;
       'game.scaling-config': GameScalingConfig;
       'game.spell-components': GameSpellComponents;
+      'game.spell-data': GameSpellData;
       'game.spellbook': GameSpellbook;
       'game.stats': GameStats;
     }

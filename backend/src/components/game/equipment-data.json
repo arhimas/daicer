@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_game_equipment_data",
+  "info": {
+    "displayName": "Equipment Data",
+    "icon": "shield-alt",
+    "description": "Stats for weapons, armor, and gear"
+  },
+  "options": {},
+  "attributes": {
+    "damage_dice": {
+      "type": "string"
+    },
+    "damage_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::damage-type.damage-type"
+    },
+    "range_normal": {
+      "type": "integer"
+    },
+    "range_long": {
+      "type": "integer"
+    },
+    "properties": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::weapon-property.weapon-property"
+    },
+    "armor_class_base": {
+      "type": "integer"
+    },
+    "armor_class_dex_bonus": {
+      "type": "boolean"
+    },
+    "str_minimum": {
+      "type": "integer"
+    },
+    "stealth_disadvantage": {
+      "type": "boolean"
+    },
+    "actions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::action.action"
+    }
+  }
+}

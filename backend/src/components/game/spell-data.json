@@ -1,0 +1,54 @@
+{
+  "collectionName": "components_game_spell_data",
+  "info": {
+    "displayName": "Spell Data",
+    "icon": "magic",
+    "description": "Spellcasting logic attached to items"
+  },
+  "options": {},
+  "attributes": {
+    "level": {
+      "type": "integer",
+      "min": 0,
+      "max": 9
+    },
+    "school": {
+      "type": "enumeration",
+      "enum": [
+        "Abjuration",
+        "Conjuration",
+        "Divination",
+        "Enchantment",
+        "Evocation",
+        "Illusion",
+        "Necromancy",
+        "Transmutation"
+      ]
+    },
+    "casting_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.casting-config"
+    },
+    "range_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.range-config"
+    },
+    "duration_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.duration-config"
+    },
+    "damage_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.damage-instance"
+    },
+    "condition_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.condition-instance"
+    }
+  }
+}

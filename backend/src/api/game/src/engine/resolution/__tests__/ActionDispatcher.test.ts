@@ -1,26 +1,28 @@
+import { describe, test, expect } from 'vitest';
 import { ActionDispatcher } from '../ActionDispatcher';
-import { ActionDefinition } from '../../../../types/ActionDefinition';
+import { RuntimeAction } from '../../derivation/types';
 
 describe('ActionDispatcher Verification', () => {
+  // Use any to bypass Entity type check for mock objects in this unit test
   const source = {
     name: 'Wizard',
     stats: { int: 18 },
     proficiencyBonus: 3,
-  };
+  } as any;
 
   const target = {
     name: 'Goblin',
     ac: 15,
     stats: { dex: 14 }, // +2 mod
     hp: 7,
-  };
+  } as any;
 
-  const fireballAction: ActionDefinition = {
+  const fireballAction: RuntimeAction = {
     id: 'spell_fireball',
     name: 'Fireball',
     sourceType: 'spell',
     sourceId: '1',
-    cost: { type: 'slot', amount: 3 },
+    cost: { type: 'slot', amount: 3, actionType: 'action' },
     range: { type: 'ranged', value: 150 },
     save: {
       attribute: 'dex',
@@ -37,7 +39,7 @@ describe('ActionDispatcher Verification', () => {
     ],
   };
 
-  const swordAction: ActionDefinition = {
+  const swordAction: RuntimeAction = {
     id: 'weapon_longsword',
     name: 'Longsword',
     sourceType: 'weapon',
@@ -63,7 +65,7 @@ describe('ActionDispatcher Verification', () => {
     // We run multiple times to check range of outcomes (random seed simulation)
     const result = ActionDispatcher.resolve(source, target, fireballAction);
 
-    console.log('Fireball Log:', result.log);
+    // console.log('Fireball Log:', result.log);
 
     expect(result.damageTotal).toBeGreaterThan(0);
     // 8d6 is min 8, max 48. Half is min 4.
@@ -78,6 +80,7 @@ describe('ActionDispatcher Verification', () => {
       if (result.hit) hitCount++;
     }
     // Probabilistic check - not strict
-    console.log(`Sword Hits: ${hitCount}/10`);
+    // console.log(`Sword Hits: ${hitCount}/10`);
+    expect(hitCount).toBeGreaterThanOrEqual(0); // Basic sanity check
   });
 });

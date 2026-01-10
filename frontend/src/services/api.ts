@@ -37,7 +37,8 @@ import {
   LIST_SPELLS_QUERY,
   LIST_CHARACTERS_QUERY,
 } from '../graphql/queries';
-import type {
+import { useFragment } from '../gql/fragment-masking';
+import {
   CreateRoomMutation,
   JoinRoomMutation,
   UpdateRoomMutation,
@@ -47,6 +48,7 @@ import type {
   GenerateAvatarPortraitMutation,
   GetRoomQuery,
   ListRoomsQuery,
+  FullRoomContextFragmentDoc,
 } from '../gql/graphql';
 
 /**
@@ -78,15 +80,17 @@ export async function getRoomState(roomId: string): Promise<Room> {
     },
     fetchPolicy: 'network-only', // Ensure fresh data
   });
-  const room = data?.rooms?.[0];
-  if (!room) return null as unknown as Room;
+
+  const roomResponse = data?.rooms?.[0];
+  if (!roomResponse) return null as unknown as Room;
+
+  const room = useFragment(FullRoomContextFragmentDoc, roomResponse);
 
   // Map backend Component structure to frontend Player interface
   let mappedRoom: Room = room as unknown as Room;
 
-  if (data?.rooms?.length > 0) {
-    const r = data.rooms[0];
-    const playersList = r?.players || [];
+  if (room) {
+    const playersList = room.players || [];
 
     // Debug log for player actions
     console.info(
@@ -119,11 +123,11 @@ export async function getRoomState(roomId: string): Promise<Room> {
       }));
 
     mappedRoom = {
-      ...(r as unknown as Record<string, unknown>), // Cast to avoid strict type mismatch with partial GraphQL response
+      ...(room as unknown as Record<string, unknown>), // Cast to avoid strict type mismatch with partial GraphQL response
       players: mappedPlayers,
       // Map entity_sheets (from REST/GraphQL) to generic entities
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      entities: (r?.entity_sheets || []).map((s: any) => ({
+      entities: (room.entity_sheets || []).map((s: any) => ({
         id: s.documentId,
         name: s.name,
         type: s.type || 'monster',
