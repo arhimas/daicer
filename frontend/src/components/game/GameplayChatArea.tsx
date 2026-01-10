@@ -1,7 +1,12 @@
 import { useMemo } from 'react';
-import type { Message } from '@/types/contracts';
-import type { PresenceData, ToolCall as SocketToolCall } from '../../services/socket';
+import type { Message, ToolCall as SocketToolCall } from '@/types/contracts';
 import useAuth from '../../hooks/useAuth';
+
+export interface PresenceData {
+  userId: string;
+  type: 'viewing' | 'typing' | 'generating' | 'tool_executing';
+  data?: any;
+}
 // import { useI18n } from '../../i18n';
 import { UnifiedChatArea } from '../chat/UnifiedChatArea';
 

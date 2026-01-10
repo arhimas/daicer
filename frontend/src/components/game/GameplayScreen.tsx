@@ -425,7 +425,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
 
   return (
     <>
-      {submitting && socket.isProcessing && <LoadingOverlay message={t('gameplay.processing')} />}
+      {submitting && pollingState.isProcessing && <LoadingOverlay message={t('gameplay.processing')} />}
 
       {/* Desktop View (lg+) - Split Screen */}
       <div className="hidden h-full w-full lg:flex">
@@ -461,7 +461,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
       <EntityListModal
         isOpen={showEntityList}
         onClose={() => setShowEntityList(false)}
-        creatures={socket.creatures}
+        creatures={pollingState.creatures}
         players={players}
         roomId={room.documentId || room.id}
       />

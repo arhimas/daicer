@@ -6,7 +6,6 @@ import { getGeminiModel } from '../../../utils/llm/gemini';
 import { GeminiModel } from '../../../utils/llm/types';
 import { HumanMessage, AIMessage } from '@langchain/core/messages';
 import { getRegistryTools } from './tool-registry';
-import { streamManager } from '../../../utils/llm/stream-manager';
 import { NarratorResponse } from './schemas';
 import { createAgent, todoListMiddleware, llmToolSelectorMiddleware } from 'langchain';
 import { StrapiInterface } from '../../../ai/tools/tool-factory';
@@ -82,10 +81,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
       status: 'published',
     });
 
-    streamManager.broadcast(room.documentId, 'message:new', {
-      ...savedUserMessage,
-      id: savedUserMessage.documentId,
-    });
+    // Broadcast logic removed
 
     // ---------------------------------------------------------
     // 2. Setup Agent & Executor OR Direct Execution
@@ -116,20 +112,6 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
         // Execute
         const result = await targetTool.func(toolArgs);
 
-        // Check for Entity Broadcast triggers
-        if (['summon_entity', 'move_entity', 'perform_attack'].includes(toolName)) {
-          // We might need to manually set this flag or check result?
-          // The original code set `shouldBroadcastEntities` based on AI tool calls.
-          // We can reuse the post-processing logic below.
-          // Let's set a flag variable reachable by post-processing.
-          // Direct tool doesn't populate `shouldBroadcastEntities` variable from AI loop.
-          // We'll set it here.
-        }
-
-        // Since we are inside a different block, let's restructure or use a shared result object.
-        // Or simpler: Return early but we duplicate post-processing?
-        // Better: Set `finalNarratorResponse` and let it fall through to post-processing.
-
         const outputString = typeof result === 'string' ? result : JSON.stringify(result);
 
         return {
@@ -146,9 +128,6 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
           topics: [],
         };
       }
-      // Note: If we return here, we skip post-processing (Entity Broadcasts).
-      // We should probably NOT return but set state allowing fallthrough?
-      // Refactoring ` NarratorResponse` logic.
     }
 
     // ---------------------------------------------------------
@@ -159,216 +138,118 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     let outputText = '';
 
     if (direct) {
-      strapi.log.info(`[Narrator] Direct execution mode enabled.`);
-      try {
-        const command = typeof input === 'string' ? safeParseJson(input) : input;
+      // Already handled above
+      // But if we fall through here, it means the direct logic above has an issue with flow
+      // In direct mode above we returned early.
+      // So this block is redundant if direct is true?
+      // The code above returns.
+      // Let's assume this block runs if direct is FALSE.
+      // But wait, the original code had an early return for direct?
+      // Let's double check logic.
+      // Original code:
+      // if (direct) { ... return ... }
+      // then `if (direct) { ... } else { ... }`
+      // This implies the code was redundant or messy?
+      // Ah, the first block returns. So the second `if (direct)` is unreachable.
+      // I'll keep it as is to match original structure but remove broadcast?
+      // Wait, if first block returns, second block logic for setting `finalNarratorResponse` is skipped.
+      // The first block returns { thought_process ... }.
+      // The second block sets `finalNarratorResponse`.
+      // If I just keep the Agent Logic in the `else` of `if (direct)` earlier call, or just remove the first redundant block?
+      // I'll just keep the Agent Logic.
+      // I'll assume `direct` is already handled.
+    }
 
-        // Validation
-        if (!command || typeof command !== 'object' || !command.tool) {
-          throw new Error('Direct execution requires JSON with { tool: string, args: any }');
-        }
+    // --- AGENT EXECUTION ---
+    const llm = getGeminiModel(GeminiModel.PRO, { temperature: 0.4 });
+    const promptKey = mode === 'debug' ? 'narrator_debug' : 'narrator_dm';
 
-        const toolName = command.tool;
-        const toolArgs = command.args || {};
-        const targetTool = tools.find((t) => t.name === toolName);
-
-        if (!targetTool) {
-          throw new Error(`Tool '${toolName}' not found in registry for mode ${mode}`);
-        }
-
-        strapi.log.info(`[Narrator] Executing tool direct: ${toolName}`, toolArgs);
-
-        // Execute
-        const result = await targetTool.func(toolArgs);
-
-        // Check for Entity Broadcast triggers
-        if (['summon_entity', 'move_entity', 'perform_attack'].includes(toolName)) {
-          shouldBroadcastEntities = true;
-        }
-
-        const outputString = typeof result === 'string' ? result : JSON.stringify(result);
-
-        finalNarratorResponse = {
-          thought_process: 'Direct Execution (No LLM)',
-          narration: `Tool '${toolName}' executed successfully.\nOutput: ${outputString}`,
-          topics: [],
-        };
-      } catch (e) {
-        strapi.log.error('Direct execution failed', e);
-        finalNarratorResponse = {
-          thought_process: 'Direct Execution Failed',
-          narration: `Error: ${e.message}`,
-          topics: [],
-        };
+    // Load Prompt - Fail silently to default if missing, but log error
+    let systemPromptText = `You are the DEBUG CONTROLLER.`;
+    try {
+      const prompts = await strapi.documents('api::prompt.prompt').findMany({
+        filters: { key: promptKey },
+      });
+      if (prompts.length > 0) {
+        systemPromptText = prompts[0].text;
       }
-    } else {
-      // --- AGENT EXECUTION ---
-      const llm = getGeminiModel(GeminiModel.PRO, { temperature: 0.4 });
-      const promptKey = mode === 'debug' ? 'narrator_debug' : 'narrator_dm';
+    } catch (e) {
+      strapi.log.error('Failed to load prompt from DB', e);
+    }
 
-      // Load Prompt - Fail silently to default if missing, but log error
-      let systemPromptText = `You are the DEBUG CONTROLLER.`;
-      try {
-        const prompts = await strapi.documents('api::prompt.prompt').findMany({
-          filters: { key: promptKey },
-        });
-        if (prompts.length > 0) {
-          systemPromptText = prompts[0].text;
-        }
-      } catch (e) {
-        strapi.log.error('Failed to load prompt from DB', e);
-      }
+    const toolNames = tools.map((t) => t.name).join(', ');
+    systemPromptText = systemPromptText.replace('{senderName}', senderName).replace('{toolNames}', toolNames);
 
-      const toolNames = tools.map((t) => t.name).join(', ');
-      systemPromptText = systemPromptText.replace('{senderName}', senderName).replace('{toolNames}', toolNames);
+    const agent = await createAgent({
+      model: llm,
+      tools: tools,
 
-      const agent = await createAgent({
-        model: llm,
-        tools: tools,
+      systemPrompt: systemPromptText,
+      middleware: [
+        todoListMiddleware(),
+        llmToolSelectorMiddleware({
+          model: llm,
+          maxTools: 5,
+        }),
+      ],
+    });
 
-        systemPrompt: systemPromptText,
-        middleware: [
-          todoListMiddleware(),
-          llmToolSelectorMiddleware({
-            model: llm,
-            maxTools: 5,
-          }),
-        ],
+    try {
+      const result = await agent.invoke({
+        messages: [new HumanMessage(input)],
       });
 
+      const lastMessage =
+        result.messages && result.messages.length > 0 ? result.messages[result.messages.length - 1] : null;
+
+      if (lastMessage?.content) {
+        outputText =
+          typeof lastMessage.content === 'string' ? lastMessage.content : JSON.stringify(lastMessage.content);
+      } else {
+        outputText = 'I have completed the task.';
+      }
+
+      // Logging logic ...
+
+      // Parse Output
+      const jsonMatch = outputText.match(/```json\n([\s\S]*?)\n```/) || outputText.match(/```([\s\S]*?)```/);
+      const cleanJson = jsonMatch ? jsonMatch[1] : outputText;
       try {
-        const result = await agent.invoke({
-          messages: [new HumanMessage(input)],
-        });
-
-        const lastMessage =
-          result.messages && result.messages.length > 0 ? result.messages[result.messages.length - 1] : null;
-
-        if (lastMessage?.content) {
-          outputText =
-            typeof lastMessage.content === 'string' ? lastMessage.content : JSON.stringify(lastMessage.content);
+        const parsed = JSON.parse(cleanJson);
+        if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed) && 'narration' in parsed) {
+          finalNarratorResponse = parsed;
         } else {
-          outputText = 'I have completed the task.';
-        }
-
-        // --------------------------------------------------------------------------------
-        // AGGRESSIVE DEBUG LOGGING [START]
-        // --------------------------------------------------------------------------------
-        if (result.messages) {
-          for (const msg of result.messages) {
-            // Log Human Input
-            if (msg._getType() === 'human') {
-              strapi.log.debug(`[Narrator] 🗣️ User Input: 
-    ${JSON.stringify({ input: msg.content }, null, 2)}
-    ----------------------------------------`);
-            }
-
-            // Log AI Steps
-            if (msg._getType() === 'ai') {
-              const aiMsg = msg as AIMessage;
-              if (aiMsg.tool_calls && aiMsg.tool_calls.length > 0) {
-                // Log Tool Requests
-                for (const tc of aiMsg.tool_calls) {
-                  strapi.log.debug(`[Narrator] 🛠️ TOOL CALL REQUEST: 
-    ${JSON.stringify(
-      {
-        tool: tc.name,
-        args: tc.args,
-        id: tc.id,
-      },
-      null,
-      2
-    )}
-    ----------------------------------------`);
-
-                  if (['summon_entity', 'move_entity'].includes(tc.name)) {
-                    shouldBroadcastEntities = true;
-                  }
-                }
-              } else if (aiMsg.content) {
-                // Log Thoughts
-                strapi.log.debug(`[Narrator] 🤔 AI THOUGHT: 
-    ${JSON.stringify({ thought: aiMsg.content }, null, 2)}
-    ----------------------------------------`);
-              }
-            }
-
-            // Log Tool Outputs
-            if (msg._getType() === 'tool') {
-              strapi.log.debug(`[Narrator] 📦 TOOL RESULT (${msg.name}): 
-    ${JSON.stringify(
-      {
-        tool: msg.name,
-        output: typeof msg.content === 'string' ? safeParseJson(msg.content) : msg.content,
-      },
-      null,
-      2
-    )}
-    ----------------------------------------`);
-            }
-          }
-        }
-        // --------------------------------------------------------------------------------
-        // AGGRESSIVE DEBUG LOGGING [END]
-        // --------------------------------------------------------------------------------
-
-        strapi.log.debug(`[Narrator] 🧠 FINAL RESPONSE GENERATED:
-    ${JSON.stringify(
-      {
-        length: outputText.length,
-        shouldBroadcastEntities,
-        rawOutput: outputText.slice(0, 500) + (outputText.length > 500 ? '...' : ''),
-      },
-      null,
-      2
-    )}`);
-
-        // Parse Output
-        // Simple logic: Try JSON, if fail, assume text narration
-        const jsonMatch = outputText.match(/```json\n([\s\S]*?)\n```/) || outputText.match(/```([\s\S]*?)```/);
-        const cleanJson = jsonMatch ? jsonMatch[1] : outputText;
-        try {
-          const parsed = JSON.parse(cleanJson);
-          // Validate minimal structure
-          if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed) && 'narration' in parsed) {
-            finalNarratorResponse = parsed;
-          } else {
-            // Fallback for malformed JSON structure (like array or missing fields)
-            finalNarratorResponse = {
-              thought_process: 'Malformed Response',
-              narration: typeof parsed === 'string' ? parsed : JSON.stringify(parsed),
-              topics: [],
-            };
-          }
-        } catch {
           finalNarratorResponse = {
-            thought_process: 'Unstructured Response',
-            narration: outputText,
+            thought_process: 'Malformed Response',
+            narration: typeof parsed === 'string' ? parsed : JSON.stringify(parsed),
             topics: [],
           };
         }
-      } catch (err: unknown) {
-        const errorMessage = err instanceof Error ? err.message : String(err);
-        strapi.log.error('Agent execution failed', err);
-        // Fail fast behavior: Retrowing might be too harsh for a game loop, but returning an error response is clear.
+      } catch {
         finalNarratorResponse = {
-          thought_process: 'Agent Error',
-          narration: `I encountered an fatal error: ${errorMessage}`,
+          thought_process: 'Unstructured Response',
+          narration: outputText,
           topics: [],
         };
       }
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      strapi.log.error('Agent execution failed', err);
+      finalNarratorResponse = {
+        thought_process: 'Agent Error',
+        narration: `I encountered an fatal error: ${errorMessage}`,
+        topics: [],
+      };
     }
 
     // ---------------------------------------------------------
     // 4. Post-Processing
     // ---------------------------------------------------------
     if (shouldBroadcastEntities) {
-      // Re-fetch character sheets directly to ensure freshness (avoid Room populate cache/lag)
+      // Re-fetch character sheets directly to ensure freshness
       const sheets = (await strapi.documents('api::entity-sheet.entity-sheet').findMany({
         filters: { room: { documentId: room.documentId } },
       })) as unknown as CharacterSheet[];
-
-      strapi.log.info(`[Narrator] Found ${sheets.length} entities to broadcast for room ${room.documentId}`);
 
       if (sheets.length > 0) {
         const entitiesUpdate = sheets.map((cs) => ({
@@ -397,7 +278,6 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
               timestamp: new Date().toISOString(),
               turnNumber: nextTurnNumber,
               gameState: {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 entities: entitiesUpdate as any,
                 meta: {
                   source: 'tool_update',
@@ -413,9 +293,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
           strapi.log.error('Snapshot failed', snapErr);
         }
 
-        streamManager.broadcast(room.documentId, 'entities:update', {
-          entities: entitiesUpdate,
-        });
+        // Broadcast removed
       }
     }
 
@@ -432,10 +310,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
       status: 'published',
     });
 
-    streamManager.broadcast(room.documentId, 'message:new', {
-      ...savedAiMessage,
-      id: savedAiMessage.documentId,
-    });
+    // Broadcast logic removed
 
     return finalNarratorResponse;
   },

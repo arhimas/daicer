@@ -1,6 +1,6 @@
 // Domain-specific hooks
 export { default as useAuth } from './useAuth';
-export { useCombat } from './useCombat';
+
 export { useRoomWizard } from './useRoomWizard';
 export { useDebouncedBusy } from './useDebouncedBusy';
 export type { DebouncedBusyOptions, DebouncedBusyResult } from './useDebouncedBusy';

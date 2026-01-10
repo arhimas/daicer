@@ -22,7 +22,7 @@ export default ({ strapi }) => ({
   ) {
     const narrativeEngine = strapi.service('api::game.narrative-engine');
     const turnPersistence = strapi.service('api::game.turn-persistence');
-    const gameBroadcaster = strapi.service('api::game.game-broadcaster');
+    // const gameBroadcaster = strapi.service('api::game.game-broadcaster'); // REMOVED
     const actionEngine = strapi.service('api::game.action-engine');
     const ledger = strapi.service('api::game.game-ledger');
 
@@ -55,29 +55,16 @@ export default ({ strapi }) => ({
       });
     }
 
-    // Pass updated state to narrative?
-    // worldConditions is passed to narrative. We should update it if it's the state.
-    // If entropyChange.mutation, we updated `entropySys.state`.
-    // We should overwrite worldConditions with entropySys.state for Narrative consumption.
     if (entropyChange) {
-      // Narrative Engine handles `worldConditions` array? Or full state?
-      // If legacy engine expects array, we map `entropySys.state.conditions`.
-      // If we updated Narrative Engine to use new structure, strict pass.
-      // Let's pass the full state if possible or legacy array.
-      // POC used array. Narrative might use array.
-      // We'll pass `entropySys.state` cast as unknown.
-      // worldConditions = entropySys.state as unknown[];
-      // Actually, let's keep it safe. Narrative likely iterates it.
-      // `entropySys.state` is object `{ conditions: [], ... }`.
-      // If Narrative iterates `worldConditions`, we should pass `entropySys.state.conditions`.
-      // But we also want Events?
-      // Let's pass `entropySys.state` and assume Narrative will be updated or robust.
-      // Effectively:
-      // worldConditions = entropySys.state as any;
+      // logic unchanged
     }
 
-    // 1. Broadcast Processing Start
-    gameBroadcaster.startProcessing(roomId);
+    // 1. Broadcast Processing Start -> DB Update
+    // gameBroadcaster.startProcessing(roomId);
+    await strapi.documents('api::room.room').update({
+      documentId: roomId,
+      data: { isProcessing: true },
+    });
 
     // 2. Execute Deterministic Turn (Movement, Collision, Exploration)
     // Parse actions from players (strings) into structured commands
@@ -248,37 +235,17 @@ export default ({ strapi }) => ({
     // 7. Clear Actions
     const updatedPlayersFinal = await turnPersistence.clearPlayerActions(room.documentId, players);
 
-    // 8. Broadcast Updates
-    if (message) {
-      const socketMessage = {
-        id: message.documentId,
-        sender: 'DM',
-        text: message.content,
-        timestamp: Number(message.timestamp),
-        type: 'narration',
-        metadata: {
-          perspectives: response.player_perspectives,
-          turnId: turn.documentId,
-        },
-      };
-      gameBroadcaster.broadcastNewMessage(room.roomId, room.documentId, socketMessage);
-    }
+    // 8. Broadcast Updates -> REMOVED
+    // gameBroadcaster.broadcast... removed.
+    // Frontend Polls.
 
-    gameBroadcaster.broadcastGameUpdate(room.roomId, room.documentId, { players: updatedPlayersFinal });
+    // 9. Processing Complete -> DB Update
+    await strapi.documents('api::room.room').update({
+      documentId: roomId,
+      data: { isProcessing: false },
+    });
 
-    const turnPayload = {
-      roomId: room.roomId,
-      turn: {
-        id: turn.documentId,
-        number: turn.turnNumber,
-        narrative: turn.narrative,
-        snapshots: persistenceResult.snapshot,
-        contextImage: mapImageId ? { url: `/uploads/map_turn_${Date.now()}.png` } : undefined, // Optimistic?
-      },
-    };
-    gameBroadcaster.broadcastTurnComplete(room.roomId, room.documentId, turnPayload);
-
-    // 9. Dispatch Deterministic Commands (God Mode Integration)
+    // 10. Dispatch Deterministic Commands (God Mode Integration)
     if (response.commands && Array.isArray(response.commands) && response.commands.length > 0) {
       strapi.log.info(`[God Mode] Dispatching ${response.commands.length} commands`);
       await actionEngine.dispatch(roomId, response.commands);
@@ -294,8 +261,13 @@ export default ({ strapi }) => ({
 
   async executeDeterministicTurn(roomId: string, actions: unknown[]) {
     const turnPersistence = strapi.service('api::game.turn-persistence');
-    const gameBroadcaster = strapi.service('api::game.game-broadcaster');
+    // const gameBroadcaster = strapi.service('api::game.game-broadcaster'); // REMOVED
     const spawnService = strapi.service('api::game.spawn-service');
+
+    // ... lines 301-460 unchanged (process Actions, persist Turn) ...
+    // Note: I will just replace the broadcaster parts since I can't "skip" inside replacement easily without context.
+    // I need to be careful. The previous tool call covered processTurn. This is a separate method.
+    // I will replace `executeDeterministicTurn` carefully.
 
     // 1. Fetch Room
     const room = await strapi.documents('api::room.room').findOne({
@@ -459,31 +431,9 @@ export default ({ strapi }) => ({
 
     const { turn, snapshot } = persistenceResult;
 
-    // 4. Broadcast Updates
-    const turnPayload = {
-      roomId: room.roomId,
-      turn: {
-        id: turn.documentId,
-        number: turn.turnNumber,
-        narrative: turn.narrative,
-        snapshots: snapshot,
-        type: 'engine',
-      },
-    };
-
-    gameBroadcaster.broadcastTurnComplete(room.roomId, room.documentId, turnPayload);
-
-    // Broadcast generic entities update for moved/spawned things
-    // We'd ideally want the fresh sheets from `persistenceResult.room` (if we returned it with populated sheets)
-    // persistTurn refetches room with sheets, so we can use that.
-    const updatedSheets = persistenceResult.room.entity_sheets || [];
-    const updatedEntities = updatedSheets.map((cs: Record<string, unknown>) => ({
-      id: cs.documentId,
-      position: cs.position,
-      currentHp: cs.currentHp,
-    }));
-
-    gameBroadcaster.broadcastEntitiesUpdate(room.roomId, updatedEntities);
+    // 4. Broadcast Updates - REMOVED
+    // gameBroadcaster.broadcastTurnComplete... removed.
+    // gameBroadcaster.broadcastEntitiesUpdate... removed.
 
     return { success: true, turnId: turn.documentId };
   },
@@ -506,7 +456,7 @@ export default ({ strapi }) => ({
       });
     }
 
-    const gameBroadcaster = strapi.service('api::game.game-broadcaster');
+    // const gameBroadcaster = strapi.service('api::game.game-broadcaster'); // REMOVED
 
     // 1. Fetch Room and Player
     const rooms = await strapi.documents('api::room.room').findMany({
@@ -535,8 +485,8 @@ export default ({ strapi }) => ({
       } as unknown as Record<string, unknown>,
     });
 
-    // 4. Broadcast Update
-    gameBroadcaster.broadcastGameUpdate(room.roomId, room.documentId, { players });
+    // 4. Broadcast Update - REMOVED
+    // gameBroadcaster.broadcastGameUpdate(room.roomId, room.documentId, { players });
 
     return { success: true };
   },

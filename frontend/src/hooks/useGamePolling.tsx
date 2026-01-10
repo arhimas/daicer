@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import type { Room, Player, Message, Creature } from '@/types/contracts';
-import { useQuery } from '@apollo/client/react/hooks';
+import { useQuery } from '@apollo/client/react';
 import { GET_ROOM_QUERY } from '../graphql/queries';
 
 interface SocketState {
@@ -55,8 +55,8 @@ export default function useGamePolling(roomId?: string, initialMessages?: Messag
       return;
     }
 
-    if (data?.rooms?.[0]) {
-      const roomData = data.rooms[0];
+    if ((data as any)?.rooms?.[0]) {
+      const roomData = (data as any).rooms[0];
 
       // Map Room Data to State
       const mappedPlayers = (roomData.players || []).map((p: any) => ({
@@ -93,7 +93,7 @@ export default function useGamePolling(roomId?: string, initialMessages?: Messag
         players: mappedPlayers,
         messages: mappedMessages,
         creatures: mappedCreatures, // Update creatures/entities
-        isProcessing: roomData.phase === 'processing', // Infer processing from phase if backend sets it
+        isProcessing: roomData.isProcessing || false, // Use direct flag from backend
         connected: true,
       }));
     }

@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { sendTypingIndicator } from '../../services/socket'; // Verified content
+import { useState, useEffect } from 'react';
+
 import { useI18n } from '../../i18n';
 import { PromptInput, PromptInputTextarea, PromptInputSubmit } from '../ai';
 
@@ -35,8 +35,9 @@ export default function GameplayComposer({
   const isControlled = value !== undefined;
   const action = isControlled ? value : internalAction;
 
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [isTyping, setIsTyping] = useState(false);
+  // const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // const [isTyping, setIsTyping] = useState(false);
 
   // Load draft from localStorage (only if uncontrolled)
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function GameplayComposer({
     }
   }, [action, roomId]);
 
-  // Handle typing indicator
+  // Handle typing indicator (Removed - Server-side only)
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement> | string) => {
     const newValue = typeof e === 'string' ? e : e.target.value;
 
@@ -64,36 +65,14 @@ export default function GameplayComposer({
       setInternalAction(newValue);
     }
     onChange?.(newValue);
-
-    // Send typing indicator
-    if (!isTyping) {
-      setIsTyping(true);
-      sendTypingIndicator(roomId, userName, true);
-    }
-
-    // Clear existing timeout
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-
-    // Set new timeout to stop typing
-    typingTimeoutRef.current = setTimeout(() => {
-      setIsTyping(false);
-      sendTypingIndicator(roomId, userName, false);
-    }, 2000);
   };
 
-  // Clear typing on unmount
+  // Clear typing on unmount - No-op
   useEffect(
     () => () => {
-      if (isTyping) {
-        sendTypingIndicator(roomId, userName, false);
-      }
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
-      }
+      // Typing indicator cleanup removed
     },
-    [roomId, userName, isTyping]
+    [roomId, userName]
   );
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -107,8 +86,8 @@ export default function GameplayComposer({
     }
     onChange?.(''); // Clear parent
 
-    setIsTyping(false);
-    sendTypingIndicator(roomId, userName, false);
+    // setIsTyping(false); // Removed
+    // sendTypingIndicator call removed
 
     // Clear draft
     localStorage.removeItem(`composer-draft-${roomId}`);

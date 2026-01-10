@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Textarea from '@/components/ui/textarea';
-import useSocket from '@/hooks/useSocket';
+
 import { useI18n } from '@/i18n';
 
 export interface AgentQuestion {
@@ -25,27 +25,22 @@ interface AgentQuestionModalProps {
   onClose: () => void;
 }
 
-export function AgentQuestionModal({ question, roomId, onClose }: AgentQuestionModalProps) {
+export function AgentQuestionModal({ question, roomId: _roomId, onClose }: AgentQuestionModalProps) {
   const { t } = useI18n();
-  const { socket } = useSocket();
+  // const { socket } = useSocket(); // Socket removed
   const [answer, setAnswer] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (!answer.trim() || !socket) return;
+    if (!answer.trim()) return;
 
     setIsSubmitting(true);
 
     try {
-      // Emit answer via socket
-      socket.emit('agent:answer', {
-        roomId,
-        questionId: question.questionId,
-        answer: answer.trim(),
-        userId: socket.id, // Will be replaced with actual user ID on backend
-      });
+      // TODO: Implement GraphQL mutation for answering questions
+      console.warn('Agent answer submission not implemented (Socket removed). Needs GraphQL mutation.');
 
-      // Close modal after submission
+      // Close modal after submission (optimistic)
       onClose();
     } catch (error) {
       console.error('Failed to submit answer:', error);

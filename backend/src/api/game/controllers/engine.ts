@@ -21,31 +21,7 @@ export default ({ strapi }) => ({
         return ctx.badRequest('Invalid type. Must be "monster" or "character"');
       }
 
-      // Broadcast Update
-      const { streamManager } = await import('../../../utils/llm/stream-manager');
-
-      // We need to fetch the room's UUID (roomId) for broadcasting,
-      // but result.room usually just has ID/DocumentID if we didn't populate.
-      // Let's safe fetch or use the one passed if we trust it?
-      // Be safe:
-      const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
-      if (room) {
-        // Broadcast generic entities update
-        // We can just send the new entity
-        streamManager.broadcast(room.roomId, 'entities:update', {
-          entities: [
-            {
-              id: result.documentId,
-              name: result.name,
-              type: result.type,
-              position: result.position,
-              // ... map other useful props
-              currentHp: result.currentHp,
-              maxHp: result.maxHp,
-            },
-          ],
-        });
-      }
+      // Broadcast logic removed
 
       ctx.body = result;
     } catch (err) {

@@ -24,7 +24,14 @@
     },
     "phase": {
       "type": "enumeration",
-      "enum": ["lobby", "character_creation", "world_generation", "gameplay", "combat", "ending"],
+      "enum": [
+        "lobby",
+        "character_creation",
+        "world_generation",
+        "gameplay",
+        "combat",
+        "ending"
+      ],
       "default": "lobby"
     },
     "players": {
@@ -44,6 +51,10 @@
     "isActive": {
       "type": "boolean",
       "default": true
+    },
+    "isProcessing": {
+      "type": "boolean",
+      "default": false
     },
     "code": {
       "type": "string",

@@ -417,6 +417,15 @@ export interface Road {
 
 export type CharacterSheet = EntitySheet;
 
+export interface AgentLog {
+  id: string;
+  type: string;
+  payload: any;
+  actorId?: string;
+  sequenceId?: number;
+  timestamp: string;
+}
+
 export enum ActionType {
   Move = 'MOVE',
   Attack = 'ATTACK',

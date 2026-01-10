@@ -165,18 +165,9 @@ export default ({ strapi }) => ({
       data: { players: updatedPlayers } as unknown,
     });
 
-    // 5. Broadcast Minimal Update
-    const { streamManager } = await import('../../../utils/llm/stream-manager');
-    streamManager.broadcast(room.roomId, 'room:update', {
-      players: updatedPlayers.map((p: Player) => ({
-        id: p.id,
-        name: p.name,
-        isReady: p.isReady,
-        character: p.character,
-        characterSheet: p.characterSheet,
-        user: { id: p.user?.id, username: p.user?.username },
-      })),
-    });
+    // 5. Broadcast Minimal Update - REMOVED (Sockets Disabled)
+    // const { streamManager } = await import('../../../utils/llm/stream-manager');
+    // streamManager.broadcast...
 
     return { success: true, isReady };
   },
@@ -364,19 +355,9 @@ export default ({ strapi }) => ({
       } as unknown,
     });
 
-    // 6. Broadcast
-    // We need streamManager here too
-    const { streamManager } = await import('../../../utils/llm/stream-manager');
-
-    streamManager.broadcast(room.roomId, 'game:start', {
-      phase: 'game',
-      message: {
-        id: message.documentId,
-        text: mainOpening,
-        sender: 'DM',
-        type: 'narration',
-      },
-    });
+    // 6. Broadcast - REMOVED
+    // const { streamManager } = await import('../../../utils/llm/stream-manager');
+    // streamManager.broadcast...
 
     return { success: true, mainOpening };
   },

@@ -16,7 +16,7 @@ export function EntitySpawner({ onSelectEntity, selectedEntity }: EntitySpawnerP
   const { data: monsterData, loading: monsterLoading } = useQuery<ListMonstersQuery>(LIST_MONSTERS_QUERY);
 
   const characters = charData?.characters || [];
-  const monsters = monsterData?.monsters || [];
+  const monsters = (monsterData as any)?.monsters || [];
 
   return (
     <div className="flex flex-col h-full bg-background border-l">
@@ -48,7 +48,7 @@ export function EntitySpawner({ onSelectEntity, selectedEntity }: EntitySpawnerP
               <CommandList className="max-h-[500px] overflow-y-auto">
                 <CommandEmpty>No monsters found.</CommandEmpty>
                 <CommandGroup heading="Monsters">
-                  {monsters.map((m) =>
+                  {monsters.map((m: any) =>
                     m ? (
                       <CommandItem
                         key={m.documentId}

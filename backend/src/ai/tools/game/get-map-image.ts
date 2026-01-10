@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Creature, WorldConfig, Chunk, DEFAULT_WORLD_CONFIG } from '../../../api/game/src/engine';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import { RoomWithPopulations } from '../../../lifecycle/socket/types';
+// import { RoomWithPopulations } from '../../../lifecycle/socket/types'; // Removed
 
 const mapImageSchema = z.object({
   entityId: z.string().optional().describe('Optional: The ID of the entity whose perspective to use (POV).'),
@@ -32,7 +32,7 @@ export const getMapImageTool = (context: StrapiContext) =>
       func: async ({ x, y, radius: _radius, entityId, broadcast }, { strapi, roomDocumentId }) => {
         // Dynamic import to avoid circular dependencies
         const { generateMapImage } = await import('../../../api/game/services/map-visualization');
-        const { streamManager } = await import('../../../utils/llm/stream-manager');
+        // streamManager removed
 
         // Fetch Room Data
         const roomRaw = await strapi.documents('api::room.room').findOne({
@@ -42,7 +42,7 @@ export const getMapImageTool = (context: StrapiContext) =>
 
         if (!roomRaw) throw new Error('Room not found.');
 
-        const room = roomRaw as unknown as RoomWithPopulations;
+        const room = roomRaw as unknown as any;
         const entities = room.entity_sheets || [];
 
         // 1. Determine Center & Perspective
@@ -155,29 +155,7 @@ export const getMapImageTool = (context: StrapiContext) =>
         const base64 = imageBuffer.toString('base64');
         const dataUrl = `data:image/png;base64,${base64}`;
 
-        // 5. Broadcast to Game Stream
-        if (broadcast) {
-          streamManager.broadcast(roomDocumentId, 'game:events', {
-            events: [
-              {
-                type: 'GAME_IMAGE',
-                payload: {
-                  imageUrl: dataUrl,
-                  description: povEntity
-                    ? `Visual perspective of ${povEntity.name}`
-                    : `Map view at ${centerX},${centerY}`,
-                  timestamp: Date.now(),
-                  metadata: {
-                    povEntityId: povEntity?.id,
-                    x: centerX,
-                    y: centerY,
-                  },
-                },
-                timestamp: Date.now(),
-              },
-            ],
-          });
-        }
+        // Broadcast logic removed
 
         return {
           type: 'image',

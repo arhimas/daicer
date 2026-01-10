@@ -68,7 +68,7 @@ export function EntropyDebugPanel({ state, roomId }: EntropyDebugPanelProps) {
               onChange={(e) => setTimeInput(e.target.value)}
             />
             <Button
-              variant="primary"
+              variant="default"
               size="sm"
               onClick={() => handleTool(`set_time(time="${timeInput}")`)}
               disabled={loading}

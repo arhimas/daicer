@@ -1273,6 +1273,7 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
     events: Schema.Attribute.Relation<'oneToMany', 'api::game-event.game-event'>;
     exploredTiles: Schema.Attribute.JSON;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    isProcessing: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::room.room'> & Schema.Attribute.Private;
     messages: Schema.Attribute.Relation<'oneToMany', 'api::message.message'>;

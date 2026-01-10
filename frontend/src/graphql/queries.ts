@@ -7,6 +7,7 @@ export const GET_ROOM_QUERY = gql`
     phase
     turnData
     entropyState
+    isProcessing
 
     # 1. World State
     world {

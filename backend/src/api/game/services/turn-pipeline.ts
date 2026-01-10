@@ -156,12 +156,9 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
       // const narration = await strapi.service('api::game.narrator').narrateTurn(createdEvents);
       // await strapi.documents('api::turn.turn').update({ documentId: turn.documentId, data: { summary: narration } });
 
-      // 5. BROADCAST PHASE
-      const gameBroadcaster = strapi.service('api::game.game-broadcaster');
-      gameBroadcaster.broadcastTurnComplete(roomId, turn.documentId, {
-        turn,
-        events: createdEvents,
-      });
+      // 5. BROADCAST PHASE - REMOVED
+      // const gameBroadcaster = strapi.service('api::game.game-broadcaster');
+      // gameBroadcaster.broadcastTurnComplete...
 
       return { success: true, turnId: turn.documentId };
     } finally {

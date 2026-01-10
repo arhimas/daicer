@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
 import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '../../../api/game/src/engine';
-import { RoomWithPopulations } from '../../../lifecycle/socket/types';
+// import { RoomWithPopulations } from '../../../lifecycle/socket/types'; // Socket types likely gone with socket folder
 import EntityAdapter from '../../../api/game/services/entity-adapter';
 
 // Define Input Schema
@@ -78,7 +78,7 @@ export const performActionTool = (context: StrapiContext) => {
 
           if (!roomRaw) throw new Error(`Room ${roomDocumentId} not found`);
 
-          const room = roomRaw as unknown as RoomWithPopulations;
+          const room = roomRaw as unknown as any; // Cast to any to avoid importing missing types
           const adapter = EntityAdapter();
           const entities = room.entity_sheets || [];
 
@@ -106,7 +106,7 @@ export const performActionTool = (context: StrapiContext) => {
               language: 'en',
             },
             players: (room.players || []).map(
-              (p): Player => ({
+              (p: any): Player => ({
                 id: String(p.documentId),
                 name: p.user?.username || 'Unknown',
                 role: 'player', // Default to player
@@ -188,11 +188,7 @@ export const performActionTool = (context: StrapiContext) => {
           const dispatcher = new ActionDispatcher();
           const result = dispatcher.dispatch(state, command);
 
-          // 5. Broadcast Events
-          if (result.events.length > 0) {
-            const { streamManager } = await import('../../../utils/llm/stream-manager');
-            streamManager.broadcast(roomDocumentId, 'game:events', { events: result.events });
-          }
+          // Broadcast logic removed
 
           if (!result.success) {
             strapi.log.warn(`[Tool:PerformAction] Engine Rejected: ${result.message}`);

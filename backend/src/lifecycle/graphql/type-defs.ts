@@ -112,13 +112,22 @@ export const typeDefs = `
     availableActions: [RuntimeAction]
   }
 
+  type AgentLog {
+    id: ID!
+    type: String!
+    payload: JSON
+    actorId: String
+    sequenceId: String
+    timestamp: String
+  }
+
   extend type Query {
+    getAgentLogs(roomId: ID!): [AgentLog]
     searchEntities(query: String!): [SearchResult]!
     abilities: [Ability]
     skills: [Skill]
     alignments: [Alignment]
     backgrounds: [Background]
-    conditions: [GameCondition]
     conditions: [GameCondition]
     getWorldTime(roomId: ID!): WorldTime
     voxelPreview(chunks: [ChunkRequestInput]!, config: WorldConfigInput!): [VoxelChunk]!

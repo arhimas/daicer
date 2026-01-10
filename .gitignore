@@ -78,4 +78,3 @@ ideas/
 .lsmcp
 firebase-export-*/
 :memory:
-*.stories.*

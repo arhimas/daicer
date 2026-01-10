@@ -58,9 +58,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     strapi.log.info(`[Ledger] Event ${nextSeq} Committed: ${eventData.type}`);
 
-    // 4. Broadcast (Isomorphic Payload)
-    const { streamManager } = await import('../../../utils/llm/stream-manager');
-    streamManager.broadcast(roomId, 'game:events', { events: [event] });
+    // 4. Broadcast - REMOVED
+    // const { streamManager } = await import('../../../utils/llm/stream-manager');
+    // streamManager.broadcast(roomId, 'game:events', { events: [event] });
 
     return event;
   },

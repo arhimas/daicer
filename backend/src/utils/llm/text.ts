@@ -6,7 +6,7 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import type { Language } from '../../api/game/src/engine/types';
 import { getFlashModel, extractErrorDetails } from './gemini';
 import { TextGenConfig } from './types';
-import { streamManager } from './stream-manager';
+// import { streamManager } from './stream-manager'; // Removed
 import { getPrompt } from '../prompt';
 
 const languageMap: Record<Language, string> = {
@@ -63,20 +63,7 @@ export async function generateText(
     const response = await model.invoke(messages);
     const content = response.content.toString();
 
-    // Stream result if streamId provided
-    const streamId = config.metadata?.streamId as string | undefined;
-    if (streamId) {
-      // Stream in chunks to the frontend
-      const chunks = content.split(/(?=[,.\n])/);
-      const targetUser = config.metadata?.targetUserId as string | undefined;
-
-      for (const chunk of chunks) {
-        if (chunk) {
-          streamManager.emitText(streamId, chunk, targetUser);
-          await new Promise((r) => setTimeout(r, 20)); // Small delay for effect
-        }
-      }
-    }
+    // Streaming removed
 
     return content;
   } catch (error) {
@@ -93,13 +80,5 @@ function mockGenerator(config: TextGenConfig): string {
   
   What do you do?`;
 
-  const streamId = config.metadata?.streamId as string | undefined;
-
-  if (streamId) {
-    const chunks = mockText.split(/(?=[,.\n])/);
-    chunks.forEach((chunk, i) => {
-      setTimeout(() => streamManager.emitText(streamId, chunk), i * 50);
-    });
-  }
   return mockText;
 }

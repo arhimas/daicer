@@ -38,13 +38,13 @@ interface UseWorldChunksOptions {
 
 export function useWorldChunks({
   worldId,
-  onChunkLoaded,
-  onChunkStart,
-  onError,
-  onBatchComplete,
+  onChunkLoaded: _onChunkLoaded,
+  onChunkStart: _onChunkStart,
+  onError: _onError,
+  onBatchComplete: _onBatchComplete,
 }: UseWorldChunksOptions) {
   const requestChunk = useCallback(
-    (chunkX: number, chunkY: number, chunkZ: number) => {
+    (_chunkX: number, _chunkY: number, _chunkZ: number) => {
       // TODO: Fetch via GraphQL
       console.warn('useWorldChunks: requestChunk not implemented (GraphQL migration pending)');
     },
@@ -52,7 +52,7 @@ export function useWorldChunks({
   );
 
   const requestChunks = useCallback(
-    (chunks: ChunkCoord[]) => {
+    (_chunks: ChunkCoord[]) => {
       // TODO: Fetch via GraphQL
       console.warn('useWorldChunks: requestChunks not implemented (GraphQL migration pending)');
     },

@@ -10,7 +10,6 @@ import { DEFAULT_WORLD_CONFIG } from '../../game/src/engine';
 import type { Coordinates } from '../../../shared';
 
 // ... (existing helper types)
-
 import type { Core } from '@strapi/strapi';
 import type { RoomWithWorld, RoomWithSheets } from '../../../types';
 
@@ -77,10 +76,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
       },
     });
 
-    // Broadcast to Room (Live Socket)
-    const { streamManager } = await import('../../../utils/llm/stream-manager');
-    // Ensure we send an array of events to match frontend expectation
-    streamManager.broadcast(roomDocumentId, 'game:events', { events: [event] });
+    // Broadcast logic removed
 
     return event;
   },
@@ -89,7 +85,6 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
    * Validate a move request via the Engine
    */
   async validateMove(roomDocumentId: string, from: Coordinates, to: Coordinates) {
-    // Validate inputs with Zod (Runtime Safety)
     // Validate inputs with Zod (Runtime Safety)
     try {
       // Just validating the structure, logic handled below

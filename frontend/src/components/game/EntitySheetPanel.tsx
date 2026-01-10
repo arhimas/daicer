@@ -1,5 +1,4 @@
-import { gql } from '@apollo/client';
-import { useMutation } from '@apollo/client/react/hooks';
+import { useMutation } from '@apollo/client/react';
 import { toast } from 'sonner';
 import type { Player, EntitySheet } from '@/types/contracts';
 import { EXECUTE_TOOL_MUTATION } from '../../graphql/mutations';
@@ -41,7 +40,7 @@ export default function EntitySheetPanel({ player, roomId, onClose }: EntityShee
         },
       });
 
-      if (result.data?.executeTool) {
+      if ((result.data as any)?.executeTool) {
         toast.success(`Action initiated: ${actionId}`);
       }
     } catch (err) {

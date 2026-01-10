@@ -441,6 +441,32 @@ export const registerGraphQLExtension = (strapi) => {
           const turn = await strapi.documents('api::turn.turn').findOne({ documentId: id, populate: '*' });
           return turn;
         },
+        getAgentLogs: async (_parent, args, _context) => {
+          const { roomId } = args;
+          strapi.log.info(`[Resolver] getAgentLogs hit for Room ${roomId}`);
+
+          try {
+            // Fetch recent events. We can filter by type if needed (e.g., 'agent:*')
+            // but for now we return general activity.
+            const events = await strapi.documents('api::game-event.game-event').findMany({
+              filters: { room: { documentId: roomId } },
+              sort: 'sequenceId:desc',
+              limit: 50,
+            });
+
+            return events.map((e) => ({
+              id: e.documentId,
+              type: e.type,
+              payload: e.payload,
+              actorId: e.actorId,
+              sequenceId: e.sequenceId,
+              timestamp: e.timestamp ? new Date(e.timestamp).toISOString() : new Date().toISOString(),
+            }));
+          } catch (e) {
+            strapi.log.error(`[Resolver] Error fetching agent logs:`, e);
+            return [];
+          }
+        },
       },
       Mutation: {
         ...getMutationResolvers(strapi),

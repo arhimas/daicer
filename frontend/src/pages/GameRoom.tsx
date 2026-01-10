@@ -7,7 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Room as SharedRoom, Player, GamePhase } from '@/types/contracts';
 import { getRoomState, startGame } from '../services/api';
-import { toast } from 'sonner';
+
 import useGamePolling from '../hooks/useGamePolling';
 import CharacterCreation from '../components/room/CharacterCreation';
 import { LobbyScreen } from '../components/room/LobbyScreen';
@@ -22,7 +22,7 @@ import ToolCallCard from '../components/chat/ToolCallCard';
 
 // import { auth } from '../services/firebase';
 import useAuth from '../hooks/useAuth';
-import { useLLMStream } from '../hooks/useLLMStream';
+import { useAgentActivity } from '../hooks/useAgentActivity';
 import type { ToolCall } from '@/types/contracts';
 import { TimeFrameProvider } from '../contexts/TimeFrameContext';
 import { useWakeLock } from '../hooks/useWakeLock';
@@ -52,7 +52,7 @@ export default function GameRoomPage() {
   const { room: socketRoom, players: socketPlayers, creatures, toolCalls } = useGamePolling(room?.documentId || roomId);
 
   // Listen to all streams in the room
-  const streams = useLLMStream(undefined, null);
+  const streams = useAgentActivity(undefined, null);
   // Find any active stream to display
   const activeStream = Object.values(streams).find((s) => s.status === 'active');
 
@@ -324,6 +324,7 @@ export default function GameRoomPage() {
                       parameters: event.args || {},
                       result: event.output,
                       timestamp: Date.now(),
+                      status: 'completed',
                     };
                     return (
                       <ToolCallCard key={index} toolCall={toolCall} status={event.output ? 'complete' : 'running'} />
@@ -392,7 +393,7 @@ export default function GameRoomPage() {
     // If user has no character, default to creation mode (optional, can be just lobby)
     // But let's start in Lobby to see everyone
 
-    const handleReadyToggle = async (isReady: boolean) => {
+    const handleReadyToggle = async (_isReady: boolean) => {
       if (!room?.id) return;
       try {
         // await setReady(room.documentId || room.roomId || room.id, isReady); // Socket removed

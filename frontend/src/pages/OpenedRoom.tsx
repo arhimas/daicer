@@ -278,6 +278,7 @@ export default function OpenedRoomPage() {
                       parameters: event.args || {},
                       result: event.output,
                       timestamp: Date.now(),
+                      status: 'completed',
                     };
                     return (
                       <ToolCallCard key={index} toolCall={toolCall} status={event.output ? 'complete' : 'running'} />
