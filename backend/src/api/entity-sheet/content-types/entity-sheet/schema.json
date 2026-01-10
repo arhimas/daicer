@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "character_sheets",
+  "collectionName": "entity_sheets",
   "info": {
     "singularName": "entity-sheet",
     "pluralName": "entity-sheets",

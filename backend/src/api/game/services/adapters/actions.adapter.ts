@@ -69,6 +69,6 @@ export const mapStrapiActionsToEntityActions = (
 
 export const resolveActions = (sheet: StrapiEntitySheet, stats: StatBlock): EntityAction[] => {
   // 1. Explicit Actions from Relation (Sheet > Monster Blueprint)
-  const sourceActions = sheet.actions && sheet.actions.length > 0 ? sheet.actions : sheet.monster?.actions;
+  const sourceActions = sheet.actions && sheet.actions.length > 0 ? sheet.actions : sheet.entity?.actions;
   return mapStrapiActionsToEntityActions(sourceActions, stats);
 };

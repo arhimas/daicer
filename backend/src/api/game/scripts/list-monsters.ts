@@ -4,7 +4,7 @@
 
 const main = async ({ strapi }) => {
   try {
-    const monsters = await strapi.documents('api::monster.monster').findMany({
+    const monsters = await strapi.documents('api::entity.entity').findMany({
       populate: ['stats'],
       limit: 1000,
     });

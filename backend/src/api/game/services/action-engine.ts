@@ -124,7 +124,7 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         });
     }
 
-    let allActions: any[] = [];
+    const allActions: any[] = [];
 
     // From Equipment
     context.equipment.forEach((item: any) => {

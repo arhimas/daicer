@@ -110,7 +110,7 @@ export const cleanupStrapi = async () => {
 
     instance = undefined;
     // Keep global.strapi to prevent ReferenceErrors from late listeners
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     // delete (global as any).strapi;
 
     // Generous delay to allow native SQLite bindings to flush and close

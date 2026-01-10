@@ -602,6 +602,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     currentHp: Schema.Attribute.Integer;
+    entity: Schema.Attribute.Relation<'manyToOne', 'api::entity.entity'>;
     experience: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
@@ -612,7 +613,6 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'> & Schema.Attribute.Private;
     maxHp: Schema.Attribute.Integer;
-    monster: Schema.Attribute.Relation<'manyToOne', 'api::monster.monster'>;
     name: Schema.Attribute.String;
     owner: Schema.Attribute.Relation<'manyToOne', 'plugin::users-permissions.user'>;
     position: Schema.Attribute.Component<'game.position', false>;
@@ -627,6 +627,79 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     type: Schema.Attribute.Enumeration<['player', 'monster', 'npc', 'loot']> & Schema.Attribute.DefaultTo<'player'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
+  collectionName: 'entities';
+  info: {
+    description: 'Blueprint for World Entities (Creatures, Flora, Minerals)';
+    displayName: 'Entity';
+    pluralName: 'entities';
+    singularName: 'entity';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    ac: Schema.Attribute.Integer;
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
+    alignment: Schema.Attribute.String;
+    appearance: Schema.Attribute.Component<'game.appearance', false>;
+    background: Schema.Attribute.RichText;
+    challenge_rating: Schema.Attribute.Decimal;
+    classes: Schema.Attribute.Component<'game.character-class', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
+    features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
+    hit_dice: Schema.Attribute.String;
+    hp: Schema.Attribute.Integer;
+    image: Schema.Attribute.Media<'images'>;
+    inventory: Schema.Attribute.Component<'game.inventory-item', true>;
+    languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity.entity'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
+    publishedAt: Schema.Attribute.DateTime;
+    race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
+    resources: Schema.Attribute.Component<'game.resource-pool', true>;
+    size: Schema.Attribute.Enumeration<['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
+    stats: Schema.Attribute.Component<'game.stats', false>;
+    traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    xp: Schema.Attribute.Integer;
   };
 }
 
@@ -998,76 +1071,6 @@ export interface ApiMessageMessage extends Struct.CollectionTypeSchema {
     turn: Schema.Attribute.Relation<'manyToOne', 'api::turn.turn'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-  };
-}
-
-export interface ApiMonsterMonster extends Struct.CollectionTypeSchema {
-  collectionName: 'monsters';
-  info: {
-    description: 'D&D 5e Monsters';
-    displayName: 'Monster';
-    pluralName: 'monsters';
-    singularName: 'monster';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    ac: Schema.Attribute.Integer;
-    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
-    alignment: Schema.Attribute.String;
-    appearance: Schema.Attribute.Component<'game.appearance', false>;
-    background: Schema.Attribute.RichText;
-    challenge_rating: Schema.Attribute.Decimal;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
-    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
-    features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
-    hit_dice: Schema.Attribute.String;
-    hp: Schema.Attribute.Integer;
-    image: Schema.Attribute.Media<'images'>;
-    inventory: Schema.Attribute.Component<'game.inventory-item', true>;
-    languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
-    level: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::monster.monster'>;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
-    publishedAt: Schema.Attribute.DateTime;
-    size: Schema.Attribute.Enumeration<['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']>;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
-    stats: Schema.Attribute.Component<'game.stats', false>;
-    traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
-    type: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    xp: Schema.Attribute.Integer;
   };
 }
 
@@ -1540,6 +1543,7 @@ export interface ApiVoxelChangeVoxelChange extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::voxel-change.voxel-change'> & Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON;
     newType: Schema.Attribute.String & Schema.Attribute.Required;
     previousType: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
@@ -2061,6 +2065,7 @@ declare module '@strapi/strapi' {
       'api::damage-type.damage-type': ApiDamageTypeDamageType;
       'api::dm-setting.dm-setting': ApiDmSettingDmSetting;
       'api::entity-sheet.entity-sheet': ApiEntitySheetEntitySheet;
+      'api::entity.entity': ApiEntityEntity;
       'api::equipment-category.equipment-category': ApiEquipmentCategoryEquipmentCategory;
       'api::feature.feature': ApiFeatureFeature;
       'api::game-event.game-event': ApiGameEventGameEvent;
@@ -2070,7 +2075,6 @@ declare module '@strapi/strapi' {
       'api::language.language': ApiLanguageLanguage;
       'api::magic-school.magic-school': ApiMagicSchoolMagicSchool;
       'api::message.message': ApiMessageMessage;
-      'api::monster.monster': ApiMonsterMonster;
       'api::proficiency.proficiency': ApiProficiencyProficiency;
       'api::prompt.prompt': ApiPromptPrompt;
       'api::race.race': ApiRaceRace;

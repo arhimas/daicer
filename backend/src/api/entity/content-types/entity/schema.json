@@ -153,11 +153,6 @@
       "type": "component",
       "repeatable": true,
       "component": "game.resource-pool"
-    },
-    "spell_config": {
-      "type": "component",
-      "repeatable": false,
-      "component": "game.spell-config"
     }
   }
 }

@@ -36,6 +36,6 @@ export const mapStrapiStatsToStatBlock = (
 export const resolveBaseStats = (sheet: StrapiEntitySheet): StatBlock => {
   // 1. Extract sources (Sheet overrides Blueprint)
   const s = sheet.stats;
-  const b = sheet.character?.stats || sheet.monster?.stats;
+  const b = sheet.character?.stats || sheet.entity?.stats;
   return mapStrapiStatsToStatBlock(s, b);
 };

@@ -144,7 +144,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           tiles[z][y][x] = {
             x: startX + x - 8,
             y: startY + y - 8,
-            z: centerZ + z,
+            z: (centerZ + z) as any,
             block: BlockType.AIR,
             biome: 'plains', // Arbitrary
             isWalkable: true,

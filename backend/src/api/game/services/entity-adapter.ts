@@ -1,6 +1,6 @@
 import { Entity, EntitySheet } from '../src/engine/types';
 import { StrapiEntitySheet } from './adapters/types';
-import { resolveMonsterBlueprint, resolveCharacterBlueprint } from './blueprints';
+import { resolveEntityBlueprint, resolveCharacterBlueprint } from './blueprints';
 import { mapStrapiStatsToStatBlock } from './adapters/stats.adapter';
 import { mapStrapiActionsToEntityActions } from './adapters/actions.adapter';
 import { resolveInventory } from './adapters/inventory.adapter';
@@ -21,8 +21,8 @@ export default () => ({
     // 1. Resolve Blueprint (The "True" Nature)
     // If no monster/character linked, create a dummy default blueprint (or throw?)
     // Defaulting to basic character if nothing exists to prevent crash.
-    const blueprint = sheet.monster
-      ? resolveMonsterBlueprint(sheet.monster)
+    const blueprint = sheet.entity
+      ? resolveEntityBlueprint(sheet.entity)
       : sheet.character
         ? resolveCharacterBlueprint(sheet.character)
         : resolveCharacterBlueprint({ documentId: 'dummy', name: 'Unknown Entity' });

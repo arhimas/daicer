@@ -23,7 +23,7 @@ export const resolveFeatures = (sheet: StrapiEntitySheet): { features: EntityFea
   features.push(...mapStrapiFeaturesToEntityFeatures(sheet.features, 'Class'));
 
   // 2. Resolve Traits (Racial, Background, Monster Features mixed in)
-  const sourceTraits = sheet.traits || sheet.monster?.features;
+  const sourceTraits = sheet.traits || sheet.entity?.features;
   traits.push(...(mapStrapiFeaturesToEntityFeatures(sourceTraits, 'Trait') as EntityTrait[]));
 
   return { features, traits };

@@ -27,13 +27,13 @@ export default () => ({
     const actions = resolveActions(sheet, stats);
 
     // 2. Resolve Vitals (Logic remains in Facade or could be moved to vitals.adapter.ts)
-    const maxHp = sheet.maxHp || sheet.monster?.hp || 10;
+    const maxHp = sheet.maxHp || sheet.entity?.hp || 10;
     const hp = sheet.currentHp ?? maxHp;
 
     // AC Logic: Sheet Override > Monster AC > 10 + Dex Mod
     let armorClass = sheet.ac ?? sheet.armorClass;
     if (armorClass === undefined) {
-      if (sheet.monster?.ac) armorClass = sheet.monster.ac;
+      if (sheet.entity?.ac) armorClass = sheet.entity.ac;
       else armorClass = 10 + stats.initiativeBonus;
     }
 
@@ -48,13 +48,13 @@ export default () => ({
       hp,
       maxHp,
       armorClass,
-      speed: sheet.speed || sheet.monster?.speed || 30, // Fallback to monster speed
+      speed: sheet.speed || sheet.entity?.speed || 30, // Fallback to monster speed
 
       // Level Logic: Class sum or Monster CR or 1
       level: sheet.character?.classes?.length
         ? sheet.character.classes.reduce((sum, c) => sum + c.level, 0)
-        : sheet.monster?.challenge_rating
-          ? Math.floor(sheet.monster.challenge_rating)
+        : sheet.entity?.challenge_rating
+          ? Math.floor(sheet.entity.challenge_rating)
           : 1,
 
       stats,
@@ -68,9 +68,9 @@ export default () => ({
       // Conditions currently start empty, managed by Engine runtime
       conditions: [],
 
-      resistances: sheet.resistances || sheet.monster?.resistances || [],
-      immunities: sheet.immunities || sheet.monster?.immunities || [],
-      vulnerabilities: sheet.vulnerabilities || sheet.monster?.vulnerabilities || [],
+      resistances: sheet.resistances || sheet.entity?.resistances || [],
+      immunities: sheet.immunities || sheet.entity?.immunities || [],
+      vulnerabilities: sheet.vulnerabilities || sheet.entity?.vulnerabilities || [],
 
       // Visuals
       color: sheet.color || '#ffffff',

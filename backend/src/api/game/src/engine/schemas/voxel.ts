@@ -120,6 +120,7 @@ export const BiomeTypeSchema = z.enum([
   'jungle',
   'savanna',
   'fungal_groves',
+  'caves',
 ]);
 
 export const ZLevelSchema = z.union([

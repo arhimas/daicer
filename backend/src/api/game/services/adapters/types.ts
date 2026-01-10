@@ -177,9 +177,11 @@ export interface StrapiCharacter {
   spells?: StrapiSpell[];
 }
 
-export interface StrapiMonster {
+export interface StrapiEntity {
   documentId: string;
   name: string;
+  type?: string; // "beast", "plant" etc
+  level?: number;
   stats?: StrapiComponentStats;
   ac?: number;
   hp?: number;
@@ -208,7 +210,7 @@ export interface StrapiEntitySheet {
 
   // Relations/Blueprints
   character?: StrapiCharacter;
-  monster?: StrapiMonster;
+  entity?: StrapiEntity;
 
   // Components
   stats?: StrapiComponentStats;

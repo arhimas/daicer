@@ -32,9 +32,9 @@ export default ({ strapi }) => ({
 
       // Parallel search
       const [monsters, characters] = await Promise.all([
-        strapi.documents('api::monster.monster').findMany({
-          filters: { name: { $contains: query } }, // Case insensitive usually handled by DB or $containsi if postgres
-          fields: ['name', 'documentId'],
+        strapi.documents('api::entity.entity').findMany({
+          filters: { name: { $contains: query } },
+          fields: ['name', 'documentId', 'type'],
         }),
         strapi.documents('api::character.character').findMany({
           filters: { name: { $contains: query } },

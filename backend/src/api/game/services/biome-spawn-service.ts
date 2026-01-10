@@ -36,7 +36,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     const biomes: Set<BiomeType> = new Set();
 
     // Keyword Dictionary for Biome Context
-    const rules: Record<BiomeType, string[]> = {
+    // Relaxed type to allow partial definition
+    const rules: Record<string, string[]> = {
       [BiomeType.desert]: [
         'scorpion',
         'camel',
