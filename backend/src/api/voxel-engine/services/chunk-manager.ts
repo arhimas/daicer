@@ -124,7 +124,9 @@ export class ChunkManager {
             const centerTile = chunk.tiles[3][8][8];
             const biome = centerTile?.biome || 'plains';
 
-            const biomeSpawnService = strapi.service('api::game.biome-spawn-service') as any;
+            const biomeSpawnService = strapi.service('api::game.biome-spawn-service') as unknown as {
+              populateChunk: (x: number, y: number, biome: string) => Promise<void>;
+            };
             if (biomeSpawnService) {
               // We don't await this to avoid blocking chunk load latency?
               // Or we should? If entities are important for the user immediately, we should await.
@@ -132,8 +134,8 @@ export class ChunkManager {
               // Let's await it to ensure consistency.
               await biomeSpawnService.populateChunk(chunk.x, chunk.y, biome);
             }
-          } catch (e) {
-            console.error('Failed to trigger biome spawn', e);
+          } catch {
+            console.error('Failed to trigger biome spawn');
           }
 
           this.addToCache(chunk.x, chunk.y, config.seed, chunk);
@@ -189,7 +191,7 @@ export class ChunkManager {
           );
           solvedType = 'dirt' as BlockType;
         }
-      } catch (e) {
+      } catch {
         solvedType = 'dirt' as BlockType;
       }
     }

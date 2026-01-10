@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ChunkManager } from '../chunk-manager';
 import { WorldConfig } from '../../../../game/src/engine/types';
 

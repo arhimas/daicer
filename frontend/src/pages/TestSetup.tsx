@@ -9,7 +9,7 @@ import type { LucideIcon } from 'lucide-react';
 import { Swords, Flame, Puzzle, Ship, FlaskConical } from 'lucide-react';
 import type { WorldSettings, CharacterSheet, Attribute } from '@/types/contracts';
 import { createRoom, updateRoomSettings, addCharacter } from '../services/api';
-import { setReady } from '../services/socket';
+
 import { PrivateLayout } from '../components/layout';
 import { LoadingOverlay } from '../components/ui/LoadingOverlay';
 import { useI18n } from '../i18n';
@@ -335,7 +335,7 @@ export default function TestSetupPage() {
       await addCharacter(room.id, character);
 
       // 4. Auto-ready
-      await setReady(room.id, true);
+      // await setReady(room.id, true); // Socket removed
 
       // 5. Navigate to room
       navigate(`/room/${room.id}`);

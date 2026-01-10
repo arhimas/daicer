@@ -43,6 +43,10 @@ export class CivilizationGenerator {
         if (atlasStruct.type === 'village') mappedStruct.type = 'city'; // Treat village as small city
         if (atlasStruct.type === 'ruin') mappedStruct.type = 'dungeon';
 
+        // Center structure on the point
+        mappedStruct.worldX = Math.floor(atlasStruct.center.x - mappedStruct.size / 2);
+        mappedStruct.worldY = Math.floor(atlasStruct.center.y - mappedStruct.size / 2);
+
         if (mappedStruct.type === 'none') continue;
 
         // Connect logic (Roads)

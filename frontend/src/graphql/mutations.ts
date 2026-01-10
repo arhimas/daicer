@@ -218,3 +218,8 @@ export const EXECUTE_TOOL_MUTATION = gql`
     executeTool(roomId: $roomId, command: $command)
   }
 `;
+export const PROCESS_TURN_MUTATION = gql`
+  mutation ProcessTurn($roomId: ID!, $language: String) {
+    processTurn(roomId: $roomId, messages: [], language: $language)
+  }
+`;

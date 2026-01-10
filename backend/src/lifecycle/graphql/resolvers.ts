@@ -1,27 +1,33 @@
 import { getMutationResolvers } from './mutation-resolvers';
 import { typeDefs as staticTypeDefs } from './type-defs';
 import { generateToolGraphQL } from './tool-generator';
-import type { RuntimeAction } from '../../api/game/src/engine/derivation/types';
+import type { RuntimeAction, DerivationContext } from '../../api/game/src/engine/derivation/types';
+import { EntitySheetSchema } from '../../shared/schemas/entity';
+import { z } from 'zod';
 
 interface InventoryEntry {
   item: {
     id: string | number;
     documentId: string;
     type: string;
-    equipment_data?: any;
+    equipment_data?: {
+      [key: string]: unknown;
+      damage_dice?: string;
+      properties?: unknown[];
+    };
     name?: string;
-    image?: any;
+    image?: unknown;
     damage_dice?: string;
-    damage_type?: any;
-    properties?: any[];
-    [key: string]: any;
+    damage_type?: unknown;
+    properties?: unknown[];
+    [key: string]: unknown;
   };
   isEquipped: boolean;
   [key: string]: unknown;
 }
 
 interface SpellEntry {
-  spell: any;
+  spell: unknown;
   [key: string]: unknown;
 }
 
@@ -90,8 +96,9 @@ export const registerGraphQLExtension = (strapi) => {
 
             if (!actor) return [];
 
-            const context = {
-              attributes: actor.stats || {},
+            const context: DerivationContext = {
+              attributes: (actor.stats ||
+                {}) as unknown as import('../../api/game/src/engine/derivation/types').Attributes,
               proficiencyBonus: 2,
               equipment: ((actor.inventory as InventoryEntry[]) || [])
                 .filter((entry) => entry.isEquipped && entry.item)
@@ -99,13 +106,13 @@ export const registerGraphQLExtension = (strapi) => {
                   ...entry.item,
                   ...(entry.item.equipment_data || {}),
                   equipment_category: { slug: entry.item.type },
-                })),
-            } as any;
+                })) as unknown as import('../../api/game/src/engine/derivation/types').Equipment[],
+            };
 
             const { ActionHydrator } = await import('../../api/game/src/engine/derivation/ActionHydrator');
             const allActions: RuntimeAction[] = [];
 
-            context.equipment.forEach((item: any) => {
+            context.equipment.forEach((item) => {
               allActions.push(...ActionHydrator.hydrateFromEquipment(item, context));
             });
 
@@ -335,6 +342,104 @@ export const registerGraphQLExtension = (strapi) => {
           );
 
           return results;
+        },
+        gameView: async (_parent, args, context) => {
+          const { roomId } = args;
+          const { user } = context.state;
+          if (!user) throw new Error('Unauthorized');
+
+          // Fetch Room with populations
+          // We need deep populate for entities and players
+          const room = await strapi.documents('api::room.room').findOne({
+            documentId: roomId,
+            populate: {
+              world: true,
+              dmSettings: true,
+              players: {
+                populate: {
+                  character: true,
+                  user: true,
+                },
+              },
+              entity_sheets: {
+                populate: {
+                  position: true,
+                  stats: true,
+                  inventory: { populate: '*' }, // Ensure inventory is ready for entity view
+                  appearance: true,
+                },
+              },
+            },
+          });
+
+          if (!room) throw new Error('Room not found');
+
+          // Determine Myself
+          const myselfPlayer = (room.players || []).find((p) => p.user?.documentId === user.documentId);
+          let myself = null;
+          if (myselfPlayer?.character?.documentId) {
+            const rawMyself = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+              documentId: myselfPlayer.character.documentId,
+              populate: {
+                inventory: { populate: '*' },
+                stats: true,
+                spellbook: { populate: '*' },
+              },
+            });
+
+            // Phase 3.2: Resolver Validation
+            if (rawMyself) {
+              const parseResult = EntitySheetSchema.safeParse(rawMyself);
+              if (!parseResult.success) {
+                strapi.log.warn(
+                  `[GameView] EntitySheet ${rawMyself.documentId} failed Zod validation`,
+                  parseResult.error.format()
+                );
+              }
+              myself = rawMyself;
+            }
+          }
+
+          // Active Turn
+          const turns = await strapi.documents('api::turn.turn').findMany({
+            filters: { room: { documentId: roomId } },
+            sort: 'turnNumber:desc',
+            limit: 1,
+            populate: ['messages'], // Maybe populate relevant turn data
+          });
+          const activeTurn = turns.length > 0 ? turns[0] : null;
+
+          // Visible Entities
+          // For now, return all in room.
+          // Future: Filter based on Fog of War / Vision
+          const visibleEntities = room.entity_sheets || [];
+
+          // Messages - handled by Room.messages resolver or we can fetch here if specific view logic needed
+          // But strict schema says "messages: [Message]" in GameView.
+          // We can leave it null and let frontend query gameView { room { messages } } or
+          // if we want it top level:
+          const messages = await strapi.documents('api::message.message').findMany({
+            filters: { room: { documentId: roomId } },
+            sort: 'timestamp:desc', // or asc
+            limit: 50,
+            populate: ['recipient', 'sender'],
+          });
+
+          return {
+            room,
+            activeTurn,
+            myself,
+            visibleEntities,
+            messages: messages.reverse(), // Return in chrono order if desired, or keep desc
+          };
+        },
+        getTimeFrame: async (_parent, args, _context) => {
+          // Placeholder for Phase 4.2
+          const { id } = args;
+          // Assuming TimeFrame is just a Turn snapshot or specific model
+          // Returning JSON for now as defined in query
+          const turn = await strapi.documents('api::turn.turn').findOne({ documentId: id, populate: '*' });
+          return turn;
         },
       },
       Mutation: {

@@ -1,4 +1,5 @@
 import { Attributes } from './attributes';
+export { Attributes };
 
 export interface Equipment {
   name: string;

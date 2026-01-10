@@ -4,75 +4,9 @@
  */
 
 import { Core } from '@strapi/strapi';
-import { BlockType, Tile } from '../../game/src/engine/types';
+import { BlockType, Tile, ZLevel } from '../../game/src/engine/types';
 import { FloraGenerator } from '../../voxel-engine/services/generators/flora-generator';
-
-// Inline Alea to avoid fragile cross-api relative imports during seeding
-class Alea {
-  c: number;
-  s0: number;
-  s1: number;
-  s2: number;
-
-  constructor(seed: string) {
-    this.c = 1;
-    const mash = Mash();
-    this.s0 = mash(' ');
-    this.s1 = mash(' ');
-    this.s2 = mash(' ');
-
-    this.s0 -= mash(seed);
-    if (this.s0 < 0) {
-      this.s0 += 1;
-    }
-    this.s1 -= mash(seed);
-    if (this.s1 < 0) {
-      this.s1 += 1;
-    }
-    this.s2 -= mash(seed);
-    if (this.s2 < 0) {
-      this.s2 += 1;
-    }
-    mash(null);
-  }
-
-  next(): number {
-    const t = 2091639 * this.s0 + this.c * 2.3283064365386963e-10; // 2^-32
-    this.s0 = this.s1;
-    this.s1 = this.s2;
-    return (this.s2 = t - (this.c = t | 0));
-  }
-
-  uint32(): number {
-    return this.next() * 0x100000000; // 2^32
-  }
-
-  fract53(): number {
-    return this.next() + ((this.next() * 0x200000) | 0) * 1.1102230246251565e-16; // 2^-53
-  }
-}
-
-function Mash() {
-  let n = 0xefc8249d;
-  const mash = (data: string | null) => {
-    if (data) {
-      for (let i = 0; i < data.length; i++) {
-        n += data.charCodeAt(i);
-        let h = 0.02519603282416938 * n;
-        n = h >>> 0;
-        h -= n;
-        h *= n;
-        n = h >>> 0;
-        h -= n;
-        n += h * 0x100000000; // 2^32
-      }
-      return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-    } else {
-      n = 0xefc8249d;
-    }
-  };
-  return mash;
-}
+import { Alea } from '../../voxel-engine/src/utils/math';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
@@ -96,6 +30,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     if (blueprint && ['plant', 'construct', 'elemental', 'beast'].includes(blueprint.type)) {
       // It's a creature! Spawn it.
       const spawnService = strapi.service('api::game.spawn-service');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return await (spawnService as any).spawn(roomId, {
         blueprintId: blueprint.documentId,
         type: 'monster',
@@ -105,7 +40,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     // 2. Fallback to Voxel Generation (FloraGenerator)
     // We need to map 'subtype' to a BlockType if possible, or use heuristics.
-    let blockType: BlockType;
 
     // Simple Mapping
     const map: Record<string, BlockType> = {
@@ -119,7 +53,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       gold: BlockType.ORE_GOLD,
     };
 
-    blockType = map[subtype.toLowerCase()] || map[type.toLowerCase()] || BlockType.TREE_OAK;
+    const blockType = map[subtype.toLowerCase()] || map[type.toLowerCase()] || BlockType.TREE_OAK;
 
     // 3. Create Virtual Grid (Canvas)
     // FloraGenerator expects a large grid, usually 16x16xWorldHeight.
@@ -144,7 +78,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           tiles[z][y][x] = {
             x: startX + x - 8,
             y: startY + y - 8,
-            z: (centerZ + z) as any,
+            z: (centerZ + z) as unknown as ZLevel,
             block: BlockType.AIR,
             biome: 'plains', // Arbitrary
             isWalkable: true,
@@ -172,12 +106,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       // target array index is [z][wy - cy][wx - cx]
       0, // Z start (relative)
       blockType,
-      rng as any
+      rng as unknown as Alea
     );
 
     // 5. Diff & Persist
     // Scan buffer for non-AIR blocks
-    const voxelChanges: any[] = [];
+    const voxelChanges: { x: number; y: number; z: number; type: BlockType }[] = [];
 
     for (let z = 0; z < bufferSize; z++) {
       for (let y = 0; y < bufferSize; y++) {
@@ -195,7 +129,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
               x: rwX,
               y: rwY,
               z: rwZ,
-              type: block,
+              type: block as BlockType,
             });
           }
         }
@@ -204,12 +138,13 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     // Apply via ChunkManager (batch would be better, but loop is fine for single tree)
     const chunkManager = strapi.service('api::voxel-engine.chunk-manager');
-    const roomIdNum = parseInt(roomId); // Assuming room ID matches chunk logic?
+    // const roomIdNum = parseInt(roomId);
     // Actually persistent editing usually goes by chunk coordinates.
     // We ignore RoomID for world editing ?? Or verify room?
     // Let's assume global world for now (Single Room mode usually).
 
     for (const change of voxelChanges) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (chunkManager as any).editVoxel(change.x, change.y, change.z, change.type);
     }
 

@@ -430,6 +430,16 @@ export enum ActionType {
 }
 
 // Logic Placeholders (Mocking removed logic types)
+export interface ToolCall {
+  id: string;
+  toolName: string; // Was name
+  parameters: any; // Was args
+  result?: any;
+  status: 'running' | 'completed' | 'error';
+  timestamp: number;
+  // Legacy aliases if needed by backend types, but frontend components enforce these ^
+}
+
 export const DEFAULT_GENERATION_PARAMS = {};
 export const createUnifiedTerrainGenerator =
   (_seed: string, _config: any) => (chunkX: number, chunkY: number, _size: number) => ({

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import fs from 'fs';
 import path from 'path';
 // import Module from 'module';
@@ -60,7 +61,7 @@ export const applyStrapiPatches = () => {
       });
 
       // Execute the transpiled code
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
+
       const Module = require('module');
       const moduleInstance = new Module(file);
       moduleInstance.filename = file;

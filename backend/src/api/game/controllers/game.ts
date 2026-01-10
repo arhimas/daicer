@@ -6,6 +6,7 @@ import type { WorldSettings, Language } from '../src/engine';
 
 export default ({ strapi }) => ({
   async generateWorld(ctx) {
+    strapi.log.warn('DEPRECATED: POST /game/generate-world is deprecated. Use GraphQL Mutation generateWorld.');
     try {
       const { settings, language } = ctx.request.body;
 
@@ -23,6 +24,7 @@ export default ({ strapi }) => ({
   },
 
   async searchEntities(ctx) {
+    strapi.log.warn('DEPRECATED: GET /game/search is deprecated. Use GraphQL Query searchEntities.');
     try {
       const { query } = ctx.request.query;
 
@@ -64,6 +66,7 @@ export default ({ strapi }) => ({
   },
 
   async processTurn(ctx) {
+    strapi.log.warn('DEPRECATED: POST /game/turn is deprecated. Use GraphQL Mutation processTurn.');
     try {
       const { roomId } = ctx.params; // or ctx.params.id depending on route config
 
@@ -127,6 +130,7 @@ export default ({ strapi }) => ({
   },
 
   async addCharacter(ctx) {
+    strapi.log.warn('DEPRECATED: Use GraphQL Mutation addCharacter.');
     try {
       const { roomId } = ctx.params;
       const characterData = ctx.request.body;
@@ -145,6 +149,7 @@ export default ({ strapi }) => ({
   },
 
   async startGame(ctx) {
+    strapi.log.warn('DEPRECATED: Use GraphQL Mutation startGame.');
     try {
       const { roomId } = ctx.params;
       const { language } = ctx.request.body;
@@ -161,6 +166,7 @@ export default ({ strapi }) => ({
   },
 
   async getRoom(ctx) {
+    strapi.log.warn('DEPRECATED: Use GraphQL Query gameView or room.');
     try {
       const { roomId } = ctx.params;
       if (!roomId) return ctx.badRequest('Room ID required');
@@ -176,6 +182,7 @@ export default ({ strapi }) => ({
   },
 
   async submitAction(ctx) {
+    strapi.log.warn('DEPRECATED: Use GraphQL Mutation submitAction.');
     try {
       // route: /game/:roomId/action creates params.roomId
       const { roomId } = ctx.params;
@@ -193,6 +200,7 @@ export default ({ strapi }) => ({
     }
   },
   async executeEngineAction(ctx) {
+    strapi.log.warn('DEPRECATED: executeEngineAction is deprecated.');
     try {
       const { roomId, actions } = ctx.request.body;
 
@@ -210,6 +218,7 @@ export default ({ strapi }) => ({
   },
 
   async replay(ctx) {
+    strapi.log.warn('DEPRECATED: Use GraphQL replay functionality if available.');
     const { roomId, timestamp } = ctx.request.body;
 
     if (!roomId || timestamp === undefined) {
@@ -226,6 +235,7 @@ export default ({ strapi }) => ({
   },
 
   async toggleReady(ctx) {
+    strapi.log.warn('DEPRECATED: Use simple GraphQL mutation if needed.');
     try {
       const { roomId } = ctx.params;
       const { isReady } = ctx.request.body;
@@ -241,6 +251,17 @@ export default ({ strapi }) => ({
     } catch (error) {
       strapi.log.error('toggleReady error:', error);
       return ctx.internalServerError('Failed to toggle ready state');
+    }
+  },
+  async godModeExecute(ctx) {
+    try {
+      const { roomId, command, payload } = ctx.request.body;
+      strapi.log.info(`[GodMode] Executing ${command} in room ${roomId}`);
+      // TODO: Implement God Mode logic linking to ActionEngine or GodModeService
+      return ctx.send({ message: 'God Mode Executed (Stub)', roomId, command });
+    } catch (err) {
+      strapi.log.error(err);
+      return ctx.internalServerError('Failed to execute God Mode command');
     }
   },
 });

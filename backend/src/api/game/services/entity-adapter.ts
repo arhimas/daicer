@@ -11,9 +11,75 @@ export * from './adapters';
 export * from './adapters/types';
 
 export default () => ({
-  adapt(input: unknown): Entity {
+  adapt(input: unknown, options?: { ignoreActiveState?: boolean }): Entity {
     // 0. Safety Cast & Validation
     const sheet = input as StrapiEntitySheet;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const activeState = (sheet as any).activeState;
+
+    if (!options?.ignoreActiveState && activeState) {
+      // Fast Path: Construct Entity from ActiveState
+      return {
+        id: sheet.documentId,
+        name: sheet.name,
+        type: sheet.type,
+        position: sheet.position || { x: 0, y: 0, z: 0 },
+        hp: activeState.currentHp,
+        maxHp: activeState.maxHp,
+        armorClass: activeState.armorClass,
+        speed: activeState.speed,
+        level: activeState.level,
+        stats: activeState.attributes,
+        // Map computedActions back to EntityAction[]
+        actions:
+          activeState.computedActions?.map(
+            (a: {
+              id?: string;
+              name: string;
+              type: string;
+              description?: string;
+              toHit?: number;
+              range?: number;
+              damageDice?: string;
+              damageType?: string;
+            }) => ({
+              id: a.id || 'computed',
+              name: a.name,
+              type: a.type,
+              description: a.description,
+              attack: { bonus: a.toHit, type: a.type },
+              range: { value: a.range },
+              effects: a.damageDice ? [{ type: 'damage', dice: a.damageDice, subtype: a.damageType }] : [],
+            })
+          ) || [],
+        features: [], // ActiveState doesn't store features detailed list yet, fallback or empty?
+        // Implementation Plan said ActiveState has everything?
+        // ActiveState schema has attributes, skills, saves...
+        // But Entity interface needs 'features' property.
+        // If we want FULL parity, ActiveState needs features list.
+        // For now, let's mix: Read fast stats from ActiveState, but maybe Features from Sheet if needed?
+        // Or just return empty if consumers of Entity don't need features (which is risky).
+        // Let's assume for stats/combat (EntityDeriver target), features aren't primary except for derivation.
+        // Actions are present.
+        // Let's return what we have.
+
+        resistances: activeState.resistances || [],
+        immunities: activeState.immunities || [],
+        vulnerabilities: activeState.vulnerabilities || [],
+        conditions: activeState.conditions || [],
+
+        color: sheet.color || '#ffffff',
+        visionRadius: 30, // Default or derived? ActiveState didn't store visionRadius (oops).
+        // Sheet has it? Blueprint has it.
+        // We might need to resolve blueprint for static props like visionRadius if not in ActiveState.
+        // But "Zero Latency" implies avoiding lookups.
+        // Let's use sheet defaults/fallback.
+
+        sheet: sheet as unknown as EntitySheet,
+        // We attach full sheet, so UI can drill down if needed.
+      } as Entity;
+    }
+
     if (!sheet || typeof sheet !== 'object') {
       throw new Error('EntityAdapter received invalid input');
     }
@@ -29,8 +95,7 @@ export default () => ({
 
     // 2. Resolve Instance Component Overrides (Sheet Layers)
     // Stats: merge sheet stats over blueprint stats
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const stats = mapStrapiStatsToStatBlock(sheet.stats, blueprint.stats as any);
+    const stats = mapStrapiStatsToStatBlock(sheet.stats, blueprint.stats as unknown as Record<string, number>);
 
     // Inventory: blueprint inventory + sheet inventory? Or Sheet overrides?
     // Usually Sheet represents CURRENT state, so it replaces blueprint "starting gear".

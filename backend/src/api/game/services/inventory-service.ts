@@ -48,8 +48,7 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
         maxHp: 1,
         ac: 10,
         temp_id: `loot_${Date.now()}_${Math.random()}`, // Debug aid
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any,
+      } as unknown as Record<string, unknown>,
     });
 
     // 4. Remove from Source
@@ -58,8 +57,8 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
 
     await strapi.documents('api::entity-sheet.entity-sheet').update({
       documentId: entityId,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: { inventory: newInventory } as any,
+
+      data: { inventory: newInventory } as unknown as Record<string, unknown>,
     });
 
     return { success: true, message: `Dropped ${itemName}` };
@@ -109,8 +108,8 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
 
     await strapi.documents('api::entity-sheet.entity-sheet').update({
       documentId: actorId,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: { inventory: newActorInventory } as any,
+
+      data: { inventory: newActorInventory } as unknown as Record<string, unknown>,
     });
 
     // 3. Delete Loot Entity
@@ -162,7 +161,7 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
         maxHp: 1,
         ac: 10,
         temp_id: `loot_${Date.now()}_${Math.random()}`,
-      } as any,
+      } as unknown as Record<string, unknown>,
     });
 
     // 4. Remove from Source
@@ -171,7 +170,7 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
 
     await strapi.documents('api::entity-sheet.entity-sheet').update({
       documentId: entityId,
-      data: { inventory: newInventory } as any,
+      data: { inventory: newInventory } as unknown as Record<string, unknown>,
     });
 
     return { success: true, message: `Dropped ${itemName} at ${position.x},${position.y},${position.z}` };
@@ -211,15 +210,14 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
         maxHp: 1,
         ac: 10,
         temp_id: `remains_${Date.now()}`,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any,
+      } as unknown as Record<string, unknown>,
     });
 
     // Clear Source Inventory
     await strapi.documents('api::entity-sheet.entity-sheet').update({
       documentId: entityId,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: { inventory: [] } as any,
+
+      data: { inventory: [] } as unknown as Record<string, unknown>,
     });
 
     return { success: true, message: 'Dropped all items' };

@@ -5,6 +5,7 @@
  */
 
 import { EntityDeriver, StatBlock } from '../src/engine';
+import { BlueprintSchema, SpawnPayloadSchema } from '../schemas/gateway-schemas';
 
 export default ({ strapi }) => ({
   /**
@@ -16,7 +17,7 @@ export default ({ strapi }) => ({
     position: { x: number; y: number; z: number }
   ) {
     // 1. Fetch Entity Blueprint
-    const monster = await strapi.documents('api::entity.entity').findOne({
+    const rawMonster = await strapi.documents('api::entity.entity').findOne({
       documentId: monsterId as string, // Try documentId first
       populate: [
         'stats',
@@ -34,9 +35,12 @@ export default ({ strapi }) => ({
       ],
     });
 
-    if (!monster) {
+    if (!rawMonster) {
       throw new Error(`Monster blueprint not found: ${monsterId}`);
     }
+
+    // VALIDATE BLUEPRINT
+    const monster = BlueprintSchema.parse(rawMonster);
 
     // 2. Fetch Room from documentId OR roomId field
     const rooms = await strapi.documents('api::room.room').findMany({
@@ -63,14 +67,14 @@ export default ({ strapi }) => ({
     // Extract actual equipment items
     const equipmentForDeriver =
       monster.inventory
-        ?.filter((entry: { isEquipped: boolean; item: any }) => entry.isEquipped && entry.item)
-        .map((entry: { item: any }) => {
-          const item = entry.item;
+        ?.filter((entry) => entry.isEquipped && entry.item)
+        .map((entry) => {
+          const item = entry.item!;
           const eqData = item.equipment_data || {};
           return {
             ...item,
             ...eqData, // Flatten equipment_data
-            equipment_category: { slug: item.type }, // Shim for legacy compatibility
+            equipment_category: { slug: item.type || 'misc' }, // Shim for legacy compatibility
             isEquipped: true,
           };
         }) || [];
@@ -129,7 +133,7 @@ export default ({ strapi }) => ({
 
       console.info(`[SpawnService] Mapped Actions IDs: ${JSON.stringify(mappedActions)}`);
 
-      const sheetData: any = {
+      const sheetData = {
         name: monster.name,
         type: 'monster',
         entity: monster.documentId,
@@ -144,16 +148,16 @@ export default ({ strapi }) => ({
         position: position,
         stats: monster.stats, // Component
         actions: mappedActions,
-        inventory: (monster.inventory || []).map((entry: any) => ({
+        inventory: (monster.inventory || []).map((entry) => ({
           item: entry.item?.documentId,
           quantity: entry.quantity ?? 1,
           slot: entry.slot ?? 'backpack',
           isEquipped: entry.isEquipped ?? false,
         })),
-        features: monster.features?.map((f: any) => f.documentId), // Relation ID list
-        traits: monster.traits?.map((t: any) => t.documentId), // Relation ID list
-        proficiencies: monster.proficiencies?.map((p: any) => p.documentId), // Relation ID list
-        languages: monster.languages?.map((l: any) => l.documentId), // Relation ID list
+        features: monster.features?.map((f) => f.documentId), // Relation ID list
+        traits: monster.traits?.map((t) => t.documentId), // Relation ID list
+        proficiencies: monster.proficiencies?.map((p) => p.documentId), // Relation ID list
+        languages: monster.languages?.map((l) => l.documentId), // Relation ID list
         // attributes: removed as not in schema
         initiative: 0,
         proficiencyBonus: derived.proficiencyBonus || 2,
@@ -382,32 +386,26 @@ export default ({ strapi }) => ({
   /**
    * Router for generic spawn command (Agent support)
    */
-  async spawn(roomId: string, payload: any) {
-    console.info(`[SpawnService] Router received spawn command: ${JSON.stringify(payload)}`);
-    const { type, blueprintId, position, ownerId } = payload;
+  async spawn(roomId: string, rawPayload: any) {
+    console.info(`[SpawnService] Router received spawn command: ${JSON.stringify(rawPayload)}`);
 
-    // Normalize position
-    const pos = {
-      x: typeof position === 'object' ? position.x : undefined,
-      y: typeof position === 'object' ? position.y : undefined,
-      z: typeof position === 'object' ? position.z : 0,
+    // Normalize Input (handling flat coords for backward compat if needed, simplified here)
+    const payloadInput = {
+      ...rawPayload,
+      position: rawPayload.position || {
+        x: rawPayload.x,
+        y: rawPayload.y,
+        z: rawPayload.z,
+      },
     };
 
-    // Fallback if flat coords provided
-    if (pos.x === undefined && typeof payload.x === 'number') pos.x = payload.x;
-    if (pos.y === undefined && typeof payload.y === 'number') pos.y = payload.y;
-    if (pos.z === undefined && typeof payload.z === 'number') pos.z = payload.z;
+    // VALIDATE INPUT
+    const payload = SpawnPayloadSchema.parse(payloadInput);
 
-    if (pos.x === undefined || pos.y === undefined) {
-      throw new Error('Position (x,y) is required for spawn');
-    }
-
-    if (type === 'monster') {
-      return this.spawnMonster(roomId, blueprintId, pos);
-    } else if (type === 'player' || type === 'character' || type === 'npc') {
-      return this.spawnCharacter(roomId, blueprintId, pos, ownerId);
+    if (payload.type === 'monster') {
+      return this.spawnMonster(roomId, payload.blueprintId, payload.position);
     } else {
-      throw new Error(`Unknown entity type: ${type}`);
+      return this.spawnCharacter(roomId, payload.blueprintId, payload.position, payload.ownerId);
     }
   },
 });

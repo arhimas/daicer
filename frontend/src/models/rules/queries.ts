@@ -117,19 +117,15 @@ export const EXPLORER_GET_MAGIC_SCHOOLS = gql`
 `;
 
 export const EXPLORER_GET_MONSTERS = gql`
-  query ExplorerGetMonsters($pagination: PaginationArg, $filters: MonsterFiltersInput, $locale: I18NLocaleCode) {
-    monsters_connection(pagination: $pagination, filters: $filters, locale: $locale) {
+  query ExplorerGetMonsters($pagination: PaginationArg, $filters: EntitySheetFiltersInput) {
+    entitySheets_connection(pagination: $pagination, filters: $filters) {
       nodes {
         documentId
         name
-        image {
-          url
-          alternativeText
-        }
-        size
+        # image removed if not on entitySheet
         type
-        alignment
-        challenge_rating
+        # alignment removed if not standard
+        # challenge_rating removed if not standard
       }
       pageInfo {
         ...PaginationFragment

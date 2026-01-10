@@ -7,7 +7,8 @@ describe('FloraGenerator', () => {
   // Helper to create a basic chunk
   const createChunk = (biome: string) => {
     const size = 16;
-    return Array(7)
+    const height = 20; // Increased height for trees
+    return Array(height)
       .fill(null)
       .map((_, z) =>
         Array(size)
@@ -50,7 +51,7 @@ describe('FloraGenerator', () => {
 
     // Check for leaves higher up
     let hasLeaves = false;
-    for (let z = 4; z < 7; z++) {
+    for (let z = 4; z < 20; z++) {
       // Check higher Z
       const block = tiles[z][8][8].block;
       if (block === BlockType.TREE_LEAVES) hasLeaves = true;
@@ -65,7 +66,7 @@ describe('FloraGenerator', () => {
 
     // Check for trees (Wood or Leaves) or plants
     let vegetationCount = 0;
-    for (let z = 0; z < 7; z++) {
+    for (let z = 0; z < 20; z++) {
       for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
           const block = tiles[z][y][x].block as BlockType;
@@ -86,7 +87,7 @@ describe('FloraGenerator', () => {
     FloraGenerator.populateChunk(0, 0, tiles, size, 'seed_desert_v1');
 
     let cactusCount = 0;
-    for (let z = 0; z < 7; z++) {
+    for (let z = 0; z < 20; z++) {
       for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
           const block = tiles[z][y][x].block as BlockType;
@@ -105,7 +106,7 @@ describe('FloraGenerator', () => {
     FloraGenerator.populateChunk(0, 0, tiles, size, 'seed_lava');
 
     let rockCount = 0;
-    for (let z = 0; z < 7; z++) {
+    for (let z = 0; z < 20; z++) {
       for (let y = 0; y < size; y++) {
         for (let x = 0; x < size; x++) {
           const block = tiles[z][y][x].block as BlockType;

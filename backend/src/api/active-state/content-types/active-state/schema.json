@@ -1,0 +1,77 @@
+{
+    "kind": "collectionType",
+    "collectionName": "active_states",
+    "info": {
+        "singularName": "active-state",
+        "pluralName": "active-states",
+        "displayName": "Active State",
+        "description": "The engine's calculated truth for an Entity"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "sheet": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::entity-sheet.entity-sheet",
+            "inversedBy": "activeState"
+        },
+        "attributes": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.stats"
+        },
+        "level": {
+            "type": "integer"
+        },
+        "proficiencyBonus": {
+            "type": "integer"
+        },
+        "currentHp": {
+            "type": "integer"
+        },
+        "maxHp": {
+            "type": "integer"
+        },
+        "tempHp": {
+            "type": "integer"
+        },
+        "armorClass": {
+            "type": "integer"
+        },
+        "speed": {
+            "type": "json"
+        },
+        "initiativeBonus": {
+            "type": "integer"
+        },
+        "skills": {
+            "type": "json"
+        },
+        "saves": {
+            "type": "json"
+        },
+        "passivePerception": {
+            "type": "integer"
+        },
+        "resistances": {
+            "type": "json"
+        },
+        "immunities": {
+            "type": "json"
+        },
+        "vulnerabilities": {
+            "type": "json"
+        },
+        "conditions": {
+            "type": "json"
+        },
+        "computedActions": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.computed-action"
+        }
+    }
+}

@@ -40,76 +40,8 @@ export default ({ strapi }) => ({
    * This ensures the frontend (Debug Map, etc.) is in sync with DB state.
    */
   async broadcastRoomEntities(roomDocumentId: string) {
-    // Logic:
-    const roomRaw = await strapi.documents('api::room.room').findOne({
-      documentId: roomDocumentId,
-      populate: {
-        entity_sheets: {
-          populate: {
-            position: true,
-            stats: true,
-            features: true, // Add features
-            inventory: true,
-            character: {
-              populate: {
-                race: true,
-                classes: { populate: ['class'] },
-                spells: { populate: { damage_instances: true } },
-                inventory: { populate: '*' }, // Renamed from equipment_items
-                actions: { populate: { damage_instances: true, range_config: true, save: true } },
-              },
-            },
-            monster: {
-              populate: {
-                stats: true,
-                spells: { populate: { damage_instances: true } },
-                inventory: { populate: '*' }, // Renamed from equipment_items
-                actions: { populate: { damage_instances: true, range_config: true, save: true } },
-              },
-            },
-          },
-        },
-      },
-    });
-
-    if (!roomRaw) return;
-
-    const room = roomRaw as unknown as RoomWithPopulations;
-
-    // Format
-    const entities: EntityUpdate[] = (room.entity_sheets || [])
-      .map((s) => {
-        try {
-          const entity = EntityAdapter().adapt(s);
-          return {
-            id: entity.id,
-            name: entity.name,
-            type: entity.type,
-            position: entity.position,
-            speed: entity.speed,
-            currentHp: entity.hp,
-            maxHp: entity.maxHp,
-            ac: entity.armorClass,
-            structuredActions: entity.actions || [],
-            visionRadius: entity.visionRadius,
-            color: entity.color,
-            stats: entity.stats,
-            features: entity.features,
-            // Adapter doesn't map these yet, so we keep manual access for now or update Adapter later
-            equipment: (s as unknown as { inventory: unknown }).inventory,
-            proficiencies: (s as unknown as { character: { proficiencies: unknown[] } }).character?.proficiencies || [],
-          };
-        } catch (e) {
-          strapi.log.error(`[Broadcaster] Adaptation failed for ${s.documentId}`, e);
-          return null; // Skip invalid entities
-        }
-      })
-      .filter((e) => e !== null) as EntityUpdate[];
-
-    this.broadcastEntitiesUpdate(room.roomId || room.documentId, entities);
-    // Also broadcast to documentId room just in case
-    if (room.roomId && room.roomId !== room.documentId) {
-      this.broadcastEntitiesUpdate(room.documentId, entities);
-    }
+    // Phase 2: Signal/Socket Removed.
+    // Logic stubbed. Frontend must poll.
+    // console.log(`[GameBroadcaster] Signal suppressed (Sockets Disabled). Room: ${roomDocumentId}`);
   },
 });

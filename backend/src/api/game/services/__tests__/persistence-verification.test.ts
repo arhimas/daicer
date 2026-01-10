@@ -37,7 +37,7 @@ describe('Persistence Verification', () => {
 
   it('should persist spawned fauna to the database', async () => {
     // 1. Trigger Population
-    const forceSpawnRandom = vi.spyOn(Math, 'random').mockReturnValue(0.01); // Force success
+    vi.spyOn(Math, 'random').mockReturnValue(0.01); // Force success
     await biomeService.populateChunk(10, 20, BiomeType.desert);
 
     // 2. Verify Spawn Service was called

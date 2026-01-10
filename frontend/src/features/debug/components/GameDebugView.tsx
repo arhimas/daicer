@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import useSocket from '@/hooks/useSocket';
+import useGamePolling from '@/hooks/useGamePolling';
 import { TimeFrameProvider, useTimeFrame } from '@/contexts/TimeFrameContext';
 import { getRoomState } from '@/services/api';
 import { Room, Message } from '@/types/contracts';
@@ -75,7 +75,8 @@ function GameDebugInner({
   // Time Travel Context
   const { currentTimeFrame, isLive } = useTimeFrame();
 
-  const { socket, creatures: socketCreatures, gameEvents } = useSocket(room.documentId, 'debug-user');
+  const { creatures: socketCreatures } = useGamePolling(room.documentId);
+  const gameEvents: any[] = []; // TODO: Fetch from polling if needed
 
   const [entities, setEntities] = useState<DebugEntity[]>([]);
 
@@ -208,34 +209,10 @@ function GameDebugInner({
     }
   }, [room, isLive, currentTimeFrame]);
 
-  // Socket Integration Hook
+  // Socket Integration Hook (Stubbed)
   useEffect(() => {
-    if (!socket) return;
-
-    // Listen for God Mode responses
-    const handleGodModeResponse = (data: { message: string }) => {
-      if (!isLive) return; // Don't show live updates if scrubbing history
-
-      setChatMessages((prev) => [
-        ...prev,
-        {
-          id: `sys-${Date.now()}`,
-          role: 'assistant',
-          content: data.message,
-          timestamp: Date.now(),
-        },
-      ]);
-      setIsProcessing(false);
-    };
-
-    socket.on('godmode:response', handleGodModeResponse);
-    // Also listen for game messages
-    // socket.on('message:new', ...) -> Add to list if isLive
-
-    return () => {
-      socket.off('godmode:response', handleGodModeResponse);
-    };
-  }, [socket, isLive]);
+    // God Mode response handling moved to polling/API return
+  }, [isLive]);
 
   // Map & View State - activeLocation moved here for coordination
   const [activeLocation, setActiveLocation] = useState<{ label: string; x: number; y: number; z: number } | null>(null);
@@ -389,7 +366,7 @@ function GameDebugInner({
         <div className="flex-1 flex flex-col shadow-2xl z-0">
           <GameDebugMap
             roomId={roomId}
-            socket={socket}
+            connected={true}
             activeEntity={activeEntity}
             entities={entities}
             activeEntityId={activeEntityId}

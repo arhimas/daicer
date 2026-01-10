@@ -8,7 +8,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Room, Player, GamePhase } from '@/types/contracts';
 import { getRoomState } from '../services/api';
 import useAuth from '../hooks/useAuth';
-import useSocket from '../hooks/useSocket';
+import useGamePolling from '../hooks/useGamePolling';
+import type { ToolCall } from '@/types/contracts';
 import CharacterCreation from '../components/room/CharacterCreation';
 import { PrivateLayout } from '../components/layout';
 import { Button } from '../components/ui/button';
@@ -19,8 +20,6 @@ import ToolCallCard from '../components/chat/ToolCallCard';
 
 import { auth } from '../services/firebase';
 // import { useI18n } from '../i18n';
-
-import type { ToolCall } from '../services/socket';
 
 /**
  * Opened room page component - pre-game lobby
@@ -36,7 +35,8 @@ export default function OpenedRoomPage() {
   const [error, setError] = useState<string | null>(null);
 
   const { user } = useAuth();
-  const socket = useSocket(roomId, user?.uid);
+  // Polling replacement
+  const { room: socketRoom, players: socketPlayers } = useGamePolling(roomId || '');
 
   const [streamEvents, setStreamEvents] = useState<
     Array<{
@@ -82,26 +82,27 @@ export default function OpenedRoomPage() {
     loadRoom();
   }, [roomId, navigate]);
 
-  // Update state from socket
+  // Update state from polling hook
   useEffect(() => {
-    if (socket.room) {
-      setRoom(socket.room);
+    if (socketRoom) {
+      // Cast if necessary
+      setRoom(socketRoom as unknown as Room);
 
       // If room has generation events, restore them to streamEvents
-      if (socket.room.generationEvents && streamEvents.length === 0) {
+      if (socketRoom.generationEvents && streamEvents.length === 0) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setStreamEvents((socket.room.generationEvents as any[]) || []);
+        setStreamEvents((socketRoom.generationEvents as any[]) || []);
       }
 
       // Auto-navigate to gameplay when room phase changes to GAMEPLAY
-      if (socket.room.phase === GamePhase.GAMEPLAY) {
+      if (socketRoom.phase === GamePhase.GAMEPLAY) {
         navigate(`/room/${roomId}`);
       }
     }
-    if (socket.players.length > 0) {
-      setPlayers(socket.players);
+    if (socketPlayers.length > 0) {
+      setPlayers(socketPlayers);
     }
-  }, [socket.room, socket.players, roomId, navigate]);
+  }, [socketRoom, socketPlayers, roomId, navigate]);
 
   // Monitor world generation if room is in SETUP phase
   const isWorldGenerating = room && room.phase === GamePhase.SETUP && !room.worldDescription;

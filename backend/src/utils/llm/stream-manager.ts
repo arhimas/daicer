@@ -1,9 +1,11 @@
 /**
  * Stream Manager Service
- * Centralized handling of LLM streaming events across the application
+ * Centralized handling of events (Formerly LLM streaming).
+ * NOW: Sockets are removed. This service acts as an event logger or simple pass-through.
+ * Future: Could hook into a Notification Service or Database Log.
  */
 
-import { Server } from 'socket.io';
+// Socket.IO dependency REMOVED per user request.
 
 export interface StreamEvent {
   streamId: string;
@@ -16,7 +18,7 @@ export interface StreamEvent {
 
 class StreamManager {
   private static instance: StreamManager;
-  private io: Server | null = null;
+  // private io: Server | null = null; // REMOVED
   private activeStreams = new Map<string, { roomId: string; userId: string }>();
 
   private constructor() {}
@@ -28,20 +30,19 @@ class StreamManager {
     return StreamManager.instance;
   }
 
-  public setSocketServer(io: Server) {
-    this.io = io;
+  // Deprecated/No-op
+  public setSocketServer(_io: unknown) {
+    // this.io = io;
+    console.log('[StreamManager] Socket server setup ignored (Sockets Disabled)');
   }
 
   public broadcast(roomId: string, event: string, payload: unknown) {
-    if (this.io) {
-      this.io.to(roomId).emit(event, payload);
-    }
+    // No-op or Log
+    console.log(`[StreamManager] Broadcast to ${roomId} [${event}]:`, JSON.stringify(payload).slice(0, 100));
   }
 
   public broadcastPrivate(userId: string, event: string, payload: unknown) {
-    if (this.io) {
-      this.io.to(`user:${userId}`).emit(event, payload);
-    }
+    console.log(`[StreamManager] Private msg to user:${userId} [${event}]`);
   }
 
   public startStream(streamId: string, roomId: string, userId: string) {
@@ -72,17 +73,14 @@ class StreamManager {
   public emitText(streamId: string, text: string, userId?: string) {
     const stream = this.activeStreams.get(streamId);
     if (stream) {
-      // If userId provided, verify match or just use it?
-      // Actually `activeStreams` has userId stored at startStream!
-      // So checks:
       const targetUserId = userId || stream.userId;
-
       this.emitEvent(
         {
           streamId,
           roomId: stream.roomId,
           type: 'text',
-          content: text,
+          content: text, // Chunk? Sockets gone means no real-time stream.
+          // We assume logic calling this might need refactor or we just log.
           timestamp: Date.now(),
         },
         targetUserId
@@ -144,16 +142,8 @@ class StreamManager {
   }
 
   private emitEvent(event: StreamEvent, targetUserId?: string) {
-    if (!this.io) {
-      //   console.warn('[StreamManager] Socket.IO server not initialized');
-      return;
-    }
-
-    if (targetUserId) {
-      this.io.to(`user:${targetUserId}`).emit('llm:stream:event', event);
-    } else {
-      this.io.to(event.roomId).emit('llm:stream:event', event);
-    }
+    // No socket emit. Just log.
+    // console.log(`[StreamManager] Event: ${event.type} to ${targetUserId || event.roomId}`);
   }
 }
 

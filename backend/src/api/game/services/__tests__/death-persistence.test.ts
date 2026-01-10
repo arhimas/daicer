@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ActionEngineFunc from '../action-engine';
 import { ChunkManager } from '../../../voxel-engine/services/chunk-manager';
 

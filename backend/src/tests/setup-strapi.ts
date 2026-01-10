@@ -10,7 +10,7 @@ export const setupStrapi = async (): Promise<any> => {
     // 0. Mock process.exit to prevent Strapi or its dependencies (e.g. better-sqlite3)
     // from killing the test worker on error/shutdown.
     // We NEVER restore this because the worker is about to die anyway.
-    // @ts-ignore
+
     process.exit = (code?: number) => {
       console.warn(`[TestHarness] Prevented process.exit(${code}) call from Strapi during setup/teardown`);
       return undefined as never;
@@ -25,6 +25,7 @@ export const setupStrapi = async (): Promise<any> => {
 
     // Check for bootstrap DB
     const bootstrapPath = path.resolve(__dirname, '../../.tmp/test_bootstrap.db');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const fs = require('fs');
 
     if (fs.existsSync(bootstrapPath)) {
@@ -36,6 +37,7 @@ export const setupStrapi = async (): Promise<any> => {
       fs.copyFileSync(bootstrapPath, tempDbPath);
       process.env.DATABASE_FILENAME = tempDbPath;
       // Store path for cleanup
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (global as any).__TEST_DB_PATH__ = tempDbPath;
       console.log(`[TestHarness] Using bootstrap DB: ${tempDbPath}`);
     } else {
@@ -70,16 +72,13 @@ export const cleanupStrapi = async () => {
     // We do NOT manually destroy the DB connection because it causes "aborted" errors in tarn/knex.
     try {
       // Silence logger to prevent EPIPE errors during teardown if stdout closes early
-      // @ts-ignore
+
       if (instance.log) {
-        // @ts-ignore
         instance.log.level = 'silent';
       }
 
-      // @ts-ignore
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (instance.server && (instance.server as any).close) {
-        // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await (instance.server as any).close();
       }
@@ -97,10 +96,14 @@ export const cleanupStrapi = async () => {
     }
 
     // Cleanup temp DB file if used
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((global as any).__TEST_DB_PATH__) {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const fs = require('fs');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (fs.existsSync((global as any).__TEST_DB_PATH__)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           fs.unlinkSync((global as any).__TEST_DB_PATH__);
         }
       } catch (e) {
@@ -110,7 +113,7 @@ export const cleanupStrapi = async () => {
 
     instance = undefined;
     // Keep global.strapi to prevent ReferenceErrors from late listeners
-     
+
     // delete (global as any).strapi;
 
     // Generous delay to allow native SQLite bindings to flush and close

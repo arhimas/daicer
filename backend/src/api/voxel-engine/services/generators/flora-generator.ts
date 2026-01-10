@@ -14,7 +14,17 @@ export class FloraGenerator {
     const lx = wx - cx * 16;
     const ly = wy - cy * 16;
     const lz = z + 3;
-    if (lx >= 0 && lx < 16 && ly >= 0 && ly < 16 && lz >= 0 && lz <= 6) {
+    if (
+      tiles.length > 0 &&
+      tiles[0].length > 0 &&
+      tiles[0][0].length > 0 &&
+      lx >= 0 &&
+      lx < tiles[0][0].length &&
+      ly >= 0 &&
+      ly < tiles[0].length &&
+      lz >= 0 &&
+      lz < tiles.length
+    ) {
       const t = tiles[lz][ly][lx];
       t.block = block;
       t.isWalkable = (

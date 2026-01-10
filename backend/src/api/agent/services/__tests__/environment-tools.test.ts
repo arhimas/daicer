@@ -108,7 +108,7 @@ describe('ToolRegistry - Environment Tools', () => {
     it('set_weather should update Local Weather condition', async () => {
       mockFindOne.mockResolvedValueOnce({ entropyState: structuredClone(mockState) }); // For inner set_entropy
 
-      const result = await toolRegistry.execute('set_weather', roomId, { weather: 'Storm' }, {});
+      await toolRegistry.execute('set_weather', roomId, { weather: 'Storm' }, {});
 
       expect(mockUpdate).toHaveBeenCalled();
       const updateCall = mockUpdate.mock.calls[0][0];

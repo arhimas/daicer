@@ -7,7 +7,7 @@ import { BookOpen } from 'lucide-react';
 import type { Room, Player, Creature } from '@/types/contracts';
 // Let's verify compatibility.
 
-import useStreamingSocket from '../../hooks/useStreamingSocket';
+import useGamePolling from '../../hooks/useGamePolling';
 import { processTurn, submitAction } from '../../services/api';
 
 import useAuth from '../../hooks/useAuth';
@@ -72,7 +72,7 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
       }));
   }, [room]);
 
-  const socket = useStreamingSocket(room.id, initialMessages);
+  const pollingState = useGamePolling(room.id, initialMessages);
   const { t } = useI18n();
   const [submitting, setSubmitting] = useState(false);
   const [showEntityList, setShowEntityList] = useState(false);
@@ -144,16 +144,16 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
   };
 
   useEffect(() => {
-    if (!socket.isProcessing) {
+    if (!pollingState.isProcessing) {
       setSubmitting(false);
     }
-  }, [socket.isProcessing]);
+  }, [pollingState.isProcessing]);
 
   useEffect(() => {
-    if (socket.error) {
-      toast.error(socket.error);
+    if (pollingState.error) {
+      toast.error(pollingState.error);
     }
-  }, [socket.error]);
+  }, [pollingState.error]);
 
   const navigate = useNavigate();
 
@@ -179,11 +179,11 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
       {/* Chat Messages */}
       <div className="flex-1 overflow-hidden bg-midnight-950/30">
         <GameplayChatArea
-          messages={socket.messages}
-          streamingMessages={socket.streamingMessages}
+          messages={pollingState.messages}
+          streamingMessages={pollingState.streamingMessages}
           worldDescription={room.worldDescription || ''}
-          isProcessing={socket.isProcessing}
-          presence={socket.presence}
+          isProcessing={pollingState.isProcessing}
+          presence={pollingState.presence}
           currentUserId={(currentPlayer as any)?.user?.documentId || user?.uid}
           currentUserCharacter={currentPlayer?.character}
         />
@@ -240,9 +240,9 @@ export default function GameplayScreen({ room, players, creatures = [], onRefres
             roomId={room.documentId || room.id}
             userName={currentPlayer?.character?.name || user?.displayName || 'Player'}
             onSubmit={handleSubmitAction}
-            disabled={submitting || socket.isProcessing}
+            disabled={submitting || pollingState.isProcessing}
             placeholder={t('gameplay.actionPlaceholder')}
-            isProcessing={socket.isProcessing}
+            isProcessing={pollingState.isProcessing}
             value={composerValue}
             onChange={setComposerValue}
           />

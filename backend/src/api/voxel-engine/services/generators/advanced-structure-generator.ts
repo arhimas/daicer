@@ -205,6 +205,9 @@ export class AdvancedStructureGenerator {
     const q4 = { x: s.worldX + midX, y: s.worldY + midY };
     this.fillDistrictWithHouses(q4.x, q4.y, districtSize, tiles, cx, cy, rng, mats);
 
+    // Top-Left (Q2)
+    this.fillDistrictWithHouses(s.worldX, s.worldY, districtSize, tiles, cx, cy, rng, mats);
+
     for (let i = 0; i < s.size; i++) {
       StructureRenderer.setBlock(tiles, cx, cy, s.worldX + i, s.worldY + midY, 0, BlockType.FLOOR_STONE);
       StructureRenderer.setBlock(tiles, cx, cy, s.worldX + midX, s.worldY + i, 0, BlockType.FLOOR_STONE);

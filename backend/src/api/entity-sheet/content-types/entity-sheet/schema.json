@@ -140,6 +140,12 @@
     "active_effects": {
       "type": "json"
     },
+    "activeState": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::active-state.active-state",
+      "mappedBy": "sheet"
+    },
     "isReady": {
       "type": "boolean",
       "default": false

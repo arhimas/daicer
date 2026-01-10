@@ -130,6 +130,28 @@ export interface GameClassProgression extends Struct.ComponentSchema {
   };
 }
 
+export interface GameComputedAction extends Struct.ComponentSchema {
+  collectionName: 'components_game_computed_actions';
+  info: {
+    description: 'A fully resolved action ready for the engine';
+    displayName: 'Computed Action';
+    icon: 'fist-raised';
+  };
+  attributes: {
+    damageBonus: Schema.Attribute.Integer;
+    damageDice: Schema.Attribute.String;
+    damageType: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    range: Schema.Attribute.Integer;
+    resourceCost: Schema.Attribute.JSON;
+    saveAbility: Schema.Attribute.String;
+    saveDc: Schema.Attribute.Integer;
+    toHit: Schema.Attribute.Integer;
+    type: Schema.Attribute.Enumeration<['melee', 'ranged', 'spell', 'utility']>;
+  };
+}
+
 export interface GameConditionInstance extends Struct.ComponentSchema {
   collectionName: 'components_game_condition_instances';
   info: {
@@ -559,6 +581,7 @@ declare module '@strapi/strapi' {
       'game.casting-config': GameCastingConfig;
       'game.character-class': GameCharacterClass;
       'game.class-progression': GameClassProgression;
+      'game.computed-action': GameComputedAction;
       'game.condition-instance': GameConditionInstance;
       'game.damage-dice': GameDamageDice;
       'game.damage-instance': GameDamageInstance;

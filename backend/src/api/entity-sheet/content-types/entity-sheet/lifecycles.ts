@@ -33,6 +33,30 @@ export default {
       await updateDerivedData(event);
     }
   },
+
+  async afterCreate(event) {
+    const { result } = event;
+    try {
+      if (result && result.documentId) {
+        await strapi.service('api::game.active-state-service').deriveAndPersist(result.documentId);
+      }
+    } catch (err) {
+      strapi.log.error('ActiveState derivation failed', err);
+      throw new ApplicationError('ActiveState Derivation Failed: ' + (err as Error).message);
+    }
+  },
+
+  async afterUpdate(event) {
+    const { result } = event;
+    try {
+      if (result && result.documentId) {
+        await strapi.service('api::game.active-state-service').deriveAndPersist(result.documentId);
+      }
+    } catch (err) {
+      strapi.log.error('ActiveState derivation failed', err);
+      throw new ApplicationError('ActiveState Derivation Failed: ' + (err as Error).message);
+    }
+  },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -408,6 +408,46 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiActiveStateActiveState extends Struct.CollectionTypeSchema {
+  collectionName: 'active_states';
+  info: {
+    description: "The engine's calculated truth for an Entity";
+    displayName: 'Active State';
+    pluralName: 'active-states';
+    singularName: 'active-state';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    armorClass: Schema.Attribute.Integer;
+    attributes: Schema.Attribute.Component<'game.stats', false>;
+    computedActions: Schema.Attribute.Component<'game.computed-action', true>;
+    conditions: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    currentHp: Schema.Attribute.Integer;
+    immunities: Schema.Attribute.JSON;
+    initiativeBonus: Schema.Attribute.Integer;
+    level: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::active-state.active-state'> & Schema.Attribute.Private;
+    maxHp: Schema.Attribute.Integer;
+    passivePerception: Schema.Attribute.Integer;
+    proficiencyBonus: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    resistances: Schema.Attribute.JSON;
+    saves: Schema.Attribute.JSON;
+    sheet: Schema.Attribute.Relation<'oneToOne', 'api::entity-sheet.entity-sheet'>;
+    skills: Schema.Attribute.JSON;
+    speed: Schema.Attribute.JSON;
+    tempHp: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    vulnerabilities: Schema.Attribute.JSON;
+  };
+}
+
 export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
   collectionName: 'characters';
   info: {
@@ -594,6 +634,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     ac: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     actions: Schema.Attribute.Relation<'manyToMany', 'api::action.action'>;
     active_effects: Schema.Attribute.JSON;
+    activeState: Schema.Attribute.Relation<'oneToOne', 'api::active-state.active-state'>;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
@@ -1493,6 +1534,32 @@ export interface ApiTraitTrait extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTurnLockTurnLock extends Struct.CollectionTypeSchema {
+  collectionName: 'turn_locks';
+  info: {
+    description: 'Concurrency control handling for Room turns';
+    displayName: 'Turn Lock';
+    pluralName: 'turn-locks';
+    singularName: 'turn-lock';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    expires_at: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    holder_id: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::turn-lock.turn-lock'> & Schema.Attribute.Private;
+    locked_at: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    room: Schema.Attribute.Relation<'oneToOne', 'api::room.room'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTurnTurn extends Struct.CollectionTypeSchema {
   collectionName: 'turns';
   info: {
@@ -2060,6 +2127,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
+      'api::active-state.active-state': ApiActiveStateActiveState;
       'api::character.character': ApiCharacterCharacter;
       'api::class.class': ApiClassClass;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;
@@ -2084,6 +2152,7 @@ declare module '@strapi/strapi' {
       'api::subclass.subclass': ApiSubclassSubclass;
       'api::time-frame.time-frame': ApiTimeFrameTimeFrame;
       'api::trait.trait': ApiTraitTrait;
+      'api::turn-lock.turn-lock': ApiTurnLockTurnLock;
       'api::turn.turn': ApiTurnTurn;
       'api::voxel-change.voxel-change': ApiVoxelChangeVoxelChange;
       'api::weapon-property.weapon-property': ApiWeaponPropertyWeaponProperty;

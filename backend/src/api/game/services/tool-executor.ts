@@ -4,90 +4,7 @@ import { Core } from '@strapi/strapi';
 const TOOL_REGEX = /^([a-zA-Z0-9_]+)\((.*)\)$/s;
 
 // Helper implementation functions defined outside the exported object to avoid 'this' context issues
-const executeSummonMonster = async (strapi: Core.Strapi, roomId: string, args: Record<string, unknown>) => {
-  const { blueprintId, position } = args;
-  if (!blueprintId) throw new Error('Missing blueprintId');
-
-  let x, y, z;
-  const p = position as { x: number; y: number; z?: number };
-  if (typeof position === 'object' && position !== null) {
-    x = p.x;
-    y = p.y;
-    z = p.z ?? 0;
-  } else if (typeof args.x === 'number' && typeof args.y === 'number') {
-    x = args.x;
-    y = args.y;
-    z = (args.z as number) ?? 0;
-  } else {
-    throw new Error('Missing position');
-  }
-
-  // Check template existence
-  const template = await strapi.documents('api::entity.entity').findOne({ documentId: blueprintId as string });
-  if (!template) throw new Error(`Monster template ${blueprintId} not found`);
-
-  const spawnService = strapi.service('api::game.spawn-service');
-  const instance = await spawnService.spawnMonster(roomId, blueprintId as string, { x, y, z });
-
-  // Events & Broadcast
-  await strapi.service('api::game.game-broadcaster').broadcastRoomEntities(roomId);
-
-  await strapi.service('api::game-event.game-event').logEvent(roomId, 'SPAWN_ENTITY', {
-    entityId: instance.documentId,
-    templateId: blueprintId,
-    position: { x, y, z },
-    name: instance.name,
-  });
-
-  return `Spawned ${instance.name} at ${x},${y},${z}`;
-};
-
-const executeSummonCharacter = async (strapi: Core.Strapi, roomId: string, args: Record<string, unknown>) => {
-  const { blueprintId, position, ownerId } = args;
-  if (!blueprintId) throw new Error('Missing blueprintId');
-
-  let x, y, z;
-  const p = position as { x: number; y: number; z?: number };
-  if (typeof position === 'object' && position !== null) {
-    x = p.x;
-    y = p.y;
-    z = p.z ?? 0;
-  } else if (typeof args.x === 'number' && typeof args.y === 'number') {
-    x = args.x;
-    y = args.y;
-    z = (args.z as number) ?? 0;
-  } else {
-    throw new Error('Missing position');
-  }
-
-  const spawnService = strapi.service('api::game.spawn-service');
-  // Pass ownerId if present, otherwise it spawns as an NPC
-  const instance = await spawnService.spawnCharacter(roomId, blueprintId as string, { x, y, z }, ownerId as string);
-
-  // Events & Broadcast
-  await strapi.service('api::game.game-broadcaster').broadcastRoomEntities(roomId);
-
-  await strapi.service('api::game-event.game-event').logEvent(roomId, 'SPAWN_ENTITY', {
-    entityId: instance.documentId,
-    templateId: blueprintId,
-    position: { x, y, z },
-    name: instance.name,
-  });
-
-  return `Spawned ${instance.name} at ${x},${y},${z}`;
-};
-
-const executeMove = async (_strapi: Core.Strapi, _roomId: string, _args: unknown) => {
-  throw new Error('Direct Move not implemented yet.');
-};
-
-const executeAttack = async (_strapi: Core.Strapi, _roomId: string, _args: unknown) => {
-  throw new Error('Direct Attack not implemented yet.');
-};
-
-const executeGetMapImage = async (_strapi: Core.Strapi, _roomId: string, _args: unknown) => {
-  throw new Error('Direct Map Image not implemented yet.');
-};
+// Helper implementation functions defined outside the exported object to avoid 'this' context issues
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
@@ -150,8 +67,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     // 2. DELEGATE TO TOOL REGISTRY (Unified Path)
     try {
-      // @ts-ignore - Service type inference limitations
-      const toolRegistry = strapi.service('api::agent.tool-registry');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const toolRegistry = strapi.service('api::agent.tool-registry') as any;
 
       // Check availability first to give better error messages
       if (!toolRegistry.hasTool(toolName)) {

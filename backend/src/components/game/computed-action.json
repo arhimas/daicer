@@ -1,0 +1,51 @@
+{
+    "collectionName": "components_game_computed_actions",
+    "info": {
+        "displayName": "Computed Action",
+        "icon": "fist-raised",
+        "description": "A fully resolved action ready for the engine"
+    },
+    "options": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "type": {
+            "type": "enumeration",
+            "enum": [
+                "melee",
+                "ranged",
+                "spell",
+                "utility"
+            ]
+        },
+        "toHit": {
+            "type": "integer"
+        },
+        "damageDice": {
+            "type": "string"
+        },
+        "damageBonus": {
+            "type": "integer"
+        },
+        "damageType": {
+            "type": "string"
+        },
+        "saveAbility": {
+            "type": "string"
+        },
+        "saveDc": {
+            "type": "integer"
+        },
+        "range": {
+            "type": "integer"
+        },
+        "description": {
+            "type": "text"
+        },
+        "resourceCost": {
+            "type": "json"
+        }
+    }
+}

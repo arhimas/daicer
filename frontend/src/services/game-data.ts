@@ -441,26 +441,26 @@ export async function getDamageTypes(): Promise<DamageType[]> {
 export async function getMonsters(): Promise<Monster[]> {
   const { data } = await apolloClient.query<GetMonstersQuery>({ query: GET_MONSTERS_QUERY });
   return (
-    data?.monsters?.map((m) => ({
+    data?.entitySheets?.map((m) => ({
       id: m?.documentId || '',
       name: m?.name || '',
-      size: m?.size || 'Medium',
+      size: 'Medium', // Default/Stub
       type: m?.type || 'beast',
-      alignment: m?.alignment || 'Unaligned',
-      armorClass: m?.ac || 10,
-      hitPoints: String(m?.hp || 10),
+      alignment: 'Unaligned', // Default/Stub
+      armorClass: 10, // Default/Stub
+      hitPoints: String(m?.currentHp || m?.maxHp || 10),
       speed: {
-        walk: m?.stats?.walkSpeed || 30,
-        fly: m?.stats?.flySpeed || 0,
-        swim: m?.stats?.swimSpeed || 0,
-        climb: m?.stats?.climbSpeed || 0,
-        burrow: m?.stats?.burrowSpeed || 0,
-        hover: m?.stats?.hover || false,
+        walk: 30,
+        fly: 0,
+        swim: 0,
+        climb: 0,
+        burrow: 0,
+        hover: false,
       },
       abilityScores: { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10 },
       senses: [],
       languages: [],
-      challenge: String(m?.challenge_rating || '0'),
+      challenge: '0',
       actions: [],
       imageUrl: null,
     })) || []

@@ -79,7 +79,7 @@ describe('GraphQL Queries & Resolvers', () => {
       // Check calls. Should see 1 call to monster findMany with empty filter
       expect(mockFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          filters: {},
+          filters: { type: 'monster' },
         })
       );
     });

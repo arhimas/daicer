@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ActionEngineService } from '../action-engine';
+
 // Local mock
 const mockStrapi = {
   log: { info: vi.fn(), error: vi.fn() },
@@ -32,16 +32,14 @@ vi.mock('../../src/engine/derivation/ActionHydrator', () => ({
     }),
     hydrateFromSpell: vi.fn((spell) => {
       if (spell.name === 'Fireball') {
-        return [
-          {
-            id: 'spell_fireball',
-            name: 'Fireball',
-            save: { attribute: 'dex', dc: 15, effect: 'half' },
-            effects: [{ type: 'damage', dice: '8d6' }],
-          },
-        ];
+        return {
+          id: 'spell_fireball',
+          name: 'Fireball',
+          save: { attribute: 'dex', dc: 15, effect: 'half' },
+          effects: [{ type: 'damage', dice: '8d6' }],
+        };
       }
-      return [];
+      return null;
     }),
   },
 }));

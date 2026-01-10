@@ -7,16 +7,15 @@
   It acts as the "Standard Library" for the Agent.
 */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from 'zod';
 import {
   AttackCommand,
   MoveCommand,
-  SkillCheckCommand,
   CastSpellCommand,
   InteractCommand,
   ModifyTerrainCommand,
   LongRestCommand,
-  Attribute,
   DropItemCommand,
   PickupItemCommand,
   ThrowItemCommand,
@@ -524,9 +523,4 @@ interface ActionEngineService {
 }
 interface SpawnService {
   spawn(roomId: string, payload: unknown): Promise<unknown>;
-}
-interface InventoryService {
-  dropItem(entityId: string, itemComponentId: string): Promise<unknown>;
-  pickupItem(actorId: string, targetId: string): Promise<unknown>;
-  dropAll(entityId: string): Promise<unknown>;
 }

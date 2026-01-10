@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { ToolCall } from '../../services/socket';
+import type { ToolCall } from '@/types/contracts';
 import cn from '../../lib/utils';
 import { DiceLoader } from '../ui/dice-loader';
 import DiceRollCard from './DiceRollCard';

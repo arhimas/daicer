@@ -117,23 +117,13 @@ export const GET_DAMAGE_TYPES_QUERY = gql`
 
 export const GET_MONSTERS_QUERY = gql`
   query GetMonsters {
-    monsters {
+    entitySheets(filters: { type: { eq: "monster" } }) {
       documentId
       name
-      size
       type
-      alignment
-      hp
-      ac
-      stats {
-        walkSpeed
-        flySpeed
-        swimSpeed
-        climbSpeed
-        burrowSpeed
-        hover
-      }
-      challenge_rating
+      currentHp
+      maxHp
+      # stats/challenge_rating might differ in updated schema
     }
   }
 `;

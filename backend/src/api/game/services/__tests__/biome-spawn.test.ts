@@ -48,7 +48,7 @@ describe('BiomeSpawnService', () => {
   describe('populateChunk', () => {
     it('should call spawnMonster when conditions are met', async () => {
       // Mock random to pass the 40% check
-      const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.1);
+      vi.spyOn(Math, 'random').mockReturnValue(0.1);
 
       await service.populateChunk(0, 0, BiomeType.desert);
 
@@ -60,7 +60,7 @@ describe('BiomeSpawnService', () => {
     it('should respect rarity weights (lower CR = higher chance)', async () => {
       // This is hard to deterministically test with Math.random,
       // but we can verify the logic executes without error.
-      const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.05); // Force spawn
+      vi.spyOn(Math, 'random').mockReturnValue(0.05); // Force spawn
 
       await service.populateChunk(0, 0, BiomeType.forest);
 

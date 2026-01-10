@@ -35,6 +35,14 @@ export const typeDefs = `
     description: String
   }
 
+  type GameView {
+    room: Room
+    activeTurn: Turn
+    myself: EntitySheet
+    visibleEntities: [EntitySheet]
+    messages: [Message]
+  }
+
   input ChunkRequestInput {
     x: Int!
     y: Int!
@@ -114,6 +122,8 @@ export const typeDefs = `
     conditions: [GameCondition]
     getWorldTime(roomId: ID!): WorldTime
     voxelPreview(chunks: [ChunkRequestInput]!, config: WorldConfigInput!): [VoxelChunk]!
+    gameView(roomId: ID!): GameView
+    getTimeFrame(id: ID!): JSON
   }
 
   type VoxelChunk {

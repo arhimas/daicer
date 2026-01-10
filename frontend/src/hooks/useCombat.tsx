@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
-import { getSocket } from '../services/socket';
+import { useState, useCallback } from 'react';
 import type { CombatCharacter, CombatState, CombatHistory } from '../types/combat';
 import type { GridPosition } from '../types/spells';
 
@@ -9,28 +8,8 @@ export function useCombat(roomId: string) {
   const [combatState, setCombatState] = useState<CombatState | null>(null);
   const [history, setHistory] = useState<CombatHistory[]>([]);
 
-  useEffect(() => {
-    const socket = getSocket();
-    if (!socket) return;
-
-    // Listen for combat state updates
-    const handleStateUpdate = (newState: CombatState) => {
-      setCombatState(newState);
-    };
-
-    // Listen for combat history updates
-    const handleHistoryUpdate = (newHistory: CombatHistory[]) => {
-      setHistory(newHistory);
-    };
-
-    socket.on('combat:state_update', handleStateUpdate);
-    socket.on('combat:history_update', handleHistoryUpdate);
-
-    return () => {
-      socket.off('combat:state_update', handleStateUpdate);
-      socket.off('combat:history_update', handleHistoryUpdate);
-    };
-  }, []);
+  // Socket logic removed.
+  // TODO: Implement GraphQL mutations and polling for combat state.
 
   const attack = useCallback(
     (
@@ -41,60 +20,25 @@ export function useCombat(roomId: string) {
         damageType?: string;
       }
     ) => {
-      const socket = getSocket();
-      if (!socket) return;
-
-      socket.emit('combat:action', {
-        roomId,
-        action: 'attack',
-        params: {
-          attackerId,
-          defenderId,
-          ...options,
-        },
-      });
+      console.warn('Combat attack not implemented (waiting for GraphQL migration)');
     },
     [roomId]
   );
 
   const move = useCallback(
     (characterId: string, targetX: number, targetY: number) => {
-      const socket = getSocket();
-      if (!socket) return;
-
-      socket.emit('combat:action', {
-        roomId,
-        action: 'move',
-        params: {
-          characterId,
-          targetX,
-          targetY,
-        },
-      });
+      console.warn('Combat move not implemented (waiting for GraphQL migration)');
     },
     [roomId]
   );
 
   const endTurn = useCallback(() => {
-    const socket = getSocket();
-    if (!socket) return;
-
-    socket.emit('combat:action', {
-      roomId,
-      action: 'end_turn',
-      params: {},
-    });
+    console.warn('Combat endTurn not implemented (waiting for GraphQL migration)');
   }, [roomId]);
 
   const restoreState = useCallback(
     (historyIndex: number) => {
-      const socket = getSocket();
-      if (!socket) return;
-
-      socket.emit('combat:restore', {
-        roomId,
-        historyIndex,
-      });
+      console.warn('Combat restoreState not implemented (waiting for GraphQL migration)');
     },
     [roomId]
   );

@@ -7,8 +7,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Room as SharedRoom, Player, GamePhase } from '@/types/contracts';
 import { getRoomState, startGame } from '../services/api';
-import { setReady } from '../services/socket';
-import useSocket from '../hooks/useSocket';
+import { toast } from 'sonner';
+import useGamePolling from '../hooks/useGamePolling';
 import CharacterCreation from '../components/room/CharacterCreation';
 import { LobbyScreen } from '../components/room/LobbyScreen';
 import GameplayScreen from '../components/game/GameplayScreen';
@@ -23,7 +23,7 @@ import ToolCallCard from '../components/chat/ToolCallCard';
 // import { auth } from '../services/firebase';
 import useAuth from '../hooks/useAuth';
 import { useLLMStream } from '../hooks/useLLMStream';
-import type { ToolCall } from '../services/socket';
+import type { ToolCall } from '@/types/contracts';
 import { TimeFrameProvider } from '../contexts/TimeFrameContext';
 import { useWakeLock } from '../hooks/useWakeLock';
 
@@ -42,17 +42,17 @@ export default function GameRoomPage() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [recentToolCalls, setRecentToolCalls] = useState<typeof socket.toolCalls>([]);
+  const [recentToolCalls, setRecentToolCalls] = useState<ToolCall[]>([]);
 
   const [isCreatingCharacter, setIsCreatingCharacter] = useState(false);
   const [hasAutoRedirected, setHasAutoRedirected] = useState(false);
 
   useWakeLock();
 
-  const socket = useSocket(room?.documentId || roomId, user?.uid);
+  const { room: socketRoom, players: socketPlayers, creatures, toolCalls } = useGamePolling(room?.documentId || roomId);
 
   // Listen to all streams in the room
-  const streams = useLLMStream(undefined, socket.socket);
+  const streams = useLLMStream(undefined, null);
   // Find any active stream to display
   const activeStream = Object.values(streams).find((s) => s.status === 'active');
 
@@ -100,10 +100,10 @@ export default function GameRoomPage() {
 
   // Handle new tool calls - show as toasts for most recent 3
   useEffect(() => {
-    if (socket.toolCalls.length > recentToolCalls.length) {
-      setRecentToolCalls(socket.toolCalls.slice(-3)); // Keep only last 3 for toasts
+    if (toolCalls && toolCalls.length > recentToolCalls.length) {
+      setRecentToolCalls(toolCalls.slice(-3)); // Keep only last 3 for toasts
     }
-  }, [socket.toolCalls, recentToolCalls.length]);
+  }, [toolCalls, recentToolCalls.length]);
 
   useEffect(() => {
     if (!roomId) {
@@ -140,20 +140,20 @@ export default function GameRoomPage() {
 
   // Update state from socket
   useEffect(() => {
-    if (socket.room) {
-      console.info('[GameRoom] Socket room update:', socket.room.phase);
-      setRoom(socket.room);
+    if (socketRoom) {
+      console.info('[GameRoom] Socket room update:', socketRoom.phase);
+      setRoom(socketRoom as SharedRoom);
 
       // If room has generation events, restore them to streamEvents
-      if (socket.room.generationEvents && streamEvents.length === 0 && socket.room.phase === GamePhase.SETUP) {
+      if (socketRoom.generationEvents && streamEvents.length === 0 && socketRoom.phase === GamePhase.SETUP) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setStreamEvents((socket.room.generationEvents as any[]) || []);
+        setStreamEvents((socketRoom.generationEvents as any[]) || []);
       }
     }
-    if (socket.players.length > 0) {
-      setPlayers(socket.players);
+    if (socketPlayers && socketPlayers.length > 0) {
+      setPlayers(socketPlayers);
     }
-  }, [socket.room, socket.players, streamEvents.length]);
+  }, [socketRoom, socketPlayers, streamEvents.length]);
 
   // Monitor world generation if room is in SETUP phase
   // const isWorldGenerating = room && room.phase === 'SETUP' && !room.worldDescription;
@@ -395,7 +395,7 @@ export default function GameRoomPage() {
     const handleReadyToggle = async (isReady: boolean) => {
       if (!room?.id) return;
       try {
-        await setReady(room.documentId || room.roomId || room.id, isReady);
+        // await setReady(room.documentId || room.roomId || room.id, isReady); // Socket removed
       } catch (err) {
         console.error('Failed to toggle ready:', err);
       }
@@ -489,7 +489,7 @@ export default function GameRoomPage() {
         <GameplayScreen
           room={room}
           players={players}
-          creatures={socket.creatures}
+          creatures={creatures}
           onRefresh={() => {
             if (roomId) {
               getRoomState(roomId).then((roomData) => {

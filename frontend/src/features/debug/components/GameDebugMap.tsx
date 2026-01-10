@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { Socket } from 'socket.io-client';
+
 import clsx from 'clsx';
 import { useChunkLoader } from '@/hooks/useChunkLoader';
 import { MapRenderer } from './MapRenderer';
@@ -10,7 +10,7 @@ import { useQuery } from '@apollo/client/react';
 
 interface GameDebugMapProps {
   roomId: string;
-  socket: Socket | null;
+  connected?: boolean;
   activeEntity: DebugEntity | null;
   entities: DebugEntity[];
   activeEntityId: string | null;
@@ -23,7 +23,7 @@ interface GameDebugMapProps {
 
 export function GameDebugMap({
   roomId,
-  socket,
+  connected = true,
   activeEntity,
   entities,
   activeEntityId,
@@ -205,7 +205,7 @@ export function GameDebugMap({
         {/* Left: Turn Info (Placeholder if needed, or just connection status) */}
         <div className="pointer-events-auto bg-midnight-900/90 backdrop-blur border border-midnight-700 rounded-lg p-2 shadow-xl flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${socket ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`} />
+            <div className={`w-2 h-2 rounded-full ${connected ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`} />
             <span className="text-[10px] font-mono text-shadow-300">{roomId}</span>
           </div>
         </div>

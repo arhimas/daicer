@@ -1,4 +1,4 @@
-import { Strapi } from '@strapi/strapi';
+import { Core } from '@strapi/strapi';
 import { BiomeType } from '../src/engine/types'; // Removed unused BlockType
 import { CHUNK_SIZE } from '../../voxel-engine/services/utils/constants';
 
@@ -11,13 +11,13 @@ interface MonsterBlueprint {
   type: string;
 }
 
-export default ({ strapi }: { strapi: Strapi }) => ({
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Fetch ALL potential monsters for Global Spawning.
    * Now includes Dragons, Giants, Undead, Elementals, etc.
    */
   async getAllMonsters(): Promise<MonsterBlueprint[]> {
-    const monsters = await (strapi as any).documents('api::entity.entity').findMany({
+    const monsters = await strapi.documents('api::entity.entity').findMany({
       // No filters! We want everything.
       limit: 1000,
       fields: ['name', 'level', 'challenge_rating', 'type', 'documentId'],
@@ -240,7 +240,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           ? Math.floor(Math.random() * 2) + 1
           : 1;
 
-    const spawnService = (strapi as any).service('api::game.spawn-service');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const spawnService: any = strapi.service('api::game.spawn-service');
 
     const worldX = chunkX * CHUNK_SIZE;
     const worldY = chunkY * CHUNK_SIZE;

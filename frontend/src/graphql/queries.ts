@@ -1,13 +1,131 @@
 import { gql } from '@apollo/client';
-import { FULL_CONTEXT_FRAGMENT } from './fragments';
 
 export const GET_ROOM_QUERY = gql`
+  fragment FullRoomContext on Room {
+    documentId
+    roomId
+    phase
+    turnData
+    entropyState
+
+    # 1. World State
+    world {
+      documentId
+      name
+      description
+    }
+
+    # 2. Characters & Players
+    players {
+      id
+      name
+      action
+      isReady
+      isOnline
+      joinedAt
+      user {
+        documentId
+        username
+      }
+      character {
+        documentId
+        name
+        portrait {
+          url
+        }
+        stats {
+          strength
+          dexterity
+          constitution
+          intelligence
+          wisdom
+          charisma
+        }
+        inventory {
+          quantity
+          isEquipped
+          item {
+            documentId
+            name
+            ... on Item {
+              type
+              description
+              rarity
+              value
+              weight
+              equipment_data {
+                armor_class_base
+                damage_dice
+                range_normal
+              }
+              spell_data {
+                level
+                school
+              }
+            }
+          }
+        }
+      }
+    }
+
+    # 3. Active Entities
+    entity_sheets {
+      documentId
+      name
+      type
+      currentHp
+      maxHp
+      position {
+        x
+        y
+        z
+      }
+      availableActions {
+        id
+        name
+        description
+        type
+        range {
+          type
+          value
+          reach
+        }
+      }
+    }
+
+    # 4. Deep History
+    turns(sort: "turnNumber:desc", pagination: { limit: 10 }) {
+      documentId
+      turnNumber
+      narrative
+      actions
+      messages(sort: "timestamp:asc") {
+        documentId
+        content
+        senderName
+        timestamp
+      }
+    }
+
+    # 5. Event Log
+    events(sort: "timestamp:desc", pagination: { limit: 20 }) {
+      documentId
+      type
+      timestamp
+      turn_number
+      payload
+      actor {
+        documentId
+        name
+      }
+    }
+  }
+
   query GetRoom($filters: RoomFiltersInput) {
     rooms(filters: $filters) {
       ...FullRoomContext
     }
   }
-  ${FULL_CONTEXT_FRAGMENT}
 `;
 
 export const LIST_ROOMS_QUERY = gql`
@@ -76,16 +194,13 @@ export const LIST_CHARACTERS_QUERY = gql`
 `;
 
 export const LIST_MONSTERS_QUERY = gql`
-  query ListMonsters($filters: MonsterFiltersInput) {
-    monsters(filters: $filters, sort: "name:asc", pagination: { limit: 50 }) {
+  query ListMonsters($filters: EntitySheetFiltersInput) {
+    entitySheets(filters: $filters, sort: "name:asc", pagination: { limit: 50 }) {
       documentId
       name
       type
-      size
-      hp
-      ac
-      xp
-      challenge_rating
+      currentHp
+      maxHp
     }
   }
 `;
