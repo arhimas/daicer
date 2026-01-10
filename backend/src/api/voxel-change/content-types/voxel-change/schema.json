@@ -1,50 +1,50 @@
 {
-    "kind": "collectionType",
-    "collectionName": "voxel_changes",
-    "info": {
-        "singularName": "voxel-change",
-        "pluralName": "voxel-changes",
-        "displayName": "Voxel Change",
-        "description": "Persistent delta storage for terrain modifications"
+  "kind": "collectionType",
+  "collectionName": "voxel_changes",
+  "info": {
+    "singularName": "voxel-change",
+    "pluralName": "voxel-changes",
+    "displayName": "Voxel Change",
+    "description": "Persistent delta storage for terrain modifications"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "chunkX": {
+      "type": "integer",
+      "required": true
     },
-    "options": {
-        "draftAndPublish": false
+    "chunkY": {
+      "type": "integer",
+      "required": true
     },
-    "pluginOptions": {},
-    "attributes": {
-        "chunkX": {
-            "type": "integer",
-            "required": true
-        },
-        "chunkY": {
-            "type": "integer",
-            "required": true
-        },
-        "voxelX": {
-            "type": "integer",
-            "required": true
-        },
-        "voxelY": {
-            "type": "integer",
-            "required": true
-        },
-        "voxelZ": {
-            "type": "integer",
-            "required": true
-        },
-        "newType": {
-            "type": "string",
-            "required": true
-        },
-        "previousType": {
-            "type": "string"
-        },
-        "reason": {
-            "type": "string"
-        },
-        "timestamp": {
-            "type": "biginteger",
-            "required": true
-        }
+    "voxelX": {
+      "type": "integer",
+      "required": true
+    },
+    "voxelY": {
+      "type": "integer",
+      "required": true
+    },
+    "voxelZ": {
+      "type": "integer",
+      "required": true
+    },
+    "newType": {
+      "type": "string",
+      "required": true
+    },
+    "previousType": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "biginteger",
+      "required": true
     }
+  }
 }
