@@ -52,6 +52,7 @@ export interface EntitySheet {
 
   // Relations & Components
   actions: EntityAction[];
+  availableActions?: RuntimeAction[]; // Derived actions
   inventory: EntityItem[]; // Was equipment
   spells: EntitySpell[];
   proficiencies: EntityProficiency[];
@@ -148,6 +149,18 @@ export interface EntityAction {
   save?: { dc: number; stat: string };
   area?: { type: string; size: number };
   action_definition?: string | { documentId: string; name: string };
+}
+
+export interface RuntimeAction {
+  id: string;
+  name: string;
+  description?: string;
+  type: string;
+  cost?: { resource: string; amount: number };
+  range?: number;
+  attack?: { bonus: number };
+  save?: { dc: number; attribute: string; effect: string };
+  effects?: any[];
 }
 
 export interface EntityItem {

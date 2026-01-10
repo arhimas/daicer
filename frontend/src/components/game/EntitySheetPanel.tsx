@@ -1,19 +1,54 @@
+import { gql } from '@apollo/client';
+import { useMutation } from '@apollo/client/react/hooks';
+import { toast } from 'sonner';
 import type { Player, EntitySheet } from '@/types/contracts';
+import { EXECUTE_TOOL_MUTATION } from '../../graphql/mutations';
 import UniversalEntitySheet from './UniversalEntitySheet';
 
 interface EntitySheetPanelProps {
   player: Player | null;
+  roomId?: string;
   onClose: () => void;
 }
 
-export default function EntitySheetPanel({ player, onClose }: EntitySheetPanelProps) {
+export default function EntitySheetPanel({ player, roomId, onClose }: EntitySheetPanelProps) {
+  const [executeTool] = useMutation(EXECUTE_TOOL_MUTATION);
+
   if (!player?.character) return null;
 
-  // Adapt Player data to EntitySheet if necessary,
-  // but standardized schema says player.character IS EntitySheet compatible.
-  // We use `as unknown as EntitySheet` if there are slight mismatches in compilation,
-  // but Phase 1 should have aligned them.
   const entity = player.character as unknown as EntitySheet;
 
-  return <UniversalEntitySheet entity={entity} onClose={onClose} />;
+  const handleAction = async (actionId: string) => {
+    if (!roomId) {
+      toast.error('Cannot perform action: No Room Context');
+      return;
+    }
+
+    try {
+      const actorId = player.character?.documentId;
+      if (!actorId) throw new Error('No Actor ID found');
+
+      // Construct command
+      // We assume simple self-target or no-target for MVP if implied
+      // but ideally we need a target picker.
+      // For verification: Just firing it.
+      const command = `perform_action(actorId="${actorId}", actionId="${actionId}")`;
+
+      const result = await executeTool({
+        variables: {
+          roomId,
+          command,
+        },
+      });
+
+      if (result.data?.executeTool) {
+        toast.success(`Action initiated: ${actionId}`);
+      }
+    } catch (err) {
+      console.error('Action failed:', err);
+      toast.error('Action execution failed');
+    }
+  };
+
+  return <UniversalEntitySheet entity={entity} onClose={onClose} onAction={handleAction} />;
 }

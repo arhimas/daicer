@@ -1,6 +1,7 @@
 import { Alea } from '../src/utils/math';
 import { BlockType, StructureInfo, Tile, WorldConfig } from '../../game/src/engine/types';
 import { TileHelper } from './utils/tile-helper';
+import { AdvancedStructureGenerator } from './generators/advanced-structure-generator';
 
 export class StructureService {
   constructor(private config: WorldConfig) {}
@@ -54,20 +55,8 @@ export class StructureService {
       return;
     }
 
-    switch (struct.type) {
-      case 'city':
-        this.generateCity(struct, tiles, cx, cy);
-        break;
-      case 'castle':
-        this.generateCastle(struct, tiles, cx, cy);
-        break;
-      case 'tower':
-        this.generateTower(struct, tiles, cx, cy);
-        break;
-      case 'dungeon':
-        this.generateDungeon(struct, tiles, cx, cy);
-        break;
-    }
+    // Use SOTA Generator for everything
+    AdvancedStructureGenerator.generate(struct, tiles, cx, cy);
   }
 
   public intersects(x1: number, y1: number, s1: number, x2: number, y2: number, s2: number): boolean {

@@ -6,6 +6,7 @@ import cn from '../../lib/utils';
 interface UniversalEntitySheetProps {
   entity: EntitySheet | null;
   onClose: () => void;
+  onAction?: (actionId: string) => void;
 }
 
 // --- Subcomponents ---
@@ -75,7 +76,13 @@ function FeatureRow({ feature }: { feature: EntityFeature }) {
 }
 
 // 5. Main Content Component (Embeddable)
-export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet }) {
+export function UniversalEntitySheetContent({
+  entity,
+  onAction,
+}: {
+  entity: EntitySheet;
+  onAction?: (actionId: string) => void;
+}) {
   const [activeTab, setActiveTab] = useState<'main' | 'bio'>('main');
 
   // Derive simple helpers
@@ -216,18 +223,71 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
                     <div className="h-px bg-midnight-800 flex-1" />
                   </h3>
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-3">
-                    {entity.actions && entity.actions.length > 0 ? (
-                      entity.actions.map((action: EntityAction, idx: number) => (
-                        <div
-                          key={idx}
-                          className="group flex flex-col gap-2 p-3 bg-midnight-900/40 border border-midnight-700/50 hover:border-gold-700/50 hover:bg-midnight-800/60 rounded transition-all cursor-default"
-                        >
-                          <div className="font-bold text-sm text-primary-gold mb-1">{action.name}</div>
-                          {action.description && <div className="text-xs text-gray-400">{action.description}</div>}
-                        </div>
-                      ))
-                    ) : (
-                      <div className="text-sm text-shadow-500 italic p-4 text-center border border-dashed border-midnight-800 rounded">
+                    {/* 1. Derived Runtime Actions (Priority) */}
+                    {entity.availableActions && entity.availableActions.length > 0
+                      ? entity.availableActions.map((action, idx) => (
+                          <div
+                            key={action.id + idx}
+                            className="group flex flex-col gap-2 p-3 bg-midnight-900/60 border border-midnight-700/50 hover:border-gold-700/50 hover:bg-midnight-800/80 rounded transition-all"
+                          >
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <div className="font-bold text-sm text-primary-gold mb-1">{action.name}</div>
+                                <div className="text-[10px] uppercase tracking-wider text-midnight-400 font-mono">
+                                  {action.type}
+                                  {action.range ? ` • ${action.range}ft` : ''}
+                                  {action.attack ? ` • +${action.attack.bonus} Hit` : ''}
+                                  {action.save ? ` • DC ${action.save.dc} ${action.save.attribute.toUpperCase()}` : ''}
+                                </div>
+                              </div>
+                              {onAction && (
+                                <button
+                                  type="button"
+                                  onClick={() => onAction(action.id)}
+                                  className="px-3 py-1 bg-gold-600/20 hover:bg-gold-600/40 text-gold-400 text-xs font-bold uppercase rounded border border-gold-600/30 transition-colors"
+                                >
+                                  Use
+                                </button>
+                              )}
+                            </div>
+                            {action.description && (
+                              <div className="text-xs text-gray-400 line-clamp-2">{action.description}</div>
+                            )}
+                            {/* Cost Badge */}
+                            {action.cost && (
+                              <div className="mt-1 flex gap-2">
+                                <span className="text-[10px] bg-midnight-950 px-2 py-0.5 rounded text-midnight-400 border border-midnight-800 uppercase">
+                                  {action.cost.resource} ({action.cost.amount})
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        ))
+                      : /* 2. Legacy Actions (Fallback) */
+                        entity.actions &&
+                        entity.actions.length > 0 && (
+                          <div className="col-span-full mb-2">
+                            <span className="text-xs text-midnight-500 uppercase tracking-widest">
+                              Legacy Actions (Migrating...)
+                            </span>
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 mt-2">
+                              {entity.actions.map((action: EntityAction, idx: number) => (
+                                <div
+                                  key={idx}
+                                  className="group flex flex-col gap-2 p-3 bg-midnight-900/40 border border-midnight-700/50 hover:border-gold-700/50 hover:bg-midnight-800/60 rounded transition-all cursor-default"
+                                >
+                                  <div className="font-bold text-sm text-primary-gold mb-1">{action.name}</div>
+                                  {action.description && (
+                                    <div className="text-xs text-gray-400">{action.description}</div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                    {!entity.availableActions?.length && !entity.actions?.length && (
+                      <div className="text-sm text-shadow-500 italic p-4 text-center border border-dashed border-midnight-800 rounded col-span-full">
                         No actions available.
                       </div>
                     )}
@@ -272,7 +332,7 @@ export function UniversalEntitySheetContent({ entity }: { entity: EntitySheet })
   );
 }
 
-export default function UniversalEntitySheet({ entity, onClose }: UniversalEntitySheetProps) {
+export default function UniversalEntitySheet({ entity, onClose, onAction }: UniversalEntitySheetProps) {
   useEffect(() => {
     if (!entity) return;
     const handleKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -293,7 +353,7 @@ export default function UniversalEntitySheet({ entity, onClose }: UniversalEntit
           <span className="sr-only">Close</span>
           <X className="w-8 h-8" />
         </button>
-        <UniversalEntitySheetContent entity={entity} />
+        <UniversalEntitySheetContent entity={entity} onAction={onAction} />
       </div>
     </div>
   );

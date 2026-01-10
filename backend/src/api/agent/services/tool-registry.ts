@@ -17,6 +17,9 @@ import {
   ModifyTerrainCommand,
   LongRestCommand,
   Attribute,
+  DropItemCommand,
+  PickupItemCommand,
+  ThrowItemCommand,
 } from '../../game/src/engine';
 import { CastSpellIntentSchema } from '../../../shared'; // Import shared schemas
 import type { Core } from '@strapi/strapi';
@@ -150,9 +153,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           })),
       } as any;
 
-      const { ActionHydrator } = await import('../src/engine/derivation/ActionHydrator');
+      const { ActionHydrator } = await import('../../game/src/engine/derivation/ActionHydrator');
       const actions: any[] = [];
-      context.equipment.forEach((item: any) => actions.push(...ActionHydrator.hydrateFromEquipment(item, context)));
+      context.equipment.forEach((item: any) => {
+        const itemActions = ActionHydrator.hydrateFromEquipment(item, context);
+        itemActions.forEach((a) => actions.push(a));
+      });
       // TODO: Spells
 
       return actions.map((a) => ({
@@ -175,7 +181,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       actorId: z.string(),
       actionId: z.string(),
       targetId: z.string().optional(),
-      options: z.record(z.any()).optional(),
+      options: z.record(z.string(), z.any()).optional(),
     }),
     async (roomId, payload, _user) => {
       const actionEngine = strapi.service('api::game.action-engine');
@@ -294,12 +300,20 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     'drop_item',
     'Drop an item from inventory to the ground',
     z.object({ entityId: z.string(), itemComponentId: z.string() }),
-    async (_roomId, payload, _user) => {
-      const inventoryService = strapi.service('api::game.inventory-service');
+    async (roomId, payload, _user) => {
+      const actionEngine = strapi.service('api::game.action-engine');
       const p = payload as { entityId: string; itemComponentId: string };
-      // Call Service
-      // Note: roomId not strictly needed unless we validate room presence? Service handles it.
-      return await (inventoryService as InventoryService).dropItem(p.entityId, p.itemComponentId);
+
+      const command: DropItemCommand = {
+        type: 'DROP_ITEM',
+        payload: {
+          actorId: p.entityId,
+          itemComponentId: p.itemComponentId,
+        },
+        timestamp: Date.now(),
+      };
+
+      return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
     }
   );
 
@@ -308,12 +322,188 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     'pickup_item',
     'Pick up an item (loot pile) from the ground',
     z.object({ actorId: z.string(), targetId: z.string() }),
-    async (_roomId, payload, _user) => {
-      const inventoryService = strapi.service('api::game.inventory-service');
+    async (roomId, payload, _user) => {
+      const actionEngine = strapi.service('api::game.action-engine');
       const p = payload as { actorId: string; targetId: string };
-      return await (inventoryService as InventoryService).pickupItem(p.actorId, p.targetId);
+
+      const command: PickupItemCommand = {
+        type: 'PICKUP_ITEM',
+        payload: {
+          actorId: p.actorId,
+          targetId: p.targetId,
+        },
+        timestamp: Date.now(),
+      };
+
+      return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
     }
   );
+
+  // 17. THROW_ITEM
+  register(
+    'throw_item',
+    'Throw an item at a target or position',
+    z.object({
+      actorId: z.string(),
+      itemComponentId: z.string(),
+      targetEntityId: z.string().optional(),
+      targetPosition: z.object({ x: z.number(), y: z.number(), z: z.number() }),
+    }),
+    async (roomId, payload, _user) => {
+      const actionEngine = strapi.service('api::game.action-engine');
+      const p = payload as {
+        actorId: string;
+        itemComponentId: string;
+        targetEntityId?: string;
+        targetPosition: { x: number; y: number; z: number };
+      };
+
+      const command: ThrowItemCommand = {
+        type: 'THROW_ITEM',
+        payload: {
+          actorId: p.actorId,
+          itemComponentId: p.itemComponentId,
+          targetEntityId: p.targetEntityId,
+          targetPosition: p.targetPosition as any,
+        },
+        timestamp: Date.now(),
+      };
+
+      return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
+    }
+  );
+
+  // 11. SET_TIME
+  register(
+    'set_time',
+    'Set the current world time (in seconds)',
+    z.object({ time: z.union([z.number(), z.string()]) }),
+    async (roomId, payload, _user) => {
+      const p = payload as { time: number | string };
+      let newTime = 0;
+
+      if (typeof p.time === 'string') {
+        const lower = p.time.toLowerCase().trim();
+        // Simple heuristic parser
+        if (lower.includes('pm') || lower.includes('am')) {
+          // Parse "7pm", "07:00 PM"
+          const timeParts = lower.match(/(\d+)(?::(\d+))?\s*(am|pm)/);
+          if (timeParts) {
+            let hours = parseInt(timeParts[1]);
+            const minutes = parseInt(timeParts[2] || '0');
+            const meridiem = timeParts[3];
+            if (meridiem === 'pm' && hours < 12) hours += 12;
+            if (meridiem === 'am' && hours === 12) hours = 0;
+            // Assuming Day 1 for relative setting, or keeping current day?
+            // "Set time to 7pm" usually implies "Today 7pm".
+            // We just return seconds from midnight if we want to reset cycle,
+            // OR we calculate absolute time.
+            // GameLoop uses absolute seconds.
+            // For simplicity, let's assume we are setting the "Time of Day" for the current day.
+            // But we don't know the current day easily without fetching.
+            // Let's just set absolute seconds to (hours * 3600 + minutes * 60).
+            // NOTE: This resets day count to 0 if we don't fetch current.
+            // Let's fetch current to preserve day.
+            const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
+            const current = (room?.world as any)?.time || 0;
+            const day = Math.floor(current / 86400);
+            newTime = day * 86400 + hours * 3600 + minutes * 60;
+          } else {
+            // Fallback default
+            newTime = 0;
+          }
+        } else {
+          // Direct number string?
+          newTime = parseInt(p.time) || 0;
+        }
+      } else {
+        newTime = p.time;
+      }
+
+      await strapi.documents('api::room.room').update({
+        documentId: roomId,
+        data: {
+          world: {
+            ...(((await strapi.documents('api::room.room').findOne({ documentId: roomId }))?.world as object) || {}),
+            time: newTime,
+          },
+        } as any,
+      });
+
+      return { success: true, time: newTime };
+    }
+  );
+
+  // 12. GET_TIME
+  register('get_time', 'Get the current world time', z.object({}), async (roomId, _payload, _user) => {
+    const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
+    const time = (room?.world as any)?.time || 0;
+
+    const day = Math.floor(time / 86400);
+    const secondsInDay = time % 86400;
+    const hours = Math.floor(secondsInDay / 3600);
+    const minutes = Math.floor((secondsInDay % 3600) / 60);
+
+    // Format HH:MM
+    const formatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+    return { time, day, formatted };
+  });
+
+  // 13. SET_ENTROPY
+  register(
+    'set_entropy',
+    'Set a specific world condition value',
+    z.object({ key: z.string(), value: z.string() }),
+    async (roomId, payload, _user) => {
+      const p = payload as { key: string; value: string };
+      const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
+      const state = (room?.entropyState as any) || { conditions: [] };
+
+      const condition = state.conditions.find((c: any) => c.key.toLowerCase() === p.key.toLowerCase());
+      if (condition) {
+        condition.currentValue = p.value;
+        condition.lastUpdatedTurn = 0; // Or fetch current turn?
+      } else {
+        return { error: `Condition '${p.key}' not found` };
+      }
+
+      await strapi.documents('api::room.room').update({
+        documentId: roomId,
+        data: { entropyState: state } as any,
+      });
+
+      return { success: true, state };
+    }
+  );
+
+  // 14. GET_ENTROPY
+  register(
+    'get_entropy',
+    'Get the current entropy state and world conditions',
+    z.object({}),
+    async (roomId, _payload, _user) => {
+      const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
+      return (room?.entropyState as any) || {};
+    }
+  );
+
+  // 15. SET_WEATHER
+  register('set_weather', 'Set the local weather', z.object({ weather: z.string() }), async (roomId, payload, user) => {
+    const p = payload as { weather: string };
+    // Wrapper for set_entropy
+    return await tools['set_entropy'].handler(roomId, { key: 'Local Weather', value: p.weather }, user);
+  });
+
+  // 16. GET_WEATHER
+  register('get_weather', 'Get the current local weather', z.object({}), async (roomId, payload, user) => {
+    const result = await tools['get_entropy'].handler(roomId, payload, user);
+    if ((result as any).conditions) {
+      const weather = (result as any).conditions.find((c: any) => c.key === 'Local Weather');
+      return weather || { key: 'Local Weather', currentValue: 'Unknown' };
+    }
+    return result;
+  });
 
   return {
     hasTool(name: string) {

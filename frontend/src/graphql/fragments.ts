@@ -67,7 +67,19 @@ export const FULL_CONTEXT_FRAGMENT = gql`
                 school
               }
             }
+            }
           }
+        }
+        availableActions {
+          id
+          name
+          description
+          type
+          cost {
+            resource
+            amount
+          }
+          range
         }
       }
     }
@@ -85,6 +97,13 @@ export const FULL_CONTEXT_FRAGMENT = gql`
         z
       }
       # Conditions removed (not in schema)
+      availableActions {
+        id
+        name
+        description
+        type
+        range
+      }
     }
 
     # 4. Deep History (Turns & Messages)

@@ -29,7 +29,7 @@ export default function CharactersPage() {
     loading: true,
     error: null,
   });
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+  const [selectedContext, setSelectedContext] = useState<{ player: Player; roomId: string } | null>(null);
 
   const sortedCharacters = useMemo(
     () => [...state.characters].sort((a, b) => (a.character?.name || '').localeCompare(b.character?.name || '')),
@@ -189,7 +189,7 @@ export default function CharactersPage() {
                       <Button
                         type="button"
                         variant="secondary"
-                        onClick={() => setSelectedPlayer(player)}
+                        onClick={() => setSelectedContext({ player, roomId })}
                         className="sm:min-w-[160px]"
                       >
                         {t('characters.actions.viewSheet')}
@@ -215,7 +215,11 @@ export default function CharactersPage() {
           </div>
         )}
       </div>
-      <EntitySheetPanel player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+      <EntitySheetPanel
+        player={selectedContext?.player || null}
+        roomId={selectedContext?.roomId}
+        onClose={() => setSelectedContext(null)}
+      />
     </PrivateLayout>
   );
 }

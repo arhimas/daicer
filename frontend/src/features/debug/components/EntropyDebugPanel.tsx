@@ -27,15 +27,110 @@ interface EntropyState {
 
 interface EntropyDebugPanelProps {
   state: EntropyState | null; // Null if not initialized
+  roomId: string; // Passed for tool execution
 }
 
-export function EntropyDebugPanel({ state }: EntropyDebugPanelProps) {
+// Helper to execute tool (Quick & Dirty for Debug Panel)
+import { executeDirectTool } from '@/services/api';
+
+const WEATHER_OPTIONS = ['Clear', 'Overcast', 'Rain', 'Storm', 'Fog', 'Snow'];
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+
+export function EntropyDebugPanel({ state, roomId }: EntropyDebugPanelProps) {
+  const [timeInput, setTimeInput] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleTool = async (cmd: string) => {
+    setLoading(true);
+    try {
+      await executeDirectTool(roomId, cmd);
+    } catch (e) {
+      console.error(e);
+      alert('Failed to execute tool');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!state) {
-    return <div className="p-4 text-aurora-500/50 italic">Entropy System not initialized or no state available.</div>;
+    return (
+      <div className="p-4 flex flex-col gap-4">
+        <div className="text-aurora-500/50 italic">Entropy System not initialized.</div>
+        {/* Fallback Environment Controls even if Entropy is off? Ideally yes for Time. */}
+        <div className="p-4 border border-midnight-700 bg-midnight-950/30 rounded">
+          <h4 className="text-aurora-300 font-semibold tracking-wide text-xs uppercase mb-2">Environment Override</h4>
+          <div className="flex gap-2">
+            <input
+              className="bg-black/50 border border-white/20 text-xs p-1 text-white rounded w-24"
+              placeholder="7pm"
+              value={timeInput}
+              onChange={(e) => setTimeInput(e.target.value)}
+            />
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => handleTool(`set_time(time="${timeInput}")`)}
+              disabled={loading}
+            >
+              Set Time
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6 h-full flex flex-col">
+      {/* Environment Control Row */}
+      <div className="grid grid-cols-2 gap-4">
+        {/* Time Control */}
+        <div className="p-3 bg-midnight-900/50 border border-midnight-700 rounded flex flex-col gap-2">
+          <label className="text-xs text-aurora-500 font-bold uppercase">Time</label>
+          <div className="flex gap-2">
+            <input
+              className="bg-black/50 border border-white/20 text-xs p-1 text-white rounded flex-1 min-w-0"
+              placeholder="e.g. 7pm or 06:30"
+              value={timeInput}
+              onChange={(e) => setTimeInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleTool(`set_time(time="${timeInput}")`)}
+            />
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => handleTool(`set_time(time="${timeInput}")`)}
+              disabled={loading || !timeInput}
+            >
+              Set
+            </Button>
+          </div>
+        </div>
+
+        {/* Weather Control */}
+        <div className="p-3 bg-midnight-900/50 border border-midnight-700 rounded flex flex-col gap-2">
+          <label className="text-xs text-aurora-500 font-bold uppercase">Weather</label>
+          <div className="flex flex-wrap gap-1">
+            {WEATHER_OPTIONS.map((w) => (
+              <button
+                key={w}
+                onClick={() => handleTool(`set_weather(weather="${w}")`)}
+                disabled={loading}
+                className={`px-2 py-0.5 text-[10px] rounded border border-white/10 hover:bg-white/10 transition-colors
+                                ${
+                                  state.conditions.find((c) => c.key === 'Local Weather' && c.currentValue === w)
+                                    ? 'bg-nebula-500/30 text-nebula-300 border-nebula-500/50'
+                                    : 'text-aurora-400/70'
+                                }
+                            `}
+              >
+                {w}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Pool Header */}
       <div className="space-y-2">
         <div className="flex justify-between items-center">

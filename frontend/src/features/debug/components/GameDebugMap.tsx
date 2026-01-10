@@ -5,6 +5,8 @@ import { useChunkLoader } from '@/hooks/useChunkLoader';
 import { MapRenderer } from './MapRenderer';
 import { MapRenderer3D } from './MapRenderer3D';
 import { DebugEntity, Coordinates, WorldConfig } from '../utils/types';
+import { GET_WORLD_TIME_QUERY } from '@/graphql/queries';
+import { useQuery } from '@apollo/client/react';
 
 interface GameDebugMapProps {
   roomId: string;
@@ -35,7 +37,33 @@ export function GameDebugMap({
   const [zoom, setZoom] = useState<number>(1);
   const [is3D, setIs3D] = useState<boolean>(false); // Default to 2D per user request
   const [mapSize, setMapSize] = useState({ w: 800, h: 600 });
+
+  // Visibility State
+  const [godMode, setGodMode] = useState(false);
+  const [nightVision, setNightVision] = useState(false);
+  const [forceTime, setForceTime] = useState<'auto' | 'day' | 'night'>('auto');
+
   const mapRef = useRef<HTMLDivElement>(null);
+
+  // Time Query
+  const { data: timeData } = useQuery(GET_WORLD_TIME_QUERY, {
+    variables: { roomId },
+    pollInterval: 5000, // Poll every 5s
+    fetchPolicy: 'network-only',
+  });
+
+  const worldTime = (timeData as any)?.getWorldTime;
+
+  // Derived Light Level
+  const lightLevel = useMemo(() => {
+    if (forceTime === 'day') return 1.0;
+    if (forceTime === 'night') return nightVision ? 1.0 : 0.2;
+    if (!worldTime) return 1.0; // Default to day if no data
+
+    // Auto
+    if (nightVision) return Math.max(0.8, worldTime.lightLevel); // Boost light if NV is on
+    return worldTime.lightLevel;
+  }, [forceTime, nightVision, worldTime]);
 
   // Resize Observer
   useEffect(() => {
@@ -205,7 +233,7 @@ export function GameDebugMap({
       </div>
 
       {/* Layer Control (Bottom Center) */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-auto flex items-center">
         <div className="bg-midnight-900/90 backdrop-blur border border-midnight-700 rounded-full px-4 py-2 shadow-xl flex items-center gap-2">
           <span className="text-[10px] text-shadow-400 uppercase mr-2 font-bold">Z-Link</span>
           {[-1, 0, 1].map((z) => (
@@ -223,6 +251,39 @@ export function GameDebugMap({
               {z}
             </button>
           ))}
+        </div>
+
+        {/* Visibility Controls */}
+        <div className="bg-midnight-900/90 backdrop-blur border border-midnight-700 rounded-full ml-4 px-4 py-2 shadow-xl flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setGodMode(!godMode)}
+            className={clsx(
+              'text-xs font-bold uppercase transition-colors px-2 py-1 rounded',
+              godMode ? 'bg-amber-500 text-black' : 'text-amber-500 hover:bg-white/10'
+            )}
+          >
+            GOD
+          </button>
+          <div className="w-px h-4 bg-white/20 mx-1" />
+          <button
+            type="button"
+            onClick={() => setNightVision(!nightVision)}
+            className={clsx(
+              'text-xs font-bold uppercase transition-colors px-2 py-1 rounded',
+              nightVision ? 'bg-emerald-500 text-black' : 'text-emerald-500 hover:bg-white/10'
+            )}
+          >
+            NV
+          </button>
+          <div className="w-px h-4 bg-white/20 mx-1" />
+          <button
+            onClick={() => setForceTime((prev) => (prev === 'auto' ? 'day' : prev === 'day' ? 'night' : 'auto'))}
+            className="text-xs font-bold uppercase text-blue-300 hover:text-white min-w-[40px]"
+          >
+            {forceTime}
+          </button>
+          {worldTime && <span className="text-[10px] font-mono text-white/60 ml-1">{worldTime.formatted}</span>}
         </div>
 
         {/* Simple 2D/3D Toggle */}
@@ -265,7 +326,9 @@ export function GameDebugMap({
             chunkProvider={chunkProvider}
             visibleTiles={visibleTiles}
             exploredTiles={currentExplored}
-            restrictView={!!activeEntity} // Force restriction if entity is selected
+            restrictView={!!activeEntity} // Force restriction if entity is selected (but godMode overrides inside Renderer)
+            godMode={godMode}
+            lightLevel={lightLevel}
             entities={entities}
             ghostEntities={[]}
             previewPath={activeEntity?.pendingPath}

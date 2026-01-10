@@ -87,6 +87,7 @@ export const ModifyTerrainCommandSchema = BaseCommandSchema.extend({
       position: CoordinatesSchema.optional(),
       blockType: z.string().optional(),
       action: z.enum(['set', 'remove', 'fill']).optional(),
+      metadata: z.record(z.string(), z.unknown()).optional(),
     })
     .passthrough(), // Allow flexible payload for voxel engine
 });
@@ -103,6 +104,42 @@ export const RollSaveCommandSchema = BaseCommandSchema.extend({
   }),
 });
 
+export const ActionCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('DO_ACTION'),
+  payload: z.object({
+    actorId: z.string(),
+    actionId: z.string(),
+    targetId: z.string().optional(),
+    options: z.record(z.string(), z.any()).optional(),
+  }),
+});
+
+export const DropItemCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('DROP_ITEM'),
+  payload: z.object({
+    actorId: z.string(),
+    itemComponentId: z.string(), // ID of the inventory-item component
+  }),
+});
+
+export const PickupItemCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('PICKUP_ITEM'),
+  payload: z.object({
+    actorId: z.string(),
+    targetId: z.string(), // The Loot Entity ID
+  }),
+});
+
+export const ThrowItemCommandSchema = BaseCommandSchema.extend({
+  type: z.literal('THROW_ITEM'),
+  payload: z.object({
+    actorId: z.string(),
+    itemComponentId: z.string(),
+    targetPosition: CoordinatesSchema,
+    targetEntityId: z.string().optional(), // If targeting an entity directly
+  }),
+});
+
 // === Union of All Commands ===
 
 export const CommandSchema = z.union([
@@ -116,6 +153,9 @@ export const CommandSchema = z.union([
   ModifyTerrainCommandSchema,
   RollSaveCommandSchema,
   ActionCommandSchema,
+  DropItemCommandSchema,
+  PickupItemCommandSchema,
+  ThrowItemCommandSchema,
 ]);
 
 // Helper to infer discriminated union type

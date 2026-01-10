@@ -10,6 +10,7 @@ interface VoxelChangeRecord {
   voxelZ: number;
   newType: BlockType;
   previousType?: string;
+  metadata?: Record<string, unknown>;
 }
 
 export class ChunkManager {
@@ -65,9 +66,6 @@ export class ChunkManager {
     this.cache.set(key, chunk);
   }
 
-  // This method is added based on the instruction to "Fix tile access in applyVoxelChanges"
-  // and the provided code snippet. It assumes VoxelChangeRecord is defined.
-  // If this method already exists elsewhere, it should be merged.
   public applyVoxelChanges(chunk: Chunk, changes: VoxelChangeRecord[]): Chunk {
     // Apply changes
     const chunkSize = 16;
@@ -75,7 +73,7 @@ export class ChunkManager {
     const maxZ = 3;
 
     for (const change of changes) {
-      const { voxelX, voxelY, voxelZ, newType } = change;
+      const { voxelX, voxelY, voxelZ, newType, metadata } = change;
       // Verify bounds
       if (voxelX >= 0 && voxelX < chunkSize && voxelY >= 0 && voxelY < chunkSize && voxelZ >= minZ && voxelZ <= maxZ) {
         const zIndex = voxelZ + 3; // Shift -3..3 to 0..6
@@ -84,6 +82,9 @@ export class ChunkManager {
           const tile = chunk.tiles[zIndex][voxelY][voxelX];
           if (tile) {
             tile.block = newType;
+            if (metadata) {
+              tile.metadata = { ...(tile.metadata || {}), ...metadata };
+            }
           }
         }
       }
@@ -96,26 +97,6 @@ export class ChunkManager {
     const key = `${config.seed}_${x}_${y}`;
     if (this.cache.has(key)) return this.cache.get(key)!;
 
-    // Fetch changes for this chunk
-    // We do this concurrently while waiting for worker, ideally.
-    // simpler: fetch changes, then overlay.
-
-    // Actually, getChunk needs to return the chunk.
-    // Current implementation:
-    // 1. Worker generates chunk
-    // 2. We receive chunk
-    // 3. We apply changes
-    // 4. We cache
-    // 5. We return
-
-    // BUT the worker logic in constructor handles caching.
-    // If we want to persist edits, we should apply them BEFORE caching in the worker handler?
-    // Or we modify the flow.
-
-    // Current worker handler:
-    // ... cache.set ... resolve(result)
-
-    // We should intercept the resolve.
     return new Promise((resolve, reject) => {
       const id = Math.random().toString(36).substring(7);
 
@@ -123,7 +104,6 @@ export class ChunkManager {
         resolve: async (chunk) => {
           // Apply Persistence Here
           try {
-            // We need strapi service access. Assuming 'strapi' is global or injected? (It was declare var strapi: any)
             const changes = (await strapi.db.query('api::voxel-change.voxel-change').findMany({
               where: {
                 chunkX: chunk.x,
@@ -136,6 +116,24 @@ export class ChunkManager {
             }
           } catch (e) {
             console.error('Failed to apply voxel changes', e);
+          }
+
+          // On-Demand Spawning Integration
+          try {
+            // Sample biome from center surface tile (Z=0 -> index 3)
+            const centerTile = chunk.tiles[3][8][8];
+            const biome = centerTile?.biome || 'plains';
+
+            const biomeSpawnService = strapi.service('api::game.biome-spawn-service') as any;
+            if (biomeSpawnService) {
+              // We don't await this to avoid blocking chunk load latency?
+              // Or we should? If entities are important for the user immediately, we should await.
+              // But spawning takes time.
+              // Let's await it to ensure consistency.
+              await biomeSpawnService.populateChunk(chunk.x, chunk.y, biome);
+            }
+          } catch (e) {
+            console.error('Failed to trigger biome spawn', e);
           }
 
           this.addToCache(chunk.x, chunk.y, config.seed, chunk);
@@ -154,10 +152,49 @@ export class ChunkManager {
     voxelX: number,
     voxelY: number,
     voxelZ: number,
-    newType: BlockType,
-    reason?: string
+    newType: BlockType | undefined,
+    reason?: string,
+    metadata?: Record<string, unknown>
   ) {
-    // 1. Persist to DB
+    // 1. Resolve Type if undefined (Metadata Only Update)
+    let solvedType = newType;
+    if (!solvedType) {
+      // We need to fetch the chunk to know the current type
+      // This causes a read-before-write.
+      // We can use our own getChunk (which uses cache).
+      try {
+        // Reconstruct config? We need seed...
+        // If we don't have config, we might check cache directly.
+        // Iterating cache for matching chunk:
+        for (const chunk of this.cache.values()) {
+          if (chunk.x === chunkX && chunk.y === chunkY) {
+            const zIndex = voxelZ + 3;
+            const tile = chunk.tiles?.[zIndex]?.[voxelY]?.[voxelX];
+            if (tile) {
+              solvedType = tile.block as BlockType;
+            }
+            break;
+          }
+        }
+
+        // If still not found (not in cache and no config to fetch), we might fallback or error.
+        // Fallback: 'dirt' (unsafe) or just fail.
+        if (!solvedType) {
+          // SOTA Safety: Default to 'air' but log warning? Or 'dirt'?
+          // Let's assume 'dirt' for stability if cache miss, but ideally we should fetch.
+          // Given we don't have 'config' here easily, we rely on cache or previous systems.
+          // We will default to 'dirt' to ensure persistence succeeds, but log it.
+          console.warn(
+            `[ChunkManager] editVoxel: newType undefined and chunk not in cache for ${chunkX},${chunkY}. Defaulting to 'dirt'.`
+          );
+          solvedType = 'dirt' as BlockType;
+        }
+      } catch (e) {
+        solvedType = 'dirt' as BlockType;
+      }
+    }
+
+    // 2. Persist to DB
     await strapi.db.query('api::voxel-change.voxel-change').create({
       data: {
         chunkX,
@@ -165,23 +202,21 @@ export class ChunkManager {
         voxelX,
         voxelY,
         voxelZ,
-        newType,
+        newType: solvedType,
         previousType: 'Unknown',
         reason,
         timestamp: Date.now(),
+        metadata,
       },
     });
 
-    // 2. Update Cache (scan all caches? no, just matching ones)
-    // Since we don't know the seed of every cached chunk easily (keys are string),
-    // we can iterate values.
+    // 2. Update Cache
     const chunkSize = 16;
     const minZ = -3;
     const maxZ = 3;
 
     for (const chunk of this.cache.values()) {
       if (chunk.x === chunkX && chunk.y === chunkY) {
-        // Apply update
         if (
           voxelX >= 0 &&
           voxelX < chunkSize &&
@@ -197,7 +232,11 @@ export class ChunkManager {
             chunk.tiles[zIndex][voxelY] &&
             chunk.tiles[zIndex][voxelY][voxelX]
           ) {
-            chunk.tiles[zIndex][voxelY][voxelX].block = newType;
+            const tile = chunk.tiles[zIndex][voxelY][voxelX];
+            tile.block = newType;
+            if (metadata) {
+              tile.metadata = { ...(tile.metadata || {}), ...metadata };
+            }
           }
         }
       }

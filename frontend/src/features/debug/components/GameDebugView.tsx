@@ -352,6 +352,7 @@ function GameDebugInner({
             activeLocation={activeLocation}
             onGodModeCommand={handleGodModeCommand}
             entropyState={room.entropyState}
+            roomId={roomId}
           />
         </div>
 

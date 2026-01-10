@@ -57,13 +57,39 @@ export class BiomeService {
   }
 
   private determineBiome(elev: number, moist: number): { biome: BiomeType; surfaceBlock: BlockType } {
+    // Sea Level & Coast
     if (elev < this.config.seaLevel) return { biome: BiomeType.ocean, surfaceBlock: BlockType.WATER };
     if (elev < this.config.seaLevel + 0.05) return { biome: BiomeType.beach, surfaceBlock: BlockType.SAND };
+
     const adjustedMoist = moist + this.config.temperatureOffset * 0.5;
-    if (elev > 0.6) return { biome: BiomeType.snowy_peaks, surfaceBlock: BlockType.SNOW };
-    if (elev > 0.4) return { biome: BiomeType.mountain, surfaceBlock: BlockType.STONE };
-    if (adjustedMoist < -0.2) return { biome: BiomeType.desert, surfaceBlock: BlockType.SAND };
-    if (adjustedMoist > 0.2) return { biome: BiomeType.forest, surfaceBlock: BlockType.GRASS };
-    return { biome: BiomeType.plains, surfaceBlock: BlockType.GRASS };
+
+    // HIGH ELEVATION (Mountains & Peaks)
+    if (elev > 0.8) {
+      if (adjustedMoist < -0.3) return { biome: BiomeType.crystal_peaks, surfaceBlock: BlockType.STONE }; // Special dry peaks
+      return { biome: BiomeType.snowy_peaks, surfaceBlock: BlockType.SNOW };
+    }
+    if (elev > 0.6) {
+      if (adjustedMoist < -0.3) return { biome: BiomeType.badlands, surfaceBlock: BlockType.SAND };
+      return { biome: BiomeType.mountain, surfaceBlock: BlockType.STONE };
+    }
+
+    // MID ELEVATION
+    if (elev > 0.3) {
+      if (adjustedMoist < -0.3) return { biome: BiomeType.desert, surfaceBlock: BlockType.SAND };
+      if (adjustedMoist < -0.1) return { biome: BiomeType.savanna, surfaceBlock: BlockType.GRASS };
+      if (adjustedMoist < 0.2) return { biome: BiomeType.forest, surfaceBlock: BlockType.GRASS };
+      if (adjustedMoist < 0.5) return { biome: BiomeType.jungle, surfaceBlock: BlockType.GRASS }; // Dense
+      return { biome: BiomeType.mystic_forest, surfaceBlock: BlockType.GRASS }; // Very wet magical
+    }
+
+    // LOW ELEVATION (Plains, Swamps, Wastes)
+    // Low elevation extreme dryness -> Lava Wastes / Badlands
+    if (adjustedMoist < -0.5) return { biome: BiomeType.lava_wastes, surfaceBlock: BlockType.LAVA }; // Dangerous!
+    if (adjustedMoist < -0.2) return { biome: BiomeType.plains, surfaceBlock: BlockType.GRASS };
+    if (adjustedMoist < 0.3) return { biome: BiomeType.forest, surfaceBlock: BlockType.GRASS };
+    if (adjustedMoist < 0.6) return { biome: BiomeType.swamp, surfaceBlock: BlockType.DIRT };
+    if (adjustedMoist < 0.8) return { biome: BiomeType.fungal_groves, surfaceBlock: BlockType.DIRT }; // Alien
+
+    return { biome: BiomeType.tundra, surfaceBlock: BlockType.SNOW }; // Extreme wet/cold fallback or just default
   }
 }

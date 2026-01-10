@@ -2,6 +2,7 @@ import { Chunk, WorldConfig } from '../../game/src/engine/types';
 import { TerrainGenerator } from '../src/terrain-generator';
 import { WorldAtlas } from '../../game/src/engine/world/world-atlas';
 import { CivilizationGenerator } from './generators/civilization-generator';
+import { FloraGenerator } from './generators/flora-generator';
 
 export class ChunkBuilder {
   private terrainGen: TerrainGenerator;
@@ -22,7 +23,11 @@ export class ChunkBuilder {
     // 1. Terrain (+ Macro overrides from Atlas)
     const tiles = this.terrainGen.generate(chunkX, chunkY);
 
-    // 2. Civilization (Roads & Structures)
+    // 2. Flora (Trees, Plants, Rocks)
+    FloraGenerator.populateChunk(chunkX, chunkY, tiles, size, this.config.seed);
+
+    // 3. Civilization (Roads & Structures)
+    // Civilization generator clears vegetation for roads/buildings
     this.civGen.apply(chunkX, chunkY, tiles, worldOffsetX, worldOffsetY);
 
     return {
@@ -32,6 +37,7 @@ export class ChunkBuilder {
       size: size,
       minZ: -3,
       maxZ: 3,
+      seed: this.config.seed,
     };
   }
 }

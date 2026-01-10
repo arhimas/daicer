@@ -63,6 +63,47 @@ export const typeDefs = `
     type: String!
   }
 
+  type WorldTime {
+    ticks: Int!
+    day: Int!
+    year: Int!
+    timeOfDay: String!
+    formatted: String!
+    isDay: Boolean!
+    lightLevel: Float!
+  }
+
+  type RuntimeCost {
+    type: String
+    amount: Int
+    actionType: String
+    resourceId: String
+  }
+  
+  type RuntimeRange {
+    type: String
+    value: Int
+    reach: Int
+  }
+
+  type RuntimeAction {
+    id: ID!
+    name: String!
+    type: String
+    sourceType: String
+    sourceId: String
+    description: String
+    img: String
+    cost: RuntimeCost
+    range: RuntimeRange
+    attackBonus: Int
+    damage: String
+  }
+
+  extend type EntitySheet {
+    availableActions: [RuntimeAction]
+  }
+
   extend type Query {
     searchEntities(query: String!): [SearchResult]!
     abilities: [Ability]
@@ -71,6 +112,7 @@ export const typeDefs = `
     backgrounds: [Background]
     conditions: [GameCondition]
     conditions: [GameCondition]
+    getWorldTime(roomId: ID!): WorldTime
     voxelPreview(chunks: [ChunkRequestInput]!, config: WorldConfigInput!): [VoxelChunk]!
   }
 

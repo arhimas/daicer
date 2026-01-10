@@ -15,8 +15,8 @@ export default ({ strapi }) => ({
     monsterId: string | number,
     position: { x: number; y: number; z: number }
   ) {
-    // 1. Fetch Monster Blueprint
-    const monster = await strapi.documents('api::monster.monster').findOne({
+    // 1. Fetch Entity Blueprint
+    const monster = await strapi.documents('api::entity.entity').findOne({
       documentId: monsterId as string, // Try documentId first
       populate: [
         'stats',
@@ -132,7 +132,7 @@ export default ({ strapi }) => ({
       const sheetData: any = {
         name: monster.name,
         type: 'monster',
-        monster: monster.documentId,
+        entity: monster.documentId,
         room: room.documentId,
         hp: derived.hp,
         maxHp: derived.maxHp,

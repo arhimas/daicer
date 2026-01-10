@@ -1,11 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "monsters",
+  "collectionName": "entities",
   "info": {
-    "singularName": "monster",
-    "pluralName": "monsters",
-    "displayName": "Monster",
-    "description": "D&D 5e Monsters"
+    "singularName": "entity",
+    "pluralName": "entities",
+    "displayName": "Entity",
+    "description": "Blueprint for World Entities (Creatures, Flora, Minerals)"
   },
   "options": {
     "draftAndPublish": false
@@ -48,7 +48,14 @@
     },
     "size": {
       "type": "enumeration",
-      "enum": ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]
+      "enum": [
+        "Tiny",
+        "Small",
+        "Medium",
+        "Large",
+        "Huge",
+        "Gargantuan"
+      ]
     },
     "type": {
       "type": "string"
@@ -90,7 +97,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "features": {
       "type": "relation",
@@ -129,6 +138,26 @@
     },
     "background": {
       "type": "richtext"
+    },
+    "race": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::race.race"
+    },
+    "classes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.character-class"
+    },
+    "resources": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.resource-pool"
+    },
+    "spell_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.spell-config"
     }
   }
 }

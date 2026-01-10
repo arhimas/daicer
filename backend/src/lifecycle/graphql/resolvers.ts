@@ -47,6 +47,74 @@ export const registerGraphQLExtension = (strapi) => {
           });
         },
       },
+      EntitySheet: {
+        availableActions: async (parent, _args) => {
+          try {
+            // 1. Ensure Inventory is populated (parent might be shallow)
+            const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+              documentId: parent.documentId,
+              populate: [
+                'inventory',
+                'inventory.item',
+                'inventory.item.equipment_data',
+                'inventory.item.equipment_data.damage_type',
+                'inventory.item.equipment_data.properties',
+                'spellbook',
+                'spellbook.spell',
+                'stats',
+              ],
+            });
+
+            if (!actor) return [];
+
+            const context = {
+              attributes: actor.stats || {},
+              proficiencyBonus: 2,
+              equipment: (actor.inventory || [])
+                .filter((entry: any) => entry.isEquipped && entry.item)
+                .map((entry: any) => ({
+                  ...entry.item,
+                  ...(entry.item.equipment_data || {}),
+                  equipment_category: { slug: entry.item.type },
+                })),
+            } as any;
+
+            const { ActionHydrator } = await import('../../api/game/src/engine/derivation/ActionHydrator');
+            const allActions: any[] = [];
+
+            context.equipment.forEach((item: any) => {
+              allActions.push(...ActionHydrator.hydrateFromEquipment(item, context));
+            });
+
+            // Hydrate Spells
+            if (actor.spellbook) {
+              actor.spellbook.forEach((entry: any) => {
+                if (entry.spell) {
+                  allActions.push(ActionHydrator.hydrateFromSpell(entry.spell, context));
+                }
+              });
+            }
+
+            // Map to GraphQL Schema
+            return allActions.map((a) => ({
+              id: a.id,
+              name: a.name,
+              type: a.type,
+              sourceType: a.sourceType,
+              sourceId: a.sourceId,
+              description: a.description,
+              img: a.img,
+              cost: a.cost,
+              range: a.range,
+              attackBonus: a.attack?.bonus,
+              damage: a.effects?.find((e: any) => e.type === 'damage')?.dice,
+            }));
+          } catch (e) {
+            strapi.log.error(`[Resolver] Error deriving actions for ${parent.documentId}`, e);
+            return [];
+          }
+        },
+      },
       Query: {
         ...toolResolvers.Query, // Dynamically generated tool queries
         searchEntities: async (_parent, args, _context) => {
@@ -159,6 +227,70 @@ export const registerGraphQLExtension = (strapi) => {
         conditions: () => [
           { id: 'charmed', documentId: 'charmed', name: 'Charmed', description: 'Friendly to charmer' },
         ],
+        getWorldTime: async (_parent, args, _context) => {
+          const { roomId } = args;
+          // Fetch latest turn
+          const turns = await strapi.documents('api::turn.turn').findMany({
+            filters: { room: { documentId: roomId } },
+            sort: 'turnNumber:desc',
+            limit: 1,
+            fields: ['turnNumber'],
+          });
+
+          const currentTurn = turns.length > 0 ? turns[0].turnNumber : 0;
+
+          // Time Scale: 1 Turn = 10 Minutes
+          const MINUTES_PER_TURN = 10;
+          const MINUTES_PER_DAY = 24 * 60; // 1440
+
+          const totalMinutes = currentTurn * MINUTES_PER_TURN;
+          const day = Math.floor(totalMinutes / MINUTES_PER_DAY) + 1; // Start Day 1
+          const minuteOfDay = totalMinutes % MINUTES_PER_DAY;
+
+          // Format Time HH:MM
+          const hour = Math.floor(minuteOfDay / 60);
+          const minute = minuteOfDay % 60;
+          const ampm = hour >= 12 ? 'PM' : 'AM';
+          const hour12 = hour % 12 || 12;
+          const formatted = `${hour12}:${minute.toString().padStart(2, '0')} ${ampm}`;
+
+          // Light Level / IsDay
+          // Dawn: 6AM (360), Dusk: 6PM (1080)
+          // Simple Step:
+          const isDay = minuteOfDay >= 360 && minuteOfDay < 1080;
+
+          // Light Level (0 to 1) - Sine wave approximation or simple transitions
+          // Noon (720) = 1.0
+          // Midnight (0) = 0.2 (Moonlight)
+          let lightLevel = 0.2;
+          if (isDay) {
+            // Day Curve
+            // Peak at 720 (Noon)
+            // Distance from Noon:
+            const dist = Math.abs(minuteOfDay - 720);
+            // Max dist is 360 (at 6am/6pm).
+            // Normalized: 1 - (dist / 360)
+            lightLevel = 0.2 + 0.8 * Math.cos((dist / 360) * (Math.PI / 2));
+            // Cosine might be better:
+            // Map 360..1080 to -PI/2 .. PI/2
+            // 6AM -> 0, Noon -> 1, 6PM -> 0
+          } else {
+            // Night is constant 0.2 or slightly simpler
+            lightLevel = 0.2;
+          }
+
+          const timeOfDay = isDay ? 'Day' : 'Night';
+
+          return {
+            ticks: currentTurn,
+            day,
+            year: 1, // Static year for now
+            timeOfDay,
+            formatted,
+            isDay,
+            lightLevel,
+          };
+        },
         voxelPreview: async (_parent, args, _context) => {
           const { chunks, config } = args;
           if (!config) throw new Error('Missing config');

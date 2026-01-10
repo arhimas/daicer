@@ -20,7 +20,7 @@ export const summonMonsterTool = (context: StrapiContext) =>
         const spawnService = strapi.service('api::game.spawn-service');
 
         // 1. Verify Template Existence
-        const monster = await strapi.documents('api::monster.monster').findOne({
+        const monster = await strapi.documents('api::entity.entity').findOne({
           documentId: templateId,
         });
 

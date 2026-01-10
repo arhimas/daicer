@@ -135,3 +135,17 @@ export const SEARCH_ENTITIES_QUERY = gql`
     }
   }
 `;
+
+export const GET_WORLD_TIME_QUERY = gql`
+  query GetWorldTime($roomId: ID!) {
+    getWorldTime(roomId: $roomId) {
+      ticks
+      day
+      year
+      timeOfDay
+      formatted
+      isDay
+      lightLevel
+    }
+  }
+`;

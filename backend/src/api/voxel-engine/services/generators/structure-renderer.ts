@@ -59,11 +59,19 @@ export class StructureRenderer {
     wy: number,
     size: number,
     height: number,
-    mat: 'wood' | 'stone',
+    mat: 'wood' | 'stone' | { wall: BlockType; floor: BlockType },
     hollow = false
   ) {
-    const wall = mat === 'wood' ? BlockType.WALL_WOOD : BlockType.WALL_STONE;
-    const floor = mat === 'wood' ? BlockType.FLOOR_WOOD : BlockType.FLOOR_STONE;
+    let wall: BlockType;
+    let floor: BlockType;
+
+    if (typeof mat === 'object') {
+      wall = mat.wall;
+      floor = mat.floor;
+    } else {
+      wall = mat === 'wood' ? BlockType.WALL_WOOD : BlockType.WALL_STONE;
+      floor = mat === 'wood' ? BlockType.FLOOR_WOOD : BlockType.FLOOR_STONE;
+    }
 
     for (let z = 0; z < height; z++) {
       for (let y = 0; y < size; y++) {

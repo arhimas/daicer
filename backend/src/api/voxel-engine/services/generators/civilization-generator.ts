@@ -2,6 +2,7 @@ import { Alea } from '../../src/utils/math';
 import { WorldConfig, Tile, BlockType, StructureInfo } from '../../../game/src/engine/types';
 import { StructureRenderer } from './structure-renderer';
 import { WorldAtlas } from '../../../game/src/engine/world/world-atlas'; // Import Atlas
+import { AdvancedStructureGenerator } from './advanced-structure-generator';
 
 export class CivilizationGenerator {
   private config: WorldConfig;
@@ -146,8 +147,8 @@ export class CivilizationGenerator {
   }
 
   private generateStructure(struct: StructureInfo, tiles: Tile[][][], cx: number, cy: number) {
-    // Pass 'this' as generatorMethods because we will implement the methods here or delegate
-    StructureRenderer.renderStructure(struct, tiles, cx, cy, this);
+    // Delegate to Advanced Structure Generator
+    AdvancedStructureGenerator.generate(struct, tiles, cx, cy);
   }
 
   // Implementation of generation methods called by StructureRenderer via callback

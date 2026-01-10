@@ -122,6 +122,62 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
   },
 
   /**
+   * Drops an item at a SPECIFIC coordinate (e.g. for Throwing).
+   */
+  async dropItemAt(
+    entityId: string,
+    itemComponentId: string,
+    position: { x: number; y: number; z: number }
+  ): Promise<{ success: boolean; message: string }> {
+    // 1. Fetch Source Entity
+    const entity = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: entityId,
+      populate: ['inventory', 'inventory.item'],
+    });
+
+    if (!entity) throw new Error('Entity not found');
+
+    // 2. Find Item in Inventory
+    const inventory = entity.inventory || [];
+    const itemIndex = inventory.findIndex(
+      (i: { id: number; documentId: string }) => i.id === Number(itemComponentId) || i.documentId === itemComponentId
+    );
+
+    if (itemIndex === -1) {
+      throw new Error('Item not found in inventory');
+    }
+
+    const itemToDrop = inventory[itemIndex];
+
+    // 3. Create Loot Entity at TARGET position
+    const itemName = itemToDrop.item?.name || 'Dropped Item';
+
+    await strapi.documents('api::entity-sheet.entity-sheet').create({
+      data: {
+        name: itemName,
+        type: 'loot',
+        position: position, // Use provided position
+        inventory: [itemToDrop], // Move component data
+        hp: 1,
+        maxHp: 1,
+        ac: 10,
+        temp_id: `loot_${Date.now()}_${Math.random()}`,
+      } as any,
+    });
+
+    // 4. Remove from Source
+    const newInventory = [...inventory];
+    newInventory.splice(itemIndex, 1);
+
+    await strapi.documents('api::entity-sheet.entity-sheet').update({
+      documentId: entityId,
+      data: { inventory: newInventory } as any,
+    });
+
+    return { success: true, message: `Dropped ${itemName} at ${position.x},${position.y},${position.z}` };
+  },
+
+  /**
    * DEATH DROP: Moves ALL items from entity to a new 'Remains' loot entity (or converts current entity to loot?).
    * Current Design: Create new "Loot" entity, clear source inventory.
    * (Alternatively: Change Source Type to 'loot' and kill stats? No, keep Source as 'Dead Body' for rez, create Loot pile for items?)

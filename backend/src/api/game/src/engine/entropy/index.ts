@@ -80,6 +80,12 @@ const WORLD_CONDITIONS_POOL: Omit<WorldCondition, 'lastUpdatedTurn' | 'currentVa
     description: 'The flow of goods and wealth within the local area.',
     ordered: true,
   },
+  {
+    key: 'Local Weather',
+    values: ['Clear', 'Overcast', 'Rain', 'Storm', 'Fog', 'Snow'],
+    description: 'The current weather conditions in the immediate area.',
+    ordered: false,
+  },
 ];
 
 const RANDOM_EVENTS_POOL: Omit<RandomEvent, 'turnTriggered' | 'type' | 'visibility'>[] = [

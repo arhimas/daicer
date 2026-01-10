@@ -23,7 +23,7 @@ const executeSummonMonster = async (strapi: Core.Strapi, roomId: string, args: R
   }
 
   // Check template existence
-  const template = await strapi.documents('api::monster.monster').findOne({ documentId: blueprintId as string });
+  const template = await strapi.documents('api::entity.entity').findOne({ documentId: blueprintId as string });
   if (!template) throw new Error(`Monster template ${blueprintId} not found`);
 
   const spawnService = strapi.service('api::game.spawn-service');
@@ -95,6 +95,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
    * @param roomId
    * @param toolString
    */
+  /**
+   * Execute a tool string directly, bypassing LLM parsing.
+   * @param roomId
+   * @param toolString
+   */
   async execute(roomId: string, toolString: string) {
     strapi.log.info(`[ToolExecutor] Executing: ${toolString}`);
 
@@ -143,23 +148,18 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     strapi.log.debug(`[ToolExecutor] Parsed Args:`, args);
 
-    // 2. Map Tool Name & Args to Implementation
+    // 2. DELEGATE TO TOOL REGISTRY (Unified Path)
     try {
-      if (toolName === 'spawn_entity') {
-        if (args.type === 'monster') {
-          return await executeSummonMonster(strapi, roomId, args);
-        } else if (args.type === 'player' || args.type === 'npc') {
-          return await executeSummonCharacter(strapi, roomId, args);
-        }
-      } else if (toolName === 'move_entity') {
-        return await executeMove(strapi, roomId, args);
-      } else if (toolName === 'perform_attack') {
-        return await executeAttack(strapi, roomId, args);
-      } else if (toolName === 'get_map_image') {
-        return await executeGetMapImage(strapi, roomId, args);
+      // @ts-ignore - Service type inference limitations
+      const toolRegistry = strapi.service('api::agent.tool-registry');
+
+      // Check availability first to give better error messages
+      if (!toolRegistry.hasTool(toolName)) {
+        throw new Error(`Tool '${toolName}' is not registered in the system.`);
       }
 
-      throw new Error(`Unknown or unsupported direct tool: ${toolName}`);
+      // Execute via Registry (which handles validation and handler invocation)
+      return await toolRegistry.execute(toolName, roomId, args, { id: 'system-executor' });
     } catch (err) {
       strapi.log.error('[ToolExecutor] Execution Error:', err);
       throw err;

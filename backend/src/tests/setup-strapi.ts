@@ -22,7 +22,25 @@ export const setupStrapi = async (): Promise<any> => {
     // 2. Set Test Environment Variables
     process.env.NODE_ENV = 'test';
     process.env.DATABASE_CLIENT = 'sqlite';
-    process.env.DATABASE_FILENAME = ':memory:'; // Use memory for speed, or file for debugging
+
+    // Check for bootstrap DB
+    const bootstrapPath = path.resolve(__dirname, '../../.tmp/test_bootstrap.db');
+    const fs = require('fs');
+
+    if (fs.existsSync(bootstrapPath)) {
+      const workerId = process.env.VITEST_WORKER_ID || '0';
+      const tempDbPath = path.resolve(
+        __dirname,
+        `../../.tmp/test-worker-${workerId}-${Math.floor(Math.random() * 100000)}.db`
+      );
+      fs.copyFileSync(bootstrapPath, tempDbPath);
+      process.env.DATABASE_FILENAME = tempDbPath;
+      // Store path for cleanup
+      (global as any).__TEST_DB_PATH__ = tempDbPath;
+      console.log(`[TestHarness] Using bootstrap DB: ${tempDbPath}`);
+    } else {
+      process.env.DATABASE_FILENAME = ':memory:';
+    }
     process.env.JWT_SECRET = 'test-jwt-secret';
     process.env.ADMIN_JWT_SECRET = 'test-admin-jwt-secret';
     process.env.API_TOKEN_SALT = 'test-api-token-salt';
@@ -76,6 +94,18 @@ export const cleanupStrapi = async () => {
     } catch (_e) {
       // Ignore destroy errors
       console.error(_e);
+    }
+
+    // Cleanup temp DB file if used
+    if ((global as any).__TEST_DB_PATH__) {
+      try {
+        const fs = require('fs');
+        if (fs.existsSync((global as any).__TEST_DB_PATH__)) {
+          fs.unlinkSync((global as any).__TEST_DB_PATH__);
+        }
+      } catch (e) {
+        console.error('[TestHarness] Failed to cleanup temp DB:', e);
+      }
     }
 
     instance = undefined;

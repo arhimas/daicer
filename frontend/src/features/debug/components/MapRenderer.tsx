@@ -28,6 +28,8 @@ interface MapRendererProps {
   onZoom?: (delta: number, mouseX: number, mouseY: number) => void;
   onPan?: (dx: number, dy: number) => void;
   restrictView?: boolean;
+  godMode?: boolean;
+  lightLevel?: number; // 0 to 1
 }
 
 export function MapRenderer({
@@ -50,6 +52,8 @@ export function MapRenderer({
   onZoom,
   onPan,
   restrictView = false,
+  godMode = false,
+  lightLevel = 1.0,
 }: MapRendererProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Timer for single/double click differentiation
@@ -120,9 +124,12 @@ export function MapRenderer({
         const isExplored = exploredTiles.has(key);
         const isVisible = visibleTiles.has(key);
 
-        if ((restrictView && !isExplored && !isVisible) || (!isExplored && !isVisible && exploredTiles.size > 0)) {
-          // Unexplored (Fog of War) - strict if restrictView is on, or loose if we have exploration data
-          continue;
+        // Visibility Check
+        if (!godMode) {
+          if ((restrictView && !isExplored && !isVisible) || (!isExplored && !isVisible && exploredTiles.size > 0)) {
+            // Unexplored (Fog of War)
+            continue;
+          }
         }
 
         // Get Tile Type
@@ -166,23 +173,7 @@ export function MapRenderer({
         }
 
         ctx.fillStyle = color;
-        // Calculate screen position based on difference from float center
-        // Center of screen corresponds to center.x, center.y
-        // Tile wx is at world position wx. Screen position is (wx - center.x) * TILE_SIZE
-        // But we want top-left of tile?
-        // Standard: tiled world 0 is at 0.
-        // Screen Center X = width/2.
-        // Tile WX's center is at (wx) * TILE_SIZE ?? No, treating wx as top-left grid?
-        // Let's assume wx is the coordinate of the tile.
-        // Screen X = (wx - center.x) * TILE_SIZE + width / 2;
-        // But (wx - center.x) puts 0 at center.
-        // We want tile (0,0) to be at center if center=(0,0).
-        // If we drawrect at screenX, that's top-left.
-        // If center is (0.5, 0.5), tile (0,0) is to the top-left.
-        // Screen X = (wx - center.x) * TILE_SIZE + width/2 - TILE_SIZE/2 ?
-        // Let's stick to: center tile aligns with center screen.
-        // (wx - center.x) is distance in tiles.
-
+        // Calculate screen position
         const screenX = (wx - center.x) * TILE_SIZE + width / 2 - TILE_SIZE / 2;
         const screenY = (wy - center.y) * TILE_SIZE + height / 2 - TILE_SIZE / 2;
 
@@ -192,9 +183,21 @@ export function MapRenderer({
 
         ctx.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
 
-        // Fog Overlay (if explored but not currently visible)
-        if (!isVisible && isExplored) {
+        // Fog Overlay (Explored but not visible)
+        if (!isVisible && isExplored && !godMode) {
           ctx.fillStyle = 'rgba(0,0,0,0.6)';
+          ctx.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+        }
+
+        // Light Level Overlay (Night)
+        // If God Mode, maybe skip? No, user might want to see Night effect.
+        // But God Mode usually implies "See All".
+        // Let's assume passed lightLevel accounts for "Night Vision" override.
+        if (lightLevel < 1.0) {
+          const darkness = 1.0 - lightLevel;
+          // Cap max darkness to avoid pitch black? 0.8?
+          // If lightLevel is 0.2, darkness is 0.8.
+          ctx.fillStyle = `rgba(0,0,10,${darkness})`; // Blueish tint for night
           ctx.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
         }
 

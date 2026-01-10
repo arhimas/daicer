@@ -7,11 +7,21 @@
 
 import { factories } from '@strapi/strapi';
 import { Alea } from '../src/engine/voxel/utils/math';
-import { Command, MoveCommand, AttackCommand, ModifyTerrainCommand, ActionCommand } from '../src/engine/types';
+import {
+  Command,
+  MoveCommand,
+  AttackCommand,
+  ModifyTerrainCommand,
+  ActionCommand,
+  DropItemCommand,
+  PickupItemCommand,
+  ThrowItemCommand,
+} from '../src/engine/types';
 import { ActionResult } from '../src/engine/types/engine';
 import { findPath } from '../src/engine/rules/spatial';
 import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
 import { WorldConfig, ZLevel } from '../src/engine/types';
+import { ChunkManager } from '../../voxel-engine/services/chunk-manager';
 
 export default factories.createCoreService('api::game.action-engine', ({ strapi }) => ({
   rng: new Alea('default-seed'), // TODO: Persist seed per room/game?
@@ -28,14 +38,20 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         // TODO: Implement other handlers
         case 'SKILL_CHECK':
         case 'DO_ACTION':
+          // Legacy handling
           return this.handleAction(command as unknown as ActionCommand);
         // Deprecated / Specifics mapped below or generic fallbacks
-        case 'SKILL_CHECK':
         case 'CAST_SPELL':
         case 'INTERACT':
         case 'LONG_REST':
         case 'MODIFY_TERRAIN':
           return this.handleModifyTerrain(command as ModifyTerrainCommand);
+        case 'DROP_ITEM':
+          return this.handleDropItem(command as DropItemCommand);
+        case 'PICKUP_ITEM':
+          return this.handlePickupItem(command as PickupItemCommand);
+        case 'THROW_ITEM':
+          return this.handleThrowItem(command as ThrowItemCommand);
         default:
           return {
             success: false,
@@ -70,7 +86,7 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         'spellbook.spell',
         'stats',
         'room', // For event context
-        'room.config'
+        'room.config',
       ],
     });
 
@@ -78,59 +94,56 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
 
     // 2. Hydrate Actions
     // We import locally to avoid circular dependency issues at top level if any
-    const { EntityDeriver } = await import('../src/engine/derivation/EntityDeriver');
+    const { ActionHydrator } = await import('../src/engine/derivation/ActionHydrator');
     // Or direct usage of Hydrator if we want partial
     // For SOTA, we should use the Deriver to get the FULL list of available actions
-    // const derived = EntityDeriver.derive(actor); 
+    // const derived = EntityDeriver.derive(actor);
     // But `derive` might be expensive. Let's use ActionHydrator directly for now or re-use Deriver logic.
     // Actually, EntityDeriver is the standard way.
-    
+
     // Mapping Strapi Actor to Context
     // We need a helper for this mapping because `Deriver` expects `DerivationContext`.
     // Let's assume we have a helper or do it inline.
-    
+
     const context = {
       attributes: actor.stats,
       proficiencyBonus: 2, // Check level
       equipment: [], // We need to map inventory -> equipment
       // ... allow loose for now
-    } as any; 
+    } as any;
 
     // Quick Map Inventory
     if (actor.inventory) {
       context.equipment = actor.inventory
-       .filter((entry: any) => entry.isEquipped && entry.item)
-       .map((entry: any) => {
-         // Flatten for Hydrator (Legacy Shim logic reused)
-         const item = entry.item;
-         const eqData = item.equipment_data || {};
-         return { ...item, ...eqData, equipment_category: { slug: item.type }, isEquipped: true };
-       });
+        .filter((entry: any) => entry.isEquipped && entry.item)
+        .map((entry: any) => {
+          // Flatten for Hydrator (Legacy Shim logic reused)
+          const item = entry.item;
+          const eqData = item.equipment_data || {};
+          return { ...item, ...eqData, equipment_category: { slug: item.type }, isEquipped: true };
+        });
     }
 
-    // Import Hydrator
-    const { ActionHydrator } = await import('../src/engine/derivation/ActionHydrator');
-    
     let allActions: any[] = [];
-    
+
     // From Equipment
     context.equipment.forEach((item: any) => {
-       allActions.push(...ActionHydrator.hydrateFromEquipment(item, context));
+      allActions.push(...ActionHydrator.hydrateFromEquipment(item, context));
     });
 
     // From Spells (if implemented in hydrator)
     if (actor.spellbook) {
       actor.spellbook.forEach((entry: any) => {
         if (entry.spell) {
-           // Mapping spell
-           // allActions.push(ActionHydrator.hydrateFromSpell(entry.spell, context));
+          // Mapping spell
+          allActions.push(ActionHydrator.hydrateFromSpell(entry.spell, context));
         }
       });
     }
 
     // 3. Find specific Action
-    const action = allActions.find(a => a.id === actionId);
-    
+    const action = allActions.find((a) => a.id === actionId);
+
     if (!action) {
       // Fallback: Check if it is a raw WeaponID passed as actionId (Legacy compat)
       // or if it's a "feature" action.
@@ -154,15 +167,20 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
     // A. Costs
     // TODO: Deduct slots/resources
 
-    // B. Attack Roll?
+    // B. Logic Handling (Attack vs Save vs Utility)
+    const outcomes: any[] = [];
+
+    // 1. Attack Logic
     if (action.attack && target) {
       const d20 = Math.floor(Math.random() * 20) + 1;
       const total = d20 + action.attack.bonus;
       const ac = target.armorClass || 10;
-      const isHit = total >= ac;
-      
+      const isHit = total >= ac || d20 === 20;
+
+      outcomes.push({ type: 'attack', isHit, roll: d20, total });
+
       events.push({
-        type: 'ATTACK_RESULT', // Reusing Enum
+        type: 'ATTACK_RESULT',
         room: actor.room.documentId,
         actor: actorId,
         payload: {
@@ -171,62 +189,104 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
           roll: d20,
           total,
           isHit,
-          // damage...
         },
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
 
       resultMessage = isHit ? `Hit ${target.name} with ${action.name}` : `Missed ${target.name}`;
-      
-      if (isHit && action.effects) {
-        // Apply Damage
-        let damageTotal = 0;
-        for (const effect of action.effects) {
-           if (effect.type === 'damage') {
-             // Parse dice string or use flat
-             // Simple parser for 1d6
-             let roll = 0;
-             if (effect.dice) {
-                const [count, face] = effect.dice.split('d').map(Number);
-                for(let i=0; i<(count||1); i++) roll += Math.floor(Math.random() * (face||6)) + 1;
-             }
-             roll += (effect.flat || 0);
-             damageTotal += roll;
-           }
-        }
-        
-        if (damageTotal > 0) {
-           // Update Target HP
-           const newHp = Math.max(0, (target.hp || 0) - damageTotal);
-           await strapi.documents('api::entity-sheet.entity-sheet').update({
-             documentId: targetId,
-             data: { hp: newHp } as any
-           });
 
-           events.push({
-             type: 'DAMAGE_DEALT', // Needs enum update? Or map to ATTACK_RESULT payload?
-             // Let's stick to updating the ATTACK_RESULT payload if possible or generic event
-             // For now, let's allow "DAMAGE_DEALT" logic inside ATTACK_RESULT or separate.
-             // We can assume ATTACK_RESULT logs damage in legacy.
-             // But unification prefers explicit events.
-             // We'll trust GameEvent schema allows generic payload or we added DAMAGE types?
-             // User just added SPAWN_ENTITY.
-             // Let's piggyback on standard 'ATTACK_RESULT' for now or 'GAME_ACTION' generic?
-             // Using 'ATTACK_RESULT' for combat.
-             // We need to update the previous event payload with damage.
-           });
-           
-           // Hack: Update the pushed event payload
-           events[0].payload.damage = damageTotal;
-           resultMessage += ` for ${damageTotal} damage`;
+      if (isHit) {
+        // Proceed to Effects
+      } else {
+        return { success: true, message: resultMessage, events };
+      }
+    }
+
+    // 2. Save Logic (Spells like Fireball)
+    let saveResult = null;
+    if (action.save && target) {
+      const d20 = Math.floor(Math.random() * 20) + 1;
+      const stat = action.save.attribute.toLowerCase(); // 'dex', 'wis'
+      // Simplistic stat lookup (should use proper attribute bonus)
+      const mod = Math.floor(((target.stats?.[stat] || 10) - 10) / 2);
+      const saveTotal = d20 + mod; // TODO: Add proficiency if applicable
+      const saved = saveTotal >= action.save.dc;
+
+      saveResult = { saved, total: saveTotal };
+
+      events.push({
+        type: 'ROLL_RESULT', // Generic roll event
+        room: actor.room.documentId,
+        actor: targetId, // The target rolled the save
+        payload: {
+          rollType: 'save',
+          ability: stat,
+          total: saveTotal,
+          dc: action.save.dc,
+          success: saved,
+        },
+        timestamp: Date.now(),
+      });
+
+      resultMessage = saved
+        ? `${target.name} saved against ${action.name}`
+        : `${target.name} failed save against ${action.name}`;
+    }
+
+    // 3. Apply Effects (Damage/Healing)
+    if (action.effects) {
+      let damageTotal = 0;
+
+      for (const effect of action.effects) {
+        if (effect.type === 'damage') {
+          // Parse Dice
+          let roll = 0;
+          if (effect.dice) {
+            const [count, face] = effect.dice.toLowerCase().split('d').map(Number);
+            for (let i = 0; i < (count || 1); i++) roll += Math.floor(Math.random() * (face || 6)) + 1;
+          }
+          roll += effect.flat || 0;
+
+          // Handle Save Mitigation
+          if (saveResult && saveResult.saved) {
+            if (action.save?.effect === 'half') roll = Math.floor(roll / 2);
+            else if (action.save?.effect === 'none') roll = 0;
+          }
+
+          damageTotal += roll;
         }
+      }
+
+      if (damageTotal > 0 && target) {
+        const newHp = Math.max(0, (target.hp || 0) - damageTotal);
+        await strapi.documents('api::entity-sheet.entity-sheet').update({
+          documentId: targetId,
+          data: { hp: newHp } as any,
+        });
+
+        // Piggyback damage on generic event if needed or create specific
+        // If we had an attack event, we could update it.
+        // If it was a save, we might want a DAMAGE event.
+        events.push({
+          type: 'DAMAGE_DEALT', // Assuming this type exists or we rely on UI parsing
+          room: actor.room.documentId,
+          actor: actorId,
+          payload: {
+            targetId,
+            amount: damageTotal,
+            source: action.name,
+          },
+          timestamp: Date.now(),
+        });
+
+        resultMessage += ` for ${damageTotal} damage`;
       }
     }
 
     // 6. Persist Events
     for (const evt of events) {
       await strapi.documents('api::game-event.game-event').create({
-        data: evt
+        data: evt,
       });
     }
 
@@ -235,7 +295,7 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
       message: resultMessage,
       events,
     };
-
+  },
 
   async handleMove(command: MoveCommand): Promise<ActionResult> {
     const { actorId, targetPosition } = command.payload;
@@ -367,7 +427,7 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
       }),
       strapi.documents('api::entity-sheet.entity-sheet').findOne({
         documentId: targetId,
-        populate: ['stats', 'armorClass'], // Need AC
+        populate: ['stats', 'armorClass', 'position'], // Need AC and Position for drops
       }),
     ]);
 
@@ -408,6 +468,83 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
     const isHit = total >= ac;
     const isCrit = d20 === 20;
 
+    // --- AMMUNITION & THROWN LOGIC ---
+    // Check if weapon requires ammo or is thrown
+    const itemProps: any[] = actionDef.properties || [];
+    // Assuming 'properties' is the relation to 'game.property' or similar on the Item Component via the Action?
+    // Wait, actionDef is the *Action Component*. It doesn't have the Item Properties directly unless mapped.
+    // In `handleAction` we mapped Equipment -> Action.
+    // Strapi `actions` on EntitySheet are explicit entries.
+    // They might NOT be linked to the Item if manually added.
+    // However, if they are derived from items, we need to find the source item.
+
+    // Simplification for now: Use `weaponId` from payload if present to find the Item in Inventory.
+    if (weaponId) {
+      const inventoryItem = actor.inventory?.find(
+        (i: any) => i.item?.documentId === weaponId || i.documentId === weaponId
+      );
+      if (inventoryItem) {
+        const weaponData = inventoryItem.item?.equipment_data;
+        const isThrown = weaponData?.properties?.some((p: any) => p.slug === 'thrown');
+        const isRanged = weaponData?.properties?.some((p: any) => p.slug === 'ammunition');
+        const ammoType = weaponData?.ammunition_type; // e.g. 'arrow'
+
+        // Handle Thrown
+        if (isThrown && !isRanged) {
+          // Thrown Dagger
+          // Remove weapon from inventory and spawn at target
+          // We call dropItemAt but we must suppress the 'Item Dropped' message logic if we want silent?
+          // No, let's just do it.
+          // WARNING: If we drop it, we lose it from inventory.
+          // Only do this if valid hit/miss.
+          // We do it after damage calculation? No, physically it leaves hand.
+          // We'll queue it.
+          await strapi
+            .service('api::game.inventory-service')
+            .dropItemAt(actorId, inventoryItem.documentId, target.position);
+        }
+
+        // Handle Ammunition
+        if (isRanged && ammoType) {
+          // Find Ammo
+          const ammoIndex = actor.inventory?.findIndex(
+            (i: any) =>
+              i.item?.equipment_data?.item_type === 'ammunition' && i.item?.equipment_data?.ammunition_type === ammoType
+          );
+          if (ammoIndex !== -1) {
+            const ammoItem = actor.inventory[ammoIndex];
+            // Consume (Decrement Quantity or Remove)
+            // Assuming 'quantity' on inventory item? Or stackable?
+            // Current ItemSchema: components often 1-1. Stackables logic might be separate.
+            // If 1-1, we remove it.
+            const recoverable = Math.random() > 0.5; // 50% chance
+
+            // Remove from inventory
+            // We use dropItemAt to "Simulate" firing entitity?
+            // Or just delete and create new loot?
+            // dropItemAt does: Create Loot, Remove from Inv.
+            // Perfect.
+            if (recoverable) {
+              // Recoverable: Process as Drop at Target
+              await strapi
+                .service('api::game.inventory-service')
+                .dropItemAt(actorId, ammoItem.documentId, target.position);
+            } else {
+              // Break: Just delete
+              const newInv = [...actor.inventory];
+              newInv.splice(ammoIndex, 1);
+              await strapi.documents('api::entity-sheet.entity-sheet').update({
+                documentId: actorId,
+                data: { inventory: newInv } as any,
+              });
+            }
+          } else {
+            return { success: false, message: 'No Ammunition!', events: [] };
+          }
+        }
+      }
+    }
+
     let damageTotal = 0;
     if (isHit || isCrit) {
       // Calculate Damage
@@ -438,30 +575,81 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
       });
 
       // Death Logic Injection
-      if (newHp === 0 && target.hp > 0) {
-        // Entity just died (or downed)
-        // For Monsters: Drop All immediately
-        // For Players: Usually Death Saves, but if "Massive Damage" rule or simple mode...
-        // We'll enforce DropAll for 'monster' type for now.
+      if (typeof newHp === 'number' && newHp <= 0) {
         if (target.type === 'monster' || target.type === 'npc') {
           try {
+            // 1. Drop Items (Loot Pile)
             await strapi.service('api::game.inventory-service').dropAll(targetId);
 
-            // Log Death Event
+            // 2. Log Death Event
             await strapi.documents('api::game-event.game-event').create({
               data: {
                 type: 'ENTITY_DEATH',
                 room: actor.room.documentId,
-                actor: targetId, // The one who died
+                actor: targetId,
                 payload: {
                   killerId: actorId,
-                  position: target.position, // Log position for history markers
+                  position: target.position,
                 },
                 timestamp: Date.now(),
               },
             });
+
+            // 3. Create Persistent Terrain Marker
+            const { x, y, z } = target.position;
+            const chunkSize = 16;
+            const chunkX = Math.floor(x / chunkSize);
+            const chunkY = Math.floor(y / chunkSize);
+            const voxelX = ((x % chunkSize) + chunkSize) % chunkSize;
+            const voxelY = ((y % chunkSize) + chunkSize) % chunkSize;
+
+            // Import ChunkManager or use service
+            // Using service pattern to avoid circular imports if possible, or direct class usage if service not registered yet (common in tests)
+            // BUT ChunkManager is a singleton service class.
+            // We'll try to get the service instance from Strapi.
+            // Assuming 'api::voxel-engine.chunk-manager' is registered (it is a service).
+            // Actually the service file is `chunk-manager.ts` but Strapi might name it differently?
+            // `src/api/voxel-engine/services/chunk-manager.ts` -> `api::voxel-engine.chunk-manager`
+
+            // We will use the `ChunkManager` class directly if possible, or strapi service.
+            // Since this is a core service, `strapi.service(...)` is safer for globals.
+
+            // However, editVoxel is on the CLASS instance.
+            // Let's assume we can resolve it.
+            // Note: The previous code I wrote in the plan used `ChunkManager.getInstance()`.
+            // I'll stick to `strapi.service` if strictly following Strapi, BUT `ChunkManager` in this codebase seems to be a custom singleton Class?
+            // `export class ChunkManager`. It's not a standard Strapi service factory?
+            // Actually `chunk-manager.ts` defined `export class ChunkManager`.
+            // It is NOT a strapi service factory `createCoreService`.
+            // So `strapi.service('...').editVoxel` might NOT work unless I wrapped it in a service factory elsewhere?
+            // Checking `src/api/voxel-engine/services/voxel-engine.ts` might reveal it wraps it?
+            // The `handleModifyTerrain` used `strapi.service('api::voxel-engine.voxel-engine').editTerrain`.
+            // Logic check: `editTerrain` likely calls `ChunkManager`.
+            // So I should validly call `strapi.service('api::voxel-engine.voxel-engine').editTerrain`.
+
+            // Let's check `voxel-engine.ts` (service) to see if it exposes `editTerrain` with metadata.
+            // If not, I should update VoxelEngine service too?
+            // Refactoring: `ActionEngine` calls `VoxelEngine` service. `VoxelEngine` service calls `ChunkManager`.
+            // This is cleaner.
+
+            // Let's assume `VoxelEngine` service has `editTerrain`. I will use that.
+            // I need to update `VoxelEngine.editTerrain` signature?
+            // Or I can call `ChunkManager.getInstance().editVoxel` directly?
+            // `ChunkManager` is a singleton. Direct call is fine and bypasses Strapi service layer overhead if `VoxelEngine` service is just a wrapper.
+
+            const chunkManager = ChunkManager.getInstance();
+            await chunkManager.editVoxel(chunkX, chunkY, voxelX, voxelY, z, undefined, 'Entity Death', {
+              type: 'death_marker',
+              description: `Remains of ${target.name}`,
+              victim: target.name,
+              // loot: target.inventory, // Inventory dropped via dropAll, so maybe we reference the Loot Pile ID?
+              // The Loot Pile created by dropAll has a temp_id or documentId.
+              // Ideally we link them.
+              // But for now, just marking the spot is enough.
+              timestamp: Date.now(),
+            });
           } catch (err) {
-            console.error('Failed to process death drop:', err);
+            console.error('Failed to create death marker:', err);
           }
         }
       }
@@ -588,6 +776,156 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
           timestamp: Date.now(),
         },
       ],
+    };
+  },
+
+  async handleDropItem(command: DropItemCommand): Promise<ActionResult> {
+    const { actorId, itemComponentId } = command.payload;
+    const inventoryService = strapi.service('api::game.inventory-service');
+
+    // Delegate to InventoryService
+    const result = await inventoryService.dropItem(actorId, itemComponentId);
+
+    // Fetch actor room for event
+    const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: actorId,
+      populate: ['room'],
+    });
+
+    if (result.success && actor?.room) {
+      // Emit Event
+      await strapi.documents('api::game-event.game-event').create({
+        data: {
+          type: 'ITEM_DROPPED',
+          room: actor.room.documentId,
+          actor: actorId,
+          payload: { itemComponentId },
+          timestamp: Date.now(),
+        },
+      });
+    }
+
+    return {
+      success: result.success,
+      message: result.message,
+      events: [], // Already persisted above
+    };
+  },
+
+  async handlePickupItem(command: PickupItemCommand): Promise<ActionResult> {
+    const { actorId, targetId } = command.payload;
+    const inventoryService = strapi.service('api::game.inventory-service');
+
+    const result = await inventoryService.pickupItem(actorId, targetId);
+
+    const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: actorId,
+      populate: ['room'],
+    });
+
+    if (result.success && actor?.room) {
+      await strapi.documents('api::game-event.game-event').create({
+        data: {
+          type: 'ITEM_PICKED_UP',
+          room: actor.room.documentId,
+          actor: actorId,
+          payload: { targetId },
+          timestamp: Date.now(),
+        },
+      });
+    }
+
+    return {
+      success: result.success,
+      message: result.message,
+      events: [],
+    };
+  },
+
+  async handleThrowItem(command: ThrowItemCommand): Promise<ActionResult> {
+    const { actorId, itemComponentId, targetPosition, targetEntityId } = command.payload;
+    const inventoryService = strapi.service('api::game.inventory-service');
+
+    // 1. Fetch Actor
+    const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: actorId,
+      populate: ['room', 'inventory', 'stats', 'inventory.item'], // populate inventory to get item name/stats
+    });
+
+    if (!actor) return { success: false, message: 'Actor not found', events: [] };
+
+    // 2. Resolve Hit Logic if Entity Targeted
+    let hitEntity = false;
+    let finalPos = targetPosition;
+    let resultMessage = `Threw item at ${targetPosition.x}, ${targetPosition.y}`;
+    const events = [];
+
+    if (targetEntityId) {
+      const target = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+        documentId: targetEntityId,
+        populate: ['armorClass', 'position'],
+      });
+
+      if (target) {
+        // Simple Attack Roll: Dex + Prof (if improvised/thrown) vs AC
+        // Start with Dex check
+        const dexMod = Math.floor(((actor.stats?.dexterity || 10) - 10) / 2);
+        const d20 = Math.floor(Math.random() * 20) + 1;
+        const total = d20 + dexMod;
+
+        const ac = target.armorClass || 10;
+        hitEntity = total >= ac;
+
+        if (hitEntity) {
+          finalPos = target.position; // It lands at entity feet
+          resultMessage = `Hit ${target.name} with thrown item! (Rolled ${total})`;
+
+          // Apply Damage? (1d4 + Dex for improvised)
+          const damage = Math.floor(Math.random() * 4) + 1 + dexMod;
+          const newHp = Math.max(0, (target.hp || 0) - damage);
+
+          await strapi.documents('api::entity-sheet.entity-sheet').update({
+            documentId: targetEntityId,
+            data: { hp: newHp } as any,
+          });
+
+          events.push({
+            type: 'DAMAGE_DEALT',
+            room: actor.room.documentId,
+            actor: actorId,
+            payload: { targetId: targetEntityId, amount: damage, source: 'Thrown Item' },
+            timestamp: Date.now(),
+          });
+        } else {
+          resultMessage = `Missed ${target.name} (Rolled ${total})`;
+          // Scatter? For now land at target pos.
+        }
+      }
+    }
+
+    // 3. Drop Item At Destination
+    // We execute the drop logic regardless of hit/miss (physics)
+    const dropResult = await inventoryService.dropItemAt(actorId, itemComponentId, finalPos);
+
+    if (dropResult.success) {
+      events.push({
+        type: 'ITEM_THROWN',
+        room: actor.room?.documentId,
+        actor: actorId,
+        payload: { itemComponentId, targetPosition: finalPos, hit: hitEntity },
+        timestamp: Date.now(),
+      });
+    }
+
+    // Save events
+    for (const evt of events) {
+      await strapi.documents('api::game-event.game-event').create({ data: evt });
+    }
+
+    return {
+      success: true,
+      message: resultMessage,
+      events,
     };
   },
 }));

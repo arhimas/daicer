@@ -4,4 +4,4 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreService('api::monster.monster');
+export default factories.createCoreService('api::entity.entity');

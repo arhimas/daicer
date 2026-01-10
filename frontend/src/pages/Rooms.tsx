@@ -44,7 +44,7 @@ export default function RoomsPage() {
     loading: true,
     error: null,
   });
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+  const [selectedContext, setSelectedContext] = useState<{ player: Player; roomId: string } | null>(null);
   const [processingRoomId, setProcessingRoomId] = useState<string | null>(null);
 
   const sortedMemberships = useMemo(
@@ -247,7 +247,7 @@ export default function RoomsPage() {
                         <Button
                           type="button"
                           variant="secondary"
-                          onClick={() => setSelectedPlayer(player)}
+                          onClick={() => setSelectedContext({ player, roomId: room.id })}
                           className="sm:min-w-[160px]"
                         >
                           {t('rooms.actions.viewSheet')}
@@ -307,7 +307,11 @@ export default function RoomsPage() {
           </div>
         )}
       </div>
-      <EntitySheetPanel player={selectedPlayer} onClose={() => setSelectedPlayer(null)} />
+      <EntitySheetPanel
+        player={selectedContext?.player || null}
+        roomId={selectedContext?.roomId}
+        onClose={() => setSelectedContext(null)}
+      />
     </JuicyLayout>
   );
 }

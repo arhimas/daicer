@@ -264,6 +264,9 @@ import {
   ModifyTerrainCommandSchema,
   RollSaveCommandSchema,
   ActionCommandSchema,
+  DropItemCommandSchema,
+  PickupItemCommandSchema,
+  ThrowItemCommandSchema,
 } from '../schemas';
 
 export type Command = z.infer<typeof CommandSchema>;
@@ -277,6 +280,9 @@ export type LongRestCommand = z.infer<typeof LongRestCommandSchema>;
 export type ModifyTerrainCommand = z.infer<typeof ModifyTerrainCommandSchema>;
 export type RollSaveCommand = z.infer<typeof RollSaveCommandSchema>;
 export type ActionCommand = z.infer<typeof ActionCommandSchema>;
+export type DropItemCommand = z.infer<typeof DropItemCommandSchema>;
+export type PickupItemCommand = z.infer<typeof PickupItemCommandSchema>;
+export type ThrowItemCommand = z.infer<typeof ThrowItemCommandSchema>;
 
 export type Action = Command; // Alias for generic action usage
 

@@ -42,6 +42,9 @@
     "reason": {
       "type": "string"
     },
+    "metadata": {
+      "type": "json"
+    },
     "timestamp": {
       "type": "biginteger",
       "required": true
