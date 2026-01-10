@@ -1,0 +1,471 @@
+yarn run v1.22.22
+$ yarn workspace @daicer/backend cli schema --type api::spell.spell --json
+$ ts-node -T src/cli/index.ts schema --type api::spell.spell --json
+[dotenv@17.2.3] injecting env (21) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+{
+  "kind": "collectionType",
+  "collectionName": "spells",
+  "info": {
+    "singularName": "spell",
+    "pluralName": "spells",
+    "displayName": "Spell",
+    "description": "D&D 5e Spells (Structured)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "level": {
+      "type": "integer",
+      "min": 0,
+      "max": 9
+    },
+    "school": {
+      "type": "enumeration",
+      "enum": [
+        "Abjuration",
+        "Conjuration",
+        "Divination",
+        "Enchantment",
+        "Evocation",
+        "Illusion",
+        "Necromancy",
+        "Transmutation"
+      ]
+    },
+    "casting_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.casting-config",
+      "__schema": {
+        "collectionName": "components_game_casting_configs",
+        "info": {
+          "displayName": "Casting Config",
+          "icon": "hand-sparkles",
+          "description": "Rules for casting time and components"
+        },
+        "options": {},
+        "attributes": {
+          "time_value": {
+            "type": "integer",
+            "default": 1,
+            "required": true
+          },
+          "time_unit": {
+            "type": "enumeration",
+            "enum": [
+              "Action",
+              "Bonus Action",
+              "Reaction",
+              "Minute",
+              "Hour",
+              "Day",
+              "Round"
+            ],
+            "default": "Action",
+            "required": true
+          },
+          "reaction_trigger": {
+            "type": "text",
+            "description": "If reaction, what triggers it?"
+          },
+          "is_ritual": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_concentration": {
+            "type": "boolean",
+            "default": false,
+            "description": "Requires Concentration?"
+          },
+          "components": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.spell-components",
+            "__schema": {
+              "collectionName": "components_game_spell_components",
+              "info": {
+                "displayName": "Spell Components",
+                "icon": "puzzle-piece",
+                "description": "V, S, M requirements"
+              },
+              "options": {},
+              "attributes": {
+                "verbal": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "somatic": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "material": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "material_description": {
+                  "type": "string"
+                },
+                "cost_gp": {
+                  "type": "integer",
+                  "default": 0
+                },
+                "consumed": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "range_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.range-config",
+      "__schema": {
+        "collectionName": "components_game_range_configs",
+        "info": {
+          "displayName": "Range Config",
+          "icon": "ruler-combined",
+          "description": "Distance and Area of Effect"
+        },
+        "options": {},
+        "attributes": {
+          "type": {
+            "type": "enumeration",
+            "enum": [
+              "Self",
+              "Touch",
+              "Ranged (Feet)",
+              "Ranged (Miles)",
+              "Sight",
+              "Unlimited"
+            ],
+            "default": "Ranged (Feet)",
+            "required": true
+          },
+          "distance": {
+            "type": "integer",
+            "description": "Distance in feet (or miles if type matches)"
+          },
+          "aoe_shape": {
+            "type": "enumeration",
+            "enum": [
+              "Cone",
+              "Cube",
+              "Cylinder",
+              "Line",
+              "Sphere",
+              "Hemisphere"
+            ]
+          },
+          "aoe_size": {
+            "type": "integer",
+            "description": "Radius, Length, or Side length in feet"
+          },
+          "aoe_height": {
+            "type": "integer",
+            "description": "Height for Cylinder"
+          }
+        }
+      }
+    },
+    "duration_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.duration-config",
+      "__schema": {
+        "collectionName": "components_game_duration_configs",
+        "info": {
+          "displayName": "Duration Config",
+          "icon": "hourglass-start",
+          "description": "Duration and Concentration rules"
+        },
+        "options": {},
+        "attributes": {
+          "type": {
+            "type": "enumeration",
+            "enum": [
+              "Instantaneous",
+              "Concentration",
+              "Time-Limited",
+              "Until Dispelled",
+              "Until Triggered",
+              "Special"
+            ],
+            "default": "Instantaneous",
+            "required": true
+          },
+          "value": {
+            "type": "integer",
+            "description": "Numeric duration (if Time-Limited)"
+          },
+          "unit": {
+            "type": "enumeration",
+            "enum": [
+              "Rounds",
+              "Minutes",
+              "Hours",
+              "Days"
+            ]
+          },
+          "concentration": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    "mechanics_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.mechanics-config",
+      "__schema": {
+        "collectionName": "components_game_mechanics_configs",
+        "info": {
+          "displayName": "Mechanics Config",
+          "icon": "cog",
+          "description": "Saving Throws and Attack Types"
+        },
+        "options": {},
+        "attributes": {
+          "action_type": {
+            "type": "enumeration",
+            "enum": [
+              "Melee Spell Attack",
+              "Ranged Spell Attack",
+              "Strength Save",
+              "Dexterity Save",
+              "Constitution Save",
+              "Intelligence Save",
+              "Wisdom Save",
+              "Charisma Save",
+              "Auto-Hit",
+              "None"
+            ],
+            "default": "None",
+            "required": true
+          },
+          "save_effect": {
+            "type": "enumeration",
+            "enum": [
+              "Negate",
+              "Half",
+              "None"
+            ],
+            "description": "What happens on a successful save? (None = Full Effect, Negate = No Effect, Half = Half Damage)"
+          }
+        }
+      }
+    },
+    "damage_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.damage-instance",
+      "__schema": {
+        "collectionName": "components_game_damage_instances",
+        "info": {
+          "displayName": "Damage Instance",
+          "icon": "skull-crossbones",
+          "description": "Damage or Healing application"
+        },
+        "options": {},
+        "attributes": {
+          "effect_type": {
+            "type": "enumeration",
+            "enum": [
+              "Damage",
+              "Healing",
+              "TempHP"
+            ],
+            "default": "Damage",
+            "required": true
+          },
+          "damage_type": {
+            "type": "enumeration",
+            "enum": [
+              "Acid",
+              "Bludgeoning",
+              "Cold",
+              "Fire",
+              "Force",
+              "Lightning",
+              "Necrotic",
+              "Piercing",
+              "Poison",
+              "Psychic",
+              "Radiant",
+              "Slashing",
+              "Thunder"
+            ]
+          },
+          "dice_count": {
+            "type": "integer",
+            "default": 1
+          },
+          "dice_value": {
+            "type": "integer",
+            "default": 6
+          },
+          "flat_bonus": {
+            "type": "integer",
+            "default": 0
+          },
+          "timing": {
+            "type": "enumeration",
+            "enum": [
+              "Instant",
+              "Start of Turn",
+              "End of Turn",
+              "One Time Trigger"
+            ],
+            "default": "Instant"
+          }
+        }
+      }
+    },
+    "condition_instances": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.condition-instance",
+      "__schema": {
+        "collectionName": "components_game_condition_instances",
+        "info": {
+          "displayName": "Condition Instance",
+          "icon": "dizzy",
+          "description": "Applying status effects"
+        },
+        "options": {},
+        "attributes": {
+          "condition": {
+            "type": "enumeration",
+            "enum": [
+              "Blinded",
+              "Charmed",
+              "Deafened",
+              "Exhaustion",
+              "Frightened",
+              "Grappled",
+              "Incapacitated",
+              "Invisible",
+              "Paralyzed",
+              "Petrified",
+              "Poisoned",
+              "Prone",
+              "Restrained",
+              "Stunned",
+              "Unconscious",
+              "Special"
+            ],
+            "required": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Details for 'Special' or extra context"
+          },
+          "chance": {
+            "type": "integer",
+            "default": 100,
+            "min": 1,
+            "max": 100
+          },
+          "duration_rounds": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "scaling_config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.scaling-config",
+      "__schema": {
+        "collectionName": "components_game_scaling_configs",
+        "info": {
+          "displayName": "Scaling Config",
+          "icon": "sort-amount-up",
+          "description": "Rules for Higher Level Casting"
+        },
+        "options": {},
+        "attributes": {
+          "scales": {
+            "type": "boolean",
+            "default": false
+          },
+          "type": {
+            "type": "enumeration",
+            "enum": [
+              "Dice",
+              "Target",
+              "Duration"
+            ],
+            "default": "Dice"
+          },
+          "method": {
+            "type": "enumeration",
+            "enum": [
+              "Per Slot Level",
+              "Every 2 Slot Levels",
+              "Specific Thresholds"
+            ],
+            "default": "Per Slot Level"
+          },
+          "dice_count": {
+            "type": "integer",
+            "description": "Number of dice to add per interval"
+          },
+          "dice_value": {
+            "type": "integer",
+            "description": "Value of dice to add"
+          }
+        }
+      }
+    },
+    "description": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "embeddingMetadata": {
+      "type": "json",
+      "private": true
+    }
+  }
+}
+Done in 1.13s.

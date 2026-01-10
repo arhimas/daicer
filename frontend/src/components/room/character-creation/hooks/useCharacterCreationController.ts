@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import type { Attribute } from '@/types/contracts';
 import { useCharacterFormState } from '../useCharacterFormState';
-import { useEquipmentLogic } from './useEquipmentLogic';
+
 import { useAvatarGeneration } from './useAvatarGeneration';
 import useAuth from '../../../../hooks/useAuth';
 import { useI18n } from '../../../../i18n';
-import { useAlignments, useRaces, useClasses, useEquipment } from '../../../../hooks/useGameData';
+import { useAlignments, useRaces, useClasses } from '../../../../hooks/useGameData';
 import { calculateTotalPoints } from '../validation';
 import { loadPlaceholderReferences } from '../avatarHelpers';
 import { createCharacterPayload, submitCharacter } from '../services/submission-payloads';
@@ -25,41 +25,16 @@ export function useCharacterCreationController(props: any) {
     formState;
 
   // 2. Equipment
-  const equipment = useEquipmentLogic({
-    assetMode,
-    formDataClass: formData.characterClass,
-    initialGold: 0, // Will be set by effect
-  });
-
-  // Sync gold initialization
-  useEffect(() => {
-    if (formData.characterClass) {
-      equipment.setEquipmentGold(assetMode ? 9999999 : 100);
-    }
-  }, [formData.characterClass, assetMode]);
 
   // 3. Avatar Generation
-  const avatarGen = useAvatarGeneration(
-    formData,
-    room,
-    startingLevel,
-    equipment.equippedItems,
-    equipment.equipmentItems,
-    assetMode
-  );
+  const avatarGen = useAvatarGeneration(formData, room, startingLevel, {}, [], assetMode);
 
   // 4. Data Loading
   const { data: alignments, loading: alLoading } = useAlignments();
   const { data: races, loading: rLoading } = useRaces();
   const { data: classes, loading: cLoading } = useClasses();
-  const { data: equipmentItemsData, loading: eLoading } = useEquipment();
 
   // Sync equipment items when loaded
-  useEffect(() => {
-    if (equipmentItemsData && equipmentItemsData.length > 0) {
-      equipment.setEquipmentItems(equipmentItemsData);
-    }
-  }, [equipmentItemsData]);
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -87,14 +62,7 @@ export function useCharacterCreationController(props: any) {
 
     try {
       setLoading(true);
-      const payload = createCharacterPayload(
-        formData,
-        effectiveLevel,
-        equipment.inventory,
-        equipment.equippedItems,
-        equipment.equipmentItems,
-        equipment.equipmentGold
-      );
+      const payload = createCharacterPayload(formData, effectiveLevel, [], {}, [], 0);
       await submitCharacter(
         room,
         payload,
@@ -152,7 +120,7 @@ export function useCharacterCreationController(props: any) {
 
   return {
     ...formState,
-    equipment,
+
     avatarGen,
     previewImages,
     data: { alignments, races, classes },
@@ -162,7 +130,6 @@ export function useCharacterCreationController(props: any) {
         alLoading ||
         rLoading ||
         cLoading ||
-        eLoading ||
         avatarGen.previewLoadState.portrait ||
         avatarGen.previewLoadState.upperBody ||
         avatarGen.previewLoadState.fullBody,

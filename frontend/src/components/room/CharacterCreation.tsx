@@ -1,5 +1,5 @@
 import { useMemo, useEffect } from 'react';
-import { Package, ShoppingCart, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import clsx from 'clsx';
 import { LoadingOverlay } from '../ui/LoadingOverlay';
 import Textarea from '../ui/textarea';
@@ -10,7 +10,7 @@ import { AttributesSection } from './character-creation/AttributesSection';
 import { AppearanceSection } from './character-creation/AppearanceSection';
 import { PersonalitySection } from './character-creation/PersonalitySection';
 import { AvatarSection } from './character-creation/AvatarSection';
-import { EquipmentShop } from '../equipment/EquipmentShop';
+
 import { useCharacterCreationController } from './character-creation/hooks/useCharacterCreationController';
 import { RaceSelectionGrid } from './character-creation/helpers';
 import { EpicClassSelectionGrid } from './character-creation/EpicClassCards';
@@ -25,7 +25,7 @@ import {
 
 function CharacterCreationWizardContent({ ctrl }: { ctrl: ReturnType<typeof useCharacterCreationController> }) {
   // const { t } = useI18n();
-  const { formData, equipment, avatarGen, ui, actions, data, previewImages } = ctrl;
+  const { formData, avatarGen, ui, actions, data, previewImages } = ctrl;
   const { currentStepIndex, steps, nextStep, previousStep, setCanGoNext } = useFormWizard();
   const currentStep = steps[currentStepIndex];
 
@@ -117,50 +117,6 @@ function CharacterCreationWizardContent({ ctrl }: { ctrl: ReturnType<typeof useC
           </FormWizardStep>
         )}
 
-        {currentStep.id === 'equipment' && (
-          <FormWizardStep step="equipment">
-            {!equipment.equipmentChoice ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                <div
-                  className="glass-panel p-8 rounded-xl cursor-pointer hover:border-primary-gold transition-colors text-center space-y-4"
-                  onClick={equipment.handleChooseStartingPack}
-                >
-                  <Package className="w-12 h-12 mx-auto text-primary-gold" />
-                  <h3 className="text-xl font-cinzel font-bold">Class Equipment</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Start with a pre-selected pack of items suitable for your class.
-                  </p>
-                </div>
-                <div
-                  className="glass-panel p-8 rounded-xl cursor-pointer hover:border-primary-gold transition-colors text-center space-y-4"
-                  onClick={equipment.handleChooseFreeGold}
-                >
-                  <ShoppingCart className="w-12 h-12 mx-auto text-emerald-400" />
-                  <h3 className="text-xl font-cinzel font-bold">Gold & Shop</h3>
-                  <p className="text-sm text-muted-foreground">Start with gold and buy your own gear from the shop.</p>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                <button
-                  type="button"
-                  onClick={equipment.handleResetChoice}
-                  className="self-start text-sm text-muted-foreground hover:text-primary-gold flex items-center gap-2 transition-colors px-1 py-1"
-                >
-                  <span>← Change Selection</span>
-                </button>
-                <EquipmentShop
-                  items={equipment.equipmentItems}
-                  currentGold={equipment.equipmentGold}
-                  inventory={equipment.inventory}
-                  equippedItems={equipment.equippedItems}
-                  onBuyItem={equipment.handleBuyItem}
-                />
-              </div>
-            )}
-          </FormWizardStep>
-        )}
-
         {currentStep.id === 'details' && (
           <FormWizardStep step="details">
             <div className="space-y-8">
@@ -237,11 +193,7 @@ export default function CharacterCreation(props: CharacterCreationProps) {
         title: t('characterCreation.steps.attributes.title'),
         description: t('characterCreation.steps.attributes.description'),
       },
-      {
-        id: 'equipment',
-        title: t('characterCreation.steps.equipment.title'),
-        description: t('characterCreation.steps.equipment.description'),
-      },
+
       {
         id: 'details',
         title: t('characterCreation.steps.details.title'),

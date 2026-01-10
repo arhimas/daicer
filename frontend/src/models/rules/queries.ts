@@ -51,55 +51,6 @@ export const EXPLORER_GET_DAMAGE_TYPES = gql`
   ${PAGINATION_FRAGMENT}
 `;
 
-export const EXPLORER_GET_EQUIPMENT = gql`
-  query ExplorerGetEquipment($pagination: PaginationArg, $filters: EquipmentFiltersInput, $locale: I18NLocaleCode) {
-    equipments_connection(pagination: $pagination, filters: $filters, locale: $locale) {
-      nodes {
-        documentId
-        slug
-        name
-        description
-        image {
-          url
-          alternativeText
-        }
-        cost_quantity
-        cost_unit
-        weight
-      }
-      pageInfo {
-        ...PaginationFragment
-      }
-    }
-  }
-  ${PAGINATION_FRAGMENT}
-`;
-
-export const EXPLORER_GET_EQUIPMENT_CATEGORIES = gql`
-  query ExplorerGetEquipmentCategories(
-    $pagination: PaginationArg
-    $filters: EquipmentCategoryFiltersInput
-    $locale: I18NLocaleCode
-  ) {
-    equipmentCategories_connection(pagination: $pagination, filters: $filters, locale: $locale) {
-      nodes {
-        documentId
-        slug
-        name
-        description
-        image {
-          url
-          alternativeText
-        }
-      }
-      pageInfo {
-        ...PaginationFragment
-      }
-    }
-  }
-  ${PAGINATION_FRAGMENT}
-`;
-
 export const EXPLORER_GET_FEATURES = gql`
   query ExplorerGetFeatures($pagination: PaginationArg, $filters: FeatureFiltersInput, $locale: I18NLocaleCode) {
     features_connection(pagination: $pagination, filters: $filters, locale: $locale) {
@@ -132,29 +83,6 @@ export const EXPLORER_GET_LANGUAGES = gql`
           alternativeText
         }
         note
-      }
-      pageInfo {
-        ...PaginationFragment
-      }
-    }
-  }
-  ${PAGINATION_FRAGMENT}
-`;
-
-export const EXPLORER_GET_MAGIC_ITEMS = gql`
-  query ExplorerGetMagicItems($pagination: PaginationArg, $filters: MagicItemFiltersInput, $locale: I18NLocaleCode) {
-    magicItems_connection(pagination: $pagination, filters: $filters, locale: $locale) {
-      nodes {
-        documentId
-        slug
-        name
-        description
-        image {
-          url
-          alternativeText
-        }
-        rarity
-        attunement_required
       }
       pageInfo {
         ...PaginationFragment

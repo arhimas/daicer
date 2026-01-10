@@ -427,38 +427,6 @@ export type ComponentGameActionDamageArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ComponentGameActionFiltersInput = {
-  action_definition?: InputMaybe<ActionFiltersInput>;
-  and?: InputMaybe<Array<InputMaybe<ComponentGameActionFiltersInput>>>;
-  area?: InputMaybe<ComponentGameAreaEffectFiltersInput>;
-  damage?: InputMaybe<ComponentGameDamageInstanceFiltersInput>;
-  description?: InputMaybe<StringFilterInput>;
-  duration?: InputMaybe<StringFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<ComponentGameActionFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentGameActionFiltersInput>>>;
-  reach?: InputMaybe<IntFilterInput>;
-  save?: InputMaybe<ComponentGameSaveDcFiltersInput>;
-  spell_definition?: InputMaybe<SpellFiltersInput>;
-  toHit?: InputMaybe<IntFilterInput>;
-  type?: InputMaybe<StringFilterInput>;
-};
-
-export type ComponentGameActionInput = {
-  action_definition?: InputMaybe<Scalars['ID']['input']>;
-  area?: InputMaybe<ComponentGameAreaEffectInput>;
-  damage?: InputMaybe<Array<InputMaybe<ComponentGameDamageInstanceInput>>>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  duration?: InputMaybe<Enum_Componentgameaction_Duration>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  reach?: InputMaybe<Scalars['Int']['input']>;
-  save?: InputMaybe<ComponentGameSaveDcInput>;
-  spell_definition?: InputMaybe<Scalars['ID']['input']>;
-  toHit?: InputMaybe<Scalars['Int']['input']>;
-  type?: InputMaybe<Enum_Componentgameaction_Type>;
-};
-
 export type ComponentGameAppearance = {
   __typename?: 'ComponentGameAppearance';
   age?: Maybe<Scalars['Int']['output']>;
@@ -501,22 +469,6 @@ export type ComponentGameAreaEffect = {
   shape: Enum_Componentgameareaeffect_Shape;
   size: Scalars['Int']['output'];
   width?: Maybe<Scalars['Int']['output']>;
-};
-
-export type ComponentGameAreaEffectFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentGameAreaEffectFiltersInput>>>;
-  not?: InputMaybe<ComponentGameAreaEffectFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentGameAreaEffectFiltersInput>>>;
-  shape?: InputMaybe<StringFilterInput>;
-  size?: InputMaybe<IntFilterInput>;
-  width?: InputMaybe<IntFilterInput>;
-};
-
-export type ComponentGameAreaEffectInput = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  shape?: InputMaybe<Enum_Componentgameareaeffect_Shape>;
-  size?: InputMaybe<Scalars['Int']['input']>;
-  width?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ComponentGameCastingConfig = {
@@ -1713,6 +1665,7 @@ export enum Enum_Dmsetting_Difficulty {
 }
 
 export enum Enum_Entitysheet_Type {
+  Loot = 'loot',
   Monster = 'monster',
   Npc = 'npc',
   Player = 'player'
@@ -1722,6 +1675,7 @@ export enum Enum_Gameevent_Type {
   Attack = 'ATTACK',
   AttackResult = 'ATTACK_RESULT',
   DeathSave = 'DEATH_SAVE',
+  EntityDeath = 'ENTITY_DEATH',
   EntityMoved = 'ENTITY_MOVED',
   Initiative = 'INITIATIVE',
   Interact = 'INTERACT',
@@ -1761,24 +1715,6 @@ export enum Enum_Item_Type {
 export enum Enum_Knowledgesource_Origin {
   Entity = 'entity',
   Manual = 'manual'
-}
-
-export enum Enum_Magicitem_Rarity {
-  Artifact = 'Artifact',
-  Common = 'Common',
-  Legendary = 'Legendary',
-  Rare = 'Rare',
-  Uncommon = 'Uncommon',
-  Varies = 'Varies',
-  VeryRare = 'Very_Rare'
-}
-
-export enum Enum_Magicitem_Recharge_Trigger {
-  Dawn = 'Dawn',
-  Dusk = 'Dusk',
-  LongRest = 'Long_Rest',
-  ShortRest = 'Short_Rest',
-  Special = 'Special'
 }
 
 export enum Enum_Message_Sendertype {
@@ -1890,8 +1826,10 @@ export type EntitySheet = {
   features: Array<Maybe<Feature>>;
   features_connection?: Maybe<FeatureRelationResponseCollection>;
   inventory?: Maybe<Array<Maybe<ComponentGameInventoryItem>>>;
+  isReady?: Maybe<Scalars['Boolean']['output']>;
   languages: Array<Maybe<Language>>;
   languages_connection?: Maybe<LanguageRelationResponseCollection>;
+  lastSeenAt?: Maybe<Scalars['DateTime']['output']>;
   level?: Maybe<Scalars['Int']['output']>;
   maxHp?: Maybe<Scalars['Int']['output']>;
   monster?: Maybe<Monster>;
@@ -2025,7 +1963,9 @@ export type EntitySheetFiltersInput = {
   experience?: InputMaybe<IntFilterInput>;
   features?: InputMaybe<FeatureFiltersInput>;
   inventory?: InputMaybe<ComponentGameInventoryItemFiltersInput>;
+  isReady?: InputMaybe<BooleanFilterInput>;
   languages?: InputMaybe<LanguageFiltersInput>;
+  lastSeenAt?: InputMaybe<DateTimeFilterInput>;
   level?: InputMaybe<IntFilterInput>;
   maxHp?: InputMaybe<IntFilterInput>;
   monster?: InputMaybe<MonsterFiltersInput>;
@@ -2059,7 +1999,9 @@ export type EntitySheetInput = {
   experience?: InputMaybe<Scalars['Int']['input']>;
   features?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   inventory?: InputMaybe<Array<InputMaybe<ComponentGameInventoryItemInput>>>;
+  isReady?: InputMaybe<Scalars['Boolean']['input']>;
   languages?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  lastSeenAt?: InputMaybe<Scalars['DateTime']['input']>;
   level?: InputMaybe<Scalars['Int']['input']>;
   maxHp?: InputMaybe<Scalars['Int']['input']>;
   monster?: InputMaybe<Scalars['ID']['input']>;
@@ -2080,96 +2022,6 @@ export type EntitySheetInput = {
 export type EntitySheetRelationResponseCollection = {
   __typename?: 'EntitySheetRelationResponseCollection';
   nodes: Array<EntitySheet>;
-};
-
-export type Equipment = {
-  __typename?: 'Equipment';
-  actions: Array<Maybe<Action>>;
-  actions_connection?: Maybe<ActionRelationResponseCollection>;
-  armor_class_base?: Maybe<Scalars['Int']['output']>;
-  armor_class_dex_bonus?: Maybe<Scalars['Boolean']['output']>;
-  cost_quantity?: Maybe<Scalars['Int']['output']>;
-  cost_unit?: Maybe<Scalars['String']['output']>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  damage_dice?: Maybe<Scalars['String']['output']>;
-  damage_type?: Maybe<DamageType>;
-  description?: Maybe<Scalars['String']['output']>;
-  documentId: Scalars['ID']['output'];
-  equipment_category?: Maybe<EquipmentCategory>;
-  image?: Maybe<UploadFile>;
-  locale?: Maybe<Scalars['String']['output']>;
-  localizations: Array<Maybe<Equipment>>;
-  localizations_connection?: Maybe<EquipmentRelationResponseCollection>;
-  name: Scalars['String']['output'];
-  properties: Array<Maybe<WeaponProperty>>;
-  properties_connection?: Maybe<WeaponPropertyRelationResponseCollection>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  range_long?: Maybe<Scalars['Int']['output']>;
-  range_normal?: Maybe<Scalars['Int']['output']>;
-  slug: Scalars['String']['output'];
-  spells: Array<Maybe<Spell>>;
-  spells_connection?: Maybe<SpellRelationResponseCollection>;
-  stealth_disadvantage?: Maybe<Scalars['Boolean']['output']>;
-  str_minimum?: Maybe<Scalars['Int']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-  versatile_damage?: Maybe<Scalars['String']['output']>;
-  weight?: Maybe<Scalars['Float']['output']>;
-};
-
-
-export type EquipmentActionsArgs = {
-  filters?: InputMaybe<ActionFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentActions_ConnectionArgs = {
-  filters?: InputMaybe<ActionFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentLocalizationsArgs = {
-  filters?: InputMaybe<EquipmentFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentLocalizations_ConnectionArgs = {
-  filters?: InputMaybe<EquipmentFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentPropertiesArgs = {
-  filters?: InputMaybe<WeaponPropertyFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentProperties_ConnectionArgs = {
-  filters?: InputMaybe<WeaponPropertyFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentSpellsArgs = {
-  filters?: InputMaybe<SpellFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type EquipmentSpells_ConnectionArgs = {
-  filters?: InputMaybe<SpellFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type EquipmentCategory = {
@@ -2233,72 +2085,6 @@ export type EquipmentCategoryInput = {
 export type EquipmentCategoryRelationResponseCollection = {
   __typename?: 'EquipmentCategoryRelationResponseCollection';
   nodes: Array<EquipmentCategory>;
-};
-
-export type EquipmentEntityResponseCollection = {
-  __typename?: 'EquipmentEntityResponseCollection';
-  nodes: Array<Equipment>;
-  pageInfo: Pagination;
-};
-
-export type EquipmentFiltersInput = {
-  actions?: InputMaybe<ActionFiltersInput>;
-  and?: InputMaybe<Array<InputMaybe<EquipmentFiltersInput>>>;
-  armor_class_base?: InputMaybe<IntFilterInput>;
-  armor_class_dex_bonus?: InputMaybe<BooleanFilterInput>;
-  cost_quantity?: InputMaybe<IntFilterInput>;
-  cost_unit?: InputMaybe<StringFilterInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  damage_dice?: InputMaybe<StringFilterInput>;
-  damage_type?: InputMaybe<DamageTypeFiltersInput>;
-  description?: InputMaybe<StringFilterInput>;
-  documentId?: InputMaybe<IdFilterInput>;
-  equipment_category?: InputMaybe<EquipmentCategoryFiltersInput>;
-  locale?: InputMaybe<StringFilterInput>;
-  localizations?: InputMaybe<EquipmentFiltersInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<EquipmentFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<EquipmentFiltersInput>>>;
-  properties?: InputMaybe<WeaponPropertyFiltersInput>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  range_long?: InputMaybe<IntFilterInput>;
-  range_normal?: InputMaybe<IntFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  spells?: InputMaybe<SpellFiltersInput>;
-  stealth_disadvantage?: InputMaybe<BooleanFilterInput>;
-  str_minimum?: InputMaybe<IntFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-  versatile_damage?: InputMaybe<StringFilterInput>;
-  weight?: InputMaybe<FloatFilterInput>;
-};
-
-export type EquipmentInput = {
-  actions?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  armor_class_base?: InputMaybe<Scalars['Int']['input']>;
-  armor_class_dex_bonus?: InputMaybe<Scalars['Boolean']['input']>;
-  cost_quantity?: InputMaybe<Scalars['Int']['input']>;
-  cost_unit?: InputMaybe<Scalars['String']['input']>;
-  damage_dice?: InputMaybe<Scalars['String']['input']>;
-  damage_type?: InputMaybe<Scalars['ID']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  equipment_category?: InputMaybe<Scalars['ID']['input']>;
-  image?: InputMaybe<Scalars['ID']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  properties?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  range_long?: InputMaybe<Scalars['Int']['input']>;
-  range_normal?: InputMaybe<Scalars['Int']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  spells?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  stealth_disadvantage?: InputMaybe<Scalars['Boolean']['input']>;
-  str_minimum?: InputMaybe<Scalars['Int']['input']>;
-  versatile_damage?: InputMaybe<Scalars['String']['input']>;
-  weight?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type EquipmentRelationResponseCollection = {
-  __typename?: 'EquipmentRelationResponseCollection';
-  nodes: Array<Equipment>;
 };
 
 export type Feature = {
@@ -2457,7 +2243,7 @@ export type GameEventRelationResponseCollection = {
   nodes: Array<GameEvent>;
 };
 
-export type GenericMorph = Action | Character | Class | ComponentGameAction | ComponentGameAppearance | ComponentGameAreaEffect | ComponentGameCastingConfig | ComponentGameCharacterClass | ComponentGameClassProgression | ComponentGameConditionInstance | ComponentGameDamageDice | ComponentGameDamageInstance | ComponentGameDmStyle | ComponentGameDurationConfig | ComponentGameEquipmentData | ComponentGameFeature | ComponentGameInventoryItem | ComponentGameMechanicsConfig | ComponentGamePlayer | ComponentGamePosition | ComponentGameRangeConfig | ComponentGameResourcePool | ComponentGameSaveDc | ComponentGameScalingConfig | ComponentGameSpellComponents | ComponentGameSpellData | ComponentGameSpellbook | ComponentGameStats | DamageType | DmSetting | EntitySheet | Equipment | EquipmentCategory | Feature | GameEvent | I18NLocale | Item | KnowledgeSnippet | KnowledgeSource | Language | MagicItem | MagicSchool | Message | Monster | Proficiency | Prompt | Race | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Room | RuleSet | Spell | Subclass | TimeFrame | Trait | Turn | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WeaponProperty | World;
+export type GenericMorph = Action | Character | Class | ComponentGameAction | ComponentGameAppearance | ComponentGameAreaEffect | ComponentGameCastingConfig | ComponentGameCharacterClass | ComponentGameClassProgression | ComponentGameConditionInstance | ComponentGameDamageDice | ComponentGameDamageInstance | ComponentGameDmStyle | ComponentGameDurationConfig | ComponentGameEquipmentData | ComponentGameFeature | ComponentGameInventoryItem | ComponentGameMechanicsConfig | ComponentGamePlayer | ComponentGamePosition | ComponentGameRangeConfig | ComponentGameResourcePool | ComponentGameSaveDc | ComponentGameScalingConfig | ComponentGameSpellComponents | ComponentGameSpellData | ComponentGameSpellbook | ComponentGameStats | DamageType | DmSetting | EntitySheet | EquipmentCategory | Feature | GameEvent | I18NLocale | Item | KnowledgeSnippet | KnowledgeSource | Language | MagicSchool | Message | Monster | Proficiency | Prompt | Race | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Room | RuleSet | Spell | Subclass | TimeFrame | Trait | Turn | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | VoxelChange | WeaponProperty | World;
 
 export type I18NLocale = {
   __typename?: 'I18NLocale';
@@ -2837,112 +2623,6 @@ export type LongFilterInput = {
   startsWith?: InputMaybe<Scalars['Long']['input']>;
 };
 
-export type MagicItem = {
-  __typename?: 'MagicItem';
-  active_abilities?: Maybe<Array<Maybe<ComponentGameAction>>>;
-  attunement_condition?: Maybe<Scalars['String']['output']>;
-  attunement_required?: Maybe<Scalars['Boolean']['output']>;
-  base_item?: Maybe<Equipment>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  documentId: Scalars['ID']['output'];
-  equipment_category?: Maybe<EquipmentCategory>;
-  has_charges?: Maybe<Scalars['Boolean']['output']>;
-  image?: Maybe<UploadFile>;
-  image_url?: Maybe<Scalars['String']['output']>;
-  is_variant?: Maybe<Scalars['Boolean']['output']>;
-  locale?: Maybe<Scalars['String']['output']>;
-  localizations: Array<Maybe<MagicItem>>;
-  localizations_connection?: Maybe<MagicItemRelationResponseCollection>;
-  max_charges?: Maybe<Scalars['Int']['output']>;
-  name: Scalars['String']['output'];
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  rarity?: Maybe<Enum_Magicitem_Rarity>;
-  recharge_formula?: Maybe<Scalars['String']['output']>;
-  recharge_trigger?: Maybe<Enum_Magicitem_Recharge_Trigger>;
-  slug: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type MagicItemActive_AbilitiesArgs = {
-  filters?: InputMaybe<ComponentGameActionFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type MagicItemLocalizationsArgs = {
-  filters?: InputMaybe<MagicItemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type MagicItemLocalizations_ConnectionArgs = {
-  filters?: InputMaybe<MagicItemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type MagicItemEntityResponseCollection = {
-  __typename?: 'MagicItemEntityResponseCollection';
-  nodes: Array<MagicItem>;
-  pageInfo: Pagination;
-};
-
-export type MagicItemFiltersInput = {
-  active_abilities?: InputMaybe<ComponentGameActionFiltersInput>;
-  and?: InputMaybe<Array<InputMaybe<MagicItemFiltersInput>>>;
-  attunement_condition?: InputMaybe<StringFilterInput>;
-  attunement_required?: InputMaybe<BooleanFilterInput>;
-  base_item?: InputMaybe<EquipmentFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
-  documentId?: InputMaybe<IdFilterInput>;
-  equipment_category?: InputMaybe<EquipmentCategoryFiltersInput>;
-  has_charges?: InputMaybe<BooleanFilterInput>;
-  image_url?: InputMaybe<StringFilterInput>;
-  is_variant?: InputMaybe<BooleanFilterInput>;
-  locale?: InputMaybe<StringFilterInput>;
-  localizations?: InputMaybe<MagicItemFiltersInput>;
-  max_charges?: InputMaybe<IntFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<MagicItemFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<MagicItemFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  rarity?: InputMaybe<StringFilterInput>;
-  recharge_formula?: InputMaybe<StringFilterInput>;
-  recharge_trigger?: InputMaybe<StringFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type MagicItemInput = {
-  active_abilities?: InputMaybe<Array<InputMaybe<ComponentGameActionInput>>>;
-  attunement_condition?: InputMaybe<Scalars['String']['input']>;
-  attunement_required?: InputMaybe<Scalars['Boolean']['input']>;
-  base_item?: InputMaybe<Scalars['ID']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  equipment_category?: InputMaybe<Scalars['ID']['input']>;
-  has_charges?: InputMaybe<Scalars['Boolean']['input']>;
-  image?: InputMaybe<Scalars['ID']['input']>;
-  image_url?: InputMaybe<Scalars['String']['input']>;
-  is_variant?: InputMaybe<Scalars['Boolean']['input']>;
-  max_charges?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  rarity?: InputMaybe<Enum_Magicitem_Rarity>;
-  recharge_formula?: InputMaybe<Scalars['String']['input']>;
-  recharge_trigger?: InputMaybe<Enum_Magicitem_Recharge_Trigger>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type MagicItemRelationResponseCollection = {
-  __typename?: 'MagicItemRelationResponseCollection';
-  nodes: Array<MagicItem>;
-};
-
 export type MagicSchool = {
   __typename?: 'MagicSchool';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -3292,7 +2972,6 @@ export type Mutation = {
   createDamageType?: Maybe<DamageType>;
   createDmSetting?: Maybe<DmSetting>;
   createEntitySheet?: Maybe<EntitySheet>;
-  createEquipment?: Maybe<Equipment>;
   createEquipmentCategory?: Maybe<EquipmentCategory>;
   createFeature?: Maybe<Feature>;
   createGameEvent?: Maybe<GameEvent>;
@@ -3300,7 +2979,6 @@ export type Mutation = {
   createKnowledgeSnippet?: Maybe<KnowledgeSnippet>;
   createKnowledgeSource?: Maybe<KnowledgeSource>;
   createLanguage?: Maybe<Language>;
-  createMagicItem?: Maybe<MagicItem>;
   createMagicSchool?: Maybe<MagicSchool>;
   createMessage?: Maybe<Message>;
   createMonster?: Maybe<Monster>;
@@ -3319,6 +2997,7 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  createVoxelChange?: Maybe<VoxelChange>;
   createWeaponProperty?: Maybe<WeaponProperty>;
   createWorld?: Maybe<World>;
   deleteAction?: Maybe<DeleteMutationResponse>;
@@ -3327,7 +3006,6 @@ export type Mutation = {
   deleteDamageType?: Maybe<DeleteMutationResponse>;
   deleteDmSetting?: Maybe<DeleteMutationResponse>;
   deleteEntitySheet?: Maybe<DeleteMutationResponse>;
-  deleteEquipment?: Maybe<DeleteMutationResponse>;
   deleteEquipmentCategory?: Maybe<DeleteMutationResponse>;
   deleteFeature?: Maybe<DeleteMutationResponse>;
   deleteGameEvent?: Maybe<DeleteMutationResponse>;
@@ -3335,7 +3013,6 @@ export type Mutation = {
   deleteKnowledgeSnippet?: Maybe<DeleteMutationResponse>;
   deleteKnowledgeSource?: Maybe<DeleteMutationResponse>;
   deleteLanguage?: Maybe<DeleteMutationResponse>;
-  deleteMagicItem?: Maybe<DeleteMutationResponse>;
   deleteMagicSchool?: Maybe<DeleteMutationResponse>;
   deleteMessage?: Maybe<DeleteMutationResponse>;
   deleteMonster?: Maybe<DeleteMutationResponse>;
@@ -3356,8 +3033,10 @@ export type Mutation = {
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Delete an existing user */
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteVoxelChange?: Maybe<DeleteMutationResponse>;
   deleteWeaponProperty?: Maybe<DeleteMutationResponse>;
   deleteWorld?: Maybe<DeleteMutationResponse>;
+  dropItem?: Maybe<Scalars['JSON']['output']>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
   executeTool?: Maybe<Scalars['JSON']['output']>;
@@ -3376,6 +3055,7 @@ export type Mutation = {
   modifyTerrain?: Maybe<Scalars['JSON']['output']>;
   moveEntity?: Maybe<Scalars['JSON']['output']>;
   performAttack?: Maybe<Scalars['JSON']['output']>;
+  pickupItem?: Maybe<Scalars['JSON']['output']>;
   processTurn?: Maybe<Scalars['JSON']['output']>;
   /** Register a user */
   register: UsersPermissionsLoginPayload;
@@ -3392,7 +3072,6 @@ export type Mutation = {
   updateDamageType?: Maybe<DamageType>;
   updateDmSetting?: Maybe<DmSetting>;
   updateEntitySheet?: Maybe<EntitySheet>;
-  updateEquipment?: Maybe<Equipment>;
   updateEquipmentCategory?: Maybe<EquipmentCategory>;
   updateFeature?: Maybe<Feature>;
   updateGameEvent?: Maybe<GameEvent>;
@@ -3400,7 +3079,6 @@ export type Mutation = {
   updateKnowledgeSnippet?: Maybe<KnowledgeSnippet>;
   updateKnowledgeSource?: Maybe<KnowledgeSource>;
   updateLanguage?: Maybe<Language>;
-  updateMagicItem?: Maybe<MagicItem>;
   updateMagicSchool?: Maybe<MagicSchool>;
   updateMessage?: Maybe<Message>;
   updateMonster?: Maybe<Monster>;
@@ -3421,6 +3099,7 @@ export type Mutation = {
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  updateVoxelChange?: Maybe<VoxelChange>;
   updateWeaponProperty?: Maybe<WeaponProperty>;
   updateWorld?: Maybe<World>;
 };
@@ -3433,7 +3112,8 @@ export type MutationAddCharacterArgs = {
 
 
 export type MutationCastSpellArgs = {
-  payload: ToolCastSpellInput;
+  input: ToolCastSpellInput;
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -3482,13 +3162,6 @@ export type MutationCreateEntitySheetArgs = {
 };
 
 
-export type MutationCreateEquipmentArgs = {
-  data: EquipmentInput;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
 export type MutationCreateEquipmentCategoryArgs = {
   data: EquipmentCategoryInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3530,13 +3203,6 @@ export type MutationCreateKnowledgeSourceArgs = {
 
 export type MutationCreateLanguageArgs = {
   data: LanguageInput;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type MutationCreateMagicItemArgs = {
-  data: MagicItemInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
@@ -3644,6 +3310,12 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationCreateVoxelChangeArgs = {
+  data: VoxelChangeInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
 export type MutationCreateWeaponPropertyArgs = {
   data: WeaponPropertyInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3689,12 +3361,6 @@ export type MutationDeleteEntitySheetArgs = {
 };
 
 
-export type MutationDeleteEquipmentArgs = {
-  documentId: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
 export type MutationDeleteEquipmentCategoryArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3729,12 +3395,6 @@ export type MutationDeleteKnowledgeSourceArgs = {
 
 
 export type MutationDeleteLanguageArgs = {
-  documentId: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-};
-
-
-export type MutationDeleteMagicItemArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
@@ -3838,6 +3498,11 @@ export type MutationDeleteUsersPermissionsUserArgs = {
 };
 
 
+export type MutationDeleteVoxelChangeArgs = {
+  documentId: Scalars['ID']['input'];
+};
+
+
 export type MutationDeleteWeaponPropertyArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -3846,6 +3511,12 @@ export type MutationDeleteWeaponPropertyArgs = {
 
 export type MutationDeleteWorldArgs = {
   documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDropItemArgs = {
+  input: ToolDropItemInput;
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -3906,7 +3577,8 @@ export type MutationGenerateWorldArgs = {
 
 
 export type MutationInteractObjectArgs = {
-  payload: ToolInteractObjectInput;
+  input: ToolInteractObjectInput;
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -3921,22 +3593,32 @@ export type MutationLoginArgs = {
 
 
 export type MutationLongRestArgs = {
-  payload: ToolLongRestInput;
+  input: ToolLongRestInput;
+  roomId: Scalars['String']['input'];
 };
 
 
 export type MutationModifyTerrainArgs = {
-  payload: ToolModifyTerrainInput;
+  input: ToolModifyTerrainInput;
+  roomId: Scalars['String']['input'];
 };
 
 
 export type MutationMoveEntityArgs = {
-  payload: ToolMoveEntityInput;
+  input: ToolMoveEntityInput;
+  roomId: Scalars['String']['input'];
 };
 
 
 export type MutationPerformAttackArgs = {
-  payload: ToolPerformAttackInput;
+  input: ToolPerformAttackInput;
+  roomId: Scalars['String']['input'];
+};
+
+
+export type MutationPickupItemArgs = {
+  input: ToolPickupItemInput;
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -3960,7 +3642,8 @@ export type MutationResetPasswordArgs = {
 
 
 export type MutationRollSaveArgs = {
-  payload: ToolRollSaveInput;
+  input: ToolRollSaveInput;
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -3971,7 +3654,8 @@ export type MutationSpawnCreatureArgs = {
 
 
 export type MutationSpawnEntityArgs = {
-  payload: ToolSpawnEntityInput;
+  input: ToolSpawnEntityInput;
+  roomId: Scalars['String']['input'];
 };
 
 
@@ -4033,14 +3717,6 @@ export type MutationUpdateEntitySheetArgs = {
 };
 
 
-export type MutationUpdateEquipmentArgs = {
-  data: EquipmentInput;
-  documentId: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
 export type MutationUpdateEquipmentCategoryArgs = {
   data: EquipmentCategoryInput;
   documentId: Scalars['ID']['input'];
@@ -4088,14 +3764,6 @@ export type MutationUpdateKnowledgeSourceArgs = {
 
 export type MutationUpdateLanguageArgs = {
   data: LanguageInput;
-  documentId: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type MutationUpdateMagicItemArgs = {
-  data: MagicItemInput;
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
@@ -4230,6 +3898,13 @@ export type MutationUpdateUsersPermissionsRoleArgs = {
 export type MutationUpdateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateVoxelChangeArgs = {
+  data: VoxelChangeInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
 };
 
 
@@ -4469,12 +4144,9 @@ export type Query = {
   entitySheet?: Maybe<EntitySheet>;
   entitySheets: Array<Maybe<EntitySheet>>;
   entitySheets_connection?: Maybe<EntitySheetEntityResponseCollection>;
-  equipment?: Maybe<Equipment>;
   equipmentCategories: Array<Maybe<EquipmentCategory>>;
   equipmentCategories_connection?: Maybe<EquipmentCategoryEntityResponseCollection>;
   equipmentCategory?: Maybe<EquipmentCategory>;
-  equipments: Array<Maybe<Equipment>>;
-  equipments_connection?: Maybe<EquipmentEntityResponseCollection>;
   feature?: Maybe<Feature>;
   features: Array<Maybe<Feature>>;
   features_connection?: Maybe<FeatureEntityResponseCollection>;
@@ -4497,9 +4169,6 @@ export type Query = {
   language?: Maybe<Language>;
   languages: Array<Maybe<Language>>;
   languages_connection?: Maybe<LanguageEntityResponseCollection>;
-  magicItem?: Maybe<MagicItem>;
-  magicItems: Array<Maybe<MagicItem>>;
-  magicItems_connection?: Maybe<MagicItemEntityResponseCollection>;
   magicSchool?: Maybe<MagicSchool>;
   magicSchools: Array<Maybe<MagicSchool>>;
   magicSchools_connection?: Maybe<MagicSchoolEntityResponseCollection>;
@@ -4556,6 +4225,9 @@ export type Query = {
   usersPermissionsUser?: Maybe<UsersPermissionsUser>;
   usersPermissionsUsers: Array<Maybe<UsersPermissionsUser>>;
   usersPermissionsUsers_connection?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+  voxelChange?: Maybe<VoxelChange>;
+  voxelChanges: Array<Maybe<VoxelChange>>;
+  voxelChanges_connection?: Maybe<VoxelChangeEntityResponseCollection>;
   voxelPreview: Array<Maybe<VoxelChunk>>;
   weaponProperties: Array<Maybe<WeaponProperty>>;
   weaponProperties_connection?: Maybe<WeaponPropertyEntityResponseCollection>;
@@ -4704,13 +4376,6 @@ export type QueryEntitySheets_ConnectionArgs = {
 };
 
 
-export type QueryEquipmentArgs = {
-  documentId: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
 export type QueryEquipmentCategoriesArgs = {
   filters?: InputMaybe<EquipmentCategoryFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
@@ -4732,24 +4397,6 @@ export type QueryEquipmentCategories_ConnectionArgs = {
 export type QueryEquipmentCategoryArgs = {
   documentId: Scalars['ID']['input'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryEquipmentsArgs = {
-  filters?: InputMaybe<EquipmentFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryEquipments_ConnectionArgs = {
-  filters?: InputMaybe<EquipmentFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -4910,31 +4557,6 @@ export type QueryLanguagesArgs = {
 
 export type QueryLanguages_ConnectionArgs = {
   filters?: InputMaybe<LanguageFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryMagicItemArgs = {
-  documentId: Scalars['ID']['input'];
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryMagicItemsArgs = {
-  filters?: InputMaybe<MagicItemFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryMagicItems_ConnectionArgs = {
-  filters?: InputMaybe<MagicItemFiltersInput>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -5352,6 +4974,28 @@ export type QueryUsersPermissionsUsersArgs = {
 
 export type QueryUsersPermissionsUsers_ConnectionArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryVoxelChangeArgs = {
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryVoxelChangesArgs = {
+  filters?: InputMaybe<VoxelChangeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryVoxelChanges_ConnectionArgs = {
+  filters?: InputMaybe<VoxelChangeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
@@ -6095,6 +5739,11 @@ export type ToolCastSpellInput = {
   type?: InputMaybe<Scalars['JSON']['input']>;
 };
 
+export type ToolDropItemInput = {
+  entityId?: InputMaybe<Scalars['String']['input']>;
+  itemComponentId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ToolInteractObjectInput = {
   actorId?: InputMaybe<Scalars['String']['input']>;
   interactionType?: InputMaybe<Scalars['String']['input']>;
@@ -6121,6 +5770,11 @@ export type ToolMoveEntityInput = {
 export type ToolPerformAttackInput = {
   actionName?: InputMaybe<Scalars['String']['input']>;
   attackerId?: InputMaybe<Scalars['String']['input']>;
+  targetId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ToolPickupItemInput = {
+  actorId?: InputMaybe<Scalars['String']['input']>;
   targetId?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -6616,6 +6270,61 @@ export type UsersPermissionsUserRelationResponseCollection = {
   nodes: Array<UsersPermissionsUser>;
 };
 
+export type VoxelChange = {
+  __typename?: 'VoxelChange';
+  chunkX: Scalars['Int']['output'];
+  chunkY: Scalars['Int']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  newType: Scalars['String']['output'];
+  previousType?: Maybe<Scalars['String']['output']>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  reason?: Maybe<Scalars['String']['output']>;
+  timestamp: Scalars['Long']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  voxelX: Scalars['Int']['output'];
+  voxelY: Scalars['Int']['output'];
+  voxelZ: Scalars['Int']['output'];
+};
+
+export type VoxelChangeEntityResponseCollection = {
+  __typename?: 'VoxelChangeEntityResponseCollection';
+  nodes: Array<VoxelChange>;
+  pageInfo: Pagination;
+};
+
+export type VoxelChangeFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<VoxelChangeFiltersInput>>>;
+  chunkX?: InputMaybe<IntFilterInput>;
+  chunkY?: InputMaybe<IntFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  newType?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<VoxelChangeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<VoxelChangeFiltersInput>>>;
+  previousType?: InputMaybe<StringFilterInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  reason?: InputMaybe<StringFilterInput>;
+  timestamp?: InputMaybe<LongFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+  voxelX?: InputMaybe<IntFilterInput>;
+  voxelY?: InputMaybe<IntFilterInput>;
+  voxelZ?: InputMaybe<IntFilterInput>;
+};
+
+export type VoxelChangeInput = {
+  chunkX?: InputMaybe<Scalars['Int']['input']>;
+  chunkY?: InputMaybe<Scalars['Int']['input']>;
+  newType?: InputMaybe<Scalars['String']['input']>;
+  previousType?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  reason?: InputMaybe<Scalars['String']['input']>;
+  timestamp?: InputMaybe<Scalars['Long']['input']>;
+  voxelX?: InputMaybe<Scalars['Int']['input']>;
+  voxelY?: InputMaybe<Scalars['Int']['input']>;
+  voxelZ?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type VoxelChunk = {
   __typename?: 'VoxelChunk';
   tiles: Scalars['JSON']['output'];
@@ -6852,11 +6561,6 @@ export type GetDamageTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetDamageTypesQuery = { __typename?: 'Query', damageTypes: Array<{ __typename?: 'DamageType', documentId: string, name: string, description?: string | null } | null> };
 
-export type GetEquipmentQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetEquipmentQuery = { __typename?: 'Query', equipments: Array<{ __typename?: 'Equipment', documentId: string, name: string, cost_quantity?: number | null, cost_unit?: string | null, weight?: number | null, description?: string | null, damage_dice?: string | null, range_normal?: number | null, range_long?: number | null, armor_class_base?: number | null, armor_class_dex_bonus?: boolean | null, damage_type?: { __typename?: 'DamageType', name: string } | null, equipment_category?: { __typename?: 'EquipmentCategory', name: string } | null, properties: Array<{ __typename?: 'WeaponProperty', name: string } | null> } | null> };
-
 export type GetMonstersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7087,30 +6791,6 @@ export type ExplorerGetDamageTypesQuery = { __typename?: 'Query', damageTypes_co
       & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
     ) } | null };
 
-export type ExplorerGetEquipmentQueryVariables = Exact<{
-  pagination?: InputMaybe<PaginationArg>;
-  filters?: InputMaybe<EquipmentFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-}>;
-
-
-export type ExplorerGetEquipmentQuery = { __typename?: 'Query', equipments_connection?: { __typename?: 'EquipmentEntityResponseCollection', nodes: Array<{ __typename?: 'Equipment', documentId: string, slug: string, name: string, description?: string | null, cost_quantity?: number | null, cost_unit?: string | null, weight?: number | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
-
-export type ExplorerGetEquipmentCategoriesQueryVariables = Exact<{
-  pagination?: InputMaybe<PaginationArg>;
-  filters?: InputMaybe<EquipmentCategoryFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-}>;
-
-
-export type ExplorerGetEquipmentCategoriesQuery = { __typename?: 'Query', equipmentCategories_connection?: { __typename?: 'EquipmentCategoryEntityResponseCollection', nodes: Array<{ __typename?: 'EquipmentCategory', documentId: string, slug: string, name: string, description?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
-
 export type ExplorerGetFeaturesQueryVariables = Exact<{
   pagination?: InputMaybe<PaginationArg>;
   filters?: InputMaybe<FeatureFiltersInput>;
@@ -7131,18 +6811,6 @@ export type ExplorerGetLanguagesQueryVariables = Exact<{
 
 
 export type ExplorerGetLanguagesQuery = { __typename?: 'Query', languages_connection?: { __typename?: 'LanguageEntityResponseCollection', nodes: Array<{ __typename?: 'Language', documentId: string, name: string, note?: string | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
-      { __typename?: 'Pagination' }
-      & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
-    ) } | null };
-
-export type ExplorerGetMagicItemsQueryVariables = Exact<{
-  pagination?: InputMaybe<PaginationArg>;
-  filters?: InputMaybe<MagicItemFiltersInput>;
-  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
-}>;
-
-
-export type ExplorerGetMagicItemsQuery = { __typename?: 'Query', magicItems_connection?: { __typename?: 'MagicItemEntityResponseCollection', nodes: Array<{ __typename?: 'MagicItem', documentId: string, slug: string, name: string, description?: string | null, rarity?: Enum_Magicitem_Rarity | null, attunement_required?: boolean | null, image?: { __typename?: 'UploadFile', url: string, alternativeText?: string | null } | null }>, pageInfo: (
       { __typename?: 'Pagination' }
       & { ' $fragmentRefs'?: { 'PaginationFragmentFragment': PaginationFragmentFragment } }
     ) } | null };
@@ -7262,7 +6930,6 @@ export const GetLanguagesDocument = {"kind":"Document","definitions":[{"kind":"O
 export const GetMagicSchoolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMagicSchools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"magicSchools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetMagicSchoolsQuery, GetMagicSchoolsQueryVariables>;
 export const GetConditionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetConditions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"conditions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetConditionsQuery, GetConditionsQueryVariables>;
 export const GetDamageTypesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetDamageTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"damageTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetDamageTypesQuery, GetDamageTypesQueryVariables>;
-export const GetEquipmentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetEquipment"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"equipments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"cost_quantity"}},{"kind":"Field","name":{"kind":"Name","value":"cost_unit"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"damage_dice"}},{"kind":"Field","name":{"kind":"Name","value":"damage_type"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"equipment_category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"properties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"range_normal"}},{"kind":"Field","name":{"kind":"Name","value":"range_long"}},{"kind":"Field","name":{"kind":"Name","value":"armor_class_base"}},{"kind":"Field","name":{"kind":"Name","value":"armor_class_dex_bonus"}}]}}]}}]} as unknown as DocumentNode<GetEquipmentQuery, GetEquipmentQueryVariables>;
 export const GetMonstersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMonsters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monsters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}},{"kind":"Field","name":{"kind":"Name","value":"hp"}},{"kind":"Field","name":{"kind":"Name","value":"ac"}},{"kind":"Field","name":{"kind":"Name","value":"stats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"walkSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"flySpeed"}},{"kind":"Field","name":{"kind":"Name","value":"swimSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"climbSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"burrowSpeed"}},{"kind":"Field","name":{"kind":"Name","value":"hover"}}]}},{"kind":"Field","name":{"kind":"Name","value":"challenge_rating"}}]}}]}}]} as unknown as DocumentNode<GetMonstersQuery, GetMonstersQueryVariables>;
 export const GetSpellsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSpells"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"spells"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"school"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetSpellsQuery, GetSpellsQueryVariables>;
 export const GetFeaturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetFeatures"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"features"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetFeaturesQuery, GetFeaturesQueryVariables>;
@@ -7293,11 +6960,8 @@ export const SearchEntitiesDocument = {"kind":"Document","definitions":[{"kind":
 export const VoxelPreviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"VoxelPreview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"chunks"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ChunkRequestInput"}}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"config"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"WorldConfigInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"voxelPreview"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"chunks"},"value":{"kind":"Variable","name":{"kind":"Name","value":"chunks"}}},{"kind":"Argument","name":{"kind":"Name","value":"config"},"value":{"kind":"Variable","name":{"kind":"Name","value":"config"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"x"}},{"kind":"Field","name":{"kind":"Name","value":"y"}},{"kind":"Field","name":{"kind":"Name","value":"tiles"}}]}}]}}]} as unknown as DocumentNode<VoxelPreviewQuery, VoxelPreviewQueryVariables>;
 export const ExplorerGetClassesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetClasses"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ClassFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"classes_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetClassesQuery, ExplorerGetClassesQueryVariables>;
 export const ExplorerGetDamageTypesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetDamageTypes"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DamageTypeFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"damageTypes_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetDamageTypesQuery, ExplorerGetDamageTypesQueryVariables>;
-export const ExplorerGetEquipmentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetEquipment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EquipmentFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"equipments_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cost_quantity"}},{"kind":"Field","name":{"kind":"Name","value":"cost_unit"}},{"kind":"Field","name":{"kind":"Name","value":"weight"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetEquipmentQuery, ExplorerGetEquipmentQueryVariables>;
-export const ExplorerGetEquipmentCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetEquipmentCategories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"EquipmentCategoryFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"equipmentCategories_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetEquipmentCategoriesQuery, ExplorerGetEquipmentCategoriesQueryVariables>;
 export const ExplorerGetFeaturesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetFeatures"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FeatureFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"features_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"level"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetFeaturesQuery, ExplorerGetFeaturesQueryVariables>;
 export const ExplorerGetLanguagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetLanguages"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"LanguageFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"languages_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"note"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetLanguagesQuery, ExplorerGetLanguagesQueryVariables>;
-export const ExplorerGetMagicItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetMagicItems"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MagicItemFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"magicItems_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"rarity"}},{"kind":"Field","name":{"kind":"Name","value":"attunement_required"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetMagicItemsQuery, ExplorerGetMagicItemsQueryVariables>;
 export const ExplorerGetMagicSchoolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetMagicSchools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MagicSchoolFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"magicSchools_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetMagicSchoolsQuery, ExplorerGetMagicSchoolsQueryVariables>;
 export const ExplorerGetMonstersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetMonsters"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"MonsterFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"monsters_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"size"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"alignment"}},{"kind":"Field","name":{"kind":"Name","value":"challenge_rating"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetMonstersQuery, ExplorerGetMonstersQueryVariables>;
 export const ExplorerGetProficienciesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ExplorerGetProficiencies"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"PaginationArg"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProficiencyFiltersInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"I18NLocaleCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"proficiencies_connection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nodes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"image"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alternativeText"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginationFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pageSize"}},{"kind":"Field","name":{"kind":"Name","value":"pageCount"}}]}}]} as unknown as DocumentNode<ExplorerGetProficienciesQuery, ExplorerGetProficienciesQueryVariables>;

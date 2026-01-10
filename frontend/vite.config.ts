@@ -139,7 +139,7 @@ export default defineConfig(({ mode }) => {
     test: {
       globals: true,
       environment: 'jsdom',
-      setupFiles: './src/test/setup.ts',
+      setupFiles: path.resolve(__dirname, './src/test/setup.ts'),
       include: ['src/**/*.{test,spec}.{ts,tsx}'],
       exclude: [...configDefaults.exclude, 'e2e/**', '**/coverage/**', '**/.test-results-*.json'],
       server: {

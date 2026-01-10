@@ -18,8 +18,6 @@ export {
   useMagicSchools,
   useConditions,
   useDamageTypes,
-  useEquipment,
-  useWeaponProperties,
   useMonsters,
 } from './useGameData';
 

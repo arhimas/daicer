@@ -84,6 +84,7 @@ export async function getRoomState(roomId: string): Promise<Room> {
   const roomResponse = data?.rooms?.[0];
   if (!roomResponse) return null as unknown as Room;
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const room = useFragment(FullRoomContextFragmentDoc, roomResponse);
 
   // Map backend Component structure to frontend Player interface

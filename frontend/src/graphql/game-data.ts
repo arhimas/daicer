@@ -115,33 +115,6 @@ export const GET_DAMAGE_TYPES_QUERY = gql`
   }
 `;
 
-export const GET_EQUIPMENT_QUERY = gql`
-  query GetEquipment {
-    equipments {
-      documentId
-      name
-      cost_quantity
-      cost_unit
-      weight
-      description
-      damage_dice
-      damage_type {
-        name
-      }
-      equipment_category {
-        name
-      }
-      properties {
-        name
-      }
-      range_normal
-      range_long
-      armor_class_base
-      armor_class_dex_bonus
-    }
-  }
-`;
-
 export const GET_MONSTERS_QUERY = gql`
   query GetMonsters {
     monsters {

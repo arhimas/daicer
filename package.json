@@ -25,7 +25,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "kill": "lsof -ti:3000,1337 | xargs kill -9 || true",
     "prepare": "husky",
-    "cli": "yarn workspace @daicer/backend cli"
+    "cli": "yarn workspace @daicer/backend cli",
+    "ci": "concurrently -n \"typecheck,lint,test\" -c \"magenta,cyan,green\" \"yarn workspaces run typecheck\" \"yarn workspaces run lint\" \"vitest run\"",
+    "ci:view": "vitest --ui"
   },
   "dependencies": {
     "@uidotdev/usehooks": "^2.4.1",
@@ -33,6 +35,7 @@
   },
   "devDependencies": {
     "@google/generative-ai": "^0.21.0",
+    "@vitest/ui": "^4.0.16",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "dotenv-cli": "^11.0.0",

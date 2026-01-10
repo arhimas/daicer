@@ -7,41 +7,12 @@ import { gildedTokens } from '@/theme/gildedTokens';
 import Input from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  EXPLORER_GET_CLASSES,
-  EXPLORER_GET_DAMAGE_TYPES,
-  EXPLORER_GET_EQUIPMENT,
-  EXPLORER_GET_EQUIPMENT_CATEGORIES,
-  EXPLORER_GET_FEATURES,
-  EXPLORER_GET_LANGUAGES,
-  EXPLORER_GET_MAGIC_ITEMS,
-  EXPLORER_GET_MAGIC_SCHOOLS,
-  EXPLORER_GET_MONSTERS,
-  EXPLORER_GET_PROFICIENCIES,
-  EXPLORER_GET_RACES,
-  EXPLORER_GET_SPELLS,
-  EXPLORER_GET_SUBCLASSES,
-  EXPLORER_GET_TRAITS,
-  EXPLORER_GET_WEAPON_PROPERTIES,
-} from '@/models/rules/queries';
+import { EXPLORER_GET_CLASSES, EXPLORER_GET_DAMAGE_TYPES } from '@/models/rules/queries';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const CATEGORY_CONFIG: Record<string, { query: any; dataKey: string }> = {
   classes: { query: EXPLORER_GET_CLASSES, dataKey: 'classes_connection' },
   'damage-types': { query: EXPLORER_GET_DAMAGE_TYPES, dataKey: 'damageTypes_connection' },
-  equipment: { query: EXPLORER_GET_EQUIPMENT, dataKey: 'equipments_connection' },
-  'equipment-categories': { query: EXPLORER_GET_EQUIPMENT_CATEGORIES, dataKey: 'equipmentCategories_connection' },
-  features: { query: EXPLORER_GET_FEATURES, dataKey: 'features_connection' },
-  languages: { query: EXPLORER_GET_LANGUAGES, dataKey: 'languages_connection' },
-  'magic-items': { query: EXPLORER_GET_MAGIC_ITEMS, dataKey: 'magicItems_connection' },
-  'magic-schools': { query: EXPLORER_GET_MAGIC_SCHOOLS, dataKey: 'magicSchools_connection' },
-  monsters: { query: EXPLORER_GET_MONSTERS, dataKey: 'monsters_connection' },
-  proficiencies: { query: EXPLORER_GET_PROFICIENCIES, dataKey: 'proficiencies_connection' },
-  races: { query: EXPLORER_GET_RACES, dataKey: 'races_connection' },
-  spells: { query: EXPLORER_GET_SPELLS, dataKey: 'spells_connection' },
-  subclasses: { query: EXPLORER_GET_SUBCLASSES, dataKey: 'subclasses_connection' },
-  traits: { query: EXPLORER_GET_TRAITS, dataKey: 'traits_connection' },
-  'weapon-properties': { query: EXPLORER_GET_WEAPON_PROPERTIES, dataKey: 'weaponProperties_connection' },
 };
 
 interface RulesResourceListProps {

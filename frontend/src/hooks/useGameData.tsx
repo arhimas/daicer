@@ -15,8 +15,6 @@ import {
   getMagicSchools,
   getConditions,
   getDamageTypes,
-  getEquipment,
-  getWeaponProperties,
   getMonsters,
   type Alignment,
   type Race,
@@ -28,8 +26,6 @@ import {
   type MagicSchool,
   type Condition,
   type DamageType,
-  type EquipmentItem,
-  type WeaponProperty,
   type Monster,
 } from '../services/game-data';
 
@@ -147,20 +143,6 @@ export function useConditions(): UseGameDataResult<Condition[]> {
  */
 export function useDamageTypes(): UseGameDataResult<DamageType[]> {
   return useGameData(getDamageTypes, 'damage-types');
-}
-
-/**
- * Hook for fetching equipment
- */
-export function useEquipment(): UseGameDataResult<EquipmentItem[]> {
-  return useGameData(getEquipment, 'equipment');
-}
-
-/**
- * Hook for fetching weapon properties
- */
-export function useWeaponProperties(): UseGameDataResult<WeaponProperty[]> {
-  return useGameData(getWeaponProperties, 'weapon-properties');
 }
 
 /**

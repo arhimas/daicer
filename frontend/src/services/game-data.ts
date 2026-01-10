@@ -15,7 +15,6 @@ import {
   GET_MAGIC_SCHOOLS_QUERY,
   GET_CONDITIONS_QUERY,
   GET_DAMAGE_TYPES_QUERY,
-  GET_EQUIPMENT_QUERY,
   GET_MONSTERS_QUERY,
   GET_FEATURES_QUERY,
   GET_SPELLS_QUERY,
@@ -32,7 +31,6 @@ import type {
   GetMagicSchoolsQuery,
   GetConditionsQuery,
   GetDamageTypesQuery,
-  GetEquipmentQuery,
   GetMonstersQuery,
   GetFeaturesQuery,
   GetSpellsQuery,
@@ -114,35 +112,6 @@ export interface DamageType {
   description: string;
 }
 
-export interface WeaponProperty {
-  id: string;
-  index: string;
-  name: string;
-  description: string;
-}
-
-export interface EquipmentCategory {
-  id: string;
-  index: string;
-  name: string;
-  description: string;
-}
-
-export interface EquipmentItem {
-  id: string; // Document ID
-  index: string;
-  name: string;
-  equipmentCategory: string;
-  cost: { quantity: number; unit: string };
-  weight: number;
-  description?: string;
-  damage?: { damageDice: string; damageType: string };
-  armorClass?: number | { base: number; dexBonus: boolean; maxBonus?: number };
-  range?: { normal: number; long?: number };
-  properties?: string[];
-  imageUrl?: string | null;
-}
-
 export interface MonsterAbilityScores {
   STR: number;
   DEX: number;
@@ -198,16 +167,6 @@ export interface Monster {
   specialAbilities?: MonsterSpecialAbility[];
   actions: MonsterAction[];
   legendaryActions?: MonsterLegendaryAction[];
-  imageUrl?: string | null;
-}
-
-export interface MagicItem {
-  id: string;
-  index: string;
-  name: string;
-  equipmentCategory: string;
-  rarity: string;
-  description: string;
   imageUrl?: string | null;
 }
 
@@ -474,44 +433,7 @@ export async function getDamageTypes(): Promise<DamageType[]> {
 /**
  * Fetch all equipment items
  */
-export async function getEquipment(): Promise<EquipmentItem[]> {
-  const { data } = await apolloClient.query<GetEquipmentQuery>({ query: GET_EQUIPMENT_QUERY });
-  return (
-    data?.equipments?.map((item) => ({
-      id: item?.documentId || '', // Map documentId
-      index: item?.name?.toLowerCase().replace(/\s+/g, '-') || '',
-      name: item?.name || '',
-      equipmentCategory: item?.equipment_category?.name || 'Unknown',
-      cost: {
-        quantity: item?.cost_quantity ?? 0,
-        unit: item?.cost_unit || 'gp',
-      },
-      weight: item?.weight || 0,
-      description: item?.description || '',
-      damage: item?.damage_dice
-        ? {
-            damageDice: item.damage_dice,
-            damageType: item.damage_type?.name || 'bludgeoning',
-          }
-        : undefined,
-      armorClass: item?.armor_class_base
-        ? {
-            base: item.armor_class_base,
-            dexBonus: item.armor_class_dex_bonus || false,
-            maxBonus: 0,
-          }
-        : undefined,
-      range: item?.range_normal
-        ? {
-            normal: item.range_normal,
-            long: item.range_long || undefined,
-          }
-        : undefined,
-      properties: item?.properties?.map((p) => p?.name || '') || [],
-      imageUrl: null,
-    })) || []
-  );
-}
+// function removed
 
 /**
  * Fetch all monsters
@@ -592,18 +514,7 @@ export async function getSpells(): Promise<Spell[]> {
 }
 
 // Stubs for remaining functions
-export async function getEquipmentCategories(): Promise<EquipmentCategory[]> {
-  return [];
-}
-export async function getWeaponProperties(): Promise<WeaponProperty[]> {
-  return [];
-}
-export async function getMagicItems(): Promise<MagicItem[]> {
-  return [];
-}
-export async function getMagicItem(_id: string): Promise<MagicItem> {
-  throw new Error('Not implemented');
-}
+
 export async function getFeature(_id: string): Promise<Feature> {
   throw new Error('Not implemented');
 }
