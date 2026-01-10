@@ -3066,6 +3066,7 @@ export type Mutation = {
   spawnEntity?: Maybe<Scalars['JSON']['output']>;
   startGame?: Maybe<Scalars['JSON']['output']>;
   submitAction?: Maybe<Scalars['JSON']['output']>;
+  submitAgentAnswer?: Maybe<Scalars['JSON']['output']>;
   updateAction?: Maybe<Action>;
   updateCharacter?: Maybe<Character>;
   updateClass?: Maybe<Class>;
@@ -3670,6 +3671,12 @@ export type MutationSubmitActionArgs = {
   action: Scalars['String']['input'];
   mode?: InputMaybe<Scalars['String']['input']>;
   roomId: Scalars['ID']['input'];
+};
+
+
+export type MutationSubmitAgentAnswerArgs = {
+  answer: Scalars['String']['input'];
+  questionId: Scalars['ID']['input'];
 };
 
 

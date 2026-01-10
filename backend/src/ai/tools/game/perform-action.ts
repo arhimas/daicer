@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '@daicer/engine';
+import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '../../../api/game/src/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 import EntityAdapter from '../../../api/game/services/entity-adapter';
 

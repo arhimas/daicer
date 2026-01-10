@@ -1,11 +1,12 @@
 import path from 'path';
 
 export default ({ env }) => {
-  const filename = path.join(__dirname, '../../../../.tmp/test.db');
+  const filename = env('DATABASE_FILENAME', ':memory:');
+  const client = env('DATABASE_CLIENT', 'sqlite');
 
   return {
     connection: {
-      client: 'sqlite',
+      client,
       connection: {
         filename,
       },

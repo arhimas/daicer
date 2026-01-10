@@ -10,6 +10,7 @@ export class TestFactory {
   /**
    * Creates a Room entity
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async createRoom(overrides: Partial<any> = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this.strapi.documents('api::room.room') as any).create({
@@ -28,6 +29,7 @@ export class TestFactory {
   /**
    * Creates a Monster entity
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async createMonster(overrides: Partial<any> = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this.strapi.documents('api::monster.monster') as any).create({
@@ -55,6 +57,7 @@ export class TestFactory {
   /**
    * Creates a Character entity
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async createCharacter(overrides: Partial<any> = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this.strapi.documents('api::character.character') as any).create({
@@ -80,6 +83,7 @@ export class TestFactory {
   /**
    * Creates an EntitySheet entity
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async createEntitySheet(overrides: Partial<any> = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this.strapi.documents('api::entity-sheet.entity-sheet') as any).create({

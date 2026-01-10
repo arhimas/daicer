@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { performActionTool } from '../perform-action';
 import { StrapiContext } from '../../tool-factory';
-import { ActionDispatcher } from '@daicer/engine';
+import { ActionDispatcher } from '../../../../api/game/src/engine';
 
 // Mock dependencies where necessary, but use real logic for target testing
-vi.mock('../../../../engine', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('../../../../engine')>();
+vi.mock('../../../../api/game/src/engine', async () => {
+  const actual = await vi.importActual('../../../../api/game/src/engine');
   return {
     ...actual,
     ActionDispatcher: vi.fn(), // We will mock instances of this
@@ -23,7 +23,8 @@ describe('Tool Lifecycle Integration', () => {
     const functionHelper = function (this: any, _streamManager: any) {
       return { dispatch: mockDispatch };
     };
-    vi.mocked(ActionDispatcher).mockImplementation(functionHelper as unknown as any);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (ActionDispatcher as unknown as any).mockImplementation(functionHelper as unknown as any);
 
     mockContext = {
       strapi: {

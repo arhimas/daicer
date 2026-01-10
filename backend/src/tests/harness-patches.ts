@@ -1,4 +1,3 @@
- 
 import fs from 'fs';
 import path from 'path';
 // import Module from 'module';
@@ -61,6 +60,7 @@ export const applyStrapiPatches = () => {
       });
 
       // Execute the transpiled code
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const Module = require('module');
       const moduleInstance = new Module(file);
       moduleInstance.filename = file;
@@ -77,7 +77,6 @@ export const applyStrapiPatches = () => {
       return resolved;
     };
 
-     
     const patchedLoadConfigFile = (file: string) => {
       const extension = path.extname(file).toLowerCase();
       if (['.ts', '.cts', '.mts'].includes(extension)) {
@@ -95,7 +94,6 @@ export const applyStrapiPatches = () => {
   if (!originalLoadConfigDir.__tsRuntimePatched) {
     const validExtensions = ['.js', '.json', '.ts', '.cts', '.mts'];
 
-     
     const patchedLoadConfigDir = (dir: string) => {
       if (!fs.existsSync(dir)) return {};
 

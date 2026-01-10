@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { performActionTool } from '../perform-action';
 import { StrapiContext, StrapiInterface } from '../../tool-factory';
-import { ActionDispatcher } from '@daicer/engine';
+import { ActionDispatcher } from '../../../../api/game/src/engine';
 
 // Mock Dependencies
-vi.mock('../../../../engine', async () => {
-  const actual = await vi.importActual('../../../../engine');
+vi.mock('../../../../api/game/src/engine', async () => {
+  const actual = await vi.importActual('../../../../api/game/src/engine');
   return {
     ...actual,
     ActionDispatcher: vi.fn(),
