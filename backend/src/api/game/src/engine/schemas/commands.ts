@@ -115,6 +115,7 @@ export const CommandSchema = z.union([
   LongRestCommandSchema,
   ModifyTerrainCommandSchema,
   RollSaveCommandSchema,
+  ActionCommandSchema,
 ]);
 
 // Helper to infer discriminated union type

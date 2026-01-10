@@ -759,6 +759,10 @@ export interface ApiGameEventGameEvent extends Struct.CollectionTypeSchema {
         'TURN_START',
         'TURN_END',
         'TERRAIN_MODIFIED',
+        'SPAWN_ENTITY',
+        'ENTROPY_CHANGE',
+        'ITEM_DROP',
+        'ITEM_PICKUP',
       ]
     > &
       Schema.Attribute.Required;

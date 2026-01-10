@@ -84,7 +84,16 @@ describe('Spawn Service', () => {
         stats: { strength: 16 },
         classes: [{ class: { documentId: 'cls-1', name: 'Fighter', hit_die: '1d10' }, level: 1 }],
         race: { speed: 30, proficiencies: [], traits: [] },
-        inventory: [{ isEquipped: true, item: { name: 'Sword' } }],
+        inventory: [
+          {
+            isEquipped: true,
+            item: {
+              name: 'Sword',
+              type: 'weapon',
+              equipment_data: { damage_dice: '1d8', damage_type: { name: 'Slashing' } },
+            },
+          },
+        ],
         actions: [],
         spell_config: {},
       };

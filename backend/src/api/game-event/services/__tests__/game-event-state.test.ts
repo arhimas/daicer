@@ -176,7 +176,7 @@ describe('Game Event Service - State & Validation', () => {
         }
         if (uid === 'api::game-event.game-event') {
           return {
-            findMany: vi.fn().mockResolvedValue([{ turnNumber: 10 }]),
+            findMany: vi.fn().mockResolvedValue([{ turn_number: 10 }]),
             create: createMock,
           };
         }
@@ -188,7 +188,7 @@ describe('Game Event Service - State & Validation', () => {
       expect(createMock).toHaveBeenCalledWith(
         expect.objectContaining({
           data: expect.objectContaining({
-            turnNumber: 11, // Incremented
+            turn_number: 11, // Incremented
             type: 'TEST',
             actorId: 'actor-1',
           }),

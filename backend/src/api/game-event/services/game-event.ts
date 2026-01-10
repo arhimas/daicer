@@ -60,11 +60,11 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
 
     const lastEvents = await strapi.documents('api::game-event.game-event').findMany({
       filters: { room: { documentId: roomDocumentId } },
-      sort: 'turnNumber:desc',
+      sort: 'turn_number:desc',
       limit: 1,
     });
-    const lastEvent = lastEvents.length > 0 ? (lastEvents[0] as { turnNumber?: number }) : null;
-    const turnNumber = lastEvent ? (lastEvent.turnNumber || 0) + 1 : 1;
+    const lastEvent = lastEvents.length > 0 ? (lastEvents[0] as { turn_number?: number }) : null;
+    const turnNumber = lastEvent ? (lastEvent.turn_number || 0) + 1 : 1;
 
     const event = await strapi.documents('api::game-event.game-event').create({
       data: {
@@ -73,7 +73,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
         payload,
         actorId,
         timestamp: Date.now(),
-        turnNumber,
+        turn_number: turnNumber,
       },
     });
 
@@ -133,7 +133,7 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
   async getGameState(roomDocumentId: string) {
     const events = await strapi.documents('api::game-event.game-event').findMany({
       filters: { room: { documentId: roomDocumentId } },
-      sort: 'turnNumber:asc',
+      sort: 'turn_number:asc',
       limit: 10000,
     });
 

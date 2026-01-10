@@ -25,9 +25,9 @@ export default ({ strapi }) => ({
         'features', // Relation
         'inventory', // Component (Renamed from equipment_items)
         'inventory.item',
-        'inventory.item.equipment_category',
-        'inventory.item.damage_type',
-        'inventory.item.properties',
+        'inventory.item.equipment_data', // New Component for stats
+        'inventory.item.equipment_data.damage_type',
+        'inventory.item.equipment_data.properties',
         'proficiencies', // Relation
         'languages', // Relation
         'traits', // Relation
@@ -63,8 +63,17 @@ export default ({ strapi }) => ({
     // Extract actual equipment items
     const equipmentForDeriver =
       monster.inventory
-        ?.filter((entry: { isEquipped: boolean; item: unknown }) => entry.isEquipped && entry.item)
-        .map((entry: { item: unknown }) => entry.item) || [];
+        ?.filter((entry: { isEquipped: boolean; item: any }) => entry.isEquipped && entry.item)
+        .map((entry: { item: any }) => {
+          const item = entry.item;
+          const eqData = item.equipment_data || {};
+          return {
+            ...item,
+            ...eqData, // Flatten equipment_data
+            equipment_category: { slug: item.type }, // Shim for legacy compatibility
+            isEquipped: true,
+          };
+        }) || [];
 
     const derived = EntityDeriver.derive({
       attributes: {
@@ -185,8 +194,9 @@ export default ({ strapi }) => ({
         'classes.class.features', // Component in Class
         'inventory', // Renamed from equipment_items
         'inventory.item',
-        'inventory.item.damage_type',
-        'inventory.item.properties',
+        'inventory.item.equipment_data', // New component
+        'inventory.item.equipment_data.damage_type',
+        'inventory.item.equipment_data.properties',
         'actions', // Relation
         'spells', // Relation (top level?) or Component? Character schema has `spells` relation.
         // Wait, character schema had 'spell_config'. Let's check logic.
@@ -245,8 +255,17 @@ export default ({ strapi }) => ({
     // Extract actual equipment items
     const equipmentForDeriver =
       character.inventory
-        ?.filter((entry: { isEquipped: boolean; item: unknown }) => entry.isEquipped && entry.item)
-        .map((entry: { item: unknown }) => entry.item) || [];
+        ?.filter((entry: { isEquipped: boolean; item: any }) => entry.isEquipped && entry.item)
+        .map((entry: { item: any }) => {
+          const item = entry.item;
+          const eqData = item.equipment_data || {};
+          return {
+            ...item,
+            ...eqData, // Flatten equipment_data
+            equipment_category: { slug: item.type }, // Shim for legacy compatibility
+            isEquipped: true,
+          };
+        }) || [];
 
     // Extract Spells
     const activeSpells = [

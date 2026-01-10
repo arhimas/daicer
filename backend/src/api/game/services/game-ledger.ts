@@ -51,7 +51,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         sequenceId: nextSeq.toString(), // Store as string to be safe with all DB adapters
         causalityId: eventData.causalityId,
         timestamp: Date.now(),
-        turnNumber: 0, // Deprecated/Legacy compatibility
+        turn_number: 0, // Deprecated/Legacy compatibility
       },
       status: 'published',
     });

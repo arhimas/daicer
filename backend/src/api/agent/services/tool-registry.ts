@@ -114,31 +114,108 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     }
   );
 
-  // 4. ROLL_SAVE (Using SKILL_CHECK for now until we expand)
-  // 4. ROLL_SAVE (Using SKILL_CHECK for now until we expand)
+  // 4. GET_AVAILABLE_ACTIONS (Discovery Tool)
   register(
-    'roll_save',
-    'Perform a saving throw or skill check',
+    'get_available_actions',
+    'Get a list of available actions for an entity',
+    z.object({ entityId: z.string() }),
+    async (roomId, payload, _user) => {
+      const p = payload as { entityId: string };
+      // Hydrate actions and return definitions
+      const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+        documentId: p.entityId,
+        populate: [
+          'inventory',
+          'inventory.item',
+          'inventory.item.equipment_data',
+          'inventory.item.equipment_data.damage_type',
+          'inventory.item.equipment_data.properties',
+          'spellbook',
+          'spellbook.spell',
+          'stats',
+        ],
+      });
+      if (!actor) return { error: 'Entity not found' };
+
+      // Helper Context Map (Deduplicate later)
+      const context = {
+        attributes: actor.stats,
+        proficiencyBonus: 2,
+        equipment: (actor.inventory || [])
+          .filter((entry: any) => entry.isEquipped && entry.item)
+          .map((entry: any) => ({
+            ...entry.item,
+            ...(entry.item.equipment_data || {}),
+            equipment_category: { slug: entry.item.type },
+          })),
+      } as any;
+
+      const { ActionHydrator } = await import('../src/engine/derivation/ActionHydrator');
+      const actions: any[] = [];
+      context.equipment.forEach((item: any) => actions.push(...ActionHydrator.hydrateFromEquipment(item, context)));
+      // TODO: Spells
+
+      return actions.map((a) => ({
+        id: a.id,
+        name: a.name,
+        description: a.description,
+        cost: a.cost,
+        range: a.range,
+        attack_bonus: a.attack?.bonus,
+        damage: a.effects?.find((e: any) => e.type === 'damage')?.dice,
+      }));
+    }
+  );
+
+  // 5. PERFORM_ACTION (Unified Tool)
+  register(
+    'perform_action',
+    'Perform a specific action by ID (e.g. attack, spell)',
     z.object({
-      entityId: z.string(),
-      stat: z.string(),
-      difficultyClass: z.number().optional(),
+      actorId: z.string(),
+      actionId: z.string(),
+      targetId: z.string().optional(),
+      options: z.record(z.any()).optional(),
     }),
     async (roomId, payload, _user) => {
       const actionEngine = strapi.service('api::game.action-engine');
-      const p = payload as { entityId: string; stat: string; difficultyClass?: number };
+      const p = payload as { actorId: string; actionId: string; targetId?: string; options?: any };
 
-      // Adapting "Save" to "Skill Check" structure for now, or adding SAVE cmd
-      const command: SkillCheckCommand = {
-        type: 'SKILL_CHECK',
+      const command = {
+        type: 'DO_ACTION', // New Command Type
         payload: {
-          actorId: p.entityId,
-          attribute: p.stat as Attribute,
-          difficultyClass: p.difficultyClass,
+          actorId: p.actorId,
+          actionId: p.actionId,
+          targetId: p.targetId,
+          options: p.options,
         },
         timestamp: Date.now(),
       };
+      // Cast to generic command for dispatch, handled by ActionEngine
+      return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
+    }
+  );
 
+  // LEGACY WRAPPERS (Maintain for backward compat but deprecate)
+  // 6. PERFORM_ATTACK (Legacy)
+  register(
+    'perform_attack',
+    'Attack an entity (Legacy - prefer perform_action)',
+    z.object({ attackerId: z.string(), targetId: z.string(), actionName: z.string() }),
+    async (roomId, payload, _user) => {
+      // ... existing implementation ...
+      // Re-use existing
+      const p = payload as { attackerId: string; targetId: string; actionName: string };
+      const actionEngine = strapi.service('api::game.action-engine');
+      const command: AttackCommand = {
+        type: 'ATTACK',
+        payload: {
+          actorId: p.attackerId,
+          targetId: p.targetId,
+          weaponId: p.actionName,
+        },
+        timestamp: Date.now(),
+      };
       return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
     }
   );

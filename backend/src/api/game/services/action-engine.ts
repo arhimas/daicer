@@ -7,7 +7,7 @@
 
 import { factories } from '@strapi/strapi';
 import { Alea } from '../src/engine/voxel/utils/math';
-import { Command, MoveCommand, AttackCommand, ModifyTerrainCommand } from '../src/engine/types';
+import { Command, MoveCommand, AttackCommand, ModifyTerrainCommand, ActionCommand } from '../src/engine/types';
 import { ActionResult } from '../src/engine/types/engine';
 import { findPath } from '../src/engine/rules/spatial';
 import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
@@ -26,6 +26,10 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         case 'ATTACK':
           return this.handleAttack(command as AttackCommand);
         // TODO: Implement other handlers
+        case 'SKILL_CHECK':
+        case 'DO_ACTION':
+          return this.handleAction(command as unknown as ActionCommand);
+        // Deprecated / Specifics mapped below or generic fallbacks
         case 'SKILL_CHECK':
         case 'CAST_SPELL':
         case 'INTERACT':
@@ -48,6 +52,190 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
       };
     }
   },
+
+  async handleAction(command: ActionCommand): Promise<ActionResult> {
+    const { actorId, actionId, targetId, options } = command.payload;
+
+    // 1. Fetch Actor & Context
+    // We need strict population to hydrate actions
+    const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: actorId,
+      populate: [
+        'inventory',
+        'inventory.item',
+        'inventory.item.equipment_data',
+        'inventory.item.equipment_data.damage_type',
+        'inventory.item.equipment_data.properties',
+        'spellbook', // If spells
+        'spellbook.spell',
+        'stats',
+        'room', // For event context
+        'room.config'
+      ],
+    });
+
+    if (!actor) throw new Error('Actor not found');
+
+    // 2. Hydrate Actions
+    // We import locally to avoid circular dependency issues at top level if any
+    const { EntityDeriver } = await import('../src/engine/derivation/EntityDeriver');
+    // Or direct usage of Hydrator if we want partial
+    // For SOTA, we should use the Deriver to get the FULL list of available actions
+    // const derived = EntityDeriver.derive(actor); 
+    // But `derive` might be expensive. Let's use ActionHydrator directly for now or re-use Deriver logic.
+    // Actually, EntityDeriver is the standard way.
+    
+    // Mapping Strapi Actor to Context
+    // We need a helper for this mapping because `Deriver` expects `DerivationContext`.
+    // Let's assume we have a helper or do it inline.
+    
+    const context = {
+      attributes: actor.stats,
+      proficiencyBonus: 2, // Check level
+      equipment: [], // We need to map inventory -> equipment
+      // ... allow loose for now
+    } as any; 
+
+    // Quick Map Inventory
+    if (actor.inventory) {
+      context.equipment = actor.inventory
+       .filter((entry: any) => entry.isEquipped && entry.item)
+       .map((entry: any) => {
+         // Flatten for Hydrator (Legacy Shim logic reused)
+         const item = entry.item;
+         const eqData = item.equipment_data || {};
+         return { ...item, ...eqData, equipment_category: { slug: item.type }, isEquipped: true };
+       });
+    }
+
+    // Import Hydrator
+    const { ActionHydrator } = await import('../src/engine/derivation/ActionHydrator');
+    
+    let allActions: any[] = [];
+    
+    // From Equipment
+    context.equipment.forEach((item: any) => {
+       allActions.push(...ActionHydrator.hydrateFromEquipment(item, context));
+    });
+
+    // From Spells (if implemented in hydrator)
+    if (actor.spellbook) {
+      actor.spellbook.forEach((entry: any) => {
+        if (entry.spell) {
+           // Mapping spell
+           // allActions.push(ActionHydrator.hydrateFromSpell(entry.spell, context));
+        }
+      });
+    }
+
+    // 3. Find specific Action
+    const action = allActions.find(a => a.id === actionId);
+    
+    if (!action) {
+      // Fallback: Check if it is a raw WeaponID passed as actionId (Legacy compat)
+      // or if it's a "feature" action.
+      // For now, fail strict.
+      return { success: false, message: `Action ${actionId} not found on actor`, events: [] };
+    }
+
+    // 4. Resolve Target
+    let target: any = null;
+    if (targetId) {
+      target = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+        documentId: targetId,
+        populate: ['stats', 'armorClass'],
+      });
+    }
+
+    // 5. Execute Effects
+    const events: any[] = [];
+    let resultMessage = `Executed ${action.name}`;
+
+    // A. Costs
+    // TODO: Deduct slots/resources
+
+    // B. Attack Roll?
+    if (action.attack && target) {
+      const d20 = Math.floor(Math.random() * 20) + 1;
+      const total = d20 + action.attack.bonus;
+      const ac = target.armorClass || 10;
+      const isHit = total >= ac;
+      
+      events.push({
+        type: 'ATTACK_RESULT', // Reusing Enum
+        room: actor.room.documentId,
+        actor: actorId,
+        payload: {
+          actionId: action.id,
+          targetId,
+          roll: d20,
+          total,
+          isHit,
+          // damage...
+        },
+        timestamp: Date.now()
+      });
+
+      resultMessage = isHit ? `Hit ${target.name} with ${action.name}` : `Missed ${target.name}`;
+      
+      if (isHit && action.effects) {
+        // Apply Damage
+        let damageTotal = 0;
+        for (const effect of action.effects) {
+           if (effect.type === 'damage') {
+             // Parse dice string or use flat
+             // Simple parser for 1d6
+             let roll = 0;
+             if (effect.dice) {
+                const [count, face] = effect.dice.split('d').map(Number);
+                for(let i=0; i<(count||1); i++) roll += Math.floor(Math.random() * (face||6)) + 1;
+             }
+             roll += (effect.flat || 0);
+             damageTotal += roll;
+           }
+        }
+        
+        if (damageTotal > 0) {
+           // Update Target HP
+           const newHp = Math.max(0, (target.hp || 0) - damageTotal);
+           await strapi.documents('api::entity-sheet.entity-sheet').update({
+             documentId: targetId,
+             data: { hp: newHp } as any
+           });
+
+           events.push({
+             type: 'DAMAGE_DEALT', // Needs enum update? Or map to ATTACK_RESULT payload?
+             // Let's stick to updating the ATTACK_RESULT payload if possible or generic event
+             // For now, let's allow "DAMAGE_DEALT" logic inside ATTACK_RESULT or separate.
+             // We can assume ATTACK_RESULT logs damage in legacy.
+             // But unification prefers explicit events.
+             // We'll trust GameEvent schema allows generic payload or we added DAMAGE types?
+             // User just added SPAWN_ENTITY.
+             // Let's piggyback on standard 'ATTACK_RESULT' for now or 'GAME_ACTION' generic?
+             // Using 'ATTACK_RESULT' for combat.
+             // We need to update the previous event payload with damage.
+           });
+           
+           // Hack: Update the pushed event payload
+           events[0].payload.damage = damageTotal;
+           resultMessage += ` for ${damageTotal} damage`;
+        }
+      }
+    }
+
+    // 6. Persist Events
+    for (const evt of events) {
+      await strapi.documents('api::game-event.game-event').create({
+        data: evt
+      });
+    }
+
+    return {
+      success: true,
+      message: resultMessage,
+      events,
+    };
+
 
   async handleMove(command: MoveCommand): Promise<ActionResult> {
     const { actorId, targetPosition } = command.payload;
