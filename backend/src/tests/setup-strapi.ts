@@ -21,7 +21,7 @@ export const setupStrapi = async () => {
     process.env.PORT = String(Math.floor(Math.random() * 10000) + 40000);
 
     // 3. Dynamic require to prevent hoisting issues
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+     
     const { createStrapi } = require('@strapi/strapi');
 
     // 4. Boot Strapi

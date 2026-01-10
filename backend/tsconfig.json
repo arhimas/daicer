@@ -16,8 +16,8 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@daicer/engine": ["src/engine/index.ts"],
-      "@daicer/engine/*": ["src/engine/*"],
+      "@daicer/engine": ["src/api/game/src/engine/index.ts"],
+      "@daicer/engine/*": ["src/api/game/src/engine/*"],
       "@daicer/shared": ["src/shared/index.ts"],
       "@daicer/shared/*": ["src/shared/*"],
       "@strapi/client": ["../node_modules/@strapi/client/dist/exports.d.ts"]

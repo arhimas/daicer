@@ -12,9 +12,9 @@ vi.mock('@daicer/engine', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@daicer/engine')>();
   return {
     ...actual,
-    ActionDispatcher: vi.fn().mockImplementation((_streamManager: any) => ({
-      dispatch: mockDispatch,
-    })),
+    ActionDispatcher: vi.fn().mockImplementation(function (this: any, _streamManager: any) {
+      return { dispatch: mockDispatch };
+    }),
     EntityDeriver: {
       derive: vi.fn(() => ({ hp: 10, maxHp: 10 })),
     },

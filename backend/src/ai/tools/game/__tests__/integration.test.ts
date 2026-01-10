@@ -20,10 +20,10 @@ describe('Tool Lifecycle Integration', () => {
     mockDispatch = vi.fn().mockReturnValue({ events: [], success: true, message: 'Action performed' });
 
     // Correctly mock the constructor
-    const functionHelper = function () {
+    const functionHelper = function (this: any, _streamManager: any) {
       return { dispatch: mockDispatch };
     };
-    vi.mocked(ActionDispatcher).mockImplementation(functionHelper as unknown as typeof ActionDispatcher);
+    vi.mocked(ActionDispatcher).mockImplementation(functionHelper as unknown as any);
 
     mockContext = {
       strapi: {

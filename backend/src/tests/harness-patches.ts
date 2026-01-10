@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+ 
 import fs from 'fs';
 import path from 'path';
 // import Module from 'module';
@@ -77,7 +77,7 @@ export const applyStrapiPatches = () => {
       return resolved;
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const patchedLoadConfigFile = (file: string) => {
       const extension = path.extname(file).toLowerCase();
       if (['.ts', '.cts', '.mts'].includes(extension)) {
@@ -95,7 +95,7 @@ export const applyStrapiPatches = () => {
   if (!originalLoadConfigDir.__tsRuntimePatched) {
     const validExtensions = ['.js', '.json', '.ts', '.cts', '.mts'];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const patchedLoadConfigDir = (dir: string) => {
       if (!fs.existsSync(dir)) return {};
 

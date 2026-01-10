@@ -20,9 +20,9 @@ vi.mock('../../../api/game/services/entity-adapter', () => ({
 }));
 // Mock Dispatcher instance
 const mockDispatch = vi.fn();
-// Use standard function to ensure it is newable if engine compiles to ES5/CommonJS,
+// Use standard function to ensure it is newable if engine compiles to classes
 // or usage of vi.fn().mockReturnValue should suffice for class mocks.
-(ActionDispatcher as unknown as ReturnType<typeof vi.fn>).mockImplementation(function () {
+(ActionDispatcher as unknown as any).mockImplementation(function (this: any, _streamManager: any) {
   return { dispatch: mockDispatch };
 });
 

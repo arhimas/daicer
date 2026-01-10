@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -17,9 +18,16 @@ export default defineConfig({
     testTimeout: 10000,
     hookTimeout: 10000,
     alias: {
-      '@': '/src',
-      '@daicer/engine': '/src/api/game/src/engine/index.ts',
-      '@daicer/shared': '/src/shared/index.ts',
+      '@': path.resolve(__dirname, 'src'),
+      '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
+      '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+        '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
+        '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
+      },
     },
     coverage: {
       provider: 'v8',
