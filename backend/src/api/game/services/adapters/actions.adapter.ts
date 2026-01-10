@@ -1,4 +1,4 @@
-import { EntityAction, StatBlock } from '../../../../engine/types';
+import { EntityAction, StatBlock } from '../../src/engine/types';
 import { StrapiEntitySheet, StrapiAction } from './types';
 
 export const mapStrapiActionsToEntityActions = (

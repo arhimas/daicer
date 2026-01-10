@@ -1,6 +1,6 @@
 import { Worker } from 'worker_threads';
 import path from 'path';
-import { Chunk, WorldConfig } from '../../../engine';
+import { Chunk, WorldConfig } from '../../game/src/engine/types';
 
 export class ChunkManager {
   private static instance: ChunkManager;

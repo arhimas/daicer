@@ -1,5 +1,5 @@
-import { Alea } from '../../../engine';
-import { BlockType, StructureInfo, Tile, WorldConfig } from '../../../engine';
+import { Alea } from '../src/utils/math';
+import { BlockType, StructureInfo, Tile, WorldConfig } from '../../game/src/engine/types';
 import { TileHelper } from './utils/tile-helper';
 import { StructureService } from './structure-service';
 

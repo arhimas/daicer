@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '../../../engine';
+import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '../../../api/game/src/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 import EntityAdapter from '../../../api/game/services/entity-adapter';
 
@@ -85,7 +85,7 @@ export const performActionTool = (context: StrapiContext) => {
           // 2. Initialize Dispatcher with Room State
           const state: GameState = {
             room: { ...room, players: undefined, messages: undefined } as unknown as Partial<
-              import('../../../engine').Room
+              import('../../../api/game/src/engine').Room
             >,
             world: {}, // Voxel world unavailable in tool context, passed as generic object matching 'unknown'
             settings: (room.config as WorldSettings) || {

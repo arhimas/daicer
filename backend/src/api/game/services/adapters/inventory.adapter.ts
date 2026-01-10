@@ -1,4 +1,4 @@
-import { EntityItem } from '../../../../engine/types';
+import { EntityItem } from '../../src/engine/types';
 import { StrapiInventoryItem } from './types';
 
 export const resolveInventory = (inventory?: StrapiInventoryItem[]): EntityItem[] => {

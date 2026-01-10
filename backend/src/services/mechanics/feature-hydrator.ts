@@ -1,4 +1,4 @@
-import { EntityFeature } from '../../engine';
+import { EntityFeature } from '../../api/game/src/engine/types';
 
 interface ClassFeatureSource {
   name: string;

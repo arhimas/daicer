@@ -1,6 +1,6 @@
 import { Core } from '@strapi/strapi';
 
-import { DeterministicTurnProcessor, GameState } from '../../../engine/core/deterministic-turn-processor';
+import { DeterministicTurnProcessor, GameState } from '../src/engine/core/deterministic-turn-processor';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**

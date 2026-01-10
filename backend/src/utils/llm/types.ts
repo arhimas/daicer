@@ -2,7 +2,7 @@
  * Shared types and configurations for LLM services
  */
 
-import type { Language } from '../../engine';
+import type { Language } from '../../api/game/src/engine/types';
 
 /**
  * Gemini model identifiers

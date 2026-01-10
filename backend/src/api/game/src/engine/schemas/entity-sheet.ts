@@ -19,4 +19,4 @@ export {
   EntityProficiencySchema,
   EntityLanguageSchema,
   EntityTraitSchema,
-} from '../../shared';
+} from '../../../../../shared';

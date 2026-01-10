@@ -1,4 +1,4 @@
-import { Entity, EntitySheet } from '../../../../engine/types';
+import { Entity, EntitySheet } from '../../src/engine/types';
 import { StrapiEntitySheet } from './types';
 import { resolveBaseStats } from './stats.adapter';
 import { resolveInventory } from './inventory.adapter';

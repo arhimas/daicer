@@ -2,7 +2,7 @@
  * Game Controller
  */
 
-import type { WorldSettings, Language } from '../../../engine';
+import type { WorldSettings, Language } from '../src/engine';
 
 export default ({ strapi }) => ({
   async generateWorld(ctx) {
@@ -199,7 +199,8 @@ export default ({ strapi }) => ({
       if (!roomId) return ctx.badRequest('Room ID required');
       if (!actions || !Array.isArray(actions)) return ctx.badRequest('Actions array required');
 
-      const result = await strapi.service('api::game.game').executeEngineAction(roomId, actions, ctx.state.user);
+      // Direct usage of ActionEngine service
+      const result = await strapi.service('api::game.action-engine').dispatch(roomId, actions);
 
       return ctx.send(result);
     } catch (error) {

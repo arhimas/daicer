@@ -42,7 +42,7 @@ export const moveEntityTool = (context: StrapiContext) =>
               documentId: entityId,
               data: {
                 position: { x, y, z },
-              } as Partial<import('../../../engine').EntitySheet>,
+              } as Partial<import('../../../api/game/src/engine').EntitySheet>,
               status: 'published',
             });
 

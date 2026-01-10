@@ -4,7 +4,7 @@
  * Handles instantiation of Characters and Monsters into the game world.
  */
 
-import { EntityDeriver, StatBlock } from '../../../engine';
+import { EntityDeriver, StatBlock } from '../src/engine';
 
 export default ({ strapi }) => ({
   /**

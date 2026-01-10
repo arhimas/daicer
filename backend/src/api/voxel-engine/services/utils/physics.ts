@@ -1,4 +1,7 @@
-import { Coordinates, BlockType, PHYSICS_CONSTANTS, Chunk } from '../../../../engine';
+import { Coordinates, BlockType, Chunk } from '../../../game/src/engine/types';
+import { CHUNK_SIZE } from './constants';
+// Re-shim PHYSICS_CONSTANTS if it was removed or use local constant
+const PHYSICS_CONSTANTS = { CHUNK_SIZE };
 import { WorldGenerator } from '../world-generator-logic';
 
 export class PhysicsEngine {

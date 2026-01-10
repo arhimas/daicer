@@ -1,4 +1,4 @@
-import { StatBlock } from '../../../../engine/types';
+import { StatBlock } from '../../src/engine/types';
 import { StrapiComponentStats, StrapiEntitySheet } from './types';
 
 export const mapStrapiStatsToStatBlock = (

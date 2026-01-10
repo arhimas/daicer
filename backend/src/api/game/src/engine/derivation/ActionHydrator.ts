@@ -1,4 +1,5 @@
-import { ActionDefinition } from '../../types/ActionDefinition';
+import { ActionDefinition } from '..'; // Keep for input types if needed, or remove if unused
+import { RuntimeAction } from './types';
 import { DerivationContext } from './types';
 import { calculateModifier } from './attributes';
 
@@ -10,8 +11,8 @@ export class ActionHydrator {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     item: any,
     context: DerivationContext
-  ): ActionDefinition[] {
-    const actions: ActionDefinition[] = [];
+  ): RuntimeAction[] {
+    const actions: RuntimeAction[] = [];
 
     // Check if it's a weapon or has damage dice
     const isWeapon =
@@ -42,7 +43,7 @@ export class ActionHydrator {
     const toHit = mod + profBonus; // Assuming proficiency
     const damageBonus = mod; // Standard 5e
 
-    const mainAction: ActionDefinition = {
+    const mainAction: RuntimeAction = {
       id: `weapon_${item.documentId || item.id}`,
       name: item.name,
       sourceType: 'weapon',
@@ -110,7 +111,7 @@ export class ActionHydrator {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     spell: any,
     context: DerivationContext
-  ): ActionDefinition {
+  ): RuntimeAction {
     const attributes = context.attributes || context.stats || {};
     const profBonus = context.proficiencyBonus || 2;
     // Default to Int if not specified (should be passed in context based on class)
@@ -125,7 +126,7 @@ export class ActionHydrator {
     const range = spell.range_config || {};
 
     // Map Action Type
-    let attackConfig: ActionDefinition['attack'] | undefined;
+    let attackConfig: RuntimeAction['attack'] | undefined;
     if (definitions.action_type?.includes('Attack')) {
       attackConfig = {
         type: definitions.action_type.includes('Melee') ? 'melee_spell' : 'ranged_spell',
@@ -134,7 +135,7 @@ export class ActionHydrator {
     }
 
     // Map Save Config
-    let saveConfig: ActionDefinition['save'] | undefined;
+    let saveConfig: RuntimeAction['save'] | undefined;
     if (definitions.action_type?.includes('Save')) {
       const saveAttr = definitions.action_type.split(' ')[0].toLowerCase().slice(0, 3); // "Dexterity" -> "dex"
       saveConfig = {
@@ -146,7 +147,7 @@ export class ActionHydrator {
     }
 
     // Map Effects
-    const effects: ActionDefinition['effects'] = [];
+    const effects: RuntimeAction['effects'] = [];
 
     // Damage Effects
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -174,7 +175,7 @@ export class ActionHydrator {
       });
     }
 
-    const action: ActionDefinition = {
+    const action: RuntimeAction = {
       id: `spell_${spell.documentId || spell.id}`,
       name: spell.name,
       sourceType: 'spell',

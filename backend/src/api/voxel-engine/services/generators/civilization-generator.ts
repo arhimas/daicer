@@ -1,7 +1,7 @@
-import { Alea } from '../../../../engine';
-import { WorldConfig, Tile, BlockType } from '../../../../engine';
-import { StructureInfo, StructureRenderer } from './structure-renderer';
-import { WorldAtlas } from '../../../../engine/world'; // Import Atlas
+import { Alea } from '../../src/utils/math';
+import { WorldConfig, Tile, BlockType, StructureInfo } from '../../../game/src/engine/types';
+import { StructureRenderer } from './structure-renderer';
+import { WorldAtlas } from '../../../game/src/engine/world/world-atlas'; // Import Atlas
 
 export class CivilizationGenerator {
   private config: WorldConfig;

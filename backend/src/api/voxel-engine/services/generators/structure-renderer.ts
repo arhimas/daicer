@@ -1,13 +1,7 @@
-import { Tile, BlockType } from '../../../../engine';
+import { Tile, BlockType } from '../../../game/src/engine/types';
 import { CHUNK_SIZE } from '../utils/constants';
 
-export interface StructureInfo {
-  type: 'city' | 'castle' | 'tower' | 'dungeon' | 'none';
-  worldX: number;
-  worldY: number;
-  size: number;
-  seed: string;
-}
+import { StructureInfo } from '../../../game/src/engine/types';
 
 export class StructureRenderer {
   public static renderStructure(

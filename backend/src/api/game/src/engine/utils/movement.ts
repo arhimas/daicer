@@ -1,4 +1,4 @@
-import { Speed } from '../../shared';
+import { Speed } from '../types';
 
 export interface SpeedCapabilities {
   walk: number;
@@ -29,7 +29,7 @@ export const getMovementModes = (speed: Speed | undefined | null): SpeedCapabili
     swim: speed.swim,
     climb: speed.climb,
     burrow: speed.burrow,
-    hover: speed.hover,
+    hover: !!speed.hover,
   };
 };
 

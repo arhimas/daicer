@@ -1,4 +1,4 @@
-import { Chunk, WorldConfig } from '../../../engine';
+import { Chunk, WorldConfig } from '../../game/src/engine/types';
 import { ChunkManager } from './chunk-manager';
 
 export default () => ({

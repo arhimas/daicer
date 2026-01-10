@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import { WorldAtlas } from '../../../engine/world';
-import { WorldConfig } from '../../../engine';
+import { WorldAtlas } from '../../../api/game/src/engine/world';
+import { WorldConfig } from '../../../api/game/src/engine';
 
 const contextSchema = z.object({
   x: z.number().describe('The X coordinate to inspect'),

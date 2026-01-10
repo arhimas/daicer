@@ -1,4 +1,4 @@
-import { ActionDefinition } from '../../types/ActionDefinition';
+import { RuntimeAction } from './types';
 import { DerivationContext } from './types';
 import { ActionHydrator } from './ActionHydrator';
 
@@ -39,7 +39,7 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
  */
 export function deriveActions(context: DerivationContext) {
   const { equipment, attributes, proficiencyBonus, innateActions } = context;
-  const actions: ActionDefinition[] = [];
+  const actions: RuntimeAction[] = [];
 
   // 1. Process Innate Actions (from blueprints/JSONs) first
   if (innateActions && Array.isArray(innateActions)) {

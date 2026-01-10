@@ -6,7 +6,7 @@ import { factories } from '@strapi/strapi';
 import { WorldGenerator } from '../../voxel-engine/services/world-generator-logic';
 import { PhysicsEngine } from '../../voxel-engine/services/utils/physics';
 import { MapMovePayloadSchema, SpawnEntityPayloadSchema } from '../../../shared';
-import { DEFAULT_WORLD_CONFIG } from '../../../engine';
+import { DEFAULT_WORLD_CONFIG } from '../../game/src/engine';
 import type { Coordinates } from '../../../shared';
 
 // ... (existing helper types)

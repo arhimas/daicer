@@ -1,6 +1,6 @@
-import { Chunk, WorldConfig } from '../../../engine';
-import { TerrainGenerator } from '../../../engine';
-import { WorldAtlas } from '../../../engine/world';
+import { Chunk, WorldConfig } from '../../game/src/engine/types';
+import { TerrainGenerator } from '../src/terrain-generator';
+import { WorldAtlas } from '../../game/src/engine/world/world-atlas';
 import { CivilizationGenerator } from './generators/civilization-generator';
 
 export class ChunkBuilder {

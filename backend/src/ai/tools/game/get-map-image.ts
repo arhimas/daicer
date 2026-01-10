@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Creature, WorldConfig, Chunk, DEFAULT_WORLD_CONFIG } from '../../../engine';
+import { Creature, WorldConfig, Chunk, DEFAULT_WORLD_CONFIG } from '../../../api/game/src/engine';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 
@@ -136,7 +136,7 @@ export const getMapImageTool = (context: StrapiContext) =>
           isReady: true,
           joinedAt: 0,
           character: null,
-        })) as unknown as import('../../../engine').Player[];
+        })) as unknown as import('../../../api/game/src/engine').Player[];
 
         // If POV mode, ONLY pass the POV entity's vision. If Global, pass all players.
 

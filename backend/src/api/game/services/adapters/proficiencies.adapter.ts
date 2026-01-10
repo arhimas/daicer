@@ -1,4 +1,4 @@
-import { EntityLanguage, EntityProficiency } from '../../../../engine/types';
+import { EntityLanguage, EntityProficiency } from '../../src/engine/types';
 import { StrapiEntitySheet } from './types';
 
 export const resolveProficiencies = (

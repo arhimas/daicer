@@ -1,4 +1,4 @@
-import { EntityFeature, EntityTrait } from '../../../../engine/types';
+import { EntityFeature, EntityTrait } from '../../src/engine/types';
 import { StrapiEntitySheet } from './types';
 
 export const mapStrapiFeaturesToEntityFeatures = (

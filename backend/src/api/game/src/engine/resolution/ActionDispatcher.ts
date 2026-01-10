@@ -1,4 +1,4 @@
-import { ActionDefinition } from '../../types/ActionDefinition';
+import { RuntimeAction } from '../derivation/types';
 import { Entity } from '../types';
 
 export interface ResolutionResult {
@@ -19,7 +19,7 @@ export class ActionDispatcher {
    * @param action The action being used
    * @param rollSeed (Optional) for deterministic rolling
    */
-  static resolve(source: Entity, target: Entity, action: ActionDefinition, _rollSeed?: string): ResolutionResult {
+  static resolve(source: Entity, target: Entity, action: RuntimeAction, _rollSeed?: string): ResolutionResult {
     // Using Entity for source/target wrapper
     const log: string[] = [];
     let hit = true;
@@ -29,7 +29,7 @@ export class ActionDispatcher {
     log.push(`Action: ${action.name} used by ${source.name} on ${target.name}`);
 
     // 1. Attack Roll
-    if (action.attack) {
+    if ('attack' in action && action.attack) {
       const d20 = Math.floor(Math.random() * 20) + 1; // Replace with deterministic PRNG if seed provided
       const total = d20 + action.attack.bonus;
       crit = d20 >= (action.attack.critRange || 20);
@@ -42,7 +42,7 @@ export class ActionDispatcher {
     }
 
     // 2. Saving Throw
-    if (hit && action.save) {
+    if (hit && 'save' in action && action.save) {
       // Look up target save bonus
       const saveAttr = action.save.attribute; // e.g. 'dex'
       const mod = Math.floor(((target.stats?.[saveAttr] || 10) - 10) / 2);
@@ -63,7 +63,7 @@ export class ActionDispatcher {
     const damageDetails: string[] = [];
     const conditionsApplied: string[] = [];
 
-    if (hit) {
+    if (hit && 'effects' in action && action.effects) {
       action.effects.forEach((effect) => {
         if (effect.type === 'damage' || effect.type === 'healing') {
           // Parse Dice (e.g. "8d6")
@@ -82,7 +82,7 @@ export class ActionDispatcher {
           val += effect.flat || 0;
 
           // Handle Save Mapping
-          if (action.save && savePassed) {
+          if ('save' in action && action.save && savePassed !== undefined && savePassed) {
             if (action.save.effect === 'negate') val = 0;
             if (action.save.effect === 'half') val = Math.floor(val / 2);
           }
@@ -92,8 +92,8 @@ export class ActionDispatcher {
         }
 
         if (effect.type === 'apply_condition') {
-          if (!savePassed) {
-            // Usually conditions apply on fail
+          if (savePassed === false || savePassed === undefined) {
+            // Conditions apply if save failed or no save
             conditionsApplied.push(effect.subtype || 'Condition');
           }
         }

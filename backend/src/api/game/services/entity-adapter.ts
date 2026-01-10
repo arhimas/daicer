@@ -1,4 +1,4 @@
-import { Entity, EntitySheet } from '../../../engine/types';
+import { Entity, EntitySheet } from '../src/engine/types';
 import { StrapiEntitySheet } from './adapters/types';
 import { resolveMonsterBlueprint, resolveCharacterBlueprint } from './blueprints';
 import { mapStrapiStatsToStatBlock } from './adapters/stats.adapter';

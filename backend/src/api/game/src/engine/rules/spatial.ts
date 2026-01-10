@@ -1,4 +1,4 @@
-import { Point3D, calculateDistance } from '../utils/geometry';
+import { Point3D, calculateDistance } from '../voxel/utils/math';
 
 export type CollisionCheck = (point: Point3D) => boolean;
 

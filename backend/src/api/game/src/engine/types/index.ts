@@ -180,6 +180,8 @@ export type StatBlock = EntityStats; // Alias for tests and legacy code
 // export interface EntityAction { ... }
 // export interface EntityFeature { ... }
 
+export type Speed = number | { walk: number; [key: string]: number };
+
 export interface Entity {
   id: string;
   type: 'player' | 'npc' | 'monster' | 'object';
@@ -190,7 +192,7 @@ export interface Entity {
   hp: number;
   maxHp: number;
   armorClass: number;
-  speed: number | { walk: number; [key: string]: number };
+  speed: Speed;
 
   // Blueprint
   level?: number;

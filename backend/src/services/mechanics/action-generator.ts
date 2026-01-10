@@ -1,4 +1,4 @@
-import { EntityAction, EntityStats } from '../../engine';
+import { EntityAction, EntityStats } from '../../api/game/src/engine/types';
 
 interface Weapon {
   name: string;

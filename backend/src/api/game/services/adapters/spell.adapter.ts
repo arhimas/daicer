@@ -1,4 +1,4 @@
-import { EntitySpell } from '../../../../engine/types';
+import { EntitySpell } from '../../src/engine/types';
 import { StrapiSpell, StrapiSpellbook } from './types';
 
 export const mapStrapiSpellToEntitySpell = (s: StrapiSpell, source: 'known' | 'prepared' | 'innate'): EntitySpell => {

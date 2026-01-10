@@ -58,3 +58,57 @@ export interface DerivationContext {
   spells?: any[];
   spellcastingAbility?: string;
 }
+
+export interface RuntimeEffect {
+  type: 'damage' | 'healing' | 'apply_condition';
+  subtype?: string;
+  dice?: string;
+  flat?: number;
+  paramAttribute?: string;
+  timing?: string;
+  duration?: number;
+  chance?: number;
+}
+
+export interface RuntimeAction {
+  id: string;
+  name: string;
+  type?: string;
+  sourceType?: string;
+  sourceId?: string;
+  description?: string;
+  img?: string;
+
+  cost?: {
+    type: 'action_economy' | 'slot' | 'resource';
+    amount: number;
+    actionType: 'action' | 'bonus' | 'reaction';
+    resourceId?: string;
+  };
+
+  range?: {
+    type: 'melee' | 'ranged' | 'touch' | 'self';
+    value: number;
+    reach?: number;
+  };
+
+  aoe?: {
+    shape: string;
+    size: number;
+    height?: number;
+  };
+
+  attack?: {
+    type: string;
+    bonus: number;
+    critRange?: number;
+  };
+
+  save?: {
+    attribute: string;
+    dc: number;
+    effect?: string;
+  };
+
+  effects?: RuntimeEffect[];
+}

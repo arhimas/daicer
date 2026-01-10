@@ -57,7 +57,7 @@ function validateInventorySlots(data: any) {
   }
 }
 
-import { EntityDeriver } from '../../../../engine';
+import { EntityDeriver } from '../../../game/src/engine';
 
 async function updateDerivedData(event) {
   const { where, data } = event.params;

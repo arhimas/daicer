@@ -1,4 +1,5 @@
-import { Alea, Tile, BiomeType, BlockType, ZLevel } from '../../../../engine';
+import { Alea } from '../../src/utils/math';
+import { Tile, BiomeType, BlockType, ZLevel } from '../../../game/src/engine/types';
 import { CHUNK_SIZE } from './constants';
 
 export class TileHelper {

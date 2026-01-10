@@ -3,7 +3,7 @@
  */
 
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
-import type { Language } from '../../engine';
+import type { Language } from '../../api/game/src/engine/types';
 import { getFlashModel, extractErrorDetails } from './gemini';
 import { TextGenConfig } from './types';
 import { streamManager } from './stream-manager';

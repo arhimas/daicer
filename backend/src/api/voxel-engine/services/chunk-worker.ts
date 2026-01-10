@@ -1,6 +1,6 @@
 import { parentPort } from 'worker_threads';
 import { ChunkBuilder } from './chunk-builder';
-import { WorldConfig } from '../../../engine';
+import { WorldConfig } from '../../game/src/engine/types';
 
 interface GenerationTask {
   id: string;

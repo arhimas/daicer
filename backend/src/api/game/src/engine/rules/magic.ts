@@ -1,7 +1,7 @@
 import { ActionIntent, ActionDefinition, ActionType } from './actions';
 import { z } from 'zod';
 import { EntitySheetSchema } from '../schemas/entity-sheet';
-import { calculateDistance, Point3D } from '../utils/geometry';
+import { calculateDistance, Point3D } from '../voxel/utils/math';
 
 type EntitySheet = z.infer<typeof EntitySheetSchema>;
 

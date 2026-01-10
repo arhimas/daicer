@@ -4,7 +4,7 @@
  */
 
 import type { Core } from '@strapi/strapi';
-import type { Language } from '../engine';
+import type { Language } from '../api/game/src/engine/types';
 
 declare let strapi: Core.Strapi;
 

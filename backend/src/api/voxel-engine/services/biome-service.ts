@@ -1,5 +1,5 @@
-import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '../../../engine';
-import { Alea, FastNoise } from '../../../engine';
+import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '../../game/src/engine/types';
+import { Alea, FastNoise } from '../src/utils/math';
 import { TileHelper } from './utils/tile-helper';
 
 export class BiomeService {

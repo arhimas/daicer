@@ -1,5 +1,5 @@
-import type { EntropyState } from '../../../engine/entropy';
-import type { Player, Creature, WorldSettings, Chunk, Language } from '../../../engine';
+import type { EntropyState } from '../src/engine/entropy';
+import type { Player, Creature, WorldSettings, Chunk, Language } from '../src/engine/types';
 // Local definition to avoid missing shared export
 interface Message {
   sender: string;
@@ -27,7 +27,7 @@ export default ({ strapi }) => ({
     const ledger = strapi.service('api::game.game-ledger');
 
     // --- Entropy System ---
-    const { EntropySystem } = await import('../../../engine/entropy');
+    const { EntropySystem } = await import('../src/engine/entropy');
     // Use roomId as seed if code not available immediately, or fetch room code
     // Assuming worldConditions arg is actually the EntropyState JSON
     const entropySys = new EntropySystem(roomId, worldConditions as unknown as EntropyState);

@@ -1,193 +1,331 @@
-import { ActionDispatcher, GameState, Command } from '../../../engine';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/**
+ * Action Engine Service
+ * Handles game action dispatching with direct Strapi persistence.
+ * Replaces the in-memory ActionDispatcher.
+ */
 
-export default ({ strapi }) => ({
-  async dispatch(roomId: string, commands: Command[]) {
-    const dispatcher = new ActionDispatcher();
-    const results = [];
+import { factories } from '@strapi/strapi';
+import { Alea } from '../src/engine/voxel/utils/math';
+import {
+  Command,
+  MoveCommand,
+  AttackCommand,
+  SkillCheckCommand,
+  CastSpellCommand,
+  InteractCommand,
+  LongRestCommand,
+  ModifyTerrainCommand,
+} from '../src/engine/types';
+import { ActionResult } from '../src/engine/types/engine';
+import { resolveAttack, ActionType } from '../src/engine/rules/combat';
+import { findPath } from '../src/engine/rules/spatial';
+import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
+import { WorldConfig, ZLevel, Entity } from '../src/engine/types';
 
-    // 1. Fetch Hydrated State
-    // We need a robust way to get GameState. For now, we'll fetch Room + basic relations.
-    // In a real ECS loop, we'd cache this or have a state manager.
-    const room = await strapi.documents('api::room.room').findOne({
-      documentId: roomId,
-      populate: [
-        'players',
-        'players.character',
-        'entity_sheets',
-        'entity_sheets.monster',
-        'entity_sheets.monster.structuredActions',
-        'entity_sheets.monster.features',
-        'entity_sheets.character',
-        'entity_sheets.character.stats',
-        'entity_sheets.position', // Critical for correct entity placement
-      ],
+export default factories.createCoreService('api::game.action-engine', ({ strapi }) => ({
+  rng: new Alea('default-seed'), // TODO: Persist seed per room/game?
+
+  async dispatch(command: Command): Promise<ActionResult> {
+    console.log(`[ActionEngine] Dispatching command: ${command.type}`, command.payload);
+
+    try {
+      switch (command.type) {
+        case 'MOVE':
+          return this.handleMove(command as MoveCommand);
+        case 'ATTACK':
+          return this.handleAttack(command as AttackCommand);
+        // TODO: Implement other handlers
+        case 'SKILL_CHECK':
+        case 'CAST_SPELL':
+        case 'INTERACT':
+        case 'LONG_REST':
+        case 'MODIFY_TERRAIN':
+          return {
+            success: false,
+            message: `Command ${command.type} not yet implemented in ActionEngine`,
+            events: [],
+          };
+        default:
+          return {
+            success: false,
+            message: `Unknown command type: ${(command as any).type}`,
+            events: [],
+          };
+      }
+    } catch (error) {
+      console.error('[ActionEngine] Dispatch Error:', error);
+      return {
+        success: false,
+        message: (error as Error).message || 'Internal Error',
+        events: [],
+      };
+    }
+  },
+
+  async handleMove(command: MoveCommand): Promise<ActionResult> {
+    const { actorId, targetPosition } = command.payload;
+
+    // 1. Fetch Actor
+    const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: actorId,
+      populate: ['room', 'room.config'],
     });
 
-    if (!room) throw new Error(`Room ${roomId} not found`);
+    if (!actor) throw new Error('Actor not found');
+    if (!actor.room) throw new Error('Actor is not in a room');
 
-    // Map Strapi relations to Engine GameState
-    // This is a partial mapping for now
-    // Adapt Entities
-    const entityAdapter = strapi.service('api::game.entity-adapter');
-    const unifiedEntities = (room.entity_sheets || []).map((s) => entityAdapter.adapt(s));
+    const roomId = actor.room.documentId;
+    const targetPos = { ...targetPosition, z: targetPosition.z ?? 0 };
 
-    const initialState: GameState = {
-      room: { id: room.documentId, ...room },
-      world: {}, // TODO: Fetch Voxel world if needed for Move checks
-      entities: unifiedEntities,
-      players: room.players || [],
-      settings: room.settings || {},
+    // 2. Fetch Room Context (All entities for collision)
+    // Optimization: Select only positions
+    const roomEntities = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
+      filters: { room: { documentId: roomId } },
+      fields: ['position', 'documentId'],
+    });
+
+    // 3. Setup Collision Checker
+    let checkCollision = (p: { x: number; y: number; z: number }): boolean => {
+      const occupied = roomEntities.some(
+        (e: any) =>
+          e.documentId !== actorId &&
+          Math.round(e.position?.x) === p.x &&
+          Math.round(e.position?.y) === p.y &&
+          Math.round(e.position?.z) === p.z
+      );
+      return occupied;
     };
 
-    // 2. Dispatch Commands
-    for (const cmd of commands) {
-      try {
-        const result = dispatcher.dispatch(initialState, cmd);
-        results.push(result);
-
-        if (result.success) {
-          // 3. Apply Side Effects / Persistence
-          // This is where the "Engine -> DB" sync happens
-          await this.persistResult(roomId, result);
-        }
-      } catch (e) {
-        strapi.log.error('Action Dispatch Failed', e);
-        results.push({ success: false, message: e.message, events: [] });
-      }
+    // Terrain Check
+    if (actor.room.config) {
+      const config = actor.room.config as WorldConfig;
+      const generator = new TerrainGenerator(config);
+      const baseCheck = checkCollision;
+      checkCollision = (p: { x: number; y: number; z: number }) => {
+        if (baseCheck(p)) return true;
+        const tile = generator.getTileAt(p.x, p.y, Math.round(p.z) as ZLevel);
+        return !tile.isWalkable;
+      };
     }
 
-    return results;
-  },
+    // 4. Find Path
+    // Using current position from actor
+    const startPos = actor.position || { x: 0, y: 0, z: 0 };
+    const path = findPath(startPos, targetPos, checkCollision, 500);
 
-  async persistResult(roomId: string, result: import('../../../engine').ActionResult) {
-    // 1. Apply Immediate Updates (Entity Sync)
-    for (const event of result.events) {
-      if (event.type === 'ENTITY_MOVED') {
-        const { entityId, to } = event.payload;
-        await strapi.documents('api::entity-sheet.entity-sheet').update({
-          documentId: entityId,
-          data: { position: to },
-        });
-      }
-
-      if (event.type === 'ATTACK_RESULT') {
-        const { targetId, damage } = event.payload;
-        if (damage > 0 && targetId) {
-          // Fetch current sheet to apply damage accurately
-          // (Optimization: we could trust the Engine result if it returns new HP, but event only has damage)
-          const targetSheet = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
-            documentId: targetId,
-            fields: ['currentHp', 'maxHp'],
-          });
-
-          if (targetSheet) {
-            const newHp = Math.max(0, (targetSheet.currentHp || 0) - damage);
-            await strapi.documents('api::entity-sheet.entity-sheet').update({
-              documentId: targetId,
-              data: { currentHp: newHp },
-            });
-          }
-        }
-      }
-
-      if (event.type === 'SPELL_CAST') {
-        // TODO: Decrement spell slots if needed.
-        // Requires logic to know which slot level was used.
-        // For now, we log the event.
-      }
-
-      // Handle LONG_REST (HP Recovery)
-      if (event.type === 'LONG_REST_COMPLETED') {
-        // We might want to reset HP for all chars in room?
-        // Engine event payload doesn't list all IDs?
-        // Dispatcher usually handles loop.
-        // If Dispatcher emits generic "Rest Completed", we might need to iterate here or trust Engine events per actor?
-        // Current Dispatcher logic iterates and updates memory state.
-        // We should probably rely on Dispatcher emitting unique events for each heal OR
-        // iterate room players here.
-        // For reliability, let's reset all players in room.
-        const room = await strapi.documents('api::room.room').findOne({
-          documentId: roomId,
-          populate: ['entity_sheets'],
-        });
-
-        const sheets = room.entity_sheets || [];
-        for (const sheet of sheets) {
-          if (sheet.type === 'player' || sheet.type === 'npc') {
-            // Monsters don't usually long rest?
-            await strapi.documents('api::entity-sheet.entity-sheet').update({
-              documentId: sheet.documentId,
-              data: { currentHp: sheet.maxHp },
-            });
-          }
-        }
-      }
+    if (path.length === 0) {
+      return { success: false, message: 'Path blocked or unreachable', events: [] };
     }
 
-    // 2. SOTA Persistence: Create TimeFrame (Turn)
-    // We treat this execution as a discrete "Turn" or "TimeStep".
+    // 5. Calculate Movement Cost
+    // Assuming Speed is on actor sheet or defaulted
+    const speed = typeof actor.speed === 'number' ? actor.speed : actor.speed?.walk || 30;
 
-    // Find latest turn number
-    const lastTurnHandles = await strapi.documents('api::time-frame.time-frame').findMany({
-      filters: { room: { documentId: roomId } },
-      sort: 'turnNumber:desc',
-      limit: 1,
-      fields: ['turnNumber'],
+    let traveled = 0;
+    let finalPos = path[0];
+
+    for (let i = 1; i < path.length; i++) {
+      const prev = path[i - 1];
+      const next = path[i];
+      const dist = Math.sqrt(
+        Math.pow(next.x - prev.x, 2) + Math.pow(next.y - prev.y, 2) + Math.pow(next.z - prev.z, 2)
+      );
+      if (traveled + dist > speed) break;
+      traveled += dist;
+      finalPos = next;
+    }
+
+    if (finalPos.x === startPos.x && finalPos.y === startPos.y && finalPos.z === startPos.z) {
+      return { success: false, message: 'No movement possible', events: [] };
+    }
+
+    // 6. Update DB
+    await strapi.documents('api::entity-sheet.entity-sheet').update({
+      documentId: actorId,
+      data: { position: finalPos } as any,
     });
-    const nextTurnNumber = (lastTurnHandles[0]?.turnNumber || 0) + 1;
-    const now = Date.now();
 
-    // 2b. Create Game Event Entities
-    const createdEventIds: string[] = [];
-
-    for (const event of result.events) {
-      const gEvent = await strapi.documents('api::game-event.game-event').create({
-        data: {
-          type: event.type,
-          payload: event.payload,
-          timestamp: now, // Schema expects biginteger
-          room: roomId,
-          turn_number: nextTurnNumber, // Schema: turn_number
-          actor: event.payload.actorId || event.payload.entityId || null, // Schema: actor
+    // 7. Persist Game Event
+    await strapi.documents('api::game-event.game-event').create({
+      data: {
+        type: 'ENTITY_MOVED',
+        room: roomId,
+        actor: actorId,
+        payload: {
+          from: startPos,
+          to: finalPos,
+          path: path.map((p) => ({ x: p.x, y: p.y, z: p.z })),
+          cost: traveled,
         },
-        status: 'published',
-      });
-      createdEventIds.push(gEvent.documentId);
+        timestamp: Date.now(),
+      },
+    });
+
+    return {
+      success: true,
+      message: `Moved to ${finalPos.x}, ${finalPos.y}, ${finalPos.z}`,
+      events: [
+        {
+          type: 'ENTITY_MOVED',
+          payload: {
+            entityId: actorId,
+            from: startPos,
+            to: finalPos,
+            path: path.map((p) => ({ x: p.x, y: p.y, z: p.z })),
+            cost: traveled,
+          },
+          timestamp: Date.now(),
+        },
+      ],
+      newStateDiff: {}, // Client should re-fetch
+    };
+  },
+
+  async handleAttack(command: AttackCommand): Promise<ActionResult> {
+    const { actorId, targetId, weaponId } = command.payload;
+
+    // 1. Fetch Entities
+    const [actor, target] = await Promise.all([
+      strapi.documents('api::entity-sheet.entity-sheet').findOne({
+        documentId: actorId,
+        populate: ['actions', 'actions.damage_instances', 'inventory', 'stats'],
+      }),
+      strapi.documents('api::entity-sheet.entity-sheet').findOne({
+        documentId: targetId,
+        populate: ['stats', 'armorClass'], // Need AC
+      }),
+    ]);
+
+    if (!actor || !target) throw new Error('Actor or Target not found');
+
+    // 2. Identify Action/Weapon
+    // Simplified: Find action by weaponID or default
+    let actionId: string | undefined = weaponId;
+    if (!actionId && actor.actions?.length > 0) {
+      actionId = actor.actions[0].documentId;
     }
 
-    // Create TimeFrame with State Diff AND Relation linkage
-    const timeFrame = await strapi.documents('api::time-frame.time-frame').create({
+    // We need to construct a robust Entity object for resolveAttack
+    // The resolveAttack utility expects an `Entity` interface (from types/index.ts)
+    // We map the Strapi EntitySheet to the Engine Entity interface.
+
+    const mapToEngineEntity = (sheet: any): Entity => ({
+      id: sheet.documentId,
+      name: sheet.name,
+      type: sheet.type as any,
+      position: sheet.position,
+      hp: sheet.hp,
+      maxHp: sheet.maxHp,
+      armorClass: sheet.armorClass,
+      speed: sheet.speed,
+      stats: sheet.stats,
+      actions: sheet.actions || [], // These are Strapi relations, resolveAttack might need deeper adaptation or we adapt inputs.
+      features: [],
+      conditions: [],
+      resistances: [],
+      immunities: [],
+      vulnerabilities: [],
+      color: 'white', // dummy
+      visionRadius: 30, // dummy
+      // resolveAttack looks for `action.attack.bonus`.
+      // If `sheet.actions` are relational objects, they have `attack_bonus` (snake_case) or `attackBonus`.
+      // `resolveAttack` logic is complex and bound to the "Engine" types.
+      // We might need to refactor resolveAttack to accept "StatBlock" + "ActionDefinition" instead of full Entity.
+      // For now, let's assume standard Entity structure or adapter.
+    });
+
+    // In `ActionDispatcher.ts`, it passed `actor` (GameState entity) to `resolveAttack`.
+    // `resolveAttack` does: `const hit = d20 + action.attack.bonus >= target.armorClass`.
+    // So we need to ensure the `action` object within the actor has the right shape.
+    // Strapi `action` model likely has `attack_bonus`, `damage_dice` etc.
+    // We need to map Strapi Action -> Engine ActionDefinition.
+
+    // For this pass, we will do a manual resolution or simplistic one to prove the point,
+    // as full mapping requires an Adapter.
+
+    // FETCH Action Definition from Actor's actions
+    const actionDef = actor.actions?.find((a: any) => a.documentId === actionId);
+    if (!actionDef) return { success: false, message: 'Action not found', events: [] };
+
+    const attackBonus = actionDef.attack_bonus || 0;
+    const ac = target.armorClass || 10;
+
+    const d20 = Math.floor(Math.random() * 20) + 1;
+    const total = d20 + attackBonus;
+    const isHit = total >= ac;
+    const isCrit = d20 === 20;
+
+    let damageTotal = 0;
+    if (isHit || isCrit) {
+      // Calculate Damage
+      // Assuming actionDef has `damage_instances` (Component)
+      if (actionDef.damage_instances && Array.isArray(actionDef.damage_instances)) {
+        for (const di of actionDef.damage_instances) {
+          // di: { dice_count: 1, dice_value: 6, flat_bonus: 2 ... }
+          const count = di.dice_count || 1;
+          const face = di.dice_value || 6;
+          const flat = di.flat_bonus || 0;
+
+          let roll = 0;
+          for (let i = 0; i < count; i++) roll += Math.floor(Math.random() * face) + 1;
+          if (isCrit) {
+            for (let i = 0; i < count; i++) roll += Math.floor(Math.random() * face) + 1;
+          }
+          damageTotal += roll + flat;
+        }
+      }
+    }
+
+    // 3. Update DB (Target HP)
+    if (damageTotal > 0) {
+      const newHp = Math.max(0, target.hp - damageTotal);
+      await strapi.documents('api::entity-sheet.entity-sheet').update({
+        documentId: targetId,
+        data: { hp: newHp } as any,
+      });
+    }
+
+    const resultMsg = isHit ? `Hit for ${damageTotal} damage` : `Missed (Rolled ${total} vs AC ${ac})`;
+
+    // 4. Persist Event
+    await strapi.documents('api::game-event.game-event').create({
       data: {
-        turnNumber: nextTurnNumber,
-        timestamp: new Date().toISOString(),
-        room: roomId,
-        gameState: { events: result.events }, // Keep JSON for quick client diffs
-        events: createdEventIds, // Link to queryable entities
+        type: 'ATTACK_RESULT',
+        room: actor.room.documentId,
+        actor: actorId,
+        payload: {
+          targetId,
+          roll: d20,
+          total,
+          isHit,
+          isCrit,
+          damage: damageTotal,
+        },
+        timestamp: Date.now(),
       },
-      status: 'published',
     });
 
-    // 3. Create System Message for Log
-    const logContent =
-      result.events.map((e) => `[${e.type}] ${JSON.stringify(e.payload)}`).join('\n') || 'Action executed.';
-
-    await strapi.documents('api::message.message').create({
-      data: {
-        content: logContent,
-        senderName: 'System',
-        senderType: 'system',
-        room: roomId,
-        turn: timeFrame.documentId,
-        timestamp: now,
-      },
-      status: 'published',
-    });
-
-    // 4. Broadcast
-    const { streamManager } = await import('../../../utils/llm/stream-manager');
-    streamManager.broadcast(roomId, 'engine:events', {
-      events: result.events,
-      turnId: timeFrame.documentId,
-    });
+    return {
+      success: true,
+      message: resultMsg,
+      events: [
+        {
+          type: 'ATTACK_RESULT',
+          payload: {
+            actorId,
+            targetId,
+            roll: d20,
+            total,
+            isHit,
+            isCrit,
+            damage: damageTotal,
+            trace: [],
+          },
+          timestamp: Date.now(),
+        },
+      ],
+      newStateDiff: {},
+    };
   },
-});
+}));

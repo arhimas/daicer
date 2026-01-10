@@ -3,6 +3,7 @@ export * from './voxel/config';
 export * from './voxel/terrain-generator';
 
 export * from './rules/narrator';
+export * from './rules/actions';
 export * from './rules/dice';
 export * from './rules/dnd5e';
 export * from './schemas';

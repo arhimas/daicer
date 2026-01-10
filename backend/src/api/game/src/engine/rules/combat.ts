@@ -1,3 +1,4 @@
+export { ActionType } from './actions';
 import { ActionDefinition, ActionIntent, ActionType } from './actions';
 import { Entity, ExecutionTrace, ExecutionStep, EntityAction } from '../types';
 import { roll, DiceResult, parseDiceString } from './dice';

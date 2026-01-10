@@ -1,4 +1,4 @@
-import { BlockType } from '../../../../engine';
+import { BlockType } from '../../../game/src/engine/types';
 
 export const CHUNK_SIZE = 32;
 export const TILE_SIZE = 32; // Pixels

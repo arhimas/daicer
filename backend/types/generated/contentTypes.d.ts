@@ -775,7 +775,7 @@ export interface ApiFeatureFeature extends Struct.CollectionTypeSchema {
 export interface ApiGameEventGameEvent extends Struct.CollectionTypeSchema {
   collectionName: 'game_events';
   info: {
-    description: 'Immutable log of game actions for Time Machine functionality';
+    description: 'Log of persistent game actions (Attack, Spell, Move)';
     displayName: 'Game Event';
     pluralName: 'game-events';
     singularName: 'game-event';
@@ -784,23 +784,38 @@ export interface ApiGameEventGameEvent extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    actorId: Schema.Attribute.String;
-    causalityId: Schema.Attribute.String;
+    actor: Schema.Attribute.Relation<'manyToOne', 'api::entity-sheet.entity-sheet'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    delta: Schema.Attribute.JSON;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::game-event.game-event'> & Schema.Attribute.Private;
-    meta: Schema.Attribute.JSON;
     payload: Schema.Attribute.JSON & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
-    seed: Schema.Attribute.Integer;
-    sequenceId: Schema.Attribute.BigInteger;
-    timeFrames: Schema.Attribute.Relation<'manyToMany', 'api::time-frame.time-frame'>;
     timestamp: Schema.Attribute.BigInteger & Schema.Attribute.Required;
-    turnNumber: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    type: Schema.Attribute.String & Schema.Attribute.Required;
+    turn_number: Schema.Attribute.Integer;
+    type: Schema.Attribute.Enumeration<
+      [
+        'ATTACK',
+        'ATTACK_RESULT',
+        'SPELL_CAST',
+        'MOVE',
+        'ENTITY_MOVED',
+        'SKILL_CHECK',
+        'SKILL_CHECK_RESULT',
+        'INTERACT',
+        'OBJECT_INTERACTION',
+        'LONG_REST',
+        'LONG_REST_COMPLETED',
+        'SHORT_REST',
+        'DEATH_SAVE',
+        'INITIATIVE',
+        'TURN_START',
+        'TURN_END',
+        'TERRAIN_MODIFIED',
+      ]
+    > &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };

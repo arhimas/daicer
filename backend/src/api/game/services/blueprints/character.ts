@@ -1,4 +1,4 @@
-import { AbstractBlueprint } from '../../../../engine/types/blueprint';
+import { AbstractBlueprint } from '../../src/engine/types/blueprint';
 import { StrapiCharacter } from '../adapters/types';
 import { mapStrapiStatsToStatBlock } from '../adapters/stats.adapter';
 import { mapStrapiActionsToEntityActions } from '../adapters/actions.adapter';
