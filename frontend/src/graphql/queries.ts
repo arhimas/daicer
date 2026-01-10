@@ -101,6 +101,31 @@ export const LIST_SPELLS_QUERY = gql`
   }
 `;
 
+export const LIST_ITEMS_QUERY = gql`
+  query ListItems($filters: ItemFiltersInput) {
+    items(filters: $filters, sort: "name:asc", pagination: { limit: 50 }) {
+      documentId
+      name
+      type
+      rarity
+      value
+      weight
+      equipment_data {
+        armor_class_base
+        damage_dice
+        range_normal
+        range_long
+        str_minimum
+        stealth_disadvantage
+      }
+      spell_data {
+        level
+        school
+      }
+    }
+  }
+`;
+
 export const SEARCH_ENTITIES_QUERY = gql`
   query SearchEntities($query: String!) {
     searchEntities(query: $query) {

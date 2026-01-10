@@ -18,15 +18,9 @@ import {
   LongRestCommand,
   Attribute,
 } from '../../game/src/engine';
-import {
-  AttackIntentSchema,
-  CastSpellIntentSchema,
-  UseFeatureIntentSchema,
-  DashIntentSchema,
-  DisengageIntentSchema,
-  DodgeIntentSchema,
-  GrappleIntentSchema,
-} from '../../../shared'; // Import shared schemas
+import {} from // Schemas imported but not used directly in this file
+// import { AttackIntentSchema, CastSpellIntentSchema, UseFeatureIntentSchema, DashIntentSchema, DisengageIntentSchema, DodgeIntentSchema, GrappleIntentSchema } from '@/types/intents';
+'../../../shared'; // Import shared schemas
 import type { Core } from '@strapi/strapi';
 
 // Generic handler type using unknown for input, strict validation inside
@@ -224,9 +218,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     hasTool(name: string) {
       return !!tools[name];
     },
-    getTools() {
-      return Object.values(tools);
-    },
+    getTools, // Use the const defined above
     async execute(name: string, roomId: string, payload: unknown, user: unknown) {
       if (!tools[name]) throw new Error(`Tool ${name} not registered`);
       // Validate with schema?

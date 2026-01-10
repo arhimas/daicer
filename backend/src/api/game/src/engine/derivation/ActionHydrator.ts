@@ -1,4 +1,3 @@
-import { ActionDefinition } from '..'; // Keep for input types if needed, or remove if unused
 import { RuntimeAction } from './types';
 import { DerivationContext } from './types';
 import { calculateModifier } from './attributes';

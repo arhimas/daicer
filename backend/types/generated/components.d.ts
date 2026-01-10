@@ -304,7 +304,7 @@ export interface GameInventoryItem extends Struct.ComponentSchema {
   };
   attributes: {
     isEquipped: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    item: Schema.Attribute.Relation<'oneToOne', 'api::equipment.equipment'>;
+    item: Schema.Attribute.Relation<'oneToOne', 'api::item.item'>;
     quantity: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {

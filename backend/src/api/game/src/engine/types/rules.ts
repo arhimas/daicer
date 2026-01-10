@@ -10,9 +10,9 @@ export interface RuleSet {
 
 export interface ClassProgression {
   level: number;
-  features: { name: string; effects?: any[] }[]; // Simplified Feature ref
+  features: { name: string; effects?: unknown[] }[]; // Simplified Feature ref
   spell_slots?: number[];
-  class_specifics?: Record<string, any>;
+  class_specifics?: Record<string, unknown>;
 }
 
 export interface ClassDefinition {

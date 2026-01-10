@@ -5,6 +5,7 @@
 **The Face of the Simulation.**
 
 [![Frontend CI](https://img.shields.io/github/actions/workflow/status/lguibr/daice/frontend.yml?label=Frontend_Build&logo=github&style=for-the-badge)](https://github.com/lguibr/daice/actions/workflows/frontend.yml)
+[![codecov](https://codecov.io/gh/lguibr/daice/graph/badge.svg?token=CODECOV_TOKEN&flag=frontend)](https://codecov.io/gh/lguibr/daice)
 [![React](https://img.shields.io/badge/Front-React_19-61DAFB?logo=react&style=for-the-badge&logoColor=black)](https://react.dev/)
 [![ThreeJS](https://img.shields.io/badge/Render-Three.js-000000?logo=three.js&style=for-the-badge)](https://threejs.org/)
 [![Vite](https://img.shields.io/badge/Build-Vite-646CFF?logo=vite&style=for-the-badge)](https://vitejs.dev/)

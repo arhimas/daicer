@@ -7,21 +7,11 @@
 
 import { factories } from '@strapi/strapi';
 import { Alea } from '../src/engine/voxel/utils/math';
-import {
-  Command,
-  MoveCommand,
-  AttackCommand,
-  SkillCheckCommand,
-  CastSpellCommand,
-  InteractCommand,
-  LongRestCommand,
-  ModifyTerrainCommand,
-} from '../src/engine/types';
+import { Command, MoveCommand, AttackCommand } from '../src/engine/types';
 import { ActionResult } from '../src/engine/types/engine';
-import { resolveAttack, ActionType } from '../src/engine/rules/combat';
 import { findPath } from '../src/engine/rules/spatial';
 import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
-import { WorldConfig, ZLevel, Entity } from '../src/engine/types';
+import { WorldConfig, ZLevel } from '../src/engine/types';
 
 export default factories.createCoreService('api::game.action-engine', ({ strapi }) => ({
   rng: new Alea('default-seed'), // TODO: Persist seed per room/game?
@@ -210,30 +200,8 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
     // The resolveAttack utility expects an `Entity` interface (from types/index.ts)
     // We map the Strapi EntitySheet to the Engine Entity interface.
 
-    const mapToEngineEntity = (sheet: any): Entity => ({
-      id: sheet.documentId,
-      name: sheet.name,
-      type: sheet.type as any,
-      position: sheet.position,
-      hp: sheet.hp,
-      maxHp: sheet.maxHp,
-      armorClass: sheet.armorClass,
-      speed: sheet.speed,
-      stats: sheet.stats,
-      actions: sheet.actions || [], // These are Strapi relations, resolveAttack might need deeper adaptation or we adapt inputs.
-      features: [],
-      conditions: [],
-      resistances: [],
-      immunities: [],
-      vulnerabilities: [],
-      color: 'white', // dummy
-      visionRadius: 30, // dummy
-      // resolveAttack looks for `action.attack.bonus`.
-      // If `sheet.actions` are relational objects, they have `attack_bonus` (snake_case) or `attackBonus`.
-      // `resolveAttack` logic is complex and bound to the "Engine" types.
-      // We might need to refactor resolveAttack to accept "StatBlock" + "ActionDefinition" instead of full Entity.
-      // For now, let's assume standard Entity structure or adapter.
-    });
+    // We map the Strapi EntitySheet to the Engine Entity interface.
+    // (Mapping logic removed as it was unused and causing lint errors)
 
     // In `ActionDispatcher.ts`, it passed `actor` (GameState entity) to `resolveAttack`.
     // `resolveAttack` does: `const hit = d20 + action.attack.bonus >= target.armorClass`.

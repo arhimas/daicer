@@ -9,7 +9,7 @@
     "item": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::equipment.equipment"
+      "target": "api::item.item"
     },
     "quantity": {
       "type": "integer",

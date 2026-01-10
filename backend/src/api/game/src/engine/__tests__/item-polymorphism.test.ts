@@ -2,10 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { Equipment, RuntimeAction } from '../derivation/types';
 
 // Mock context to simulate engine derivation
-interface MockContext {
-  equipment: Equipment[];
-  actions: RuntimeAction[];
-}
 
 /**
  * Validates the core "Phase 4" requirement:
@@ -35,11 +31,6 @@ describe('Unified Item System (Item) Polymorphism', () => {
     };
 
     // 2. Simulate Engine Derivation (Simplified)
-    const context: MockContext = {
-      equipment: [firebrand],
-      actions: [],
-    };
-
     // logic that would live in ActionHydrator
     const derivedActions: RuntimeAction[] = [];
 

@@ -60,14 +60,16 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
       }
       
       extend type Mutation {
-        ${camelName}(payload: ${inputTypeName}!): JSON
+        ${camelName}(roomId: String!, input: ${inputTypeName}!): JSON
       }
     `;
 
     // Generate Resolver
-    toolResolvers.Mutation[camelName] = async (_parent, args, context) => {
-      const { payload } = args;
-      const { user } = context.state;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    toolResolvers.Mutation[camelName] = async (parent: any, args: { roomId: string; input: any }, _ctx: any) => {
+      // const { input } = args;
+      // const _payload = input?.payload || input;
+      // const _user = ctx?.state?.user;
       // Default to room from payload if present, or context?
       // ToolRegistry wrappers expected (roomId, payload, user)
       // We need roomId from payload usually.

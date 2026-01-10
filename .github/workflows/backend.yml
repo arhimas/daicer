@@ -52,6 +52,8 @@ jobs:
   test:
     needs: install
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -61,8 +63,14 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Test Backend
-        run: yarn workspace @daicer/backend test
+      - name: Test Backend with Coverage
+        run: yarn workspace @daicer/backend vitest run --coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: backend
+          fail_ci_if_error: true
 
   build:
     needs: install

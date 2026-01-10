@@ -6,6 +6,7 @@
 
 [![Backend CI](https://img.shields.io/github/actions/workflow/status/lguibr/daice/backend.yml?label=Backend&logo=github&style=for-the-badge)](https://github.com/lguibr/daice/actions/workflows/backend.yml)
 [![Frontend CI](https://img.shields.io/github/actions/workflow/status/lguibr/daice/frontend.yml?label=Frontend&logo=github&style=for-the-badge)](https://github.com/lguibr/daice/actions/workflows/frontend.yml)
+[![codecov](https://codecov.io/gh/lguibr/daice/graph/badge.svg?token=CODECOV_TOKEN)](https://codecov.io/gh/lguibr/daice)
 [![React](https://img.shields.io/badge/Front-React_19-61DAFB?logo=react&style=for-the-badge&logoColor=black)](https://react.dev/)
 [![Strapi](https://img.shields.io/badge/Back-Strapi_5-4945FF?logo=strapi&style=for-the-badge)](https://strapi.io/)
 [![TypeScript](https://img.shields.io/badge/Code-100%25_TS-3178C6?logo=typescript&style=for-the-badge)](https://www.typescriptlang.org/)

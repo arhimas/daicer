@@ -29,6 +29,7 @@ export default () => ({
 
     // 2. Resolve Instance Component Overrides (Sheet Layers)
     // Stats: merge sheet stats over blueprint stats
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const stats = mapStrapiStatsToStatBlock(sheet.stats, blueprint.stats as any);
 
     // Inventory: blueprint inventory + sheet inventory? Or Sheet overrides?
