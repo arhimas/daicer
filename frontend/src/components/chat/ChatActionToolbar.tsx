@@ -377,7 +377,7 @@ export function ChatActionToolbar({
             </div>
           </ScrollArea>
 
-          <div className="p-3 border-t border-midnight-800 bg-black/20 shrink-0">
+          <div className="p-3 border-t border-midnight-800 bg-midnight-900 shrink-0">
             <Button
               className="w-full bg-aurora-600 hover:bg-aurora-500 text-white font-bold tracking-wider shadow-lg shadow-aurora-500/20"
               onClick={handleExecute}

@@ -1,0 +1,58 @@
+{
+    "kind": "singleType",
+    "collectionName": "rule_sets",
+    "info": {
+        "singularName": "rule-set",
+        "pluralName": "rule-sets",
+        "displayName": "Rule Set",
+        "description": "Global Game Rules and Tables"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "xp_table": {
+            "type": "json",
+            "required": true,
+            "default": [
+                0,
+                300,
+                900,
+                2700,
+                6500,
+                14000,
+                23000,
+                34000,
+                48000,
+                64000,
+                85000,
+                100000,
+                120000,
+                140000,
+                165000,
+                195000,
+                225000,
+                265000,
+                305000,
+                355000
+            ]
+        },
+        "proficiency_table": {
+            "type": "json",
+            "required": true
+        },
+        "full_caster_slots": {
+            "type": "json",
+            "required": false
+        },
+        "ability_caps": {
+            "type": "json",
+            "required": false
+        }
+    }
+}

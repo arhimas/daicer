@@ -79,7 +79,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       documentId: roomId,
       populate: {
         players: {
-          populate: ['character', 'characterSheet', 'characterSheet.structuredActions', 'user'],
+          populate: ['character', 'characterSheet', 'characterSheet.actions', 'user'],
         },
         entity_sheets: {
           populate: {
@@ -89,7 +89,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
             inventory: true,
             character: { populate: ['race', 'classes.class'] },
             monster: { populate: ['stats'] },
-            structuredActions: { populate: { damage: true } },
+            structuredActions: { populate: { damage_instances: true } },
           },
         },
         world: true, // World Settings

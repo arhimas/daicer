@@ -69,7 +69,59 @@ export default ({ strapi }) => ({
           data: { position: to },
         });
       }
-      // Add more syncs as needed (HP, etc.)
+
+      if (event.type === 'ATTACK_RESULT') {
+        const { targetId, damage } = event.payload;
+        if (damage > 0 && targetId) {
+          // Fetch current sheet to apply damage accurately
+          // (Optimization: we could trust the Engine result if it returns new HP, but event only has damage)
+          const targetSheet = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+            documentId: targetId,
+            fields: ['currentHp', 'maxHp'],
+          });
+
+          if (targetSheet) {
+            const newHp = Math.max(0, (targetSheet.currentHp || 0) - damage);
+            await strapi.documents('api::entity-sheet.entity-sheet').update({
+              documentId: targetId,
+              data: { currentHp: newHp },
+            });
+          }
+        }
+      }
+
+      if (event.type === 'SPELL_CAST') {
+        // TODO: Decrement spell slots if needed.
+        // Requires logic to know which slot level was used.
+        // For now, we log the event.
+      }
+
+      // Handle LONG_REST (HP Recovery)
+      if (event.type === 'LONG_REST_COMPLETED') {
+        // We might want to reset HP for all chars in room?
+        // Engine event payload doesn't list all IDs?
+        // Dispatcher usually handles loop.
+        // If Dispatcher emits generic "Rest Completed", we might need to iterate here or trust Engine events per actor?
+        // Current Dispatcher logic iterates and updates memory state.
+        // We should probably rely on Dispatcher emitting unique events for each heal OR
+        // iterate room players here.
+        // For reliability, let's reset all players in room.
+        const room = await strapi.documents('api::room.room').findOne({
+          documentId: roomId,
+          populate: ['entity_sheets'],
+        });
+
+        const sheets = room.entity_sheets || [];
+        for (const sheet of sheets) {
+          if (sheet.type === 'player' || sheet.type === 'npc') {
+            // Monsters don't usually long rest?
+            await strapi.documents('api::entity-sheet.entity-sheet').update({
+              documentId: sheet.documentId,
+              data: { currentHp: sheet.maxHp },
+            });
+          }
+        }
+      }
     }
 
     // 2. SOTA Persistence: Create TimeFrame (Turn)
@@ -93,10 +145,10 @@ export default ({ strapi }) => ({
         data: {
           type: event.type,
           payload: event.payload,
-          timestamp: now,
+          timestamp: now, // Schema expects biginteger
           room: roomId,
-          turnNumber: nextTurnNumber,
-          actorId: event.payload.actorId || event.payload.entityId || null,
+          turn_number: nextTurnNumber, // Schema: turn_number
+          actor: event.payload.actorId || event.payload.entityId || null, // Schema: actor
         },
         status: 'published',
       });

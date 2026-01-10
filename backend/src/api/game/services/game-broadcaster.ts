@@ -54,17 +54,17 @@ export default ({ strapi }) => ({
               populate: {
                 race: true,
                 classes: { populate: ['class'] },
-                spells: { populate: { damage: true } },
-                equipment_items: { populate: '*' },
-                actions: { populate: { damage: true } },
+                spells: { populate: { damage_instances: true } },
+                inventory: { populate: '*' }, // Renamed from equipment_items
+                actions: { populate: { damage_instances: true, range_config: true, save: true } },
               },
             },
             monster: {
               populate: {
                 stats: true,
-                spells: { populate: { damage: true } },
-                equipment_items: { populate: '*' },
-                actions: { populate: { damage: true } },
+                spells: { populate: { damage_instances: true } },
+                inventory: { populate: '*' }, // Renamed from equipment_items
+                actions: { populate: { damage_instances: true, range_config: true, save: true } },
               },
             },
           },
@@ -90,7 +90,7 @@ export default ({ strapi }) => ({
             currentHp: entity.hp,
             maxHp: entity.maxHp,
             ac: entity.armorClass,
-            structuredActions: (entity.sheet as unknown as { structuredActions: unknown[] }).structuredActions || [], // Patched by Adapter
+            structuredActions: entity.actions || [],
             visionRadius: entity.visionRadius,
             color: entity.color,
             stats: entity.stats,

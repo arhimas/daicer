@@ -5,62 +5,55 @@
     "singularName": "game-event",
     "pluralName": "game-events",
     "displayName": "Game Event",
-    "description": "Immutable log of game actions for Time Machine functionality"
+    "description": "Log of persistent game actions (Attack, Spell, Move)"
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "ATTACK",
+        "ATTACK_RESULT",
+        "SPELL_CAST",
+        "MOVE",
+        "ENTITY_MOVED",
+        "SKILL_CHECK",
+        "SKILL_CHECK_RESULT",
+        "INTERACT",
+        "OBJECT_INTERACTION",
+        "LONG_REST",
+        "LONG_REST_COMPLETED",
+        "SHORT_REST",
+        "DEATH_SAVE",
+        "INITIATIVE",
+        "TURN_START",
+        "TURN_END",
+        "TERRAIN_MODIFIED"
+      ],
+      "required": true
+    },
+    "actor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::character.character"
+    },
     "room": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::room.room",
-      "inversedBy": "events"
-    },
-    "type": {
-      "type": "string",
-      "required": true
-    },
-    "turnNumber": {
-      "type": "integer",
-      "default": 0,
-      "index": true
-    },
-    "timestamp": {
-      "type": "biginteger",
-      "required": true
+      "target": "api::room.room"
     },
     "payload": {
       "type": "json",
       "required": true
     },
-    "actorId": {
-      "type": "string"
-    },
-    "timeFrames": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::time-frame.time-frame",
-      "inversedBy": "events"
-    },
-    "sequenceId": {
+    "timestamp": {
       "type": "biginteger",
-      "required": false,
-      "index": true,
-      "private": false
+      "required": true
     },
-    "causalityId": {
-      "type": "string",
-      "index": true
-    },
-    "delta": {
-      "type": "json"
-    },
-    "meta": {
-      "type": "json"
-    },
-    "seed": {
+    "turn_number": {
       "type": "integer"
     }
   }

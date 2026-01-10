@@ -20,10 +20,14 @@ export const handleRoomJoin =
           players: {
             populate: [
               'character',
+              'character.race',
               'characterSheet',
-              'characterSheet.spells',
-              'characterSheet.equipments',
-              'characterSheet.actions',
+              'characterSheet.spellbook', // Component
+              'characterSheet.inventory.item',
+              'characterSheet.actions', // Relation
+              'characterSheet.actions.damage_instances',
+              'characterSheet.actions.range_config',
+              'characterSheet.actions.save',
               'user',
             ],
           },
@@ -32,22 +36,22 @@ export const handleRoomJoin =
               position: true,
               stats: true,
               features: true,
-              inventory: true,
+              inventory: { populate: { item: true } },
               character: {
                 populate: {
                   race: true,
                   classes: { populate: ['class'] },
-                  spells: { populate: { damage: true } },
-                  equipment_items: { populate: '*' },
-                  actions: { populate: { damage: true } },
+                  spells: { populate: { damage_instances: true } },
+                  inventory: { populate: '*' },
+                  actions: { populate: { damage_instances: true, range_config: true, save: true } },
                 },
               },
               monster: {
                 populate: {
                   stats: true,
-                  spells: { populate: { damage: true } },
-                  equipment_items: { populate: '*' },
-                  actions: { populate: { damage: true } },
+                  spells: { populate: { damage_instances: true } },
+                  inventory: { populate: '*' }, // Renamed from equipment_items
+                  actions: { populate: { damage_instances: true, range_config: true, save: true } },
                 },
               },
             },

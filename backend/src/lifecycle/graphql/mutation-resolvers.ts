@@ -226,7 +226,7 @@ export const getMutationResolvers = (strapi) => ({
 
   generateAvatarPortrait: async (_parent, args, _context) => {
     const { payload, referenceImage } = args;
-    return strapi.service('api::assets.assets').generatePortrait({ ...payload, referenceImage });
+    return strapi.service('api::assets.assets').generatePortrait({ payload, referenceImage });
   },
 
   generateAvatarUpperBody: async (_parent, args, _context) => {

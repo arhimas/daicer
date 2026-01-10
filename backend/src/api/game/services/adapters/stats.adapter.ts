@@ -1,16 +1,12 @@
 import { StatBlock } from '../../../../engine/types';
 import { StrapiComponentStats, StrapiEntitySheet } from './types';
 
-export const resolveBaseStats = (sheet: StrapiEntitySheet): StatBlock => {
-  // 1. Extract sources (Sheet overrides Blueprint)
-  const s = sheet.stats || {};
-  const b = sheet.character?.stats || sheet.monster?.stats || {};
-
-  // 2. Helper With Default
+export const mapStrapiStatsToStatBlock = (
+  primary: StrapiComponentStats | undefined,
+  fallback: StrapiComponentStats | undefined = {}
+): StatBlock => {
   const getStat = (key: keyof StrapiComponentStats): number => {
-    // If explicit 0, we take it? assume stats range 1-30.
-    // s[key] ?? b[key] ?? 10
-    const val = s[key] ?? b[key];
+    const val = primary?.[key] ?? fallback?.[key];
     return typeof val === 'number' ? val : 10;
   };
 
@@ -21,9 +17,9 @@ export const resolveBaseStats = (sheet: StrapiEntitySheet): StatBlock => {
   const wisdom = getStat('wisdom');
   const charisma = getStat('charisma');
 
-  // 3. Derived Values
   const initiativeBonus = Math.floor((dexterity - 10) / 2);
-  const passivePerception = s.passivePerception ?? b.passivePerception ?? 10 + Math.floor((wisdom - 10) / 2);
+  const passivePerception =
+    primary?.passivePerception ?? fallback?.passivePerception ?? 10 + Math.floor((wisdom - 10) / 2);
 
   return {
     strength,
@@ -35,4 +31,11 @@ export const resolveBaseStats = (sheet: StrapiEntitySheet): StatBlock => {
     passivePerception,
     initiativeBonus,
   };
+};
+
+export const resolveBaseStats = (sheet: StrapiEntitySheet): StatBlock => {
+  // 1. Extract sources (Sheet overrides Blueprint)
+  const s = sheet.stats;
+  const b = sheet.character?.stats || sheet.monster?.stats;
+  return mapStrapiStatsToStatBlock(s, b);
 };

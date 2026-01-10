@@ -492,6 +492,7 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
         };
       }>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
+    progression: Schema.Attribute.Component<'game.class-progression', true>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     subclasses: Schema.Attribute.Relation<'oneToMany', 'api::subclass.subclass'>;
@@ -1287,6 +1288,62 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiRuleSetRuleSet extends Struct.SingleTypeSchema {
+  collectionName: 'rule_sets';
+  info: {
+    description: 'Global Game Rules and Tables';
+    displayName: 'Rule Set';
+    pluralName: 'rule-sets';
+    singularName: 'rule-set';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    ability_caps: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    full_caster_slots: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::rule-set.rule-set'>;
+    proficiency_table: Schema.Attribute.JSON & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    xp_table: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<
+        [
+          0,
+          300,
+          900,
+          2700,
+          6500,
+          14000,
+          23000,
+          34000,
+          48000,
+          64000,
+          85000,
+          100000,
+          120000,
+          140000,
+          165000,
+          195000,
+          225000,
+          265000,
+          305000,
+          355000,
+        ]
+      >;
+  };
+}
+
 export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
   collectionName: 'spells';
   info: {
@@ -2027,6 +2084,7 @@ declare module '@strapi/strapi' {
       'api::prompt.prompt': ApiPromptPrompt;
       'api::race.race': ApiRaceRace;
       'api::room.room': ApiRoomRoom;
+      'api::rule-set.rule-set': ApiRuleSetRuleSet;
       'api::spell.spell': ApiSpellSpell;
       'api::subclass.subclass': ApiSubclassSubclass;
       'api::time-frame.time-frame': ApiTimeFrameTimeFrame;

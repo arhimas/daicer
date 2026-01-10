@@ -50,7 +50,7 @@ export const performActionTool = (context: StrapiContext) => {
                   monster: {
                     populate: {
                       stats: true,
-                      equipment: true,
+                      inventory: true, // Renamed from equipment
                     },
                   },
                 },
@@ -60,6 +60,7 @@ export const performActionTool = (context: StrapiContext) => {
                   user: true,
                   character: {
                     populate: {
+                      race: true,
                       classes: {
                         populate: {
                           class: true,
@@ -67,8 +68,7 @@ export const performActionTool = (context: StrapiContext) => {
                         },
                       },
                       stats: true,
-                      equipment: true,
-                      race: true,
+                      inventory: true, // Renamed from equipment_items
                     },
                   },
                 },

@@ -108,6 +108,28 @@ export interface GameCharacterClass extends Struct.ComponentSchema {
   };
 }
 
+export interface GameClassProgression extends Struct.ComponentSchema {
+  collectionName: 'components_game_class_progressions';
+  info: {
+    description: 'Features and resources gained at a specific level';
+    displayName: 'Class Progression';
+  };
+  attributes: {
+    class_specifics: Schema.Attribute.JSON;
+    features: Schema.Attribute.Relation<'oneToMany', 'api::feature.feature'>;
+    level: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 20;
+          min: 1;
+        },
+        number
+      >;
+    spell_slots: Schema.Attribute.JSON;
+  };
+}
+
 export interface GameConditionInstance extends Struct.ComponentSchema {
   collectionName: 'components_game_condition_instances';
   info: {
@@ -472,6 +494,7 @@ declare module '@strapi/strapi' {
       'game.area-effect': GameAreaEffect;
       'game.casting-config': GameCastingConfig;
       'game.character-class': GameCharacterClass;
+      'game.class-progression': GameClassProgression;
       'game.condition-instance': GameConditionInstance;
       'game.damage-dice': GameDamageDice;
       'game.damage-instance': GameDamageInstance;

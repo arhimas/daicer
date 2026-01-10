@@ -21,8 +21,7 @@ export default ({ strapi }) => ({
       populate: [
         'stats',
         'actions', // Relation to api::action
-        'actions.damage', // Component inside action? No, relation action has components.
-        'actions.damage.damage_type',
+        'actions.damage_instances',
         'features', // Relation
         'inventory', // Component (Renamed from equipment_items)
         'inventory.item',
@@ -112,7 +111,14 @@ export default ({ strapi }) => ({
       // Map Actions from Monster Relations to EntitySheet Relations
       // The monster.actions is a relation to api::action
       // We strictly link them via relation now.
-      const mappedActions = (monster.actions || []).map((action: any) => action.documentId);
+      // Map Actions from Monster Relations to EntitySheet Relations
+      // The monster.actions is a relation to api::action
+      // We strictly link them via relation now.
+      const mappedActions = (monster.actions || [])
+        .filter((a: any) => a && a.documentId)
+        .map((action: any) => action.documentId);
+
+      console.info(`[SpawnService] Mapped Actions IDs: ${JSON.stringify(mappedActions)}`);
 
       const sheetData: any = {
         name: monster.name,
@@ -129,14 +135,17 @@ export default ({ strapi }) => ({
         position: position,
         stats: monster.stats, // Component
         actions: mappedActions,
-        inventory: monster.inventory, // Copy component list directly?
-        // Note: Copying components directly might not work if IDs conflict, ideally we map them.
-        // Strapi might handle valid component structure.
+        inventory: (monster.inventory || []).map((entry: any) => ({
+          item: entry.item?.documentId,
+          quantity: entry.quantity ?? 1,
+          slot: entry.slot ?? 'backpack',
+          isEquipped: entry.isEquipped ?? false,
+        })),
         features: monster.features?.map((f: any) => f.documentId), // Relation ID list
         traits: monster.traits?.map((t: any) => t.documentId), // Relation ID list
         proficiencies: monster.proficiencies?.map((p: any) => p.documentId), // Relation ID list
         languages: monster.languages?.map((l: any) => l.documentId), // Relation ID list
-        attributes: monster.stats as unknown as Record<string, number>,
+        // attributes: removed as not in schema
         initiative: 0,
         proficiencyBonus: derived.proficiencyBonus || 2,
       };
@@ -322,7 +331,12 @@ export default ({ strapi }) => ({
       race: character.race?.documentId,
       class: mainClass?.documentId,
       actions: mappedActions,
-      inventory: character.inventory,
+      inventory: (character.inventory || []).map((entry: any) => ({
+        item: entry.item?.documentId,
+        quantity: entry.quantity ?? 1,
+        slot: entry.slot ?? 'backpack',
+        isEquipped: entry.isEquipped ?? false,
+      })),
       spellbook: {
         knownSpells: character.spell_config?.known_spells?.map((s: any) => s.documentId),
         preparedSpells: character.spell_config?.prepared_spells?.map((s: any) => s.documentId),
@@ -334,7 +348,7 @@ export default ({ strapi }) => ({
       traits: Array.from(traitIds),
       languages: [], // TODO: Race languages relation
       features: [], // Empty for now as Class features are components
-      attributes: character.stats as unknown as Record<string, number>,
+      // attributes: removed as not in schema
       initiative: 0,
       proficiencyBonus: derived.proficiencyBonus,
     };
@@ -345,5 +359,37 @@ export default ({ strapi }) => ({
     });
 
     return newSheet;
+  },
+
+  /**
+   * Router for generic spawn command (Agent support)
+   */
+  async spawn(roomId: string, payload: any) {
+    console.info(`[SpawnService] Router received spawn command: ${JSON.stringify(payload)}`);
+    const { type, blueprintId, position, ownerId } = payload;
+
+    // Normalize position
+    const pos = {
+      x: typeof position === 'object' ? position.x : undefined,
+      y: typeof position === 'object' ? position.y : undefined,
+      z: typeof position === 'object' ? position.z : 0,
+    };
+
+    // Fallback if flat coords provided
+    if (pos.x === undefined && typeof payload.x === 'number') pos.x = payload.x;
+    if (pos.y === undefined && typeof payload.y === 'number') pos.y = payload.y;
+    if (pos.z === undefined && typeof payload.z === 'number') pos.z = payload.z;
+
+    if (pos.x === undefined || pos.y === undefined) {
+      throw new Error('Position (x,y) is required for spawn');
+    }
+
+    if (type === 'monster') {
+      return this.spawnMonster(roomId, blueprintId, pos);
+    } else if (type === 'player' || type === 'character' || type === 'npc') {
+      return this.spawnCharacter(roomId, blueprintId, pos, ownerId);
+    } else {
+      throw new Error(`Unknown entity type: ${type}`);
+    }
   },
 });

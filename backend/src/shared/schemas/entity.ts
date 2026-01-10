@@ -63,7 +63,7 @@ export const EntitySpellSchema = z.object({
   name: z.string(),
   level: z.number(),
   school: z.string().optional(),
-  source: z.enum(['known', 'prepared']),
+  source: z.enum(['known', 'prepared', 'innate']),
   castingTime: z.string().optional(),
   range: z.string().optional(),
   description: z.string().optional(),

@@ -340,7 +340,7 @@ function GameDebugInner({
       {/* 2. MAIN 4-COLUMN AREA */}
       <div className="flex-1 flex min-h-0">
         {/* COLUMN 1: TOOLS/INSPECTOR (Left) - 20% Width */}
-        <div className="w-[20%] min-w-[250px] flex flex-col border-r border-midnight-800">
+        <div className="w-[20%] min-w-[250px] flex flex-col border-r border-midnight-800 z-30 shadow-xl">
           <GameDebugInspector
             activeTab={activeTab}
             setActiveTab={setActiveTab}
@@ -356,7 +356,7 @@ function GameDebugInner({
         </div>
 
         {/* COLUMN 2: CHAT (Middle-Left) - 25% Width */}
-        <div className="w-[25%] min-w-[300px] flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-10 shadow-2xl">
+        <div className="w-[25%] min-w-[300px] flex-shrink-0 bg-midnight-950 border-r border-midnight-800 flex flex-col z-20 shadow-xl">
           <div className="p-3 bg-midnight-900 border-b border-midnight-800 font-bold text-xs uppercase tracking-wider text-shadow-300">
             CHAT / LOG
           </div>
@@ -376,7 +376,7 @@ function GameDebugInner({
         </div>
 
         {/* COLUMN 3: GAME EVENTS (Middle-Right) - 20% Width - NEW */}
-        <div className="w-[20%] min-w-[250px] flex flex-col">
+        <div className="w-[20%] min-w-[250px] flex flex-col z-10 shadow-lg">
           <div className="flex-1 min-h-0 flex flex-col">
             {/* Dynamically imported to avoid circular deps if any, but regular import is fine */}
             {/* We need to import GameEventsPanel */}

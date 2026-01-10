@@ -62,11 +62,18 @@
       "repeatable": true,
       "component": "game.feature"
     },
+    "progression": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.class-progression"
+    },
     "image": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

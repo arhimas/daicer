@@ -387,7 +387,7 @@ export default ({ strapi }) => ({
       filters: { $or: [{ roomId }, { documentId: roomId }, { code: roomId }] },
       populate: {
         players: {
-          populate: ['character', 'characterSheet', 'characterSheet.structuredActions', 'user'],
+          populate: ['character', 'characterSheet', 'characterSheet.actions', 'user'],
         },
         entity_sheets: {
           populate: {
@@ -395,9 +395,25 @@ export default ({ strapi }) => ({
             stats: true,
             features: true,
             inventory: true,
-            character: { populate: ['race', 'classes.class'] },
-            monster: { populate: ['stats'] },
-            structuredActions: { populate: { damage: true } },
+            character: {
+              populate: {
+                race: true,
+                classes: { populate: ['class'] },
+                spells: { populate: { damage_instances: true } },
+                inventory: { populate: '*' },
+                actions: { populate: { damage_instances: true, range_config: true, save: true } },
+              },
+            },
+            monster: {
+              populate: {
+                stats: true,
+                spells: { populate: { damage_instances: true } },
+                inventory: { populate: '*' },
+                actions: { populate: { damage_instances: true, range_config: true, save: true } },
+                features: true,
+              },
+            },
+            structuredActions: { populate: { damage_instances: true, range_config: true, save: true } },
           },
         },
         world: true,
