@@ -1,6 +1,4 @@
 import { Tile, BlockType } from '../../../game/src/engine/types';
-import { CHUNK_SIZE } from '../utils/constants';
-
 import { StructureInfo } from '../../../game/src/engine/types';
 
 export class StructureRenderer {
@@ -41,7 +39,10 @@ export class StructureRenderer {
     const lx = wx - cx;
     const ly = wy - cy;
     const lz = z + 3;
-    if (lx >= 0 && lx < CHUNK_SIZE && ly >= 0 && ly < CHUNK_SIZE && lz >= 0 && lz <= 6) {
+    if (!tiles || !tiles[0] || !tiles[0][0]) return;
+    const limitY = tiles[0].length;
+    const limitX = tiles[0][0].length;
+    if (lx >= 0 && lx < limitX && ly >= 0 && ly < limitY && lz >= 0 && lz <= 6) {
       const t = tiles[lz][ly][lx];
       t.block = block;
       t.isWalkable = (

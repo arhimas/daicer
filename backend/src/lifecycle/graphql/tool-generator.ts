@@ -56,7 +56,7 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
     const inputFields = zodToSDLFields(tool.schema);
     toolTypeDefs += `
       input ${inputTypeName} {
-        ${inputFields}
+        ${inputFields || '_empty: String'}
       }
       
       extend type Mutation {

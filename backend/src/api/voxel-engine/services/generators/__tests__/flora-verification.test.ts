@@ -42,7 +42,7 @@ describe('FloraGenerator', () => {
     const tiles = createChunk('plains');
     const rng = new Alea('test_tree');
     // Force generate a Palm Tree at 8,8
-    FloraGenerator['generateTree'](tiles, 8, 8, 8, 8, 1, BlockType.TREE_PALM, rng);
+    FloraGenerator['generateTree'](tiles, 0, 0, 8, 8, 1, BlockType.TREE_PALM, rng);
 
     // Palm tree structure: Trunk (TREE_PALM) + Leaves (TREE_LEAVES)
     const trunkBlock = tiles[3 + 1][8][8].block; // Z=1

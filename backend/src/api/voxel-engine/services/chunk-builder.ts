@@ -8,8 +8,10 @@ export class ChunkBuilder {
   private terrainGen: TerrainGenerator;
   private civGen: CivilizationGenerator;
   private atlas: WorldAtlas;
+  private config: WorldConfig;
 
-  constructor(private config: WorldConfig) {
+  constructor(config: WorldConfig) {
+    this.config = config;
     this.atlas = new WorldAtlas(config);
     this.terrainGen = new TerrainGenerator(config, this.atlas);
     this.civGen = new CivilizationGenerator(config, this.atlas);

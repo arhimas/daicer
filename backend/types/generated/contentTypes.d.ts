@@ -580,7 +580,7 @@ export interface ApiDmSettingDmSetting extends Struct.CollectionTypeSchema {
 }
 
 export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
-  collectionName: 'character_sheets';
+  collectionName: 'entity_sheets';
   info: {
     description: 'Instance of an entity in a game room';
     displayName: 'Entity Sheet';

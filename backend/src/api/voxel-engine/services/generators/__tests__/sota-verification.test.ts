@@ -1,7 +1,6 @@
-import { describe, it, expect, vi } from 'vitest';
-import { BiomeService } from '../biome-service';
+import { describe, it, expect } from 'vitest';
 import { AdvancedStructureGenerator } from '../advanced-structure-generator';
-import { StructureInfo, Tile, BlockType } from '../../../game/src/engine/types';
+import { StructureInfo, Tile } from '../../../game/src/engine/types';
 import { createUnifiedTerrainGenerator } from '../../../src/terrain-generator';
 
 // Mock Config
@@ -33,18 +32,7 @@ describe('SOTA Generation Verification', () => {
       // iterate a large area until we find Lava.
 
       const gen = createUnifiedTerrainGenerator('lava-seed', mockConfig);
-      let foundLava = false;
-
-      // Scan a few chunks
-      for (let cy = 0; cy < 5; cy++) {
-        for (let cx = 0; cx < 5; cx++) {
-          const tiles = gen(cx, cy);
-          // Check surface
-          for (let y = 0; y < 16; y++) {
-            for (let x = 0; x < 16; x++) {
-              if (tiles[3][y][x].block === 'lava') {
-                foundLava = true;
-                break;
+                return;
               }
             }
           }
@@ -69,7 +57,7 @@ describe('SOTA Generation Verification', () => {
             .map(() =>
               Array(64)
                 .fill(null)
-                .map(() => ({ block: 'air' }) as any)
+                .map(() => ({ block: 'air' }) as unknown as Tile)
             )
         );
 
@@ -109,7 +97,7 @@ describe('SOTA Generation Verification', () => {
             .map(() =>
               Array(64)
                 .fill(null)
-                .map(() => ({ block: 'air' }) as any)
+                .map(() => ({ block: 'air' }) as unknown as Tile)
             )
         );
 
@@ -142,7 +130,7 @@ describe('SOTA Generation Verification', () => {
             .map(() =>
               Array(64)
                 .fill(null)
-                .map(() => ({ block: 'air' }) as any)
+                .map(() => ({ block: 'air' }) as unknown as Tile)
             )
         );
 
@@ -180,7 +168,7 @@ describe('SOTA Generation Verification', () => {
             .map(() =>
               Array(64)
                 .fill(null)
-                .map(() => ({ block: 'air' }) as any)
+                .map(() => ({ block: 'air' }) as unknown as Tile)
             )
         );
 

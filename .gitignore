@@ -77,3 +77,4 @@ ideas/
 .lsmcp/
 .lsmcp
 firebase-export-*/
+:memory:

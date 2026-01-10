@@ -11,8 +11,8 @@ export class FloraGenerator {
     z: number,
     block: BlockType
   ) {
-    const lx = wx - cx;
-    const ly = wy - cy;
+    const lx = wx - cx * 16;
+    const ly = wy - cy * 16;
     const lz = z + 3;
     if (lx >= 0 && lx < 16 && ly >= 0 && ly < 16 && lz >= 0 && lz <= 6) {
       const t = tiles[lz][ly][lx];
@@ -345,9 +345,9 @@ export class FloraGenerator {
         // Don't spawn on top of water/lava/bedrock/leaves
         const surfaceBlock = tiles[surfaceZ + 3][y][x].block as BlockType;
         if (
-          [BlockType.WATER, BlockType.LAVA, BlockType.BEDROCK, BlockType.TREE_LEAVES, BlockType.SAND].includes(
-            surfaceBlock as any
-          ) &&
+          (
+            [BlockType.WATER, BlockType.LAVA, BlockType.BEDROCK, BlockType.TREE_LEAVES, BlockType.SAND] as BlockType[]
+          ).includes(surfaceBlock) &&
           surfaceBlock !== BlockType.SAND
         )
           continue;

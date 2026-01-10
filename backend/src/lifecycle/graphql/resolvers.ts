@@ -1,6 +1,29 @@
 import { getMutationResolvers } from './mutation-resolvers';
 import { typeDefs as staticTypeDefs } from './type-defs';
 import { generateToolGraphQL } from './tool-generator';
+import type { RuntimeAction } from '../../api/game/src/engine/derivation/types';
+
+interface InventoryEntry {
+  item: {
+    id: string | number;
+    documentId: string;
+    type: string;
+    equipment_data?: any;
+    name?: string;
+    image?: any;
+    damage_dice?: string;
+    damage_type?: any;
+    properties?: any[];
+    [key: string]: any;
+  };
+  isEquipped: boolean;
+  [key: string]: unknown;
+}
+
+interface SpellEntry {
+  spell: any;
+  [key: string]: unknown;
+}
 
 export const registerGraphQLExtension = (strapi) => {
   const extensionService = strapi.plugin('graphql').service('extension');
@@ -70,9 +93,9 @@ export const registerGraphQLExtension = (strapi) => {
             const context = {
               attributes: actor.stats || {},
               proficiencyBonus: 2,
-              equipment: (actor.inventory || [])
-                .filter((entry: any) => entry.isEquipped && entry.item)
-                .map((entry: any) => ({
+              equipment: ((actor.inventory as InventoryEntry[]) || [])
+                .filter((entry) => entry.isEquipped && entry.item)
+                .map((entry) => ({
                   ...entry.item,
                   ...(entry.item.equipment_data || {}),
                   equipment_category: { slug: entry.item.type },
@@ -80,7 +103,7 @@ export const registerGraphQLExtension = (strapi) => {
             } as any;
 
             const { ActionHydrator } = await import('../../api/game/src/engine/derivation/ActionHydrator');
-            const allActions: any[] = [];
+            const allActions: RuntimeAction[] = [];
 
             context.equipment.forEach((item: any) => {
               allActions.push(...ActionHydrator.hydrateFromEquipment(item, context));
@@ -88,7 +111,7 @@ export const registerGraphQLExtension = (strapi) => {
 
             // Hydrate Spells
             if (actor.spellbook) {
-              actor.spellbook.forEach((entry: any) => {
+              (actor.spellbook as SpellEntry[]).forEach((entry) => {
                 if (entry.spell) {
                   allActions.push(ActionHydrator.hydrateFromSpell(entry.spell, context));
                 }
@@ -96,10 +119,10 @@ export const registerGraphQLExtension = (strapi) => {
             }
 
             // Map to GraphQL Schema
-            return allActions.map((a) => ({
+            return allActions.map((a: RuntimeAction) => ({
               id: a.id,
               name: a.name,
-              type: a.type,
+              type: a.type || 'action', // Ensure type is present
               sourceType: a.sourceType,
               sourceId: a.sourceId,
               description: a.description,
@@ -107,7 +130,7 @@ export const registerGraphQLExtension = (strapi) => {
               cost: a.cost,
               range: a.range,
               attackBonus: a.attack?.bonus,
-              damage: a.effects?.find((e: any) => e.type === 'damage')?.dice,
+              damage: a.effects?.find((e) => e.type === 'damage' || e.type === 'healing')?.dice,
             }));
           } catch (e) {
             strapi.log.error(`[Resolver] Error deriving actions for ${parent.documentId}`, e);
@@ -132,9 +155,12 @@ export const registerGraphQLExtension = (strapi) => {
 
             const [monsters, characters, items] = await Promise.all([
               !showAllCharacters && !showAllItems
-                ? strapi.documents('api::monster.monster').findMany({
-                    filters: showAllMonsters ? {} : { name: { $contains: query } },
-                    fields: ['name', 'documentId'],
+                ? strapi.documents('api::entity.entity').findMany({
+                    filters: {
+                      type: 'monster',
+                      ...(showAllMonsters ? {} : { name: { $contains: query } }),
+                    },
+                    fields: ['name', 'documentId', 'type'],
                     limit: 50,
                     locale: 'en',
                   })

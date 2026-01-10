@@ -11,33 +11,38 @@ interface BiomeMaterials {
 
 export class AdvancedStructureGenerator {
   public static generate(struct: StructureInfo, tiles: Tile[][][], cx: number, cy: number) {
-    // 1. Determine Biome at structure center for context
-    const centerTile = tiles[3][Math.floor(struct.size / 2)][Math.floor(struct.size / 2)];
-    const biome = centerTile?.biome || 'plains';
+    try {
+      // 1. Determine Biome at structure center for context
+      const mid = Math.floor(struct.size / 2);
+      const centerTile = tiles[3] && tiles[3][mid] ? tiles[3][mid][mid] : null;
+      const biome = centerTile?.biome || 'plains';
 
-    const materials = this.getBiomeMaterials(biome as BiomeType);
+      const materials = this.getBiomeMaterials(biome as BiomeType);
 
-    switch (struct.type) {
-      case 'castle':
-        this.generateHighDefCastle(struct, tiles, cx, cy, materials);
-        break;
-      case 'city':
-        this.generateHighDefCity(struct, tiles, cx, cy, materials);
-        break;
-      case 'church':
-        this.generateHighDefChurch(struct, tiles, cx, cy, materials);
-        break;
-      case 'tower':
-        this.generateHighDefTower(struct, tiles, cx, cy, materials);
-        break;
-      case 'dungeon':
-        this.generateHighDefDungeon(struct, tiles, cx, cy);
-        break;
-      case 'cave':
-        this.generateHighDefCave(struct, tiles, cx, cy);
-        break;
-      default:
-        break;
+      switch (struct.type) {
+        case 'castle':
+          this.generateHighDefCastle(struct, tiles, cx, cy, materials);
+          break;
+        case 'city':
+          this.generateHighDefCity(struct, tiles, cx, cy, materials);
+          break;
+        case 'church':
+          this.generateHighDefChurch(struct, tiles, cx, cy, materials);
+          break;
+        case 'tower':
+          this.generateHighDefTower(struct, tiles, cx, cy, materials);
+          break;
+        case 'dungeon':
+          this.generateHighDefDungeon(struct, tiles, cx, cy);
+          break;
+        case 'cave':
+          this.generateHighDefCave(struct, tiles, cx, cy);
+          break;
+        default:
+          break;
+      }
+    } catch (err) {
+      console.error('AdvancedStructureGenerator Error:', err);
     }
   }
 
