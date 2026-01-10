@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createMockStrapi, MOCK_MONSTERS } from './setup/harness';
 import { StrapiContext } from '../tool-factory';
-import { ActionDispatcher } from '../../../../engine';
+import { ActionDispatcher } from '@daicer/engine';
 
 // Mock Modules
 vi.mock('../../../../engine', async (importOriginal) => {

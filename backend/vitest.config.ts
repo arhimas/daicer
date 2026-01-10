@@ -1,6 +1,16 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  plugins: [
+    {
+      name: 'fix-lodash-fp',
+      resolveId(source) {
+        if (source === 'lodash/fp') {
+          return { id: require.resolve('lodash/fp.js') };
+        }
+      },
+    },
+  ],
   test: {
     globals: true,
     environment: 'node',
@@ -8,7 +18,7 @@ export default defineConfig({
     hookTimeout: 10000,
     alias: {
       '@': '/src',
-      '@daicer/engine': '/src/engine/index.ts',
+      '@daicer/engine': '/src/api/game/src/engine/index.ts',
       '@daicer/shared': '/src/shared/index.ts',
     },
     coverage: {
@@ -42,5 +52,10 @@ export default defineConfig({
       '**/.git/**',
       '**/.cache/**',
     ],
+    server: {
+      deps: {
+        inline: [/@strapi\/.*/],
+      },
+    },
   },
 });

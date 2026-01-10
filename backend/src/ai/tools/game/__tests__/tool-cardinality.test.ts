@@ -7,15 +7,14 @@ import { Strapi } from '@strapi/strapi';
 
 // --- Mocks ---
 const mockDispatch = vi.fn();
-// Mock ActionDispatcher class
-vi.mock('../../../../engine', async (importOriginal) => {
-  const actual = await importOriginal();
-  // @ts-expect-error Mocking readonly property or mismatched signature
+// Mock ActionDispatcher from Engine
+vi.mock('@daicer/engine', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@daicer/engine')>();
   return {
     ...actual,
-    ActionDispatcher: vi.fn().mockImplementation(function () {
-      return { dispatch: mockDispatch };
-    }),
+    ActionDispatcher: vi.fn().mockImplementation((_streamManager: any) => ({
+      dispatch: mockDispatch,
+    })),
     EntityDeriver: {
       derive: vi.fn(() => ({ hp: 10, maxHp: 10 })),
     },
@@ -157,6 +156,7 @@ describe('SOTA Tool Cardinality Suite', () => {
         expect(result.success).toBe(false);
         expect(result.message).toContain(error);
       } else {
+        if (!result.success) console.log('Test Failed Message:', result.message);
         expect(result.success).toBe(true);
         expect(mockDispatch).toHaveBeenCalled();
         const command = mockDispatch.mock.calls[0][1];

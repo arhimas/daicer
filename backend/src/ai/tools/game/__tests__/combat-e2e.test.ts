@@ -3,7 +3,7 @@ import { performActionTool } from '../perform-action';
 import { summonMonsterTool } from '../summon-monster';
 import { summonCharacterTool } from '../summon-character';
 import { StrapiContext } from '../../tool-factory';
-import { ActionDispatcher, GameState } from '../../../../engine';
+import { ActionDispatcher, GameState } from '@daicer/engine';
 
 // Helper types
 

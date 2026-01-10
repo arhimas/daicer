@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { performActionTool } from '../perform-action';
 import { StrapiContext, StrapiInterface } from '../../tool-factory';
-import { ActionDispatcher } from '../../../../engine';
+import { ActionDispatcher } from '@daicer/engine';
 
 // Mock Dependencies
 vi.mock('../../../../engine', async () => {

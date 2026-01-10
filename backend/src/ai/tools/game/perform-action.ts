@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createDaicerTool, StrapiContext } from '../tool-factory';
-import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '../../../api/game/src/engine';
+import { ActionDispatcher, GameState, Command, WorldSettings, Player } from '@daicer/engine';
 import { RoomWithPopulations } from '../../../lifecycle/socket/types';
 import EntityAdapter from '../../../api/game/services/entity-adapter';
 
@@ -120,13 +120,18 @@ export const performActionTool = (context: StrapiContext) => {
             entities: entities.map((e) => adapter.adapt(e)),
           };
 
-          const dispatcher = new ActionDispatcher();
-
           // 3. Construct Command
           let parsedPayload: Record<string, unknown> = {};
           try {
-            console.log('DEBUG PAYLOAD:', input.payload);
-            parsedPayload = typeof input.payload === 'string' ? JSON.parse(input.payload) : input.payload;
+            if (typeof input.payload === 'string') {
+              try {
+                parsedPayload = JSON.parse(input.payload);
+              } catch (e) {
+                throw new Error(`Invalid JSON payload: ${(e as Error).message}. Received: ${input.payload}`);
+              }
+            } else {
+              parsedPayload = input.payload;
+            }
 
             // Normalization: Map common LLM hallucinations to 'actorId'
             const payloadAny = parsedPayload as Record<string, string | undefined>;
@@ -180,7 +185,7 @@ export const performActionTool = (context: StrapiContext) => {
 
           // 4. Dispatch
           strapi.log.info(`[Tool:PerformAction] Dispatching ${input.commandType}`, parsedPayload);
-
+          const dispatcher = new ActionDispatcher();
           const result = dispatcher.dispatch(state, command);
 
           // 5. Broadcast Events

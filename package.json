@@ -26,7 +26,7 @@
     "kill": "lsof -ti:3000,1337 | xargs kill -9 || true",
     "prepare": "husky",
     "cli": "yarn workspace @daicer/backend cli",
-    "ci": "concurrently -n \"typecheck,lint,test\" -c \"magenta,cyan,green\" \"yarn workspaces run typecheck\" \"yarn workspaces run lint\" \"vitest run\"",
+    "ci": "concurrently -n \"typecheck,lint,test,build\" -c \"magenta,cyan,green,yellow\" \"yarn workspaces run typecheck\" \"yarn workspaces run lint\" \"vitest run\" \"yarn workspaces run build\"",
     "ci:view": "vitest --ui"
   },
   "dependencies": {
