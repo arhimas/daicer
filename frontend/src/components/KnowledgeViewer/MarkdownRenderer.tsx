@@ -12,7 +12,6 @@ interface MarkdownRendererProps {
 
 // Define components outside of render
 const MarkdownComponents: Record<string, React.ElementType> = {
-   
   code({
     node: _node,
     inline,
