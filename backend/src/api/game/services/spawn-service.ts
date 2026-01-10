@@ -186,7 +186,6 @@ export default ({ strapi }) => ({
         'inventory', // Renamed from equipment_items
         'inventory.item',
         'inventory.item.damage_type',
-        'inventory.item.equipment_category',
         'inventory.item.properties',
         'actions', // Relation
         'spells', // Relation (top level?) or Component? Character schema has `spells` relation.

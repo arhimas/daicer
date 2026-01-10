@@ -153,7 +153,12 @@ export type StructureInfo = z.infer<typeof StructureInfoSchema>;
 
 export type Tile = z.infer<typeof TileSchema>;
 export type ChunkDTO = z.infer<typeof ChunkDTOSchema>;
-export type Chunk = ChunkDTO;
+export type Chunk = ChunkDTO & {
+  size: number;
+  minZ: number;
+  maxZ: number;
+  seed?: string;
+};
 export type GridChunk = ChunkDTO;
 export type WorldConfig = z.infer<typeof WorldConfigSchema>;
 

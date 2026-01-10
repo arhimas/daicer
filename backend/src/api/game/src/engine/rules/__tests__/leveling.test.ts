@@ -2,6 +2,8 @@ import { resolveLevelUp, getLevelFromXP } from '../leveling';
 import { EntitySheet } from '../../types';
 import { RuleSet, ClassDefinition } from '../../types/rules';
 
+import { describe, expect, test } from 'vitest';
+
 describe('Leveling Logic', () => {
   const mockRules: RuleSet = {
     xp_table: [0, 300, 900, 2700, 6500],

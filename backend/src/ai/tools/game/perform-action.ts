@@ -125,6 +125,7 @@ export const performActionTool = (context: StrapiContext) => {
           // 3. Construct Command
           let parsedPayload: Record<string, unknown> = {};
           try {
+            console.log('DEBUG PAYLOAD:', input.payload);
             parsedPayload = typeof input.payload === 'string' ? JSON.parse(input.payload) : input.payload;
 
             // Normalization: Map common LLM hallucinations to 'actorId'

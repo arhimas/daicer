@@ -57,6 +57,8 @@ const mockStrapi = {
   },
 };
 
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+
 describe('Game Event Service - State & Validation', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let service: any;

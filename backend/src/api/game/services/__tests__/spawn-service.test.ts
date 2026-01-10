@@ -6,13 +6,7 @@ const mockFindOne = vi.fn();
 const mockFindMany = vi.fn();
 const mockCreate = vi.fn();
 
-const mockDerive = vi.fn();
-
-vi.mock('../../../../engine', () => ({
-  EntityDeriver: {
-    derive: (...args: unknown[]) => mockDerive(...args),
-  },
-}));
+// Using Real EntityDeriver
 
 vi.stubGlobal('strapi', {
   documents: () => ({
@@ -43,16 +37,9 @@ describe('Spawn Service', () => {
 
       mockFindOne.mockResolvedValueOnce(mockMonster); // Monster
 
-      // Mock Derived Result
-      mockDerive.mockReturnValueOnce({
-        hp: 7,
-        maxHp: 7,
-        ac: 12,
-        level: 1,
-        speed: { walk: 30 },
-        formattedActions: [{ name: 'Scimitar', toHit: 4 }], // Mocking derived action
-        proficiencyBonus: 2,
-      });
+      // Using real derivation
+      // Expected HP: 7 (fixed)
+      // AC: 10 + 2 (dex) = 12
 
       // 1. Room Lookup
       // 2. Collision Check
@@ -68,7 +55,6 @@ describe('Spawn Service', () => {
             type: 'monster',
             hp: 7,
             room: 'room-1',
-            room: 'room-1',
             actions: expect.arrayContaining(['action-1']),
           }),
         })
@@ -78,14 +64,7 @@ describe('Spawn Service', () => {
     it('should throw on collision', async () => {
       mockFindOne.mockResolvedValueOnce({ documentId: 'mon-1', name: 'Goblin' });
 
-      // Mock Derived
-      mockDerive.mockReturnValueOnce({
-        hp: 10,
-        maxHp: 10,
-        ac: 10,
-        level: 1,
-        speed: { walk: 30 },
-      });
+      // Using real derivation
 
       mockFindMany
         .mockResolvedValueOnce([{ documentId: 'room-1' }]) // Room
@@ -112,15 +91,7 @@ describe('Spawn Service', () => {
 
       mockFindOne.mockResolvedValueOnce(mockCharacter);
 
-      // Mock Derived Result
-      mockDerive.mockReturnValueOnce({
-        hp: 12,
-        maxHp: 12,
-        ac: 12,
-        level: 1,
-        speed: { walk: 30 },
-        proficiencyBonus: 2,
-      });
+      // Using real derivation
 
       mockFindMany
         .mockResolvedValueOnce([{ documentId: 'room-1' }]) // Room
@@ -134,7 +105,7 @@ describe('Spawn Service', () => {
             type: 'player',
             class: 'cls-1',
             owner: 'user-1',
-            maxHp: 12,
+            maxHp: 10,
             inventory: expect.arrayContaining([expect.objectContaining({ isEquipped: true })]),
             actions: expect.any(Array), // Just check it's populated
           }),

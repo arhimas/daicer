@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Core } from '@strapi/strapi';
 import GameLedgerFactory from '../game-ledger';
 import HistoryServiceFactory from '../history-service';
-import { GameLoop } from '../../../../engine/core/game-loop';
+import { GameLoop } from '../../src/engine/core/game-loop';
 
 // Mock Documents Service
 const documentsService = {

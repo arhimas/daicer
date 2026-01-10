@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { StructureRef, WorldAtlas } from '../world-atlas';
 import { TerrainGenerator } from '../../voxel/terrain-generator';
-import { CivilizationGenerator } from '../../../api/voxel-engine/services/generators/civilization-generator';
+import { CivilizationGenerator } from '../../../../../voxel-engine/services/generators/civilization-generator';
 import { WorldConfig, BlockType } from '../../types';
 
 describe('World Gen Deep Integration', () => {

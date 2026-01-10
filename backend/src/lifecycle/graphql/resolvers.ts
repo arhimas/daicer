@@ -58,17 +58,12 @@ export const registerGraphQLExtension = (strapi) => {
           try {
             // Special Keywords: "characters" or "monsters" list all (limit 50)
             const lowerQuery = query.toLowerCase();
+            const showAllItems = lowerQuery === 'items' || lowerQuery === 'item';
             const showAllCharacters = lowerQuery === 'characters' || lowerQuery === 'character';
             const showAllMonsters = lowerQuery === 'monsters' || lowerQuery === 'monster';
 
-            const filters: Record<string, unknown> = {};
-            if (!showAllMonsters && !showAllCharacters) {
-              // Standard fuzzy search
-              filters.name = { $contains: query };
-            }
-
-            const [monsters, characters] = await Promise.all([
-              !showAllCharacters
+            const [monsters, characters, items] = await Promise.all([
+              !showAllCharacters && !showAllItems
                 ? strapi.documents('api::monster.monster').findMany({
                     filters: showAllMonsters ? {} : { name: { $contains: query } },
                     fields: ['name', 'documentId'],
@@ -76,16 +71,27 @@ export const registerGraphQLExtension = (strapi) => {
                     locale: 'en',
                   })
                 : [],
-              !showAllMonsters
+              !showAllMonsters && !showAllItems
                 ? strapi.documents('api::character.character').findMany({
                     filters: showAllCharacters ? {} : { name: { $contains: query } },
                     fields: ['name', 'documentId'],
                     limit: 50,
                   })
                 : [],
+              !showAllMonsters && !showAllCharacters
+                ? strapi.documents('api::item.item').findMany({
+                    filters: showAllItems ? {} : { name: { $contains: query } },
+                    fields: ['name', 'documentId', 'type'],
+                    limit: 50,
+                  })
+                : [],
             ]);
 
-            strapi.log.info(`[Resolver] Found ${monsters.length || 0} monsters, ${characters.length || 0} characters`);
+            strapi.log.info(
+              `[Resolver] Found ${(monsters || []).length} monsters, ${(characters || []).length} characters, ${
+                (items || []).length
+              } items`
+            );
 
             return [
               ...(monsters || []).map((m: { documentId: string; name: string }) => ({
@@ -97,6 +103,12 @@ export const registerGraphQLExtension = (strapi) => {
                 id: c.documentId,
                 name: c.name,
                 type: 'character',
+              })),
+              ...(items || []).map((i: { documentId: string; name: string; type: string }) => ({
+                id: i.documentId,
+                name: i.name,
+                type: 'item',
+                subtype: i.type, // Pass item type (weapon, armor) as subtype if needed
               })),
             ];
           } catch (error) {

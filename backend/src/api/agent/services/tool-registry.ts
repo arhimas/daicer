@@ -18,9 +18,7 @@ import {
   LongRestCommand,
   Attribute,
 } from '../../game/src/engine';
-import {} from // Schemas imported but not used directly in this file
-// import { AttackIntentSchema, CastSpellIntentSchema, UseFeatureIntentSchema, DashIntentSchema, DisengageIntentSchema, DodgeIntentSchema, GrappleIntentSchema } from '@/types/intents';
-'../../../shared'; // Import shared schemas
+import { CastSpellIntentSchema } from '../../../shared'; // Import shared schemas
 import type { Core } from '@strapi/strapi';
 
 // Generic handler type using unknown for input, strict validation inside
@@ -189,7 +187,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       center: z.object({ x: z.number(), y: z.number(), z: z.number() }),
       radius: z.number(),
       type: z.string(),
-      value: z.number(),
+      value: z.number().optional(),
     }), // Simplified for now
     async (roomId, payload, _user) => {
       const actionEngine = strapi.service('api::game.action-engine');
@@ -214,6 +212,32 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     return await (actionEngine as ActionEngineService).dispatch(roomId, [command]);
   });
 
+  // 9. DROP_ITEM
+  register(
+    'drop_item',
+    'Drop an item from inventory to the ground',
+    z.object({ entityId: z.string(), itemComponentId: z.string() }),
+    async (_roomId, payload, _user) => {
+      const inventoryService = strapi.service('api::game.inventory-service');
+      const p = payload as { entityId: string; itemComponentId: string };
+      // Call Service
+      // Note: roomId not strictly needed unless we validate room presence? Service handles it.
+      return await (inventoryService as InventoryService).dropItem(p.entityId, p.itemComponentId);
+    }
+  );
+
+  // 10. PICKUP_ITEM
+  register(
+    'pickup_item',
+    'Pick up an item (loot pile) from the ground',
+    z.object({ actorId: z.string(), targetId: z.string() }),
+    async (_roomId, payload, _user) => {
+      const inventoryService = strapi.service('api::game.inventory-service');
+      const p = payload as { actorId: string; targetId: string };
+      return await (inventoryService as InventoryService).pickupItem(p.actorId, p.targetId);
+    }
+  );
+
   return {
     hasTool(name: string) {
       return !!tools[name];
@@ -233,4 +257,9 @@ interface ActionEngineService {
 }
 interface SpawnService {
   spawn(roomId: string, payload: unknown): Promise<unknown>;
+}
+interface InventoryService {
+  dropItem(entityId: string, itemComponentId: string): Promise<unknown>;
+  pickupItem(actorId: string, targetId: string): Promise<unknown>;
+  dropAll(entityId: string): Promise<unknown>;
 }

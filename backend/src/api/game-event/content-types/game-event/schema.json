@@ -28,6 +28,7 @@
         "LONG_REST_COMPLETED",
         "SHORT_REST",
         "DEATH_SAVE",
+        "ENTITY_DEATH",
         "INITIATIVE",
         "TURN_START",
         "TURN_END",

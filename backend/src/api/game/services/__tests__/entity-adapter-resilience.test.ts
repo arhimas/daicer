@@ -25,6 +25,7 @@ describe('Entity Adapter Resilience (Strict Mode)', () => {
       name: 'Test Entity',
       type: 'monster',
       stats: { strength: 10 },
+      maxHp: 10, // Explicitly set maxHp to avoid blueprint default variance
       inventory: [],
       actions: [],
     };

@@ -1,6 +1,10 @@
 import { EntityDeriver } from '../index';
 import { DerivationContext } from '../types';
 
+import { describe, it, expect } from 'vitest';
+
+import { describe, it, expect } from 'vitest';
+
 describe('EntityDeriver', () => {
   const baseAttributes = {
     strength: 10,

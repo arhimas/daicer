@@ -25,6 +25,13 @@ export class ChunkBuilder {
     // 2. Civilization (Roads & Structures)
     this.civGen.apply(chunkX, chunkY, tiles, worldOffsetX, worldOffsetY);
 
-    return { x: chunkX, y: chunkY, tiles };
+    return {
+      x: chunkX,
+      y: chunkY,
+      tiles,
+      size: size,
+      minZ: -3,
+      maxZ: 3,
+    };
   }
 }

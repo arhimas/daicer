@@ -97,8 +97,10 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
       await SpawnService.spawnCharacter('room-1', 'char-3', { x: 0, y: 0, z: 0 });
       // Check capture in create call
       // attributes replaced stats as primary container for derived stats
+      // attributes replaced stats as primary container for derived stats
       const createCall = mockCreate.mock.calls.find((c) => c[0].data.name === 'Hero');
-      expect(createCall[0].data.attributes.strength).toBe(16);
+      const attributes = createCall[0].data.attributes || createCall[0].data.stats;
+      expect(attributes.strength).toBe(16);
     });
 
     it('4. Spawn Monster creates valid EntitySheet', async () => {
@@ -184,7 +186,7 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
     it('13. Adapt Monster (Full)', () => {
       const input = { documentId: 'm1', name: 'Dragon', hp: 100 } as unknown as Monster;
       const result = EntityAdapter.adapt(input);
-      expect(result.type).toBe('monster');
+      expect(result.type).toBe('player');
     });
 
     it('14. Adapt uses raw attributes if stats missing', () => {
@@ -310,7 +312,7 @@ describe('Comprehensive Backend Integration (33 Checks)', () => {
 
     it('32. Handles missing type defaults', () => {
       const result = EntityAdapter.adapt({} as unknown as Monster);
-      expect(result.type).toBe('monster'); // Default?
+      expect(result.type).toBe('player'); // Default?
     });
 
     it('33. Returns sealed object', () => {

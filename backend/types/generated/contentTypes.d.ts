@@ -605,7 +605,9 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     experience: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
+    isReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
+    lastSeenAt: Schema.Attribute.DateTime;
     level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'> & Schema.Attribute.Private;
@@ -622,7 +624,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     spellbook: Schema.Attribute.Component<'game.spellbook', false>;
     stats: Schema.Attribute.Component<'game.stats', false>;
     traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
-    type: Schema.Attribute.Enumeration<['player', 'monster', 'npc']> & Schema.Attribute.DefaultTo<'player'>;
+    type: Schema.Attribute.Enumeration<['player', 'monster', 'npc', 'loot']> & Schema.Attribute.DefaultTo<'player'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -668,66 +670,6 @@ export interface ApiEquipmentCategoryEquipmentCategory extends Struct.Collection
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-  };
-}
-
-export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
-  collectionName: 'equipments';
-  info: {
-    description: 'Weapons, armor, and adventuring gear';
-    displayName: 'Equipment';
-    pluralName: 'equipments';
-    singularName: 'equipment';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
-    armor_class_base: Schema.Attribute.Integer;
-    armor_class_dex_bonus: Schema.Attribute.Boolean;
-    cost_quantity: Schema.Attribute.Integer;
-    cost_unit: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    damage_dice: Schema.Attribute.String;
-    damage_type: Schema.Attribute.Relation<'oneToOne', 'api::damage-type.damage-type'>;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
-    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
-    equipment_category: Schema.Attribute.Relation<'manyToOne', 'api::equipment-category.equipment-category'>;
-    image: Schema.Attribute.Media<'images'>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::equipment.equipment'>;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    properties: Schema.Attribute.Relation<'manyToMany', 'api::weapon-property.weapon-property'>;
-    publishedAt: Schema.Attribute.DateTime;
-    range_long: Schema.Attribute.Integer;
-    range_normal: Schema.Attribute.Integer;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
-    stealth_disadvantage: Schema.Attribute.Boolean;
-    str_minimum: Schema.Attribute.Integer;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    versatile_damage: Schema.Attribute.String;
-    weight: Schema.Attribute.Float;
   };
 }
 
@@ -812,6 +754,7 @@ export interface ApiGameEventGameEvent extends Struct.CollectionTypeSchema {
         'LONG_REST_COMPLETED',
         'SHORT_REST',
         'DEATH_SAVE',
+        'ENTITY_DEATH',
         'INITIATIVE',
         'TURN_START',
         'TURN_END',
@@ -975,64 +918,6 @@ export interface ApiLanguageLanguage extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-  };
-}
-
-export interface ApiMagicItemMagicItem extends Struct.CollectionTypeSchema {
-  collectionName: 'magic_items';
-  info: {
-    description: 'Magical items and artifacts (Structured)';
-    displayName: 'Magic Item';
-    pluralName: 'magic-items';
-    singularName: 'magic-item';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    active_abilities: Schema.Attribute.Component<'game.action', true>;
-    attunement_condition: Schema.Attribute.String;
-    attunement_required: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    base_item: Schema.Attribute.Relation<'oneToOne', 'api::equipment.equipment'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
-    embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
-    equipment_category: Schema.Attribute.Relation<'manyToOne', 'api::equipment-category.equipment-category'>;
-    has_charges: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    image: Schema.Attribute.Media<'images'>;
-    image_url: Schema.Attribute.String;
-    is_variant: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::magic-item.magic-item'>;
-    max_charges: Schema.Attribute.Integer;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    rarity: Schema.Attribute.Enumeration<
-      ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Artifact', 'Varies']
-    >;
-    recharge_formula: Schema.Attribute.String;
-    recharge_trigger: Schema.Attribute.Enumeration<['Dawn', 'Dusk', 'Short Rest', 'Long Rest', 'Special']>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1633,6 +1518,37 @@ export interface ApiTurnTurn extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiVoxelChangeVoxelChange extends Struct.CollectionTypeSchema {
+  collectionName: 'voxel_changes';
+  info: {
+    description: 'Persistent delta storage for terrain modifications';
+    displayName: 'Voxel Change';
+    pluralName: 'voxel-changes';
+    singularName: 'voxel-change';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    chunkX: Schema.Attribute.Integer & Schema.Attribute.Required;
+    chunkY: Schema.Attribute.Integer & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::voxel-change.voxel-change'> & Schema.Attribute.Private;
+    newType: Schema.Attribute.String & Schema.Attribute.Required;
+    previousType: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    reason: Schema.Attribute.String;
+    timestamp: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    voxelX: Schema.Attribute.Integer & Schema.Attribute.Required;
+    voxelY: Schema.Attribute.Integer & Schema.Attribute.Required;
+    voxelZ: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
 export interface ApiWeaponPropertyWeaponProperty extends Struct.CollectionTypeSchema {
   collectionName: 'weapon_properties';
   info: {
@@ -2142,14 +2058,12 @@ declare module '@strapi/strapi' {
       'api::dm-setting.dm-setting': ApiDmSettingDmSetting;
       'api::entity-sheet.entity-sheet': ApiEntitySheetEntitySheet;
       'api::equipment-category.equipment-category': ApiEquipmentCategoryEquipmentCategory;
-      'api::equipment.equipment': ApiEquipmentEquipment;
       'api::feature.feature': ApiFeatureFeature;
       'api::game-event.game-event': ApiGameEventGameEvent;
       'api::item.item': ApiItemItem;
       'api::knowledge-snippet.knowledge-snippet': ApiKnowledgeSnippetKnowledgeSnippet;
       'api::knowledge-source.knowledge-source': ApiKnowledgeSourceKnowledgeSource;
       'api::language.language': ApiLanguageLanguage;
-      'api::magic-item.magic-item': ApiMagicItemMagicItem;
       'api::magic-school.magic-school': ApiMagicSchoolMagicSchool;
       'api::message.message': ApiMessageMessage;
       'api::monster.monster': ApiMonsterMonster;
@@ -2163,6 +2077,7 @@ declare module '@strapi/strapi' {
       'api::time-frame.time-frame': ApiTimeFrameTimeFrame;
       'api::trait.trait': ApiTraitTrait;
       'api::turn.turn': ApiTurnTurn;
+      'api::voxel-change.voxel-change': ApiVoxelChangeVoxelChange;
       'api::weapon-property.weapon-property': ApiWeaponPropertyWeaponProperty;
       'api::world.world': ApiWorldWorld;
       'plugin::content-releases.release': PluginContentReleasesRelease;

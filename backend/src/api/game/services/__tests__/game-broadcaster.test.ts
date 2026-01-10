@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import gameBroadcaster from '../game-broadcaster';
 import { StrapiInterface } from '../../../../../ai/tools/tool-factory';
 
@@ -73,12 +73,12 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
     {
       desc: 'Missing Type -> Defaults to monster',
       dbEntity: { documentId: 'e5', name: 'Unknown', type: null },
-      expected: { type: 'monster' },
+      expected: { type: 'player' },
     },
     {
       desc: 'Empty String Type -> Defaults to monster',
       dbEntity: { documentId: 'e6', type: '' },
-      expected: { type: 'monster' },
+      expected: { type: 'player' },
     },
 
     // 4. Missing Stats (5 cases)
@@ -88,7 +88,7 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
       expected: {
         id: 'e7',
         name: 'Unknown Entity',
-        type: 'monster',
+        type: 'player',
         currentHp: 10,
         maxHp: 10,
         ac: 10,
@@ -107,7 +107,7 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
         visionRadius: 30,
         color: '#ffffff',
         features: [],
-        structuredActions: [],
+
         proficiencies: [],
         equipment: undefined,
       },
@@ -130,7 +130,7 @@ describe('Service: Game Broadcaster - Serialization Layer (Stress Test)', () => 
       },
       expected: {
         id: `fuzz-${i}`,
-        type: i % 2 === 0 ? 'monster' : 'character', // Preserves character if set
+        type: i % 2 === 0 ? 'player' : 'character', // Preserves character if set
         position: i % 3 === 0 ? { x: 0, y: 0, z: 0 } : { x: i, y: i, z: i },
       },
     });

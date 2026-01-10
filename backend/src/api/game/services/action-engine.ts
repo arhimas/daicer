@@ -7,7 +7,7 @@
 
 import { factories } from '@strapi/strapi';
 import { Alea } from '../src/engine/voxel/utils/math';
-import { Command, MoveCommand, AttackCommand } from '../src/engine/types';
+import { Command, MoveCommand, AttackCommand, ModifyTerrainCommand } from '../src/engine/types';
 import { ActionResult } from '../src/engine/types/engine';
 import { findPath } from '../src/engine/rules/spatial';
 import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
@@ -31,11 +31,7 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         case 'INTERACT':
         case 'LONG_REST':
         case 'MODIFY_TERRAIN':
-          return {
-            success: false,
-            message: `Command ${command.type} not yet implemented in ActionEngine`,
-            events: [],
-          };
+          return this.handleModifyTerrain(command as ModifyTerrainCommand);
         default:
           return {
             success: false,
@@ -252,6 +248,35 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         documentId: targetId,
         data: { hp: newHp } as any,
       });
+
+      // Death Logic Injection
+      if (newHp === 0 && target.hp > 0) {
+        // Entity just died (or downed)
+        // For Monsters: Drop All immediately
+        // For Players: Usually Death Saves, but if "Massive Damage" rule or simple mode...
+        // We'll enforce DropAll for 'monster' type for now.
+        if (target.type === 'monster' || target.type === 'npc') {
+          try {
+            await strapi.service('api::game.inventory-service').dropAll(targetId);
+
+            // Log Death Event
+            await strapi.documents('api::game-event.game-event').create({
+              data: {
+                type: 'ENTITY_DEATH',
+                room: actor.room.documentId,
+                actor: targetId, // The one who died
+                payload: {
+                  killerId: actorId,
+                  position: target.position, // Log position for history markers
+                },
+                timestamp: Date.now(),
+              },
+            });
+          } catch (err) {
+            console.error('Failed to process death drop:', err);
+          }
+        }
+      }
     }
 
     const resultMsg = isHit ? `Hit for ${damageTotal} damage` : `Missed (Rolled ${total} vs AC ${ac})`;
@@ -294,6 +319,87 @@ export default factories.createCoreService('api::game.action-engine', ({ strapi 
         },
       ],
       newStateDiff: {},
+    };
+  },
+
+  async handleModifyTerrain(command: ModifyTerrainCommand): Promise<ActionResult> {
+    const p = command.payload as any;
+    const actorId = p.actorId;
+    const center = p.center;
+    const radius = p.radius || 0;
+    const blockType = p.type || p.blockType || 'Stone';
+
+    // 1. Validation
+    const actor = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: actorId,
+      populate: ['room', 'room.config'],
+    });
+
+    if (!actor || !actor.room) throw new Error('Actor must be in a room to modify terrain.');
+
+    // 2. Resolve Config & Chunk Size
+    const worldConfig = (actor.room.config as WorldConfig) || { chunkSize: 16 };
+    const chunkSize = worldConfig.chunkSize || 16;
+
+    // 3. Iterate Radius
+    // Convert center {x,y} to range.
+    const startX = Math.floor(center.x - radius);
+    const endX = Math.ceil(center.x + radius);
+    const startY = Math.floor(center.y - radius);
+    const endY = Math.ceil(center.y + radius);
+
+    let modifications = 0;
+
+    for (let x = startX; x <= endX; x++) {
+      for (let y = startY; y <= endY; y++) {
+        // Check distance
+        const dist = Math.sqrt(Math.pow(x - center.x, 2) + Math.pow(y - center.y, 2));
+        if (dist <= radius + 0.5) {
+          // inclusive radius
+          // Convert to Chunk Coordinates
+          const chunkX = Math.floor(x / chunkSize);
+          const chunkY = Math.floor(y / chunkSize);
+          const localX = ((x % chunkSize) + chunkSize) % chunkSize;
+          const localY = ((y % chunkSize) + chunkSize) % chunkSize;
+
+          // Call Voxel Engine
+          await strapi
+            .service('api::voxel-engine.voxel-engine')
+            .editTerrain(chunkX, chunkY, localX, localY, Math.round(center.z), blockType, 'Tool Modification');
+          modifications++;
+        }
+      }
+    }
+
+    // 4. Emit Event
+    const eventPayload = {
+      type: 'TERRAIN_MODIFIED',
+      center,
+      radius,
+      blockType,
+      count: modifications,
+    };
+
+    await strapi.documents('api::game-event.game-event').create({
+      data: {
+        type: 'TERRAIN_MODIFIED',
+        room: actor.room.documentId,
+        actor: actorId,
+        payload: eventPayload,
+        timestamp: Date.now(),
+      },
+    });
+
+    return {
+      success: true,
+      message: `Modified ${modifications} voxels to ${blockType}`,
+      events: [
+        {
+          type: 'TERRAIN_MODIFIED',
+          payload: eventPayload,
+          timestamp: Date.now(),
+        },
+      ],
     };
   },
 }));

@@ -1,5 +1,7 @@
 import createAdapter, { StrapiEntitySheet } from '../entity-adapter';
 
+import { describe, it, expect } from 'vitest';
+
 describe('Integration: Room Entity Adaptation', () => {
   const adapterService = createAdapter();
 

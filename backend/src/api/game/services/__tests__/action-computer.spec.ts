@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { resolveActions, StrapiEntitySheet, StrapiAction } from '../entity-adapter';
 
 describe('Action Computation Logic', () => {
@@ -25,12 +26,15 @@ describe('Action Computation Logic', () => {
         { dice: '2d6', type: 'fire', bonus: 2 },
         { dice: '1d4', type: 'radiant', bonus: 0 },
       ];
-      const sheet = {
+      const sheet: any = {
         actions: [
           {
             documentId: 'a1',
             name: 'Fire Strike',
-            damage: complexDamage,
+            damage_instances: [
+              { dice_count: 2, dice_value: 6, damage_type: 'fire', flat_bonus: 2, effect_type: 'Damage' },
+              { dice_count: 1, dice_value: 4, damage_type: 'radiant', flat_bonus: 0, effect_type: 'Damage' },
+            ],
           },
         ],
       };
@@ -41,8 +45,14 @@ describe('Action Computation Logic', () => {
 
     it('preserves save configuration', () => {
       const save = { stat: 'dexterity', dc: 15, onSave: 'half' };
-      const sheet = {
-        actions: [{ documentId: 'a2', name: 'Trap', save }],
+      const sheet: any = {
+        actions: [
+          {
+            documentId: 'a2',
+            name: 'Trap',
+            save: { stat: 'dexterity', dc: 15, success_type: 'half' },
+          },
+        ],
       };
 
       const res = resolveActions(mockSheet(sheet.actions), baseStats);

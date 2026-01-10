@@ -95,5 +95,6 @@ export const typeDefs = `
     generateTerrainChunk(roomId: ID!, chunkX: Int!, chunkY: Int!, chunkSize: Int): JSON
     generateTerrain(roomId: ID!): Boolean
     executeTool(roomId: ID!, command: String!): JSON
+    submitAgentAnswer(questionId: ID!, answer: String!): JSON
   }
 `;

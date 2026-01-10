@@ -17,7 +17,12 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["player", "monster", "npc"],
+      "enum": [
+        "player",
+        "monster",
+        "npc",
+        "loot"
+      ],
       "default": "player"
     },
     "monster": {
@@ -134,6 +139,13 @@
     },
     "active_effects": {
       "type": "json"
+    },
+    "isReady": {
+      "type": "boolean",
+      "default": false
+    },
+    "lastSeenAt": {
+      "type": "datetime"
     }
   }
 }

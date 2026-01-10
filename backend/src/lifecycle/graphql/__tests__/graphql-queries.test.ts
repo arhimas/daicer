@@ -20,7 +20,14 @@ describe('GraphQL Queries & Resolvers', () => {
     documents: () => ({ findMany: mockFindMany }),
     plugin: vi.fn(),
     log: { info: vi.fn(), error: vi.fn() },
-    service: vi.fn(),
+    service: vi.fn((uid) => {
+      if (uid === 'api::agent.tool-registry') {
+        return {
+          getTools: () => [], // Return empty tools list for testing
+        };
+      }
+      return { use: vi.fn() };
+    }),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,12 +55,14 @@ describe('GraphQL Queries & Resolvers', () => {
     it('should search both monsters and characters for normal query', async () => {
       mockFindMany.mockResolvedValueOnce([{ documentId: 'm1', name: 'Goblin' }]); // Monsters
       mockFindMany.mockResolvedValueOnce([{ documentId: 'c1', name: 'Hero' }]); // Characters
+      mockFindMany.mockResolvedValueOnce([{ documentId: 'i1', name: 'Sword', type: 'weapon' }]); // Items
 
       const res = await search('goblin');
 
-      expect(res).toHaveLength(2);
+      expect(res).toHaveLength(3);
       expect(res).toContainEqual({ id: 'm1', name: 'Goblin', type: 'monster' });
       expect(res).toContainEqual({ id: 'c1', name: 'Hero', type: 'character' });
+      expect(res).toContainEqual({ id: 'i1', name: 'Sword', type: 'item', subtype: 'weapon' });
 
       // Verify filters
       expect(mockFindMany).toHaveBeenCalledWith(

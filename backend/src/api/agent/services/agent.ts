@@ -17,4 +17,12 @@ export default ({ strapi }) => ({
 
     return result;
   },
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async handleAnswer(questionId: string, answer: string, user: any) {
+    strapi.log.info(`[Agent] Received answer for question ${questionId}: ${answer} from ${user?.username}`);
+    // TODO: Connect this to the actual Agent Narrative loop (LangGraph)
+    // For now, we acknowledge it so the frontend doesn't hang.
+    return { success: true };
+  },
 });

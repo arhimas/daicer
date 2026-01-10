@@ -6,9 +6,11 @@ import createAdapter, {
   StrapiEntitySheet,
   StrapiInventoryItem,
 } from '../entity-adapter';
-import { StatBlock } from '../../../engine';
+import { StatBlock } from '../../src/engine';
 
-describe('EntityAdapter', () => {
+import { describe, it, expect } from 'vitest';
+
+describe('EntityDeriver', () => {
   const adapterService = createAdapter();
 
   const mockSheet = (partial: Partial<StrapiEntitySheet> = {}): StrapiEntitySheet => ({
@@ -75,7 +77,7 @@ describe('EntityAdapter', () => {
       expect(resolveInventory(undefined)).toEqual([]);
     });
 
-    it('maps valid items correctly', () => {
+    it('getLevelFromXP returns correct level', () => {
       const input = [
         {
           id: 1,
@@ -162,7 +164,7 @@ describe('EntityAdapter', () => {
     }
   });
 
-  describe('Full Adapt Integration', () => {
+  describe('Game Event Service - State & Validation', () => {
     it('throws on invalid input', () => {
       expect(() => adapterService.adapt(null)).toThrow();
     });

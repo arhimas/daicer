@@ -268,4 +268,11 @@ export const getMutationResolvers = (strapi) => ({
     const result = await strapi.service('api::game.tool-executor').execute(roomId, command);
     return { success: true, message: result };
   },
+
+  submitAgentAnswer: async (_parent, args, context) => {
+    const { questionId, answer } = args;
+    const { user } = context.state;
+    if (!user) throw new Error('Unauthorized');
+    return strapi.service('api::agent.agent').handleAnswer(questionId, answer, user);
+  },
 });

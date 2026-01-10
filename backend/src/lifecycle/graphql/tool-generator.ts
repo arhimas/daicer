@@ -66,7 +66,7 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
 
     // Generate Resolver
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    toolResolvers.Mutation[camelName] = async (parent: any, args: { roomId: string; input: any }, _ctx: any) => {
+    toolResolvers.Mutation[camelName] = async (_parent: any, _args: { roomId: string; input: any }, _ctx: any) => {
       // const { input } = args;
       // const _payload = input?.payload || input;
       // const _user = ctx?.state?.user;
@@ -131,7 +131,6 @@ function getGraphQLType(zodType: z.ZodTypeAny): string {
   if (zodType instanceof z.ZodObject) return 'JSON';
   if (zodType instanceof z.ZodEnum) return 'String'; // Enums as strings for simplicity
   if (zodType instanceof z.ZodOptional) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const inner = getGraphQLType(zodType._def.innerType as z.ZodTypeAny);
     return inner.replace('!', ''); // Remove non-null if present
   }
