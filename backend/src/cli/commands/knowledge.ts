@@ -112,7 +112,7 @@ export async function runKnowledge(options: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     result = (result as any).data || [];
     // Normalize Result
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
 
     // ENRICHMENT STEP: Fetch full entity data for any "entity" kind results
     // The user wants "all readable fields" so we must go to the DB source, not just the vector snippet.

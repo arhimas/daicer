@@ -12,7 +12,7 @@ interface MarkdownRendererProps {
 
 // Define components outside of render
 const MarkdownComponents: Record<string, React.ElementType> = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   code({
     node: _node,
     inline,

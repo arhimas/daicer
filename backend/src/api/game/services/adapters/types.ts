@@ -69,7 +69,7 @@ export interface StrapiAction {
     bonus?: number;
     type: string;
   }[];
-  save?: { dc?: number; stat?: string };
+  save?: { dc?: number; stat?: string; onSave?: string };
   area?: { type: string; size: number };
   range?: number | string; // 60 or "60/120"
   description?: string;
