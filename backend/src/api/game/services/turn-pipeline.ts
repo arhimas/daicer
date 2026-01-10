@@ -14,6 +14,7 @@ import { factories } from '@strapi/strapi';
 import { EngineCommand } from '../schemas/commands';
 import { GameEvent } from '../schemas/events';
 import { ActionResult, StateDiff } from './action-engine';
+import type { UID } from '@strapi/types';
 
 interface TurnInput {
   type: 'command' | 'text';
@@ -84,7 +85,7 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
 
       // A. Apply State Changes
       for (const update of allDiffs.updates) {
-        await strapi.documents(update.collection).update({
+        await strapi.documents(update.collection as UID.ContentType).update({
           documentId: update.documentId,
           data: update.data,
         });

@@ -134,7 +134,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     // 3. Execution (Agent OR Direct)
     // ---------------------------------------------------------
     let finalNarratorResponse: NarratorResponse;
-    let shouldBroadcastEntities = false;
+    const shouldBroadcastEntities = false;
     let outputText = '';
 
     if (direct) {

@@ -8,55 +8,67 @@
 
 import { generateStructured } from '../../../utils/llm/structured';
 import { DMTurnSchema } from '../../../schemas/dm-turn';
-
-interface TurnAction {
-  playerId: string | number;
-  characterId: string | number;
-  type: 'action' | 'movement' | 'bonus' | 'free';
-  intent: string; // The raw description "I attack the goblin"
-  metadata?: Record<string, unknown>;
-  timestamp: number;
-}
-
-interface TurnData {
-  phase: 'idle' | 'waiting_for_actions' | 'processing';
-  startTime: number;
-  actions: TurnAction[];
-}
+import { TurnAction, TurnData, TurnActionType, TurnActionTypeSchema, RoomContext } from '../types';
 
 export default ({ strapi }) => ({
   /**
    * Add an action to the pending queue
    */
-  async addAction(roomId: string | number, playerId: string | number, action: Record<string, unknown>) {
-    const room = await strapi.entityService.findOne('api::room.room', roomId, {
+  async addAction(roomId: string | number, playerId: string | number, actionPayload: Record<string, unknown>) {
+    // Explicit Cast/Check logic to avoid 'as any' blindly
+
+    // 1. Fetch Room
+    const room = (await strapi.entityService.findOne('api::room.room', roomId, {
       populate: ['players'],
-    });
+    })) as RoomContext | null;
 
     if (!room) {
       throw new Error('Room not found');
     }
 
     // Initialize turnData if missing
-    const turnData: TurnData = room.turnData || {
-      phase: 'idle',
-      startTime: Date.now(),
-      actions: [],
-    };
+    const currentTurnData = room.turnData;
+    const turnData: TurnData = currentTurnData
+      ? {
+          phase: currentTurnData.phase,
+          startTime: currentTurnData.startTime,
+          actions: currentTurnData.actions || [],
+        }
+      : {
+          phase: 'idle',
+          startTime: Date.now(),
+          actions: [],
+        };
 
     // Find the player's character
     // We assume the controller has validated that the user is in the room
-    const player = room.players.find((p) => p.userId == playerId || p.id == playerId);
+    const players = room.players || [];
+    const player = players.find((p) => p.userId == playerId || p.id == playerId);
+
     if (!player) {
       throw new Error('Player not in room');
     }
 
+    // Validate Action Type
+    let method: TurnActionType = 'action';
+    const rawType = actionPayload.type;
+    const parseType = TurnActionTypeSchema.safeParse(rawType);
+    if (parseType.success) {
+      method = parseType.data;
+    }
+
+    const intent = typeof actionPayload.intent === 'string' ? actionPayload.intent : 'Unknown Action';
+    const metadata =
+      typeof actionPayload.metadata === 'object' && actionPayload.metadata !== null
+        ? (actionPayload.metadata as Record<string, unknown>)
+        : {};
+
     const newAction: TurnAction = {
       playerId,
       characterId: player.character?.id,
-      type: (action.type as 'action' | 'movement' | 'bonus' | 'free') || 'action',
-      intent: action.intent as string,
-      metadata: action.metadata as Record<string, unknown>,
+      type: method,
+      intent,
+      metadata,
       timestamp: Date.now(),
     };
 
@@ -86,7 +98,7 @@ export default ({ strapi }) => ({
   /**
    * Helper: Build Context for the DM
    */
-  async buildTurnContext(room: Record<string, unknown>, turnData: TurnData) {
+  async buildTurnContext(room: RoomContext, turnData: TurnData) {
     // 1. World Context
     const worldInfo = `
 WORLD SETTING: ${room.setting || 'Generic Fantasy'}
@@ -97,25 +109,33 @@ DESCRIPTION: ${room.worldDescription || ''}
 
     // 2. Character Context (Simplified)
     // Access pre-populated entity_sheets from room
+    const sheets = room.entity_sheets || [];
 
     const charContext =
-      ((room.entity_sheets as Record<string, unknown>[]) || [])
-        ?.map((cs) => {
-          const char = cs.character as Record<string, unknown>; // blueprint
-          const race = char?.race as Record<string, unknown>;
-          const charClass = char?.class as Record<string, unknown>;
-          const stats = cs.stats as Record<string, unknown>;
-          const pos = cs.position as Record<string, unknown>;
+      sheets.length > 0
+        ? sheets
+            .map((cs) => {
+              // Robust checking for populated fields
+              const char =
+                typeof cs.character === 'object' && cs.character ? (cs.character as Record<string, unknown>) : null;
+              const race = char && typeof char.race === 'object' ? (char.race as Record<string, unknown>) : null;
+              const charClass = char && typeof char.class === 'object' ? (char.class as Record<string, unknown>) : null;
+              const stats = typeof cs.stats === 'object' ? (cs.stats as Record<string, unknown>) : null;
+              const pos = typeof cs.position === 'object' ? (cs.position as Record<string, unknown>) : null;
 
-          return `
+              const raceName = race?.name || 'Humph';
+              const className = charClass?.name || 'Commoner';
+
+              return `
 ID: ${cs.id}
-NAME: ${char?.name || 'Unknown'} (${race?.name} ${charClass?.name})
+NAME: ${char?.name || 'Unknown'} (${raceName} ${className})
 STATUS: HP ${cs.currentHp}/${cs.maxHp}
 POSITION: (${pos?.x}, ${pos?.y})
 STATS: SPD ${stats?.speed}
 `.trim();
-        })
-        .join('\n\n') || 'No characters found.';
+            })
+            .join('\n\n')
+        : 'No characters found.';
 
     // 3. Action Context
     const actionContext = turnData.actions
@@ -128,7 +148,7 @@ STATS: SPD ${stats?.speed}
   /**
    * RESOLVE TURN WITH LLM
    */
-  async resolveTurnWithLLM(room: Record<string, unknown>, turnData: TurnData) {
+  async resolveTurnWithLLM(room: RoomContext, turnData: TurnData) {
     const context = await this.buildTurnContext(room, turnData);
 
     const systemPrompt = `You are the Dungeon Master.
@@ -178,16 +198,16 @@ Resolve this turn.
    * 4. clear queue
    */
   async processTurn(roomId: string | number) {
-    const room = await strapi.entityService.findOne('api::room.room', roomId, {
+    const room = (await strapi.entityService.findOne('api::room.room', roomId, {
       populate: {
         players: { populate: ['character'] },
         character_sheets: { populate: ['character', 'stats', 'position', 'race', 'class'] },
       },
-    });
+    })) as RoomContext | null;
 
     if (!room) throw new Error('Room not found');
 
-    const turnData: TurnData = room.turnData;
+    const turnData: TurnData | undefined = room.turnData;
 
     if (!turnData || turnData.actions.length === 0) {
       return { message: 'No actions to process' };
@@ -211,7 +231,9 @@ Resolve this turn.
       for (const call of dmOutput.tool_calls) {
         try {
           let result = null;
-          const { tool, args } = call;
+          // Ensure structure compatibility
+          const tool = call.tool;
+          const args = Array.isArray(call.args) ? call.args : [];
 
           if (tool === 'roll_dice') {
             result = actionRegistry.rollDice(args[0]);
@@ -226,8 +248,9 @@ Resolve this turn.
             result = await actionRegistry.applyDamage(tId, Number(amt), String(type));
             mechanicsLog.push(`[Combat] Entity ${tId} took ${result.damage} ${result.type} damage.`);
           }
-        } catch (err) {
-          mechanicsLog.push(`[Error] Tool ${call.tool} failed: ${err.message}`);
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : 'Unknown error';
+          mechanicsLog.push(`[Error] Tool ${call.tool} failed: ${msg}`);
         }
       }
     }

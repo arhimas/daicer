@@ -81,19 +81,21 @@ export default ({ strapi }) => ({
 
     const derived = EntityDeriver.derive({
       attributes: {
-        str: stats.strength || 10,
-        dex: stats.dexterity || 10,
-        con: stats.constitution || 10,
-        int: stats.intelligence || 10,
-        wis: stats.wisdom || 10,
-        cha: stats.charisma || 10,
+        attributes: {
+          strength: stats.strength || 10,
+          dexterity: stats.dexterity || 10,
+          constitution: stats.constitution || 10,
+          intelligence: stats.intelligence || 10,
+          wisdom: stats.wisdom || 10,
+          charisma: stats.charisma || 10,
+        },
       },
       level: monster.level || Math.max(1, Math.floor(monster.challenge_rating || 1)),
       isMonster: true,
       equipment: equipmentForDeriver,
       innateActions: [], // JSON structuredActions deprecated. We rely on relations now.
       race: {
-        speed: monster.speed, // Pass explicit speed if any
+        speed: monster.speed as any, // Cast to any as internal Speed type (number | object) matches but index signature is strict
       },
       // Override derivation with authoritative blueprint values if present
       ac: monster.ac,
@@ -246,12 +248,12 @@ export default ({ strapi }) => ({
     // Prepare Derivation Context
     const stats: Partial<StatBlock> = character.stats || {};
     const attributes = {
-      str: stats.strength || 10,
-      dex: stats.dexterity || 10,
-      con: stats.constitution || 10,
-      int: stats.intelligence || 10,
-      wis: stats.wisdom || 10,
-      cha: stats.charisma || 10,
+      strength: stats.strength || 10,
+      dexterity: stats.dexterity || 10,
+      constitution: stats.constitution || 10,
+      intelligence: stats.intelligence || 10,
+      wisdom: stats.wisdom || 10,
+      charisma: stats.charisma || 10,
     };
 
     const level = character.level || 1;

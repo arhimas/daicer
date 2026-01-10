@@ -36,6 +36,7 @@ export interface DerivationContext {
   // Legacy / Monster support:
   level?: number;
   isMonster?: boolean;
+  type?: string;
 
   proficiencyBonus?: number; // Optional override
   equipment: Equipment[];

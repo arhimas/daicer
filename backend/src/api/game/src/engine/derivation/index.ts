@@ -17,8 +17,7 @@ export class EntityDeriver {
   /**
    * Derives all dependent stats from the context.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static derive(context: DerivationContext | any) {
+  static derive(context: DerivationContext) {
     // 0. Normalize Attributes (Handle mismatch between Schema 'str' and Logic 'strength')
     if (context.attributes) {
       const map: Record<string, string> = {
@@ -46,21 +45,18 @@ export class EntityDeriver {
         if (map[k]) newAttrs[map[k]] = v as number;
         else newAttrs[k] = v as number; // Preserve others
       }
-      // Ensure we fill in missing with defaults or fallback if creating from partial
-      context = { ...context, attributes: newAttrs };
+      context = { ...context, attributes: newAttrs as any }; // Cast because dynamic construction doesn't match strict Attributes type immediately
     }
 
     // 1. Resolve Level & Proficiency Bonus
     let totalLevel = 1;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const isMonster = context.isMonster || (context as any).type === 'monster';
+    const isMonster = context.isMonster || context.type === 'monster';
 
     if (isMonster && context.level) {
       totalLevel = context.level;
     } else if (context.classes && context.classes.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      totalLevel = context.classes.reduce((sum: number, c: any) => sum + c.level, 0);
+      totalLevel = context.classes.reduce((sum: number, c) => sum + c.level, 0);
     } else if (context.level) {
       totalLevel = context.level;
     }
@@ -87,8 +83,7 @@ export class EntityDeriver {
       if (typeof context.speed === 'number') {
         speed = { walk: context.speed };
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        speed = { ...(context.speed as any) };
+        speed = { ...context.speed };
       }
     }
 

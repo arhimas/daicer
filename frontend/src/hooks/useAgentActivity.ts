@@ -1,15 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client/react';
 import { gql } from '@apollo/client';
-
-export interface AgentLog {
-  id: string;
-  type: string;
-  payload: any;
-  actorId?: string;
-  sequenceId?: number;
-  timestamp: string;
-}
+import { AgentLog } from '@/types/contracts';
 
 const GET_AGENT_LOGS = gql`
   query GetAgentLogs($roomId: ID!) {

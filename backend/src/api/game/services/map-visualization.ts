@@ -21,8 +21,7 @@ export async function generateMapImage(
 
   // Collect vision sources (players)
   const visionSources = players.map((p) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const pos = (p as any).position || (p as any).characterSheet?.position || { x: 0, y: 0, z: 0 };
+    const pos = p.position || p.character?.position || { x: 0, y: 0, z: 0 };
     return pos;
   });
 
@@ -141,8 +140,7 @@ export async function generateMapImage(
       if (isVisible) {
         // Players
         for (const p of players) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const pos = (p as any).position || (p as any).characterSheet?.position;
+          const pos = p.position || p.character?.position;
           if (pos && Math.round(pos.x) === worldX && Math.round(pos.y) === worldY) {
             r = 0;
             g = 255;
