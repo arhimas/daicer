@@ -12,7 +12,7 @@ import useGamePolling from '../hooks/useGamePolling';
 import CharacterCreation from '../components/room/CharacterCreation';
 import { LobbyScreen } from '../components/room/LobbyScreen';
 import GameplayScreen from '../components/game/GameplayScreen';
-import { CombatScreen } from '../components/game/CombatScreen';
+
 import { DynamicLayout } from '../components/layout';
 import { ToolNotificationContainer } from '../components/ui/ToolNotificationToast';
 import { DiceLoader } from '../components/ui/dice-loader';
@@ -469,16 +469,6 @@ export default function GameRoomPage() {
           isOwner={room.owner?.documentId === user?.documentId || room.ownerId === user?.uid}
           onStartGame={handleStartGame}
         />
-      </DynamicLayout>
-    );
-  }
-
-  // PHASE 4: COMBAT - Tactical combat grid
-  if (room.phase === GamePhase.COMBAT) {
-    return (
-      <DynamicLayout showRoomInfo>
-        <CombatScreen roomId={roomId!} />
-        <ToolNotificationContainer toolCalls={recentToolCalls} onDismiss={() => {}} />
       </DynamicLayout>
     );
   }

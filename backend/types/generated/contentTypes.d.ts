@@ -408,46 +408,6 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiActiveStateActiveState extends Struct.CollectionTypeSchema {
-  collectionName: 'active_states';
-  info: {
-    description: "The engine's calculated truth for an Entity";
-    displayName: 'Active State';
-    pluralName: 'active-states';
-    singularName: 'active-state';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    armorClass: Schema.Attribute.Integer;
-    attributes: Schema.Attribute.Component<'game.stats', false>;
-    computedActions: Schema.Attribute.Component<'game.computed-action', true>;
-    conditions: Schema.Attribute.JSON;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    currentHp: Schema.Attribute.Integer;
-    immunities: Schema.Attribute.JSON;
-    initiativeBonus: Schema.Attribute.Integer;
-    level: Schema.Attribute.Integer;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::active-state.active-state'> & Schema.Attribute.Private;
-    maxHp: Schema.Attribute.Integer;
-    passivePerception: Schema.Attribute.Integer;
-    proficiencyBonus: Schema.Attribute.Integer;
-    publishedAt: Schema.Attribute.DateTime;
-    resistances: Schema.Attribute.JSON;
-    saves: Schema.Attribute.JSON;
-    sheet: Schema.Attribute.Relation<'oneToOne', 'api::entity-sheet.entity-sheet'>;
-    skills: Schema.Attribute.JSON;
-    speed: Schema.Attribute.JSON;
-    tempHp: Schema.Attribute.Integer;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    vulnerabilities: Schema.Attribute.JSON;
-  };
-}
-
 export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
   collectionName: 'characters';
   info: {
@@ -634,28 +594,31 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     ac: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     actions: Schema.Attribute.Relation<'manyToMany', 'api::action.action'>;
     active_effects: Schema.Attribute.JSON;
-    activeState: Schema.Attribute.Relation<'oneToOne', 'api::active-state.active-state'>;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
     class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
+    computedActions: Schema.Attribute.Component<'game.computed-action', true>;
+    computedSaves: Schema.Attribute.Component<'game.save-bonus', true>;
+    computedSkills: Schema.Attribute.Component<'game.skill-bonus', true>;
     conditions: Schema.Attribute.Component<'game.condition-instance', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     currentHp: Schema.Attribute.Integer;
+    defenses: Schema.Attribute.Component<'game.damage-modifier', true>;
     entity: Schema.Attribute.Relation<'manyToOne', 'api::entity.entity'>;
     experience: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
+    initiativeBonus: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
-    isReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
-    lastSeenAt: Schema.Attribute.DateTime;
     level: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'> & Schema.Attribute.Private;
     maxHp: Schema.Attribute.Integer;
     name: Schema.Attribute.String;
     owner: Schema.Attribute.Relation<'manyToOne', 'plugin::users-permissions.user'>;
+    passivePerception: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     position: Schema.Attribute.Component<'game.position', false>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
@@ -664,6 +627,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
     spellbook: Schema.Attribute.Component<'game.spellbook', false>;
     stats: Schema.Attribute.Component<'game.stats', false>;
+    tempHp: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
     type: Schema.Attribute.Enumeration<['player', 'monster', 'npc', 'loot']> & Schema.Attribute.DefaultTo<'player'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -2128,7 +2092,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
-      'api::active-state.active-state': ApiActiveStateActiveState;
       'api::character.character': ApiCharacterCharacter;
       'api::class.class': ApiClassClass;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;

@@ -1,0 +1,183 @@
+This is a strategic pivot. You are choosing the **"Monolithic Game Server"** architecture.
+
+This is a valid, high-performance strategy used by complex MMOs and VTTs. Instead of treating the Engine as a library, we treat Strapi as the **State Machine**. Every game action becomes a database transaction.
+
+Here is the **SOTA Deep Integration Roadmap**, rated and adjusted for this specific architectural goal.
+
+---
+
+# 🏛️ Architecture: The "Database IS the State" Model
+
+### Rating: 75/100 (Potential: 95/100)
+
+**Current Status:** The engine calculates state in memory (`ActionEngine`), then loosely "syncs" it back to Strapi. This causes drift.
+**Goal:** The Engine reads directly from the DB, calculates, and writes back in a **Single Atomic Transaction**.
+
+| Pros                                                            | Cons                                                  | Weaknesses                                                                        |
+| :-------------------------------------------------------------- | :---------------------------------------------------- | :-------------------------------------------------------------------------------- |
+| ✅ **Zero Sync Latency:** The DB is always the source of truth. | ❌ **Database Load:** Heavy read/write on every move. | ⚠️ `ActionEngine` currently returns "Diffs" instead of executing writes directly. |
+| ✅ **Perfect Replays:** History is native to the DB.            | ❌ **Type Friction:** Strapi types vs Engine types.   | ⚠️ No transaction locking (Race conditions possible).                             |
+
+### 🚀 SOTA Improvements
+
+**1. Transactional Turn Execution (The "Atomic Commit")**
+
+- **Concept:** A player move should never "half-finish". Either the position updates AND the stamina drains, or _nothing_ happens.
+- **Implementation:** Wrap the `processTurn` logic in `strapi.db.transaction()`.
+
+  ```typescript
+  // api/game/services/turn-pipeline.ts
+  await strapi.db.transaction(async (trx) => {
+    // 1. Lock Room
+    const room = await trx.query('api::room.room').findOne({ ... });
+
+    // 2. Run Engine Logic
+    const result = Engine.resolve(room);
+
+    // 3. Direct DB Writes (No "Diffs")
+    await trx.query('api::entity-sheet.entity-sheet').update({ ... });
+    await trx.query('api::game-event.game-event').create({ ... });
+  });
+  ```
+
+  _Why:_ This prevents "Ghost States" where the in-memory engine thinks a player moved, but the DB failed to save it.
+
+**2. The "Hydration" Pipeline (Eliminate Adapters)**
+
+- **Concept:** Currently, you have `EntityAdapter` converting Strapi objects to Engine objects. This is slow and error-prone.
+- **Implementation:** Make the Engine work _directly_ with the Strapi Schema structure.
+  - Refactor `api/game/src/engine/types/EntitySheet.ts` to **extend** the Strapi Type definition.
+  - Use Strapi's `populate` feature to fetch the _exact_ shape the engine needs, eliminating the need for a transformation layer.
+
+---
+
+# 🛠️ Engineering: GraphQL as the Only Gateway
+
+### Rating: 65/100
+
+**Status:** Split personality. Some logic is in REST controllers, some in GraphQL resolvers.
+**Goal:** 100% GraphQL Mutations for all Game Logic.
+
+| Pros                                                                                         | Cons                                              | Weaknesses                                         |
+| :------------------------------------------------------------------------------------------- | :------------------------------------------------ | :------------------------------------------------- |
+| ✅ GraphQL allows fetching complex nested state (Room + Players + Inventory) in one request. | ❌ Resolvers currently use `any` types too often. | ⚠️ `api.ts` (frontend) still calls REST endpoints. |
+
+### 🚀 SOTA Improvements
+
+**1. The "Mutation-First" Pattern**
+
+- **Concept:** Delete all REST controllers (`api/game/controllers`). Expose logic _only_ via `lifecycle/graphql/mutation-resolvers.ts`.
+- **Implementation:**
+  - `submitAction` (GraphQL) -> Calls `TurnPipeline` -> Writes to DB.
+  - `getRoomState` (GraphQL) -> Returns the _exact_ DB state.
+  - _Benefit:_ The Frontend `useGamePolling` hook only needs ONE query (`GET_ROOM_QUERY`) to get the entire synchronized world state.
+
+**2. Strict Zod Validation Layer**
+
+- **Concept:** GraphQL types are loose (e.g., `JSON`). We need strict validation _inside_ the resolver before touching the DB.
+- **Implementation:**
+
+  ```typescript
+  // mutation-resolvers.ts
+  submitAction: async (_, args) => {
+    // 1. Validate Input
+    const payload = ActionSchema.parse(JSON.parse(args.action));
+
+    // 2. Execute Logic
+    return strapi.service('api::game.turn-pipeline').process(payload);
+  };
+  ```
+
+---
+
+# 🧪 QA: Integration over Unit Tests
+
+### Rating: 60/100
+
+**Status:** Too many mocks.
+**Goal:** Test the _Database State_ after a Mutation.
+
+| Pros                 | Cons                                     | Weaknesses                                      |
+| :------------------- | :--------------------------------------- | :---------------------------------------------- |
+| ✅ Vitest is set up. | ❌ Tests mock the DB, hiding SQL errors. | ⚠️ No verification that data actually persists. |
+
+### 🚀 SOTA Improvements
+
+**1. The "Black Box" Game Test**
+
+- **Concept:** Don't test the `calculateDamage` function. Test the `submitAction` mutation.
+- **Implementation:** Create a test suite that:
+  1.  Creates a Room in the _real_ SQLite test DB.
+  2.  Calls the `submitAction` GraphQL resolver.
+  3.  Queries the `api::entity-sheet` table to verify HP actually went down.
+  - _Why:_ This proves the _entire_ stack works, from API to Database.
+
+**2. Seeded Determinism Checks**
+
+- **Concept:** Ensure that `WorldGeneration` writes the exact same Voxel data to the DB for the same Seed.
+- **Implementation:** A test that generates a world with Seed "ABC", snapshots the `voxel_changes` table, wipes the DB, runs it again, and compares the table rows.
+
+---
+
+# 📜 Documentation: The Schema is the Map
+
+### Rating: 50/100
+
+**Status:** Outdated text files.
+**Goal:** Auto-generated documentation from the Database Schema.
+
+### 🚀 SOTA Improvements
+
+**1. Entity Relationship Diagram (ERD) Generation**
+
+- **Concept:** Since the logic is deep in the DB, the DB structure _is_ the architecture.
+- **Implementation:** Use a tool like `strapi-plugin-erd` or a script to visualize how `Room` relates to `TimeFrame`, `Turn`, and `EntitySheet`. Put this in the `README.md`.
+
+**2. The "Mutation Catalog"**
+
+- **Concept:** A single markdown file listing every available Game Action and its effect on the Database.
+- **Implementation:**
+  - `MOVE`: Updates `EntitySheet.position`. Logs `GameEvent`.
+  - `ATTACK`: Updates `EntitySheet.hp`. Logs `GameEvent`.
+  - This serves as the "Rules of Physics" for the developer.
+
+---
+
+# 🎮 Game Design: Server-Authoritative State
+
+### Rating: 80/100
+
+**Status:** Strong concepts (TimeFrames), but client-side leakage.
+**Goal:** The Server (Strapi) knows everything; the Client knows only what it sees.
+
+### 🚀 SOTA Improvements
+
+**1. Server-Side Fog of War (The "View" Resolver)**
+
+- **Concept:** Currently, you send the whole map to the client and hide it with CSS. This is cheatable.
+- **Implementation:** In the `GameView` GraphQL resolver:
+  - Calculate visible tiles _on the server_ (using the Voxel Engine).
+  - Filter the `entities` array to remove anyone standing in a non-visible tile.
+  - Return the sanitized object to the frontend.
+
+**2. Persistent "World Memory" (Vector DB)**
+
+- **Concept:** The `knowledge-source` system is great. Integrate it deeper.
+- **Implementation:** When a `Turn` is completed and persisted to Strapi:
+  - Trigger a Lifecycle Hook (`afterCreate`).
+  - Summarize the Turn Narrative.
+  - Embed it into the Vector Store (`sqlite-vec`).
+  - _Result:_ The AI DM instantly "remembers" what happened 5 minutes ago without re-reading the whole chat log.
+
+---
+
+# 🧹 The "Deep Clean" Checklist
+
+To achieve this **Deep Integration**, you must remove the layers that stand between the Engine and Strapi:
+
+1.  **DELETE** `api/game/services/entity-adapter.ts`. (The Engine should read Strapi Entities directly).
+2.  **DELETE** `api/game/controllers/game.ts`. (Move all logic to GraphQL Resolvers).
+3.  **REFACTOR** `api/game/src/engine/core/deterministic-turn-processor.ts`. Instead of returning a new State object, make it return a list of **Database Operations** to be executed.
+4.  **UPDATE** `api/game/services/turn-pipeline.ts`. Make it the "Transaction Manager" that opens the DB transaction, calls the Engine, and commits the changes.
+
+This approach makes Strapi the **Operating System** of your game, not just the hard drive. It is robust, scalable, and ensures data integrity above all else.

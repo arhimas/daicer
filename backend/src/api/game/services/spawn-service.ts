@@ -6,6 +6,7 @@
 
 import { EntityDeriver, StatBlock } from '../src/engine';
 import { BlueprintSchema, SpawnPayloadSchema } from '../schemas/gateway-schemas';
+import { Core } from '@strapi/strapi';
 
 // Define Interfaces for strict typing
 interface InventoryItem {
@@ -37,7 +38,7 @@ interface PopulatedBlueprint {
   traits?: Array<{ documentId: string }>;
   proficiencies?: Array<{ documentId: string }>;
   languages?: Array<{ documentId: string }>;
-  
+
   // Character specific
   race?: {
     documentId: string;
@@ -52,6 +53,7 @@ interface PopulatedBlueprint {
       name: string;
       hit_die: string;
       proficiencies?: Array<{ documentId: string }>;
+      features?: unknown; // Component
     };
   }>;
   spell_config?: {
@@ -59,6 +61,8 @@ interface PopulatedBlueprint {
     known_spells?: Array<{ documentId: string }>;
   };
 }
+
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Spawn a monster into a room by creating a CharacterSheet
    */
@@ -124,7 +128,7 @@ interface PopulatedBlueprint {
           const eqData = item.equipment_data || {};
           return {
             ...item,
-            name: item.name || 'Unknown Item',
+            name: (item.name as string) || 'Unknown Item',
             ...eqData, // Flatten equipment_data
             equipment_category: { slug: item.type || 'misc' }, // Shim for legacy compatibility
             isEquipped: true,
@@ -143,9 +147,9 @@ interface PopulatedBlueprint {
       level: monster.level || Math.max(1, Math.floor(monster.challenge_rating || 1)),
       isMonster: true,
       equipment: equipmentForDeriver,
-      innateActions: [], // JSON structuredActions deprecated. We rely on relations now.
+      innateActions: [],
       race: {
-        speed: monster.speed,
+        speed: (monster.speed as unknown as { walk: number }) || { walk: 30 },
       },
       // Override derivation with authoritative blueprint values if present
       ac: monster.ac,
@@ -173,9 +177,7 @@ interface PopulatedBlueprint {
     try {
       console.info(`[SpawnService] Creating EntitySheet... Room ID: ${room.documentId}`);
 
-      const mappedActions = (monster.actions || [])
-        .filter((a) => a && a.documentId)
-        .map((action) => action.documentId);
+      const mappedActions = (monster.actions || []).filter((a) => a && a.documentId).map((action) => action.documentId);
 
       console.info(`[SpawnService] Mapped Actions IDs: ${JSON.stringify(mappedActions)}`);
 
@@ -339,7 +341,7 @@ interface PopulatedBlueprint {
       equipment: equipmentForDeriver,
       hitDie: hitDie,
       race: {
-        speed: (character.race?.speed as unknown as { walk: number }) || { walk: 30 }, // Handle JSON/Component speed mismatch safely
+        speed: (character.race?.speed as unknown as { walk: number }) || { walk: 30 }, // Handle strictly
       },
       spells: activeSpells,
     });
@@ -374,7 +376,7 @@ interface PopulatedBlueprint {
 
     const mappedActions = (character.actions || []).map((action) => action.documentId);
 
-    // Using Record<string, any> or partial EntitySheet type to avoid heavy casting on creation
+    // Using partial EntitySheet type to avoid heavy casting on creation
     const sheetData = {
       name: character.name,
       type: ownerId ? 'player' : 'npc',
@@ -408,8 +410,8 @@ interface PopulatedBlueprint {
       },
       proficiencies: Array.from(profIds),
       traits: Array.from(traitIds),
-      languages: [], // TODO: Race languages relation
-      features: [], // Empty for now as Class features are components
+      languages: [],
+      features: [],
       initiative: 0,
       proficiencyBonus: derived.proficiencyBonus,
     };
@@ -428,16 +430,18 @@ interface PopulatedBlueprint {
   /**
    * Router for generic spawn command (Agent support)
    */
-  async spawn(roomId: string, rawPayload: any) {
+  async spawn(roomId: string, rawPayload: unknown) {
     console.info(`[SpawnService] Router received spawn command: ${JSON.stringify(rawPayload)}`);
 
     // Normalize Input (handling flat coords for backward compat if needed, simplified here)
+    const rp = rawPayload as { position?: { x: number; y: number; z: number }; x?: number; y?: number; z?: number };
+
     const payloadInput = {
-      ...rawPayload,
-      position: rawPayload.position || {
-        x: rawPayload.x,
-        y: rawPayload.y,
-        z: rawPayload.z,
+      ...rp,
+      position: rp.position || {
+        x: rp.x,
+        y: rp.y,
+        z: rp.z,
       },
     };
 

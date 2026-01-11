@@ -3,7 +3,7 @@
  */
 
 export { default as ChatArea } from './ChatArea';
-export { CombatScreen } from './CombatScreen';
+
 export { default as GameplayScreen } from './GameplayScreen';
 export { default as MarkdownMessage } from './MarkdownMessage';
 export { PlayerSidebar } from './PlayerSidebar';

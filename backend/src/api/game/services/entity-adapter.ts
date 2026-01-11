@@ -91,7 +91,7 @@ export default () => ({
         type: a.type || 'utility',
         description: a.description,
         attack: { bonus: a.toHit || 0, type: a.type || 'melee' },
-        range: { value: a.range || 5 },
+        range: String(a.range || 5),
         effects: a.damageDice ? [{ type: 'damage', dice: a.damageDice, subtype: a.damageType }] : [],
       }));
     }
@@ -113,14 +113,10 @@ export default () => ({
       position: sheet.position || { x: 0, y: 0, z: 0 },
 
       hp: currentHp,
-      tempHp,
       maxHp,
       armorClass,
       speed,
-      level: sheet.level || blueprint.level,
-
-      initiative: sheet.initiativeBonus || 0, // Entity interface might need 'initiative'
-      passivePerception: sheet.passivePerception || 10,
+      level: Number(sheet.level || blueprint.level || 1),
 
       stats,
       equipment: inventory,

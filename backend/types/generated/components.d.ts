@@ -245,6 +245,38 @@ export interface GameDamageInstance extends Struct.ComponentSchema {
   };
 }
 
+export interface GameDamageModifier extends Struct.ComponentSchema {
+  collectionName: 'components_game_damage_modifiers';
+  info: {
+    description: 'Resistance, Immunity, or Vulnerability';
+    displayName: 'Damage Modifier';
+    icon: 'heart-broken';
+  };
+  attributes: {
+    damageType: Schema.Attribute.Enumeration<
+      [
+        'acid',
+        'bludgeoning',
+        'cold',
+        'fire',
+        'force',
+        'lightning',
+        'necrotic',
+        'piercing',
+        'poison',
+        'psychic',
+        'radiant',
+        'slashing',
+        'thunder',
+        'physical',
+        'magical',
+      ]
+    > &
+      Schema.Attribute.Required;
+    modifier: Schema.Attribute.Enumeration<['resistance', 'immunity', 'vulnerability']> & Schema.Attribute.Required;
+  };
+}
+
 export interface GameDmStyle extends Struct.ComponentSchema {
   collectionName: 'components_game_dm_styles';
   info: {
@@ -451,6 +483,23 @@ export interface GameResourcePool extends Struct.ComponentSchema {
   };
 }
 
+export interface GameSaveBonus extends Struct.ComponentSchema {
+  collectionName: 'components_game_save_bonuses';
+  info: {
+    description: 'Calculated saving throw modifier';
+    displayName: 'Save Bonus';
+    icon: 'shield-alt';
+  };
+  attributes: {
+    proficient: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    stat: Schema.Attribute.Enumeration<
+      ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
+    > &
+      Schema.Attribute.Required;
+    value: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0>;
+  };
+}
+
 export interface GameSaveDc extends Struct.ComponentSchema {
   collectionName: 'components_game_save_dcs';
   info: {
@@ -479,6 +528,20 @@ export interface GameScalingConfig extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'Per Slot Level'>;
     scales: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     type: Schema.Attribute.Enumeration<['Dice', 'Target', 'Duration']> & Schema.Attribute.DefaultTo<'Dice'>;
+  };
+}
+
+export interface GameSkillBonus extends Struct.ComponentSchema {
+  collectionName: 'components_game_skill_bonuses';
+  info: {
+    description: 'Calculated skill modifier';
+    displayName: 'Skill Bonus';
+    icon: 'book';
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    proficient: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    value: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0>;
   };
 }
 
@@ -585,6 +648,7 @@ declare module '@strapi/strapi' {
       'game.condition-instance': GameConditionInstance;
       'game.damage-dice': GameDamageDice;
       'game.damage-instance': GameDamageInstance;
+      'game.damage-modifier': GameDamageModifier;
       'game.dm-style': GameDmStyle;
       'game.duration-config': GameDurationConfig;
       'game.equipment-data': GameEquipmentData;
@@ -595,8 +659,10 @@ declare module '@strapi/strapi' {
       'game.position': GamePosition;
       'game.range-config': GameRangeConfig;
       'game.resource-pool': GameResourcePool;
+      'game.save-bonus': GameSaveBonus;
       'game.save-dc': GameSaveDc;
       'game.scaling-config': GameScalingConfig;
+      'game.skill-bonus': GameSkillBonus;
       'game.spell-components': GameSpellComponents;
       'game.spell-data': GameSpellData;
       'game.spellbook': GameSpellbook;

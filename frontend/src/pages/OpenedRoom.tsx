@@ -18,7 +18,6 @@ import { DiceLoader } from '../components/ui/dice-loader';
 
 import ToolCallCard from '../components/chat/ToolCallCard';
 
-import { auth } from '../services/firebase';
 // import { useI18n } from '../i18n';
 
 /**
@@ -128,7 +127,7 @@ export default function OpenedRoomPage() {
       if (isCleanedUp) return;
 
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-      const { currentUser } = auth;
+      const currentUser = user;
       if (!currentUser) return;
 
       const token = await currentUser.getIdToken();

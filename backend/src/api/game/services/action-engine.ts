@@ -361,7 +361,7 @@ export default ({ strapi }) => ({
         actor: actorId,
         payload: {
           targetId,
-          actionId,
+          actionId: actionDef.id,
           roll: d20,
           total,
           isHit,

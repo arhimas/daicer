@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client/react';
 import { toast } from 'sonner';
 import type { Player, EntitySheet } from '@/types/contracts';
-import { EXECUTE_TOOL_MUTATION } from '../../graphql/mutations';
+import { ExecuteToolDocument } from '../../gql/graphql';
 import UniversalEntitySheet from './UniversalEntitySheet';
 
 interface EntitySheetPanelProps {
@@ -11,7 +11,7 @@ interface EntitySheetPanelProps {
 }
 
 export default function EntitySheetPanel({ player, roomId, onClose }: EntitySheetPanelProps) {
-  const [executeTool] = useMutation(EXECUTE_TOOL_MUTATION);
+  const [executeTool] = useMutation(ExecuteToolDocument);
 
   if (!player?.character) return null;
 
@@ -28,9 +28,6 @@ export default function EntitySheetPanel({ player, roomId, onClose }: EntityShee
       if (!actorId) throw new Error('No Actor ID found');
 
       // Construct command
-      // We assume simple self-target or no-target for MVP if implied
-      // but ideally we need a target picker.
-      // For verification: Just firing it.
       const command = `perform_action(actorId="${actorId}", actionId="${actionId}")`;
 
       const result = await executeTool({
@@ -40,7 +37,7 @@ export default function EntitySheetPanel({ player, roomId, onClose }: EntityShee
         },
       });
 
-      if ((result.data as any)?.executeTool) {
+      if (result.data?.executeTool) {
         toast.success(`Action initiated: ${actionId}`);
       }
     } catch (err) {

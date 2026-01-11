@@ -14,6 +14,12 @@ vi.stubGlobal('strapi', {
     findMany: mockFindMany,
     create: mockCreate,
   }),
+  service: (uid: string) => {
+    if (uid === 'api::game.entity-derivation') {
+      return { deriveAndPersist: vi.fn().mockResolvedValue(true) };
+    }
+    return {};
+  },
 });
 
 describe('Spawn Service', () => {

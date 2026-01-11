@@ -4,7 +4,6 @@ import GoogleAuthCallback from './pages/GoogleAuthCallback';
 import GameRoomPage from './pages/GameRoom';
 import RoomsPage from './pages/Rooms';
 
-import TestSetupPage from './pages/TestSetup';
 import { RulesExplorerLayout } from './pages/RulesExplorer/Layout';
 import { RulesDashboard } from './pages/RulesExplorer/RulesDashboard';
 import { RulesCategoryPage } from './pages/RulesExplorer/RulesCategoryPage';
@@ -82,14 +81,6 @@ export default function App() {
           }
         />
 
-        <Route
-          path="/test-setup"
-          element={
-            <ProtectedRoute>
-              <TestSetupPage />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/rules"
           element={

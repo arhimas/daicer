@@ -8,11 +8,10 @@ import { Button } from '../components/ui/button';
 import { RoomSelection } from '../features/debug/components/RoomSelection';
 import { GameDebugView } from '../features/debug/components/GameDebugView';
 import { WorldConfigForm } from '../features/debug/components/WorldConfigForm';
-import { UnifiedSearchDebug } from '../features/debug/components/UnifiedSearchDebug';
 
 import type { WorldConfig } from '../features/debug/utils/types';
 
-type Stage = 'selection' | 'dm-setup' | 'world' | 'debug' | 'knowledge';
+type Stage = 'selection' | 'dm-setup' | 'world' | 'debug';
 
 export default function DebugPage() {
   const [stage, setStage] = useState<Stage>('selection');
@@ -84,17 +83,6 @@ export default function DebugPage() {
           )}
 
           {/* Navigation for Knowledge Base (Temporary Access) */}
-          {stage === 'selection' && (
-            <div className="absolute top-4 right-4 z-50">
-              <Button
-                variant="outline"
-                onClick={() => setStage('knowledge')}
-                className="border-amber-500/50 text-amber-500 hover:bg-amber-950"
-              >
-                🧠 Knowledge Base
-              </Button>
-            </div>
-          )}
 
           {stage === 'world' && (
             <div className="h-full flex flex-col items-center justify-center p-8 space-y-8 animate-in zoom-in-95 duration-500">
@@ -124,12 +112,6 @@ export default function DebugPage() {
           )}
 
           {stage === 'debug' && activeRoomId && <GameDebugView roomId={activeRoomId} />}
-
-          {stage === 'knowledge' && (
-            <div className="h-full overflow-y-auto px-6 py-10 animate-in fade-in zoom-in-95">
-              <UnifiedSearchDebug />
-            </div>
-          )}
         </div>
       </div>
     </JuicyLayout>
