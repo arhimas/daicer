@@ -27,5 +27,4 @@ async function embeddingProcessor(job: { data: JobPayloads[QueueName.EMBEDDING] 
 }
 
 // Register the worker
-// Using a side-effect import pattern: importing this file registers the worker.
 WorkerManager.register(QueueName.EMBEDDING, embeddingProcessor);

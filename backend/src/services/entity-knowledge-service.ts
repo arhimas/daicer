@@ -23,27 +23,42 @@ export class EntityKnowledgeService {
     if (!ENTITY_UIDS.includes(uid)) return;
 
     // 1. Fetch Entity with ALL relations populated
-    // We use a wildcard populate or a deep generic populate strategy?
-    // For now, populate: '*' is decent, but deep nesting might require more.
-    // Strapi 5 might support 'on' or deep populate plugins, but let's stick to standard '*' for level 1
-    // and maybe specific fields if needed. For now '*' + 1 level deep is usually enough for context.
-    const entity = await strapi.entityService.findOne(uid as `api::${string}.${string}`, entityId, {
-      populate: '*',
-    });
+    let entity;
+    
+    // Strapi 5 Logic: Handle Document ID vs ID
+    if (typeof entityId === 'string') {
+        entity = await strapi.documents(uid as any).findOne({
+            documentId: entityId,
+            populate: '*',
+        });
+    } else {
+        // Fallback for ID (though documents API prefers documentId, findOne can filter by id if we use where?)
+        // documents().findOne({ documentId }) is standard. If we have ID, we might need a filter.
+        // But entityService.findOne(uid, id) works for ID.
+        // Let's try documents first if string, else entityService?
+        // Actually, converting to documents API fully is safer for V5.
+        const [found] = await strapi.documents(uid as any).findMany({
+            filters: { id: entityId },
+            populate: '*',
+            limit: 1
+        });
+        entity = found;
+    }
 
-    if (!entity) return;
+    if (!entity) {
+        // Fallback or not found
+        // strapi.log.warn(`[EntityEmbeddings] Entity not found: ${uid}:${entityId}`);
+        return;
+    }
 
     // 2. Generate Markdown Content
     const typeName = uid.split('.')[1]; // 'class', 'spell'
     const name = (entity.name as string) || (entity.title as string) || `Entity ${entityId}`;
 
     // Standardize Tags
-    // Tag 1: Precise Type (Spell)
-    // Tag 2: Broad Category (Game Entity)
-    // Tag 3: Properties (e.g. "Level 3", "Evocation" if available in fields?)
     const tags = [typeName, 'Game Entity'];
 
-    const typedEntity = entity as any; // Safe cast for optional checks
+    const typedEntity = entity as any; 
 
     // Try to extract extra context for tags
     if (typedEntity.level) tags.push(`Level ${typedEntity.level}`);
@@ -52,21 +67,35 @@ export class EntityKnowledgeService {
 
     const markdown = entityToMarkdown(typeName, name, entity as Record<string, unknown>);
 
-    // 2.5 Generate Embedding for Entity Record (Core Embeddings Mandate)
+    // 2.5 Generate Embedding (Core Embeddings Mandate)
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { embeddingService } = require('./embedding-service');
-      // Create a rich representation for the vector
       const embeddingText = `${typeName}: ${name}\n${entity.description || ''}\n${tags.join(', ')}\n${markdown}`;
 
       const embeddingVector = await embeddingService.generateEmbedding(embeddingText);
 
-      // Usage of db.query bypasses lifecycle hooks by default in Strapi v4/v5 unless specified otherwise.
-      // This prevents infinite loop with our Global Subscriber.
-      await strapi.db.query(uid).update({
-        where: { id: entityId },
-        data: { embedding: embeddingVector },
-      });
+      // Save Embedding using DB Query to bypass hooks loop
+      // We must match the correct ID column.
+      if (typeof entityId === 'string') {
+          // Document ID update
+          // db.query().update() needs 'where' clause matching database columns.
+          // In Strapi 5, document_id is the column usually.
+          // SAFE BET: First get the PK (ID) if we have the entity object from above.
+          if (entity.id) {
+             await strapi.db.query(uid).update({
+                where: { id: entity.id },
+                data: { embedding: embeddingVector },
+             });
+          }
+      } else {
+          // ID update
+          await strapi.db.query(uid).update({
+            where: { id: entityId },
+            data: { embedding: embeddingVector },
+          });
+      }
+      
       strapi.log.info(`[EntityEmbeddings] Saved embedding for ${uid}:${entityId}`);
     } catch (err) {
       strapi.log.warn(`[EntityEmbeddings] Failed to save embedding to entity ${uid}:${entityId}`, err);

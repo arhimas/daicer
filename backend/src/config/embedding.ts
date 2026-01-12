@@ -1,28 +1,24 @@
 export const EMBEDDABLE_MODELS = [
-  'api::spell.spell',
-  'api::race.race',
+  'api::action.action',
   'api::class.class',
-  'api::subclass.subclass',
+  'api::damage-type.damage-type',
+  'api::entity.entity',
+  'api::equipment-category.equipment-category',
   'api::feature.feature',
-  'api::trait.trait',
-  'api::proficiency.proficiency',
+  'api::item.item',
   'api::language.language',
   'api::magic-school.magic-school',
-  'api::damage-type.damage-type',
+  'api::proficiency.proficiency',
+  'api::prompt.prompt',
+  'api::race.race',
+  'api::spell.spell',
+  'api::subclass.subclass',
+  'api::trait.trait',
   'api::weapon-property.weapon-property',
   'api::knowledge-source.knowledge-source',
   'api::knowledge-snippet.knowledge-snippet',
-  // 'api::item.item', // Maybe? User didn't explicitly ask for items but they are usually rule-heavy.
-  // 'api::equipment.equipment', // Maybe?
-  // 'api::condition.condition', // If it exists
-  // 'api::magic-item.magic-item', // If it exists
 ];
 
-// Content Types explicitly excluded based on user feedback (Runtime/Instance data)
-// 'api::character.character'
-// 'api::monster.monster' 
-// 'api::entity-sheet.entity-sheet'
-// 'api::map-chunk.map-chunk'
-// 'api::dm-setting.dm-setting'
-// 'api::room.room'
-// 'api::turn.turn'
+// Content Types explicitly excluded based on user feedback
+// 'api::character.character' (DEPRECATED)
+// 'api::monster.monster' (Merged into Entity)

@@ -6,6 +6,8 @@ import { z } from 'zod';
  */
 export enum QueueName {
   EMBEDDING = 'embedding',
+  GENERATE_IMAGE = 'generate-image',
+  GENERATE_TEXT = 'generate-text',
   MAINTENANCE = 'maintenance',
 }
 
@@ -19,6 +21,18 @@ export const JobSchemas = {
     entityType: z.string(),
     action: z.enum(['upsert', 'delete']),
     sourceType: z.enum(['source-code', 'game-entity', 'manual']).optional(),
+  }),
+  [QueueName.GENERATE_IMAGE]: z.object({
+    prompt: z.string(),
+    targetUid: z.string(),
+    targetId: z.string().or(z.number()),
+    field: z.string().optional().default('image'),
+  }),
+  [QueueName.GENERATE_TEXT]: z.object({
+    prompt: z.string(),
+    targetUid: z.string(),
+    targetId: z.string().or(z.number()),
+    field: z.string(),
   }),
   [QueueName.MAINTENANCE]: z.object({
     task: z.string(),
@@ -40,5 +54,7 @@ export type JobPayloads = {
  */
 export interface JobResults {
   [QueueName.EMBEDDING]: { success: boolean; vectorId?: string; error?: string };
+  [QueueName.GENERATE_IMAGE]: { success: boolean; assetId?: number; error?: string };
+  [QueueName.GENERATE_TEXT]: { success: boolean; text?: string; error?: string };
   [QueueName.MAINTENANCE]: { processed: number };
 }

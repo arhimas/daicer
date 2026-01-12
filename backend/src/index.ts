@@ -72,46 +72,9 @@ export default {
       await bootstrapPermissions(strapi);
 
       // 3. Global Entity Knowledge Subscriber
-      // Auto-regenerate RAG embeddings when game entities change.
-      strapi.db.lifecycles.subscribe((event) => {
-        const model = event.model.uid;
-        // User Request: Only Rules/Lore entities (as defined in config)
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const { EMBEDDABLE_MODELS } = require('./config/embedding');
-        const TRACKED_MODELS = EMBEDDABLE_MODELS;
+      const { registerAutoEmbeddingSubscriber } = require('./subscribers/auto-embed');
+      registerAutoEmbeddingSubscriber(strapi);
 
-        if (TRACKED_MODELS.includes(model)) {
-          if (event.action === 'afterCreate' || event.action === 'afterUpdate') {
-            const { result, params } = event as any;
-
-            // Feature Flag: Auto-Embedding
-            
-            if (process.env.AUTO_EMBEDDING_ENABLED === 'false') {
-              return;
-            }
-
-            // Recursion Guard: If we are just updating the embedding, DO NOT re-trigger
-            if (params && params.data) {
-              const keys = Object.keys(params.data);
-              if (keys.length === 1 && keys[0] === 'embedding') {
-                return;
-              }
-            }
-
-            if (result && result.id) {
-              // Decouple from current transaction using setImmediate
-              setImmediate(() => {
-                const { entityKnowledgeService } = require('./services/entity-knowledge-service');
-                entityKnowledgeService
-                  .syncEntity(model, result.id)
-                  .catch((err: any) =>
-                    strapi.log.error(`[GlobalSubscriber] Failed to sync ${model}:${result.id}`, err)
-                  );
-              });
-            }
-          }
-        }
-      });
       // 4. SOTA Queue Initialization
       // Only initialize if REDIS_HOST is defined or explicitly enabled, to avoid crashes in local dev scripts
       if (process.env.REDIS_HOST || process.env.ENABLE_QUEUES === 'true') {
@@ -121,6 +84,8 @@ export default {
           
           // Register Workers (Side-effects)
           require('./queues/definitions/embedding');
+          require('./queues/definitions/generate-image');
+          require('./queues/definitions/generate-text');
           require('./queues/definitions/cron-maintenance');
 
           // Initialize Managers

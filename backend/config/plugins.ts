@@ -15,6 +15,10 @@ export default ({ env }) => ({
     enabled: true,
     resolve: './src/plugins/semantic-search',
   },
+  'queue-dashboard': {
+    enabled: true,
+    resolve: './src/plugins/queue-dashboard',
+  },
   redis: {
     enabled: true,
     config: {

@@ -30,6 +30,7 @@ class EmbeddingRequest(BaseModel):
     """
     text: str = Field(..., min_length=1, description="The text content to embed.")
     task: EmbeddingTask = Field(default="text-matching", description="The downstream task for the embedding.")
+    dimensions: Optional[int] = Field(default=1024, description="Matryoshka dimension (e.g. 1024, 768, 512).")
 
 class EmbeddingResponse(BaseModel):
     """
@@ -58,14 +59,18 @@ class EmbeddingEngine:
             logger.critical(f"Failed to load model {self.model_name}: {e}")
             raise e
 
-    def generate(self, text: str, task: str) -> List[float]:
+    def generate(self, text: str, task: str, dimensions: int = 1024) -> List[float]:
         if not self.model:
             raise RuntimeError("Model not initialized")
         
         # Jina V3 uses 'task' for the LoRA adapter.
-        # Some versions/wrappers might use 'prompt_name' as an alias or additional config.
-        # We pass both to be safe and compliant with user suggestion.
-        embeddings = self.model.encode([text], task=task, prompt_name=task)
+        # It also supports 'truncate_dim' for Matryoshka embeddings.
+        embeddings = self.model.encode(
+            [text], 
+            task=task, 
+            prompt_name=task,
+            truncate_dim=dimensions
+        )
         
         # Verify output shape and type
         if len(embeddings) == 0:
@@ -110,7 +115,7 @@ def main() -> None:
 
             # 2. Execute
             try:
-                vector = engine.generate(request.text, request.task)
+                vector = engine.generate(request.text, request.task, request.dimensions)
                 print(EmbeddingResponse(vector=vector).model_dump_json(), flush=True)
             except Exception as e:
                 logger.error(f"Inference Logic Error: {e}")

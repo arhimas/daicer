@@ -15,7 +15,8 @@
     "codegen": "node scripts/codegen-safe.js",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "sendcode": "echo 'Frontend code not synced' && exit 0"
   },
   "dependencies": {
     "@apollo/client": "^4.0.11",

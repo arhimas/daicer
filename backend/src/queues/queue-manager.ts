@@ -60,4 +60,20 @@ export class QueueManager {
     // 3. Add the job
     return await queue.add(jobName, data, opts);
   }
+
+  /**
+   * Returns all active queues for monitoring.
+   */
+  getQueues() {
+    const queueService = this.strapi.plugin('bullmq').service('queue');
+    const queues = [];
+    
+    for (const name of Object.values(QueueName)) {
+        const q = queueService.get(name);
+        if (q) {
+            queues.push(q);
+        }
+    }
+    return queues;
+  }
 }
