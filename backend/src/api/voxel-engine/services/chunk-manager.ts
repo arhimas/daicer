@@ -118,25 +118,8 @@ export class ChunkManager {
             console.error('Failed to apply voxel changes', e);
           }
 
-          // On-Demand Spawning Integration
-          try {
-            // Sample biome from center surface tile (Z=0 -> index 3)
-            const centerTile = chunk.tiles[3][8][8];
-            const biome = centerTile?.biome || 'plains';
-
-            const biomeSpawnService = strapi.service('api::game.biome-spawn-service') as unknown as {
-              populateChunk: (x: number, y: number, biome: string) => Promise<void>;
-            };
-            if (biomeSpawnService) {
-              // We don't await this to avoid blocking chunk load latency?
-              // Or we should? If entities are important for the user immediately, we should await.
-              // But spawning takes time.
-              // Let's await it to ensure consistency.
-              await biomeSpawnService.populateChunk(chunk.x, chunk.y, biome);
-            }
-          } catch {
-            console.error('Failed to trigger biome spawn');
-          }
+          // On-Demand Spawning Integration - REMOVED
+          // Spawning is now handled by TurnProcessing (Exploration Event) to ensure Room context.
 
           this.addToCache(chunk.x, chunk.y, config.seed, chunk);
           resolve(chunk);

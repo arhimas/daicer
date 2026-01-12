@@ -3,7 +3,6 @@ import { typeDefs as staticTypeDefs } from './type-defs';
 import { generateToolGraphQL } from './tool-generator';
 import type { RuntimeAction, DerivationContext } from '../../api/game/src/engine/derivation/types';
 import { EntitySheetSchema } from '../../shared/schemas/entity';
-import { z } from 'zod';
 
 interface InventoryEntry {
   item: {

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { Room as SharedRoom, Player, GamePhase } from '@/types/contracts';
+import type { ToolCall } from '@/types/contracts';
 import { getRoomState, startGame } from '../services/api';
 
 import useGamePolling from '../hooks/useGamePolling';
@@ -23,7 +24,6 @@ import ToolCallCard from '../components/chat/ToolCallCard';
 // import { auth } from '../services/firebase';
 import useAuth from '../hooks/useAuth';
 import { useAgentActivity } from '../hooks/useAgentActivity';
-import type { ToolCall } from '@/types/contracts';
 import { TimeFrameProvider } from '../contexts/TimeFrameContext';
 import { useWakeLock } from '../hooks/useWakeLock';
 

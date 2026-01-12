@@ -1,6 +1,6 @@
 'use strict';
-const sqliteVec = require('sqlite-vec');
-const Database = require('better-sqlite3');
+require('sqlite-vec');
+require('better-sqlite3');
 
 // Helper to get raw connection if needed, though Strapi hides it well.
 // We might need to load the extension if Strapi doesn't do it globally?

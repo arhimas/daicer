@@ -265,3 +265,81 @@ export const GET_WORLD_TIME_QUERY = gql`
     }
   }
 `;
+
+export const GAME_VIEW_QUERY = gql`
+  query GameView($roomId: ID!) {
+    gameView(roomId: $roomId) {
+      room {
+        ...FullRoomContext
+      }
+      activeTurn {
+        documentId
+        turnNumber
+        summary
+      }
+      myself {
+        documentId
+        name
+        type
+        currentHp
+        maxHp
+        position {
+          x
+          y
+          z
+        }
+        stats {
+          strength
+          dexterity
+          constitution
+          intelligence
+          wisdom
+          charisma
+        }
+        inventory {
+          quantity
+          isEquipped
+          item {
+            documentId
+            name
+            ... on Item {
+              type
+              description
+              rarity
+            }
+          }
+        }
+      }
+      visibleEntities {
+        documentId
+        name
+        type
+        currentHp
+        maxHp
+        position {
+          x
+          y
+          z
+        }
+        availableActions {
+          id
+          name
+          description
+          type
+          range {
+            type
+            value
+            reach
+          }
+        }
+      }
+      messages {
+        documentId
+        content
+        senderName
+        senderType
+        timestamp
+      }
+    }
+  }
+`;

@@ -2,11 +2,11 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 
 import clsx from 'clsx';
 import { useChunkLoader } from '@/hooks/useChunkLoader';
+import { GET_WORLD_TIME_QUERY } from '@/graphql/queries';
+import { useQuery } from '@apollo/client/react';
 import { MapRenderer } from './MapRenderer';
 import { MapRenderer3D } from './MapRenderer3D';
 import { DebugEntity, Coordinates, WorldConfig } from '../utils/types';
-import { GET_WORLD_TIME_QUERY } from '@/graphql/queries';
-import { useQuery } from '@apollo/client/react';
 
 interface GameDebugMapProps {
   roomId: string;
@@ -52,6 +52,7 @@ export function GameDebugMap({
     fetchPolicy: 'network-only',
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const worldTime = (timeData as any)?.getWorldTime;
 
   // Derived Light Level
@@ -278,6 +279,7 @@ export function GameDebugMap({
           </button>
           <div className="w-px h-4 bg-white/20 mx-1" />
           <button
+            type="button"
             onClick={() => setForceTime((prev) => (prev === 'auto' ? 'day' : prev === 'day' ? 'night' : 'auto'))}
             className="text-xs font-bold uppercase text-blue-300 hover:text-white min-w-[40px]"
           >

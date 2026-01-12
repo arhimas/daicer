@@ -1,19 +1,22 @@
-import cronTasks from './cron-tasks';
+export default ({ env }) => {
+  // Lazy load cron tasks to avoid test harness issues
+  const cronTasks = process.env.NODE_ENV === 'test' ? {} : require('./cron-tasks').default;
 
-export default ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 1337),
-  url: env('PUBLIC_URL', 'http://localhost:1337'), // Fixes 'missing absolute url' warning
-  app: {
-    keys: env.array('APP_KEYS'),
-  },
-  logger: {
-    config: {
-      level: 'debug',
+  return {
+    host: env('HOST', '0.0.0.0'),
+    port: env.int('PORT', 1337),
+    url: env('PUBLIC_URL', 'http://localhost:1337'), // Fixes 'missing absolute url' warning
+    app: {
+      keys: env.array('APP_KEYS'),
     },
-  },
-  cron: {
-    enabled: true,
-    tasks: cronTasks,
-  },
-});
+    logger: {
+      config: {
+        level: 'debug',
+      },
+    },
+    cron: {
+      enabled: true,
+      tasks: cronTasks,
+    },
+  };
+};

@@ -1235,6 +1235,7 @@ export interface ApiRoomRoom extends Struct.CollectionTypeSchema {
     entity_sheets: Schema.Attribute.Relation<'oneToMany', 'api::entity-sheet.entity-sheet'>;
     entropyState: Schema.Attribute.JSON;
     events: Schema.Attribute.Relation<'oneToMany', 'api::game-event.game-event'>;
+    exploredChunks: Schema.Attribute.JSON;
     exploredTiles: Schema.Attribute.JSON;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     isProcessing: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1550,6 +1551,7 @@ export interface ApiTurnTurn extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
     status: Schema.Attribute.Enumeration<['waiting', 'processing', 'complete']> & Schema.Attribute.DefaultTo<'waiting'>;
+    summary: Schema.Attribute.Text;
     turnNumber: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0>;
     type: Schema.Attribute.Enumeration<['group', 'combat', 'exploration']> & Schema.Attribute.DefaultTo<'group'>;
     updatedAt: Schema.Attribute.DateTime;

@@ -73,7 +73,7 @@ export async function generateText(
   }
 }
 
-function mockGenerator(config: TextGenConfig): string {
+function mockGenerator(_config: TextGenConfig): string {
   const mockText = `[MOCK] The adventure begins! 
   
   You find yourselves standing at the edge of the known world. The wind howls, carrying whispers of ancient secrets.

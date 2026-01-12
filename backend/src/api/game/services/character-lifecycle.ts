@@ -198,13 +198,16 @@ export default ({ strapi }) => ({
     const equipmentList = (createdCharacter.equipment as { isEquipped: boolean; item: unknown }[]) || [];
     const equipmentForDeriver = equipmentList
       .filter((entry) => entry.isEquipped && entry.item)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((entry) => ({ ...(entry.item as any), name: (entry.item as any).name }));
 
     const derived = EntityDeriver.derive({
       attributes,
       classes: createdCharacter.classes?.map((c) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         name: (c.class as any).name,
         level: c.level,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         hitDie: (c.class as any).hit_die, // Cast to any to access standard fields if types missing
       })),
       level: 1, // Fallback

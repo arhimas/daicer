@@ -1,5 +1,4 @@
 import { factories } from '@strapi/strapi';
-import { EntitySheet } from '../../game/src/engine/types';
 
 interface Position {
   x: number;
@@ -41,7 +40,10 @@ export default factories.createCoreService('api::game.visibility-service', () =>
    * Culls entities that are not visible to the observer.
    * Can be extended to support raycasting/LOS in the future.
    */
-  cullEntities(observerPos: Position, allEntities: any[]): any[] {
+  cullEntities(
+    observerPos: Position,
+    allEntities: { position?: Position; character?: { position?: Position } }[]
+  ): unknown[] {
     return allEntities.filter((entity) => {
       // Always see yourself
       // (This logic usually runs in resolver where we might not know 'self' ID easily without passing it)

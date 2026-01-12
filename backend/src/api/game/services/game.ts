@@ -316,7 +316,7 @@ export default ({ strapi }) => ({
     });
 
     // 4. Create Main Message
-    const message = await strapi.documents('api::message.message').create({
+    await strapi.documents('api::message.message').create({
       data: {
         content: mainOpening,
         senderName: 'DM',

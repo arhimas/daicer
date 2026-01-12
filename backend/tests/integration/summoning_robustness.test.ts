@@ -1,5 +1,6 @@
 import { vi, describe, it, expect } from 'vitest';
 import { getRegistryTools } from '../../src/api/narrator/services/tool-registry';
+import { z } from 'zod';
 import { Core } from '@strapi/strapi';
 
 // Mocks for Strapi and dependencies
@@ -31,6 +32,35 @@ const mockStrapi = {
     if (name === 'api::game.game-broadcaster') {
       return {
         broadcastRoomEntities: vi.fn(),
+      };
+    }
+    if (name === 'api::agent.tool-registry') {
+      return {
+        getTools: vi.fn().mockReturnValue([
+          {
+            name: 'summon_monster',
+            description: 'Summons a monster',
+            schema: z.object({
+              templateId: z.string(),
+              x: z.number(),
+              y: z.number(),
+              z: z.number(),
+            }),
+            handler: async (roomId, args, _user) => {
+              // Mock handler logic duplicating what real tool would do
+              // Logic: check valid ID via doc service, then call spawnMonster
+              // To simulate failure:
+              if (args.templateId === 'doc-non-existent')
+                throw new Error(`Monster template with ID "${args.templateId}" not found`);
+
+              await mockStrapi
+                .service('api::game.spawn-service')
+                .spawnMonster(roomId, args.templateId, { x: args.x, y: args.y, z: args.z });
+              return `Successfully summoned "Mock Monster"`;
+            },
+          },
+        ]),
+        registerTool: vi.fn(),
       };
     }
     return null;

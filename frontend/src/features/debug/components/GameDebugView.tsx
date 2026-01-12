@@ -76,6 +76,7 @@ function GameDebugInner({
   const { currentTimeFrame, isLive } = useTimeFrame();
 
   const { creatures: socketCreatures } = useGamePolling(room.documentId);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const gameEvents: any[] = []; // TODO: Fetch from polling if needed
 
   const [entities, setEntities] = useState<DebugEntity[]>([]);
@@ -366,7 +367,7 @@ function GameDebugInner({
         <div className="flex-1 flex flex-col shadow-2xl z-0">
           <GameDebugMap
             roomId={roomId}
-            connected={true}
+            connected
             activeEntity={activeEntity}
             entities={entities}
             activeEntityId={activeEntityId}

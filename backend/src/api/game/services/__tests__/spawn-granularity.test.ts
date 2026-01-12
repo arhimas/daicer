@@ -12,6 +12,12 @@ vi.stubGlobal('strapi', {
     findMany: mockFindMany,
     create: mockCreate,
   }),
+  service: (name: string) => {
+    if (name === 'api::game.entity-derivation') {
+      return { deriveAndPersist: vi.fn() };
+    }
+    return {};
+  },
 });
 
 // EntityDeriver and StatBlock are real imports now, unused in test file directly if we trust the service

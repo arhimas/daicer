@@ -21,6 +21,7 @@ export default {
             content: `[Type: Memory] [Room: ${roomRef}] [Turn: ${result.turnNumber}]\n${result.summary}`,
             embedding: vector,
             // source is optional
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any,
         });
 

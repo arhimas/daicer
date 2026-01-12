@@ -45,6 +45,9 @@
     "exploredTiles": {
       "type": "json"
     },
+    "exploredChunks": {
+      "type": "json"
+    },
     "entropyState": {
       "type": "json"
     },

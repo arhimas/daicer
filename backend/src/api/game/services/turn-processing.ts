@@ -185,17 +185,21 @@ export default ({ strapi }) => ({
         })
       ).entity_sheets as unknown[]) || [];
 
-    const unifiedEntities = allSheets.map((s: any) => ({
-      id: s.documentId,
-      name: s.name,
-      type: s.type || 'character',
-      hp: s.currentHp || s.maxHp,
-      maxHp: s.maxHp,
-      armorClass: s.armorClass || s.ac || 10,
-      stats: s.stats || {},
-      actions: s.computedActions || s.actions || [],
-      // Minimal needed for Narrative
-    }));
+    const unifiedEntities = allSheets.map((s: unknown) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const sheet = s as any; // Cast to any for property access until properly typed
+      return {
+        id: sheet.documentId,
+        name: sheet.name,
+        type: sheet.type || 'character',
+        hp: sheet.currentHp || sheet.maxHp,
+        maxHp: sheet.maxHp,
+        armorClass: sheet.armorClass || sheet.ac || 10,
+        stats: sheet.stats || {},
+        actions: sheet.computedActions || sheet.actions || [],
+        // Minimal needed for Narrative
+      };
+    });
 
     // 5. Generate Narrative (with new Map Image)
     const response = await narrativeEngine.generateNarrativeResponse(
@@ -226,7 +230,7 @@ export default ({ strapi }) => ({
       }
     );
 
-    const { turn, message, room } = persistenceResult;
+    const { turn, room } = persistenceResult;
 
     // Link image if we have one (if persistTurn didn't handle it in metadata, we might need a separate update if schema expects relation)
     // The Turn schema has 'contextImage' relation. persistTurn usually takes 'metadata' json.
@@ -241,7 +245,7 @@ export default ({ strapi }) => ({
     }
 
     // 7. Clear Actions
-    const updatedPlayersFinal = await turnPersistence.clearPlayerActions(room.documentId, players);
+    await turnPersistence.clearPlayerActions(room.documentId, players);
 
     // 8. Broadcast Updates -> REMOVED
     // gameBroadcaster.broadcast... removed.
@@ -280,7 +284,7 @@ export default ({ strapi }) => ({
     // 1. Fetch Room
     const room = await strapi.documents('api::room.room').findOne({
       documentId: roomId,
-      populate: ['entity_sheets'],
+      populate: ['entity_sheets', 'world'],
     });
 
     if (!room) throw new Error('Room not found');
@@ -359,8 +363,11 @@ export default ({ strapi }) => ({
           // Exploration Update
           try {
             const VISION_RADIUS = 8;
+            const CHUNK_SIZE = 16;
             const currentExplored = new Set((room.exploredTiles as string[]) || []);
+            const currentExploredChunks = new Set((room.exploredChunks as string[]) || []);
             let explorationChanged = false;
+            let chunksChanged = false;
 
             for (let dy = -VISION_RADIUS; dy <= VISION_RADIUS; dy++) {
               for (let dx = -VISION_RADIUS; dx <= VISION_RADIUS; dx++) {
@@ -371,19 +378,57 @@ export default ({ strapi }) => ({
                   if (!currentExplored.has(key)) {
                     currentExplored.add(key);
                     explorationChanged = true;
+
+                    // Chunk Exploration
+                    const cx = Math.floor(wx / CHUNK_SIZE);
+                    const cy = Math.floor(wy / CHUNK_SIZE);
+                    const chunkKey = `${cx},${cy}`;
+                    if (!currentExploredChunks.has(chunkKey)) {
+                      // Found a new chunk!
+                      // Trigger Spawning
+                      try {
+                        const voxelEngine = strapi.service('api::voxel-engine.voxel-engine');
+                        // Fetch (or gen) chunk to get biome
+                        // We need world config. Assuming room.world is populated or we fetch it.
+                        // If not, we might fallback.
+                        const config =
+                          room.world ||
+                          (
+                            await strapi
+                              .documents('api::room.room')
+                              .findOne({ documentId: roomId, populate: ['world'] })
+                          ).world;
+                        const chunk = await voxelEngine.getChunk(cx, cy, config);
+
+                        const centerTile = chunk.tiles[3]?.[8]?.[8];
+                        const biome = centerTile?.biome || 'plains';
+
+                        strapi.log.info(
+                          `[TurnProcessing] New Chunk Discovered: ${chunkKey} (${biome}). Triggering Spawn.`
+                        );
+
+                        const biomeSpawnService = strapi.service('api::game.biome-spawn-service');
+                        await biomeSpawnService.populateChunk(cx, cy, biome, roomId);
+
+                        currentExploredChunks.add(chunkKey);
+                        chunksChanged = true;
+                      } catch (err) {
+                        strapi.log.error(`[TurnProcessing] Failed to spawn biome entities for ${chunkKey}`, err);
+                      }
+                    }
                   }
                 }
               }
             }
 
-            if (explorationChanged) {
+            if (explorationChanged || chunksChanged) {
               await strapi.documents('api::room.room').update({
                 documentId: roomId,
                 data: {
                   exploredTiles: Array.from(currentExplored),
+                  exploredChunks: Array.from(currentExploredChunks),
                 } as unknown,
               });
-              // Update local room ref if needed, but not critical for processing loop
             }
           } catch (e) {
             strapi.log.error('Exploration update failed', e);
@@ -437,7 +482,7 @@ export default ({ strapi }) => ({
       { model: 'engine' }
     );
 
-    const { turn, snapshot } = persistenceResult;
+    const { turn } = persistenceResult;
 
     // 4. Broadcast Updates - REMOVED
     // gameBroadcaster.broadcastTurnComplete... removed.

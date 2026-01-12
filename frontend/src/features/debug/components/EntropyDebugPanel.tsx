@@ -3,6 +3,11 @@ import { ProgressBar } from '@/components/ui/progress-bar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
+// Helper to execute tool (Quick & Dirty for Debug Panel)
+import { executeDirectTool } from '@/services/api';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+
 // Types derived from backend (could be shared, but defining here for frontend decoupling)
 interface WorldCondition {
   key: string;
@@ -30,12 +35,7 @@ interface EntropyDebugPanelProps {
   roomId: string; // Passed for tool execution
 }
 
-// Helper to execute tool (Quick & Dirty for Debug Panel)
-import { executeDirectTool } from '@/services/api';
-
 const WEATHER_OPTIONS = ['Clear', 'Overcast', 'Rain', 'Storm', 'Fog', 'Snow'];
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 
 export function EntropyDebugPanel({ state, roomId }: EntropyDebugPanelProps) {
   const [timeInput, setTimeInput] = useState('');
@@ -47,6 +47,7 @@ export function EntropyDebugPanel({ state, roomId }: EntropyDebugPanelProps) {
       await executeDirectTool(roomId, cmd);
     } catch (e) {
       console.error(e);
+      // eslint-disable-next-line no-alert
       alert('Failed to execute tool');
     } finally {
       setLoading(false);
@@ -87,9 +88,12 @@ export function EntropyDebugPanel({ state, roomId }: EntropyDebugPanelProps) {
       <div className="grid grid-cols-2 gap-4">
         {/* Time Control */}
         <div className="p-3 bg-midnight-900/50 border border-midnight-700 rounded flex flex-col gap-2">
-          <label className="text-xs text-aurora-500 font-bold uppercase">Time</label>
+          <label htmlFor="time-input" className="text-xs text-aurora-500 font-bold uppercase">
+            Time
+          </label>
           <div className="flex gap-2">
             <input
+              id="time-input"
               className="bg-black/50 border border-white/20 text-xs p-1 text-white rounded flex-1 min-w-0"
               placeholder="e.g. 7pm or 06:30"
               value={timeInput}
@@ -109,10 +113,11 @@ export function EntropyDebugPanel({ state, roomId }: EntropyDebugPanelProps) {
 
         {/* Weather Control */}
         <div className="p-3 bg-midnight-900/50 border border-midnight-700 rounded flex flex-col gap-2">
-          <label className="text-xs text-aurora-500 font-bold uppercase">Weather</label>
+          <span className="text-xs text-aurora-500 font-bold uppercase">Weather</span>
           <div className="flex flex-wrap gap-1">
             {WEATHER_OPTIONS.map((w) => (
               <button
+                type="button"
                 key={w}
                 onClick={() => handleTool(`set_weather(weather="${w}")`)}
                 disabled={loading}

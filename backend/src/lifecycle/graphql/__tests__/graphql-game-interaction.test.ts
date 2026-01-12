@@ -16,10 +16,20 @@ const mockVoxelService = {
   getChunk: vi.fn(),
 };
 
+const mockTurnPipeline = {
+  processRoomTurn: vi.fn(),
+};
+
+const mockTurnProcessing = {
+  submitAction: vi.fn(),
+};
+
 const mockStrapi = {
   service: (uid: string) => {
     if (uid === 'api::game.game') return mockGameService;
     if (uid === 'api::voxel-engine.voxel-engine') return mockVoxelService;
+    if (uid === 'api::game.turn-pipeline') return mockTurnPipeline;
+    if (uid === 'api::game.turn-processing') return mockTurnProcessing;
     return {};
   },
   documents: vi.fn(),
@@ -45,7 +55,8 @@ describe('GraphQL Mutation: Game Interaction', () => {
     it('should delegate to game service', async () => {
       const args = { roomId: 'r1', action: '{"type":"MOVE"}', mode: 'manual' };
       await mutationResolvers.submitAction(null, args, mockContext);
-      expect(mockGameService.submitAction).toHaveBeenCalledWith('r1', '{"type":"MOVE"}', mockUser, 'manual');
+      await mutationResolvers.submitAction(null, args, mockContext);
+      expect(mockTurnProcessing.submitAction).toHaveBeenCalledWith('r1', '{"type":"MOVE"}', mockUser, 'manual');
     });
 
     // Fuzzing 30 Payload types
@@ -84,7 +95,7 @@ describe('GraphQL Mutation: Game Interaction', () => {
 
     it.each(fuzzedArgs)('should handle $desc', async ({ action }) => {
       await mutationResolvers.submitAction(null, { roomId: 'r1', action }, mockContext);
-      expect(mockGameService.submitAction).toHaveBeenCalledWith(
+      expect(mockTurnProcessing.submitAction).toHaveBeenCalledWith(
         'r1',
         action,
         mockUser,
@@ -119,20 +130,14 @@ describe('GraphQL Mutation: Game Interaction', () => {
 
       await mutationResolvers.processTurn(null, { roomId: 'r1', messages: [] }, mockContext);
 
-      expect(mockGameService.processTurn).toHaveBeenCalledWith(
-        'r1',
-        '', // world desc
-        expect.any(Array),
-        expect.any(Array), // players
-        expect.any(Array), // ??? args check implementation
-        'fr', // language
-        expect.objectContaining({ seed: 'w1', difficulty: 'easy' }),
-        expect.any(Array)
-      );
+      await mutationResolvers.processTurn(null, { roomId: 'r1', messages: [] }, mockContext);
+
+      expect(mockTurnPipeline.processRoomTurn).toHaveBeenCalledWith('r1');
     });
 
     it('should throw if room not found', async () => {
-      mockFindMany.mockResolvedValue([]);
+      mockTurnPipeline.processRoomTurn.mockRejectedValueOnce(new Error('Room not found'));
+
       await expect(mutationResolvers.processTurn(null, { roomId: 'bad' }, mockContext)).rejects.toThrow(
         'Room not found'
       );

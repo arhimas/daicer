@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import turnPipelineFactory from '../turn-pipeline';
 
 vi.mock('@strapi/strapi', () => ({
@@ -35,13 +35,13 @@ const globalStrapi = {
     transaction: mockTransaction,
     query: mockQueryFn,
   },
-  documents: (uid: string) => mockDocumentService,
+  documents: (_uid: string) => mockDocumentService,
   service: (name: string) => {
     if (name === 'api::game.action-engine') return mockActionEngine;
     if (name === 'api::game.lock-service') return { acquire: vi.fn().mockResolvedValue(true), release: vi.fn() };
     return {};
   },
-  log: { warn: vi.fn(), info: vi.fn() },
+  log: { warn: vi.fn(), info: vi.fn(), error: vi.fn(), debug: vi.fn() },
 } as any;
 
 vi.stubGlobal('strapi', globalStrapi);

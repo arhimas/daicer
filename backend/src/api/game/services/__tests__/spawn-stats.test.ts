@@ -11,6 +11,12 @@ vi.stubGlobal('strapi', {
     findMany: mockFindMany,
     create: mockCreate,
   }),
+  service: (name: string) => {
+    if (name === 'api::game.entity-derivation') {
+      return { deriveAndPersist: vi.fn() };
+    }
+    return {};
+  },
 });
 
 // Mock DERIVER to return controlled values based on input

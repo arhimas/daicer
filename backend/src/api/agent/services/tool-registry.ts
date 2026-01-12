@@ -18,16 +18,14 @@ import {
   DropItemCommand,
   PickupItemCommand,
   ThrowItemCommand,
-  InventoryItem,
 } from '../../game/src/engine/types'; // Unified types import
 // Use schemas from where they are defined. Ideally from shared or engine.
 // We will define specific schemas here or import if available.
 import { CastSpellIntentSchema } from '../../../shared';
-import type { Core, UID } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi';
 import { ActionResult } from '../../game/services/action-engine';
 import { WorldAtlas } from '../../game/src/engine/world';
 import { WorldConfig, DEFAULT_WORLD_CONFIG, Chunk, Creature } from '../../game/src/engine';
-import { generateMapImage } from '../../game/services/map-visualization'; // Ensure export
 
 // Define explicit Interfaces for Service interactions
 interface ActionEngineService {
@@ -47,7 +45,6 @@ const ConditionSchema = z.object({
 const EntropyStateSchema = z.object({
   conditions: z.array(ConditionSchema).default([]),
 });
-type EntropyState = z.infer<typeof EntropyStateSchema>;
 
 // Generic handler type
 type ToolHandler = (roomId: string, payload: unknown, user: unknown) => Promise<unknown>;
@@ -153,12 +150,15 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       // We avoid 'as any' by defining a Context interface if needed, or building it explicitly.
 
       interface HydrationContext {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         attributes: any;
         proficiencyBonus: number;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         equipment: any[];
       }
 
       // Minimal safe extraction
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const inventory = (Array.isArray(actor.inventory) ? actor.inventory : []) as any[];
       const equipment = inventory
         .filter((entry) => entry.isEquipped && entry.item)
@@ -176,6 +176,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
       const { ActionHydrator } = await import('../../game/src/engine/derivation/ActionHydrator');
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const actions: any[] = [];
       context.equipment.forEach((item) => {
         // ActionHydrator might return 'any' or typed actions.
@@ -193,6 +194,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
         cost: a.cost,
         range: a.range,
         attack_bonus: a.attack?.bonus,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         damage: a.effects?.find((e: any) => e.type === 'damage')?.dice,
       }));
     }
@@ -205,10 +207,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     targetId: z.string().optional(),
     options: z.record(z.string(), z.unknown()).optional(),
   });
-  register('perform_action', 'Perform a specific action', PerformActionSchema, async (roomId, payload, _user) => {
+  register('perform_action', 'Perform a specific action', PerformActionSchema, async (roomId, payload, user) => {
     const p = PerformActionSchema.parse(payload);
-    const actionEngine = strapi.service('api::game.action-engine') as ActionEngineService;
 
+    // Construct the command to be queued
     const command = {
       type: 'DO_ACTION',
       payload: {
@@ -220,7 +222,17 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       timestamp: Date.now(),
     };
 
-    return await actionEngine.dispatch(roomId, [command]);
+    // Queue stringified command using submitAction logic
+    // We delegate to turn-processing.submitAction which handles finding the player and setting the action.
+    // Ensure user object is passed correctly.
+    await strapi.service('api::game.turn-processing').submitAction(
+      roomId,
+      JSON.stringify(command),
+      user,
+      undefined // mode='game'
+    );
+
+    return { success: true, message: 'Action queued. Waiting for turn processing.' };
   });
 
   // LEGACY WRAPPERS maintained
@@ -255,6 +267,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       // CastSpellIntentSchema might be missing actorId.
       // We need to inject actorId from somewhere (e.g. user or payload fallback).
       // Assuming payload has it or we can't dispatch.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       payload: { ...p, actorId: (p as any).actorId || 'unknown' } as CastSpellCommand['payload'],
       timestamp: Date.now(),
     };
@@ -382,6 +395,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
           // Safe entropy access
           const roomWorld = room?.world && typeof room.world === 'object' ? room.world : {};
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const current = 'time' in roomWorld ? (roomWorld as any).time : 0;
           const day = Math.floor(current / 86400);
           newTime = day * 86400 + hours * 3600 + minutes * 60;
@@ -404,6 +418,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           ...oldWorld,
           time: newTime,
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any, // Boundary cast unavoidable without strict Input type
     });
     return { success: true, time: newTime };
@@ -413,6 +428,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   register('get_time', 'Get time', z.object({}), async (roomId, _p, _u) => {
     const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
     const roomWorld = room?.world && typeof room.world === 'object' ? room.world : {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const time = 'time' in roomWorld ? (roomWorld as any).time : 0;
     const day = Math.floor(time / 86400);
     const secondsInDay = time % 86400;
@@ -439,6 +455,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
     await strapi.documents('api::room.room').update({
       documentId: roomId,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       data: { entropyState: entropy } as any,
     });
     return { success: true, state: entropy };
@@ -519,12 +536,16 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       populate: ['proficiencies'],
     });
     if (!classes || classes.length === 0) return `No classes found matching "${p.query}".`;
-    return classes
-      .map((c: any) => {
-        const profs = c.proficiencies?.map((pr: any) => pr.name).join(', ') || 'None';
-        return `### ${c.name} (Hit Die: ${c.hit_die})\n- Proficiencies: ${profs}`;
-      })
-      .join('\n---\n');
+    return (
+      classes
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((c: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const profs = c.proficiencies?.map((pr: any) => pr.name).join(', ') || 'None';
+          return `### ${c.name} (Hit Die: ${c.hit_die})\n- Proficiencies: ${profs}`;
+        })
+        .join('\n---\n')
+    );
   });
 
   // 22. SEARCH_RACES
@@ -537,12 +558,16 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       populate: ['traits'],
     });
     if (!races || races.length === 0) return `No races found matching "${p.query}".`;
-    return races
-      .map((r: any) => {
-        const traits = r.traits?.map((t: any) => t.name).join(', ') || 'None';
-        return `### ${r.name}\n- Speed: ${JSON.stringify(r.speed)}\n- Size: ${r.size}\n- Traits: ${traits}\n- Description: ${r.description}`;
-      })
-      .join('\n---\n');
+    return (
+      races
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .map((r: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const traits = r.traits?.map((t: any) => t.name).join(', ') || 'None';
+          return `### ${r.name}\n- Speed: ${JSON.stringify(r.speed)}\n- Size: ${r.size}\n- Traits: ${traits}\n- Description: ${r.description}`;
+        })
+        .join('\n---\n')
+    );
   });
 
   // 23. RETRIEVE_KNOWLEDGE
@@ -662,6 +687,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     });
 
     if (!roomRaw) throw new Error('Room not found.');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const room = roomRaw as unknown as any;
     const entities = room.entity_sheets || [];
 
@@ -671,6 +697,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     let visionSources: { x: number; y: number }[] = [];
 
     if (p.entityId) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const targetSheet = entities.find((e: any) => e.documentId === p.entityId);
       if (targetSheet && targetSheet.position) {
         centerX = Math.round(targetSheet.position.x);
@@ -692,7 +719,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
     if (!povEntity) {
       visionSources = entities
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .filter((e: any) => (e.type === 'player' || (e.owner && e.owner.documentId)) && e.position)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .map((e: any) => e.position);
       if (p.x === undefined && p.y === undefined && visionSources.length > 0) {
         centerX = visionSources[0].x;
@@ -702,6 +731,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
     const chunkX = Math.floor(centerX / 32);
     const chunkY = Math.floor(centerY / 32);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const voxelService = strapi.service('api::voxel-engine.voxel-engine') as any; // Cast as any because type import issues
     let chunk: Chunk | undefined;
     if (voxelService && voxelService.getChunk) {
@@ -713,7 +743,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     if (!chunk) throw new Error('Failed to load map chunk.');
 
     const creatures: Creature[] = entities
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((cs: any) => cs.position)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((cs: any) => ({
         id: cs.documentId,
         name: cs.name,

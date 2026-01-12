@@ -8,7 +8,10 @@ const mockLog = { error: vi.fn(), info: vi.fn() };
 
 const strapi = {
   db: {
-    connection: { raw: mockRaw },
+    connection: {
+      raw: mockRaw,
+      client: { config: { client: 'pg' } },
+    },
     metadata: { get: mockMetadataGet },
   },
   log: mockLog,

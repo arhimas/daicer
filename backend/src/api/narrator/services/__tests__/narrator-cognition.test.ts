@@ -44,6 +44,16 @@ describe('Narrator Service: Agent Cognition', () => {
         findMany: vi.fn().mockResolvedValue(uid === 'api::room.room' ? [{ documentId: 'r1' }] : []),
         create: vi.fn().mockResolvedValue({ documentId: 'msg1' }),
       })) as unknown as StrapiInterface['documents'],
+      service: vi.fn((name: string) => {
+        if (name === 'api::agent.tool-registry') {
+          return {
+            getTools: vi
+              .fn()
+              .mockReturnValue([{ name: 'mock_tool', description: 'desc', schema: {}, handler: vi.fn() }]),
+          };
+        }
+        return {};
+      }),
     } as StrapiInterface;
     service = narratorService({ strapi });
   });

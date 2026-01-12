@@ -1,9 +1,10 @@
-import { Project, SyntaxKind } from 'ts-morph';
+import { Project } from 'ts-morph';
 import path from 'path';
 import fs from 'fs';
 import { embeddingService } from '../services/embedding-service';
 
 // We need to bootstrap Strapi to use the ORM and Services
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const Strapi = require('@strapi/strapi');
 
 async function ingestRules() {

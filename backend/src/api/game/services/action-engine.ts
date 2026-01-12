@@ -10,7 +10,15 @@ import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
 import { WorldConfig, ZLevel } from '../src/engine/types';
 
 // New Schemas
-import { EngineCommand, MoveCommand, AttackCommand, ModifyTerrainCommand, DropItemCommand } from '../schemas/commands';
+import {
+  EngineCommand,
+  MoveCommand,
+  AttackCommand,
+  ModifyTerrainCommand,
+  DropItemCommand,
+  PickupItemCommand,
+  ThrowItemCommand,
+} from '../schemas/commands';
 
 import {
   GameEvent,
@@ -107,6 +115,12 @@ export default ({ strapi }) => ({
             break;
           case 'DROP_ITEM':
             result = await this.resolveDropItem(cmd, roomId);
+            break;
+          case 'PICKUP_ITEM':
+            result = await this.resolvePickupItem(cmd, roomId);
+            break;
+          case 'THROW_ITEM':
+            result = await this.resolveThrowItem(cmd, roomId);
             break;
           // TODO: Implement others
           default:
@@ -409,6 +423,36 @@ export default ({ strapi }) => ({
             },
           })
         );
+
+        // Side Effects: Drop Loot & Create Death Marker
+        try {
+          const inventoryService = strapi.service('api::game.inventory-service');
+          await inventoryService.dropAll(targetId);
+
+          // Create Death Marker (Terrain/Chunk)
+          // Dynamic import to avoid cycles
+          const module = await import('../../voxel-engine/services/chunk-manager');
+          const { ChunkManager } = module;
+          const cm = ChunkManager.getInstance();
+          const worldConfig = (target.room?.config as WorldConfig) || { chunkSize: 16 };
+          const chunkSize = worldConfig.chunkSize || 16;
+
+          const px = Math.round(target.position?.x || 0);
+          const py = Math.round(target.position?.y || 0);
+          const pz = Math.round(target.position?.z || 0);
+
+          const cx = Math.floor(px / chunkSize);
+          const cy = Math.floor(py / chunkSize);
+          const lx = ((px % chunkSize) + chunkSize) % chunkSize;
+          const ly = ((py % chunkSize) + chunkSize) % chunkSize;
+
+          await cm.editVoxel(cx, cy, lx, ly, pz, undefined, 'Entity Death', {
+            type: 'death_marker',
+            victim: (target as { name?: string }).name || 'Entity',
+          });
+        } catch (e) {
+          console.warn('[ActionEngine] Death side-effects failed', e);
+        }
       }
     }
 
@@ -488,6 +532,65 @@ export default ({ strapi }) => ({
     return {
       success: false,
       message: 'Failed to drop',
+      events: [],
+      stateDiff: { updates: [], creates: [], deletes: [] },
+    };
+  },
+
+  async resolvePickupItem(command: PickupItemCommand, _roomId: string): Promise<ActionResult> {
+    const inventoryService = strapi.service('api::game.inventory-service');
+    // Assuming inventoryService has a pickupItem method
+    const result = await inventoryService.pickupItem(command.payload.actorId, command.payload.targetId);
+
+    if (result.success) {
+      return {
+        success: true,
+        message: 'Item Picked Up',
+        events: [], // TODO: ITEM_PICKUP event
+        stateDiff: { updates: [], creates: [], deletes: [] },
+      };
+    }
+    return {
+      success: false,
+      message: 'Failed to pickup',
+      events: [],
+      stateDiff: { updates: [], creates: [], deletes: [] },
+    };
+  },
+
+  async resolveThrowItem(command: ThrowItemCommand, roomId: string): Promise<ActionResult> {
+    const inventoryService = strapi.service('api::game.inventory-service');
+    // Logic: Throwing is basically dropping at a specific location (with potential physics/damage later)
+    // For now, we delegate to dropItemAt via inventory service or similar helper
+    const result = await inventoryService.dropItemAt(
+      command.payload.actorId,
+      command.payload.itemComponentId,
+      command.payload.targetPosition
+    );
+
+    if (result.success) {
+      return {
+        success: true,
+        message: 'Item Thrown',
+        events: [
+          // Using ItemDroppedEvent for now or a new ItemThrownEvent
+          ItemDroppedEventSchema.parse({
+            type: 'ITEM_DROPPED', // Reusing schema as per current available schemas
+            timestamp: Date.now(),
+            room: roomId,
+            actor: command.payload.actorId,
+            payload: {
+              itemId: command.payload.itemComponentId,
+              position: command.payload.targetPosition,
+            },
+          }),
+        ],
+        stateDiff: { updates: [], creates: [], deletes: [] },
+      };
+    }
+    return {
+      success: false,
+      message: 'Failed to throw',
       events: [],
       stateDiff: { updates: [], creates: [], deletes: [] },
     };

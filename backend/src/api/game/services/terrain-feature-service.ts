@@ -13,7 +13,7 @@ interface SpawnService {
       position: { x: number; y: number; z: number };
       ownerId?: string;
     }
-  ): Promise<any>;
+  ): Promise<unknown>;
 }
 
 interface ChunkManager {

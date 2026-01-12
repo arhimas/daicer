@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Room, Player, Message, Creature } from '@/types/contracts';
 import { useQuery } from '@apollo/client/react';
-import { GET_ROOM_QUERY } from '../graphql/queries';
+import { GAME_VIEW_QUERY } from '../graphql/queries';
 
 interface SocketState {
   connected: boolean;
@@ -10,9 +10,11 @@ interface SocketState {
   players: Player[];
   messages: Message[];
   creatures: Creature[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   toolCalls: any[];
   isProcessing: boolean;
   streamingMessages: Map<string, string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   presence: any[];
   sseHealthWarning: boolean;
   lastSSEEvent: number;
@@ -21,9 +23,10 @@ interface SocketState {
 /**
  * GraphQL Polling Hook for Game State
  * Replaces legacy Socket.IO streaming with Apollo polling.
+ * Uses GameView for Server-Side Fog of War.
  */
 export default function useGamePolling(roomId?: string, initialMessages?: Message[]) {
-  const [state, setState] = useState<SocketState>({
+  const [state, setState] = useState<SocketState>(() => ({
     connected: true, // Always "connected" in polling mode
     error: null,
     room: null,
@@ -36,13 +39,13 @@ export default function useGamePolling(roomId?: string, initialMessages?: Messag
     presence: [],
     sseHealthWarning: false,
     lastSSEEvent: Date.now(),
-  });
+  }));
 
-  // Polling Interval (3s)
-  const POLL_INTERVAL = 3000;
+  // Polling Interval (2s)
+  const POLL_INTERVAL = 2000;
 
-  const { data, error } = useQuery(GET_ROOM_QUERY, {
-    variables: { filters: { documentId: { eq: roomId } } },
+  const { data, error } = useQuery(GAME_VIEW_QUERY, {
+    variables: { roomId },
     skip: !roomId,
     pollInterval: POLL_INTERVAL,
     fetchPolicy: 'network-only',
@@ -50,22 +53,25 @@ export default function useGamePolling(roomId?: string, initialMessages?: Messag
 
   // Handle Updates
   useEffect(() => {
-    if (error) {
-      setState((prev) => ({ ...prev, error: error.message }));
-      return;
-    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((data as any)?.gameView) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const view = (data as any).gameView;
+      const roomData = view.room;
 
-    if ((data as any)?.rooms?.[0]) {
-      const roomData = (data as any).rooms[0];
+      if (!roomData) return;
 
       // Map Room Data to State
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mappedPlayers = (roomData.players || []).map((p: any) => ({
         ...p,
         userId: p.user?.documentId || p.user?.id || p.id,
         action: p.action, // Ensure action status is synced
       }));
 
-      const mappedMessages = ((roomData.messages || []) as any[])
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedMessages = ((view.messages || []) as any[])
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .map((msg: any) => ({
           id: msg.documentId || msg.id,
           content: msg.content,
@@ -78,38 +84,45 @@ export default function useGamePolling(roomId?: string, initialMessages?: Messag
         }))
         .sort((a, b) => a.timestamp - b.timestamp);
 
-      // Entities mapping (Simple version)
-      const mappedCreatures = (roomData.entity_sheets || []).map((s: any) => ({
+      // Entities mapping (Visible Entities from Server)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mappedCreatures = (view.visibleEntities || []).map((s: any) => ({
         id: s.documentId,
         name: s.name,
         type: s.type || 'monster',
         position: s.position || { x: 0, y: 0, z: 0 },
-        // ... other mapping
+        currentHp: s.currentHp,
+        maxHp: s.maxHp,
+        availableActions: s.availableActions,
+        stats: s.stats,
+        inventory: s.inventory,
       }));
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setState((prev) => ({
         ...prev,
         room: roomData as unknown as Room,
         players: mappedPlayers,
         messages: mappedMessages,
-        creatures: mappedCreatures, // Update creatures/entities
+        creatures: mappedCreatures, // Filtered by VisibilityService on Server
         isProcessing: roomData.isProcessing || false, // Use direct flag from backend
         connected: true,
       }));
     }
-  }, [data, error]);
+  }, [data]);
 
   // Compatibility stubs
   const socket = {
     connected: true,
-    emit: (event: string, data: any) => console.log('[Poller] Emit ignored:', event, data),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    emit: (event: string, payload: any) => console.log('[Poller] Emit ignored:', event, payload),
     on: () => {},
     off: () => {},
   };
 
   return {
     connected: state.connected,
-    error: state.error,
+    error: error?.message || state.error,
     room: state.room,
     players: state.players,
     messages: state.messages,

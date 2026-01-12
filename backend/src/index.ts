@@ -28,7 +28,8 @@ export default {
         const client = strapi.db.connection.client.config.client;
         if (client === 'better-sqlite3' || client === 'sqlite') {
           strapi.log.info('[Bootstrap] Initializing sqlite-vec extension...');
-          const sqliteVec = require('sqlite-vec');
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
+          require('sqlite-vec');
           // No need to db.loadExtension manually if we use sqlite-vec library correctly or use it via 'better-sqlite3' loadExtension
           // But strapi uses 'better-sqlite3' internally.
           // We can try to load it on the connection object if exposed.

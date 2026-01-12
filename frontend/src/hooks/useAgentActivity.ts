@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useQuery } from '@apollo/client/react';
 import { gql } from '@apollo/client';
 import { AgentLog } from '@/types/contracts';
@@ -24,7 +24,9 @@ export interface StreamState {
   status: 'active' | 'completed' | 'error';
   tools: Array<{
     name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     input?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     output?: any;
     status: 'running' | 'completed';
   }>;
@@ -34,9 +36,8 @@ export interface StreamState {
 /**
  * Hook to consume Agent Activity via GraphQL Polling
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useAgentActivity(roomId?: string, _socketInstance?: any) {
-  const [streams, setStreams] = useState<Record<string, StreamState>>({});
-
   // Poll for agent logs every 2 seconds
   const { data } = useQuery(GET_AGENT_LOGS, {
     variables: { roomId },
@@ -45,8 +46,10 @@ export function useAgentActivity(roomId?: string, _socketInstance?: any) {
     fetchPolicy: 'network-only',
   });
 
-  useEffect(() => {
+  return useMemo(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((data as any)?.getAgentLogs) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const logs = (data as any).getAgentLogs as AgentLog[];
 
       // Simple aggregation logic to convert flat logs into "Streams"
@@ -77,9 +80,8 @@ export function useAgentActivity(roomId?: string, _socketInstance?: any) {
         };
       }
 
-      setStreams(newStreams);
+      return newStreams;
     }
+    return {};
   }, [data, roomId]);
-
-  return streams;
 }

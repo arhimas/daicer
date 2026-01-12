@@ -6,7 +6,7 @@ import { StateDiff } from '../../api/game/services/action-engine';
 export interface RecordedScenarioStep {
   command: EngineCommand;
   output: {
-    events: any[];
+    events: unknown[];
     stateDiff: StateDiff; // We can snapshot the diff
   };
 }
@@ -23,7 +23,7 @@ export class GameplayRecorder {
     this.filePath = path.join(dir, filename);
   }
 
-  recordStep(command: EngineCommand, result: { events: any[]; stateDiff: StateDiff }) {
+  recordStep(command: EngineCommand, result: { events: unknown[]; stateDiff: StateDiff }) {
     // Sanitize?
     // We might want to remove complex timestamps or randomize IDs if they are non-deterministic,
     // but for Golden Path we want Determinism.

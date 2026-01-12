@@ -77,7 +77,7 @@ describe('E2E: Player Flow', () => {
     expect(mockStrapi.services['api::game.game'].startGame).toHaveBeenCalled();
 
     // 5. Submit Debug Action
-    mockStrapi.services['api::game.game'].submitAction = vi.fn();
+    mockStrapi.services['api::game.turn-processing'] = { submitAction: vi.fn() };
     await resolvers.submitAction(
       null,
       {
@@ -88,7 +88,7 @@ describe('E2E: Player Flow', () => {
       context
     ); // Using Tactician context (Owner)
 
-    expect(mockStrapi.services['api::game.game'].submitAction).toHaveBeenCalledWith(
+    expect(mockStrapi.services['api::game.turn-processing'].submitAction).toHaveBeenCalledWith(
       room.roomId,
       'DEBUG_CMD',
       expect.objectContaining({ documentId: 'tactician-1' }),
@@ -108,7 +108,7 @@ describe('E2E: Player Flow', () => {
     // Resolvers `processTurn` accepts `messages` as ARGUMENT. It calls `strapi.documents('api::room.room')` to get context.
     // It passes `messages` arg to service.
 
-    mockStrapi.services['api::game.game'].processTurn = vi.fn().mockResolvedValue({ success: true });
+    mockStrapi.services['api::game.turn-pipeline'] = { processRoomTurn: vi.fn().mockResolvedValue({ success: true }) };
 
     await resolvers.processTurn(
       null,
@@ -120,15 +120,6 @@ describe('E2E: Player Flow', () => {
       context
     );
 
-    expect(mockStrapi.services['api::game.game'].processTurn).toHaveBeenCalledWith(
-      room.roomId,
-      expect.any(String), // desc
-      [message],
-      expect.any(Array), // players
-      expect.any(Array), // creatures
-      'en',
-      expect.any(Object), // settings
-      undefined // conditions
-    );
+    expect(mockStrapi.services['api::game.turn-pipeline'].processRoomTurn).toHaveBeenCalledWith(room.roomId);
   });
 });

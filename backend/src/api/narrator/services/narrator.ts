@@ -4,7 +4,7 @@
 
 import { getGeminiModel } from '../../../utils/llm/gemini';
 import { GeminiModel } from '../../../utils/llm/types';
-import { HumanMessage, AIMessage } from '@langchain/core/messages';
+import { HumanMessage } from '@langchain/core/messages';
 import { getRegistryTools } from './tool-registry';
 import { NarratorResponse } from './schemas';
 import { createAgent, todoListMiddleware, llmToolSelectorMiddleware } from 'langchain';
@@ -70,7 +70,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     });
     if (turns?.[0]) activeTurnId = turns[0].documentId;
 
-    const savedUserMessage = await strapi.documents('api::message.message').create({
+    await strapi.documents('api::message.message').create({
       data: {
         content: input,
         senderName: senderName,
@@ -135,7 +135,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     // 3. Execution (Agent OR Direct)
     // ---------------------------------------------------------
     let finalNarratorResponse: NarratorResponse;
-    const shouldBroadcastEntities = false;
+    let shouldBroadcastEntities = false;
     let outputText = '';
 
     if (direct) {
@@ -199,6 +199,15 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
       const result = await agent.invoke({
         messages: [new HumanMessage(input)],
       });
+
+      // Detect Tool Usage to trigger broadcast
+      if (result.messages && Array.isArray(result.messages)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const hasToolCalls = result.messages.some((m) => (m as any).tool_calls && (m as any).tool_calls.length > 0);
+        if (hasToolCalls) {
+          shouldBroadcastEntities = true;
+        }
+      }
 
       const lastMessage =
         result.messages && result.messages.length > 0 ? result.messages[result.messages.length - 1] : null;
@@ -279,6 +288,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
               timestamp: new Date().toISOString(),
               turnNumber: nextTurnNumber,
               gameState: {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 entities: entitiesUpdate as any,
                 meta: {
                   source: 'tool_update',
@@ -299,7 +309,7 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     }
 
     // Save AI Message
-    const savedAiMessage = await strapi.documents('api::message.message').create({
+    await strapi.documents('api::message.message').create({
       data: {
         content: finalNarratorResponse.narration,
         senderName: 'DM',

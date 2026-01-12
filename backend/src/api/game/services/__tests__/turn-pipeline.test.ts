@@ -13,7 +13,9 @@ describe('Turn Pipeline Service', () => {
   let turnPipeline: any;
   let mockStrapi: any;
   let mockLockService: any;
+
   let mockActionEngine: any;
+  let mockUpdateFn: any;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -41,8 +43,17 @@ describe('Turn Pipeline Service', () => {
     const mockCreate = vi.fn((params) => ({ documentId: 'created-doc', ...params.data }));
     const mockFindMany = vi.fn().mockResolvedValue([]);
 
+    mockUpdateFn = vi.fn().mockResolvedValue({});
+    const mockQueryUpdate = vi.fn().mockReturnValue({ update: mockUpdateFn });
+
     mockStrapi = {
-      log: { warn: vi.fn(), info: vi.fn() },
+      log: { warn: vi.fn(), info: vi.fn(), error: vi.fn() },
+      db: {
+        transaction: vi.fn(async (cb) => {
+          return await cb({}); // Execute callback immediately
+        }),
+        query: mockQueryUpdate,
+      },
       service: vi.fn((uid) => {
         if (uid === 'api::game.lock-service') return mockLockService;
         if (uid === 'api::game.action-engine') return mockActionEngine;
@@ -59,7 +70,6 @@ describe('Turn Pipeline Service', () => {
   });
 
   // Helper to access mocks
-  const getUpdateSpy = () => mockStrapi.documents().update;
 
   it('should lock room, dispatch actions (dryRun), persist results, and unlock', async () => {
     const inputs = [{ type: 'command', command: { type: 'MOVE', payload: {} } }];
@@ -74,8 +84,8 @@ describe('Turn Pipeline Service', () => {
 
     // 3. Persistence
     // Updates
-    expect(mockStrapi.documents().update).toHaveBeenCalledWith(
-      expect.objectContaining({ documentId: 'e1', data: { hp: 5 } })
+    expect(mockUpdateFn).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { documentId: 'e1' }, data: { hp: 5 } })
     );
     // Events
     expect(mockStrapi.documents('api::game-event.game-event').create).toHaveBeenCalled();

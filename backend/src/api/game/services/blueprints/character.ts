@@ -4,6 +4,7 @@ import { AbstractBlueprint } from '../../src/engine/types/blueprint';
  * Resolves a Strapi Character into an Engine Blueprint.
  * Refactored to use Direct Hydration (removing Adapter dependency).
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const resolveCharacterBlueprint = (character: any): AbstractBlueprint => {
   const stats = character.stats || {
     str: 10,
@@ -15,6 +16,7 @@ export const resolveCharacterBlueprint = (character: any): AbstractBlueprint => 
     initiativeBonus: 0,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const totalLevel = character.classes?.reduce((sum: number, c: any) => sum + (c.level || 1), 0) || 1;
 
   // Approximation for Base HP if not explicit: (avg d8 (5) + conMod) * level

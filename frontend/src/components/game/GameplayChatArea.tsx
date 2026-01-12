@@ -1,14 +1,15 @@
 import { useMemo } from 'react';
 import type { Message, ToolCall as SocketToolCall } from '@/types/contracts';
 import useAuth from '../../hooks/useAuth';
+// import { useI18n } from '../../i18n';
+import { UnifiedChatArea } from '../chat/UnifiedChatArea';
 
 export interface PresenceData {
   userId: string;
   type: 'viewing' | 'typing' | 'generating' | 'tool_executing';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 }
-// import { useI18n } from '../../i18n';
-import { UnifiedChatArea } from '../chat/UnifiedChatArea';
 
 interface DiceRollData {
   dice: string;

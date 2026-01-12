@@ -11,10 +11,9 @@
  */
 
 import { factories } from '@strapi/strapi';
-import { EngineCommand } from '../schemas/commands';
+import { EngineCommand, MoveCommand } from '../schemas/commands';
 import { GameEvent } from '../schemas/events';
 import { ActionResult, StateDiff } from './action-engine';
-import type { UID } from '@strapi/types';
 
 interface TurnInput {
   type: 'command' | 'text';
@@ -22,6 +21,29 @@ interface TurnInput {
   command?: EngineCommand;
   text?: string;
 }
+
+// Helper to parse text actions like "MOVE:x,y,z"
+const parseTextAction = (text: string, actorId: string): EngineCommand | null => {
+  if (text.startsWith('MOVE:')) {
+    const parts = text.replace('MOVE:', '').split(',');
+    if (parts.length >= 2) {
+      const x = Number(parts[0]);
+      const y = Number(parts[1]);
+      const z = parts.length > 2 ? Number(parts[2]) : 0;
+      return {
+        type: 'MOVE',
+        timestamp: Date.now(),
+        payload: {
+          actorId,
+          targetPosition: { x, y, z },
+          path: [], // Will be calculated by ActionEngine
+          mode: 'walk',
+        },
+      } as MoveCommand;
+    }
+  }
+  return null;
+};
 
 export default factories.createCoreService('api::game.turn-pipeline', ({ strapi }) => ({
   async processTurn(roomId: string, inputs: TurnInput[]) {
@@ -48,10 +70,14 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
       for (const input of inputs) {
         if (input.type === 'command' && input.command) {
           commands.push(input.command);
-        } else if (input.type === 'text') {
-          // Placeholder for "Say" command or Intent Parsing
-          // commands.push(await intentParser.parse(input.text, input.agentId));
-          strapi.log.warn('[TurnPipeline] Text input interpretation not yet implemented:', input.text);
+        } else if (input.type === 'text' && input.text && input.agentId) {
+          // Parse Text Action
+          const parsed = parseTextAction(input.text, input.agentId);
+          if (parsed) {
+            commands.push(parsed);
+          } else {
+            strapi.log.warn('[TurnPipeline] Unknown text input:', input.text);
+          }
         }
       }
 
@@ -82,9 +108,10 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
 
       // 3. PERSISTENCE PHASE
       // Transactional application (Atomic Commit)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const createdEvents: any[] = [];
 
-      const turnId = await strapi.db.transaction(async (trx) => {
+      const turnId = await strapi.db.transaction(async (_trx) => {
         // A. Apply State Changes
         for (const update of allDiffs.updates) {
           await strapi.db.query(update.collection).update({
@@ -154,17 +181,135 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
 
       // 4. NARRATION PHASE
       // Call Narrator with the LIST of Events.
-      // const narration = await strapi.service('api::game.narrator').narrateTurn(createdEvents);
-      // await strapi.documents('api::turn.turn').update({ documentId: turn.documentId, data: { summary: narration } });
+      try {
+        const room = await strapi.documents('api::room.room').findOne({
+          documentId: roomId,
+          populate: ['world', 'dmSettings', 'players', 'players.character'],
+        });
 
-      // 5. BROADCAST PHASE - REMOVED
-      // const gameBroadcaster = strapi.service('api::game.game-broadcaster');
-      // gameBroadcaster.broadcastTurnComplete...
+        // Fetch simplified entities for Narrative Context
+        // Re-using entitiesInRoom from Step 3D might be stale if Diffs removed them, but acceptable for now.
+        // Or we assume `entitiesInRoom` (State Before) + Events is enough.
+        // Actually best to re-fetch or apply diffs memory-side.
+        // For simplicity, we re-fetch entities to get current status.
+        const currentEntities = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
+          filters: { room: { documentId: roomId } },
+          populate: ['stats', 'computedActions'],
+        });
+
+        // Map to Narrative Engine format
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const narrEntities = currentEntities.map((e: any) => ({
+          id: e.documentId,
+          name: e.name,
+          type: e.type || 'character',
+          hp: e.currentHp,
+          maxHp: e.maxHp,
+          armorClass: e.ac || 10,
+          stats: e.stats || {},
+          actions: e.computedActions || [],
+        }));
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const narrPlayers = (room.players || []).map((p: any) => ({
+          ...p,
+          character: p.character, // Ensure structure
+        }));
+
+        const narration = await strapi.service('api::game.narrative-engine').generateNarrativeResponse(
+          roomId,
+          room.world?.description || 'A dark room.',
+          [], // Messages - TODO: Fetch recent messages if needed
+          narrPlayers,
+          narrEntities,
+          room.world?.language || 'en',
+          { ...room.world, ...room.dmSettings },
+          undefined, // worldConditions
+          undefined, // streamId
+          undefined // mapImage - TODO: Generate Map Image here if desired
+        );
+
+        if (narration && narration.overall_summary) {
+          await strapi.documents('api::turn.turn').update({
+            documentId: turnId, // turnId is returned from transaction
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            data: { summary: narration.overall_summary } as any,
+          });
+
+          // Create DM Message so it appears in Chat
+          await strapi.documents('api::message.message').create({
+            data: {
+              content: narration.overall_summary,
+              senderName: 'Dungeon Master',
+              senderType: 'dm',
+              room: roomId,
+              turn: turnId,
+              timestamp: Date.now().toString(),
+              // Assuming 'room', 'turn' are relations.
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any,
+          });
+        }
+      } catch (err) {
+        strapi.log.error('[TurnPipeline] Narration Failed:', err);
+      }
+
+      // 5. BROADCAST PHASE - Polling handles this.
 
       return { success: true, turnId: turnId };
     } finally {
       // 6. UNLOCK
       await lockService.release(roomId, holderId);
     }
+  },
+
+  /**
+   * Helper to fetch pending actions from Room and process them.
+   */
+  async processRoomTurn(roomId: string) {
+    const room = await strapi.documents('api::room.room').findOne({
+      documentId: roomId,
+      populate: ['players', 'players.character'],
+    });
+
+    if (!room) throw new Error('Room not found');
+
+    const inputs: TurnInput[] = [];
+    const players = room.players || [];
+
+    for (const p of players) {
+      if (p.action) {
+        // Try to parse as JSON Command
+        try {
+          const json = JSON.parse(p.action);
+          if (json.type) {
+            inputs.push({ type: 'command', agentId: p.character?.documentId, command: json });
+            continue; // Handled
+          }
+        } catch {
+          // Not JSON
+        }
+        // Fallback to text
+        inputs.push({ type: 'text', agentId: p.character?.documentId, text: p.action });
+      }
+    }
+
+    if (inputs.length === 0) return { success: true, message: 'No actions pending.' };
+
+    const result = await this.processTurn(roomId, inputs);
+
+    // Clear Actions (Post-Processing)
+    // We do this here because processTurn is generic/stateless regarding "Pending Actions" concept.
+    // Ideally processTurn handles this if it knows about the inputs, but cleaner to separate.
+    if (result.success) {
+      const updatedPlayers = players.map((p) => ({ ...p, action: null, isReady: false }));
+      await strapi.documents('api::room.room').update({
+        documentId: roomId,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: { players: updatedPlayers } as any,
+      });
+    }
+
+    return result;
   },
 }));

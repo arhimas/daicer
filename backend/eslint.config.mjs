@@ -42,7 +42,7 @@ export default tseslint.config(
     files: ['src/cli/**', 'src/scripts/**', '**/__tests__/**', '**/*.test.ts', '**/*.spec.ts'],
     rules: {
       'no-console': 'off',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   }
 );

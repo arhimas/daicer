@@ -14,6 +14,7 @@ export const getRegistryTools = (strapi: Core.Strapi, roomDocumentId: string, _m
     const tool = new DynamicStructuredTool({
       name: def.name,
       description: def.description,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       schema: def.schema as z.ZodObject<any>, // Cast required for LangChain strictness
       func: async (input) => {
         try {
@@ -23,6 +24,7 @@ export const getRegistryTools = (strapi: Core.Strapi, roomDocumentId: string, _m
           if (typeof result === 'string') return result;
           if (typeof result === 'object') return JSON.stringify(result);
           return String(result);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
           console.error(`Tool ${def.name} execution failed:`, err);
           return `Error: ${err.message || 'Unknown error'}`;

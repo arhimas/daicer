@@ -189,7 +189,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
    * Populate a chunk with ANY monster contextually.
    * Scales rarity by Challenge Rating (CR).
    */
-  async populateChunk(chunkX: number, chunkY: number, biome: BiomeType) {
+  async populateChunk(chunkX: number, chunkY: number, biome: BiomeType, roomId: string) {
     // 1. Fetch Candidate Pool
     const monsters = await this.getAllMonsters();
     if (!monsters || monsters.length === 0) return;
@@ -258,7 +258,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       const z = 1;
 
       try {
-        await spawnService.spawnMonster('global', selectedMonster.documentId, { x, y, z });
+        await spawnService.spawnMonster(roomId, selectedMonster.documentId, { x, y, z });
       } catch (e) {
         console.error(`[BiomeSpawn] Failed to spawn ${selectedMonster.name}`, e);
       }

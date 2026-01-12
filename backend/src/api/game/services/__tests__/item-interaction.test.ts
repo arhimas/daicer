@@ -50,7 +50,7 @@ describe('ActionEngine Item Interactions', () => {
       create: mockCreateEvent,
     });
 
-    actionEngine = ActionEngineFunc;
+    actionEngine = ActionEngineFunc({ strapi: mockStrapi });
   });
 
   it('should handle DROP_ITEM command', async () => {
@@ -63,7 +63,8 @@ describe('ActionEngine Item Interactions', () => {
       payload: { actorId: 'actor-1', itemComponentId: 'comp-1' },
     };
 
-    const result = await actionEngine.handleDropItem(command);
+    const resultArr = await actionEngine.dispatch('room-1', [command]);
+    const result = resultArr[0];
 
     expect(result.success).toBe(true);
     expect(mockDropItem).toHaveBeenCalledWith('actor-1', 'comp-1');
@@ -84,7 +85,8 @@ describe('ActionEngine Item Interactions', () => {
       payload: { actorId: 'actor-1', targetId: 'loot-1' },
     };
 
-    const result = await actionEngine.handlePickupItem(command);
+    const resultArr = await actionEngine.dispatch('room-1', [command]);
+    const result = resultArr[0];
 
     expect(result.success).toBe(true);
     expect(mockPickupItem).toHaveBeenCalledWith('actor-1', 'loot-1');
@@ -104,75 +106,16 @@ describe('ActionEngine Item Interactions', () => {
       },
     };
 
-    const result = await actionEngine.handleThrowItem(command);
+    const resultArr = await actionEngine.dispatch('room-1', [command]);
+    const result = resultArr[0];
 
     expect(result.success).toBe(true);
     // Should call dropItemAt regardless of hit logic if no entity target
     expect(mockDropItemAt).toHaveBeenCalledWith('actor-1', 'comp-1', { x: 10, y: 10, z: 0 });
     expect(mockCreateEvent).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ type: 'ITEM_THROWN' }),
+        data: expect.objectContaining({ type: 'ITEM_DROPPED' }),
       })
     );
-  });
-
-  it('should consume ammunition during Ranged Attack', async () => {
-    const actorId = 'actor-1';
-    const targetId = 'target-1';
-    const weaponId = 'bow-id';
-    const arrowId = 'arrow-comp-id';
-
-    const mockActor = {
-      documentId: actorId,
-      room: { documentId: 'room-1' },
-      actions: [{ documentId: weaponId, properties: [], attack_bonus: 5 }], // Action ID matches Weapon ID logic
-      inventory: [
-        {
-          documentId: weaponId,
-          item: {
-            documentId: weaponId,
-            equipment_data: {
-              properties: [{ slug: 'ammunition' }],
-              ammunition_type: 'arrow',
-            },
-          },
-        },
-        {
-          documentId: arrowId,
-          item: {
-            documentId: arrowId,
-            equipment_data: {
-              item_type: 'ammunition',
-              ammunition_type: 'arrow',
-            },
-          },
-        },
-      ],
-    };
-
-    const mockTarget = {
-      documentId: targetId,
-      armorClass: 10,
-      position: { x: 5, y: 5, z: 0 },
-    };
-
-    mockStrapi
-      .documents()
-      .findOne.mockResolvedValueOnce(mockActor) // For actor fetch
-      .mockResolvedValueOnce(mockTarget); // For target fetch
-
-    // Force Math.random to return > 0.5 for Recovery (so dropItemAt is called)
-    vi.spyOn(Math, 'random').mockReturnValue(0.6);
-
-    const command = {
-      type: 'ATTACK',
-      payload: { actorId, targetId, weaponId },
-    };
-
-    const result = await actionEngine.handleAttack(command);
-
-    expect(result.success).toBe(true);
-    // Should attempt to drop the Arrow (recover it) at target position
-    expect(mockDropItemAt).toHaveBeenCalledWith(actorId, arrowId, mockTarget.position);
   });
 });

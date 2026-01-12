@@ -4,8 +4,9 @@ import { StructureInfo, Tile } from '../../../game/src/engine/types';
 
 describe('SOTA Generation Verification', () => {
   describe('Biomes', () => {
-    // TODO: Implement proper biome verification with mocked noise
-    expect(true).toBe(true);
+    it('should be implemented later', () => {
+      expect(true).toBe(true);
+    });
   });
 
   describe('Advanced Structures', () => {

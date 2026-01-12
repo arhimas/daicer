@@ -3,7 +3,7 @@ export default {
     {
       method: 'POST',
       path: '/game/god-mode/execute',
-      handler: 'game.godModeExecute',
+      handler: 'god-mode.godModeExecute',
       config: {
         policies: [],
         middlewares: [],

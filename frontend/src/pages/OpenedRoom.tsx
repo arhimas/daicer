@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { Room, Player, GamePhase } from '@/types/contracts';
+import type { ToolCall } from '@/types/contracts';
 import { getRoomState } from '../services/api';
 import useAuth from '../hooks/useAuth';
 import useGamePolling from '../hooks/useGamePolling';
-import type { ToolCall } from '@/types/contracts';
 import CharacterCreation from '../components/room/CharacterCreation';
 import { PrivateLayout } from '../components/layout';
 import { Button } from '../components/ui/button';

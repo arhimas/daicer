@@ -38,13 +38,13 @@ describe('Persistence Verification', () => {
   it('should persist spawned fauna to the database', async () => {
     // 1. Trigger Population
     vi.spyOn(Math, 'random').mockReturnValue(0.01); // Force success
-    await biomeService.populateChunk(10, 20, BiomeType.desert);
+    await biomeService.populateChunk(10, 20, BiomeType.desert, 'global-room');
 
     // 2. Verify Spawn Service was called
     expect(mockSpawnMonster).toHaveBeenCalled();
     const [context, id, pos] = mockSpawnMonster.mock.calls[0];
 
-    expect(context).toBe('global');
+    expect(context).toBe('global-room');
     expect(id).toBe('scorpion_doc');
     expect(pos.x).toBeGreaterThanOrEqual(10 * 16);
     expect(pos.z).toBe(1);
