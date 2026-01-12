@@ -1,0 +1,126 @@
+yarn run v1.22.22
+$ eslint .
+
+/Users/lg/lab/daicer/frontend/src/components/ai/Reasoning.tsx
+  57:6  warning  React Hook useEffect has a missing dependency: 'handleOpenChange'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  77:6  warning  React Hook useEffect has a missing dependency: 'handleOpenChange'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/lg/lab/daicer/frontend/src/components/common/PaperSheetComponents.tsx
+   5:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  16:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/lg/lab/daicer/frontend/src/components/game/GameplayChatArea.tsx
+  10:10  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/lg/lab/daicer/frontend/src/components/room/character-creation/helpers.tsx
+   33:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  143:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/lg/lab/daicer/frontend/src/components/ui/FormWizard.tsx
+  284:93  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/lg/lab/daicer/frontend/src/components/ui/badge.tsx
+  42:17  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/lg/lab/daicer/frontend/src/components/ui/data-table/DataTable.tsx
+  41:17  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+/Users/lg/lab/daicer/frontend/src/components/ui/data-table/DataTable.tsx:41:17
+  39 |   const [rowSelection, setRowSelection] = useState({});
+  40 |
+> 41 |   const table = useReactTable({
+     |                 ^^^^^^^^^^^^^ TanStack Table's `useReactTable()` API returns functions that cannot be memoized safely
+  42 |     data,
+  43 |     columns,
+  44 |     onSortingChange: setSorting,  react-hooks/incompatible-library
+
+/Users/lg/lab/daicer/frontend/src/contexts/TimeFrameContext.tsx
+  78:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/lg/lab/daicer/frontend/src/contexts/infinite-chunks/actions.ts
+  85:5  warning  React Hook useCallback has unnecessary dependencies: 'state.chunkGenerator', 'state.config.chunkSize', and 'state.config.loadRadius'. Either exclude them or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/lg/lab/daicer/frontend/src/features/create-room/context/WizardContext.tsx
+  98:6  warning  React Hook useEffect has missing dependencies: 'initialValues?.seed', 'settings.generationParams', and 'settings.seed'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/lg/lab/daicer/frontend/src/features/debug/components/EntitySpawner.tsx
+  19:36  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  51:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/lg/lab/daicer/frontend/src/features/debug/components/EntropyDebugPanel.tsx
+   50:7   warning  Unexpected alert                                no-alert
+   90:11  error    A form label must be associated with a control  jsx-a11y/label-has-associated-control
+  112:11  error    A form label must be associated with a control  jsx-a11y/label-has-associated-control
+  115:15  error    Missing an explicit type attribute for button   react/button-has-type
+
+/Users/lg/lab/daicer/frontend/src/features/debug/components/GameDebugMap.tsx
+   55:34  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  280:11  error  Missing an explicit type attribute for button  react/button-has-type
+
+/Users/lg/lab/daicer/frontend/src/features/debug/components/GameDebugView.tsx
+  79:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/lg/lab/daicer/frontend/src/features/debug/components/MapRenderer.tsx
+  279:6  warning  React Hook useEffect has missing dependencies: 'godMode' and 'lightLevel'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/lg/lab/daicer/frontend/src/hooks/useAgentActivity.ts
+  27:13  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  28:14  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  37:69  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  49:18  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  50:29  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  80:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/lg/lab/daicer/frontend/src/hooks/useAgentActivity.ts:80:7
+  78 |       }
+  79 |
+> 80 |       setStreams(newStreams);
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  81 |     }
+  82 |   }, [data, roomId]);
+  83 |  react-hooks/set-state-in-effect
+
+/Users/lg/lab/daicer/frontend/src/hooks/useEntitySearch.tsx
+  16:18  warning  React Hook useCallback received a function whose dependencies are unknown. Pass an inline function instead  react-hooks/exhaustive-deps
+
+/Users/lg/lab/daicer/frontend/src/hooks/useGamePolling.tsx
+   13:14  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   16:13  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   39:19  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/lg/lab/daicer/frontend/src/hooks/useGamePolling.tsx:39:19
+  37 |     presence: [],
+  38 |     sseHealthWarning: false,
+> 39 |     lastSSEEvent: Date.now(),
+     |                   ^^^^^^^^^^ Cannot call impure function
+  40 |   });
+  41 |
+  42 |   // Polling Interval (2s)  react-hooks/purity
+   59:18  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   60:29  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   66:62  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   72:56  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   73:20  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   86:68  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  113:27  error  'data' is already declared in the upper scope on line 45 column 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       no-shadow
+  113:27  error  'data' is already declared in the upper scope on line 45 column 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-shadow
+  113:33  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+
+/Users/lg/lab/daicer/frontend/src/pages/OpenedRoom.tsx
+  104:6  warning  React Hook useEffect has a missing dependency: 'streamEvents.length'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  212:6  warning  React Hook useEffect has a missing dependency: 'user'. Either include it or remove the dependency array                 react-hooks/exhaustive-deps
+
+✖ 44 problems (27 errors, 17 warnings)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

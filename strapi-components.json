@@ -1,0 +1,2839 @@
+{
+  "components": {
+    "game.action": {
+      "info": {
+        "displayName": "Action",
+        "icon": "fist-raised",
+        "description": "Structured action (attack, spell, utility)"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "melee",
+            "ranged",
+            "spell",
+            "utility"
+          ],
+          "default": "melee"
+        },
+        "toHit": {
+          "type": "integer"
+        },
+        "reach": {
+          "type": "integer"
+        },
+        "damage": {
+          "type": "component",
+          "component": "game.damage-instance",
+          "repeatable": true
+        },
+        "save": {
+          "type": "component",
+          "component": "game.save-dc",
+          "repeatable": false
+        },
+        "area": {
+          "type": "component",
+          "component": "game.area-effect",
+          "repeatable": false
+        },
+        "duration": {
+          "type": "enumeration",
+          "enum": [
+            "instantaneous",
+            "concentration",
+            "one_minute",
+            "ten_minutes",
+            "one_hour",
+            "eight_hours",
+            "twenty_four_hours",
+            "until_dispelled",
+            "special"
+          ],
+          "default": "instantaneous"
+        },
+        "description": {
+          "type": "text"
+        },
+        "action_definition": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::action.action"
+        },
+        "spell_definition": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::spell.spell"
+        }
+      }
+    },
+    "game.appearance": {
+      "info": {
+        "displayName": "Appearance",
+        "icon": "user",
+        "description": "Physical appearance details"
+      },
+      "attributes": {
+        "age": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "decimal"
+        },
+        "weight": {
+          "type": "decimal"
+        },
+        "eyes": {
+          "type": "string"
+        },
+        "skin": {
+          "type": "string"
+        },
+        "hair": {
+          "type": "string"
+        },
+        "description": {
+          "type": "text"
+        }
+      }
+    },
+    "game.area-effect": {
+      "info": {
+        "displayName": "Area Effect",
+        "icon": "expand",
+        "description": "Area of effect definition"
+      },
+      "attributes": {
+        "shape": {
+          "type": "enumeration",
+          "enum": [
+            "line",
+            "cone",
+            "cube",
+            "sphere",
+            "circle",
+            "cylinder"
+          ],
+          "required": true
+        },
+        "size": {
+          "type": "integer",
+          "required": true
+        },
+        "width": {
+          "type": "integer"
+        }
+      }
+    },
+    "game.casting-config": {
+      "info": {
+        "displayName": "Casting Config",
+        "icon": "hand-sparkles",
+        "description": "Rules for casting time and components"
+      },
+      "attributes": {
+        "time_value": {
+          "type": "integer",
+          "required": true,
+          "default": 1
+        },
+        "time_unit": {
+          "type": "enumeration",
+          "enum": [
+            "Action",
+            "Bonus Action",
+            "Reaction",
+            "Minute",
+            "Hour",
+            "Day",
+            "Round"
+          ],
+          "required": true,
+          "default": "Action"
+        },
+        "reaction_trigger": {
+          "type": "text"
+        },
+        "is_ritual": {
+          "type": "boolean",
+          "default": false
+        },
+        "is_concentration": {
+          "type": "boolean",
+          "default": false
+        },
+        "components": {
+          "type": "component",
+          "component": "game.spell-components",
+          "repeatable": false
+        }
+      }
+    },
+    "game.character-class": {
+      "info": {
+        "displayName": "CharacterClass",
+        "description": "Links a character to a class and level"
+      },
+      "attributes": {
+        "class": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::class.class"
+        },
+        "level": {
+          "type": "integer",
+          "required": true,
+          "default": 1
+        },
+        "subclass": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::subclass.subclass"
+        }
+      }
+    },
+    "game.class-progression": {
+      "info": {
+        "displayName": "Class Progression",
+        "description": "Features and resources gained at a specific level"
+      },
+      "attributes": {
+        "level": {
+          "type": "integer",
+          "required": true
+        },
+        "features": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::feature.feature"
+        },
+        "spell_slots": {
+          "type": "json",
+          "required": false
+        },
+        "class_specifics": {
+          "type": "json",
+          "required": false
+        }
+      }
+    },
+    "game.computed-action": {
+      "info": {
+        "displayName": "Computed Action",
+        "icon": "fist-raised",
+        "description": "A fully resolved action ready for the engine"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "melee",
+            "ranged",
+            "spell",
+            "utility"
+          ]
+        },
+        "toHit": {
+          "type": "integer"
+        },
+        "damageDice": {
+          "type": "string"
+        },
+        "damageBonus": {
+          "type": "integer"
+        },
+        "damageType": {
+          "type": "string"
+        },
+        "saveAbility": {
+          "type": "string"
+        },
+        "saveDc": {
+          "type": "integer"
+        },
+        "range": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "text"
+        },
+        "resourceCost": {
+          "type": "json"
+        }
+      }
+    },
+    "game.condition-instance": {
+      "info": {
+        "displayName": "Condition Instance",
+        "icon": "dizzy",
+        "description": "Applying status effects"
+      },
+      "attributes": {
+        "condition": {
+          "type": "enumeration",
+          "enum": [
+            "Blinded",
+            "Charmed",
+            "Deafened",
+            "Exhaustion",
+            "Frightened",
+            "Grappled",
+            "Incapacitated",
+            "Invisible",
+            "Paralyzed",
+            "Petrified",
+            "Poisoned",
+            "Prone",
+            "Restrained",
+            "Stunned",
+            "Unconscious",
+            "Special"
+          ],
+          "required": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "chance": {
+          "type": "integer",
+          "default": 100
+        },
+        "duration_rounds": {
+          "type": "integer"
+        }
+      }
+    },
+    "game.damage-dice": {
+      "info": {
+        "displayName": "Damage Dice",
+        "icon": "dice",
+        "description": "A single damage roll component (e.g. 2d6 + 3 slashing)"
+      },
+      "attributes": {
+        "dice": {
+          "type": "string",
+          "required": true
+        },
+        "bonus": {
+          "type": "integer",
+          "default": 0
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "game.damage-instance": {
+      "info": {
+        "displayName": "Damage Instance",
+        "icon": "skull-crossbones",
+        "description": "Damage or Healing application"
+      },
+      "attributes": {
+        "effect_type": {
+          "type": "enumeration",
+          "enum": [
+            "Damage",
+            "Healing",
+            "TempHP"
+          ],
+          "required": true,
+          "default": "Damage"
+        },
+        "damage_type": {
+          "type": "enumeration",
+          "enum": [
+            "Acid",
+            "Bludgeoning",
+            "Cold",
+            "Fire",
+            "Force",
+            "Lightning",
+            "Necrotic",
+            "Piercing",
+            "Poison",
+            "Psychic",
+            "Radiant",
+            "Slashing",
+            "Thunder"
+          ]
+        },
+        "dice_count": {
+          "type": "integer",
+          "default": 1
+        },
+        "dice_value": {
+          "type": "integer",
+          "default": 6
+        },
+        "flat_bonus": {
+          "type": "integer",
+          "default": 0
+        },
+        "timing": {
+          "type": "enumeration",
+          "enum": [
+            "Instant",
+            "Start of Turn",
+            "End of Turn",
+            "One Time Trigger"
+          ],
+          "default": "Instant"
+        }
+      }
+    },
+    "game.damage-modifier": {
+      "info": {
+        "displayName": "Damage Modifier",
+        "icon": "heart-broken",
+        "description": "Resistance, Immunity, or Vulnerability"
+      },
+      "attributes": {
+        "damageType": {
+          "type": "enumeration",
+          "enum": [
+            "acid",
+            "bludgeoning",
+            "cold",
+            "fire",
+            "force",
+            "lightning",
+            "necrotic",
+            "piercing",
+            "poison",
+            "psychic",
+            "radiant",
+            "slashing",
+            "thunder",
+            "physical",
+            "magical"
+          ],
+          "required": true
+        },
+        "modifier": {
+          "type": "enumeration",
+          "enum": [
+            "resistance",
+            "immunity",
+            "vulnerability"
+          ],
+          "required": true
+        }
+      }
+    },
+    "game.dm-style": {
+      "info": {
+        "displayName": "DM Style",
+        "icon": "dungeon"
+      },
+      "attributes": {
+        "verbosity": {
+          "type": "integer",
+          "default": 1
+        },
+        "detail": {
+          "type": "integer",
+          "default": 1
+        },
+        "engagement": {
+          "type": "integer",
+          "default": 1
+        },
+        "narrative": {
+          "type": "integer",
+          "default": 1
+        },
+        "specialMode": {
+          "type": "string"
+        },
+        "customDirectives": {
+          "type": "text"
+        }
+      }
+    },
+    "game.duration-config": {
+      "info": {
+        "displayName": "Duration Config",
+        "icon": "hourglass-start",
+        "description": "Duration and Concentration rules"
+      },
+      "attributes": {
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "Instantaneous",
+            "Concentration",
+            "Time-Limited",
+            "Until Dispelled",
+            "Until Triggered",
+            "Special"
+          ],
+          "required": true,
+          "default": "Instantaneous"
+        },
+        "value": {
+          "type": "integer"
+        },
+        "unit": {
+          "type": "enumeration",
+          "enum": [
+            "Rounds",
+            "Minutes",
+            "Hours",
+            "Days"
+          ]
+        },
+        "concentration": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "game.equipment-data": {
+      "info": {
+        "displayName": "Equipment Data",
+        "icon": "shield-alt",
+        "description": "Stats for weapons, armor, and gear"
+      },
+      "attributes": {
+        "damage_dice": {
+          "type": "string"
+        },
+        "damage_type": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::damage-type.damage-type"
+        },
+        "range_normal": {
+          "type": "integer"
+        },
+        "range_long": {
+          "type": "integer"
+        },
+        "properties": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::weapon-property.weapon-property"
+        },
+        "armor_class_base": {
+          "type": "integer"
+        },
+        "armor_class_dex_bonus": {
+          "type": "boolean"
+        },
+        "str_minimum": {
+          "type": "integer"
+        },
+        "stealth_disadvantage": {
+          "type": "boolean"
+        },
+        "actions": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::action.action"
+        }
+      }
+    },
+    "game.feature": {
+      "info": {
+        "displayName": "Feature",
+        "icon": "star",
+        "description": "Trait or Special Ability"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "text"
+        },
+        "source": {
+          "type": "enumeration",
+          "enum": [
+            "race",
+            "class",
+            "monster",
+            "feat",
+            "item",
+            "other"
+          ],
+          "default": "monster"
+        },
+        "usage_max": {
+          "type": "integer"
+        },
+        "usage_per": {
+          "type": "enumeration",
+          "enum": [
+            "short_rest",
+            "long_rest",
+            "day",
+            "dawn",
+            "dusk",
+            "other"
+          ]
+        }
+      }
+    },
+    "game.inventory-item": {
+      "info": {
+        "displayName": "Inventory Item",
+        "description": "An item in an inventory or slot"
+      },
+      "attributes": {
+        "item": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::item.item"
+        },
+        "quantity": {
+          "type": "integer",
+          "default": 1
+        },
+        "slot": {
+          "type": "enumeration",
+          "enum": [
+            "backpack",
+            "main_hand",
+            "off_hand",
+            "armor",
+            "head",
+            "feet",
+            "neck",
+            "hands",
+            "cloak",
+            "ring_1",
+            "ring_2",
+            "accessory"
+          ],
+          "default": "backpack"
+        },
+        "isEquipped": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "game.mechanics-config": {
+      "info": {
+        "displayName": "Mechanics Config",
+        "icon": "cog",
+        "description": "Saving Throws and Attack Types"
+      },
+      "attributes": {
+        "action_type": {
+          "type": "enumeration",
+          "enum": [
+            "Melee Spell Attack",
+            "Ranged Spell Attack",
+            "Strength Save",
+            "Dexterity Save",
+            "Constitution Save",
+            "Intelligence Save",
+            "Wisdom Save",
+            "Charisma Save",
+            "Auto-Hit",
+            "None"
+          ],
+          "required": true,
+          "default": "None"
+        },
+        "save_effect": {
+          "type": "enumeration",
+          "enum": [
+            "Negate",
+            "Half",
+            "None"
+          ]
+        }
+      }
+    },
+    "game.player": {
+      "info": {
+        "displayName": "Player",
+        "icon": "user",
+        "description": "A player in a room"
+      },
+      "attributes": {
+        "user": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "plugin::users-permissions.user"
+        },
+        "character": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::character.character"
+        },
+        "characterSheet": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::entity-sheet.entity-sheet"
+        },
+        "isReady": {
+          "type": "boolean",
+          "default": false
+        },
+        "isOnline": {
+          "type": "boolean",
+          "default": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "joinedAt": {
+          "type": "datetime"
+        },
+        "action": {
+          "type": "string"
+        }
+      }
+    },
+    "game.position": {
+      "info": {
+        "displayName": "Position",
+        "icon": "map",
+        "description": "Grid coordinates"
+      },
+      "attributes": {
+        "x": {
+          "type": "integer",
+          "default": 0
+        },
+        "y": {
+          "type": "integer",
+          "default": 0
+        },
+        "z": {
+          "type": "integer",
+          "default": 0
+        },
+        "mapId": {
+          "type": "string"
+        }
+      }
+    },
+    "game.range-config": {
+      "info": {
+        "displayName": "Range Config",
+        "icon": "ruler-combined",
+        "description": "Distance and Area of Effect"
+      },
+      "attributes": {
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "Self",
+            "Touch",
+            "Ranged (Feet)",
+            "Ranged (Miles)",
+            "Sight",
+            "Unlimited"
+          ],
+          "required": true,
+          "default": "Ranged (Feet)"
+        },
+        "distance": {
+          "type": "integer"
+        },
+        "aoe_shape": {
+          "type": "enumeration",
+          "enum": [
+            "Cone",
+            "Cube",
+            "Cylinder",
+            "Line",
+            "Sphere",
+            "Hemisphere"
+          ]
+        },
+        "aoe_size": {
+          "type": "integer"
+        },
+        "aoe_height": {
+          "type": "integer"
+        }
+      }
+    },
+    "game.resource-pool": {
+      "info": {
+        "displayName": "Resource Pool",
+        "icon": "battery-full",
+        "description": "Trackable resources (HP, Spell Slots, Ki Points)"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "current": {
+          "type": "integer",
+          "required": true,
+          "default": 0
+        },
+        "max": {
+          "type": "integer",
+          "required": true,
+          "default": 1
+        },
+        "reset_on": {
+          "type": "enumeration",
+          "enum": [
+            "short_rest",
+            "long_rest",
+            "never",
+            "dawn"
+          ],
+          "default": "long_rest"
+        }
+      }
+    },
+    "game.save-bonus": {
+      "info": {
+        "displayName": "Save Bonus",
+        "icon": "shield-alt",
+        "description": "Calculated saving throw modifier"
+      },
+      "attributes": {
+        "stat": {
+          "type": "enumeration",
+          "enum": [
+            "strength",
+            "dexterity",
+            "constitution",
+            "intelligence",
+            "wisdom",
+            "charisma"
+          ],
+          "required": true
+        },
+        "value": {
+          "type": "integer",
+          "required": true,
+          "default": 0
+        },
+        "proficient": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "game.save-dc": {
+      "info": {
+        "displayName": "Save DC",
+        "icon": "shield-alt",
+        "description": "Saving throw difficulty class"
+      },
+      "attributes": {
+        "dc": {
+          "type": "integer",
+          "required": true
+        },
+        "stat": {
+          "type": "enumeration",
+          "enum": [
+            "str",
+            "dex",
+            "con",
+            "int",
+            "wis",
+            "cha"
+          ],
+          "required": true
+        },
+        "success_type": {
+          "type": "enumeration",
+          "enum": [
+            "none",
+            "half",
+            "other"
+          ],
+          "default": "none"
+        }
+      }
+    },
+    "game.scaling-config": {
+      "info": {
+        "displayName": "Scaling Config",
+        "icon": "sort-amount-up",
+        "description": "Rules for Higher Level Casting"
+      },
+      "attributes": {
+        "scales": {
+          "type": "boolean",
+          "default": false
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "Dice",
+            "Target",
+            "Duration"
+          ],
+          "default": "Dice"
+        },
+        "method": {
+          "type": "enumeration",
+          "enum": [
+            "Per Slot Level",
+            "Every 2 Slot Levels",
+            "Specific Thresholds"
+          ],
+          "default": "Per Slot Level"
+        },
+        "dice_count": {
+          "type": "integer"
+        },
+        "dice_value": {
+          "type": "integer"
+        }
+      }
+    },
+    "game.skill-bonus": {
+      "info": {
+        "displayName": "Skill Bonus",
+        "icon": "book",
+        "description": "Calculated skill modifier"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "integer",
+          "required": true,
+          "default": 0
+        },
+        "proficient": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "game.spell-components": {
+      "info": {
+        "displayName": "Spell Components",
+        "icon": "puzzle-piece",
+        "description": "V, S, M requirements"
+      },
+      "attributes": {
+        "verbal": {
+          "type": "boolean",
+          "default": false
+        },
+        "somatic": {
+          "type": "boolean",
+          "default": false
+        },
+        "material": {
+          "type": "boolean",
+          "default": false
+        },
+        "material_description": {
+          "type": "string"
+        },
+        "cost_gp": {
+          "type": "integer",
+          "default": 0
+        },
+        "consumed": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "game.spell-data": {
+      "info": {
+        "displayName": "Spell Data",
+        "icon": "magic",
+        "description": "Spellcasting logic attached to items"
+      },
+      "attributes": {
+        "level": {
+          "type": "integer"
+        },
+        "school": {
+          "type": "enumeration",
+          "enum": [
+            "Abjuration",
+            "Conjuration",
+            "Divination",
+            "Enchantment",
+            "Evocation",
+            "Illusion",
+            "Necromancy",
+            "Transmutation"
+          ]
+        },
+        "casting_config": {
+          "type": "component",
+          "component": "game.casting-config",
+          "repeatable": false
+        },
+        "range_config": {
+          "type": "component",
+          "component": "game.range-config",
+          "repeatable": false
+        },
+        "duration_config": {
+          "type": "component",
+          "component": "game.duration-config",
+          "repeatable": false
+        },
+        "damage_instances": {
+          "type": "component",
+          "component": "game.damage-instance",
+          "repeatable": true
+        },
+        "condition_instances": {
+          "type": "component",
+          "component": "game.condition-instance",
+          "repeatable": true
+        }
+      }
+    },
+    "game.spellbook": {
+      "info": {
+        "displayName": "Spellbook",
+        "icon": "book"
+      },
+      "attributes": {
+        "knownSpells": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::spell.spell"
+        },
+        "preparedSpells": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::spell.spell"
+        },
+        "spellcastingAbility": {
+          "type": "enumeration",
+          "enum": [
+            "intelligence",
+            "wisdom",
+            "charisma"
+          ]
+        },
+        "spellSaveDc": {
+          "type": "integer"
+        },
+        "spellAttackBonus": {
+          "type": "integer"
+        }
+      }
+    },
+    "game.stats": {
+      "info": {
+        "displayName": "Stats",
+        "icon": "chart-bar",
+        "description": ""
+      },
+      "attributes": {
+        "strength": {
+          "type": "integer",
+          "default": 10
+        },
+        "dexterity": {
+          "type": "integer",
+          "default": 10
+        },
+        "constitution": {
+          "type": "integer",
+          "default": 10
+        },
+        "intelligence": {
+          "type": "integer",
+          "default": 10
+        },
+        "wisdom": {
+          "type": "integer",
+          "default": 10
+        },
+        "charisma": {
+          "type": "integer",
+          "default": 10
+        },
+        "walkSpeed": {
+          "type": "integer",
+          "default": 0
+        },
+        "flySpeed": {
+          "type": "integer",
+          "default": 0
+        },
+        "swimSpeed": {
+          "type": "integer",
+          "default": 0
+        },
+        "climbSpeed": {
+          "type": "integer",
+          "default": 0
+        },
+        "burrowSpeed": {
+          "type": "integer",
+          "default": 0
+        },
+        "hover": {
+          "type": "boolean",
+          "default": false
+        },
+        "saves": {
+          "type": "json"
+        },
+        "skills": {
+          "type": "json"
+        },
+        "passivePerception": {
+          "type": "integer"
+        },
+        "darkvision": {
+          "type": "integer"
+        },
+        "blindsight": {
+          "type": "integer"
+        },
+        "truesight": {
+          "type": "integer"
+        },
+        "tremorsense": {
+          "type": "integer"
+        },
+        "languages": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::language.language"
+        }
+      }
+    }
+  },
+  "contentTypes": {
+    "api::action.action": {
+      "info": {
+        "singularName": "action",
+        "pluralName": "actions",
+        "displayName": "Action",
+        "description": "Reusable Action Definitions (Rich Structure - Spell Parity)"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "slug": {
+          "type": "uid"
+        },
+        "description": {
+          "type": "text"
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "melee",
+            "ranged",
+            "spell",
+            "utility",
+            "ability"
+          ],
+          "default": "melee"
+        },
+        "range_config": {
+          "type": "component",
+          "component": "game.range-config",
+          "repeatable": false
+        },
+        "mechanics_config": {
+          "type": "component",
+          "component": "game.mechanics-config",
+          "repeatable": false
+        },
+        "damage_instances": {
+          "type": "component",
+          "component": "game.damage-instance",
+          "repeatable": true
+        },
+        "condition_instances": {
+          "type": "component",
+          "component": "game.condition-instance",
+          "repeatable": true
+        },
+        "save": {
+          "type": "component",
+          "component": "game.save-dc",
+          "repeatable": false
+        },
+        "toHit": {
+          "type": "integer"
+        }
+      }
+    },
+    "api::character.character": {
+      "info": {
+        "singularName": "character",
+        "pluralName": "characters",
+        "displayName": "Character",
+        "description": "Blueprint for a character"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "level": {
+          "type": "integer",
+          "required": true,
+          "default": 1
+        },
+        "portrait": {
+          "type": "media",
+          "required": false
+        },
+        "upperBody": {
+          "type": "media",
+          "required": false
+        },
+        "fullBody": {
+          "type": "media",
+          "required": false
+        },
+        "race": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::race.race"
+        },
+        "classes": {
+          "type": "component",
+          "component": "game.character-class",
+          "repeatable": true
+        },
+        "stats": {
+          "type": "component",
+          "component": "game.stats",
+          "repeatable": false
+        },
+        "user": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "plugin::users-permissions.user",
+          "inversedBy": "characters"
+        },
+        "appearance": {
+          "type": "json"
+        },
+        "backstory": {
+          "type": "text"
+        },
+        "inventory": {
+          "type": "component",
+          "component": "game.inventory-item",
+          "repeatable": true
+        },
+        "actions": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::action.action"
+        },
+        "spells": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::spell.spell"
+        }
+      }
+    },
+    "api::class.class": {
+      "info": {
+        "singularName": "class",
+        "pluralName": "classes",
+        "displayName": "Class",
+        "description": "D&D 5e Character Classes"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "hit_die": {
+          "type": "string"
+        },
+        "subclasses": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::subclass.subclass",
+          "mappedBy": "class"
+        },
+        "proficiencies": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::proficiency.proficiency",
+          "inversedBy": "classes"
+        },
+        "features": {
+          "type": "component",
+          "component": "game.feature",
+          "repeatable": true
+        },
+        "progression": {
+          "type": "component",
+          "component": "game.class-progression",
+          "repeatable": true
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::damage-type.damage-type": {
+      "info": {
+        "singularName": "damage-type",
+        "pluralName": "damage-types",
+        "displayName": "Damage Type",
+        "description": "Types of damage in the game"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::dm-setting.dm-setting": {
+      "info": {
+        "singularName": "dm-setting",
+        "pluralName": "dm-settings",
+        "displayName": "DM Setting",
+        "description": "Narrative and Game Style settings for the DM AI"
+      },
+      "attributes": {
+        "dmStyle": {
+          "type": "component",
+          "component": "game.dm-style",
+          "repeatable": false
+        },
+        "dmSystemPrompt": {
+          "type": "text"
+        },
+        "difficulty": {
+          "type": "enumeration",
+          "enum": [
+            "storyteller",
+            "easy",
+            "medium",
+            "challenging",
+            "gritty",
+            "deadly"
+          ],
+          "default": "easy"
+        },
+        "adventureLength": {
+          "type": "enumeration",
+          "enum": [
+            "flash",
+            "short",
+            "medium",
+            "long",
+            "epic",
+            "legendary"
+          ],
+          "default": "short"
+        },
+        "theme": {
+          "type": "string"
+        },
+        "setting": {
+          "type": "string"
+        },
+        "tone": {
+          "type": "string"
+        },
+        "playerCount": {
+          "type": "integer",
+          "default": 4
+        },
+        "startingLevel": {
+          "type": "integer",
+          "default": 1
+        },
+        "attributePointBudget": {
+          "type": "integer",
+          "default": 27
+        },
+        "room": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::room.room",
+          "inversedBy": "dmSettings"
+        }
+      }
+    },
+    "api::entity.entity": {
+      "info": {
+        "singularName": "entity",
+        "pluralName": "entities",
+        "displayName": "Entity",
+        "description": "Blueprint for World Entities (Creatures, Flora, Minerals)"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "embeddingMetadata": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "size": {
+          "type": "enumeration",
+          "enum": [
+            "Tiny",
+            "Small",
+            "Medium",
+            "Large",
+            "Huge",
+            "Gargantuan"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "alignment": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer",
+          "default": 1
+        },
+        "ac": {
+          "type": "integer"
+        },
+        "hp": {
+          "type": "integer"
+        },
+        "hit_dice": {
+          "type": "string"
+        },
+        "stats": {
+          "type": "component",
+          "component": "game.stats",
+          "repeatable": false
+        },
+        "languages": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::language.language"
+        },
+        "challenge_rating": {
+          "type": "decimal"
+        },
+        "xp": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        },
+        "features": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::feature.feature"
+        },
+        "traits": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::trait.trait"
+        },
+        "proficiencies": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::proficiency.proficiency"
+        },
+        "inventory": {
+          "type": "component",
+          "component": "game.inventory-item",
+          "repeatable": true
+        },
+        "actions": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::action.action"
+        },
+        "spells": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::spell.spell"
+        },
+        "appearance": {
+          "type": "component",
+          "component": "game.appearance",
+          "repeatable": false
+        },
+        "background": {
+          "type": "richtext"
+        },
+        "race": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::race.race"
+        },
+        "classes": {
+          "type": "component",
+          "component": "game.character-class",
+          "repeatable": true
+        },
+        "resources": {
+          "type": "component",
+          "component": "game.resource-pool",
+          "repeatable": true
+        }
+      }
+    },
+    "api::entity-sheet.entity-sheet": {
+      "info": {
+        "singularName": "entity-sheet",
+        "pluralName": "entity-sheets",
+        "displayName": "Entity Sheet",
+        "description": "Instance of an entity in a game room"
+      },
+      "attributes": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "player",
+            "monster",
+            "npc",
+            "loot"
+          ],
+          "default": "player"
+        },
+        "entity": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::entity.entity"
+        },
+        "owner": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "plugin::users-permissions.user"
+        },
+        "character": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::character.character"
+        },
+        "room": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::room.room",
+          "inversedBy": "entity_sheets"
+        },
+        "currentHp": {
+          "type": "integer"
+        },
+        "maxHp": {
+          "type": "integer"
+        },
+        "ac": {
+          "type": "integer",
+          "default": 10
+        },
+        "level": {
+          "type": "integer",
+          "default": 1
+        },
+        "experience": {
+          "type": "integer",
+          "default": 0
+        },
+        "stats": {
+          "type": "component",
+          "component": "game.stats",
+          "repeatable": false
+        },
+        "race": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::race.race"
+        },
+        "class": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::class.class"
+        },
+        "appearance": {
+          "type": "component",
+          "component": "game.appearance",
+          "repeatable": false
+        },
+        "backstory": {
+          "type": "text"
+        },
+        "inventory": {
+          "type": "component",
+          "component": "game.inventory-item",
+          "repeatable": true
+        },
+        "position": {
+          "type": "component",
+          "component": "game.position",
+          "repeatable": false
+        },
+        "actions": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::action.action"
+        },
+        "spellbook": {
+          "type": "component",
+          "component": "game.spellbook",
+          "repeatable": false
+        },
+        "proficiencies": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::proficiency.proficiency"
+        },
+        "languages": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::language.language"
+        },
+        "traits": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::trait.trait"
+        },
+        "features": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::feature.feature"
+        },
+        "conditions": {
+          "type": "component",
+          "component": "game.condition-instance",
+          "repeatable": true
+        },
+        "resources": {
+          "type": "component",
+          "component": "game.resource-pool",
+          "repeatable": true
+        },
+        "active_effects": {
+          "type": "json"
+        },
+        "tempHp": {
+          "type": "integer",
+          "default": 0
+        },
+        "initiativeBonus": {
+          "type": "integer",
+          "default": 0
+        },
+        "passivePerception": {
+          "type": "integer",
+          "default": 10
+        },
+        "computedSkills": {
+          "type": "component",
+          "component": "game.skill-bonus",
+          "repeatable": true
+        },
+        "computedSaves": {
+          "type": "component",
+          "component": "game.save-bonus",
+          "repeatable": true
+        },
+        "defenses": {
+          "type": "component",
+          "component": "game.damage-modifier",
+          "repeatable": true
+        },
+        "computedActions": {
+          "type": "component",
+          "component": "game.computed-action",
+          "repeatable": true
+        }
+      }
+    },
+    "api::equipment-category.equipment-category": {
+      "info": {
+        "singularName": "equipment-category",
+        "pluralName": "equipment-categories",
+        "displayName": "Equipment Category",
+        "description": "Categories for equipment items"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::feature.feature": {
+      "info": {
+        "singularName": "feature",
+        "pluralName": "features",
+        "displayName": "Feature",
+        "description": "D&D 5e Class Features"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "level": {
+          "type": "integer"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::game-event.game-event": {
+      "info": {
+        "singularName": "game-event",
+        "pluralName": "game-events",
+        "displayName": "Game Event",
+        "description": "Log of persistent game actions (Attack, Spell, Move)"
+      },
+      "attributes": {
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "ATTACK",
+            "ATTACK_RESULT",
+            "SPELL_CAST",
+            "MOVE",
+            "ENTITY_MOVED",
+            "SKILL_CHECK",
+            "SKILL_CHECK_RESULT",
+            "INTERACT",
+            "OBJECT_INTERACTION",
+            "LONG_REST",
+            "LONG_REST_COMPLETED",
+            "SHORT_REST",
+            "DEATH_SAVE",
+            "ENTITY_DEATH",
+            "INITIATIVE",
+            "TURN_START",
+            "TURN_END",
+            "TERRAIN_MODIFIED",
+            "SPAWN_ENTITY",
+            "ENTROPY_CHANGE",
+            "ITEM_DROP",
+            "ITEM_PICKUP"
+          ],
+          "required": true
+        },
+        "actor": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::entity-sheet.entity-sheet"
+        },
+        "room": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::room.room"
+        },
+        "payload": {
+          "type": "json",
+          "required": true
+        },
+        "timestamp": {
+          "type": "biginteger",
+          "required": true
+        },
+        "turn_number": {
+          "type": "integer"
+        }
+      }
+    },
+    "api::item.item": {
+      "info": {
+        "singularName": "item",
+        "pluralName": "items",
+        "displayName": "Item",
+        "description": "Unified item model (Equipment, Magic Items, Loot, Tools)"
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "weapon",
+            "armor",
+            "consumable",
+            "tool",
+            "loot",
+            "spell_scroll",
+            "feature",
+            "container"
+          ],
+          "required": true,
+          "default": "loot"
+        },
+        "rarity": {
+          "type": "enumeration",
+          "enum": [
+            "common",
+            "uncommon",
+            "rare",
+            "very_rare",
+            "legendary",
+            "artifact"
+          ],
+          "default": "common"
+        },
+        "value": {
+          "type": "integer",
+          "default": 0
+        },
+        "weight": {
+          "type": "float",
+          "default": 0
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        },
+        "equipment_data": {
+          "type": "component",
+          "component": "game.equipment-data",
+          "repeatable": false
+        },
+        "spell_data": {
+          "type": "component",
+          "component": "game.spell-data",
+          "repeatable": false
+        },
+        "custom_data": {
+          "type": "json"
+        }
+      }
+    },
+    "api::knowledge-snippet.knowledge-snippet": {
+      "info": {
+        "singularName": "knowledge-snippet",
+        "pluralName": "knowledge-snippets",
+        "displayName": "Knowledge Snippet",
+        "description": "A chunk of knowledge derived from a source."
+      },
+      "attributes": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "content": {
+          "type": "richtext",
+          "required": true
+        },
+        "source": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::knowledge-source.knowledge-source",
+          "inversedBy": "snippets"
+        },
+        "embedding": {
+          "type": "json"
+        }
+      }
+    },
+    "api::knowledge-source.knowledge-source": {
+      "info": {
+        "singularName": "knowledge-source",
+        "pluralName": "knowledge-sources",
+        "displayName": "Knowledge Source",
+        "description": "A source of knowledge, usually a markdown file."
+      },
+      "attributes": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "content": {
+          "type": "richtext",
+          "required": true
+        },
+        "tags": {
+          "type": "json",
+          "required": false
+        },
+        "origin": {
+          "type": "enumeration",
+          "enum": [
+            "manual",
+            "entity"
+          ],
+          "required": true,
+          "default": "manual"
+        },
+        "snippets": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::knowledge-snippet.knowledge-snippet",
+          "mappedBy": "source"
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "embeddingMetadata": {
+          "type": "json"
+        }
+      }
+    },
+    "api::language.language": {
+      "info": {
+        "singularName": "language",
+        "pluralName": "languages",
+        "displayName": "Language",
+        "description": "Languages spoken in the world"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "is_rare": {
+          "type": "boolean",
+          "default": false
+        },
+        "note": {
+          "type": "richtext"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::magic-school.magic-school": {
+      "info": {
+        "singularName": "magic-school",
+        "pluralName": "magic-schools",
+        "displayName": "Magic School",
+        "description": "Schools of magic"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::message.message": {
+      "info": {
+        "singularName": "message",
+        "pluralName": "messages",
+        "displayName": "Message",
+        "description": "Individual communication unit"
+      },
+      "attributes": {
+        "content": {
+          "type": "richtext",
+          "required": true
+        },
+        "senderName": {
+          "type": "string"
+        },
+        "senderType": {
+          "type": "enumeration",
+          "enum": [
+            "dm",
+            "player",
+            "system"
+          ],
+          "default": "system"
+        },
+        "room": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::room.room",
+          "inversedBy": "messages"
+        },
+        "turn": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::turn.turn",
+          "inversedBy": "messages"
+        },
+        "recipient": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "plugin::users-permissions.user"
+        },
+        "timestamp": {
+          "type": "biginteger",
+          "required": false
+        },
+        "images": {
+          "type": "json"
+        }
+      }
+    },
+    "api::proficiency.proficiency": {
+      "info": {
+        "singularName": "proficiency",
+        "pluralName": "proficiencies",
+        "displayName": "Proficiency",
+        "description": "Character proficiencies"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "Armor",
+            "Weapons",
+            "Tools",
+            "Artisan's Tools",
+            "Gaming Sets",
+            "Musical Instruments",
+            "Vehicles",
+            "Other",
+            "Saving Throws",
+            "Skills"
+          ]
+        },
+        "classes": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::class.class",
+          "mappedBy": "proficiencies"
+        },
+        "races": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::race.race",
+          "mappedBy": "proficiencies"
+        },
+        "traits": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::trait.trait",
+          "mappedBy": "proficiencies"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::prompt.prompt": {
+      "info": {
+        "singularName": "prompt",
+        "pluralName": "prompts",
+        "displayName": "Prompt",
+        "description": "AI Prompts for i18n"
+      },
+      "attributes": {
+        "key": {
+          "type": "uid",
+          "required": true
+        },
+        "text": {
+          "type": "richtext"
+        },
+        "category": {
+          "type": "enumeration",
+          "enum": [
+            "system",
+            "user",
+            "gameplay"
+          ],
+          "default": "system"
+        }
+      }
+    },
+    "api::race.race": {
+      "info": {
+        "singularName": "race",
+        "pluralName": "races",
+        "displayName": "Race",
+        "description": "D&D 5e Races"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "speed": {
+          "type": "json"
+        },
+        "size": {
+          "type": "enumeration",
+          "enum": [
+            "Tiny",
+            "Small",
+            "Medium",
+            "Large"
+          ]
+        },
+        "traits": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::trait.trait",
+          "mappedBy": "races"
+        },
+        "proficiencies": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::proficiency.proficiency",
+          "inversedBy": "races"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::room.room": {
+      "info": {
+        "singularName": "room",
+        "pluralName": "rooms",
+        "displayName": "Room",
+        "description": "Game room state"
+      },
+      "attributes": {
+        "roomId": {
+          "type": "uid"
+        },
+        "owner": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "plugin::users-permissions.user",
+          "inversedBy": "rooms"
+        },
+        "phase": {
+          "type": "enumeration",
+          "enum": [
+            "lobby",
+            "character_creation",
+            "world_generation",
+            "gameplay",
+            "combat",
+            "ending"
+          ],
+          "default": "lobby"
+        },
+        "players": {
+          "type": "component",
+          "component": "game.player",
+          "repeatable": true
+        },
+        "turnData": {
+          "type": "json"
+        },
+        "exploredTiles": {
+          "type": "json"
+        },
+        "exploredChunks": {
+          "type": "json"
+        },
+        "entropyState": {
+          "type": "json"
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        },
+        "isProcessing": {
+          "type": "boolean",
+          "default": false
+        },
+        "code": {
+          "type": "string"
+        },
+        "entity_sheets": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::entity-sheet.entity-sheet",
+          "mappedBy": "room"
+        },
+        "turns": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::turn.turn",
+          "mappedBy": "room"
+        },
+        "messages": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::message.message",
+          "mappedBy": "room"
+        },
+        "events": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::game-event.game-event",
+          "mappedBy": "room"
+        },
+        "timeFrames": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::time-frame.time-frame",
+          "mappedBy": "room"
+        },
+        "currentTimeFrame": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::time-frame.time-frame"
+        },
+        "world": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::world.world",
+          "mappedBy": "room"
+        },
+        "dmSettings": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::dm-setting.dm-setting",
+          "mappedBy": "room"
+        }
+      }
+    },
+    "api::rule-set.rule-set": {
+      "info": {
+        "singularName": "rule-set",
+        "pluralName": "rule-sets",
+        "displayName": "Rule Set",
+        "description": "Global Game Rules and Tables"
+      },
+      "attributes": {
+        "xp_table": {
+          "type": "json",
+          "required": true,
+          "default": [
+            0,
+            300,
+            900,
+            2700,
+            6500,
+            14000,
+            23000,
+            34000,
+            48000,
+            64000,
+            85000,
+            100000,
+            120000,
+            140000,
+            165000,
+            195000,
+            225000,
+            265000,
+            305000,
+            355000
+          ]
+        },
+        "proficiency_table": {
+          "type": "json",
+          "required": true
+        },
+        "full_caster_slots": {
+          "type": "json",
+          "required": false
+        },
+        "ability_caps": {
+          "type": "json",
+          "required": false
+        }
+      }
+    },
+    "api::spell.spell": {
+      "info": {
+        "singularName": "spell",
+        "pluralName": "spells",
+        "displayName": "Spell",
+        "description": "D&D 5e Spells (Structured)"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "level": {
+          "type": "integer"
+        },
+        "school": {
+          "type": "enumeration",
+          "enum": [
+            "Abjuration",
+            "Conjuration",
+            "Divination",
+            "Enchantment",
+            "Evocation",
+            "Illusion",
+            "Necromancy",
+            "Transmutation"
+          ]
+        },
+        "casting_config": {
+          "type": "component",
+          "component": "game.casting-config",
+          "repeatable": false
+        },
+        "range_config": {
+          "type": "component",
+          "component": "game.range-config",
+          "repeatable": false
+        },
+        "duration_config": {
+          "type": "component",
+          "component": "game.duration-config",
+          "repeatable": false
+        },
+        "mechanics_config": {
+          "type": "component",
+          "component": "game.mechanics-config",
+          "repeatable": false
+        },
+        "damage_instances": {
+          "type": "component",
+          "component": "game.damage-instance",
+          "repeatable": true
+        },
+        "condition_instances": {
+          "type": "component",
+          "component": "game.condition-instance",
+          "repeatable": true
+        },
+        "scaling_config": {
+          "type": "component",
+          "component": "game.scaling-config",
+          "repeatable": false
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "embeddingMetadata": {
+          "type": "json"
+        }
+      }
+    },
+    "api::subclass.subclass": {
+      "info": {
+        "singularName": "subclass",
+        "pluralName": "subclasses",
+        "displayName": "Subclass",
+        "description": "D&D 5e Class Subclasses"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "subclass_flavor": {
+          "type": "string"
+        },
+        "class": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::class.class",
+          "inversedBy": "subclasses"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::time-frame.time-frame": {
+      "info": {
+        "singularName": "time-frame",
+        "pluralName": "time-frames",
+        "displayName": "Time Frame",
+        "description": "Snapshot of game state at a specific point in time"
+      },
+      "attributes": {
+        "turnNumber": {
+          "type": "integer",
+          "required": true
+        },
+        "timestamp": {
+          "type": "datetime",
+          "required": true
+        },
+        "room": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::room.room",
+          "inversedBy": "timeFrames"
+        },
+        "gameState": {
+          "type": "json",
+          "required": true
+        },
+        "entropySnapshot": {
+          "type": "json"
+        },
+        "events": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::game-event.game-event",
+          "mappedBy": "timeFrames"
+        }
+      }
+    },
+    "api::trait.trait": {
+      "info": {
+        "singularName": "trait",
+        "pluralName": "traits",
+        "displayName": "Trait",
+        "description": "D&D 5e Racial Traits"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "races": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::race.race",
+          "inversedBy": "traits"
+        },
+        "proficiencies": {
+          "type": "relation",
+          "relation": "manyToMany",
+          "target": "api::proficiency.proficiency",
+          "inversedBy": "traits"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::turn.turn": {
+      "info": {
+        "singularName": "turn",
+        "pluralName": "turns",
+        "displayName": "Turn",
+        "description": "A discrete cycle of gameplay history"
+      },
+      "attributes": {
+        "turnNumber": {
+          "type": "integer",
+          "required": true,
+          "default": 0
+        },
+        "room": {
+          "type": "relation",
+          "relation": "manyToOne",
+          "target": "api::room.room",
+          "inversedBy": "turns"
+        },
+        "messages": {
+          "type": "relation",
+          "relation": "oneToMany",
+          "target": "api::message.message",
+          "mappedBy": "turn"
+        },
+        "narrative": {
+          "type": "richtext"
+        },
+        "summary": {
+          "type": "text"
+        },
+        "type": {
+          "type": "enumeration",
+          "enum": [
+            "group",
+            "combat",
+            "exploration"
+          ],
+          "default": "group"
+        },
+        "status": {
+          "type": "enumeration",
+          "enum": [
+            "waiting",
+            "processing",
+            "complete"
+          ],
+          "default": "waiting"
+        },
+        "actions": {
+          "type": "json"
+        },
+        "metadata": {
+          "type": "json"
+        },
+        "characterSnapshots": {
+          "type": "json"
+        },
+        "contextImage": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "plugin::upload.file"
+        }
+      }
+    },
+    "api::turn-lock.turn-lock": {
+      "info": {
+        "singularName": "turn-lock",
+        "pluralName": "turn-locks",
+        "displayName": "Turn Lock",
+        "description": "Concurrency control handling for Room turns"
+      },
+      "attributes": {
+        "room": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::room.room"
+        },
+        "locked_at": {
+          "type": "datetime",
+          "required": true
+        },
+        "expires_at": {
+          "type": "datetime",
+          "required": true
+        },
+        "holder_id": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "api::voxel-change.voxel-change": {
+      "info": {
+        "singularName": "voxel-change",
+        "pluralName": "voxel-changes",
+        "displayName": "Voxel Change",
+        "description": "Persistent delta storage for terrain modifications"
+      },
+      "attributes": {
+        "chunkX": {
+          "type": "integer",
+          "required": true
+        },
+        "chunkY": {
+          "type": "integer",
+          "required": true
+        },
+        "voxelX": {
+          "type": "integer",
+          "required": true
+        },
+        "voxelY": {
+          "type": "integer",
+          "required": true
+        },
+        "voxelZ": {
+          "type": "integer",
+          "required": true
+        },
+        "newType": {
+          "type": "string",
+          "required": true
+        },
+        "previousType": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "json"
+        },
+        "timestamp": {
+          "type": "biginteger",
+          "required": true
+        }
+      }
+    },
+    "api::weapon-property.weapon-property": {
+      "info": {
+        "singularName": "weapon-property",
+        "pluralName": "weapon-properties",
+        "displayName": "Weapon Property",
+        "description": "Properties affecting weapon usage"
+      },
+      "attributes": {
+        "slug": {
+          "type": "uid",
+          "required": true
+        },
+        "embedding": {
+          "type": "json"
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "image": {
+          "type": "media",
+          "required": false
+        }
+      }
+    },
+    "api::world.world": {
+      "info": {
+        "singularName": "world",
+        "pluralName": "worlds",
+        "displayName": "World",
+        "description": "World configuration and generated lore"
+      },
+      "attributes": {
+        "room": {
+          "type": "relation",
+          "relation": "oneToOne",
+          "target": "api::room.room",
+          "inversedBy": "world"
+        },
+        "name": {
+          "type": "string",
+          "default": "New World"
+        },
+        "description": {
+          "type": "richtext"
+        },
+        "history": {
+          "type": "richtext"
+        },
+        "worldBackground": {
+          "type": "richtext"
+        },
+        "seed": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "default": "en-US"
+        },
+        "chunkSize": {
+          "type": "integer",
+          "default": 32
+        },
+        "detail": {
+          "type": "integer",
+          "default": 4
+        },
+        "fogRadius": {
+          "type": "integer",
+          "default": 10
+        },
+        "globalScale": {
+          "type": "float"
+        },
+        "seaLevel": {
+          "type": "float"
+        },
+        "elevationScale": {
+          "type": "float"
+        },
+        "roughness": {
+          "type": "float"
+        },
+        "moistureScale": {
+          "type": "float"
+        },
+        "temperatureOffset": {
+          "type": "float"
+        },
+        "roadDensity": {
+          "type": "float"
+        },
+        "structureChance": {
+          "type": "float"
+        },
+        "structureSpacing": {
+          "type": "integer"
+        },
+        "structureSizeAvg": {
+          "type": "integer"
+        },
+        "worldSize": {
+          "type": "enumeration",
+          "enum": [
+            "intimate",
+            "small",
+            "medium",
+            "large",
+            "vast",
+            "epic"
+          ],
+          "default": "small"
+        },
+        "worldType": {
+          "type": "string",
+          "default": "terra"
+        },
+        "adventureLength": {
+          "type": "enumeration",
+          "enum": [
+            "flash",
+            "short",
+            "medium",
+            "long",
+            "epic",
+            "legendary"
+          ],
+          "default": "short"
+        }
+      }
+    }
+  }
+}
