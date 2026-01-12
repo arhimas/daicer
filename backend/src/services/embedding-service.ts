@@ -32,16 +32,35 @@ export class EmbeddingService {
   private queue: QueueItem[] = [];
 
   constructor() {
+    // Lazy initialization: Process is spawned on first request.
+  }
+
+  private async ensureInitialized(): Promise<void> {
+    if (this.pythonProcess && !this.pythonProcess.killed) return;
     this.spawnPythonProcess();
+    
+    // Wait for ready signal
+    if (this.isReady) return;
+    
+    // We rely on the processQueue check or a readiness loop here, 
+    // but typically spawnPythonProcess sets up listeners.
+    // For simplicity in this lazy pattern, we just ensure process exists.
+    // The queue will handle the actual 'ready' wait.
   }
 
   private spawnPythonProcess() {
+    if (this.pythonProcess) return; 
+
     const scriptPath = path.join(process.cwd(), 'src/scripts/embedding/service.py');
+    // ... (rest is same)
     
     // We use the system python3. In a real-world prod env, this might need a specific venv path.
     this.pythonProcess = spawn('python3', [scriptPath], {
       stdio: ['pipe', 'pipe', 'pipe'],
     });
+    this.pythonProcess.unref(); // Prevent process from holding the event loop open
+    
+    this.isReady = false; // Reset readiness
 
     if (!this.pythonProcess.stdout || !this.pythonProcess.stdin || !this.pythonProcess.stderr) {
       throw new Error('Failed to spawn embedding service: stdio pipes are missing');
@@ -129,14 +148,12 @@ export class EmbeddingService {
     }
 
     return new Promise((resolve, reject) => {
+      this.ensureInitialized().catch(err => reject(err));
       this.queue.push({ text, task, resolve, reject, sent: false });
       this.processQueue();
     });
   }
 }
-
-// Singleton instance
-export const embeddingService = new EmbeddingService();
 
 // Singleton instance
 export const embeddingService = new EmbeddingService();

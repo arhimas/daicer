@@ -1,7 +1,7 @@
 
 import { Command } from 'commander';
 import fs from 'fs';
-import { getStrapi } from '../utils/bootstrap';
+import { getStrapi, stopStrapi } from '../utils/bootstrap';
 import { discoverContentTypes } from '../utils/schema';
 
 // Types
@@ -339,4 +339,7 @@ export async function runExplore(options: ExploreOptions) {
       }
     }
   }
+
+  // Graceful Shutdown
+  await stopStrapi();
 }

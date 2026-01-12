@@ -76,6 +76,12 @@ export default {
           if (event.action === 'afterCreate' || event.action === 'afterUpdate') {
             const { result, params } = event as any;
 
+            // Feature Flag: Auto-Embedding
+            
+            if (process.env.AUTO_EMBEDDING_ENABLED === 'false') {
+              return;
+            }
+
             // Recursion Guard: If we are just updating the embedding, DO NOT re-trigger
             if (params && params.data) {
               const keys = Object.keys(params.data);
@@ -100,6 +106,22 @@ export default {
       });
     } catch (error) {
       strapi.log.error('Bootstrap failed:', error);
+    }
+  },
+
+  /**
+   * An asynchronous destroy function that runs before
+   * your application gets shut down.
+   */
+  async destroy({ strapi }: { strapi: Core.Strapi }) {
+    try {
+      // Gracefully shutdown services
+      const { embeddingService } = require('./services/embedding-service');
+      if (embeddingService && typeof embeddingService.terminate === 'function') {
+        embeddingService.terminate();
+      }
+    } catch (error) {
+      strapi.log.error('Destroy failed:', error);
     }
   },
 };

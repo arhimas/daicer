@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { glob } from 'glob';
 import { embeddingService } from '../services/embedding-service';
-import bootstrap from '../cli/utils/bootstrap';
+import { getStrapi } from '../cli/utils/bootstrap';
 
 // Configuration
 // We'll scan backend src, excluding node_modules, dist, etc.
@@ -15,7 +15,7 @@ async function embedSourceCode() {
   console.log('🚀 Starting Codebase Embedding...');
   
   // 1. Initialize Strapi (Headless)
-  const strapi = await bootstrap();
+  const strapi = await getStrapi();
 
   try {
     const cwd = process.cwd();
@@ -23,83 +23,76 @@ async function embedSourceCode() {
 
     console.log(`Found ${files.length} source files.`);
 
-    // 2. Ensure "Source Code" KnowledgeSource exists
-    let sourceRecord = await strapi.db.query('api::knowledge-source.knowledge-source').findOne({
-      where: { title: 'Daicer Backend Source Code' },
+    // 2. Find or Create Knowledge Source "Daicer Backend Source Code"
+    const sourceName = 'Daicer Backend Source Code';
+    let source = await strapi.entityService.findMany('api::knowledge-source.knowledge-source', {
+      filters: { name: sourceName },
     });
 
-    if (!sourceRecord) {
-      sourceRecord = await strapi.entityService.create('api::knowledge-source.knowledge-source', {
+    let sourceId;
+    if (Array.isArray(source) && source.length > 0) {
+      sourceId = source[0].id;
+      console.log(`Found existing KnowledgeSource for codebase (ID: ${sourceId}).`);
+    } else {
+      const newSource = await strapi.entityService.create('api::knowledge-source.knowledge-source', {
         data: {
-          title: 'Daicer Backend Source Code',
-          type: 'codebase',
-          description: 'Automated ingestion of backend source code.',
-          // Assuming 'content' or other required fields?
+          name: sourceName,
+          content: 'Auto-generated Knowledge Source for Backend Code.',
+          origin: 'manual', // or a new 'code' type if we added it to Source enum too, but Snippet has 'source-code'
         },
       });
+      sourceId = newSource.id;
       console.log('Created new KnowledgeSource for codebase.');
     }
 
     // 3. Process each file
     let updatedCount = 0;
     
-    // We can filter by arguments (e.g., git diff output passed as args) to optimize
-    const targetFiles = process.argv.slice(2);
-    const filesToProcess = targetFiles.length > 0 ? targetFiles.filter(f => files.includes(f)) : files;
+    for (const file of files) {
+      const absolutePath = path.join(cwd, file);
+      const relativePath = path.relative(cwd, absolutePath);
+      const content = fs.readFileSync(absolutePath, 'utf-8');
 
-    if (targetFiles.length > 0) {
-      console.log(`Targeting ${filesToProcess.length} specific files from arguments...`);
-    }
-
-    for (const filePath of filesToProcess) {
-       const fullPath = path.join(cwd, filePath);
-       const content = fs.readFileSync(fullPath, 'utf8');
+      console.log(`Processing ${relativePath}...`);
        
        // Skip empty or tiny files
        if (content.length < 50) continue;
 
-       const snippetTitle = `Code: ${filePath}`;
+       // Truncate to avoid context limit if file is HUGE
+       const safeContent = content.length > 30000 ? content.substring(0, 30000) + '\n...[Truncated]' : content;
+       const vector = await embeddingService.generateEmbedding(`File: ${relativePath}\n${safeContent}`);
        
-       // Check if snippet exists
+       const snippetTitle = `[Code] ${relativePath}`;
        const existingSnippet = await strapi.db.query('api::knowledge-snippet.knowledge-snippet').findOne({
-         where: { title: snippetTitle, source: sourceRecord.id },
+         where: { title: snippetTitle, source: sourceId },
        });
 
-       // Logic: Only update if content changed? 
-       // We can check hash or just overwrite. For simplicity in this v1, we overwrite/create.
-       // Embedding generation is somewhat expensive (CPU), so might want to skip if no change.
-       // But we don't have previous content hash easily unless we store it.
-       // Strapi updated_at might help if we checked file mtime vs snippet updated_at?
-       // Let's just re-embed for now.
-       
-       const embeddingText = `File: ${filePath}\n\n${content}`;
-       // Truncate to avoid context limit if file is HUGE? 
-       // Jina V2 is 8k tokens. 
-       // Average 4 chars/token -> 32k chars.
-       // If content > 30k chars, we might truncate or chunk.
-       
-       const safeContent = content.length > 30000 ? content.substring(0, 30000) + '\n...[Truncated]' : content;
-       const vector = await embeddingService.generateEmbedding(`File: ${filePath}\n${safeContent}`);
-       
        if (existingSnippet) {
+         // Update
          await strapi.entityService.update('api::knowledge-snippet.knowledge-snippet', existingSnippet.id, {
            data: {
-             content: `\`\`\`typescript\n${safeContent}\n\`\`\``,
+             content: content,
              embedding: vector,
+             sourceType: 'source-code',
+             publishedAt: new Date(),
            },
          });
-         // console.log(`Updated: ${filePath}`);
+         console.log(`Updated '${snippetTitle}'`);
        } else {
+         // Create
          await strapi.entityService.create('api::knowledge-snippet.knowledge-snippet', {
            data: {
              title: snippetTitle,
-             content: `\`\`\`typescript\n${safeContent}\n\`\`\``,
-             source: sourceRecord.id,
+             content: content,
+             source: sourceId,
              embedding: vector,
+             sourceType: 'source-code',
+             publishedAt: new Date(),
            },
          });
-         console.log(`Created: ${filePath}`);
+         console.log(`Created '${snippetTitle}'`);
        }
+       
        updatedCount++;
        if (updatedCount % 10 === 0) process.stdout.write('.');
     }

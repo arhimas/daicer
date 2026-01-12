@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Database: Postgres 16 with pgvector extension
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: daicer_db
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi}
+      POSTGRES_DB: ${DATABASE_NAME:-strapi}
+    volumes:
+      - daicer_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DATABASE_USERNAME:-strapi}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Queue: Redis for BullMQ
+  redis:
+    image: redis:alpine
+    container_name: daicer_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - daicer_redis:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Backend: Strapi Application
+  app:
+    container_name: daicer_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '1337:1337'
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/config:/opt/app/config
+      - ./backend/src:/opt/app/src
+      - ./backend/public:/opt/app/public
+      - ./backend/types:/opt/app/types
+      # Persist uploads if stored locally (though we use GCS mostly)
+      - daicer_uploads:/opt/app/public/uploads
+
+volumes:
+  daicer_pgdata:
+  daicer_redis:
+  daicer_uploads:

@@ -27,6 +27,16 @@
       "inversedBy": "snippets",
       "onDelete": "CASCADE"
     },
+    "sourceType": {
+      "type": "enumeration",
+      "enum": [
+        "source-code",
+        "game-entity",
+        "manual"
+      ],
+      "required": true,
+      "default": "manual"
+    },
     "embedding": {
       "type": "json",
       "private": true

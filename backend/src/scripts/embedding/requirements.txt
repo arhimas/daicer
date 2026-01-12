@@ -2,4 +2,9 @@ sentence-transformers
 transformers
 einops
 torch
-# pillow is often needed for some image stuff but likely safe to omit if text only
+pydantic
+# Dev dependencies
+mypy
+flake8
+black
+pytest

@@ -1,5 +1,5 @@
 
-import { createStrapi, Strapi } from '@strapi/strapi';
+import { createStrapi } from '@strapi/strapi';
 import fs from 'fs';
 import path from 'path';
 
@@ -32,9 +32,32 @@ export async function getStrapi(): Promise<any> {
     // Load the application (connects to DB, loads schemas) but does NOT listen on port
     await instance.load(); 
     console.log('✅ Strapi Loaded Successfully.');
+    
+    // Register shutdown hooks for CLI usage
+    // This ensures that when the CLI command finishes (or ctrl+c), we kill python process
+    const shutdown = async () => {
+      if (instance) {
+        console.log('⏳ Shinning down Strapi...');
+        await instance.destroy();
+        instance = null;
+        console.log('🛑 Strapi Shutdown Complete.');
+      }
+    };
+
+    // We don't want to force exit on SIGINT if the caller handles it, 
+    // but for CLI scripts it is usually safe.
+    // However, vitest might be confused if we hijack signals.
+    // Better: allow the caller to destroy.
     return instance;
   } catch (error) {
     console.error('❌ Failed to boot Strapi:', error);
     process.exit(1);
+  }
+}
+
+export async function stopStrapi() {
+  if (instance) {
+    await instance.destroy();
+    instance = null;
   }
 }
