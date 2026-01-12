@@ -39,8 +39,8 @@ services:
   app:
     container_name: daicer_backend
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     restart: unless-stopped
     ports:
       - '1337:1337'

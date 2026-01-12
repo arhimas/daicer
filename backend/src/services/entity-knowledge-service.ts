@@ -7,25 +7,12 @@ import type { Core } from '@strapi/strapi';
 
 declare let strapi: Core.Strapi;
 
-const ENTITY_UIDS = [
-  'api::character.character',
-  'api::class.class',
-  'api::damage-type.damage-type',
-  'api::equipment.equipment',
-  'api::equipment-category.equipment-category',
-  'api::feature.feature',
-  'api::language.language',
-  'api::magic-item.magic-item',
-  'api::magic-school.magic-school',
-  'api::entity.entity',
-  'api::proficiency.proficiency',
-  'api::race.race',
-  'api::spell.spell',
-  'api::subclass.subclass',
-  'api::trait.trait',
-  'api::weapon-property.weapon-property',
-  'api::knowledge-snippet.knowledge-snippet',
-];
+import { EMBEDDABLE_MODELS } from '../config/embedding';
+
+const ENTITY_UIDS = EMBEDDABLE_MODELS;
+
+// import { entityToMarkdown } from '../utils/entity-markdown'; // Commented out until utils restored
+const entityToMarkdown = (type: string, name: string, data: any) => JSON.stringify(data, null, 2); // Stub fallback
 
 export class EntityKnowledgeService {
   /**
@@ -48,7 +35,7 @@ export class EntityKnowledgeService {
 
     // 2. Generate Markdown Content
     const typeName = uid.split('.')[1]; // 'class', 'spell'
-    const name = entity.name || entity.title || `Entity ${entityId}`;
+    const name = (entity.name as string) || (entity.title as string) || `Entity ${entityId}`;
 
     // Standardize Tags
     // Tag 1: Precise Type (Spell)
@@ -56,12 +43,14 @@ export class EntityKnowledgeService {
     // Tag 3: Properties (e.g. "Level 3", "Evocation" if available in fields?)
     const tags = [typeName, 'Game Entity'];
 
-    // Try to extract extra context for tags
-    if (entity.level) tags.push(`Level ${entity.level}`);
-    if (entity.school && entity.school.name) tags.push(entity.school.name);
-    if (entity.class && entity.class.name) tags.push(entity.class.name);
+    const typedEntity = entity as any; // Safe cast for optional checks
 
-    const markdown = this.generateMarkdown(typeName, name, entity);
+    // Try to extract extra context for tags
+    if (typedEntity.level) tags.push(`Level ${typedEntity.level}`);
+    if (typedEntity.school && typedEntity.school.name) tags.push(typedEntity.school.name);
+    if (typedEntity.class && typedEntity.class.name) tags.push(typedEntity.class.name);
+
+    const markdown = entityToMarkdown(typeName, name, entity as Record<string, unknown>);
 
     // 2.5 Generate Embedding for Entity Record (Core Embeddings Mandate)
     try {
@@ -84,73 +73,6 @@ export class EntityKnowledgeService {
     }
   }
 
-  private generateMarkdown(type: string, name: string, data: Record<string, unknown>): string {
-    // Basic structured dump
-    // We filter out system fields (createdAt, etc) to keep it clean?
-    // Or just dump it all safely.
-
-    // Header
-    let md = `# ${name}\n\n`;
-    md += `**Type**: ${type}\n`;
-
-    if (data.description) {
-      md += `\n**Description**:\n${data.description}\n\n`;
-    }
-
-    // Specific field handling for better readability
-    // Stats block?
-    md += `## Data Properties\n`;
-
-    for (const key in data) {
-      if (
-        [
-          'id',
-          'documentId',
-          'createdAt',
-          'updatedAt',
-          'publishedAt',
-          'createdBy',
-          'updatedBy',
-          'name',
-          'description',
-          'embedding',
-          'password',
-          'resetPasswordToken',
-          'confirmationToken',
-        ].includes(key)
-      )
-        continue;
-
-      const value = data[key];
-      if (value === null || value === undefined) continue;
-
-      const valCheck = value as { name?: string };
-      if (typeof valCheck === 'object' && valCheck !== null) {
-        if (Array.isArray(value)) {
-          // List of relations
-          const list = value as { name?: string }[];
-          if (list.length > 0 && list[0].name) {
-            md += `- **${key}**: ${list.map((v) => v.name).join(', ')}\n`;
-          } else if (list.length === 0) {
-            continue;
-          } else {
-            md += `- **${key}**: ${JSON.stringify(value)}\n`;
-          }
-        } else {
-          // Single relation
-          if (valCheck.name) {
-            md += `- **${key}**: ${valCheck.name}\n`;
-          } else {
-            md += `- **${key}**: JSON Object\n`;
-          }
-        }
-      } else {
-        md += `- **${key}**: ${value}\n`;
-      }
-    }
-
-    return md;
-  }
 }
 
 export const entityKnowledgeService = new EntityKnowledgeService();

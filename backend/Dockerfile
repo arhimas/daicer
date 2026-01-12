@@ -1,32 +1,12 @@
 # Dockerfile for Strapi v5 Production
-FROM node:20-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine for details
-# regarding check-compatibility with libc6-compat
-# glibc needed for some native modules if required (e.g. sharp)
-RUN apk add --no-cache libc6-compat build-base gcc autoconf automake zlib-dev libwing pngquant nasm vips-dev
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /opt/app
-
-# Install dependencies based on specific package manager
-COPY package.json yarn.lock ./
-RUN yarn config set network-timeout 600000 -g && yarn install --production --frozen-lockfile
-
-# Rebuild sharp or other native modules
-# RUN yarn rebuild sharp
-
-# ------------------------------------------------------------------------------
-FROM node:20-alpine AS builder
-WORKDIR /opt/app
-COPY --from=deps /opt/app/node_modules ./node_modules
+FROM node:22-alpine AS builder
 COPY . .
 ENV NODE_ENV=production
 # Build the Strapi admin panel
 RUN yarn build
 
 # ------------------------------------------------------------------------------
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /opt/app
 ENV NODE_ENV=production
 

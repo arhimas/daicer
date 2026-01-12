@@ -5,6 +5,7 @@ import path from 'path';
 import { glob } from 'glob';
 import { embeddingService } from '../services/embedding-service';
 import { getStrapi } from '../cli/utils/bootstrap';
+import { codeIngestionService } from '../services/code-ingestion-service';
 
 // Configuration
 // We'll scan backend src, excluding node_modules, dist, etc.
@@ -48,49 +49,53 @@ async function embedSourceCode() {
     // 3. Process each file
     let updatedCount = 0;
     
+
+
     for (const file of files) {
       const absolutePath = path.join(cwd, file);
       const relativePath = path.relative(cwd, absolutePath);
+      
+      // Use Service for validation logic
+      if (!codeIngestionService.isValidFile(relativePath)) continue;
+
       const content = fs.readFileSync(absolutePath, 'utf-8');
 
       console.log(`Processing ${relativePath}...`);
        
-       // Skip empty or tiny files
-       if (content.length < 50) continue;
+       // Use Service for data generation
+       const snippetData = codeIngestionService.generateSnippetData(relativePath, content);
+       if (!snippetData) continue; // Skipped (empty/tiny)
 
-       // Truncate to avoid context limit if file is HUGE
-       const safeContent = content.length > 30000 ? content.substring(0, 30000) + '\n...[Truncated]' : content;
-       const vector = await embeddingService.generateEmbedding(`File: ${relativePath}\n${safeContent}`);
+       const vector = await embeddingService.generateEmbedding(snippetData.embeddingText);
        
-       const snippetTitle = `[Code] ${relativePath}`;
        const existingSnippet = await strapi.db.query('api::knowledge-snippet.knowledge-snippet').findOne({
-         where: { title: snippetTitle, source: sourceId },
+         where: { title: snippetData.title, source: sourceId },
        });
 
        if (existingSnippet) {
          // Update
          await strapi.entityService.update('api::knowledge-snippet.knowledge-snippet', existingSnippet.id, {
            data: {
-             content: content,
+             content: snippetData.content,
              embedding: vector,
-             sourceType: 'source-code',
+             sourceType: snippetData.sourceType,
              publishedAt: new Date(),
            },
          });
-         console.log(`Updated '${snippetTitle}'`);
+         console.log(`Updated '${snippetData.title}'`);
        } else {
          // Create
          await strapi.entityService.create('api::knowledge-snippet.knowledge-snippet', {
            data: {
-             title: snippetTitle,
-             content: content,
+             title: snippetData.title,
+             content: snippetData.content,
              source: sourceId,
              embedding: vector,
-             sourceType: 'source-code',
+             sourceType: snippetData.sourceType,
              publishedAt: new Date(),
            },
          });
-         console.log(`Created '${snippetTitle}'`);
+         console.log(`Created '${snippetData.title}'`);
        }
        
        updatedCount++;

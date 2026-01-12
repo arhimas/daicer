@@ -3,31 +3,14 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 // 1. Load Environment Variables
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') }); // Ensure env is loaded first
 
 import { JuicyProgressBar } from './utils/progressBar';
+import { EMBEDDABLE_MODELS } from '../config/embedding';
 
-const ENTITY_MODELS = [
-  'api::character.character',
-  'api::class.class',
-  'api::damage-type.damage-type',
-  'api::equipment.equipment',
-  'api::equipment-category.equipment-category',
-  'api::feature.feature',
-  'api::language.language',
-  'api::magic-item.magic-item',
-  'api::magic-school.magic-school',
-  'api::monster.monster',
-  'api::proficiency.proficiency',
-  'api::race.race',
-  'api::spell.spell',
-  'api::subclass.subclass',
-  'api::trait.trait',
-  'api::weapon-property.weapon-property',
-  'api::knowledge-source.knowledge-source',
-];
+const ENTITY_MODELS = EMBEDDABLE_MODELS;
 
-const BATCH_CONCURRENCY = 16;
+const BATCH_CONCURRENCY = 1; // SQLite optimization: Serial execution to prevent locking
 
 // Main Execution
 async function main() {
@@ -56,6 +39,14 @@ async function main() {
     for (const model of ENTITY_MODELS) {
       const typeName = model.split('.')[1];
       const friendlyName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+
+      // 0. Safety Check: Does the model exist?
+      // Strapi 5 might use .contentTypes or similar
+      const contentType = strapi.contentTypes[model];
+      if (!contentType) {
+          console.log(`\x1b[33m[SKIP] ${friendlyName} (${model}): Schema not found/loaded.\x1b[0m`);
+          continue;
+      }
 
       // 1. Fetch All IDs only (lightweight)
       const entries = await strapi.entityService.findMany(model as `api::${string}.${string}`, {
@@ -94,10 +85,8 @@ async function main() {
               } else {
                 await entityKnowledgeService.syncEntity(model, id);
               }
-            } catch {
-              // Silent fail on individual to keep flow, logging to file maybe?
-              // For juice, just keep going or print tiny error line?
-              // console.error(`Failed ${id}`);
+            } catch (err) {
+              // Silent fail on individual to keep flow
             }
           })
         );

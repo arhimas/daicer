@@ -924,6 +924,9 @@ export interface ApiKnowledgeSnippetKnowledgeSnippet extends Struct.CollectionTy
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     source: Schema.Attribute.Relation<'manyToOne', 'api::knowledge-source.knowledge-source'>;
+    sourceType: Schema.Attribute.Enumeration<['source-code', 'game-entity', 'manual']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'manual'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
