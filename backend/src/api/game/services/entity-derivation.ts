@@ -74,10 +74,34 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
       throw new Error(`EntitySheet ${sheetId} not found`);
     }
 
-    // 2. Use EntityAdapter to get the "Engine View" (Base Derivation)
-    // NOTE: 'adapt' previously read activeState. We will refactor it to ONLY read sheet.
-    // For now, assume it returns base stats from sheet/blueprint.
-    const entity: Entity = strapi.service('api::game.entity-adapter').adapt(sheet, { ignoreActiveState: true });
+    // 2. Direct Hydration (No Adapter)
+    // We construct a lightweight Entity object for derivation purposes
+    const entity: Entity = {
+      id: sheet.documentId,
+      name: sheet.name,
+      type: sheet.type || 'character',
+      level: sheet.level || 1,
+      stats: sheet.stats || {},
+      hp: sheet.currentHp ?? sheet.maxHp,
+      maxHp: sheet.maxHp,
+      armorClass: sheet.armorClass,
+      speed: sheet.speed || 30, // Or fetch from stats component
+      actions: sheet.actions || [],
+      features: sheet.features || [],
+
+      resistances: sheet.resistances || [],
+      immunities: sheet.immunities || [],
+      vulnerabilities: sheet.vulnerabilities || [],
+
+      // Mock inventory for derivation if needed, though derivation mainly uses stats/profs
+      equipment: sheet.inventory || [],
+
+      // Add other required props of Entity interface with defaults
+      position: sheet.position || { x: 0, y: 0, z: 0 },
+      visionRadius: 60,
+      color: '#fff',
+      conditions: sheet.conditions || [],
+    };
 
     // 3. Calculate Derived Values
     const stats = entity.stats;

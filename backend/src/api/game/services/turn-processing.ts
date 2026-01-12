@@ -169,8 +169,8 @@ export default ({ strapi }) => ({
       }
     }
 
-    // 5a. Adapt Entities for Narrative
-    const entityAdapter = strapi.service('api::game.entity-adapter');
+    // 5a. Adapt Entities for Narrative (Direct Hydration)
+    // const entityAdapter = strapi.service('api::game.entity-adapter'); // Removed
     const allSheets =
       ((
         await strapi.documents('api::room.room').findOne({
@@ -178,16 +178,24 @@ export default ({ strapi }) => ({
           populate: [
             'entity_sheets',
             'entity_sheets.monster',
-            'entity_sheets.monster.structuredActions',
-            'entity_sheets.monster.features',
             'entity_sheets.character',
             'entity_sheets.character.stats',
+            'entity_sheets.computedActions', // Ensure we get these
           ],
         })
       ).entity_sheets as unknown[]) || [];
 
-    // Use Adapter
-    const unifiedEntities = allSheets.map((s) => entityAdapter.adapt(s));
+    const unifiedEntities = allSheets.map((s: any) => ({
+      id: s.documentId,
+      name: s.name,
+      type: s.type || 'character',
+      hp: s.currentHp || s.maxHp,
+      maxHp: s.maxHp,
+      armorClass: s.armorClass || s.ac || 10,
+      stats: s.stats || {},
+      actions: s.computedActions || s.actions || [],
+      // Minimal needed for Narrative
+    }));
 
     // 5. Generate Narrative (with new Map Image)
     const response = await narrativeEngine.generateNarrativeResponse(

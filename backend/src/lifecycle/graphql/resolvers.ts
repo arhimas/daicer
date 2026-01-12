@@ -410,9 +410,18 @@ export const registerGraphQLExtension = (strapi) => {
           const activeTurn = turns.length > 0 ? turns[0] : null;
 
           // Visible Entities
-          // For now, return all in room.
-          // Future: Filter based on Fog of War / Vision
-          const visibleEntities = room.entity_sheets || [];
+          let visibleEntities = room.entity_sheets || [];
+
+          if (myself && myself.position) {
+            try {
+              const visibilityService = strapi.service('api::game.visibility-service');
+              if (visibilityService) {
+                visibleEntities = visibilityService.cullEntities(myself.position, visibleEntities);
+              }
+            } catch (e) {
+              strapi.log.warn('[Resolver] Failed to load visibility service, defaulting to full view', e);
+            }
+          }
 
           // Messages - handled by Room.messages resolver or we can fetch here if specific view logic needed
           // But strict schema says "messages: [Message]" in GameView.

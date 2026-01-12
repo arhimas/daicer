@@ -81,35 +81,36 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
       }
 
       // 3. PERSISTENCE PHASE
-      // Transactional application (if possible, or sequential)
+      // Transactional application (Atomic Commit)
+      const createdEvents: any[] = [];
 
-      // A. Apply State Changes
-      for (const update of allDiffs.updates) {
-        await strapi.documents(update.collection as UID.ContentType).update({
-          documentId: update.documentId,
-          data: update.data,
+      const turnId = await strapi.db.transaction(async (trx) => {
+        // A. Apply State Changes
+        for (const update of allDiffs.updates) {
+          await strapi.db.query(update.collection).update({
+            where: { documentId: update.documentId },
+            data: update.data,
+          });
+        }
+
+        // B. Create Events
+        for (const event of allEvents) {
+          const e = await strapi.documents('api::game-event.game-event').create({
+            data: event as unknown as Record<string, unknown>,
+          });
+          createdEvents.push(e);
+        }
+
+        // C. Create Turn Record
+        const turn = await strapi.documents('api::turn.turn').create({
+          data: {
+            room: roomId,
+            events: createdEvents.map((e) => e.documentId),
+            timestamp: new Date().toISOString(),
+          },
         });
-      }
 
-      // B. Create Events
-      const createdEvents = [];
-      for (const event of allEvents) {
-        const e = await strapi.documents('api::game-event.game-event').create({
-          data: event as unknown as Record<string, unknown>,
-        });
-        createdEvents.push(e);
-      }
-
-      // C. Create Turn Record
-      // We should link these events to a Turn.
-      // For now, simple Turn creation.
-      const turn = await strapi.documents('api::turn.turn').create({
-        data: {
-          room: roomId,
-          events: createdEvents.map((e) => e.documentId),
-          timestamp: new Date().toISOString(),
-          // summary: ... (Generated in Narration phase)
-        },
+        return turn.documentId;
       });
 
       // D. Create TimeFrame Snapshot
@@ -160,7 +161,7 @@ export default factories.createCoreService('api::game.turn-pipeline', ({ strapi 
       // const gameBroadcaster = strapi.service('api::game.game-broadcaster');
       // gameBroadcaster.broadcastTurnComplete...
 
-      return { success: true, turnId: turn.documentId };
+      return { success: true, turnId: turnId };
     } finally {
       // 6. UNLOCK
       await lockService.release(roomId, holderId);

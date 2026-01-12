@@ -216,7 +216,35 @@ export const getMutationResolvers = (strapi) => ({
     const { roomId, action, mode } = args;
     const { user } = context.state;
     if (!user) throw new Error('Unauthorized');
-    return strapi.service('api::game.game').submitAction(roomId, action, user, mode);
+
+    // Parse Action (Strict JSON expected for Engine Commands, string for chat/legacy)
+    let commandPayload;
+    let inputType: 'command' | 'text' = 'text';
+
+    try {
+      commandPayload = JSON.parse(action);
+      // Basic validation that it LOOKS like a command
+      if (commandPayload && typeof commandPayload === 'object' && commandPayload.type) {
+        inputType = 'command';
+      }
+    } catch (e) {
+      // Not JSON, treat as text
+      inputType = 'text';
+    }
+
+    const turnInput = {
+      type: inputType,
+      agentId: user.documentId, // User acting
+      // If command, map to EngineCommand shape
+      command: inputType === 'command' ? commandPayload : undefined,
+      text: inputType === 'text' ? action : undefined,
+    };
+
+    // Execute Transactional Turn
+    // processTurn returns { success, turnId }
+    const result = await strapi.service('api::game.turn-pipeline').processTurn(roomId, [turnInput]);
+
+    return { success: result.success, message: result.message };
   },
 
   spawnCreature: async (_parent, args, _context) => {
