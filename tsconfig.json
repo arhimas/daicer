@@ -1,7 +1,44 @@
 {
-  "files": [],
-  "references": [{ "path": "./frontend" }, { "path": "./backend" }],
   "compilerOptions": {
-    "skipLibCheck": true
-  }
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["ES2020"],
+    "target": "ES2020",
+    "strict": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noEmitOnError": true,
+    "noImplicitThis": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@daicer/engine": ["src/api/game/src/engine/index.ts"],
+      "@daicer/engine/*": ["src/api/game/src/engine/*"],
+      "@daicer/shared": ["src/shared/index.ts"],
+      "@daicer/shared/*": ["src/shared/*"],
+      "@strapi/client": ["../node_modules/@strapi/client/dist/exports.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.json", "config/**/*.ts"],
+
+  "exclude": [
+    "node_modules/",
+    "build/",
+    "dist/",
+    ".cache/",
+    ".tmp/",
+
+    // Do not include admin files in the server compilation
+    "src/admin/",
+    // Do not include test files
+    "**/*.test.*",
+    "src/plugins/**",
+    "script/",
+    "**/*.spec.ts",
+    "src/**/__tests__/"
+  ]
 }
