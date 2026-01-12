@@ -1,27 +1,24 @@
-# 🛑 02. Quality Protocol (THE IRON GATES)
+---
+trigger: always_on
+---
+
+# 🛑 02. Quality Protocol (The Iron Gates)
 
 > [!IMPORTANT]
-> **No Progress without Proof. LINTING IS NOT OPTIONAL.**
+> **No Progress without Proof.**
 
-## 1. Mandatory Documentation
-
-**Rule**: If you enter a folder without a `README.md`, **YOU MUST STOP**.
-**Action**: Create the README describing Purpose, Architecture, and Usage. Only then proceed.
-
-## 2. THE IRON GATES
-
-Before marking **ANY** task "Done", you must pass the Iron Gates.
-**Failure to pass these gates means the task is NOT DONE.**
+## 1. The Iron Gates
+You cannot mark a task as "Done" until you pass the Gates. Run these commands:
 
 1.  **Codegen**: `yarn codegen` (Must pass).
-2.  **Lint**: `yarn lint` (MUST BE 0 ERRORS, 0 WARNINGS).
-    - **Warnings are Errors**. Use `--max-warnings 0`.
-3.  **Typecheck**: `yarn typecheck` (MUST BE 0 ERRORS).
-4.  **Test**: Run relevant tests.
+2.  **Lint**: `yarn lint` (0 Errors, 0 Warnings). **Warnings are Errors.**
+3.  **Typecheck**: `yarn typecheck` (0 Errors).
+4.  **Test**: `yarn test` (Must pass).
 
-## 3. Strictness Protocols
+## 2. Proactive Verification
+*   **Do not wait** for the user to run these. Run them yourself after every significant change.
+*   **Fix immediately**: If Lint fails, fix it *now*. Do not continue writing logic on broken foundations.
 
-- **Lint Warnings**: Fixed immediately. No "later".
-- **Types**: Strict. No "knowing better".
-- **Proactive Verification**: Don't wait for the user to find bugs. Run the gates yourself.
-- **Verification First**: Do not claim success until you have seen the green checkmarks yourself.
+## 3. Dependency Management
+*   **Yarn Only**: Never use `npm`.
+*   **Lockfile**: `yarn.lock` is sacred.

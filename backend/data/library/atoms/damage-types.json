@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Acid",
+        "description": "Corrosive substance damage."
+    },
+    {
+        "name": "Bludgeoning",
+        "description": "Blunt force attacks."
+    },
+    {
+        "name": "Cold",
+        "description": "Extreme low temperature."
+    },
+    {
+        "name": "Fire",
+        "description": "Extreme heat and burning."
+    },
+    {
+        "name": "Force",
+        "description": "Pure magical energy."
+    },
+    {
+        "name": "Lightning",
+        "description": "Electrical discharge."
+    },
+    {
+        "name": "Necrotic",
+        "description": "Withering death energy."
+    },
+    {
+        "name": "Piercing",
+        "description": "Puncturing attacks."
+    },
+    {
+        "name": "Poison",
+        "description": "Toxic substances."
+    },
+    {
+        "name": "Psychic",
+        "description": "Mental assault."
+    },
+    {
+        "name": "Radiant",
+        "description": "Holy or searing light."
+    },
+    {
+        "name": "Slashing",
+        "description": "Cutting attacks."
+    },
+    {
+        "name": "Thunder",
+        "description": "Concussive sound."
+    }
+]

@@ -63,27 +63,13 @@ export default {
 
       // 3. Global Entity Knowledge Subscriber
       // Auto-regenerate RAG embeddings when game entities change.
-      /*
       strapi.db.lifecycles.subscribe((event) => {
         const model = event.model.uid;
-        // Filter only for our 16 game entities
+        // User Request: Only Spells, Races, and Rules (Knowledge Snippets)
         const TRACKED_MODELS = [
-          'api::character.character',
-          'api::class.class',
-          'api::damage-type.damage-type',
-          'api::equipment.equipment',
-          'api::equipment-category.equipment-category',
-          'api::feature.feature',
-          'api::language.language',
-          'api::magic-item.magic-item',
-          'api::magic-school.magic-school',
-          'api::entity.entity',
-          'api::proficiency.proficiency',
-          'api::race.race',
           'api::spell.spell',
-          'api::subclass.subclass',
-          'api::trait.trait',
-          'api::weapon-property.weapon-property',
+          'api::race.race',
+          'api::knowledge-snippet.knowledge-snippet',
         ];
 
         if (TRACKED_MODELS.includes(model)) {
@@ -91,7 +77,6 @@ export default {
             const { result, params } = event as any;
 
             // Recursion Guard: If we are just updating the embedding, DO NOT re-trigger
-            // This prevents the EntityKnowledgeService -> Update Embedding -> Subscriber -> Service loop
             if (params && params.data) {
               const keys = Object.keys(params.data);
               if (keys.length === 1 && keys[0] === 'embedding') {
@@ -101,7 +86,6 @@ export default {
 
             if (result && result.id) {
               // Decouple from current transaction using setImmediate
-              // This prevents "Transaction query already complete" errors when the HTTP request finishes early
               setImmediate(() => {
                 const { entityKnowledgeService } = require('./services/entity-knowledge-service');
                 entityKnowledgeService
@@ -114,7 +98,6 @@ export default {
           }
         }
       });
-      */
     } catch (error) {
       strapi.log.error('Bootstrap failed:', error);
     }

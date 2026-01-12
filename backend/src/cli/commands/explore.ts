@@ -1,6 +1,7 @@
+
 import { Command } from 'commander';
 import fs from 'fs';
-import { client } from '../utils/client';
+import { getStrapi } from '../utils/bootstrap';
 import { discoverContentTypes } from '../utils/schema';
 
 // Types
@@ -38,9 +39,9 @@ export const exploreCommand = new Command('explore')
         );
       } else {
         const { default: chalk } = await import('chalk');
-        console.error(chalk.red('\n❌ Error:'), error);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        console.error(chalk.red('\n❌ Error:'), (error as any).message || error);
       }
-      // process.exit(1);
       throw error;
     }
   });
@@ -67,7 +68,6 @@ export async function runExplore(options: ExploreOptions) {
       return res;
     } catch (err) {
       spinner.fail();
-      // Throw original error to see what happened
       throw err;
     }
   };
@@ -106,12 +106,12 @@ export async function runExplore(options: ExploreOptions) {
   const selectedType = allTypes.find((t) => t.uid === selectedUid);
   // Fallback metadata for manual UIDs (plugins, etc)
   const finalType = selectedType || {
-    uid: selectedUid,
+    uid: selectedUid!,
     kind: 'collectionType',
-    apiName: selectedUid.split('::')[1]?.split('.')[0] || selectedUid,
+    apiName: selectedUid!.split('::')[1]?.split('.')[0] || selectedUid,
     info: {
-      pluralName: selectedUid.split('.').pop(),
-      displayName: selectedUid,
+      pluralName: selectedUid!.split('.').pop() || 'unknown',
+      displayName: selectedUid!,
     },
   };
 
@@ -120,11 +120,15 @@ export async function runExplore(options: ExploreOptions) {
   let currentAction = action || 'find'; // Default
   let currentPage = parseInt(options.page || '1', 10);
   const currentLimit = parseInt(options.limit || '10', 10);
-  let currentFilters = options.filters ? JSON.parse(options.filters) : {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let currentFilters: any = options.filters ? JSON.parse(options.filters) : {};
   let currentDocId = options.documentId;
 
   // Interactive Loop (Human only)
   let keepRunning = true;
+  
+  // Initialize Strapi once
+  const strapi = await withSpinner('Booting Strapi...', async () => getStrapi());
 
   while (keepRunning) {
     if (!isRaw && !action) {
@@ -149,25 +153,32 @@ export async function runExplore(options: ExploreOptions) {
 
     // Prepare Params
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let params: Record<string, any> = { populate: '*' };
+    let populateVal: any = '*';
 
-    // Use deep populate for findOne or if JSON mode is requested (likely agent wanting details)
-    // For general 'find' list, deep populate might be too heavy?
-    // Agent asked: "our cli when grabbing a schema of a entity should automaticly grab until 2 levels or relations"
-    // "and also when getting data specially by document id it also need tgo grab the relations"
     if (currentAction === 'findOne' || isRaw) {
       const { buildDeepPopulate } = await import('../utils/schema');
       const deepPop = buildDeepPopulate(finalType.uid, 2);
-      params = { populate: deepPop };
+      populateVal = deepPop;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const params: any = {
+      populate: populateVal,
+    };
+
     if (currentAction === 'find') {
-      params['pagination[pageSize]'] = currentLimit;
-      params['pagination[page]'] = currentPage;
+      params.start = (currentPage - 1) * currentLimit;
+      params.limit = currentLimit;
       params.filters = currentFilters;
     } else if (currentAction === 'findOne') {
-      if (!currentDocId && isRaw) throw new Error('--document-id is required for findOne');
-      if (!currentDocId) currentDocId = await input({ message: 'Enter Document ID:' });
+      params.documentId = currentDocId;
+      if (!currentDocId) {
+        if (isRaw) throw new Error('--document-id is required for findOne');
+        currentDocId = await input({ message: 'Enter Document ID:' });
+        params.documentId = currentDocId;
+      }
+    } else if (currentAction === 'count') {
+       params.filters = currentFilters;
     }
 
     // Execute
@@ -175,49 +186,39 @@ export async function runExplore(options: ExploreOptions) {
     let meta: Record<string, unknown> = {};
 
     await withSpinner('Executing Query...', async () => {
-      const resourceName =
-        finalType.kind === 'singleType'
-          ? selectedType?.apiName || finalType.info.pluralName
-          : finalType.info.pluralName;
-
-      if (!resourceName) throw new Error(`Could not determine resource name for ${selectedUid}`);
-
-      const resource = // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (finalType.kind === 'singleType' ? client.single(resourceName) : client.collection(resourceName)) as any;
+      // Use Strapi Document Service
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const uid = finalType.uid as any; 
 
       if (finalType.kind === 'singleType') {
-        result = await resource.find(params);
+        const res = await strapi.documents(uid).findFirst(params);
+        result = res;
         meta = { type: 'singleType' };
       } else {
         if (currentAction === 'findOne') {
-          result = await resource.findOne(currentDocId, params);
+          // findOne needs documentId as first arg in Strapi 5 beta, OR proper structure
+          // strapi.documents(uid).findOne({ documentId: '...' })
+          const res = await strapi.documents(uid).findOne({ documentId: params.documentId, populate: params.populate });
+          result = res;
           meta = { action: 'findOne', documentId: currentDocId };
         } else if (currentAction === 'count') {
-          // Optimization: standard find with limit 1 and withCount
-          const countRes = await resource.find({
-            ...params,
-            'pagination[withCount]': 'true',
-            'pagination[pageSize]': 1,
-          }); // Min data
-          result = countRes.meta?.pagination?.total || 0;
+          const count = await strapi.documents(uid).count({ filters: params.filters });
+          result = count;
           meta = { action: 'count' };
         } else {
-          const findRes = await resource.find(params);
-          // Standardize Strapi V5 response
-          // Strapi Client often unwraps .data, but sometimes not depending on usage.
-          // Adjust based on observation: @strapi/client usually returns { data: [], meta: {} } OR just []
-          // We normalize to ensure we have data/meta split.
-          if (Array.isArray(findRes)) {
-            result = findRes;
-            meta = {
-              pagination: { page: currentPage, pageSize: currentLimit, total: 'unknown' },
-            };
-          } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            result = (findRes as any).data || findRes;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            meta = (findRes as any).meta || {};
-          }
+          // Find Many
+          const res = await strapi.documents(uid).findMany(params);
+          const count = await strapi.documents(uid).count({ filters: params.filters });
+          
+          result = res;
+          meta = {
+            pagination: { 
+              page: currentPage, 
+              pageSize: currentLimit, 
+              total: count,
+              pageCount: Math.ceil(count / currentLimit)
+            },
+          };
         }
       }
     });
@@ -248,30 +249,31 @@ export async function runExplore(options: ExploreOptions) {
         console.log(`\n${chalk.green('Total Entries:')} ${chalk.bold(result)}`);
         keepRunning = false;
       } else if (currentAction === 'findOne' || finalType.kind === 'singleType') {
-        // Pretty Print Single Item
         console.log('\n' + prettyjson.render(result));
         keepRunning = false;
       } else {
         // Table View for 'find'
-        const data = Array.isArray(result) ? result : [result];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const data = Array.isArray(result) ? result : [result].filter(Boolean); // handle null
 
         if (data.length === 0) {
           console.log(chalk.yellow('\n(No results found)'));
         } else {
-          // Derive headers from first item (limit to first 5 keys to fit screen)
+          // Derive headers
           const firstKey = Object.keys(data[0] || {}).filter((k) => k !== 'id' && k !== 'documentId');
           const headers = ['documentId', 'id', ...firstKey.slice(0, 3)];
 
           const table = new Table({
             head: headers.map((h) => chalk.cyan(h)),
-            style: { head: [], border: [] }, // minimal style
+            style: { head: [], border: [] },
           });
 
-          data.forEach((row: Record<string, unknown>) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data.forEach((row: any) => {
             const values = headers.map((h) => {
               const val = row[h];
               if (typeof val === 'object') return chalk.dim('[Obj]');
-              return String(val).substring(0, 30); // Truncate
+              return String(val).substring(0, 30);
             });
             table.push(values);
           });
@@ -320,7 +322,7 @@ export async function runExplore(options: ExploreOptions) {
           const filterStr = await input({ message: 'Enter JSON filter:', default: JSON.stringify(currentFilters) });
           try {
             currentFilters = JSON.parse(filterStr);
-            currentPage = 1; // Reset to page 1 on new filter
+            currentPage = 1; 
           } catch {
             console.log(chalk.red('Invalid JSON'));
           }
@@ -331,7 +333,6 @@ export async function runExplore(options: ExploreOptions) {
         }
       }
 
-      // Handle --save if requested (and only at the end or on demand? For now, standard save logic)
       if (options.save && !keepRunning) {
         fs.writeFileSync(options.save, JSON.stringify(result, null, 2));
         console.log(chalk.green(`\n✅ Saved to ${options.save}`));

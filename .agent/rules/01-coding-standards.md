@@ -1,46 +1,30 @@
+---
+trigger: always_on
+---
+
 # 🛑 01. Coding Standards (The Law)
 
 > [!IMPORTANT]
-> **Strict enforcement of Hygiene, Naming, and Type Safety.**
+> **Zero Tolerance for Technical Debt.**
 
-## 1. The 200-Line Limit
+## 1. The Zero `any` Mandate
+*   **Rule**: `any` and `unknown` are **STRICTLY FORBIDDEN**.
+*   **Enforcement**:
+    *   Use **Zod** to validate external data boundaries.
+    *   Use **Discriminated Unions** for state management.
+    *   Use **Generics** properly.
+    *   **NO** `as` casting unless absolutely unavoidable (must be commented with justification).
 
-**Rule**: No file shall exceed 200 lines.
-**Enforcement**: **STOP & REFACTOR**. Split components, extract hooks, or move logic to services.
-**Exceptions**: JSON, Markdown, Seeds, Generated Types.
+## 2. The 200-Line Limit
+*   **Rule**: No file shall exceed 200 lines.
+*   **Action**: If you hit line 201, **STOP**. Refactor. Extract hooks, services, or utilities.
+*   **Exception**: Generated types, JSON, Seeds.
 
-## 2. THE ZERO ANY MANDATE
+## 3. Naming & Hygiene
+*   **No Abbreviations**: `characterSheet` (✅), `charSheet` (❌). `context` (✅), `ctx` (❌).
+*   **Explicit Returns**: All functions **MUST** have an explicit return type.
+*   **No Magic Numbers**: Extract constants to a configuration file or fetch them from Strapi via CLI.
 
-**Rule**: `any` and `unknown` are **STRICTLY FORBIDDEN**.
-**Enforcement**:
-
-- **NEVER** use `any`. Not for "quick fixes", not for "temporary" code.
-- **NEVER** use `unknown` unless you are immediately narrowing it with a Zod schema or Type Guard.
-- **Backend Data**: If you don't trust the shape, use `zod` to validate it.
-- **Generics**: Use proper Generics or Discriminated Unions.
-- **Casting**: `as` casting is highly discouraged. Use type predicates.
-
-## 3. Strict Type Safety
-
-**Rule**: All functions must have explicit return types.
-**Rule**: All Props interfaces must be explicit.
-**Rule**: No implicit `any`.
-
-## 4. Naming Conventions
-
-**Rule**: **NO ABBREVIATIONS**. Clarity over brevity.
-**Whitelist**: `id`, `html`, `url`, `db`, `ui`.
-**Examples**:
-
-- ❌ `minVal`, `charSheet`, `ctx`, `params`
-- ✅ `minimumValue`, `characterSheet`, `context`, `parameters`
-
-## 5. DRY & Atomic
-
-- **DRY**: Redundancy is allowed only if it increases reliability and decoupling. Otherwise, extract.
-- **Atomic**: Commits/Tooling steps can be batched, but changes must be focused.
-
-## 6. Package Management
-
-**Rule**: **Yarn Only**.
-**Lockfile**: `yarn.lock` is sacred. Never mix with `npm`.
+## 4. Type Definitions
+*   **No Repeated Types**: Do not redefine `User` in 5 places. Import from `@/types` or the generated GraphQL types.
+*   **Prefer `type` over `interface`**: Unless you specifically need declaration merging (you likely don't).

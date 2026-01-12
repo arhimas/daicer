@@ -24,6 +24,7 @@ const ENTITY_UIDS = [
   'api::subclass.subclass',
   'api::trait.trait',
   'api::weapon-property.weapon-property',
+  'api::knowledge-snippet.knowledge-snippet',
 ];
 
 export class EntityKnowledgeService {
