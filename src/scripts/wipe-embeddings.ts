@@ -1,10 +1,9 @@
-
 import { getStrapi } from '../cli/utils/bootstrap';
 import { EMBEDDABLE_MODELS } from '../config/embedding';
 
 async function wipeEmbeddings() {
   console.log('🧹 Starting Knowledge Base Wipe (Embeddings only)...');
-  
+
   const strapi = await getStrapi();
 
   try {
@@ -13,12 +12,12 @@ async function wipeEmbeddings() {
       try {
         // Use db.query to bypass hooks and be raw fast
         const result = await strapi.db.query(uid).updateMany({
-          where: { 
-             embedding: { $notNull: true } 
+          where: {
+            embedding: { $notNull: true },
           },
           data: {
-             embedding: null
-          }
+            embedding: null,
+          },
         });
         console.log(`   ✨ Cleared ${result.count} embeddings from ${uid}`);
       } catch (err) {

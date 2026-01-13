@@ -1,4 +1,3 @@
- 
 import knex, { Knex } from 'knex';
 import path from 'path';
 import fs from 'fs';

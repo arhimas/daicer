@@ -79,13 +79,13 @@ describe('entityToMarkdown', () => {
     const data = {
       zebra: 1,
       alpha: 2,
-      beta: 3
+      beta: 3,
     };
     const md = entityToMarkdown('test', 'Test', data);
     const alphaIndex = md.indexOf('alpha');
     const betaIndex = md.indexOf('beta');
     const zebraIndex = md.indexOf('zebra');
-    
+
     expect(alphaIndex).toBeLessThan(betaIndex);
     expect(betaIndex).toBeLessThan(zebraIndex);
   });

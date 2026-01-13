@@ -1,157 +1,103 @@
-import { spawn, ChildProcess } from 'child_process';
+import { pipeline, env, FeatureExtractionPipeline } from '@huggingface/transformers';
 import path from 'path';
-import readline from 'readline';
 
 export type EmbeddingTask = 'retrieval.query' | 'retrieval.passage' | 'text-matching' | 'separation' | 'classification';
 
-interface EmbeddingResponse {
-  vector?: number[];
-  error?: string;
-  status?: string;
-}
-
-interface QueueItem {
-  text: string;
-  task: EmbeddingTask;
-  resolve: (value: number[]) => void;
-  reject: (reason?: any) => void;
-  sent: boolean;
-}
-
 /**
- * Service for generating vector embeddings using Jina-Embeddings-v3 via a local Python bridge.
- * 
- * 🚀 **SOTA Implementation**: 
- * - Replaces network-heavy OpenAI calls with local, high-performance Jina V3.
- * - Uses persistent Python child process to avoid model reload overhead (Zero-Latency).
- * - Supports task-specific embedding modes (retrieval vs matching).
+ * Service for generating vector embeddings using Jina-Embeddings-v2 via local Transformer pipeline.
+ *
+ * 🚀 **SOTA Implementation**:
+ * - Uses local `local_models` cache.
+ * - Zero network latency after initial download.
+ * - Supports quantized Jina v2 (8192 token context).
  */
 export class EmbeddingService {
-  private pythonProcess: ChildProcess | null = null;
-  private isReady: boolean = false;
-  private queue: QueueItem[] = [];
+  private pipeline: FeatureExtractionPipeline | null = null;
+  private modelName = 'Xenova/jina-embeddings-v2-small-en';
+  private cacheDir: string;
+  private isInitializing = false;
 
   constructor() {
-    // Lazy initialization: Process is spawned on first request.
+    // Configure local cache directory at project root
+    this.cacheDir = path.resolve(process.cwd(), 'local_models');
+    
+    // Configure transformers env
+    env.cacheDir = this.cacheDir;
+    env.allowLocalModels = true; 
+    // We allow remote models so it can download them once, then it uses cache.
+    // To strictly force offline after download, we'd toggle allowRemoteModels = false.
   }
 
   private async ensureInitialized(): Promise<void> {
-    if (this.pythonProcess && !this.pythonProcess.killed) return;
-    this.spawnPythonProcess();
-    
-    // Wait for ready signal
-    if (this.isReady) return;
-    
-    // We rely on the processQueue check or a readiness loop here, 
-    // but typically spawnPythonProcess sets up listeners.
-    // For simplicity in this lazy pattern, we just ensure process exists.
-    // The queue will handle the actual 'ready' wait.
-  }
-
-  private spawnPythonProcess() {
-    if (this.pythonProcess) return; 
-
-    const scriptPath = path.join(process.cwd(), 'src/scripts/embedding/service.py');
-    // ... (rest is same)
-    
-    // We use the system python3. In a real-world prod env, this might need a specific venv path.
-    this.pythonProcess = spawn('python3', [scriptPath], {
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
-    this.pythonProcess.unref(); // Prevent process from holding the event loop open
-    
-    this.isReady = false; // Reset readiness
-
-    if (!this.pythonProcess.stdout || !this.pythonProcess.stdin || !this.pythonProcess.stderr) {
-      throw new Error('Failed to spawn embedding service: stdio pipes are missing');
+    if (this.pipeline) return;
+    if (this.isInitializing) {
+      // Basic wait loop for concurrent requests during init
+      while (this.isInitializing) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      if (this.pipeline) return;
     }
 
-    const rl = readline.createInterface({
-      input: this.pythonProcess.stdout,
-      terminal: false,
-    });
-
-    rl.on('line', (line) => {
-      try {
-        const data = JSON.parse(line) as EmbeddingResponse;
-        
-        if (data.status === 'ready') {
-          console.log('✅ [EmbeddingService] Jina V3 Model Ready');
-          this.isReady = true;
-          this.processQueue();
-          return;
-        }
-
-        const request = this.queue.shift();
-        if (!request) return;
-
-        if (data.error) {
-          request.reject(new Error(`Embedding Service Error: ${data.error}`));
-        } else if (data.vector) {
-          request.resolve(data.vector);
-        } else {
-          request.reject(new Error('Invalid response from embedding service'));
-        }
-      } catch (err) {
-        console.error('❌ [EmbeddingService] JSON Parse Error:', err);
-      }
-    });
-
-    this.pythonProcess.stderr.on('data', (data) => {
-      // Filter out benign logs if needed, but error output is useful
-      console.error(`🔴 [EmbeddingService] Python Log: ${data.toString().trim()}`);
-    });
-
-    this.pythonProcess.on('close', (code) => {
-      console.warn(`⚠️ [EmbeddingService] Process exited with code ${code}. Restarting...`);
-      this.isReady = false;
-      // Mark all in-flight as not sent so they get retried?
-      // Actually, if process died, the in-flight ones verify failed.
-      // But for simplicity, we just clear/fail them or restart.
-      // Failing them is safer to avoid deadlocks.
-      this.queue.forEach(item => item.sent = false);
-      
-      setTimeout(() => this.spawnPythonProcess(), 2000);
-    });
-  }
-
-  private processQueue() {
-    if (!this.isReady || !this.pythonProcess?.stdin) return;
-    
-    for (const item of this.queue) {
-      if (!item.sent) {
-        this.writeRequest(item);
-        item.sent = true;
-      }
-    }
-  }
-
-  private writeRequest(item: QueueItem) {
+    this.isInitializing = true;
     try {
-      const payload = JSON.stringify({ text: item.text, task: item.task }) + '\n';
-      this.pythonProcess?.stdin?.write(payload);
-    } catch (err) {
-      console.error('Failed to write to python process', err);
-      item.reject(err);
+      console.log(`🔌 [EmbeddingService] Initializing local Jina model (${this.modelName})...`);
+      console.log(`📂 [EmbeddingService] Model Cache: ${this.cacheDir}`);
+
+      this.pipeline = await pipeline('feature-extraction', this.modelName, {
+        dtype: 'q8', // Quantized for mobile/low-memory usage (~40MB)
+        device: 'auto',
+      });
+
+      console.log('✅ [EmbeddingService] Model Ready');
+    } catch (error) {
+      console.error('❌ [EmbeddingService] Failed to initialize model:', error);
+      throw error;
+    } finally {
+      this.isInitializing = false;
     }
   }
-  
+
   /**
    * Generates a vector embedding for the given text.
    * @param text The text to embed.
-   * @param task The intended use case (default: text-matching).
-   * @returns A promise resolving to the embedding vector.
+   * @param task (Unused in v2-small-en pipeline pure usage, but kept for interface/future)
    */
   async generateEmbedding(text: string, task: EmbeddingTask = 'text-matching'): Promise<number[]> {
     if (!text || text.trim().length === 0) {
       return [];
     }
 
-    return new Promise((resolve, reject) => {
-      this.ensureInitialized().catch(err => reject(err));
-      this.queue.push({ text, task, resolve, reject, sent: false });
-      this.processQueue();
-    });
+    try {
+      await this.ensureInitialized();
+      if (!this.pipeline) throw new Error('Pipeline failed to initialize');
+
+      // Jina v2 handles long context, but let's be safe if it's absurdly huge
+      // The model limit is 8192 tokens.
+      
+      const output = await this.pipeline(text, {
+        pooling: 'mean',
+        normalize: true,
+      });
+
+      // output.tolist() returns number[][] because of batching, but we sent one string
+      // so we want the first element.
+      const raw = output.tolist(); 
+      if (Array.isArray(raw) && raw.length > 0 && Array.isArray(raw[0])) {
+          return raw[0] as number[];
+      }
+      return raw as unknown as number[]; // Fallback if shape differs, though mean pooling usually returns [dim]
+      
+    } catch (error) {
+      console.error('❌ [EmbeddingService] Generation failed:', error);
+      throw error;
+    }
+  }
+
+  terminate() {
+     // No-op for transformers.js usually, unless we want to dispose the session if possible.
+     // In JS/ONNX runtime, explicit disposal isn't always strictly exposed via pipeline API easily 
+     // without digging into the model session. For now, we leave it.
+     this.pipeline = null;
   }
 }
 

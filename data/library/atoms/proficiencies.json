@@ -1,98 +1,98 @@
 [
-    {
-        "name": "Athletics",
-        "type": "Skills"
-    },
-    {
-        "name": "Acrobatics",
-        "type": "Skills"
-    },
-    {
-        "name": "Sleight of Hand",
-        "type": "Skills"
-    },
-    {
-        "name": "Stealth",
-        "type": "Skills"
-    },
-    {
-        "name": "Arcana",
-        "type": "Skills"
-    },
-    {
-        "name": "History",
-        "type": "Skills"
-    },
-    {
-        "name": "Investigation",
-        "type": "Skills"
-    },
-    {
-        "name": "Nature",
-        "type": "Skills"
-    },
-    {
-        "name": "Religion",
-        "type": "Skills"
-    },
-    {
-        "name": "Animal Handling",
-        "type": "Skills"
-    },
-    {
-        "name": "Insight",
-        "type": "Skills"
-    },
-    {
-        "name": "Medicine",
-        "type": "Skills"
-    },
-    {
-        "name": "Perception",
-        "type": "Skills"
-    },
-    {
-        "name": "Survival",
-        "type": "Skills"
-    },
-    {
-        "name": "Deception",
-        "type": "Skills"
-    },
-    {
-        "name": "Intimidation",
-        "type": "Skills"
-    },
-    {
-        "name": "Performance",
-        "type": "Skills"
-    },
-    {
-        "name": "Persuasion",
-        "type": "Skills"
-    },
-    {
-        "name": "Strength Save",
-        "type": "Saving Throws"
-    },
-    {
-        "name": "Dexterity Save",
-        "type": "Saving Throws"
-    },
-    {
-        "name": "Constitution Save",
-        "type": "Saving Throws"
-    },
-    {
-        "name": "Intelligence Save",
-        "type": "Saving Throws"
-    },
-    {
-        "name": "Wisdom Save",
-        "type": "Saving Throws"
-    },
-    {
-        "name": "Charisma Save",
-        "type": "Saving Throws"
-    }
+  {
+    "name": "Athletics",
+    "type": "Skills"
+  },
+  {
+    "name": "Acrobatics",
+    "type": "Skills"
+  },
+  {
+    "name": "Sleight of Hand",
+    "type": "Skills"
+  },
+  {
+    "name": "Stealth",
+    "type": "Skills"
+  },
+  {
+    "name": "Arcana",
+    "type": "Skills"
+  },
+  {
+    "name": "History",
+    "type": "Skills"
+  },
+  {
+    "name": "Investigation",
+    "type": "Skills"
+  },
+  {
+    "name": "Nature",
+    "type": "Skills"
+  },
+  {
+    "name": "Religion",
+    "type": "Skills"
+  },
+  {
+    "name": "Animal Handling",
+    "type": "Skills"
+  },
+  {
+    "name": "Insight",
+    "type": "Skills"
+  },
+  {
+    "name": "Medicine",
+    "type": "Skills"
+  },
+  {
+    "name": "Perception",
+    "type": "Skills"
+  },
+  {
+    "name": "Survival",
+    "type": "Skills"
+  },
+  {
+    "name": "Deception",
+    "type": "Skills"
+  },
+  {
+    "name": "Intimidation",
+    "type": "Skills"
+  },
+  {
+    "name": "Performance",
+    "type": "Skills"
+  },
+  {
+    "name": "Persuasion",
+    "type": "Skills"
+  },
+  {
+    "name": "Strength Save",
+    "type": "Saving Throws"
+  },
+  {
+    "name": "Dexterity Save",
+    "type": "Saving Throws"
+  },
+  {
+    "name": "Constitution Save",
+    "type": "Saving Throws"
+  },
+  {
+    "name": "Intelligence Save",
+    "type": "Saving Throws"
+  },
+  {
+    "name": "Wisdom Save",
+    "type": "Saving Throws"
+  },
+  {
+    "name": "Charisma Save",
+    "type": "Saving Throws"
+  }
 ]

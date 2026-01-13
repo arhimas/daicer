@@ -1,46 +1,46 @@
 [
-    {
-        "name": "Ammunition",
-        "description": "Requires ammo to fire."
-    },
-    {
-        "name": "Finesse",
-        "description": "Use Strength or Dexterity for attack and damage."
-    },
-    {
-        "name": "Heavy",
-        "description": "Small creatures have disadvantage."
-    },
-    {
-        "name": "Light",
-        "description": "Ideal for two-weapon fighting."
-    },
-    {
-        "name": "Loading",
-        "description": "Can only fire once per action."
-    },
-    {
-        "name": "Range",
-        "description": "Has a normal and long range."
-    },
-    {
-        "name": "Reach",
-        "description": "Adds 5 feet to your reach."
-    },
-    {
-        "name": "Special",
-        "description": "Has unique rules."
-    },
-    {
-        "name": "Thrown",
-        "description": "Can be thrown to make a ranged attack."
-    },
-    {
-        "name": "Two-Handed",
-        "description": "Requires two hands to use."
-    },
-    {
-        "name": "Versatile",
-        "description": "Can be used with one or two hands."
-    }
+  {
+    "name": "Ammunition",
+    "description": "Requires ammo to fire."
+  },
+  {
+    "name": "Finesse",
+    "description": "Use Strength or Dexterity for attack and damage."
+  },
+  {
+    "name": "Heavy",
+    "description": "Small creatures have disadvantage."
+  },
+  {
+    "name": "Light",
+    "description": "Ideal for two-weapon fighting."
+  },
+  {
+    "name": "Loading",
+    "description": "Can only fire once per action."
+  },
+  {
+    "name": "Range",
+    "description": "Has a normal and long range."
+  },
+  {
+    "name": "Reach",
+    "description": "Adds 5 feet to your reach."
+  },
+  {
+    "name": "Special",
+    "description": "Has unique rules."
+  },
+  {
+    "name": "Thrown",
+    "description": "Can be thrown to make a ranged attack."
+  },
+  {
+    "name": "Two-Handed",
+    "description": "Requires two hands to use."
+  },
+  {
+    "name": "Versatile",
+    "description": "Can be used with one or two hands."
+  }
 ]

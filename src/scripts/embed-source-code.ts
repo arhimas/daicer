@@ -1,5 +1,4 @@
-
-import { factories } from '@strapi/strapi';
+import {} from '@strapi/strapi';
 import fs from 'fs';
 import path from 'path';
 import { glob } from 'glob';
@@ -9,12 +8,12 @@ import { codeIngestionService } from '../services/code-ingestion-service';
 
 // Configuration
 // We'll scan backend src, excluding node_modules, dist, etc.
-const SOURCE_PATTERN = 'src/**/*.{ts,js}'; 
+const SOURCE_PATTERN = 'src/**/*.{ts,js}';
 const IGNORE_PATTERNS = ['**/*.d.ts', '**/*.test.ts', '**/node_modules/**', '**/dist/**'];
 
 async function embedSourceCode() {
   console.log('🚀 Starting Codebase Embedding...');
-  
+
   // 1. Initialize Strapi (Headless)
   const strapi = await getStrapi();
 
@@ -48,62 +47,59 @@ async function embedSourceCode() {
 
     // 3. Process each file
     let updatedCount = 0;
-    
-
 
     for (const file of files) {
       const absolutePath = path.join(cwd, file);
       const relativePath = path.relative(cwd, absolutePath);
-      
+
       // Use Service for validation logic
       if (!codeIngestionService.isValidFile(relativePath)) continue;
 
       const content = fs.readFileSync(absolutePath, 'utf-8');
 
       console.log(`Processing ${relativePath}...`);
-       
-       // Use Service for data generation
-       const snippetData = codeIngestionService.generateSnippetData(relativePath, content);
-       if (!snippetData) continue; // Skipped (empty/tiny)
 
-       const vector = await embeddingService.generateEmbedding(snippetData.embeddingText);
-       
-       const existingSnippet = await strapi.db.query('api::knowledge-snippet.knowledge-snippet').findOne({
-         where: { title: snippetData.title, source: sourceId },
-       });
+      // Use Service for data generation
+      const snippetData = codeIngestionService.generateSnippetData(relativePath, content);
+      if (!snippetData) continue; // Skipped (empty/tiny)
 
-       if (existingSnippet) {
-         // Update
-         await strapi.entityService.update('api::knowledge-snippet.knowledge-snippet', existingSnippet.id, {
-           data: {
-             content: snippetData.content,
-             embedding: vector,
-             sourceType: snippetData.sourceType,
-             publishedAt: new Date(),
-           },
-         });
-         console.log(`Updated '${snippetData.title}'`);
-       } else {
-         // Create
-         await strapi.entityService.create('api::knowledge-snippet.knowledge-snippet', {
-           data: {
-             title: snippetData.title,
-             content: snippetData.content,
-             source: sourceId,
-             embedding: vector,
-             sourceType: snippetData.sourceType,
-             publishedAt: new Date(),
-           },
-         });
-         console.log(`Created '${snippetData.title}'`);
-       }
-       
-       updatedCount++;
-       if (updatedCount % 10 === 0) process.stdout.write('.');
+      const vector = await embeddingService.generateEmbedding(snippetData.embeddingText);
+
+      const existingSnippet = await strapi.db.query('api::knowledge-snippet.knowledge-snippet').findOne({
+        where: { title: snippetData.title, source: sourceId },
+      });
+
+      if (existingSnippet) {
+        // Update
+        await strapi.entityService.update('api::knowledge-snippet.knowledge-snippet', existingSnippet.id, {
+          data: {
+            content: snippetData.content,
+            embedding: vector,
+            sourceType: snippetData.sourceType,
+            publishedAt: new Date(),
+          },
+        });
+        console.log(`Updated '${snippetData.title}'`);
+      } else {
+        // Create
+        await strapi.entityService.create('api::knowledge-snippet.knowledge-snippet', {
+          data: {
+            title: snippetData.title,
+            content: snippetData.content,
+            source: sourceId,
+            embedding: vector,
+            sourceType: snippetData.sourceType,
+            publishedAt: new Date(),
+          },
+        });
+        console.log(`Created '${snippetData.title}'`);
+      }
+
+      updatedCount++;
+      if (updatedCount % 10 === 0) process.stdout.write('.');
     }
 
     console.log(`\n✅ Codebase embedding complete. Processed ${updatedCount} files.`);
-
   } catch (error) {
     console.error('Codebase embedding failed:', error);
     process.exit(1);

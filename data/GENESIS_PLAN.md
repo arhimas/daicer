@@ -170,11 +170,9 @@ We populate data specifically to enable the **Deterministic Engine**.
 2.  Initialize the **Atoms** JSON files.
 3.  Write the `Loader` class (abstracts the Strapi `updateOrCreate` logic).
 
-
 # Appendix
 
-The Database TOON schema: 
-
+The Database TOON schema:
 
 ```toon
 tables: items[162]:
@@ -183,27 +181,27 @@ tables: items[162]:
         - name: upload_files_folder_path_index
         columns: items[1]:
             - folder_path
-        type: 
+        type:
         - name: upload_files_created_at_index
         columns: items[1]:
             - created_at
-        type: 
+        type:
         - name: upload_files_updated_at_index
         columns: items[1]:
             - updated_at
-        type: 
+        type:
         - name: upload_files_name_index
         columns: items[1]:
             - name
-        type: 
+        type:
         - name: upload_files_size_index
         columns: items[1]:
             - size
-        type: 
+        type:
         - name: upload_files_ext_index
         columns: items[1]:
             - ext
-        type: 
+        type:
         - name: files_documents_idx
         columns: items[3]:
             - document_id
@@ -235,61 +233,61 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: alternative_text
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: caption
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: width
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: height
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: formats
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: hash
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: ext
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: mime
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: size
@@ -297,72 +295,72 @@ tables: items[162]:
         args: items[2]:
             - 10
             - 2
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: url
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: preview_url
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: provider
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: provider_metadata
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: folder_path
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: upload_folders
@@ -406,63 +404,63 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: path_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: path
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: i18n_locale
@@ -498,58 +496,58 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: code
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_releases
@@ -585,77 +583,77 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: released_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: scheduled_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: timezone
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: status
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_release_actions
@@ -691,68 +689,68 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: content_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: entry_document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_entry_valid
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_workflows
@@ -788,58 +786,58 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: content_types
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_workflows_stages
@@ -875,58 +873,58 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: color
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: up_permissions
@@ -962,53 +960,53 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: action
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: up_roles
@@ -1044,63 +1042,63 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: up_users
@@ -1136,88 +1134,88 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: username
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: email
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: provider
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: password
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: reset_password_token
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: confirmation_token
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: confirmed
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: blocked
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: actions_cmps
@@ -1251,32 +1249,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: actions
@@ -1312,75 +1310,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: to_hit
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: characters_cmps
@@ -1414,32 +1412,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: characters
@@ -1475,75 +1473,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: appearance
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: backstory
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: classes_cmps
@@ -1577,32 +1575,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: classes
@@ -1638,75 +1636,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: hit_die
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: damage_types
@@ -1742,70 +1740,70 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: dm_settings_cmps
@@ -1839,32 +1837,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: dm_settings
@@ -1900,95 +1898,95 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: dm_system_prompt
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: difficulty
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: adventure_length
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: theme
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: setting
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: tone
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: player_count
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: starting_level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: attribute_point_budget
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: entities_cmps
@@ -2022,32 +2020,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities
@@ -2083,74 +2081,74 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding_metadata
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: size
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: alignment
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: ac
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: hp
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: hit_dice
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: challenge_rating
@@ -2158,55 +2156,55 @@ tables: items[162]:
         args: items[2]:
             - 10
             - 2
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: xp
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: background
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: entity_sheets_cmps
@@ -2240,32 +2238,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets
@@ -2301,110 +2299,110 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: current_hp
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: max_hp
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: ac
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: experience
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: backstory
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: active_effects
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: temp_hp
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: initiative_bonus
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: passive_perception
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: equipment_categories
@@ -2440,70 +2438,70 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: features
@@ -2539,75 +2537,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: game_events
@@ -2643,68 +2641,68 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: payload
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: timestamp
         type: bigInteger
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: turn_number
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: items_cmps
@@ -2738,32 +2736,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: items
@@ -2799,90 +2797,90 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: rarity
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: weight
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: custom_data
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: knowledge_snippets
@@ -2918,65 +2916,65 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: title
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: content
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: knowledge_sources
@@ -3012,80 +3010,80 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: content
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: tags
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: origin
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding_metadata
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: languages
@@ -3121,75 +3119,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_rare
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: note
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: magic_schools
@@ -3225,70 +3223,70 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: messages
@@ -3324,75 +3322,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: content
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: sender_name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: sender_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: timestamp
         type: bigInteger
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: images
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: proficiencies
@@ -3428,68 +3426,68 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: prompts
@@ -3525,65 +3523,65 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: key
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: text
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: category
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: races
@@ -3619,80 +3617,80 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: speed
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: size
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: rooms_cmps
@@ -3726,32 +3724,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: rooms
@@ -3787,93 +3785,93 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: room_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: phase
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: turn_data
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: explored_tiles
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: explored_chunks
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: entropy_state
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_active
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_processing
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: code
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: rule_sets
@@ -3909,68 +3907,68 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: xp_table
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: proficiency_table
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: full_caster_slots
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: ability_caps
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: spells_cmps
@@ -4004,32 +4002,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: spells
@@ -4065,85 +4063,85 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: school
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding_metadata
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: subclasses
@@ -4179,75 +4177,75 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: subclass_flavor
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: time_frames
@@ -4283,70 +4281,70 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: turn_number
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: timestamp
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: game_state
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: entropy_snapshot
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: traits
@@ -4382,70 +4380,70 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: turns
@@ -4481,92 +4479,92 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: turn_number
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: narrative
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: summary
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: status
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: actions
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: metadata
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: character_snapshots
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: turn_locks
@@ -4602,67 +4600,67 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: locked_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: expires_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: holder_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: voxel_changes
@@ -4698,98 +4696,98 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: chunk_x
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: chunk_y
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: voxel_x
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: voxel_y
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: voxel_z
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: new_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: previous_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: reason
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: metadata
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: timestamp
         type: bigInteger
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: weapon_properties
@@ -4825,70 +4823,70 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slug
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: embedding
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: worlds
@@ -4924,164 +4922,164 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: history
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: world_background
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: seed
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: language
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: chunk_size
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: detail
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: fog_radius
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: global_scale
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: sea_level
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: elevation_scale
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: roughness
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: moisture_scale
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: temperature_offset
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: road_density
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: structure_chance
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: structure_spacing
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: structure_size_avg
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: world_size
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: world_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: adventure_length
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: admin_permissions
@@ -5117,73 +5115,73 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: action
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: action_parameters
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: subject
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: properties
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: conditions
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: admin_users
@@ -5219,98 +5217,98 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: firstname
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: lastname
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: username
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: email
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: password
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: reset_password_token
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: registration_token
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_active
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: blocked
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: prefered_language
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: admin_roles
@@ -5346,63 +5344,63 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: code
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_api_tokens
@@ -5438,94 +5436,94 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: access_key
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: encrypted_key
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: last_used_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: expires_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: lifespan
         type: bigInteger
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_api_token_permissions
@@ -5561,53 +5559,53 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: action
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_transfer_tokens
@@ -5643,82 +5641,82 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: access_key
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: last_used_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: expires_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: lifespan
         type: bigInteger
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_transfer_token_permissions
@@ -5754,53 +5752,53 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: action
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_sessions
@@ -5836,97 +5834,97 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: user_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: session_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: child_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: device_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: origin
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: expires_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: absolute_expires_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: status
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: published_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: updated_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_stats
@@ -5935,102 +5933,102 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: strength
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: dexterity
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: constitution
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: intelligence
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: wisdom
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: charisma
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: walk_speed
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: fly_speed
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: swim_speed
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: climb_speed
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: burrow_speed
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: hover
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: saves
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: skills
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: passive_perception
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: darkvision
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: blindsight
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: truesight
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: tremorsense
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_spellbooks
@@ -6039,22 +6037,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: spellcasting_ability
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: spell_save_dc
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: spell_attack_bonus
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_spell_data_cmps
@@ -6088,32 +6086,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_spell_data
@@ -6122,17 +6120,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: school
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_spell_components
@@ -6141,37 +6139,37 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: verbal
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: somatic
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: material
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: material_description
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: cost_gp
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: consumed
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_skill_bonuses
@@ -6180,22 +6178,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: proficient
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_scaling_configs
@@ -6204,32 +6202,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: scales
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: method
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: dice_count
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: dice_value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_save_dcs
@@ -6238,22 +6236,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: dc
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: stat
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: success_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_save_bonuses
@@ -6262,22 +6260,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: stat
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: proficient
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_resource_pools
@@ -6286,27 +6284,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: current
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: max
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: reset_on
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_range_configs
@@ -6315,32 +6313,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: distance
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: aoe_shape
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: aoe_size
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: aoe_height
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_positions
@@ -6349,27 +6347,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: x
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: y
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: z
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: map_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_players
@@ -6378,34 +6376,34 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: is_ready
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_online
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: joined_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: action
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_mechanics_configs
@@ -6414,17 +6412,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: action_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: save_effect
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_inventory_items
@@ -6433,22 +6431,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: quantity
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: slot
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_equipped
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_features
@@ -6457,34 +6455,34 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: source
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: usage_max
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: usage_per
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_equipment_data
@@ -6493,42 +6491,42 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: damage_dice
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: range_normal
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: range_long
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: armor_class_base
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: armor_class_dex_bonus
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: str_minimum
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: stealth_disadvantage
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_duration_configs
@@ -6537,27 +6535,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: unit
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: concentration
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_dm_styles
@@ -6566,39 +6564,39 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: verbosity
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: detail
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: engagement
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: narrative
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: special_mode
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: custom_directives
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_damage_modifiers
@@ -6607,17 +6605,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: damage_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: modifier
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_damage_instances
@@ -6626,37 +6624,37 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: effect_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: damage_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: dice_count
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: dice_value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: flat_bonus
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: timing
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_damage_dice
@@ -6665,22 +6663,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: dice
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: bonus
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_condition_instances
@@ -6689,27 +6687,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: condition
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: chance
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: duration_rounds
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_computed_actions
@@ -6718,64 +6716,64 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: to_hit
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: damage_dice
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: damage_bonus
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: damage_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: save_ability
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: save_dc
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: range
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: resource_cost
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_class_progressions
@@ -6784,22 +6782,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: spell_slots
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: class_specifics
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_character_classes
@@ -6808,12 +6806,12 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: level
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_casting_configs_cmps
@@ -6847,32 +6845,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_casting_configs
@@ -6881,34 +6879,34 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: time_value
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: time_unit
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: reaction_trigger
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_ritual
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: is_concentration
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_area_effects
@@ -6917,22 +6915,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: shape
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: size
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: width
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_appearances
@@ -6941,12 +6939,12 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: age
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: height
@@ -6954,7 +6952,7 @@ tables: items[162]:
         args: items[2]:
             - 10
             - 2
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: weight
@@ -6962,29 +6960,29 @@ tables: items[162]:
         args: items[2]:
             - 10
             - 2
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: eyes
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: skin
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: hair
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
     - name: components_game_actions_cmps
@@ -7018,32 +7016,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: cmp_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: component_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_actions
@@ -7052,39 +7050,39 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: to_hit
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: reach
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: duration
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: description
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_core_store_settings
@@ -7093,34 +7091,34 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: key
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: value
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: environment
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: tag
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_webhooks
@@ -7129,34 +7127,34 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: name
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: url
         type: text
         args: items[1]:
             - longtext
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: headers
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: events
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: enabled
         type: boolean
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
     - name: strapi_history_versions
@@ -7177,49 +7175,49 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: content_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: true
         unsigned: false
         - name: related_document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: status
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: data
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: schema
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: created_by_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_ai_localization_jobs
@@ -7228,46 +7226,46 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: content_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: true
         unsigned: false
         - name: related_document_id
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: true
         unsigned: false
         - name: source_locale
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: true
         unsigned: false
         - name: target_locales
         type: jsonb
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: true
         unsigned: false
         - name: status
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: true
         unsigned: false
         - name: created_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
         - name: updated_at
         type: datetime
         args: items[1]{useTz,precision}:
             false,6
-        defaultTo: 
+        defaultTo:
         notNullable: false
         unsigned: false
     - name: files_related_mph
@@ -7294,32 +7292,32 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: file_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: related_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: related_type
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: field
         type: string
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: false
         - name: order
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: files_folder_lnk
@@ -7358,22 +7356,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: file_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: folder_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: file_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: upload_folders_parent_lnk
@@ -7412,22 +7410,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: folder_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: inv_folder_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: folder_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_release_actions_release_lnk
@@ -7466,22 +7464,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: release_action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: release_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: release_action_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_workflows_stage_required_to_publish_lnk
@@ -7517,17 +7515,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: workflow_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: workflow_stage_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_workflows_stages_workflow_lnk
@@ -7566,22 +7564,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: workflow_stage_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: workflow_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: workflow_stage_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_workflows_stages_permissions_lnk
@@ -7620,22 +7618,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: workflow_stage_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: permission_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: permission_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: up_permissions_role_lnk
@@ -7674,22 +7672,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: permission_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: role_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: permission_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: up_users_role_lnk
@@ -7728,22 +7726,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: role_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: characters_race_lnk
@@ -7779,17 +7777,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: character_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: race_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: characters_user_lnk
@@ -7828,22 +7826,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: character_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: character_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: characters_actions_lnk
@@ -7882,22 +7880,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: character_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: characters_spells_lnk
@@ -7936,22 +7934,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: character_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: classes_proficiencies_lnk
@@ -7993,27 +7991,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: class_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: class_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: dm_settings_room_lnk
@@ -8049,17 +8047,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: dm_setting_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_languages_lnk
@@ -8098,22 +8096,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: language_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: language_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_features_lnk
@@ -8152,22 +8150,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: feature_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: feature_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_traits_lnk
@@ -8206,22 +8204,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: trait_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: trait_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_proficiencies_lnk
@@ -8260,22 +8258,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_actions_lnk
@@ -8314,22 +8312,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_spells_lnk
@@ -8368,22 +8366,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entities_race_lnk
@@ -8419,17 +8417,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: race_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_entity_lnk
@@ -8465,17 +8463,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: entity_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_owner_lnk
@@ -8511,17 +8509,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_character_lnk
@@ -8557,17 +8555,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: character_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_room_lnk
@@ -8606,22 +8604,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: entity_sheet_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_race_lnk
@@ -8657,17 +8655,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: race_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_class_lnk
@@ -8703,17 +8701,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: class_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_actions_lnk
@@ -8752,22 +8750,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_proficiencies_lnk
@@ -8806,22 +8804,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_languages_lnk
@@ -8860,22 +8858,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: language_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: language_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_traits_lnk
@@ -8914,22 +8912,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: trait_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: trait_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: entity_sheets_features_lnk
@@ -8968,22 +8966,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: feature_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: feature_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: game_events_actor_lnk
@@ -9019,17 +9017,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: game_event_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: game_events_room_lnk
@@ -9065,17 +9063,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: game_event_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: knowledge_snippets_source_lnk
@@ -9114,22 +9112,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: knowledge_snippet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: knowledge_source_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: knowledge_snippet_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: messages_room_lnk
@@ -9168,22 +9166,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: message_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: message_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: messages_turn_lnk
@@ -9222,22 +9220,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: message_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: turn_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: message_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: messages_recipient_lnk
@@ -9273,17 +9271,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: message_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: races_proficiencies_lnk
@@ -9325,27 +9323,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: race_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: race_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: rooms_owner_lnk
@@ -9384,22 +9382,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: rooms_current_time_frame_lnk
@@ -9435,17 +9433,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: time_frame_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: subclasses_class_lnk
@@ -9484,22 +9482,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: subclass_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: class_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: subclass_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: time_frames_room_lnk
@@ -9538,22 +9536,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: time_frame_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: time_frame_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: traits_races_lnk
@@ -9595,27 +9593,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: trait_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: race_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: race_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: trait_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: traits_proficiencies_lnk
@@ -9657,27 +9655,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: trait_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: proficiency_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: trait_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: turns_room_lnk
@@ -9716,22 +9714,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: turn_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: turn_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: turns_context_image_lnk
@@ -9767,17 +9765,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: turn_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: file_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: turn_locks_room_lnk
@@ -9813,17 +9811,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: turn_lock_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: worlds_room_lnk
@@ -9859,17 +9857,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: world_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: room_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: admin_permissions_role_lnk
@@ -9908,22 +9906,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: permission_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: role_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: permission_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: admin_users_roles_lnk
@@ -9965,27 +9963,27 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: role_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: role_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_api_token_permissions_token_lnk
@@ -10024,22 +10022,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: api_token_permission_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: api_token_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: api_token_permission_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: strapi_transfer_token_permissions_token_lnk
@@ -10078,22 +10076,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: transfer_token_permission_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: transfer_token_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: transfer_token_permission_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_stats_languages_lnk
@@ -10132,22 +10130,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: stats_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: language_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: language_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_spellbooks_known_spells_lnk
@@ -10186,22 +10184,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: spellbook_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_spellbooks_prepared_spells_lnk
@@ -10240,22 +10238,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: spellbook_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: spell_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_players_user_lnk
@@ -10291,17 +10289,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: player_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: user_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_players_character_lnk
@@ -10337,17 +10335,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: player_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: character_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_players_character_sheet_lnk
@@ -10383,17 +10381,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: player_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: entity_sheet_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_inventory_items_item_lnk
@@ -10429,17 +10427,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: inventory_item_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: item_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_equipment_data_damage_type_lnk
@@ -10475,17 +10473,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: equipment_data_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: damage_type_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_equipment_data_properties_lnk
@@ -10524,22 +10522,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: equipment_data_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: weapon_property_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: weapon_property_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_equipment_data_actions_lnk
@@ -10578,22 +10576,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: equipment_data_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: action_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_class_progressions_features_lnk
@@ -10632,22 +10630,22 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: class_progression_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: feature_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: feature_ord
         type: double
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_character_classes_class_lnk
@@ -10683,17 +10681,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: character_class_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: class_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_character_classes_subclass_lnk
@@ -10729,17 +10727,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: character_class_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: subclass_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_actions_action_definition_lnk
@@ -10775,17 +10773,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
         - name: inv_action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
     - name: components_game_actions_spell_definition_lnk
@@ -10821,17 +10819,17 @@ tables: items[162]:
         type: increments
         args: items[1]{primary,primaryKey}:
             true,true
-        defaultTo: 
+        defaultTo:
         notNullable: true
         unsigned: false
         - name: action_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false€
         unsigned: true
         - name: spell_id
         type: integer
-        args: []        defaultTo: 
+        args: []        defaultTo:
         notNullable: false
         unsigned: true
 

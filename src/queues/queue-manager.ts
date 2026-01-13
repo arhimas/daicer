@@ -30,12 +30,7 @@ export class QueueManager {
    * @param data The job payload, validated against the Zod schema
    * @param opts BullMQ job options (delay, priority, etc.)
    */
-  async add<T extends QueueName>(
-    queueName: T,
-    jobName: string,
-    data: JobPayloads[T],
-    opts?: any
-  ) {
+  async add<T extends QueueName>(queueName: T, jobName: string, data: JobPayloads[T], opts?: unknown) {
     // 1. Runtime Validation (SOTA Safety)
     const schema = JobSchemas[queueName];
     const validation = schema.safeParse(data);
@@ -67,12 +62,12 @@ export class QueueManager {
   getQueues() {
     const queueService = this.strapi.plugin('bullmq').service('queue');
     const queues = [];
-    
+
     for (const name of Object.values(QueueName)) {
-        const q = queueService.get(name);
-        if (q) {
-            queues.push(q);
-        }
+      const q = queueService.get(name);
+      if (q) {
+        queues.push(q);
+      }
     }
     return queues;
   }

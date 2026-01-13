@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Spawn Service
  * Handles instantiation of Characters and Monsters into the game world.
@@ -57,8 +56,8 @@ interface PopulatedBlueprint {
     };
   }>;
   spell_config?: {
-    prepared_spells?: Array<{ documentId: string }>;
-    known_spells?: Array<{ documentId: string }>;
+    prepared_spells?: Array<{ documentId: string; name?: string; }>;
+    known_spells?: Array<{ documentId: string; name?: string; }>;
   };
 }
 
@@ -325,7 +324,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     const activeSpells = [
       ...(character.spell_config?.prepared_spells || []),
       ...(character.spell_config?.known_spells || []),
-    ];
+    ].map(s => ({ ...s, id: s.documentId, name: s.name || 'Unknown Spell' }));
 
     // Calculate Stats
     const derived = EntityDeriver.derive({

@@ -8,10 +8,10 @@ import type { Core } from '@strapi/strapi';
 async function maintenanceProcessor(job: { data: JobPayloads[QueueName.MAINTENANCE] }, strapi: Core.Strapi) {
   const { task } = job.data;
   strapi.log.info(`[MaintenanceWorker] Executing task: ${task}`);
-  
+
   // Simulation of work
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   return { processed: 1 };
 }
 

@@ -1,34 +1,34 @@
 [
-    {
-        "name": "Abjuration",
-        "description": "Spells that block, banish, or protect."
-    },
-    {
-        "name": "Conjuration",
-        "description": "Spells that transport objects or creatures."
-    },
-    {
-        "name": "Divination",
-        "description": "Spells that reveal information."
-    },
-    {
-        "name": "Enchantment",
-        "description": "Spells that affect the minds of others."
-    },
-    {
-        "name": "Evocation",
-        "description": "Spells that manipulate energy to create blasts."
-    },
-    {
-        "name": "Illusion",
-        "description": "Spells that deceive the senses."
-    },
-    {
-        "name": "Necromancy",
-        "description": "Spells that manipulate life and death."
-    },
-    {
-        "name": "Transmutation",
-        "description": "Spells that change the properties of matter."
-    }
+  {
+    "name": "Abjuration",
+    "description": "Spells that block, banish, or protect."
+  },
+  {
+    "name": "Conjuration",
+    "description": "Spells that transport objects or creatures."
+  },
+  {
+    "name": "Divination",
+    "description": "Spells that reveal information."
+  },
+  {
+    "name": "Enchantment",
+    "description": "Spells that affect the minds of others."
+  },
+  {
+    "name": "Evocation",
+    "description": "Spells that manipulate energy to create blasts."
+  },
+  {
+    "name": "Illusion",
+    "description": "Spells that deceive the senses."
+  },
+  {
+    "name": "Necromancy",
+    "description": "Spells that manipulate life and death."
+  },
+  {
+    "name": "Transmutation",
+    "description": "Spells that change the properties of matter."
+  }
 ]

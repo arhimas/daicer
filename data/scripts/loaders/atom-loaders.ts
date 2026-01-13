@@ -1,4 +1,3 @@
-
 import { BaseLoader } from './base-loader';
 import { Core } from '@strapi/strapi';
 import {
@@ -15,7 +14,7 @@ import {
   ApiWeaponPropertyWeaponPropertySchema,
   ApiEquipmentCategoryEquipmentCategorySchema,
   ApiProficiencyProficiencySchema,
-  ApiLanguageLanguageSchema
+  ApiLanguageLanguageSchema,
 } from '../../schemas/generated';
 
 export class DamageTypeLoader extends BaseLoader<ApiDamageTypeDamageType> {
@@ -23,7 +22,9 @@ export class DamageTypeLoader extends BaseLoader<ApiDamageTypeDamageType> {
     super(strapi, relativePath, ApiDamageTypeDamageTypeSchema);
   }
 
-  get uid() { return 'api::damage-type.damage-type' as const; }
+  get uid() {
+    return 'api::damage-type.damage-type' as const;
+  }
 }
 
 export class MagicSchoolLoader extends BaseLoader<ApiMagicSchoolMagicSchool> {
@@ -31,7 +32,9 @@ export class MagicSchoolLoader extends BaseLoader<ApiMagicSchoolMagicSchool> {
     super(strapi, relativePath, ApiMagicSchoolMagicSchoolSchema);
   }
 
-  get uid() { return 'api::magic-school.magic-school' as const; }
+  get uid() {
+    return 'api::magic-school.magic-school' as const;
+  }
 }
 
 export class WeaponPropertyLoader extends BaseLoader<ApiWeaponPropertyWeaponProperty> {
@@ -39,7 +42,9 @@ export class WeaponPropertyLoader extends BaseLoader<ApiWeaponPropertyWeaponProp
     super(strapi, relativePath, ApiWeaponPropertyWeaponPropertySchema);
   }
 
-  get uid() { return 'api::weapon-property.weapon-property' as const; }
+  get uid() {
+    return 'api::weapon-property.weapon-property' as const;
+  }
 }
 
 export class EquipmentCategoryLoader extends BaseLoader<ApiEquipmentCategoryEquipmentCategory> {
@@ -47,7 +52,9 @@ export class EquipmentCategoryLoader extends BaseLoader<ApiEquipmentCategoryEqui
     super(strapi, relativePath, ApiEquipmentCategoryEquipmentCategorySchema);
   }
 
-  get uid() { return 'api::equipment-category.equipment-category' as const; }
+  get uid() {
+    return 'api::equipment-category.equipment-category' as const;
+  }
 }
 
 export class ProficiencyLoader extends BaseLoader<ApiProficiencyProficiency> {
@@ -55,7 +62,9 @@ export class ProficiencyLoader extends BaseLoader<ApiProficiencyProficiency> {
     super(strapi, relativePath, ApiProficiencyProficiencySchema);
   }
 
-  get uid() { return 'api::proficiency.proficiency' as const; }
+  get uid() {
+    return 'api::proficiency.proficiency' as const;
+  }
 }
 
 export class LanguageLoader extends BaseLoader<ApiLanguageLanguage> {
@@ -63,5 +72,7 @@ export class LanguageLoader extends BaseLoader<ApiLanguageLanguage> {
     super(strapi, relativePath, ApiLanguageLanguageSchema);
   }
 
-  get uid() { return 'api::language.language' as const; }
+  get uid() {
+    return 'api::language.language' as const;
+  }
 }

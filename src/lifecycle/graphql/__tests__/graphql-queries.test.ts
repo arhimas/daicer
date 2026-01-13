@@ -3,12 +3,11 @@ import { registerGraphQLExtension } from '../resolvers';
 
 // Helper to extract resolvers from the extension registration
 const extractResolvers = (mockStrapi: unknown) => {
-   
   let capturedResolvers: any = {};
   const use = vi.fn((config) => {
     capturedResolvers = config.resolvers;
   });
-   
+
   (mockStrapi as any).plugin = () => ({ service: () => ({ use }) });
   registerGraphQLExtension(mockStrapi);
   return capturedResolvers;
@@ -30,7 +29,6 @@ describe('GraphQL Queries & Resolvers', () => {
     }),
   };
 
-   
   let resolvers: any;
 
   beforeEach(() => {

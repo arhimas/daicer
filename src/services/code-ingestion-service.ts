@@ -1,4 +1,3 @@
-
 export interface CodeSnippetData {
   title: string;
   content: string;
@@ -34,7 +33,7 @@ export class CodeIngestionService {
       title,
       content: safeContent,
       sourceType: 'source-code',
-      embeddingText
+      embeddingText,
     };
   }
 
@@ -47,7 +46,7 @@ export class CodeIngestionService {
     if (relativePath.includes('dist/')) return false;
     if (relativePath.includes('.test.ts') || relativePath.includes('.spec.ts')) return false;
     if (relativePath.endsWith('.d.ts')) return false;
-    
+
     return true;
   }
 }

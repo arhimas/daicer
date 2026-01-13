@@ -33,9 +33,9 @@ export type SupportedContentTypes =
 export abstract class BaseLoader<T extends SupportedContentTypes> {
   protected strapi: Core.Strapi;
   protected libraryPath: string;
-  protected schema: z.ZodType<any>;
+  protected schema: z.ZodType<unknown>;
 
-  constructor(strapi: Core.Strapi, relativePath: string, schema: z.ZodType<any>) {
+  constructor(strapi: Core.Strapi, relativePath: string, schema: z.ZodType<unknown>) {
     this.strapi = strapi;
     this.libraryPath = path.join(process.cwd(), 'data/library', relativePath);
     this.schema = schema;
@@ -65,7 +65,7 @@ export abstract class BaseLoader<T extends SupportedContentTypes> {
   /**
    * Optional transformation or enrichment logic before saving.
    */
-  async transform(item: any): Promise<any> {
+  async transform(item: unknown): Promise<unknown> {
     return item;
   }
 
@@ -78,7 +78,7 @@ export abstract class BaseLoader<T extends SupportedContentTypes> {
     }
 
     const rawData = fs.readFileSync(this.libraryPath, 'utf-8');
-    let items: any[];
+    let items: unknown[];
 
     try {
       items = JSON.parse(rawData);
@@ -87,9 +87,9 @@ export abstract class BaseLoader<T extends SupportedContentTypes> {
     }
 
     // Pre-processing: Ensure slugs exist before validation
-    items = items.map(item => ({
+    items = items.map((item) => ({
       ...item,
-      slug: item.slug || this.generateSlug(item.name || 'unknown')
+      slug: item.slug || this.generateSlug(item.name || 'unknown'),
     }));
 
     // Zod Validation (SOTA Step)
@@ -118,12 +118,15 @@ export abstract class BaseLoader<T extends SupportedContentTypes> {
       // We purposefully cast to 'any' for the query builder invocation
       // because Strapi's Core.Strapi .documents() type resolution is complex
       // in standalone scripts without full project context
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const existing = await this.strapi.documents(this.uid as any).findMany({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         filters: { slug: slug } as any,
         limit: 1,
       });
 
       if (existing.length === 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await this.strapi.documents(this.uid as any).create({
           data: dataToSave,
           status: 'published',

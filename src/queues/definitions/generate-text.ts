@@ -8,11 +8,11 @@ import type { Core } from '@strapi/strapi';
  */
 async function generateTextProcessor(job: { data: JobPayloads[QueueName.GENERATE_TEXT] }, strapi: Core.Strapi) {
   const { prompt, targetUid, targetId, field } = job.data;
-  
+
   strapi.log.info(`[GenerateText] Processing for ${targetUid}:${targetId} on field '${field}'`);
 
-  const { llmService } = require('../../services/llm-service');
-  
+  const { llmService } = await import('../../services/llm-service');
+
   if (!llmService) {
     throw new Error('LLMService not found');
   }
@@ -22,11 +22,12 @@ async function generateTextProcessor(job: { data: JobPayloads[QueueName.GENERATE
 
   // Save to Entity
   // We use the strapi document service to update the specific field
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await strapi.documents(targetUid as any).update({
     documentId: targetId as string, // Assuming documentId usage
     data: {
-      [field]: generatedText
-    }
+      [field]: generatedText,
+    },
   });
 
   return { success: true, text: generatedText };

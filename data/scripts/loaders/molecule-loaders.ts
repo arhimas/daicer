@@ -1,4 +1,3 @@
-
 import { BaseLoader } from './base-loader';
 import { ApiSpellSpell, ApiFeatureFeature } from '../../../types/generated/contentTypes';
 import { ApiSpellSpellSchema, ApiFeatureFeatureSchema } from '../../schemas/generated';
@@ -9,7 +8,9 @@ export class SpellLoader extends BaseLoader<ApiSpellSpell> {
     super(strapi, relativePath, ApiSpellSpellSchema);
   }
 
-  get uid() { return 'api::spell.spell' as const; }
+  get uid() {
+    return 'api::spell.spell' as const;
+  }
 }
 
 export class FeatureLoader extends BaseLoader<ApiFeatureFeature> {
@@ -17,5 +18,7 @@ export class FeatureLoader extends BaseLoader<ApiFeatureFeature> {
     super(strapi, relativePath, ApiFeatureFeatureSchema);
   }
 
-  get uid() { return 'api::feature.feature' as const; }
+  get uid() {
+    return 'api::feature.feature' as const;
+  }
 }

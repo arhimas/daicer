@@ -6,8 +6,10 @@ import type { WorldSettings, Player, EntitySheet, Language } from '../src/engine
 
 // Helper to format DM style
 
-interface PopulatedEntitySheet
-  extends Omit<EntitySheet, 'race' | 'class' | 'classes' | 'characterClass' | 'personality'> {
+interface PopulatedEntitySheet extends Omit<
+  EntitySheet,
+  'race' | 'class' | 'classes' | 'characterClass' | 'personality'
+> {
   documentId: string;
   race?: string | { name: string };
   class?: string | { name: string };

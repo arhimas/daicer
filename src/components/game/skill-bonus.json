@@ -1,24 +1,24 @@
 {
-    "collectionName": "components_game_skill_bonuses",
-    "info": {
-        "displayName": "Skill Bonus",
-        "icon": "book",
-        "description": "Calculated skill modifier"
+  "collectionName": "components_game_skill_bonuses",
+  "info": {
+    "displayName": "Skill Bonus",
+    "icon": "book",
+    "description": "Calculated skill modifier"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
     },
-    "options": {},
-    "attributes": {
-        "name": {
-            "type": "string",
-            "required": true
-        },
-        "value": {
-            "type": "integer",
-            "default": 0,
-            "required": true
-        },
-        "proficient": {
-            "type": "boolean",
-            "default": false
-        }
+    "value": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "proficient": {
+      "type": "boolean",
+      "default": false
     }
+  }
 }

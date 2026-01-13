@@ -64,7 +64,6 @@ describe('Narrator Service: Direct Execution', () => {
     const errorToolFunc = vi.fn(() => Promise.reject(new Error('Tool failed')));
     const errorTools = [{ name: 'fail_tool', func: errorToolFunc }];
 
-     
     vi.mocked((await import('../tool-registry')).getRegistryTools).mockReturnValueOnce(errorTools as unknown as any[]);
 
     const narratorServiceFactory = (await import('../narrator')).default;

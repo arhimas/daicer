@@ -1,4 +1,3 @@
-
 import { Command } from 'commander';
 import { getStrapi } from '../utils/bootstrap';
 
@@ -18,7 +17,7 @@ export const knowledgeCommand = new Command('knowledge')
         process.exit(1);
       } else {
         const { default: chalk } = await import('chalk');
-         
+
         console.error(chalk.red('\n❌ Error:'), (error as any).message || error);
         throw error;
       }
@@ -49,14 +48,12 @@ export async function runKnowledge(options: {
     // Assuming UID is api::knowledge-source.knowledge-source
     // We can try to catch error if not found
     try {
-       
       const res = await strapi.documents('api::knowledge-source.knowledge-source' as any).findMany({ populate: '*' });
       result = res;
     } catch (e) {
       throw new Error(`Failed to list knowledge sources: ${e.message}`);
     }
 
-     
     const entries = Array.isArray(result) ? result : [];
 
     if (options.json) {
@@ -84,7 +81,7 @@ export async function runKnowledge(options: {
       entries.forEach((s: Record<string, unknown>) => {
         const name = (s.name as string) || '?';
         const snippets = s.snippets;
-          
+
         const snippetCount = Array.isArray(snippets) ? snippets.length : (snippets as any)?.count || 0;
         table.push([chalk.bold(name), chalk.yellow(snippetCount)]);
       });
@@ -125,12 +122,12 @@ export async function runKnowledge(options: {
   }
 
   // Enrich
-   
+
   interface KnowledgeSearchRow {
-      kind: string;
-      entityUid?: string;
-      documentId?: string;
-      [key: string]: unknown;
+    kind: string;
+    entityUid?: string;
+    documentId?: string;
+    [key: string]: unknown;
   }
 
   const enriched = await Promise.all(
@@ -139,13 +136,12 @@ export async function runKnowledge(options: {
         try {
           const { buildDeepPopulate } = await import('../utils/schema');
           const deepPop = buildDeepPopulate(row.entityUid, 2);
-          
-           
-          const fullEntity = await strapi.documents(row.entityUid as any).findOne({ 
-            documentId: row.documentId, 
-            populate: deepPop 
+
+          const fullEntity = await strapi.documents(row.entityUid as any).findOne({
+            documentId: row.documentId,
+            populate: deepPop,
           });
-          
+
           if (fullEntity) {
             return { ...row, _fullData: fullEntity };
           }
@@ -185,7 +181,6 @@ export async function runKnowledge(options: {
     );
 
     if (Array.isArray(result) && result.length > 0) {
-       
       result.forEach((row: any) => {
         const score = (row.score as number) || (row.similarity as number) || 0;
         const sim = Math.round(score * 100);

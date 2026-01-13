@@ -153,14 +153,11 @@ function printHumanSchema(schema: SchemaDefinition, _chalk: unknown, indentLevel
     const required = value.required ? chalk.red('*') : ' ';
     console.log(`${pad}   ${required} ${chalk.green(key.padEnd(20))} ${typeStr}`);
 
-     
     if ((value as any).__targetSchema) {
-       
       printHumanSchema((value as any).__targetSchema, chalk, indentLevel + 1);
     }
-     
+
     if ((value as any).__schema) {
-       
       printHumanSchema((value as any).__schema, chalk, indentLevel + 1);
     }
   });

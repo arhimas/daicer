@@ -90,7 +90,7 @@ export default ({ strapi }) => ({
     let recorder;
     if (recordMode) {
       try {
-        const { GameplayRecorder } = require('../../engine/debug/recorder');
+        const { GameplayRecorder } = await import('../../../engine/debug/recorder');
         recorder = new GameplayRecorder('latest_scenario.json');
       } catch (e) {
         console.warn('Recorder load failed', e);

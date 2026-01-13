@@ -44,8 +44,8 @@ async function main() {
       // Strapi 5 might use .contentTypes or similar
       const contentType = strapi.contentTypes[model];
       if (!contentType) {
-          console.log(`\x1b[33m[SKIP] ${friendlyName} (${model}): Schema not found/loaded.\x1b[0m`);
-          continue;
+        console.log(`\x1b[33m[SKIP] ${friendlyName} (${model}): Schema not found/loaded.\x1b[0m`);
+        continue;
       }
 
       // 1. Fetch All IDs only (lightweight)
@@ -85,7 +85,7 @@ async function main() {
               } else {
                 await entityKnowledgeService.syncEntity(model, id);
               }
-            } catch (err) {
+            } catch {
               // Silent fail on individual to keep flow
             }
           })

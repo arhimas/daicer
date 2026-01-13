@@ -8,12 +8,12 @@ import type { Core } from '@strapi/strapi';
  */
 async function generateImageProcessor(job: { data: JobPayloads[QueueName.GENERATE_IMAGE] }, strapi: Core.Strapi) {
   const { prompt, targetUid, targetId, field } = job.data;
-  
+
   strapi.log.info(`[GenerateImage] Processing for ${targetUid}:${targetId} on field '${field}'`);
 
   // We lazily require the service to avoid circular dependencies
-  const { imageGenerationService } = require('../../services/image-generation-service');
-  
+  const { imageGenerationService } = await import('../../services/image-generation-service');
+
   if (!imageGenerationService) {
     throw new Error('ImageGenerationService not found');
   }
@@ -23,12 +23,12 @@ async function generateImageProcessor(job: { data: JobPayloads[QueueName.GENERAT
   // If the service only generates, we would handle attachment here.
   // Assuming a 'generateAndAttach' method exists or similar pattern.
   // Based on user request: "generateImage only need to know the prompt and where to save it"
-  
+
   const result = await imageGenerationService.generateAndAttach({
     prompt,
     collection: targetUid,
     id: targetId,
-    field: field
+    field: field,
   });
 
   return { success: true, assetId: result?.id };

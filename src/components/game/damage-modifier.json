@@ -1,41 +1,37 @@
 {
-    "collectionName": "components_game_damage_modifiers",
-    "info": {
-        "displayName": "Damage Modifier",
-        "icon": "heart-broken",
-        "description": "Resistance, Immunity, or Vulnerability"
+  "collectionName": "components_game_damage_modifiers",
+  "info": {
+    "displayName": "Damage Modifier",
+    "icon": "heart-broken",
+    "description": "Resistance, Immunity, or Vulnerability"
+  },
+  "options": {},
+  "attributes": {
+    "damageType": {
+      "type": "enumeration",
+      "enum": [
+        "acid",
+        "bludgeoning",
+        "cold",
+        "fire",
+        "force",
+        "lightning",
+        "necrotic",
+        "piercing",
+        "poison",
+        "psychic",
+        "radiant",
+        "slashing",
+        "thunder",
+        "physical",
+        "magical"
+      ],
+      "required": true
     },
-    "options": {},
-    "attributes": {
-        "damageType": {
-            "type": "enumeration",
-            "enum": [
-                "acid",
-                "bludgeoning",
-                "cold",
-                "fire",
-                "force",
-                "lightning",
-                "necrotic",
-                "piercing",
-                "poison",
-                "psychic",
-                "radiant",
-                "slashing",
-                "thunder",
-                "physical",
-                "magical"
-            ],
-            "required": true
-        },
-        "modifier": {
-            "type": "enumeration",
-            "enum": [
-                "resistance",
-                "immunity",
-                "vulnerability"
-            ],
-            "required": true
-        }
+    "modifier": {
+      "type": "enumeration",
+      "enum": ["resistance", "immunity", "vulnerability"],
+      "required": true
     }
+  }
 }

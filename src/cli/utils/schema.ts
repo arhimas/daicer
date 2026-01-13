@@ -201,7 +201,6 @@ export function readSchemaDeep(uid: string, depth: number = 2, seen: Set<string>
       const compUid = value.component as string;
       const compSchema = readSchemaDeep(compUid, depth - 1, new Set(seen));
       if (compSchema) {
-         
         (value as any).__schema = compSchema;
       }
     }
@@ -212,7 +211,6 @@ export function readSchemaDeep(uid: string, depth: number = 2, seen: Set<string>
 
       const relSchema = readSchemaDeep(targetUid, depth - 1, new Set(seen));
       if (relSchema) {
-         
         (value as any).__targetSchema = relSchema;
       }
     }
@@ -245,7 +243,7 @@ function readComponentSchema(uid: string): SchemaDefinition | null {
  * Builds a deep populate object for Strapi Entity Service / Client queries.
  * Depth 2 means: populate relations, and populate relations of relations.
  */
- 
+
 export function buildDeepPopulate(uid: string, depth: number = 2, seen: Set<string> = new Set()): any {
   if (depth <= 0) return true; // End of recursion
   // If seen, return true to stop recursion but still populate this level?
@@ -266,7 +264,7 @@ export function buildDeepPopulate(uid: string, depth: number = 2, seen: Set<stri
 
     // Component logic
     seen.add(uid);
-     
+
     const populate: any = {};
 
     Object.entries(comp.attributes).forEach(([key, value]) => {
@@ -288,7 +286,7 @@ export function buildDeepPopulate(uid: string, depth: number = 2, seen: Set<stri
   }
 
   seen.add(uid);
-   
+
   const populate: any = {};
 
   Object.entries(schema.attributes).forEach(([key, value]) => {

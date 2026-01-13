@@ -1,4 +1,3 @@
-
 import { Command } from 'commander';
 import fs from 'fs';
 import { getStrapi, stopStrapi } from '../utils/bootstrap';
@@ -39,7 +38,7 @@ export const exploreCommand = new Command('explore')
         );
       } else {
         const { default: chalk } = await import('chalk');
-         
+
         console.error(chalk.red('\n❌ Error:'), (error as any).message || error);
       }
       throw error;
@@ -120,13 +119,13 @@ export async function runExplore(options: ExploreOptions) {
   let currentAction = action || 'find'; // Default
   let currentPage = parseInt(options.page || '1', 10);
   const currentLimit = parseInt(options.limit || '10', 10);
-   
+
   let currentFilters: any = options.filters ? JSON.parse(options.filters) : {};
   let currentDocId = options.documentId;
 
   // Interactive Loop (Human only)
   let keepRunning = true;
-  
+
   // Initialize Strapi once
   const strapi = await withSpinner('Booting Strapi...', async () => getStrapi());
 
@@ -152,7 +151,7 @@ export async function runExplore(options: ExploreOptions) {
     }
 
     // Prepare Params
-     
+
     let populateVal: any = '*';
 
     if (currentAction === 'findOne' || isRaw) {
@@ -161,7 +160,6 @@ export async function runExplore(options: ExploreOptions) {
       populateVal = deepPop;
     }
 
-     
     const params: any = {
       populate: populateVal,
     };
@@ -178,7 +176,7 @@ export async function runExplore(options: ExploreOptions) {
         params.documentId = currentDocId;
       }
     } else if (currentAction === 'count') {
-       params.filters = currentFilters;
+      params.filters = currentFilters;
     }
 
     // Execute
@@ -187,8 +185,8 @@ export async function runExplore(options: ExploreOptions) {
 
     await withSpinner('Executing Query...', async () => {
       // Use Strapi Document Service
-       
-      const uid = finalType.uid as any; 
+
+      const uid = finalType.uid as any;
 
       if (finalType.kind === 'singleType') {
         const res = await strapi.documents(uid).findFirst(params);
@@ -209,14 +207,14 @@ export async function runExplore(options: ExploreOptions) {
           // Find Many
           const res = await strapi.documents(uid).findMany(params);
           const count = await strapi.documents(uid).count({ filters: params.filters });
-          
+
           result = res;
           meta = {
-            pagination: { 
-              page: currentPage, 
-              pageSize: currentLimit, 
+            pagination: {
+              page: currentPage,
+              pageSize: currentLimit,
               total: count,
-              pageCount: Math.ceil(count / currentLimit)
+              pageCount: Math.ceil(count / currentLimit),
             },
           };
         }
@@ -253,7 +251,7 @@ export async function runExplore(options: ExploreOptions) {
         keepRunning = false;
       } else {
         // Table View for 'find'
-         
+
         const data = Array.isArray(result) ? result : [result].filter(Boolean); // handle null
 
         if (data.length === 0) {
@@ -268,7 +266,6 @@ export async function runExplore(options: ExploreOptions) {
             style: { head: [], border: [] },
           });
 
-           
           data.forEach((row: any) => {
             const values = headers.map((h) => {
               const val = row[h];
@@ -282,7 +279,6 @@ export async function runExplore(options: ExploreOptions) {
 
           // Pagination Info
           if (meta.pagination) {
-             
             const p = meta.pagination as any;
             console.log(
               boxen(
@@ -296,7 +292,7 @@ export async function runExplore(options: ExploreOptions) {
 
         // --- Interactive Pagination ---
         const choices = [];
-         
+
         if (meta.pagination && (meta.pagination as any).page < (meta.pagination as any).pageCount) {
           choices.push({ name: 'Next Page ➡️', value: 'next' });
         }
@@ -322,7 +318,7 @@ export async function runExplore(options: ExploreOptions) {
           const filterStr = await input({ message: 'Enter JSON filter:', default: JSON.stringify(currentFilters) });
           try {
             currentFilters = JSON.parse(filterStr);
-            currentPage = 1; 
+            currentPage = 1;
           } catch {
             console.log(chalk.red('Invalid JSON'));
           }

@@ -1,2 +1,0 @@
-echo "🚀 Running auto-embedding on staged files..."
-yarn ts-node src/scripts/embed-source-code.ts

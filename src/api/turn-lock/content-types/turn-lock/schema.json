@@ -1,33 +1,33 @@
 {
-    "kind": "collectionType",
-    "collectionName": "turn_locks",
-    "info": {
-        "singularName": "turn-lock",
-        "pluralName": "turn-locks",
-        "displayName": "Turn Lock",
-        "description": "Concurrency control handling for Room turns"
+  "kind": "collectionType",
+  "collectionName": "turn_locks",
+  "info": {
+    "singularName": "turn-lock",
+    "pluralName": "turn-locks",
+    "displayName": "Turn Lock",
+    "description": "Concurrency control handling for Room turns"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "room": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::room.room"
     },
-    "options": {
-        "draftAndPublish": false
+    "locked_at": {
+      "type": "datetime",
+      "required": true
     },
-    "pluginOptions": {},
-    "attributes": {
-        "room": {
-            "type": "relation",
-            "relation": "oneToOne",
-            "target": "api::room.room"
-        },
-        "locked_at": {
-            "type": "datetime",
-            "required": true
-        },
-        "expires_at": {
-            "type": "datetime",
-            "required": true
-        },
-        "holder_id": {
-            "type": "string",
-            "required": true
-        }
+    "expires_at": {
+      "type": "datetime",
+      "required": true
+    },
+    "holder_id": {
+      "type": "string",
+      "required": true
     }
+  }
 }

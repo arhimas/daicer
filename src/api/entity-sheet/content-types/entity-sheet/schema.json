@@ -17,12 +17,7 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "player",
-        "monster",
-        "npc",
-        "loot"
-      ],
+      "enum": ["player", "monster", "npc", "loot"],
       "default": "player"
     },
     "entity": {

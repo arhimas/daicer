@@ -22,10 +22,11 @@ The **Daicer CLI** is the _definitive_ interface for interacting with the Daicer
 
 **1. Database Access**
 The CLI now runs as a **Standalone Instance**. It connects directly to your database.
+
 - If using **SQLite**: Ensure no other heavy write operations are blocking the DB (though WAL mode usually handles this).
 - If using **Postgres**: You can run CLI parallel to `yarn develop`.
 
-**Status Check** relies on `http://localhost:1337` to report if the *API Server* is online, but `explore` and `knowledge` work independently.
+**Status Check** relies on `http://localhost:1337` to report if the _API Server_ is online, but `explore` and `knowledge` work independently.
 
 ```bash
 # Run CLI (Standalone)

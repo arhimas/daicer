@@ -38,8 +38,8 @@ export default {
         const client = strapi.db.connection.client.config.client;
         if (client === 'better-sqlite3' || client === 'sqlite') {
           strapi.log.info('[Bootstrap] Initializing sqlite-vec extension...');
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
-          require('sqlite-vec');
+
+          await import('sqlite-vec');
           // No need to db.loadExtension manually if we use sqlite-vec library correctly or use it via 'better-sqlite3' loadExtension
           // But strapi uses 'better-sqlite3' internally.
           // We can try to load it on the connection object if exposed.
@@ -72,21 +72,21 @@ export default {
       await bootstrapPermissions(strapi);
 
       // 3. Global Entity Knowledge Subscriber
-      const { registerAutoEmbeddingSubscriber } = require('./subscribers/auto-embed');
+      const { registerAutoEmbeddingSubscriber } = await import('./subscribers/auto-embed');
       registerAutoEmbeddingSubscriber(strapi);
 
       // 4. SOTA Queue Initialization
       // Only initialize if REDIS_HOST is defined or explicitly enabled, to avoid crashes in local dev scripts
       if (process.env.REDIS_HOST || process.env.ENABLE_QUEUES === 'true') {
         try {
-          const { QueueManager } = require('./queues/queue-manager');
-          const { WorkerManager } = require('./queues/worker-manager');
-          
+          const { QueueManager } = await import('./queues/queue-manager');
+          const { WorkerManager } = await import('./queues/worker-manager');
+
           // Register Workers (Side-effects)
-          require('./queues/definitions/embedding');
-          require('./queues/definitions/generate-image');
-          require('./queues/definitions/generate-text');
-          require('./queues/definitions/cron-maintenance');
+          await import('./queues/definitions/embedding');
+          await import('./queues/definitions/generate-image');
+          await import('./queues/definitions/generate-text');
+          await import('./queues/definitions/cron-maintenance');
 
           // Initialize Managers
           QueueManager.init(strapi);
@@ -99,7 +99,6 @@ export default {
       } else {
         strapi.log.info('[Bootstrap] Queues skipped (REDIS_HOST not set).');
       }
-
     } catch (error) {
       strapi.log.error('Bootstrap failed:', error);
     }
@@ -112,24 +111,15 @@ export default {
   async destroy({ strapi }: { strapi: Core.Strapi }) {
     try {
       // Gracefully shutdown services
-      const { embeddingService } = require('./services/embedding-service');
+      const { embeddingService } = await import('./services/embedding-service');
       if (embeddingService && typeof embeddingService.terminate === 'function') {
         embeddingService.terminate();
       }
       
-      const { WorkerManager } = require('./queues/worker-manager');
-      // We assume the instance is singleton inside the module state
-      // If we can't access instance easily, strictly we should have exposed destroy via static 
-      // But for now, let's grab the instance if possible or just rely on the static method if I added one.
-      // Re-checking my implementation of WorkerManager... 
-      // I made destroy() an instance method. I should make a static helper or export the instance.
-      // Let's assume (for this edit) I can call a static destroyAll if I add it, or just ignore for now as Strapi kills the process nicely usually.
-      // Actually, looking at my code for WorkerManager, I didn't export a static destroy.
-      // I'll stick to just the embeddingService kill for now to avoid errors, 
-      // OR I can use the fact that I can't easily reach the instance here without a getter.
-      // I'll skip explicit worker destroy in this file for this step to avoid runtime error if I didn't verify the method.
-      // Strapi's plugin-bullmq handles some cleanup (connection closing).
-      
+      const { WorkerManager } = await import('./queues/worker-manager');
+      await WorkerManager.stop();
+
+      // Cleanup done via plugins
     } catch (error) {
       strapi.log.error('Destroy failed:', error);
     }

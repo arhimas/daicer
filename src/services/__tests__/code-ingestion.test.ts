@@ -26,7 +26,7 @@ describe('CodeIngestionService', () => {
     it('should generate correct metadata for valid files', () => {
       const content = 'const x = 1; '.repeat(10); // > 50 chars
       const result = codeIngestionService.generateSnippetData('src/main.ts', content);
-      
+
       expect(result).not.toBeNull();
       expect(result!.title).toBe('[Code] src/main.ts');
       expect(result!.sourceType).toBe('source-code');
@@ -37,7 +37,7 @@ describe('CodeIngestionService', () => {
     it('should truncate extremely large files', () => {
       const largeContent = 'a'.repeat(30050);
       const result = codeIngestionService.generateSnippetData('large.ts', largeContent);
-      
+
       expect(result).not.toBeNull();
       expect(result!.content.length).toBeLessThan(largeContent.length);
       expect(result!.content).toContain('...[Truncated]');

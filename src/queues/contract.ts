@@ -45,7 +45,7 @@ export const JobSchemas = {
  * Use these across the app to ensure type safety.
  */
 export type JobPayloads = {
-  [K in QueueName]: z.infer<typeof JobSchemas[K]>;
+  [K in QueueName]: z.infer<(typeof JobSchemas)[K]>;
 };
 
 /**

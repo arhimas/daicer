@@ -1,4 +1,3 @@
-
 import { createStrapi } from '@strapi/strapi';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -10,14 +9,14 @@ import {
   ProficiencyLoader,
   LanguageLoader,
 } from './loaders/atom-loaders';
-import { SpellLoader, FeatureLoader } from './loaders/molecule-loaders';
+import { SpellLoader } from './loaders/molecule-loaders';
 
 // Load env before Strapi
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 async function main() {
   console.log('ðŸŒŒ Initializing Genesis Engine...');
-  
+
   // We should ideally use the same config logic as probe-schema if running from backend
   const strapi = await createStrapi({ distDir: 'dist' }).load();
 
@@ -34,7 +33,7 @@ async function main() {
     // --- Phase 2: Molecules ---
     console.log('\n--- Phase 2: Molecules (The Magic) ---');
     // Note: features.json doesn't exist yet, so it will warn but not fail
-    // await new FeatureLoader(strapi, 'molecules/features.json').load(); 
+    // await new FeatureLoader(strapi, 'molecules/features.json').load();
     await new SpellLoader(strapi, 'molecules/spells.json').load();
 
     console.log('\nâœ… Genesis Complete. All systems operational.');

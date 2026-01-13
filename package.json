@@ -14,6 +14,7 @@
     "test:coverage": "vitest run --coverage",
     "test:cli": "vitest src/cli/__tests__/cli-e2e.test.ts",
     "lint": "eslint .",
+    "format": "prettier --write .",
     "codegen": "NODE_OPTIONS='--max-old-space-size=8192' strapi ts:generate-types",
     "typecheck": "tsc --noEmit",
     "seed": "ts-node src/scripts/seed.ts",
@@ -83,6 +84,7 @@
     "zod-to-json-schema": "^3.25.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/gradient-string": "^1.1.6",
     "@types/inquirer": "^9.0.9",
     "@types/node": "^25.0.3",
@@ -93,10 +95,13 @@
     "@types/seedrandom": "^3.0.8",
     "@vitest/coverage-v8": "^4.0.16",
     "better-sqlite3": "^12.5.0",
+    "eslint": "^9.39.2",
     "husky": "^9.1.7",
     "jsonwebtoken": "^9.0.3",
+    "prettier": "^3.7.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0",
     "vitest": "^4.0.16"
   },
   "engines": {
@@ -106,5 +111,6 @@
   "strapi": {
     "uuid": "22e3dd4f-1fd5-4842-84e2-b10d442e561c",
     "installId": "4d9b0030e49cc913c04e167033d98f30246b7832bdfd00efb591f88f8646f010"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

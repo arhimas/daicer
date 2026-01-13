@@ -1,66 +1,66 @@
 [
-    {
-        "name": "Common",
-        "is_rare": false
-    },
-    {
-        "name": "Dwarvish",
-        "is_rare": false
-    },
-    {
-        "name": "Elvish",
-        "is_rare": false
-    },
-    {
-        "name": "Giant",
-        "is_rare": false
-    },
-    {
-        "name": "Gnomish",
-        "is_rare": false
-    },
-    {
-        "name": "Goblin",
-        "is_rare": false
-    },
-    {
-        "name": "Halfling",
-        "is_rare": false
-    },
-    {
-        "name": "Orc",
-        "is_rare": false
-    },
-    {
-        "name": "Abyssal",
-        "is_rare": true
-    },
-    {
-        "name": "Celestial",
-        "is_rare": true
-    },
-    {
-        "name": "Draconic",
-        "is_rare": true
-    },
-    {
-        "name": "Deep Speech",
-        "is_rare": true
-    },
-    {
-        "name": "Infernal",
-        "is_rare": true
-    },
-    {
-        "name": "Primordial",
-        "is_rare": true
-    },
-    {
-        "name": "Sylvan",
-        "is_rare": true
-    },
-    {
-        "name": "Undercommon",
-        "is_rare": true
-    }
+  {
+    "name": "Common",
+    "is_rare": false
+  },
+  {
+    "name": "Dwarvish",
+    "is_rare": false
+  },
+  {
+    "name": "Elvish",
+    "is_rare": false
+  },
+  {
+    "name": "Giant",
+    "is_rare": false
+  },
+  {
+    "name": "Gnomish",
+    "is_rare": false
+  },
+  {
+    "name": "Goblin",
+    "is_rare": false
+  },
+  {
+    "name": "Halfling",
+    "is_rare": false
+  },
+  {
+    "name": "Orc",
+    "is_rare": false
+  },
+  {
+    "name": "Abyssal",
+    "is_rare": true
+  },
+  {
+    "name": "Celestial",
+    "is_rare": true
+  },
+  {
+    "name": "Draconic",
+    "is_rare": true
+  },
+  {
+    "name": "Deep Speech",
+    "is_rare": true
+  },
+  {
+    "name": "Infernal",
+    "is_rare": true
+  },
+  {
+    "name": "Primordial",
+    "is_rare": true
+  },
+  {
+    "name": "Sylvan",
+    "is_rare": true
+  },
+  {
+    "name": "Undercommon",
+    "is_rare": true
+  }
 ]
