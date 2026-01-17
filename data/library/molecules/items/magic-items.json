@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "potion-healing-greater",
+    "name": "Potion of Greater Healing",
+    "type": "consumable",
+    "rarity": "uncommon",
+    "value": 15000,
+    "weight": 0.5,
+    "description": "You regain 4d4 + 4 hit points when you drink this potion.",
+    "spell_data": {
+      "level": 0,
+      "school": "Evocation",
+      "casting_time": "1 Action",
+      "components": "V, S (Drinking)",
+      "duration": "Instantaneous",
+      "damage_instances": [
+        {
+          "effect_type": "Healing",
+          "dice_count": 4,
+          "dice_value": 4,
+          "flat_bonus": 4,
+          "timing": "Instant"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "scroll-fireball",
+    "name": "Spell Scroll (Fireball)",
+    "type": "spell_scroll",
+    "rarity": "uncommon",
+    "value": 30000,
+    "weight": 0,
+    "description": "A scroll containing the Fireball spell.",
+    "spell_data": {
+      "level": 3,
+      "school": "Evocation",
+      "casting_time": "1 Action",
+      "components": "V, S, M",
+      "duration": "Instantaneous",
+      "range": "150 feet",
+      "damage_instances": [
+        {
+          "effect_type": "Damage",
+          "damage_type": "Fire",
+          "dice_count": 8,
+          "dice_value": 6,
+          "timing": "Instant"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "wand-magic-missiles",
+    "name": "Wand of Magic Missiles",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 30000,
+    "weight": 1,
+    "description": "This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast the magic missile spell from it. For 1 charge, you cast the 1st-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.",
+    "spell_data": {
+      "level": 1,
+      "school": "Evocation",
+      "casting_time": "1 Action",
+      "components": "V, S",
+      "duration": "Instantaneous",
+      "range": "120 feet",
+      "damage_instances": [
+        {
+          "effect_type": "Damage",
+          "damage_type": "Force",
+          "dice_count": 3,
+          "dice_value": 4,
+          "flat_bonus": 3,
+          "timing": "Instant"
+        }
+      ]
+    }
+  },
+  {
+    "slug": "bag-of-holding",
+    "name": "Bag of Holding",
+    "type": "container",
+    "rarity": "uncommon",
+    "value": 40000,
+    "weight": 15,
+    "description": "This bag has an interior space considerably larger than its outside dimensions, roughly 2 feet in diameter at the mouth and 4 feet deep. The bag can hold up to 500 pounds, not exceeding a volume of 64 cubic feet."
+  },
+  {
+    "slug": "longsword-plus-one",
+    "name": "Longsword +1",
+    "type": "weapon",
+    "rarity": "uncommon",
+    "value": 50000,
+    "weight": 3,
+    "description": "You have a +1 bonus to attack and damage rolls made with this magic weapon.",
+    "equipment_data": {
+      "damage_dice": "1d8",
+      "damage_type": "slashing",
+      "properties": [
+        "versatile"
+      ],
+      "actions": []
+    }
+  },
+  {
+    "slug": "driftglobe",
+    "name": "Driftglobe",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 5000,
+    "weight": 1,
+    "description": "This small sphere of thick glass weighs 1 pound. If you are within 60 feet of it, you can speak its command word and cause it to emanate the light or daylight spell.",
+    "spell_data": {
+      "level": 2,
+      "school": "Evocation",
+      "casting_time": "1 Action",
+      "components": "V",
+      "duration": "1 Hour",
+      "range": "60 feet"
+    }
+  }
+]

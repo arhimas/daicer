@@ -58,24 +58,28 @@ export class EntityKnowledgeService {
     
     let embeddingText = '';
 
-    if (uid === 'api::knowledge-snippet.knowledge-snippet') {
+       if (uid === 'api::knowledge-snippet.knowledge-snippet') {
        // CODE SNIPPET HANDLING
        // Raw content is key for RAG on code.
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
        const snippet = entity as any;
        embeddingText = `Code Snippet: ${snippet.title}\n${snippet.content}`;
     } else {
        // GAME ENTITY HANDLING
-       const name = (entity.name as string) || (entity.title as string) || `Entity ${entityId}`;
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       const typedEntity = entity as any;
+       const name = (typedEntity.name as string) || (typedEntity.title as string) || `Entity ${entityId}`;
        // Standardize Tags
        const tags = [typeName, 'Game Entity'];
-       const typedEntity = entity as any;
+       
        // Try to extract extra context for tags
        if (typedEntity.level) tags.push(`Level ${typedEntity.level}`);
        if (typedEntity.school && typedEntity.school.name) tags.push(typedEntity.school.name);
        if (typedEntity.class && typedEntity.class.name) tags.push(typedEntity.class.name);
 
        const markdown = entityToMarkdown(typeName, name, entity as Record<string, unknown>);
-       embeddingText = `${typeName}: ${name}\n${entity.description || ''}\n${tags.join(', ')}\n${markdown}`;
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       embeddingText = `${typeName}: ${name}\n${(entity as any).description || ''}\n${tags.join(', ')}\n${markdown}`;
     }
 
     // 2.5 Generate Embedding (Core Embeddings Mandate)

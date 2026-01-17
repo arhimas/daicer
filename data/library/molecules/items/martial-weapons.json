@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "battleaxe",
+    "name": "Battleaxe",
+    "description": "A versatile axe for combat.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 1000,
+    "weight": 4,
+    "equipment_data": {
+      "damage_dice": "1d8",
+      "damage_type": "slashing",
+      "properties": ["versatile"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "flail",
+    "name": "Flail",
+    "description": "A striking weapon consisting of a stick with a swinging metal head.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 1000,
+    "weight": 2,
+    "equipment_data": {
+      "damage_dice": "1d8",
+      "damage_type": "bludgeoning",
+      "properties": [],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "glaive",
+    "name": "Glaive",
+    "description": "A large blade on the end of a pole.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 2000,
+    "weight": 6,
+    "equipment_data": {
+      "damage_dice": "1d10",
+      "damage_type": "slashing",
+      "properties": ["heavy", "reach", "two-handed"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "greataxe",
+    "name": "Greataxe",
+    "description": "A heavy, two-handed axe.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 3000,
+    "weight": 7,
+    "equipment_data": {
+      "damage_dice": "1d12",
+      "damage_type": "slashing",
+      "properties": ["heavy", "two-handed"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "greatsword",
+    "name": "Greatsword",
+    "description": "A massive two-handed sword.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 5000,
+    "weight": 6,
+    "equipment_data": {
+      "damage_dice": "2d6",
+      "damage_type": "slashing",
+      "properties": ["heavy", "two-handed"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "halberd",
+    "name": "Halberd",
+    "description": "A polearm with an axe head and spike.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 2000,
+    "weight": 6,
+    "equipment_data": {
+      "damage_dice": "1d10",
+      "damage_type": "slashing",
+      "properties": ["heavy", "reach", "two-handed"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "lance",
+    "name": "Lance",
+    "description": "A long weapon designed for mounted combat.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 1000,
+    "weight": 6,
+    "equipment_data": {
+      "damage_dice": "1d12",
+      "damage_type": "piercing",
+      "properties": ["reach", "special"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "maul",
+    "name": "Maul",
+    "description": "A heavy two-handed hammer.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 1000,
+    "weight": 10,
+    "equipment_data": {
+      "damage_dice": "2d6",
+      "damage_type": "bludgeoning",
+      "properties": ["heavy", "two-handed"],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "morningstar",
+    "name": "Morningstar",
+    "description": "A spiked club.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 1500,
+    "weight": 4,
+    "equipment_data": {
+      "damage_dice": "1d8",
+      "damage_type": "piercing",
+      "properties": [],
+      "range_normal": null,
+      "range_long": null
+    }
+  },
+  {
+    "slug": "pike",
+    "name": "Pike",
+    "description": "A very long spear.",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 500,
+    "weight": 18,
+    "equipment_data": {
+      "damage_dice": "1d10",
+      "damage_type": "piercing",
+      "properties": ["heavy", "reach", "two-handed"],
+      "range_normal": null,
+      "range_long": null
+    }
+  }
+]

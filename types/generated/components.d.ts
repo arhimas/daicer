@@ -130,6 +130,25 @@ export interface GameClassProgression extends Struct.ComponentSchema {
   };
 }
 
+export interface GameCompilationState extends Struct.ComponentSchema {
+  collectionName: 'components_game_compilation_states';
+  info: {
+    description: 'Tracks the verification status of this Entity Blueprint.';
+    displayName: 'Compilation State';
+  };
+  attributes: {
+    hash: Schema.Attribute.String & Schema.Attribute.Private;
+    last_run: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<['Pending', 'Valid', 'Invalid', 'Warning']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Pending'>;
+    summary: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+  };
+}
+
 export interface GameComputedAction extends Struct.ComponentSchema {
   collectionName: 'components_game_computed_actions';
   info: {
@@ -644,6 +663,7 @@ declare module '@strapi/strapi' {
       'game.casting-config': GameCastingConfig;
       'game.character-class': GameCharacterClass;
       'game.class-progression': GameClassProgression;
+      'game.compilation-state': GameCompilationState;
       'game.computed-action': GameComputedAction;
       'game.condition-instance': GameConditionInstance;
       'game.damage-dice': GameDamageDice;

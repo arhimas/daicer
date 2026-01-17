@@ -1,55 +1,63 @@
 'use strict';
 
-const { OpenAI } = require('openai');
+const path = require('path');
+
+// lazy load transformers to avoid startup perf hit if not used immediately
+let pipeline;
+let env;
 
 module.exports = ({ strapi }) => ({
-  openai: null,
+  pipelineInstance: null,
+  modelName: 'Xenova/jina-embeddings-v2-small-en',
 
-  init() {
-    // Lazy init or immediate? Tutorial suggests immediate.
-    // We reuse existing ENV vars if possible.
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      strapi.log.warn('⚠️ Semantic Search: OPENAI_API_KEY not found. Helper text search will be used.');
-      return;
+  async init() {
+    if (this.pipelineInstance) return;
+
+    try {
+      const transformers = await import('@huggingface/transformers');
+      pipeline = transformers.pipeline;
+      env = transformers.env;
+
+      const cacheDir = path.resolve(process.cwd(), 'local_models');
+      env.cacheDir = cacheDir;
+      env.allowLocalModels = true; // Use cached if available
+
+      strapi.log.info(`🔌 [SemanticSearch] Initializing local Jina model (${this.modelName})...`);
+      
+      this.pipelineInstance = await pipeline('feature-extraction', this.modelName, {
+        dtype: 'q8',
+        device: 'auto',
+      });
+
+      strapi.log.info('✅ [SemanticSearch] Model Ready');
+    } catch (error) {
+      strapi.log.error('❌ [SemanticSearch] Failed to initialize model:', error);
+      throw error;
     }
-
-    this.openai = new OpenAI({
-      apiKey: apiKey,
-    });
   },
 
   async generateEmbedding(text) {
-    if (!this.openai) {
-      this.init();
-      if (!this.openai) {
-        strapi.log.warn('OpenAI not initialized, skipping embedding.');
-        return null;
-      }
-    }
-
     if (!text || !text.trim()) return [];
 
-    // Clean text
-    let cleanedText = text.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-
-    // Limits: text-embedding-3-small has 8192 tokens max.
-    // Approx 1 token ~= 4 chars -> 32,000 chars.
-    // We'll be safe with 24,000 chars.
-    if (cleanedText.length > 24000) {
-      cleanedText = cleanedText.substring(0, 24000);
-    }
-
     try {
-      const response = await this.openai.embeddings.create({
-        model: 'text-embedding-3-small',
-        input: cleanedText,
+      await this.init();
+      if (!this.pipelineInstance) return [];
+
+      // Jina v2-small-en context limit is 8192, we can be generous
+      const result = await this.pipelineInstance(text, {
+        pooling: 'mean',
+        normalize: true,
       });
-      return response.data[0].embedding;
+
+      // result.tolist() returns [ [ ... ] ] for single input
+      const raw = result.tolist();
+      if (Array.isArray(raw) && raw.length > 0) {
+         return raw[0];
+      }
+      return [];
     } catch (e) {
       strapi.log.error('Embedding Generation Failed:', e.message);
-      // Return null so we don't crash the whole save process
-      return null;
+      return [];
     }
   },
 });

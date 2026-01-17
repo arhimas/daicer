@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "dwarf",
+    "name": "Dwarf",
+    "description": "Bold and hardy, dwarves are known for their skilled warfare, mining, and stonecrafting.",
+    "speed": { "walk": 25 },
+    "size": "Medium",
+    "traits": ["darkvision", "dwarven-resilience"]
+  },
+  {
+    "slug": "elf",
+    "name": "Elf",
+    "description": "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.",
+    "speed": { "walk": 30 },
+    "size": "Medium",
+    "traits": ["darkvision", "fey-ancestry", "trance", "keen-senses"]
+  },
+  {
+    "slug": "human",
+    "name": "Human",
+    "description": "Humans are the most adaptable and ambitious people among the common races.",
+    "speed": { "walk": 30 },
+    "size": "Medium",
+    "traits": []
+  },
+  {
+    "slug": "halfling",
+    "name": "Halfling",
+    "description": "The modest halflings love peace and quiet and good tilled earth.",
+    "speed": { "walk": 25 },
+    "size": "Small",
+    "traits": []
+  }
+]

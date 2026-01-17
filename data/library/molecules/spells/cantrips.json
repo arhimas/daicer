@@ -1,0 +1,191 @@
+[
+  {
+    "slug": "acid-splash",
+    "name": "Acid Splash",
+    "level": 0,
+    "school": "Conjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 60
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You hurl a bubble of acid. Choose one or two creatures you can see within range. If you choose two, they must be within 5 feet of each other. A target must succeed on a Dexterity saving throw or take 1d6 acid damage.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Acid",
+        "dice_count": 1,
+        "dice_value": 6,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Specific Thresholds",
+      "dice_count": 1,
+      "dice_value": 6
+    }
+  },
+  {
+    "slug": "fire-bolt",
+    "name": "Fire Bolt",
+    "level": 0,
+    "school": "Evocation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 120
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn't being worn or carried.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Fire",
+        "dice_count": 1,
+        "dice_value": 10,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Specific Thresholds",
+      "dice_count": 1,
+      "dice_value": 10
+    }
+  },
+  {
+    "slug": "mage-hand",
+    "name": "Mage Hand",
+    "level": 0,
+    "school": "Conjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Minutes"
+    },
+    "description": "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again."
+  },
+  {
+    "slug": "poison-spray",
+    "name": "Poison Spray",
+    "level": 0,
+    "school": "Conjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 10
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You extend your hand toward a creature you can see within range and project a puff of noxious gas from your palm. The creature must succeed on a Constitution saving throw or take 1d12 poison damage.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Poison",
+        "dice_count": 1,
+        "dice_value": 12,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Specific Thresholds",
+      "dice_count": 1,
+      "dice_value": 12
+    }
+  },
+  {
+    "slug": "vicious-mockery",
+    "name": "Vicious Mockery",
+    "level": 0,
+    "school": "Enchantment",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": false,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 60
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You unleash a string of insults laced with subtle enchantments at a creature you can see within range. If the target can hear you (though it need not understand you), it must succeed on a Wisdom saving throw or take 1d4 psychic damage and have disadvantage on the next attack roll it makes before the end of its next turn.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Psychic",
+        "dice_count": 1,
+        "dice_value": 4,
+        "timing": "Instant"
+      }
+    ],
+    "condition_instances": [
+      {
+        "condition": "Special",
+        "description": "Disadvantage on next attack roll",
+        "chance": 100,
+        "duration_rounds": 1
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Specific Thresholds",
+      "dice_count": 1,
+      "dice_value": 4
+    }
+  }
+]

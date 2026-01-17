@@ -1,16 +1,38 @@
 'use strict';
 
+/**
+ * Mapping of friendly aliases to Strapi Content Type UIDs.
+ * @type {Record<string, string>}
+ */
 const TARGET_ALIASES = {
   spell: 'api::spell.spell',
-  monster: 'api::monster.monster',
   class: 'api::class.class',
   race: 'api::race.race',
-  character: 'api::character.character',
-  equipment: 'api::equipment.equipment',
-  // Add others as needed
+  // New
+  entity: 'api::entity.entity',
+  item: 'api::item.item',
+  feature: 'api::feature.feature',
+  action: 'api::action.action',
+  trait: 'api::trait.trait',
+  subclass: 'api::subclass.subclass',
+  proficiency: 'api::proficiency.proficiency',
+  language: 'api::language.language',
+  'magic-school': 'api::magic-school.magic-school',
+  'damage-type': 'api::damage-type.damage-type',
+  'equipment-category': 'api::equipment-category.equipment-category',
+  'weapon-property': 'api::weapon-property.weapon-property',
+  prompt: 'api::prompt.prompt',
 };
 
 module.exports = ({ strapi }) => ({
+  /**
+   * Universal Search (Knowledge + Entities)
+   * @param {object} params
+   * @param {string} params.query - Search query
+   * @param {string[]} [params.targets] - List of targets (e.g. ['spell', 'manual', 'code'])
+   * @param {number} [params.limit] - Limit per category
+   * @returns {Promise<Array<{ id: string, title: string, excerpt: string, score: number, kind: string, entityUid?: string, tags?: string[], sourceName?: string, snippetId?: number }>>}
+   */
   async search({ query, targets = [], limit = 5 }) {
     if (!query) return [];
 
@@ -26,7 +48,7 @@ module.exports = ({ strapi }) => ({
     const searchAll = targetSet.size === 0;
 
     // 2. Search Manual Docs (Knowledge Sources)
-    if (searchAll || targetSet.has('manual') || targetSet.has('knowledge')) {
+    if (searchAll || targetSet.has('manual') || targetSet.has('knowledge') || targetSet.has('code') || targetSet.has('schema')) {
       try {
         const rows = await vectorService.searchManual(vector, limit);
         rows.forEach((row) => {

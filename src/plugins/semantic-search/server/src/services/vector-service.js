@@ -13,73 +13,99 @@ module.exports = ({ strapi }) => ({
    * @param {number} limit
    */
   async searchManual(vector, limit = 5) {
-    // sqlite-vec expects binary blob or specific format for some operations.
-    // simpler to use the new `vec_distance_cosine` which supports JSON-like arrays or Blobs.
     const vectorStr = JSON.stringify(vector);
-
     const connection = strapi.db.connection;
     const client = connection.client.config.client;
 
+    // Resolve Table Names dynamically
+    const snippetMeta = strapi.db.metadata.get('api::knowledge-snippet.knowledge-snippet');
+    const sourceMeta = strapi.db.metadata.get('api::knowledge-source.knowledge-source');
+    
+    const snippetTable = snippetMeta.tableName;
+    const sourceTable = sourceMeta.tableName;
+
+    // Find the foreign key column for 'source' relation in snippet table
+    const sourceAttr = snippetMeta.attributes.source;
+    
+    // Check if we use a Link Table or a Join Column
+    let joinTable = null;
+
+    let linkSnippetCol = 'knowledge_snippet_id';
+    let linkSourceCol = 'knowledge_source_id';
+
+    if (sourceAttr.joinTable) {
+        joinTable = sourceAttr.joinTable.name;
+        linkSnippetCol = sourceAttr.joinTable.joinColumn.name;
+        linkSourceCol = sourceAttr.joinTable.inverseJoinColumn.name;
+    } else if (sourceAttr.joinColumn) {
+        // Fallback to FK on table (if it existed)
+        // But debug showed it misses.
+    }
+
     try {
       if (client === 'better-sqlite3' || client === 'sqlite') {
-        // Use sqlite-vec syntax
-        // Assuming we have a virtual table or we are using standard table with aux function?
-        // Proposal: Use `vec_distance_cosine(embedding, ?)`
-        // NOTE: The table `knowledge_snippets` likely stores embedding as BLOB or JSON Text?
-        // Old implementation used `vector_distance_cos`.
-        // New sqlite-vec uses `vec_distance_cosine`.
-        // We must ensure the extension is loaded.
+        let query = connection(snippetTable)
+          .select([
+            `${snippetTable}.id`,
+            `${snippetTable}.content`,
+            `${snippetTable}.title`,
+            `${sourceTable}.name as source_name`,
+            `${sourceTable}.id as source_id`,
+            connection.raw('vec_distance_cosine(??, ?) as distance', [`${snippetTable}.embedding`, vectorStr])
+          ]);
 
-        // We can try raw query.
-        const result = await connection.raw(
-          `SELECT 
-              ks.id, 
-              ks.content, 
-              ks.title,
-              src.name as source_name,
-              src.id as source_id,
-              vec_distance_cosine(ks.embedding, ?) as distance
-            FROM knowledge_snippets ks
-            JOIN knowledge_snippets_source_lnk lnk ON ks.id = lnk.knowledge_snippet_id
-            JOIN knowledge_sources src ON lnk.knowledge_source_id = src.id
-            WHERE ks.embedding IS NOT NULL
-            ORDER BY distance ASC
-            LIMIT ?;`,
-          [vectorStr, limit]
-        );
-        // Map distance to score (1 - distance) for compatibility if needed,
-        // but user seems to strictly want to "use our sqlite and the vector distance".
-        // Let's return distance but maybe map it to 'score' for frontend compat?
-        // Cosine distance: 0 = identical, 2 = opposite.
-        // Similarity = 1 - distance is a common approximation for frontend ranking.
+        if (joinTable) {
+           query = query
+            .leftJoin(joinTable, `${snippetTable}.id`, `${joinTable}.${linkSnippetCol}`)
+            .leftJoin(sourceTable, `${joinTable}.${linkSourceCol}`, `${sourceTable}.id`);
+        } else {
+           // Fallback to expecting a column on snippet table (unlikely given debug)
+           const colName = sourceAttr.joinColumn ? sourceAttr.joinColumn.name : 'source_id';
+           query = query.leftJoin(sourceTable, `${snippetTable}.${colName}`, `${sourceTable}.id`);
+        }
+
+        const result = await query
+          .whereNotNull(`${snippetTable}.embedding`)
+          .orderBy('distance', 'asc')
+          .limit(limit);
 
         return result.map((r) => ({
           ...r,
           score: 1.0 - (r.distance || 0),
         }));
       } else {
-        // Postgres / PGVector Fallback (unchanged)
-        const vectorStr = `[${vector.join(',')}]`;
-        const result = await connection.raw(
-          `SELECT 
-                ks.id, 
-                ks.content, 
-                ks.title,
-                src.name as source_name,
-                src.id as source_id,
-                1 - ((ks.embedding::text)::vector <=> ?) as score
-            FROM knowledge_snippets ks
-            JOIN knowledge_snippets_source_lnk lnk ON ks.id = lnk.knowledge_snippet_id
-            JOIN knowledge_sources src ON lnk.knowledge_source_id = src.id
-            WHERE ks.embedding IS NOT NULL
-            ORDER BY ((ks.embedding::text)::vector <=> ?) ASC
-            LIMIT ?;`,
-          [vectorStr, vectorStr, limit]
-        );
-        return result.rows || result;
+        // Postgres / PGVector Fallback
+        const vectorStrPg = `[${vector.join(',')}]`;
+        let query = connection(snippetTable)
+          .select([
+            `${snippetTable}.id`,
+            `${snippetTable}.content`,
+            `${snippetTable}.title`,
+            `${sourceTable}.name as source_name`,
+            `${sourceTable}.id as source_id`,
+            connection.raw('1 - ((??::text)::vector <=> ?) as score', [`${snippetTable}.embedding`, vectorStrPg])
+          ]);
+
+        if (joinTable) {
+            query = query
+             .leftJoin(joinTable, `${snippetTable}.id`, `${joinTable}.${linkSnippetCol}`)
+             .leftJoin(sourceTable, `${joinTable}.${linkSourceCol}`, `${sourceTable}.id`);
+         } else {
+            const colName = sourceAttr.joinColumn ? sourceAttr.joinColumn.name : 'source_id';
+            query = query.leftJoin(sourceTable, `${snippetTable}.${colName}`, `${sourceTable}.id`);
+         }
+
+        const result = await query
+          .whereNotNull(`${snippetTable}.embedding`)
+          .orderBy('score', 'desc') 
+          .limit(limit);
+          
+        return result;
       }
     } catch (err) {
       strapi.log.error('Vector Service (Manual Sources) Failed:', err.message);
+      // Re-throw or log full error for debugging if needed
+      strapi.log.error(err);
       return [];
     }
   },
@@ -100,32 +126,33 @@ module.exports = ({ strapi }) => ({
     try {
       if (client === 'better-sqlite3' || client === 'sqlite') {
         // Use sqlite-vec
-        const result = await connection.raw(
-          `SELECT id, vec_distance_cosine(embedding, ?) as distance 
-             FROM ${tableName} 
-             WHERE embedding IS NOT NULL
-             ORDER BY distance ASC 
-             LIMIT ?`,
-          [vectorStr, limit]
-        );
+        const result = await connection(tableName)
+          .select([
+            'id',
+            connection.raw('vec_distance_cosine(embedding, ?) as distance', [vectorStr])
+          ])
+          .whereNotNull('embedding')
+          .orderBy('distance', 'asc')
+          .limit(limit);
+
         return result.map((r) => ({
           ...r,
           score: 1.0 - (r.distance || 0),
         }));
       } else {
         const vectorStrPg = `[${vector.join(',')}]`;
-        const result = await connection.raw(
-          `SELECT id, 1 - ((embedding::text)::vector <=> ?) as score 
-               FROM ${tableName} 
-               ORDER BY ((embedding::text)::vector <=> ?) ASC 
-               LIMIT ?`,
-          [vectorStrPg, vectorStrPg, limit]
-        );
-        return result.rows || result;
+        const result = await connection(tableName)
+          .select([
+            'id',
+            connection.raw('1 - ((embedding::text)::vector <=> ?) as score', [vectorStrPg])
+          ])
+          .orderByRaw('((embedding::text)::vector <=> ?) ASC', [vectorStrPg])
+          .limit(limit);
+
+        return result;
       }
     } catch (err) {
-      strapi.log.error(`Vector Service (${uid}) Failed:`, err);
-      // strapi.log.error('Details:', JSON.stringify(err, null, 2));
+      strapi.log.error(`Vector Service (${uid}) Failed:`, err.message);
       return [];
     }
   },

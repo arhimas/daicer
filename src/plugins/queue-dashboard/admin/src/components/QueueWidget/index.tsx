@@ -9,30 +9,18 @@ import {
   ProgressBar, 
   Button, 
   Modal, 
-  Tabs,
-  Table,
-  JSONInput,
-  IconButton,
   Grid
 } from '@strapi/design-system';
-// NOTE: Modal usage in v2 involves specific subcomponents: ModalLayout, ModalHeader, ModalBody. 
-// However, Strapi 5 usually re-exports them or uses Root. 
-// I will use properties that are most standard.
-// Actually, `Modal` is usually a compound component `Modal.Content`, etc.
-// But to be safe with unknown exact exports, I'll assume standard V2 or look at docs if I could.
-// I will use standard standard `Modal.Root` pattern if possible or `ModalLayout`.
-// User screenshot showed simple Modal? No, user showed circular graph.
-// User asked for "Snapshot ... payload ... log".
 
 // I will implement a "JobDetailsModal" subcomponent in the same file to keep it self-contained.
 
-import { Play, Cross, Trash, Eye, ChartBubble } from '@strapi/icons';
+import { Play, Cross, Trash } from '@strapi/icons';
 import { useFetchClient, useNotification } from '@strapi/strapi/admin';
 
 interface Job {
   id: string;
   name: string;
-  data: any;
+  data: unknown;
   timestamp: number;
   failedReason?: string;
   stacktrace?: string[];
@@ -139,7 +127,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
         type: 'success',
         message: `Action ${action} triggered for ${stats.name}`,
       });
-    } catch (error: any) {
+    } catch (_error) {
       toggleNotification({
         type: 'warning',
         message: `Failed to ${action} ${stats.name}`,

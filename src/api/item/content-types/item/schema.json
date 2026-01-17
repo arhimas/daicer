@@ -75,6 +75,15 @@
     },
     "custom_data": {
       "type": "json"
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "compilation_state": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.compilation-state"
     }
   }
 }

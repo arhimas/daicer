@@ -87,6 +87,8 @@ export default {
           await import('./queues/definitions/generate-image');
           await import('./queues/definitions/generate-text');
           await import('./queues/definitions/cron-maintenance');
+          await import('./queues/definitions/genesis');
+          await import('./queues/definitions/compile');
 
           // Initialize Managers
           QueueManager.init(strapi);

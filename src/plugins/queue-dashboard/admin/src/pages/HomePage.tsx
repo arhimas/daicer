@@ -3,7 +3,6 @@ import { Page, Layouts } from '@strapi/strapi/admin';
 import { Typography, EmptyStateLayout, Box, Grid, Alert } from '@strapi/design-system';
 import { useFetchClient } from '@strapi/strapi/admin';
 import { QueueWidget } from '../components/QueueWidget';
-import { PLUGIN_ID } from '../pluginId';
 
 interface JobCounts {
   active: number;
@@ -37,10 +36,11 @@ const HomePage = () => {
         setQueues(data.queues);
         setError(null);
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
       // Handle HTTP errors
-      setError(e.response?.data?.error?.message || e.message || 'Failed to fetch queue stats');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setError((e as any).response?.data?.error?.message || (e as any).message || 'Failed to fetch queue stats');
     } finally {
       setLoading(false);
     }

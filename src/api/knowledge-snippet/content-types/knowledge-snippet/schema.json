@@ -29,7 +29,7 @@
     },
     "sourceType": {
       "type": "enumeration",
-      "enum": ["source-code", "game-entity", "manual"],
+      "enum": ["source-code", "game-entity", "manual", "schema"],
       "required": true,
       "default": "manual"
     },

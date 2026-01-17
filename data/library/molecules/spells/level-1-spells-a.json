@@ -1,0 +1,733 @@
+[
+  {
+    "slug": "absorb-elements",
+    "name": "Absorb Elements",
+    "level": 1,
+    "school": "Abjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Reaction",
+      "reaction_trigger": "Which you take when you take acid, cold, fire, lightning, or thunder damage",
+      "components": {
+        "verbal": false,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Self"
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Rounds"
+    },
+    "description": "The spell captures some of the incoming energy, lessening its effect on you and storing it for your next melee attack. You have resistance to the triggering damage type until the start of your next turn. Also, the first time you hit with a melee attack on your next turn, the target takes an extra 1d6 damage of the triggering type, and the spell ends.",
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 6
+    }
+  },
+  {
+    "slug": "alarm",
+    "name": "Alarm",
+    "level": 1,
+    "school": "Abjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Minute",
+      "is_ritual": true,
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a tiny bell and a piece of fine silver wire"
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30,
+      "aoe_shape": "Cube",
+      "aoe_size": 20
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 8,
+      "unit": "Hours"
+    },
+    "description": "You set an alarm against unwanted intrusion. Choose a door, a window, or an area within range that is no larger than a 20-foot cube. Until the spell ends, an alarm alerts you whenever a tiny or larger creature touches or enters the warded area. When you cast the spell, you can designate creatures that won't set off the alarm. You also choose whether the alarm is mental or audible."
+  },
+  {
+    "slug": "armor-of-agathys",
+    "name": "Armor of Agathys",
+    "level": 1,
+    "school": "Abjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a cup of water"
+      }
+    },
+    "range_config": {
+      "type": "Self"
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Hours"
+    },
+    "description": "A protective magical force surrounds you, manifesting as a spectral frost that covers you and your gear. You gain 5 temporary hit points for the duration. If a creature hits you with a melee attack while you have these hit points, the creature takes 5 cold damage.",
+    "damage_instances": [
+      {
+        "effect_type": "TempHP",
+        "flat_bonus": 5,
+        "timing": "Instant"
+      },
+      {
+        "effect_type": "Damage",
+        "damage_type": "Cold",
+        "flat_bonus": 5,
+        "timing": "One Time Trigger"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 0,
+      "dice_value": 0,
+      "description": "Both the temporary hit points and the cold damage increase by 5 for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "arms-of-hadar",
+    "name": "Arms of Hadar",
+    "level": 1,
+    "school": "Conjuration",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Self",
+      "aoe_shape": "Sphere",
+      "aoe_size": 10
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You invoke the power of Hadar, the Dark Hunger. Tendrils of dark energy erupt from you and batter all creatures within 10 feet of you. Each creature in that area must make a Strength saving throw. On a failed save, a target takes 2d6 necrotic damage and can't take reactions until its next turn. On a successful save, the creature takes half damage, but suffers no other effect.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Necrotic",
+        "dice_count": 2,
+        "dice_value": 6,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 6
+    }
+  },
+  {
+    "slug": "bane",
+    "name": "Bane",
+    "level": 1,
+    "school": "Enchantment",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "is_concentration": true,
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a drop of blood"
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Minutes",
+      "concentration": true
+    },
+    "description": "Up to three creatures of your choice that you can see within range must make Charisma saving throws. Whenever a target that fails this saving throw makes an attack roll or a saving throw before the spell ends, the target must roll a d4 and subtract the number rolled from the attack roll or saving throw.",
+    "condition_instances": [
+      {
+        "condition": "Special",
+        "description": "Subtract 1d4 from attack rolls and saving throws",
+        "chance": 100
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Target",
+      "method": "Per Slot Level",
+      "description": "You can target one additional creature for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "bless",
+    "name": "Bless",
+    "level": 1,
+    "school": "Enchantment",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "is_concentration": true,
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a sprinkling of holy water"
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Minutes",
+      "concentration": true
+    },
+    "description": "You bless up to three creatures of your choice within range. Whenever a target makes an attack roll or a saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw.",
+    "condition_instances": [
+      {
+        "condition": "Special",
+        "description": "Add 1d4 to attack rolls and saving throws",
+        "chance": 100
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Target",
+      "method": "Per Slot Level",
+      "description": "You can target one additional creature for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "burning-hands",
+    "name": "Burning Hands",
+    "level": 1,
+    "school": "Evocation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Self",
+      "aoe_shape": "Cone",
+      "aoe_size": 15
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "As you hold your hands with thumbs touching and fingers spread, a thin sheet of flames shoots forth from your outstretched fingertips. Each creature in a 15-foot cone must make a Dexterity saving throw. A creature takes 3d6 fire damage on a failed save, or half as much damage on a successful one. The fire ignites any flammable objects in the area that aren't being worn or carried.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Fire",
+        "dice_count": 3,
+        "dice_value": 6,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 6
+    }
+  },
+  {
+    "slug": "catapult",
+    "name": "Catapult",
+    "level": 1,
+    "school": "Transmutation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": false,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 60
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "Choose one object weighing 1 to 5 pounds within range that isn't being worn or carried. The object flies in a straight line up to 90 feet in a direction you choose before falling to the ground, stopping early if it impacts against a solid surface. If the object would strike a creature, that creature must make a Dexterity saving throw. On a failed save, the object strikes the target and stops moving. When the object strikes something, the object and what it strikes each take 3d8 bludgeoning damage.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Bludgeoning",
+        "dice_count": 3,
+        "dice_value": 8,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 8
+    }
+  },
+  {
+    "slug": "cause-fear",
+    "name": "Cause Fear",
+    "level": 1,
+    "school": "Necromancy",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "is_concentration": true,
+      "components": {
+        "verbal": true,
+        "somatic": false,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 60
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Minutes",
+      "concentration": true
+    },
+    "description": "You awaken the sense of mortality in one creature you can see within range. A construct or an undead is immune to this effect. The target must succeed on a Wisdom saving throw or become frightened of you until the spell ends. The frightened target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+    "condition_instances": [
+      {
+        "condition": "Frightened",
+        "chance": 100
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Target",
+      "method": "Per Slot Level",
+      "description": "You can target one additional creature for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "chaos-bolt",
+    "name": "Chaos Bolt",
+    "level": 1,
+    "school": "Evocation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 120
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You hurl an undulating, warbling mass of chaotic energy at one creature in range. Make a ranged spell attack against the target. On a hit, the target takes 2d8 + 1d6 damage. Choose one of the d8s. The number rolled on that die determines the attack's damage type, as shown below. If you roll the same number on both d8s, the chaotic energy leaps from the target to a different creature of your choice within 30 feet of it. Make a new attack roll against the new target, and make a new damage roll, which could cause the chaotic energy to leap again.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Acid",
+        "dice_count": 2,
+        "dice_value": 8,
+        "timing": "Instant"
+      },
+      {
+        "effect_type": "Damage",
+        "damage_type": "Force",
+        "dice_count": 1,
+        "dice_value": 6,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 6,
+      "description": "Each slot level above 1st increases the damage by 1d6."
+    }
+  },
+  {
+    "slug": "charm-person",
+    "name": "Charm Person",
+    "level": 1,
+    "school": "Enchantment",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Hours"
+    },
+    "description": "You attempt to charm a humanoid you can see within range. It must make a Wisdom saving throw, and does so with advantage if you or your companions are fighting it. If it fails the saving throw, it is charmed by you until the spell ends or until you or your companions do anything harmful to it. The charmed creature regards you as a friendly acquaintance. When the spell ends, the creature knows it was charmed by you.",
+    "condition_instances": [
+      {
+        "condition": "Charmed",
+        "chance": 100
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Target",
+      "method": "Per Slot Level",
+      "description": "You can target one additional creature for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "chromatic-orb",
+    "name": "Chromatic Orb",
+    "level": 1,
+    "school": "Evocation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a diamond worth at least 50 gp"
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 90
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You hurl a 4-inch-diameter sphere of energy at a creature that you can see within range. You choose acid, cold, fire, lightning, poison, or thunder for the type of orb you create, and then make a ranged spell attack against the target. If the attack hits, the creature takes 3d8 damage of the type you chose.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Acid",
+        "dice_count": 3,
+        "dice_value": 8,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 8
+    }
+  },
+  {
+    "slug": "color-spray",
+    "name": "Color Spray",
+    "level": 1,
+    "school": "Illusion",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a pinch of powder or sand that is colored red, yellow, and blue"
+      }
+    },
+    "range_config": {
+      "type": "Self",
+      "aoe_shape": "Cone",
+      "aoe_size": 15
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Rounds"
+    },
+    "description": "A dazzling array of flashing, colored light springs from your hand. Roll 6d10; the total is how many hit points of creatures this spell can effect. Creatures in a 15-foot cone originating from you are affected in ascending order of their current hit points (ignoring unconscious creatures and creatures that can't see).",
+    "condition_instances": [
+      {
+        "condition": "Blinded",
+        "chance": 100
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 2,
+      "dice_value": 10,
+      "description": "Roll an additional 2d10 for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "command",
+    "name": "Command",
+    "level": 1,
+    "school": "Enchantment",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": false,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 60
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Rounds"
+    },
+    "description": "You speak a one-word command to a creature you can see within range. The target must succeed on a Wisdom saving throw or follow the command on its next turn. The spell has no effect if the target is undead, if it doesn't understand your language, or if your command is directly harmful to it.",
+    "condition_instances": [
+      {
+        "condition": "Special",
+        "description": "Follows command on next turn",
+        "chance": 100
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Target",
+      "method": "Per Slot Level",
+      "description": "You can affect one additional creature for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "compelled-duel",
+    "name": "Compelled Duel",
+    "level": 1,
+    "school": "Enchantment",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Bonus Action",
+      "is_concentration": true,
+      "components": {
+        "verbal": true,
+        "somatic": false,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Minutes",
+      "concentration": true
+    },
+    "description": "You attempt to compel a creature into a duel. One creature that you can see within range must make a Wisdom saving throw. On a failed save, the creature is drawn to you, compelled by your divine demand. For the duration, it has disadvantage on attack rolls against creatures other than you, and must make a Wisdom saving throw each time it attempts to move to a space that is more than 30 feet away from you; if it succeeds on this save, this spell doesn't restrict the target's movement for that turn.",
+    "condition_instances": [
+      {
+        "condition": "Special",
+        "description": "Disadvantage on attacks vs others, movement restriction",
+        "chance": 100
+      }
+    ]
+  },
+  {
+    "slug": "comprehend-languages",
+    "name": "Comprehend Languages",
+    "level": 1,
+    "school": "Divination",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "is_ritual": true,
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a pinch of soot and salt"
+      }
+    },
+    "range_config": {
+      "type": "Self"
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Hours"
+    },
+    "description": "For the duration, you understand the literal meaning of any spoken language that you hear. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text."
+  },
+  {
+    "slug": "create-or-destroy-water",
+    "name": "Create or Destroy Water",
+    "level": 1,
+    "school": "Transmutation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": true,
+        "material_description": "a drop of water if creating water or a few grains of sand if destroying it"
+      }
+    },
+    "range_config": {
+      "type": "Ranged (Feet)",
+      "distance": 30
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "You either create or destroy water. Create Water: You create up to 10 gallons of clean water within range in an open container. Destroy Water: You destroy up to 10 gallons of water in an open container within range.",
+    "scaling_config": {
+      "scales": true,
+      "type": "Target",
+      "method": "Per Slot Level",
+      "description": "You create or destroy 10 additional gallons of water, or the size of the cube increases by 5 feet, for each slot level above 1st."
+    }
+  },
+  {
+    "slug": "cure-wounds",
+    "name": "Cure Wounds",
+    "level": 1,
+    "school": "Evocation",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Touch"
+    },
+    "duration_config": {
+      "type": "Instantaneous"
+    },
+    "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
+    "damage_instances": [
+      {
+        "effect_type": "Healing",
+        "damage_type": "Radiant",
+        "dice_count": 1,
+        "dice_value": 8,
+        "timing": "Instant"
+      }
+    ],
+    "scaling_config": {
+      "scales": true,
+      "type": "Dice",
+      "method": "Per Slot Level",
+      "dice_count": 1,
+      "dice_value": 8
+    }
+  },
+  {
+    "slug": "detect-magic",
+    "name": "Detect Magic",
+    "level": 1,
+    "school": "Divination",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "is_ritual": true,
+      "is_concentration": true,
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Self",
+      "aoe_shape": "Sphere",
+      "aoe_size": 30
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 10,
+      "unit": "Minutes",
+      "concentration": true
+    },
+    "description": "For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any."
+  },
+  {
+    "slug": "disguise-self",
+    "name": "Disguise Self",
+    "level": 1,
+    "school": "Illusion",
+    "casting_config": {
+      "time_value": 1,
+      "time_unit": "Action",
+      "components": {
+        "verbal": true,
+        "somatic": true,
+        "material": false
+      }
+    },
+    "range_config": {
+      "type": "Self"
+    },
+    "duration_config": {
+      "type": "Time-Limited",
+      "value": 1,
+      "unit": "Hours"
+    },
+    "description": "You make yourself--including your clothing, armor, weapons, and other belongings on your person--look different until the spell ends or until you use your action to dismiss it. You can seem 1 foot shorter or taller and can appear thin, fat, or in between. You can't change your body type, so you must adopt a form that has the same basic arrangement of limbs."
+  }
+]

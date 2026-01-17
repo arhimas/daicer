@@ -5,6 +5,9 @@ import { exploreCommand } from './commands/explore';
 import { statusCommand } from './commands/status';
 import { schemaCommand } from './commands/schema';
 import { knowledgeCommand } from './commands/knowledge';
+import { genesisCommand, runGenesis } from './commands/genesis';
+import { compileCommand, runCompile } from './commands/compile';
+import { embedCommand, runEmbed } from './commands/embed';
 
 const program = new Command();
 
@@ -15,6 +18,9 @@ program.addCommand(exploreCommand);
 program.addCommand(statusCommand);
 program.addCommand(schemaCommand);
 program.addCommand(knowledgeCommand);
+program.addCommand(genesisCommand);
+program.addCommand(compileCommand);
+program.addCommand(embedCommand);
 
 // Parse Arguments
 // Global Pre-Action: Banner logic
@@ -48,7 +54,7 @@ if (!process.argv.slice(2).length) {
     const { default: boxen } = await import('boxen');
     const { default: gradient } = await import('gradient-string');
     const { default: chalk } = await import('chalk');
-    const { select } = await import('@inquirer/prompts');
+    const { select, input } = await import('@inquirer/prompts');
 
     // Import command runners
     const { runExplore } = await import('./commands/explore');
@@ -90,9 +96,14 @@ if (!process.argv.slice(2).length) {
           { name: '🧠 Knowledge Base (RAG)', value: 'knowledge' },
           { name: '🔮 Schema Inspector', value: 'schema' },
           { name: '📡 Backend Status', value: 'status' },
+          { name: '--------------------------------', value: 'sep1', disabled: true },
+          { name: '⚛️  Genesis (Seed Data)', value: 'genesis' },
+          { name: '🛠️  Compile Entities', value: 'compile' },
+          { name: '🧠 Re-Embed All', value: 'embed' },
+          { name: '--------------------------------', value: 'sep2', disabled: true },
           { name: '🚪 Exit', value: 'exit' },
         ],
-        pageSize: 10,
+        pageSize: 15,
       });
 
       try {
@@ -104,7 +115,6 @@ if (!process.argv.slice(2).length) {
             throw e;
           });
         } else if (action === 'knowledge') {
-          // Default to interactive search if no args
           await runKnowledge({}).catch((e) => {
             throw e;
           });
@@ -114,6 +124,24 @@ if (!process.argv.slice(2).length) {
           });
         } else if (action === 'status') {
           await runStatus({});
+        } else if (action === 'genesis') {
+          const type = await select({
+            message: 'Seed Type:',
+            choices: ['atoms', 'molecules', 'compounds', 'blueprints', 'all'].map(t => ({ value: t })),
+          });
+          const queue = await select({
+            message: 'Run via Queue?',
+            choices: [{ name: 'Yes', value: true }, { name: 'No (Foreground)', value: false }],
+          });
+          await runGenesis(type, { queue });
+        } else if (action === 'compile') {
+          await runCompile({ phase: 'Atom', queue: false }); // Shortcut for menu
+        } else if (action === 'embed') {
+           const queue = await select({
+            message: 'Run via Queue?',
+            choices: [{ name: 'Yes', value: true }, { name: 'No (Foreground)', value: false }],
+          });
+           await runEmbed('all', { queue });
         }
       } catch {
         // Catch command errors to prevent crashing the menu

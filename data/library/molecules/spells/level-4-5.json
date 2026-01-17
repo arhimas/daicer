@@ -1,0 +1,107 @@
+[
+  {
+    "slug": "dimension-door",
+    "name": "Dimension Door",
+    "level": 4,
+    "school": "Conjuration",
+    "casting_time": "1 Action",
+    "components": "V",
+    "duration": "Instantaneous",
+    "range": "500 feet",
+    "description": "You teleport yourself from your current location to any other spot within range. You arrive at exactly the spot desired. It can be a place you can see, one you can visualize, or one you can describe by stating distance and direction, such as '200 feet straight downward' or 'upward to the northwest at a 45-degree angle, 300 feet.'"
+  },
+  {
+    "slug": "greater-invisibility",
+    "name": "Greater Invisibility",
+    "level": 4,
+    "school": "Illusion",
+    "casting_time": "1 Action",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "range": "Touch",
+    "description": "You or a creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person."
+  },
+  {
+    "slug": "stoneskin",
+    "name": "Stoneskin",
+    "level": 4,
+    "school": "Abjuration",
+    "casting_time": "1 Action",
+    "components": "V, S, M (diamond dust worth 100 gp, which the spell consumes)",
+    "duration": "Concentration, up to 1 hour",
+    "range": "Touch",
+    "description": "This spell turns the flesh of a willing creature you touch as hard as stone. Until the spell ends, the target has resistance to nonmagical bludgeoning, piercing, and slashing damage."
+  },
+  {
+    "slug": "polymorph",
+    "name": "Polymorph",
+    "level": 4,
+    "school": "Transmutation",
+    "casting_time": "1 Action",
+    "components": "V, S, M (a caterpillar cocoon)",
+    "duration": "Concentration, up to 1 hour",
+    "range": "60 feet",
+    "description": "This spell transforms a creature that you can see within range into a new form. An unwilling creature must make a Wisdom saving throw to avoid the effect. The spell has no effect on a shapechanger or a creature with 0 hit points."
+  },
+  {
+    "slug": "cone-of-cold",
+    "name": "Cone of Cold",
+    "level": 5,
+    "school": "Evocation",
+    "casting_time": "1 Action",
+    "components": "V, S, M (a small crystal or glass cone)",
+    "duration": "Instantaneous",
+    "range": "Self (60-foot cone)",
+    "description": "A blast of cold air erupts from your hands. Each creature in a 60-foot cone must make a Constitution saving throw. A creature takes 8d8 cold damage on a failed save, or half as much damage on a successful one.",
+    "damage_instances": [
+      {
+        "effect_type": "Damage",
+        "damage_type": "Cold",
+        "dice_count": 8,
+        "dice_value": 8,
+        "timing": "Instant"
+      }
+    ]
+  },
+  {
+    "slug": "greater-restoration",
+    "name": "Greater Restoration",
+    "level": 5,
+    "school": "Abjuration",
+    "casting_time": "1 Action",
+    "components": "V, S, M (diamond dust worth at least 100 gp, which the spell consumes)",
+    "duration": "Instantaneous",
+    "range": "Touch",
+    "description": "You imbue a creature you touch with positive energy to undo a debilitating effect. You can reduce the target's exhaustion level by one, or end one of the following effects on the target: One effect that charmed or petrified the target, one curse, including the target's attunement to a cursed magic item, any reduction to one of the target's ability scores, or one effect reducing the target's hit point maximum."
+  },
+  {
+    "slug": "wall-of-force",
+    "name": "Wall of Force",
+    "level": 5,
+    "school": "Evocation",
+    "casting_time": "1 Action",
+    "components": "V, S, M (a pinch of powder made by crushing a clear gemstone)",
+    "duration": "Concentration, up to 10 minutes",
+    "range": "120 feet",
+    "description": "An invisible wall of force springs into existence at a point you choose within range. The wall appears in any orientation you choose, as a horizontal or vertical barrier or as an angle. It can be free floating or resting on a solid surface."
+  },
+  {
+    "slug": "mass-cure-wounds",
+    "name": "Mass Cure Wounds",
+    "level": 5,
+    "school": "Evocation",
+    "casting_time": "1 Action",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "range": "60 feet",
+    "description": "A wave of healing energy washes out from a point of your choice within range. Choose up to six creatures in a 30-foot-radius sphere centered on that point. Each target regains hit points equal to 3d8 + your spellcasting ability modifier.",
+    "damage_instances": [
+      {
+        "effect_type": "Healing",
+        "dice_count": 3,
+        "dice_value": 8,
+        "timing": "Instant"
+      }
+    ]
+  }
+]

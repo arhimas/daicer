@@ -1,0 +1,567 @@
+[
+  {
+    "slug": "aboleth",
+    "name": "Aboleth",
+    "type": "Aberration",
+    "alignment": "Lawful Evil",
+    "size": "Large",
+    "level": 18,
+    "ac": 17,
+    "hp": 135,
+    "hit_dice": "18d10 + 36",
+    "speed": "10 ft., swim 40 ft.",
+    "challenge_rating": 10,
+    "xp": 5900,
+    "stats": {
+      "str": 21, "dex": 9, "con": 15, "int": 18, "wis": 15, "cha": 18
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Tentacle",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d6 + 5" } ],
+         "save": { "dc": 14, "stat": "con" }
+      },
+      {
+        "name": "Tail",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "3d6 + 5" } ]
+      }
+    ]
+  },
+  {
+    "slug": "bone-devil",
+    "name": "Bone Devil",
+    "type": "Fiend",
+    "alignment": "Lawful Evil",
+    "size": "Large",
+    "level": 15,
+    "ac": 19,
+    "hp": 142,
+    "hit_dice": "15d10 + 60",
+    "speed": "40 ft., fly 40 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 21, "dex": 16, "con": 18, "int": 13, "wis": 14, "cha": 16
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "1d8 + 5" } ]
+      },
+      {
+        "name": "Sting",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d8 + 5" }, { "type": "poison", "amount": "5d6" } ],
+         "save": { "dc": 14, "stat": "con" }
+      }
+    ]
+  },
+  {
+    "slug": "clay-golem",
+    "name": "Clay Golem",
+    "type": "Construct",
+    "alignment": "Unaligned",
+    "size": "Large",
+    "level": 14,
+    "ac": 14,
+    "hp": 133,
+    "hit_dice": "14d10 + 56",
+    "speed": "20 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 20, "dex": 9, "con": 18, "int": 3, "wis": 10, "cha": 1
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Slam",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d10 + 5" } ],
+         "save": { "dc": 15, "stat": "con" }
+      }
+    ]
+  },
+  {
+    "slug": "cloud-giant",
+    "name": "Cloud Giant",
+    "type": "Giant",
+    "alignment": "Neutral Good or Neutral Evil",
+    "size": "Huge",
+    "level": 16,
+    "ac": 14,
+    "hp": 200,
+    "hit_dice": "16d12 + 96",
+    "speed": "40 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 27, "dex": 10, "con": 22, "int": 12, "wis": 16, "cha": 16
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Morningstar",
+        "type": "Melee Weapon Attack",
+        "toHit": 12,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "3d8 + 8" } ]
+      },
+       {
+        "name": "Rock",
+        "type": "Ranged Weapon Attack",
+        "toHit": 12,
+        "range_config": { "type": "Ranged (Feet)", "distance": 60 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "4d10 + 8" } ]
+      }
+    ]
+  },
+  {
+    "slug": "fire-giant",
+    "name": "Fire Giant",
+    "type": "Giant",
+    "alignment": "Lawful Evil",
+    "size": "Huge",
+    "level": 13,
+    "ac": 18,
+    "hp": 162,
+    "hit_dice": "13d12 + 78",
+    "speed": "30 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 25, "dex": 9, "con": 23, "int": 10, "wis": 14, "cha": 13
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Greatsword",
+        "type": "Melee Weapon Attack",
+        "toHit": 11,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "slashing", "amount": "6d6 + 7" } ]
+      },
+       {
+        "name": "Rock",
+        "type": "Ranged Weapon Attack",
+        "toHit": 11,
+        "range_config": { "type": "Ranged (Feet)", "distance": 60 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "4d10 + 7" } ]
+      }
+    ],
+     "inventory": [
+        { "item": "greatsword", "quantity": 1, "isEquipped": true },
+        { "item": "plate-armor", "quantity": 1, "isEquipped": true }
+    ]
+  },
+  {
+    "slug": "glabrezu",
+    "name": "Glabrezu",
+    "type": "Fiend",
+    "alignment": "Chaotic Evil",
+    "size": "Large",
+    "level": 15,
+    "ac": 17,
+    "hp": 157,
+    "hit_dice": "15d10 + 75",
+    "speed": "40 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 24, "dex": 15, "con": 21, "int": 19, "wis": 17, "cha": 16
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Pincer",
+        "type": "Melee Weapon Attack",
+        "toHit": 11,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d10 + 7" } ],
+         "condition_instances": [ { "id": "grappled", "dc": 19, "save_type": "str" } ]
+      },
+      {
+        "name": "Fist",
+        "type": "Melee Weapon Attack",
+        "toHit": 11,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d8 + 2" } ]
+      }
+    ]
+  },
+  {
+    "slug": "gray-slaad",
+    "name": "Gray Slaad",
+    "type": "Aberration",
+    "alignment": "Chaotic Neutral",
+    "size": "Medium",
+    "level": 17,
+    "ac": 18,
+    "hp": 127,
+    "hit_dice": "17d8 + 51",
+    "speed": "30 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 17, "dex": 17, "con": 16, "int": 13, "wis": 14, "cha": 14
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Greatsword",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "4d6 + 3" } ]
+      },
+       {
+        "name": "Fireball",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Ranged (Feet)", "distance": 150, "aoe_shape": "Sphere", "aoe_size": 20 },
+        "damage_instances": [ { "type": "fire", "amount": "8d6" } ],
+        "save": { "dc": 14, "stat": "dex", "success_type": "half" }
+      }
+    ],
+     "inventory": [
+        { "item": "greatsword", "quantity": 1, "isEquipped": true }
+    ]
+  },
+  {
+    "slug": "treant",
+    "name": "Treant",
+    "type": "Plant",
+    "alignment": "Chaotic Good",
+    "size": "Huge",
+    "level": 12,
+    "ac": 16,
+    "hp": 138,
+    "hit_dice": "12d12 + 60",
+    "speed": "30 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 23, "dex": 8, "con": 21, "int": 12, "wis": 16, "cha": 12
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Slam",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "3d6 + 6" } ]
+      },
+       {
+        "name": "Rock",
+        "type": "Ranged Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Ranged (Feet)", "distance": 60 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "4d10 + 6" } ]
+      }
+    ]
+  },
+   {
+    "slug": "young-blue-dragon",
+    "name": "Young Blue Dragon",
+    "type": "Dragon",
+    "alignment": "Lawful Evil",
+    "size": "Large",
+    "level": 16,
+    "ac": 18,
+    "hp": 152,
+    "hit_dice": "16d10 + 64",
+    "speed": "40 ft., fly 80 ft., burrow 20 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 21, "dex": 10, "con": 19, "int": 14, "wis": 13, "cha": 17
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d10 + 5" }, { "type": "lightning", "amount": "1d10" } ]
+      },
+       {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 9,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 5" } ]
+      },
+       {
+        "name": "Lightning Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Ranged (Feet)", "distance": 60, "aoe_shape": "Line", "aoe_size": 60 },
+         "damage_instances": [ { "type": "lightning", "amount": "10d10" } ],
+         "save": { "dc": 16, "stat": "dex", "success_type": "half" }
+      }
+    ]
+  },
+  {
+    "slug": "young-green-dragon",
+    "name": "Young Green Dragon",
+    "type": "Dragon",
+    "alignment": "Lawful Evil",
+    "size": "Large",
+    "level": 16,
+    "ac": 18,
+    "hp": 136,
+    "hit_dice": "16d10 + 48",
+    "speed": "40 ft., fly 80 ft., swim 40 ft.",
+    "challenge_rating": 8,
+    "xp": 3900,
+    "stats": {
+      "str": 19, "dex": 12, "con": 17, "int": 16, "wis": 13, "cha": 15
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d10 + 4" }, { "type": "poison", "amount": "2d6" } ]
+      },
+       {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 4" } ]
+      },
+       {
+        "name": "Poison Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 30, "aoe_shape": "Cone", "aoe_size": 30 },
+         "damage_instances": [ { "type": "poison", "amount": "12d6" } ],
+         "save": { "dc": 14, "stat": "con", "success_type": "half" }
+      }
+    ]
+  },
+  {
+    "slug": "young-gold-dragon",
+    "name": "Young Gold Dragon",
+    "type": "Dragon",
+    "alignment": "Lawful Good",
+    "size": "Large",
+    "level": 17,
+    "ac": 18,
+    "hp": 178,
+    "hit_dice": "17d10 + 85",
+    "speed": "40 ft., fly 80 ft., swim 40 ft.",
+    "challenge_rating": 10,
+    "xp": 5900,
+    "stats": {
+      "str": 23, "dex": 14, "con": 21, "int": 16, "wis": 15, "cha": 20
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d10 + 6" }, { "type": "fire", "amount": "1d10" } ]
+      },
+       {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 6" } ]
+      },
+       {
+        "name": "Fire Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 30, "aoe_shape": "Cone", "aoe_size": 30 },
+         "damage_instances": [ { "type": "fire", "amount": "10d10" } ],
+         "save": { "dc": 17, "stat": "dex", "success_type": "half" }
+      }
+    ]
+  },
+  {
+    "slug": "young-red-dragon",
+    "name": "Young Red Dragon",
+    "type": "Dragon",
+    "alignment": "Chaotic Evil",
+    "size": "Large",
+    "level": 17,
+    "ac": 18,
+    "hp": 178,
+    "hit_dice": "17d10 + 85",
+    "speed": "40 ft., fly 80 ft., climb 40 ft.",
+    "challenge_rating": 10,
+    "xp": 5900,
+    "stats": {
+      "str": 23, "dex": 10, "con": 21, "int": 14, "wis": 11, "cha": 19
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d10 + 6" }, { "type": "fire", "amount": "1d6" } ]
+      },
+       {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 6" } ]
+      },
+       {
+        "name": "Fire Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 30, "aoe_shape": "Cone", "aoe_size": 30 },
+         "damage_instances": [ { "type": "fire", "amount": "16d6" } ],
+         "save": { "dc": 17, "stat": "dex", "success_type": "half" }
+      }
+    ]
+  },
+  {
+    "slug": "young-silver-dragon",
+    "name": "Young Silver Dragon",
+    "type": "Dragon",
+    "alignment": "Lawful Good",
+    "size": "Large",
+    "level": 16,
+    "ac": 18,
+    "hp": 168,
+    "hit_dice": "16d10 + 80",
+    "speed": "40 ft., fly 80 ft.",
+    "challenge_rating": 9,
+    "xp": 5000,
+    "stats": {
+      "str": 23, "dex": 10, "con": 21, "int": 14, "wis": 11, "cha": 19
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d10 + 6" }, { "type": "cold", "amount": "1d8" } ]
+      },
+       {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 10,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 6" } ]
+      },
+       {
+        "name": "Cold Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 30, "aoe_shape": "Cone", "aoe_size": 30 },
+         "damage_instances": [ { "type": "cold", "amount": "12d8" } ],
+         "save": { "dc": 17, "stat": "con", "success_type": "half" }
+      }
+    ]
+  }
+]

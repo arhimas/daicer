@@ -9,6 +9,8 @@ export enum QueueName {
   GENERATE_IMAGE = 'generate-image',
   GENERATE_TEXT = 'generate-text',
   MAINTENANCE = 'maintenance',
+  GENESIS = 'genesis',
+  COMPILE = 'compile',
 }
 
 /**
@@ -38,6 +40,15 @@ export const JobSchemas = {
     task: z.string(),
     target: z.string().optional(),
   }),
+  [QueueName.GENESIS]: z.object({
+    type: z.enum(['atoms', 'molecules', 'compounds', 'blueprints', 'all']),
+    clean: z.boolean().optional().default(false),
+  }),
+  [QueueName.COMPILE]: z.object({
+    phase: z.string().optional(),
+    targetUid: z.string().optional(),
+    targetId: z.string().optional(),
+  }),
 };
 
 /**
@@ -57,4 +68,6 @@ export interface JobResults {
   [QueueName.GENERATE_IMAGE]: { success: boolean; assetId?: number; error?: string };
   [QueueName.GENERATE_TEXT]: { success: boolean; text?: string; error?: string };
   [QueueName.MAINTENANCE]: { processed: number };
+  [QueueName.GENESIS]: { success: boolean; entriesProcessed: number; error?: string };
+  [QueueName.COMPILE]: { success: boolean; compiledCount: number; error?: string };
 }

@@ -1,0 +1,733 @@
+[
+  {
+    "slug": "banshee",
+    "name": "Banshee",
+    "type": "Undead",
+    "alignment": "Chaotic Evil",
+    "size": "Medium",
+    "level": 11,
+    "ac": 12,
+    "hp": 58,
+    "hit_dice": "13d8",
+    "speed": "0 ft., fly 40 ft. (hover)",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 1, "dex": 14, "con": 10, "int": 12, "wis": 11, "cha": 17
+    },
+    "actions": [
+       {
+        "name": "Corrupting Touch",
+        "type": "Melee Spell Attack",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "necrotic", "amount": "3d6 + 3" } ]
+      },
+      {
+        "name": "Wail",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 30, "aoe_shape": "Sphere", "aoe_size": 30 },
+        "damage_instances": [ { "type": "enchanted", "amount": "0" } ],
+        "condition_instances": [ { "id": "unconscious", "dc": 13, "save_type": "con" } ]
+      }
+    ]
+  },
+  {
+    "slug": "chuul",
+    "name": "Chuul",
+    "type": "Aberration",
+    "alignment": "Chaotic Evil",
+    "size": "Large",
+    "level": 11,
+    "ac": 16,
+    "hp": 93,
+    "hit_dice": "11d10 + 33",
+    "speed": "30 ft., swim 30 ft.",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 19, "dex": 10, "con": 16, "int": 5, "wis": 11, "cha": 5
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Pincer",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d6 + 4" } ],
+        "condition_instances": [ { "id": "grappled", "dc": 14, "save_type": "str" } ]
+      },
+      {
+        "name": "Tentacles",
+        "type": "Melee Weapon Attack",
+        "toHit": 0,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "condition_instances": [ { "id": "paralyzed", "dc": 13, "save_type": "con" } ]
+      }
+    ]
+  },
+  {
+    "slug": "couatl",
+    "name": "Couatl",
+    "type": "Celestial",
+    "alignment": "Lawful Good",
+    "size": "Medium",
+    "level": 13,
+    "ac": 19,
+    "hp": 97,
+    "hit_dice": "13d8 + 39",
+    "speed": "30 ft., fly 90 ft.",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 16, "dex": 20, "con": 17, "int": 18, "wis": 20, "cha": 18
+    },
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 5" }, { "type": "poison", "amount": "2d6" } ],
+         "condition_instances": [ { "id": "unconscious", "dc": 13, "save_type": "con" } ]
+      },
+      {
+        "name": "Constrict",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d6 + 3" } ],
+         "condition_instances": [ { "id": "grappled", "dc": 15, "save_type": "str" } ]
+      }
+    ]
+  },
+  {
+    "slug": "elephant",
+    "name": "Elephant",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "size": "Huge",
+    "level": 8,
+    "ac": 12,
+    "hp": 76,
+    "hit_dice": "8d12 + 24",
+    "speed": "40 ft.",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 22, "dex": 9, "con": 17, "int": 3, "wis": 11, "cha": 6
+    },
+    "actions": [
+      {
+        "name": "Gore",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "3d8 + 6" } ]
+      },
+       {
+        "name": "Stomp",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "3d10 + 6" } ]
+      }
+    ]
+  },
+  {
+    "slug": "ghost",
+    "name": "Ghost",
+    "type": "Undead",
+    "alignment": "Any alignment",
+    "size": "Medium",
+    "level": 10,
+    "ac": 11,
+    "hp": 45,
+    "hit_dice": "10d8",
+    "speed": "0 ft., fly 40 ft. (hover)",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 7, "dex": 13, "con": 10, "int": 10, "wis": 12, "cha": 17
+    },
+    "actions": [
+      {
+        "name": "Withering Touch",
+        "type": "Melee Weapon Attack",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "necrotic", "amount": "4d6 + 3" } ]
+      },
+      {
+        "name": "Horrifying Visage",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 60, "aoe_shape": "Sphere", "aoe_size": 60 },
+         "condition_instances": [ { "id": "frightened", "dc": 13, "save_type": "wis" } ]
+      }
+    ]
+  },
+  {
+    "slug": "succubus-incubus",
+    "name": "Succubus / Incubus",
+    "type": "Fiend (Shapechanger)",
+    "alignment": "Neutral Evil",
+    "size": "Medium",
+    "level": 12,
+    "ac": 15,
+    "hp": 66,
+    "hit_dice": "12d8 + 12",
+    "speed": "30 ft., fly 60 ft.",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 8, "dex": 17, "con": 13, "int": 15, "wis": 12, "cha": 20
+    },
+    "actions": [
+       {
+        "name": "Claw",
+        "type": "Melee Weapon Attack",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "1d6 + 3" } ]
+      },
+      {
+        "name": "Charm",
+        "type": "Ranged Spell Attack",
+        "toHit": 0,
+        "range_config": { "type": "Sight", "distance": 30 },
+         "condition_instances": [ { "id": "charmed", "dc": 15, "save_type": "wis" } ]
+      },
+       {
+        "name": "Draining Kiss",
+        "type": "Melee Weapon Attack",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "psychic", "amount": "5d10 + 5" } ]
+      }
+    ]
+  },
+  {
+    "slug": "air-elemental",
+    "name": "Air Elemental",
+    "type": "Elemental",
+    "alignment": "Neutral",
+    "size": "Large",
+    "level": 12,
+    "ac": 15,
+    "hp": 90,
+    "hit_dice": "12d10 + 24",
+    "speed": "0 ft., fly 90 ft. (hover)",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 14, "dex": 20, "con": 14, "int": 6, "wis": 10, "cha": 6
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Slam",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d8 + 5" } ]
+      },
+      {
+        "name": "Whirlwind",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "3d8 + 2" } ],
+         "condition_instances": [ { "id": "prone", "dc": 13, "save_type": "str" } ]
+      }
+    ]
+  },
+   {
+    "slug": "earth-elemental",
+    "name": "Earth Elemental",
+    "type": "Elemental",
+    "alignment": "Neutral",
+    "size": "Large",
+    "level": 12,
+    "ac": 17,
+    "hp": 126,
+    "hit_dice": "12d10 + 60",
+    "speed": "30 ft., burrow 30 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 20, "dex": 8, "con": 20, "int": 5, "wis": 10, "cha": 5
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Slam",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d8 + 5" } ]
+      }
+    ]
+  },
+  {
+    "slug": "fire-elemental",
+    "name": "Fire Elemental",
+    "type": "Elemental",
+    "alignment": "Neutral",
+    "size": "Large",
+    "level": 12,
+    "ac": 13,
+    "hp": 102,
+    "hit_dice": "12d10 + 36",
+    "speed": "50 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 10, "dex": 17, "con": 16, "int": 6, "wis": 10, "cha": 7
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Touch",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "fire", "amount": "2d6 + 3" } ]
+      }
+    ]
+  },
+  {
+    "slug": "water-elemental",
+    "name": "Water Elemental",
+    "type": "Elemental",
+    "alignment": "Neutral",
+    "size": "Large",
+    "level": 12,
+    "ac": 14,
+    "hp": 114,
+    "hit_dice": "12d10 + 48",
+    "speed": "30 ft., swim 90 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 18, "dex": 14, "con": 18, "int": 5, "wis": 10, "cha": 8
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Slam",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d8 + 4" } ]
+      },
+       {
+        "name": "Whelm",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d8 + 4" } ],
+        "condition_instances": [ { "id": "grappled", "dc": 15, "save_type": "str" } ]
+      }
+    ]
+  },
+  {
+    "slug": "flesh-golem",
+    "name": "Flesh Golem",
+    "type": "Construct",
+    "alignment": "Neutral",
+    "size": "Medium",
+    "level": 11,
+    "ac": 9,
+    "hp": 93,
+    "hit_dice": "11d8 + 44",
+    "speed": "30 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 19, "dex": 9, "con": 18, "int": 6, "wis": 10, "cha": 5
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Slam",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d8 + 4" } ]
+      }
+    ]
+  },
+  {
+    "slug": "gorgon",
+    "name": "Gorgon",
+    "type": "Monstrosity",
+    "alignment": "Unaligned",
+    "size": "Large",
+    "level": 12,
+    "ac": 19,
+    "hp": 114,
+    "hit_dice": "12d10 + 48",
+    "speed": "40 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 20, "dex": 11, "con": 18, "int": 2, "wis": 12, "cha": 7
+    },
+    "actions": [
+       {
+        "name": "Gore",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d12 + 5" } ]
+      },
+      {
+        "name": "Hooves",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "2d10 + 5" } ]
+      },
+      {
+        "name": "Petrifying Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 30, "aoe_shape": "Cone", "aoe_size": 30 },
+         "condition_instances": [ { "id": "petrified", "dc": 13, "save_type": "con" } ]
+      }
+    ]
+  },
+   {
+    "slug": "hill-giant",
+    "name": "Hill Giant",
+    "type": "Giant",
+    "alignment": "Chaotic Evil",
+    "size": "Huge",
+    "level": 10,
+    "ac": 13,
+    "hp": 105,
+    "hit_dice": "10d12 + 40",
+    "speed": "40 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 21, "dex": 8, "con": 19, "int": 5, "wis": 9, "cha": 6
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Greatclub",
+        "type": "Melee Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "3d8 + 5" } ]
+      },
+      {
+        "name": "Rock",
+        "type": "Ranged Weapon Attack",
+        "toHit": 8,
+        "range_config": { "type": "Ranged (Feet)", "distance": 60 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "3d10 + 5" } ]
+      }
+    ]
+  },
+  {
+    "slug": "night-hag",
+    "name": "Night Hag",
+    "type": "Fiend",
+    "alignment": "Neutral Evil",
+    "size": "Medium",
+    "level": 15,
+    "ac": 17,
+    "hp": 112,
+    "hit_dice": "15d8 + 45",
+    "speed": "30 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 18, "dex": 15, "con": 16, "int": 16, "wis": 14, "cha": 16
+    },
+    "actions": [
+      {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d8 + 4" } ]
+      },
+      {
+        "name": "Sleep Touch",
+        "type": "Melee Spell Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+         "condition_instances": [ { "id": "unconscious", "dc": 13, "save_type": "con" } ]
+      }
+    ]
+  },
+  {
+    "slug": "otyugh",
+    "name": "Otyugh",
+    "type": "Aberration",
+    "alignment": "Neutral",
+    "size": "Large",
+    "level": 12,
+    "ac": 14,
+    "hp": 114,
+    "hit_dice": "12d10 + 48",
+    "speed": "30 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 16, "dex": 11, "con": 19, "int": 6, "wis": 13, "cha": 6
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d8 + 3" } ]
+      },
+      {
+        "name": "Tentacle",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 10 },
+        "damage_instances": [ { "type": "bludgeoning", "amount": "1d8 + 3" } ],
+         "condition_instances": [ { "id": "grappled", "dc": 14, "save_type": "str" } ]
+      }
+    ]
+  },
+   {
+    "slug": "red-dragon-wyrmling",
+    "name": "Red Dragon Wyrmling",
+    "type": "Dragon",
+    "alignment": "Chaotic Evil",
+    "size": "Medium",
+    "level": 10,
+    "ac": 17,
+    "hp": 75,
+    "hit_dice": "10d8 + 30",
+    "speed": "30 ft., fly 60 ft., climb 30 ft.",
+    "challenge_rating": 4,
+    "xp": 1100,
+    "stats": {
+      "str": 19, "dex": 10, "con": 17, "int": 12, "wis": 11, "cha": 15
+    },
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "1d10 + 4" }, { "type": "fire", "amount": "1d6" } ]
+      },
+      {
+        "name": "Fire Breath",
+        "type": "Area Effect",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 15, "aoe_shape": "Cone", "aoe_size": 15 },
+         "damage_instances": [ { "type": "fire", "amount": "7d6" } ],
+         "save": { "dc": 13, "stat": "dex", "success_type": "half" }
+      }
+    ]
+  },
+  {
+    "slug": "troll",
+    "name": "Troll",
+    "type": "Giant",
+    "alignment": "Chaotic Evil",
+    "size": "Large",
+    "level": 8,
+    "ac": 15,
+    "hp": 84,
+    "hit_dice": "8d10 + 40",
+    "speed": "30 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 18, "dex": 13, "con": 20, "int": 7, "wis": 9, "cha": 7
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 4" } ]
+      },
+      {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 4" } ]
+      }
+    ]
+  },
+  {
+    "slug": "werebear",
+    "name": "Werebear",
+    "type": "Humanoid (Shapechanger)",
+    "alignment": "Neutral Good",
+    "size": "Medium",
+    "level": 18,
+    "ac": 10,
+    "hp": 135,
+    "hit_dice": "18d8 + 54",
+    "speed": "30 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 19, "dex": 10, "con": 17, "int": 11, "wis": 12, "cha": 12
+    },
+    "actions": [
+       {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "2d10 + 4" } ]
+      },
+      {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "2d8 + 4" } ]
+      }
+    ]
+  },
+   {
+    "slug": "wraith",
+    "name": "Wraith",
+    "type": "Undead",
+    "alignment": "Neutral Evil",
+    "size": "Medium",
+    "level": 9,
+    "ac": 13,
+    "hp": 67,
+    "hit_dice": "9d8 + 27",
+    "speed": "0 ft., fly 60 ft. (hover)",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 6, "dex": 16, "con": 16, "int": 12, "wis": 14, "cha": 15
+    },
+    "actions": [
+      {
+        "name": "Life Drain",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "necrotic", "amount": "4d8 + 3" } ]
+      }
+    ]
+  },
+  {
+    "slug": "xorn",
+    "name": "Xorn",
+    "type": "Elemental",
+    "alignment": "Neutral",
+    "size": "Medium",
+    "level": 7,
+    "ac": 19,
+    "hp": 73,
+    "hit_dice": "7d8 + 42",
+    "speed": "20 ft., burrow 20 ft.",
+    "challenge_rating": 5,
+    "xp": 1800,
+    "stats": {
+      "str": 17, "dex": 10, "con": 22, "int": 11, "wis": 10, "cha": 11
+    },
+    "actions": [
+      {
+        "name": "Multiattack",
+        "type": "Multiattack",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 0 },
+        "damage_instances": []
+      },
+      {
+        "name": "Bite",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "piercing", "amount": "4d6 + 3" } ]
+      },
+      {
+        "name": "Claws",
+        "type": "Melee Weapon Attack",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [ { "type": "slashing", "amount": "1d6 + 3" } ]
+      }
+    ]
+  }
+]

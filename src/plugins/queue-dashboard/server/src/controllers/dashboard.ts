@@ -2,6 +2,18 @@ import { Context } from 'koa';
 import { Queue } from 'bullmq';
 import { QueueName } from '../constants';
 
+interface JobSerialized {
+    id: string | undefined;
+    name: string;
+    data: unknown;
+    timestamp: number;
+    failedReason: string;
+    stacktrace: string[] | null;
+    progress: number | object;
+    finishedOn: number | null;
+    processedOn: number | null;
+}
+
 export interface DashboardContext extends Context {
   body: {
     queues:
@@ -12,9 +24,9 @@ export interface DashboardContext extends Context {
           };
           isPaused: boolean;
           jobs?: {
-            active: any[];
-            waiting: any[];
-            failed: any[];
+            active: JobSerialized[];
+            waiting: JobSerialized[];
+            failed: JobSerialized[];
           };
         }>
       | [];
@@ -59,7 +71,8 @@ export default {
                 q.getFailed(0, 4)
             ]);
 
-            const mapJob = (j: any) => ({
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const mapJob = (j: any): JobSerialized => ({
                 id: j.id,
                 name: j.name,
                 data: j.data,
@@ -81,7 +94,7 @@ export default {
                 failed: failed.map(mapJob)
               }
             };
-          } catch (qErr) {
+          } catch (_qErr) {
             return {
               name: q.name,
               counts: { active: 0, completed: 0, failed: 0, waiting: 0, delayed: 0 },
@@ -94,8 +107,9 @@ export default {
       );
 
       ctx.body = { queues: stats };
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
+    } catch (err: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const message = (err as any).message || String(err);
       ctx.body = { queues: [], error: message };
     }
   },
@@ -148,6 +162,7 @@ export default {
         throw new Error(`Queue ${queueName} not found`);
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await queue.clean(0, 1000, type as any);
       ctx.body = { queues: [], message: `Cleaned ${type} jobs from ${queueName}` };
     } catch (err) {

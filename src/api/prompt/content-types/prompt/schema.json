@@ -33,6 +33,10 @@
       "type": "enumeration",
       "enum": ["system", "user", "gameplay"],
       "default": "system"
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
     }
   }
 }

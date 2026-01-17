@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "fireball",
+    "name": "Fireball",
+    "level": 3,
+    "school": "evocation",
+    "description": "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "150 feet",
+      "components": "V, S, M (a tiny ball of bat guano and sulfur)",
+      "duration": "Instantaneous",
+      "concentration": false
+    }
+  },
+  {
+    "slug": "fly",
+    "name": "Fly",
+    "level": 3,
+    "school": "transmutation",
+    "description": "You touch a willing creature. The target gains a flying speed of 60 feet for the duration. When the spell ends, the target falls if it is still aloft, unless it can stop the fall.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "Touch",
+      "components": "V, S, M (a wing feather from any bird)",
+      "duration": "10 minutes",
+      "concentration": true
+    }
+  },
+  {
+    "slug": "counterspell",
+    "name": "Counterspell",
+    "level": 3,
+    "school": "abjuration",
+    "description": "You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails and has no effect. If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a success, the creature's spell fails and has no effect.",
+    "spell_data": {
+      "casting_time": "1 reaction",
+      "range": "60 feet",
+      "components": "S",
+      "duration": "Instantaneous",
+      "concentration": false
+    }
+  },
+  {
+    "slug": "haste",
+    "name": "Haste",
+    "level": 3,
+    "school": "transmutation",
+    "description": "Choose a willing creature that you can see within range. Until the spell ends, the target's speed is doubled, it gains a +2 bonus to AC, it has advantage on Dexterity saving throws, and it gains an additional action on each of its turns. That action can be used only to take the Attack (one weapon attack only), Dash, Disengage, Hide, or Use an Object action. When the spell ends, the target can't move or take actions until after its next turn, as a wave of lethargy sweeps over it.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "30 feet",
+      "components": "V, S, M (a shaving of licorice root)",
+      "duration": "1 minute",
+      "concentration": true
+    }
+  },
+  {
+    "slug": "lightning-bolt",
+    "name": "Lightning Bolt",
+    "level": 3,
+    "school": "evocation",
+    "description": "A stroke of lightning forming a line 100 feet long and 5 feet wide blasts out from you in a direction you choose. Each creature in the line must make a Dexterity saving throw. A creature takes 8d6 lightning damage on a failed save, or half as much damage on a successful one.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "Self (100-foot line)",
+      "components": "V, S, M (a bit of fur and a rod of amber, crystal, or glass)",
+      "duration": "Instantaneous",
+      "concentration": false
+    }
+  },
+  {
+    "slug": "mass-healing-word",
+    "name": "Mass Healing Word",
+    "level": 3,
+    "school": "Evocation",
+    "description": "As you call out words of restoration, up to six creatures of your choice that you can see within range regain hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
+    "spell_data": {
+      "casting_time": "1 bonus action",
+      "range": "60 feet",
+      "components": "V",
+      "duration": "Instantaneous",
+      "concentration": false
+    }
+  },
+  {
+    "slug": "revivify",
+    "name": "Revivify",
+    "level": 3,
+    "school": "Necromancy",
+    "description": "You touch a creature that has died within the last minute. That creature returns to life with 1 hit point. This spell can't return to life a creature that has died of old age, nor can it restore any missing body parts.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "Touch",
+      "components": "V, S, M (diamonds worth 300 gp, which the spell consumes)",
+      "duration": "Instantaneous",
+      "concentration": false
+    }
+  },
+  {
+    "slug": "slow",
+    "name": "Slow",
+    "level": 3,
+    "school": "transmutation",
+    "description": "You alter time around up to six creatures of your choice in a 40-foot cube within range. Each target must succeed on a Wisdom saving throw or be affected by this spell for the duration. An affected target's speed is halved, it takes a -2 penalty to AC and Dexterity saving throws, and it can't use reactions. On its turn, it can use either an action or a bonus action, not both.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "120 feet",
+      "components": "V, S, M (a drop of molasses)",
+      "duration": "1 minute",
+      "concentration": true
+    }
+  },
+  {
+    "slug": "spirit-guardians",
+    "name": "Spirit Guardians",
+    "level": 3,
+    "school": "conjuration",
+    "description": "You call forth spirits to protect you. They flit around you to a distance of 15 feet for the duration. If you are good or neutral, their spectral form appears angelic or fey (your choice). If you are evil, they appear fiendish. When you cast this spell, you can designate any number of creatures you can see to be unaffected by it. An affected creature's speed is halved in the area, and when the creature enters the area for the first time on a turn or starts its turn there, it must make a Wisdom saving throw. On a failed save, the creature takes 3d8 radiant damage (if you are good or neutral) or 3d8 necrotic damage (if you are evil). On a successful save, the creature takes half as much damage.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "Self (15-foot radius)",
+      "components": "V, S, M (a holy symbol)",
+      "duration": "10 minutes",
+      "concentration": true
+    }
+  },
+  {
+    "slug": "tongues",
+    "name": "Tongues",
+    "level": 3,
+    "school": "divination",
+    "description": "This spell grants the creature you touch the ability to understand any spoken language it hears. Moreover, when the target speaks, any creature that knows at least one language and can hear the target understands what it says.",
+    "spell_data": {
+      "casting_time": "1 action",
+      "range": "Touch",
+      "components": "V, M (a small clay model of a ziggurat)",
+      "duration": "1 hour",
+      "concentration": false
+    }
+  }
+]

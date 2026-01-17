@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "dagger",
+    "name": "Dagger",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 200,
+    "weight": 1.0,
+    "description": "A small knife with a sharp point, useful for close combat or as a thrown weapon.",
+    "equipment_data": {
+      "damage_dice": "1d4",
+      "damage_type": "piercing",
+      "range_normal": 20,
+      "range_long": 60,
+      "properties": ["finesse", "light", "thrown"],
+      "actions": []
+    }
+  },
+  {
+    "slug": "longsword",
+    "name": "Longsword",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 1500,
+    "weight": 3.0,
+    "description": "A blade of moderate length, versatile enough to be wielded with one or two hands.",
+    "equipment_data": {
+      "damage_dice": "1d8",
+      "damage_type": "slashing",
+      "properties": ["versatile"],
+      "actions": []
+    }
+  },
+  {
+    "slug": "shortbow",
+    "name": "Shortbow",
+    "type": "weapon",
+    "rarity": "common",
+    "value": 2500,
+    "weight": 2.0,
+    "description": "A small bow used for hunting and skirmishing.",
+    "equipment_data": {
+      "damage_dice": "1d6",
+      "damage_type": "piercing",
+      "range_normal": 80,
+      "range_long": 320,
+      "properties": ["ammunition", "two-handed"],
+      "actions": []
+    }
+  },
+  {
+    "slug": "leather-armor",
+    "name": "Leather Armor",
+    "type": "armor",
+    "rarity": "common",
+    "value": 1000,
+    "weight": 10.0,
+    "description": "The breastplate and shoulder protectors of this armor are made of leather that has been stiffened by being boiled in oil. The rest of the armor is made of softer and more flexible materials.",
+    "equipment_data": {
+      "armor_class_base": 11,
+      "armor_class_dex_bonus": true,
+      "stealth_disadvantage": false
+    }
+  },
+  {
+    "slug": "plate-armor",
+    "name": "Plate Armor",
+    "type": "armor",
+    "rarity": "common",
+    "value": 150000,
+    "weight": 65.0,
+    "description": "Plate consists of shaped, interlocking metal plates to cover the entire body. A suit of plate includes gauntlets, heavy leather boots, a visored helmet, and thick layers of padding underneath the armor. Buckles and straps distribute the weight over the body.",
+    "equipment_data": {
+      "armor_class_base": 18,
+      "armor_class_dex_bonus": false,
+      "str_minimum": 15,
+      "stealth_disadvantage": true
+    }
+  },
+  {
+    "slug": "shield",
+    "name": "Shield",
+    "type": "armor",
+    "rarity": "common",
+    "value": 1000,
+    "weight": 6.0,
+    "description": "A shield is made from wood or metal and is carried in one hand. Wielding a shield increases your Armor Class by 2. You can benefit from only one shield at a time.",
+    "equipment_data": {
+      "armor_class_base": 2,
+      "armor_class_dex_bonus": false,
+      "stealth_disadvantage": false
+    }
+  },
+  {
+    "slug": "backpack",
+    "name": "Backpack",
+    "type": "container",
+    "rarity": "common",
+    "value": 200,
+    "weight": 5.0,
+    "description": "A backpack can hold one cubic foot or 30 pounds of gear. You can strap items, such as a bedroll or a coil of rope, to the outside of a backpack."
+  },
+  {
+    "slug": "candle",
+    "name": "Candle",
+    "type": "consumable",
+    "rarity": "common",
+    "value": 1,
+    "weight": 0.0,
+    "description": "For 1 hour, a candle sheds bright light in a 5-foot radius and dim light for an additional 5 feet."
+  },
+  {
+    "slug": "crowbar",
+    "name": "Crowbar",
+    "type": "tool",
+    "rarity": "common",
+    "value": 200,
+    "weight": 5.0,
+    "description": "Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied."
+  },
+  {
+    "slug": "potion-healing",
+    "name": "Potion of Healing",
+    "type": "consumable",
+    "rarity": "common",
+    "value": 5000,
+    "weight": 0.5,
+    "description": "You regain 2d4 + 2 hit points when you drink this potion. The potion's red liquid glimmers when agitated."
+  }
+]

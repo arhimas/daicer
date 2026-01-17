@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { getStrapi } from '../utils/bootstrap';
+import { getStrapi, stopStrapi } from '../utils/bootstrap';
 
 export const knowledgeCommand = new Command('knowledge')
   .description('RAG Knowledge Base & Snippets')
@@ -259,4 +259,7 @@ export async function runKnowledge(options: {
       console.log(chalk.yellow('\n  No relevant results found.\n'));
     }
   }
+  
+  await stopStrapi();
+  process.exit(0);
 }

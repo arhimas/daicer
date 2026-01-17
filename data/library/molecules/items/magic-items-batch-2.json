@@ -1,0 +1,85 @@
+[
+  {
+    "slug": "boots-of-elvenkind",
+    "name": "Boots of Elvenkind",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 2500,
+    "weight": 0,
+    "description": "While you wear these boots, your steps make no sound, regardless of the surface you are moving across. You also have advantage on Dexterity (Stealth) checks that rely on moving silently."
+  },
+  {
+    "slug": "cloak-of-protection",
+    "name": "Cloak of Protection",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 3500,
+    "weight": 0,
+    "description": "You gain a +1 bonus to AC and saving throws while you wear this cloak."
+  },
+  {
+    "slug": "ring-of-protection",
+    "name": "Ring of Protection",
+    "type": "tool",
+    "rarity": "rare",
+    "value": 4500,
+    "weight": 0,
+    "description": "You gain a +1 bonus to AC and saving throws while wearing this ring."
+  },
+  {
+    "slug": "bag-of-tricks-gray",
+    "name": "Bag of Tricks (Gray)",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 3000,
+    "weight": 0.5,
+    "description": "This ordinary bag, made of gray cloth, appears empty. Reaching inside the bag, however, reveals the presence of a small, fuzzy object. You can use an action to pull the fuzzy object from the bag and throw it up to 20 feet. When the object lands, it transforms into a creature determined by rolling a d8."
+  },
+  {
+    "slug": "pearl-of-power",
+    "name": "Pearl of Power",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 3000,
+    "weight": 0,
+    "description": "While this pearl is on your person, you can use an action to speak its command word and regain one expended spell slot. If the expended slot was of 4th level or higher, the new slot is 3rd level. Once you use the pearl, it can't be used again until the next dawn."
+  },
+  {
+    "slug": "lantern-of-revealing",
+    "name": "Lantern of Revealing",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 5000,
+    "weight": 2,
+    "description": "While lit, this hooded lantern burns for 6 hours on 1 pint of oil, shedding bright light in a 30-foot radius and dim light for an additional 30 feet. Invisible creatures and objects are visible as long as they are in the lantern's bright light.",
+    "equipment_data": {
+        "properties": [] 
+    }
+  },
+  {
+    "slug": "rope-of-climbing",
+    "name": "Rope of Climbing",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 2000,
+    "weight": 3,
+    "description": "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds. If you hold one end of the rope and use an action to speak the command word, the rope animates. As a bonus action, you can command the other end to move toward a destination you choose."
+  },
+  {
+    "slug": "wand-of-web",
+    "name": "Wand of Web",
+    "type": "tool",
+    "rarity": "uncommon",
+    "value": 3000,
+    "weight": 1,
+    "description": "This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the web spell from it. The wand regains 1d6 + 1 expended charges daily at dawn.",
+    "spell_data": {
+      "level": 2,
+      "school": "Conjuration",
+      "casting_time": "1 Action",
+      "components": "V, S, M",
+      "duration": "Concentration, up to 1 hour",
+      "range": "60 feet"
+    }
+  }
+]

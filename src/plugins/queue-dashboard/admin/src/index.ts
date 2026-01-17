@@ -4,6 +4,7 @@ import { Initializer } from './components/Initializer';
 import { Play } from '@strapi/icons';
 
 export default {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register(app: any) {
     app.addMenuLink({
       to: `plugins/${PLUGIN_ID}`,
@@ -43,16 +44,25 @@ export default {
   },
 
   async registerTrads({ locales }: { locales: string[] }) {
-    return Promise.all(
-      locales.map(async (locale) => {
-        try {
-          const { default: data } = await import(`./translations/${locale}.json`);
-
-          return { data, locale };
-        } catch {
-          return { data: {}, locale };
-        }
-      })
-    );
+    const importedTrads = await Promise.all(
+        locales.map((locale: string) => {
+          return import(`./translations/${locale}.json`)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            .then(({ default: data }: { default: any }) => {
+              return {
+                data: data, // Assuming prefixPluginTranslations and pluginId are not available or needed here based on original context
+                locale,
+              };
+            })
+            .catch(() => {
+              return {
+                data: {},
+                locale,
+              };
+            });
+        })
+      );
+    return importedTrads;
   },
 };
+

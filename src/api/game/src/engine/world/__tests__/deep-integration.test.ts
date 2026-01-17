@@ -99,7 +99,6 @@ describe('World Gen Deep Integration', () => {
     // Buildings usually stamp floors at surface (index 3) or above.
     // Check for specific structure blocks (Stone, Wood)
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const _centerSurfaceInfo = tiles[3][16][16]; // Unused
     // If it's a city/building, the surface block might be overwritten to FLOOR_STONE or similar
     // OR a wall might be built at zIndex 4 (Z=1).

@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import { EmbeddingService } from '../embedding-service';
 import { pipeline } from '@huggingface/transformers';
 
@@ -17,7 +17,7 @@ describe('EmbeddingService (Local Transformers)', () => {
     vi.clearAllMocks();
     
     // Setup mock pipeline function
-    mockPipeline = vi.fn().mockImplementation(async (text) => {
+    mockPipeline = vi.fn().mockImplementation(async (_text) => {
       // Mock return object from transformers.js pipeline
       return {
         tolist: () => [[0.1, 0.2, 0.3]]

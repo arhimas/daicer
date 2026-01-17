@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Flex, Grid, Badge, Tooltip, Card, CardHeader, CardBody, CardContent, CardAction, CardAsset, CardTimer, CardBadge, Button } from '@strapi/design-system';
-import { Play, Cross, Trash, Check } from '@strapi/icons';
+import { Box, Typography, Flex, Grid, Badge } from '@strapi/design-system';
 import { useFetchClient, useNotification } from '@strapi/strapi/admin';
-import { PLUGIN_ID } from '../../pluginId';
 
 interface JobCounts {
   active: number;
@@ -35,8 +33,9 @@ const Widget = () => {
         setQueues(data.queues);
         setError(null);
       }
-    } catch (e: any) {
-      setError(e.response?.data?.error?.message || e.message);
+    } catch (e: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setError((e as any).response?.data?.error?.message || (e as any).message);
     } finally {
       setLoading(false);
     }
@@ -49,7 +48,7 @@ const Widget = () => {
     return () => clearInterval(interval);
   }, [get]);
 
-  const handleAction = async (queueName: string, action: 'pause' | 'resume' | 'retry' | 'clean', method: 'put' | 'post') => {
+  const _handleAction = async (queueName: string, action: 'pause' | 'resume' | 'retry' | 'clean', method: 'put' | 'post') => {
     try {
       const endpoint = `/queue-dashboard/${queueName}/${action}`;
       if (method === 'put') await put(endpoint);
@@ -60,7 +59,7 @@ const Widget = () => {
         message: `Action ${action} triggered`,
       });
       fetchStats(); // Immediate refresh
-    } catch (error) {
+    } catch (_error) {
       toggleNotification({
         type: 'warning',
         message: `Failed to ${action}`,

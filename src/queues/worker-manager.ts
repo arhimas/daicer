@@ -66,7 +66,7 @@ export class WorkerManager {
           },
           {
             connection,
-            concurrency: 10,
+            concurrency: 1,
           }
         );
 

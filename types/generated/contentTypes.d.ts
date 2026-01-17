@@ -387,11 +387,13 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     condition_instances: Schema.Attribute.Component<'game.condition-instance', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     damage_instances: Schema.Attribute.Component<'game.damage-instance', true>;
     description: Schema.Attribute.Text;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::action.action'> & Schema.Attribute.Private;
     mechanics_config: Schema.Attribute.Component<'game.mechanics-config', false>;
@@ -470,6 +472,7 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -501,6 +504,37 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCompilationReportCompilationReport extends Struct.CollectionTypeSchema {
+  collectionName: 'compilation_reports';
+  info: {
+    description: 'Dead Letter Queue for Entity Compilation Failures';
+    displayName: 'Compilation Report';
+    pluralName: 'compilation-reports';
+    singularName: 'compilation-report';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    entityId: Schema.Attribute.String & Schema.Attribute.Required;
+    entityName: Schema.Attribute.String;
+    entityType: Schema.Attribute.String & Schema.Attribute.Required;
+    error: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::compilation-report.compilation-report'> &
+      Schema.Attribute.Private;
+    logs: Schema.Attribute.JSON;
+    phase: Schema.Attribute.Enumeration<['Atom', 'Molecule', 'Compound', 'Blueprint']> & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    resolved: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    severity: Schema.Attribute.Enumeration<['Fatal', 'Warning']> & Schema.Attribute.DefaultTo<'Fatal'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDamageTypeDamageType extends Struct.CollectionTypeSchema {
   collectionName: 'damage_types';
   info: {
@@ -518,6 +552,7 @@ export interface ApiDamageTypeDamageType extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -598,6 +633,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     backstory: Schema.Attribute.Text;
     character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
     class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     computedActions: Schema.Attribute.Component<'game.computed-action', true>;
     computedSaves: Schema.Attribute.Component<'game.save-bonus', true>;
     computedSkills: Schema.Attribute.Component<'game.skill-bonus', true>;
@@ -659,6 +695,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     background: Schema.Attribute.RichText;
     challenge_rating: Schema.Attribute.Decimal;
     classes: Schema.Attribute.Component<'game.character-class', true>;
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -768,6 +805,7 @@ export interface ApiFeatureFeature extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -866,6 +904,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     custom_data: Schema.Attribute.JSON;
@@ -875,6 +914,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_data: Schema.Attribute.Component<'game.equipment-data', false>;
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
@@ -924,7 +964,7 @@ export interface ApiKnowledgeSnippetKnowledgeSnippet extends Struct.CollectionTy
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     source: Schema.Attribute.Relation<'manyToOne', 'api::knowledge-source.knowledge-source'>;
-    sourceType: Schema.Attribute.Enumeration<['source-code', 'game-entity', 'manual']> &
+    sourceType: Schema.Attribute.Enumeration<['source-code', 'game-entity', 'manual', 'schema']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'manual'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -1100,6 +1140,7 @@ export interface ApiProficiencyProficiency extends Struct.CollectionTypeSchema {
   };
   attributes: {
     classes: Schema.Attribute.Relation<'manyToMany', 'api::class.class'>;
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
@@ -1156,6 +1197,7 @@ export interface ApiPromptPrompt extends Struct.CollectionTypeSchema {
     category: Schema.Attribute.Enumeration<['system', 'user', 'gameplay']> & Schema.Attribute.DefaultTo<'system'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     key: Schema.Attribute.UID & Schema.Attribute.Required & Schema.Attribute.Unique;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::prompt.prompt'>;
@@ -1188,6 +1230,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -1336,6 +1379,7 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
   };
   attributes: {
     casting_config: Schema.Attribute.Component<'game.casting-config', false>;
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     condition_instances: Schema.Attribute.Component<'game.condition-instance', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1374,6 +1418,50 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
     school: Schema.Attribute.Enumeration<
       ['Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation']
     >;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStatusEffectStatusEffect extends Struct.CollectionTypeSchema {
+  collectionName: 'status_effects';
+  info: {
+    description: 'D&D 5e Conditions and Status Effects';
+    displayName: 'Status Effect';
+    pluralName: 'status-effects';
+    singularName: 'status-effect';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    effects: Schema.Attribute.JSON;
+    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::status-effect.status-effect'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1475,6 +1563,7 @@ export interface ApiTraitTrait extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
@@ -2099,6 +2188,7 @@ declare module '@strapi/strapi' {
       'api::action.action': ApiActionAction;
       'api::character.character': ApiCharacterCharacter;
       'api::class.class': ApiClassClass;
+      'api::compilation-report.compilation-report': ApiCompilationReportCompilationReport;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;
       'api::dm-setting.dm-setting': ApiDmSettingDmSetting;
       'api::entity-sheet.entity-sheet': ApiEntitySheetEntitySheet;
@@ -2118,6 +2208,7 @@ declare module '@strapi/strapi' {
       'api::room.room': ApiRoomRoom;
       'api::rule-set.rule-set': ApiRuleSetRuleSet;
       'api::spell.spell': ApiSpellSpell;
+      'api::status-effect.status-effect': ApiStatusEffectStatusEffect;
       'api::subclass.subclass': ApiSubclassSubclass;
       'api::time-frame.time-frame': ApiTimeFrameTimeFrame;
       'api::trait.trait': ApiTraitTrait;

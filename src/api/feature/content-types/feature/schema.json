@@ -50,6 +50,11 @@
       "multiple": false,
       "required": false,
       "allowedTypes": ["images"]
+    },
+    "compilation_state": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.compilation-state"
     }
   }
 }

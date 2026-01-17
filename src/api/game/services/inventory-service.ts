@@ -99,7 +99,6 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
     // but Strapi usually handles component assignment by value if ID is stripped
     // or by ID if moving. Safest is to strip ID to clone.
     const itemsToTransfer = lootItems.map((i: { id: number; documentId: string; [key: string]: unknown }) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id: _id, documentId: _docId, ...rest } = i;
       return rest;
     });
@@ -202,7 +201,6 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
         type: 'loot',
         position: entity.position,
         inventory: inventory.map((i: { id: number; documentId: string; [key: string]: unknown }) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { id: _id, documentId: _docId, ...rest } = i;
           return rest;
         }),

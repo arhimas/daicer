@@ -62,7 +62,7 @@ export class EmbeddingService {
    * @param text The text to embed.
    * @param task (Unused in v2-small-en pipeline pure usage, but kept for interface/future)
    */
-  async generateEmbedding(text: string, task: EmbeddingTask = 'text-matching'): Promise<number[]> {
+  async generateEmbedding(text: string, _task: EmbeddingTask = 'text-matching'): Promise<number[]> {
     if (!text || text.trim().length === 0) {
       return [];
     }

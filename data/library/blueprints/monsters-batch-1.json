@@ -1,0 +1,630 @@
+[
+  {
+    "slug": "goblin",
+    "name": "Goblin",
+    "type": "Humanoid",
+    "alignment": "Neutral Evil",
+    "size": "Small",
+    "level": 1,
+    "ac": 15,
+    "hp": 7,
+    "hit_dice": "2d6",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.25,
+    "xp": 50,
+    "stats": { "str": 8, "dex": 14, "con": 10, "int": 10, "wis": 8, "cha": 8 },
+    "features": ["Nimble Escape"],
+    "inventory": [
+         { "item": "scimitar", "slot": "main_hand", "quantity": 1, "isEquipped": true },
+         { "item": "shortbow", "slot": "backpack", "quantity": 1, "isEquipped": true }
+    ],
+    "actions": [
+      {
+        "name": "Scimitar",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6 + 2", "type": "slashing" }]
+      },
+      {
+        "name": "Shortbow",
+        "type": "ranged",
+        "toHit": 4,
+        "range_config": { "type": "Ranged (Feet)", "distance": 80 },
+        "damage_instances": [{ "amount": "1d6 + 2", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "kobold",
+    "name": "Kobold",
+    "type": "Humanoid",
+    "alignment": "Lawful Evil",
+    "size": "Small",
+    "level": 1,
+    "ac": 12,
+    "hp": 5,
+    "hit_dice": "2d6",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.125,
+    "xp": 25,
+    "stats": { "str": 7, "dex": 15, "con": 9, "int": 8, "wis": 7, "cha": 8 },
+    "features": ["Sunlight Sensitivity", "Pack Tactics"],
+    "inventory": [
+         { "item": "dagger", "slot": "main_hand", "quantity": 1, "isEquipped": true },
+         { "item": "sling", "slot": "backpack", "quantity": 1, "isEquipped": true }
+    ],
+    "actions": [
+      {
+        "name": "Dagger",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d4 + 2", "type": "piercing" }]
+      },
+      {
+        "name": "Sling",
+        "type": "ranged",
+        "toHit": 4,
+        "range_config": { "type": "Ranged (Feet)", "distance": 30 },
+        "damage_instances": [{ "amount": "1d4 + 2", "type": "bludgeoning" }]
+      }
+    ]
+  },
+  {
+    "slug": "skeleton",
+    "name": "Skeleton",
+    "type": "Undead",
+    "alignment": "Lawful Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 13,
+    "hp": 13,
+    "hit_dice": "2d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.25,
+    "xp": 50,
+    "stats": { "str": 10, "dex": 14, "con": 15, "int": 6, "wis": 8, "cha": 5 },
+    "features": ["Damage Vulnerabilities (Bludgeoning)", "Damage Immunities (Poison)", "Condition Immunities (Poisoned)"],
+    "inventory": [
+         { "item": "shortsword", "slot": "main_hand", "quantity": 1, "isEquipped": true },
+         { "item": "shortbow", "slot": "backpack", "quantity": 1, "isEquipped": true }
+    ],
+    "actions": [
+      {
+        "name": "Shortsword",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6 + 2", "type": "piercing" }]
+      },
+       {
+        "name": "Shortbow",
+        "type": "ranged",
+        "toHit": 4,
+        "range_config": { "type": "Ranged (Feet)", "distance": 80 },
+        "damage_instances": [{ "amount": "1d6 + 2", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "zombie",
+    "name": "Zombie",
+    "type": "Undead",
+    "alignment": "Neutral Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 8,
+    "hp": 22,
+    "hit_dice": "3d8",
+    "speed": { "walk": 20 },
+    "challenge_rating": 0.25,
+    "xp": 50,
+    "stats": { "str": 13, "dex": 6, "con": 16, "int": 3, "wis": 6, "cha": 5 },
+    "features": ["Undead Fortitude"],
+    "actions": [
+      {
+        "name": "Slam",
+        "type": "melee",
+        "toHit": 3,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6 + 1", "type": "bludgeoning" }]
+      }
+    ]
+  },
+  {
+    "slug": "orc",
+    "name": "Orc",
+    "type": "Humanoid",
+    "alignment": "Chaotic Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 13,
+    "hp": 15,
+    "hit_dice": "2d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.5,
+    "xp": 100,
+    "stats": { "str": 16, "dex": 12, "con": 16, "int": 7, "wis": 11, "cha": 10 },
+    "features": ["Aggressive"],
+    "inventory": [
+         { "item": "greataxe", "slot": "main_hand", "quantity": 1, "isEquipped": true },
+         { "item": "javelin", "slot": "backpack", "quantity": 3, "isEquipped": true }
+    ],
+    "actions": [
+      {
+        "name": "Greataxe",
+        "type": "melee",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d12 + 3", "type": "slashing" }]
+      },
+      {
+        "name": "Javelin",
+        "type": "ranged",
+        "toHit": 5,
+        "range_config": { "type": "Ranged (Feet)", "distance": 30 },
+        "damage_instances": [{ "amount": "1d6 + 3", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "bandit",
+    "name": "Bandit",
+    "type": "Humanoid",
+    "alignment": "Any Non-Lawful",
+    "size": "Medium",
+    "level": 1,
+    "ac": 12,
+    "hp": 11,
+    "hit_dice": "2d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.125,
+    "xp": 25,
+    "stats": { "str": 11, "dex": 12, "con": 12, "int": 10, "wis": 10, "cha": 10 },
+    "features": [],
+    "actions": [
+      {
+        "name": "Scimitar",
+        "type": "melee",
+        "toHit": 3,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6 + 1", "type": "slashing" }]
+      },
+      {
+        "name": "Light Crossbow",
+        "type": "ranged",
+        "toHit": 3,
+        "range_config": { "type": "Ranged (Feet)", "distance": 80 },
+        "damage_instances": [{ "amount": "1d8 + 1", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "giant-rat",
+    "name": "Giant Rat",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "size": "Small",
+    "level": 1,
+    "ac": 12,
+    "hp": 7,
+    "hit_dice": "2d6",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.125,
+    "xp": 25,
+    "stats": { "str": 7, "dex": 15, "con": 11, "int": 2, "wis": 10, "cha": 4 },
+    "features": ["Keen Smell", "Pack Tactics"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d4 + 2", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "wolf",
+    "name": "Wolf",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "size": "Medium",
+    "level": 1,
+    "ac": 13,
+    "hp": 11,
+    "hit_dice": "2d8",
+    "speed": { "walk": 40 },
+    "challenge_rating": 0.25,
+    "xp": 50,
+    "stats": { "str": 12, "dex": 15, "con": 12, "int": 3, "wis": 12, "cha": 6 },
+    "features": ["Keen Hearing and Smell", "Pack Tactics"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d4 + 2", "type": "piercing" }],
+        "condition_instances": [{ "id": "prone", "dc": 11, "save_type": "str" }]
+      }
+    ]
+  },
+  {
+    "slug": "hobgoblin",
+    "name": "Hobgoblin",
+    "type": "Humanoid",
+    "alignment": "Lawful Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 18,
+    "hp": 11,
+    "hit_dice": "2d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.5,
+    "xp": 100,
+    "stats": { "str": 13, "dex": 12, "con": 12, "int": 10, "wis": 10, "cha": 9 },
+    "features": ["Martial Advantage"],
+    "actions": [
+      {
+        "name": "Longsword",
+        "type": "melee",
+        "toHit": 3,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d8 + 1", "type": "slashing" }]
+      },
+      {
+        "name": "Longbow",
+        "type": "ranged",
+        "toHit": 3,
+        "range_config": { "type": "Ranged (Feet)", "distance": 150 },
+        "damage_instances": [{ "amount": "1d8 + 1", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "bugbear",
+    "name": "Bugbear",
+    "type": "Humanoid",
+    "alignment": "Chaotic Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 16,
+    "hp": 27,
+    "hit_dice": "5d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 1,
+    "xp": 200,
+    "stats": { "str": 15, "dex": 14, "con": 13, "int": 8, "wis": 11, "cha": 9 },
+    "features": ["Brute", "Surprise Attack"],
+    "actions": [
+      {
+        "name": "Morningstar",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d8 + 2", "type": "piercing" }]
+      },
+      {
+        "name": "Javelin",
+        "type": "ranged",
+        "toHit": 4,
+        "range_config": { "type": "Ranged (Feet)", "distance": 30 },
+        "damage_instances": [{ "amount": "1d6 + 2", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "ghoul",
+    "name": "Ghoul",
+    "type": "Undead",
+    "alignment": "Chaotic Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 12,
+    "hp": 22,
+    "hit_dice": "5d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 1,
+    "xp": 200,
+    "stats": { "str": 13, "dex": 15, "con": 10, "int": 7, "wis": 10, "cha": 6 },
+    "features": ["Damage Immunities (Poison)", "Condition Immunities (Poisoned)"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 2,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d6 + 2", "type": "piercing" }]
+      },
+      {
+        "name": "Claws",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d4 + 2", "type": "slashing" }],
+        "condition_instances": [{ "id": "paralyzed", "dc": 10, "save_type": "con" }]
+      }
+    ]
+  },
+  {
+    "slug": "ogre",
+    "name": "Ogre",
+    "type": "Giant",
+    "alignment": "Chaotic Evil",
+    "size": "Large",
+    "level": 1,
+    "ac": 11,
+    "hp": 59,
+    "hit_dice": "7d10",
+    "speed": { "walk": 40 },
+    "challenge_rating": 2,
+    "xp": 450,
+    "stats": { "str": 19, "dex": 8, "con": 16, "int": 5, "wis": 7, "cha": 7 },
+    "features": [],
+    "actions": [
+      {
+        "name": "Greatclub",
+        "type": "melee",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d8 + 4", "type": "bludgeoning" }]
+      },
+      {
+        "name": "Javelin",
+        "type": "ranged",
+        "toHit": 6,
+        "range_config": { "type": "Ranged (Feet)", "distance": 30 },
+        "damage_instances": [{ "amount": "2d6 + 4", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "gelatinous-cube",
+    "name": "Gelatinous Cube",
+    "type": "Ooze",
+    "alignment": "Unaligned",
+    "size": "Large",
+    "level": 1,
+    "ac": 6,
+    "hp": 84,
+    "hit_dice": "8d10",
+    "speed": { "walk": 15 },
+    "challenge_rating": 2,
+    "xp": 450,
+    "stats": { "str": 14, "dex": 3, "con": 20, "int": 1, "wis": 6, "cha": 1 },
+    "features": ["Ooze Cube", "Transparent"],
+    "actions": [
+      {
+        "name": "Pseudopod",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6", "type": "acid" }, { "amount": "3d6", "type": "acid" }]
+      },
+      {
+        "name": "Engulf",
+        "type": "ability",
+        "toHit": 0,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "save": { "dc": 12, "type": "dex" },
+        "damage_instances": [{ "amount": "3d6", "type": "acid" }]
+      }
+    ]
+  },
+  {
+    "slug": "giant-spider",
+    "name": "Giant Spider",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "size": "Large",
+    "level": 1,
+    "ac": 14,
+    "hp": 26,
+    "hit_dice": "4d10",
+    "speed": { "walk": 30, "climb": 30 },
+    "challenge_rating": 1,
+    "xp": 200,
+    "stats": { "str": 14, "dex": 16, "con": 12, "int": 2, "wis": 11, "cha": 4 },
+    "features": ["Spider Climb", "Web Sense", "Web Walker"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d8 + 3", "type": "piercing" }, { "amount": "2d8", "type": "poison" }]
+      },
+      {
+        "name": "Web",
+        "type": "ranged",
+        "toHit": 5,
+        "range_config": { "type": "Ranged (Feet)", "distance": 30 },
+        "condition_instances": [{ "id": "restrained", "dc": 12, "save_type": "str" }]
+      }
+    ]
+  },
+  {
+    "slug": "dire-wolf",
+    "name": "Dire Wolf",
+    "type": "Beast",
+    "alignment": "Unaligned",
+    "size": "Large",
+    "level": 1,
+    "ac": 14,
+    "hp": 37,
+    "hit_dice": "5d10",
+    "speed": { "walk": 50 },
+    "challenge_rating": 1,
+    "xp": 200,
+    "stats": { "str": 17, "dex": 15, "con": 15, "int": 3, "wis": 12, "cha": 7 },
+    "features": ["Keen Hearing and Smell", "Pack Tactics"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d6 + 3", "type": "piercing" }],
+        "condition_instances": [{ "id": "prone", "dc": 13, "save_type": "str" }]
+      }
+    ]
+  },
+  {
+    "slug": "owlbear",
+    "name": "Owlbear",
+    "type": "Monstrosity",
+    "alignment": "Unaligned",
+    "size": "Large",
+    "level": 1,
+    "ac": 13,
+    "hp": 59,
+    "hit_dice": "7d10",
+    "speed": { "walk": 40 },
+    "challenge_rating": 3,
+    "xp": 700,
+    "stats": { "str": 20, "dex": 12, "con": 17, "int": 3, "wis": 12, "cha": 7 },
+    "features": ["Keen Sight and Smell"],
+    "actions": [
+      {
+        "name": "Beak",
+        "type": "melee",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d10 + 5", "type": "piercing" }]
+      },
+      {
+        "name": "Claws",
+        "type": "melee",
+        "toHit": 7,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d8 + 5", "type": "slashing" }]
+      }
+    ]
+  },
+  {
+    "slug": "winter-wolf",
+    "name": "Winter Wolf",
+    "type": "Monstrosity",
+    "alignment": "Neutral Evil",
+    "size": "Large",
+    "level": 1,
+    "ac": 13,
+    "hp": 75,
+    "hit_dice": "10d10",
+    "speed": { "walk": 50 },
+    "challenge_rating": 3,
+    "xp": 700,
+    "stats": { "str": 18, "dex": 13, "con": 14, "int": 7, "wis": 12, "cha": 8 },
+    "features": ["Keen Hearing and Smell", "Pack Tactics", "Snow Camouflage"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 6,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "2d6 + 4", "type": "piercing" }, { "amount": "1d6", "type": "cold" }],
+        "condition_instances": [{ "id": "prone", "dc": 14, "save_type": "str" }]
+      },
+      {
+        "name": "Cold Breath",
+        "type": "ability",
+        "toHit": 0,
+        "range_config": { "type": "Self", "distance": 15 },
+        "save": { "dc": 12, "type": "dex" },
+        "damage_instances": [{ "amount": "4d8", "type": "cold" }]
+      }
+    ]
+  },
+   {
+    "slug": "wererat",
+    "name": "Wererat",
+    "type": "Humanoid",
+    "alignment": "Lawful Evil",
+    "size": "Medium",
+    "level": 1,
+    "ac": 12,
+    "hp": 33,
+    "hit_dice": "6d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 2,
+    "xp": 450,
+    "stats": { "str": 10, "dex": 15, "con": 12, "int": 11, "wis": 10, "cha": 8 },
+    "features": ["Shapechanger", "Keen Smell"],
+    "actions": [
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d4 + 2", "type": "piercing" }]
+      },
+      {
+        "name": "Shortsword",
+        "type": "melee",
+        "toHit": 4,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6 + 2", "type": "piercing" }]
+      }
+    ]
+  },
+  {
+    "slug": "mimic",
+    "name": "Mimic",
+    "type": "Monstrosity",
+    "alignment": "Neutral",
+    "size": "Medium",
+    "level": 1,
+    "ac": 12,
+    "hp": 58,
+    "hit_dice": "9d8",
+    "speed": { "walk": 15 },
+    "challenge_rating": 2,
+    "xp": 450,
+    "stats": { "str": 17, "dex": 12, "con": 15, "int": 5, "wis": 13, "cha": 8 },
+    "features": ["Shapechanger", "Adhesive", "False Appearance"],
+    "actions": [
+      {
+        "name": "Pseudopod",
+        "type": "melee",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d8 + 3", "type": "bludgeoning" }],
+         "condition_instances": [{ "id": "grappled", "dc": 13, "save_type": "str" }]
+      },
+      {
+        "name": "Bite",
+        "type": "melee",
+        "toHit": 5,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d8 + 3", "type": "piercing" }, { "amount": "1d8", "type": "acid" }]
+      }
+    ]
+  },
+  {
+    "slug": "cultist",
+    "name": "Cultist",
+    "type": "Humanoid",
+    "alignment": "Any Non-Good",
+    "size": "Medium",
+    "level": 1,
+    "ac": 12,
+    "hp": 9,
+    "hit_dice": "2d8",
+    "speed": { "walk": 30 },
+    "challenge_rating": 0.125,
+    "xp": 25,
+    "stats": { "str": 11, "dex": 12, "con": 10, "int": 10, "wis": 10, "cha": 10 },
+    "features": ["Dark Devotion"],
+    "actions": [
+      {
+        "name": "Scimitar",
+        "type": "melee",
+        "toHit": 3,
+        "range_config": { "type": "Melee", "distance": 5 },
+        "damage_instances": [{ "amount": "1d6 + 1", "type": "slashing" }]
+      }
+    ]
+  }
+]

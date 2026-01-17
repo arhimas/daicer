@@ -166,6 +166,11 @@
       "type": "component",
       "repeatable": true,
       "component": "game.computed-action"
+    },
+    "compilation_state": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.compilation-state"
     }
   }
 }

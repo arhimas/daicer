@@ -1,0 +1,73 @@
+[
+  {
+    "slug": "fighter",
+    "name": "Fighter",
+    "description": "A master of martial combat, skilled with a variety of weapons and armor.",
+    "hit_die": "d10",
+    "proficiencies": ["Strength Save", "Constitution Save", "Athletics", "Acrobatics", "Survival"],
+    "features": [
+      {
+        "name": "Second Wind",
+        "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level.",
+        "level": 1
+      },
+      {
+        "name": "Action Surge",
+        "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action.",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "slug": "wizard",
+    "name": "Wizard",
+    "description": "A scholarly magic-user capable of manipulating the structures of reality.",
+    "hit_die": "d6",
+    "proficiencies": ["Intelligence Save", "Wisdom Save", "Arcana", "History", "Investigation"],
+    "features": [
+      {
+        "name": "Arcane Recovery",
+        "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover.",
+        "level": 1
+      }
+    ]
+  },
+  {
+    "slug": "rogue",
+    "name": "Rogue",
+    "description": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies.",
+    "hit_die": "d8",
+    "proficiencies": ["Dexterity Save", "Intelligence Save", "Stealth", "Acrobatics", "Sleight of Hand", "Perception"],
+    "features": [
+      {
+        "name": "Sneak Attack",
+        "description": "Beginning at 1st level, you know how to strike subtly and exploit a foe's distraction.",
+        "level": 1
+      },
+      {
+        "name": "Cunning Action",
+        "description": "Starting at 2nd level, your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat.",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "slug": "cleric",
+    "name": "Cleric",
+    "description": "A priestly champion who wields divine magic in service of a higher power.",
+    "hit_die": "d8",
+    "proficiencies": ["Wisdom Save", "Charisma Save", "Religion", "Insight", "Medicine"],
+    "features": [
+      {
+        "name": "Spellcasting",
+        "description": "As a conduit for divine power, you can cast cleric spells.",
+        "level": 1
+      },
+      {
+        "name": "Divine Domain",
+        "description": "Choose one domain related to your deity.",
+        "level": 1
+      }
+    ]
+  }
+]
