@@ -1,0 +1,8 @@
+{
+  "slug": "paladin-oath-spells",
+  "name": "Oath Spells",
+  "class": "paladin",
+  "level": 1,
+  "description": "Each oath has a list of associated spells. You gain access to these spells at the levels specified in the oath description. Once you gain access to an oath spell, you always have it prepared. Oath spells don't count against the number of spells you can prepare each day.\n\nIf you gain an oath spell that doesn't appear on the [paladin spell list](#section-paladin-spells), the spell is nonetheless a paladin spell for you.",
+  "is_subclass_feature": true
+}

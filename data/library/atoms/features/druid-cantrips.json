@@ -1,0 +1,8 @@
+{
+  "slug": "druid-cantrips",
+  "name": "Cantrips",
+  "class": "druid",
+  "level": 1,
+  "description": "At 1st level, you know two cantrips of your choice from the [druid spell list](#section-druid-spells). You learn additional druid cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Druid table.",
+  "is_subclass_feature": true
+}

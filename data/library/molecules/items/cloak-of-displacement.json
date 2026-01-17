@@ -1,0 +1,9 @@
+{
+  "slug": "cloak-of-displacement",
+  "name": "Cloak of Displacement",
+  "type": "Wondrous item",
+  "rarity": "Rare",
+  "requires_attunement": true,
+  "description": "While you wear this cloak, it projects an illusion that makes you appear to be standing in a place near your actual location, causing any creature to have disadvantage on attack rolls against you. If you take damage, the property ceases to function until the start of your next turn. This property is suppressed while you are [incapacitated](#incapacitated), [restrained](#restrained), or otherwise unable to move.",
+  "source_type_rarity": "Wondrous item, rare (requires [attunement](#section-attunement))"
+}

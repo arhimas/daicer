@@ -1,0 +1,8 @@
+{
+  "slug": "warlock-pact-magic",
+  "name": "Pact Magic",
+  "class": "warlock",
+  "level": 1,
+  "description": "Your arcane research and the magic bestowed on you by your patron have given you facility with spells.",
+  "is_subclass_feature": false
+}

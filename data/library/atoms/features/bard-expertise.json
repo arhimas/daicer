@@ -1,0 +1,8 @@
+{
+  "slug": "bard-expertise",
+  "name": "Expertise",
+  "class": "bard",
+  "level": 3,
+  "description": "At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.\n\nAt 10th level, you can choose another two skill proficiencies to gain this benefit.",
+  "is_subclass_feature": false
+}

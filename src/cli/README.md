@@ -104,7 +104,7 @@ _The Data Query Engine._
 yarn cli explore -t api::spell.spell --filters '{"level": 3}' --json
 
 # Get details of a specific character
-yarn cli explore -t api::character.character --action findOne --document-id <docId> --json
+yarn cli explore -t api::entity.entity --action findOne --document-id <docId> --json
 ```
 
 ### `🧠 knowledge`

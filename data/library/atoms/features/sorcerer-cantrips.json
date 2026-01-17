@@ -1,0 +1,8 @@
+{
+  "slug": "sorcerer-cantrips",
+  "name": "Cantrips",
+  "class": "sorcerer",
+  "level": 1,
+  "description": "At 1st level, you know four cantrips of your choice from the [sorcerer spell list](#section-sorcerer-spells). You learn additional sorcerer cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Sorcerer table.",
+  "is_subclass_feature": true
+}

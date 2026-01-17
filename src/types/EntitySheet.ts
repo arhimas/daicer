@@ -44,7 +44,7 @@ export interface EntitySheet {
   // Relations (IDs)
   room?: string;
   monster?: string;
-  character?: string;
+
   owner?: string;
 
   // State

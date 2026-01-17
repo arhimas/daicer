@@ -1,0 +1,9 @@
+{
+  "slug": "stone-of-good-luck-luckstone",
+  "name": "Stone of Good Luck (Luckstone)",
+  "type": "Wondrous item",
+  "rarity": "Uncommon",
+  "requires_attunement": true,
+  "description": "While this polished agate is on your person, you gain a +1 bonus to ability checks and saving throws.",
+  "source_type_rarity": "Wondrous item, uncommon (requires [attunement](#section-attunement))"
+}

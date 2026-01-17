@@ -1,0 +1,9 @@
+{
+  "slug": "headband-of-intellect",
+  "name": "Headband of Intellect",
+  "type": "Wondrous item",
+  "rarity": "Uncommon",
+  "requires_attunement": true,
+  "description": "Your Intelligence score is 19 while you wear this headband. It has no effect on you if your Intelligence is already 19 or higher.",
+  "source_type_rarity": "Wondrous item, uncommon (requires [attunement](#section-attunement))"
+}

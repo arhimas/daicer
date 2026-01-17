@@ -1,0 +1,8 @@
+{
+  "slug": "fighter-archery",
+  "name": "Archery",
+  "class": "fighter",
+  "level": 1,
+  "description": "You gain a +2 bonus to attack rolls you make with ranged weapons.",
+  "is_subclass_feature": true
+}

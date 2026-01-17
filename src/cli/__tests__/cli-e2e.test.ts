@@ -34,7 +34,7 @@ describe.skip('CLI E2E (Standalone)', () => {
   it('should explore characters (headless mode)', () => {
     // This ensures the Headless Strapi boots and connects to DB
     const start = Date.now();
-    const output = execSync(`${CLI_CMD} explore --type api::character.character --action count --json`, {
+    const output = execSync(`${CLI_CMD} explore --type api::entity.entity --action count --json`, {
       cwd: CWD,
       encoding: 'utf-8',
       stdio: ['ignore', 'pipe', 'ignore'], // ignore stderr (spinner noise if any leaks)
@@ -52,7 +52,7 @@ describe.skip('CLI E2E (Standalone)', () => {
     const json = extractJSON(output);
     expect(Array.isArray(json)).toBe(true);
     expect(json.length).toBeGreaterThan(0);
-    const char = json.find((t: any) => t.uid === 'api::character.character');
+    const char = json.find((t: any) => t.uid === 'api::entity.entity');
     expect(char).toBeDefined();
   });
 

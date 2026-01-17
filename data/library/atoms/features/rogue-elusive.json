@@ -1,0 +1,8 @@
+{
+  "slug": "rogue-elusive",
+  "name": "Elusive",
+  "class": "rogue",
+  "level": 18,
+  "description": "Beginning at 18th level, you are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren't [incapacitated](#incapacitated).",
+  "is_subclass_feature": false
+}

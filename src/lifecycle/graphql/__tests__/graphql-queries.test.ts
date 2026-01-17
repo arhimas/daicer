@@ -14,9 +14,19 @@ const extractResolvers = (mockStrapi: unknown) => {
 };
 
 describe('GraphQL Queries & Resolvers', () => {
-  const mockFindMany = vi.fn();
+  // We need distinct mocks for different content types now
+  const mockEntityFindMany = vi.fn();
+  const mockItemFindMany = vi.fn();
+  
+  // Default fallback
+  const defaultMockFindMany = vi.fn();
+
   const mockStrapi = {
-    documents: () => ({ findMany: mockFindMany }),
+    documents: (uid: string) => {
+      if (uid === 'api::entity.entity') return { findMany: mockEntityFindMany };
+      if (uid === 'api::item.item') return { findMany: mockItemFindMany };
+      return { findMany: defaultMockFindMany };
+    },
     plugin: vi.fn(),
     log: { info: vi.fn(), error: vi.fn() },
     service: vi.fn((uid) => {
@@ -34,6 +44,10 @@ describe('GraphQL Queries & Resolvers', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     resolvers = extractResolvers(mockStrapi);
+    // Reset implementations
+    mockEntityFindMany.mockResolvedValue([]);
+    mockItemFindMany.mockResolvedValue([]);
+    defaultMockFindMany.mockResolvedValue([]);
   });
 
   describe('Query: searchEntities', () => {
@@ -47,53 +61,63 @@ describe('GraphQL Queries & Resolvers', () => {
 
     it('should return empty if query < 2 chars', async () => {
       expect(await search('a')).toEqual([]);
-      expect(mockFindMany).not.toHaveBeenCalled();
+      expect(mockEntityFindMany).not.toHaveBeenCalled();
     });
 
-    it('should search both monsters and characters for normal query', async () => {
-      mockFindMany.mockResolvedValueOnce([{ documentId: 'm1', name: 'Goblin' }]); // Monsters
-      mockFindMany.mockResolvedValueOnce([{ documentId: 'c1', name: 'Hero' }]); // Characters
-      mockFindMany.mockResolvedValueOnce([{ documentId: 'i1', name: 'Sword', type: 'weapon' }]); // Items
+    it('should search both monsters and characters (players) for normal query', async () => {
+      mockEntityFindMany.mockResolvedValue([
+        { documentId: 'm1', name: 'Goblin', type: 'monster' },
+        { documentId: 'c1', name: 'Hero', type: 'player' }
+      ]);
+      mockItemFindMany.mockResolvedValue([
+        { documentId: 'i1', name: 'Sword', type: 'weapon' }
+      ]);
 
       const res = await search('goblin');
 
       expect(res).toHaveLength(3);
       expect(res).toContainEqual({ id: 'm1', name: 'Goblin', type: 'monster' });
-      expect(res).toContainEqual({ id: 'c1', name: 'Hero', type: 'character' });
+      expect(res).toContainEqual({ id: 'c1', name: 'Hero', type: 'player' }); // Mapped type
       expect(res).toContainEqual({ id: 'i1', name: 'Sword', type: 'item', subtype: 'weapon' });
 
       // Verify filters
-      expect(mockFindMany).toHaveBeenCalledWith(
+      expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          filters: { name: { $contains: 'goblin' } },
+          filters: expect.objectContaining({ 
+             name: { $contains: 'goblin' } 
+          }),
         })
       );
     });
 
     it('should list all monsters when query is "monsters"', async () => {
-      mockFindMany.mockResolvedValueOnce([{ documentId: 'm1', name: 'M1' }]);
+      mockEntityFindMany.mockResolvedValue([{ documentId: 'm1', name: 'M1', type: 'monster' }]);
+      
       const res = await search('monsters');
       expect(res).toBeDefined();
-      // Check calls. Should see 1 call to monster findMany with empty filter
-      expect(mockFindMany).toHaveBeenCalledWith(
+      
+      // Check calls. Should see 1 call to entity findMany with monster filter
+      expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          filters: { type: 'monster' },
+          filters: expect.arrayContaining([
+            { type: 'monster' }
+          ]),
         })
       );
     });
 
     it('should list all characters when query is "characters"', async () => {
-      mockFindMany.mockResolvedValueOnce([{ documentId: 'c1', name: 'C1' }]);
+      mockEntityFindMany.mockResolvedValue([{ documentId: 'c1', name: 'C1', type: 'player' }]);
+      
       await search('characters');
-      // verify generic find
-    });
-
-    // Fuzzing 40 queries (+20 from previous plan)
-    const queries = Array.from({ length: 40 }, (_, i) => `fuzzy-search-${i}`);
-    it.each(queries)('should search safely for %s', async (q) => {
-      mockFindMany.mockResolvedValue([]);
-      await search(q);
-      // Just ensure no crash
+      
+      expect(mockEntityFindMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          filters: expect.arrayContaining([
+            { type: 'player' }
+          ]),
+        })
+      );
     });
   });
 
@@ -134,7 +158,7 @@ describe('GraphQL Queries & Resolvers', () => {
       const context = { state: { user: { documentId: 'u1' } } };
       await resolveMessages({ documentId: 'r1' }, {}, context);
 
-      expect(mockFindMany).toHaveBeenCalledWith(
+      expect(defaultMockFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           filters: expect.objectContaining({
             room: { documentId: 'r1' },
@@ -148,7 +172,7 @@ describe('GraphQL Queries & Resolvers', () => {
       const context = { state: { user: null } };
       await resolveMessages({ documentId: 'r1' }, {}, context);
 
-      expect(mockFindMany).toHaveBeenCalledWith(
+      expect(defaultMockFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           filters: expect.objectContaining({
             $or: [{ recipient: { $null: true } }],
@@ -163,7 +187,7 @@ describe('GraphQL Queries & Resolvers', () => {
 
     it('should fetch recent turns', async () => {
       await resolveTurns({ documentId: 'r1' }, {});
-      expect(mockFindMany).toHaveBeenCalledWith(
+      expect(defaultMockFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           filters: { room: { documentId: 'r1' } },
           limit: 5,

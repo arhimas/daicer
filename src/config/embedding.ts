@@ -20,5 +20,4 @@ export const EMBEDDABLE_MODELS = [
 ];
 
 // Content Types explicitly excluded based on user feedback
-// 'api::character.character' (DEPRECATED)
 // 'api::monster.monster' (Merged into Entity)

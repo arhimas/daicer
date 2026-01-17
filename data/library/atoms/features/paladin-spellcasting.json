@@ -1,0 +1,8 @@
+{
+  "slug": "paladin-spellcasting",
+  "name": "Spellcasting",
+  "class": "paladin",
+  "level": 1,
+  "description": "By 2nd level, you have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does.",
+  "is_subclass_feature": false
+}

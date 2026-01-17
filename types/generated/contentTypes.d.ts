@@ -410,51 +410,6 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCharacterCharacter extends Struct.CollectionTypeSchema {
-  collectionName: 'characters';
-  info: {
-    description: 'Blueprint for a character';
-    displayName: 'Character';
-    pluralName: 'characters';
-    singularName: 'character';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
-    appearance: Schema.Attribute.JSON;
-    backstory: Schema.Attribute.Text;
-    classes: Schema.Attribute.Component<'game.character-class', true>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
-    fullBody: Schema.Attribute.Media<'images'>;
-    inventory: Schema.Attribute.Component<'game.inventory-item', true>;
-    level: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::character.character'> & Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    portrait: Schema.Attribute.Media<'images'>;
-    publishedAt: Schema.Attribute.DateTime;
-    race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
-    spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
-    stats: Schema.Attribute.Component<'game.stats', false>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    upperBody: Schema.Attribute.Media<'images'>;
-    user: Schema.Attribute.Relation<'manyToOne', 'plugin::users-permissions.user'>;
-  };
-}
-
 export interface ApiClassClass extends Struct.CollectionTypeSchema {
   collectionName: 'classes';
   info: {
@@ -631,7 +586,6 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     active_effects: Schema.Attribute.JSON;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     backstory: Schema.Attribute.Text;
-    character: Schema.Attribute.Relation<'manyToOne', 'api::character.character'>;
     class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     computedActions: Schema.Attribute.Component<'game.computed-action', true>;
@@ -2141,7 +2095,6 @@ export interface PluginUsersPermissionsUser extends Struct.CollectionTypeSchema 
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    characters: Schema.Attribute.Relation<'oneToMany', 'api::character.character'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -2186,7 +2139,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
-      'api::character.character': ApiCharacterCharacter;
       'api::class.class': ApiClassClass;
       'api::compilation-report.compilation-report': ApiCompilationReportCompilationReport;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;

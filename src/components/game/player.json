@@ -15,7 +15,7 @@
     "character": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::character.character"
+      "target": "api::entity.entity"
     },
     "characterSheet": {
       "type": "relation",

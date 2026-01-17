@@ -1,0 +1,9 @@
+{
+  "slug": "ring-of-feather-falling",
+  "name": "Ring of Feather Falling",
+  "type": "Ring",
+  "rarity": "Rare",
+  "requires_attunement": true,
+  "description": "When you fall while wearing this ring, you descend 60 feet per round and take no damage from falling.",
+  "source_type_rarity": "Ring, rare (requires [attunement](#section-attunement))"
+}

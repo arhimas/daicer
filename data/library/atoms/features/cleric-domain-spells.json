@@ -1,0 +1,8 @@
+{
+  "slug": "cleric-domain-spells",
+  "name": "Domain Spells",
+  "class": "cleric",
+  "level": 1,
+  "description": "Each domain has a list of spells—its domain spells—that you gain at the cleric levels noted in the domain description. Once you gain a domain spell, you always have it prepared, and it doesn't count against the number of spells you can prepare each day.\n\nIf you have a domain spell that doesn't appear on the [cleric spell list](#section-cleric-spells), the spell is nonetheless a cleric spell for you.",
+  "is_subclass_feature": true
+}

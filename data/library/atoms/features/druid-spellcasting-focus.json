@@ -1,0 +1,8 @@
+{
+  "slug": "druid-spellcasting-focus",
+  "name": "Spellcasting Focus",
+  "class": "druid",
+  "level": 1,
+  "description": "You can use a [druidic focus](#section-adventuring-gear) as a spellcasting focus for your druid spells.",
+  "is_subclass_feature": true
+}

@@ -1,0 +1,6 @@
+{
+  "jobId": "batches/9npjm15t633lff9lf5xmsvl459ey73f18gum",
+  "inputFileUri": "https://generativelanguage.googleapis.com/v1beta/files/batch-polish-1768632869424",
+  "startTime": "2026-01-17T06:54:33.658Z",
+  "status": "JOB_STATE_PENDING"
+}

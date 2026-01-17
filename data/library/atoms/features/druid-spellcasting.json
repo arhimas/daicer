@@ -1,0 +1,8 @@
+{
+  "slug": "druid-spellcasting",
+  "name": "Spellcasting",
+  "class": "druid",
+  "level": 1,
+  "description": "Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will.",
+  "is_subclass_feature": false
+}

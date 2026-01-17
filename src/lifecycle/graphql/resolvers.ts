@@ -159,23 +159,21 @@ export const registerGraphQLExtension = (strapi) => {
             const showAllCharacters = lowerQuery === 'characters' || lowerQuery === 'character';
             const showAllMonsters = lowerQuery === 'monsters' || lowerQuery === 'monster';
 
-            const [monsters, characters, items] = await Promise.all([
-              !showAllCharacters && !showAllItems
+            const [entities, items] = await Promise.all([
+              !showAllItems
                 ? strapi.documents('api::entity.entity').findMany({
                     filters: {
-                      type: 'monster',
-                      ...(showAllMonsters ? {} : { name: { $contains: query } }),
+                      $or: [
+                        // If specific flags are set, respect them, otherwise strict search
+                        showAllMonsters ? { type: 'monster' } : null,
+                        showAllCharacters ? { type: 'player' } : null,
+                        // General search
+                        (!showAllMonsters && !showAllCharacters) ? { name: { $contains: query } } : null
+                      ].filter(Boolean) as any[], // filtered nulls
                     },
                     fields: ['name', 'documentId', 'type'],
                     limit: 50,
                     locale: 'en',
-                  })
-                : [],
-              !showAllMonsters && !showAllItems
-                ? strapi.documents('api::character.character').findMany({
-                    filters: showAllCharacters ? {} : { name: { $contains: query } },
-                    fields: ['name', 'documentId'],
-                    limit: 50,
                   })
                 : [],
               !showAllMonsters && !showAllCharacters
@@ -188,27 +186,20 @@ export const registerGraphQLExtension = (strapi) => {
             ]);
 
             strapi.log.info(
-              `[Resolver] Found ${(monsters || []).length} monsters, ${(characters || []).length} characters, ${
-                (items || []).length
-              } items`
+              `[Resolver] Found ${(entities || []).length} entities, ${(items || []).length} items`
             );
 
             return [
-              ...(monsters || []).map((m: { documentId: string; name: string }) => ({
-                id: m.documentId,
-                name: m.name,
-                type: 'monster',
-              })),
-              ...(characters || []).map((c: { documentId: string; name: string }) => ({
-                id: c.documentId,
-                name: c.name,
-                type: 'character',
+              ...(entities || []).map((e: { documentId: string; name: string; type: string }) => ({
+                id: e.documentId,
+                name: e.name,
+                type: e.type?.toLowerCase() || 'entity', // 'monster', 'player'
               })),
               ...(items || []).map((i: { documentId: string; name: string; type: string }) => ({
                 id: i.documentId,
                 name: i.name,
                 type: 'item',
-                subtype: i.type, // Pass item type (weapon, armor) as subtype if needed
+                subtype: i.type,
               })),
             ];
           } catch (error) {

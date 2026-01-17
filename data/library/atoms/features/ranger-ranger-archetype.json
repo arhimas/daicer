@@ -1,0 +1,8 @@
+{
+  "slug": "ranger-ranger-archetype",
+  "name": "Ranger Archetype",
+  "class": "ranger",
+  "level": 3,
+  "description": "At 3rd level, you choose an [archetype](#section-ranger-archetypes) that you strive to emulate. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level.",
+  "is_subclass_feature": false
+}

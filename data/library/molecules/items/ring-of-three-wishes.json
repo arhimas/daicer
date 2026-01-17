@@ -1,0 +1,9 @@
+{
+  "slug": "ring-of-three-wishes",
+  "name": "Ring of Three Wishes",
+  "type": "Ring",
+  "rarity": "Legendary",
+  "requires_attunement": false,
+  "description": "While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the [_wish_](#wish) spell from it. The ring becomes nonmagical when you use the last charge.",
+  "source_type_rarity": "Ring, legendary"
+}

@@ -1,0 +1,8 @@
+{
+  "slug": "fighter-martial-archetype",
+  "name": "Martial Archetype",
+  "class": "fighter",
+  "level": 3,
+  "description": "At 3rd level, you choose an [archetype](#section-martial-archetypes) that you strive to emulate in your combat styles and techniques. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.",
+  "is_subclass_feature": false
+}

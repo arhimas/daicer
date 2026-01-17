@@ -1,0 +1,175 @@
+[
+  {
+    "slug": "druid",
+    "name": "Druid",
+    "hit_die": 8,
+    "proficiency_choices": [
+      "Arcana",
+      "Animal Handling",
+      "Insight",
+      "Medicine",
+      "Nature",
+      "Perception",
+      "Religion",
+      "Survival"
+    ],
+    "proficiencies": {
+      "armor": [
+        "Light armor",
+        "medium armor",
+        "shields (druids will not wear armor or use shields made of metal)"
+      ],
+      "weapons": [
+        "Clubs",
+        "daggers",
+        "darts",
+        "javelins",
+        "maces",
+        "quarterstaffs",
+        "scimitars",
+        "sickles",
+        "slings",
+        "spears"
+      ],
+      "tools": [
+        "Herbalism kit"
+      ],
+      "saving_throws": [
+        "Intelligence",
+        "Wisdom"
+      ]
+    },
+    "equipment": [],
+    "progression": [
+      {
+        "level": 1,
+        "pb": 2,
+        "features": [
+          "Druidic",
+          "Spellcasting"
+        ]
+      },
+      {
+        "level": 2,
+        "pb": 2,
+        "features": [
+          "Wild Shape",
+          "Druid Circle"
+        ]
+      },
+      {
+        "level": 3,
+        "pb": 2,
+        "features": []
+      },
+      {
+        "level": 4,
+        "pb": 2,
+        "features": [
+          "Wild Shape",
+          "Ability Score Improvement"
+        ]
+      },
+      {
+        "level": 5,
+        "pb": 3,
+        "features": []
+      },
+      {
+        "level": 6,
+        "pb": 3,
+        "features": [
+          "Druid Circle feature"
+        ]
+      },
+      {
+        "level": 7,
+        "pb": 3,
+        "features": []
+      },
+      {
+        "level": 8,
+        "pb": 3,
+        "features": [
+          "Wild Shape",
+          "Ability Score Improvement"
+        ]
+      },
+      {
+        "level": 9,
+        "pb": 4,
+        "features": []
+      },
+      {
+        "level": 10,
+        "pb": 4,
+        "features": [
+          "Druid Circle feature"
+        ]
+      },
+      {
+        "level": 11,
+        "pb": 4,
+        "features": []
+      },
+      {
+        "level": 12,
+        "pb": 4,
+        "features": [
+          "Ability Score Improvement"
+        ]
+      },
+      {
+        "level": 13,
+        "pb": 5,
+        "features": []
+      },
+      {
+        "level": 14,
+        "pb": 5,
+        "features": [
+          "Druid Circle feature"
+        ]
+      },
+      {
+        "level": 15,
+        "pb": 5,
+        "features": []
+      },
+      {
+        "level": 16,
+        "pb": 5,
+        "features": [
+          "Ability Score Improvement"
+        ]
+      },
+      {
+        "level": 17,
+        "pb": 6,
+        "features": []
+      },
+      {
+        "level": 18,
+        "pb": 6,
+        "features": [
+          "Timeless Body",
+          "Beast Spells"
+        ]
+      },
+      {
+        "level": 19,
+        "pb": 6,
+        "features": [
+          "Ability Score Improvement"
+        ]
+      },
+      {
+        "level": 20,
+        "pb": 6,
+        "features": [
+          "Archdruid"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "slug": "monk-purity-of-body",
+  "name": "Purity of Body",
+  "class": "monk",
+  "level": 10,
+  "description": "At 10th level, your mastery of the ki flowing through you makes you immune to disease and poison.",
+  "is_subclass_feature": false
+}

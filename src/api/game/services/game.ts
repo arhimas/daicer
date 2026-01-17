@@ -63,7 +63,7 @@ export default ({ strapi }) => ({
     );
   },
 
-  async generateCharacterOpening(
+  async generateEntityOpening(
     worldDescription: string,
     character: unknown,
     mainContext: string,
@@ -73,8 +73,8 @@ export default ({ strapi }) => ({
     targetUserId?: string
   ) {
     return strapi
-      .service('api::game.character-lifecycle')
-      .generateCharacterOpening(worldDescription, character, mainContext, language, settings, streamId, targetUserId);
+      .service('api::game.entity-lifecycle')
+      .generateEntityOpening(worldDescription, character, mainContext, language, settings, streamId, targetUserId);
   },
 
   async generateMainOpening(
@@ -85,12 +85,12 @@ export default ({ strapi }) => ({
     streamId?: string
   ) {
     return strapi
-      .service('api::game.character-lifecycle')
+      .service('api::game.entity-lifecycle')
       .generateMainOpening(worldDescription, players, language, settings, streamId);
   },
 
-  async addCharacter(roomId: string, characterData: unknown, user: unknown) {
-    return strapi.service('api::game.character-lifecycle').addCharacter(roomId, characterData, user);
+  async addPlayerEntity(roomId: string, characterData: unknown, user: unknown) {
+    return strapi.service('api::game.entity-lifecycle').addPlayerEntity(roomId, characterData, user);
   },
 
   async submitAction(roomId: string, action: string, user: unknown, mode?: 'debug' | 'game', direct?: boolean) {
@@ -257,7 +257,7 @@ export default ({ strapi }) => ({
       if (!userId) return null;
 
       // Generate text (Streams to socket via targetUserId)
-      const text = await this.generateCharacterOpening(
+      const text = await this.generateEntityOpening(
         (room.world as { description: string })?.description || '',
         sheet as unknown as CharacterSheet,
         (room.world as { description: string })?.description || '', // Use world description as main context for now, or mainOpening?
@@ -295,12 +295,12 @@ export default ({ strapi }) => ({
     });
 
     // Use extracted helper via service or duplicate?
-    // createSnapshot is not exported from character-lifecycle.
+    // createSnapshot import entityLifecycle from './entity-lifecycle';.
     // Accessing via service if I exported it (I didn't exports default object with methods).
     // I'll call the service method if I exposed it, or just re-implement simple snapshot here since it's just data mapping.
-    // Actually, I put `createSnapshot` inside the export of `character-lifecycle`. Using it now:
+    // Actually, I put `createSnapshot` inside the export of `entity-lifecycle`. Using it now:
     const snapshot = strapi
-      .service('api::game.character-lifecycle')
+      .service('api::game.entity-lifecycle')
       .createSnapshot(roomWithSheets?.entity_sheets || []);
 
     const turn0 = await strapi.documents('api::turn.turn').create({

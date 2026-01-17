@@ -53,12 +53,7 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "characters": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::character.character",
-      "mappedBy": "user"
-    },
+
     "rooms": {
       "type": "relation",
       "relation": "oneToMany",

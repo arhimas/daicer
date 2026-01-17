@@ -1,0 +1,8 @@
+{
+  "slug": "sorcerer-twinned-spell",
+  "name": "Twinned Spell",
+  "class": "sorcerer",
+  "level": 1,
+  "description": "When you cast a spell that targets only one creature and doesn't have a range of self, you can spend a number of sorcery points equal to the spell's level to target a second creature in range with the same spell (1 sorcery point if the spell is a cantrip).\n\nTo be eligible, a spell must be incapable of targeting more than one creature at the spell's current level. For example, [_magic missile_](#magic-missile) and [_scorching ray_](#scorching-ray) aren't eligible, but [_ray of frost_](#ray-of-frost) and [_finger of death_](#finger-of-death) are.",
+  "is_subclass_feature": true
+}

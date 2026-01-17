@@ -27,18 +27,18 @@ export class TestFactory {
   }
 
   /**
-   * Creates a Monster entity
+   * Creates a Monster entity (using Entity API)
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async createMonster(overrides: Partial<any> = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (this.strapi.documents('api::monster.monster') as any).create({
+    return (this.strapi.documents('api::entity.entity') as any).create({
       data: {
         name: 'Test Monster',
         slug: 'test-monster-' + Date.now(),
         type: 'monster',
-        hit_points: 10,
-        armor_class: 10,
+        hp: 10,
+        ac: 10, // Mapped to ac in entity
         stats: {
           strength: 10,
           dexterity: 10,
@@ -55,15 +55,16 @@ export class TestFactory {
   }
 
   /**
-   * Creates a Character entity
+   * Creates a Character entity (using Entity API)
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async createCharacter(overrides: Partial<any> = {}) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (this.strapi.documents('api::character.character') as any).create({
+    return (this.strapi.documents('api::entity.entity') as any).create({
       data: {
         name: 'Test Character',
         slug: 'test-character-' + Date.now(),
+        type: 'player', // Character maps to Player type entity
         hp: 20,
         stats: {
           strength: 12,

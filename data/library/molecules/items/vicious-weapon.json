@@ -1,0 +1,9 @@
+{
+  "slug": "vicious-weapon",
+  "name": "Vicious Weapon",
+  "type": "Weapon (any)",
+  "rarity": "Rare",
+  "requires_attunement": false,
+  "description": "When you roll a 20 on your attack roll with this magic weapon, your critical hit deals an extra 2d6 damage of the weapon's type.",
+  "source_type_rarity": "Weapon (any), rare"
+}

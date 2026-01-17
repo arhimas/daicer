@@ -5,6 +5,7 @@
 
 import { EntityDeriver, StatBlock } from '../src/engine';
 import { BlueprintSchema, SpawnPayloadSchema } from '../schemas/gateway-schemas';
+
 import { Core } from '@strapi/strapi';
 
 // Define Interfaces for strict typing
@@ -234,7 +235,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     position: { x: number; y: number; z: number },
     ownerId?: string
   ) {
-    const character = (await strapi.documents('api::character.character').findOne({
+    const character = (await strapi.documents('api::entity.entity').findOne({
       documentId: characterId as string,
       populate: [
         'stats',
@@ -253,9 +254,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         'inventory.item.equipment_data.properties',
         'actions',
         'spells',
-        'spell_config',
-        'spell_config.prepared_spells',
-        'spell_config.known_spells',
       ],
     })) as unknown as PopulatedBlueprint | null;
 

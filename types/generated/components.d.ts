@@ -443,7 +443,7 @@ export interface GamePlayer extends Struct.ComponentSchema {
   };
   attributes: {
     action: Schema.Attribute.String;
-    character: Schema.Attribute.Relation<'oneToOne', 'api::character.character'>;
+    character: Schema.Attribute.Relation<'oneToOne', 'api::entity.entity'>;
     characterSheet: Schema.Attribute.Relation<'oneToOne', 'api::entity-sheet.entity-sheet'>;
     isOnline: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     isReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;

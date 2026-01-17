@@ -1,2 +1,2 @@
 export * from './entity';
-export * from './character';
+export * from './entity';

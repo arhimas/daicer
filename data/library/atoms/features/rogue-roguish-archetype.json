@@ -1,0 +1,8 @@
+{
+  "slug": "rogue-roguish-archetype",
+  "name": "Roguish Archetype",
+  "class": "rogue",
+  "level": 3,
+  "description": "At 3rd level, you choose an [archetype](#section-roguish-archetypes) that you emulate in the exercise of your rogue abilities. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level.",
+  "is_subclass_feature": false
+}

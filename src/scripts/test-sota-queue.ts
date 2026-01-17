@@ -19,7 +19,7 @@ async function main() {
 
     await queueManager.add(QueueName.EMBEDDING, 'test-embedding-job-' + Date.now(), {
       entityId: 1,
-      entityType: 'api::character.character',
+      entityType: 'api::entity.entity',
       action: 'upsert',
       sourceType: 'manual',
     });

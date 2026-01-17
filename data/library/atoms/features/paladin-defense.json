@@ -1,0 +1,8 @@
+{
+  "slug": "paladin-defense",
+  "name": "Defense",
+  "class": "paladin",
+  "level": 1,
+  "description": "While you are wearing armor, you gain a +1 bonus to AC.",
+  "is_subclass_feature": true
+}
