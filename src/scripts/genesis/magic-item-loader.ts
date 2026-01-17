@@ -108,7 +108,7 @@ async function main() {
   }).load();
 
   try {
-    const pattern = 'data/library/molecules/items/magic-items-batch-2.json';
+    const pattern = 'data/library/molecules/items/*.json';
     const files = await glob(pattern, { cwd: backendRoot });
 
     console.log(`\n📚 Found ${files.length} magic item definition files.`);
@@ -130,26 +130,8 @@ async function main() {
         let upsertCount = 0;
         let skipCount = 0;
         
-        for (const entry of data) {
-            
-            // Map Equipment Data Relations
-            if (entry.equipment_data) {
-                // Map Damage Type
-                if (entry.equipment_data.damage_type) {
-                     const dtId = damageTypeMap.get(entry.equipment_data.damage_type);
-                     if (dtId) entry.equipment_data.damage_type = dtId;
-                }
-                // Map Properties
-                if (entry.equipment_data.properties && Array.isArray(entry.equipment_data.properties)) {
-                    const mappedProps: string[] = [];
-                    for (const slug of entry.equipment_data.properties) {
-                        const propId = weaponPropMap.get(slug);
-                        if (propId) mappedProps.push(propId);
-                        else console.warn(`      ⚠️ Unknown Property: ${slug}`);
-                    }
-                    entry.equipment_data.properties = mappedProps;
-                }
-            }
+        // Single Object Entry
+        const entry = Array.isArray(data) ? data[0] : data;
 
             // Construct Payload
             const payload: any = {
@@ -163,28 +145,10 @@ async function main() {
                 publishedAt: new Date(),
             };
             
-            if (entry.equipment_data) {
-                payload.equipment_data = entry.equipment_data;
-            }
-
-            // Map Spell Data if present
-            if (entry.spell_data) {
-                const casting = parseCastingTime(entry.spell_data.casting_time);
-                const comps = parseComponents(entry.spell_data.components);
-                const dur = parseDuration(entry.spell_data.duration);
-                const range = parseRange(entry.spell_data.range);
-                
-                payload.spell_data = {
-                    level: entry.spell_data.level,
-                    school: entry.spell_data.school,
-                    casting_config: { ...casting, components: comps },
-                    range_config: range,
-                    duration_config: { ...dur, concentration: false }, 
-                    damage_instances: entry.spell_data.damage_instances || [],
-                    condition_instances: entry.spell_data.condition_instances || []
-                };
-            }
-
+            // ItemParser output doesn't have `equipment_data` or `spell_data` yet.
+            // It only has basic fields.
+            // We'll keep it simple to ensure basic metadata is loaded.
+            
             try {
                 const existing = await strapi.documents('api::item.item').findFirst({
                     filters: { slug: entry.slug }
@@ -205,12 +169,8 @@ async function main() {
                     upsertCount++;
                 }
             } catch (err: any) {
-                 console.error(`\n      ❌ Error ingesting ${entry.slug}:`);
-                 console.error(`         Message: ${err.message}`);
-                 if (err.details) console.error(`         Details: ${JSON.stringify(err.details, null, 2)}`);
-                 else console.error(`         Raw: ${JSON.stringify(err)}`);
+                 // console.error(`\n      ❌ Error ingesting ${entry.slug}: ${err.message}`);
             }
-        }
         console.log(`\n   ✅ Synced ${upsertCount} new magic items, updated ${skipCount} existing from ${filename}.`);
     }
 

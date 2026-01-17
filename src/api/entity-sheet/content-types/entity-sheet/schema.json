@@ -143,6 +143,10 @@
       "type": "integer",
       "default": 10
     },
+    "computedWeight": {
+      "type": "float",
+      "default": 0
+    },
     "computedSkills": {
       "type": "component",
       "repeatable": true,

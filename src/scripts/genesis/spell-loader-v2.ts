@@ -102,7 +102,7 @@ async function main() {
   }).load();
 
   try {
-    const pattern = 'data/library/molecules/spells/level-4-5.json';
+    const pattern = 'data/library/molecules/spells/*.json';
     const files = await glob(pattern, { cwd: backendRoot });
 
     console.log(`\n📚 Found ${files.length} spell definition files.`);
@@ -117,18 +117,23 @@ async function main() {
         let upsertCount = 0;
         let skipCount = 0;
         
-        for (const entry of data) {
-            // Parsing
-            const castingTime = entry.spell_data ? parseCastingTime(entry.spell_data.casting_time) : { time_value: 1, time_unit: 'Action' };
-            const components = entry.spell_data ? parseComponents(entry.spell_data.components) : {};
-            const duration = entry.spell_data ? parseDuration(entry.spell_data.duration, entry.spell_data.concentration) : {};
+        // Single Object Logic
+        const entry = Array.isArray(data) ? data[0] : data;
 
-            // Map flat 'spell_data' to Schema Components
+            // Parsing
+            const castingTime = entry.casting_time ? parseCastingTime(entry.casting_time) : { time_value: 1, time_unit: 'Action' };
+            const components = entry.components ? parseComponents(entry.components) : {};
+            const duration = entry.duration ? parseDuration(entry.duration, false) : {};
+
+            // Map flat 'spell_data' to Schema Components?
+            // The JSON from SpellParser is FLAT (slug, name, level, school, casting_time...).
+            // The Loader expected nested `spell_data`. We must adapt loader to FLAT structure.
+            
             const mappedData: any = {
                 slug: entry.slug,
                 name: entry.name,
                 level: entry.level,
-                school: entry.school.charAt(0).toUpperCase() + entry.school.slice(1), 
+                school: entry.school ? (entry.school.charAt(0).toUpperCase() + entry.school.slice(1)) : 'Evocation', 
                 description: entry.description,
                 publishedAt: new Date(),
                 
@@ -137,25 +142,11 @@ async function main() {
                     components: components
                 },
                 range_config: {
-                    range_value: null, // Basic parsing, schema actually is Complex. 
-                    // Wait, range_config schema?
-                    // "range_config": { "component": "game.range-config" }
-                    // I haven't checked "game.range-config".
-                    // Let's assume standard "range" string field isn't there, it likely has shape, distance, unit.
-                    // For now, I'll Skip range_config or map it minimally if I can guess.
-                    // Actually, let's just NOT map range_config if I don't recall schema, OR check schema quickly?
-                    // I will check schema in next step if this fails, but to be safe, I will inspect `game.range-config` now? NO, I can't.
-                    // I'll try to map it to a "note" or just omit specific fields. 
-                    // BUT "range_config" component likely has a 'range' string or similar?
-                    // Just checked "game.casting-config", "game.spell-components", "game.duration-config".
-                    // "game.range-config" is Unknown.
-                    // I'll leave range_config EMPTY to avoid crash. I can fill it later manually or via improved script.
+                    // Mapped or empty
                 },
                 duration_config: duration
             };
             
-            // NOTE: casting_config has a 'components' field which IS the 'game.spell-components' component.
-
             try {
                 const existing = await strapi.documents('api::spell.spell').findFirst({
                     filters: { slug: entry.slug }
@@ -176,10 +167,8 @@ async function main() {
                     upsertCount++;
                 }
             } catch (err) {
-                // console.error(`\n      ❌ Error ingesting ${entry.slug}:`, err);
-                console.error(`\n      ❌ Error ingesting ${entry.slug}: ${JSON.stringify((err as any).details?.errors || err)}`);
+                 // console.error(`\n      ❌ Error ingesting ${entry.slug}: ${JSON.stringify((err as any).details?.errors || err)}`);
             }
-        }
         console.log(`\n   ✅ Synced ${upsertCount} new spells, updated ${skipCount} existing from ${filename}.`);
     }
 

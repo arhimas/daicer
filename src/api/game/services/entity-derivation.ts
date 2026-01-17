@@ -165,6 +165,14 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
       ...(entity.vulnerabilities || []).map((t) => ({ damageType: t, modifier: 'vulnerability' })),
     ];
 
+    // Weight Calculation
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const computedWeight = (entity.equipment || []).reduce((acc: number, entry: any) => {
+        const w = entry.item?.weight || 0;
+        const q = entry.quantity || 1;
+        return acc + (w * q);
+    }, 0);
+
     // 4. Update EntitySheet directly
     await strapi.entityService.update('api::entity-sheet.entity-sheet', sheetId, {
       data: {
@@ -187,6 +195,8 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
         // We added `tempHp`, `computedSkills` etc.
         // We did NOT add `speed` component to root.
         // `stats` component has speed. We can update that.
+        
+        computedWeight, // Persist calculated weight
 
         tempHp: 0, // Default or tracking? Entity doesn't have tempHp in interface yet?
         initiativeBonus: stats.initiativeBonus || EntityDeriver.calculateModifier(stats.dexterity),

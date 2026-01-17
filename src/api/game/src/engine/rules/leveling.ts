@@ -15,6 +15,7 @@ export function resolveLevelUp(sheet: EntitySheet, classDef: ClassDefinition, ru
     hitDice: { ...sheet.hitDice },
     attributes: { ...sheet.attributes },
     spellbook: sheet.spellbook ? { ...sheet.spellbook, slots: [...(sheet.spellbook.slots || [])] } : undefined,
+    features: sheet.features ? [...sheet.features] : [],
   };
 
   const currentLevel = newSheet.level;
@@ -79,15 +80,28 @@ export function resolveLevelUp(sheet: EntitySheet, classDef: ClassDefinition, ru
   }
 
   // 5. Features
-  // We don't "activate" features here, but we could add them to a list.
-  // For now, the Frontend/Engine derives capabilities from the Class Relation + Level.
-  // We might not need to copy features to the sheet if they are relational.
-  // But if we do:
-  /*
-  if (levelData?.features) {
-      // Add features to sheet.features if we store them flatly
+  // We identify features gained at this NEW level from the Class Definition.
+  // We append them to the sheet's feature list as Relation Stubs.
+  if (levelData?.features?.length) {
+    // Initialize if missing
+    if (!newSheet.features) newSheet.features = [];
+
+    // Append new features (avoiding strict duplicates if desired, but for now just pushing)
+    // In a real Strapi relation, we'd add the ID. Here we push the stub.
+    // We check if we already have it to avoid double-adding on re-calc (though levelUp is usually state transition).
+    for (const feat of levelData.features) {
+       // Simple duplication check by name for now, assuming unique names per class feature set
+       const exists = newSheet.features.find(f => f.name === feat.name);
+       if (!exists) {
+         newSheet.features.push({
+           documentId: feat.documentId,
+           name: feat.name,
+           // We could hydrate description/type if available in ClassDef, but typically it lives on the Feature entity itself.
+           // The Engine hydration phase (later) would fetch the full Feature logic.
+         });
+       }
+    }
   }
-  */
 
   return newSheet;
 }

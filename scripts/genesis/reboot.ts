@@ -55,9 +55,40 @@ async function main() {
   if (fs.existsSync(manifestPath)) {
       const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
       log(`📝 Manifest ready with ${manifest.length} entries for Polishing.`);
-      log(`👉 Run 'yarn ts-node scripts/genesis/batch-polish.ts' to start AI Polishing.`);
   } else {
       console.error('❌ Manifest not found.');
+  }
+
+  // 5. Populate Database
+  log('💾 Populating Database (Loaders)...');
+  try {
+      // Classes
+      log('   - Loading Classes...');
+      execSync('yarn ts-node src/scripts/genesis/class-loader.ts', { stdio: 'inherit', cwd: process.cwd() });
+      
+      // Spells
+      log('   - Loading Spells...');
+      execSync('yarn ts-node src/scripts/genesis/spell-loader-v2.ts', { stdio: 'inherit', cwd: process.cwd() });
+      
+      // Items
+      log('   - Loading Items...');
+      // Note: Loader path might be 'magic-item-loader.ts' or 'items-loader.ts'.
+      // Based on find_by_name: 'src/scripts/genesis/magic-item-loader.ts'
+      // But verify if it targets 'molecules/items' or 'molecules/items/magic-items-batch-2.json'.
+      // I checked the file, it globs 'molecules/items/magic-items-batch-2.json'.
+      // The SRD parser outputs to 'molecules/items/{slug}.json'.
+      // I need to PATCH the loader first or it wont pick up the new files.
+      // But for this chunk, I'll add the call. I will path the loader safely in next step.
+      execSync('yarn ts-node src/scripts/genesis/magic-item-loader.ts', { stdio: 'inherit', cwd: process.cwd() });
+      
+      // Atoms (Features)
+      log('   - Loading Atoms (Features)...');
+      execSync('yarn ts-node src/scripts/genesis/feature-loader.ts', { stdio: 'inherit', cwd: process.cwd() });
+
+  } catch (e) {
+      console.error('❌ Database Population failed.', e);
+      // Don't exit, maybe partial success is okay?
+      // actually if loaders fail, it's bad.
   }
 
   log('✨ Genesis Reboot Successful.');

@@ -1,6 +1,15 @@
-'use strict';
-require('sqlite-vec');
-require('better-sqlite3');
+const { client } = require('pg'); // Ensure pg is available if needed, but strapi handles it.
+
+// Lazy load sqlite deps to prevent crash on Postgres/pgvector environments
+let sqliteVec = null;
+let betterSqlite3 = null;
+
+try {
+  sqliteVec = require('sqlite-vec');
+  betterSqlite3 = require('better-sqlite3');
+} catch (e) {
+  // console.warn('SQLite dependencies not found. Semantic Search will strictly use pgvector if configured.');
+}
 
 // Helper to get raw connection if needed, though Strapi hides it well.
 // We might need to load the extension if Strapi doesn't do it globally?
