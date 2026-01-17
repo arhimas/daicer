@@ -1,0 +1,8 @@
+{
+  "slug": "fighter-two-weapon-fighting",
+  "name": "Two-Weapon Fighting",
+  "class": "fighter",
+  "level": 1,
+  "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
+  "is_subclass_feature": true
+}

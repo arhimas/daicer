@@ -1,0 +1,8 @@
+{
+  "slug": "ranger-spellcasting-ability",
+  "name": "Spellcasting Ability",
+  "class": "ranger",
+  "level": 1,
+  "description": "Wisdom is your spellcasting ability for your ranger spells, since your magic draws on your attunement to nature. You use your Wisdom whenever a spell refers to your spellcasting ability. In addition, you use your Wisdom modifier when setting the saving throw DC for a ranger spell you cast and when making an attack roll with one.\n\n<table>\n<colgroup>\n<col width=\"100%\" />\n</colgroup>\n<tbody>\n<tr class=\"odd\">\n<td align=\"center\"><strong>Spell save DC</strong> = 8 + your proficiency bonus + your Wisdom modifier</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\"><strong>Spell attack modifier</strong> = your proficiency bonus + your Wisdom modifier</td>\n</tr>\n</tbody>\n</table>",
+  "is_subclass_feature": true
+}

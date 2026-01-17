@@ -1,0 +1,8 @@
+{
+  "slug": "cleric-divine-domain",
+  "name": "Divine Domain",
+  "class": "cleric",
+  "level": 1,
+  "description": "Choose one [domain](#section-domains) related to your deity. Each domain provides examples of gods associated with it. Your choice grants you domain spells and other features when you choose it at 1st level. It also grants you additional ways to use Channel Divinity when you gain that feature at 2nd level, and additional benefits at 6th, 8th, and 17th levels.",
+  "is_subclass_feature": false
+}

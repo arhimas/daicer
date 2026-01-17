@@ -1,0 +1,8 @@
+{
+  "slug": "wizard-learning-spells-of-1st-level-and-higher",
+  "name": "Learning Spells of 1st Level and Higher",
+  "class": "wizard",
+  "level": 1,
+  "description": "Each time you gain a wizard level, you can add two wizard spells of your choice to your spellbook for free. Each of these spells must be of a level for which you have spell slots, as shown on the Wizard table.\n\nOn your adventures, you might find other spells that you can add to [your spellbook](#your-spellbook).",
+  "is_subclass_feature": true
+}

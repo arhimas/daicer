@@ -1,0 +1,8 @@
+{
+  "slug": "monk-stillness-of-mind",
+  "name": "Stillness of Mind",
+  "class": "monk",
+  "level": 7,
+  "description": "Starting at 7th level, you can use your action to end one effect on yourself that is causing you to be [charmed](#charmed) or [frightened](#frightened).",
+  "is_subclass_feature": false
+}

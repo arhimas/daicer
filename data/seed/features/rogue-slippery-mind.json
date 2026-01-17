@@ -1,0 +1,8 @@
+{
+  "slug": "rogue-slippery-mind",
+  "name": "Slippery Mind",
+  "class": "rogue",
+  "level": 1,
+  "description": "By 15th level, you have acquired greater mental strength. You gain proficiency in Wisdom saving throws.",
+  "is_subclass_feature": false
+}

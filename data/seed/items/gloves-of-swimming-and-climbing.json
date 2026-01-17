@@ -1,0 +1,9 @@
+{
+  "slug": "gloves-of-swimming-and-climbing",
+  "name": "Gloves of Swimming and Climbing",
+  "type": "Wondrous item",
+  "rarity": "Uncommon",
+  "requires_attunement": true,
+  "description": "While wearing these gloves, climbing and swimming don't cost you extra movement, and you gain a +5 bonus to Strength (Athletics) checks made to climb or swim.",
+  "source_type_rarity": "Wondrous item, uncommon (requires [attunement](#section-attunement))"
+}

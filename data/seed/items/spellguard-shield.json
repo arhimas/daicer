@@ -1,0 +1,9 @@
+{
+  "slug": "spellguard-shield",
+  "name": "Spellguard Shield",
+  "type": "Armor (shield)",
+  "rarity": "Very Rare",
+  "requires_attunement": true,
+  "description": "While holding this shield, you have advantage on saving throws against spells and other magical effects, and spell attacks have disadvantage against you.",
+  "source_type_rarity": "Armor (shield), very rare (requires [attunement](#section-attunement))"
+}

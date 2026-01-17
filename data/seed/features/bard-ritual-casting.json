@@ -1,0 +1,8 @@
+{
+  "slug": "bard-ritual-casting",
+  "name": "Ritual Casting",
+  "class": "bard",
+  "level": 1,
+  "description": "You can cast any bard spell you know as a ritual if that spell has the ritual tag.",
+  "is_subclass_feature": true
+}

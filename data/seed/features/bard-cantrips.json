@@ -1,0 +1,8 @@
+{
+  "slug": "bard-cantrips",
+  "name": "Cantrips",
+  "class": "bard",
+  "level": 1,
+  "description": "You know two cantrips of your choice from the [bard spell list](#section-bard-spells). You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.",
+  "is_subclass_feature": true
+}

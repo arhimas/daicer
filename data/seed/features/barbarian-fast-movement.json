@@ -1,0 +1,8 @@
+{
+  "slug": "barbarian-fast-movement",
+  "name": "Fast Movement",
+  "class": "barbarian",
+  "level": 5,
+  "description": "Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor.",
+  "is_subclass_feature": false
+}

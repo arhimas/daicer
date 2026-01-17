@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Page, Layouts } from '@strapi/strapi/admin';
 import { 
   Main, 
-  Layouts, 
   Box, 
   Typography, 
   Button, 
@@ -10,8 +10,7 @@ import {
   SingleSelect,
   SingleSelectOption,
   TextInput,
-  Grid,
-  GridItem
+  Grid
 } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 import { useFetchClient } from '@strapi/strapi/admin';
@@ -197,7 +196,7 @@ const HomePage = () => {
   };
 
   return (
-    <Main>
+    <Page.Main>
       <Layouts.Header
         title="Map Explorer"
         subtitle={`Viewing Chunk (${chunkX}, ${chunkY}) at Z=${currentZ} - Seed: ${config?.seed || 'Loading...'}`}
@@ -205,9 +204,9 @@ const HomePage = () => {
       />
       <Layouts.Content>
         <Box padding={8} background="neutral100">
-            <Grid gap={4}>
+            <Grid.Root gap={4}>
                 {/* Left Column: Controls */}
-                <GridItem col={3} s={12}>
+                <Grid.Item col={3} s={12}>
                     <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius>
                         <Typography variant="delta" tag="h2">Navigation</Typography>
                         <Box paddingTop={4}>
@@ -255,10 +254,10 @@ const HomePage = () => {
                             </SingleSelect>
                         </Box>
                     </Box>
-                </GridItem>
+                </Grid.Item>
 
                 {/* Middle Column: Map */}
-                <GridItem col={6} s={12}>
+                <Grid.Item col={6} s={12}>
                     <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius style={{ display: 'flex', justifyContent: 'center' }}>
                         <canvas 
                             ref={canvasRef} 
@@ -266,10 +265,10 @@ const HomePage = () => {
                             style={{ cursor: 'crosshair', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}
                         />
                     </Box>
-                </GridItem>
+                </Grid.Item>
                 
                 {/* Right Column: Config */}
-                <GridItem col={3} s={12}>
+                <Grid.Item col={3} s={12}>
                     <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius>
                         <Typography variant="delta" tag="h2">World Config</Typography>
                         <Box paddingTop={4}>
@@ -301,11 +300,11 @@ const HomePage = () => {
                             <Button fullWidth onClick={handleUpdateConfig}>Save Config</Button>
                         </Box>
                     </Box>
-                </GridItem>
-            </Grid>
+                </Grid.Item>
+            </Grid.Root>
         </Box>
       </Layouts.Content>
-    </Main>
+    </Page.Main>
   );
 };
 

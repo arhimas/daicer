@@ -1,0 +1,8 @@
+{
+  "slug": "paladin-divine-health",
+  "name": "Divine Health",
+  "class": "paladin",
+  "level": 1,
+  "description": "By 3rd level, the divine magic flowing through you makes you immune to disease.",
+  "is_subclass_feature": false
+}

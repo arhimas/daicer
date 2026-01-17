@@ -1,0 +1,8 @@
+{
+  "slug": "monk-monastic-tradition",
+  "name": "Monastic Tradition",
+  "class": "monk",
+  "level": 3,
+  "description": "When you reach 3rd level, you commit yourself to a [monastic tradition](#section-monastic-traditions). Your tradition grants you features at 3rd level and again at 6th, 11th, and 17th level.",
+  "is_subclass_feature": false
+}

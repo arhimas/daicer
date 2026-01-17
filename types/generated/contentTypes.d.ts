@@ -442,6 +442,12 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::class.class'>;
+    lore: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -591,6 +597,7 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     computedActions: Schema.Attribute.Component<'game.computed-action', true>;
     computedSaves: Schema.Attribute.Component<'game.save-bonus', true>;
     computedSkills: Schema.Attribute.Component<'game.skill-bonus', true>;
+    computedWeight: Schema.Attribute.Float & Schema.Attribute.DefaultTo<0>;
     conditions: Schema.Attribute.Component<'game.condition-instance', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -773,6 +780,12 @@ export interface ApiFeatureFeature extends Struct.CollectionTypeSchema {
     level: Schema.Attribute.Integer;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::feature.feature'>;
+    lore: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -873,6 +886,12 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
+    lore: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -886,7 +905,22 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spell_data: Schema.Attribute.Component<'game.spell-data', false>;
     type: Schema.Attribute.Enumeration<
-      ['weapon', 'armor', 'consumable', 'tool', 'loot', 'spell_scroll', 'feature', 'container']
+      [
+        'weapon',
+        'armor',
+        'consumable',
+        'tool',
+        'loot',
+        'spell_scroll',
+        'feature',
+        'container',
+        'wondrous_item',
+        'ring',
+        'rod',
+        'staff',
+        'wand',
+        'potion',
+      ]
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'loot'>;
@@ -1358,6 +1392,12 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
       >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
+    lore: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     mechanics_config: Schema.Attribute.Component<'game.mechanics-config', false>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &

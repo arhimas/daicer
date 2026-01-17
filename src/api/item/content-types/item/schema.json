@@ -38,9 +38,17 @@
         }
       }
     },
+    "lore": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "type": {
       "type": "enumeration",
-      "enum": ["weapon", "armor", "consumable", "tool", "loot", "spell_scroll", "feature", "container"],
+      "enum": ["weapon", "armor", "consumable", "tool", "loot", "spell_scroll", "feature", "container", "wondrous_item", "ring", "rod", "staff", "wand", "potion"],
       "required": true,
       "default": "loot"
     },

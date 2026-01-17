@@ -1,0 +1,9 @@
+{
+  "slug": "ring-of-swimming",
+  "name": "Ring of Swimming",
+  "type": "Ring",
+  "rarity": "Uncommon",
+  "requires_attunement": false,
+  "description": "You have a swimming speed of 40 feet while wearing this ring.",
+  "source_type_rarity": "Ring, uncommon"
+}

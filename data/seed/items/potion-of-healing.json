@@ -1,0 +1,9 @@
+{
+  "slug": "potion-of-healing",
+  "name": "Potion of Healing",
+  "type": "Potion",
+  "rarity": "Varies",
+  "requires_attunement": false,
+  "description": "You regain hit points when you drink this potion.\n\nThe number of hit points depends on the potion's rarity, as shown in the Potions of Healing table. Whatever its potency, the potion's red liquid glimmers when agitated.\n\n<table style=\"width:60%;\">\n<caption>Potions of Healing</caption>\n<colgroup>\n<col width=\"27%\" />\n<col width=\"15%\" />\n<col width=\"16%\" />\n</colgroup>\n<thead>\n<tr class=\"header\">\n<th align=\"left\">Potion of …</th>\n<th align=\"left\">Rarity</th>\n<th align=\"left\">HP Regained</th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td align=\"left\">Healing</td>\n<td align=\"left\">Common</td>\n<td align=\"left\">2d4 + 2</td>\n</tr>\n<tr class=\"even\">\n<td align=\"left\">Greater healing</td>\n<td align=\"left\">Uncommon</td>\n<td align=\"left\">4d4 + 4</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"left\">Superior healing</td>\n<td align=\"left\">Rare</td>\n<td align=\"left\">8d4 + 8</td>\n</tr>\n<tr class=\"even\">\n<td align=\"left\">Supreme healing</td>\n<td align=\"left\">Very rare</td>\n<td align=\"left\">10d4 + 20</td>\n</tr>\n</tbody>\n</table>",
+  "source_type_rarity": "Potion, rarity varies"
+}

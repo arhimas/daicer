@@ -1,0 +1,9 @@
+{
+  "slug": "brooch-of-shielding",
+  "name": "Brooch of Shielding",
+  "type": "Wondrous item",
+  "rarity": "Uncommon",
+  "requires_attunement": true,
+  "description": "While wearing this brooch, you have resistance to force damage, and you have immunity to damage from the [_magic missile_](#magic-missile) spell.",
+  "source_type_rarity": "Wondrous item, uncommon (requires [attunement](#section-attunement))"
+}

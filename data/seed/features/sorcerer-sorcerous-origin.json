@@ -1,0 +1,8 @@
+{
+  "slug": "sorcerer-sorcerous-origin",
+  "name": "Sorcerous Origin",
+  "class": "sorcerer",
+  "level": 1,
+  "description": "Choose a [sorcerous origin](#section-sorcerous-origins), which describes the source of your innate magical power.\n\nYour choice grants you features when you choose it at 1st level and again at 6th, 14th, and 18th level.",
+  "is_subclass_feature": false
+}

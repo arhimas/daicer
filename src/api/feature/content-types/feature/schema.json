@@ -42,6 +42,14 @@
         }
       }
     },
+    "lore": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "level": {
       "type": "integer"
     },

@@ -1,0 +1,165 @@
+{
+  "slug": "warlock",
+  "name": "Warlock",
+  "hit_die": 8,
+  "proficiency_choices": [
+    "Arcana",
+    "Deception",
+    "History",
+    "Intimidation",
+    "Investigation",
+    "Nature",
+    "Religion"
+  ],
+  "proficiencies": {
+    "armor": [
+      "Light armor"
+    ],
+    "weapons": [
+      "Simple weapons"
+    ],
+    "tools": [
+      "None"
+    ],
+    "saving_throws": [
+      "Wisdom",
+      "Charisma"
+    ]
+  },
+  "equipment": [],
+  "progression": [
+    {
+      "level": 1,
+      "pb": 2,
+      "features": [
+        "Otherworldly Patron",
+        "Pact Magic"
+      ]
+    },
+    {
+      "level": 2,
+      "pb": 2,
+      "features": [
+        "Eldritch Invocations"
+      ]
+    },
+    {
+      "level": 3,
+      "pb": 2,
+      "features": [
+        "Pact Boon"
+      ]
+    },
+    {
+      "level": 4,
+      "pb": 2,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 5,
+      "pb": 3,
+      "features": []
+    },
+    {
+      "level": 6,
+      "pb": 3,
+      "features": [
+        "Otherworldly Patron feature"
+      ]
+    },
+    {
+      "level": 7,
+      "pb": 3,
+      "features": []
+    },
+    {
+      "level": 8,
+      "pb": 3,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 9,
+      "pb": 4,
+      "features": []
+    },
+    {
+      "level": 10,
+      "pb": 4,
+      "features": [
+        "Otherworldly Patron feature"
+      ]
+    },
+    {
+      "level": 11,
+      "pb": 4,
+      "features": [
+        "Mystic Arcanum"
+      ]
+    },
+    {
+      "level": 12,
+      "pb": 4,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 13,
+      "pb": 5,
+      "features": [
+        "Mystic Arcanum"
+      ]
+    },
+    {
+      "level": 14,
+      "pb": 5,
+      "features": [
+        "Otherworldly Patron feature"
+      ]
+    },
+    {
+      "level": 15,
+      "pb": 5,
+      "features": [
+        "Mystic Arcanum"
+      ]
+    },
+    {
+      "level": 16,
+      "pb": 5,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 17,
+      "pb": 6,
+      "features": [
+        "Mystic Arcanum"
+      ]
+    },
+    {
+      "level": 18,
+      "pb": 6,
+      "features": []
+    },
+    {
+      "level": 19,
+      "pb": 6,
+      "features": [
+        "Ability Score Improvement"
+      ]
+    },
+    {
+      "level": 20,
+      "pb": 6,
+      "features": [
+        "Eldritch Master"
+      ]
+    }
+  ]
+}

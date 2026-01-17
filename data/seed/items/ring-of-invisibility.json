@@ -1,0 +1,9 @@
+{
+  "slug": "ring-of-invisibility",
+  "name": "Ring of Invisibility",
+  "type": "Ring",
+  "rarity": "Legendary",
+  "requires_attunement": true,
+  "description": "While wearing this ring, you can turn [invisible](#invisible) as an action. Anything you are wearing or carrying is invisible with you. You remain invisible until the ring is removed, until you attack or cast a spell, or until you use a bonus action to become visible again.",
+  "source_type_rarity": "Ring, legendary (requires [attunement](#section-attunement))"
+}

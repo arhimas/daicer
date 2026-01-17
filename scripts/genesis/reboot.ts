@@ -59,36 +59,20 @@ async function main() {
       console.error('❌ Manifest not found.');
   }
 
-  // 5. Populate Database
-  log('💾 Populating Database (Loaders)...');
+  // 5. SOTA Pipeline (Audit -> Merge -> Seed)
+  log('🧬 Running SOTA Pipeline...');
   try {
-      // Classes
-      log('   - Loading Classes...');
-      execSync('yarn ts-node src/scripts/genesis/class-loader.ts', { stdio: 'inherit', cwd: process.cwd() });
+      // Merge (Raw + Audit -> Seed)
+      log('   - Merging Canonical Seeds...');
+      execSync('yarn ts-node src/scripts/genesis/sota-merge.ts', { stdio: 'inherit', cwd: process.cwd() });
       
-      // Spells
-      log('   - Loading Spells...');
-      execSync('yarn ts-node src/scripts/genesis/spell-loader-v2.ts', { stdio: 'inherit', cwd: process.cwd() });
-      
-      // Items
-      log('   - Loading Items...');
-      // Note: Loader path might be 'magic-item-loader.ts' or 'items-loader.ts'.
-      // Based on find_by_name: 'src/scripts/genesis/magic-item-loader.ts'
-      // But verify if it targets 'molecules/items' or 'molecules/items/magic-items-batch-2.json'.
-      // I checked the file, it globs 'molecules/items/magic-items-batch-2.json'.
-      // The SRD parser outputs to 'molecules/items/{slug}.json'.
-      // I need to PATCH the loader first or it wont pick up the new files.
-      // But for this chunk, I'll add the call. I will path the loader safely in next step.
-      execSync('yarn ts-node src/scripts/genesis/magic-item-loader.ts', { stdio: 'inherit', cwd: process.cwd() });
-      
-      // Atoms (Features)
-      log('   - Loading Atoms (Features)...');
-      execSync('yarn ts-node src/scripts/genesis/feature-loader.ts', { stdio: 'inherit', cwd: process.cwd() });
+      // Seed (Seed -> DB)
+      log('   - Seeding Database...');
+      execSync('yarn ts-node src/scripts/genesis/sota-seed.ts', { stdio: 'inherit', cwd: process.cwd() });
 
   } catch (e) {
-      console.error('❌ Database Population failed.', e);
-      // Don't exit, maybe partial success is okay?
-      // actually if loaders fail, it's bad.
+      console.error('❌ SOTA Pipeline failed.', e);
+      process.exit(1);
   }
 
   log('✨ Genesis Reboot Successful.');
