@@ -1,0 +1,23 @@
+{
+  "file": "molecules/spells/flesh-to-stone.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "flesh-to-stone.json",
+    "analysis": {
+      "consistency": "High. The spell follows standard D&D 5e spell structure (level, school, casting time, range, components, duration, description, classes). The mechanical progression (restrained -> failed saves -> petrified) is clearly laid out.",
+      "quality": "High. The description is detailed and handles edge cases (tracking successes/failures, effect of breaking while petrified, permanent effect if concentration is held). The flavor aligns well with the mechanics.",
+      "mechanics": {
+        "initial_check": "Constitution saving throw against paralysis/restrained.",
+        "progression": "If restrained, subsequent Constitution saves determine progress toward petrification (3 successes end it, 3 failures cause it).",
+        "tracking_mechanism": "The 'successes and failures don't need to be consecutive' is a crucial and well-documented mechanic for this specific spell, preventing easy exploits.",
+        "final_effect": "Petrified condition, with a specific note on physical damage consequence upon reversal.",
+        "duration_interaction": "If concentration is maintained for the full 1 minute (10 turns), the petrification becomes permanent until removed (implying the save progression is bypassed or fixed), which is a significant power spike matching the sustained concentration cost."
+      },
+      "notes": "The spell successfully blends a duration-based condition (Restrained) that can lead to a potent, long-term condition (Petrified). The rule about maintaining concentration for the full duration leading to permanent effect is key to its balance."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:41.832Z"
+}

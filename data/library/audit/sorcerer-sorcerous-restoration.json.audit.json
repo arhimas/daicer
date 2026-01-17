@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/sorcerer-sorcerous-restoration.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-sorcerous-restoration.json",
+    "analysis": {
+      "consistency": {
+        "class_match": "The feature is correctly attributed to the 'sorcerer' class.",
+        "level_match": "Level 20 is the standard capstone level for primary class features.",
+        "naming_convention": "The slug and name ('Sorcerous Restoration') are thematic and clear."
+      },
+      "quality": {
+        "description_clarity": "The description is precise: 'At 20th level, you regain 4 expended sorcery points whenever you finish a short rest.'",
+        "completeness": "The data captures all necessary mechanical aspects (level, effect, resource affected)."
+      },
+      "mechanics": {
+        "type": "Passive/Restoration",
+        "effect": "Regains 4 Sorcery Points on a Short Rest.",
+        "power_level": "Appropriate for a 20th-level capstone ability. It significantly enhances the core resource regeneration for a Sorcerer, making short rests much more valuable.",
+        "comparison": "This is the standard, official capstone feature for the Sorcerer class in D&D 5th Edition."
+      },
+      "issues_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.702Z"
+}

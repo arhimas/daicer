@@ -1,0 +1,25 @@
+{
+  "file": "atoms/features/paladin-protection.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-protection.json",
+    "analysis": {
+      "consistency": "Consistent with typical D&D 5e ability descriptions. The feature is tied to a specific class (Paladin) and requires a specific item (shield).",
+      "quality": "High. The description is clear, concise, and immediately understandable. It clearly defines the trigger (attack on an adjacent target), the cost (reaction), the benefit (impose disadvantage), and the prerequisite (wielding a shield).",
+      "mechanics": {
+        "type": "Reaction-based Defense/Intervention",
+        "trigger": "A creature you can see attacks a target other than you that is within 5 feet of you.",
+        "cost": "Reaction",
+        "effect": "Impose disadvantage on the attack roll.",
+        "prerequisites": [
+          "Must be wielding a shield."
+        ],
+        "balance_notes": "This feature seems mechanically similar to the Sentinel feat's reaction ability or perhaps a variant of the Sentinel feat's general theme, but focused purely on imposing disadvantage defensively. As a Level 1 feature (as indicated by the raw data), this might be unusually potent for a starting ability if it's not tied to the subclass entry level (usually Level 3 for Paladin subclasses), but the context implies it might be a homebrew or a feature from an unusual source given the standard Paladin progression. Assuming the level tag is contextual for tracking, the power level of imposing disadvantage on any adjacent attack using a reaction is strong but balanced by the reaction cost."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:11.881Z"
+}

@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/barbarian-indomitable-might.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-indomitable-might.json",
+    "data_analysis": {
+      "consistency_check": {
+        "class_match": "Consistent. The feature is explicitly for the 'barbarian' class.",
+        "level_placement": "Consistent. Level 18 is a typical tier for a high-level, powerful class feature.",
+        "naming_convention": "Consistent. 'Indomitable Might' fits the theme of a Barbarian's raw power."
+      },
+      "quality_assessment": {
+        "clarity": "High. The mechanical trigger and effect are clearly stated.",
+        "flavor": "Moderate. It strongly implies overwhelming physical power overcoming minor failures."
+      },
+      "mechanical_analysis": {
+        "mechanic_type": "Passive Buff / Reroll Prevention",
+        "trigger": "When making a Strength check where the total result (before any modifiers are applied, presumably, based on standard wording, though 'total' can be ambiguous) is less than the Strength score.",
+        "effect": "Use the Strength score itself as the result of the check instead of the calculated total.",
+        "potential_issues": "The phrase 'if your total for a Strength check is less than your Strength score' is slightly unusual. Usually, features refer to the final result including modifiers. If this means the dice roll (d20) is less than STR score, it's a powerful floor. If it means (d20 + modifiers) < STR score, it's situational. Assuming it means the raw d20 roll + modifiers (the 'total') is lower than the score itself, it acts as a safety net against poor rolls when one's raw score is already high (e.g., a Barbarian with 24 STR might fail a check where the total came out to 23). It ensures that when your base attribute is very high, you never effectively fall below that benchmark on a check related to that attribute."
+      },
+      "recommendation": "The feature is mechanically sound for a capstone-tier ability, providing near-guaranteed success in low-stakes or slightly unlucky Strength checks, reinforcing the fantasy of an incredibly strong warrior."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.911Z"
+}

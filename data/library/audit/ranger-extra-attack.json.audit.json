@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/ranger-extra-attack.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-extra-attack.json",
+    "analysis": {
+      "consistency": "Consistent with established D&D 5e class progression for martial classes gaining Extra Attack at level 5.",
+      "quality": "High quality. The description is clear, concise, and directly mirrors the source material's wording.",
+      "mechanics": {
+        "type": "Combat Action Enhancement",
+        "trigger": "Taking the Attack action on your turn",
+        "effect": "Increases the number of attacks made from one to two.",
+        "level_requirement": 5,
+        "class_applicability": "Ranger",
+        "balance_assessment": "Standard martial power boost appropriate for Tier 2 play (Level 5). Mechanically sound and balanced relative to other classes."
+      }
+    },
+    "data_issues": {
+      "zod_errors": false,
+      "data_discrepancies": false,
+      "suggested_improvements": "None required for the provided raw data structure."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:11.117Z"
+}

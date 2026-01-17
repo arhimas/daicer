@@ -1,0 +1,26 @@
+{
+  "file": "molecules/items/eyes-of-minute-seeing.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "eyes-of-minute-seeing.json",
+    "analysis": {
+      "consistency": "Consistent with typical D&D 5e item descriptions. The mechanics directly relate to the item's name and visual description.",
+      "quality": "High quality. The description is clear, concise, and provides specific mechanical benefits tied to a defined range (1 foot).",
+      "mechanics": {
+        "feature": "Enhanced close-range sight.",
+        "benefit": "Advantage on Intelligence (Investigation) checks relying on sight within 1 foot.",
+        "range": "1 foot",
+        "attunement_required": false,
+        "clarity": "The mechanics are unambiguously clear: the item excels at extremely close inspection."
+      },
+      "suggested_improvements": [
+        "None necessary; the item is well-defined for its Uncommon rarity level."
+      ]
+    },
+    "archival_status": "Approved"
+  },
+  "timestamp": "2026-01-17T07:23:01.155Z"
+}

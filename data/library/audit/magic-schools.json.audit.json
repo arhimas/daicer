@@ -1,0 +1,20 @@
+{
+  "file": "atoms/magic-schools.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "High. The data structure is consistent with a single entity object.",
+      "quality": "High. Data fields (slug, name, description) are present and descriptive for the entity type (likely a school of magic).",
+      "mechanics": "The mechanics appear sound. The 'slug' is suitable for internal referencing, and the 'description' clearly defines the 'Abjuration' school's function."
+    },
+    "metadata": {
+      "entity_type_inferred": "Magic School",
+      "file_processed": "magic-schools.json",
+      "error_check": "ZOD ERRORS: NONE",
+      "completeness_score": 1
+    }
+  },
+  "timestamp": "2026-01-17T07:22:24.943Z"
+}

@@ -1,0 +1,31 @@
+{
+  "file": "molecules/items/arrow-catching-shield.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "arrow-catching-shield.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "type_clarity": "Clear and standard D&D item type.",
+        "rarity_context": "Rare is appropriate for the provided mechanical benefits.",
+        "attunement_check": "Requires attunement is noted correctly in primary and source data."
+      },
+      "quality": {
+        "description_clarity": "The description clearly outlines two distinct mechanical benefits.",
+        "formatting_needs": "The raw data contains an internal markdown link reference ('#section-attunement') in the source field, which is meta-data and should ideally be cleaned if this were a pure content database, but it is consistent with the provided RAW DATA structure.",
+        "completeness": "All relevant mechanical details (bonus, trigger, action type) are present."
+      },
+      "mechanics": {
+        "primary_benefit": "AC Bonus: +2 against ranged attacks (stacks with standard shield bonus).",
+        "secondary_benefit": "Reaction ability: Intercept a ranged attack targeting an ally within 5 feet.",
+        "action_economy": "Uses Reaction (once per round).",
+        "balance_assessment": "The benefits are strong for a Rare item, especially the reaction save, making it excellent protection for squishier allies near the wielder."
+      },
+      "data_integrity": "High. The data is self-consistent and complete based on the input."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:05.652Z"
+}

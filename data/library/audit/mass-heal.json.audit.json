@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/mass-heal.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mass-heal.json",
+    "analysis": {
+      "consistency": "High. The data structure is complete and consistent with typical spell record formats.",
+      "quality": "High. The description is clear, includes standard spell components, and specifies exclusions (undead or constructs).",
+      "mechanics_review": {
+        "level": "9th level (Highest tier).",
+        "school": "Evocation (Appropriate for a powerful healing effect).",
+        "casting_time": "1 action (Standard for combat-relevant spells).",
+        "range": "60 feet (Sufficient range for a mass effect).",
+        "components": "V, S (Standard somatic/verbal requirements).",
+        "duration": "Instantaneous (Appropriate for an immediate burst of healing).",
+        "effect_assessment": "Restores a massive amount of HP (700), splitable among multiple visible targets. Also removes blindness/deafness and diseases, adding significant utility beyond raw healing. The exclusion of undead and constructs is crucial and correctly implemented.",
+        "class_compatibility": "Cleric only (Appropriate for a signature high-level healing spell)."
+      },
+      "potential_issues": [
+        "The 700 HP pool is extremely high and suggests this spell is intended for a high-power tier of play, possibly outside standard D&D 5e core rules if this value is custom, but mechanically sound as described."
+      ],
+      "recommendations": [
+        "Verify the 700 HP figure against the intended game system baseline if deviating from standard published material."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.512Z"
+}

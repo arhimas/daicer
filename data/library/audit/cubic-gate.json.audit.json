@@ -1,0 +1,42 @@
+{
+  "file": "molecules/items/cubic-gate.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cubic-gate.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent",
+        "type_vs_source_type": "Consistent ('Wondrous item' vs 'Wondrous item, legendary')",
+        "rarity_vs_source_rarity": "Consistent ('Legendary' vs 'Legendary')"
+      },
+      "quality": {
+        "completeness": "Complete, contains all standard fields.",
+        "clarity": "The description is clear, detailing activation methods and limitations.",
+        "lore_integration": "Good integration of planar mechanics typical for high-level magic items."
+      },
+      "mechanics": {
+        "attunement": "Requires no attunement, which is slightly unusual for a Legendary item with such powerful effects, but acceptable.",
+        "charges": {
+          "system": "Charges (3 total, regains 1d3 daily at dawn).",
+          "usage_gate": "1 charge per use of _gate_ (Action).",
+          "usage_plane_shift": "1 charge per use of _plane shift_ (Action, double press).",
+          "balance_assessment": "The charge system successfully limits the powerful spells (_gate_ and _plane shift_). 1d3 recharge is slightly unreliable but fits the theme."
+        },
+        "spell_linking": {
+          "gate": "Direct casting of the _gate_ spell.",
+          "plane_shift": "Casts _plane shift_ with a fixed save DC of 17. This DC is moderately high for a Legendary item (often DCs are higher or scale with attunement/user stats), but consistent if the item is intended to be used by lower-level characters who find it."
+        },
+        "action_economy": "Both primary functions require an Action, which is standard."
+      },
+      "zod_errors": "NONE",
+      "suggested_improvements": [
+        "Clarify the Planar destinations: Specify whether the keyed planes are fixed upon creation or if they change (though the text implies they are fixed upon creation determined by the GM).",
+        "Review Save DC: Consider making the DC 17 dependent on a fixed modifier or scaling if intended for very high-level play, though 17 is acceptable as written."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:03.425Z"
+}

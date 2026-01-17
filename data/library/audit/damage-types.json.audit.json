@@ -1,0 +1,30 @@
+{
+  "file": "atoms/damage-types.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "damage-types.json",
+    "analysis": {
+      "consistency": "High. The data structure appears consistent with a typical damage type definition.",
+      "quality": "High. Contains a standard identifier (slug), a human-readable name, and a descriptive text.",
+      "mechanics": "The entry successfully defines the 'Acid' damage type, useful for combat resolution systems. The description provides clear flavor context (black dragon, black pudding)."
+    },
+    "recommendations": [
+      {
+        "area": "Completeness",
+        "suggestion": "Ensure all relevant damage types are cataloged for complete system coverage."
+      }
+    ],
+    "data_check": {
+      "slug_format": "Lowercase, single word (standard practice)",
+      "keys_present": [
+        "slug",
+        "name",
+        "description"
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:25.032Z"
+}

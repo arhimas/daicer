@@ -1,0 +1,31 @@
+{
+  "file": "molecules/items/potion-of-mind-reading.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-mind-reading.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_is_consistent": true,
+        "rarity_in_description_matches_field": true
+      },
+      "quality": {
+        "description_clarity": "High",
+        "completeness": "Good - details the effect clearly.",
+        "flavor_text_present": true
+      },
+      "mechanics": {
+        "primary_effect": "Grants the effect of the Detect Thoughts spell.",
+        "spell_reference_standard": true,
+        "save_dc_provided": true,
+        "save_dc_value": 13,
+        "attunement_required": false
+      },
+      "archivist_notes": "The item is mechanically sound based on its description. The hardcoded save DC (13) should be verified against the system's standard DC calculation if applicable, but for a static item, it is acceptable."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.418Z"
+}

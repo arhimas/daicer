@@ -1,0 +1,45 @@
+{
+  "file": "molecules/spells/wall-of-thorns.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "wall-of-thorns.json",
+    "analysis": {
+      "consistency": "High. The damage scaling matches the general D&D 5e convention for damage increases per slot level above the base level.",
+      "quality": "High. The description clearly defines the shape options (line or circle), dimensions, duration, concentration requirement, line of sight blocking, initial impact damage, and movement penalties/damage upon entry or ending a turn inside.",
+      "mechanics": {
+        "level": 6,
+        "school": "conjuration",
+        "casting_time": "1 action",
+        "range": "120 feet",
+        "components": "V, S, M (a handful of thorns)",
+        "duration": "Concentration, up to 10 minutes",
+        "primary_effect": "Creates a physical barrier (wall or circle) that blocks line of sight.",
+        "damage_initial": {
+          "type": "piercing",
+          "dice": "7d8",
+          "save": "Dexterity (half on success)"
+        },
+        "damage_movement": {
+          "trigger": "Entering or ending turn inside",
+          "type": "slashing",
+          "dice": "7d8",
+          "save": "Dexterity (half on success)"
+        },
+        "movement_penalty": "4 feet of movement spent for every 1 foot moved through the wall.",
+        "scaling": {
+          "rule": "Damage increases by 1d8 for both damage types for each slot level above 6th.",
+          "example_slot_7": "8d8 damage, 8d8 damage",
+          "example_slot_9": "10d8 damage, 10d8 damage"
+        },
+        "constraints": [
+          "Requires a solid surface for placement.",
+          "Duration is Concentration."
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:27.958Z"
+}

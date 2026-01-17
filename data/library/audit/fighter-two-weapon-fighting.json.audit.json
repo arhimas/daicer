@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/fighter-two-weapon-fighting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-two-weapon-fighting.json",
+    "analysis": {
+      "consistency": "The feature's name, class association, and level are consistent with standard D&D 5e fighter progression for this specific rule variant (often found in optional rules or supplements, though the core rule usually grants the bonus damage application via the Fighting Style choice itself, not as a base class feature at level 1). The description clearly states the mechanical benefit.",
+      "quality": "The description is clear and concise. It accurately reflects the mechanical benefit of adding the ability modifier to the damage of the second attack during two-weapon fighting.",
+      "mechanics": {
+        "rule_type": "Combat Action/Bonus",
+        "effect": "Adds ability modifier to damage roll of the off-hand attack during two-weapon fighting.",
+        "context": "Requires the character to be using two weapons (one in the main hand, one in the off-hand). This feature, as described, is usually associated with the 'Two-Weapon Fighting' Fighting Style, not a core level 1 Fighter class feature itself, suggesting this data might represent a specific variant or a re-contextualization of that style.",
+        "notes": "In standard 5e, the *Two-Weapon Fighting Style* allows adding the ability modifier to the off-hand attack's damage roll. The core Fighter class gains a Fighting Style at level 1. This entry seems to be treating the style itself as the feature, or it represents a version where this benefit is granted automatically to Fighters at level 1, which is non-standard but mechanically clear based on the description."
+      },
+      "data_integrity": {
+        "slug": "fighter-two-weapon-fighting",
+        "name": "Two-Weapon Fighting",
+        "class": "fighter",
+        "level": 1,
+        "is_subclass_feature": true,
+        "zod_errors": "NONE"
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:14.749Z"
+}

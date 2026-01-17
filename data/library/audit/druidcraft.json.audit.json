@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/druidcraft.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "druidcraft.json",
+    "analysis": {
+      "consistency": "High. The spell's description clearly lists four distinct, low-impact effects appropriate for a 0-level spell, all tied to minor nature manipulation.",
+      "quality": "Good. The flavor is strong, fitting the Druid class well. The mechanical options are balanced for a cantrip, offering utility (weather prediction, mundane utility like lighting/snuffing small fires) and minor cosmetic effects.",
+      "mechanics": {
+        "level": "0 (Cantrip)",
+        "balance": "Appropriate for level 0. The effects are minor and non-combat oriented.",
+        "casting_time": "1 action (Standard for cantrips)",
+        "range": "30 feet (Adequate for utility effects)",
+        "components": "V, S (Standard low-level components)",
+        "duration": "Instantaneous (Appropriate for instant effects)",
+        "class_fit": "Perfect fit for Druid."
+      },
+      "zod_errors_found": false,
+      "notes": "This is a well-designed utility cantrip. The four options provide diverse, flavor-appropriate uses without granting any combat advantage."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:43.935Z"
+}

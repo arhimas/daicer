@@ -1,0 +1,22 @@
+{
+  "file": "molecules/spells/enhance-ability.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "enhance-ability.json",
+    "analysis": {
+      "consistency": "High. The structure is consistent with established D&D spell formats, clearly delineating components, duration, and effects.",
+      "quality": "High. The descriptions are clear, mechanically sound, and directly reference standard D&D mechanics (advantage, temporary hit points, carrying capacity, falling damage reduction).",
+      "mechanics": {
+        "core_mechanic": "Buffing/Enhancement. Provides temporary, targeted bonuses (advantage on checks, situational benefits) to a creature.",
+        "balance_considerations": "Appropriate for a 2nd-level spell. The options provide utility across all core ability scores. Bear's Endurance provides minor temporary HP, which is a nice secondary benefit. The concentration requirement keeps it in check.",
+        "higher_level_scaling": "Standard scaling for an enchantment/buff spell, increasing the number of targets by one per slot level above the base, which is well-balanced for maintaining concentration on multiple allies.",
+        "component_notes": "The material component (fur or feather) is thematic and inexpensive/non-costly, fitting for a common 2nd-level spell."
+      },
+      "recommendations": "No mechanical changes necessary. Data format is clean and complete."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:43.568Z"
+}

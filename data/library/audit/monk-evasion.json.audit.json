@@ -1,0 +1,30 @@
+{
+  "file": "atoms/features/monk-evasion.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-evasion.json",
+    "analysis": {
+      "consistency": {
+        "class_match": "The feature belongs to the 'monk' class, which is consistent with typical D&D 5e class progression.",
+        "level_placement": "Level 7 is the standard level for the Evasion feature in the Monk class.",
+        "mechanics_consistency": "The mechanical description aligns perfectly with the established D&D 5e rules for the Monk's Evasion feature."
+      },
+      "quality": {
+        "clarity": "The description is clear and concise, explaining the benefit during Dexterity saving throws against area effects.",
+        "completeness": "It fully describes the outcome for both success (no damage) and failure (half damage) on the save.",
+        "formatting": "The use of markdown links ('[_fireball_](#fireball)') suggests source material integration, which is good practice, though the link itself isn't validated here."
+      },
+      "mechanics": {
+        "core_effect": "Transforms a standard Dexterity save (half damage on success, full on failure) into a superior save (no damage on success, half on failure).",
+        "synergy": "Highly synergistic with the Monk's high Dexterity score and proficiency bonus, which naturally makes Dexterity saves better.",
+        "power_level": "A very strong defensive feature, dramatically increasing survivability against major area-of-effect spells and abilities."
+      },
+      "errors_found": "NONE",
+      "recommendations": "No changes required; the data is accurate and well-formed."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:14.461Z"
+}

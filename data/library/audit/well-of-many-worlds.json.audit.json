@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/well-of-many-worlds.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "well-of-many-worlds.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_source": true,
+        "rarity_matches_source": true
+      },
+      "quality": {
+        "description_clarity": "High. Clearly defines usage, effect, and limitations.",
+        "mechanical_completeness": "Good. Defines action economy (Action to open/close), primary effect (portal creation), outcome randomness (GM decides destination), and cooldown (1d8 hours)."
+      },
+      "mechanics": {
+        "action_economy": "Action to open, Action to close.",
+        "primary_effect": "Creates a two-way portal to another world/plane.",
+        "randomness_factor": "GM discretion determines destination.",
+        "cooldown": "1d8 hours after a portal is opened.",
+        "attunement_required": false
+      },
+      "suggested_refinements": [
+        "Specify if closing the portal requires concentration or if it is instantaneous upon folding.",
+        "Clarify the visual appearance/size of the resulting portal."
+      ],
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.818Z"
+}

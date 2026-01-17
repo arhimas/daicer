@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/spare-the-dying.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "spare-the-dying.json",
+    "analysis": {
+      "consistency": "High. The spell effect (stabilizing a creature at 0 HP) is consistent with its name and the Necromancy school (in the context of preserving life/preventing death). The mechanics are clearly defined across all standard fields.",
+      "quality": "High. It is a very common, foundational, and useful low-level spell. The description is concise and clearly defines its scope (living creature, 0 HP, no effect on undead/constructs).",
+      "mechanics": {
+        "level": "0 (Cantrip)",
+        "school": "Necromancy",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components": "V, S",
+        "duration": "Instantaneous",
+        "effect": "Stabilizes a living creature at 0 hit points.",
+        "limitations": [
+          "Requires touching the target.",
+          "Ineffective against undead and constructs."
+        ],
+        "class_availability": [
+          "Cleric"
+        ]
+      },
+      "notes": "Mechanically sound for a standard 5th Edition D&D equivalent cantrip. Its primary function is preventing death from failed death saving throws."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:31.013Z"
+}

@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/paladin-extra-attack.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-extra-attack.json",
+    "analysis": {
+      "consistency": "High. The feature aligns perfectly with standard D&D 5e class progression where Extra Attack is granted at level 5 for martial classes.",
+      "quality": "High. The description is clear, concise, and accurately reflects the mechanical effect of the feature.",
+      "mechanics": {
+        "type": "Attack Progression",
+        "trigger": "Taking the Attack action on your turn",
+        "effect": "Increases the number of attacks made from one to two.",
+        "level_requirement": 5,
+        "class_correlation": "Paladin",
+        "clarity": "Excellent. The wording 'you can attack twice, instead of once' is unambiguous."
+      },
+      "notes": "This is a canonical, essential feature for the Paladin class, correctly placed at level 5."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.156Z"
+}

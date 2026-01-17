@@ -1,0 +1,38 @@
+{
+  "file": "molecules/spells/fire-bolt.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "fire-bolt.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "level_matches_standard_format": true,
+        "school_is_valid": true,
+        "casting_time_format": "standard",
+        "range_format": "standard",
+        "components_format": "standard",
+        "duration_format": "standard"
+      },
+      "quality": {
+        "completeness": "high",
+        "clarity": "high",
+        "formatting_notes": "Description is clear and follows standard rules text conventions, including scaling damage."
+      },
+      "mechanics": {
+        "type": "Attack Roll Spell",
+        "damage_type": "Fire",
+        "scaling_mechanism": "Level-based damage increase (1d10 per tier)",
+        "attack_type": "Ranged Spell Attack",
+        "effect_on_object": "Ignites flammable, unattended objects."
+      },
+      "potential_issues": {
+        "zod_errors": "NONE",
+        "minor_discrepancies": "None identified. The spell is mechanistically sound as a cantrip."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:42.056Z"
+}

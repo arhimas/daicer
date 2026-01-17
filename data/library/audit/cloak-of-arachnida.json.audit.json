@@ -1,0 +1,53 @@
+{
+  "file": "molecules/items/cloak-of-arachnida.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cloak-of-arachnida.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "type_rarity_match": true,
+        "attunement_description_match": true
+      },
+      "quality": {
+        "completeness": "High. All key mechanical and descriptive elements are present.",
+        "clarity": "Good. Descriptions are clear, using standard D&D 5e terminology.",
+        "formatting_notes": "The internal reference '[_web_](#web)' should ideally be standardized if this is for a strict system database."
+      },
+      "mechanics": {
+        "attunement_required": true,
+        "benefits": [
+          {
+            "type": "Damage Resistance",
+            "details": "Poison damage"
+          },
+          {
+            "type": "Movement",
+            "details": "Climbing speed equals walking speed."
+          },
+          {
+            "type": "Movement",
+            "details": "Can move up, down, and across vertical surfaces and upside down along ceilings, hands free (Spider Climb effect)."
+          },
+          {
+            "type": "Condition Immunity/Movement",
+            "details": "Immune to being caught in webs; move through webs as if difficult terrain."
+          },
+          {
+            "type": "Spellcasting",
+            "spell": "Web",
+            "action_cost": "Action",
+            "save_dc": 13,
+            "enhancement": "Web area is doubled.",
+            "cooldown": "Once per dawn."
+          }
+        ],
+        "power_level_assessment": "Strong Very Rare item. Provides significant defensive, mobility, and utility options."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:03.656Z"
+}

@@ -1,0 +1,52 @@
+{
+  "file": "molecules/items/sphere-of-annihilation-item-sphere-of-annihilation.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "sphere-of-annihilation-item-sphere-of-annihilation.json",
+    "analysis": {
+      "consistency": "The provided data is consistent with standard D&D 5e item descriptions. The structure and terminology are appropriate for a legendary wondrous item.",
+      "quality": "High quality. The description is detailed, covers core mechanics (obliteration, damage, control rules), and includes a specific table for interaction with planar features, which is excellent for usability.",
+      "mechanics": {
+        "core_effect": "Obliterates matter it passes through (Artifacts excepted).",
+        "contact_damage": {
+          "amount": "4d10",
+          "damage_type": "Force",
+          "trigger": "Anything touching the sphere but not wholly engulfed."
+        },
+        "control_mechanism": {
+          "type": "Intelligence (Arcana) Check",
+          "dc_uncontrolled": 25,
+          "movement_on_success": "5 * Intelligence modifier feet in chosen direction (min 5 feet).",
+          "movement_on_failure_uncontrolled": "10 feet toward the controller.",
+          "movement_effect_on_creature_space_entry": "DC 13 Dexterity save or take 4d10 force damage.",
+          "contested_control": "Contested Intelligence (Arcana) check."
+        },
+        "planar_interaction": {
+          "trigger": "Contact with a planar portal or extradimensional space.",
+          "outcomes": [
+            {
+              "range": "01–50 (50%)",
+              "result": "Sphere is destroyed."
+            },
+            {
+              "range": "51–85 (35%)",
+              "result": "Sphere moves through the portal or into the extradimensional space."
+            },
+            {
+              "range": "86–00 (15%)",
+              "result": "Spatial rift teleports everything within 180 feet (including the sphere) to a random plane."
+            }
+          ]
+        }
+      },
+      "suggested_updates": [
+        "The movement description when failing the control check on an uncontrolled sphere ('the sphere moves 10 feet toward you') seems slightly contradictory to the goal of control, as it forces the user to potentially get closer to the danger zone. This is likely intentional based on the source material (Artifact description), but worth noting.",
+        "The mention of 'Artifacts' being exceptions needs clarification for the Archivist context; usually, artifacts are immune unless the source specifically states otherwise. The text implies only artifacts susceptible to damage from the sphere pass through unscathed, which is a nuanced distinction."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.898Z"
+}

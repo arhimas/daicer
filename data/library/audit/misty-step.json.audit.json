@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/misty-step.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "misty-step.json",
+    "analysis": {
+      "consistency": "High. The entry adheres to standard D&D 5e spell formatting.",
+      "quality": "High. The description is clear, concise, and mechanically unambiguous.",
+      "mechanics": {
+        "level": 2,
+        "school": "conjuration",
+        "casting_time": "1 bonus action",
+        "range": "Self",
+        "duration": "Instantaneous",
+        "teleport_distance": "30 feet",
+        "conditions": [
+          "Must be an unoccupied space",
+          "Must be a space the caster can see"
+        ],
+        "resource_cost": "None beyond action economy and components (V)"
+      },
+      "potential_issues": "None detected. This is a staple, well-defined spell."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.912Z"
+}

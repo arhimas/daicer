@@ -1,0 +1,22 @@
+{
+  "file": "atoms/features/sorcerer-spellcasting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-spellcasting.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e class feature naming and structure. 'Spellcasting' is the foundational feature for the Sorcerer class.",
+      "quality": "High quality. The description clearly defines the narrative source and mechanical result (fueling spells) of the Sorcerer's magic.",
+      "mechanics": {
+        "core_mechanic": "Establishes the Sorcerer's connection to arcane magic which dictates how they prepare, learn, and cast spells.",
+        "level_dependency": "Typically granted at level 1, which matches the 'level': 1 entry.",
+        "class_dependency": "Specific to the 'sorcerer' class.",
+        "impact": "Fundamental. Without this feature, the class has no mechanical identity."
+      },
+      "recommendations": "No changes required. This is a standard, core class feature definition."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.186Z"
+}

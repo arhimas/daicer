@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/bard-expertise.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-expertise.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_class": "Consistent. 'Expertise' is a common feature name for classes that gain specialized skill proficiency, fitting for a 'bard'.",
+        "level_progression": "Mechanically sound. Gaining the initial benefit at level 3 is standard for feature acquisition. The upgrade at level 10 suggests a tiered power progression."
+      },
+      "quality": {
+        "clarity": "Very clear. The description explicitly states the mechanical effect (doubled proficiency bonus) and the trigger (ability checks using chosen skills).",
+        "completeness": "Complete. It defines the initial acquisition (level 3) and the enhancement/expansion (level 10).",
+        "flavor": "Mechanically focused, but accurately reflects the concept of a highly skilled bard gaining mastery in specific areas."
+      },
+      "mechanics": {
+        "core_effect": "Doubled Proficiency Bonus (Expertise). This is a very powerful feature, significantly improving success rates for the chosen skills.",
+        "trigger": "Ability checks using the chosen skills.",
+        "scaling": "Scales well by allowing the player to select two *additional* skills at level 10, increasing versatility without diminishing the existing choices."
+      },
+      "zod_errors": "NONE",
+      "suggestions": "None required; the feature is well-defined and standard for this type of ability."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:17.622Z"
+}

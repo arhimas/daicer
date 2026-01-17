@@ -1,0 +1,20 @@
+{
+  "file": "molecules/items/ring-of-elemental-command.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "High. The item follows a clear, modular structure based on the four elements (Air, Earth, Fire, Water). Each elemental variant consistently details: 1) a base 'dominate' ability, 2) a movement/environment benefit, 3) a language proficiency, and 4) conditional bonus properties unlocked by slaying an elemental of that type (damage resistance/immunity, movement/utility bonus, and spell access).",
+      "quality": "Excellent. The design is highly flavorful and mechanically robust for a Legendary item. The conditional enhancement (slaying an elemental) provides a meaningful progression path. The charge mechanics (regain 1d4+1 daily, DC 17) are consistent across all variants.",
+      "mechanics": {
+        "charge_system": "Clear and functional (5 charges, 1d4+1 daily refresh, DC 17).",
+        "base_abilities": "The base `dominate monster` on the corresponding elemental is strong, fitting for a Legendary item. Environmental benefits and language proficiencies are thematic.",
+        "conditional_enhancements": "The unlocked properties are well-balanced. For example, the Air variant grants flight/hover, Earth grants subterranean movement, Fire grants cumulative fire protection (resistance then immunity), and Water grants aquatic utility. The spell lists are relevant to the element and well-costed relative to the charge pool.",
+        "potential_issue": "The wording for the Earth elemental's movement ('If you end your turn there, you are shunted out...') is standard for phasing effects and is mechanically sound but requires careful GM adjudication regarding placement."
+      },
+      "conclusion": "The Ring of Elemental Command is a well-designed, high-rarity magic item with excellent mechanical depth and strong thematic consistency across its four possible forms. The mechanics are clear and robust."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.707Z"
+}

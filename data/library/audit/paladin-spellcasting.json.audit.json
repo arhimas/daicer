@@ -1,0 +1,32 @@
+{
+  "file": "atoms/features/paladin-spellcasting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-spellcasting.json",
+    "analysis": {
+      "consistency": {
+        "class_match": "The feature is correctly attributed to the 'paladin' class.",
+        "level_match": "The feature lists level 1, but the description states 'By 2nd level', indicating a potential slight mismatch between the listed level and the functional level described. This is common if the feature object represents the entire block gained at that level, but the core ability text refers to the effect starting at 2nd level. Functionally, the feature block is typically granted at 1st level, even if the mechanics begin later."
+      },
+      "quality": {
+        "completeness": "The provided data is minimal (slug, name, class, level, description) and lacks crucial mechanical details about spell slots, spell lists, prepared spells, or casting ability, which are essential for a 'Spellcasting' feature.",
+        "clarity": "The description is clear but generic, referencing cleric-like casting without specifying the paladin's unique rules (e.g., spell list, slots progression, required components)."
+      },
+      "mechanics": {
+        "description_review": "The description 'By 2nd level, you have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does' is an incomplete summary of Paladin spellcasting rules. Paladins use Charisma for spellcasting and have a specific, separate spell list, not entirely identical to the cleric's casting mechanism or list.",
+        "missing_data": [
+          "Spellcasting ability score (Charisma)",
+          "Spell list details (Paladin Spells)",
+          "Spell slot progression table/data",
+          "Rules for preparing/learning spells"
+        ],
+        "suggested_action": "This entry appears to be an introductory placeholder for the full Paladin Spellcasting feature block. It should be cross-referenced with the full ruleset to ensure mechanical accuracy, particularly regarding the level 2 trigger mentioned in the description."
+      }
+    },
+    "archival_status": "Partial Data - Requires Supplementation for Full Mechanical Context"
+  },
+  "timestamp": "2026-01-17T07:23:12.011Z"
+}

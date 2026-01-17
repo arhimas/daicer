@@ -1,0 +1,44 @@
+{
+  "file": "atoms/features/sorcerer-spellcasting-ability.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-spellcasting-ability.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent. The feature explicitly names 'sorcerer' as the class.",
+        "level_alignment": "Consistent. Listed as level 1, which is standard for core class features.",
+        "mechanic_description": "Consistent. Clearly defines Charisma as the spellcasting ability and provides the standard formulas for Spell Save DC and Spell Attack Modifier used across 5th Edition."
+      },
+      "quality": {
+        "clarity": "High. The description is direct, explaining the core mechanical function (Charisma for spellcasting, DC, and attack rolls).",
+        "completeness": "High. It includes the necessary formulas in a table format for quick reference, which is excellent for usability.",
+        "formatting": "Good. Uses a table structure for the formulas, improving readability compared to dense text."
+      },
+      "mechanics": {
+        "core_ability": "Charisma.",
+        "modifiers_used": [
+          "Charisma modifier",
+          "Proficiency bonus"
+        ],
+        "formulas_verified": [
+          {
+            "name": "Spell save DC",
+            "formula": "8 + your proficiency bonus + your Charisma modifier",
+            "status": "Standard 5e formula"
+          },
+          {
+            "name": "Spell attack modifier",
+            "formula": "your proficiency bonus + your Charisma modifier",
+            "status": "Standard 5e formula"
+          }
+        ],
+        "feature_type": "Core Class Feature - Spellcasting Ability Definition"
+      },
+      "recommendations": "None. This data accurately reflects the standard Player's Handbook feature for the Sorcerer class."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.585Z"
+}

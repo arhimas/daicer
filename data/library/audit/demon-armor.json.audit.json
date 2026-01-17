@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/demon-armor.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "demon-armor.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent ('Demon Armor' vs 'demon-armor').",
+        "type_and_rarity": "The 'type' field ('Armor (plate)') and 'rarity' field ('Very Rare') are consistent with the summary in 'source_type_rarity'.",
+        "attunement_status": "Matches ('requires_attunement': true) and description ('requires [attunement]')."
+      },
+      "quality": {
+        "completeness": "High. Includes core stats, positive effects, and a curse.",
+        "clarity": "Good. Effects (AC bonus, language, weapon enhancement) are clearly stated.",
+        "formatting": "The use of bolding and italics for the curse section is appropriate for distinguishing it from standard properties."
+      },
+      "mechanics": {
+        "base_bonus": "+1 AC.",
+        "utility_bonus": "Gain ability to understand/speak Abyssal.",
+        "weapon_enhancement": "Unarmed strikes become magic weapons, deal slashing damage, +1 to attack/damage, 1d8 damage die.",
+        "curse_penalty_1": "Cannot be removed without specific magic (Remove Curse or similar).",
+        "curse_penalty_2": "Disadvantage on attack rolls against demons.",
+        "curse_penalty_3": "Disadvantage on saving throws against demon spells/abilities.",
+        "overall_balance_notes": "This is a powerful, high-risk/high-reward item suitable for Very Rare tier, especially due to the 1d8 unarmed strike boost and potent curse."
+      },
+      "notes": "The mechanics are well-defined, particularly the interaction of the clawed gauntlets turning unarmed strikes into magical, enhanced weapons. The curse is significant and thematic."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.723Z"
+}

@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/sorcerer-spellcasting-focus.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-spellcasting-focus.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent. The feature explicitly belongs to the 'sorcerer' class.",
+        "level_alignment": "Consistent. Level 1 is standard for foundational class features granting basic spellcasting mechanics.",
+        "naming_convention": "Consistent. 'Spellcasting Focus' is a standard D&D term."
+      },
+      "quality": {
+        "clarity": "High. The description is direct and clearly states the mechanical benefit: using an arcane focus as a spellcasting focus.",
+        "completeness": "Sufficient. It grants the specific mechanical allowance expected for this type of feature.",
+        "flavor": "Low to Medium. It's purely mechanical, but this is expected for a basic feature granting focus usage."
+      },
+      "mechanics": {
+        "type": "Ability Grant/Proficiency",
+        "effect": "Allows the Sorcerer to utilize an Arcane Focus in place of material components that have no gold cost or are consumed, as per general spellcasting rules (PHB Chapter 10).",
+        "interaction": "Interacts directly with the core spellcasting rules. It overrides any perceived restriction that only Wizards might have access to arcane foci if this feature is meant to grant access where it might otherwise be implicitly restricted, though typically all full casters get this access through equipment selection.",
+        "is_subclass_feature_check": "The flag 'is_subclass_feature': true seems potentially incorrect for a core Level 1 feature that usually applies to the entire class. A standard Sorcerer gains this ability as part of their core class definition, not a subclass one, unless this specific implementation restricts focus use prior to Level 1 or has unique rules. Assuming standard 5e rules, this should likely be 'false' if it represents the basic class feature, but I must report based on the input data.",
+        "suggested_review": "Review the 'is_subclass_feature' flag. Core spellcasting mechanic grants are usually not subclass features."
+      },
+      "archivist_notes": "This feature appears to be the standard baseline ability for a Sorcerer to use an Arcane Focus. The mechanical description is sound, but the metadata flag 'is_subclass_feature: true' warrants investigation against the source material's structure."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.964Z"
+}

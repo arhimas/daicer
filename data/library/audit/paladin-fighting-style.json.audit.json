@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/paladin-fighting-style.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-fighting-style.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e feature naming and structure. Fighting Styles are typically introduced at low levels.",
+      "quality": "High. The description is clear, concise, and accurately reflects the source material's intent (granting a choice of specialization at 2nd level).",
+      "mechanics": "This feature grants a permanent choice of a benefit ('Fighting Style'). The mechanic is sound, providing early specialization. The restriction preventing taking the same style twice is noted, which is standard.",
+      "issues": [],
+      "suggested_improvements": [
+        "For complete archival quality, the specific list of available Fighting Styles should ideally be referenced or included, although this single JSON entry focuses only on the feature granting mechanism."
+      ]
+    },
+    "archival_summary": {
+      "slug": "paladin-fighting-style",
+      "name": "Fighting Style",
+      "class": "paladin",
+      "level_gained": 2,
+      "type": "Class Feature",
+      "notes": "Grants the Paladin the ability to select one Fighting Style option. Standard early-game choice feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.283Z"
+}

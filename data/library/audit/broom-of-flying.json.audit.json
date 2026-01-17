@@ -1,0 +1,42 @@
+{
+  "file": "molecules/items/broom-of-flying.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "broom-of-flying.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent ('Broom of Flying' vs 'broom-of-flying').",
+        "type_and_source_type": "Consistent ('Wondrous item' vs 'Wondrous item').",
+        "rarity_and_source_rarity": "Consistent ('Uncommon' vs 'uncommon')."
+      },
+      "quality": {
+        "completeness": "High. All standard fields present and descriptive.",
+        "clarity": "High. Mechanics (speed, weight limit, speed reduction) are clearly defined.",
+        "formatting": "Good. Uses standard descriptive prose."
+      },
+      "mechanics": {
+        "activation": "Command word.",
+        "base_properties": {
+          "weight": "3 pounds",
+          "flying_speed": "50 feet",
+          "carrying_capacity": "400 pounds"
+        },
+        "conditional_properties": [
+          {
+            "condition": "Carrying over 200 pounds",
+            "effect": "Flying speed reduces to 30 feet"
+          }
+        ],
+        "other_functions": [
+          "Can be sent to a familiar destination within 1 mile (and returns if within 1 mile)."
+        ],
+        "notes": "The data accurately reflects common D&D 5e item statistics for a Broom of Flying."
+      }
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:23:04.111Z"
+}

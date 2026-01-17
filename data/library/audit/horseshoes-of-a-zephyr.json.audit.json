@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/horseshoes-of-a-zephyr.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "horseshoes-of-a-zephyr.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent",
+        "type_vs_source_type": "Consistent ('Wondrous item' matches)",
+        "rarity_vs_source_rarity": "Consistent ('Very Rare' matches)"
+      },
+      "quality": {
+        "completeness": "Complete basic item data (name, type, rarity, description, attunement requirement).",
+        "clarity": "Description is clear, detailing movement mechanics, surface interaction, track prevention, difficult terrain negation, and forced march endurance."
+      },
+      "mechanics": {
+        "core_effect": "Grants hovering 4 inches above the ground when affixed to a mount.",
+        "utility_benefits": [
+          "Can move across/stand on nonsolid/unstable surfaces (water, lava).",
+          "Leaves no tracks.",
+          "Ignores difficult terrain."
+        ],
+        "endurance_benefit": "Grants 12 hours/day of normal speed movement without forced march exhaustion.",
+        "attunement": "No attunement required.",
+        "limitations": "Requires four shoes to be affixed to a horse or similar creature."
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:59.643Z"
+}

@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/passwall.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "passwall.json",
+    "analysis": {
+      "consistency": {
+        "notes": "The spell entry appears highly consistent with typical D&D 5e spell formatting. Level (5), School (transmutation), Casting Time, Range, Components, Duration, and Class list are all standard fields.",
+        "concerns": "None."
+      },
+      "quality": {
+        "notes": "The description is clear, detailing the creation, dimensions (5 ft wide, 8 ft tall, 20 ft deep), material component (M), and the safe ejection mechanism upon duration expiration. This is high-quality documentation.",
+        "concerns": "None."
+      },
+      "mechanics": {
+        "notes": "This is a utility spell focused on temporary spatial manipulation. It creates a defined, temporary tunnel through non-magical solid surfaces (wood, plaster, stone). The limitation on depth (20 ft) and dimensions prevents it from being overly powerful for bypassing large fortifications. The safe ejection mechanic is a necessary fail-safe for such spells.",
+        "concerns": "The spell only affects specific materials (wooden, plaster, stone). It does not specify behavior on adamantine, iron, or magically reinforced surfaces, implying it fails silently or simply doesn't work on those surfaces, which is typical for this spell level."
+      },
+      "summary": "The 'Passwall' spell data is mechanically sound, well-documented, and consistent with established rules for 5th-level transmutation utility spells. No archival errors found."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.963Z"
+}

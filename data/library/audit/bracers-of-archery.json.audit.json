@@ -1,0 +1,38 @@
+{
+  "file": "molecules/items/bracers-of-archery.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "bracers-of-archery.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent. 'Bracers of Archery' matches 'bracers-of-archery'.",
+        "rarity_representation": "Consistent. 'Uncommon' in 'rarity' matches the context in 'source_type_rarity'.",
+        "attunement_status": "Consistent. 'requires_attunement: true' matches the requirement mentioned in 'description' and 'source_type_rarity'."
+      },
+      "quality": {
+        "completeness": "High. Contains name, type, rarity, attunement requirements, and a full mechanical description.",
+        "readability": "High. The description is clear and immediately conveys the mechanics."
+      },
+      "mechanics": {
+        "primary_effects": [
+          "Proficiency with longbow and shortbow (if not already proficient).",
+          "+2 bonus to damage rolls on ranged attacks made with longbows or shortbows."
+        ],
+        "dependencies": [
+          "Requires attunement."
+        ],
+        "clarity_assessment": "The mechanics are clear. The proficiency grant is standard for items granting weapon skills. The +2 damage bonus is straightforward."
+      },
+      "data_issues": {
+        "zod_errors": "NONE",
+        "potential_refinements": [
+          "The description mentions proficiency, which usually only applies if the user is NOT already proficient. While standard D&D phrasing, for archival purposes, it could be slightly clarified if necessary, though it is likely acceptable as is."
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.569Z"
+}

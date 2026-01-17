@@ -1,0 +1,54 @@
+{
+  "file": "molecules/items/staff-of-charming.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "staff-of-charming.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_matches_source_rarity": true,
+        "item_type_consistent": true
+      },
+      "quality": {
+        "data_completeness": "High. Contains mechanical details, flavor description, and source information.",
+        "formatting_issues": "Minor: References to other sections (e.g., [_charm person_](#charm-person)) use Markdown syntax that may need cleanup depending on the target database schema, but the content itself is clear."
+      },
+      "mechanics": {
+        "item_type": "Staff",
+        "attunement_required": true,
+        "attunement_classes": [
+          "bard",
+          "cleric",
+          "druid",
+          "sorcerer",
+          "warlock",
+          "wizard"
+        ],
+        "charges_system": {
+          "max_charges": 10,
+          "regeneration": "1d8 + 2 daily at dawn",
+          "charge_effects": [
+            {
+              "action": "Action",
+              "effect": "Cast one of: Charm Person, Command, or Comprehend Languages (using wielder's spell save DC)."
+            },
+            {
+              "action": "Reaction (on successful save against enchantment targeting only self)",
+              "effect": "Expend 1 charge to turn the spell back on its caster."
+            }
+          ],
+          "destruction_chance": "Roll d20 on expending last charge; 1 results in becoming a nonmagical quarterstaff."
+        },
+        "base_weapon_property": "Magic quarterstaff."
+      },
+      "recommendations": [
+        "Verify the specific save DC calculation mechanism if the target system handles DCs differently than implied by 'your spell save DC'.",
+        "Standardize the source_type_rarity field if it is meant to be parsed into separate fields (e.g., extract specific classes from the description)."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.589Z"
+}

@@ -1,0 +1,53 @@
+{
+  "file": "molecules/items/belt-of-giant-strength.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "belt-of-giant-strength.json",
+    "analysis": {
+      "consistency": "High. The main description explains the variable nature of the item based on giant type, and the table details these variations.",
+      "quality": "Good. The formatting of the table is complex (HTML table), but it clearly presents the mechanical variations (Strength score and Rarity) tied to the specific giant types.",
+      "mechanics": "Clear. The core mechanic is setting the Strength score to a fixed value (21 to 29) determined by the specific version of the belt worn, provided the wearer's current Strength is lower. It requires attunement. The primary mechanical variance is the resulting Strength score and the corresponding rarity."
+    },
+    "derived_data": {
+      "name": "Belt of Giant Strength",
+      "type": "Wondrous item",
+      "attunement": true,
+      "variations": [
+        {
+          "giant_type": "Hill giant",
+          "strength_score": 21,
+          "rarity": "Rare"
+        },
+        {
+          "giant_type": "Stone giant",
+          "strength_score": 23,
+          "rarity": "Very rare"
+        },
+        {
+          "giant_type": "Frost giant",
+          "strength_score": 23,
+          "rarity": "Very rare"
+        },
+        {
+          "giant_type": "Fire giant",
+          "strength_score": 25,
+          "rarity": "Very rare"
+        },
+        {
+          "giant_type": "Cloud giant",
+          "strength_score": 27,
+          "rarity": "Legendary"
+        },
+        {
+          "giant_type": "Storm giant",
+          "strength_score": 29,
+          "rarity": "Legendary"
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:05.003Z"
+}

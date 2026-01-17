@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/fighter-ability-score-improvement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-ability-score-improvement.json",
+    "analysis": {
+      "consistency": {
+        "class_mapping": "Consistent. The feature is correctly mapped to the 'fighter' class.",
+        "level_mapping": "Consistent. The level dependency (4th) is noted."
+      },
+      "quality": {
+        "completeness": "High. The feature description is complete, detailing when it occurs and the mechanics of the improvement.",
+        "clarity": "High. The mechanical options (increase one score by 2, or two scores by 1) and the cap (20) are clearly stated.",
+        "standardization": "Standard. This matches the canonical wording for Ability Score Improvement (ASI) granted to martial classes."
+      },
+      "mechanics": {
+        "type": "Character Advancement/Attribute Modification",
+        "trigger": "Reaching specific class levels (4, 6, 8, 12, 14, 16, 19).",
+        "effect": "Increases ability scores.",
+        "options": [
+          "Increase one ability score by 2.",
+          "Increase two ability scores by 1 each."
+        ],
+        "limitation": "Ability scores cannot be increased above 20 by this feature."
+      },
+      "data_archivist_notes": "This data entry is highly accurate and conforms perfectly to established D&D 5e rules for the Fighter's Ability Score Improvement feature. No mechanical ambiguities found."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.198Z"
+}

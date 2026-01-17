@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/acid-arrow.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "acid-arrow.json",
+    "analysis": {
+      "consistency": "The data structure is consistent with other spell entries, containing standard fields like slug, name, level, school, casting time, range, components, duration, description, and classes.",
+      "quality": "The quality is high. The description clearly outlines the attack roll, immediate damage, subsequent damage on hit, and reduced damage on a miss. The scaling information ('At Higher Levels') is precise.",
+      "mechanics": {
+        "level": 2,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "90 feet",
+        "damage_base": "4d4 initial + 2d4 later (on hit)",
+        "damage_miss": "2d4 initial (half of 4d4) + 0 later",
+        "scaling": "Increases by 1d4 to both initial and later damage for each slot level above 2nd.",
+        "type": "Ranged Spell Attack",
+        "components": {
+          "verbal": true,
+          "somatic": true,
+          "material": true,
+          "material_details": "powdered rhubarb leaf and an adder's stomach"
+        }
+      },
+      "zod_errors_found": false,
+      "notes": "Mechanically sound. The miss condition (half initial damage, no later damage) is a unique and slightly beneficial deviation from some standard attack spells, making it forgiving.",
+      "suggested_refinements": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.580Z"
+}

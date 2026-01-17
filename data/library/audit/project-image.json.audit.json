@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/project-image.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "project-image.json",
+    "analysis": {
+      "consistency": "High. The mechanics described (creation, movement, sensory link, interaction limitations) are internally consistent for an illusion spell focused on remote viewing and projection.",
+      "quality": "High. The spell is well-written, clearly defining its strengths (long range, perfect mimicry, remote sensory access) and weaknesses (fragility, concentration requirement, sensory deprivation on the caster). The material component cost adds a nice balancing element for a high-level illusion.",
+      "mechanics": {
+        "level": 7,
+        "school": "Illusion",
+        "casting_time": "1 action",
+        "range": "500 miles",
+        "duration": "Concentration, up to 1 day",
+        "components": "V, S, M (a small replica of you made from materials worth at least 5 gp)",
+        "effect_summary": "Creates a perfectly illusory, intangible duplicate of the caster at a previously visited location within 500 miles. The caster can use an action to move the illusion and can perceive the world through the illusion's senses (granting blindness/deafness to the caster's real location as a trade-off). The illusion breaks on taking any damage.",
+        "balance_assessment": "Level 7 seems appropriate for the range and the powerful reconnaissance capabilities, balanced by the required concentration and the instant destruction upon taking damage. The requirement of a 5 gp material component is notable for a consumable-like cost associated with the effect's duration."
+      },
+      "suggested_changes": "None required; the spell is functionally sound and well-scoped for a high-level slot. The mechanical consequence of switching senses (caster becomes blinded/deafened) is a strong and necessary balancing feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.008Z"
+}

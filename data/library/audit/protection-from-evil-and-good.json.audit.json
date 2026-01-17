@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/protection-from-evil-and-good.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "protection-from-evil-and-good.json",
+    "analysis": {
+      "consistency": "High. All fields are present and logically consistent for a 5e spell entry.",
+      "quality": "High. The description is detailed, clearly outlining mechanical benefits (disadvantage on attacks, immunity/advantage on saves against specific conditions) against defined creature types.",
+      "mechanics": {
+        "level": 1,
+        "school": "abjuration",
+        "components_check": "Material component (M) lists consumables (holy water OR powdered silver/iron), which correctly implies consumption, noted in the description.",
+        "casting_time": "1 action",
+        "duration": "Concentration up to 10 minutes (Standard for protective concentration buffs).",
+        "effects_summary": "Target gains defensive benefits against aberrations, celestials, elementals, fey, fiends, and undead. Benefits include: 1. Disadvantage on attack rolls from these types. 2. Immunity to being charmed, frightened, or possessed by these types. 3. Advantage on new saving throws vs. existing effects.",
+        "class_availability": "Cleric, Paladin, Warlock, Wizard. Appropriate distribution for an Abjuration spell offering specific protection."
+      },
+      "zod_errors_found": false,
+      "archival_notes": "Mechanics are clear. The spell effectively counters many common planar threats and undead found across various CR ranges."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:33.540Z"
+}

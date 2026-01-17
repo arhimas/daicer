@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/purify-food-and-drink.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "purify-food-and-drink.json",
+    "analysis": {
+      "consistency": "High. The spell entry adheres to standard D&D 5e spell formatting.",
+      "quality": "Good. The description is clear and directly relates to the spell's effect. Mechanics are simple and well-defined for a 1st-level utility spell.",
+      "mechanics": {
+        "level": "1st",
+        "school": "transmutation",
+        "casting_time": "1 action",
+        "range": "10 feet (Area of Effect: 5-foot-radius sphere)",
+        "components": "Verbal, Somatic (Standard)",
+        "duration": "Instantaneous (One-time effect)",
+        "effect_summary": "Cleanses a small area of nonmagical consumables, removing poison and disease.",
+        "utility": "Excellent for low-level survival and social encounters."
+      },
+      "notes": "The ritual tag suggests it can be cast over a longer period for no spell slot, increasing its utility outside of combat, which is appropriate for this kind of effect."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:33.138Z"
+}

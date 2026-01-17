@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/clone.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "clone.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent. 'clone' slug matches 'Clone' name.",
+        "level_and_school": "Consistent. Level 8 Necromancy spell.",
+        "components_and_casting": "Components list (V, S, M) is detailed and matches standard format. Casting time is '1 hour', appropriate for a ritualistic, long-term preparatory spell."
+      },
+      "quality": {
+        "description_clarity": "High quality. The description clearly outlines the purpose (safeguard against death), the creation process (inert duplicate in a vessel), the time frame (120 days to mature), and the trigger mechanism (soul transfer upon original's death).",
+        "component_value": "The required material components (1,000 gp diamond and 2,000 gp vessel) are high, fitting for a 8th-level, permanent contingency spell."
+      },
+      "mechanics": {
+        "mechanical_impact": "Extremely high impact. Functions as a robust form of immortality backup, contingent on the soul being 'free and willing'. It bypasses standard resurrection limitations by creating a replacement body.",
+        "interaction_notes": "The note that the original's remains become 'inert' upon successful transfer is a crucial mechanical detail, preventing dual existence or easy resurrection of the original body.",
+        "time_factor": "The 120-day maturation period and the 1-hour casting time create a significant logistical investment, balancing the immense power of the effect."
+      }
+    },
+    "archivist_notes": "The Clone spell is mechanically sound and exceptionally powerful. All listed parameters align with expected standards for an 8th-level Necromancy spell focused on soul preservation and backup resurrection. Material components are suitably expensive."
+  },
+  "timestamp": "2026-01-17T07:22:47.972Z"
+}

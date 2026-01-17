@@ -1,0 +1,25 @@
+{
+  "file": "molecules/spells/gust-of-wind.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "gust-of-wind.json",
+    "analysis": {
+      "consistency": "The spell entry is internally consistent. All fields relate to a single, well-defined D&D 5e spell.",
+      "quality": "The quality is high. The data is complete, following standard D&D 5e formatting for spell descriptions (level, school, casting time, range, components, duration, description, and classes).",
+      "mechanics": {
+        "level_check": "Level 2 Evocation is appropriate for this effect.",
+        "casting_time_check": "1 action for initial casting, with a bonus action modification on subsequent turns, is typical for sustained area-of-effect control spells.",
+        "range_check": "Self origin with a 60-foot line effect is clearly defined.",
+        "duration_check": "Concentration up to 1 minute allows for sustained battlefield control.",
+        "effect_summary": "Primary mechanics are forced movement (push 15 ft away on failed Strength save) and movement impedance (doubled movement cost when moving toward the caster). Secondary effects include dispersing gas and extinguishing/threatening flames.",
+        "save_DC_application": "Strength saving throw is appropriate for resisting a physical push.",
+        "class_coverage_check": "Druid, Sorcerer, and Wizard are standard classes for this type of elemental magic."
+      },
+      "data_archival_notes": "The spell provides solid, reliable battlefield control focused on terrain denial and positional manipulation. The inclusion of the bonus action to redirect the line adds tactical depth."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.779Z"
+}

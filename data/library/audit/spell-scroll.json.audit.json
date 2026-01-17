@@ -1,0 +1,81 @@
+{
+  "file": "molecules/items/spell-scroll.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "The description is internally consistent, detailing the mechanics of using a spell scroll, including conditions for use (class spell list required), casting time, material component handling, and the potential for failure when casting a higher-level spell. The provided table clearly maps Spell Level to Rarity, Save DC, and Attack Bonus, which is referenced in the text.",
+      "quality": "The data quality is high. The description is comprehensive, covering usage, restrictions, and the process for copying the spell into a spellbook. The embedded markdown table is well-structured and contains specific, quantifiable rules data.",
+      "mechanics": "The mechanics described are standard for D&D 5e spell scrolls: casting consumes the scroll (unless interrupted), requires the spell to be on the caster's list for automatic use, and introduces a variable DC check (10 + spell level) for casting spells above the caster's normal level. Copying mechanics are also standard: DC check (10 + spell level) and guaranteed destruction of the scroll upon attempting to copy."
+    },
+    "data_structure_assessment": {
+      "item_type": "Scroll",
+      "attunement": false,
+      "rarity_note": "Rarity is variable and dependent on the spell level contained within the scroll, as detailed in the table."
+    },
+    "table_data_extraction": [
+      {
+        "spell_level": "Cantrip",
+        "rarity": "Common",
+        "save_dc": 13,
+        "attack_bonus": "+5"
+      },
+      {
+        "spell_level": "1st",
+        "rarity": "Common",
+        "save_dc": 13,
+        "attack_bonus": "+5"
+      },
+      {
+        "spell_level": "2nd",
+        "rarity": "Uncommon",
+        "save_dc": 13,
+        "attack_bonus": "+5"
+      },
+      {
+        "spell_level": "3rd",
+        "rarity": "Uncommon",
+        "save_dc": 15,
+        "attack_bonus": "+7"
+      },
+      {
+        "spell_level": "4th",
+        "rarity": "Rare",
+        "save_dc": 15,
+        "attack_bonus": "+7"
+      },
+      {
+        "spell_level": "5th",
+        "rarity": "Rare",
+        "save_dc": 17,
+        "attack_bonus": "+9"
+      },
+      {
+        "spell_level": "6th",
+        "rarity": "Very rare",
+        "save_dc": 17,
+        "attack_bonus": "+9"
+      },
+      {
+        "spell_level": "7th",
+        "rarity": "Very rare",
+        "save_dc": 18,
+        "attack_bonus": "+10"
+      },
+      {
+        "spell_level": "8th",
+        "rarity": "Very rare",
+        "save_dc": 18,
+        "attack_bonus": "+10"
+      },
+      {
+        "spell_level": "9th",
+        "rarity": "Legendary",
+        "save_dc": 19,
+        "attack_bonus": "+11"
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:54.086Z"
+}

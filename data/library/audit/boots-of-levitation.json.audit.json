@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/boots-of-levitation.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "boots-of-levitation.json",
+    "analysis": {
+      "consistency": {
+        "name_to_slug": "Consistent ('Boots of Levitation' matches 'boots-of-levitation')",
+        "rarity_match": "Consistent (Raw data lists 'Rare', source confirms 'rare')",
+        "attunement_match": "Consistent (Raw data lists 'true', source confirms '[attunement]')"
+      },
+      "quality": {
+        "data_completeness": "High. Contains slug, name, type, rarity, attunement requirement, description, and source confirmation.",
+        "description_clarity": "Excellent. Directly states the mechanical effect (action to cast levitate at will)."
+      },
+      "mechanics": {
+        "item_type": "Wondrous item",
+        "rarity": "Rare",
+        "attunement": true,
+        "core_effect": "While worn, the user can use an action to cast the *levitate* spell on themselves at will.",
+        "spell_reference": {
+          "spell_name": "levitate",
+          "is_referenced_correctly": true
+        },
+        "action_economy": "This item requires an action to activate the effect, which is standard for 'at will' item spell casting unless specified otherwise (like bonus action or passive)."
+      },
+      "archivist_notes": "The data is clean and mechanically sound based on the description. The link formatting for the spell reference '[_levitate_]' is noted, suggesting an internal documentation format."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.846Z"
+}

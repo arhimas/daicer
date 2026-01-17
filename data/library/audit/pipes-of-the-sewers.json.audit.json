@@ -1,0 +1,41 @@
+{
+  "file": "molecules/items/pipes-of-the-sewers.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "pipes-of-the-sewers.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent.",
+        "rarity_and_source": "Consistent ('Uncommon' matches source data).",
+        "attunement_and_source": "Consistent ('requires_attunement: true' matches source data)."
+      },
+      "quality": {
+        "description_clarity": "The description is clear, detailing prerequisites (wind instrument proficiency), passive benefits (rats indifferent), active abilities (summoning swarms using charges), and advanced control mechanics (swaying existing swarms).",
+        "mechanics_completeness": "Mechanics for summoning (charges, action cost, rat availability check), passive interaction, and active control/swaying are well-defined."
+      },
+      "mechanics": {
+        "prerequisites": "Proficiency with wind instruments.",
+        "charges": {
+          "total": 3,
+          "recharge": "1d3 daily at dawn.",
+          "usage": "1 to 3 charges per action to call forth one swarm per charge, if rats are available within half a mile."
+        },
+        "passive_effect": "Ordinary and giant rats are indifferent and will not attack unless threatened/harmed while attuned.",
+        "active_control_summoning": "Calls swarms that move toward the music but are otherwise uncontrolled.",
+        "active_control_swaying": {
+          "trigger": "Existing, uncontrolled swarm of rats within 30 feet while the user is playing the pipes.",
+          "resolution": "Contested Charisma check vs. Swarm's Wisdom check.",
+          "success": "Swayed swarm becomes friendly, obeys commands, and defends itself if commands cease. Requires continuous playing (action each round) to maintain control.",
+          "failure": "Sway effect fails; swarm acts normally and cannot be swayed for 24 hours.",
+          "loss_of_control": "Control ends if the swarm cannot hear the music at the start of its turn; swarm reverts and cannot be swayed for 24 hours."
+        },
+        "action_economy": "Summoning is an Action + Bonus Action (to expend charges). Maintaining control over a swayed swarm requires the user to use an Action each round to play the pipes."
+      },
+      "assessment": "The item is mechanically rich, offering both a summoning utility and a high-risk/high-reward mechanic for gaining control over local fauna. The mechanics are detailed and internally consistent, though the requirement to continuously use an action to maintain control over a swayed swarm presents a significant opportunity cost in combat."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:58.215Z"
+}

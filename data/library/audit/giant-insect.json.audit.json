@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/giant-insect.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "giant-insect.json",
+    "analysis": {
+      "consistency": {
+        "general": "The spell description is consistent with typical D&D 5e spell formatting. The components (V, S), casting time (1 action), and duration (Concentration, up to 10 minutes) are standard.",
+        "mechanics": "The mechanics are clear: transformation of specific small creatures into their 'giant' counterparts, obedience to verbal commands, and specific durations/dismissal methods. The reliance on the GM for specific creature statistics (if non-standard targets are chosen) is noted."
+      },
+      "quality": {
+        "clarity": "High. The targets and resulting creatures are explicitly listed.",
+        "flavor": "Moderate. It is a straightforward, utility/summoning-like spell focused on battlefield control/minor reinforcement."
+      },
+      "mechanics_assessment": {
+        "level_appropriateness": "Level 4 seems appropriate for controlling multiple, relatively weak but numerous creatures, or one medium-sized threat (Giant Scorpion). The control aspect (verbal commands, action on your turn) justifies the level.",
+        "concentration": "Appropriate for maintaining control over multiple transformed beasts.",
+        "scalability": "No explicit scaling noted, which is common for direct summoning/transformation spells unless specified by higher slots."
+      },
+      "potential_issues": [
+        "The description relies heavily on the existence and availability of the 'giant' versions of these specific low-CR creatures, which are standard in official monster manuals."
+      ],
+      "suggestions": [
+        "None needed; the spell is well-defined for its mechanical purpose."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.866Z"
+}

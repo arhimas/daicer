@@ -1,0 +1,47 @@
+{
+  "file": "molecules/spells/wall-of-ice.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "wall-of-ice.json",
+    "analysis": {
+      "consistency": "High. The spell mechanics are well-defined, detailing creation, duration, physical properties (AC, HP, thickness), damage upon creation, and post-destruction effects (frigid air damage). The scaling mechanic ('At Higher Levels') is clearly linked to both initial damage and subsequent area effect damage.",
+      "quality": "High. The spell presents a versatile utility/control option with significant offensive potential both immediately and persistently. The dual damage sources (initial impact and passage through the residual effect) make it tactically interesting. The physical constraints (10-foot panels, 1-foot thickness) provide clear boundaries for dungeon mastering.",
+      "mechanics": {
+        "level": 6,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "120 feet",
+        "duration": "Concentration, up to 10 minutes",
+        "components": "V, S, M (a small piece of quartz)",
+        "primary_effect": "Creation of a physical barrier of ice (dome, sphere, or flat panels).",
+        "damage_on_creation": {
+          "type": "Cold",
+          "dice": "10d6",
+          "save": "Dexterity (half on save)",
+          "condition": "Applies only if the wall cuts through a creature's space."
+        },
+        "object_properties": {
+          "AC": 12,
+          "HP_per_section": "30 (per 10-foot square)",
+          "vulnerability": "Fire damage"
+        },
+        "secondary_effect": {
+          "trigger": "A creature moving through the residual frigid air space for the first time on a turn.",
+          "damage_type": "Cold",
+          "damage_dice": "5d6",
+          "save": "Constitution (half on save)"
+        },
+        "scaling": {
+          "trigger": "Each slot level above 6th.",
+          "initial_damage_increase": "2d6 cold damage.",
+          "frigid_air_damage_increase": "1d6 cold damage."
+        }
+      },
+      "notes": "The interaction between the wall's destruction (reducing HP to 0) and the lingering frigid air effect provides a sustained area denial threat, making this a powerful 6th-level spell choice for Wizards."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:28.591Z"
+}

@@ -1,0 +1,32 @@
+{
+  "file": "atoms/features/rogue-uncanny-dodge.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "rogue-uncanny-dodge.json",
+    "analysis": {
+      "consistency": {
+        "entity_type": "Consistent",
+        "description_length": "Appropriate for a mid-level class feature.",
+        "naming_convention": "Consistent with standard D&D 5e naming practices."
+      },
+      "quality": {
+        "completeness": "Complete. Contains slug, name, class, level, and description.",
+        "clarity": "The description is clear and directly reflects the established game mechanic for Uncanny Dodge.",
+        "data_integrity": "High. The level (5th) matches the known feature progression for the Rogue class."
+      },
+      "mechanics": {
+        "action_type": "Reaction",
+        "trigger": "When an attacker that you can see hits you with an attack.",
+        "effect": "Halve the attack's damage against you.",
+        "level_requirement": 5,
+        "class_association": "Rogue",
+        "assessment": "Mechanically sound and accurately transcribed from source material. This is a core, defining ability for the Rogue class."
+      },
+      "suggested_changes": []
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.394Z"
+}

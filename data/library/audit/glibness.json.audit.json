@@ -1,0 +1,22 @@
+{
+  "file": "molecules/spells/glibness.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "glibness.json",
+    "analysis": {
+      "consistency": "High. The components (V), casting time (1 action), and level (8) are standard for a powerful transmutation spell affecting social interaction.",
+      "quality": "High. The spell offers a powerful, reliable boost to Charisma checks and makes the caster magically immune to truth-detection magic, fitting a high-level enchantment/social utility theme.",
+      "mechanics": {
+        "core_effect": "Guaranteed minimum Charisma check result of 15.",
+        "secondary_effect": "Immunity to magic that determines truthfulness (e.g., zone of truth, detect thoughts checks on veracity).",
+        "interaction_notes": "The primary mechanic bypasses standard advantage/disadvantage mechanics by fixing the die roll result directly, making it superior to simple bonuses for low rolls. The duration (1 hour) is appropriate for a 8th-level concentration-free buff."
+      },
+      "suggested_edits": "None. The data is complete and consistent with established D&D 5e mechanics for high-level spells.",
+      "final_verification": "PASS"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.510Z"
+}

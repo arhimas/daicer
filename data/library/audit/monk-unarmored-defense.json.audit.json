@@ -1,0 +1,23 @@
+{
+  "file": "atoms/features/monk-unarmored-defense.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-unarmored-defense.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e Monk class feature for Level 1.",
+      "quality": "High quality. Clear, concise mechanical description.",
+      "mechanics": {
+        "type": "Armor Class calculation replacement/modifier",
+        "trigger": "Wearing no armor AND not wielding a shield",
+        "effect": "AC = 10 + Dexterity Modifier + Wisdom Modifier",
+        "class_requirement": "Monk",
+        "level_requirement": 1
+      },
+      "notes": "This is the core defensive feature for the Monk class, defining their reliance on high Dexterity and Wisdom for defense rather than traditional armor."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.723Z"
+}

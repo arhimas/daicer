@@ -1,0 +1,37 @@
+{
+  "file": "molecules/spells/branding-smite.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "branding-smite.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent (Branding Smite vs branding-smite).",
+        "level_school": "Consistent (Level 2 Evocation).",
+        "casting_time_range_duration": "Standard format, consistent.",
+        "class_restriction": "Paladin only, appropriate for a Smite spell variant."
+      },
+      "quality": {
+        "description_clarity": "Clear. Describes the effect on a single weapon attack, granting extra damage and utility (revealing invisibility, imposing dim light, preventing invisibility).",
+        "mechanics_review": "Mechanically sound. Bonus action casting time allows for casting before an attack. Concentration limits duration. Scaling with higher slots is standard for 2nd-level offensive buffs.",
+        "synergy": "Excellent synergy with Paladin's focus on weapon attacks and radiant damage themes."
+      },
+      "mechanics": {
+        "damage_scaling": {
+          "base": "2d6 radiant damage",
+          "scaling_formula": "+1d6 per slot level above 2nd (e.g., 3rd level = 3d6, 4th level = 4d6, etc.)"
+        },
+        "utility_effects": [
+          "Target becomes visible if invisible.",
+          "Target sheds dim light (5ft radius).",
+          "Target cannot become invisible while the spell lasts."
+        ],
+        "trigger": "Next successful weapon attack before the spell ends."
+      },
+      "overall_assessment": "High quality, mechanically consistent spell. Fits well within the Paladin spell list by offering a focused damage boost with useful anti-invisibility utility."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:48.151Z"
+}

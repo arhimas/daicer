@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/command.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "command.json",
+    "analysis": {
+      "consistency": "High. The spell adheres to standard D&D 5e formatting for spell descriptions, including clear sections for casting time, range, components, duration, and effects.",
+      "quality": "Good. The description is clear and provides excellent examples of typical commands ('Approach', 'Drop', 'Flee', 'Grovel', 'Halt'). The caveat about the GM determining effects for non-listed commands is appropriate.",
+      "mechanics": {
+        "core_mechanic": "Wisdom saving throw to resist a one-word command affecting the target's next turn.",
+        "constraints": "Target must be visible, understandable, and the command cannot be directly harmful. Effectiveness is limited to the target's next turn.",
+        "scaling": "Excellent scaling mechanism: one additional creature affected per spell slot level above 1st, provided new targets are within 30 feet of each other.",
+        "balance_notes": "As a 1st-level spell, it offers strong battlefield control when the save fails, but the concentration limitation (implied by duration being '1 round' and the nature of control spells, though not explicitly stated as requiring concentration, which is a minor ambiguity that should be checked against the source ruleset) and the single-word limitation keep it balanced. The required Wisdom save makes it less effective against common low-level threats that might have high Wisdom."
+      },
+      "potential_issues": [
+        "The RAW data specifies 'duration: 1 round', but the effect only lasts 'on its next turn'. This is standard for effects triggered on the next turn, but the explicit duration field should ideally reflect the active enchantment duration if it were longer, or simply be noted as 'Until the end of the target's next turn' if the effect is immediate upon its next turn.",
+        "The RAW does not explicitly state if concentration is required, which is standard for many control spells of this nature. This needs verification against the official ruleset."
+      ],
+      "class_inclusion": "Appropriate inclusion for Cleric and Paladin, fitting their roles as divine casters often focused on influencing or compelling others."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.515Z"
+}

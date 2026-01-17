@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/dimension-door.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "dimension-door.json",
+    "analysis": {
+      "consistency": "High. The spell adheres to standard 5e spell formatting and mechanics for a 4th-level conjuration spell focusing on short-range teleportation.",
+      "quality": "High. The description is clear, providing explicit rules for targeting (sight, visualization, distance/direction), passenger limits, and failure conditions (occupied space resulting in force damage).",
+      "mechanics": {
+        "level": 4,
+        "school": "conjuration",
+        "casting_time": "1 action",
+        "range": "500 feet",
+        "duration": "Instantaneous",
+        "damage_type_on_fail": "force",
+        "damage_dice_on_fail": "4d6",
+        "teleport_limitation": "Max range 500 feet. Fails if destination is occupied.",
+        "passenger_limit": "One willing creature of size Medium or smaller, plus gear up to its carrying capacity. Passenger must be within 5 feet at casting."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.351Z"
+}

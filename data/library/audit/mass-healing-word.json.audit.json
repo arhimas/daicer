@@ -1,0 +1,39 @@
+{
+  "file": "molecules/spells/mass-healing-word.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mass-healing-word.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "level_matches_slotting": true,
+        "component_format_standard": true,
+        "duration_standard": true
+      },
+      "quality": {
+        "completeness": "Complete and detailed.",
+        "clarity": "The description is clear, including specific targeting limitations (undead/constructs) and scaling mechanics.",
+        "flavor_integration": "Mechanics align well with the concept of a rapid, mass restorative word."
+      },
+      "mechanics": {
+        "level": 3,
+        "school": "evocation",
+        "casting_time": "bonus action",
+        "range": "60 feet",
+        "components": "V",
+        "duration": "Instantaneous",
+        "primary_effect": "Heals up to 6 creatures (1d4 + modifier).",
+        "scaling_mechanism": "Healing increases by 1d4 per spell slot level above 3rd.",
+        "limitations": "Does not affect undead or constructs.",
+        "action_economy": "Excellent; as a bonus action, it allows the caster to still use their main action (like casting a leveled spell or attacking)."
+      },
+      "recommendations": {
+        "improvements": "None required. The spell is mechanically sound and follows standard D&D 5e conventions for a 3rd-level bonus action mass heal."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.243Z"
+}

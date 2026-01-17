@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/amulet-of-proof-against-detection-and-location.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "amulet-of-proof-against-detection-and-location.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description": true,
+        "attunement_requirement_consistent": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "Excellent. The description clearly states the effect of hiding from divination magic and scrying sensors.",
+        "data_source_integrity": "High. All necessary fields appear present and match the provided raw data."
+      },
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement": true,
+        "effect_summary": "Provides permanent protection against divination magic, preventing targeting by such magic and perception via scrying sensors while worn.",
+        "potential_conflicts": "None immediately apparent within the provided data structure, standard defensive magic item effect."
+      }
+    },
+    "recommendations": [
+      "Ensure that the source section referenced in 'source_type_rarity' (e.g., #section-attunement) is correctly linked in the final documentation."
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:05.835Z"
+}

@@ -1,0 +1,57 @@
+{
+  "file": "molecules/items/staff-of-thunder-and-lightning.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "item_name": "Staff of Thunder and Lightning",
+    "item_type": "Staff",
+    "rarity": "Very Rare",
+    "attunement_required": true,
+    "analysis": {
+      "consistency": "The item description is internally consistent, detailing multiple uses tied to charges that refresh at dawn, which is standard for powerful magic items.",
+      "quality": "High quality. The item is well-defined, offering both passive bonuses (+2 to hit/damage) and several active abilities covering single-target damage enhancement, area control (stun), line AoE damage, and close-range AoE damage/debuff.",
+      "mechanics": {
+        "base_properties": {
+          "bonus": "+2 to attack and damage rolls",
+          "usage_limit": "Properties reset daily at dawn."
+        },
+        "abilities": [
+          {
+            "name": "Lightning (Melee Hit)",
+            "effect": "Extra 2d6 lightning damage on a successful melee attack.",
+            "type": "Damage Enhancement",
+            "trigger": "Melee Attack Hit"
+          },
+          {
+            "name": "Thunder (Melee Hit)",
+            "effect": "Target must succeed on a DC 17 Constitution saving throw or become stunned until the end of the user's next turn.",
+            "type": "Control/Debuff",
+            "trigger": "Melee Attack Hit"
+          },
+          {
+            "name": "Lightning Strike",
+            "effect": "Line AoE (5ft x 120ft). DC 17 Dexterity save for 9d6 lightning damage (half on save).",
+            "type": "Area of Effect Damage",
+            "action_cost": "Action"
+          },
+          {
+            "name": "Thunderclap",
+            "effect": "AoE centered on user (60ft radius). Creatures must make a DC 17 Constitution save or take 2d6 thunder damage and become deafened for 1 minute (half damage/no deafened on save).",
+            "type": "Area of Effect Damage/Debuff",
+            "action_cost": "Action"
+          },
+          {
+            "name": "Thunder and Lightning (Combined)",
+            "effect": "Uses Lightning Strike and Thunderclap simultaneously. Does not expend the daily use of the individual properties, only the use of this combined action.",
+            "type": "Combined Action",
+            "action_cost": "Action"
+          }
+        ],
+        "balancing_notes": "The DC (17) is appropriate for a Very Rare item. The inclusion of two separate triggered effects on a standard melee hit (Lightning/Thunder) offers excellent sustained value, but they share the same daily limit as the major actions, making resource management crucial. The combined action is powerful as it uses the action economy once for two major effects without consuming the independent uses."
+      }
+    },
+    "archival_notes": "The mechanics are comprehensive and clearly defined. The shared daily limitation across all major abilities (Lightning, Thunder, Lightning Strike, Thunderclap, and Combined) is the critical constraint that balances the item's high output."
+  },
+  "timestamp": "2026-01-17T07:22:53.681Z"
+}

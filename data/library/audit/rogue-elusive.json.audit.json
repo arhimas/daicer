@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/rogue-elusive.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "rogue-elusive.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent with Rogue class fantasy.",
+        "level_scaling": "Level 18 feature is appropriate for a high-level class ability."
+      },
+      "quality": {
+        "clarity": "The description is clear and directly states the mechanical benefit.",
+        "utility": "Extremely high utility, providing permanent advantage negation against the Rogue, which significantly improves survivability against coordinated or flank-heavy enemies.",
+        "flavor": "Fits the theme of an unmatched, evasive master."
+      },
+      "mechanics": {
+        "core_effect": "Prevents attack rolls from having advantage against the character.",
+        "condition": "The effect is active unless the character is Incapacitated. This is a standard and well-understood condition.",
+        "interaction_notes": "This feature specifically negates one of the most common defensive debuffs (advantage on attacks), making it very powerful, especially in environments where flanking is common."
+      },
+      "suggestions": [
+        "No mechanical changes suggested; the feature is well-balanced for its level."
+      ],
+      "data_integrity": "All fields present and correctly formatted."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:10.009Z"
+}

@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/color-spray.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "color-spray.json",
+    "analysis": {
+      "consistency": "The spell mechanics are internally consistent, detailing how the pool of hit points is used to determine targets in order of lowest current HP. The scaling mechanism for higher levels is clearly defined.",
+      "quality": "The spell description is very clear and well-structured. The core mechanic (HP pool targeting) is unique and interesting for a 1st-level spell, offering tactical depth based on enemy health states. The component requirements are standard.",
+      "mechanics": {
+        "type": "Area of Effect (Cone) / Targeted Conditional Debuff (Blinding)",
+        "scaling": "Scales by 2d10 per slot level above 1st.",
+        "target_selection": "Deterministic based on current hit points (lowest first) until the total pool is exhausted. Excludes unconscious or blind creatures.",
+        "effect": "Blinded until spell duration (1 round).",
+        "balance_consideration": "As a 1st-level spell, the potential to blind multiple enemies is strong, but it is balanced by the probabilistic HP pool (6d10) and the strict HP ordering requirement. It functions best against groups of low-HP enemies."
+      },
+      "suggested_improvements": [
+        "Clarify if the '1 round' duration means the blindness lasts until the start of the caster's next turn (standard) or if it is a concentration effect. Assuming standard duration if not specified otherwise."
+      ],
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.781Z"
+}

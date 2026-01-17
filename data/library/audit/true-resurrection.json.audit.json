@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/true-resurrection.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "true-resurrection.json",
+    "analysis": {
+      "consistency": "High. The spell adheres well to the established pattern for high-level revival magic, particularly its focus on extreme cost and powerful, comprehensive restoration.",
+      "quality": "Excellent. The description is evocative and clearly outlines the powerful effects, limitations (200 years, no death by old age, soul must be free and willing), and material components.",
+      "mechanics": {
+        "level": 9,
+        "school": "necromancy",
+        "casting_time": "1 hour",
+        "range": "Touch",
+        "components": "V, S, M (A very high cost of 25,000 gp in diamonds, which are consumed, indicating a massive expenditure of energy/material to overcome true death.)",
+        "duration": "Instantaneous",
+        "core_effect": "Restores a creature to life, healing all damage, removing negative conditions (poison, disease, curses), and reconstructing or replacing the body if necessary.",
+        "limitations": [
+          "Creature must be dead for no longer than 200 years.",
+          "Cannot raise creatures that died of old age.",
+          "The soul must be free and willing."
+        ],
+        "class_fit": "Appropriate for Cleric (divine power over life/death) and Druid (deep connection to the cycle of life)."
+      },
+      "notes": "This is the pinnacle of resurrection magic. The 200-year limit is notably longer than standard resurrection spells, reflecting its 9th-level power. The consumption of 25,000 gp in diamonds is a significant mechanical gatekeeping factor."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:29.057Z"
+}

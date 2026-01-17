@@ -1,0 +1,39 @@
+{
+  "file": "molecules/items/necklace-of-adaptation.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "necklace-of-adaptation.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description": "Uncommon",
+        "attunement_in_description": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "notes": "The description clearly outlines the environmental adaptation and advantage on specific saving throws."
+      },
+      "mechanics": {
+        "item_type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement_required": true,
+        "effects": [
+          {
+            "effect_type": "Environmental Immunity/Adaptation",
+            "detail": "Can breathe normally in any environment."
+          },
+          {
+            "effect_type": "Saving Throw Advantage",
+            "detail": "Advantage on saving throws against harmful gases and vapors (examples: cloudkill, stinking cloud, inhaled poisons, breath weapons)."
+          }
+        ],
+        "potential_ambiguity": "The term 'harmful gases and vapors' is slightly vague but the examples provided anchor the power level appropriately for an Uncommon item."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:58.216Z"
+}

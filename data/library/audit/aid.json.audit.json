@@ -1,0 +1,22 @@
+{
+  "file": "molecules/spells/aid.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "aid.json",
+    "analysis": {
+      "consistency": "Consistent. The data adheres to standard spell formatting found in typical D&D 5e spell references.",
+      "quality": "High. The entry is complete, detailing all necessary mechanical aspects (level, school, casting time, components, duration, effect, scaling, and class availability).",
+      "mechanics": {
+        "base_effect": "Increases HP maximum and current HP by 5 for up to three targets.",
+        "scaling": "Scaling is linear and additive based on spell slot level above 2nd (+5 HP per level above 2nd).",
+        "clarity": "The description is clear, defining the target limit (three), range (30 feet), and duration (8 hours). The component cost (a tiny strip of white cloth) is noted.",
+        "balance_check": "As a 2nd-level spell, providing 15 total temporary HP across three bodies (or 15 HP to one target if cast on only one) for 8 hours is a reasonable level of sustained support."
+      },
+      "potential_issues": "None detected. The mechanics are straightforward and well-defined."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.550Z"
+}

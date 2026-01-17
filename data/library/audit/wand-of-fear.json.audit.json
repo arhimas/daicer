@@ -1,0 +1,41 @@
+{
+  "file": "molecules/items/wand-of-fear.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-fear.json",
+    "analysis": {
+      "consistency": "High. The description clearly details the charges, recharge rate, and destruction mechanic. The mechanics for both 'Command' and 'Cone of Fear' are detailed and reference established game mechanics (spell effect, condition, saving throw type/DC).",
+      "quality": "High. The formatting uses markdown effectively (bolding, links/references). The description is comprehensive for a magic item.",
+      "mechanics": {
+        "item_type": "Wand",
+        "attunement": true,
+        "charges": {
+          "max": 7,
+          "recharge_rate": "1d6 + 1 daily at dawn",
+          "destruction_on_last_use": "Roll d20; on a 1, destroyed."
+        },
+        "abilities": [
+          {
+            "name": "Command",
+            "cost": "1 charge",
+            "action_type": "Action",
+            "effect": "As the 'Command' spell, save DC 15."
+          },
+          {
+            "name": "Cone of Fear",
+            "cost": "2 charges",
+            "action_type": "Action",
+            "range": "60-foot cone",
+            "effect": "Creatures in cone must make DC 15 Wisdom save or become frightened of the wielder for 1 minute. Frightened creature must use turns to move as far away as possible, cannot willingly move within 30 feet of the wielder, cannot take reactions, and can only use Dash or Dodge actions (or try to escape effects). Can repeat save at end of turn."
+          }
+        ],
+        "save_dc_reference": 15
+      },
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.715Z"
+}

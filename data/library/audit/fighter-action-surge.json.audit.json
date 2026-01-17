@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/fighter-action-surge.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-action-surge.json",
+    "analysis": {
+      "consistency": "Consistent with established D&D 5e Fighter class features.",
+      "quality": "High quality. The description is clear, concise, and accurately reflects the mechanical impact of the feature.",
+      "mechanics": {
+        "type": "Action economy modification",
+        "trigger": "On your turn",
+        "effect": "Grants one additional action (which can be used as a regular action or bonus action replacement, as per standard action rules).",
+        "cost": "Requires short or long rest to recharge (1 use).",
+        "scaling": {
+          "level": 17,
+          "effect": "Increases uses to 2 per rest, with the caveat that only one use can be applied on the same turn (preventing an immediate double Action Surge)."
+        },
+        "clarification_needed": "None; the description is standard and precise."
+      },
+      "metadata": {
+        "slug": "fighter-action-surge",
+        "name": "Action Surge",
+        "class": "fighter",
+        "level": 2,
+        "is_subclass_feature": false
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:14.965Z"
+}

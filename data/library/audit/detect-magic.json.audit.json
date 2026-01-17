@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/detect-magic.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "detect-magic.json",
+    "analysis": {
+      "consistency": "The data appears consistent with standard D&D 5e spell descriptions. Level, school, casting time, range, components, and duration align with typical spell structures.",
+      "quality": "High quality. The description is complete, covering duration, action economy (using an action to see the aura), range limitations, and the specific penetration rules for barriers.",
+      "mechanics": {
+        "level": 1,
+        "school": "divination",
+        "casting_time": "1 action",
+        "range": "Self",
+        "duration": "Concentration, up to 10 minutes",
+        "action_economy": "Standard action to activate sensing capability after initial casting.",
+        "concentration": "Yes, standard for ongoing detection spells.",
+        "area_of_effect_or_range": "Senses magic within 30 feet.",
+        "utility": "Excellent low-level utility for identifying magical items, traps, or sources of ambient magic. Barrier penetration rules are specific and mechanical."
+      },
+      "errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.578Z"
+}

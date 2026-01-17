@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/meteor-swarm.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "meteor-swarm.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 9 Evocation spell fits the expected power level for such a devastating effect.",
+        "casting_time_and_duration": "Consistent. An 'action' casting time with 'Instantaneous' duration is standard for high-impact offensive spells.",
+        "range_and_area": "Consistent. A 1-mile range supports targeting large areas, with 40-foot radius spheres defining the local impact zones.",
+        "damage_scaling": "Consistent. 20d6 fire + 20d6 bludgeoning (total 40d6 damage) is appropriate for a 9th-level spell."
+      },
+      "quality": {
+        "clarity": "High. The description clearly defines target points, radius, damage types, save type (Dexterity), and failure/success consequences.",
+        "edge_case_handling": "Good. Explicitly states creatures affected by multiple bursts are only damaged once, and addresses object interaction (damage and ignition)."
+      },
+      "mechanics": {
+        "damage_type_mix": "Unique. Combining Fire and Bludgeoning damage is mechanically interesting, requiring targets to potentially resist two different damage types if vulnerability/resistance is specific.",
+        "saving_throw_vs_damage": "Standard (Dexterity Save for area effect damage).",
+        "component_complexity": "Standard (V, S).",
+        "class_availability": "Appropriate for primary arcane casters (Sorcerer, Wizard)."
+      },
+      "potential_issues": [
+        "The combined damage (40d6) is exceptionally high, representing the upper limit of spell power. If the damage rolls were calculated separately by the table, ensure the 'affected only once' clause is strictly followed to prevent unintended stacking of effects."
+      ],
+      "recommendations": "No changes needed. This is a well-defined, high-impact 9th-level spell that adheres to established mechanical patterns."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.179Z"
+}

@@ -1,0 +1,21 @@
+{
+  "file": "molecules/items/ring-of-free-action.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-free-action.json",
+    "analysis": {
+      "consistency": "High. The name, type, and rarity are clearly defined. The mechanics described in the 'description' align with the expected function of a 'Ring of Free Action'.",
+      "quality": "Good. The description is clear and concise, listing two distinct mechanical benefits.",
+      "mechanics": {
+        "movement_benefit": "Ignores difficult terrain movement cost.",
+        "condition_immunity": "Immunity to speed reduction effects from magic, paralysis, and restraint conditions caused by magic."
+      },
+      "zod_errors": "None",
+      "notes": "The description explicitly links the immunity to magical effects for paralysis/restraint/speed reduction, which is a standard feature for this item type. The RAW DATA is fully structured and consistent."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:55.868Z"
+}

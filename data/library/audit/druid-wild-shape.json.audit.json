@@ -1,0 +1,26 @@
+{
+  "file": "atoms/features/druid-wild-shape.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "druid-wild-shape.json",
+    "analysis": {
+      "consistency": "The feature description is highly consistent with standard D&D 5e mechanics for the Wild Shape feature. The progressive table detailing CR limits and movement restrictions based on druid level is standard and clear. The rules regarding statistics replacement, hit points, spellcasting limitations, and equipment handling are all canonical.",
+      "quality": "The quality is high. The raw data includes a well-formatted HTML table which clearly summarizes the progression of the feature, making it easy to reference. The textual description is comprehensive, covering duration, use limitations, regaining uses, and detailed transformation rules.",
+      "mechanics": {
+        "core_mechanic": "Action-based magical transformation into a beast.",
+        "uses_and_regain": "2 uses, regained on short or long rest.",
+        "duration": "Hours equal to half druid level (rounded down).",
+        "stat_changes": "Statistics are replaced by the beast's, except for mental scores (INT, WIS, CHA), alignment, and personality.",
+        "skill_proficiencies": "Retains existing proficiencies; gains creature's proficiencies if the bonus is higher.",
+        "hp_handling": "Uses beast's HP. Reverts to previous HP unless damage taken reduces HP to 0, in which case excess damage carries over to the base form.",
+        "spellcasting": "Cannot cast spells while transformed, but concentration on existing spells is maintained, and ongoing spell effects can still resolve.",
+        "equipment": "Equipment falls, merges, or is worn; worn equipment functionality is subject to GM discretion based on form practicality."
+      },
+      "notes": "The mechanical progression for CR and movement restrictions shown in the table (e.g., CR 1/4, no flight/swim at 2nd level; CR 1/2, no flight at 4th level) is crucial and accurately captured. The exception regarding retaining concentration on already cast spells is an important nuance that is correctly documented."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.666Z"
+}

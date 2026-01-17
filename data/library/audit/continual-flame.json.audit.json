@@ -1,0 +1,73 @@
+{
+  "file": "molecules/spells/continual-flame.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "continual-flame.json",
+    "analysis": {
+      "consistency": {
+        "overall": "Consistent with standard 5e spell formatting.",
+        "fields": [
+          {
+            "field": "slug",
+            "comment": "Standardized lowercase, hyphenated name."
+          },
+          {
+            "field": "name",
+            "comment": "Standard capitalized spell name."
+          },
+          {
+            "field": "level",
+            "comment": "Numeric representation of spell level (2nd level)."
+          },
+          {
+            "field": "school",
+            "comment": "Standard school of magic (Evocation)."
+          },
+          {
+            "field": "ritual",
+            "comment": "Boolean indicating ritual casting capability (false)."
+          },
+          {
+            "field": "casting_time",
+            "comment": "Standard action requirement."
+          },
+          {
+            "field": "range",
+            "comment": "Standard range specification (Touch)."
+          },
+          {
+            "field": "components",
+            "comment": "Standard VSM components format, correctly detailing material cost and consumption."
+          },
+          {
+            "field": "duration",
+            "comment": "Standard duration ('Until dispelled')."
+          },
+          {
+            "field": "description",
+            "comment": "Clear description. Includes a self-referential markdown link, which is common in digital compendiums."
+          },
+          {
+            "field": "classes",
+            "comment": "Lists classes that can learn the spell (Cleric, Wizard)."
+          }
+        ]
+      },
+      "quality": {
+        "clarity": "High. The description clearly defines the light source equivalence, the lack of heat/oxygen use, and immunity to standard extinguishment methods.",
+        "completeness": "Complete. All necessary mechanical details are present.",
+        "readability": "Good. Standard terminology is used effectively."
+      },
+      "mechanics": {
+        "level_appropriateness": "Level 2 seems appropriate for a permanent, non-damaging light source requiring a significant material component (50 gp, consumed).",
+        "component_check": "The material component (ruby dust worth 50 gp, consumed) is a key mechanical gate, ensuring the spell isn't spammable without investment.",
+        "interaction_notes": "The spell's immunity to being smothered or quenched is a specific, important mechanical clause distinguishing it from a mundane fire or the *light* cantrip."
+      },
+      "zod_errors": "None. Data appears clean and correctly structured."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:46.681Z"
+}

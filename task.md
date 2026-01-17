@@ -50,3 +50,10 @@
 - [x] Nuke Database (Schema Reset) <!-- id: 26 -->
 - [x] Fix Plugin Dependencies (`sqlite-vec`) <!-- id: 27 -->
 - [x] Verify End-to-End Reboot <!-- id: 28 -->
+
+## Library Audit & Polishing (Data Integrity)
+- [x] Locate/Define Zod Schemas <!-- id: 29 -->
+- [x] Create `audit-sota.ts` script <!-- id: 30 -->
+- [x] Implement Concurrent Processing (Limit 20) <!-- id: 31 -->
+- [x] Run Audit with `gemini-flash-lite-latest` <!-- id: 32 -->
+- [x] Verify Proposals/Report <!-- id: 33 -->

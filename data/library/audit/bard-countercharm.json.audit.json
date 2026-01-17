@@ -1,0 +1,41 @@
+{
+  "file": "atoms/features/bard-countercharm.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-countercharm.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent. The name 'Countercharm' matches the slug 'bard-countercharm'.",
+        "level_and_class": "Consistent. Level 6 feature belonging to the 'bard' class."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines the trigger (action to start performance), duration (until end of next turn), effect (advantage on saves vs. frightened/charmed), range (30 feet), and limitations (must hear, ends if incapacitated/silenced or voluntarily ended).",
+        "mechanical_impact": "Moderate to High. Providing advantage on saving throws against two very common and impactful conditions (charmed and frightened) for multiple allies is a significant defensive boon, especially at mid-levels."
+      },
+      "mechanics": {
+        "action_cost": "Action (to start).",
+        "effect_type": "Buff (Advantage on Saves).",
+        "conditions_affected": [
+          "frightened",
+          "charmed"
+        ],
+        "range_and_area": "30 feet radius centered on the user.",
+        "concentration_or_duration": "Duration is fixed to the end of the next turn, similar to a short-duration concentration effect but without the concentration requirement, making it durable unless specific end conditions are met.",
+        "interruption_conditions": [
+          "Incapacitated",
+          "Silenced",
+          "Voluntarily ended"
+        ]
+      },
+      "suggestions": [
+        "No mandatory changes. The feature is mechanically sound and thematic.",
+        "It is worth noting that since this does not require concentration, a Bard can use this while concentrating on another spell, which is a strong design point."
+      ],
+      "zod_errors_present": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.004Z"
+}

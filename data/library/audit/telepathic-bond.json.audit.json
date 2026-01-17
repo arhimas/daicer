@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/telepathic-bond.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "telepathic-bond.json",
+    "analysis": {
+      "consistency": {
+        "naming_convention": "Consistent (slug matches name contextually).",
+        "data_completeness": "Complete. All standard spell fields are present.",
+        "mechanics_cohesion": "Cohesive. The components, range, and duration support the effect (creating a temporary, short-range mental link)."
+      },
+      "quality": {
+        "readability": "High. Description is clear and directly explains the telepathic link and its limitations (Int score, plane restriction).",
+        "component_detail": "Good. Material component is specific and thematic.",
+        "level_vs_effect": "Appropriate for a 5th-level spell. Providing communication for up to 8 creatures over any distance (within the same plane) for 1 hour is a significant utility spell, fitting for 5th level."
+      },
+      "mechanics": {
+        "action_economy": "1 action - standard for setup.",
+        "range_and_target": "30 feet range, up to 8 willing creatures. Limited by initial casting range but unbounded once linked (within plane).",
+        "duration_and_concentration": "1 hour, no concentration required (this is a strong point for utility, as it frees up concentration for combat spells).",
+        "restrictions": "Creatures with Intelligence 2 or less are immune. This is a standard inclusion for mental/telepathic effects to prevent interaction with very low-intelligence beasts.",
+        "communication_scope": "Telepathic communication, ignores language barriers, global range (on the plane).",
+        "class_availability": "Wizard only (as per RAW data provided)."
+      },
+      "recommendations": {
+        "none": "Data is accurate and consistent based on standard D&D 5e spell structures."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:29.800Z"
+}

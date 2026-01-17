@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/teleport.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "teleport.json",
+    "analysis": {
+      "consistency": {
+        "spell_level_school": "Consistent. Level 7, School Conjuration aligns with known high-level teleportation magic.",
+        "casting_time_duration": "Consistent. Instantaneous duration for a major travel spell is expected.",
+        "range_components": "Consistent. Range of 10 feet suggests self/immediate area targeting initially, or perhaps a misunderstanding of the spell's core function which is plane/long-distance travel (the 'range' here might refer to the radius around the caster where the target must be, or it's a historical artifact from earlier editions, as the description details cross-planar/long-distance movement). Given the massive risk table, the 10 feet range is likely a specific constraint on *who/what* can be affected, not the final distance traveled.",
+        "target_options": "Consistent. Allows targeting self/willing creatures OR a single object, with appropriate size constraints for the object.",
+        "familiarity_table": "The table structure is internally consistent, providing clear probability ranges for outcomes based on familiarity. The 'Permanent circle' and 'Associated object' options are deterministic (100% success), which is common for known safe anchors."
+      },
+      "quality": {
+        "completeness": "High. Contains all standard 5e spell attributes (slug, name, level, school, ritual status, casting details, description, classes).",
+        "description_clarity": "Very high. The description clearly outlines targets, the requirement that the destination be known and on the same plane, and the mechanic of checking familiarity. The detailed breakdown of outcomes (On Target, Off Target, Similar Area, Mishap) is excellent.",
+        "mechanical_depth": "High. The inclusion of the d100 Familiarity table significantly deepens the mechanic, turning a simple travel spell into a high-stakes gamble based on preparation/knowledge."
+      },
+      "mechanics": {
+        "range_discrepancy": "The stated 'range: 10 feet' conflicts heavily with the 'Off Target' description which calculates percentage deviation based on 'the distance that was to be traveled' (e.g., 120 miles). This suggests the 10 feet likely applies only to the immediate vicinity of the caster for selecting targets, or the spell entry inherits a potentially confusing range value from another system/edition where range was handled differently for teleportation.",
+        "object_targeting": "Clear constraint: object must fit in 10ft cube and cannot be held by an unwilling creature.",
+        "mishap_stacking": "The 'Mishap' outcome explicitly states: 'the GM rerolls on the table to see where you wind up (multiple mishaps can occur, dealing damage each time)'. This implies that after taking damage from the first mishap, the arrival location roll is re-executed, potentially leading to another mishap and more damage, creating a severe compounding risk.",
+        "off_target_calculation": "Precise and complex: Distance off target is (d10 * d10) percent of total distance. Direction is determined by d8 roll (N, NE, E, SE, S, SW, W, NW).",
+        "familiarity_levels": "The levels range from perfect success (Permanent circle/Associated object) to near-certain failure/misplacement (Description/False destination). The 'False destination' logic correctly accounts for locations that don't exist."
+      },
+      "summary": "The Teleport spell entry is highly detailed and mechanically rich, particularly due to the complex Familiarity table that governs arrival success. The primary inconsistency noted is the 'range: 10 feet' which appears highly situational or vestigial given the spell's function described in the text (long-distance travel). The cascading risk model for multiple mishaps is a notable mechanical feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.694Z"
+}

@@ -1,0 +1,51 @@
+{
+  "file": "molecules/spells/prismatic-spray.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "prismatic-spray.json",
+    "analysis": {
+      "consistency": "The spell description is internally consistent, detailing eight distinct outcomes based on a d8 roll, which is standard for Prismatic Spray.",
+      "quality": "The description is high quality, clearly outlining the mechanics, damage types, saving throws, and the complex multi-turn conditions for the Indigo and Violet rays. The formatting (using bold and numbered lists) aids readability.",
+      "mechanics": {
+        "level": 7,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "Self (60-foot cone)",
+        "components": "V, S",
+        "duration": "Instantaneous",
+        "save_type": "Dexterity (initial effect)",
+        "damage_types": [
+          "fire",
+          "acid",
+          "lightning",
+          "poison",
+          "cold"
+        ],
+        "unique_mechanics": [
+          {
+            "effect_number": 6,
+            "name": "Indigo (Restrain/Petrify)",
+            "details": "Imposes Restrained condition on failed save. Subjected to ongoing Constitution saves (3 successes end effect, 3 failures result in permanent petrification/petrified condition). Successes/failures track independently."
+          },
+          {
+            "effect_number": 7,
+            "name": "Violet (Blind/Planar Travel)",
+            "details": "Imposes Blinded condition on failed save. Subjected to a Wisdom save at start of caster's next turn. Success ends Blindness. Failure transports the target to another plane determined by the GM."
+          },
+          {
+            "effect_number": 8,
+            "name": "Special (Two Rays)",
+            "details": "Target is struck by two rays (reroll any subsequent 8s)."
+          }
+        ],
+        "potential_issues_or_clarifications": [
+          "The Indigo effect (petrification countdown) is complex but standard for this spell version. Tracking three successes vs. three failures simultaneously requires careful GM bookkeeping."
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.073Z"
+}

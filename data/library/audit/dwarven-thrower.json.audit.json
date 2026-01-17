@@ -1,0 +1,44 @@
+{
+  "file": "molecules/items/dwarven-thrower.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "dwarven-thrower.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description_matches_top_level": true,
+        "type_matches_description": true
+      },
+      "quality": {
+        "completeness": "High. All standard fields seem present and populated.",
+        "clarity": "Excellent. The mechanics (bonus, range, extra damage conditional, return feature) are clearly described.",
+        "formatting_notes": "The raw data includes a reference tag ('#section-attunement') which is usually a markdown artifact and should ideally be stripped for pure data representation, though it doesn't strictly harm the data's meaning here."
+      },
+      "mechanics": {
+        "item_type": "Weapon (warhammer)",
+        "attunement_required": true,
+        "attunement_details": "Specifically mentions requirement by a dwarf in the source field, which is important context.",
+        "base_bonus": "+3 to attack and damage rolls",
+        "thrown_properties": {
+          "property": "Thrown",
+          "normal_range": "20 feet",
+          "long_range": "60 feet"
+        },
+        "special_damage": {
+          "condition": "Hit with a ranged attack",
+          "standard_extra_damage": "1d8",
+          "conditional_extra_damage": {
+            "condition": "Target is a giant",
+            "damage": "2d8"
+          }
+        },
+        "unique_feature": "Weapon flies back to hand immediately after the attack."
+      }
+    },
+    "zod_errors_detected": false
+  },
+  "timestamp": "2026-01-17T07:23:02.022Z"
+}

@@ -1,0 +1,28 @@
+{
+  "file": "molecules/items/wand-of-fireballs.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-fireballs.json",
+    "analysis": {
+      "consistency": "High. The description, type, and rarity align well. The mechanics clearly define charges, expenditure, spellcasting level scaling, recharge rate, and destruction condition.",
+      "quality": "High. The description is comprehensive, detailing all necessary mechanical aspects (charges, save DC, mechanics of expenditure, recharge, and failure condition).",
+      "mechanics_check": {
+        "type": "Wand",
+        "rarity": "Rare",
+        "attunement_required": true,
+        "charges_initial": 7,
+        "recharge_mechanic": "1d6 + 1 daily at dawn",
+        "action_cost": "1 or more charges to cast Fireball",
+        "spell_scaling": "1 charge = 3rd-level Fireball; +1 charge per additional spell slot level increase",
+        "save_dc": 15,
+        "destruction_condition": "Roll d20 when last charge is expended; 1 results in destruction",
+        "notes": "The save DC (15) is hardcoded, which is standard for many magic items; this is a fixed mechanical value."
+      },
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.549Z"
+}

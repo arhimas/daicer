@@ -1,0 +1,42 @@
+{
+  "file": "molecules/spells/bane.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "bane.json",
+    "analysis": {
+      "consistency": {
+        "overall": "Consistent",
+        "details": "The spell structure, mechanics, and component usage adhere to standard D&D 5e spell formatting. The scaling mechanic ('At Higher Levels') is clearly described and consistent with the base effect."
+      },
+      "quality": {
+        "overall": "High",
+        "details": "The description is clear, concise, and mechanically sound. The effect (subtracting a d4 from rolls) is easily understandable for gameplay. Components are appropriate for a low-level debuff."
+      },
+      "mechanics": {
+        "overall": "Sound",
+        "details": "The spell imposes a numerical penalty on attack rolls and saving throws for failed saves, which is a direct and effective debuff. The Concentration requirement balances the potentially broad impact on up to three targets. The scaling targets one additional creature per slot level above 1st, which is a standard scaling method."
+      },
+      "data_points_checked": [
+        "slug",
+        "name",
+        "level",
+        "school",
+        "ritual",
+        "casting_time",
+        "range",
+        "components",
+        "duration",
+        "description",
+        "classes"
+      ]
+    },
+    "recommendations": {
+      "formatting": "No changes needed; JSON format is clean.",
+      "clarification": "The description explicitly states the subtraction applies to 'attack roll or a saving throw,' which fully covers the expected mechanical interaction."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.013Z"
+}

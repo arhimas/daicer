@@ -1,0 +1,35 @@
+{
+  "file": "atoms/features/sorcerer-flexible-casting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-flexible-casting.json",
+    "analysis": {
+      "consistency": "The feature description is internally consistent, clearly outlining two primary mechanics: converting sorcery points to spell slots and converting spell slots to sorcery points. The provided table for spell slot creation costs is well-formatted and aligns with standard D&D 5e rules for Sorcery Points to Spell Slots conversion.",
+      "quality": "The quality is high. The feature is detailed, uses appropriate formatting (bolding, tables), and clearly defines the action economy (bonus action) and limitations (max 5th level slot, slots vanish on long rest). The description covers all necessary mechanical aspects.",
+      "mechanics": {
+        "core_mechanic": "Resource conversion (Sorcery Points <-> Spell Slots).",
+        "slot_creation": {
+          "action": "Bonus action",
+          "limit": "Up to 5th level slot",
+          "duration": "Vanishes after a long rest",
+          "cost_table": {
+            "1st_level": 2,
+            "2nd_level": 3,
+            "3rd_level": 5,
+            "4th_level": 6,
+            "5th_level": 7
+          }
+        },
+        "slot_conversion": {
+          "action": "Bonus action",
+          "gain": "Sorcery points equal to the slot's level"
+        }
+      },
+      "recommendations": "None. This feature accurately represents the core 'Flexible Casting' feature for the Sorcerer class (Player's Handbook), which is mechanically sound and well-documented here."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.278Z"
+}

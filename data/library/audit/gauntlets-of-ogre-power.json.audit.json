@@ -1,0 +1,29 @@
+{
+  "file": "molecules/items/gauntlets-of-ogre-power.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "gauntlets-of-ogre-power.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_rarity_in_description": true,
+        "attunement_present": true
+      },
+      "quality": {
+        "completeness": "Good",
+        "clarity": "High",
+        "standard_format": "Adheres well to expected D&D item structure."
+      },
+      "mechanics": {
+        "primary_effect": "Sets Strength score to 19.",
+        "prerequisite": "Requires Attunement.",
+        "exception_handling": "Explicitly states no effect if Strength is already 19 or higher, which is mechanically sound."
+      },
+      "notes": "The raw data is clean and directly represents a standard D&D magic item stat block. The source information confirms its rarity and attunement requirements."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.873Z"
+}

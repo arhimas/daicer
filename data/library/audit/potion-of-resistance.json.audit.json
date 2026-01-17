@@ -1,0 +1,70 @@
+{
+  "file": "molecules/items/potion-of-resistance.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-resistance.json",
+    "analysis": {
+      "consistency": "The item data is consistent with typical D&D 5e item formatting, specifying type, rarity, and mechanical effect.",
+      "quality": "High. The description is clear and effectively integrates a lookup table for determining the resistance type, which is essential for this specific item.",
+      "mechanics": "The core mechanic grants resistance to a single damage type for 1 hour upon consumption. The method for determining the damage type (GM choice or 1d10 roll against the provided table) is explicitly defined, making the item functional for gameplay."
+    },
+    "recommendations": [
+      {
+        "type": "data_structure",
+        "message": "Consider extracting the table data into a structured array within the JSON for easier programmatic access to the damage types associated with the d10 roll, rather than relying solely on parsing the HTML description field."
+      }
+    ],
+    "structured_effect_data": {
+      "effect_type": "Gain Resistance",
+      "duration": "1 hour",
+      "target": "Self",
+      "determination_method": "GM choice or 1d10 roll",
+      "damage_types_lookup": [
+        {
+          "roll": 1,
+          "type": "Acid"
+        },
+        {
+          "roll": 2,
+          "type": "Cold"
+        },
+        {
+          "roll": 3,
+          "type": "Fire"
+        },
+        {
+          "roll": 4,
+          "type": "Force"
+        },
+        {
+          "roll": 5,
+          "type": "Lightning"
+        },
+        {
+          "roll": 6,
+          "type": "Necrotic"
+        },
+        {
+          "roll": 7,
+          "type": "Poison"
+        },
+        {
+          "roll": 8,
+          "type": "Psychic"
+        },
+        {
+          "roll": 9,
+          "type": "Radiant"
+        },
+        {
+          "roll": 10,
+          "type": "Thunder"
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.615Z"
+}

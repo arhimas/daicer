@@ -1,0 +1,36 @@
+{
+  "file": "atoms/features/bard-ritual-casting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-ritual-casting.json",
+    "analysis": {
+      "consistency": {
+        "class_match": "Consistent. The feature belongs to the 'bard' class.",
+        "level_placement": "Consistent. Level 1 features are common starting class abilities.",
+        "naming_convention": "Consistent. 'Ritual Casting' is a standard, descriptive name for this type of ability."
+      },
+      "quality": {
+        "clarity": "High. The description is direct and clearly states the mechanic: casting known ritual-tagged spells as rituals.",
+        "completeness": "Complete for its purpose. It defines the capability granted."
+      },
+      "mechanics": {
+        "type": "Casting Modifier/Utility",
+        "prerequisites": "Must know the spell, and the spell must possess the 'ritual' tag.",
+        "effect": "Allows the casting time of specified spells to be extended (usually by 10 minutes) in exchange for not expending a spell slot, provided the casting is performed during a rest/activity that allows for ritual casting.",
+        "impact": "Significantly increases the utility of the Bard spell list by enabling access to utility spells (like Detect Magic, Comprehend Languages, etc.) without using up daily spell slots, a common and valuable feature for full casters."
+      },
+      "data_validation": {
+        "slug_format": "Valid (lowercase, hyphenated).",
+        "level_data_type": "Valid (integer).",
+        "is_subclass_feature": "Accurate, this is typically a core class feature, not a subclass feature, suggesting the 'true' value might be misclassified if this is a core feature, but based *only* on the provided data, the entry is internally consistent."
+      },
+      "recommendations": [
+        "Verify 'is_subclass_feature': For core classes like the Bard, features obtained at Level 1 are usually core class features, not subclass features. If this is the core Bard feature, this flag should likely be 'false'."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:17.458Z"
+}

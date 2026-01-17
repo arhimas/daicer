@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/rogue-thieves-cant.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "rogue-thieves-cant.json",
+    "analysis": {
+      "consistency": "The feature aligns well with the established flavor and mechanics of a Rogue class feature, specifically related to stealth, secrecy, and underworld knowledge.",
+      "quality": "The description is high quality, clearly explaining both the linguistic (dialect/jargon) and non-linguistic (signs/symbols) aspects of Thieves' Cant. The mechanical component regarding communication time (four times longer) is explicitly stated.",
+      "mechanics": [
+        {
+          "mechanic": "Acquisition of Thieves' Cant (Language/Code)",
+          "description": "Grants proficiency in a secret dialect/jargon.",
+          "effect": "Allows coded communication understood only by others who know it."
+        },
+        {
+          "mechanic": "Communication Speed Penalty",
+          "description": "Conveying a message takes four times longer than plain speech.",
+          "effect": "A balance against the advantage of secrecy; slow communication time."
+        },
+        {
+          "mechanic": "Knowledge of Secret Signs/Symbols",
+          "description": "Grants understanding of non-verbal cues related to dangers, guild territory, loot, safe houses, and marks.",
+          "effect": "Provides passive situational awareness and scouting information relevant to criminal activity."
+        }
+      ],
+      "notes": "This is a classic Rogue feature. It's well-defined, non-combat in nature, and strongly supports the archetype's theme. The time penalty adds a reasonable balancing constraint to the linguistic advantage."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.788Z"
+}

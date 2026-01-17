@@ -1,0 +1,36 @@
+{
+  "file": "molecules/items/goggles-of-night.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "goggles-of-night.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description": true,
+        "type_matches_source_type": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "Excellent",
+        "standard_format_adherence": "Perfect"
+      },
+      "mechanics": {
+        "attunement_required": false,
+        "effect_summary": "Grants or enhances darkvision.",
+        "specific_mechanics": [
+          {
+            "condition": "While wearing",
+            "effect": "Darkvision out to 60 feet.",
+            "enhancement": "If darkvision exists, range increases by 60 feet."
+          }
+        ],
+        "notes": "The mechanics are standard for this type of item, providing a clear, quantifiable benefit."
+      },
+      "errors_found": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.451Z"
+}

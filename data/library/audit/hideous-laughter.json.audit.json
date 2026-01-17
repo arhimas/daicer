@@ -1,0 +1,25 @@
+{
+  "file": "molecules/spells/hideous-laughter.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "hideous-laughter.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell format. All required fields are present and logically structured.",
+      "quality": "High quality. The description is clear, and the mechanics (saving throw, duration, incapacitation, intelligence exclusion, and breaking conditions) are well-defined.",
+      "mechanics": {
+        "type": "Control/Debuff",
+        "primary_effect": "Incapacitation and Prone condition via laughter.",
+        "save_type": "Wisdom",
+        "save_difficulty": "Standard DC based on caster's spell save DC.",
+        "exceptions": "Creatures with Intelligence 4 or less are immune.",
+        "mitigation": "The target can repeat the saving throw at the end of its turn or when it takes damage (with advantage on damage-triggered saves).",
+        "resource_cost": "Casting time: 1 action; Components: V, S, M (specific components required); Duration: Concentration, up to 1 minute."
+      },
+      "notes": "This is a classic enchantment spell that heavily relies on an initial Wisdom save. The Intelligence exclusion is a key design feature, targeting less mentally resilient foes. The ability to save on taking damage provides a clear counterplay for affected creatures."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.031Z"
+}

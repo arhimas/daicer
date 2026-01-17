@@ -1,0 +1,35 @@
+{
+  "file": "molecules/items/elven-chain.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "elven-chain.json",
+    "analysis": {
+      "consistency": "Consistent. The data structure adheres to common item schema conventions.",
+      "quality": "High. The data is complete, well-formatted, and unambiguous.",
+      "mechanics": {
+        "item_type": "Armor",
+        "subtype": "chain shirt",
+        "rarity": "Rare",
+        "attunement_required": false,
+        "effects": [
+          {
+            "type": "AC_Bonus",
+            "value": 1,
+            "condition": "while worn"
+          },
+          {
+            "type": "Proficiency_Override",
+            "applies_to": "Medium Armor",
+            "details": "User gains proficiency automatically."
+          }
+        ],
+        "notes": "The item grants a bonus and proficiency bypass, making it a solid Rare item choice for non-martial characters who acquire it."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:01.249Z"
+}

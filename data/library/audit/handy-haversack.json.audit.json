@@ -1,0 +1,37 @@
+{
+  "file": "molecules/items/handy-haversack.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "handy-haversack.json",
+    "analysis": {
+      "consistency": "High. The description is internally consistent regarding the capacities (weight/volume) and the functional limitations (overload, piercing, turning inside out, use of action for retrieval).",
+      "quality": "High. The description clearly defines the item's function, capacity, limitations, and catastrophic failure conditions, which is standard for magical item descriptions.",
+      "mechanics": {
+        "storage_type": "Extradimensional",
+        "capacity": {
+          "side_pouches": {
+            "weight_limit": "20 pounds",
+            "volume_limit": "2 cubic feet"
+          },
+          "central_pouch": {
+            "weight_limit": "80 pounds",
+            "volume_limit": "8 cubic feet"
+          }
+        },
+        "weight": "5 pounds (regardless of contents)",
+        "retrieval_time": "Action",
+        "special_feature": "Specific item is always magically on top when reaching in.",
+        "limitations": [
+          "Destroyed if overloaded or pierced/torn.",
+          "Contents spill if turned inside out (must be fixed to use again).",
+          "Breathing creature survives up to 10 minutes inside.",
+          "Placing inside another extradimensional storage (like bag of holding) destroys both and creates a one-way astral plane gate, sucking in creatures within 10 feet."
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.337Z"
+}

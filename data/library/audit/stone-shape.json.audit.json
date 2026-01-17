@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/stone-shape.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "stone-shape.json",
+    "analysis": {
+      "consistency": "High. The components, casting time, and effect duration are standard for a mid-level utility transmutation spell.",
+      "quality": "Good. The description clearly outlines the limits (Medium size or 5ft cube, max 2 hinges/latch for doors) and provides useful examples.",
+      "mechanics": {
+        "level": "4",
+        "school": "Transmutation",
+        "type": "Utility/Shaping",
+        "limitations": "Object size/volume constraint (Medium or 5ft cube), complexity limit on mechanical features (hinges/latch only).",
+        "action_economy": "1 action, Instantaneous duration suggests immediate effect upon casting.",
+        "material_component_use": "The material component (soft clay worked into the desired shape) is thematic and consumed/used in the shaping process, which is appropriate for a shaping spell."
+      },
+      "zod_errors_found": false,
+      "suggested_improvements": [
+        "No critical improvements needed. The spell is well-defined for its purpose."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.203Z"
+}

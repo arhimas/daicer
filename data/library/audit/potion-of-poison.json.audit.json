@@ -1,0 +1,30 @@
+{
+  "file": "molecules/items/potion-of-poison.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-poison.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent.",
+        "type_and_source_rarity": "Consistent ('Potion', 'Uncommon').",
+        "attunement": "Consistent (false)."
+      },
+      "quality": {
+        "description_clarity": "High clarity. Clearly describes the deceptive nature, initial effect, and ongoing damage mechanism.",
+        "flavor": "Good flavor text regarding the illusory masking."
+      },
+      "mechanics": {
+        "initial_damage": "3d6 poison damage (Standard for mid-tier area-of-effect/debuff items).",
+        "initial_save": "DC 13 Constitution saving throw to avoid being poisoned (Standard DC for Uncommon items).",
+        "ongoing_effect": "Poisoned condition applied. Damage repeats at the start of the user's turn.",
+        "damage_reduction_mechanism": "Unique and well-defined. The user can repeat the save at the end of their turn. Success reduces subsequent damage by 1d6. This provides a clear path to recovery that scales down the effect gracefully.",
+        "end_condition": "Poison ends when the damage decreases to 0 (i.e., after a successful save reduces the damage taken at the start of the turn to 0d6)."
+      },
+      "overall_assessment": "Mechanically sound and well-detailed. The escalating/de-escalating damage mechanic tied to repeated saving throws offers an engaging combat risk/reward scenario that scales appropriately for an Uncommon item."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.953Z"
+}

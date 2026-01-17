@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/jump.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "jump.json",
+    "analysis": {
+      "consistency": {
+        "data_completeness": "Good. All standard spell fields are present.",
+        "field_format_consistency": "Good. Standardized key names and expected value formats are used (e.g., boolean for ritual, string for components)."
+      },
+      "quality": {
+        "descriptiveness": "Excellent. The description is clear and directly explains the mechanical effect.",
+        "flavor_cohesion": "High. A transmutation spell granting enhanced movement fits well within the school.",
+        "component_clarity": "Good. The material component (a grasshopper's hind leg) is thematic and specific."
+      },
+      "mechanics": {
+        "level_appropriateness": "Appropriate for Level 1. A temporary, minor physical enhancement.",
+        "action_economy": "Standard 1 Action casting time.",
+        "duration_impact": "1 minute allows for several combat rounds or exploration segments, fitting for a low-level buff.",
+        "range_utility": "Touch requires the caster to be adjacent to the target, balancing the utility of tripling jump distance.",
+        "impact_assessment": "Tripling jump distance is a significant mobility buff, useful for bypassing obstacles or achieving advantageous battlefield positioning, but its reliance on jumping makes it niche."
+      },
+      "suggested_improvements": [
+        "No critical errors found. The spell is mechanically sound as described."
+      ],
+      "archival_status": "Approved"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.934Z"
+}

@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/dust-of-sneezing-and-choking.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "dust-of-sneezing-and-choking.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent. 'Dust of Sneezing and Choking' matches the slug.",
+        "type_vs_source": "Consistent. Declared 'Wondrous item' and confirmed in 'source_type_rarity'."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly details the appearance, the false identification result (mimicking *dust of disappearance*), the activation cost (action, one use), the area of effect (30 feet), the save DC (15 Constitution), and the resulting conditions (unable to breathe, incapacitated, suffocating).",
+        "mechanical_completeness": "Complete. Includes saving throw, DC, duration/ending conditions (repeat save, *lesser restoration*), and status effects."
+      },
+      "mechanics": {
+        "identification_trick": "Good flavor element; it mimics *dust of disappearance* upon initial identification.",
+        "area_of_effect": "30-foot radius centered on the user when thrown.",
+        "target_restriction": "Applies only to creatures that need to breathe.",
+        "primary_effect": "Incapacitated and Suffocating.",
+        "save_and_repeat": "DC 15 CON save to avoid initially. Creatures can repeat the save at the end of each turn while conscious to end the effect on themselves.",
+        "countermeasures": [
+          "Successful subsequent Constitution saves.",
+          "The *lesser restoration* spell."
+        ],
+        "balance_notes": "Uncommon rarity seems appropriate for a single-use area control item that imposes two debilitating conditions (Incapacitated and Suffocating) via a moderate DC save (DC 15)."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.421Z"
+}

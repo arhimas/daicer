@@ -1,0 +1,40 @@
+{
+  "file": "molecules/spells/wall-of-force.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "wall-of-force.json",
+    "consistency_analysis": {
+      "name": "Consistent",
+      "level": "Consistent (5th level spell)",
+      "school": "Consistent (Evocation)",
+      "ritual": "Consistent (Non-ritual)",
+      "casting_time": "Consistent (\"1 action\")",
+      "range": "Consistent (\"120 feet\")",
+      "components": "Consistent (V, S, M specified)",
+      "duration": "Consistent (\"Concentration, up to 10 minutes\")",
+      "description": "Mechanically sound and consistent with established D&D 5e lore for Wall of Force. Notes on immutability (immune to damage, immune to Dispel Magic, vulnerable only to Disintegrate) are key mechanical features.",
+      "classes": "Consistent (Wizard primary class, though often available to others via subclasses or other means, listing wizard is correct for core rules)."
+    },
+    "quality_analysis": {
+      "completeness": "High. All standard D&D 5e spell fields are present and populated.",
+      "clarity": "High. The description clearly outlines the geometry options (flat panels, dome/sphere) and the strict physical interaction rules (nothing passes through, ethereal plane blockage).",
+      "formatting_notes": "The use of inline markdown links (e.g., [invisible], [_dispel magic_]) suggests this data was extracted from a source that uses markdown for cross-referencing, which is acceptable for archival data."
+    },
+    "mechanics_analysis": {
+      "core_mechanics": [
+        "Creates an invisible, physical barrier.",
+        "Immune to standard damage and Dispel Magic.",
+        "Specifically countered by Disintegrate.",
+        "Blocks Ethereal travel.",
+        "Creatures in the way upon casting are pushed."
+      ],
+      "geometrical_flexibility": "High flexibility in shape (flat planes up to 100x100 feet total area, or a 10-foot radius dome/sphere). The thickness (1/4 inch) is noted.",
+      "concentration": "Appropriate for a powerful 5th-level control spell."
+    },
+    "zod_errors": "NONE"
+  },
+  "timestamp": "2026-01-17T07:22:28.588Z"
+}

@@ -1,0 +1,28 @@
+{
+  "file": "molecules/items/potion-of-climbing.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-climbing.json",
+    "analysis": {
+      "consistency": {
+        "item_type": "Consistent. Item is designated as 'Potion' in type and 'Potion, common' in source_type_rarity.",
+        "rarity": "Consistent. Rarity is 'Common' and reflected in source_type_rarity."
+      },
+      "quality": {
+        "descriptive_quality": "High. The description is vivid ('brown, silver, and gray layers resembling bands of stone') and clearly explains the mechanical effects and limitations (1 hour duration, advantage on Athletics checks for climbing).",
+        "completeness": "Complete. Includes name, type, rarity, attunement requirement, detailed effect, visual description, and source context."
+      },
+      "mechanics": {
+        "effect": "Grants climbing speed equal to walking speed for 1 hour and grants advantage on Strength (Athletics) checks made to climb during that hour.",
+        "balance_assessment": "Appropriate for Common rarity. Climbing speed is a utility effect, and the duration is standard for common consumables. Advantage on relevant checks enhances utility without being overpowered.",
+        "attunement_required": false,
+        "mechanical_clarity": "Very clear. The terms 'climbing speed' and 'advantage' are standard D&D 5e mechanics."
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:57.206Z"
+}

@@ -1,0 +1,22 @@
+{
+  "file": "molecules/spells/major-image.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "major-image.json",
+    "analysis": {
+      "consistency": "High. The spell details (level, casting time, components, duration) are standard for a 3rd-level illusion spell in D&D 5e, and the mechanics align with existing illusion spell design.",
+      "quality": "High. The description is detailed, clearly outlining what the illusion can and cannot do (e.g., size limit, inability to cause damage via temperature/sound). The options for continuous manipulation (moving, changing sounds) add significant utility.",
+      "mechanics": {
+        "level_scaling": "Appropriate. Scaling up to 6th level removes concentration, which is a significant mechanical boost suitable for higher-level slots, increasing its reliability.",
+        "interaction_check": "Standard DC check (spell save DC) for investigation is appropriate for discerning the illusion.",
+        "action_economy": "The use of an action each turn to move/alter the image balances its powerful visual potential.",
+        "limitations": "The explicit limitations on sensory output (no damaging heat/cold, no deafening sound) prevent the spell from overlapping excessively with damage spells."
+      },
+      "notes": "A classic and versatile illusion spell. The caveat that physical interaction immediately reveals the illusion unless investigated is well-placed for balance."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.376Z"
+}

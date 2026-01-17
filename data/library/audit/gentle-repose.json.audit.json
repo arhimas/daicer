@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/gentle-repose.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "gentle-repose.json",
+    "analysis": {
+      "consistency": "High. The spell's components, casting time, range, and duration are clearly defined and align with typical D&D 5e spell structures.",
+      "quality": "Good. The description is clear, detailing both the primary effects (preventing decay, halting undeath creation) and the secondary mechanical benefit (extending the window for resurrection spells). The specific material component requirements are well-documented.",
+      "mechanics": {
+        "level": 2,
+        "school": "necromancy",
+        "ritual": true,
+        "casting_time": "1 action",
+        "range": "Touch",
+        "duration": "10 days",
+        "effects": [
+          "Target corpse/remains are protected from decay.",
+          "Target cannot become undead.",
+          "Time spent under this spell does not count against time limits for resurrection spells (e.g., _raise dead_)."
+        ],
+        "material_component_note": "The required components (salt and copper pieces) must remain on the eyes for the full duration, which implies physical interaction/maintenance, although the spell duration is 10 days. This is a standard feature for this specific spell."
+      },
+      "zod_errors_present": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.624Z"
+}

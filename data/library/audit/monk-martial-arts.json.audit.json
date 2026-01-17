@@ -1,0 +1,43 @@
+{
+  "file": "atoms/features/monk-martial-arts.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-martial-arts.json",
+    "analysis": {
+      "consistency": {
+        "assessment": "Consistent",
+        "notes": "The feature clearly defines its scope (unarmed strikes and monk weapons) and lists the associated benefits directly tied to the Monk class mechanics (Dex/Str replacement, damage die progression, bonus action unarmed strike)."
+      },
+      "quality": {
+        "assessment": "High",
+        "notes": "The description is comprehensive, clearly listing the three core mechanical benefits granted at level 1. The inclusion of examples for weapon variations (nunchaku, kama) aids clarity without altering core rules."
+      },
+      "mechanics": {
+        "assessment": "Standard/Core",
+        "notes": "This is the foundational feature for the Monk class. It establishes the primary usage of Dexterity for combat, the scaling unarmed strike damage (d4 starting), and the key synergy between the Attack action and the bonus action unarmed strike (Flurry of Blows precursor). The weapon restriction (simple melee, no two-handed/heavy) is standard.",
+        "features_granted": [
+          {
+            "name": "Dexterity for Attacks/Damage",
+            "type": "Ability Score Override",
+            "details": "Allows use of Dexterity instead of Strength for attack and damage rolls with unarmed strikes and monk weapons."
+          },
+          {
+            "name": "Martial Arts Damage Die",
+            "type": "Damage Scaling",
+            "details": "Unarmed strikes or monk weapons deal damage equal to a d4 (which scales later)."
+          },
+          {
+            "name": "Bonus Action Attack",
+            "type": "Action Economy",
+            "details": "Allows one unarmed strike as a bonus action after taking the Attack action with an unarmed strike or monk weapon."
+          }
+        ]
+      },
+      "summary": "This is the core Level 1 Monk feature, 'Martial Arts'. It is well-defined, mechanically sound, and provides the essential building blocks for the class's combat style: leveraging Dexterity, utilizing a scaling damage die, and enabling bonus action attacks. No mechanical errors or inconsistencies were found."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:14.088Z"
+}

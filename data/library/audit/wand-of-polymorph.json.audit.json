@@ -1,0 +1,35 @@
+{
+  "file": "molecules/items/wand-of-polymorph.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-polymorph.json",
+    "analysis": {
+      "consistency": "High. The core mechanics (charges, spellcasting, recharging, destruction chance) are clearly defined and consistent with standard D&D 5e magic item conventions.",
+      "quality": "High. The description is specific, mentioning the spell, save DC (15), charge limits, and the destructive failure condition.",
+      "mechanics": {
+        "item_type": "Wand",
+        "attunement": true,
+        "spell_cast": {
+          "spell_name": "polymorph",
+          "cost": "1 charge",
+          "action_type": "Action",
+          "save_dc": 15
+        },
+        "charges": {
+          "maximum": 7,
+          "recharge_rate": "1d6 + 1 daily at dawn"
+        },
+        "destruction_chance": {
+          "condition": "Expend the last charge",
+          "roll": "d20",
+          "result_for_destruction": "1"
+        }
+      },
+      "issues_raised": "None found. The data seems complete for an item entry."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.001Z"
+}

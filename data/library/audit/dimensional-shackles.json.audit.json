@@ -1,0 +1,38 @@
+{
+  "file": "molecules/items/dimensional-shackles.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "dimensional-shackles.json",
+    "analysis": {
+      "consistency": {
+        "source_data_match": true,
+        "naming_convention": "Consistent",
+        "data_integrity": "High"
+      },
+      "quality": {
+        "completeness": "Complete",
+        "clarity": "High",
+        "formatting_notes": "The description clearly outlines activation, limitations (extradimensional movement vs. portals), size compatibility, removal process, and the escape mechanism."
+      },
+      "mechanics": {
+        "activation": "Action to place",
+        "target_condition": "Incapacitated creature",
+        "size_restriction": "Small to Large",
+        "primary_effect": "Prevents extradimensional movement (teleportation, planar travel).",
+        "exceptions": "Does not prevent passing through interdimensional portals.",
+        "removal": "Action by attuned user or designated creature.",
+        "escape_check": {
+          "frequency": "Once every 30 days",
+          "type": "Strength (Athletics)",
+          "difficulty": "DC 30",
+          "result": "Destroys shackles and frees the creature"
+        },
+        "balance_assessment": "The DC 30 escape check is very high, balancing the powerful effect of completely locking down planar/teleportation abilities. The 30-day cooldown prevents spamming escape attempts."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.181Z"
+}

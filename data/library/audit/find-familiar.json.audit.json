@@ -1,0 +1,22 @@
+{
+  "file": "molecules/spells/find-familiar.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "find-familiar.json",
+    "analysis": {
+      "consistency": "The data is highly consistent with standard D&D 5th Edition spell descriptions. All fields (name, level, school, casting time, components, etc.) are present and standard for a level 1 spell.",
+      "quality": "High quality. The description is comprehensive, detailing the familiar's summoning, behavior, limitations (no attack action), communication, sensory link, dismissal/reappearance, form change, and spell delivery capabilities. The component cost is specified.",
+      "mechanics": {
+        "level_appropriateness": "Appropriate for a 1st-level spell. The utility (scouting, communication, spell delivery) is significant but balanced by the 1-hour casting time and the familiar's non-combat nature.",
+        "component_check": "The material component specifies consumption (charcoal, incense, herbs) and cost (10 gp), which is standard for this spell.",
+        "core_functionality": "Establishes a persistent, obedient, non-attacking servant with excellent scouting features (telepathy, sight sharing).",
+        "limitation_check": "Key limitations are clearly stated: familiar cannot attack, drops to 0 HP it vanishes, only one familiar at a time, and the touch spell delivery requires the familiar's reaction.",
+        "recasting_behavior": "The rule for recasting while a familiar exists (adopting a new form) is accurately captured."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:42.601Z"
+}

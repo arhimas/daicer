@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/bard-spell-slots.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-spell-slots.json",
+    "analysis": {
+      "consistency": {
+        "table_data_vs_description": "The description accurately summarizes the table's function (how many spell slots are available per level, expending slots, and regaining slots on a long rest). The data in the table is a standard representation of Bard spell slot progression.",
+        "data_integrity": "The spell slot counts within the table are mathematically consistent with standard D&D 5e Bard progression (e.g., full caster progression, reaching 4/3/2/1 slots for 9th level spells at level 17, and 4/3/3/3/3/2/2/1/1 at level 20).",
+        "formatting": "The raw data uses an HTML table format, which is standard for representing structured tabular data in this context."
+      },
+      "quality": {
+        "completeness": "The feature entry is complete, containing a slug, name, class, level, a detailed HTML table of progression, and a descriptive text block.",
+        "clarity": "The feature is very clear. The title and description explicitly state what the data represents (Bard Spell Slots per Level).",
+        "relevance": "Highly relevant for a Bard class entry, as spell slots are a core mechanic."
+      },
+      "mechanics": {
+        "rule_accuracy": "The mechanics described (expending a slot of the spell's level or higher, regaining slots on a long rest) are mechanically accurate for D&D 5th Edition spellcasting classes like the Bard.",
+        "progression_type": "The feature correctly reflects a 'full caster' progression table, where spell slots are gained steadily across all 20 levels.",
+        "level_mapping": "The minimum level associated with the feature is 1, which is appropriate as spellcasting begins at level 1, even though the table spans 1 to 20."
+      },
+      "metadata_check": {
+        "slug_matches_class": true,
+        "level_is_minimal": true
+      }
+    },
+    "archival_notes": "This record is high quality and mechanically sound, representing the standard Bard spell slot progression table. The inclusion of the standard explanation for slot usage enhances its utility."
+  },
+  "timestamp": "2026-01-17T07:23:17.563Z"
+}

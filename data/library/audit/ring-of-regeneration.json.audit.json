@@ -1,0 +1,41 @@
+{
+  "file": "molecules/items/ring-of-regeneration.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-regeneration.json",
+    "analysis": {
+      "consistency_check": {
+        "name_match": "Consistent",
+        "rarity_match": "Consistent (Very Rare)",
+        "type_match": "Consistent (Ring)"
+      },
+      "quality_assessment": {
+        "completeness": "High",
+        "readability": "Good",
+        "notes": "The data is well-structured, capturing all essential mechanical and descriptive elements of the item."
+      },
+      "mechanics_review": {
+        "attunement": "Required (true)",
+        "effects": [
+          {
+            "effect": "Regeneration (HP)",
+            "details": "Regain 1d6 hit points every 10 minutes.",
+            "condition": "Must have at least 1 hit point."
+          },
+          {
+            "effect": "Limb Regrowth",
+            "details": "Regrows a missing body part to full functionality.",
+            "duration": "1d6 + 1 days.",
+            "condition": "Must have at least 1 hit point the whole time."
+          }
+        ],
+        "potential_ambiguity": "None identified. Mechanics are standard for regeneration items."
+      },
+      "archival_status": "Approved"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:55.982Z"
+}

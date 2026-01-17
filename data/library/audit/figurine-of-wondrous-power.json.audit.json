@@ -1,0 +1,28 @@
+{
+  "file": "molecules/items/figurine-of-wondrous-power.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "The general description of the item sets a clear baseline for how figurines of wondrous power function (action to activate, duration, reversion, recharge period). The specific entries adhere to this structure, detailing the creature summoned, duration, and recharge time for each variant. The Ivory Goats introduce complexity by having three distinct figurines in a set, which is handled clearly by detailing each sub-item's unique mechanics (charges, duration, special effects). The Obsidian Steed introduces alignment-based conditional behavior, which is also explicitly defined.",
+      "quality": "The quality of the data representation is high. The raw text is well-structured, separating the generic rules from the specific item variations. The use of bolding and bullet points in the source text aids readability, and the data appears complete based on the provided text block.",
+      "mechanics": {
+        "activation": "Action + Command Word + Throw (Range 60ft).",
+        "reversion": "End of duration, dropping to 0 HP, or using Command Word again (while touching).",
+        "recharge_mechanism": "Varies significantly: 2 days (Fly, Raven), 5 days (Griffon, Steed), 7 days (Lions, Elephant, Dog), 15 days (Goat of Terror), 30 days (Goat of Travail). The Goat of Traveling uses charges instead of a simple recharge timer.",
+        "notable_mechanics": [
+          "Ebony Fly can be ridden.",
+          "Golden Lions are a pair.",
+          "Ivory Goats have three unique types (Travel, Travail, Terror).",
+          "Goat of Terror provides magical weapons and an aura effect.",
+          "Obsidian Steed has a Good Alignment conditional failure state leading to plane shift.",
+          "Onyx Dog provides enhanced senses (Darkvision, Invisibility detection) and speech.",
+          "Silver Raven allows at-will casting of *animal messenger*."
+        ]
+      },
+      "summary": "The data is mechanically sound, detailing a consistent core function that branches into diverse effects based on the specific figurine. The structure is clear, and all mechanics, including complex ones like the Ivory Goats and Obsidian Steed alignment dependency, are explicitly documented."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:01.961Z"
+}

@@ -1,0 +1,27 @@
+{
+  "file": "atoms/features/fighter-fighting-style.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-fighting-style.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e feature naming and structure for class features.",
+      "quality": "High. The description is clear and concise. The name is descriptive. It correctly identifies its class affiliation.",
+      "mechanics": {
+        "type": "Choice/Selection",
+        "level_gained": 1,
+        "impact": "Provides immediate specialization for the Fighter class.",
+        "restriction": "Cannot choose the same style twice."
+      }
+    },
+    "recommendations": [
+      {
+        "area": "Data Completeness",
+        "suggestion": "Ensure the associated list of available 'Fighting Styles' is linked or defined elsewhere, as this feature only describes the *act* of choosing, not the choices themselves."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:14.549Z"
+}

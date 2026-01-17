@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/haste.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "haste.json",
+    "metadata": {
+      "consistency_check": "PASS",
+      "quality_assessment": "HIGH",
+      "mechanics_assessment": "BALANCED_FOR_LEVEL"
+    },
+    "analysis": {
+      "consistency": "The data structure is consistent with established spell formats (slug, name, level, school, casting_time, etc.). All fields appear correctly populated.",
+      "quality": "High quality. The description is complete, including all mechanical benefits, the required action types for the extra action, and the significant drawback upon expiration.",
+      "mechanics": {
+        "level": 3,
+        "power_budget": "Very strong for a 3rd-level concentration spell, which is standard for Haste in 5e.",
+        "benefits": [
+          "Speed Doubling",
+          "AC +2",
+          "Advantage on Dex Saves",
+          "One extra action per turn (limited to Attack (one weapon attack only), Dash, Disengage, Hide, or Use an Object)"
+        ],
+        "drawback": "Lethargy (cannot move or take actions until after next turn) upon spell ending.",
+        "components_note": "The material component (M) is consumed if the spell is cast using a spellcasting focus that does not inherently hold components, though standard interpretation usually means it's not expended unless specified. The component list is complete."
+      }
+    },
+    "zod_errors_present": false
+  },
+  "timestamp": "2026-01-17T07:22:39.352Z"
+}

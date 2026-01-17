@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/astral-projection.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "astral-projection.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 9 spell associated with Necromancy school, which is standard for high-level planar travel/soul manipulation.",
+        "components_match_level": "Consistent. High-level material components (Jacinth worth 1,000 gp, Silver worth 100 gp per creature) are appropriate for a 9th-level spell.",
+        "duration_mechanics": "The 'Special' duration is handled logically through explicit ending conditions (action to dismiss, dispel magic, 0 HP for either form)."
+      },
+      "quality": {
+        "detail_level": "High. Provides comprehensive mechanical details regarding travel, material body state, the tether/cord, plane interaction, and termination conditions.",
+        "clarity": "Good. The distinction between the astral form and the physical body, especially concerning damage and return mechanics, is clearly articulated."
+      },
+      "mechanics": {
+        "range_and_targets": "Range is 10 feet, affecting 'you and up to eight willing creatures within range' (total 9 creatures). This limits casting location but is standard for group buffs.",
+        "material_component_consumption": "The material components are consumed, reinforcing the high cost and significant nature of the magic.",
+        "tether_risk": "The explicit statement that cutting the cord results in instant death is a critical and highly dangerous mechanical feature, fitting for high-stakes play.",
+        "plane_interaction": "The mechanic for re-entering the body upon entering a new plane (or returning to the original) is a crucial quality-of-life feature for planar exploration.",
+        "ending_conditions": "Multiple clear ending conditions: voluntary dismissal, targeted Dispel Magic, or dropping to 0 HP in either form. The consequence for premature return (companions stranded) is a significant risk."
+      },
+      "classes": "The spell is listed for Cleric, Warlock, and Wizard, indicating it is primarily arcane/divine magic related to soul manipulation and planar access."
+    },
+    "summary": "The data for 'Astral Projection' is well-structured and mechanically sound. It details the high costs, the inherent dangers of planar separation (instant death if the cord is cut), and the complex rules for returning to the body. The description is detailed and covers necessary edge cases for gameplay."
+  },
+  "timestamp": "2026-01-17T07:22:49.758Z"
+}

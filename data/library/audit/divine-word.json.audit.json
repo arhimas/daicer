@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/divine-word.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "divine-word.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Level 7 Evocation spell, which aligns with powerful, reality-altering effects.",
+        "casting_time_and_components": "Bonus action casting time suggests a relatively quick, powerful reaction or tactical move. Verbal component only is thematic for a 'word' spell.",
+        "range_and_duration": "30 feet range for a 7th-level spell is slightly short, but the instantaneous duration combined with potent, lingering, or lethal effects balances this.",
+        "effects_progression": "The tiered effects based on current hit points provide escalating severity, culminating in instant death at 20 HP or fewer. This is a common, though often harsh, design for high-level spells targeting specific thresholds."
+      },
+      "quality": {
+        "thematic_cohesion": "The name 'Divine Word' and the description involving creation power are highly thematic for a Cleric spell.",
+        "readability": "The effects are clearly laid out using bullet points tied to HP thresholds. The distinction between temporary conditions and instant death is clear.",
+        "power_level": "The instant-death clause (20 HP or fewer) is extremely potent, balanced by the save and the HP requirement. The secondary effect against outsiders (celestials, elementals, fey, fiends) forces them back to their home planes, which is a powerful control element."
+      },
+      "mechanics": {
+        "save_and_effect_interaction": "Charisma save is used. Since this spell heavily punishes creatures that are already weakened (low HP), this makes sense as a decisive blow. Creatures immune to the specific conditions (e.g., immune to stunned) will only benefit from the lower-tier effects they qualify for, unless they hit the instant-death threshold.",
+        "instant_death_threshold": "Instant death at 20 HP or fewer is highly conditional. Compared to other 7th-level spells, this offers a massive damage spike or removal, but only if the target is sufficiently damaged.",
+        "outsider_rule": "The effect on outsiders is unique. Forcing banishment to the home plane and preventing immediate return (24 hours, Wish required to circumvent) is a powerful form of forced removal that bypasses standard banishment immunities if the save is failed."
+      },
+      "concerns": [
+        "The HP thresholds (50, 40, 30, 20) are specific and might require players to track exact current HP values mid-combat to fully utilize the spell's impact, though the overall effect is still potent even if the exact tier isn't known.",
+        "The instant-death clause might be considered overly swingy by some designers, but it fits the theme of divine fiat at high levels."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.003Z"
+}

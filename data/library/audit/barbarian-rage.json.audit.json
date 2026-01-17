@@ -1,0 +1,34 @@
+{
+  "file": "atoms/features/barbarian-rage.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-rage.json",
+    "analysis": {
+      "consistency": {
+        "internal_consistency": "High. The feature clearly defines its activation, duration, benefits, and restrictions. The reference to the 'Rage Damage' column in the Barbarian table is standard for D&D 5e class features.",
+        "external_consistency": "High. This accurately reflects the core 'Rage' feature for the Barbarian class in D&D 5th Edition."
+      },
+      "quality": {
+        "clarity": "High. The description is precise regarding action economy (bonus action to start/end), prerequisites (not wearing heavy armor), mechanical effects (Advantage, Damage bonus, Resistance), and termination conditions (duration limit, taking damage, attacking).",
+        "completeness": "High. All necessary mechanical components are present.",
+        "readability": "Good. Uses standard formatting for listing benefits."
+      },
+      "mechanics": {
+        "action_economy": "Bonus Action to initiate or end rage. This is efficient.",
+        "trigger_conditions": "Voluntary activation. Ends if duration runs out, if the character falls unconscious, or if no attack/damage is taken between turns.",
+        "key_mechanics": [
+          "Grants Advantage on Strength checks and saving throws.",
+          "Provides scaling damage bonus to Strength-based melee weapon attacks.",
+          "Grants damage resistance (Bludgeoning, Piercing, Slashing) contingent on not wearing heavy armor.",
+          "Spellcasting restriction: Cannot cast or maintain concentration on spells while raging."
+        ],
+        "limitations": "Limited uses per long rest, determined by the Barbarian table."
+      },
+      "recommendations": "None. The data is a faithful and well-structured representation of the source material (D&D 5e Barbarian Rage feature)."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.340Z"
+}

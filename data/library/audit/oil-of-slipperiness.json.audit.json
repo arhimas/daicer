@@ -1,0 +1,35 @@
+{
+  "file": "molecules/items/oil-of-slipperiness.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "oil-of-slipperiness.json",
+    "analysis": {
+      "consistency": "High. The description clearly outlines the item's nature (potion), its effects (duplicating *freedom of movement* or *grease*), application time, and duration.",
+      "quality": "Good. The description is comprehensive, detailing both primary uses and specific constraints (e.g., size limitations for creature application and the need for extra vials for larger creatures). The reference to required spells is standard.",
+      "mechanics": {
+        "type": "Potion",
+        "rarity": "Uncommon",
+        "attunement": false,
+        "effects": [
+          {
+            "method": "Application to Creature",
+            "action": "10 minutes application time",
+            "effect": "Grants the effect of the *freedom of movement* spell for 8 hours.",
+            "limitations": "Covers Medium or smaller creature + equipment. Requires 1 additional vial per size category above Medium."
+          },
+          {
+            "method": "Application to Ground",
+            "action": "Action",
+            "effect": "Covers a 10-foot square, duplicating the effect of the *grease* spell for 8 hours."
+          }
+        ],
+        "notes": "The dual functionality (buff vs. area denial) is well-defined. The mechanical references to core spells (*freedom of movement*, *grease*) are clear expectations for game masters and players."
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:58.095Z"
+}

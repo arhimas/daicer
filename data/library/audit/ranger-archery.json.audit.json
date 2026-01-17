@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/ranger-archery.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-archery.json",
+    "analysis": {
+      "consistency": "The feature is consistent with typical class feature naming conventions (name: 'Archery', slug: 'ranger-archery'). The class association ('ranger') is clear.",
+      "quality": "The description is clear and mechanically straightforward. It provides a specific numerical bonus.",
+      "mechanics": {
+        "type": "Passive Bonus",
+        "effect": "+2 bonus to attack rolls with ranged weapons.",
+        "triggers": "When making an attack roll with a ranged weapon.",
+        "scope": "Self",
+        "balancing_note": "A +2 bonus to attack rolls is significant, though common for fighting style features in many TTRPG systems. The level requirement (Level 1) suggests this is an early, foundational feature, likely from a Fighting Style choice."
+      }
+    },
+    "issues": {
+      "identified": false,
+      "warnings": [
+        "The feature references 'ranged weapons'. Depending on the source game system, this might need explicit definition (e.g., bows, crossbows, slings) if the system allows for other types of ranged attacks (like spells or thrown objects) that should be excluded."
+      ]
+    },
+    "recommendations": [
+      "Ensure the definition of 'ranged weapons' aligns strictly with the core ruleset associated with the 'ranger' class."
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:11.441Z"
+}

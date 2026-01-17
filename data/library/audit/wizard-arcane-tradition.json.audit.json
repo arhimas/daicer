@@ -1,0 +1,21 @@
+{
+  "file": "atoms/features/wizard-arcane-tradition.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "wizard-arcane-tradition.json",
+    "analysis": {
+      "consistency": "Consistent. This feature correctly identifies the point at which a Wizard chooses their subclass (Arcane Tradition) and outlines the progressive feature granting structure (2nd, 6th, 10th, 14th level).",
+      "quality": "High quality. The description is clear, concise, and directly implements standard 5th Edition design conventions for defining a class's core specialization choice.",
+      "mechanics": "This feature acts as a structural pivot point, not a direct mechanical benefit itself. It mandates a choice that unlocks subsequent subclass features, adhering to the standard pattern for defining major class specializations.",
+      "notes": "The link to '[school](#section-arcane-traditions)' suggests this document references a section defining the various schools/traditions available, which is expected for this type of feature."
+    },
+    "suggested_updates": {
+      "format": "No updates required for the data structure itself, as it accurately represents the feature's function. Ensure the referenced section ('arcane-traditions') is properly defined elsewhere.",
+      "clarity": "None needed."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:06.913Z"
+}

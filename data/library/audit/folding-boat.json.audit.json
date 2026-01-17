@@ -1,0 +1,47 @@
+{
+  "file": "molecules/items/folding-boat.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "folding-boat.json",
+    "analysis": {
+      "consistency": "High. The item consistently functions as a container that transforms into two different vessels based on command words. The weight change and object retention/ejection upon folding back are clearly described.",
+      "quality": "Good. The item provides a clear, thematic utility with escalating power levels (box -> boat -> ship). The rules for transformation are explicit.",
+      "mechanics": {
+        "action_cost": "Speaking any command word requires an action, which is a clear and balanced mechanical cost.",
+        "transformation_details": [
+          {
+            "state": "Box",
+            "size": "12\" L x 6\" W x 6\" D",
+            "weight": "4 lbs",
+            "capacity": "Storage only (implied)"
+          },
+          {
+            "state": "Boat (Command Word 1)",
+            "size": "10 ft L x 4 ft W x 2 ft D",
+            "capacity": "Four Medium creatures comfortably",
+            "components": "Oars, anchor, mast, lateen sail",
+            "weight_change": "Becomes weight of a normal vessel its size"
+          },
+          {
+            "state": "Ship (Command Word 2)",
+            "size": "24 ft L x 8 ft W x 6 ft D",
+            "capacity": "Fifteen Medium creatures comfortably",
+            "components": "Rowing seats, five sets of oars, steering oar, anchor, deck cabin, mast with square sail",
+            "weight_change": "Becomes weight of a normal vessel its size"
+          },
+          {
+            "state": "Folding Back (Command Word 3)",
+            "prerequisite": "No creatures aboard",
+            "outcome": "Folds to box size. Objects too large are left behind; fitting objects are stored inside."
+          }
+        ],
+        "clarity_notes": "The mechanics regarding weight change ('its weight becomes that of a normal vessel its size') is slightly vague but standard for transforming magic items; the capacity limits are well-defined."
+      },
+      "suggested_improvements": "None required for basic function, though for full adherence to a specific ruleset (like 5e), specifying the vessel's speed or movement method (rowing vs. sailing) might be helpful, though not strictly necessary based on the provided raw data."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:01.587Z"
+}

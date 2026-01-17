@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/grease.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "grease.json",
+    "analysis": {
+      "consistency": {
+        "data_structure": "Consistent with expected spell format (name, level, school, components, etc.).",
+        "terminology": "Standard D&D 5e terminology used (action, feet, prone, saving throw, school of magic).",
+        "mechanical_cohesion": "The effects (difficult terrain, forced prone on entry/start of turn) are cohesive and directly related to the theme of grease."
+      },
+      "quality": {
+        "completeness": "All standard spell fields are present and populated.",
+        "clarity": "The description is clear. It specifies the area (10-foot square), the primary effect (difficult terrain), and the secondary effect (prone on entry/start of turn).",
+        "component_detail": "The material component is specific and flavorful (pork rind or butter)."
+      },
+      "mechanics": {
+        "level_scaling": "Level 1 seems appropriate for an area control spell that causes difficult terrain and prone.",
+        "range_and_area": "Range (60 ft) allows for placement safety, and the 10-foot square area is significant for control.",
+        "save_difficulty": "Dexterity save is appropriate for effects related to footing and balance. The save is required both initially and upon entering/ending a turn, making it effective control.",
+        "duration": "1 minute (concentration not specified, implying it does not require concentration, which is typical for low-level battlefield control that isn't concentration-based)."
+      },
+      "zod_errors": "NONE",
+      "overall_assessment": "Mechanically sound, clear, and consistent spell data. Appropriate for a Level 1 conjuration spell focusing on area denial and tripping."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.466Z"
+}

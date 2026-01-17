@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/dominate-beast.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "dominate-beast.json",
+    "analysis": {
+      "consistency": "The spell description is consistent in its effect, targeting only beasts and detailing escalating control over time or via higher-level slots.",
+      "quality": "The quality is high. It clearly defines the initial charm, the telepathic link for simple commands, and the separate action cost for total control, including using the creature's reaction (which costs the caster's reaction). The escalating duration based on spell slot level is well-documented.",
+      "mechanics": {
+        "save_type": "Wisdom",
+        "advantage_condition": "If the caster or allies are fighting the target.",
+        "initial_effect": "Charmed for duration.",
+        "ongoing_control": {
+          "simple_command": "No action required by caster, works while on the same plane.",
+          "total_control": "Requires caster's Action, lasts until end of next turn, allows reactions (costing caster's reaction)."
+        },
+        "break_condition": "Target takes damage triggers a new Wisdom save.",
+        "scaling": "Duration increases significantly with higher-level spell slots (5th, 6th, 7th+)."
+      },
+      "notes": "The mechanic requiring the caster's reaction to use the target's reaction during total control adds a meaningful tactical cost to the highest level of influence."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.058Z"
+}

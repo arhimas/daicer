@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/insect-plague.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "insect-plague.json",
+    "analysis": {
+      "consistency": {
+        "level_scaling": "Consistent. Damage increases by 1d10 per slot level above 5th, which is standard scaling for damage spells.",
+        "damage_type": "Consistent. Deals piercing damage, fitting for a swarm of biting insects.",
+        "area_of_effect": "Consistent. A 20-foot-radius sphere is clearly defined and spreads around corners.",
+        "concentration": "Consistent with high-level, sustained area control/damage spells."
+      },
+      "quality": {
+        "flavor": "High. The description vividly paints the picture of a massive locust swarm.",
+        "utility": "High. Provides area denial (difficult terrain, light obscurement) in addition to direct damage.",
+        "material_components": "The components (sugar, grain, fat) are thematic and inexpensive, which is good for a 5th-level spell."
+      },
+      "mechanics": {
+        "damage_initial": "4d10 piercing damage on failed save, half on success. Standard for area effect save-based damage.",
+        "damage_sustained": "Creatures must re-save upon entering or ending their turn in the area. This encourages movement and punishes camping in the swarm.",
+        "range_and_area": "300 feet range with a 20-foot radius sphere is tactically significant, allowing placement deep within enemy formations.",
+        "casting_time": "1 action is standard for immediate battlefield impact.",
+        "class_inclusion": "Cleric, Druid, Sorcerer fit well, spanning Divine, Primal, and Arcane traditions that deal with nature/plagues."
+      },
+      "suggested_changes": []
+    },
+    "zod_errors_found": false
+  },
+  "timestamp": "2026-01-17T07:22:38.262Z"
+}

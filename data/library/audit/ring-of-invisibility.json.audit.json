@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/ring-of-invisibility.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-invisibility.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_consistent_with_item": true,
+        "rarity_consistent_with_power_level": "Consistent. Legendary is appropriate for reliable invisibility.",
+        "attunement_requirement_stated_in_description": true
+      },
+      "quality": {
+        "completeness": "Complete.",
+        "clarity": "High. The description clearly states activation, duration conditions, and interaction with worn/carried items.",
+        "readability": "Good. Uses standard mechanics terminology."
+      },
+      "mechanics": {
+        "action_economy": "Uses an Action to activate, which is balanced for a powerful effect.",
+        "duration_management": "Duration is conditional (until removed, attack/cast, or bonus action). This is standard and well-defined.",
+        "interaction_with_other_effects": "Clearly states worn/carried items become invisible. No mention of what happens if the user attacks or casts a spell (implied: invisibility ends immediately).",
+        "balance_assessment": "Powerful but balanced by the action cost and self-limiting duration conditions (e.g., attacking ends it)."
+      },
+      "potential_issues": []
+    },
+    "suggestions": {
+      "refinement": "The description implies that attacking or casting a spell ends invisibility, but it doesn't explicitly state the invisibility ends *on* the attack/spell cast. It's standard interpretation, but could be slightly tightened if desired (e.g., 'You remain invisible until the ring is removed, you attack or cast a spell (which ends invisibility immediately), or until you use a bonus action to become visible again.')."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.179Z"
+}

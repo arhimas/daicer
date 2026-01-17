@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/rogue-blindsense.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "rogue-blindsense.json",
+    "analysis": {
+      "consistency": {
+        "class_reference": "The feature explicitly names the 'rogue' class, which is consistent with the 'class' field.",
+        "level_progression": "The level (14) is a standard late-game feature level for core classes, suggesting consistency with general class progression patterns."
+      },
+      "quality": {
+        "clarity": "The description is clear, stating the trigger ('able to hear') and the effect (awareness of hidden/invisible creatures within 10 feet).",
+        "completeness": "It is a complete mechanical description, though cross-referencing the definition of '[invisible](#invisible)' might be necessary for full application."
+      },
+      "mechanics": {
+        "type": "Senses/Awareness",
+        "trigger": "Being able to hear.",
+        "range": "10 feet radius.",
+        "effect": "Awareness of hidden or invisible creatures, bypassing standard hiding mechanics within range.",
+        "interaction_notes": "This feature functions similarly to blindsight but is conditional on hearing. It effectively grants a limited form of Tremorsense or Blindsight under the specific condition of auditory input."
+      },
+      "suggested_changes": []
+    }
+  },
+  "timestamp": "2026-01-17T07:23:10.240Z"
+}

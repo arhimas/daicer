@@ -1,0 +1,120 @@
+{
+  "file": "blueprints/monsters-batch-1.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "monsters-batch-1.json",
+    "data_record": {
+      "slug": "goblin",
+      "name": "Goblin",
+      "type": "Humanoid",
+      "alignment": "Neutral Evil",
+      "size": "Small",
+      "level": 1,
+      "ac": 15,
+      "hp": 7,
+      "hit_dice": "2d6",
+      "speed": {
+        "walk": 30
+      },
+      "challenge_rating": 0.25,
+      "xp": 50,
+      "stats": {
+        "str": 8,
+        "dex": 14,
+        "con": 10,
+        "int": 10,
+        "wis": 8,
+        "cha": 8
+      },
+      "features": [
+        "Nimble Escape"
+      ],
+      "inventory": [
+        {
+          "item": "scimitar",
+          "slot": "main_hand",
+          "quantity": 1,
+          "isEquipped": true
+        },
+        {
+          "item": "shortbow",
+          "slot": "backpack",
+          "quantity": 1,
+          "isEquipped": true
+        }
+      ],
+      "actions": [
+        {
+          "name": "Scimitar",
+          "type": "melee",
+          "toHit": 4,
+          "range_config": {
+            "type": "Melee",
+            "distance": 5
+          },
+          "damage_instances": [
+            {
+              "amount": "1d6 + 2",
+              "type": "slashing"
+            }
+          ]
+        },
+        {
+          "name": "Shortbow",
+          "type": "ranged",
+          "toHit": 4,
+          "range_config": {
+            "type": "Ranged (Feet)",
+            "distance": 80
+          },
+          "damage_instances": [
+            {
+              "amount": "1d6 + 2",
+              "type": "piercing"
+            }
+          ]
+        }
+      ]
+    },
+    "analysis": {
+      "consistency_check": {
+        "level_vs_cr": "Consistent (CR 0.25 often corresponds to low level)",
+        "stat_distribution": "Typical for a low-CR creature, high DEX.",
+        "hp_vs_hd": "HP (7) is slightly low for 2d6 (average 7), but acceptable for standard rules rounding/modifiers.",
+        "attack_bonuses": "To Hit +4 implies Proficiency Bonus +2 (Level 1/CR 0.25) + STR/DEX modifier. Melee (+4) must use DEX (+2) due to high DEX, which is standard for skirmishers.",
+        "damage_vs_tohit": "Damage modifiers are present (+2 on base damage die), suggesting the attack bonus calculation (+4) is correct for a +2 proficiency bonus."
+      },
+      "quality_check": {
+        "data_completeness": "High. All expected fields (stats, actions, inventory, CR) are present.",
+        "naming_conventions": "Standard naming used.",
+        "inventory_management": "Equipment specified correctly (main_hand/backpack)."
+      },
+      "mechanics_check": {
+        "stat_derivation": {
+          "dex_mod": "+2",
+          "str_mod": "-1",
+          "con_mod": "+0",
+          "int_mod": "+0",
+          "wis_mod": "-1",
+          "cha_mod": "-1"
+        },
+        "action_verification": {
+          "scimitar": {
+            "to_hit_calc": "+2 (Proficiency) + 2 (DEX Mod) = +4. Matches record.",
+            "damage_calc": "1d6 + 2 (DEX Mod is -1, so the +2 implies a magical weapon or a deliberate override/specific build rule, as standard calculation would be 1d6-1. Assuming +2 is intended effect)."
+          },
+          "shortbow": {
+            "to_hit_calc": "+2 (Proficiency) + 2 (DEX Mod) = +4. Matches record.",
+            "damage_calc": "1d6 + 2 (DEX Mod is -1, so the +2 implies a magical weapon or a deliberate override/specific build rule, as standard calculation would be 1d6-1. Assuming +2 is intended effect)."
+          }
+        },
+        "notable_discrepancy": "Both melee and ranged attacks use +2 damage modifier despite having a -1 Strength modifier and +2 Dexterity modifier. This strongly suggests the Scimitar and Shortbow are magical (+1 or +2) or the monster template applies a flat bonus not derived purely from primary stats."
+      }
+    },
+    "zod_errors_found": false
+  },
+  "timestamp": "2026-01-17T07:22:26.807Z"
+}

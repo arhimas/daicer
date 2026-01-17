@@ -1,0 +1,92 @@
+{
+  "file": "molecules/items/cube-of-force.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cube-of-force.json",
+    "analysis": {
+      "consistency": {
+        "charge_management": "Consistent. Starting charges (36), daily recharge (1d20), action cost per face, and charge loss mechanics are all detailed.",
+        "barrier_mechanics": "Consistent. The barrier size (15 ft cube centered on user), duration (1 minute or until deactivated/charges depleted), and movement interaction are clearly defined.",
+        "table_data_vs_text": "Consistent. The primary text describes the action economy and barrier properties, which are detailed explicitly in the 'Cube of Force Faces' table."
+      },
+      "quality": {
+        "clarity": "High. The item's function, limitations, and costs are clearly itemized across multiple tables.",
+        "completeness": "High. Covers setup, activation, effect modes (via faces), duration, and countermeasures/damage sources.",
+        "formatting_issues": "The description relies on external formatting cues (like internal links for '#invisible', '#disintegrate', etc.) which are present but do not detract from the core data structure."
+      },
+      "mechanics": {
+        "charges_and_recharge": {
+          "initial_charges": 36,
+          "recharge_rate": "1d20 daily at dawn"
+        },
+        "activation": {
+          "action_cost": "Action to press a face",
+          "deactivation_cost": "Action to press face 6 (0 charges)"
+        },
+        "modes": [
+          {
+            "face": 1,
+            "charges_cost": 1,
+            "effect": "Blocks gases, wind, and fog."
+          },
+          {
+            "face": 2,
+            "charges_cost": 2,
+            "effect": "Blocks nonliving matter (walls/floors/ceilings can be excluded at discretion)."
+          },
+          {
+            "face": 3,
+            "charges_cost": 3,
+            "effect": "Blocks living matter."
+          },
+          {
+            "face": 4,
+            "charges_cost": 4,
+            "effect": "Blocks spell effects."
+          },
+          {
+            "face": 5,
+            "charges_cost": 5,
+            "effect": "Blocks everything, except walls/floors/ceilings can be excluded at discretion."
+          },
+          {
+            "face": 6,
+            "charges_cost": 0,
+            "effect": "Deactivates barrier, resetting duration."
+          }
+        ],
+        "barrier_properties": {
+          "shape_size": "15-foot cube",
+          "movement": "Centered on and moves with the user",
+          "duration": "1 minute (unless deactivated or charges run out)"
+        },
+        "vulnerabilities": [
+          {
+            "source": "Disintegrate",
+            "charges_lost": "1d12"
+          },
+          {
+            "source": "Horn of Blasting",
+            "charges_lost": "1d10"
+          },
+          {
+            "source": "Passwall",
+            "charges_lost": "1d6"
+          },
+          {
+            "source": "Prismatic Spray",
+            "charges_lost": "1d20"
+          },
+          {
+            "source": "Wall of Fire",
+            "charges_lost": "1d4"
+          }
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.113Z"
+}

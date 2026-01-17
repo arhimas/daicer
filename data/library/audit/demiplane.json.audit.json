@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/demiplane.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "demiplane.json",
+    "analysis": {
+      "consistency": {
+        "casting_time_format": "Consistent with standard D&D 5e formatting ('1 action').",
+        "range_format": "Consistent with standard D&D 5e formatting ('60 feet').",
+        "duration_format": "Consistent with standard D&D 5e formatting ('1 hour').",
+        "level_school_format": "Consistent (Level 8, School: conjuration)."
+      },
+      "quality": {
+        "description_clarity": "The description is clear, detailing the creation of a door, the nature of the destination plane (30ft cube, wood/stone), and the critical fail state upon spell expiration (objects/creatures trapped).",
+        "mechanical_completeness": "The mechanics are well-defined, especially regarding linking to pre-existing planes (own or known others), which adds utility beyond simple transport.",
+        "flavor": "The concept of a shadowy door leading to a customizable, if basic, extradimensional space fits well within high-level magic."
+      },
+      "mechanics": {
+        "level_appropriateness": "Level 8 seems appropriate for creating a permanent, personal extradimensional space accessible via a door, especially given the risk of entrapment if not properly managed or re-linked.",
+        "component_analysis": "Verbal (V), Somatic (S), Material (M) components are standard. Note: The RAW provided only lists 'S' (Somatic). If this is the full component list, it is unusual for a high-level spell, suggesting a missing V or M component in the source data, or it is specifically designed to be easy to cast discreetly if only S is required. Assuming 'S' is accurate based on input.",
+        "interaction_with_objects": "Explicitly states that objects inside when the door closes remain trapped, which is a crucial mechanical interaction.",
+        "recasting_and_linking": "The ability to create a new plane or link to an existing one (even one created by another caster if its nature is known) is a strong mechanical feature for long-term base creation or infiltration."
+      },
+      "zod_errors_found": "NONE",
+      "recommendations": "Verify the Component (C) requirement. If the official spell requires V and M, the input data is incomplete. If 'S' is truly the only component, this is a mechanical anomaly that should be noted (usually V and M are required for permanent effects like this)."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.994Z"
+}

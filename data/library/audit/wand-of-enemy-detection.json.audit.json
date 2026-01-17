@@ -1,0 +1,41 @@
+{
+  "file": "molecules/items/wand-of-enemy-detection.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-enemy-detection.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "rarity_in_description_match": true,
+        "attunement_in_description_match": true,
+        "charge_mechanics_consistent": true
+      },
+      "quality": {
+        "description_clarity": "High. The effect, limitations (direction only, 1 minute duration), and charge mechanics (regeneration, destruction on last use) are clearly defined.",
+        "formatting_notes": "The description uses markdown links for 'invisible' and 'attunement' which are external references, standard for some documentation formats but noted here.",
+        "completeness": "Complete. All mechanical aspects (charges, action cost, duration, regeneration, destruction clause) are present."
+      },
+      "mechanics": {
+        "type": "Wand",
+        "rarity": "Rare",
+        "attunement": true,
+        "charges": {
+          "initial": 7,
+          "action_cost": 1,
+          "duration": "1 minute",
+          "regeneration": "1d6 + 1 daily at dawn",
+          "destruction_on_empty": true,
+          "destruction_roll": "d20 (on 1)"
+        },
+        "effect": "Know the direction of the nearest hostile creature within 60 feet. Senses invisible, ethereal, disguised, or hidden creatures.",
+        "detection_range": "60 feet",
+        "detection_limitation": "Direction only, not distance."
+      }
+    },
+    "archivist_notes": "The mechanics are well-defined for a rare magic item. The risk of destruction on expending the last charge adds an interesting element of chance. Consistency across all tracked fields is confirmed."
+  },
+  "timestamp": "2026-01-17T07:22:51.859Z"
+}

@@ -1,0 +1,22 @@
+{
+  "file": "molecules/spells/phantasmal-killer.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "phantasmal-killer.json",
+    "analysis": {
+      "consistency": "High. The spell structure (level, casting time, range, components, duration, effect, scaling) is consistent with standard D&D 5e spell formatting.",
+      "quality": "Good. The description clearly outlines the initial effect (frightened condition) and the ongoing damage mechanic, which is conditional on succeeding a save at the end of the target's turn. The scaling is standard for damage-over-time spells.",
+      "mechanics": {
+        "core_effect": "Imposes the frightened condition (Wisdom save negates initial fear) and causes recurring psychic damage (4d10) if the target fails a subsequent Wisdom save at the end of *each* turn. The spell ends if the target succeeds on the damage save.",
+        "interaction_notes": "The wording implies the target only needs to succeed on the damage save *once* to end the spell. If the target succeeds on the initial save, they are not frightened, and the spell ends immediately (since the ongoing damage clause is contingent on the spell not ending). If the target fails the initial save, they are frightened. They must then save at the end of their turn. If they succeed on *that* save, the spell ends. This means the maximum duration is 1 round if the target is unlucky, or potentially up to 10 rounds (Concentration limit) if the target keeps failing the save but the spell doesn't end prematurely by the target succeeding on the damage save. The clause 'On a successful save, the spell ends' attached to the damage roll is a critical termination condition.",
+        "scaling_check": "Correctly described: +1d10 damage per spell slot level above 4th (e.g., 5th level slot = 5d10, 6th level slot = 6d10, etc.).",
+        "resource_cost": "1 action, Concentration up to 1 minute."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:35.251Z"
+}

@@ -1,0 +1,36 @@
+{
+  "file": "molecules/items/glamoured-studded-leather.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "glamoured-studded-leather.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_rarity_in_description": true,
+        "rarity_in_header_matches_source_data": true
+      },
+      "quality": {
+        "completeness": "High. Contains name, type, rarity, attunement requirement, detailed description, and source information.",
+        "readability": "Excellent. The mechanics are clearly described."
+      },
+      "mechanics": {
+        "base_item_type": "Studded Leather",
+        "enhancement_bonus": "+1 to AC",
+        "attunement_required": false,
+        "unique_properties": [
+          {
+            "property_name": "Glamour/Disguise",
+            "action_cost": "Bonus Action",
+            "effect": "Changes the appearance of the armor to mimic normal clothing or other armor, retaining original bulk and weight. Effect is persistent until reapplied or armor is removed."
+          }
+        ],
+        "power_level_justification": "Rare seems appropriate for a permanent +1 AC bonus combined with a useful non-combat/social utility effect (glamour)."
+      },
+      "zod_errors": false
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.913Z"
+}

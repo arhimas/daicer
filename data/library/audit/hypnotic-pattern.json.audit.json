@@ -1,0 +1,36 @@
+{
+  "file": "molecules/spells/hypnotic-pattern.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "hypnotic-pattern.json",
+    "analysis": {
+      "consistency": {
+        "name_to_slug": "Consistent ('Hypnotic Pattern' matches 'hypnotic-pattern').",
+        "level_and_school": "Standard D&D 5e format. Level 3 Illusion.",
+        "mechanics_coherence": "Mechanics are internally consistent: Charm leads to Incapacitated and Speed 0, with clear conditions for ending the effect (damage or action to end)."
+      },
+      "quality": {
+        "clarity": "The description is clear. The visual effect ('twisting pattern of colors') and mechanical effect (Charmed, Incapacitated, Speed 0) are well-defined.",
+        "completeness": "All required spell components (casting time, range, components, duration, effects, classes) are present.",
+        "flavor": "The flavor aligns well with an Illusion spell affecting perception."
+      },
+      "mechanics": {
+        "save_and_effect": "Wisdom saving throw against the primary condition (Charmed).",
+        "status_effects": "Applies Charmed, Incapacitated, and Speed 0. This is a powerful combination, effectively disabling the target for the duration, similar to high-level control spells.",
+        "ending_conditions": "The spell duration is Concentration, but it also has specific fail conditions (taking damage or an action used by another creature to shake them out). This second condition is unusual for a standard Charm effect but balances the strong disabling power.",
+        "area_of_effect": "30-foot cube is a substantial area for a Level 3 spell."
+      },
+      "zod_errors": "None found."
+    },
+    "recommendations": [
+      {
+        "type": "Style/Clarity Check",
+        "detail": "Ensure the definition of '#charmed' and '#incapacitated' match the standard rules lexicon being used, though they are clearly linked here."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:38.814Z"
+}

@@ -1,0 +1,45 @@
+{
+  "file": "molecules/spells/see-invisibility.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "see-invisibility.json",
+    "analysis": {
+      "consistency": {
+        "level": "Consistent",
+        "school": "Consistent",
+        "casting_time": "Consistent",
+        "range": "Consistent",
+        "duration": "Consistent"
+      },
+      "quality": {
+        "completeness": "High",
+        "readability": "High",
+        "notes": "The raw data appears complete and directly maps to standard D&D 5e spell structure. The description is clear."
+      },
+      "mechanics": {
+        "level": 2,
+        "school": "divination",
+        "casting_time": "1 action",
+        "range": "Self",
+        "duration": "1 hour",
+        "components_check": {
+          "verbal": true,
+          "somatic": true,
+          "material": true,
+          "material_details": "a pinch of talc and a small sprinkling of powdered silver"
+        },
+        "effects_summary": "Grants the ability to see invisible creatures/objects and view the ethereal plane for 1 hour. Ethereal entities appear ghostly/translucent.",
+        "class_distribution": {
+          "bard": true,
+          "sorcerer": true,
+          "wizard": true
+        }
+      }
+    },
+    "archivist_notes": "This entry for 'See Invisibility' is mechanically sound and adheres to standard format. No corrections or anomalies detected."
+  },
+  "timestamp": "2026-01-17T07:22:31.771Z"
+}

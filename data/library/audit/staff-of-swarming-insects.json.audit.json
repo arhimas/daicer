@@ -1,0 +1,53 @@
+{
+  "file": "molecules/items/staff-of-swarming-insects.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "staff-of-swarming-insects.json",
+    "analysis": {
+      "consistency": "High. The name, type, rarity, and description align logically for a magical staff themed around insects.",
+      "quality": "Good. The item has clear mechanics for charge usage, recovery, a potential destruction condition, and specific spell access. The 'Insect Cloud' feature is unique and well-defined regarding duration, area effect, and counter-condition (wind).",
+      "mechanics": {
+        "charges": {
+          "max": 10,
+          "regeneration": "1d6 + 4 daily at dawn",
+          "destruction_on_expend": "Roll d20, 1 results in destruction."
+        },
+        "spells": [
+          {
+            "name": "giant insect",
+            "cost": 4,
+            "action": "Action"
+          },
+          {
+            "name": "insect plague",
+            "cost": 5,
+            "action": "Action"
+          }
+        ],
+        "other_features": [
+          {
+            "name": "Insect Cloud",
+            "cost": "1 charge (Action)",
+            "effect": "30-foot radius swarm of harmless flying insects; heavily obscures area for others; moves with user; lasts 10 minutes or until dispersed by 10+ mph wind."
+          }
+        ],
+        "attunement": {
+          "required": true,
+          "classes": [
+            "bard",
+            "cleric",
+            "druid",
+            "sorcerer",
+            "warlock",
+            "wizard"
+          ]
+        }
+      },
+      "notes": "The source data mentions the required classes for attunement which is beneficial context not always present in the core description block, ensuring completeness."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.282Z"
+}

@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/iron-flask.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": {
+        "item_type": "Consistent. Listed as 'Wondrous item'.",
+        "rarity": "Consistent. Listed as 'Legendary' in both top-level and source fields.",
+        "mechanics_description": "The description is detailed and covers capturing, holding, releasing, and the resulting temporary servitude of the trapped creature, which aligns with the expected function of a high-rarity magical item.",
+        "trapping_condition": "The condition 'native to a plane of existence other than the one you're on' is a clear mechanical gate for capturing a creature."
+      },
+      "quality": {
+        "clarity": "High clarity. The actions (speak command word, remove stopper) and effects (DC 17 Wisdom save, 1-hour control) are well-defined.",
+        "formatting": "The raw data includes markdown for a table, which is well-structured and clearly details the random contents table (d100).",
+        "completeness": "The entry is complete, including name, type, rarity, attunement requirement, full description, and usage tables."
+      },
+      "mechanics": {
+        "capture_save": {
+          "type": "Wisdom saving throw",
+          "dc": 17,
+          "condition": "Target must be native to a different plane."
+        },
+        "advantage_on_subsequent_save": "The rule granting advantage on the save if the creature was trapped before is a notable mechanical detail.",
+        "release_effect": "Creature is friendly and obeys commands for 1 hour. If given no command or a suicidal command, it defends itself but takes no action.",
+        "contents_determination": "The table provides explicit probabilities for what the flask contains, including an 'Empty' result (50% chance) and specific planar beings."
+      },
+      "suggestions": "None required. The data appears complete and mechanically sound for an artifact-level item."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:59.805Z"
+}

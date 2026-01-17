@@ -1,0 +1,30 @@
+{
+  "file": "molecules/items/potion-of-diminution.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-diminution.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_category": "Potion",
+        "rarity_classification": "Rare"
+      },
+      "quality": {
+        "description_clarity": "High. Clearly states the duration (1d4 hours) and the effect (Reduce from _enlarge/reduce_).",
+        "flavor_text_integration": "Good. The description of the liquid movement ties into the theme of changing size.",
+        "mechanical_completeness": "Sufficient. Defines effect, duration, and concentration requirement."
+      },
+      "mechanics": {
+        "effect_summary": "Grants the 'Reduce' effect of the Enlarge/Reduce spell for 1d4 hours.",
+        "concentration_check": "Not required (explicitly stated: 'no concentration required').",
+        "scaling_or_variable": "Yes, the duration is variable (1d4 hours).",
+        "interaction_with_spell": "Directly mirrors the 'Reduce' effect of the spell, implying all associated rules (e.g., damage bonus/penalty, advantage/disadvantage on Strength checks/saves) apply."
+      },
+      "recommendations": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:57.025Z"
+}

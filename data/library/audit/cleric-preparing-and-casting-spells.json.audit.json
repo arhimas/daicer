@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/cleric-preparing-and-casting-spells.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "cleric-preparing-and-casting-spells.json",
+    "analysis": {
+      "consistency": "The raw data provides a comprehensive breakdown of Cleric spell slot progression across all levels (1-20) in a standard table format, which is consistent with common TTRPG mechanical references. The descriptive text correctly explains how to use these slots (expend a slot of the spell's level or higher, regain on long rest) and how to determine the number of prepared spells (Wisdom modifier + Cleric level).",
+      "quality": "The data quality is high. The HTML table is well-structured for representing numerical progression data. The accompanying text is clear, concise, and directly supports the mechanical table.",
+      "mechanics": {
+        "spell_slot_progression": "Accurately details the number of spell slots available per level for 1st through 9th level spells.",
+        "preparation_rule": "Correctly states that the number of prepared spells equals (Cleric Level + Wisdom Modifier), minimum of one.",
+        "spell_level_limitation": "Correctly notes that prepared spells must be of a level for which the cleric has spell slots.",
+        "casting_rule": "Confirms that casting a spell uses a slot of equal or higher level, and casting does not remove the spell from the prepared list.",
+        "reset_mechanism": "Confirms spell slots are regained after a long rest.",
+        "preparation_time": "Specifies the time needed to change the prepared spell list: at least 1 minute per spell level for each spell on the list."
+      }
+    },
+    "suggestions": [
+      {
+        "type": "Clarification",
+        "description": "The example uses a 3rd-level cleric with a Wisdom of 16 (Modifier +3). The calculation should be 3 (level) + 3 (modifier) = 6 prepared spells total, which the example states correctly. Ensure the definition of 'spell level' used in the preparation time calculation (1 minute per spell level for each spell) is unambiguous—it refers to the level of the individual spell being prepared (e.g., preparing two 1st-level spells and one 3rd-level spell takes 1+1+3=5 minutes, plus the base 1 minute/level overhead)."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:16.829Z"
+}

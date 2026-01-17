@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/warlock-cantrips.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "warlock-cantrips.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e class feature naming and structure. The feature clearly defines the number of spells known and references a list.",
+      "quality": "High quality. The description is clear, concise, and directly informs the player about the mechanic (choosing cantrips, learning more at higher levels via the Warlock table).",
+      "mechanics": {
+        "type": "Spell Selection/Known",
+        "details": "The character gains 2 Warlock cantrips at level 1. The total number of cantrips known increases based on the Warlock class table at later levels. The choice is from the Warlock spell list.",
+        "potential_issues": "Relies on the existence and correctness of an external link/reference (`[warlock spell list](#section-warlock-spells)`), which is standard but must be cross-validated if this were part of a larger system integration."
+      },
+      "metadata_review": {
+        "slug": "warlock-cantrips",
+        "name": "Cantrips",
+        "class": "warlock",
+        "level": 1,
+        "is_subclass_feature": true,
+        "review_status": "Approved"
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.249Z"
+}

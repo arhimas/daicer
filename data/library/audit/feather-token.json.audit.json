@@ -1,0 +1,51 @@
+{
+  "file": "molecules/items/feather-token.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "feather-token.json",
+    "analysis": {
+      "consistency": {
+        "type": "Consistent",
+        "notes": "The item consistently describes itself as a single-use token with a variable effect determined by a d100 roll or GM choice, and all sub-effects clearly detail their activation, duration, and disappearance conditions."
+      },
+      "quality": {
+        "rating": "High",
+        "notes": "The data is well-structured, providing necessary mechanical details for each possible effect (Anchor, Bird, Fan, Swan boat, Tree, Whip). The inclusion of a dedicated table for the random selection mechanism significantly enhances clarity. The use of formatting (tables, bolding) aids readability of the raw text."
+      },
+      "mechanics": {
+        "core_mechanic": "Randomized single-use effect upon activation.",
+        "detail_assessment": [
+          {
+            "effect": "Anchor",
+            "assessment": "Clear single-use action to apply an immobilization effect for 24 hours, ending on secondary touch or time expiration."
+          },
+          {
+            "effect": "Bird",
+            "assessment": "Summons a Roc-like creature with specific carrying capacity, speed limits (144 miles/day total), and lifespan tied to flight distance or HP loss. Commands are 'simple'."
+          },
+          {
+            "effect": "Fan",
+            "assessment": "Grants a measurable, temporary (8 hours) speed boost (+5 mph) to a single ship when used as an action."
+          },
+          {
+            "effect": "Swan boat",
+            "assessment": "Creates a large, self-propelled boat (6 mph) with defined capacity limits (creature size scaling) and a 24-hour duration."
+          },
+          {
+            "effect": "Tree",
+            "assessment": "Creates a specific, nonmagical oak tree (60ft tall, 5ft trunk diameter). Requires being outdoors."
+          },
+          {
+            "effect": "Whip",
+            "assessment": "Summons a floating whip usable via a bonus action attack (Melee Spell Attack, +9 to hit, 1d6+5 force damage). It has a defined movement limit (20 ft per bonus action) and duration (1 hour or dismissal)."
+          }
+        ],
+        "potential_issues": "The Bird effect's maximum daily distance calculation (144 miles/day at 16 mph means 9 hours flying time, requiring a 3-hour rest, then 3 more hours flying time to hit 144 miles, or simply 144/16 = 9 hours total flight time before it disappears) is standard but complex. The whip attack bonus (+9) seems slightly high for a 'Rare' item without attunement, though it is only 1d6+5 damage."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:01.960Z"
+}

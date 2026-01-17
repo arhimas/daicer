@@ -1,0 +1,37 @@
+{
+  "file": "molecules/spells/unseen-servant.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "unseen-servant.json",
+    "analysis": {
+      "consistency": "High. The components, casting time, range, and duration are standard for a 1st-level utility spell.",
+      "quality": "High. The description is clear, detailing the servant's limitations (mindless, shapeless, simple tasks only) and mechanics (bonus action command, range limit). The AC, HP, and Strength details provide necessary mechanical grounding.",
+      "mechanics": {
+        "level": "1st",
+        "school": "conjuration",
+        "type": "Utility/Creation",
+        "action_economy": {
+          "casting": "1 action",
+          "command": "Bonus Action (once per turn)"
+        },
+        "limitations": [
+          "Mindless and shapeless.",
+          "Cannot attack.",
+          "Strength 2, AC 10, 1 HP (very fragile).",
+          "Task must be simple (fetch, clean, mend, etc.).",
+          "Command range limited to 60 feet from caster; spell ends if servant moves past this range."
+        ],
+        "strengths": [
+          "Invisible.",
+          "Long duration (1 hour).",
+          "Ritual casting available (utility for non-combat times)."
+        ]
+      },
+      "notes": "A classic utility spell that provides continuous, minor aid. The bonus action command is efficient. The low HP (1 HP) makes it easily dispelled by a stray attack or environmental interaction, which keeps the spell balanced for its level."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:28.610Z"
+}

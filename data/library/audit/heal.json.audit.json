@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/heal.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "heal.json",
+    "analysis": {
+      "consistency": {
+        "spell_level_and_scaling": "Consistent. Level 6 spell that scales linearly by +10 HP per slot level above 6th.",
+        "data_fields": "All required fields (slug, name, level, school, ritual, casting_time, range, components, duration, description, classes) are present and correctly formatted."
+      },
+      "quality": {
+        "clarity": "The description is clear regarding the healing amount, secondary effects (curing blindness, deafness, disease), and restrictions (no effect on constructs or undead).",
+        "completeness": "The 'At Higher Levels' section provides precise scaling instructions.",
+        "format_quality": "The formatting within the description section (using bolding/italics via markdown conventions, though this is stored as plain text here) seems standard for spell descriptions."
+      },
+      "mechanics": {
+        "core_effect": "Restores 70 Hit Points.",
+        "secondary_effects": "Cures blindness, deafness, and diseases.",
+        "limitations": "Does not affect constructs or undead.",
+        "casting_requirements": "Requires 1 action, V (Verbal) and S (Somatic) components.",
+        "scaling_effectiveness": "The scaling (+10 HP per level above 6) is standard for potent healing spells at higher tiers of play, ensuring it remains relevant."
+      },
+      "errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.139Z"
+}

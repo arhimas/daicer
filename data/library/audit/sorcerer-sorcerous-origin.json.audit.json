@@ -1,0 +1,22 @@
+{
+  "file": "atoms/features/sorcerer-sorcerous-origin.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-sorcerous-origin.json",
+    "analysis": {
+      "consistency": "Consistent with standard TTRPG class feature organization. It introduces the fundamental choice defining the Sorcerer's subclass path.",
+      "quality": "High quality. Clearly defines the feature's purpose (choosing an origin) and scope (when subsequent features are gained: 1st, 6th, 14th, and 18th level). The link reference is appropriate for digital content.",
+      "mechanics": "This feature is purely organizational; it doesn't grant immediate mechanical bonuses but sets up future mechanical progression based on the chosen origin (subclass). The level progression (1, 6, 14, 18) is standard for core class subclass features."
+    },
+    "recommendations": [
+      {
+        "type": "Data Integrity",
+        "detail": "Ensure the link reference format `[sorcerous origin](#section-sorcerous-origins)` resolves correctly in the target environment."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:08.682Z"
+}

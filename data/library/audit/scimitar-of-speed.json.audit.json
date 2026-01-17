@@ -1,0 +1,29 @@
+{
+  "file": "molecules/items/scimitar-of-speed.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "scimitar-of-speed.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent ('Scimitar of Speed' vs 'scimitar-of-speed').",
+        "type_and_description": "Consistent. The item is a scimitar, and the mechanics described (bonus to attack/damage, bonus action attack) are appropriate for a powerful magic weapon.",
+        "rarity_and_attunement": "Consistent. Rarity 'Very Rare' matches the powerful effect, and attunement is correctly flagged."
+      },
+      "quality": {
+        "completeness": "High. Contains all necessary fields: slug, name, type, rarity, attunement requirement, description, and source context.",
+        "clarity": "Excellent. The description clearly outlines the mechanical benefits.",
+        "formatting": "Clean and standard for item data."
+      },
+      "mechanics": {
+        "attack_bonus": "+2 to attack and damage rolls.",
+        "action_economy": "Grants an additional attack as a bonus action on each turn, significantly increasing damage output.",
+        "tier_of_play": "Appropriate for mid-to-high tier play (levels 5-16 typically), due to the potent combination of a numerical bonus and extra action economy."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:54.043Z"
+}

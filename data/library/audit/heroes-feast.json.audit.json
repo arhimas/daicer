@@ -1,0 +1,47 @@
+{
+  "file": "molecules/spells/heroes-feast.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "heroes-feast.json",
+    "analysis": {
+      "consistency_check": {
+        "name_matches_slug": true,
+        "level_and_school_present": true,
+        "casting_time_present": true,
+        "range_present": true,
+        "components_present": true,
+        "duration_present": true,
+        "description_present": true,
+        "classes_present": true
+      },
+      "quality_assessment": {
+        "completeness": "Excellent. All standard spell fields are present and populated.",
+        "clarity": "High. The description clearly outlines the setup time, consumption time, number of participants, and the extensive list of benefits.",
+        "balance_consideration": "Very high-level spell (6th) with powerful, broad, and long-lasting benefits (immunity, advantage on WIS saves, temporary HP max increase). The 1,000 gp material component cost is appropriate for the effect."
+      },
+      "mechanics_review": {
+        "level": 6,
+        "school": "conjuration",
+        "casting_time": "10 minutes (Long setup for a party buff)",
+        "range": "30 feet (Sufficient for a stationary setup)",
+        "components": "V, S, M (Consumable 1,000 gp gem-encrusted bowl - high initial cost)",
+        "duration": "Instantaneous (This refers to the casting/setup phase; the benefits last 24 hours, which is clearly stated in the description.)",
+        "effects_breakdown": [
+          "Cures disease and poison.",
+          "Grants immunity to poison.",
+          "Grants immunity to being [frightened].",
+          "Advantage on all Wisdom saving throws.",
+          "Increases maximum HP by 2d10 and restores that many HP.",
+          "Duration of benefits: 24 hours.",
+          "Affects up to 12 creatures besides the caster."
+        ],
+        "potential_issues": "None detected. The mechanics are robust for a high-tier support spell. The description clearly separates the 1-hour consumption time from the 24-hour duration of effects."
+      },
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.544Z"
+}

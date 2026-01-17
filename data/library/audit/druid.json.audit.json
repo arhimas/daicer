@@ -1,0 +1,82 @@
+{
+  "file": "molecules/classes/druid.json",
+  "type": "class",
+  "zod_valid": false,
+  "zod_errors": [
+    "hit_die: Invalid input: expected string, received number"
+  ],
+  "llm_audit": {
+    "entity": "CLASS",
+    "file": "druid.json",
+    "analysis": {
+      "consistency": "Mostly consistent with typical D&D 5e class data structures, detailing hit die, proficiencies, and progression.",
+      "quality": "The raw data contains a schema error flagged by ZOD ('hit_die: Invalid input: expected string, received number'). In standard 5e data formats, hit die is usually represented as a string (e.g., '1d8'). The progression levels appear correctly mapped to proficiency bonus (pb) and features.",
+      "mechanics": {
+        "hit_die_correction": "The 'hit_die' field needs to be corrected from the number 8 to the string '1d8' to match standard representation.",
+        "proficiencies_note": "The armor proficiency notes specify a restriction ('shields (druids will not wear armor or use shields made of metal)'), which is characteristic of the Druid class.",
+        "progression_gaps": "Some levels (3, 5, 7, 9, 11, 13, 15, 17) are listed without specific features, which is common if the only feature gained is the spell slot increase, or if the structure only lists subclass/ASI/major features at those levels, but the structure is technically valid for progression tracking."
+      },
+      "corrections_needed": [
+        {
+          "field": "hit_die",
+          "original_value": 8,
+          "corrected_value": "1d8",
+          "justification": "Standard representation for hit die in this data context, addressing the ZOD error."
+        }
+      ],
+      "corrected_data_sample": {
+        "slug": "druid",
+        "name": "Druid",
+        "hit_die": "1d8",
+        "proficiency_choices": [
+          "Arcana",
+          "Animal Handling",
+          "Insight",
+          "Medicine",
+          "Nature",
+          "Perception",
+          "Religion",
+          "Survival"
+        ],
+        "proficiencies": {
+          "armor": [
+            "Light armor",
+            "medium armor",
+            "shields (druids will not wear armor or use shields made of metal)"
+          ],
+          "weapons": [
+            "Clubs",
+            "daggers",
+            "darts",
+            "javelins",
+            "maces",
+            "quarterstaffs",
+            "scimitars",
+            "sickles",
+            "slings",
+            "spears"
+          ],
+          "tools": [
+            "Herbalism kit"
+          ],
+          "saving_throws": [
+            "Intelligence",
+            "Wisdom"
+          ]
+        },
+        "equipment": [],
+        "progression": [
+          {
+            "level": 1,
+            "pb": 2,
+            "features": [
+              "Druidic",
+              "Spellcasting"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:26.857Z"
+}

@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/potion-of-water-breathing.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-water-breathing.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent (Potion of Water Breathing vs potion-of-water-breathing)",
+        "type_vs_description": "Consistent (Labeled as 'Potion', description confirms magical consumable effect)",
+        "rarity_vs_source_rarity": "Consistent ('Uncommon' matches 'Potion, uncommon')"
+      },
+      "quality": {
+        "completeness": "High. Contains name, slug, type, rarity, attunement requirement, detailed description, and source context.",
+        "clarity": "Excellent. The effect is clearly stated (breathe underwater for 1 hour).",
+        "flavor_text_quality": "Good. The sensory details (\"cloudy green fluid smells of the sea and has a jellyfish-like bubble\") enhance the item's flavor."
+      },
+      "mechanics": {
+        "rules_conformance": "Standard D&D 5e style item structure.",
+        "effect_duration": "Explicitly defined (1 hour).",
+        "use_limitation": "Implied single-use (standard for potions), consistent with type.",
+        "attunement_requirement": "Correctly set to false."
+      },
+      "errata_check": {
+        "zod_errors_found": false,
+        "archivist_notes": "Data appears accurate and well-formed according to standard item schema."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.376Z"
+}

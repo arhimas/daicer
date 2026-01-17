@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/weird.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "weird.json",
+    "analysis": {
+      "consistency": {
+        "naming_convention": "Consistent. Slug matches name.",
+        "attribute_completeness": "Complete. All standard spell attributes (level, school, casting time, range, components, duration, description, classes) are present."
+      },
+      "quality": {
+        "description_clarity": "High clarity. Describes the trigger (failed save), the initial effect (frightened condition), and the recurring damage effect clearly.",
+        "mechanical_ambiguity": "Low ambiguity. The relationship between the frightened condition and the recurring save/damage is explicit: frightened for duration, OR until they succeed on the recurring Wisdom save.",
+        "component_check": "Components (V, S) are standard for a high-level spell."
+      },
+      "mechanics": {
+        "level_school_match": "Level 9 Illusion is appropriate for a very powerful, mind-affecting, area-of-effect control spell.",
+        "area_of_effect": "30-foot-radius sphere, centered within 120 feet. Standard radius/range parameters.",
+        "saving_throw": "Initial Wisdom save to resist being frightened. This is consistent for fear/illusion effects.",
+        "duration_and_concentration": "Concentration, up to 1 minute. Standard for ongoing mental effects.",
+        "damage_scaling": "4d10 psychic damage at the end of the frightened creature's turn. This is significant damage for a persistent, ongoing effect, balanced by requiring the creature to remain frightened.",
+        "ending_condition": "The spell ends for a creature on a successful Wisdom save during its turn. This provides the creature an opportunity to break free each turn, preventing permanent lockdown via failed saves, which is good design."
+      },
+      "errata_needed": false,
+      "suggestions": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:27.648Z"
+}

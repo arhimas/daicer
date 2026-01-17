@@ -1,0 +1,26 @@
+{
+  "file": "molecules/spells/comprehend-languages.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "comprehend-languages.json",
+    "analysis": {
+      "consistency": "High. The data structure is consistent with typical spell definitions.",
+      "quality": "High. The data is complete, containing all necessary mechanics (level, school, casting time, range, components, duration, classes).",
+      "mechanics_review": {
+        "level": "1st level divination spell, appropriate for the listed classes.",
+        "casting_time": "1 action, standard.",
+        "range": "Self, appropriate for a utility/information-gathering spell.",
+        "components": "V, S, M (a pinch of soot and salt). Material component is simple and inexpensive, fitting for a 1st-level spell.",
+        "duration": "1 hour, reasonable for allowing time to read or listen across various situations.",
+        "effects": "Understands spoken language heard and written language touched. The caveat about not decoding secret messages/arcane glyphs is a crucial mechanical limiter and is clearly stated.",
+        "page_reading_time": "1 minute per page is a good standard for the written language effect.",
+        "classes": "Bard, Sorcerer, Warlock, Wizard. This selection is logical for an intelligence/utility-focused divination spell."
+      },
+      "suggested_action": "Archive as is. No corrections necessary."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:46.914Z"
+}

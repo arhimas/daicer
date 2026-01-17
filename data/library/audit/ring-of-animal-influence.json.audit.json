@@ -1,0 +1,43 @@
+{
+  "file": "molecules/items/ring-of-animal-influence.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-animal-influence.json",
+    "analysis": {
+      "consistency": "High. The item description is internally consistent regarding its charges, regaining mechanism, and spell effects.",
+      "quality": "Good. The item is well-defined, offering thematic utility tied to animals. The save DC (13) is fixed, which is slightly less flexible than scaling with a user's spell save DC but acceptable for a Rare item.",
+      "mechanics": {
+        "type": "Ring",
+        "rarity": "Rare",
+        "attunement": false,
+        "charges": {
+          "total": 3,
+          "regeneration": "1d3 daily at dawn"
+        },
+        "abilities": [
+          {
+            "action": "expend 1 charge",
+            "spell": "Animal friendship",
+            "dc": 13
+          },
+          {
+            "action": "expend 1 charge",
+            "spell": "Fear",
+            "dc": 13,
+            "limitation": "Targeting only beasts that have an Intelligence of 3 or lower"
+          },
+          {
+            "action": "expend 1 charge",
+            "spell": "Speak with animals"
+          }
+        ],
+        "notes": "The limitation on the *Fear* spell is an excellent balancing factor, ensuring it targets lower-intelligence creatures appropriate for an 'animal influence' theme."
+      },
+      "zod_errors_present": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.220Z"
+}

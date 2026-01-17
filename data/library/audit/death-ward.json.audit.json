@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/death-ward.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "death-ward.json",
+    "analysis": {
+      "consistency": "High. The spell mechanics are clear, consistent with its Abjuration school (protection), and the duration (8 hours) fits a protective buff.",
+      "quality": "High. The description clearly outlines two distinct, potent protective effects: surviving a fatal blow (damage-based) and negating instantaneous death effects (non-damage based). The phrasing is precise.",
+      "mechanics": {
+        "level": 4,
+        "school": "abjuration",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "duration": "8 hours",
+        "trigger_conditions": [
+          "Target drops to 0 HP from damage (first instance)",
+          "Target subjected to an instantaneous death effect (non-damage)"
+        ],
+        "effects": [
+          "If trigger 1 occurs: Target drops to 1 HP, spell ends.",
+          "If trigger 2 occurs: Effect is negated, spell ends."
+        ],
+        "notes": "This is a powerful defensive spell, often sought after for high-threat encounters due to its ability to absorb a full lethal hit or negate powerful instant-death effects like *Power Word Kill* (if the target's HP is low enough to be targeted by that specific spell, though usually Death Ward counters other instantaneous effects)."
+      },
+      "recommendations": "None. The spell is mechanically sound and well-documented."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.224Z"
+}

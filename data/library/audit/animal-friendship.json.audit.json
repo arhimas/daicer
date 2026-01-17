@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/animal-friendship.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "animal-friendship.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell structure and mechanics.",
+      "quality": "High quality. The spell description is clear, mechanics are well-defined (casting time, range, components, save, effect, duration), and includes an 'At Higher Levels' clause.",
+      "mechanics": {
+        "level": 1,
+        "school": "enchantment",
+        "casting_time": "1 action",
+        "range": "30 feet",
+        "components": "V, S, M (a morsel of food)",
+        "duration": "24 hours",
+        "effect": "Charmed condition applied to a beast, requires a Wisdom save. Fails if target Intelligence is 4 or higher. Broken by harming the target or companions.",
+        "scaling": "Affects one additional beast per spell slot level above 1st.",
+        "classes": [
+          "bard",
+          "druid",
+          "ranger"
+        ],
+        "notes": "The material component is consumed, indicated by the common notation for non-costly material components (though 'a morsel of food' suggests consumption)."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.736Z"
+}

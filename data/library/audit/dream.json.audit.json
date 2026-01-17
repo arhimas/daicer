@@ -1,0 +1,42 @@
+{
+  "file": "molecules/spells/dream.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "dream.json",
+    "analysis": {
+      "consistency": "High. The mechanics described (trance, entering dreams, shaping environment, optional terrifying message/nightmare consequence) are internally consistent. The prerequisite for the target sleeping is clearly established.",
+      "quality": "Good. The description is evocative and clearly details the standard effect and a potent alternative effect (the terrifying message). Clarity is slightly reduced by the distinction between the caster and the messenger, though the text clarifies the caster initiates the trance on themselves or a willing touched creature.",
+      "mechanics": {
+        "level": 5,
+        "school": "illusion",
+        "casting_time": "1 minute",
+        "duration": "8 hours",
+        "components": "V, S, M (a handful of sand, a dab of ink, and a writing quill plucked from a sleeping bird)",
+        "concentration": false,
+        "target_condition": "Must be on the same plane and must sleep (elves are exempt).",
+        "effects_standard": [
+          "Messenger enters the target's dreams if asleep.",
+          "Messenger can converse and shape the dream environment.",
+          "Messenger can end the trance/spell early.",
+          "Target recalls the dream perfectly upon waking."
+        ],
+        "effects_alternative_nightmare": {
+          "trigger": "Messenger appears monstrous/terrifying.",
+          "immediate_consequence": "Target delivers message (max 10 words) and makes a Wisdom save.",
+          "failure_consequence": "Nightmare lasts the sleep duration, preventing rest benefits. Target takes 3d6 psychic damage upon waking.",
+          "modifier": "If caster has a bodily part of the target, the save is made with disadvantage."
+        },
+        "classes": [
+          "bard",
+          "warlock",
+          "wizard"
+        ]
+      }
+    },
+    "notes": "The mechanic involving the messenger choosing to wait for the target to fall asleep is crucial for managing the 1-minute casting time versus the target's immediate state. The dual nature of the spell (communication vs. psychological attack) is well-defined."
+  },
+  "timestamp": "2026-01-17T07:22:44.171Z"
+}

@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/ring-of-evasion.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-evasion.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent",
+        "type_and_rarity_vs_source": "Consistent; Type is 'Ring', Rarity is 'Rare', and the source string confirms this.",
+        "mechanical_description_completeness": "Complete; describes charges, recharge mechanic, and trigger/effect for use."
+      },
+      "quality": {
+        "clarity": "High; the function is straightforward: converting a failed Dex save into a success.",
+        "balance_consideration": "Appropriate for a Rare item. Limited charges prevent overuse, and the requirement for a failed save keeps it reactive.",
+        "attunement_justification": "Appropriate for a powerful, reusable reaction effect."
+      },
+      "mechanics": {
+        "primary_effect": "Reaction to change a failed Dexterity saving throw to a success.",
+        "resource_management": {
+          "charges": 3,
+          "recharge_rate": "1d3 charges regained daily at dawn."
+        },
+        "trigger_condition": "Failure of a Dexterity saving throw while attuned.",
+        "cost": "1 charge, uses Reaction."
+      },
+      "data_integrity": "High. All fields are present and logically sound based on typical TTRPG item structures."
+    },
+    "recommendation": "No changes necessary. The item is well-defined."
+  },
+  "timestamp": "2026-01-17T07:22:56.077Z"
+}

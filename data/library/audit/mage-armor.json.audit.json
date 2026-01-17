@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/mage-armor.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mage-armor.json",
+    "analysis": {
+      "consistency": "The data fields provided are consistent with a standard D&D 5e spell entry structure (name, level, school, components, duration, etc.).",
+      "quality": "The data is well-formed and complete for an archival entry.",
+      "mechanics": {
+        "spell_name": "Mage Armor",
+        "level": 1,
+        "school": "abjuration",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "duration": "8 hours",
+        "effect_summary": "Sets target's base AC to 13 + DEX modifier, provided they aren't wearing armor.",
+        "requirements_notes": "Requires a willing, unarmored target.",
+        "component_notes": "Material component is consumed by flavor but not explicitly stated as consumed (standard for this spell: not consumed unless specified otherwise).",
+        "class_distribution": "Covers primary arcane casters (Sorcerer, Wizard)."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.739Z"
+}

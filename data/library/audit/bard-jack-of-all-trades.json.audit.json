@@ -1,0 +1,25 @@
+{
+  "file": "atoms/features/bard-jack-of-all-trades.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-jack-of-all-trades.json",
+    "analysis": {
+      "consistency": "Consistent with typical D&D 5e feature structure and naming conventions for Bard class features.",
+      "quality": "High quality. The description is clear, concise, and accurately describes the mechanical effect.",
+      "mechanics": {
+        "type": "Passive Proficiency Bonus Application",
+        "trigger": "Making an ability check that does not already include proficiency bonus.",
+        "effect": "Add half proficiency bonus (rounded down) to the check.",
+        "level_gained": 2,
+        "class_association": "Bard",
+        "balance_consideration": "This feature offers broad utility by applying a small, consistent bonus across all skills/abilities where the character is otherwise unskilled. It scales slowly but provides value universally."
+      },
+      "notes": "This feature mirrors the 'Jack of All Trades' feature from the Player's Handbook (PHB) for the Bard class."
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:23:17.208Z"
+}

@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/awaken.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "awaken.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 5 Transmutation aligns with the nature of significantly altering a creature's mental faculties and potentially granting mobility/senses to a plant.",
+        "component_match": "Consistent. High-level, permanent alteration justifies the significant material component (1,000 gp consuming agate)."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines the target restrictions (Huge or smaller, low/no INT), the core effect (INT 10, language), the specific effects for plants (movement, senses), and the duration/termination condition of the charm.",
+        "mechanic_completeness": "Complete. Addresses target restrictions, mechanical effect (INT score change), duration, resource consumption, and social effect (charm)."
+      },
+      "mechanics": {
+        "level_appropriateness": "Appropriate for 5th level. Granting sapience and limited control (via charm) to a non-sentient creature is a significant, but not game-breaking, effect.",
+        "cost_benefit": "High initial cost (8 hours casting time, 1,000 gp consumed) balanced by a long-lasting, significant narrative and utility effect (a temporary sentient companion/spy).",
+        "potential_issues": "The description relies on the GM for plant statistics ('Your GM chooses statistics appropriate...'), which is standard for summoned/created entities, but requires coordination. The 30-day charm is strong leverage."
+      },
+      "notes": "A classic utility/utility-combat spell, often used for narrative purposes or creating temporary, intelligent allies from the environment."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.365Z"
+}

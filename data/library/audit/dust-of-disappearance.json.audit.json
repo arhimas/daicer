@@ -1,0 +1,35 @@
+{
+  "file": "molecules/items/dust-of-disappearance.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "dust-of-disappearance.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent (Dust of Disappearance)",
+        "type_and_source_type_rarity": "Consistent (Wondrous item, uncommon)"
+      },
+      "quality": {
+        "completeness": "High. Contains name, type, rarity, attunement requirement, description, and source information.",
+        "clarity": "High. The mechanics (action to use, area of effect, duration, trigger for ending invisibility) are clearly stated."
+      },
+      "mechanics": {
+        "item_type": "Wondrous Item",
+        "rarity": "Uncommon",
+        "attunement": false,
+        "usage": {
+          "action_cost": "Action",
+          "effect": "Grants invisibility to the user and creatures/objects within 10 feet.",
+          "duration": "2d4 minutes (Shared for all subjects)",
+          "consumption": "Consumed upon use.",
+          "break_conditions": "Attacking or casting a spell by an affected creature ends invisibility only for that creature."
+        },
+        "comparison_to_standard_5e": "This item aligns closely with the standard 5th Edition *Dust of Disappearance* (DMG/XGtE), though the typical RAW duration for the standard item is 1 minute, whereas this version specifies 2d4 minutes. Assuming the 2d4 duration is intentional for this specific data set, the mechanic is sound."
+      },
+      "zod_errors": []
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.378Z"
+}

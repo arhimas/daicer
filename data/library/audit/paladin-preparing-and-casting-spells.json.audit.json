@@ -1,0 +1,26 @@
+{
+  "file": "atoms/features/paladin-preparing-and-casting-spells.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-preparing-and-casting-spells.json",
+    "analysis": {
+      "consistency": "The data is highly consistent. It accurately represents the Paladin spell slot progression table (up to level 20) and clearly outlines the mechanics for preparing and casting spells based on Charisma modifier and Paladin level.",
+      "quality": "The quality is high. The raw data includes a comprehensive HTML table and descriptive text. The text correctly explains how spell slots are expended and regained (long rest) and the specific formula for determining the number of prepared spells (Charisma modifier + half paladin level, minimum one). The example provided is clear and helpful.",
+      "mechanics": "The mechanical description is sound according to standard D&D 5th Edition rules for Paladin spellcasting:\n1. **Slot Usage:** Slots must be of the spell's level or higher.\n2. **Regain Slots:** All expended slots are regained on a long rest.\n3. **Preparation Formula:** Prepared Spells = Charisma modifier + (Paladin Level / 2, rounded down). Minimum 1 spell.\n4. **Spell Level Constraint:** Prepared spells must be of a level for which the paladin has spell slots.\n5. **Flexibility:** Casting a spell does not remove it from the prepared list. The list can be changed after a long rest, with a preparation time noted (1 minute per spell level per spell on the list)."
+    },
+    "suggested_refinements": [
+      {
+        "area": "Data Structure",
+        "suggestion": "The spell slot table data is embedded in HTML. For easier programmatic access, consider adding a structured array representation of the table data separately, mapping Paladin Level to an object containing counts for 1st through 5th level slots."
+      },
+      {
+        "area": "Clarity",
+        "suggestion": "While the preparation time ('at least 1 minute per spell level for each spell on your list') is accurate, it's worth noting this time only applies to spells *on the list*, not the total number of prepared spells, though the current wording implies the latter, which can sometimes be confused with the Cleric's preparation time."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:12.481Z"
+}

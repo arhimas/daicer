@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/detect-thoughts.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "detect-thoughts.json",
+    "analysis": {
+      "consistency": {
+        "general": "The spell description is internally consistent, detailing the initial reading of surface thoughts, the optional action to probe deeper (requiring a save), and rules for shifting focus or being detected/contested by the target.",
+        "mechanics": "The casting time (1 action), duration (Concentration, up to 1 minute), and components (V, S, M) are standard for this level of magic. The mechanics for detection (line of sight initially, then penetrating barriers) are clearly defined with specific material limitations (rock, metal, lead)."
+      },
+      "quality": {
+        "completeness": "All necessary mechanical and descriptive elements are present: prerequisites, costs, effects, limitations, and target characteristics (Int 3 or lower are immune).",
+        "clarity": "The description is clear, though the interaction between probing deeper (Wisdom save to resist the probe) and the target contesting the spell (Intelligence check) is complex, but explicitly laid out.",
+        "flavor": "The flavor text successfully emphasizes the utility of the spell in interrogation by shaping thoughts through verbal questioning."
+      },
+      "mechanics": {
+        "level_appropriateness": "Level 2 is appropriate for a spell that allows limited mind reading, as it requires concentration and can be actively resisted or countered by the target.",
+        "action_economy": "The spell uses the caster's action on subsequent turns for either shifting focus or probing deeper, which is balanced for a sustained divination effect.",
+        "target_interaction": "The target's ability to know when it is being probed and to actively contest the spell introduces a strong element of player/target interaction, preventing it from being a purely passive surveillance tool."
+      },
+      "suggested_improvements": [
+        "While the rules are present, explicitly stating the DC for the contested Intelligence check (i.e., using the caster's Spell Save DC) in the probing section might improve readability, although it is implicitly the caster's check result."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.143Z"
+}

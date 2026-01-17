@@ -1,0 +1,38 @@
+{
+  "file": "molecules/spells/magic-circle.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "magic-circle.json",
+    "analysis": {
+      "consistency": {
+        "overall": "High",
+        "notes": "The spell description, components, and effects are mechanically consistent with established D&D 5e spell conventions. The dual-direction functionality (inward vs. outward protection) is clearly defined."
+      },
+      "quality": {
+        "overall": "Excellent",
+        "notes": "This spell offers strong, defined tactical utility (area denial and protection against specific creature types). The cost (100gp material component consumed) is appropriate for a 3rd-level defensive/control spell with a long duration and significant area of effect."
+      },
+      "mechanics": {
+        "level": 3,
+        "school": "abjuration",
+        "casting_time": "1 minute (long setup time implies it's for preparation, not combat reaction)",
+        "range": "10 feet (short range means caster must be close to the intended area)",
+        "area_of_effect": "10-foot-radius, 20-foot-tall cylinder (a substantial vertical area)",
+        "components": "V, S, M (costly and consumed, reinforcing its importance)",
+        "duration": "1 hour (scalable, solid duration)",
+        "primary_effect": "Area denial/restriction targeting specific creature types (celestials, elementals, fey, fiends, undead).",
+        "key_mechanics": [
+          "Forced saving throw (Charisma) to bypass boundary via teleportation/planar travel.",
+          "Disadvantage on attack rolls made by the creature against targets inside.",
+          "Immunity to mental/control effects (charmed, frightened, possessed) from the creature while inside."
+        ],
+        "scaling": "Linear increase in duration (+1 hour per spell level above 3rd), which is standard and effective scaling for duration-based spells."
+      },
+      "suggestions": "None. The spell is well-balanced and clearly written."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.270Z"
+}

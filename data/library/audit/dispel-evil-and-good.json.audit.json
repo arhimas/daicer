@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/dispel-evil-and-good.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "dispel-evil-and-good.json",
+    "analysis": {
+      "consistency": {
+        "naming": "Consistent. 'Dispel Evil and Good' is a standard spell name.",
+        "mechanics_summary": "The spell provides passive defense against specific creature types and offers two distinct action-based effects (Break Enchantment and Dismissal) against the same creature types. The actions are clearly defined.",
+        "data_fields": "All standard required fields (level, school, casting_time, etc.) are present and correctly formatted."
+      },
+      "quality": {
+        "description_clarity": "High clarity. The passive effect is easy to understand (disadvantage on attacks). The two action effects are detailed and specify the target types and outcomes.",
+        "component_quality": "The material component (M) is specific ('holy water or powdered silver and iron'), which is good detail.",
+        "interaction_clarity": "The spell explicitly lists the creature types it affects (celestials, elementals, fey, fiends, and undead), preventing ambiguity."
+      },
+      "mechanics": {
+        "level_and_school": "Level 5 Abjuration. Appropriate for a powerful protective and banishing effect.",
+        "casting_time_and_duration": "1 action cast time, Concentration up to 1 minute. Standard for an ongoing combat buff.",
+        "passive_effect": "Grants disadvantage on attack rolls from specific outsiders/undead. Mechanically sound and useful for facing specific encounters.",
+        "action_break_enchantment": "Uses an action to potentially remove Charmed/Frightened/Possession status applied *only* by the listed creature types. This is a niche but powerful niche cleansing tool.",
+        "action_dismissal": "Uses an action to make a melee spell attack to force a Charisma save to banish the target. This is an offensive application that fits the theme of 'expelling' outsiders/undead. The caveat regarding where undead/fey are sent adds flavor and precision."
+      },
+      "zod_errors": "None."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.703Z"
+}

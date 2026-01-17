@@ -1,0 +1,39 @@
+{
+  "file": "molecules/items/giant-slayer.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "giant-slayer.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_description_implied_type": true,
+        "rarity_consistent_with_source": true
+      },
+      "quality": {
+        "completeness": "Complete; all standard fields are present.",
+        "readability": "High; mechanics are clearly stated.",
+        "formatting_notes": "The description uses inline linking for '[prone](#prone)' which is standard for source material representation."
+      },
+      "mechanics": {
+        "base_bonus": "+1 bonus to attack and damage rolls.",
+        "special_effect": {
+          "trigger": "Hit a giant.",
+          "damage_bonus": "2d6 extra damage of the weapon's type.",
+          "saving_throw": {
+            "type": "Strength",
+            "dc": 15,
+            "effect_on_fail": "Target falls prone.",
+            "effect_on_success": "No effect (implied)."
+          },
+          "target_definition": "Any creature with the 'giant' type, explicitly including ettins and trolls."
+        },
+        "attunement_required": false
+      },
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.799Z"
+}

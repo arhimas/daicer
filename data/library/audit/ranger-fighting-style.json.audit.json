@@ -1,0 +1,19 @@
+{
+  "file": "atoms/features/ranger-fighting-style.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-fighting-style.json",
+    "analysis": {
+      "consistency": "The data entry is consistent with standard D&D 5e feature documentation structure, identifying the feature name, class association, level of acquisition, and a descriptive text.",
+      "quality": "The quality is high. The `slug`, `name`, `class`, and `level` fields are precise. The `description` accurately reflects the core mechanic (choosing a fighting style at 2nd level) and the associated restriction (cannot choose the same style twice).",
+      "mechanics": "The feature grants the Ranger class access to a Fighting Style choice at level 2. This is a standard class progression mechanic in D&D 5e. The mechanic is clearly explained: choose one option from a defined list (not provided here, but implied by 'Choose one of the following options')."
+    },
+    "recommendations": [
+      "Ensure the associated list of selectable Fighting Styles (the options referenced in the description) is linked or fully documented elsewhere for complete mechanical context."
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:10.974Z"
+}

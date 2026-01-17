@@ -1,0 +1,39 @@
+{
+  "file": "molecules/spells/blade-barrier.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "blade-barrier.json",
+    "analysis": {
+      "consistency": "High. The data structure is complete and aligns with standard D&D 5e spell formatting.",
+      "quality": "High. The descriptive text is clear, mechanics (damage, saves, dimensions) are explicitly stated, and class listing is present.",
+      "mechanics_review": {
+        "level": 6,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "90 feet",
+        "duration": "Concentration, up to 10 minutes",
+        "damage": "6d10 slashing",
+        "save_type": "Dexterity",
+        "save_effect": "Half damage on success.",
+        "area_of_effect": {
+          "shape": "Wall (straight or ringed)",
+          "dimensions": {
+            "straight": "100 ft long, 20 ft high, 5 ft thick",
+            "ringed": "60 ft diameter, 20 ft high, 5 ft thick"
+          }
+        },
+        "secondary_effects": [
+          "Provides three-quarters cover",
+          "Space is difficult terrain"
+        ],
+        "class_viability": "Cleric (Appropriate for a Level 6 Evocation spell, often associated with divine barriers or protection/punishment magic)."
+      },
+      "errors_found": "NONE",
+      "suggested_refinements": "None needed; the entry is comprehensive."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:48.645Z"
+}

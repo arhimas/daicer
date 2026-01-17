@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/foresight.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "foresight.json",
+    "analysis": {
+      "consistency": {
+        "level_school_compatibility": "High. Level 9 spells are typically very powerful, and the effects of Foresight (constant advantage/disadvantage/surprise immunity) align with a very high-level divination effect.",
+        "mechanics_and_description_alignment": "High. The description clearly details the mechanical benefits (no surprise, advantage/disadvantage) corresponding to 'limited ability to see into the immediate future'."
+      },
+      "quality": {
+        "completeness": "High. All standard D&D 5e spell fields (slug, name, level, school, ritual, casting_time, range, components, duration, description, classes) are present and populated.",
+        "clarity": "High. The description is clear and the mechanical effects are standard and well-defined in 5e terminology."
+      },
+      "mechanics": {
+        "power_level": "Appropriate for 9th level. Providing advantage/disadvantage on nearly all rolls, plus immunity to surprise for 8 hours, is arguably one of the strongest sustained buffs in the game, fitting for the highest spell level.",
+        "components_analysis": "The material component (a hummingbird feather) is descriptive but generally low cost/no-cost unless specified otherwise (common for powerful divination spells). The duration of 8 hours is significant.",
+        "interaction_with_other_spells": "The clause 'This spell immediately ends if you cast it again before its duration ends' is standard for spells that create powerful, overlapping enhancements on the same target, preventing stacking exploitation."
+      },
+      "zod_errors": "NONE"
+    },
+    "recommendations": "None. This entry appears to be a complete and accurate representation of the 5th Edition spell 'Foresight'."
+  },
+  "timestamp": "2026-01-17T07:22:41.212Z"
+}

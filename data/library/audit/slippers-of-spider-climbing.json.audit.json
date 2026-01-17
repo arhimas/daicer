@@ -1,0 +1,28 @@
+{
+  "file": "molecules/items/slippers-of-spider-climbing.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "slippers-of-spider-climbing.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent. 'Slippers of Spider Climbing' matches the slug.",
+        "type_and_rarity": "Consistent. 'Wondrous item' and 'Uncommon' match the source string.",
+        "mechanics_description": "The description clearly outlines the primary effect (vertical/upside-down movement, climbing speed equal to walking speed) and the limitation (slippery surfaces)."
+      },
+      "quality": {
+        "completeness": "High. All necessary D&D 5e standard fields (name, type, rarity, attunement requirement, description) are present.",
+        "clarity": "High. The mechanical description is concise and unambiguous, mirroring standard text."
+      },
+      "mechanics": {
+        "core_function": "Grants a climbing speed equal to walking speed and the ability to move across vertical surfaces and upside down on ceilings.",
+        "limitation": "Fails on slippery surfaces (ice, oil).",
+        "attunement_impact": "Requires attunement to function, standard for many persistent magic items."
+      },
+      "suggestions": "No significant errors found. The data accurately reflects the established item mechanics."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.568Z"
+}

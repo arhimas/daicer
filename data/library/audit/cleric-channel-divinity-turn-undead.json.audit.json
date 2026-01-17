@@ -1,0 +1,32 @@
+{
+  "file": "atoms/features/cleric-channel-divinity-turn-undead.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "cleric-channel-divinity-turn-undead.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e naming conventions and mechanics for Channel Divinity abilities.",
+      "quality": "High. The description is clear, comprehensive, and accurately reflects the source material (PHB). All necessary mechanical components (action cost, range, saving throw, effect duration, and resulting creature behavior) are present.",
+      "mechanics": {
+        "action_cost": "Action",
+        "range": "30 feet (Self centered)",
+        "save_type": "Wisdom",
+        "target_type": "Undead",
+        "effect": "Turned (Cannot approach caster, must use Dash/Escape, can Dodge if unable to move)",
+        "duration": "1 minute or until the creature takes any damage",
+        "trigger_condition": "Undead must see or hear the caster",
+        "subclass_relevance": "This is the core Level 2 Cleric Channel Divinity feature, though the provided metadata incorrectly flags it as 'is_subclass_feature':true (it is a base class feature at Cleric level 2, not a subclass feature). Mechanically, the description is sound."
+      },
+      "recommendations": [
+        {
+          "level": "Metadata Correction",
+          "description": "The field 'is_subclass_feature':true should likely be 'false' or the level adjusted, as Turn Undead is a core Cleric class feature gained at level 2, not a subclass feature (like those gained at level 3)."
+        }
+      ],
+      "data_archivist_notes": "The mechanical description is perfect. Minor inconsistency noted only in the associated metadata tag regarding subclass status."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:17.093Z"
+}

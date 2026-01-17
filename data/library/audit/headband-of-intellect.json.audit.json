@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/headband-of-intellect.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "headband-of-intellect.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_consistent_with_rarity": true,
+        "attunement_matches_description": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "data_structure_integrity": "High"
+      },
+      "mechanics_verification": {
+        "item_type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement_required": true,
+        "primary_effect": "Sets Intelligence score to 19, unless it is already 19 or higher.",
+        "source_data_integrity": "The source field seems to correctly reference the item type, rarity, and attunement requirement, aligning with standard presentation."
+      },
+      "recommendations": [
+        "No significant issues found. Data is clean and mechanically consistent."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.175Z"
+}

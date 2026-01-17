@@ -1,0 +1,193 @@
+{
+  "file": "molecules/classes/warlock.json",
+  "type": "class",
+  "zod_valid": false,
+  "zod_errors": [
+    "hit_die: Invalid input: expected string, received number"
+  ],
+  "llm_audit": {
+    "entity": "CLASS",
+    "file": "warlock.json",
+    "analysis": {
+      "consistency": "High. The data structure generally adheres to expected class definitions, detailing hit die, proficiencies, and a level-by-level progression.",
+      "quality": "Good. Most fields are well-populated. The 'equipment' list is empty, which might be an omission or intentional if equipment is defined elsewhere, but for a class definition, it's typically expected to list starting gear.",
+      "mechanics_review": {
+        "hit_die_type": "The raw data listed 'hit_die': 8 (a number), but the schema validation flagged an error expecting a string (e.g., 'd8'). This is a mechanical inconsistency in the raw data format.",
+        "progression": "The progression seems mechanically sound for a Warlock progression based on common TTRPG systems (features like Pact Magic, Eldritch Invocations, and Patron features align). PB (Proficiency Bonus) increases are correct for the corresponding levels.",
+        "proficiencies": "Saving throw proficiencies (Wisdom, Charisma) are correct for the Warlock class."
+      },
+      "zod_errors_addressed": [
+        {
+          "error": "hit_die: Invalid input: expected string, received number",
+          "resolution": "The 'hit_die' field is corrected from the number 8 to the string \"d8\" to match expected schema formatting for dice types."
+        }
+      ],
+      "corrected_data": {
+        "slug": "warlock",
+        "name": "Warlock",
+        "hit_die": "d8",
+        "proficiency_choices": [
+          "Arcana",
+          "Deception",
+          "History",
+          "Intimidation",
+          "Investigation",
+          "Nature",
+          "Religion"
+        ],
+        "proficiencies": {
+          "armor": [
+            "Light armor"
+          ],
+          "weapons": [
+            "Simple weapons"
+          ],
+          "tools": [
+            "None"
+          ],
+          "saving_throws": [
+            "Wisdom",
+            "Charisma"
+          ]
+        },
+        "equipment": [],
+        "progression": [
+          {
+            "level": 1,
+            "pb": 2,
+            "features": [
+              "Otherworldly Patron",
+              "Pact Magic"
+            ]
+          },
+          {
+            "level": 2,
+            "pb": 2,
+            "features": [
+              "Eldritch Invocations"
+            ]
+          },
+          {
+            "level": 3,
+            "pb": 2,
+            "features": [
+              "Pact Boon"
+            ]
+          },
+          {
+            "level": 4,
+            "pb": 2,
+            "features": [
+              "Ability Score Improvement"
+            ]
+          },
+          {
+            "level": 5,
+            "pb": 3,
+            "features": []
+          },
+          {
+            "level": 6,
+            "pb": 3,
+            "features": [
+              "Otherworldly Patron feature"
+            ]
+          },
+          {
+            "level": 7,
+            "pb": 3,
+            "features": []
+          },
+          {
+            "level": 8,
+            "pb": 3,
+            "features": [
+              "Ability Score Improvement"
+            ]
+          },
+          {
+            "level": 9,
+            "pb": 4,
+            "features": []
+          },
+          {
+            "level": 10,
+            "pb": 4,
+            "features": [
+              "Otherworldly Patron feature"
+            ]
+          },
+          {
+            "level": 11,
+            "pb": 4,
+            "features": [
+              "Mystic Arcanum"
+            ]
+          },
+          {
+            "level": 12,
+            "pb": 4,
+            "features": [
+              "Ability Score Improvement"
+            ]
+          },
+          {
+            "level": 13,
+            "pb": 5,
+            "features": [
+              "Mystic Arcanum"
+            ]
+          },
+          {
+            "level": 14,
+            "pb": 5,
+            "features": [
+              "Otherworldly Patron feature"
+            ]
+          },
+          {
+            "level": 15,
+            "pb": 5,
+            "features": [
+              "Mystic Arcanum"
+            ]
+          },
+          {
+            "level": 16,
+            "pb": 5,
+            "features": [
+              "Ability Score Improvement"
+            ]
+          },
+          {
+            "level": 17,
+            "pb": 6,
+            "features": [
+              "Mystic Arcanum"
+            ]
+          },
+          {
+            "level": 18,
+            "pb": 6,
+            "features": []
+          },
+          {
+            "level": 19,
+            "pb": 6,
+            "features": [
+              "Ability Score Improvement"
+            ]
+          },
+          {
+            "level": 20,
+            "pb": 6,
+            "features": [
+              "Eldritch Master"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:26.646Z"
+}

@@ -1,0 +1,35 @@
+{
+  "file": "atoms/features/barbarian-fast-movement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-fast-movement.json",
+    "analysis": {
+      "consistency": {
+        "class_name_matches_slug": true,
+        "level_placement_is_standard": true,
+        "mechanical_description_is_clear": true
+      },
+      "quality": {
+        "descriptive_clarity": "High",
+        "completeness": "Complete (refers to standard PHB rule)",
+        "formatting_standard": "Standard"
+      },
+      "mechanics": {
+        "type": "Passive Ability",
+        "trigger": "None (always active under conditions)",
+        "effect": "Increase movement speed by 10 feet.",
+        "conditions": [
+          "Character is a Barbarian",
+          "Character is at least level 5",
+          "Character is NOT wearing heavy armor"
+        ],
+        "balance_assessment": "Standard class feature scaling; balanced for the Barbarian's theme."
+      }
+    },
+    "archivist_notes": "The data entry is consistent, clear, and accurately reflects the 'Fast Movement' feature granted to the Barbarian class at 5th level, including the crucial heavy armor restriction."
+  },
+  "timestamp": "2026-01-17T07:23:18.407Z"
+}

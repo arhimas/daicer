@@ -1,0 +1,31 @@
+{
+  "file": "molecules/items/hat-of-disguise.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "hat-of-disguise.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "rarity_format_match": true,
+        "attunement_format_match": true
+      },
+      "quality": {
+        "completeness": "Good",
+        "clarity": "Excellent",
+        "notes": "The description clearly links the item's function to the specific spell and action cost. Source data corroborates main fields."
+      },
+      "mechanics": {
+        "item_type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement_required": true,
+        "core_ability": "Cast 'Disguise Self' at will as an action while worn.",
+        "duration_control": "Spell ends if the hat is removed."
+      }
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:22:59.994Z"
+}

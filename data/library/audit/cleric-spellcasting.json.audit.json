@@ -1,0 +1,30 @@
+{
+  "file": "atoms/features/cleric-spellcasting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "cleric-spellcasting.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "class_matches_context": true,
+        "level_is_logical": true
+      },
+      "quality": {
+        "description_clarity": "High",
+        "completeness": "High (This is typically the foundational entry-level feature for spellcasters)",
+        "formatting_notes": "No issues detected."
+      },
+      "mechanics": {
+        "core_function": "Establishes the Cleric's primary capability: casting spells.",
+        "impact_level": "Critical (Defines the entire class progression)",
+        "prerequisites_or_dependencies": "None required; it is the base feature.",
+        "potential_ambiguities": "None, as it delegates mechanics to other rules (the spell system)."
+      },
+      "data_archivist_notes": "This feature record is structurally sound and accurately represents the foundational mechanic for the Cleric class. It correctly marks level 1 and is not a subclass feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.798Z"
+}

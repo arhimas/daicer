@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/rogue-stroke-of-luck.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "rogue-stroke-of-luck.json",
+    "analysis": {
+      "consistency": "The feature name, level, and class align with expectations for a high-level class feature.",
+      "quality": "The description is clear, mechanically sound, and provides two distinct, powerful options for a 20th-level ability.",
+      "mechanics": {
+        "level_requirement": 20,
+        "class_restriction": "rogue",
+        "effect_1": "When an attack misses a target within range, change the miss to a hit (Attack Roll modification).",
+        "effect_2": "When an ability check fails, treat the d20 roll as a 20 (Ability Check modification).",
+        "usage_limitation": "Once per short or long rest."
+      },
+      "recommendations": "Mechanically strong for a capstone feature. The wording 'If your attack misses' and 'if you fail an ability check' clearly defines the trigger conditions for using the feature."
+    },
+    "archivist_notes": "Data parsed successfully. Feature details confirmed."
+  },
+  "timestamp": "2026-01-17T07:23:09.681Z"
+}

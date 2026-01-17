@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/wind-fan.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wind-fan.json",
+    "analysis": {
+      "consistency": {
+        "name": "Consistent",
+        "type": "Consistent",
+        "rarity": "Consistent with standard D&D 5e rarity terminology."
+      },
+      "quality": {
+        "description_clarity": "High. Clearly defines the action economy, spell, save DC, and usage limitation.",
+        "item_flavor": "Moderate. It's functional but simple."
+      },
+      "mechanics": {
+        "function": "Casts _Gust of Wind_ (DC 13) as an action.",
+        "attunement": "False (Correct for this level of item power).",
+        "charges_and_limitations": {
+          "limit_type": "Daily Use with Malfunction Risk",
+          "limit_details": "Once per dawn. Subsequent uses before dawn incur a cumulative 20% chance of permanent destruction (0% -> 20% -> 40% -> 60% -> 80% -> Destruction). This is a very strict, high-risk item limitation compared to standard daily charges."
+        },
+        "save_dc_check": "The DC 13 is low for many mid-to-high-tier items, but is appropriate for an Uncommon item relying on a low-level spell like Gust of Wind."
+      },
+      "suggestions": [
+        "The cumulative failure chance is unusual. Standard D&D items usually reset daily or have fixed charges. This mechanic provides significant tension."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.938Z"
+}

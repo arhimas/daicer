@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/cone-of-cold.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "cone-of-cold.json",
+    "analysis": {
+      "consistency": "High. The spell adheres to standard D&D 5e spell formatting.",
+      "quality": "High. The description is clear, includes mechanical details, and outlines scaling effects effectively.",
+      "mechanics": {
+        "level": 5,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "Self (60-foot cone)",
+        "save_dc": "Constitution",
+        "damage": "8d8 cold",
+        "duration": "Instantaneous",
+        "scaling": {
+          "mechanic": "Damage increase",
+          "details": "Damage increases by 1d8 for each slot level above 5th (e.g., 6th level slot deals 9d8)."
+        },
+        "flavor_effect": "Creatures killed become frozen statues until thawed."
+      },
+      "potential_improvements": "None noted. The data is complete and standard for this spell."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:46.575Z"
+}

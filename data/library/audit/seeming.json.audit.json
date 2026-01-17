@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/seeming.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "seeming.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Level 5 Illusion spell is consistent with typical D&D spell progression and school themes.",
+        "casting_time_and_duration": "Casting time of 1 action and duration of 8 hours is appropriate for a significant, sustained illusion.",
+        "components": "V, S (Verbal, Somatic) are standard for this type of spell.",
+        "class_availability": "Bard, Sorcerer, Wizard are appropriate classes for an illusion spell of this level."
+      },
+      "quality": {
+        "description_clarity": "The description is detailed and clearly explains the effects, limitations (body type restriction, failure under physical inspection), and how to end the spell.",
+        "mechanical_completeness": "Includes saving throw mechanism (Charisma for unwilling targets), duration, range (30 feet), and counter-detection method (Investigation check vs. DC).",
+        "flavor": "The spell offers significant utility for disguise and infiltration, fitting the Illusion school well."
+      },
+      "mechanics": {
+        "save_mechanic": "Charisma save against the spell on unwilling targets is standard for appearance alteration spells affecting others.",
+        "detection_mechanic": "The Intelligence (Investigation) check against Spell Save DC provides a reliable, action-based method for breaking the illusion, balancing its power.",
+        "limitations": "The explicit limitations on physical inspection ('objects pass through the hat') are crucial for balance and prevent the spell from simulating true polymorph or perfect disguise, keeping it firmly within the realm of illusion.",
+        "body_type_restriction": "Restricting changes to size (shorter/taller, thin/fat) but prohibiting fundamental body type changes (e.g., changing a human into a quadruped) correctly limits the scope of the illusion."
+      }
+    },
+    "recommendations": {
+      "none": "The spell entry appears complete, well-defined, and mechanically sound within standard TTRPG rulesets."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:32.249Z"
+}

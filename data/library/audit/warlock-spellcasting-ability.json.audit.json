@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/warlock-spellcasting-ability.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "warlock-spellcasting-ability.json",
+    "analysis": {
+      "consistency": "Consistent with standard 5th Edition D&D mechanics for class features defining spellcasting ability.",
+      "quality": "High quality. Clearly defines the spellcasting ability (Charisma) and provides explicit formulas for Spell Save DC and Spell Attack Modifier, which is excellent for mechanical clarity.",
+      "mechanics": {
+        "ability": "Charisma (CHA)",
+        "uses": [
+          "Determining spell save DC",
+          "Determining spell attack modifier",
+          "Used whenever a spell refers to 'your spellcasting ability'"
+        ],
+        "formulas": {
+          "spell_save_dc": "8 + proficiency bonus + Charisma modifier",
+          "spell_attack_modifier": "proficiency bonus + Charisma modifier"
+        }
+      },
+      "notes": "This is a foundational class feature. The inclusion of the standard D&D 5e formulas directly in the description significantly enhances usability."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:07.051Z"
+}

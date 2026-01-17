@@ -1,0 +1,30 @@
+{
+  "file": "molecules/items/potion-of-speed.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-speed.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_is_standard": true,
+        "rarity_is_standard": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "flavor_text_present": true
+      },
+      "mechanics": {
+        "primary_effect": "Grants the effect of the _haste_ spell for 1 minute.",
+        "concentration_required": false,
+        "mechanical_notes": "The effect explicitly states 'no concentration required,' which is a key mechanical feature distinguishing this from the spell.",
+        "potential_issues": "None apparent; standard D&D 5e item implementation."
+      },
+      "archival_notes": "The description effectively conveys the mechanical effect, referencing the linked spell (_haste_) while specifying the duration and concentration clause. The flavor text is evocative."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.030Z"
+}

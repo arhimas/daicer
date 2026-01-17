@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/silent-image.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "silent-image.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 1 Illusion spell.",
+        "casting_time_and_action": "Consistent. Standard casting time of 1 action.",
+        "range_and_effect_size": "Consistent. 60 feet range supports the 15-foot cube volume limit.",
+        "duration_and_concentration": "Consistent. Concentration requirement aligns with the ability to move the image as an action.",
+        "components_and_requirements": "Consistent. V, S, M (a bit of fleece) are standard for this level/school.",
+        "class_availability": "Consistent. Traditionally available to Bard, Sorcerer, and Wizard."
+      },
+      "quality": {
+        "clarity": "High. The description clearly defines size limitations, sensory limitations (visual only), and interaction rules.",
+        "mechanical_depth": "Moderate. Provides clear mechanics for movement (action) and detection (Investigation check vs. Save DC).",
+        "flavor": "Good. Simple yet versatile utility spell."
+      },
+      "mechanics": {
+        "core_function": "Creates a purely visual, immobile or mobile illusion within a 15-foot cube.",
+        "interaction_vs_detection": "Distinction between simple physical interaction (reveals illusion) and dedicated examination (requires DC check) is clear.",
+        "action_economy": "Requires an action to move the image, balancing its persistent nature.",
+        "countering": "Relies on a standard Intelligence (Investigation) check against the spell save DC for discerning the illusion."
+      },
+      "zod_errors_found": false,
+      "suggestions": "None. Data appears complete and accurate according to standard D&D 5e conventions."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:31.571Z"
+}

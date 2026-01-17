@@ -1,0 +1,55 @@
+{
+  "file": "molecules/items/robe-of-stars.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "robe-of-stars.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "rarity_match": true,
+        "type_match": true
+      },
+      "quality": {
+        "completeness": "High. Contains core mechanics, flavor, and source info.",
+        "formatting_issues": "Minor. The description includes raw markdown/link syntax that should be parsed or cleaned for a final presentation layer (e.g., \"[_magic missile_](#magic-missile)\", \"[attunement](#section-attunement)\")."
+      },
+      "mechanics": {
+        "attunement_required": true,
+        "bonuses": [
+          {
+            "type": "saving throw bonus",
+            "value": 1,
+            "scope": "while worn"
+          }
+        ],
+        "charges_or_uses": [
+          {
+            "action": "Action",
+            "effect": "Cast 'Magic Missile' as a 5th-level spell.",
+            "cost": "1 Star (pulled off the robe)",
+            "recharge": {
+              "frequency": "Daily at dusk",
+              "amount": "1d6 removed stars reappear"
+            },
+            "limit_per_use": 1
+          }
+        ],
+        "special_abilities": [
+          {
+            "name": "Astral Projection/Travel",
+            "action": "Action",
+            "effect": "Enter the astral plane along with everything worn and carried. Remain until an action is used to return to the previous plane."
+          }
+        ]
+      }
+    },
+    "recommendations": [
+      "Standardize linking syntax if this data is intended for display.",
+      "Clarify if the 5th-level Magic Missile casting scales based on the number of stars remaining or if it is always 5th level."
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:55.030Z"
+}

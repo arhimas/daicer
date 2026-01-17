@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/find-the-path.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "find-the-path.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "level_and_school_consistent": true,
+        "casting_time_format_standard": true,
+        "duration_format_standard": true,
+        "class_list_present": true
+      },
+      "quality": {
+        "description_clarity": "High. The effect, limitations (same plane, fixed location, specific destination), and duration/concentration are clearly stated. The distinction between 'shortest and most direct' vs 'safest' is important.",
+        "component_detail": "Excellent. Specific material components including a gold cost and a unique item related to the destination are provided.",
+        "mechanic_uniqueness": "The spell offers strong, focused utility for navigation and travel planning, unique in its guarantee of the most direct physical route."
+      },
+      "mechanics": {
+        "level_appropriateness": "Level 6 seems appropriate for such precise, long-duration navigational magic, especially given the high-value material component.",
+        "range_utility": "Self is appropriate, as the guidance is centered on the caster's immediate knowledge.",
+        "limitations_balance": "The limitations (same plane, fixed location, specific destination) are crucial balancing factors preventing this from being an easy teleportation or universal scouting tool.",
+        "component_impact": "The 100 gp component (expended/consumed or just required) should be noted, though typically for Divination spells of this level, it implies consumption or a significant upfront investment. The inclusion of an object from the location ties directly into the specificity requirement.",
+        "interaction_with_other_magic": "It is a pure navigational aid and does not bypass physical barriers, environmental hazards, or hostile entities, which keeps it balanced against teleportation or scrying spells."
+      },
+      "data_archivist_notes": "Data appears complete and mechanically sound according to standard TTRPG spell formatting conventions. The specificity regarding the path ('shortest and most direct') is a key mechanical nuance to archive accurately."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:42.732Z"
+}

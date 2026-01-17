@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/candle-of-invocation.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "candle-of-invocation.json",
+    "analysis": {
+      "consistency": {
+        "name": "Consistent",
+        "type": "Consistent (Wondrous item)",
+        "rarity": "Consistent (Very Rare)",
+        "attunement": "Consistent (requires_attunement: true)",
+        "mechanics_summary": "The description clearly outlines the activation condition (lighting the candle), duration (4 hours burn time, consuming time when lit), light radius (30 ft dim light), alignment-based benefits (advantage for matching alignment creatures, free 1st-level spell slots for matching cleric/druid), and the one-time powerful alternative use (casting *gate*).",
+        "alignment_table_consistency": "The table detailing the d20 roll outcomes for alignment is fully defined, covering all 20 possible outcomes (1-20) and mapping them to the nine standard D&D alignments, consistent with randomized alignment determination."
+      },
+      "quality": {
+        "formatting": "Good. The use of markdown for links (`[_detect evil and good_]`, `[_gate_]`) and the inclusion of a well-formatted HTML table for the alignment randomization are effective for clarity.",
+        "detail_level": "High. Provides specific numerical values for duration (4 hours), radius (30 ft), and mechanics (advantage, free spell slots).",
+        "clarity": "High. The various effects are separated logically."
+      },
+      "mechanics": {
+        "core_function": "Grants significant, alignment-dependent buffs (Advantage, free spell slots) for 4 hours while burning.",
+        "alignment_dependency": "Crucial. All primary benefits hinge on the creature's alignment matching the candle's unknown alignment, which is determined upon item creation or discovery.",
+        "resource_management": "The 4-hour burn time acts as a persistent resource that can be paused. The one-time use of *gate* is a high-cost, high-reward alternative to the sustained buffs.",
+        "spell_slot_refund": "Clerics/Druids regain 1st-level slots, but the spell is cast as if using a 1st-level slot (meaning no upcasting benefit from higher preparation slots is implied, although the text is slightly ambiguous, 'the spell's effect is as if cast with a 1st-level slot' usually means no slot level is expended, not that the spell effect is downgraded if cast from a higher slot). Standard interpretation is: cast a prepared 1st-level spell without using a slot.",
+        "power_level": "Very High. Advantage on nearly all rolls for a creature type, plus free spell slots, is powerful for a Very Rare item. The ability to cast *gate* once justifies the high rarity immediately."
+      },
+      "recommendations": "None. The data is complete and accurately reflects a standard D&D 5e magic item, including all necessary rules text."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.936Z"
+}

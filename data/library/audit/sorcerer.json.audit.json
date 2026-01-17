@@ -1,0 +1,29 @@
+{
+  "file": "molecules/classes/sorcerer.json",
+  "type": "class",
+  "zod_valid": false,
+  "zod_errors": [
+    "hit_die: Invalid input: expected string, received number"
+  ],
+  "llm_audit": {
+    "entity": "CLASS",
+    "file": "sorcerer.json",
+    "analysis": {
+      "consistency": "Generally consistent with typical D&D 5e class structure, detailing progression, proficiencies, and core mechanics.",
+      "quality": "High structural quality, but contains a detected data type error in the 'hit_die' field (expected string, received number). This should be corrected to '6' or 'd6' as a string for consistent data typing.",
+      "mechanics": "The progression accurately reflects the Sorcerer class, including Spellcasting, Font of Magic, Metamagic acquisition points, and Ability Score Improvement (ASI) placements. The structure supports mechanical validation against official sources."
+    },
+    "errors_found": [
+      {
+        "field": "hit_die",
+        "error": "Invalid input: expected string, received number",
+        "recommendation": "Change the value from 6 to \"6\" or \"d6\" to conform to expected string typing if the schema enforces it, or verify if the schema intends for numbers here."
+      }
+    ],
+    "recommendations": [
+      "Standardize the 'hit_die' field format to match other string-based attributes (e.g., use 'd6' or '6' as a string).",
+      "Verify if 'equipment' should be populated; for a base class definition, starting equipment lists are often necessary but are currently empty ([])."
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:25.242Z"
+}

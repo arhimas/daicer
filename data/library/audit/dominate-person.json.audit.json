@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/dominate-person.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "dominate-person.json",
+    "analysis": {
+      "consistency": "High. The spell description clearly outlines the initial charm effect, the telepathic link for simple commands, and the action required for total control. The scaling for higher levels consistently increases the duration.",
+      "quality": "Excellent. The description is detailed, covering mechanical effects (saving throw advantage, damage breaking concentration) and narrative implications (telepathic link, command structure). The formatting uses standard conventions (e.g., bolding, links to mechanics like 'charmed').",
+      "mechanics": {
+        "casting_time": "1 action (Standard)",
+        "range": "60 feet (Appropriate for a 5th-level control spell)",
+        "components": "V, S (Standard for this level/effect)",
+        "duration": "Concentration, up to 1 minute (Standard for powerful control effects)",
+        "save_type": "Wisdom (Standard for mind-affecting/enchantment spells)",
+        "effect_on_damage": "Forces a new save, which is a standard mechanism to prevent a single cast from permanently dominating under duress.",
+        "higher_levels": "Scales duration effectively (10 min, 1 hr, 8 hrs) across 6th, 7th, and 8th levels, which is typical for persistent control spells."
+      },
+      "potential_issues": [
+        "The text implies the creature only attempts to self-preserve if it completes an order and receives no further direction, which is a specific caveat that might require careful adjudication by the DM."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.082Z"
+}

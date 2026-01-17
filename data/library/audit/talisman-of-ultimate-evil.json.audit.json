@@ -1,0 +1,54 @@
+{
+  "file": "molecules/items/talisman-of-ultimate-evil.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "talisman-of-ultimate-evil.json",
+    "analysis": {
+      "consistency_check": {
+        "name_match": true,
+        "slug_match": true,
+        "rarity_match": "Legendary"
+      },
+      "quality_assessment": "High quality. The description is detailed and clearly outlines various mechanical effects based on alignment and usage.",
+      "mechanics_review": {
+        "touch_damage": {
+          "type": "Necrotic",
+          "damage_die": "6d6",
+          "condition": "Touched by creature neither good nor evil",
+          "continuation_damage": "8d6 necrotic damage upon ending turn holding/carrying (good creature only? - Potential ambiguity: Text says 'Either sort of creature takes the damage again each time it ends its turn holding or carrying the talisman.' This implies both neutral/evil and good creatures take the repeating damage.)"
+        },
+        "good_creature_touch_damage": {
+          "type": "Necrotic",
+          "damage_die": "8d6",
+          "condition": "Good creature touching the talisman"
+        },
+        "attunement_benefit": {
+          "requirement": "Evil cleric or paladin",
+          "bonus": "+2 to spell attack rolls",
+          "usage_as": "Holy symbol"
+        },
+        "charges": {
+          "total": 6,
+          "destruction_trigger": "When the last charge is expended",
+          "destruction_effect": "Dissolves into foul-smelling slime and is destroyed"
+        },
+        "action_ability": {
+          "action_cost": "1 charge",
+          "effect": "Flaming fissure opens under target (must be on the ground within 120 ft)",
+          "target_condition": "Good alignment",
+          "save": {
+            "type": "Dexterity",
+            "dc": 20,
+            "failure_consequence": "Target falls into fissure and is destroyed, leaving no remains. Fissure closes without trace."
+          }
+        }
+      },
+      "zod_errors_found": "None",
+      "notes": "The description for the repeating damage on holding/carrying seems to apply to 'Either sort of creature' (implying the neutral/evil touch group and the good touch group), but the initial damage listing separates the effects. The mechanical implementation should treat the repeating damage as applying to both types of creatures that take initial damage upon touching, as stated in the subsequent sentence."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:52.816Z"
+}

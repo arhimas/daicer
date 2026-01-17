@@ -1,0 +1,37 @@
+{
+  "file": "atoms/features/warlock-pact-of-the-blade.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "warlock-pact-of-the-blade.json",
+    "analysis": {
+      "consistency": "Consistent with established Warlock Pact features. The mechanics clearly define creation, utility (magical damage), limitations (range/time), and the optional ritual for binding a specific magic weapon.",
+      "quality": "High quality. The description is comprehensive, covering the core function (creating a weapon), immediate benefits (proficiency, magical damage), limitations (disappearance conditions), and advanced functionality (binding a specific magic weapon via ritual).",
+      "mechanics": {
+        "type": "Action/Bonded Item",
+        "action_cost": "Action (to create)",
+        "benefits": [
+          "Create a melee weapon in an empty hand.",
+          "Proficiency while wielding.",
+          "Counts as magical for overcoming resistance/immunity."
+        ],
+        "limitations": [
+          "Disappears if >5ft away for 1 minute.",
+          "Disappears if feature is used again, dismissed (no action), or character dies."
+        ],
+        "advanced_mechanic": {
+          "name": "Weapon Binding Ritual",
+          "duration": "1 hour (can be done during a short rest)",
+          "effect": "Transforms a magic weapon into the pact weapon (stored in extradimensional space).",
+          "exclusions": [
+            "Artifacts",
+            "Sentient weapons"
+          ]
+        }
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:07.662Z"
+}

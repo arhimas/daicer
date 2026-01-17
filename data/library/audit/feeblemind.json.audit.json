@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/feeblemind.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "feeblemind.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 8 Enchantment spell.",
+        "casting_time_and_range": "Consistent. '1 action' casting time and '150 feet' range are standard for a high-level offensive spell.",
+        "components": "Standard V, S, M. Material component is somewhat thematic (spheres representing a mind/structure).",
+        "duration": "Consistent. 'Instantaneous' duration applies to the initial effect, with subsequent saving throws governing the lingering incapacitation."
+      },
+      "quality": {
+        "damage_and_save": "The initial 4d6 psychic damage is relatively low for an 8th-level spell, suggesting the primary effect is the incapacitation.",
+        "effect_description": "The incapacitation effect (reducing INT and CHA to 1) is extremely potent, effectively turning a creature into a non-sentient ally-follower, which aligns with the description 'shatter its intellect and personality'.",
+        "save_target": "Targeting Intelligence and Charisma saves (implied by the effect, though only one save is explicitly mentioned; typically, the spell description implies one save determines the effect), which is appropriate for an intellect-shattering spell."
+      },
+      "mechanics": {
+        "initial_effect": "4d6 Psychic Damage + Save for massive debuff.",
+        "debuff_severity": "INT 1 and CHA 1 is one of the harshest mental debuffs in the game, overriding standard ability scores. Creatures affected cannot use class features dependent on INT/CHA (spellcasting, many class abilities) or understand language.",
+        "recovery_mechanics": "The 30-day recurring save offers a long, but defined, path to recovery without magical intervention. The mention of powerful restoration spells (_greater restoration_, _heal_, _wish_) provides immediate high-tier counterplay.",
+        "class_access": "Access by Bard, Druid, Warlock, and Wizard seems balanced, placing it among potent arcane and primal casters."
+      },
+      "overall_assessment": "Feeblemind is a quintessential high-level control spell. Its primary power lies in the near-permanent incapacitation (INT/CHA to 1) rather than the initial damage. The mechanics are robust, offering a severe penalty with a defined, albeit very slow, recovery path."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:43.041Z"
+}

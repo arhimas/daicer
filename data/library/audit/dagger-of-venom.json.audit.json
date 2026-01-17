@@ -1,0 +1,40 @@
+{
+  "file": "molecules/items/dagger-of-venom.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "dagger-of-venom.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description_matches_top_level": true,
+        "type_consistency": "The type is 'Weapon (dagger)' and the usage implies a dagger."
+      },
+      "quality": {
+        "formatting": "Clear and standard for item descriptions.",
+        "completeness": "Includes bonus, activation condition, effect, save DC, damage, condition application, and usage limitation."
+      },
+      "mechanics": {
+        "base_bonus": "+1 to attack and damage rolls (standard for Rare magic weapon).",
+        "active_ability": {
+          "action_cost": "Action",
+          "effect": "Coats blade with poison.",
+          "duration": "1 minute or until a hit connects.",
+          "hit_effect": {
+            "damage": "2d10 poison damage",
+            "save": "DC 15 Constitution saving throw",
+            "failure_condition": "Target takes damage and becomes [poisoned] for 1 minute."
+          },
+          "recharge": "Once per dawn."
+        },
+        "balance_check": "A Rare item granting a constant +1 bonus and a powerful, rechargeable once-per-day poison burst (2d10 + condition) seems appropriate for its rarity."
+      },
+      "suggestions": [
+        "Ensure the [poisoned] condition definition is available elsewhere in the data set or standard rules reference."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.991Z"
+}

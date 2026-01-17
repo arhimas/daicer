@@ -1,0 +1,225 @@
+{
+  "file": "atoms/features/ranger-spell-slots.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-spell-slots.json",
+    "analysis": {
+      "consistency": "The data consistently represents the Ranger spell slot progression across levels 1 through 20, as defined by standard D&D 5th Edition rules. The table structure is clear and matches the descriptive text.",
+      "quality": "High. The RAW DATA is well-structured HTML describing a crucial game mechanic (spell slots). The accompanying text clearly explains how to use spell slots and mentions the long rest mechanic for recovery.",
+      "mechanics": "Mechanically sound. It correctly maps the Ranger's growing access to higher-level spells (up to 5th level at level 17) as they level up. The maximum number of 1st-level slots (4) and the eventual availability of 5th-level slots (1 at level 17) aligns with established game rules for this class."
+    },
+    "recommendations": [
+      "Ensure that the referenced slug `_speak with animals_` (and its implicit link target) is correctly indexed in the primary data source, as it is used in the description for context.",
+      "If this data is being presented in a modern system, consider transforming the HTML table into a more easily parsable JSON structure for spell slot counts per level, rather than retaining the raw HTML."
+    ],
+    "suggested_data_restructure": {
+      "class": "ranger",
+      "slots_progression": [
+        {
+          "level": 1,
+          "slots": {
+            "1st": 0,
+            "2nd": 0,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 2,
+          "slots": {
+            "1st": 2,
+            "2nd": 0,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 3,
+          "slots": {
+            "1st": 3,
+            "2nd": 0,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 4,
+          "slots": {
+            "1st": 3,
+            "2nd": 0,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 5,
+          "slots": {
+            "1st": 4,
+            "2nd": 2,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 6,
+          "slots": {
+            "1st": 4,
+            "2nd": 2,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 7,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 8,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 0,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 9,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 2,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 10,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 2,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 11,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 12,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 0,
+            "5th": 0
+          }
+        },
+        {
+          "level": 13,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 1,
+            "5th": 0
+          }
+        },
+        {
+          "level": 14,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 1,
+            "5th": 0
+          }
+        },
+        {
+          "level": 15,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 2,
+            "5th": 0
+          }
+        },
+        {
+          "level": 16,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 2,
+            "5th": 0
+          }
+        },
+        {
+          "level": 17,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 3,
+            "5th": 1
+          }
+        },
+        {
+          "level": 18,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 3,
+            "5th": 1
+          }
+        },
+        {
+          "level": 19,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 3,
+            "5th": 2
+          }
+        },
+        {
+          "level": 20,
+          "slots": {
+            "1st": 4,
+            "2nd": 3,
+            "3rd": 3,
+            "4th": 3,
+            "5th": 2
+          }
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.628Z"
+}

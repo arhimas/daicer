@@ -1,0 +1,39 @@
+{
+  "file": "molecules/spells/speak-with-plants.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "speak-with-plants.json",
+    "analysis": {
+      "consistency": "High. The spell description consistently details sensory communication, environmental manipulation (terrain alteration), and minor physical interaction with plants.",
+      "quality": "Good. The mechanics are clear, outlining communication scope (past day events), terrain modification options (difficult/ordinary), and limitations (no movement/uprooting). The interaction with 'entangle' adds specific mechanical synergy.",
+      "mechanics": {
+        "level": 3,
+        "school": "transmutation",
+        "casting_time": "1 action",
+        "range": "Self (30-foot radius)",
+        "duration": "10 minutes",
+        "components": "V, S",
+        "primary_effects": [
+          "Imbue plants with limited sentience for communication.",
+          "Gain information about events in the area within the past day.",
+          "Alter terrain caused by plant growth (difficult <-> ordinary) for the duration.",
+          "Release a restrained creature from the effects of _entangle_."
+        ],
+        "limitations": [
+          "Plants cannot uproot or move entirely.",
+          "Communication with plant creatures exists, but no magical influence is granted over them."
+        ],
+        "class_support": [
+          "bard",
+          "druid",
+          "ranger"
+        ]
+      },
+      "notes": "The effect radius being 30 feet centered on the caster is well-defined. The ability to question plants about the past day provides a clear utility niche. The terrain alteration is flexible, allowing both beneficial and detrimental application for 10 minutes."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.493Z"
+}

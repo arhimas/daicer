@@ -1,0 +1,49 @@
+{
+  "file": "molecules/spells/scorching-ray.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "scorching-ray.json",
+    "analysis": {
+      "consistency": {
+        "level_and_damage": "Consistent. Level 2 spell dealing 2d6 fire damage per ray.",
+        "scaling": "Consistent. Additional ray per spell slot level above 2nd (e.g., 3rd level slot = 4 rays, 4th level slot = 5 rays).",
+        "casting_time_and_duration": "Standard for an attack spell. 1 action, instantaneous.",
+        "components": "Standard (V, S)."
+      },
+      "quality": {
+        "clarity": "High. The description clearly states the action economy (3 attacks) and how scaling works.",
+        "completeness": "Complete. Includes all necessary mechanical details.",
+        "flavor": "Mechanically sound Evocation spell, fitting the name and school."
+      },
+      "mechanics": {
+        "attack_type": "Ranged Spell Attack (3 separate attacks).",
+        "damage_type": "Fire.",
+        "scaling_mechanism": "Additive. One additional ray per slot level above 2nd.",
+        "spell_slot_scaling_breakdown": [
+          {
+            "slot_level": 2,
+            "rays": 3,
+            "damage_per_ray": "2d6"
+          },
+          {
+            "slot_level": 3,
+            "rays": 4,
+            "damage_per_ray": "2d6"
+          },
+          {
+            "slot_level": 4,
+            "rays": 5,
+            "damage_per_ray": "2d6"
+          }
+        ],
+        "range_utility": "120 feet is a respectable range for a Level 2 attack spell."
+      },
+      "zod_errors_found": false,
+      "archivist_notes": "A core damage/scaling spell for Sorcerers and Wizards. The mechanics are straightforward and well-defined. No data integrity issues found."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:32.477Z"
+}

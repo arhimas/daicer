@@ -1,0 +1,45 @@
+{
+  "file": "molecules/items/wand-of-paralysis.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-paralysis.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_description": true,
+        "rarity_consistent": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "Good",
+        "formatting_notes": "The description uses internal markdown links ('[paralyzed](#paralyzed)', '[attunement](#section-attunement)') which might need external resolution depending on the target system, but the core mechanic description is complete."
+      },
+      "mechanics": {
+        "item_type": "Wand",
+        "rarity": "Rare",
+        "attunement_required": true,
+        "charges": {
+          "initial": 7,
+          "regeneration": "1d6 + 1 daily at dawn",
+          "destruction_threshold": "Roll d20 on last charge; 1 results in destruction"
+        },
+        "action_cost": "Action",
+        "effect": {
+          "type": "Targeted Effect",
+          "range": "60 feet",
+          "saving_throw": {
+            "ability": "Constitution",
+            "dc": 15,
+            "result": "Paralyzed for 1 minute"
+          },
+          "duration_control": "Target can repeat the saving throw at the end of each of its turns to end the effect early."
+        }
+      },
+      "zod_errors_present": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.103Z"
+}

@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/chill-touch.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "chill-touch.json",
+    "analysis": {
+      "consistency": "High. The data adheres to standard D&D 5e spell structure. Damage scaling is standard (levels 5, 11, 17). Components, range, and casting time are typical for a cantrip.",
+      "quality": "High. The description is clear and mechanically precise. The specific effect on undead targets (disadvantage on attacks against the caster) adds unique utility for a necromancy cantrip.",
+      "mechanics": {
+        "type": "Cantrip (Level 0)",
+        "damage": "1d8 Necrotic (scales: 2d8 at 5th, 3d8 at 11th, 4d8 at 17th)",
+        "effect_duration": "Until start of caster's next turn (HP regain prevention)",
+        "secondary_effect": "If target is undead, disadvantage on attack rolls against caster until end of caster's next turn.",
+        "attack_type": "Ranged Spell Attack",
+        "classes": [
+          "sorcerer",
+          "warlock",
+          "wizard"
+        ]
+      },
+      "notes": "This spell serves as excellent early-game damage paired with strong defensive utility against undead, which aligns well with the Necromancy school and its primary users (Warlocks/Wizards)."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.831Z"
+}

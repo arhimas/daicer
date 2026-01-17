@@ -1,0 +1,21 @@
+{
+  "file": "atoms/features/monk-tongue-of-the-sun-and-moon.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-tongue-of-the-sun-and-moon.json",
+    "analysis": {
+      "consistency": "The feature grants language abilities consistent with higher-level Monk features that enhance communication or understanding, similar to telepathy or translation effects found elsewhere in D&D 5e.",
+      "quality": "The feature is clear, mechanically sound, and directly addresses the flavor of a Monk mastering aspects of mental/ki connection. The effects (understanding all spoken languages and being understood by any creature that understands a language) are powerful but appropriate for 13th level.",
+      "mechanics": {
+        "level_appropriateness": "Level 13 is a reasonable tier for gaining a reliable, non-combat utility power like universal communication.",
+        "effect": "Grants two distinct benefits: 1. Comprehension of all spoken languages (similar to the *Tongues* spell, but permanent). 2. Ability to be understood by any creature that understands *any* language (implying the Monk's speech is magically modulated to be comprehensible). This is strong utility.",
+        "synergy": "This ability complements other Monk features by expanding their reach and interaction capabilities beyond just combat."
+      }
+    },
+    "recommendations": []
+  },
+  "timestamp": "2026-01-17T07:23:13.323Z"
+}

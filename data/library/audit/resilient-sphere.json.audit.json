@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/resilient-sphere.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "resilient-sphere.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 4 Evocation spell fits the description of creating a protective barrier.",
+        "components": "Standard format. Material components (crystal and gum arabic) are descriptive and thematic for creating a sphere.",
+        "casting_time_and_duration": "Consistent. 1 action cast time with Concentration up to 1 minute is typical for this level of protective effect.",
+        "range_and_target": "Consistent. 30 feet range, targeting a creature or object of Large size or smaller."
+      },
+      "quality": {
+        "clarity": "High. The description is very clear about what the sphere does: complete separation from the outside environment (in or out).",
+        "flavor": "Good. 'Sphere of shimmering force' is evocative.",
+        "completeness": "Complete. Covers targeting, immunity, movement, and a specific counter (disintegrate)."
+      },
+      "mechanics": {
+        "primary_effect": "Absolute physical and energetic isolation (a mobile, indestructible bubble for 1 minute). This is extremely powerful protection.",
+        "saving_throw": "Dexterity save vs. being enclosed. This makes it counterable by high Dexterity, but once inside, the target is fully protected.",
+        "interaction_with_inside_creatures": "Creatures inside can breathe. They can also self-propel the sphere at half their speed or be moved by others. This allows for mobile imprisonment or safe transport.",
+        "vulnerability": "The explicit vulnerability to _disintegrate_ provides a clear, albeit high-level, countermeasure against total immunity, which is good design for a highly restrictive effect.",
+        "power_level_assessment": "Very high utility and defensive power for a 4th-level slot, essentially providing temporary invulnerability (except to the specific counterspell). It neutralizes most battlefield control and damage sources against the target."
+      },
+      "suggestions": [
+        "Consider clarifying if the enclosed creature/object can *see* outside, although the description implies a complete barrier. Usually, force effects allow vision unless specified otherwise.",
+        "The fact that an enclosed creature can move the sphere by pushing against the inside walls is a neat mechanical addition that should be highlighted in quick reference."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:33.616Z"
+}

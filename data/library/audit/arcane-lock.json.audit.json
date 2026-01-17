@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/arcane-lock.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "arcane-lock.json",
+    "analysis": {
+      "consistency": {
+        "level": "Consistent",
+        "notes": "The spell level (2) is consistent with typical mid-level utility spells. The school (Abjuration) aligns with the protective/locking nature of the effect."
+      },
+      "quality": {
+        "completeness": "High",
+        "notes": "All standard spell fields (slug, name, level, school, ritual, casting time, range, components, duration, description, classes) are present and well-defined."
+      },
+      "mechanics": {
+        "core_effect": "Magically locks a non-magical or already locked object, requiring specific interaction (password or designated creature) to open normally.",
+        "interaction_points": [
+          "Designated creatures can open it normally.",
+          "A spoken password (within 5ft) suppresses the effect for 1 minute.",
+          "The *Knock* spell suppresses it for 10 minutes.",
+          "The object becomes significantly harder to force open (DC +10 to break/pick locks)."
+        ],
+        "resource_cost": "Material component (gold dust worth at least 25 gp, consumed). This is a significant cost for a 2nd-level spell, reinforcing the permanent-like nature of the lock.",
+        "balance_assessment": "Mechanically strong for utility and defense. The consumed 25gp material cost balances the very strong, long-duration lockdown effect. The interaction rules are clear and provide countermeasures."
+      },
+      "zod_errors": "None detected."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.434Z"
+}

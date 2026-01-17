@@ -1,0 +1,43 @@
+{
+  "file": "molecules/items/wand-of-wonder.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-wonder.json",
+    "analysis": {
+      "consistency": {
+        "overall": "High",
+        "notes": "The description clearly outlines the mechanics: charge usage, range, save DC (15), and daily recharge (1d6+1). The provided table details 100 distinct outcomes, adhering to the d100 roll specification."
+      },
+      "quality": {
+        "overall": "High",
+        "notes": "The data is well-structured and detailed, capturing all critical mechanical aspects of the magic item, including specific triggers for creature vs. point targeting and the destruction mechanic on the last charge."
+      },
+      "mechanics": {
+        "charge_system": {
+          "initial_charges": 7,
+          "recharge_rate": "1d6 + 1 daily at dawn",
+          "destruction_trigger": "Roll d20 on last charge expenditure; 1 causes destruction."
+        },
+        "spell_casting": {
+          "save_dc": 15,
+          "range_adjustment": "Range becomes 120 feet if not already, for spells cast from the wand."
+        },
+        "effect_specificity": {
+          "general_rules": "Rules are provided for centering area effects and random determination of subjects when multiple options exist.",
+          "table_coverage": "The d100 table covers outcomes from 01 to 00 (implying 100 outcomes), with effects ranging from minor alterations (blue skin) to powerful spells (fireball) and high-stakes save-or-suck effects (petrification)."
+        },
+        "specific_mechanic_check": {
+          "entry_11_15": "Self-inflicted stun with flavor text ('believing something awesome just happened') is mechanically sound.",
+          "entry_98_00": "The save-or-die/restrain mechanic (DC 15 CON save) is well-defined, including the escalation from restrained to petrified."
+        }
+      },
+      "data_integrity": {
+        "source_metadata_check": "The source metadata confirms rarity ('Rare') and attunement requirement, consistent with the main description."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.646Z"
+}

@@ -1,0 +1,39 @@
+{
+  "file": "atoms/features/ranger-vanish.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-vanish.json",
+    "analysis": {
+      "consistency_check": {
+        "class_alignment": "Consistent with the Ranger class.",
+        "level_progression": "Level 14 feature is appropriate for a high-level class feature.",
+        "naming_convention": "Name 'Vanish' fits the theme of stealth/disappearance."
+      },
+      "quality_assessment": {
+        "clarity": "The description is clear and easily understandable.",
+        "flavor": "Strongly thematic for a master survivalist/tracker.",
+        "balance_consideration": "Bonus action Hide is very powerful at level 14, significantly boosting action economy for stealth. Immunity to nonmagical tracking is a significant utility upgrade."
+      },
+      "mechanics_review": {
+        "feature_1": {
+          "name": "Bonus Action Hide",
+          "effect": "Allows the Hide action as a bonus action.",
+          "mechanical_impact": "High. Grants immediate stealth capability without sacrificing the main action, offering significant tactical advantage in combat or exploration."
+        },
+        "feature_2": {
+          "name": "Tracking Immunity",
+          "effect": "Untrackable by nonmagical means unless the character chooses otherwise.",
+          "mechanical_impact": "High utility. Completely negates standard pursuit mechanics (e.g., survival checks for tracking) unless magic is involved."
+        }
+      },
+      "suggested_improvements": [
+        "None immediately necessary; the feature is powerful but appropriate for a Tier 4 class ability."
+      ]
+    },
+    "archival_status": "ACCEPTED"
+  },
+  "timestamp": "2026-01-17T07:23:10.442Z"
+}

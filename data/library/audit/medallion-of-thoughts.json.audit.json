@@ -1,0 +1,31 @@
+{
+  "file": "molecules/items/medallion-of-thoughts.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "medallion-of-thoughts.json",
+    "analysis": {
+      "consistency": "High. All fields align with the provided RAW DATA structure for an item.",
+      "quality": "Good. The description is clear and comprehensive, detailing charges, action cost, spell effect, save DC, and recharge rate.",
+      "mechanics": {
+        "item_type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement": true,
+        "charges": {
+          "total": 3,
+          "usage": {
+            "action": "Cast Detect Thoughts",
+            "cost": "1 charge",
+            "save_dc": 13
+          },
+          "recharge": "1d3 charges daily at dawn"
+        },
+        "potential_issue": "The description uses a placeholder link syntax ('[_detect thoughts_](#detect-thoughts)'). While readable, for strict archival purposes, the link target should ideally be standardized or resolved."
+      }
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:22:58.120Z"
+}

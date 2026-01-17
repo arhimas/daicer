@@ -1,0 +1,35 @@
+{
+  "file": "molecules/items/mithral-armor.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "mithral-armor.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_format_consistent": true,
+        "rarity_format_consistent": true
+      },
+      "quality": {
+        "completeness": "High",
+        "data_integrity": "Good",
+        "notes": "The source_type_rarity field seems to contain slightly redundant or potentially conflicting information regarding armor types compared to the main 'type' field ('Armor (medium or heavy' vs 'Armor (medium or heavy, but not hide)'). However, the core mechanical description is clear."
+      },
+      "mechanics": {
+        "primary_effect": "Removes disadvantage on Dexterity (Stealth) checks OR Strength requirement if the base armor normally imposes them.",
+        "applies_to": "Medium or heavy armor (excluding hide).",
+        "attunement_required": false,
+        "clarification_needed": "The description implies it applies to any medium or heavy armor, but the source field specifically excludes 'hide'. This exclusion should ideally be reflected in the 'type' field or explicitly mentioned in the description for clarity, although the mechanical benefit description is solid."
+      }
+    },
+    "suggested_refinements": [
+      {
+        "field": "type",
+        "suggestion": "Standardize the type description to match the nuance found in 'source_type_rarity' if 'hide' armor is explicitly excluded by the Mithral version rules, e.g., \"Armor (medium or heavy, excluding hide)\"."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:58.456Z"
+}

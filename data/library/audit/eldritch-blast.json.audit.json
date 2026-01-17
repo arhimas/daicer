@@ -1,0 +1,39 @@
+{
+  "file": "molecules/spells/eldritch-blast.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "eldritch-blast.json",
+    "analysis": {
+      "consistency": {
+        "level": "Consistent. Level 0 (Cantrip) matches common D&D spell conventions.",
+        "school": "Consistent. Evocation is the standard school for offensive damage spells like this.",
+        "casting_time_range_duration": "Consistent. '1 action', '120 feet', and 'Instantaneous' are standard values for a basic damage cantrip.",
+        "components": "Consistent. V, S (Verbal, Somatic) is typical for a cantrip that doesn't require material components.",
+        "scaling": "Mechanically sound. The progression (2 beams at 5th, 3 at 11th, 4 at 17th) is the established scaling for the Eldritch Blast cantrip in 5th Edition D&D, although the damage die (1d10) is noted separately."
+      },
+      "quality": {
+        "completeness": "High. Contains all core spell data fields (level, time, range, components, description).",
+        "clarity": "Very High. The description clearly outlines the attack type (ranged spell attack), damage type (force), and the specific scaling mechanism for higher levels.",
+        "formatting": "Good. The description uses line breaks effectively to separate the base effect from the scaling effect."
+      },
+      "mechanics": {
+        "type": "Damage Cantrip (Ranged Spell Attack)",
+        "damage_base": "1d10 force damage.",
+        "attack_type": "Ranged Spell Attack.",
+        "scaling_mechanism": "The number of attacks (beams) increases at specific levels (5, 11, 17). Each beam requires a separate attack roll.",
+        "class_omission_note": "The 'classes' field is empty. While Eldritch Blast is primarily associated with Warlock, this field should ideally list 'Warlock' (and potentially Sorcerer/Fiend Patron/Magic Initiate sources if this data set tracks spell origins comprehensively)."
+      },
+      "zod_errors": "NONE",
+      "suggested_updates": [
+        {
+          "field": "classes",
+          "suggestion": "Populate with primary casting classes (e.g., [\"Warlock\"])."
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.020Z"
+}

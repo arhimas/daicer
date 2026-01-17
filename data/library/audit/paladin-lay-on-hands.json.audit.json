@@ -1,0 +1,45 @@
+{
+  "file": "atoms/features/paladin-lay-on-hands.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-lay-on-hands.json",
+    "analysis": {
+      "consistency": {
+        "class_level_interaction": "Consistent. The healing pool scales directly with paladin level (Level * 5).",
+        "resource_management": "Consistent. The resource (pool of healing) replenishes on a long rest, a standard resource mechanic.",
+        "action_economy": "Consistent. Using the primary heal requires an action."
+      },
+      "quality": {
+        "clarity": "High. The description clearly defines the total pool size, the action required to use it, and the optional uses (curing disease/poison).",
+        "completeness": "Good. It specifies the limitations (no effect on undead and constructs).",
+        "mechanical_depth": "Moderate. Provides a versatile resource that can be used for variable healing or specific conditions (disease/poison)."
+      },
+      "mechanics": {
+        "type": "Resource Pool Healing/Cleansing",
+        "resource_source": "Paladin Level * 5 HP pool",
+        "resource_regeneration": "Long Rest",
+        "primary_effect": {
+          "action": "Action",
+          "target": "One creature touched",
+          "result": "Restore up to the maximum remaining in the pool."
+        },
+        "secondary_effect": {
+          "cost": "5 HP per use",
+          "result": "Cure one disease OR neutralize one poison.",
+          "multi_use_clarification": "Can affect multiple conditions in one action, expending 5 HP for each."
+        },
+        "limitations": [
+          "No effect on Undead.",
+          "No effect on Constructs."
+        ]
+      },
+      "potential_issues": [
+        "The wording for curing multiple conditions ('You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.') implies that the action cost is still just *one* action to apply all the cleansing effects, provided there is enough HP in the pool. This should be confirmed, but generally, it's interpreted as one action that resolves multiple costs against the pool."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.713Z"
+}

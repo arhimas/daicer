@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/antilife-shell.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "antilife-shell.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 5 Abjuration.",
+        "casting_time_and_range": "Consistent. 1 action, Self (10-foot radius).",
+        "components": "Consistent. Verbal and Somatic required.",
+        "duration": "Consistent. Concentration up to 1 hour is standard for sustained area control effects.",
+        "class_availability": "Consistent. Druids often have spells that affect creatures based on type (e.g., resisting certain elements or types of harm)."
+      },
+      "quality": {
+        "clarity": "High. The description clearly defines the area of effect, the movement mechanics (centered on caster), and the exceptions for passing/reaching through versus casting/attacking through.",
+        "completeness": "Complete. All standard D&D spell fields are present and filled."
+      },
+      "mechanics": {
+        "core_function": "Area denial/exclusion based on creature type (excludes Undead and Constructs from passing/reaching through).",
+        "interaction_with_actions": "Crucially, it allows affected creatures to still attack or cast spells through the barrier. This makes it an excellent positional tool but not a direct offensive shield.",
+        "failure_condition": "The spell ends if the caster moves in a way that forces an excluded creature to pass through it. This prevents the caster from simply dragging the barrier past enemies without penalty, enforcing proximity.",
+        "balance_check": "Level 5 feels appropriate for an area-control spell that creates a personal sanctuary against most organic threats without fully disabling enemy actions (like a stronger *Wall of Force* effect)."
+      },
+      "notes": "The radius definition ('10-foot radius') needs clarification relative to the description ('A shimmering barrier extends out from you in a 10-foot radius'). In standard D&D 5e language, '10-foot radius' usually implies a 20-foot diameter sphere centered on the caster. The description confirms it moves with the caster."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.831Z"
+}

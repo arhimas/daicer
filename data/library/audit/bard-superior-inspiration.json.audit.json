@@ -1,0 +1,30 @@
+{
+  "file": "atoms/features/bard-superior-inspiration.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-superior-inspiration.json",
+    "analysis": {
+      "consistency": {
+        "class_level_alignment": "Consistent. Level 20 features are high-tier class capstones.",
+        "naming_convention": "Consistent. 'Superior Inspiration' is a standard naming convention for high-level class features in D&D 5e.",
+        "description_format": "Consistent. Follows the standard format for describing a class feature's mechanical effect."
+      },
+      "quality": {
+        "clarity": "High. The effect is straightforward and easy to understand.",
+        "flavor": "Moderate. It reinforces the concept of the Bard's innate talent by automatically replenishing their primary resource upon entering combat (rolling initiative).",
+        "power_level": "Appropriate for a 20th-level feature. It provides a significant, reliable resource boost at the start of combat, which is crucial at this level, but only triggers once per encounter setup."
+      },
+      "mechanics": {
+        "trigger": "Rolling initiative while having zero uses of Bardic Inspiration remaining.",
+        "effect": "Regain one use of Bardic Inspiration.",
+        "interaction": "This is a passive, automatic restoration, not an action or bonus action. It ensures the Bard is never completely out of their core resource pool when combat begins, providing a reliable safety net or offensive opening.",
+        "balance_check": "Balanced. It only restores one use, preventing infinite bursts, and only works if they were completely depleted, rewarding proactive use of the resource throughout prior encounters."
+      }
+    },
+    "archival_notes": "The feature mechanically grants a single recharge of Bardic Inspiration upon rolling initiative if it was exhausted. This is a standard, well-designed capstone mechanic for the Bard class, ensuring relevance in the final tier of play."
+  },
+  "timestamp": "2026-01-17T07:23:17.207Z"
+}

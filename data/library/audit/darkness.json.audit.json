@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/darkness.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "darkness.json",
+    "analysis": {
+      "consistency": {
+        "level": "Consistent with standard D&D 5e spell structure. Level 2 Evocation.",
+        "range_and_area": "Clear range (60 feet) and defined area of effect (15-foot-radius sphere).",
+        "components": "Standard V, M components listed with necessary material details.",
+        "duration": "Standard Concentration duration (up to 10 minutes) is appropriate for this type of persistent effect.",
+        "class_availability": "Appropriate for Sorcerer, Warlock, and Wizard."
+      },
+      "quality": {
+        "clarity": "The description is highly detailed and clear, covering crucial mechanical interactions (darkvision, nonmagical light, object interaction, and dispelling lower-level light sources).",
+        "completeness": "All necessary mechanical elements (effect, area, counter-measures, source movement) are fully documented."
+      },
+      "mechanics": {
+        "core_effect": "Creates 15ft radius of magical darkness. This darkness blocks darkvision and nonmagical light.",
+        "interaction_with_light": "Explicitly handles interaction with light sources: dispels light spells of 2nd level or lower, and is blocked by opaque objects covering the source.",
+        "mobility": "Allows the darkness to move if attached to an object being carried/held, which is a vital mechanical note."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.338Z"
+}

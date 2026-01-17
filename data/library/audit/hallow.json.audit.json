@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/hallow.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "hallow.json",
+    "analysis": {
+      "consistency": {
+        "casting_time": "The casting time of '24 hours' is exceptionally long, typical for powerful, long-duration ritual magic, which aligns with the spell's potent and permanent-like effects.",
+        "duration": "Duration is 'Until dispelled', indicating a powerful, long-lasting enchantment, consistent with the high level (5th) and casting time.",
+        "components": "Material component cost (1,000 gp) is substantial and consumed, fitting for a high-level, area-control ritual.",
+        "school": "Evocation is the school, which usually deals with energy or forceful effects, although the primary function here is abjuration/consecration. This is a common classification for spells that fundamentally alter the nature of an area or imbue it with power, even if it doesn't directly blast.",
+        "class_availability": "Cleric access is highly appropriate for a spell named 'Hallow' that deals with holy/unholy power and protection/banishment."
+      },
+      "quality": {
+        "readability": "The description is very detailed and well-structured, clearly separating the base effects from the optional secondary effects. Linking terms like 'charmed', 'frightened', and 'hallow' enhances searchability/cross-referencing.",
+        "completeness": "The spell covers two major aspects: (1) Banishment/Protection against specific creature types (Celestials, Elementals, Fey, Fiends, Undead) and (2) A customizable secondary effect chosen from a list. This provides high utility.",
+        "secondary_effects_balance": "The secondary effects offer a wide range of utility (damage resistance/vulnerability, light/darkness control, anti-teleportation, silence, fear/courage). The save mechanism (Charisma save) balances the effects that specifically target creatures. The exclusion list for damage types (bludgeoning, piercing, slashing) in Energy Protection/Vulnerability is standard for balancing spells that affect resistances/vulnerabilities based on general protection rather than specific armor types."
+      },
+      "mechanics": {
+        "area_of_effect": "Radius up to 60 feet (120-foot diameter circle) is a very large area for a single-target concentration spell, but acceptable for a long-duration ritual.",
+        "interaction_with_other_hallow": "The rule preventing overlapping areas of effect prevents exploiting the spell by stacking multiple effects in the same spot.",
+        "creature_types_affected": "The specific exclusion of Celestials, Elementals, Fey, Fiends, and Undead targets common supernatural threats, offering strong defensive utility for fortified locations.",
+        "saving_throw_clarity": "The rule for the secondary effect save is clear: only creatures that *would* be affected make the save on entry or start of turn. Successful saves grant immunity until the creature leaves the area."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.488Z"
+}

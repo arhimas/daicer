@@ -1,0 +1,32 @@
+{
+  "file": "molecules/items/cloak-of-the-manta-ray.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cloak-of-the-manta-ray.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_consistent_with_rarity": true,
+        "source_data_integrity": "High - All fields present and logically consistent."
+      },
+      "quality": {
+        "description_clarity": "Excellent - Clearly states the benefits (breathing underwater, swimming speed) and the action required to activate the hood.",
+        "completeness": "Complete - Includes all necessary attributes for an item entry."
+      },
+      "mechanics": {
+        "attunement_required": false,
+        "primary_effects": [
+          "Breathe underwater",
+          "Swimming speed of 60 feet"
+        ],
+        "activation_trigger": "Pulling the hood up or down (requires an action)",
+        "power_level": "Appropriate for Uncommon rarity; grants significant mobility/utility in aquatic environments."
+      },
+      "notes": "The item functions while the hood is up, and changing the state requires an action, which is a standard D&D 5e mechanic for activating/deactivating certain magical clothing properties."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:03.055Z"
+}

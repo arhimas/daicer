@@ -1,0 +1,42 @@
+{
+  "file": "molecules/spells/fireball.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "fireball.json",
+    "analysis": {
+      "consistency": "High. The data fields align perfectly with a standard D&D 5e spell entry structure.",
+      "quality": "High. The description is complete, including at-higher-levels scaling, and all mechanical components (damage, radius, save type) are present.",
+      "mechanics": {
+        "spell_name": "Fireball",
+        "level": 3,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "150 feet",
+        "components": "V, S, M (a tiny ball of bat guano and sulfur)",
+        "duration": "Instantaneous",
+        "damage": {
+          "type": "fire",
+          "dice": "8d6",
+          "scaling": "+1d6 per slot level above 3rd"
+        },
+        "area_of_effect": {
+          "type": "sphere",
+          "radius_feet": 20
+        },
+        "save_required": true,
+        "save_ability": "Dexterity",
+        "save_effect": "Half damage on success",
+        "classes": [
+          "sorcerer",
+          "wizard"
+        ]
+      },
+      "zod_errors": "NONE",
+      "archivist_notes": "Mechanically sound and complete entry for Fireball. The material component notation is standard. No inconsistencies detected."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:41.762Z"
+}

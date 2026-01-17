@@ -1,0 +1,34 @@
+{
+  "file": "atoms/features/paladin-aura-of-courage.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-aura-of-courage.json",
+    "analysis": {
+      "consistency": {
+        "class_feature_placement": "Consistent with Paladin class progression.",
+        "level_progression": "The initial level (10th) and subsequent increase (18th) align with standard D&D 5e feature scaling.",
+        "mechanic_labeling": "Uses standard condition tag ([frightened](#frightened))."
+      },
+      "quality": {
+        "clarity": "The description is clear and concise regarding the effect (immunity to being frightened) and scope (self and allies within range).",
+        "completeness": "Fully describes the initial effect and the later enhancement (range increase at 18th level).",
+        "formatting": "Uses appropriate markdown/tagging for conditions."
+      },
+      "mechanics": {
+        "type": "Aura/Passive Buff",
+        "trigger": "The paladin being conscious.",
+        "effect": "Grants immunity to the Frightened condition to self and allies within range.",
+        "range": {
+          "initial": "10 feet",
+          "enhanced": "30 feet (at 18th level)"
+        },
+        "interaction": "This is a strong defensive ability, synergizing well with Paladin front-line roles. The dependency on the Paladin remaining conscious is a key balancing factor."
+      },
+      "recommendations": []
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.962Z"
+}

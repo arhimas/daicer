@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/guidance.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "guidance.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 0 (Cantrip) aligns with common D&D school distributions, and 'divination' is a common school for utility cantrips.",
+        "casting_time_range_match": "Consistent. '1 action' and 'Touch' range are standard for buff cantrips.",
+        "component_duration_match": "Consistent. V, S components and Concentration duration are common for spells affecting future rolls."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly states the effect (roll a d4, add to one ability check), when it can be applied (before or after), and the duration/trigger for the spell ending.",
+        "mechanical_flavor": "Excellent. Mechanically reinforces the theme of minor, timely divine direction."
+      },
+      "mechanics": {
+        "core_effect": "Provides a bonus die (d4) to a single ability check.",
+        "trigger_condition": "The target chooses one ability check to apply the bonus to.",
+        "limitation": "The effect is consumed on the first use, or when the concentration breaks/duration expires (though using the die ends it immediately).",
+        "balance_assessment": "Very balanced for a Level 0 spell (cantrip). The small bonus (d4) and single use make it powerful but not broken for early-game utility."
+      },
+      "suggested_updates": [
+        {
+          "type": "NONE",
+          "reason": "The data appears complete and consistent with standard SRD/5e spell formatting."
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.245Z"
+}

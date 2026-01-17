@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/prismatic-wall.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "prismatic-wall.json",
+    "analysis": {
+      "consistency": {
+        "general": "The spell description is highly detailed and logically structured, detailing the wall's creation, general effects (light, creature interaction), and then breaking down the seven distinct layers sequentially (Red to Violet). The mechanics for saving throws, damage types, immunities/weaknesses, and destruction methods for each layer are explicitly laid out.",
+        "layer_progression": "The destruction progression (Red to Violet) is consistently defined. However, the interaction mechanics (passing through vs. destroying) are somewhat separate, which is expected given the complexity.",
+        "saving_throws": "Each layer specifies a required Dexterity saving throw for interaction effects. Layer 6 (Indigo) introduces a secondary Constitution check progression for petrification, and Layer 7 (Violet) introduces a Wisdom save for the banishment effect. This complexity is standard for high-level prismatic spells but warrants careful tracking by the GM."
+      },
+      "quality": {
+        "completeness": "The entry is very complete, covering all standard spell components (casting time, range, components, duration, description, classes).",
+        "clarity": "The clarity is excellent, despite the high mechanical density. The use of numbered lists for the layers significantly aids readability.",
+        "mechanical_notes": "The wall dimensions (90x30x1 inch) are clear. The blinding effect on creatures observing the wall (Constitution save) is a potent area denial mechanic separate from the passage effects. The description of the Indigo layer's petrification tracking (three successes/failures don't need to be consecutive) is crucial and well-stated."
+      },
+      "mechanics": {
+        "interaction_vs_area_denial": "The spell successfully mixes area denial (blinding creatures within 20ft) with direct interaction effects (the seven layers).",
+        "layer_6_indigo_risk": "The Indigo layer presents a unique long-term risk (permanent petrification) tied to repeated Constitution saves, creating high tension for creatures attempting to pass.",
+        "layer_7_violet_banishment": "The Violet layer's banishment mechanism is detailed, specifying where creatures typically end up based on their plane of origin, which helps the GM adjudicate.",
+        "destruction_vs_immunity": "It is noted that *antimagic field* has no effect, which is a key piece of information, while specific countermeasures (like *rod of cancellation*) are listed."
+      },
+      "suggestions": "No significant errors or inconsistencies were found. The data accurately reflects the complexity of the *Prismatic Wall* spell. Ensure that the definition of 'similar spell' for destroying the Green and Violet layers is consistent with established D&D terminology, though this is an adjudication point rather than a data error."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.912Z"
+}

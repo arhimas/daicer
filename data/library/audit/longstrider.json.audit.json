@@ -1,0 +1,38 @@
+{
+  "file": "molecules/spells/longstrider.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "longstrider.json",
+    "data_consistency_check": {
+      "entity_name": "Longstrider",
+      "consistency_score": 5,
+      "notes": "All required fields are present and internally consistent for a standard D&D 5e spell entry."
+    },
+    "quality_assessment": {
+      "completeness": "Complete",
+      "clarity": "High",
+      "formatting_standard": "Excellent",
+      "description_review": "The description clearly states the base effect and the scaling mechanic ('At Higher Levels'). The material component is simple and appropriate."
+    },
+    "mechanics_analysis": {
+      "level": 1,
+      "school": "transmutation",
+      "casting_time": "1 action",
+      "range": "Touch",
+      "components_integrity": {
+        "V": true,
+        "S": true,
+        "M": "a pinch of dirt"
+      },
+      "duration": "1 hour",
+      "effect_summary": "Increases target's speed by 10 feet.",
+      "scaling_mechanic": "One additional creature target per spell slot level above 1st (e.g., 2nd level slot targets 2 creatures, 3rd level slot targets 3 creatures).",
+      "class_balance_check": "Appropriate for Bard, Druid, Ranger, and Wizard at level 1, fitting the theme of minor physical enhancement."
+    },
+    "archivist_notes": "Data integrity confirmed. Spell mechanics are standard and well-defined."
+  },
+  "timestamp": "2026-01-17T07:22:36.883Z"
+}

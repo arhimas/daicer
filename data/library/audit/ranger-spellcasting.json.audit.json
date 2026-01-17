@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/ranger-spellcasting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-spellcasting.json",
+    "analysis": {
+      "consistency": {
+        "class_reference": "Consistent with the Ranger class.",
+        "level_progression": "The description correctly notes that spellcasting begins at 2nd level, despite the feature being listed at level 1 (which is typical for features that grant the *ability* but whose mechanics start later)."
+      },
+      "quality": {
+        "clarity": "Clear and directly references core rules sections (Spellcasting chapter and Ranger spell list).",
+        "completeness": "Sufficiently describes the acquisition of the ability and points to necessary external rules."
+      },
+      "mechanics": {
+        "feature_type": "Core class feature.",
+        "trigger": "Acquired at 2nd level.",
+        "impact": "Grants the Ranger access to nature-based spellcasting capabilities, similar to a Druid."
+      },
+      "data_integrity": {
+        "slug_matches_name": true,
+        "level_accuracy": "The feature entry is marked level 1, but text correctly states the effect manifests at level 2, which is mechanically sound for tracking feature acquisition."
+      }
+    },
+    "recommendations": [
+      "No mechanical changes required. The data accurately reflects standard 5e Ranger progression where the feature object is present at level 1 but the rules text specifies level 2 activation."
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:10.473Z"
+}

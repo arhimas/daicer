@@ -1,0 +1,44 @@
+{
+  "file": "molecules/spells/enlargereduce.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "enlargereduce.json",
+    "analysis": {
+      "consistency": {
+        "notes": "The spell description is internally consistent, clearly defining two mutually exclusive effects (Enlarge and Reduce) based on the caster's choice. The mechanics for size change, weight change, ability score modifiers (Advantage/Disadvantage on Strength checks/saves), and weapon damage modification are clearly specified for both modes.",
+        "warnings": []
+      },
+      "quality": {
+        "notes": "This is a high-quality, well-documented spell description typical of standard TTRPG rulesets. It covers all necessary aspects: casting time, range, components, duration, target restrictions (unworn/unattended objects, unwilling creatures), and detailed mechanical impacts for both enlargement and reduction. The inclusion of the caveat for the 'Reduce' damage subtraction (can't reduce below 1) shows attention to detail.",
+        "suggestions": [
+          "While standard for this type of spell, explicitly stating the size categories affected (e.g., Gargantuan creatures might have limitations, though none are mentioned here) could be beneficial, though likely unnecessary given the standard rules context."
+        ]
+      },
+      "mechanics": {
+        "primary_effect": "Alter the physical size (and related statistics) of one creature or object.",
+        "enlarge_mechanics": {
+          "size_change": "Size doubles in all dimensions (e.g., Medium -> Large).",
+          "weight_change": "Multiplied by eight.",
+          "ability_modifier": "Advantage on Strength checks and saving throws.",
+          "damage_modifier": "+1d4 extra damage to attacks made with enlarged weapons."
+        },
+        "reduce_mechanics": {
+          "size_change": "Size is halved in all dimensions (e.g., Medium -> Small).",
+          "weight_change": "Reduced to one-eighth of normal.",
+          "ability_modifier": "Disadvantage on Strength checks and saving throws.",
+          "damage_modifier": "-1d4 less damage to attacks with reduced weapons (minimum damage of 1)."
+        },
+        "interaction_notes": "The rule that worn/carried items change size with the creature, but dropped items return to normal size immediately, is a crucial mechanical clarification handled correctly."
+      }
+    },
+    "metadata": {
+      "entity_name": "Enlarge/Reduce",
+      "school": "transmutation",
+      "level": 2
+    }
+  },
+  "timestamp": "2026-01-17T07:22:43.991Z"
+}

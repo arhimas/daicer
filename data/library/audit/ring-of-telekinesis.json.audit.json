@@ -1,0 +1,23 @@
+{
+  "file": "molecules/items/ring-of-telekinesis.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-telekinesis.json",
+    "analysis": {
+      "consistency": "High. The name, type, and rarity are consistent across the provided data points.",
+      "quality": "High. The description is specific and mechanically clear. It correctly references the 'telekinesis' spell and imposes a specific limitation on its use (targeting only unattended objects).",
+      "mechanics": {
+        "item_type": "Ring",
+        "rarity": "Very Rare",
+        "attunement_required": true,
+        "primary_effect": "Grants the ability to cast the _telekinesis_ spell at will.",
+        "limitation": "The spell cast via the ring can only target objects that are not being worn or carried (unattended objects)."
+      },
+      "notes": "The raw data mentions the source rarity structure, which confirms the 'Very Rare' status and attunement requirement."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:54.887Z"
+}

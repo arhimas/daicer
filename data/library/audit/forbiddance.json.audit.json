@@ -1,0 +1,36 @@
+{
+  "file": "molecules/spells/forbiddance.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "forbiddance.json",
+    "analysis": {
+      "consistency": {
+        "naming": "Consistent. 'Forbiddance' is used throughout.",
+        "mechanics": "Consistent. The spell provides layered protection (anti-teleport/planar travel) and area denial damage, both clearly defined.",
+        "formatting": "Follows standard spell block format for description."
+      },
+      "quality": {
+        "clarity": "High. The spell's effects are detailed and unambiguous, covering entry restrictions and damage triggers.",
+        "completeness": "High. Includes level, school, casting time, components (with high-value material cost), duration, trigger conditions, and class availability.",
+        "flavor": "Appropriate for a high-level Abjuration spell, focusing on sanctifying or locking down an area against extraplanar or unwanted presences."
+      },
+      "mechanics": {
+        "level_and_school": "Level 6 Abjuration is suitable for such a potent, long-duration area denial/protection spell.",
+        "ritual_tag": "Appropriate for a 10-minute casting time and 1-day duration, suggesting preparatory magic.",
+        "component_cost": "The 1,000 gp material component (consumed or not, the text implies consumption upon the 30th day casting) is fitting for a powerful ward.",
+        "area_of_effect": "A large area (40,000 sq ft) defined by floor space and height, typical for fixed wards.",
+        "anti_travel_effect": "Comprehensive, blocking teleportation, portals, and entry via several major planes (Astral, Ethereal, Fey, Shadow) and _Plane Shift_.",
+        "damage_trigger": "First entry into the area per turn OR starting the turn there. This is a strong trigger, ensuring creatures inside suffer damage if they remain.",
+        "damage_output": "5d10 damage (Radiant or Necrotic). This is substantial for a sustained area effect at level 6.",
+        "damage_types": "Choice of Radiant/Necrotic allows flexibility, often aligning with the caster's deity or purpose (e.g., Radiant against Fiends/Undead, Necrotic against Celstials/Fey).",
+        "exceptions": "The password clause is a standard and necessary quality-of-life feature for a protective ward that might need to be entered by allies.",
+        "duration_extension": "The 30-day continuous casting to make the spell permanent (until dispelled) is a classic, high-commitment feature for masterwork defensive magic."
+      },
+      "zod_errors_assessment": "No errors detected. The data appears clean and complete based on standard TTRPG data schemas."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:42.602Z"
+}

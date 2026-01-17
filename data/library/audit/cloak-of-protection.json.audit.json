@@ -1,0 +1,32 @@
+{
+  "file": "molecules/items/cloak-of-protection.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cloak-of-protection.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent ('Cloak of Protection' vs 'cloak-of-protection').",
+        "type_and_rarity": "Consistent ('Wondrous item' vs 'Uncommon').",
+        "data_fidelity": "High. The 'source_type_rarity' field appears to be a concatenation of other fields and includes metadata about attunement ('requires [attunement](#section-attunement))' which is redundant given the 'requires_attunement': true field, but not conflicting."
+      },
+      "quality": {
+        "completeness": "High. Contains core mechanical and descriptive data.",
+        "clarity": "Excellent. The description is clear and directly states the mechanical benefit.",
+        "formatting": "Standard and clean."
+      },
+      "mechanics": {
+        "primary_effect": "+1 bonus to AC and saving throws.",
+        "attunement_requirement": "Yes.",
+        "item_type": "Wondrous item.",
+        "balance_check": "Appropriate for an Uncommon rarity item; the universal +1 bonus is standard for this tier."
+      },
+      "recommendations": [
+        "The 'source_type_rarity' field might be redundant for automated parsing and could potentially be deprecated or used purely for display text, as its components are already mapped to dedicated fields."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:03.181Z"
+}

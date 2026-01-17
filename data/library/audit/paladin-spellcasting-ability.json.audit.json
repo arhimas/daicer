@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/paladin-spellcasting-ability.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-spellcasting-ability.json",
+    "analysis": {
+      "consistency": "High. The feature clearly defines Charisma as the spellcasting ability for the Paladin class, which is consistent with standard TTRPG rules for this class.",
+      "quality": "High. The description is precise, covers the key mechanical applications (DC, attack modifier), and includes the explicit formulas in a clear tabular format.",
+      "mechanics": {
+        "spellcasting_ability": "Charisma",
+        "spell_save_dc_formula": "8 + proficiency bonus + Charisma modifier",
+        "spell_attack_modifier_formula": "proficiency bonus + Charisma modifier",
+        "applies_to_class": "paladin",
+        "applies_at_level": 1,
+        "is_subclass_feature": true
+      }
+    },
+    "recommendations": []
+  },
+  "timestamp": "2026-01-17T07:23:11.354Z"
+}

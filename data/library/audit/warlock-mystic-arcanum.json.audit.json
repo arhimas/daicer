@@ -1,0 +1,30 @@
+{
+  "file": "atoms/features/warlock-mystic-arcanum.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "warlock-mystic-arcanum.json",
+    "analysis": {
+      "consistency": "High. The feature describes an addition to the Warlock class mechanic (Mystic Arcanum) that scales predictably with level.",
+      "quality": "Good. The description is clear about the spell level, casting limitation (once per long rest), and scaling progression (11th, 13th, 15th, 17th levels). It correctly references the Warlock spell list.",
+      "mechanics": {
+        "core_effect": "Grants a one-time use of a high-level spell (starting at 6th level) per long rest.",
+        "progression": {
+          "level_11": "One 6th-level spell slot equivalent use.",
+          "level_13": "One 7th-level spell slot equivalent use.",
+          "level_15": "One 8th-level spell slot equivalent use.",
+          "level_17": "One 9th-level spell slot equivalent use."
+        },
+        "limitation": "Requires a long rest to recharge the usage of the bestowed spell(s)."
+      },
+      "potential_issues": [
+        "The description mentions the spell must be chosen from the 'warlock spell list' but does not explicitly state if the spell must also be one the Warlock can normally cast at that level, though standard D&D rules imply they must be on the list.",
+        "It doesn't specify if the chosen spells remain the same or can be swapped out upon reaching the next tier of Arcanum (e.g., choosing the 7th level spell replaces or adds to the 6th level spell? Standard interpretation is that it adds another unique high-level spell slot equivalent)."
+      ],
+      "clarification_needed": "Confirmation on whether the spell choices are cumulative (standard interpretation) or if higher-level choices replace lower ones."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.444Z"
+}

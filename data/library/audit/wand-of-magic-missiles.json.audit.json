@@ -1,0 +1,27 @@
+{
+  "file": "molecules/items/wand-of-magic-missiles.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-magic-missiles.json",
+    "analysis": {
+      "consistency": "Consistent. The item description clearly details its function based on the standard mechanics of a magic item that casts a spell.",
+      "quality": "High. The description is comprehensive, covering charges, action economy, spell level scaling, recharge rate, and destruction condition.",
+      "mechanics": {
+        "type": "Wand",
+        "spell": "Magic Missile",
+        "charges": {
+          "initial": 7,
+          "recharge": "1d6 + 1 daily at dawn",
+          "expenditure": "1 or more charges to cast Magic Missile, scaling the spell slot level one for one with additional charges."
+        },
+        "attunement": false,
+        "destruction_trigger": "Expending the last charge, 1 on a d20 roll."
+      },
+      "notes": "The mechanics align perfectly with established D&D 5e item tropes for wands, specifically the scaling mechanism based on expended charges."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.124Z"
+}

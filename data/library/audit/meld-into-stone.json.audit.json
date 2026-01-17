@@ -1,0 +1,53 @@
+{
+  "file": "molecules/spells/meld-into-stone.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "meld-into-stone.json",
+    "analysis": {
+      "consistency": {
+        "name_match_slug": true,
+        "level_type": "integer",
+        "school_valid": true,
+        "ritual_boolean": true,
+        "casting_time_format": "standard",
+        "range_format": "standard",
+        "components_format": "standard",
+        "duration_format": "standard",
+        "class_list_valid": true
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines the conditions for entry, effects while merged (sensory deprivation, spellcasting), movement, and conditions for ending the spell (exit, damage from partial/complete destruction).",
+        "mechanics_completeness": "Complete. Covers entry, duration limits, sensory interaction, self-spellcasting, exit conditions, and specific damage outcomes for stone destruction."
+      },
+      "mechanics": {
+        "level": 3,
+        "school": "transmutation",
+        "ritual": true,
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components": "V, S",
+        "duration": "8 hours",
+        "effects": [
+          "Target melds into a stone object/surface large enough to contain them.",
+          "Duration is 8 hours.",
+          "Entry requires 1 action at a touchable point.",
+          "Nonmagical senses cannot detect the caster while merged.",
+          "Caster cannot see outside; Perception checks to hear outside have disadvantage.",
+          "Caster can cast spells only on themselves while merged.",
+          "Exit requires movement; ends the spell.",
+          "Minor damage to stone does not harm caster.",
+          "Partial destruction/shape change forces exit, dealing 6d6 bludgeoning damage and expelling the caster prone.",
+          "Complete destruction forces exit, dealing 50 bludgeoning damage and expelling the caster prone."
+        ],
+        "classes": [
+          "cleric",
+          "druid"
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.533Z"
+}

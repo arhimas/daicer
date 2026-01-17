@@ -1,0 +1,28 @@
+{
+  "file": "molecules/items/berserker-axe.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "berserker-axe.json",
+    "analysis": {
+      "consistency": "High. The 'RAW DATA' seems consistent with typical D&D 5e magic item formatting, describing its bonuses, attunement requirement, and curse effects.",
+      "quality": "Good. The description is clear, detailing mechanical benefits (+1 bonus, HP max increase) and significant drawbacks (curse, forced berserk state). The mechanical descriptions are robust.",
+      "mechanics_assessment": {
+        "bonuses": "+1 bonus to attack and damage rolls. Hit point maximum increases by 1 per level attained while attuned.",
+        "attunement": "Required (True).",
+        "curse_effects": [
+          "Unwilling to part with the axe (must keep it within reach).",
+          "Disadvantage on attack rolls with other weapons unless no visible/audible foe is within 60 feet.",
+          "Mandatory berserk state upon taking damage while possessing the axe (DC 15 Wisdom save)."
+        ],
+        "berserk_mechanics": "Must use action each round to attack the nearest hostile creature with the axe, prioritizing extra attacks on the current target before moving to the next nearest. Berserk state ends at the start of the turn if no visible/audible foe is within 60 feet.",
+        "clarity": "The mechanics are clear, although the 'berserk' state is very restrictive and powerful, making it a high-risk, high-reward item typical of cursed artifacts."
+      },
+      "zod_errors_present": false,
+      "archival_notes": "Item detailing a powerful, cursed weapon with mechanics forcing martial engagement upon being struck. Ensure proper tracking of the HP maximum increase tied to character level."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:05.198Z"
+}

@@ -1,0 +1,38 @@
+{
+  "file": "atoms/features/wizard-cantrips.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "wizard-cantrips.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent. The feature is clearly marked for the 'wizard' class.",
+        "level_alignment": "Consistent. The feature description references level progression ('At 1st level', 'higher levels').",
+        "naming_convention": "Consistent. 'Cantrips' is standard nomenclature."
+      },
+      "quality": {
+        "completeness": "Sufficient for a general feature description, but relies on external reference ('wizard spell list').",
+        "clarity": "High. Clearly states the initial count (three) and the mechanism for gaining more (level progression shown in the Wizard table).",
+        "data_structure": "Simple and direct."
+      },
+      "mechanics": {
+        "initial_benefit": "Learn 3 cantrips from the Wizard spell list at 1st level.",
+        "progression": "Gain additional cantrips at higher levels, referencing a specific table.",
+        "type": "Class Feature granting spell knowledge.",
+        "subclass_dependency": "Marked as 'is_subclass_feature': true, which contradicts the RAW data stating it's a base class feature gained at level 1 via the 'Wizard table' progression, which is usually not subclass dependent. This flag might be erroneous based on standard 5e conventions for base class features."
+      },
+      "concerns": [
+        {
+          "type": "Flag Discrepancy",
+          "detail": "The metadata flag 'is_subclass_feature': true seems incorrect for the base Wizard Cantrips feature, which is a core class feature, not a subclass feature."
+        }
+      ],
+      "recommendations": [
+        "Verify the 'is_subclass_feature' flag setting for this specific entity. If this represents the core Wizard feature, the flag should likely be false."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:07.257Z"
+}

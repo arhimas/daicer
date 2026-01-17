@@ -1,0 +1,32 @@
+{
+  "file": "molecules/items/mace-of-disruption.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "mace-of-disruption.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent. 'Mace of Disruption' matches the standard naming convention derived from the slug.",
+        "rarity_in_data": "Matches declared rarity 'Rare'.",
+        "type_consistency": "Type 'Weapon (mace)' is consistent with the item's name and function."
+      },
+      "quality": {
+        "completeness": "The description is detailed, covering offensive effects, conditional destruction, the saving throw DC, and light emission properties.",
+        "clarity": "The mechanics are clearly stated. The conditional destruction threshold (25 HP or fewer) and the secondary effect (frightened condition) are unambiguous."
+      },
+      "mechanics": {
+        "damage_bonus": "2d6 radiant damage against Fiends or Undead.",
+        "conditional_destruction": "If the target has <= 25 HP after damage calculation, a DC 15 Wisdom save is triggered.",
+        "save_consequence_fail": "Target destroyed.",
+        "save_consequence_success": "Target becomes frightened of the wielder until the end of the wielder's next turn.",
+        "attunement_requirement": "Requires attunement (True).",
+        "utility_effects": "Sheds bright light (20 ft radius) and dim light (additional 20 ft) while held."
+      },
+      "zod_errors_found": false,
+      "archival_notes": "This item provides significant anti-fiend/undead utility, combining burst damage, instant removal potential, and control/debuff effects (frightened). The light source utility is a useful passive benefit."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:59.229Z"
+}

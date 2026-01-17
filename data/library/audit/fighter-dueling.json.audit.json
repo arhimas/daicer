@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/fighter-dueling.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-dueling.json",
+    "analysis": {
+      "consistency": {
+        "general": "The feature name ('Dueling') and associated class ('fighter') are consistent with standard TTRPG conventions. The level (1) is appropriate for a foundational class feature.",
+        "naming_conventions": "The slug ('fighter-dueling') is descriptive and follows typical naming conventions."
+      },
+      "quality": {
+        "clarity": "The description is clear and unambiguous regarding its activation condition (one-handed melee weapon, no other weapons) and effect (+2 damage bonus).",
+        "completeness": "It provides all necessary mechanical details."
+      },
+      "mechanics": {
+        "type": "Passive Benefit/Style",
+        "activation_condition": "Wielding a melee weapon in one hand AND wielding no other weapons (i.e., two-weapon fighting is excluded, but using a shield or casting with a free hand might be permitted, depending on broader rules context, though 'no other weapons' typically implies only one weapon item is actively held).",
+        "effect": "+2 bonus to damage rolls with that specific weapon.",
+        "balance_assessment": "This is a standard, well-established combat style feature. A +2 damage bonus is generally considered strong but balanced for a foundational feature, especially since it requires dedicating one hand to a single weapon and prevents the use of a dedicated off-hand weapon for attacks or a second held weapon for dual-wielding.",
+        "interaction_notes": "It conflicts with Two-Weapon Fighting rules regarding applying the bonus to the bonus action attack. It generally stacks with weapon properties (like Great Weapon Master or Polearm Master damage riders, if applicable, but usually only applies to the base damage roll before modifiers)."
+      },
+      "archivist_notes": "This feature accurately represents the 'Dueling' Fighting Style typically granted to Fighters at level 1. The data structure is complete and mechanically sound."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.386Z"
+}

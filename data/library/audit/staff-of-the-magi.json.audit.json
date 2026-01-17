@@ -1,0 +1,15 @@
+{
+  "file": "molecules/items/staff-of-the-magi.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "The data is highly consistent, presenting a detailed description of a single magic item, the 'Staff of the Magi'. The mechanical effects (charge limits, regeneration, spell costs, attack bonuses, and the Retributive Strike) are clearly defined and interconnected.",
+      "quality": "The quality is excellent. The data is comprehensive, capturing all key aspects of the item, including flavor text, numerical bonuses, charge mechanics, and unique features like Spell Absorption and Retributive Strike, including the detailed damage table for the explosion.",
+      "mechanics": "The mechanics are complex but well-defined:\n1. **Base Wielding:** +2 bonus to attack/damage rolls with the staff, +2 to spell attack rolls. Requires attunement.\n2. **Charges:** Starts at 50 max. Regains 4d6+2 daily. A roll on expending the last charge provides a small chance of recharge.\n3. **Spell Absorption:** A powerful defensive reaction that converts incoming spells into charges (up to the 50 charge limit).\n4. **Spells:** Two lists: one using charges (7 options, varying costs) and one using no charges (6 options).\n5. **Retributive Strike:** A destructive action that destroys the item, forcing a plane shift gamble on the wielder and inflicting massive force damage based on remaining charges in an escalating radius.",
+      "notes": "The raw data includes markdown formatting (like table headers and link formatting, e.g., '#conjure-elemental'), which should be preserved if the intent is to store the original descriptive text verbatim. The mechanic involving exceeding 50 charges during Spell Absorption triggering the Retributive Strike is a critical detail for gameplay."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.244Z"
+}

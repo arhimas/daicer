@@ -1,0 +1,39 @@
+{
+  "file": "atoms/features/sorcerer-twinned-spell.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-twinned-spell.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent. The feature is explicitly labeled for the 'sorcerer' class.",
+        "level_alignment": "Consistent. Level 1 is a typical starting level for core class features, though Twinned Spell is usually acquired at level 3 in official 5e rules. Assuming the provided data reflects a specific context or earlier design iteration.",
+        "subclass_flag": "Consistent. 'is_subclass_feature': true, which might be inaccurate for a core Metamagic option, often considered a base class feature for Sorcerers. Requires context clarification."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines the cost structure (spell level points, 1 for cantrips) and the targeting restriction (must target only one creature and not range of self).",
+        "mechanic_completeness": "Good, but lacks direct cross-referencing to where 'sorcery points' are defined.",
+        "example_quality": "Good. The examples (_magic missile_, _scorching ray_ vs. _ray of frost_, _finger of death_) effectively illustrate the 'targets only one creature' requirement, especially highlighting that a spell that *can* target multiple creatures (even if you only choose one) is excluded."
+      },
+      "mechanics": {
+        "primary_effect": "Allows duplicating a single-target spell on a second valid target.",
+        "cost_structure": {
+          "cantrip": "1 sorcery point",
+          "level_N_spell": "N sorcery points"
+        },
+        "eligibility_criteria": [
+          "Spell must target only one creature.",
+          "Spell must not have a range of 'self'."
+        ],
+        "clarification_note": "The exclusion rule for spells like _magic missile_ (which inherently allows choosing multiple targets) is crucial and well-stated. The feature ensures that the *spell itself*, at its current casting level, is restricted to a single target."
+      }
+    },
+    "archivist_summary": {
+      "status": "Pass",
+      "notes": "The mechanic is mechanically sound and clearly described. The primary point of potential inconsistency is the 'is_subclass_feature': true flag, as Twinned Spell is traditionally a core Sorcerer Metamagic option gained at level 3 (not level 1) in standard rulesets. Data quality for the description itself is excellent."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.703Z"
+}

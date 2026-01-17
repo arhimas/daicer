@@ -1,0 +1,39 @@
+{
+  "file": "molecules/spells/tree-stride.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "tree-stride.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent (Level 5, Conjuration)",
+        "component_format": "Consistent (V, S)",
+        "duration_format": "Consistent (Concentration, up to 1 minute)"
+      },
+      "quality": {
+        "clarity": "High. The mechanics of entering, moving between, and exiting the trees are clearly defined.",
+        "completeness": "Complete. All standard spell fields (level, school, casting time, range, components, duration, classes) are present.",
+        "flavor_mechanics_integration": "Good. The flavor of striding through trees is well-supported by the movement restrictions and range limits."
+      },
+      "mechanics": {
+        "type": "Movement/Teleportation (via specific terrain)",
+        "level_appropriateness": "Appropriate for Level 5. The range (500 ft) and conditionality (same kind of living tree) balance the mobility.",
+        "action_economy": "Casting time is 1 action. The spell allows the transportation ability once per round for the duration, which is a good restriction.",
+        "movement_cost": "Clear costs: 5 feet to enter, 5 feet of movement used for the exit/entry step (if movement remains), or ending adjacent if no movement remains.",
+        "restrictions": [
+          "Must use 5 feet of movement to enter.",
+          "Can only use transportation ability once per round.",
+          "Must end each turn outside a tree.",
+          "Trees must be living and at least the same size as the caster.",
+          "Range limit of 500 feet to the destination tree."
+        ],
+        "synergy": "Excellent synergy with Druid and Ranger classes, fitting their themes of nature manipulation."
+      },
+      "zod_errors_found": false,
+      "recommendations": "None required; the spell entry is well-formed and mechanically sound."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:29.190Z"
+}

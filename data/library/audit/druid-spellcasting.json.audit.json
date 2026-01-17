@@ -1,0 +1,27 @@
+{
+  "file": "atoms/features/druid-spellcasting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "druid-spellcasting.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e feature definitions. The slug, name, class, and level structure are standard.",
+      "quality": "High quality. The description is evocative and accurately captures the thematic essence of Druid spellcasting ('divine essence of nature').",
+      "mechanics": "Mechanically, this entry serves as a placeholder or header for the actual spellcasting rules (which would be detailed in other entries or the core class description). As a feature entry itself, it describes *what* the feature is, rather than *how* it works mechanically (e.g., spell slots, known spells). It correctly identifies it as a base class feature (level 1, not subclass-specific)."
+    },
+    "recommendations": [
+      {
+        "type": "Documentation",
+        "detail": "Ensure that the actual spellcasting rules (spell list, casting mechanics) are documented in associated features or class block entries, as this entry only provides the thematic introduction."
+      }
+    ],
+    "data_check": {
+      "slug_matches_name": true,
+      "level_appropriate": true,
+      "is_subclass_feature_flag_correct": true
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.573Z"
+}

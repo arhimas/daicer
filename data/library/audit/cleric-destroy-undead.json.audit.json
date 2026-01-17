@@ -1,0 +1,22 @@
+{
+  "file": "atoms/features/cleric-destroy-undead.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "cleric-destroy-undead.json",
+    "analysis": {
+      "consistency": "The feature description is consistent with the provided table, detailing the scaling effect of the 'Destroy Undead' ability based on the cleric's level.",
+      "quality": "High. The description clearly states the trigger condition (failed saving throw against Turn Undead) and the effect (instant destruction based on CR). The accompanying table is well-formatted and easy to read, accurately reflecting the scaling.",
+      "mechanics": "This feature modifies the existing 'Turn Undead' feature by introducing an instant-kill condition for low-Challenge Rating undead upon a failed save. The mechanic scales linearly, providing increasing power as the cleric gains levels (5th, 8th, 11th, 14th, 17th). This strongly synergizes with and enhances a core class feature, making it a powerful tool against hordes of weak undead."
+    },
+    "recommendations": [
+      {
+        "type": "Clarification",
+        "detail": "Ensure the connection to the base 'Turn Undead' feature is explicitly clear in any related documentation, as this feature is purely an enhancement of that prior ability."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:16.626Z"
+}

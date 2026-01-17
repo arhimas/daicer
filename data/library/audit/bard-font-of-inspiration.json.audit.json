@@ -1,0 +1,27 @@
+{
+  "file": "atoms/features/bard-font-of-inspiration.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-font-of-inspiration.json",
+    "analysis": {
+      "consistency": {
+        "class_naming": "Consistent with standard class naming conventions ('bard').",
+        "level_type": "Level is an integer, which is standard."
+      },
+      "quality": {
+        "description_clarity": "The description is clear and precisely states the mechanical effect: regaining all expended uses of Bardic Inspiration upon finishing a short or long rest.",
+        "naming_relevance": "The name 'Font of Inspiration' accurately reflects the feature's effect of replenishing resources."
+      },
+      "mechanics": {
+        "core_effect": "Regeneration of Bardic Inspiration uses on Short/Long Rest.",
+        "level_gating": "Appropriately gated at 5th level, which is standard for major class resource refreshes or power spikes.",
+        "comparison_to_standard": "This feature is standard for the Bard class in 5th Edition D&D (often referred to as Font of Inspiration)."
+      },
+      "suggested_action": "No corrections needed. Data is accurate and aligns with established ruleset expectations for this entity."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:17.112Z"
+}

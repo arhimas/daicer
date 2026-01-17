@@ -1,0 +1,36 @@
+{
+  "file": "atoms/features/paladin-divine-health.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-divine-health.json",
+    "analysis": {
+      "consistency": {
+        "class_match": "PASS",
+        "level_match": "ATTENTION",
+        "data_completeness": "PASS"
+      },
+      "quality": {
+        "description_clarity": "GOOD",
+        "mechanics_clarity": "GOOD",
+        "naming_convention": "GOOD"
+      },
+      "mechanics": {
+        "effect": "Immunity to disease.",
+        "trigger": "Reaching 3rd level.",
+        "notes": "The description explicitly states 'By 3rd level', but the 'level' field is set to 1. This is a common discrepancy when features are granted at level X but listed under the initial class level/entry. For mechanical accuracy against the RAW data provided, the level listed (1) contradicts the description (3rd level)."
+      }
+    },
+    "recommendations": [
+      {
+        "area": "Level Discrepancy",
+        "severity": "HIGH",
+        "suggestion": "The 'level' field should be updated from 1 to 3 to accurately reflect the acquisition level stated in the 'description'."
+      }
+    ],
+    "archival_status": "NEEDS_REVIEW"
+  },
+  "timestamp": "2026-01-17T07:23:12.583Z"
+}

@@ -1,0 +1,36 @@
+{
+  "file": "molecules/classes/paladin.json",
+  "type": "class",
+  "zod_valid": false,
+  "zod_errors": [
+    "hit_die: Invalid input: expected string, received number"
+  ],
+  "llm_audit": {
+    "entity": "CLASS",
+    "file": "paladin.json",
+    "analysis": {
+      "consistency": {
+        "hit_die_type": "Inconsistent: The raw data specifies 'hit_die' as a number (10), but the ZOD ERROR indicates an expectation for a string. Standard D&D 5e representations usually use a string format like '1d10'. This is a formatting inconsistency.",
+        "proficiency_structure": "Consistent: 'proficiency_choices' and 'proficiencies' are structured as arrays of strings, which is standard.",
+        "progression_structure": "Consistent: The 'progression' array correctly maps levels to proficiency bonus ('pb') and features."
+      },
+      "quality": {
+        "data_completeness": "High: Contains core attributes like hit die, proficiencies, and a full 1-20 level progression.",
+        "error_logging": "Accurate: The ZOD ERROR correctly identifies the type mismatch for 'hit_die'."
+      },
+      "mechanics": {
+        "hit_die_value": "Mechanically sound for a Paladin (d10), but requires string formatting correction (e.g., \"1d10\") to resolve the reported error.",
+        "progression_check": {
+          "pb_progression_correct": "Yes",
+          "pb_progression_check": "PB increases from 2 to 6 correctly at levels 5, 9, 13, 17 (2, 3, 4, 5, 6). However, the listed PBs are: L1-2(2), L3(2), L4(2), L5(3), L6(3), L7(3), L8(3), L9(4), L10(4), L11(4), L12(4), L13(5), L14(5), L15(5), L16(5), L17(6), L18(6), L19(6), L20(6). The transition points seem slightly off compared to standard 5e progression (PB typically increases at L5, L9, L13, L17). Level 3 and 4 show PB=2, which is slightly unusual but not strictly an error if this system defines it that way. Standard 5e PB progression: L1-4(2), L5-8(3), L9-12(4), L13-16(5), L17-20(6). The input data shows L3/L4/L5/L6/L8 having PB=2/2/3/3/3 respectively, which deviates from the standard breakpoints but follows a sequential numerical increase.",
+          "feature_coverage": "Complete for early levels (L1-L6), but features are missing entirely for levels 9, 13, and 17, indicating incomplete mapping for those specific level entries."
+        }
+      },
+      "recommendations": [
+        "Format 'hit_die' as a string, e.g., \"1d10\", to satisfy schema requirements.",
+        "Review and populate the 'features' array for levels 9, 13, and 17, as they are currently empty arrays in the progression data."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:27.009Z"
+}

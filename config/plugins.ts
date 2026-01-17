@@ -19,6 +19,10 @@ export default ({ env }) => ({
     enabled: true,
     resolve: './src/plugins/queue-dashboard',
   },
+  'map-explorer': {
+    enabled: true,
+    resolve: './src/plugins/map-explorer',
+  },
   redis: {
     enabled: true,
     config: {

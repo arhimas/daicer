@@ -1,0 +1,45 @@
+{
+  "file": "molecules/spells/transport-via-plants.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "transport-via-plants.json",
+    "data": {
+      "slug": "transport-via-plants",
+      "name": "Transport via Plants",
+      "level": 6,
+      "school": "conjuration",
+      "ritual": false,
+      "casting_time": "1 action",
+      "range": "10 feet",
+      "components": "V, S",
+      "duration": "1 round",
+      "description": "This spell creates a magical link between a Large or larger inanimate plant within range and another plant, at any distance, on the same plane of existence. You must have seen or touched the destination plant at least once before. For the duration, any creature can step into the target plant and exit from the destination plant by using 5 feet of movement.",
+      "classes": [
+        "druid"
+      ]
+    },
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent; Level 6 spells are appropriate for this mechanic level.",
+        "casting_time_duration_match": "Consistent; A very short duration (1 round) for a potentially powerful travel effect is balanced by requiring concentration or setup for sustained travel, though here the duration limits immediate use.",
+        "range_effect_match": "Consistent; The range limits the initial setup location, while the effect itself allows for global range."
+      },
+      "quality": {
+        "clarity": "High; The description is clear regarding the requirements (Large or larger plant, prior knowledge of destination) and the effect (stepping through using 5 feet of movement).",
+        "flavor": "Good; Fits well within nature/conjuration magic, offering strategic or emergency travel.",
+        "balance_concerns": "The 1-round duration is very short for what seems like a strategic travel spell. This suggests the spell is intended only for immediate tactical repositioning rather than long-distance travel preparation. If the intent was to set up a permanent portal, the duration should be longer (like 1 hour or Concentration). As written, a creature must enter and exit within that single round, which is extremely restrictive unless the entry and exit are almost simultaneous."
+      },
+      "mechanics": {
+        "action_economy": "Uses 1 action to cast. The travel itself costs 5 feet of movement per entry/exit.",
+        "interaction_with_duration": "The primary mechanical concern. If the duration is 1 round (6 seconds), a creature must enter the source plant and exit the destination plant within that single round using only 5 feet of movement total (5ft to enter, 5ft to exit, totaling 10ft movement for the whole trip, which is impossible unless the creature already has 5ft movement spent entering). Assuming the *entire* process (entry AND exit) costs exactly 5 feet of movement, the 1-round duration is still tight but potentially manageable for a single hop. However, 'For the duration' implies the link exists for 1 round, allowing multiple creatures to use it sequentially until the round ends, or one creature to use it multiple times (Entry 1 + Exit 1 + Entry 2 + Exit 2, etc.). Given the 5ft cost phrasing, it implies 5ft total per full trip.",
+        "prerequisites": "Requires sight/touch of the destination plant, which is a common and fair limitation for planar travel/teleportation spells.",
+        "size_restriction": "Restricting the anchor plant to Large or larger prevents low-level plant manipulation from creating these shortcuts."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.246Z"
+}

@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/conjure-elemental.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "conjure-elemental.json",
+    "analysis": {
+      "consistency": {
+        "mechanics_check": "Consistent. The spell clearly defines summoning an elemental based on chosen element, CR limit (5th level slot), duration (concentration up to 1 hour), and behavior (obedient unless concentration is broken). The scaling rule for higher slots is standard for summoning spells.",
+        "flavor_check": "Consistent. Components align with the elemental types (burning incense for air, clay for earth, etc.).",
+        "formatting_check": "Consistent. Standard D&D 5e spell format."
+      },
+      "quality": {
+        "clarity": "High. The spell is very clear about summoning, control, and loss of control (uncontrolled elemental behavior).",
+        "completeness": "Complete. Includes all necessary fields: casting time, range, components (with material descriptions), duration, description, and scaling rules.",
+        "design_notes": "This spell offers significant utility but is balanced by the concentration requirement and the severe drawback of losing control upon concentration break. The ability for the CR to scale up to 9th level (CR 9 elemental at 9th level slot) makes it very powerful at high levels."
+      },
+      "mechanics": {
+        "core_function": "Summons an elemental servant (CR 5 or lower, scaling up by +1 CR per slot level above 5th).",
+        "control_mechanism": "Verbal commands (no action required). Default action is self-defense if not commanded.",
+        "risk_assessment": "High risk upon failure of concentration check. The elemental becomes hostile and cannot be dismissed until its duration expires (1 hour).",
+        "scaling_impact": "At 9th level, this summons a CR 9 elemental, which is a very strong combat presence, balanced by the severe downside of losing control."
+      },
+      "suggestions": [
+        "None. The spell is well-defined and balanced within the established ruleset."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:46.843Z"
+}

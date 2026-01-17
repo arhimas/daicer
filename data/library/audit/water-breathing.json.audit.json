@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/water-breathing.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "water-breathing.json",
+    "analysis": {
+      "consistency": {
+        "level_school_coherence": "The level (3) is appropriate for a utility transmutation spell like Water Breathing.",
+        "duration_power_balance": "A duration of 24 hours is excellent for a 3rd-level spell, offering significant utility.",
+        "component_justification": "Verbal, Somatic, and Material components (a reed/straw) are standard and fit the theme of enabling aquatic respiration."
+      },
+      "quality": {
+        "completeness": "All standard fields (slug, name, level, school, casting_time, range, components, duration, description, classes) are present.",
+        "clarity": "The description is clear: grants underwater breathing to up to 10 creatures, and they keep normal respiration.",
+        "flavor": "The flavor aligns well with Transmutation magic that alters biological functions."
+      },
+      "mechanics": {
+        "target_and_count": "Targeting 'up to ten willing creatures' within range is a strong group utility feature.",
+        "interaction_with_normal_respiration": "The clause 'Affected creatures also retain their normal mode of respiration' is crucial, ensuring the spell doesn't cause asphyxiation when leaving water, which is good design.",
+        "ritual_status": "Marked as a ritual (true), which enhances its utility, allowing casters to prepare long-term explorations without expending a spell slot."
+      }
+    },
+    "zod_errors": "NONE",
+    "recommendations": []
+  },
+  "timestamp": "2026-01-17T07:22:27.961Z"
+}

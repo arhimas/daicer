@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/slow.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "slow.json",
+    "metadata": {
+      "completeness": "High",
+      "consistency": "High",
+      "quality": "High",
+      "mechanics_review": "The spell provides significant crowd control. The halving of speed, penalty to AC/Dex saves, restriction on actions (action OR bonus action), and reduction in attacks (max one attack) are standard but potent effects for a 3rd-level spell. The unique mechanic regarding 1-action spellcasting (requiring a d20 check and delaying the spell) adds a layer of tactical depth and potential for disruption. The concentration requirement and end-of-turn save throw are appropriate balancing factors."
+    },
+    "analysis": {
+      "consistency_check": {
+        "level_vs_effect": "Appropriate for 3rd level. It is powerful control, balanced by concentration and a save at the end of every turn.",
+        "school_consistency": "Transmutation fits the theme of altering physical properties (speed, reaction time).",
+        "component_check": "The material component (a drop of molasses) is flavorful and consistent with the theme of slowness."
+      },
+      "quality_assessment": {
+        "clarity": "The description is very clear regarding all imposed limitations.",
+        "mechanical_completeness": "All mechanical effects (speed reduction, penalties, action economy restrictions, spellcasting delay) are explicitly defined."
+      },
+      "mechanics_evaluation": {
+        "saving_throw": "Wisdom save, which is typical for spells affecting mental state/time perception.",
+        "action_economy_impact": "Severe. Halving speed, limiting actions to one (action OR bonus action), and capping attacks to one per turn creates massive debuffs.",
+        "spellcasting_delay": "The d20 check for 1-action spells is the most unique and potentially frustrating mechanic for the target, effectively guaranteeing a loss of one full turn's action economy on a failed save if they attempt to cast a leveled spell."
+      }
+    },
+    "suggested_updates": "None required. The spell is well-defined and mechanically sound as written for its intended tier of play."
+  },
+  "timestamp": "2026-01-17T07:22:31.456Z"
+}

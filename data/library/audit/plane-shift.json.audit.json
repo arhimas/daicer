@@ -1,0 +1,37 @@
+{
+  "file": "molecules/spells/plane-shift.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "plane-shift.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 7 conjuration aligns with the scope of planar travel.",
+        "casting_time_and_duration": "Consistent. Instantaneous result after an action casting time.",
+        "components": "Component cost (250 gp, attuned rod) is high, which is appropriate for a 7th-level planar travel spell. The requirement of attunement to a specific plane needs careful tracking.",
+        "class_availability": "Appropriate mix of divine (Cleric, Druid) and arcane (Sorcerer, Warlock, Wizard) casters for a high-level reality-altering spell."
+      },
+      "quality": {
+        "description_clarity": "The description is comprehensive, clearly separating the willing travel option from the unwilling banishment option.",
+        "ambiguity": "The GM discretion on the exact arrival point ('on a street, before a gate, or looking at the city from across a sea') is standard for teleportation spells but introduces minor narrative control.",
+        "mechanical_depth": "High mechanical depth due to two distinct primary functions: mass travel and targeted banishment (which requires a melee spell attack and a saving throw)."
+      },
+      "mechanics": {
+        "willing_transport": {
+          "mechanism": "Linked circle (8 willing creatures + caster). No save required.",
+          "target_specificity": "Can be general (named city) or specific (teleportation circle sigil sequence)."
+        },
+        "unwilling_banishment": {
+          "mechanism": "Melee spell attack followed by a Charisma saving throw.",
+          "consequence_of_failure": "Transported to a random location on the specified plane. The target must find its own way back, making this an effective, albeit not instant-death, removal tool."
+        },
+        "resource_management": "The attuned material component is a high-cost, single-use item until re-attuned or potentially lost, adding a significant economic consideration to repeated use."
+      },
+      "zod_errors": "NONE",
+      "summary": "Plane Shift is a well-defined 7th-level spell offering powerful transportation utility for the party or significant removal capability via banishment. The material component cost reinforces its high-tier status. Mechanics are sound and cover both cooperative and hostile casting scenarios."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:35.284Z"
+}

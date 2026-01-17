@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/commune-with-nature.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "commune-with-nature.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 5 divination matches typical high-level divination spell slots.",
+        "mechanics_description_match": "Consistent. The description details specific information gathering based on the environment, fitting the 'divination' school and the 'commune' theme."
+      },
+      "quality": {
+        "clarity": "High. The radius limitations (3 miles outdoors, 300 feet underground) and failure conditions (construction/towns) are clearly defined.",
+        "information_gained": "High utility. Provides flexibility in choosing up to three facts across five broad categories related to the immediate environment."
+      },
+      "mechanics": {
+        "casting_time": "1 minute, suggesting preparation or a deliberate ritualistic action, which is balanced for the powerful information gained.",
+        "range_and_area": "Self-range, but effect radius varies significantly based on environment (3 miles vs 300 feet), emphasizing the need for natural surroundings.",
+        "components": "V, S (Verbal, Somatic). Standard for many ritual spells.",
+        "duration": "Instantaneous. The knowledge is gained immediately, not sustained, balancing the depth of information gathered.",
+        "class_suitability": "Appropriate for Druid and Ranger, fitting their thematic connection to nature."
+      },
+      "potential_issues": [
+        "The rule 'The spell doesn't function where nature has been replaced by construction, such as in dungeons and towns' is a hard limitation that might frustrate players if they are in a hybrid area (e.g., a ruin built into a mountain). This seems intentional for balancing.",
+        "The definition of 'powerful' celestials/fiends/etc. is left open to DM interpretation, though this is standard for many spell effects."
+      ],
+      "archivist_notes": "A classic, powerful utility spell primarily focused on reconnaissance and environmental awareness. The mechanics are well-defined, making it relatively easy to adjudicate its effects based on location."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.608Z"
+}

@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/polymorph.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "polymorph.json",
+    "analysis": {
+      "consistency": {
+        "overall": "High",
+        "notes": "The spell description is consistent with established D&D 5e mechanics for Polymorph. The rules regarding CR limit, statistics replacement, hit points handling, gear melding, and action restrictions are standard."
+      },
+      "quality": {
+        "overall": "High",
+        "notes": "The description is comprehensive and clearly details the transformative effects, limitations, and what happens upon duration end or reduction to 0 HP. The component quality (M: a caterpillar cocoon) is flavorful."
+      },
+      "mechanics": {
+        "core_mechanic": "Transformation into a beast form, constrained by CR/Level.",
+        "saving_throw": "Wisdom (for unwilling targets).",
+        "impact_on_stats": "Full replacement of game statistics, except alignment and personality.",
+        "hp_handling": "Uses new form's HP; excess damage carries over upon reversion if HP drops to 0 in new form (unless it reduces normal form HP to 0).",
+        "restrictions": [
+          "Cannot speak or cast spells in new form.",
+          "Cannot use gear.",
+          "Unwilling creatures get a save.",
+          "No effect on shapechangers or creatures at 0 HP."
+        ],
+        "class_coverage": "Bard, Druid, Sorcerer, Wizard (Appropriate for a high-utility 4th-level transmutation spell)."
+      },
+      "suggested_revisions": "None required. The data is accurate and complete for its intended purpose."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.466Z"
+}

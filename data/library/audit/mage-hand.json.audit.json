@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/mage-hand.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mage-hand.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "data_structure_integrity": "High",
+        "level_and_school_present": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "spell_summary": "A useful 0-level utility spell granting remote object manipulation up to 10 lbs, limited by distance and action economy."
+      },
+      "mechanics": {
+        "level_balance": "Appropriate for 0-level (Cantrip); utility focused.",
+        "action_economy": "Requires an action each turn to control, balanced against its 1-minute duration.",
+        "range_and_duration": "Standard range (30 ft) and duration (1 minute) for a low-level utility spell.",
+        "limitations_assessment": "The 10-pound weight limit and inability to attack or activate magic items are crucial balancing factors preventing it from being overpowered."
+      },
+      "suggested_refinements": [
+        "No critical errors found; the data is consistent and mechanically sound for standard TTRPG rulesets (e.g., D&D 5e)."
+      ]
+    },
+    "archivist_notes": "Data entry for Mage Hand is complete and accurate based on standard reference material. No ZOD errors detected."
+  },
+  "timestamp": "2026-01-17T07:22:36.990Z"
+}

@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/alarm.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "alarm.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "component_format_consistent": true,
+        "range_unit_consistent": true
+      },
+      "quality": {
+        "completeness": "High. All standard spell fields are present and populated.",
+        "readability": "High. Description is clear and well-formatted.",
+        "mechanical_clarity": "High. The triggering conditions (Tiny or larger creature touching/entering) and the two distinct output types (mental ping/audible bell) are clearly defined."
+      },
+      "mechanics": {
+        "level_school_match": "Appropriate. Level 1 Abjuration fits protection/warding spells.",
+        "ritual_utility": "High. Being a ritual greatly enhances its utility for long-term security.",
+        "casting_time_duration_ratio": "Appropriate. 1 minute setup for an 8-hour duration is balanced.",
+        "component_detail": "Material component is specific (tiny bell and fine silver wire), which is good.",
+        "range_interaction": "The casting range (30ft) is separate from the mental alarm range (1 mile), which is mechanically sound.",
+        "effect_tiers": "The spell offers two distinct mechanical options (mental vs. audible), providing tactical flexibility."
+      },
+      "suggestions": [
+        "None needed. The spell is well-defined and mechanically solid as a low-level utility/security spell."
+      ],
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.312Z"
+}

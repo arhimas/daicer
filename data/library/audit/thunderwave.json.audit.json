@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/thunderwave.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "thunderwave.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": true,
+        "damage_scaling_logic": "Consistent with standard D&D 5e scaling (1d8 per slot level above 1st).",
+        "range_component_formats": "Standard and consistent string formats."
+      },
+      "quality": {
+        "completeness": "Complete, containing all standard spell fields (name, level, school, casting time, range, components, duration, description, classes).",
+        "clarity": "The description is clear, detailing primary effect (damage/push) and secondary effects (unsecured objects, sound).",
+        "formatting_notes": "Uses standard bolding for 'At Higher Levels'."
+      },
+      "mechanics": {
+        "save_type": "Constitution saving throw.",
+        "damage_type": "Thunder damage.",
+        "primary_effect": "2d8 thunder damage and 10ft push on failed save (half damage, no push on success).",
+        "area_of_effect": "15-foot cube originating from the caster (Self-centered AoE).",
+        "scaling_check": {
+          "base_damage": "2d8 at 1st level.",
+          "scaling_rate": "+1d8 per spell slot level above 1st."
+        },
+        "class_availability": "Covers appropriate primary arcane/natural caster classes (Bard, Druid, Sorcerer, Wizard)."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:29.189Z"
+}

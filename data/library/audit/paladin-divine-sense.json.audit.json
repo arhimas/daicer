@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/paladin-divine-sense.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-divine-sense.json",
+    "analysis": {
+      "consistency": "The feature description is internally consistent and aligns with standard D&D 5e mechanics for Paladin class features.",
+      "quality": "The description is high quality, clearly detailing the action cost, range (60 feet), duration (until the end of the next turn), targets (celestial, fiend, undead, consecrated/desecrated objects/places), sensory information provided (type, location, not identity), and usage/regain mechanism (uses equal to 1 + CHA modifier, regained on a long rest). The formatting correctly cross-references the 'hallow' spell.",
+      "mechanics": {
+        "type": "Action, detection",
+        "cost": "1 Action",
+        "range": "60 feet",
+        "duration": "Until the end of your next turn",
+        "effect": "Detects location and type of celestials, fiends, or undead; detects consecrated/desecrated objects/places.",
+        "resource_management": {
+          "uses": "1 + Charisma Modifier",
+          "regain": "Long Rest"
+        },
+        "notes": "This feature scales passively with the Paladin's primary spellcasting/social modifier (Charisma), which is standard and balanced."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.650Z"
+}

@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/hold-person.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "hold-person.json",
+    "analysis": {
+      "consistency": {
+        "level": "Consistent. Level 2 spell fits standard D&D conventions.",
+        "school": "Consistent. Enchantment is the appropriate school for a paralyzing/controlling effect.",
+        "casting_time_range_duration": "Standard structure and terminology used.",
+        "components": "Standard format for component listing (V, S, M)."
+      },
+      "quality": {
+        "clarity": "High. The mechanics are clearly described, especially the recurring saving throw mechanic to end the paralysis.",
+        "completeness": "Complete. Includes base effect, save DC mechanism, duration rules, and scaling ('At Higher Levels').",
+        "formatting": "Good. Use of bolding for key terms like 'paralyzed' (assuming markdown link is standard archival format) improves readability."
+      },
+      "mechanics": {
+        "core_effect": "Paralysis is a potent condition, balanced by a Wisdom save and subsequent saves each turn.",
+        "save_mechanics": "Wisdom save against spell DC is standard for mind-affecting spells. The target gets a chance to break free every turn, preventing indefinite lockdown from a single cast unless the target fails its initial save repeatedly or is prevented from acting.",
+        "scaling": "Scaling is effective, allowing multiple targets by increasing the slot level by one per additional target (3rd level = 2 targets, 4th level = 3 targets, etc.). The positioning requirement (30 feet of each other) adds a minor tactical constraint for higher-level casts.",
+        "class_list": "The classes listed (bard, cleric, druid, sorcerer, warlock, wizard) are largely consistent with the canonical availability of this spell."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.330Z"
+}

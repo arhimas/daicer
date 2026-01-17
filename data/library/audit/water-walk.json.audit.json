@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/water-walk.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "ENTITY": "SPELL",
+    "FILE": "water-walk.json",
+    "ANALYSIS": {
+      "CONSISTENCY": {
+        "data_completeness": "Complete. All expected fields are present.",
+        "data_integrity": "High. Data appears internally consistent with standard D&D 5e spell structure.",
+        "naming_conventions": "Consistent (slug and name match expected pattern)."
+      },
+      "QUALITY": {
+        "mechanics_clarity": "High. The primary effect (moving across liquid surfaces) is clearly stated. The caveat about lava damage is a good mechanical clarification.",
+        "edge_case_handling": "Good. Explicitly handles submerged targets by bringing them to the surface.",
+        "formatting_notes": "Standard D&D 5e spell formatting observed."
+      },
+      "MECHANICS": {
+        "level_school_check": "Level 3 Transmutation is appropriate for utility movement magic.",
+        "component_check": "V, S, M (cork) fits a utility spell of this level.",
+        "duration_check": "1 hour duration for an ongoing utility effect is standard.",
+        "interaction_notes": [
+          "The movement speed for submerged targets (60 feet per round) is a specific, measurable mechanic.",
+          "It affects up to 10 willing creatures, balancing its wide utility."
+        ]
+      },
+      "SUGGESTED_UPDATES": "None required. The data is a high-quality representation of the spell."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:27.668Z"
+}

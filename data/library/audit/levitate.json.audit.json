@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/levitate.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "levitate.json",
+    "analysis": {
+      "consistency": "The data appears internally consistent with standard D&D 5e spell formatting. All required fields for a spell entity are present and filled.",
+      "quality": "High quality. The description is detailed and covers suspension, weight limit, movement mechanics (push/pull climbing, altitude change), duration constraints (Concentration), and safe landing upon spell termination. The component material description is specific.",
+      "mechanics": {
+        "level": 2,
+        "school": "transmutation",
+        "casting_time": "1 action",
+        "range": "60 feet",
+        "duration": "Concentration, up to 10 minutes",
+        "target_type": "Creature or object",
+        "weight_limit": "500 pounds",
+        "saving_throw": {
+          "ability": "Constitution",
+          "effect": "Negates the spell if successful"
+        },
+        "movement_control": "Requires external fixed surface for movement (like climbing) unless self-targeted. Caster can use action (or move action if self-targeted) to change altitude up to 20 feet per turn.",
+        "end_condition": "Floats gently to the ground."
+      },
+      "notes": "The spell handles both unwilling creatures (via save) and objects, providing clear constraints on weight and movement capabilities while suspended. The dual class availability (sorcerer, wizard) is noted."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.651Z"
+}

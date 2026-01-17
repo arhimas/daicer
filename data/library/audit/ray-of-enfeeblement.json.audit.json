@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/ray-of-enfeeblement.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "ray-of-enfeeblement.json",
+    "analysis": {
+      "consistency": {
+        "level_school_congruence": "Consistent. Necromancy is a common school for spells that drain vitality or weaken.",
+        "casting_time_duration_balance": "Appropriate. A one-action casting time for a concentration-based debuff that lasts up to 1 minute is standard.",
+        "components_complexity": "Standard (Verbal, Somatic)."
+      },
+      "quality": {
+        "clarity": "The description is clear: it imposes a conditional damage reduction (half damage with Strength-based weapon attacks) and offers a recurring save to end it.",
+        "flavor": "The flavor (black beam of enervating energy) fits the necromancy school and the weakening effect.",
+        "power_level": "As a 2nd-level spell, halving the damage output of Strength-based weapon attacks is a significant but situational debuff. The recurring save makes it less potent than a save-or-suck debuff but allows for counterplay."
+      },
+      "mechanics": {
+        "attack_vs_save": "Uses a ranged spell attack roll, which is appropriate for a targeted beam, rather than requiring a saving throw for initial imposition.",
+        "effect_scope": "The effect is narrow: only affects Strength-based *weapon* attacks. It does not affect spell damage, Dexterity attacks, or non-weapon Strength attacks.",
+        "duration_and_counterplay": "The concentration mechanic is standard. The Constitution save at the end of the target's turn provides consistent counterplay, encouraging the caster to maintain concentration or use the spell on a target that has poor Constitution saves."
+      },
+      "suggestions": [
+        "Consider if the effect should apply to *all* damage dealt by Strength-based attacks (including grappling damage or similar niche uses), but the current wording specifying 'weapon attacks' is acceptable and likely intended.",
+        "Ensure the Dungeon Master consistently applies the 'only half damage' rule for Strength-based weapon attacks (e.g., Greatsword damage is halved, not the associated Strength modifier damage bonus if it's not considered part of the weapon attack roll itself, though usually, it is)."
+      ],
+      "zod_errors_present": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:33.638Z"
+}

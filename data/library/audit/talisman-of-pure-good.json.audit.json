@@ -1,0 +1,57 @@
+{
+  "file": "molecules/items/talisman-of-pure-good.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "talisman-of-pure-good.json",
+    "analysis": {
+      "consistency": "High. The mechanical effects align with the descriptive flavor (pure good, damage to evil/neutral, bonus for good clerics/paladins). The destruction condition upon losing the last charge is consistent.",
+      "quality": "High. The item is clearly defined, powerful (Legendary), and presents significant risk/reward, especially due to the immediate destruction effect tied to the final charge.",
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Legendary",
+        "attunement": true,
+        "damage_on_touch": [
+          {
+            "condition": "Neutral or Not Good",
+            "damage": "6d6 radiant"
+          },
+          {
+            "condition": "Evil",
+            "damage": "8d6 radiant"
+          }
+        ],
+        "damage_on_hold_per_turn": "Evil creature takes damage again each time it ends its turn holding/carrying.",
+        "attuned_benefit": {
+          "classes": [
+            "Cleric",
+            "Paladin"
+          ],
+          "alignment_requirement": "Good",
+          "benefits": [
+            "Functions as a holy symbol",
+            "+2 bonus to spell attack rolls while worn or held"
+          ]
+        },
+        "charges": {
+          "total": 7,
+          "action_cost": "1 charge",
+          "effect": {
+            "description": "Flaming fissure opens under target creature within 120 feet.",
+            "target_condition": "Evil alignment",
+            "save": {
+              "type": "Dexterity",
+              "dc": 20,
+              "failure_effect": "Target falls into fissure and is destroyed, leaving no remains. Fissure closes without a trace."
+            }
+          },
+          "destruction_trigger": "Expending the last charge causes the talisman to disperse and be destroyed."
+        }
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:52.544Z"
+}

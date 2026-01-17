@@ -1,0 +1,78 @@
+{
+  "file": "blueprints/monsters-batch-2.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "monsters-batch-2.json",
+    "data_archival": {
+      "slug": "acolyte",
+      "name": "Acolyte",
+      "type": "Humanoid (Any Race)",
+      "alignment": "Any alignment",
+      "size": "Medium",
+      "level": 1,
+      "ac": 10,
+      "hp": 9,
+      "hit_dice": "2d8",
+      "speed": "30 ft.",
+      "challenge_rating": 0.25,
+      "xp": 50,
+      "stats": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 14,
+        "cha": 11
+      },
+      "actions": [
+        {
+          "name": "Club",
+          "type": "Melee Weapon Attack",
+          "toHit": 2,
+          "range_config": {
+            "type": "Melee",
+            "distance": 5
+          },
+          "damage_instances": [
+            {
+              "type": "bludgeoning",
+              "amount": "1d4"
+            }
+          ]
+        }
+      ],
+      "inventory": [
+        {
+          "item": "club",
+          "quantity": 1,
+          "isEquipped": true
+        }
+      ]
+    },
+    "analysis": {
+      "consistency_check": {
+        "is_consistent": true,
+        "notes": "Data structure is consistent with expected monster stat block formats. CR 0.25 is typical for Level 1 weak humanoids."
+      },
+      "quality_assessment": {
+        "quality_score": "High",
+        "notes": "Complete and standard stat block. Ability scores are balanced for a CR 0.25 creature (HP 9 from 2d8+0 averages 9, AC 10 is base, Proficiency Bonus implied is +2 matching CR/Level)."
+      },
+      "mechanics_validation": {
+        "proficiency_bonus_check": "Matches expected +2 (implied by CR 0.25/Level 1).",
+        "attack_bonus_check": {
+          "action_name": "Club",
+          "calculated_to_hit": "+2",
+          "derivation_check": "Assuming Strength is the attack stat (STR 10, modifier +0). To Hit bonus should be PB (+2) + STR Mod (+0) = +2. Matches recorded 'toHit': 2."
+        },
+        "damage_check": "1d4 bludgeoning damage is standard for a club attack by a low-level creature.",
+        "hp_check": "9 HP from 2d8 (average 9) with no Constitution modifier applied (CON 10, modifier +0). This is mathematically accurate for the raw dice roll average."
+      }
+    },
+    "zod_errors": "NONE"
+  },
+  "timestamp": "2026-01-17T07:22:25.996Z"
+}

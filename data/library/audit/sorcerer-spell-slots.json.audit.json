@@ -1,0 +1,23 @@
+{
+  "file": "atoms/features/sorcerer-spell-slots.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-spell-slots.json",
+    "analysis": {
+      "consistency": "The feature content is highly consistent. It presents a single, standard table detailing the Sorcerer class's spell slot progression by level, which is typical for spellcasting classes in D&D 5e.",
+      "quality": "The data quality is high. The raw data contains a well-formatted HTML table representing the standard Sorcerer spell slot progression. The accompanying text clearly explains how to use the slots (expending a slot of the spell's level or higher, and regaining slots on a long rest). The `is_subclass_feature` flag appears to be inaccurate, as this table represents a core class feature, not a subclass feature.",
+      "mechanics": "The mechanics described are standard for a full spellcasting class in D&D 5th Edition (D&D 5e). The core rules are: 1) Spell slots are used to cast spells. 2) A slot equal to or higher than the spell level must be expended. 3) All expended slots are regained after a long rest. The table itself accurately reflects the slot counts for a Sorcerer progression."
+    },
+    "recommendations": [
+      {
+        "type": "metadata_correction",
+        "field": "is_subclass_feature",
+        "suggestion": "Set 'is_subclass_feature' to 'false'. This table defines a primary class feature for all Sorcerers, not a feature specific to a subclass (like a Metamagic or Origin feature)."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:08.768Z"
+}

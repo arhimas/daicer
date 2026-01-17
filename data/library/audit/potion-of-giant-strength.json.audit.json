@@ -1,0 +1,59 @@
+{
+  "file": "molecules/items/potion-of-giant-strength.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-giant-strength.json",
+    "analysis": {
+      "consistency": {
+        "overall": "High",
+        "notes": "The primary description is consistent with standard D&D rules for Potions of Giant Strength. The table provides clear mechanical breakdowns for the different strengths and rarities based on the type of giant."
+      },
+      "quality": {
+        "overall": "High",
+        "notes": "The data is well-structured, clearly defining the effect (temporary Strength score change) and listing the variables (Giant Type, Strength Score, Rarity) in a tabular format within the description, which is highly descriptive and useful for rules reference."
+      },
+      "mechanics": {
+        "core_mechanic": "Temporary modification of the Strength score for 1 hour.",
+        "conditions": "The effect only applies if the drinker's current Strength is lower than the score granted by the potion.",
+        "variable_mechanics": [
+          {
+            "variable": "Giant Type/Rarity/Strength",
+            "values": [
+              {
+                "type": "Hill giant",
+                "strength": 21,
+                "rarity": "Uncommon"
+              },
+              {
+                "type": "Frost/stone giant",
+                "strength": 23,
+                "rarity": "Rare"
+              },
+              {
+                "type": "Fire giant",
+                "strength": 25,
+                "rarity": "Rare"
+              },
+              {
+                "type": "Cloud giant",
+                "strength": 27,
+                "rarity": "Very rare"
+              },
+              {
+                "type": "Storm giant",
+                "strength": 29,
+                "rarity": "Legendary"
+              }
+            ]
+          }
+        ],
+        "notes": "The inclusion of 'rarity varies' in the top-level metadata is accurate because the rarity changes depending on the specific version consumed (e.g., Potion of Hill Giant Strength is Uncommon, Potion of Storm Giant Strength is Legendary). The rule regarding the potion having no effect if the current Strength is equal to or greater than the granted score is correctly noted."
+      }
+    },
+    "archivist_notes": "This entry accurately captures the complex scaling nature of the Potion of Giant Strength item, detailing multiple mechanical variations under a single item slug."
+  },
+  "timestamp": "2026-01-17T07:22:57.228Z"
+}

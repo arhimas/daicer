@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/wall-of-fire.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "wall-of-fire.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell formatting. Data fields (level, casting time, range, components, duration, classes) are present and standard.",
+      "quality": "High quality. The description is thorough, detailing shape/size variations, initial damage/save, persistent damage area (one side only), and scaling options.",
+      "mechanics": {
+        "level": 4,
+        "school": "evocation",
+        "casting_time": "1 action",
+        "range": "120 feet",
+        "components": "V, S, M (a small piece of phosphorus)",
+        "duration": "Concentration, up to 1 minute",
+        "save_type": "Dexterity",
+        "damage_type": "fire",
+        "initial_damage": "5d8",
+        "persistent_damage": "5d8 (per turn ended within 10ft of one specified side or inside)",
+        "scaling": "Increases by 1d8 fire damage per slot level above 4th."
+      },
+      "review_summary": "The spell is well-defined. The distinction between the initial area damage and the persistent side damage is clear. The choice of which side deals damage adds a tactical element. The scaling is standard for damage spells.",
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:28.074Z"
+}

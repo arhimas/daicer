@@ -1,0 +1,44 @@
+{
+  "file": "molecules/items/brazier-of-commanding-fire-elementals.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "brazier-of-commanding-fire-elementals.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_consistent_with_rarity": true,
+        "fields_present": [
+          "slug",
+          "name",
+          "type",
+          "rarity",
+          "requires_attunement",
+          "description",
+          "source_type_rarity"
+        ]
+      },
+      "quality": {
+        "description_clarity": "Excellent. Clearly states the mechanical effect (casting *conjure elemental* for a fire elemental) and the limitation (once per dawn).",
+        "completeness": "Complete for a standard magic item entry.",
+        "formatting_notes": "The description uses Markdown linking for the spell reference, which is typical for digital item databases."
+      },
+      "mechanics": {
+        "item_type": "Wondrous Item",
+        "attunement": false,
+        "core_function": "Summons a Fire Elemental via *Conjure Elemental* spell mechanism.",
+        "limitations": [
+          "Requires a fire to be burning in the brazier.",
+          "Action required to use.",
+          "Usable once per dawn."
+        ],
+        "rarity_assessment": "Rare seems appropriate for an item that grants unlimited, if once-daily, access to summoning a powerful creature like a Fire Elemental (CR 5), bypassing spell slot expenditure."
+      },
+      "zod_errors": "None",
+      "recommendations": "None. The data structure and content are solid."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.316Z"
+}

@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/greater-invisibility.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "greater-invisibility.json",
+    "analysis": {
+      "consistency": "High. The spell description is straightforward and aligns with the mechanics implied by its name (a stronger version of 'Invisibility').",
+      "quality": "Good. The description is concise and clearly defines the effect, including the crucial detail that worn or carried gear becomes invisible along with the target.",
+      "mechanics": {
+        "level": 4,
+        "school": "illusion",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components": "V, S (Verbal, Somatic)",
+        "duration": "Concentration, up to 1 minute",
+        "effect": "Grants invisibility to the target (self or touched creature). Gear worn or carried is also turned invisible.",
+        "class_availability": [
+          "bard",
+          "sorcerer",
+          "wizard"
+        ],
+        "notes": "This spell is mechanically superior to the 2nd-level 'Invisibility' as it does not require the target to drop what they are carrying for it to also become invisible, and it is a higher level spell, suggesting a more robust or permanent effect (though both are concentration). The link to the 'invisible' condition is standard practice."
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.165Z"
+}

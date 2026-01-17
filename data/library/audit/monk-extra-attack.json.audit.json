@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/monk-extra-attack.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-extra-attack.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e class progression for Monks. 'Extra Attack' is a standard class feature granted at level 5.",
+      "quality": "High quality. The name, class, level, and description are accurate and clear.",
+      "mechanics": {
+        "feature_name": "Extra Attack",
+        "class": "Monk",
+        "level_gained": 5,
+        "effect": "Increases the number of attacks made during the Attack action from one to two.",
+        "mechanic_type": "Action Economy/Attack Increment",
+        "notes": "This feature stacks with other class features that grant additional attacks via the Attack action (e.g., Fighter's Extra Attack), although Monks do not typically gain further iterative attacks beyond this baseline feature unless multiclassing."
+      }
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:23:14.086Z"
+}

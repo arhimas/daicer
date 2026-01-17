@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/mass-suggestion.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mass-suggestion.json",
+    "analysis": {
+      "consistency": "High. The description is detailed and aligns with typical D&D 5e spell formatting for an enchantment spell of this level. The components, casting time, and range are standard for a powerful, wide-reaching enchantment.",
+      "quality": "High. The spell effect is well-defined, including clear limitations on the suggestion (must sound reasonable, harm negates it) and success conditions (Wisdom save). The scaling mechanic for higher spell slots based on duration is explicitly stated and easy to implement.",
+      "mechanics": {
+        "level": 6,
+        "school": "enchantment",
+        "key_mechanics": [
+          "Targeting up to 12 creatures within 60 feet.",
+          "Requires targets to be able to hear and understand the caster.",
+          "Targets must succeed on a Wisdom saving throw to resist.",
+          "Effect is negated if the suggestion is obviously harmful.",
+          "Duration scales significantly with higher spell slots (12h -> 10 days -> 30 days -> 1 year and a day).",
+          "Spell ends early if the caster or a companion damages a target."
+        ],
+        "potential_issues": "The spell's power is heavily reliant on the DM's interpretation of what sounds 'reasonable' versus what is 'obviously harmful,' which is standard for enchantment spells but can lead to subjective rulings. The sheer number of targets (12) for a 6th-level spell makes it highly potent for social manipulation or large-scale mission giving."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:36.330Z"
+}

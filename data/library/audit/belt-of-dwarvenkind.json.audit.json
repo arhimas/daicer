@@ -1,0 +1,54 @@
+{
+  "file": "molecules/items/belt-of-dwarvenkind.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "belt-of-dwarvenkind.json",
+    "analysis": {
+      "consistency": "High. The item's name, type, and rarity are clearly defined and consistent with the detailed mechanical descriptions.",
+      "quality": "Good. The mechanics provide thematic and clear statistical benefits (stat increase, advantage on checks, race-specific bonuses) typical for a rare wondrous item.",
+      "mechanics_assessment": {
+        "stat_increase": {
+          "attribute": "Constitution",
+          "value": "+2",
+          "cap": 20,
+          "notes": "Standard and powerful for a rare item."
+        },
+        "racial_interaction": {
+          "skill": "Charisma (Persuasion)",
+          "condition": "Interacting with dwarves",
+          "effect": "Advantage",
+          "notes": "Thematically appropriate."
+        },
+        "attunement_effect": {
+          "description": "50% chance daily at dawn to grow/thicken beard.",
+          "mechanics": "Cosmetic/Thematic flavor, not a primary mechanical benefit."
+        },
+        "non_dwarf_benefits": [
+          {
+            "effect": "Advantage on saving throws against poison.",
+            "source": "Poison save"
+          },
+          {
+            "effect": "Resistance against poison damage.",
+            "source": "Poison damage"
+          },
+          {
+            "effect": "Darkvision out to 60 feet.",
+            "source": "Vision"
+          },
+          {
+            "effect": "Proficiency in Dwarvish language (speak, read, write).",
+            "source": "Language"
+          }
+        ],
+        "notes_on_non_dwarf_benefits": "These bonuses strongly emulate the core racial traits of a dwarf, making the item highly desirable for non-dwarves seeking that fantasy."
+      },
+      "zod_errors_found": "NONE",
+      "recommendations": "The mechanics are solid and balanced for a Rare item requiring attunement. No changes necessary based on the provided data."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:05.295Z"
+}

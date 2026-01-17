@@ -1,0 +1,29 @@
+{
+  "file": "molecules/items/tome-of-clear-thought.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "tome-of-clear-thought.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent. 'Tome of Clear Thought' matches 'tome-of-clear-thought'.",
+        "type_and_rarity_summary": "Consistent. 'Wondrous item' and 'Very Rare' align with 'Wondrous item, very rare'."
+      },
+      "quality": {
+        "description_completeness": "High. The description clearly outlines the benefit (INT +2, max increase), time requirement (48 hours over 6 days), duration of effect (permanent until loss), and reset condition (regains magic in a century).",
+        "data_structure_quality": "Good. All core fields (slug, name, type, rarity, description) are present and well-formed."
+      },
+      "mechanics": {
+        "effect_type": "Permanent Ability Score Increase",
+        "activation_requirement": "48 hours of study over 6 days or fewer.",
+        "primary_effect": "Intelligence score increases by 2, maximum Intelligence score increases by 2.",
+        "reusability": "Single use; loses magic after effect is applied, regains magic after 100 years."
+      },
+      "zod_errors_found": false,
+      "archivist_notes": "This is a standard, mechanically defined consumable magic item (manual). The constraints on time (48 hours/6 days) and the permanent nature of the stat boost are clearly defined."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:52.270Z"
+}

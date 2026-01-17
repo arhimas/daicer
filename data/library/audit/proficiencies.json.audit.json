@@ -1,0 +1,24 @@
+{
+  "file": "atoms/proficiencies.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "Consistent with typical data structure for a single entry.",
+      "quality": "High quality; data is present, labeled, and clearly defined (name and type).",
+      "mechanics": "Mechanically sound JSON structure."
+    },
+    "metadata": {
+      "entity": "UNKNOWN",
+      "file": "proficiencies.json",
+      "record_count": 1
+    },
+    "data_summary": {
+      "name": "Athletics",
+      "type": "Skills"
+    },
+    "archivist_notes": "The raw data successfully parsed into a clean, structured object. No errors or inconsistencies detected in the provided sample."
+  },
+  "timestamp": "2026-01-17T07:22:24.789Z"
+}

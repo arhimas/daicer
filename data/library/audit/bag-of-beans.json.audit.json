@@ -1,0 +1,91 @@
+{
+  "file": "molecules/items/bag-of-beans.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "bag-of-beans.json",
+    "analysis": {
+      "consistency": "The item description is internally consistent, detailing two distinct uses for the contents: immediate explosive effect or delayed planted effect. The bean effects table is comprehensive but contains varying power levels, which is typical for random generation tables.",
+      "quality": "The item is high quality in terms of descriptive detail and mechanical variety. The dual nature of the effect (instant area denial/damage vs. unpredictable utility/danger from planting) makes it versatile and interesting for gameplay. The complexity of the planted effects ranges from minor utility (liquid spout) to significant danger (mummy lord pyramid, explosion eggs).",
+      "mechanics": {
+        "explosive_effect": {
+          "area": "10-foot radius",
+          "save": "DC 15 Dexterity",
+          "damage": "5d4 fire (half on save)",
+          "additional_effect": "Ignites flammable objects not worn/carried"
+        },
+        "bean_planting_effects": {
+          "trigger": "Planted and watered, effect appears after 1 minute.",
+          "bean_count": "3d4",
+          "weight": "0.5 lb + 0.25 lb per bean",
+          "table_analysis": [
+            {
+              "d100_range": "01",
+              "effect_summary": "5d4 Toadstools: High risk/reward eating effect (Poison/Temp HP). DC 15 Constitution save required.",
+              "power_level": "Moderate to High Variance"
+            },
+            {
+              "d100_range": "02-10",
+              "effect_summary": "Geyser spout (1d12 rounds). Choice of liquid (water, beer, juice, tea, vinegar, oil).",
+              "power_level": "Low Utility"
+            },
+            {
+              "d100_range": "11-20",
+              "effect_summary": "Sprouts a Treant (50% chance to be hostile Chaotic Evil).",
+              "power_level": "High Combat Threat"
+            },
+            {
+              "d100_range": "21-30",
+              "effect_summary": "Animate Stone Statue in user's likeness, which verbally harasses future visitors and directs them to attack the user. Lasts 24 hours.",
+              "power_level": "Social/Plot Intrusion"
+            },
+            {
+              "d100_range": "31-40",
+              "effect_summary": "Campfire with blue flames burns for 24 hours.",
+              "power_level": "Low Utility"
+            },
+            {
+              "d100_range": "41-50",
+              "effect_summary": "1d6 + 6 Shriekers sprout.",
+              "power_level": "Low Combat Utility/Nuisance"
+            },
+            {
+              "d100_range": "51-60",
+              "effect_summary": "1d4 + 8 Bright Pink Toads appear. Touching one summons a random Large or smaller monster for 1 minute.",
+              "power_level": "High Combat Variance/Risk"
+            },
+            {
+              "d100_range": "61-70",
+              "effect_summary": "A hungry Bulette burrows up and attacks.",
+              "power_level": "High Combat Threat"
+            },
+            {
+              "d100_range": "71-80",
+              "effect_summary": "Fruit Tree grows: 1d8 potions (random magic), 1 ingested poison. Tree lasts 1 hour.",
+              "power_level": "High Utility/Risk Variance"
+            },
+            {
+              "d100_range": "81-90",
+              "effect_summary": "Nest of 1d4 + 3 eggs. Eating grants permanent +1 to lowest score (on save) or 10d6 force damage (on fail, DC 20 Constitution).",
+              "power_level": "Extremely High Reward / Extreme Risk"
+            },
+            {
+              "d100_range": "91-99",
+              "effect_summary": "Pyramid bursts forth containing a Mummy Lord in a sarcophagus (treated as lair).",
+              "power_level": "Catastrophic Threat"
+            },
+            {
+              "d100_range": "00",
+              "effect_summary": "Giant beanstalk sprouts to GM's chosen height, leading to a location of GM's choice (e.g., castle, different plane).",
+              "power_level": "Extremely High Utility/Plot Device"
+            }
+          ]
+        }
+      },
+      "notes": "This item is powerful due to the randomness injected into planting. The 0.3% chance (91-99 + 00) of summoning a Mummy Lord's lair or a plane-hopping beanstalk means the potential upside is extremely high for a 'Rare' item. The DC 15 Dexterity save for the initial explosion is reasonable for a rare item."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:06.938Z"
+}

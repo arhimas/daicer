@@ -1,0 +1,51 @@
+{
+  "file": "molecules/items/staff-of-fire.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "staff-of-fire.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent",
+        "rarity_vs_source": "Consistent ('Very Rare' matches source description contextually, though source text mentions specific classes which is good detail)",
+        "type_vs_mechanics": "Consistent (A 'Staff' granting spellcasting abilities)"
+      },
+      "quality": {
+        "data_completeness": "High. Includes name, slug, type, rarity, attunement requirement, detailed description, charge mechanics, and regeneration details.",
+        "description_clarity": "Excellent. Clearly outlines passive benefit, charge mechanics, specific spells, costs, and destruction contingency.",
+        "source_data_value": "High. The source string adds specificity about class restrictions for attunement, which is missing in the main 'requires_attunement' boolean/field."
+      },
+      "mechanics": {
+        "attunement_required": true,
+        "charge_system": {
+          "total_charges": 10,
+          "regeneration": "1d6 + 4 daily at dawn",
+          "spells_listed": [
+            {
+              "name": "burning hands",
+              "cost": 1
+            },
+            {
+              "name": "fireball",
+              "cost": 3
+            },
+            {
+              "name": "wall of fire",
+              "cost": 4
+            }
+          ],
+          "destruction_risk": "Yes, on rolling a 1 when expending the last charge."
+        },
+        "passive_benefit": "Resistance to fire damage while holding the staff.",
+        "caster_requirement_gap": "The main 'requires_attunement' field is boolean, but the source text specifies attunement by Druid, Sorcerer, Warlock, or Wizard. This specific class list should be explicitly captured in a structured field if possible."
+      },
+      "recommendations": [
+        "Standardize the attunement requirement to include the specific classes mentioned in the source string ('druid, sorcerer, warlock, or wizard') into a structured field.",
+        "Verify if the spell save DC referenced is the user's standard spell save DC, which is standard D&D practice but worth noting."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.647Z"
+}

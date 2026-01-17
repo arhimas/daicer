@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/nondetection.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "nondetection.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "level_and_school_present": true,
+        "mechanics_consistent_with_school": true
+      },
+      "quality": {
+        "description_clarity": "High. Clearly defines what the spell does and its limitations (targeting, scrying sensors).",
+        "component_detail": "Excellent. Specifies the material component, its value (25 gp), and that it is consumed.",
+        "formatting_standard": "Good. Follows typical D&D 5e spell formatting."
+      },
+      "mechanics": {
+        "level": 3,
+        "school": "abjuration",
+        "effect_summary": "Protects the target from all divination magic, including magical scrying sensors, for 8 hours.",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components_impact": "The material component (diamond dust) is costly (25 gp) and consumed, which is appropriate for a 3rd-level protective spell.",
+        "duration_viability": "8 hours is a substantial duration for a 3rd-level spell, balanced by the action cost and material cost.",
+        "class_balance": "Available to Bard, Ranger, and Wizard. This spread seems appropriate, offering strong protection to casters who might otherwise be susceptible to divination tracking."
+      },
+      "zod_errors_found": false,
+      "recommendations": "None. The entry is mechanically sound and well-documented."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.997Z"
+}

@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/instant-summons.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "instant-summons.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 6 Conjuration is plausible for this effect.",
+        "casting_time_duration": "Consistent. A 1-minute setup for a permanent (until dispelled) utility effect fits standard D&D spell pacing.",
+        "material_component_usage": "Consistent. The material component (sapphire) is integral to the spell's function (inscription and trigger) and its high cost (1,000 gp) matches the utility of instantaneous retrieval across planes."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines the setup, the trigger condition (crushing the sapphire), and the two outcomes (successful retrieval or location reveal if held by another).",
+        "flavor": "High. The concept of binding an object's identity to a costly gem for immediate retrieval is flavorful and mechanically sound for a high-level spell.",
+        "balance_considerations": "The 1,000 gp cost per use limits spamming and balances the power of instantaneous, planar object retrieval. The 'Dispel magic' counter is a standard balancing factor."
+      },
+      "mechanics": {
+        "trigger_mechanism": "Action to speak the name and crush the sapphire. This is clear.",
+        "range_and_scope": "Touch for casting, but the retrieval range is effectively infinite ('regardless of physical or planar distances').",
+        "limitations": "Strict limits on item size (10 lbs, 6 ft max dimension) prevent summoning massive objects or creatures.",
+        "interaction_with_creatures": "The contingency clause (learning location if another holds it) is an excellent mechanical feature, turning a failed retrieval into useful intelligence."
+      },
+      "zod_errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:38.057Z"
+}

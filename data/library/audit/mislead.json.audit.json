@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/mislead.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mislead.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 5 Illusion spell aligns with typical spell progression.",
+        "casting_time_range_duration": "Consistent structure for a combat/utility spell.",
+        "component_type": "Somatic component only is standard for many spells."
+      },
+      "quality": {
+        "clarity": "The description is clear, detailing the simultaneous effects (invisibility + double) and the conditions for ending invisibility (attack/cast spell).",
+        "usefulness": "High utility. Provides scouting (sight/hearing via double) and misdirection/control (double movement) while maintaining a degree of stealth.",
+        "flavor": "The name 'Mislead' perfectly matches the effect of creating an illusory double to distract or hide the caster."
+      },
+      "mechanics": {
+        "invisibility_limitation": "Standard limitation for invisibility granted by spells that allow actions/bonus actions (must end on attack/cast).",
+        "double_action": "The ability to move the double as an action is strong, essentially granting an extra body to position for scouting or setting up positioning.",
+        "sensory_switch": "The bonus action switch between self and double senses is mechanically sound but carries a significant risk: being Blinded and Deafened while using the double's senses. This ensures tactical risk management is required.",
+        "concentration_duration": "Concentration for up to 1 hour is appropriate for a high-level utility/scouting spell."
+      },
+      "potential_issues": [
+        "No obvious mechanical contradictions. The trade-off (Blinded/Deafened while using the double's senses) balances the scouting power."
+      ],
+      "suggested_review": "None needed. Mechanically sound and well-described."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:35.564Z"
+}

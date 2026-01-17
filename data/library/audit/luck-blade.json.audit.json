@@ -1,0 +1,43 @@
+{
+  "file": "molecules/items/luck-blade.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "luck-blade.json",
+    "analysis": {
+      "consistency": {
+        "summary": "The data appears internally consistent, mapping standard D&D 5e magic item attributes.",
+        "details": "Name ('Luck Blade'), Type ('Weapon (any sword)'), Rarity ('Legendary'), and Attunement requirement match the descriptive text and mechanical effects."
+      },
+      "quality": {
+        "summary": "High quality. The description clearly outlines all mechanical benefits.",
+        "details": "Includes standard bonuses (+1 attack/damage, +1 saving throws), a limited-use ability ('Luck' reroll), and a powerful charge-based ability ('Wish'). The source/rarity notation is slightly redundant but present."
+      },
+      "mechanics": {
+        "summary": "Mechanically robust, featuring multiple layered benefits.",
+        "details": {
+          "base_bonus": "+1 bonus to attack and damage rolls.",
+          "passive_bonus": "+1 bonus to saving throws while on person.",
+          "limited_use_ability": {
+            "name": "Luck",
+            "effect": "Reroll one attack roll, ability check, or saving throw (must use second roll).",
+            "cooldown": "Once per dawn."
+          },
+          "charge_ability": {
+            "name": "Wish",
+            "charges": "1d4 - 1 charges (maximum 3, minimum 0).",
+            "casting_mechanic": "Action to expend 1 charge to cast _wish_ spell.",
+            "reset": "Property lost if no charges remain; uses are limited to the number of charges remaining."
+          }
+        }
+      }
+    },
+    "potential_issues_or_notes": [
+      "The charge count (1d4 - 1) means the item might start with 0 charges, rendering the _Wish_ property unusable immediately. This is standard for this specific item but worth noting.",
+      "The description uses markdown formatting (e.g., `_Wish_`, `[_wish_](#wish)`), which should be stripped or standardized if this data were being ported to a plain text system."
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:59.599Z"
+}

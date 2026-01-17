@@ -1,0 +1,55 @@
+{
+  "file": "molecules/spells/flame-blade.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "flame-blade.json",
+    "analysis": {
+      "consistency": {
+        "data_integrity": "High",
+        "field_completeness": "High",
+        "standard_format_adherence": "High"
+      },
+      "quality": {
+        "description_clarity": "High",
+        "mechanics_clarity": "High",
+        "language_quality": "Good",
+        "notes": "The spell description clearly outlines the action economy (bonus action to summon, action to attack) and damage scaling."
+      },
+      "mechanics": {
+        "name": "Flame Blade",
+        "level": 2,
+        "school": "evocation",
+        "casting_time": "1 bonus action",
+        "range": "Self",
+        "duration": "Concentration, up to 10 minutes",
+        "components": {
+          "verbal": true,
+          "somatic": true,
+          "material": true,
+          "material_component": "leaf of sumac"
+        },
+        "action_economy": {
+          "summoning": "Bonus Action (to evoke/re-evoke)",
+          "attack_action": "Action (to make melee spell attack)"
+        },
+        "attack_type": "Melee Spell Attack",
+        "base_damage": "3d6 fire damage",
+        "scaling": {
+          "mechanism": "Increases by 1d6 for every two slot levels above 2nd.",
+          "example_scaling": "3rd level slot: 3d6; 4th level slot: 4d6; 5th level slot: 5d6; 6th level slot: 6d6; 7th level slot: 7d6; 8th level slot: 8d6; 9th level slot: 9d6."
+        },
+        "utility": [
+          "Light source (10ft bright, 10ft dim)"
+        ],
+        "class_compatibility": [
+          "druid"
+        ]
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:41.894Z"
+}

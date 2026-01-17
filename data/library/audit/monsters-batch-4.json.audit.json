@@ -1,0 +1,60 @@
+{
+  "file": "blueprints/monsters-batch-4.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "metadata": {
+      "entity_name": "UNKNOWN",
+      "file_name": "monsters-batch-4.json",
+      "slug": "banshee",
+      "analysis_date": "2024-05-21"
+    },
+    "consistency_check": {
+      "data_integrity": "Good",
+      "field_completeness": "Complete",
+      "format_adherence": "Compliant"
+    },
+    "quality_assessment": {
+      "name": "Banshee",
+      "type": "Undead",
+      "alignment": "Chaotic Evil",
+      "size": "Medium",
+      "level": 11,
+      "challenge_rating_match": "Inconsistent",
+      "notes": "CR 4 (1100 XP) for a CR 11 creature seems severely under-leveled, suggesting the level or XP is misattributed relative to the CR, or the CR is low for the listed stats/abilities. Typically, a CR 4 creature grants 1100 XP, but the 'level: 11' field is highly unusual for standard D&D stat blocks and conflicts with the listed CR/XP.",
+      "hp_check": "Consistent with hit dice (58 HP for 13d8 averages around 58.5)",
+      "stat_block_check": "Stats appear present and complete."
+    },
+    "mechanics_review": {
+      "overall_power_level": "Potentially Understated (due to CR/XP discrepancy)",
+      "actions_review": [
+        {
+          "action_name": "Corrupting Touch",
+          "type": "Melee Spell Attack",
+          "toHit": 4,
+          "damage": "3d6 + 3 Necrotic (Average 13.5 damage). Attack bonus seems low for a CR 4 creature's primary attack if this is the only offensive action."
+        },
+        {
+          "action_name": "Wail",
+          "type": "Area Effect",
+          "range": "30 ft. radius sphere (60 ft. diameter)",
+          "effect_summary": "Inflicts Unconscious condition on failed DC 13 Constitution save. Damage is listed as 0, meaning this is purely a save-or-suck effect.",
+          "mechanics_note": "The Wail is powerful crowd control (Unconscious condition), but the DC 13 save is quite low for a creature listed at CR 4 (which usually implies a DC around 13-14 for a save against a primary ability, but the source for the DC is not explicitly tied to CHA/Spell Save DC for this effect)."
+        }
+      ],
+      "inconsistencies_flagged": [
+        {
+          "field": "level",
+          "issue": "Presence of 'level: 11' field, which is non-standard for typical monster stat blocks; likely an archival error or a specialized system metric. It contradicts the CR 4 / 1100 XP pairing if interpreting standard challenge ratings."
+        },
+        {
+          "field": "Wail Damage",
+          "issue": "Damage instance listed as 'enchanted: 0', implying the Wail deals no damage, only applies the Unconscious condition via the save."
+        }
+      ]
+    },
+    "zod_errors": "NONE"
+  },
+  "timestamp": "2026-01-17T07:22:26.272Z"
+}

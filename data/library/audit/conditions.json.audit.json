@@ -1,0 +1,21 @@
+{
+  "file": "atoms/conditions.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "conditions.json",
+    "analysis": {
+      "consistency": "High. The description adheres to standard RPG condition formatting, detailing mechanical effects clearly.",
+      "quality": "High. The language is precise and unambiguous.",
+      "mechanics": {
+        "sight_dependency": "Automatic failure on ability checks requiring sight.",
+        "attack_rolls_advantage_against": true,
+        "attack_rolls_disadvantage_for": true
+      },
+      "notes": "This condition accurately reflects the standard 'Blinded' status found in many tabletop role-playing systems (like D&D 5e), providing clear offensive and defensive penalties."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:24.865Z"
+}

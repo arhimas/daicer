@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/light.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "light.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent. Level 0 (Cantrip) is appropriate for a basic utility spell like Light.",
+        "casting_time_range_duration_structure": "Standard structure for a utility spell.",
+        "components_clarity": "Clear and specific components listed (V, M with example material)."
+      },
+      "quality": {
+        "description_completeness": "High quality. Details light radius (20ft bright, 20ft dim), color flexibility, blocking mechanism, dismissal action, and hostile target interaction (Dex save).",
+        "utility": "Excellent low-level utility spell for illumination and potentially revealing invisible creatures or disrupting enemies relying on darkness.",
+        "material_component_impact": "The material component (firefly or moss) is consumed or required, typical for cantrips or low-level spells, though the description doesn't explicitly state consumption, utility suggests it's a focus."
+      },
+      "mechanics": {
+        "action_economy": "1 action to cast, 1 action to dismiss (good flexibility).",
+        "range_and_area": "Touch range, providing an area effect (20ft radius bright light).",
+        "saving_throw_trigger": "The Dexterity saving throw against a hostile target is a well-implemented defensive/offensive countermeasure for a utility spell, preventing easy use against enemies.",
+        "duration": "1 hour is a standard, useful duration for persistent illumination."
+      },
+      "zod_errors_found": false,
+      "suggestions": [
+        "Clarify if the material component is consumed or merely required/expended upon casting, although for a cantrip, it is often implied to be merely required/not consumed."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.788Z"
+}

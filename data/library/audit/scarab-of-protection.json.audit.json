@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/scarab-of-protection.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "item_name": "Scarab of Protection",
+    "analysis": {
+      "consistency": "High. The description clearly outlines the activation, benefits, charge system, and destruction condition.",
+      "quality": "Good. The item has clear, powerful, and specific magical benefits appropriate for its Legendary rarity.",
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Legendary",
+        "attunement": true,
+        "activation": "Hold for 1 round to reveal inscription (flavor/setup). Passive benefits are active when on person.",
+        "benefits": [
+          {
+            "effect": "Advantage on saving throws against spells.",
+            "scope": "General"
+          },
+          {
+            "effect": "Use reaction to change a failed save against a necromancy spell or harmful effect from an undead creature into a success.",
+            "cost": "1 charge",
+            "limit": "12 charges total"
+          }
+        ],
+        "destruction": "The item crumbles upon expending the last charge."
+      },
+      "notes": "The mechanics are solid. Advantage on *all* spell saves is significant, and the reaction ability provides crucial defense specifically against common high-level threats (necrotic damage/undead), balancing its overall power slightly by making the charge use reactive and specific. The 12 charges seem appropriate for a legendary item intended to last through several encounters."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:54.109Z"
+}

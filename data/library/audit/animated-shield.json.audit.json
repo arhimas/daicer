@@ -1,0 +1,35 @@
+{
+  "file": "molecules/items/animated-shield.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "animated-shield.json",
+    "analysis": {
+      "consistency": {
+        "internal": "The data fields (slug, name, type, rarity, attunement requirement) are consistent with the description provided.",
+        "external_source_check": "The 'source_type_rarity' field accurately summarizes the item type ('Armor (shield)'), rarity ('very rare'), and attunement requirement.",
+        "conclusion": "High consistency."
+      },
+      "quality": {
+        "completeness": "The entry is complete, containing all standard fields necessary for item description and mechanical function.",
+        "clarity": "The description is clear regarding the bonus action activation, duration (1 minute), and deactivation conditions (bonus action, incapacitation, death).",
+        "formatting_notes": "The description uses inline markdown for cross-referencing terms like '[attunement]' and '[incapacitated]', which is standard for SRD-style data.",
+        "conclusion": "High quality and mechanically sound."
+      },
+      "mechanics": {
+        "primary_effect": "Grants defensive benefit equivalent to wielding a shield without requiring a hand (freeing hands).",
+        "action_economy": {
+          "activation": "Bonus Action",
+          "deactivation": "Bonus Action or automatic triggers"
+        },
+        "duration": "1 minute (Concentration is *not* mentioned, implying no concentration required, which is a key mechanical feature).",
+        "attunement": "Requires Attunement, standard for powerful magic items.",
+        "synergy": "Excellent synergy with classes that need a shield bonus but also need hands free (e.g., spellcasters using two hands for somatic components, or two-weapon fighters needing a free hand for item use/interaction)."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:06.146Z"
+}

@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/tongues.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "tongues.json",
+    "analysis": {
+      "consistency": {
+        "data_structure": "Consistent with standard spell format.",
+        "naming_conventions": "Slug and name are consistent."
+      },
+      "quality": {
+        "completeness": "All standard fields (level, school, casting time, range, components, duration, description, classes) are present.",
+        "clarity": "The description is clear and mechanistically sound for its intended effect (linguistic universal translation)."
+      },
+      "mechanics": {
+        "level_school_fit": "Level 3 Divination is appropriate for a spell that significantly alters communication and perception.",
+        "casting_time_range_duration": "1 action casting time, Touch range, and 1 hour duration are balanced for a utility spell of this level.",
+        "components": "Verbal (V) and Material (M) components are listed. The material component (a small clay model of a ziggurat) is flavor-rich but does not specify a monetary cost or if it is consumed, which is typical for non-consumed, flavor-based materials.",
+        "class_availability": "The spell is available to a good mix of arcane (wizard, sorcerer, warlock) and divine/support casters (bard, cleric), fitting its utility nature."
+      },
+      "zod_errors": "NONE",
+      "recommendations": "None needed. The entry is well-formed and mechanically sound."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:28.944Z"
+}

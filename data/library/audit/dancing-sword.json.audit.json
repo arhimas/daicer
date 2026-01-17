@@ -1,0 +1,24 @@
+{
+  "file": "molecules/items/dancing-sword.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "dancing-sword.json",
+    "analysis": {
+      "consistency": "The provided data is internally consistent. The 'type' field ('Weapon (any sword)') matches the general description of a sword item. The 'rarity' ('Very Rare') aligns with the 'source_type_rarity' field.",
+      "quality": "The data quality is high. It is complete, clearly formatted, and contains all necessary fields for a game item archive (slug, name, type, rarity, attunement requirement, detailed description, and source metadata). The description is thorough regarding the mechanics.",
+      "mechanics": {
+        "type": "Weapon (any sword)",
+        "attunement": true,
+        "core_functionality": "Bonus action activation to hover and attack (range up to 30ft).",
+        "attack_rules": "Uses owner's attack roll and ability score modifier for damage.",
+        "movement": "Can be commanded via bonus action to move up to 30 feet to a new spot and attack again.",
+        "limitations": "Automatically attempts to return to hand after the fourth attack. Ceases hovering if the owner grasps it or moves more than 30 feet away."
+      },
+      "notes": "The description clearly outlines the activation cost (Bonus Action), range limitations (30 feet movement), and attack criteria. The limitation on the number of attacks (four) before returning is a key mechanical constraint that should be noted."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.791Z"
+}

@@ -1,0 +1,42 @@
+{
+  "file": "molecules/items/hammer-of-thunderbolts.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "hammer-of-thunderbolts.json",
+    "analysis": {
+      "consistency": {
+        "type_and_rarity_match": true,
+        "description_matches_summary": true,
+        "internal_references_valid": true
+      },
+      "quality": {
+        "readability": "High",
+        "completeness": "High",
+        "formatting_issues": "Minor: The reference to \"[Attunement](#section-attunement)\" and \"[stunned](#stunned)\" implies external linking/document structure, which is fine for internal documentation but requires context for standalone data.",
+        "flavor": "High"
+      },
+      "mechanics": {
+        "bonus": "+1 bonus to attack and damage rolls.",
+        "attunement_requirements": "Requires attunement AND wearing both a belt of giant strength (any) and gauntlets of ogre power. Attunement breaks if either item is removed.",
+        "attunement_effect": "Strength score increases by 4 (can exceed 20, max 30).",
+        "special_ability": {
+          "name": "Giant's Bane",
+          "trigger": "Rolling a 20 on an attack roll against a giant.",
+          "effect": "Target must succeed on a DC 17 Constitution saving throw or die."
+        },
+        "charged_ability": {
+          "charges": 5,
+          "regeneration": "1d4 + 1 charges daily at dawn.",
+          "action": "Expend 1 charge to make a ranged weapon attack (Range: 20/60 ft).",
+          "on_hit_effect": "Target and all creatures within 30 feet must succeed on a DC 17 Constitution saving throw or be stunned until the end of the wielder's next turn. Thunderclap audible up to 300 feet."
+        },
+        "power_level": "Legendary, highly potent due to instant kill potential against giants and powerful area-of-effect stun/debuff."
+      },
+      "notes": "The dual attunement requirement linked to specific items makes this weapon extremely situational and powerful for its niche (giant slaying), mitigating the raw power slightly by requiring specific preparatory gear."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.849Z"
+}

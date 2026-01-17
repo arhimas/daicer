@@ -1,0 +1,45 @@
+{
+  "file": "molecules/items/mace-of-smiting.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "item_slug": "mace-of-smiting",
+    "file_name": "mace-of-smiting.json",
+    "analysis": {
+      "consistency": "High. The name, type, and rarity are consistent with the description.",
+      "quality": "Good. The item presents a clear magical theme (smite/construct destruction) with layered benefits.",
+      "mechanics_check": {
+        "type": "Weapon (mace)",
+        "rarity": "Rare",
+        "attunement": false,
+        "features": [
+          {
+            "effect": "+1 bonus to attack and damage rolls.",
+            "condition": "Always"
+          },
+          {
+            "effect": "+3 bonus to attack and damage rolls.",
+            "condition": "Attacking a construct"
+          },
+          {
+            "effect": "On a natural 20 attack roll, the target takes an extra 2d6 bludgeoning damage.",
+            "condition": "General critical hit"
+          },
+          {
+            "effect": "On a natural 20 attack roll, the target takes an extra 4d6 bludgeoning damage.",
+            "condition": "Critical hit against a construct"
+          },
+          {
+            "effect": "If a construct has 25 hit points or fewer after taking this critical damage, it is destroyed.",
+            "condition": "Construct target, post-damage threshold"
+          }
+        ],
+        "potential_issues": "The scaling bonus (+1 standard, +3 vs. construct) is significant and typical for Rare items focused on a specific creature type. The instant destruction clause against constructs at low HP is powerful but balanced by requiring a critical hit.",
+        "summary": "Mechanically sound for a Rare weapon. Provides a reliable, but minor, boost, a major boost against its intended target (constructs), and a powerful situational effect (instant destruction)."
+      }
+    },
+    "zod_errors_found": false
+  },
+  "timestamp": "2026-01-17T07:22:59.251Z"
+}

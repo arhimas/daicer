@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/conjure-woodland-beings.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "conjure-woodland-beings.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 4, School of Conjuration.",
+        "components": "Standard format. V, S, M (one holly berry per creature summoned) is detailed.",
+        "duration": "Standard format. Concentration, up to 1 hour, typical for summoning spells.",
+        "classes": "Consistent with standard class lists for this type of magic (Druid, Ranger)."
+      },
+      "quality": {
+        "description_clarity": "High clarity. The summoning options are explicitly tiered by CR and quantity, which is excellent for mechanical understanding.",
+        "flavor": "Strong flavor, fitting the woodland theme.",
+        "component_cost": "The material component cost is negligible (holly berry per creature), fitting for a 4th-level spell unless the maximum (8 creatures) becomes burdensome."
+      },
+      "mechanics": {
+        "action_economy": "Standard 1 action casting time. The summoned creatures act on their own initiative and obey free verbal commands, which is standard for creature summoning spells.",
+        "balance_considerations": "The spell offers significant tactical flexibility through quantity versus quality (CR gating). The 8x CR 1/4 option provides excellent action economy control for a 4th-level slot, balanced by the concentration requirement.",
+        "scaling": "The scaling at 6th (2x) and 8th (3x) levels is straightforward, increasing the action economy significantly at those tiers without altering the quality (CR ceiling) of the individual creatures, which maintains good balance."
+      },
+      "suggested_changes": [
+        "None needed. The spell is well-designed and follows established D&D 5e summoning mechanics precisely."
+      ],
+      "final_assessment": "Excellent. Mechanically sound, clearly written, and well-balanced for its spell level."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:46.870Z"
+}

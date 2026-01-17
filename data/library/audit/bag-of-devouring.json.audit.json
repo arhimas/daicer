@@ -1,0 +1,38 @@
+{
+  "file": "molecules/items/bag-of-devouring.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "bag-of-devouring.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent.",
+        "type_and_source_type": "Consistent ('Wondrous item' and 'Wondrous item, very rare').",
+        "rarity_and_source_rarity": "Consistent ('Very Rare' and 'very rare')."
+      },
+      "quality": {
+        "description_completeness": "High. Provides clear mechanics for accidental ingestion, intentional storage, destructive failure, and comparison to a Bag of Holding.",
+        "clarity_of_rules": "Generally clear, though the distinction between 'animal or vegetable matter' being devoured instantly versus a 'living creature' having a 50% chance of being pulled in could benefit from slight clarification regarding partial placement vs. full placement.",
+        "flavor_integration": "Excellent. The mechanical effects strongly support the flavor description of a 'feeding orifice for a gigantic extradimensional creature'."
+      },
+      "mechanics": {
+        "storage_capacity": "Very limited for inanimate objects (1 cubic foot), contrasting sharply with a standard Bag of Holding (500 pounds/60 cubic feet). This limitation serves as a balancing factor.",
+        "devouring_mechanism_living_matter": {
+          "trigger": "Placing part of a living creature inside (reaching in).",
+          "effect": "50% chance of being pulled entirely inside.",
+          "subsequent_effect": "Starts turn inside = devoured and body destroyed."
+        },
+        "escape_mechanics": {
+          "trapped_creature_escape": "Action + DC 15 Strength check.",
+          "rescue_check": "Action + DC 20 Strength check (risky due to potential for rescuer being pulled in)."
+        },
+        "inanimate_storage_limitation": "Objects can be stored, but are lost daily to a random plane (controlled by GM). This prevents reliable use as a standard storage device.",
+        "destruction_consequence": "If pierced/torn, it is destroyed, and contents (including any currently trapped creatures, assuming they haven't been devoured yet) are sent to a random location on the Astral Plane. This is a unique failure state."
+      },
+      "recommendations": "The mechanics are solid and thematic. The primary ambiguity is whether 'animal or vegetable matter placed wholly in the bag' (which is devoured forever) applies to dead organic material, whereas 'a living creature' applies to live material. Assuming 'animal or vegetable matter' implies raw, non-sentient, or dead matter, the rules function well."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:06.030Z"
+}

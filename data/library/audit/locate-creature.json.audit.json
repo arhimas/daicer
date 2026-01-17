@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/locate-creature.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "locate-creature.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent with standard D&D 5e spell structure (Level 4, Divination).",
+        "casting_time_and_range": "Standard '1 action' casting time and 'Self' range are typical for sensory spells.",
+        "components": "Components (V, S, M) are standard. The material component ('a bit of fur from a bloodhound') is flavorful and mechanically simple.",
+        "duration": "Concentration for up to 1 hour is common for spells that provide ongoing utility or tracking."
+      },
+      "quality": {
+        "clarity": "The description is generally clear, detailing how the creature must be known or specified.",
+        "limitations": "The limitations are well-defined: familiarity requirement, inability to pierce running water obstacles (10 feet wide), and failure if the target is shapeshifted (e.g., Polymorphed). These limitations ground the spell's power.",
+        "usefulness": "Highly useful for tracking specific allies, enemies, or types of creatures within a relatively tight radius (1,000 feet)."
+      },
+      "mechanics": {
+        "range_and_detection": "1,000 feet range is significant but requires the caster to be relatively close to the target. It provides direction and movement vector, but not precise distance.",
+        "concentration_cost": "Requires concentration, meaning it competes with other powerful ongoing effects.",
+        "water_block": "The specific terrain block (10 feet wide running water) is a unique, hard environmental countermeasure that DMs might need to track carefully.",
+        "familiarity_requirement": "The requirement to have seen the creature up close (30 feet) once prevents easy targeting of creatures one only knows by reputation or distant sightings, balancing its utility."
+      },
+      "zod_errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.630Z"
+}

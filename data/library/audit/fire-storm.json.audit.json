@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/fire-storm.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "fire-storm.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": true,
+        "range_and_area_consistency": true,
+        "damage_and_save_consistency": true
+      },
+      "quality": {
+        "completeness": "Complete",
+        "readability": "High",
+        "formatting_standard": "Compliant with typical D&D 5e spell formatting."
+      },
+      "mechanics": {
+        "casting_time": "1 action",
+        "range_type": "Range",
+        "effect_type": "Area Denial/Damage",
+        "damage_type": "Fire",
+        "damage_dice": "7d10",
+        "save_type": "Dexterity",
+        "effect_area_description": "Up to ten 10-foot cubes, contiguous."
+      },
+      "zod_errors": "None",
+      "suggested_changes": "None. The spell description is mechanically sound and clearly written."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:41.623Z"
+}

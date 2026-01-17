@@ -1,0 +1,40 @@
+{
+  "file": "molecules/items/trident-of-fish-command.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "trident-of-fish-command.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_matches_rarity_source": true,
+        "rarity_matches_source": true
+      },
+      "quality": {
+        "completeness": "High",
+        "readability": "Good",
+        "notes": "The description is clear, though it uses a Markdown link reference ('[_dominate beast_](#dominate-beast)') which may require specific parser interpretation. The save DC (15) is explicitly stated, which is good for mechanics."
+      },
+      "mechanics": {
+        "item_type": "Magic Weapon (Trident)",
+        "attunement_required": true,
+        "charges_mechanic": {
+          "initial_charges": 3,
+          "recharge_rate": "1d3 daily at dawn",
+          "action_cost": "1 charge",
+          "effect": {
+            "spell": "Dominate Beast",
+            "save_dc": 15,
+            "target_restriction": "Beast with an innate swimming speed"
+          }
+        },
+        "potential_issues": [
+          "The save DC (15) is fixed. In modern D&D 5e rulesets, magic items often use the wielder's Spell Save DC if they are attuned. Since this item specifies a fixed DC, it adheres strictly to the provided text, but this might deviate from contemporary design standards."
+        ]
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.862Z"
+}

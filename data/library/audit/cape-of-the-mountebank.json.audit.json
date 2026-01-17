@@ -1,0 +1,41 @@
+{
+  "file": "molecules/items/cape-of-the-mountebank.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cape-of-the-mountebank.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description": "The rarity ('Rare') is present in the 'source_type_rarity' field.",
+        "type_matches_source": true
+      },
+      "quality": {
+        "description_clarity": "The description is clear, detailing both the primary magical effect (casting Dimension Door) and the associated visual/olfactory side effect (smoke cloud).",
+        "mechanics_completeness": true,
+        "formatting_notes": "The embedded link for '_dimension door_' is present, though its parseability depends on the consuming system."
+      },
+      "mechanics": {
+        "item_type": "Wondrous item",
+        "rarity": "Rare",
+        "attunement": false,
+        "primary_effect": {
+          "action": "Cast 'dimension door' spell",
+          "frequency": "Once per dawn",
+          "spell_details": "Casting Dimension Door as an action."
+        },
+        "secondary_effect": {
+          "trigger": "When teleporting via the cape",
+          "effect": "Leaves and appears in a cloud of smoke.",
+          "duration": "Dissipates at the end of the user's next turn.",
+          "obscurement": "Lightly obscures the departure and arrival spaces.",
+          "countermeasure": "Dispersed by a light or stronger wind."
+        },
+        "smell": "Faint smell of brimstone."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.109Z"
+}

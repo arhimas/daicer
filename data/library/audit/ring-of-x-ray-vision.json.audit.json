@@ -1,0 +1,42 @@
+{
+  "file": "molecules/items/ring-of-x-ray-vision.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-x-ray-vision.json",
+    "analysis": {
+      "consistency_check": {
+        "name_match": true,
+        "type_match": true,
+        "rarity_match": true
+      },
+      "quality_assessment": "High quality. The mechanical effects are clearly defined, including duration, range, material penetration limits, and a clear penalty/cost for repeated use (exhaustion save).",
+      "mechanics_review": {
+        "action_cost": "Action",
+        "effect_duration": "1 minute",
+        "vision_radius": "30 feet",
+        "vision_properties": "See into and through solid matter; solid objects appear transparent and allow light to pass.",
+        "penetration_limits": {
+          "stone": "1 foot",
+          "common_metal": "1 inch",
+          "wood_or_dirt": "3 feet"
+        },
+        "blocking_materials": [
+          "Thicker substances than listed limits",
+          "A thin sheet of lead"
+        ],
+        "recharge_mechanism": "Long rest for full reset; subsequent uses before a long rest trigger a penalty.",
+        "penalty": {
+          "trigger": "Using the ring again before taking a long rest",
+          "save_type": "Constitution",
+          "save_dc": 15,
+          "failure_consequence": "Gain one level of exhaustion"
+        },
+        "attunement_required": true
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:54.813Z"
+}

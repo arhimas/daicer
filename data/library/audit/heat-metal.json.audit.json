@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/heat-metal.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "heat-metal.json",
+    "analysis": {
+      "consistency": {
+        "notes": "The spell description is consistent with standard 5th Edition D&D mechanics. The damage scaling, component costs, and action economy (action to cast, bonus action to repeat damage) are all standard for this spell.",
+        "issues": []
+      },
+      "quality": {
+        "notes": "The data quality is high; all required fields (slug, name, level, school, casting time, range, components, duration, description, classes) are present and correctly formatted.",
+        "issues": []
+      },
+      "mechanics": {
+        "notes": "Mechanically sound. It targets manufactured metal objects, deals initial fire damage on casting, and allows for repeated bonus action damage. The Constitution save on damage intake to potentially force a drop, and the resulting disadvantage penalty, are clear mechanical effects.",
+        "issues": [
+          "The component description '(a piece of iron and a flame)' implies the flame is part of the material component, which might need clarification in a strict rules context (is the flame something the caster provides, or is it an environmental condition?). However, as raw data extraction, it is accurately recorded.",
+          "The description of the saving throw consequence (disadvantage on attack rolls and ability checks) is clearly stated."
+        ]
+      },
+      "summary": "The data for the 'Heat Metal' spell is consistent, high quality, and mechanically accurate according to established rules for this spell.",
+      "recommendations": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.284Z"
+}

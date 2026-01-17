@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/ranger-natural-explorer.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-natural-explorer.json",
+    "analysis": {
+      "consistency": {
+        "mechanic_consistency": "The feature aligns well with the theme of a Ranger specializing in a specific environment. The benefits provided (movement, navigation, foraging, tracking, stealth) are all directly relevant to wilderness survival and movement within a chosen terrain.",
+        "level_progression_consistency": "The feature explicitly mentions choosing additional favored terrain types at 6th and 10th level, which indicates a clear progression path tied to the class advancement, typical for base class features.",
+        "language_consistency": "The language used (e.g., 'favored terrain', 'proficiency bonus is doubled') is standard D&D 5e terminology."
+      },
+      "quality": {
+        "clarity": "The description is generally clear, detailing the passive benefits (doubled proficiency bonus) and the active travel benefits. The listed bullet points make the secondary benefits easy to parse.",
+        "completeness": "It comprehensively lists the initial benefits upon selection (doubled proficiency on checks) and the ongoing travel benefits. It clearly states the prerequisites for gaining travel benefits (traveling for an hour or more).",
+        "flavor": "The flavor strongly supports the concept of a Ranger deeply attuned to their chosen environment."
+      },
+      "mechanics": {
+        "core_mechanic": "Advantage/Proficiency Doubling: Doubling the proficiency bonus for Intelligence or Wisdom checks related to the favored terrain is a significant, quantifiable bonus, similar to Expertise but conditional.",
+        "travel_mechanics": "The travel benefits are powerful quality-of-life and utility improvements. Preventing slowdown from difficult terrain, ensuring the group cannot get lost (non-magically), and maintaining alertness during other travel activities offer substantial group utility.",
+        "foraging_and_tracking": "The benefits to foraging (double food) and tracking (exact number, size, time since passage) provide concrete, measurable mechanical advantages in resource gathering and investigation.",
+        "balance_considerations": "This is a very strong Level 1 feature. The combination of Expertise-like mechanics on core Ranger skills (Investigation/Survival often apply here) and the robust travel suite makes the Ranger highly specialized and excellent at out-of-combat exploration from the start. The benefits are conditional on the terrain choice, which allows for situational balancing."
+      },
+      "zod_errors": "NONE",
+      "suggested_improvements": [
+        "Confirm which skills are intended to benefit from the doubled proficiency bonus (Intelligence or Wisdom based skills related to the terrain). While standard 5e assumptions suggest Investigation/Survival might be primary, explicit clarification might enhance mechanical rigidity, though it is likely clear enough for experienced players."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:11.836Z"
+}

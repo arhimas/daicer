@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/warlock-eldritch-invocations.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "warlock-eldritch-invocations.json",
+    "analysis": {
+      "consistency": "High. The feature clearly defines when and how Eldritch Invocations are gained (at 2nd level and subsequent levels) and allows for swapping known invocations upon leveling up, which aligns with standard D&D 5e Warlock mechanics.",
+      "quality": "Good. The description is clear and directly addresses the core mechanic of the Warlock's signature customization feature. The cross-reference to the Warlock table (though not present in the raw data) is standard practice for this feature.",
+      "mechanics": {
+        "feature_name": "Eldritch Invocations",
+        "class": "Warlock",
+        "trigger_level": 2,
+        "initial_gain": "Two Eldritch Invocations.",
+        "progression": "More invocations gained at specific Warlock levels (as per Warlock table).",
+        "modification": "Can swap one known invocation for a different one when gaining a new Warlock level, provided the new choice meets the requirements for the current level.",
+        "notes": "This feature grants access to a pool of permanent, modular magical abilities that define the Warlock's specialization."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.140Z"
+}

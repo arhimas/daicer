@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/spider-climb.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "spider-climb.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell structure. All expected fields (name, level, school, casting time, range, components, duration, description, classes) are present and formatted correctly.",
+      "quality": "High quality. The description is clear and mechanically precise. Components are specified.",
+      "mechanics": {
+        "level": 2,
+        "school": "transmutation",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "duration": "Concentration, up to 1 hour",
+        "effect": "Grants the target the ability to move on vertical surfaces and ceilings (upside down) and grants a climbing speed equal to walking speed. Requires concentration.",
+        "component_check": {
+          "material_components_present": true,
+          "material_description": "a drop of bitumen and a spider"
+        },
+        "class_viability": "Appropriate distribution for a utility/transmutation spell available to Sorcerer, Warlock, and Wizard."
+      }
+    },
+    "errata_needed": false,
+    "notes": "Mechanics are sound. The spell provides significant utility for exploration and tactical movement within its level slot."
+  },
+  "timestamp": "2026-01-17T07:22:30.427Z"
+}

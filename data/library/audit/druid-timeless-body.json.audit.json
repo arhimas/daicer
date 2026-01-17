@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/druid-timeless-body.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "druid-timeless-body.json",
+    "analysis": {
+      "consistency_check": {
+        "entity_type_match": "PASS",
+        "data_schema_validation": "PASS"
+      },
+      "quality_assessment": {
+        "completeness": "HIGH",
+        "clarity": "HIGH",
+        "relevance_to_class": "PASS",
+        "mechanical_impact_summary": "Passive, long-term longevity enhancement that slows the aging process for the Druid."
+      },
+      "mechanics_review": {
+        "mechanic_type": "Passive Longevity Alteration",
+        "trigger_or_condition": "Reached 18th level",
+        "effect": "For every 10 years that pass, the character ages only 1 year (1/10th normal aging rate).",
+        "balance_assessment": "Appropriate for a high-level (18th) class feature. It offers flavor and roleplaying utility but negligible impact on combat mechanics or immediate power level.",
+        "potential_ambiguities": [
+          "Does not specify if this halts aging completely at some point, only that it slows it down."
+        ]
+      }
+    },
+    "archival_status": "APPROVED"
+  },
+  "timestamp": "2026-01-17T07:23:15.313Z"
+}

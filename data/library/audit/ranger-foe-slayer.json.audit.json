@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/ranger-foe-slayer.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-foe-slayer.json",
+    "analysis": {
+      "consistency": "The feature name \"Foe Slayer\" and class \"ranger\" are consistent with the expected thematic role of a high-level ranger ability.",
+      "quality": "The description is clear, specific about the trigger (once on each of your turns), and defines the mechanical benefit (adding Wisdom modifier to attack OR damage roll) against a specific target type (favored enemies). The timing clarification ('before or after the roll, but before any effects') is excellent for resolving ambiguity.",
+      "mechanics": {
+        "level_requirement": 20,
+        "class_restriction": "ranger",
+        "effect": "Add Wisdom modifier to attack roll OR damage roll.",
+        "frequency": "Once per turn.",
+        "target_restriction": "Favored enemies.",
+        "timing": "Flexible (before or after roll, but before effects resolve)."
+      },
+      "notes": "This is a potent capstone feature, reflecting a significant mastery over a ranger's chosen quarry. The flexibility in choosing between attack or damage bonus provides tactical depth. The feature description is high quality."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:10.861Z"
+}

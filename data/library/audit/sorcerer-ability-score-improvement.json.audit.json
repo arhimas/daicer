@@ -1,0 +1,32 @@
+{
+  "file": "atoms/features/sorcerer-ability-score-improvement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-ability-score-improvement.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e class progression features (ASI). The feature name, class, and level progression (4th, 8th, 12th, 16th, 19th) are standard.",
+      "quality": "High. The description is clear, directly quotes or closely mirrors the standard Player's Handbook text for Ability Score Improvement, and specifies the cap of 20.",
+      "mechanics": {
+        "type": "Ability Score Improvement (ASI)",
+        "trigger": "Level Up",
+        "levels": [
+          4,
+          8,
+          12,
+          16,
+          19
+        ],
+        "options": [
+          "+2 to one score",
+          "+1 to two different scores"
+        ],
+        "limitation": "Ability score cannot exceed 20 through this feature."
+      }
+    },
+    "issues_found": []
+  },
+  "timestamp": "2026-01-17T07:23:09.331Z"
+}

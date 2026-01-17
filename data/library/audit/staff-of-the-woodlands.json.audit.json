@@ -1,0 +1,76 @@
+{
+  "file": "molecules/items/staff-of-the-woodlands.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "staff-of-the-woodlands.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent ('Staff of the Woodlands').",
+        "type": "Consistent ('Staff').",
+        "rarity": "Consistent ('Rare').",
+        "attunement_requirement": "Stated as 'true' in main data and implied by source ('requires attunement by a druid')."
+      },
+      "quality": {
+        "description_clarity": "The description is detailed, clearly outlining the magical bonuses, charge mechanics, and specific spells. The caveat about rolling a d20 on depleting the last charge is a good quality-of-life mechanic detail.",
+        "mechanical_completeness": "All mechanical aspects (bonus, charge capacity, recharge rate, spell list with costs, and the unique Tree Form property) are present."
+      },
+      "mechanics": {
+        "base_properties": {
+          "weapon_bonus": "+2 to attack and damage rolls (as a magic quarterstaff).",
+          "spell_attack_bonus": "+2 bonus to spell attack rolls while holding it."
+        },
+        "charge_system": {
+          "max_charges": 10,
+          "recharge_rate": "1d6 + 4 daily at dawn.",
+          "depletion_risk": "Roll d20 on expending the last charge; on a 1, it becomes nonmagical."
+        },
+        "spell_casting": {
+          "action_economy": "Most spells require an action; 'pass without trace' is usable as an action without expending charges.",
+          "spells_listed": [
+            {
+              "name": "animal friendship",
+              "cost_charges": 1
+            },
+            {
+              "name": "awaken",
+              "cost_charges": 5
+            },
+            {
+              "name": "barkskin",
+              "cost_charges": 2
+            },
+            {
+              "name": "locate animals or plants",
+              "cost_charges": 2
+            },
+            {
+              "name": "speak with animals",
+              "cost_charges": 1
+            },
+            {
+              "name": "speak with plants",
+              "cost_charges": 3
+            },
+            {
+              "name": "wall of thorns",
+              "cost_charges": 6
+            },
+            {
+              "name": "pass without trace",
+              "cost_charges": 0
+            }
+          ],
+          "dc_setting": "Uses the wielder's spell save DC."
+        },
+        "unique_feature": {
+          "name": "Tree Form",
+          "effect": "Transforms the staff into a 60-foot tall, healthy tree (using 1 charge + action). Reversion is possible via command word (action). Notable side effect: Creatures inside fall upon reversion."
+        }
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.440Z"
+}

@@ -1,0 +1,18 @@
+{
+  "file": "atoms/features/sorcerer-cantrips.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-cantrips.json",
+    "analysis": {
+      "consistency": "Consistent. The feature clearly defines how many cantrips a 1st-level Sorcerer knows and references the standard progression (Sorcerer table/spell list).",
+      "quality": "High. The description is concise, accurate, and uses appropriate mechanics terminology (e.g., 'cantrips of your choice', 'Sorcerer spell list').",
+      "mechanics": "The core mechanic is establishing the initial number of cantrips known (4 at 1st level) and referencing the standard progression table for future increases. It correctly points to the Sorcerer spell list as the source for choices.",
+      "notes": "The use of markdown links ('[sorcerer spell list](#section-sorcerer-spells)') is noted, indicating linkage within the source document structure."
+    },
+    "archival_status": "Archived"
+  },
+  "timestamp": "2026-01-17T07:23:09.098Z"
+}

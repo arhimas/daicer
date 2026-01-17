@@ -1,0 +1,27 @@
+{
+  "file": "molecules/spells/mirage-arcane.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "mirage-arcane.json",
+    "analysis": {
+      "consistency": "Consistent. The spell details (level, casting time, range, components, duration, classes) align with typical D&D 5e spell structures.",
+      "quality": "High. The description is detailed, clearly outlining the scope (1 mile square, terrain alteration, structure addition/alteration) and limitations (no creatures, illusory nature of removed objects).",
+      "mechanics": {
+        "level": 7,
+        "school": "illusion",
+        "casting_time": "10 minutes (Long duration for casting suggests a high-level, preparatory effect)",
+        "range": "Sight (Appropriate for an area-of-effect visual/sensory illusion)",
+        "components": "V, S (Standard for complex mental/sensory effects)",
+        "duration": "10 days (Long duration supports its use as a sustained magical feature for area control or deception)",
+        "area_of_effect": "Up to 1 mile square (Very large scale)",
+        "interaction": "It alters terrain to affect movement (difficult/impassable terrain), meaning it has tangible mechanical effects on navigation, even though it's an illusion. Objects removed disappear, reinforcing its illusory nature.",
+        "countermeasures": "Truesight sees the true form, but tactile/olfactory elements persist, making it a complex illusion that even True Sight users must contend with physically interacting against."
+      },
+      "issues_found": "None."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:35.631Z"
+}

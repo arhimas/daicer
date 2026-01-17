@@ -1,0 +1,45 @@
+{
+  "file": "molecules/spells/cloudkill.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "cloudkill.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell formatting. All required fields are present and logical.",
+      "quality": "High quality. The description is comprehensive, detailing area of effect, saving throws, damage type (implied poison by description, though not explicitly listed in standard 5e structure fields if present), movement, and scaling ('At Higher Levels'). The movement mechanic is well-defined ('rolling along the surface of the ground', 'sink to the lowest level').",
+      "mechanics": {
+        "level": 5,
+        "school": "conjuration",
+        "casting_time": "1 action",
+        "range": "120 feet",
+        "components": "V, S",
+        "duration": "Concentration, up to 10 minutes",
+        "effect_type": "Area Denial/Damage Over Time (DOT)",
+        "damage": {
+          "initial_damage": "5d8",
+          "damage_type": "Poison",
+          "scaling": "Increases by 1d8 per spell slot level above 5th"
+        },
+        "save_type": "Constitution",
+        "save_effect": "Half damage on success.",
+        "area_of_effect": {
+          "shape": "Sphere",
+          "size": "20-foot-radius"
+        },
+        "interactions": [
+          "Heavily obscured area.",
+          "Movement: The fog moves 10 feet away from the caster at the start of each of the caster's turns.",
+          "Affects creatures regardless of breath or need to breathe."
+        ],
+        "classes": [
+          "sorcerer",
+          "wizard"
+        ]
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.696Z"
+}

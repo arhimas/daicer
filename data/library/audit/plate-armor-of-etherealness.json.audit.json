@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/plate-armor-of-etherealness.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "plate-armor-of-etherealness.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent.",
+        "type_and_rarity": "Consistent across 'type' and 'source_type_rarity'.",
+        "attunement_status": "Consistent ('requires_attunement': true and indicated in description via '[attunement]')."
+      },
+      "quality": {
+        "description_clarity": "The description is clear and details the activation, duration, limitations (10 minutes, remove armor, command word again), and recharge time (next dawn).",
+        "formatting_notes": "The description includes markdown referencing '#section-attunement', which is typical for source documentation but standard for item descriptions."
+      },
+      "mechanics": {
+        "item_type": "Armor (plate)",
+        "rarity": "Legendary",
+        "attunement_required": true,
+        "core_effect": "Grants the effect of the *etherealness* spell upon speaking a command word.",
+        "activation": "Action.",
+        "duration": "10 minutes.",
+        "recharge_period": "Next dawn.",
+        "interruptions": "Effect ends if armor is removed or command word is spoken again (as an action)."
+      },
+      "data_integrity": "All fields are present and correctly formatted based on the provided RAW DATA structure. No ZOD errors were reported."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:57.551Z"
+}

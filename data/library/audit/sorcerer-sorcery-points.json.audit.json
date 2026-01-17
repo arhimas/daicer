@@ -1,0 +1,35 @@
+{
+  "file": "atoms/features/sorcerer-sorcery-points.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-sorcery-points.json",
+    "data_consistency": {
+      "name_match": true,
+      "class_match": true,
+      "level_plausibility": "Plausible for a starting feature (Level 1)."
+    },
+    "quality_assessment": {
+      "clarity": "High",
+      "completeness": "Complete for defining the core mechanic.",
+      "readability": "Excellent"
+    },
+    "mechanics_analysis": {
+      "core_mechanic": "Resource management (Sorcery Points).",
+      "scaling": "Points scale with character level.",
+      "regeneration": "Full recovery on a Long Rest.",
+      "constraints": [
+        "Maximum points limited by level table.",
+        "Points are inherently tied to the Sorcerer class."
+      ],
+      "potential_issues": "None identified based on the description alone; relies on external 'Sorcerer table' data for scaling reference."
+    },
+    "archival_summary": {
+      "status": "Archived successfully.",
+      "notes": "This feature establishes the Sorcerer's primary unique resource pool (Sorcery Points) and sets the foundational rules for its usage and recovery."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:08.419Z"
+}

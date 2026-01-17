@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/lesser-restoration.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "lesser-restoration.json",
+    "analysis": {
+      "consistency": "High. The spell details (level, school, components, casting time, range, duration, and class list) are standard for a 2nd-level D&D 5e spell like Lesser Restoration.",
+      "quality": "High. The description is concise and directly states the mechanical effect. The use of Markdown links/anchors within the description (e.g., `[blinded](#blinded)`) indicates an attempt to link to external condition definitions, which is good for digital presentation but structurally part of the content delivery, not the core mechanics.",
+      "mechanics": {
+        "level": 2,
+        "school": "abjuration",
+        "action_economy": "1 action",
+        "range": "Touch",
+        "components_listed": "V, S",
+        "duration": "Instantaneous",
+        "effect": "Ends one of the following conditions on a touched creature: Blinded, Deafened, Paralyzed, or Poisoned.",
+        "class_availability": [
+          "bard",
+          "cleric",
+          "druid",
+          "paladin",
+          "ranger"
+        ]
+      },
+      "zod_errors": "NONE",
+      "recommendations": "No mechanical changes necessary. The data accurately reflects the spell's function. If this data is for a system that does not support in-line linking, the anchors (`#condition`) should be removed for pure mechanical parsing, but they are acceptable for display."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.556Z"
+}

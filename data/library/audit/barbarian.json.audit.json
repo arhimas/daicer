@@ -1,0 +1,40 @@
+{
+  "file": "molecules/classes/barbarian.json",
+  "type": "class",
+  "zod_valid": false,
+  "zod_errors": [
+    "hit_die: Invalid input: expected string, received number"
+  ],
+  "llm_audit": {
+    "entity": "CLASS",
+    "file": "barbarian.json",
+    "analysis": {
+      "consistency_check": {
+        "hit_die_format": "Error detected: 'hit_die' is stored as a number (12) but the expected format for archival consistency is a string representing the die type (e.g., 'd12'). This matches the ZOD error description.",
+        "progression_structure": "The progression array is structurally sound, detailing level-based features, proficiency bonus (pb), and features gained.",
+        "proficiency_structure": "Proficiency choices are listed as an array of strings. Armor, weapon, and tool proficiencies are also arrays of strings."
+      },
+      "quality_assessment": {
+        "data_completeness": "High. All expected fields for a class definition appear to be present.",
+        "data_accuracy": "Appears mechanically accurate for a standard D&D 5e Barbarian, assuming standard feature names.",
+        "archival_standard_compliance": "Low due to the type mismatch on 'hit_die'. This needs correction to ensure long-term data integrity based on established schema."
+      },
+      "mechanics_review": {
+        "core_mechanics": "Features like Rage, Unarmored Defense, Reckless Attack, and progression of Brutal Critical align with the Barbarian class.",
+        "progression_rate": "Proficiency Bonus increases (pb) follow the standard progression (2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6) for levels 1-20, which is correct.",
+        "feature_gaps": "The placeholder 'Path feature' appears at levels 6, 10, and 14, which is correct as these are when Primal Path features are granted."
+      },
+      "error_log": [
+        {
+          "field": "hit_die",
+          "zod_error": "Invalid input: expected string, received number",
+          "recommendation": "Convert the numeric value 12 to the string representation 'd12' or '12' (depending on the strict schema requirement for die notation) to match the expected string type."
+        }
+      ],
+      "suggested_correction": {
+        "hit_die": "d12"
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:26.808Z"
+}

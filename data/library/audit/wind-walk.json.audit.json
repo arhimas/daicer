@@ -1,0 +1,36 @@
+{
+  "file": "molecules/spells/wind-walk.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "wind-walk.json",
+    "analysis": {
+      "consistency": "High. The data structure is complete and adheres to typical D&D 5e spell formatting.",
+      "quality": "High. The description is detailed, covering transformation, movement, resistances, actions, and ending conditions.",
+      "mechanics": {
+        "level": "6th level transmutation is appropriate for a powerful, utility-heavy transformation spell affecting multiple creatures.",
+        "casting_time": "1 minute is a significant commitment, balancing the long duration and powerful movement.",
+        "range": "30 feet allows for localized casting.",
+        "duration": "8 hours is excellent for long-distance travel.",
+        "components": "V, S, M (fire and holy water) are standard for higher-level magic.",
+        "effects": [
+          "Gaseous form transformation (like the spell *Gaseous Form* but better).",
+          "Flying speed of 300 feet is extremely fast utility travel.",
+          "Resistance to nonmagical weapon damage is a solid defensive boost.",
+          "Action restrictions (only Disengage or Revert) are appropriate for a cloud form.",
+          "Reversion time (1 minute, incapacitated) is a significant tactical drawback that must be managed.",
+          "Controlled descent upon spell expiry is a good safety net, though the fall mechanic if the descent is too long adds risk."
+        ],
+        "class_balance": "Druid access aligns with nature/elemental themes, though this level of utility might also suit certain arcane casters."
+      },
+      "zod_errors": "NONE",
+      "recommendations": [
+        "The description of reverting mentions 'The only actions a creature can take in this form are the [action missing] or to revert to its normal form.' This appears to be a transcription error or omission in the RAW data source regarding what the creature can do besides revert. Based on similar effects (like *Gaseous Form*), the missing action is likely 'Disengage' or perhaps the creature simply cannot take offensive actions.",
+        "The second mention of reversion: 'Until the spell ends, a creature can revert to cloud form, which also requires the 1-minute transformation.' This seems redundant or confusingly phrased. It should likely state that a creature can revert to its normal form at will, which takes 1 minute, or that the initial transformation lasts 8 hours."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:28.051Z"
+}

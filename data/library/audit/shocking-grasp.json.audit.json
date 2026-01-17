@@ -1,0 +1,30 @@
+{
+  "file": "molecules/spells/shocking-grasp.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "shocking-grasp.json",
+    "analysis": {
+      "consistency": "High. The data aligns well with standard D&D 5e spell formatting and terminology.",
+      "quality": "High. The description is complete, including damage scaling, attack type, and secondary effect.",
+      "mechanics": {
+        "level": 0,
+        "school": "Evocation",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components": "Verbal, Somatic (V, S)",
+        "duration": "Instantaneous",
+        "damage_dice": "1d8",
+        "scaling": "Yes, +1d8 at levels 5, 11, and 17.",
+        "attack_type": "Melee Spell Attack",
+        "secondary_effect": "Target cannot take reactions until the start of its next turn.",
+        "advantage_condition": "Target is wearing metal armor."
+      },
+      "issues_found": "None",
+      "recommendations": "The components string 'V, S' is standard, but ensuring documentation clarifies that 'V' means Verbal and 'S' means Somatic is good practice, though implicitly understood for experienced users."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:31.152Z"
+}

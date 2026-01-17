@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/hallucinatory-terrain.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "hallucinatory-terrain.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 4 illusion spell.",
+        "casting_time_and_duration": "Consistent. A 10-minute casting time for a long 24-hour duration suggests preparation or long-term area denial/misdirection.",
+        "components": "Consistent with typical D&D 5e structure for a spell of this level (Verbal, Somatic, Material component specified)."
+      },
+      "quality": {
+        "flavor_and_description": "High quality description. Clearly defines the scope (natural terrain only, 150-foot cube), the sensory input (look, sound, smell), and the limitations (tactile characteristics unchanged, manufactured items/creatures unaffected).",
+        "mechanical_clarity": "Clear. Provides a specific way to pierce the illusion: an Intelligence (Investigation) check against the caster's Spell Save DC if touch is insufficient."
+      },
+      "mechanics": {
+        "area_of_effect": "Fixed 150-foot cube area, which is substantial.",
+        "interaction_with_environment": "Excellent distinction between terrain and objects/creatures. The illusion only affects natural ground appearance, not the actual traversability unless the difference is immediately obvious (i.e., walking into a swamp that feels like dry ground).",
+        "save_or_check": "Uses a standard opposed check mechanism (Investigation vs. Spell Save DC) for discerning the illusion, typical for high-utility illusion spells.",
+        "class_availability": "Appropriate distribution across Bard, Druid, Warlock, and Wizard, fitting the utility/deception nature of the spell."
+      },
+      "zod_errors": "None detected."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.735Z"
+}

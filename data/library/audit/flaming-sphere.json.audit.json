@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/flaming-sphere.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "flaming-sphere.json",
+    "analysis": {
+      "consistency_check": {
+        "name_matches_slug": true,
+        "required_fields_present": true,
+        "data_types_correct": true
+      },
+      "quality_assessment": {
+        "completeness": "High. All expected fields for a spell entity are present.",
+        "clarity": "Good. The mechanical description, bonus action usage, environmental effects, and scaling are clearly articulated.",
+        "formatting": "Standard D&D 5e format, utilizing bolding for headers and italics for the 'At Higher Levels' section."
+      },
+      "mechanics_review": {
+        "core_mechanic": "Area denial/controlled movement damage over time.",
+        "action_economy": "1 Action to cast, Bonus Action to move/ram. Excellent resource utilization for a concentration spell.",
+        "damage_scaling": "Scales by 1d6 per slot level above 2nd. Standard and predictable.",
+        "interaction_notes": [
+          "The range (60 feet) is standard for deployment.",
+          "The proximity damage (ends turn within 5 feet) encourages positioning opponents near it.",
+          "The bonus action ram provides direct engagement capability.",
+          "The environmental interaction (igniting objects, light emission) adds flavor and minor utility."
+        ]
+      },
+      "recommendations": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:41.831Z"
+}

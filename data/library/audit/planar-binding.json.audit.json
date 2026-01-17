@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/planar-binding.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "planar-binding.json",
+    "analysis": {
+      "consistency": "The spell structure and presentation are consistent with standard D&D 5e spell formatting. Details like casting time, range, components, and duration are clearly defined.",
+      "quality": "High quality. The description is comprehensive, detailing the binding mechanism (Charisma save), the implications of servitude (following instructions, twisting words if hostile), and the consequences upon completion of the task (return to caster or wait). The 'At Higher Levels' section provides clear mechanical scaling for duration.",
+      "mechanics": {
+        "level": 5,
+        "school": "abjuration",
+        "casting_time": "1 hour",
+        "duration_base": "24 hours",
+        "target_type": "Celestial, Elemental, Fey, or Fiend",
+        "save_type": "Charisma",
+        "components_check": "Material component (1,000 gp jewel) is consumed, which is a standard high-level cost mechanism.",
+        "scaling_mechanics": {
+          "6th_level": "10 days",
+          "7th_level": "30 days",
+          "8th_level": "180 days",
+          "9th_level": "a year and a day"
+        },
+        "notes": "The requirement for the creature to be in range for the entire hour suggests significant vulnerability during casting, often mitigated by prior summoning (as noted in the description)."
+      },
+      "errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:34.603Z"
+}

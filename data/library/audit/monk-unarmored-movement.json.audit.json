@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/monk-unarmored-movement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-unarmored-movement.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent. The feature belongs to the Monk class.",
+        "level_alignment": "Consistent. The feature is correctly listed as a 2nd-level feature.",
+        "mechanical_description_vs_name": "Consistent. The name 'Unarmored Movement' accurately reflects the primary mechanical benefit described."
+      },
+      "quality": {
+        "clarity": "High. The description clearly states the initial speed increase (10 feet at 2nd level) and notes that it scales with the Monk table, which is standard for this class feature. The later addition (9th level ability) is also clearly stated.",
+        "completeness": "Complete. It covers the core mechanic, the scaling nature, and the later 9th-level rider effect."
+      },
+      "mechanics": {
+        "primary_effect": "Increases movement speed by 10 feet when unarmored and without a shield. This bonus scales at higher monk levels.",
+        "secondary_effect": "At 9th level, grants the ability to move across liquids and up vertical surfaces without falling during the turn of movement.",
+        "balance_assessment": "Standard and balanced for the Monk class. It is a core identity feature that scales with class progression, making unarmored mobility a key strength."
+      },
+      "suggested_changes": "None. The data appears to be a faithful and accurate representation of the standard 5th Edition Monk feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:13.236Z"
+}

@@ -1,0 +1,36 @@
+{
+  "file": "molecules/items/oil-of-sharpness.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "oil-of-sharpness.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_matches_source": true,
+        "item_type_consistent": true
+      },
+      "quality": {
+        "description_clarity": "High",
+        "mechanical_completeness": "Complete",
+        "flavor_text_present": "Yes"
+      },
+      "mechanics": {
+        "type": "Potion",
+        "duration": "1 hour",
+        "effect": "+3 bonus to attack and damage rolls",
+        "application_method": "Coats one slashing or piercing weapon or up to 5 pieces of slashing or piercing ammunition.",
+        "application_time": "1 minute",
+        "attunement_required": false,
+        "magic_status": "Becomes magical"
+      },
+      "zod_errors_found": false,
+      "recommendations": [
+        "The data appears consistent and mechanically sound based on typical D&D 5e item standards."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:57.866Z"
+}

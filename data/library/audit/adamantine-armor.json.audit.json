@@ -1,0 +1,29 @@
+{
+  "file": "molecules/items/adamantine-armor.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "adamantine-armor.json",
+    "analysis": {
+      "consistency": "High. The data structure is clean and directly maps to a typical D&D 5e item entry.",
+      "quality": "Good. The description is clear and accurately reflects the known mechanical effect of Adamantine Armor (negating critical hits).",
+      "mechanics": {
+        "item_type": "Armor",
+        "attunement_required": false,
+        "primary_effect": "Converts critical hits against the wearer into normal hits.",
+        "type_specificity": "The 'type' field reads 'Armor (medium or heavy', which is slightly truncated or grammatically incomplete compared to standard formatting (e.g., 'Armor (medium or heavy)'). The 'source_type_rarity' field clarifies this somewhat."
+      },
+      "notes": "The 'type' field should ideally be standardized (e.g., 'Medium or Heavy Armor'). However, the core effect is correctly captured."
+    },
+    "recommendations": [
+      {
+        "field": "type",
+        "suggested_change": "Standardize to 'Medium or Heavy Armor' for consistency across items.",
+        "reason": "Improves data consistency and readability."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:06.105Z"
+}

@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/sorcerer-quickened-spell.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-quickened-spell.json",
+    "analysis": {
+      "consistency": {
+        "class_match": "The feature is listed under 'sorcerer', which is consistent with the feature name 'Quickened Spell' (a core Sorcerer class feature).",
+        "level_match": "The level listed is 1. While Quickened Spell is typically learned at level 2 via Metamagic, listing it as a base feature at level 1 might be an artifact of how the source data structures the initial feature set, or it might be an error if this is supposed to represent the standard progression. Mechanically, it's a Metamagic choice, not a Level 1 feature.",
+        "attribute_completeness": "All core attributes (slug, name, class, level, description, is_subclass_feature) are present."
+      },
+      "quality": {
+        "description_clarity": "The description is clear, accurately detailing the cost (2 sorcery points) and the effect (changing casting time from 1 action to 1 bonus action).",
+        "mechanical_accuracy": "The core mechanic is accurate to the standard ruleset for Sorcerer's Quickened Spell Metamagic."
+      },
+      "mechanics": {
+        "type": "Metamagic",
+        "cost": "2 Sorcery Points",
+        "effect": "Changes casting time of a spell from 1 action to 1 bonus action.",
+        "limitations": "Applies only to spells with a casting time of 1 action. Does not affect spells with a casting time of 1 minute or longer, or spells cast as a bonus action or reaction.",
+        "potential_issues": "The 'level' field being 1 is inaccurate for standard progression where Metamagic is usually chosen at Level 3 (or sometimes Level 2 depending on the specific ruleset interpretation/edition, but Level 1 is highly unlikely for a Metamagic ability)."
+      }
+    },
+    "archivist_notes": {
+      "summary": "The feature data is mechanically sound and accurately describes the Quickened Spell ability. The primary inconsistency is the 'level': 1, as this feature is canonically a Metamagic choice gained later (typically Lvl 3). The 'is_subclass_feature' flag is set to true, which is confusing; Quickened Spell is a *class* feature (Metamagic), not a *subclass* feature, unless this dataset treats all specialization options similarly.",
+      "recommendation": "Verify the intended source/edition. If standard 5e rules, change 'level' to 3 and set 'is_subclass_feature' to false."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.635Z"
+}

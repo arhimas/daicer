@@ -1,0 +1,27 @@
+{
+  "file": "atoms/features/barbarian-unarmored-defense.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-unarmored-defense.json",
+    "analysis": {
+      "consistency": "The feature accurately reflects the standard Unarmored Defense rule for the Barbarian class in Dungeons & Dragons 5th Edition. The required modifiers (Dexterity and Constitution) are present.",
+      "quality": "High quality. The description is concise, accurate, and clearly states the mechanical benefit (AC calculation) and the exception (ability to use a shield).",
+      "mechanics": {
+        "type": "Defensive/Passive",
+        "trigger": "Not wearing armor (though shield use is permitted)",
+        "effect": "AC = 10 + DEX modifier + CON modifier",
+        "interaction_notes": "This feature explicitly allows the use of a shield, which is a deviation from the typical Monk's Unarmored Defense and should be explicitly noted for clarity, which the source data does correctly."
+      },
+      "metadata_check": {
+        "slug_matches_name": true,
+        "class_is_barbarian": true,
+        "level_is_correct": true
+      }
+    },
+    "recommendations": "No changes are recommended. The data is complete and accurate for this core class feature."
+  },
+  "timestamp": "2026-01-17T07:23:17.932Z"
+}

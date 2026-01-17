@@ -1,0 +1,50 @@
+{
+  "file": "molecules/items/ring-of-the-ram.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-the-ram.json",
+    "analysis": {
+      "consistency": {
+        "name_and_slug": "Consistent ('Ring of the Ram' vs 'ring-of-the-ram').",
+        "rarity_in_fields": "Consistent ('Rare' in 'rarity' field and 'rare' in 'source_type_rarity').",
+        "attunement_consistency": "Consistent (true in 'requires_attunement' and referenced in 'source_type_rarity')."
+      },
+      "quality": {
+        "data_completeness": "High. All standard fields are present.",
+        "formatting": "Good. The description is clear and uses standard D&D terminology.",
+        "source_metadata": "Redundant but helpful cross-referencing field ('source_type_rarity')."
+      },
+      "mechanics_review": {
+        "charges": {
+          "initial": 3,
+          "recharge": "1d3 daily at dawn (Standard and clear)."
+        },
+        "ability_1_attack": {
+          "action": "Action",
+          "range": "60 feet",
+          "cost_per_use": "1 to 3 charges",
+          "attack_bonus": "+7",
+          "damage_per_charge": "2d10 force damage",
+          "secondary_effect_per_charge": "5 feet push away from caster",
+          "notes": "The damage scales linearly with charges spent (1 charge = 2d10, 3 charges = 6d10). Push also scales linearly."
+        },
+        "ability_2_object_destruction": {
+          "action": "Action",
+          "cost_per_use": "1 to 3 charges",
+          "check_type": "Strength check",
+          "bonus_per_charge": "+5",
+          "target_restriction": "Object not worn or carried.",
+          "notes": "The Strength bonus scales linearly (1 charge = +5, 3 charges = +15). This provides a distinct utility separate from combat."
+        },
+        "potential_ambiguities": [
+          "For the object destruction ability, it is implied that the total bonus is +5 per charge spent (e.g., 2 charges spent yields a +10 bonus). This should be verified against the source material but is the most logical interpretation given the phrasing 'for each charge you spend'."
+        ]
+      }
+    },
+    "zod_errors": "NONE"
+  },
+  "timestamp": "2026-01-17T07:22:55.585Z"
+}

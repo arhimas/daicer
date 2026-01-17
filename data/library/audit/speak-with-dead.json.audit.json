@@ -1,0 +1,25 @@
+{
+  "file": "molecules/spells/speak-with-dead.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "speak-with-dead.json",
+    "analysis": {
+      "consistency": "High. The spell adheres to standard D&D 5e formatting and structure for a spell description.",
+      "quality": "High. The description is clear, well-defined, and establishes clear mechanical limitations (5 questions, knowledge limitations, truthfulness based on relationship, 10-day restriction). The material component adds appropriate flavor.",
+      "mechanics": {
+        "level_appropriateness": "Appropriate for a 3rd-level spell, offering significant utility (information gathering) balanced by strict limitations (condition of the corpse, number of questions, ephemeral knowledge).",
+        "casting_time_range_duration": "Standard and suitable for an investigation/utility spell.",
+        "components_assessment": "The material component (burning incense) is flavorful and consumable, fitting for necromantic magic.",
+        "core_functionality": "Excellent utility. The restriction that the spirit knows only what it knew in life and cannot speculate prevents abuse for solving current mysteries or predicting the future, keeping it balanced.",
+        "restrictions_and_caveats": "The caveats regarding hostility affecting truthfulness and the inability to learn new information are crucial balancing factors and are well-articulated."
+      },
+      "suggestions": [
+        "None required. The spell is mechanically sound and flavorful as presented."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.674Z"
+}

@@ -1,0 +1,51 @@
+{
+  "file": "molecules/spells/bestow-curse.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "bestow-curse.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 3 Necromancy aligns with typical lower-level debuffs.",
+        "casting_time_and_range": "Consistent. '1 action' and 'Touch' is standard for touch-range debuffs.",
+        "components": "Standard V, S components.",
+        "duration_scaling": "The scaling for duration based on slot level is clearly defined, transitioning from concentration to fixed durations (10 min, 8 hrs, 24 hrs) and finally permanent until dispelled at 9th level. This structure is logical, though the jump from 4th to 5th level removes concentration, which is a significant mechanical shift for a single level difference."
+      },
+      "quality": {
+        "description_clarity": "The description is very clear, offering four distinct, well-defined curse options.",
+        "option_balance": "The options offer a mix of direct combat hindrance (disadvantage, wasted action) and sustained damage (1d8 necrotic). The options seem reasonably balanced for a 3rd-level spell, though the extra necrotic damage option might be situationally powerful if the caster can repeatedly target the afflicted creature.",
+        "higher_level_scaling_quality": "The scaling quality is high in terms of variety (duration increase) but the concentration removal at 5th level is a powerful upgrade that feels perhaps slightly ahead of the curve compared to simply extending the duration, especially since the damage option scales with slot level, potentially increasing damage per round implicitly if used on a shorter duration, though the text only confirms duration scaling.",
+        "removal_condition": "Explicitly mentions `remove curse`, which is good mechanical hygiene."
+      },
+      "mechanics": {
+        "saving_throw": "Wisdom save is appropriate for resisting mental/magical affliction.",
+        "curse_options_review": [
+          {
+            "option": "Ability Score Disadvantage",
+            "mechanic": "Strong debuff, especially if targeting a key score (DEX for saves, STR/DEX for attacks, WIS for saves).",
+            "power_level": "High"
+          },
+          {
+            "option": "Attack Disadvantage vs. Caster",
+            "mechanic": "Purely defensive for the caster. Effective if the target is a primary melee threat to the caster.",
+            "power_level": "Medium/Situational"
+          },
+          {
+            "option": "Wasted Action (Wis Save)",
+            "mechanic": "Significant action economy denial. Being forced to make a save every turn maintains pressure.",
+            "power_level": "High"
+          },
+          {
+            "option": "Extra 1d8 Necrotic Damage",
+            "mechanic": "Damage over time. If the duration is short (1 minute concentration), this is 10d8 damage total if the target fails every save to maintain concentration. If the duration is 24 hours (7th level), this is significant passive damage.",
+            "power_level": "Medium to High (Scales with duration)"
+          }
+        ],
+        "scaling_mechanic_note": "The text implies the extra damage is granted whenever the spell is cast, not tied to slot level beyond the initial cast. The damage scaling mentioned in the description (\"your attacks and spells deal an extra 1d8 necrotic damage\") is a base effect tied to the spell slot used for casting, not an increase in the 1d8 per higher slot level, which is a key distinction. The duration scaling is explicitly tied to slot level."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.944Z"
+}

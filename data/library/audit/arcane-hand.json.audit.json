@@ -1,0 +1,36 @@
+{
+  "file": "molecules/spells/arcane-hand.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "arcane-hand.json",
+    "analysis": {
+      "consistency": {
+        "internal_consistency": "The spell description is internally consistent. Damage scaling for higher levels correctly maps to the base damage dice mentioned in the primary effect descriptions.",
+        "terminology": "Uses consistent D&D 5e terminology (action, bonus action, contested check, grapple, half cover, difficult terrain, advantage, spellcasting ability modifier)."
+      },
+      "quality": {
+        "clarity": "The description is very clear regarding the creation, movement, and the five distinct actions the hand can perform. The mechanical details (AC, HP, ability scores) are explicitly provided.",
+        "flavor": "The concept of creating a large, shimmering force hand provides a strong visual and fits well within the Evocation school."
+      },
+      "mechanics": {
+        "level_and_school": "Level 5 Evocation is appropriate for a spell that creates a persistent, interactive combat/utility object.",
+        "casting_time_and_range": "1 action casting time and 120 ft range are standard for summoning/creation spells of this level.",
+        "concentration_and_duration": "Concentration for up to 1 minute allows for tactical positioning and sustained effect, balancing the strong actions available.",
+        "action_economy": "Casting uses an action, and subsequent turns use a bonus action for movement/action, which is balanced for a persistent summoned effect (similar to a familiar or some summoned creatures).",
+        "clenched_fist": "4d8 force damage via a melee spell attack is competitive for a Level 5 spell action.",
+        "forceful_hand": "Contested Strength check for pushing up to 5 ft + 5 * modifier feet is a strong area control/movement effect. Advantage against Medium or smaller targets scales correctly with the hand's high base Strength (26).",
+        "grasping_hand": "Grapple check using the hand's high Strength (26) is potent. The bonus action crush (2d6 + modifier) adds sustained damage, comparable to similar spell effects.",
+        "interposing_hand": "Provides reliable half cover, a significant defensive utility. The difficult terrain effect for stronger creatures adds a soft counterplay.",
+        "scaling": "Higher level scaling is straightforward: +2d8 damage for Clenched Fist and +2d6 damage for Grasping Hand per slot level above 5th. This ensures the offensive capabilities keep pace."
+      },
+      "suggested_refinements": [
+        "The component M (an eggshell and a snakeskin glove) is unusual; while flavorfully acceptable, specifying if the glove is consumed (though not implied by the RAW) might be useful in a complete compendium.",
+        "Clarify if the hand's Strength score (26) overrides the caster's modifier for the opposed checks, which it does based on RAW, but could be stressed (e.g., 'The hand attempts to grapple... using the hand's Strength score to resolve the grapple'). The RAW already states this clearly, so this is a minor note."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.378Z"
+}

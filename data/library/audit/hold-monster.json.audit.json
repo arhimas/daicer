@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/hold-monster.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "hold-monster.json",
+    "analysis": {
+      "consistency": {
+        "level_and_scaling": "Consistent. Level 5 spell, scales by targeting one additional creature per slot level above 5th.",
+        "duration_and_save": "Standard spell structure for paralysis effects, requiring concentration and allowing repeated saving throws to break the effect.",
+        "component_clarity": "Standard components (V, S, M) with a specific material component specified."
+      },
+      "quality": {
+        "mechanics_description": "The description is clear regarding the target, initial save (Wisdom), effect (paralysis), duration (Concentration, up to 1 minute), and exit condition (successful end-of-turn save). The exclusion of undead is a key mechanical detail.",
+        "at_higher_levels": "The scaling for higher levels is mechanically sound and clearly defined, adding targets based on slot level incrementally."
+      },
+      "mechanics": {
+        "school": "Enchantment (Generally associated with mind-affecting/control spells).",
+        "save_type": "Wisdom (Appropriate for resisting mental domination/paralysis).",
+        "action_economy": "1 Action casting time, Concentration duration (standard for powerful control effects).",
+        "critical_interactions": "Paralyzed condition provides advantage on attack rolls against the target and automatic critical hits on melee attacks against it. This is extremely potent, justifying the concentration and save mechanics.",
+        "class_availability": "Standard spell list for primary arcane/charismatic casters (Bard, Sorcerer, Warlock, Wizard)."
+      },
+      "zod_errors": "NONE",
+      "recommendations": "None. The data adheres perfectly to standard TTRPG spell formatting and mechanical expectations."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.089Z"
+}

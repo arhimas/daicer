@@ -1,0 +1,25 @@
+{
+  "file": "atoms/features/druid-archdruid.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "druid-archdruid.json",
+    "analysis": {
+      "consistency": "High. The feature details represent a capstone ability for the Druid class, granting significant benefits related to Wild Shape and spellcasting, fitting for a level 20 feature.",
+      "quality": "High. The text is clear, well-structured, and provides powerful, thematic rewards. The inclusion of flavor text sections (\"Sacred Plants and Wood\", \"Druids and the Gods\") adds excellent context and world-building value, even if they are not direct mechanical rules.",
+      "mechanics": {
+        "summary": "Grants unlimited Wild Shape uses and significant spellcasting component exemptions, applicable in both normal and beast form.",
+        "key_features": [
+          "Unlimited Wild Shape uses.",
+          "Ignore Verbal spell components.",
+          "Ignore Somatic spell components.",
+          "Ignore Material spell components that lack a cost and are not consumed."
+        ],
+        "balance_notes": "This is a very powerful capstone feature, comparable to other class fantasy fulfillments at level 20 (e.g., Epic Boons or equivalent class features). Unlimited Wild Shape is the primary mechanical draw, and the spellcasting flexibility is a strong secondary benefit that enhances gameplay across all forms."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.900Z"
+}

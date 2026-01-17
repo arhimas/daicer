@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/time-stop.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "time-stop.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "level_valid": true,
+        "school_valid": true,
+        "casting_time_standard": true,
+        "range_standard": true,
+        "components_standard": true,
+        "duration_standard": true,
+        "class_list_standard": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "flavor": "Excellent (Iconic spell)"
+      },
+      "mechanics": {
+        "level_power_appropriate": "Yes (9th level)",
+        "action_economy_impact": "Extremely high (Grants 1d4+1 turns)",
+        "restrictions_clarity": "Clear limitations on affecting others or excessive movement",
+        "potential_exploits": "Minimal, standard rules govern the extra turns (cannot take a full Extra Turn, actions are restricted by spell effects)."
+      },
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:29.007Z"
+}

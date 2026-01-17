@@ -1,0 +1,35 @@
+{
+  "file": "atoms/features/monk-flurry-of-blows.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-flurry-of-blows.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e Monk class features. It correctly identifies the class, level, and core mechanics.",
+      "quality": "High quality. The description is accurate, concise, and reflects the official rules text for the feature.",
+      "mechanics": {
+        "action_type": "Bonus Action",
+        "cost": {
+          "type": "Ki Point",
+          "amount": 1
+        },
+        "effect": "Two unarmed strikes, immediately after taking the Attack action.",
+        "prerequisites": [
+          "Monk class",
+          "Attack action taken on current turn"
+        ]
+      }
+    },
+    "metadata": {
+      "slug": "monk-flurry-of-blows",
+      "name": "Flurry of Blows",
+      "class": "monk",
+      "level": 1,
+      "is_subclass_feature": true
+    },
+    "zod_errors": "NONE"
+  },
+  "timestamp": "2026-01-17T07:23:13.838Z"
+}

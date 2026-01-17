@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/harm.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "harm.json",
+    "analysis": {
+      "consistency_check": {
+        "name_matches_slug": true,
+        "level_is_valid": true,
+        "school_is_valid": true,
+        "has_all_required_fields": true
+      },
+      "quality_assessment": {
+        "flavor_text_present": false,
+        "mechanics_clear": true,
+        "component_format_correct": true
+      },
+      "mechanics_review": {
+        "damage_type": "necrotic",
+        "save_type": "Constitution",
+        "damage_dice": "14d6",
+        "effect_on_fail": "Deals 14d6 necrotic damage (min 1 HP remaining). Reduces max HP by damage taken for 1 hour, unless disease is removed.",
+        "effect_on_success": "Deals half damage (min 1 HP remaining). No max HP reduction.",
+        "scaling_notes": "High damage output, balanced by significant drawback (max HP reduction) and the 'prevent reduction below 1 HP' clause."
+      },
+      "archivist_notes": "The spell 'Harm' is a high-level (6th) Necromancy spell for Clerics. The damage is substantial (14d6), but the secondary effect of reducing the target's maximum hit points is a powerful, debilitating effect, mitigated slightly by the rule that damage cannot reduce current HP below 1. The condition for HP max restoration (removing disease) aligns well with the necrotic/disease theme."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.444Z"
+}

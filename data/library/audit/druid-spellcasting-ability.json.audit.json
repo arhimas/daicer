@@ -1,0 +1,57 @@
+{
+  "file": "atoms/features/druid-spellcasting-ability.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "metadata": {
+      "entity": "FEATURE",
+      "file": "druid-spellcasting-ability.json",
+      "data_quality": "High",
+      "consistency_check": "Consistent with standard D&D 5e rules for druid spellcasting."
+    },
+    "analysis": {
+      "mechanics_summary": "Defines Wisdom as the primary spellcasting ability for the Druid class. It specifies that Wisdom is used for determining spell attack modifiers and spell save DCs, providing the standard calculation formulas for both.",
+      "quality_assessment": "Excellent. The description is comprehensive, explicitly stating the ability score and providing the exact formulas for DC and modifier calculation, which is crucial for clarity.",
+      "potential_issues": "None. This is a foundational class feature, and the representation is accurate."
+    },
+    "extracted_data_points": [
+      {
+        "field": "name",
+        "value": "Spellcasting Ability",
+        "comment": "Name of the feature."
+      },
+      {
+        "field": "class",
+        "value": "druid",
+        "comment": "Class associated with the feature."
+      },
+      {
+        "field": "level",
+        "value": "1",
+        "comment": "Level when the feature is gained."
+      },
+      {
+        "field": "spellcasting_ability_score",
+        "value": "Wisdom",
+        "comment": "The designated spellcasting ability score."
+      },
+      {
+        "field": "spell_save_dc_formula",
+        "value": "8 + your proficiency bonus + your Wisdom modifier",
+        "comment": "Formula for calculating spell save DC."
+      },
+      {
+        "field": "spell_attack_modifier_formula",
+        "value": "your proficiency bonus + your Wisdom modifier",
+        "comment": "Formula for calculating spell attack modifier."
+      },
+      {
+        "field": "is_subclass_feature",
+        "value": "true",
+        "comment": "Indicates this feature might be considered mandatory for all subclasses or is a base class feature, marked as true here."
+      }
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:15.873Z"
+}

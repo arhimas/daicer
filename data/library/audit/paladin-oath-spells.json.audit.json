@@ -1,0 +1,40 @@
+{
+  "file": "atoms/features/paladin-oath-spells.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-oath-spells.json",
+    "analysis": {
+      "consistency": {
+        "summary": "The feature is consistent with standard D&D 5e Paladin Oath mechanics. It clearly defines how oath spells are obtained, prepared, and counted.",
+        "details": [
+          "The rule 'Once you gain access to an oath spell, you always have it prepared' aligns perfectly with the preparation mechanic for oath spells in official rules.",
+          "The rule 'Oath spells don't count against the number of spells you can prepare each day' is standard for this feature.",
+          "The note about spells not on the main paladin spell list is crucial for rules clarity and is handled consistently."
+        ]
+      },
+      "quality": {
+        "summary": "The data quality is high. The description is clear, comprehensive, and accurately reflects the game mechanic.",
+        "details": [
+          "The description uses precise mechanical language (e.g., 'always have it prepared', 'don't count against the number').",
+          "It explicitly states the prerequisite (gaining access at specified levels) and the primary benefit (always prepared/uncounted)."
+        ]
+      },
+      "mechanics": {
+        "summary": "The feature grants a static, always-prepared list of spells tied to a subclass (Oath) that scales with character level, providing a distinct spell flavor for each subclass.",
+        "details": [
+          "**Access Mechanism**: Level-gated access determined by the specific Oath rules (not detailed here, but referenced).",
+          "**Preparation**: Auto-prepared (always known/ready), bypassing the standard Paladin preparation calculation (Charisma modifier + Paladin level).",
+          "**Spell List Inclusion**: Functionally adds new spells to the Paladin's usable repertoire, even if they originate from other class lists (e.g., Cleric, Wizard)."
+        ]
+      }
+    },
+    "recommendations": {
+      "data_structure": "None needed for this specific feature file, as it's purely descriptive metadata.",
+      "linking": "The reference to '[paladin spell list](#section-paladin-spells)' is good, but ensuring that link resolves correctly in the final documentation environment is important for usability."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.680Z"
+}

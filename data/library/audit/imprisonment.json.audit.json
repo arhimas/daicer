@@ -1,0 +1,48 @@
+{
+  "file": "molecules/spells/imprisonment.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "imprisonment.json",
+    "analysis": {
+      "consistency": "High. The spell components, duration, and effects are clearly tied to the chosen version of imprisonment. The general rules (no aging, breathing, divination immunity) apply universally before the version-specific effects take hold.",
+      "quality": "Excellent. This is a well-detailed 9th-level spell. The inclusion of multiple distinct imprisonment options provides significant utility and thematic variety. The rules for ending the spell (custom condition, high-level dispel magic targeting the component) are appropriate for a spell of this magnitude.",
+      "mechanics": {
+        "saving_throw": "Wisdom (standard for effects targeting the mind/will).",
+        "spell_save_dc_interaction": "Target that succeeds is immune to subsequent castings by the same caster, which is an important balancing factor against repeated attempts.",
+        "component_cost": "The 500 gp per Hit Die requirement is a significant gold sink, appropriate for a high-level, long-duration incapacitation spell. It scales appropriately with the target's power.",
+        "sub-options": [
+          {
+            "name": "Burial",
+            "effect_summary": "Entombed in a magically sealed sphere, immune to teleportation/planar travel.",
+            "counterplay_notes": "Strong isolation, immune to most relocation spells."
+          },
+          {
+            "name": "Chaining",
+            "effect_summary": "Target is Restrained and cannot be moved.",
+            "counterplay_notes": "Less total isolation than Burial, but keeps the target physically present."
+          },
+          {
+            "name": "Hedged Prison",
+            "effect_summary": "Transported to a private demiplane (labyrinth, cage, etc.), blocked against teleportation/planar travel.",
+            "counterplay_notes": "Excellent for removing a threat from the material plane without killing it, relies on the caster defining a navigable/explorable space."
+          },
+          {
+            "name": "Minimus Containment",
+            "effect_summary": "Shrinks target to 1 inch, contained in a nigh-indestructible gemstone. Target remains visible.",
+            "counterplay_notes": "Unique visual and physical restriction. Visibility means allies can potentially know where the target is, but interaction is impossible."
+          },
+          {
+            "name": "Slumber",
+            "effect_summary": "Target falls asleep and cannot be awakened.",
+            "counterplay_notes": "The simplest effect, relying solely on the target failing the save. Less robust containment than the others, but the 'can't be awoken' clause is key."
+          }
+        ],
+        "ending_conditions": "The custom condition mechanic is flexible and prevents permanent trivialization by 9th-level casters, requiring creative and reasonable goal-setting agreed upon by the GM."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:39.240Z"
+}

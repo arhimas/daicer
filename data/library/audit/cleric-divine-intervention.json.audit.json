@@ -1,0 +1,37 @@
+{
+  "file": "atoms/features/cleric-divine-intervention.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "cleric-divine-intervention.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "class_matches_context": true,
+        "level_consistency": "Level 10 is a significant tier for such a powerful ability, suggesting high-tier playability."
+      },
+      "quality": {
+        "clarity": "The description is clear regarding the action economy, success mechanic (cleric level vs. percentile roll), and the outcome (GM-determined effect).",
+        "flavor": "Highly thematic for a Cleric, representing a direct appeal to their patron deity.",
+        "completeness": "All necessary mechanics (action cost, success chance, failure/success consequences, cooldown) are present."
+      },
+      "mechanics": {
+        "type": "Activated Ability (Action)",
+        "trigger": "User Action, Great Need (narrative constraint)",
+        "success_condition": "Roll percentile dice <= Cleric Level (10% chance at level 10).",
+        "effect": "GM-determined effect, suggested to be equivalent to a Cleric/Domain spell.",
+        "cooldown": "7 days upon success; Long Rest upon failure.",
+        "scaling": "Becomes an automatic success at 20th level, representing ultimate faith/divine favor."
+      },
+      "suggestions": [
+        "The 7-day cooldown upon success is very restrictive for a powerful, random effect. This balances the power but severely limits usage in long adventures or dungeons.",
+        "The 'great need' narrative trigger is slightly subjective, though standard for high-level features.",
+        "The automatic success at 20th level is an excellent capstone reward."
+      ],
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:23:16.737Z"
+}

@@ -1,0 +1,83 @@
+{
+  "file": "molecules/spells/creation.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "creation.json",
+    "analysis": {
+      "consistency": {
+        "notes": "The spell description is mostly consistent. The table details durations based on material, which is referenced in the duration description. The material component (M) lists 'a tiny piece of matter of the same type of the item you plan to create,' which aligns with the object creation effect.",
+        "issues": [
+          "The description states the object must be 'no larger than a 5-foot cube,' and the scaling ('At Higher Levels') correctly adds 5 feet to the cube size per slot level above 5th, which is mechanically sound."
+        ]
+      },
+      "quality": {
+        "notes": "The formatting of the material duration table is presented as HTML within the raw data. For archival purposes, this information should be extracted into a structured format for easier programmatic access.",
+        "issues": [
+          "Raw data contains embedded HTML table structure which needs normalization."
+        ]
+      },
+      "mechanics": {
+        "notes": "This is a utility conjuration/creation spell with specific limitations on size, material type (nonliving, vegetable or mineral), and use as a component for other spells (which causes failure). The scaling mechanism is clear.",
+        "issues": [
+          "The spell creates objects from the 'shadow planes,' which might imply an illusionary or temporary nature, yet the duration table specifies material-based durations, suggesting tangible matter is created (vegetable, stone, metal, gems). This slight conceptual overlap between 'shadow planes' and tangible material creation is common in magic but worth noting."
+        ]
+      },
+      "suggestions": [
+        "Normalize the duration table into a structured list or object within the final data model.",
+        "Ensure the scaling (size increase) is correctly captured in the structured data."
+      ],
+      "normalized_data_schema": {
+        "name": "Creation",
+        "level": 5,
+        "school": "illusion",
+        "ritual": false,
+        "casting_time": "1 minute",
+        "range": "30 feet",
+        "components": "V, S, M (a tiny piece of matter of the same type of the item you plan to create)",
+        "duration": "Special",
+        "classes": [
+          "sorcerer",
+          "wizard"
+        ],
+        "effect_details": {
+          "max_size": "5-foot cube (at 5th level)",
+          "material_type": "Nonliving object of vegetable matter, soft goods, rope, wood, or mineral objects (stone, crystal, metal).",
+          "limitations": [
+            "Object must be of a form and material seen before.",
+            "Cannot be used as a material component for another spell."
+          ],
+          "scaling": {
+            "attribute": "Maximum cube size",
+            "rule": "Increases by 5 feet for each slot level above 5th."
+          },
+          "material_durations": [
+            {
+              "material": "Vegetable matter",
+              "duration": "1 day"
+            },
+            {
+              "material": "Stone or crystal",
+              "duration": "12 hours"
+            },
+            {
+              "material": "Precious metals",
+              "duration": "1 hour"
+            },
+            {
+              "material": "Gems",
+              "duration": "10 minutes"
+            },
+            {
+              "material": "Adamantine or mithral",
+              "duration": "1 minute"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:46.439Z"
+}

@@ -1,0 +1,35 @@
+{
+  "file": "molecules/spells/vampiric-touch.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "vampiric-touch.json",
+    "analysis": {
+      "consistency": {
+        "name": "Consistent with standard D&D 5e formatting.",
+        "level": "Level 3 spell, consistent with school and typical power level.",
+        "school": "Necromancy, appropriate for a life-draining spell.",
+        "casting_time": "Standard action economy ('1 action').",
+        "range": "Melee touch attack, consistent with 'touch' in the name.",
+        "components": "Standard V, S components.",
+        "duration": "Concentration up to 1 minute, standard for ongoing combat effects.",
+        "classes": "Warlock and Wizard are standard users of Necromancy spells."
+      },
+      "quality": {
+        "description": "Clear and mechanically precise. The scaling for higher levels is clearly defined.",
+        "mechanics": "The core loop (Melee Attack -> Damage -> Self-Heal) is standard for life-leech mechanics. Allowing a repeat attack on subsequent turns using an action is a significant resource commitment, balancing the healing/damage output.",
+        "scalability": "Scaling adds 1d6 damage per slot level above 3rd. This is a clear and balanced scaling method for Necromancy damage spells."
+      },
+      "mechanics_review": {
+        "core_interaction": "Spell requires a successful melee spell attack, not a saving throw, which is common for touch spells.",
+        "healing_ratio": "Healing equals exactly half the necrotic damage dealt (e.g., 3d6 damage = 1.5d6 HP regained), which is a favorable but not overpowered ratio for a combat spell that costs an action to repeat.",
+        "action_cost_of_repeat": "The requirement to use a full action every turn after the initial casting to continue dealing damage/healing is the primary balancing factor for its sustained power.",
+        "damage_type": "Necrotic damage is consistent with the school."
+      }
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:22:28.792Z"
+}

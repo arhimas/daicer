@@ -1,0 +1,30 @@
+{
+  "file": "molecules/items/shield-of-missile-attraction.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "shield-of-missile-attraction.json",
+    "analysis": {
+      "consistency": "The item description is internally consistent. The core magical effect (resistance to ranged weapon damage) is balanced by a significant mechanical drawback (the curse forcing target redirection).",
+      "quality": "High quality. The item presents a clear, interesting, and powerful trade-off. Resistance to ranged damage is strong, but the forced targeting mechanic creates compelling roleplaying and tactical situations, especially in combat against archers or projectile users.",
+      "mechanics": {
+        "primary_benefit": "Resistance to damage from ranged weapon attacks.",
+        "curse_mechanic": {
+          "activation_condition": "A ranged weapon attack is made against a target within 10 feet of the wielder.",
+          "effect": "The wielder automatically becomes the target instead.",
+          "removal_condition": "The _remove curse_ spell or similar magic."
+        },
+        "attunement": true,
+        "clarifications_needed": "None. The mechanics are clearly defined, especially the targeting redirection rule which overrides the original target selection."
+      }
+    },
+    "metadata": {
+      "name_check": "Shield of Missile Attraction (matches slug)",
+      "type_check": "Armor (shield) (matches source metadata)",
+      "rarity_check": "Rare (matches source metadata)"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:53.777Z"
+}

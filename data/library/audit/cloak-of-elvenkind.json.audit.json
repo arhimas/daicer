@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/cloak-of-elvenkind.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cloak-of-elvenkind.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_and_rarity_match_source": true,
+        "mechanics_clear": true
+      },
+      "quality": {
+        "completeness": "High. Contains name, type, rarity, attunement requirement, and full mechanical description.",
+        "formatting_notes": "The description is clear and functional for game mechanics.",
+        "potential_improvements": "The raw data uses a markdown link reference ('#section-attunement') which should be stripped for pure item data storage, but is acceptable in source context."
+      },
+      "mechanics": {
+        "attunement_required": true,
+        "primary_effects": [
+          "Disadvantage on Wisdom (Perception) checks made to see the wearer (while hood is up).",
+          "Advantage on Dexterity (Stealth) checks made to hide (while hood is up)."
+        ],
+        "action_cost": "Pulling the hood up or down requires an action."
+      },
+      "zod_errors": "NONE",
+      "archivist_recommendation": "Data structure is sound and accurately reflects the item's function. Ready for archival."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:03.309Z"
+}

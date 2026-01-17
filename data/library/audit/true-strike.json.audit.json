@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/true-strike.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "true-strike.json",
+    "analysis": {
+      "consistency": "Consistent. The spell adheres to standard D&D 5e spell formatting and mechanical structure.",
+      "quality": "Fair. Mechanically simple, but often criticized by players for being weak as it only grants advantage on the *first* attack roll on the *next* turn, which can be negated by moving or the target moving away, and only applies to one roll. It is a low-level utility effect.",
+      "mechanics": {
+        "level": 0,
+        "school": "divination",
+        "casting_time": "1 action",
+        "range": "30 feet",
+        "components": "S (Verbal component is missing, which is unusual for standard spells but possible for some subclasses or specific editions/settings, assuming the raw data is authoritative.)",
+        "duration": "Concentration, up to 1 round",
+        "effect_summary": "Grants advantage on the very next attack roll made against the target, provided the spell is still active. Since it's concentration up to 1 round, it effectively grants advantage on the first attack made on the caster's following turn.",
+        "class_availability": [
+          "bard",
+          "sorcerer",
+          "warlock",
+          "wizard"
+        ]
+      },
+      "notes": "The lack of a Verbal (V) component listed under 'components' warrants a check if this is intentional or an omission in the raw data, as most spells require V, S, or M. The effect is highly time-sensitive and concentration-based for a single advantage roll."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:28.921Z"
+}

@@ -1,0 +1,28 @@
+{
+  "file": "molecules/items/mantle-of-spell-resistance.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "mantle-of-spell-resistance.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "type_consistency": "The 'type' field ('Wondrous item') is consistent with the implied nature of a magical cloak/mantle.",
+        "rarity_consistency": "The 'rarity' field ('Rare') aligns with the described mechanical effect (advantage on saving throws against spells)."
+      },
+      "quality": {
+        "completeness": "The record is complete, containing slug, name, type, rarity, attunement requirement, description, and source information.",
+        "data_redundancy": "Minor redundancy exists between 'rarity' field and the structured part of 'source_type_rarity', but it is acceptable for cross-referencing."
+      },
+      "mechanics": {
+        "effect_summary": "Grants advantage on saving throws made against spells.",
+        "attunement_impact": "Attunement is required, which is standard for items granting significant combat/defensive advantages.",
+        "mechanical_clarity": "The description is exceptionally clear and directly maps to established D&D 5e mechanics ('advantage on saving throws against spells')."
+      },
+      "recommendations": "No corrections needed. The data structure is sound and the content is accurate."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:58.828Z"
+}

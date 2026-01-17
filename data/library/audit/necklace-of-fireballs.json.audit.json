@@ -1,0 +1,38 @@
+{
+  "file": "molecules/items/necklace-of-fireballs.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "item_slug": "necklace-of-fireballs",
+    "file_name": "necklace-of-fireballs.json",
+    "analysis": {
+      "consistency_check": {
+        "rarity_match": true,
+        "type_match": true,
+        "source_tag_match": true
+      },
+      "quality_assessment": {
+        "completeness": "Complete",
+        "clarity": "High",
+        "formatting_notes": "Uses internal link syntax ('[_fireball_](#fireball)') which is good for documentation context."
+      },
+      "mechanics_review": {
+        "core_function": "Releases beads that cast a 3rd-level Fireball spell (DC 15) upon impact at a range of 60 feet.",
+        "initial_charges": "1d6 + 3 beads.",
+        "action_economy": "Action to detach and throw one or more beads.",
+        "scaling_effect": "Increasing the level of the Fireball spell by 1 for each additional bead thrown in the same action. (e.g., 2 beads = 4th level Fireball, 3 beads = 5th level Fireball, etc.)",
+        "attunement_requirement": "None specified, which is standard for many consumables/limited-use items.",
+        "dc_consistency": "DC 15 is standard for many Rare-level items or baseline 3rd-level spells."
+      },
+      "suggested_updates": [
+        {
+          "area": "Charge Depletion",
+          "suggestion": "Explicitly state what happens when the last bead is used (i.e., the necklace becomes inert or breaks)."
+        }
+      ]
+    },
+    "archivist_notes": "The mechanics are clear regarding the scaling spell level when multiple beads are used simultaneously. The DC is fixed at 15, independent of the increased spell level, which should be verified against official sources for this item variant (if multiple exist), though DC scaling is often omitted on specific item templates."
+  },
+  "timestamp": "2026-01-17T07:22:58.617Z"
+}

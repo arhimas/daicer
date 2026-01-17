@@ -1,0 +1,33 @@
+{
+  "file": "molecules/spells/gaseous-form.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "gaseous-form.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent ('Gaseous Form' vs 'gaseous-form').",
+        "level_and_school": "Consistent (Level 3, Transmutation).",
+        "components_vs_effect": "Components (gauze, smoke) align thematically with the transformation effect.",
+        "duration_vs_concentration": "Standard concentration duration for a sustained transformative effect."
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines the transformation, movement limitations (flying speed 10ft, passing through cracks), defensive benefits (resistance, save advantage), and significant restrictions (cannot talk, attack, cast spells, manipulate objects).",
+        "mechanical_completeness": "Complete. Covers transformation state, movement, interaction limitations, defensive buffs, and ending conditions (dropping to 0 HP).",
+        "formatting": "The raw data uses bracketed cross-references ([stunned], [incapacitated]), which are standard for D&D 5e SRD/official text."
+      },
+      "mechanics": {
+        "level_appropriateness": "Level 3 seems appropriate for the powerful defensive and utility benefits (resistance, movement through cracks, save advantage) balanced by the severe restrictions on action economy (no attacking/casting/interacting).",
+        "movement_interaction": "Key mechanical feature is the ability to occupy other spaces and pass through small openings, effectively bypassing many environmental obstacles, countered by treating liquids as solid surfaces.",
+        "defensive_buffs": "Resistance to nonmagical damage is a significant defensive boon at this level.",
+        "action_economy_cost": "The cost is high: the creature loses all ability to interact, attack, or cast spells, effectively making it purely defensive/utility for positioning.",
+        "ending_conditions": "Standard 0 HP termination, ensuring the creature doesn't gain permanent invulnerability if downed."
+      },
+      "zod_errors": "NONE",
+      "archival_notes": "This entry is well-formed and mechanically sound according to standard TTRPG spell design conventions. The utility provided (defense, infiltration) is strongly balanced by the loss of offensive/interactive capabilities."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:41.217Z"
+}

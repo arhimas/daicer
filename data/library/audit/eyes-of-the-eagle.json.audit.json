@@ -1,0 +1,39 @@
+{
+  "file": "molecules/items/eyes-of-the-eagle.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "eyes-of-the-eagle.json",
+    "analysis": {
+      "consistency": {
+        "name_slug": "Consistent ('eyes-of-the-eagle' matches 'Eyes of the Eagle').",
+        "rarity_format": "Consistent ('Uncommon' matches rarity context in source string).",
+        "attunement_flag": "Consistent (requires_attunement is true, and source mentions attunement)."
+      },
+      "quality": {
+        "data_completeness": "High. Contains name, type, rarity, attunement requirement, description, and source context.",
+        "description_clarity": "Excellent. Clearly defines mechanical benefits (advantage on sight-based Perception checks) and sensory benefit (seeing distant details).",
+        "formatting_notes": "The description is well-structured for an item entry."
+      },
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement": true,
+        "benefit_1": {
+          "type": "Advantage",
+          "skill": "Wisdom (Perception)",
+          "condition": "Checks that rely on sight"
+        },
+        "benefit_2": {
+          "type": "Enhanced Vision Range",
+          "detail": "Can make out details of extremely distant creatures/objects (as small as 2 feet across) in clear visibility."
+        },
+        "balance_assessment": "Appropriate for Uncommon rarity. Advantage on a core sense check is strong, but the range benefit is conditional (clear visibility) and flavor-focused."
+      }
+    },
+    "archivist_notes": "Data entry is clean and structurally sound. Mechanics are clearly defined and consistent with typical D&D 5e item conventions."
+  },
+  "timestamp": "2026-01-17T07:23:01.475Z"
+}

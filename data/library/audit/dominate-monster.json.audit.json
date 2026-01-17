@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/dominate-monster.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "dominate-monster.json",
+    "analysis": {
+      "consistency": {
+        "level_and_slot_scaling": "Consistent. The spell scales correctly for a 9th-level slot, increasing the duration from 'up to 1 hour' to 'up to 8 hours'.",
+        "action_economy": "Mechanically sound. Issuing general commands is free (no action). Taking total/precise control requires the caster's action, and using the target's reaction requires the caster's reaction. This balances the powerful effect."
+      },
+      "quality": {
+        "clarity": "High clarity. The mechanics for general control, precise control, and ending the spell (damage trigger) are clearly defined.",
+        "completeness": "Complete. Includes level, components, range, duration, saving throw details, and upcasting notes."
+      },
+      "mechanics": {
+        "primary_effect": "Charm with telepathic link for issuing general commands.",
+        "secondary_effect": "Action economy manipulation through precise control (using the caster's action).",
+        "counter_mechanism": "Wisdom saving throw on initial cast. Subsequent Wisdom saving throws triggered whenever the target takes damage, which ends the spell on success.",
+        "limitations": "Requires line of sight for initial cast (implied by 'see within range') and planar proximity for the telepathic link. Concentration requirement limits other magical effects."
+      },
+      "suggested_changes": "None required. The spell is a high-level staple with well-defined, powerful, but manageable mechanics."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:44.201Z"
+}

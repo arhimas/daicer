@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/sorcerer-heightened-spell.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-heightened-spell.json",
+    "analysis": {
+      "consistency": {
+        "class_mapping": "Consistent. 'sorcerer' matches the feature origin.",
+        "level_mapping": "Consistent. Level 1 is appropriate for a basic Metamagic option often gained early, though Heightened Spell is typically gained at Sorcerer Level 3 in standard 5e rules. Assuming this is for a variant or specific interpretation where it's listed as level 1.",
+        "naming_convention": "Consistent. Clear and descriptive name."
+      },
+      "quality": {
+        "clarity": "High. The description clearly states the cost (3 sorcery points) and the mechanical effect (disadvantage on the first saving throw for one target).",
+        "completeness": "Complete. Contains all necessary mechanical components: trigger, cost, and effect.",
+        "readability": "Good."
+      },
+      "mechanics": {
+        "type": "Metamagic",
+        "cost_type": "Sorcery Points",
+        "cost_value": 3,
+        "effect_summary": "Imposes disadvantage on a single target's first saving throw against a spell.",
+        "rules_compliance_note": "In standard D&D 5e, Heightened Spell is gained at Sorcerer level 3 and costs 3 sorcery points. The 'level': 1 field in the raw data may indicate a non-standard progression or data entry error, but the mechanical description matches the standard Heightened Spell."
+      },
+      "suggested_action": "No corrections to the description are necessary based on its stated mechanics. Archive as is, noting the potential level discrepancy if enforcing strict 5e ruleset adherence."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.051Z"
+}

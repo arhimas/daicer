@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/spike-growth.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "spike-growth.json",
+    "analysis": {
+      "consistency": {
+        "internal_consistency": "High. All fields present are consistent with standard 5e spell notation.",
+        "external_consistency": "High. The spell accurately reflects the established mechanics for 'Spike Growth' from official D&D 5e sources."
+      },
+      "quality": {
+        "data_completeness": "Excellent. All standard spell fields (name, level, school, casting time, range, components, duration, description, classes) are present.",
+        "data_accuracy": "Perfect. The raw data matches the canonical spell description."
+      },
+      "mechanics_review": {
+        "level_school_fit": "Appropriate. Level 2 Transmutation fits the effect of altering terrain significantly.",
+        "casting_time_range_duration": "Standard for a battlefield control spell requiring concentration.",
+        "component_verification": "The material component (M) is specific and fits the theme.",
+        "effect_analysis": {
+          "damage_and_terrain": "The core mechanic (difficult terrain + 2d4 piercing damage per 5ft moved) is correctly stated. This damage scaling is crucial and accurately represented.",
+          "detection_mechanism": "The inclusion of the Wisdom (Perception) check against the spell save DC to camouflage the trap is a key quality-of-life and tactical feature of this spell, and it is correctly documented."
+        },
+        "class_suitability": "Appropriate for Druid and Ranger, fitting their nature-based spell lists."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.428Z"
+}

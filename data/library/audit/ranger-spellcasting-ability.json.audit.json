@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/ranger-spellcasting-ability.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-spellcasting-ability.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e class features defining the spellcasting ability.",
+      "quality": "High quality. Clearly defines the spellcasting ability (Wisdom) and provides the necessary formulas for calculating Spell Save DC and Spell Attack Modifier, presented clearly in an HTML table.",
+      "mechanics": "This is a fundamental mechanic for the Ranger class, establishing Wisdom as the primary spellcasting stat. The formulas provided are standard for spellcasting classes in 5th Edition."
+    },
+    "recommendations": [
+      {
+        "type": "Documentation",
+        "severity": "None",
+        "note": "The inclusion of the explicit formulas for Spell Save DC and Spell Attack Modifier directly in the feature description is excellent for clarity."
+      }
+    ],
+    "validation": {
+      "schema_compliance": "Pass",
+      "data_integrity": "Pass",
+      "error_count": 0
+    }
+  },
+  "timestamp": "2026-01-17T07:23:10.263Z"
+}

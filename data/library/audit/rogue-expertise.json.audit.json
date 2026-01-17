@@ -1,0 +1,37 @@
+{
+  "file": "atoms/features/rogue-expertise.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": {
+        "data_source": "The data appears consistent with standard D&D 5th Edition Rogue class features, specifically the 'Expertise' feature.",
+        "terminology": "Terminology ('skill proficiencies', 'thieves' tools', 'proficiency bonus') is standard and used correctly.",
+        "structure": "The structure clearly defines the feature name, class, level of acquisition, and tiered benefits."
+      },
+      "quality": {
+        "completeness": "The description covers both the initial acquisition at level 1 and the enhancement at level 6.",
+        "clarity": "The description is clear. Doubling the proficiency bonus is a distinct and powerful mechanic.",
+        "readability": "High readability; mechanics are straightforward to understand."
+      },
+      "mechanics": {
+        "level_1_effect": "Doubling proficiency bonus (effectively granting Expertise) for two chosen skills or one skill and thieves' tools.",
+        "level_6_effect": "Adds two more selections for Expertise.",
+        "balance_assessment": "This is a core Rogue feature, mechanically sound, and balanced for its level of power/frequency of use."
+      },
+      "zod_validation": {
+        "errors_found": "NONE",
+        "conclusion": "No ZOD errors were reported, suggesting the data structure is sound according to whatever schema ZOD uses."
+      }
+    },
+    "feature_summary": {
+      "slug": "rogue-expertise",
+      "name": "Expertise",
+      "class": "rogue",
+      "level_acquired": 1,
+      "key_mechanic": "Doubles proficiency bonus for selected skills/tools (Level 1: 2 choices; Level 6: 2 more choices)."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:10.059Z"
+}

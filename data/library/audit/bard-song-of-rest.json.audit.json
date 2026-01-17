@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/bard-song-of-rest.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-song-of-rest.json",
+    "analysis": {
+      "consistency": "The feature is consistent with typical D&D 5e feature leveling and mechanical structure. It provides a benefit during a specific rest type (short rest) tied to a class resource expenditure (Hit Dice).",
+      "quality": "High quality. The description is clear, concise, and mechanically sound. It clearly defines the trigger (spending Hit Dice during a short rest), the effect (extra healing), and the progression.",
+      "mechanics": {
+        "type": "Rest Benefit/Healing Enhancement",
+        "trigger": "Friendly creatures regaining HP by spending Hit Dice during a short rest.",
+        "effect": "Those creatures regain additional hit points.",
+        "scaling": {
+          "initial": "1d6 (at 2nd level)",
+          "level_9": "1d8",
+          "level_13": "1d10",
+          "level_17": "1d12"
+        },
+        "notes": "This feature is a significant boost to the efficacy of short rests for the Bard's party, directly augmenting the standard Hit Dice recovery mechanic."
+      }
+    },
+    "errors_found": false
+  },
+  "timestamp": "2026-01-17T07:23:16.896Z"
+}

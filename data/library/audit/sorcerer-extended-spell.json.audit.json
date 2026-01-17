@@ -1,0 +1,30 @@
+{
+  "file": "atoms/features/sorcerer-extended-spell.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-extended-spell.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "class_is_valid": true,
+        "level_is_valid": true
+      },
+      "quality": {
+        "description_clarity": "High. Clearly defines the cost (1 sorcery point) and the effect (doubles duration, max 24 hours) for specific spell types (duration >= 1 minute).",
+        "completeness": "Complete. Contains all necessary fields for defining a feature."
+      },
+      "mechanics": {
+        "type": "Metamagic/Spell Augmentation",
+        "cost_mechanism": "Sorcery Points",
+        "effect": "Duration doubling, subject to a 24-hour cap.",
+        "trigger_condition": "Casting a spell with a duration of 1 minute or longer.",
+        "balance_considerations": "Very strong for extending utility spells (e.g., *Shield of Faith*, *Detect Magic* (if lasting that long via duration adjustment), or long-duration buffs). The 24-hour cap prevents infinite duration stacking but allows for full-day coverage with a single resource expenditure."
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.228Z"
+}

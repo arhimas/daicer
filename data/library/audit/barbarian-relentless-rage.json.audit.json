@@ -1,0 +1,27 @@
+{
+  "file": "atoms/features/barbarian-relentless-rage.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-relentless-rage.json",
+    "analysis": {
+      "consistency": "The feature description is consistent with established D&D 5e mechanics for the Barbarian class and the 'Relentless Rage' feature.",
+      "quality": "The feature text is high quality, clearly defining the trigger (dropping to 0 HP while raging and not dying outright), the mechanic (DC 10 Constitution saving throw), the effect (drop to 1 HP instead), and the scaling/reset condition (DC increases by 5 per subsequent use, resets on short/long rest).",
+      "mechanics": {
+        "type": "Defensive/Survivability",
+        "trigger": "Dropping to 0 Hit Points while Raging (and not dying outright).",
+        "core_effect": "Make a DC 10 Constitution saving throw; success means dropping to 1 HP instead of 0.",
+        "scaling": {
+          "mechanism": "DC increases by 5 for each subsequent use.",
+          "reset_condition": "Short or Long Rest."
+        },
+        "level_granted": 11,
+        "class_association": "Barbarian"
+      },
+      "concerns": "None. The feature is well-defined and mechanically sound for its intended purpose (enhancing survivability during rage)."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:17.791Z"
+}

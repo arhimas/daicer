@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/conjure-animals.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "conjure-animals.json",
+    "analysis": {
+      "consistency": {
+        "level_and_scaling": "Consistent. Level 3 spell with scaling options for 5th, 7th, and 9th level slots, increasing the quantity summoned.",
+        "components_and_casting": "Standard. V, S components for a 1 action casting time.",
+        "school_and_effect": "Consistent. 'Conjuration' school matches the summoning effect.",
+        "range_and_duration": "Standard for a concentration spell, 60 feet range allowing for tactical placement."
+      },
+      "quality": {
+        "clarity": "High. The options for summoning based on Challenge Rating (CR) are clearly enumerated.",
+        "completeness": "High. Includes mechanical details like the creatures being friendly, sharing initiative, obeying commands, and what happens when they are defeated or the spell ends.",
+        "flavor_integration": "Good. Ties the summoned beasts to fey spirits, which fits certain class themes (especially Druid)."
+      },
+      "mechanics": {
+        "resource_management": "Moderate resource drain. Requires concentration, limiting other powerful spells, but summons a significant number of temporary allies.",
+        "action_economy": "Very strong action economy. The summons act on their own initiative count. The caster only needs an action to cast, and can command them as a bonus action (implied, or free action depending on DM interpretation of 'no action required by you' for issuing commands). Generally, issuing commands is often interpreted as a free action or part of the casting if done before combat, or a bonus action to command during combat if the rule is strictly followed, though the text says 'no action required by you' which is powerful.",
+        "combat_utility": "Excellent. Provides variable options for tanks (CR 2), area denial, or high-volume damage/distraction (CR 1/4 or 1/8 options). The ability to choose CR tiers offers flexibility.",
+        "scaling_balance": "Appropriate scaling. Doubling, tripling, and quadrupling the quantity at higher levels maintains the spell's relative power budget as the game progresses."
+      },
+      "overall_assessment": "Conjure Animals is a mechanically robust and versatile 3rd-level summoning spell. Its primary power lies in its ability to flood the battlefield with creatures, overwhelming enemy actions and defenses. The explicit rule stating that commanding them requires 'no action by you' is a significant mechanical advantage over many similar spells."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.142Z"
+}

@@ -1,0 +1,30 @@
+{
+  "file": "atoms/features/fighter-second-wind.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-second-wind.json",
+    "analysis": {
+      "consistency": {
+        "class_reference": "The feature correctly references the 'fighter' class.",
+        "level_dependency": "The healing calculation correctly depends on 'fighter level', which is standard for class features.",
+        "resource_management": "The feature correctly specifies a rest requirement ('short or long rest') for recharge, which is consistent with similar self-heal mechanics."
+      },
+      "quality": {
+        "clarity": "The description is very clear regarding action type ('bonus action') and effect ('regain hit points equal to 1d10 + your fighter level').",
+        "completeness": "All necessary mechanical details (action type, effect, cost/limitation) are present."
+      },
+      "mechanics": {
+        "action_type": "Bonus Action",
+        "effect": "Healing",
+        "dice_mechanic": "1d10 + Level",
+        "recharge": "Short or Long Rest (Uses: 1 per rest cycle)"
+      },
+      "notes": "This is a standard, well-defined, and necessary level 1 fighter feature. The mechanics are balanced for a low-level martial class self-sustain option."
+    },
+    "zod_errors": []
+  },
+  "timestamp": "2026-01-17T07:23:14.619Z"
+}

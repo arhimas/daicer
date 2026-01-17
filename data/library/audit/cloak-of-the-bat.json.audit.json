@@ -1,0 +1,53 @@
+{
+  "file": "molecules/items/cloak-of-the-bat.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "cloak-of-the-bat.json",
+    "analysis": {
+      "consistency": {
+        "entity_type": "Consistent. The entry is clearly an item.",
+        "rarity_and_attunement": "Consistent. Rarity (Rare) matches the description source string ('Wondrous item, rare (requires [attunement](#section-attunement))'). Requires attunement is correctly flagged as true.",
+        "mechanics_description_vs_tags": "Consistent. The mechanics described (Advantage on Stealth, conditional flight, conditional Polymorph) align with a 'Wondrous item, rare'."
+      },
+      "quality": {
+        "completeness": "High. Contains name, slug, type, rarity, attunement requirement, detailed description, and source info.",
+        "clarity": "Good. The conditional nature of the flight (grip, dim light/darkness) is clearly stated.",
+        "formatting_notes": "The description uses internal link syntax ('[_polymorph_](#polymorph)') which is common in documentation source files but should ideally be normalized for a final database entry if strict text output is required. For an archive, retaining the raw syntax is acceptable."
+      },
+      "mechanics": {
+        "stealth": {
+          "effect": "Advantage on Dexterity (Stealth) checks.",
+          "condition": "Always active while worn."
+        },
+        "flight": {
+          "effect": "Fly speed of 40 feet.",
+          "conditions": [
+            "Must be in dim light or darkness.",
+            "Must grip the edges of the cloak with both hands.",
+            "Loss occurs upon failing to grip or leaving dim light/darkness."
+          ]
+        },
+        "transformation": {
+          "spell_reference": "Polymorph",
+          "effect": "Cast Polymorph on self, transforming into a bat.",
+          "conditions": [
+            "Requires Action.",
+            "Requires being in dim light or darkness.",
+            "Usable only once per dawn."
+          ],
+          "retained_stats": [
+            "Intelligence",
+            "Wisdom",
+            "Charisma"
+          ]
+        }
+      },
+      "zod_errors": "NONE",
+      "archival_summary": "The data for the Cloak of the Bat is complete and mechanically sound. All conditions and limitations (attunement, light dependency for flight/transformation) are explicitly detailed and consistent across the fields."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:03.791Z"
+}

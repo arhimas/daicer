@@ -1,0 +1,44 @@
+{
+  "file": "molecules/spells/sunburst.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "sunburst.json",
+    "analysis": {
+      "consistency": "High. The mechanical descriptions (damage, saving throw, duration, area of effect) are consistent with standard 5e spell notation. Component cost is detailed.",
+      "quality": "High. The description is evocative and mechanically clear. It correctly identifies the primary effect (damage and blinding) and secondary effects (dispelling darkness, disadvantage for specific types, and ongoing saving throws to end the blinded condition).",
+      "mechanics": {
+        "level": 8,
+        "school": "evocation",
+        "damage": "12d6 radiant",
+        "save_type": "Constitution",
+        "save_effect": "Half damage, no blindness",
+        "secondary_condition": "Blinded for 1 minute (requires Constitution save at end of turn to end early)",
+        "targeting": {
+          "range": "150 feet",
+          "area_of_effect": "60-foot radius centered on a point"
+        },
+        "special_interactions": [
+          "Undead and oozes have disadvantage on the initial saving throw.",
+          "Dispels darkness created by a spell in its area."
+        ],
+        "casting_time": "1 action",
+        "components": {
+          "verbal": true,
+          "somatic": true,
+          "material": true,
+          "material_cost_description": "fire and a piece of sunstone"
+        },
+        "classes": [
+          "druid",
+          "sorcerer",
+          "wizard"
+        ]
+      },
+      "notes": "The spell is mechanically sound for a high-level Evocation spell. The combination of high burst radiant damage and a potent debuff (blindness) is appropriate for 8th level, balanced by the need for a successful save to avoid both effects."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.069Z"
+}

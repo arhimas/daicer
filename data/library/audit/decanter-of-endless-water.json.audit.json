@@ -1,0 +1,44 @@
+{
+  "file": "molecules/items/decanter-of-endless-water.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "decanter-of-endless-water.json",
+    "analysis": {
+      "consistency": "High. The item's description, name, and rarity are consistent with established tabletop role-playing game standards for a magic item.",
+      "quality": "High. The description is detailed, clearly outlining what the item is, its weight, and the three distinct functions tied to command words.",
+      "mechanics": {
+        "general": "Produces unlimited fresh or salt water. Uses an action to activate the water production.",
+        "stream": {
+          "effect": "1 gallon of water",
+          "action_cost": "Action"
+        },
+        "fountain": {
+          "effect": "5 gallons of water",
+          "action_cost": "Action"
+        },
+        "geyser": {
+          "effect": "30 gallons of water in a 30ft long, 1ft wide stream.",
+          "action_cost": "Action (to start)",
+          "bonus_action_usage": {
+            "type": "Aim at creature or object",
+            "target_creature": {
+              "saving_throw": "DC 13 Strength",
+              "effect_success": "No effect",
+              "effect_failure": "1d4 bludgeoning damage and fall prone"
+            },
+            "target_object": {
+              "weight_limit": "200 pounds (not worn or carried)",
+              "effect": "Knocked over or pushed up to 15 feet away"
+            }
+          }
+        },
+        "save_dc": "13 (Strength for Geyser attack)"
+      }
+    },
+    "archivist_notes": "The mechanics are well-defined, covering both utility (water production) and combat/utility application (Geyser push/damage). The saving throw DC is explicitly stated."
+  },
+  "timestamp": "2026-01-17T07:23:02.941Z"
+}

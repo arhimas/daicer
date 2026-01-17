@@ -1,0 +1,23 @@
+{
+  "file": "atoms/features/bard-bardic-inspiration.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-bardic-inspiration.json",
+    "analysis": {
+      "consistency": "The feature is highly consistent with the established mechanics for the Bard class in D&D 5th Edition. The core functionality (bonus action to grant a die, usage limits, refresh on long rest) is standard.",
+      "quality": "The description is high quality. It is clear, precisely defines the action economy (bonus action), range (60 feet, must hear the bard), duration (10 minutes), and timing of use (after rolling the d20 but before the result is determined).",
+      "mechanics": {
+        "core_function": "Grants a die (d6 at this level) to an ally to add to an ability check, attack roll, or saving throw.",
+        "action_cost": "Bonus Action",
+        "uses": "Uses equal to Charisma modifier (minimum 1). Regain on Long Rest.",
+        "scaling": "The die scales: d6 (1st-4th), d8 (5th-9th), d10 (10th-14th), d12 (15th+).",
+        "level_match": "The raw data specifies Level 5, which correctly corresponds to the die size being a d8. (Correction: The RAW states the die *becomes* a d8 at 5th level, but the provided RAW data explicitly states the die size in the description is a d6 and *then* mentions the scaling, which is slightly inconsistent with the feature being documented *at* 5th level. Assuming the descriptive text is the source, the die shown should be d8 if this file represents the feature *at* 5th level, or the level should be 1 if the die shown is d6. Based on the header 'level:5', the text description is slightly flawed as it says 'The die becomes a d8 at 5th level' but the main rule body still refers to a d6 initially. A meticulous archivist notes the description *should* reflect the d8 if the level is 5.)",
+        "note": "The description implies the base die is d6, then states it becomes d8 at 5th level. Since the file states 'level:5', the die size referenced in the first paragraph should ideally be 'a d8' for perfect consistency with the feature state at that level."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.463Z"
+}

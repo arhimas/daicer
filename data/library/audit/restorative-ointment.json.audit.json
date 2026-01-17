@@ -1,0 +1,38 @@
+{
+  "file": "molecules/items/restorative-ointment.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "restorative-ointment.json",
+    "analysis": {
+      "consistency": {
+        "name": "Consistent. 'Restorative Ointment' is a suitable name for the item described.",
+        "type": "Consistent. Listed as 'Wondrous item'.",
+        "rarity": "Consistent. Listed as 'Uncommon'.",
+        "attunement": "Consistent. Listed as 'false'.",
+        "description_weight": "Consistent. Mentions weight (1/2 pound) within the description.",
+        "description_doses": "Consistent. Specifies 1d4 + 1 doses in the description."
+      },
+      "quality": {
+        "completeness": "High. Provides standard item details (name, type, rarity, weight, contents count) and clear mechanical effects.",
+        "clarity": "High. The action, effects (HP restoration, poison removal, disease cure), and quantity are clearly stated.",
+        "readability": "Good. The formatting within the description is standard for rule text."
+      },
+      "mechanics": {
+        "action_cost": "Action (standard for consumables).",
+        "quantity": "Variable: 1d4 + 1 doses.",
+        "application": "Versatile: Can be swallowed or applied to the skin.",
+        "healing": "2d8 + 2 hit points (Moderate for an Uncommon item, which is appropriate).",
+        "secondary_effects": [
+          "Ceases to be poisoned.",
+          "Cured of any disease."
+        ],
+        "balance_assessment": "Mechanically sound for an Uncommon item. The dual healing and condition removal makes it slightly more potent than a standard healing potion, justifying the Uncommon rarity."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.446Z"
+}

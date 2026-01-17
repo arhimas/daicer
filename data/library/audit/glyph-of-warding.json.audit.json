@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/glyph-of-warding.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "glyph-of-warding.json",
+    "analysis": {
+      "consistency": "The spell description is internally consistent. All defined mechanics (triggering, area of effect, damage scaling, spell storage) are clearly explained.",
+      "quality": "High quality. The description thoroughly covers all aspects of casting, inscription choices (Explosive Runes vs. Spell Glyph), targeting, and scaling, which is essential for a complex defensive/trap spell.",
+      "mechanics": {
+        "casting_time": "1 hour (Long setup time reflects its powerful, permanent nature)",
+        "components": "V, S, M (Material component cost of 200 gp, consumed, emphasizes its significant resource investment)",
+        "duration": "Until dispelled or triggered (Permanent effect until triggered or removed, standard for wards)",
+        "trigger_specificity": "Excellent flexibility. Allows precise control over activation based on proximity, interaction, creature type, alignment, or passwords.",
+        "glyph_types": {
+          "explosive_runes": {
+            "damage": "5d8 initial, scales by +1d8 per spell level above 3rd (e.g., 6d8 at 4th level).",
+            "save": "Dexterity Save for half damage.",
+            "area": "20-foot-radius sphere, spreads around corners (high potential collateral damage)."
+          },
+          "spell_glyph": {
+            "storage_limit": "Matches the spell slot level used (e.g., 5th level slot stores a 5th level spell).",
+            "targeting_logic": "Stored spell targets the creature that triggered the glyph or centers on it. This handles AOE spells elegantly.",
+            "concentration": "Explicitly states that stored spells requiring concentration last for their full duration, preventing exploitation of concentration limits."
+          }
+        },
+        "detection": "Requires a successful Intelligence (Investigation) check against the caster's spell save DC, making it reasonably hidden but beatable by specialized characters."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.949Z"
+}

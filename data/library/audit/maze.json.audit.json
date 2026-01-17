@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/maze.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "maze.json",
+    "analysis": {
+      "consistency": {
+        "slug_matches_name": true,
+        "level_and_school_present": true,
+        "mechanics_present": true
+      },
+      "quality": {
+        "description_clarity": "High. Clearly defines the effect, escape condition, and resolution.",
+        "mechanics_completeness": "High. Includes all necessary mechanical details (range, time, components, duration, save/check, class)."
+      },
+      "mechanics": {
+        "type": "Banishment/Imprisonment",
+        "target_effect": "Banishment to a labyrinthine demiplane.",
+        "escape_condition": "Target uses an action to make a DC 20 Intelligence check. Success escapes the spell.",
+        "exceptions": "Minotaurs or maze demons automatically succeed on the escape check.",
+        "resolution": "If escaped or duration ends, target reappears in the original space or nearest unoccupied space.",
+        "power_level_check": "Level 8 for a powerful, concentration-based banishment with a very high DC (20) for escape suggests appropriate power level for the tier."
+      },
+      "potential_issues": [
+        "The spell does not specify what happens if the target fails the Intelligence check during their action (it is implied they remain trapped, but this could be stated explicitly)."
+      ]
+    },
+    "archivist_notes": "Data is consistent and well-structured. The mechanics are clearly defined, though explicitly stating that a failed check results in remaining trapped might improve clarity slightly."
+  },
+  "timestamp": "2026-01-17T07:22:36.399Z"
+}

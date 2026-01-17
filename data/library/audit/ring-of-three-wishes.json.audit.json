@@ -1,0 +1,32 @@
+{
+  "file": "molecules/items/ring-of-three-wishes.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ring-of-three-wishes.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_in_description_matches_field": true,
+        "type_matches_general_category": true
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "formatting_notes": "The description correctly links to the source spell ('[_wish_](#wish)')."
+      },
+      "mechanics": {
+        "core_function": "Allows the casting of the 'Wish' spell.",
+        "limitations": "3 total charges. The ring becomes nonmagical after the last charge is used.",
+        "attunement_required": false,
+        "spell_casting_cost": "Action, 1 charge.",
+        "potential_issues": "While not a technical error, the item is extremely powerful due to directly granting the Wish spell without standard limitations or attunement. This reflects the item's intended legendary status."
+      },
+      "zod_errors_present": false,
+      "recommendations": "No changes necessary; the data accurately reflects a potent, high-rarity magical item."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:54.957Z"
+}

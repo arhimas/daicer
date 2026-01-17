@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/darkvision.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "darkvision.json",
+    "analysis": {
+      "consistency": "The data fields are internally consistent. The components list (V, S, M) aligns with the presence of a material component description.",
+      "quality": "The quality is high. The description is clear, concise, and directly describes the mechanical effect (60 feet of darkvision). The use of a material component that is consumed or not is not explicitly stated, which is a minor omission common in base spell definitions but should be noted for archival completeness.",
+      "mechanics": {
+        "name": "Darkvision",
+        "level": 2,
+        "school": "transmutation",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "duration": "8 hours",
+        "effect_summary": "Grants 60 feet of darkvision.",
+        "class_balance": "Level 2 seems appropriate for a utility spell that grants vision in darkness, especially compared to similar duration/level spells. The 'Touch' range is balanced.",
+        "component_notes": "The material component (a pinch of dried carrot or an agate) is inexpensive and easily sourced, fitting a common utility spell.",
+        "potential_issues": "None apparent. It is a direct benefit with no combat implications."
+      }
+    },
+    "archival_status": "APPROVED"
+  },
+  "timestamp": "2026-01-17T07:22:45.245Z"
+}

@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/paladin-great-weapon-fighting.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-great-weapon-fighting.json",
+    "analysis": {
+      "consistency": {
+        "class_name_match": "The feature belongs to the 'paladin' class as specified.",
+        "level_context": "Level 1 is standard for core class features.",
+        "name_and_mechanic_alignment": "The name 'Great Weapon Fighting' perfectly aligns with the described mechanic of rerolling low damage dice with two-handed weapons."
+      },
+      "quality": {
+        "clarity": "The description is clear, concise, and defines the conditions precisely (rolling a 1 or 2, melee weapon, two hands, reroll and must use new roll).",
+        "completeness": "The description fully details the mechanical effect and the necessary weapon property prerequisite (two-handed or versatile)."
+      },
+      "mechanics": {
+        "type": "Damage Reroll/Mitigation",
+        "trigger": "Rolling a 1 or 2 on a damage die for an attack made with a two-handed melee weapon.",
+        "effect": "Reroll the die and use the new result.",
+        "balance_note": "This is a common and balanced feature for martial classes focused on heavy weapons, slightly increasing average damage output."
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:12.375Z"
+}

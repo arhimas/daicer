@@ -1,0 +1,55 @@
+{
+  "file": "molecules/items/horn-of-valhalla.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "horn-of-valhalla.json",
+    "analysis": {
+      "consistency": "High. The descriptive text clearly outlines the base item's function and then details the variations based on the horn's metal type using a structured table, which is consistent with established D&D item presentation.",
+      "quality": "Good. The description is detailed, covering usage, duration, cooldown, and the consequences of misuse (attacking the user). The inclusion of the table for horn types adds necessary mechanical depth. The 'source_type_rarity' field provides a summarized rarity based on the specific type, which contrasts slightly with the base 'rarity' field ('Legendary'), suggesting the base rarity might be the highest possible tier or the primary listed tier.",
+      "mechanics": {
+        "type": "Wondrous item",
+        "attunement": false,
+        "action": "Use an action to blow the horn.",
+        "effect": "Summons warrior spirits (berserkers) within 60 feet.",
+        "duration": "1 hour or until dropped to 0 HP.",
+        "cooldown": "7 days.",
+        "variations": [
+          {
+            "metal": "Silver",
+            "rarity_implied": "Rare",
+            "min_berserkers": 4,
+            "max_berserkers": 10,
+            "requirement": "None"
+          },
+          {
+            "metal": "Brass",
+            "rarity_implied": "Rare",
+            "min_berserkers": 6,
+            "max_berserkers": 15,
+            "requirement": "Proficiency with all simple weapons"
+          },
+          {
+            "metal": "Bronze",
+            "rarity_implied": "Very Rare",
+            "min_berserkers": 8,
+            "max_berserkers": 20,
+            "requirement": "Proficiency with all medium armor"
+          },
+          {
+            "metal": "Iron",
+            "rarity_implied": "Legendary",
+            "min_berserkers": 10,
+            "max_berserkers": 25,
+            "requirement": "Proficiency with all martial weapons"
+          }
+        ],
+        "failure_condition": "If the user does not meet the requirement for the specific horn type, the summoned berserkers attack the user."
+      },
+      "discrepancy_notes": "The main 'rarity' field lists 'Legendary', but the detailed description implies a tiered rarity system (Rare, Very Rare, Legendary) based on the metal type, as reflected in the 'source_type_rarity' field. For archiving purposes, this indicates that 'Legendary' is likely the highest version available, while the others exist."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:00.384Z"
+}

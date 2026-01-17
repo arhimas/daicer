@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/sequester.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "sequester.json",
+    "analysis": {
+      "consistency": "High. The spell's mechanics (invisibility, anti-divination, suspended animation for creatures, set termination condition) are internally consistent with powerful, high-level transmutation magic focused on preservation and concealment.",
+      "quality": "High. The description is evocative and clearly defines the mechanical effects. The material component cost (5,000 gp) is appropriate for a 7th-level spell and its powerful duration/effect.",
+      "mechanics": {
+        "level": 7,
+        "school": "transmutation",
+        "casting_time": "1 action",
+        "range": "Touch",
+        "components": "V, S, M (material component cost is high and consumed, balancing the effect)",
+        "duration": "Until dispelled (default/conditional)",
+        "effects": [
+          "Target becomes invisible.",
+          "Target cannot be targeted by divination spells or perceived via scrying sensors from divination spells.",
+          "If target is a creature, it enters suspended animation (no aging, time ceases to flow).",
+          "Spell ends if target takes damage.",
+          "Spell ends if a user-defined, geographically constrained condition (within 1 mile) is met."
+        ],
+        "balance_assessment": "The combination of permanent invisibility, anti-scrying protection, and suspended animation makes this extremely powerful for archiving or preserving a creature/object indefinitely. The necessary 5,000 gp cost and the condition that *any* damage ends the spell are crucial limiting factors that prevent it from being overwhelmingly safe."
+      },
+      "archivist_notes": "The dual termination conditions (damage vs. set condition) offer flexible but strict controls on the spell's longevity. The effect on creatures is effectively stasis, similar to the 'suspended animation' effect sometimes granted by higher-level spells or specific magical items."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:32.112Z"
+}

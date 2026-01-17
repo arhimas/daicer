@@ -1,0 +1,37 @@
+{
+  "file": "molecules/spells/create-food-and-water.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "create-food-and-water.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "level_is_valid": true,
+        "school_is_valid": true,
+        "casting_time_format": "Standard",
+        "range_format": "Standard",
+        "duration_format": "Standard"
+      },
+      "quality": {
+        "completeness": "High",
+        "clarity": "High",
+        "flavor_impact": "Low"
+      },
+      "mechanics": {
+        "core_function": "Resource generation (sustenance)",
+        "balance_assessment": "Well-balanced for a 3rd-level spell, effectively solving logistical issues for extended adventuring parties. The time limit on food spoilage prevents infinite stockpiling.",
+        "scaling_potential": "Low (Effect is fixed, not dependent on spell slot level for higher-level casting)",
+        "key_interactions": [
+          "Survival checks",
+          "Long rests requiring sustenance"
+        ]
+      },
+      "zod_errors": "NONE",
+      "recommendations": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.535Z"
+}

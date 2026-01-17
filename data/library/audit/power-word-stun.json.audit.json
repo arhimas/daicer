@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/power-word-stun.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "power-word-stun.json",
+    "analysis": {
+      "consistency": "High. The spell adheres to standard D&D 5e spell formatting and terminology.",
+      "quality": "High. It is a classic, powerful control spell typical of high-level magic.",
+      "mechanics": {
+        "level": 8,
+        "school": "enchantment",
+        "casting_time": "1 action",
+        "range": "60 feet",
+        "components": "V",
+        "duration": "Instantaneous",
+        "effect_trigger": "Target HP <= 150.",
+        "primary_effect": "Stunned condition.",
+        "save_mechanic": "Constitution saving throw at the end of each of the target's turns to end the effect.",
+        "notes": "The instantaneous duration applies to the casting, but the effect itself persists until the save is made. The effect is binary based on the target's current HP, making it a potent 'alpha strike' against lower-to-mid tier enemies."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:33.946Z"
+}

@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/legend-lore.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "legend-lore.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": "Consistent",
+        "time_range_duration_format": "Consistent",
+        "component_format": "Detailed and consistent with spell level."
+      },
+      "quality": {
+        "description_clarity": "High clarity. The description clearly outlines the condition for receiving information (legendary importance) and the variability based on existing knowledge.",
+        "example_usefulness": "Excellent. The provided example vividly illustrates how 'accurate but figurative' information might be delivered, which is crucial for this type of divination spell."
+      },
+      "mechanics": {
+        "casting_time_implication": "The 10-minute casting time makes this unsuitable for combat or rapid information gathering, fitting for deep lore research.",
+        "component_cost_impact": "The substantial material component cost (250 gp for incense + 200 gp for ivory strips = 450 gp total, with 250 gp consumed) balances the powerful, non-combat information retrieval capability.",
+        "consumable_nature": "The consumption of the incense reinforces the investment required for using this high-level lore search.",
+        "class_suitability": "Appropriate distribution across Bard (lore), Cleric (divine/historical knowledge), and Wizard (arcane research)."
+      },
+      "archivist_notes": "A well-designed 5th-level divination spell. The high cost acts as an effective gate against casual or frequent use, ensuring it is reserved for significant lore inquiries."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.741Z"
+}

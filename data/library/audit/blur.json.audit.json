@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/blur.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "blur.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "level_data_type": "integer",
+        "school_is_valid": true,
+        "components_format_valid": true
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly explains the visual effect and mechanical benefit (disadvantage on attack rolls).",
+        "completeness": "High. Contains all standard spell parameters (level, casting time, range, components, duration, classes).",
+        "mechanics_clarity": "Clear. The specific immunities (blindsight, truesight) are well-defined, which is excellent for rules resolution."
+      },
+      "mechanics": {
+        "effect": "Imposes disadvantage on attack rolls made by creatures relying on sight against the caster.",
+        "counter_mechanics": [
+          "Attacks not relying on sight (e.g., blindsight).",
+          "Attacks from creatures possessing truesight."
+        ],
+        "resource_cost": "1 Action to cast, Concentration up to 1 minute.",
+        "balance_assessment": "Appropriate for a 2nd-level spell. Provides a significant defensive boost against physical attackers while being bypassed by common counter-senses or divination magic."
+      },
+      "suggested_edits": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:48.127Z"
+}

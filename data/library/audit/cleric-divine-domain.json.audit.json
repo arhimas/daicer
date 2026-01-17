@@ -1,0 +1,34 @@
+{
+  "file": "atoms/features/cleric-divine-domain.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "cleric-divine-domain.json",
+    "analysis": {
+      "consistency": "The entry is consistent with typical D&D 5e class feature definitions, specifying the class, level gained, and core function (choosing a subclass/domain).",
+      "quality": "The quality is high. It clearly defines what the feature entails: selecting a domain, gaining immediate benefits (spells, features), and setting up future benefits at levels 2, 6, 8, and 17.",
+      "mechanics": "Mechanically, this is the foundational feature that defines the Cleric's specialization (subclass). It correctly points to the domain mechanic, which gates access to domain-specific spells and scaling features. The reference to `[domain](#section-domains)` suggests external linkage which is standard for source documentation."
+    },
+    "recommendations": [
+      {
+        "type": "DataNormalization",
+        "detail": "Ensure the link target `#section-domains` is properly resolvable or represented as structured data if this were part of a larger, integrated database."
+      }
+    ],
+    "extracted_fields": {
+      "name": "Divine Domain",
+      "class": "cleric",
+      "level_gained": 1,
+      "feature_type": "Subclass Selection",
+      "scaling_levels": [
+        2,
+        6,
+        8,
+        17
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:16.697Z"
+}

@@ -1,0 +1,35 @@
+{
+  "file": "atoms/features/ranger-ability-score-improvement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "ranger-ability-score-improvement.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e ruleset for class features.",
+      "quality": "High. The description is clear, complete, and accurately reflects the mechanic.",
+      "mechanics": {
+        "type": "Ability Score Improvement (ASI)",
+        "class_association": "Ranger",
+        "levels_gained": [
+          4,
+          8,
+          12,
+          16,
+          19
+        ],
+        "options": [
+          "Increase one ability score by 2.",
+          "Increase two ability scores by 1 each."
+        ],
+        "limitations": [
+          "Ability scores cannot exceed 20 via this feature."
+        ],
+        "mechanic_note": "This feature grants the standard ASI progression found on most core classes (Fighter, Rogue, Wizard, etc.)."
+      },
+      "suggested_changes": "None. The data is accurate and complete for archiving."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:11.282Z"
+}

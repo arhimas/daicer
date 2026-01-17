@@ -1,0 +1,17 @@
+{
+  "file": "atoms/features/bard-bard-college.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-bard-college.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e feature naming and structure. The description clearly references the core mechanic of selecting a subclass (Bard College) at this level.",
+      "quality": "High quality. It is concise, accurately describes when the feature is gained, and correctly points to the relevant section for the choice.",
+      "mechanics": "This feature acts as a trigger point for subclass progression. The mechanic is standard: selection at 3rd level leading to further features at 6th and 14th level, reinforcing the established class progression path."
+    },
+    "recommendations": []
+  },
+  "timestamp": "2026-01-17T07:23:17.674Z"
+}

@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/animate-dead.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "animate-dead.json",
+    "analysis": {
+      "consistency": "The mechanics are consistent with established D&D 5e spell design. The casting time, range, and component costs align with a 3rd-level Necromancy spell designed for creating persistent minions. The description clearly defines the creation process, control mechanism (bonus action command within 60ft), duration (24 hours), and maintenance requirements.",
+      "quality": "The quality is high. The description is comprehensive, covering initial animation, ongoing control, duration limitations, and clear instructions for maintaining control (recasting). The 'At Higher Levels' scaling is well-defined, allowing for an expanding undead army based on spell slot level.",
+      "mechanics": {
+        "level": 3,
+        "school": "necromancy",
+        "casting_time": "1 minute",
+        "range": "10 feet",
+        "control_mechanism": "Bonus action command, within 60 feet.",
+        "duration_initial": "24 hours",
+        "maintenance": "Recasting the spell on existing controlled undead (reasserts control over up to 4 creatures per slot level 3+).",
+        "scaling": {
+          "rule": "Two additional undead creatures animated or reasserted control over per slot level above 3rd.",
+          "notes": "Each creature must originate from a different source (corpse/bones)."
+        },
+        "potential_issues": "The distinction between choosing a 'pile of bones' (results in Skeleton) vs. 'corpse' (results in Zombie) is excellent flavor, but the actual game statistics (stat block) are deferred to the GM, which is standard but requires external reference."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:49.880Z"
+}

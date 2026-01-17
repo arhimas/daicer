@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/paladin-improved-divine-smite.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "paladin-improved-divine-smite.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e class feature progression (Paladin Level 11 feature). The description is clear regarding the trigger (melee weapon hit) and the effect (extra 1d8 radiant damage). It also correctly notes how it interacts with the existing Divine Smite.",
+      "quality": "High quality. The text is well-written, complete, and requires no external interpretation for standard play. It accurately reflects the established feature text for this level.",
+      "mechanics": {
+        "type": "Passive Damage Increase",
+        "trigger": "Melee Weapon Attack hits a creature.",
+        "effect": "Target takes 1d8 radiant damage.",
+        "interaction": "If Divine Smite is also used on the same attack, the 1d8 radiant damage is added to the total Divine Smite damage pool.",
+        "scaling": "None inherent to this feature itself, as it is a fixed 1d8 at the level it is acquired (Level 11).",
+        "notes": "This feature is a significant power boost for the Paladin, providing consistent damage output outside of the limited uses of Divine Smite."
+      },
+      "metadata_review": {
+        "slug_matches_name": true,
+        "class_association_correct": true,
+        "level_correct": true
+      }
+    },
+    "data_archival_status": "ACCEPTED"
+  },
+  "timestamp": "2026-01-17T07:23:12.306Z"
+}

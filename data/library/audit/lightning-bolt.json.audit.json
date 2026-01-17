@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/lightning-bolt.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "lightning-bolt.json",
+    "analysis": {
+      "consistency": "High. The data fields are standard for a spell entry and consistent with known D&D 5e spell formats.",
+      "quality": "High. The description is complete, including mechanical details, component requirements, and scaling rules ('At Higher Levels').",
+      "mechanics": {
+        "type": "Damage/Area of Effect",
+        "damage": "8d6 Lightning damage (base)",
+        "scaling": "+1d6 damage per spell slot level above 3rd (e.g., 4th level slot deals 9d6)",
+        "save_type": "Dexterity",
+        "save_effect": "Half damage on success",
+        "area_of_effect": "100-foot line, 5 feet wide",
+        "action_economy": "1 action",
+        "concentration": false,
+        "interaction_notes": "Ignites flammable unsecured objects."
+      },
+      "zod_errors_found": false,
+      "suggested_corrections": []
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.228Z"
+}

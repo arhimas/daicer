@@ -1,0 +1,17 @@
+{
+  "file": "molecules/items/potion-of-healing.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-healing.json",
+    "analysis": {
+      "consistency": "Consistent. The primary data fields (slug, name, type, rarity, attunement) are well-formed for an item entry. The 'source_type_rarity' summarizes the core variable nature of the item.",
+      "quality": "High. The description is comprehensive, effectively integrating the mechanical details via the embedded table, which clearly outlines the scaling based on rarity.",
+      "mechanics": "The core mechanic is variable HP restoration based on the item's rarity, explicitly detailed in the embedded table: Common (2d4+2), Uncommon (4d4+4), Rare (8d4+8), and Very Rare (10d4+20). The base item is registered as 'Varies' rarity, necessitating lookup in the table for specific values.",
+      "errors_found": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.773Z"
+}

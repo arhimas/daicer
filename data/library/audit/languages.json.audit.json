@@ -1,0 +1,21 @@
+{
+  "file": "atoms/languages.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "languages.json",
+    "data_analysis": {
+      "consistency": "High. The data structure is simple and self-contained.",
+      "quality": "Good. The provided data point is clear and directly describes a language property.",
+      "mechanics": {
+        "format": "JSON object",
+        "schema_adherence": "Valid. Contains 'name' (string) and 'is_rare' (boolean) fields.",
+        "data_types_correct": "Yes."
+      }
+    },
+    "archivist_notes": "Data seems clean. 'Common' implies a standard or frequently used language within the UNKNOWN entity's context. No immediate anomalies detected."
+  },
+  "timestamp": "2026-01-17T07:22:24.940Z"
+}

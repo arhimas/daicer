@@ -1,0 +1,32 @@
+{
+  "file": "atoms/features/bard-ability-score-improvement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-ability-score-improvement.json",
+    "analysis": {
+      "consistency_check": {
+        "standard_practice_adherence": "High. This feature perfectly matches the standard Ability Score Improvement (ASI) rules found in the core ruleset for most classes.",
+        "naming_convention": "Consistent. The name 'Ability Score Improvement' is standard.",
+        "level_gating": "Consistent. Bards gain this at levels 4, 8, 12, 16, and 19, which is the standard progression for classes receiving ASI.",
+        "class_specificity": "Accurate. This feature is correctly attributed to the 'bard' class."
+      },
+      "quality_assessment": {
+        "clarity": "High. The description is clear, unambiguous, and directly quotes the mechanical effect.",
+        "completeness": "Complete. It covers how often it occurs, the options (increase one by 2 or two by 1), and the upper limit (20)."
+      },
+      "mechanics_validation": {
+        "feature_type": "Progression/Passive Benefit",
+        "mechanic_tags": [
+          "Ability Score Increase",
+          "Customization"
+        ],
+        "interaction_notes": "Standard ASI; interacts directly with ability score modifiers and caps. No complex interactions expected outside of standard rules."
+      },
+      "final_verdict": "The data is consistent, high quality, and mechanically sound, accurately reflecting the standard Ability Score Improvement feature granted to Bards at the specified levels."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.089Z"
+}

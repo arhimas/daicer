@@ -1,0 +1,25 @@
+{
+  "file": "molecules/items/bowl-of-commanding-water-elementals.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "bowl-of-commanding-water-elementals.json",
+    "analysis": {
+      "consistency": "High. The description clearly details the item's function, limitations (once per dawn, requires water), and physical characteristics.",
+      "quality": "Good. The mechanics are straightforward, providing a reliable, single-use summoning effect tied to the `conjure elemental` spell, balanced by its Rare rarity and daily reset.",
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Rare",
+        "attunement": false,
+        "action_cost": "Action",
+        "effect": "Summons a water elemental (as per the `conjure elemental` spell) while filled with water.",
+        "cooldown": "Once per dawn.",
+        "notes": "The reliance on an external spell reference (`conjure elemental`) is standard for D&D 5e item descriptions. The physical dimensions are well-defined."
+      },
+      "zod_errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.201Z"
+}

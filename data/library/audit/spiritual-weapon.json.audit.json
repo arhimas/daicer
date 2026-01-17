@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/spiritual-weapon.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "spiritual-weapon.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "level_matches_school_context": true,
+        "components_format_standard": true
+      },
+      "quality": {
+        "description_clarity": "High. The description clearly outlines creation, usage (bonus action movement/attack), and scaling.",
+        "mechanical_completeness": true,
+        "flavor_integration": "Good. Mention of deity-specific weapon forms adds flavor."
+      },
+      "mechanics": {
+        "core_effect": "Summons a weapon that can attack as a bonus action, dealing 1d8 + modifier force damage.",
+        "action_economy": "Casting time is a Bonus Action (BA) for the initial creation, which is efficient for a concentration-free damage option. Subsequent attacks require a BA on subsequent turns.",
+        "scaling_mechanism": "Scales additively every two slot levels above 2nd (+1d8 per two levels: 4th, 6th, 8th).",
+        "attack_type": "Melee Spell Attack.",
+        "damage_type": "Force damage.",
+        "range_and_movement": "Initial range 60 feet. Weapon moves up to 20 feet per bonus action use."
+      },
+      "suggestions": [
+        "The description implies the initial attack happens *when* the spell is cast, but the ongoing usage emphasizes the recurring bonus action attack. Clarifying if the first attack is optional or mandatory upon casting might slightly improve workflow, though current wording suggests an immediate first attack is possible."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.521Z"
+}

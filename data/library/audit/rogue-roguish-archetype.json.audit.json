@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/rogue-roguish-archetype.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "rogue-roguish-archetype.json",
+    "analysis": {
+      "consistency": {
+        "class_reference": "Consistent. The feature correctly associates with the 'rogue' class.",
+        "level_progression": "Consistent. The feature specifies level 3, which is the standard entry point for primary class subclasses in D&D 5e."
+      },
+      "quality": {
+        "clarity": "High. The description clearly states that the choice is made at 3rd level and dictates the progression points (3rd, 9th, 13th, 17th).",
+        "completeness": "Good. It names the feature and sets the stage for the archetype choice, although it does not detail the archetypes themselves (which is appropriate for a base feature description)."
+      },
+      "mechanics": {
+        "trigger": "Level 3 acquisition.",
+        "effect": "Grants a choice of a subclass (Archetype) and establishes the level dependencies for future archetype features.",
+        "impact": "Defines the primary specialization path for the Rogue character."
+      },
+      "recommendations": "None. The data structure and content are standard and accurate for a core class feature defining the subclass selection point."
+    },
+    "metadata": {
+      "processor": "DataArchivist",
+      "status": "Reviewed"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.878Z"
+}

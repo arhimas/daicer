@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/sorcerer-distant-spell.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-distant-spell.json",
+    "analysis": {
+      "consistency": "Consistent with known D&D 5e Sorcerer Metamagic options, although the phrasing suggests it might be implemented as a general class feature rather than specifically a Metamagic option (which usually costs 1 sorcery point and modifies a spell as it's cast). The mechanics align with the expected behavior of a range modification ability.",
+      "quality": "The description is clear and covers two distinct use cases (range >= 5ft, and touch range), providing numerical effects for each when a sorcery point is spent. It is well-written for rules interpretation.",
+      "mechanics": {
+        "type": "Spell Range Modification",
+        "cost": "1 Sorcery Point",
+        "effects": [
+          {
+            "condition": "Spell range is 5 feet or greater",
+            "result": "Double the spell's range."
+          },
+          {
+            "condition": "Spell range is touch",
+            "result": "Change range to 30 feet."
+          }
+        ],
+        "notes": "This appears to be the standard 'Distant Spell' Metamagic option, despite the `is_subclass_feature: true` flag, which typically implies it comes from a subclass (like Draconic Bloodline or Divine Soul) rather than the base class or a core Metamagic list. If this is intended to be the standard Metamagic, the flag might be slightly misleading, as Metamagic is usually gained at level 3 for Sorcerers."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.633Z"
+}

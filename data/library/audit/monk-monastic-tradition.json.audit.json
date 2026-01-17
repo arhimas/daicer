@@ -1,0 +1,32 @@
+{
+  "file": "atoms/features/monk-monastic-tradition.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-monastic-tradition.json",
+    "analysis": {
+      "consistency": {
+        "with_dnd_norms": "Consistent. This feature represents the choice of a subclass (Monastic Tradition) that occurs at level 3 for the Monk class.",
+        "internal_consistency": "Consistent. It correctly links the level prerequisite (3rd) with the action (committing to a tradition) and lists the future levels where more features from this choice will be gained (6th, 11th, 17th)."
+      },
+      "quality": {
+        "clarity": "High. The description is clear about when the choice is made and what its effect is.",
+        "completeness": "Sufficient for an overview. It establishes the framework for tradition-based progression.",
+        "formatting": "Adequate. Includes a cross-reference link (`[monastic tradition](#section-monastic-traditions)`), which is helpful for navigation."
+      },
+      "mechanics": {
+        "type": "Subclass/Archetype Selection",
+        "triggers_on": "Level 3 in the Monk class",
+        "effects": [
+          "Commits the character to a specific Monastic Tradition.",
+          "Establishes future feature progression points tied to the chosen tradition (levels 3, 6, 11, 17)."
+        ],
+        "dependencies": "Relies on external definitions for the specific traditions themselves."
+      },
+      "suggestions": "No significant changes needed. This is a standard structure for defining a class-defining choice feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:13.858Z"
+}

@@ -1,0 +1,24 @@
+{
+  "file": "atoms/features/barbarian-extra-attack.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-extra-attack.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e feature naming conventions and structure. The feature is a core class feature for the Barbarian.",
+      "quality": "High quality. The description is accurate and directly quotes the relevant section from the Player's Handbook (PHB).",
+      "mechanics": {
+        "feature_name": "Extra Attack",
+        "class_source": "Barbarian",
+        "level_gained": 5,
+        "effect": "Allows the character to make two attacks when using the Attack action, instead of the standard one attack.",
+        "mechanical_impact": "Significant combat power increase, standard for Extra Attack features across martial classes at level 5.",
+        "notes": "This is a foundational martial capability."
+      },
+      "zod_errors_present": false
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.273Z"
+}

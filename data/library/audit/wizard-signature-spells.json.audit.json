@@ -1,0 +1,28 @@
+{
+  "file": "atoms/features/wizard-signature-spells.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "wizard-signature-spells.json",
+    "analysis": {
+      "consistency": {
+        "with_system": "The feature aligns with established D&D 5e class capstone features (level 20) by granting a permanent, powerful benefit.",
+        "internal": "The mechanics are clearly defined: selection of spells, automatic preparation, ignoring preparation limits, and a limited-use, empowered casting option (3rd level once per rest)."
+      },
+      "quality": {
+        "clarity": "The description is very clear regarding preparation and the unique casting rule.",
+        "power_level": "At level 20, gaining free, always-prepared access to two utility/control spells, plus a free, empowered casting (3rd level) once per rest, is a solid capstone benefit, slightly less impactful than some other classes but fitting for a Wizard who already has massive spell access."
+      },
+      "mechanics": {
+        "core_benefit": "Always prepared status and ignoring preparation limits for two specific spells.",
+        "unique_casting_rule": "Once per short/long rest, cast each spell once at 3rd level without a slot.",
+        "scaling": "Casting above 3rd level requires normal slot expenditure.",
+        "prerequisites": "Must be a Wizard, must be 20th level, spells must be 3rd-level Wizard spells in the spellbook."
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:07.052Z"
+}

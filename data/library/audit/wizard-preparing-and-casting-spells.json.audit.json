@@ -1,0 +1,29 @@
+{
+  "file": "atoms/features/wizard-preparing-and-casting-spells.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "wizard-preparing-and-casting-spells.json",
+    "analysis": {
+      "consistency": {
+        "table_vs_text": "The descriptive text correctly explains the core mechanic of spell slots (regaining on long rest, expending slot equal to or higher than spell level) and the preparation mechanic (Int modifier + Wizard Level spells from spellbook, limited by available spell slot levels). The table explicitly details the spell slot progression referenced by the text.",
+        "terminology": "Terminology is consistent (spell slots, spellbook, prepared spells, long rest)."
+      },
+      "quality": {
+        "completeness": "The feature description is comprehensive, covering both spell slot availability and the process of preparing spells, supplemented by a detailed table.",
+        "clarity": "The explanation is clear, especially with the provided example for a 3rd-level wizard. The note that casting a spell does not remove it from the prepared list is crucial and clearly stated.",
+        "formatting": "The raw data uses HTML tables for presentation, which is standard for rules text derived from certain sources. The embedded HTML structure is complex but accurately conveys the data."
+      },
+      "mechanics": {
+        "core_mechanic": "The feature defines the core resource management system for Wizards: Spell Slots (quantity determined by level table) and Prepared Spells (quantity determined by Intelligence modifier + Wizard Level).",
+        "spell_slot_progression": "The table accurately reflects the standard D&D 5th Edition Wizard spell slot progression, showing gradual access to higher-level slots up to 9th level.",
+        "spell_preparation_formula": "Prepared Spells = Intelligence Modifier + Wizard Level (minimum 1). This formula is a standard, defining characteristic of the Wizard class.",
+        "preparation_cost": "The text mentions the time cost for preparation: 'at least 1 minute per spell level for each spell on your list.' This time cost is relevant to in-game downtime and rests."
+      }
+    },
+    "archivist_notes": "This entry accurately captures the fundamental resource mechanics for the Wizard class (spell slots and spell preparation). The data extraction from the HTML table into the descriptive context is sound. The provided example effectively clarifies the interaction between spell level, slot expenditure, and the prepared spell list."
+  },
+  "timestamp": "2026-01-17T07:23:07.374Z"
+}

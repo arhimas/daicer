@@ -1,0 +1,42 @@
+{
+  "file": "molecules/items/efficient-quiver.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "efficient-quiver.json",
+    "analysis": {
+      "consistency": {
+        "type_and_rarity": "Consistent. The 'type' is 'Wondrous item' and 'rarity' is 'Uncommon', matching the 'source_type_rarity' field.",
+        "description_and_mechanics": "Consistent. The description clearly explains the extradimensional storage capacity and the ease of drawing items, which are the item's core mechanics."
+      },
+      "quality": {
+        "clarity": "High. The description is very clear regarding the three distinct compartments and their specific capacities (60 arrows/bolts, 18 javelins, 6 long objects).",
+        "completeness": "High. It details storage capacity, weight limits (never weighs more than 2 pounds), and the action economy benefit (draw item as normal)."
+      },
+      "mechanics": {
+        "primary_effect": "Extradimensional storage for three distinct categories of items (small projectiles, medium thrown weapons, long implements).",
+        "capacity_details": [
+          {
+            "compartment": "Shortest",
+            "capacity": "Sixty arrows, bolts, or similar objects."
+          },
+          {
+            "compartment": "Midsize",
+            "capacity": "Eighteen javelins or similar objects."
+          },
+          {
+            "compartment": "Longest",
+            "capacity": "Six long objects (bows, quarterstaffs, spears)."
+          }
+        ],
+        "weight_limitation": "Always weighs no more than 2 pounds, regardless of contents.",
+        "action_implication": "Allows drawing an item as if from a normal quiver or scabbard, implying no special action is required beyond the standard action to draw a weapon/ammo."
+      },
+      "zod_errors_found": false,
+      "archivist_notes": "The item is mechanically sound and its description is comprehensive. The limitation of capacity per compartment is a key feature to track."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.159Z"
+}

@@ -1,0 +1,31 @@
+{
+  "file": "atoms/features/bard-spells-known-of-1st-level-and-higher.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-spells-known-of-1st-level-and-higher.json",
+    "analysis": {
+      "consistency": {
+        "class_matching": "Consistent. The feature name and content clearly belong to the 'bard' class.",
+        "level_progression": "Consistent with standard D&D 5e spell progression rules, tying the spells known to the class table and available spell slot levels."
+      },
+      "quality": {
+        "clarity": "High. The description clearly explains how many spells are initially known, how and when more are learned, and the rule for replacing known spells.",
+        "completeness": "Good. It covers initial learning, future learning points, and the replacement mechanic."
+      },
+      "mechanics": {
+        "type": "Spellcasting Acquisition/Progression",
+        "rules_check": [
+          "Initial Spell Count: 4 known 1st-level spells.",
+          "Learning New Spells: Tied to the Bard table progression, must be of a level for which the character has spell slots.",
+          "Spell Swapping: Allows one replacement upon gaining a level, provided the new spell is within the level range of existing slots."
+        ],
+        "potential_ambiguity": "Minor. It explicitly states the initial known spells are 1st-level, but the subsequent learning rule references the table which determines when higher-level spells can be learned. This is standard for spellcasting features but could be slightly clearer by explicitly stating the total known spells shown on the table, rather than just referring to the table."
+      },
+      "summary": "A standard, well-described spell progression feature for the Bard class. The mechanics are consistent with established rules for determining which spells a spellcaster knows and when they can be swapped or learned."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:17.308Z"
+}

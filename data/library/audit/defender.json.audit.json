@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/defender.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "defender.json",
+    "analysis": {
+      "consistency": {
+        "name_to_slug": "Consistent ('Defender' -> 'defender')",
+        "rarity_format": "Consistent (RAW: \"Legendary\", SOURCE: \"legendary\")",
+        "attunement_format": "Consistent (RAW: true, SOURCE: \"requires [attunement](#section-attunement)\")",
+        "type_consistency": "Consistent (RAW: \"Weapon (any sword)\", SOURCE: \"Weapon (any sword)\")"
+      },
+      "quality": {
+        "completeness": "High. All standard fields present.",
+        "readability": "Good. Description is clear, detailing the unique mechanic.",
+        "data_redundancy": "Moderate. Source information is partially redundant with primary fields but useful for verification."
+      },
+      "mechanics": {
+        "type": "Weapon (any sword)",
+        "rarity": "Legendary",
+        "attunement": true,
+        "core_bonus": "+3 bonus to attack and damage rolls.",
+        "unique_feature": "Dynamic bonus transfer: The +3 bonus can be partially or fully moved from attack/damage rolls to Armor Class (AC) at the start of the user's turn when attacking. The adjusted bonuses persist until the start of the user's next turn, requiring the sword to be held for the AC bonus.",
+        "mechanical_notes": "This weapon introduces a strong tactical trade-off, balancing offensive power (+3 to hit/damage) against defensive strength (+3 AC). The ability to adjust the bonus turn-by-turn makes it highly versatile."
+      },
+      "errors_found": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:23:02.722Z"
+}

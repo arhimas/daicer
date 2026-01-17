@@ -1,0 +1,69 @@
+{
+  "file": "molecules/items/staff-of-frost.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "staff-of-frost.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "rarity_matching": "Very Rare vs. very rare",
+        "attunement_status_match": true
+      },
+      "quality": {
+        "completeness": "High; all relevant mechanical and descriptive fields are present.",
+        "clarity": "Good; the charging mechanism and spell costs are clearly defined.",
+        "formatting_notes": "The internal links/formatting for spells (e.g., '[_cone of cold_](#cone-of-cold)') should ideally be normalized if this data were being ingested into a standard database, but for raw data review, they are consistent."
+      },
+      "mechanics": {
+        "type": "Staff",
+        "attunement": true,
+        "attunement_classes": [
+          "druid",
+          "sorcerer",
+          "warlock",
+          "wizard"
+        ],
+        "charges": {
+          "maximum": 10,
+          "regeneration": "1d6 + 4 daily at dawn",
+          "depletion_risk": "Roll d20 on expending last charge; 1 results in destruction (turning to water)."
+        },
+        "effects": [
+          {
+            "type": "Resistance",
+            "damage_type": "Cold"
+          },
+          {
+            "type": "Spellcasting",
+            "spells": [
+              {
+                "name": "cone of cold",
+                "cost": 5
+              },
+              {
+                "name": "fog cloud",
+                "cost": 1
+              },
+              {
+                "name": "ice storm",
+                "cost": 4
+              },
+              {
+                "name": "wall of ice",
+                "cost": 4
+              }
+            ],
+            "action_cost": "Action",
+            "casting_stat_source": "User's spell save DC"
+          }
+        ],
+        "mechanical_consistency_check": "The item provides a passive benefit (resistance) and active spellcasting based on charges. The regeneration rate (1d6+4) is relatively high, balancing the high cost of the 5-charge spell (Cone of Cold)."
+      }
+    },
+    "zod_errors_found": false
+  },
+  "timestamp": "2026-01-17T07:22:53.397Z"
+}

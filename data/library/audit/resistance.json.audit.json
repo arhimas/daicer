@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/resistance.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "resistance.json",
+    "analysis": {
+      "consistency": {
+        "level_and_school": "Consistent. Level 0 (Cantrip) and School Abjuration are standard D&D 5e classifications.",
+        "casting_time_range_duration": "Consistent. Standard, clear mechanical descriptors.",
+        "components": "Consistent. V, S, M (a miniature cloak) is a valid component list. The material component is minor and consumed, which is typical for a 0-level spell if it were consumed, but here it seems to be a required object that is not consumed, typical for cantrips/low-level spells."
+      },
+      "quality": {
+        "name_and_slug": "Appropriate and clear naming convention.",
+        "description_clarity": "The description is very clear. It specifies a single use (one d4 roll), the timing (before or after the save), and the duration condition (spell ends immediately after use).",
+        "class_inclusion": "Cleric and Druid are valid primary casters for low-level abjuration/buff spells."
+      },
+      "mechanics": {
+        "power_level": "Appropriate for a 0-level spell (Cantrip). A small, single-use bonus (+1d4 to one save) is a useful but not overpowered utility cantrip.",
+        "limitations": "The concentration requirement, while unusual for a 0-level spell that ends on one use, reinforces that it is a temporary buff actively maintained until the benefit is applied. The duration 'Concentration, up to 1 minute' is fine, as the trigger ('Once before the spell ends') ensures it resolves quickly if used."
+      },
+      "zod_errors": "NONE",
+      "archivist_notes": "Mechanically sound. The spell provides a small, single-use reactive boost to saving throws. The combination of concentration and a one-time use is slightly unusual for a cantrip but functionally sound."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:33.234Z"
+}

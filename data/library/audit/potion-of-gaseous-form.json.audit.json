@@ -1,0 +1,24 @@
+{
+  "file": "molecules/items/potion-of-gaseous-form.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-gaseous-form.json",
+    "analysis": {
+      "consistency": "High. The item type ('Potion') and rarity ('Rare') are consistent with standard D&D 5e item classifications. The description clearly links to the known 'gaseous form' spell.",
+      "quality": "Excellent. The description is evocative ('container seems to hold fog that moves and pours like water') and the mechanical effect is clear and balanced for a Rare item (1 hour duration, no concentration required, bonus action to end early).",
+      "mechanics": {
+        "type": "Potion",
+        "effect": "Grants the effect of the 'gaseous form' spell for 1 hour.",
+        "concentration": "No concentration required.",
+        "duration": "1 hour (or until ended as a bonus action).",
+        "attunement_required": false,
+        "rarity_justification": "The effect grants significant defensive utility (full in-corporeal movement, resistance to nonmagical damage) for a sustained duration without concentration, making 'Rare' appropriate."
+      }
+    },
+    "archivist_notes": "Data is complete and mechanically sound. No corrections or modifications required."
+  },
+  "timestamp": "2026-01-17T07:22:57.021Z"
+}

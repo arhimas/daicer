@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/chain-lightning.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "chain-lightning.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell formatting. The structure of damage, components, casting time, and effects are typical for a 6th-level Evocation spell.",
+      "quality": "High quality. The description is clear regarding targeting rules (only one bolt per target) and damage scaling. The components list is specific.",
+      "mechanics": {
+        "level": 6,
+        "school": "evocation",
+        "action_type": "Action",
+        "range": "150 feet",
+        "damage_type": "lightning",
+        "base_damage": "10d8",
+        "save_type": "Dexterity",
+        "scaling_mechanism": "Additional bolts (1 per slot level above 6th)",
+        "target_limit": "Up to 4 targets (1 initial + up to 3 arcs, plus up to 1 additional arc per level above 6th)",
+        "critical_notes": "Standard half damage on successful save; no mention of critical hits applying differently to lightning damage."
+      },
+      "potential_clarifications_or_issues": [
+        "The description states 'three bolts then leap from that target to as many as three other targets'. This implies 1 initial bolt + 3 secondary bolts (total 4 hits maximum based on the base spell). The scaling section then increases the *number of bolts* leaping from the first target. This is clear, but the initial count (3) should align with the level 7 scaling (4 bolts total) if the base spell yields 4 total hits."
+      ]
+    },
+    "zod_errors": "NONE"
+  },
+  "timestamp": "2026-01-17T07:22:48.215Z"
+}

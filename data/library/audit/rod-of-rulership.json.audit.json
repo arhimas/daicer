@@ -1,0 +1,36 @@
+{
+  "file": "molecules/items/rod-of-rulership.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "rod-of-rulership.json",
+    "analysis": {
+      "consistency": {
+        "name_vs_slug": "Consistent. 'Rod of Rulership' matches 'rod-of-rulership'.",
+        "type_vs_source": "Consistent. 'type' is 'Rod', and source confirms it is a 'Rod'.",
+        "rarity_vs_source": "Consistent. 'rarity' is 'Rare' in both fields."
+      },
+      "quality": {
+        "completeness": "High. All standard fields (slug, name, type, rarity, attunement, description, source) are present.",
+        "readability": "Good. The description clearly outlines the effect, range, save DC, duration, and limitation (recharge period)."
+      },
+      "mechanics": {
+        "attunement": "Requires attunement (True), standard for powerful magic items.",
+        "action_economy": "Uses an action to activate.",
+        "range": "120 feet.",
+        "target_selection": "Creature of choice that the user can see.",
+        "saving_throw": "Wisdom saving throw (DC 15). This is a moderate DC for a Rare item.",
+        "effect": "Charmed condition for 8 hours, treating the user as a trusted leader.",
+        "break_conditions": "Charmed status ends if harmed by the user or companions, or commanded to act contrary to its nature. These are standard, balanced break conditions for a charm effect.",
+        "recharge": "Once per dawn. This limits usage, balancing the 8-hour duration."
+      },
+      "zod_errors": "None found."
+    },
+    "recommendations": [
+      "The mechanics are well-defined and balanced for a Rare item, particularly the combination of the relatively long charm duration (8 hours) against the once-per-day use and the standard break conditions."
+    ]
+  },
+  "timestamp": "2026-01-17T07:22:54.762Z"
+}

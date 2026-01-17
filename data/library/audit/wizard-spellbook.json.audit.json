@@ -1,0 +1,26 @@
+{
+  "file": "atoms/features/wizard-spellbook.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "wizard-spellbook.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent with Wizard class.",
+        "level_alignment": "Appropriate for a 1st-level feature."
+      },
+      "quality": {
+        "clarity": "Clear and directly states the core mechanical effect (starting spells).",
+        "completeness": "Sufficient for defining the initial acquisition of the spellbook contents."
+      },
+      "mechanics": {
+        "core_function": "Establishes the initial pool of known spells (six 1st-level spells) that define the spellcaster's starting capabilities.",
+        "implications": "This feature is foundational for the Wizard class, as the spellbook dictates which spells can be prepared daily. The distinction between known spells in the book and memorized cantrips is correctly noted."
+      },
+      "suggestions": "None. This is a standard, well-defined feature for the Wizard class."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:06.678Z"
+}

@@ -1,0 +1,18 @@
+{
+  "file": "molecules/items/ring-of-shooting-stars.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "analysis": {
+      "consistency": "The item description is largely consistent, detailing the ring's passive abilities (casting *dancing lights* and *light*), its charge mechanics (6 charges, 1d6 regains at dawn), and three active, charge-based properties: *Faerie Fire*, *Ball Lightning*, and *Shooting Stars*. The mechanics for *Ball Lightning* are detailed, including variable damage based on the number of spheres created, and the table clearly maps sphere count to damage. The source data indicates a requirement for attunement 'outdoors at night', which is a missing detail in the main description's attunement flag, suggesting a minor inconsistency in presentation or completeness between the general flag and the detailed source metadata.",
+      "quality": "The quality of the data is high. It is well-structured, provides clear mechanical effects, includes saving throw DCs (DC 15 for *Faerie Fire* charges, DC 15 for *Ball Lightning* discharge, DC 15 for *Shooting Stars*), and specifies actions required for activation. The use of a Markdown table for complex damage scaling in *Ball Lightning* is effective.",
+      "mechanics": "The mechanics are complex and well-defined:\n1. **Passive Casts**: *Dancing Lights* and *Light* at will (Action). This is very useful utility.\n2. **Charge System**: 6 charges, 1d6 recharge at dawn. Standard implementation.\n3. **Faerie Fire**: 1 charge, Action, standard spell effect likely tied to the spell's DC/Save, though the save DC for the spell itself isn't explicitly stated, relying on the baseline DC 15 mentioned elsewhere or the spell's inherent DC.\n4. **Ball Lightning**: 2 charges, Action. Creates 1-4 spheres. Concentration required (up to 1 minute). Bonus action movement. Discharge requires a creature within 5ft, forcing DC 15 Dex save for scaled lightning damage (4d12 down to 2d4). This is a powerful and versatile offensive feature.\n5. **Shooting Stars**: 1-3 charges, Action. Launches motes creating a 15-foot cube effect centered on a point. DC 15 Dex save for 5d4 fire damage (half on save). Simple, flexible area denial/damage option.",
+      "suggested_edits": [
+        "Clarify the DC for the *Faerie Fire* casting, or assume it uses the spell's standard DC unless the text implies the ring's DC 15 applies to the initial cast.",
+        "Note the specific attunement condition from the source data ('outdoors at night') within the main description, as the general 'requires_attunement: true' is less specific."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:56.683Z"
+}

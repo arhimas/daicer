@@ -1,0 +1,23 @@
+{
+  "file": "atoms/features/fighter-archery.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "fighter-archery.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e fighter fighting style features, specifically Archery.",
+      "quality": "High. Clear, concise, and directly states the mechanical benefit.",
+      "mechanics": {
+        "type": "Passive Bonus",
+        "effect": "+2 bonus to attack rolls made with ranged weapons.",
+        "application": "Applies universally to all ranged weapon attacks made by the character.",
+        "balance": "This is the standard, well-established power level for the Archery fighting style in D&D 5e, offering a significant and reliable boost to hit chance with ranged builds."
+      }
+    },
+    "review_summary": "The feature data is accurate and represents the standard Archery fighting style. No issues detected.",
+    "suggested_changes": null
+  },
+  "timestamp": "2026-01-17T07:23:14.816Z"
+}

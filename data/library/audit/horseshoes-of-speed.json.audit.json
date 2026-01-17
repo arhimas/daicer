@@ -1,0 +1,33 @@
+{
+  "file": "molecules/items/horseshoes-of-speed.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "horseshoes-of-speed.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "type_and_rarity_match_source": true
+      },
+      "quality": {
+        "description_clarity": "High. Clearly states the effect (speed increase) and the condition (affixed to hooves of a creature).",
+        "completeness": "Good. Includes type, rarity, attunement requirement, and effect description.",
+        "standard_format": true
+      },
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Rare",
+        "attunement_required": false,
+        "effect": {
+          "description": "Increases the creature's walking speed by 30 feet.",
+          "condition": "While all four shoes are affixed to the hooves of a horse or similar creature."
+        },
+        "potential_issues": "None immediately apparent based on provided data, standard D&D 5e-like item structure."
+      }
+    },
+    "archivist_notes": "Data is clean, consistent, and the mechanics are clearly defined for an enhancement item."
+  },
+  "timestamp": "2026-01-17T07:22:59.600Z"
+}

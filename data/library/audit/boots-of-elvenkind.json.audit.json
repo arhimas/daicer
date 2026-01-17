@@ -1,0 +1,34 @@
+{
+  "file": "molecules/items/boots-of-elvenkind.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "boots-of-elvenkind.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_slug": true,
+        "rarity_matches_source": true,
+        "type_is_standard": true
+      },
+      "quality": {
+        "completeness": "High",
+        "notes": "The description clearly outlines the mechanical benefits: silent movement and advantage on relevant Stealth checks."
+      },
+      "mechanics": {
+        "rules_applied": [
+          "Movement is inherently silent.",
+          "Advantage on Dexterity (Stealth) checks relying on moving silently."
+        ],
+        "clarity": "Mechanics are clear and directly translatable to gameplay rules.",
+        "potential_ambiguities": "None identified. The effect is absolute (steps make no sound) and provides a mechanical bonus (Advantage)."
+      },
+      "data_validation": {
+        "schema_conformance": "Valid",
+        "errors_found": "NONE"
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:04.754Z"
+}

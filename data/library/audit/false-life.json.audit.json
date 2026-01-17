@@ -1,0 +1,36 @@
+{
+  "file": "molecules/spells/false-life.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "false-life.json",
+    "analysis": {
+      "consistency": {
+        "data_completeness": "Complete. All expected fields for a spell entry are present.",
+        "format_adherence": "High. Data structure matches typical D&D spell schema."
+      },
+      "quality": {
+        "naming_convention": "Standard. 'False Life' is a recognized spell name.",
+        "mechanics_clarity": "High. Effect (temporary HP) and scaling ('At Higher Levels') are clearly defined.",
+        "component_detail": "Good. Material component (M) includes a specific, though minor, requirement (alcohol/spirits)."
+      },
+      "mechanics": {
+        "level": 1,
+        "school": "necromancy",
+        "casting_time": "1 action",
+        "range": "Self",
+        "duration": "1 hour",
+        "base_effect": "Gain 1d4 + 4 temporary hit points.",
+        "scaling_mechanism": "Additive. Gain +5 temporary HP per spell slot level above 1st.",
+        "class_availability": [
+          "sorcerer",
+          "wizard"
+        ]
+      },
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:42.706Z"
+}

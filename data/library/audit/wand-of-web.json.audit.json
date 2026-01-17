@@ -1,0 +1,41 @@
+{
+  "file": "molecules/items/wand-of-web.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "wand-of-web.json",
+    "analysis": {
+      "consistency": {
+        "name": "Consistent",
+        "type": "Consistent",
+        "rarity": "Consistent",
+        "attunement": "Consistent",
+        "charges": "Consistent",
+        "mechanics": "Consistent"
+      },
+      "quality": {
+        "completeness": "High. Contains all standard fields (slug, name, type, rarity, attunement, description, source).",
+        "clarity": "High. The description clearly outlines charge mechanics, spell details (spell name, save DC), and the destruction condition.",
+        "formatting": "Good. Uses standard markdown for links and references."
+      },
+      "mechanics": {
+        "core_function": "Casts the 'Web' spell.",
+        "charges": {
+          "initial_charges": 7,
+          "recharge_rate": "1d6 + 1 daily at dawn",
+          "save_dc": 15
+        },
+        "attunement_requirement": "Requires attunement by a spellcaster.",
+        "destruction_trigger": "Roll d20 on expending the last charge; on a 1, the wand is destroyed."
+      },
+      "recommendations": [
+        "Verify that the target of the `[_web_](#web)` link resolves correctly within the target documentation system.",
+        "Confirm that 'spellcaster' is the precise requirement intended for attunement, as some items are more generic."
+      ],
+      "zod_errors": "NONE"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:51.080Z"
+}

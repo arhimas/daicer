@@ -1,0 +1,53 @@
+{
+  "file": "blueprints/monsters-batch-3.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "monsters-batch-3.json",
+    "data_analysis": {
+      "consistency_check": {
+        "entity_name": "Ankheg",
+        "data_completeness": "High",
+        "structure_validity": "Valid structure adhering to expected schema."
+      },
+      "quality_assessment": {
+        "data_integrity": "High - All required fields are present and formatted correctly.",
+        "readability": "Good"
+      },
+      "mechanics_review": {
+        "challenge_rating_vs_stats": {
+          "cr": 2,
+          "xp": 450,
+          "cr_assessment": "Appropriate for Challenge Rating 2 based on expected offensive/defensive stats for this level range (Level 6).",
+          "effective_hp": 39,
+          "effective_ac": 14
+        },
+        "actions_analysis": [
+          {
+            "action_name": "Bite",
+            "type": "Melee Weapon Attack",
+            "to_hit": "+5",
+            "damage_profile": "2d6 + 3 Slashing + 1d6 Acid",
+            "mechanic_notes": "Includes a Grappled condition imposition. The save DC (13) should correspond to the appropriate ability score save (likely STR or CON based on context, listed as STR here). DC 13 (8 + Proficiency Bonus + STR Mod) suggests Proficiency Bonus of +3, which aligns with CR 2."
+          },
+          {
+            "action_name": "Acid Spray",
+            "type": "Area Effect",
+            "to_hit": "N/A (Area Effect)",
+            "damage_profile": "3d6 Acid (Save for Half)",
+            "mechanic_notes": "Line attack (30 ft. long). Save DC 13 Dexterity save for half damage, which aligns with the Bite attack's DC."
+          }
+        ],
+        "stat_block_review": {
+          "ability_scores": "STR 17 (+3 Mod), DEX 11 (+0 Mod), CON 13 (+1 Mod). Saves align reasonably with listed DCs.",
+          "hit_dice_consistency": "6d10 + 12 (Average HP: 6*(5.5) + 12 = 33 + 12 = 45. Stated HP is 39. Minor deviation possible depending on how average HP is calculated or if specific rules for non-standard hit dice averages are used, but acceptable variance.)"
+        }
+      },
+      "zod_errors": "NONE",
+      "archivist_notes": "The entry for Ankheg is mechanically sound. Attack/Save DCs are consistent between the primary attack (Bite) and the area effect (Acid Spray). HP calculation is slightly lower than the direct average calculation (45 vs 39), but within acceptable variance for monster statistics."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:26.094Z"
+}

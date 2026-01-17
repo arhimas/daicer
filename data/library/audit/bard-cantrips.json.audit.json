@@ -1,0 +1,37 @@
+{
+  "file": "atoms/features/bard-cantrips.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "bard-cantrips.json",
+    "consistency_check": {
+      "name_matches_slug": true,
+      "class_is_valid": true,
+      "level_is_valid": true,
+      "description_context": "This feature describes how a Bard gains cantrips, referencing the Bard spell list and the progression shown in the Bard table, which is consistent with standard D&D 5e class feature design."
+    },
+    "quality_assessment": {
+      "data_completeness": "High. Contains slug, name, class, level, description, and subclass flag.",
+      "readability": "High. The description is clear.",
+      "link_references": [
+        {
+          "reference": "[bard spell list](#section-bard-spells)",
+          "status": "Valid link placeholder, assumes target exists elsewhere."
+        }
+      ]
+    },
+    "mechanics_analysis": {
+      "feature_type": "Starting Class Feature / Core Progression",
+      "initial_gain": "Two cantrips known at level 1.",
+      "progression_mechanism": "Increases known cantrips at higher levels, governed by the 'Cantrips Known' column in the Bard table (standard class scaling).",
+      "source_dependency": "Relies on the content of the 'bard spell list' for selection."
+    },
+    "suggested_actions": [
+      "Verify that the 'Bard table' exists and accurately reflects the 'Cantrips Known' column progression.",
+      "Ensure the target section '#section-bard-spells' is correctly linked in the final document."
+    ]
+  },
+  "timestamp": "2026-01-17T07:23:17.931Z"
+}

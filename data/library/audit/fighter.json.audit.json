@@ -1,0 +1,202 @@
+{
+  "file": "molecules/classes/fighter.json",
+  "type": "class",
+  "zod_valid": false,
+  "zod_errors": [
+    "hit_die: Invalid input: expected string, received number"
+  ],
+  "llm_audit": {
+    "entity": "CLASS",
+    "file": "fighter.json",
+    "analysis": {
+      "consistency": "High. The structure follows a standard class definition with clear progression tables.",
+      "quality": "Good. Data fields are present, but the 'hit_die' is typed incorrectly as a number in the raw data (10) when it should likely be represented as a string (e.g., \"1d10\") or the validation error suggests the ingestion script expects a string.",
+      "mechanics": "Standard martial class mechanics (High HP die, good saving throws, multiple Extra Attacks, Action Surge, Indomitable). Progression seems typical for a core martial class.",
+      "zod_errors_addressed": [
+        {
+          "error": "hit_die: Invalid input: expected string, received number",
+          "resolution": "The 'hit_die' field in the source JSON is '10' (number). Based on standard D&D schema practices and the error message, it should ideally be stored as a string representing the die notation, e.g., '1d10'. However, since the task is to analyze consistency and return valid JSON reflecting the structure, I will retain the structure but note the identified data typing issue if re-ingesting."
+        }
+      ],
+      "recommendations": "If this data is for a live system, ensure the 'hit_die' field is consistently stored as a string representation of the die (e.g., \"1d10\") to match expected schema definitions."
+    },
+    "corrected_data": {
+      "slug": "fighter",
+      "name": "Fighter",
+      "hit_die": "1d10",
+      "proficiency_choices": [
+        "Acrobatics",
+        "Animal Handling",
+        "Athletics",
+        "History",
+        "Insight",
+        "Intimidation",
+        "Perception",
+        "Survival"
+      ],
+      "proficiencies": {
+        "armor": [
+          "All armor",
+          "shields"
+        ],
+        "weapons": [
+          "Simple weapons",
+          "martial weapons"
+        ],
+        "tools": [
+          "None"
+        ],
+        "saving_throws": [
+          "Strength",
+          "Constitution"
+        ]
+      },
+      "equipment": [],
+      "progression": [
+        {
+          "level": 1,
+          "pb": 2,
+          "features": [
+            "Fighting Style",
+            "Second Wind"
+          ]
+        },
+        {
+          "level": 2,
+          "pb": 2,
+          "features": [
+            "Action Surge"
+          ]
+        },
+        {
+          "level": 3,
+          "pb": 2,
+          "features": [
+            "Martial Archetype"
+          ]
+        },
+        {
+          "level": 4,
+          "pb": 2,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 5,
+          "pb": 3,
+          "features": [
+            "Extra Attack"
+          ]
+        },
+        {
+          "level": 6,
+          "pb": 3,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 7,
+          "pb": 3,
+          "features": [
+            "Martial Archetype feature"
+          ]
+        },
+        {
+          "level": 8,
+          "pb": 3,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 9,
+          "pb": 4,
+          "features": [
+            "Indomitable"
+          ]
+        },
+        {
+          "level": 10,
+          "pb": 4,
+          "features": [
+            "Martial Archetype feature"
+          ]
+        },
+        {
+          "level": 11,
+          "pb": 4,
+          "features": [
+            "Extra Attack"
+          ]
+        },
+        {
+          "level": 12,
+          "pb": 4,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 13,
+          "pb": 5,
+          "features": [
+            "Indomitable"
+          ]
+        },
+        {
+          "level": 14,
+          "pb": 5,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 15,
+          "pb": 5,
+          "features": [
+            "Martial Archetype feature"
+          ]
+        },
+        {
+          "level": 16,
+          "pb": 5,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 17,
+          "pb": 6,
+          "features": [
+            "Action Surge",
+            "Indomitable"
+          ]
+        },
+        {
+          "level": 18,
+          "pb": 6,
+          "features": [
+            "Martial Archetype feature"
+          ]
+        },
+        {
+          "level": 19,
+          "pb": 6,
+          "features": [
+            "Ability Score Improvement"
+          ]
+        },
+        {
+          "level": 20,
+          "pb": 6,
+          "features": [
+            "Extra Attack"
+          ]
+        }
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:27.563Z"
+}

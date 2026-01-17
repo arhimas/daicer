@@ -1,0 +1,34 @@
+{
+  "file": "atoms/features/sorcerer-empowered-spell.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "sorcerer-empowered-spell.json",
+    "analysis": {
+      "consistency": {
+        "class_alignment": "Consistent with Sorcerer class features.",
+        "level_alignment": "Level 1 features are generally available early, though Metamagic is typically introduced later (often level 3). Assuming this is a custom or specific context where Level 1 is valid for the source material, otherwise it might be conventionally Level 3.",
+        "attribute_dependency": "Directly dependent on Charisma modifier, which is standard for Sorcerer features."
+      },
+      "quality": {
+        "clarity": "The description is clear and directly explains the mechanical effect: rerolling damage dice based on Sorcery Points and Charisma modifier.",
+        "completeness": "It specifies cost (1 sorcery point), effect (reroll damage dice up to Cha modifier), requirement (must use new rolls), and interaction with other Metamagic options (can be used even if another Metamagic was used). This is mechanically complete.",
+        "naming": "Name 'Empowered Spell' is standard and descriptive for this type of Sorcery feature."
+      },
+      "mechanics": {
+        "cost": "1 Sorcery Point.",
+        "trigger": "When rolling damage for a spell.",
+        "effect": "Reroll up to (Charisma Modifier, minimum 1) damage dice.",
+        "interaction": "Can stack with another Metamagic option used on the same spell casting, which is a deviation from standard Metamagic rules (usually only one Metamagic per casting) and is a notable mechanical detail if true to the source.",
+        "power_level": "High impact on damage variance and maximization for low-level spells, balanced by a resource cost and dependency on Charisma rolls."
+      },
+      "recommendations": [
+        "Verify the source level. Standard Sorcerer Metamagic is usually gained at level 3. If this is truly level 1, the power level may be high for that tier, depending on the ruleset.",
+        "Confirm the exception regarding using *another* Metamagic option. If this feature allows stacking with another Metamagic (e.g., Twinned Spell + Empowered Spell on the same casting), this significantly alters the expected limitations of Metamagic."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:23:09.835Z"
+}

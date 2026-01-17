@@ -1,0 +1,23 @@
+{
+  "file": "molecules/items/potion-of-clairvoyance.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "potion-of-clairvoyance.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D item naming conventions. The description clearly links the item effect to a known spell.",
+      "quality": "High quality. The flavor text (eyeball bobbing) is evocative, and the mechanics are clearly stated.",
+      "mechanics": {
+        "item_type": "Potion",
+        "rarity": "Rare",
+        "attunement_required": false,
+        "effect": "Grants the effect of the _clairvoyance_ spell upon consumption.",
+        "spell_reference": "clairvoyance"
+      },
+      "zod_errors": "None"
+    }
+  },
+  "timestamp": "2026-01-17T07:22:57.002Z"
+}

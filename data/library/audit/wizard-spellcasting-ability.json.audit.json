@@ -1,0 +1,38 @@
+{
+  "file": "atoms/features/wizard-spellcasting-ability.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "wizard-spellcasting-ability.json",
+    "analysis": {
+      "consistency": {
+        "overall": "Consistent with standard D&D 5th Edition rules for the Wizard class.",
+        "terminology": "Uses standard terms like 'spellcasting ability', 'Intelligence modifier', 'proficiency bonus', 'spell save DC', and 'spell attack modifier'."
+      },
+      "quality": {
+        "clarity": "High. Clearly defines Intelligence as the spellcasting ability and provides the exact formulas for calculating Spell Save DC and Spell Attack Modifier.",
+        "completeness": "Complete. Covers the core mechanical functions of the feature."
+      },
+      "mechanics": {
+        "core_function": "Establishes Intelligence as the Wizard's spellcasting attribute.",
+        "calculations": [
+          {
+            "name": "Spell save DC",
+            "formula": "8 + your proficiency bonus + your Intelligence modifier",
+            "notes": "Standard formula for spellcasters."
+          },
+          {
+            "name": "Spell attack modifier",
+            "formula": "your proficiency bonus + your Intelligence modifier",
+            "notes": "Standard formula for spellcasters."
+          }
+        ],
+        "impact": "Fundamental feature defining how a Wizard casts spells and interacts with spell save mechanics."
+      },
+      "suggestions": "None. This is a foundational, mechanically sound entry for a core class feature."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:06.475Z"
+}

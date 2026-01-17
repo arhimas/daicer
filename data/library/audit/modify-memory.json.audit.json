@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/modify-memory.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "modify-memory.json",
+    "analysis": {
+      "consistency": {
+        "level_scaling": "Consistent. The 'At Higher Levels' section clearly defines how increasing the spell slot level expands the timeframe of the memories that can be modified, scaling logically from 24 hours up to any time in the creature's past.",
+        "mechanics_integration": "Consistent. The spell relies on a Wisdom saving throw, grants charm and incapacitation as initial effects, and the core memory modification only takes hold if the charm is maintained for the full description duration, which is mechanically sound for a powerful enchantment."
+      },
+      "quality": {
+        "clarity": "High. The description is detailed, explaining the prerequisites (line of sight, language comprehension), the immediate effect (charm, incapacitation), the success/failure condition (saving throw), and the limitations (damage/new spell ends it).",
+        "flavor": "Good. It captures the essence of a powerful mental manipulation spell, complete with safeguards against illogical alterations ('dismissed, perhaps as a bad dream').",
+        "completeness": "High. Includes standard D&D 5e components: level, school, casting time, range, components, duration, effects, limitations, counter-spells, and scaling."
+      },
+      "mechanics": {
+        "primary_effect": "Charm and Incapacitation for up to 1 minute (Concentration). This is a potent form of control.",
+        "memory_modification": "The key effect is conditional on the charm lasting long enough for the full description to be delivered. The modification itself is highly flexible (remove, enhance clarity, alter details, create new event).",
+        "countermeasures": "The effect can be broken by damage or targeting the creature with another spell. True memory restoration via _remove curse_ or _greater restoration_ provides clear counterplay.",
+        "limitations": "The initial 24-hour window for modification is strict, though the scaling addresses this. The requirement for the target to understand the caster's language is a crucial narrative and mechanical constraint."
+      },
+      "suggested_changes": "None apparent. The spell is well-defined and balanced for its high level (5th)."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:35.987Z"
+}

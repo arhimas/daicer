@@ -1,0 +1,38 @@
+{
+  "file": "molecules/spells/detect-evil-and-good.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "detect-evil-and-good.json",
+    "analysis": {
+      "consistency": {
+        "level": "Consistent",
+        "notes": "Level 1 spells, common for Cleric/Paladin spell lists."
+      },
+      "quality": {
+        "completeness": "Complete",
+        "readability": "High",
+        "notes": "All standard fields (slug, name, level, school, casting_time, range, components, duration, classes, description) are present and well-formatted."
+      },
+      "mechanics": {
+        "type": "Divination",
+        "level": 1,
+        "casting_time": "1 action",
+        "duration": "Concentration, up to 10 minutes",
+        "range": "Self",
+        "components": "V, S",
+        "effect_summary": "Provides immediate detection (location and presence) of specific creature types (aberration, celestial, elemental, fey, fiend, undead) and magically consecrated/desecrated objects/places within a 30-foot radius. Detection penetrates most non-magical barriers with specified limitations.",
+        "balance_assessment": "Appropriate for a 1st-level spell. The concentration requirement limits its sustained use relative to other 1st-level options, and the 30-foot range is narrow, but the ability to pierce barriers and identify specific threats/locations is potent utility.",
+        "interaction_notes": "The specified barrier penetration values (1 ft stone, 1 in metal, 3 ft wood/dirt) are standard for Divination spells of this nature."
+      },
+      "data_archivist_review": {
+        "status": "Archived",
+        "errata_found": "None",
+        "recommendation": "No changes required. Data conforms to expected schema and mechanical standards."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:45.243Z"
+}

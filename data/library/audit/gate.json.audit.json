@@ -1,0 +1,29 @@
+{
+  "file": "molecules/spells/gate.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "gate.json",
+    "analysis": {
+      "consistency": {
+        "level_vs_school": "Consistent. Level 9 spells often involve planar travel.",
+        "casting_time_vs_duration": "Consistent. A powerful, instantaneous effect (travel) is preceded by a short setup (1 action) and maintained with concentration.",
+        "components_vs_power": "Consistent. High-level, planar magic requires significant material cost (5,000 gp diamond)."
+      },
+      "quality": {
+        "clarity": "High. The description clearly defines the size, orientation, function (instant transport), and limitations (planar rulers interfering).",
+        "flavor": "Excellent. Captures the epic nature of planar travel.",
+        "completeness": "Complete. Covers appearance, function, limitations, and the targeted creature option."
+      },
+      "mechanics": {
+        "range_and_size": "Range (60 feet) seems relatively short for interplanar travel, but the portal opens within line of sight, suggesting a localized link rather than traversing vast distances instantly upon casting. Diameter (5 to 20 feet) is appropriate for passage.",
+        "concentration": "Appropriate for maintaining a persistent, large, interplanar breach.",
+        "creature_targeting": "The targeting mechanic is unique and powerful (forcing a creature across planes), balanced by the lack of control over the creature's subsequent actions."
+      },
+      "zod_errors": "None detected."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:40.602Z"
+}

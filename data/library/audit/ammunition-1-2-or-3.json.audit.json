@@ -1,0 +1,23 @@
+{
+  "file": "molecules/items/ammunition-1-2-or-3.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "ammunition-1-2-or-3.json",
+    "analysis": {
+      "consistency": "The main entry lists the item as 'Very Rare', which corresponds to a '+3' bonus according to the description. However, the source_type_rarity field contradicts this by listing three separate possibilities: uncommon (+1), rare (+2), or very rare (+3). This creates an inconsistency in the primary definition of the item's power level/rarity.",
+      "quality": "The item concept is straightforward and mechanically sound for a magical consumable. The quality is slightly diminished by the ambiguity in the listed rarity/bonus level.",
+      "mechanics": {
+        "type": "Weapon (any ammunition)",
+        "effect": "Grants a bonus to attack and damage rolls based on rarity (+1, +2, or +3).",
+        "limitation": "The ammunition loses its magical property upon hitting a target (consumable nature).",
+        "attunement": false,
+        "clarification_needed": "The specific rarity/bonus level needs to be standardized. If this entry represents the '+3' version, the source line should be adjusted or this entry should be split into three distinct items."
+      }
+    },
+    "recommendation": "Standardize the entry to represent one specific level of bonus (e.g., Ammunition, +3) or restructure the data to handle the three distinct rarities/bonuses listed in the source field as separate entries or a tiered structure."
+  },
+  "timestamp": "2026-01-17T07:23:06.277Z"
+}

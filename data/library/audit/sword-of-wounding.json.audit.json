@@ -1,0 +1,38 @@
+{
+  "file": "molecules/items/sword-of-wounding.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "sword-of-wounding.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "rarity_match": true,
+        "attunement_match": true
+      },
+      "quality": {
+        "completeness": "High - Contains all necessary fields for a magic item.",
+        "readability": "Good - Description is detailed and mechanically clear.",
+        "flavor": "Good - The mechanics directly support the name 'Sword of Wounding'."
+      },
+      "mechanics": {
+        "attunement_required": true,
+        "core_function": "Applies a persistent necrotic damage effect on hit, stacking up to a certain point, which the target can attempt to save against or be healed via Medicine check.",
+        "damage_type": "Necrotic (for the ongoing effect)",
+        "save_DC": 15,
+        "save_ability": "Constitution",
+        "removal_methods": [
+          "Successful DC 15 Constitution saving throw at the start of the target's turn.",
+          "Successful DC 15 Wisdom (Medicine) check made as an action by the target or an adjacent creature."
+        ],
+        "damage_scaling": "Damage scales based on the number of successful wounds (1d4 per wound).",
+        "restriction": "Hit points lost to this weapon's damage cannot be regained via regeneration or most magic, only through short/long rest."
+      },
+      "zod_errors_found": false,
+      "notes": "The restriction on regaining hit points is a significant anti-healing component that pairs well with the ongoing damage mechanic."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:52.339Z"
+}

@@ -1,0 +1,40 @@
+{
+  "file": "molecules/spells/entangle.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "entangle.json",
+    "analysis": {
+      "consistency": {
+        "name_slug_match": true,
+        "level_school_presence": true,
+        "component_format_standard": true,
+        "duration_format_standard": true,
+        "class_list_present": true
+      },
+      "quality": {
+        "description_clarity": "High. The mechanical effects (difficult terrain, restraining save, escape action) are clearly defined.",
+        "formatting_notes": "The use of markdown links (e.g., '[restrained](#restrained)') is present in the raw data but should be normalized or accepted as part of the source format.",
+        "completeness": "Complete. Includes all standard spell attributes."
+      },
+      "mechanics": {
+        "level": 1,
+        "school": "conjuration",
+        "casting_time": "1 action",
+        "range": "90 feet",
+        "components": "V, S",
+        "duration": "Concentration, up to 1 minute",
+        "save_dc_required": true,
+        "primary_effect": "Creates difficult terrain in a 20-foot square.",
+        "secondary_effect": "Restrains creatures failing a Strength save upon casting.",
+        "escape_mechanism": "Action to make a Strength check against Spell Save DC.",
+        "concentration_check_required": true
+      },
+      "zod_errors": false,
+      "archival_recommendation": "Approved. Data is consistent and mechanically sound."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:43.319Z"
+}

@@ -1,0 +1,41 @@
+{
+  "file": "molecules/spells/plant-growth.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "plant-growth.json",
+    "analysis": {
+      "consistency": {
+        "notes": "The spell has two distinct casting methods (1 action vs. 8 hours) with very different effects (immediate battlefield control vs. long-term resource generation). This duality is well-defined, though the difference in power level between the two modes is significant, which is common for spells allowing variable casting times.",
+        "concerns": [
+          "The two modes use the same spell slot level (implied by the single entry), which means the 8-hour casting time is extremely powerful for resource generation relative to the 1-action battlefield control."
+        ]
+      },
+      "quality": {
+        "notes": "The description is clear and effectively separates the two uses. The mechanics of the 1-action effect (difficult terrain) are standard. The 8-hour effect is straightforwardly beneficial.",
+        "suggestions": [
+          "The 100-foot radius for the difficult terrain effect is quite large, ensuring significant battlefield impact for a 3rd-level spell.",
+          "The exclusion clause for the difficult terrain effect is a useful tactical addition."
+        ]
+      },
+      "mechanics": {
+        "casting_time": {
+          "standard": "1 action",
+          "ritual_equivalent": "8 hours (Ritual casting is not explicitly mentioned, but the 8-hour casting time suggests a ritualistic application, even if the base spell isn't designated as a ritual)",
+          "consistency_check": "The casting time field lists both '1 action or 8 hours', which aligns with the description but deviates from typical spell entries that list a single time unless the spell explicitly supports ritual casting or variable durations based on action economy."
+        },
+        "range": "150 feet (applies to the center point of the effect, which is large for both effects: 100ft radius explosion or half-mile radius land enrichment).",
+        "components": "V, S (Standard for this level/effect)",
+        "duration": "Instantaneous (Applies only to the 1-action effect; the 8-hour effect's benefit lasts 1 year, which should ideally be noted in duration if possible, though 'Instantaneous' usually refers to the moment the effect is applied/set up.)",
+        "effect_math": {
+          "1_action": "Difficult terrain (4:1 movement ratio) over 100ft radius (approx. 314ft diameter). Significant area denial.",
+          "8_hour": "Double yield for 1 year over a half-mile radius (approx. 2640 feet radius). Massive economic impact."
+        },
+        "class_inclusion": "Bard, Druid, Ranger - Appropriate selection for nature/utility magic."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:22:35.509Z"
+}

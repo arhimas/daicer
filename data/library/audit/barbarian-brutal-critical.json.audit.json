@@ -1,0 +1,37 @@
+{
+  "file": "atoms/features/barbarian-brutal-critical.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "barbarian-brutal-critical.json",
+    "analysis": {
+      "consistency": "Consistent with typical class feature progression, specifically for the Barbarian's core class abilities.",
+      "quality": "High quality. The description is clear, directly quotes the expected mechanical effect, and specifies the level scaling.",
+      "mechanics": {
+        "feature_name": "Brutal Critical",
+        "class": "barbarian",
+        "level_gained": 9,
+        "effect": "Increases the number of weapon damage dice rolled on a critical hit with a melee attack.",
+        "scaling": [
+          {
+            "level": 9,
+            "additional_dice": 1
+          },
+          {
+            "level": 13,
+            "additional_dice": 2
+          },
+          {
+            "level": 17,
+            "additional_dice": 3
+          }
+        ],
+        "mechanic_type": "Damage Scaling/Critical Hit Enhancement",
+        "clarity": "Excellent clarity; the mechanism of adding dice to the existing critical hit roll is unambiguous."
+      }
+    }
+  },
+  "timestamp": "2026-01-17T07:23:18.407Z"
+}

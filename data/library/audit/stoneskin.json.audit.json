@@ -1,0 +1,39 @@
+{
+  "file": "molecules/spells/stoneskin.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "stoneskin.json",
+    "analysis": {
+      "consistency": "Consistent with standard D&D 5e spell formatting. All required fields are present and logically populated.",
+      "quality": "High quality. The description is clear and directly references established mechanics (resistance to nonmagical damage types).",
+      "mechanics": {
+        "name": "Stoneskin",
+        "level": 4,
+        "school": "abjuration",
+        "casting_time": "1 action",
+        "duration": "Concentration, up to 1 hour",
+        "components": {
+          "verbal": true,
+          "somatic": true,
+          "material": "diamond dust worth 100 gp, which the spell consumes",
+          "material_cost_gp": 100
+        },
+        "effect": "Target gains resistance to nonmagical bludgeoning, piercing, and slashing damage.",
+        "concentration_required": true,
+        "range": "Touch",
+        "target_type": "Willing creature",
+        "class_availability": [
+          "druid",
+          "ranger",
+          "sorcerer",
+          "wizard"
+        ]
+      },
+      "notes": "The material component cost (100 gp) is significant and correctly noted as consumed, which balances the spell's powerful defensive effect."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:30.051Z"
+}

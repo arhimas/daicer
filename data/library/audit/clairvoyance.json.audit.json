@@ -1,0 +1,28 @@
+{
+  "file": "molecules/spells/clairvoyance.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "clairvoyance.json",
+    "analysis": {
+      "consistency": "High. The structure and content align with typical spell descriptions (name, level, school, casting time, components, duration, description, classes).",
+      "quality": "High. The description is clear, detailing the creation of an invisible sensor, the choice between sight or hearing, the ability to switch senses as an action, and what a creature sees if it can perceive the sensor.",
+      "mechanics": {
+        "type": "Utility/Scrying",
+        "constraints": [
+          "Range limitation (1 mile).",
+          "Requires familiar location or obvious location.",
+          "Sensor is intangible and cannot be attacked.",
+          "Requires Concentration.",
+          "Casting time is long (10 minutes), limiting immediate tactical use.",
+          "Material component is costly (100 gp focus) and consumed/required for casting."
+        ],
+        "interaction": "Allows the caster to effectively extend their senses (sight or hearing) over a significant distance, making it useful for reconnaissance or surveillance. Switching senses as an action provides flexibility during the duration."
+      },
+      "notes": "The spell explicitly mentions what a creature with true sight or *see invisibility* perceives, which is excellent detail for a DM/player reference."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:47.761Z"
+}

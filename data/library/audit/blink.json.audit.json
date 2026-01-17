@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/blink.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "blink.json",
+    "analysis": {
+      "consistency": "High. The spell mechanics are internally consistent, describing a process of moving to the Ethereal Plane and returning, including conditions for failure and success checks.",
+      "quality": "Good. The description is clear, detailing the action economy (1 action to dismiss, roll at end of turn), range, and specific planar interaction rules (shades of gray vision, 60ft limit, interaction restrictions).",
+      "mechanics": {
+        "core_effect": "Volatile self-teleportation/phasing to the Ethereal Plane based on a die roll.",
+        "trigger_mechanism": "d20 roll at the end of the caster's turn.",
+        "success_threshold": "11 or higher.",
+        "failure_condition": "Already on the Ethereal Plane (wastes spell).",
+        "return_mechanism": "Automatic at start of next turn OR when spell ends, returning to nearest unoccupied space within 10 feet of origin (or nearest if congested).",
+        "ethereal_interaction": "Sight limited to 60ft into the prime material, interacting only with ethereal creatures.",
+        "action_economy": {
+          "casting_time": "1 action",
+          "dismissal": "1 action"
+        },
+        "level_appropriateness": "Level 3 seems appropriate for reliable, but periodic, defensive phasing/invisibility."
+      },
+      "potential_ambiguities": [
+        "The description states 'return to an unoccupied space of your choice that you can see within 10 feet'. Since the caster is returning from the Ethereal Plane, determining what space they 'can see' in the material plane immediately upon return might need clarification depending on exact DM interpretation, though usually this means visible from the origin point."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:48.314Z"
+}

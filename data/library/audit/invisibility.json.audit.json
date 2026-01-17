@@ -1,0 +1,32 @@
+{
+  "file": "molecules/spells/invisibility.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "invisibility.json",
+    "analysis": {
+      "consistency": {
+        "school_validity": "Valid. 'illusion' is a standard D&D 5e school.",
+        "component_format": "Standard format (V, S, M) with detailed material component.",
+        "level_and_class_match": "Consistent. Level 2 slots for Bard, Sorcerer, Warlock, Wizard aligns with standard spell lists for this level."
+      },
+      "quality": {
+        "naming_convention": "Standard and clear ('Invisibility').",
+        "description_clarity": "High clarity. Explicitly mentions what becomes invisible (worn/carried items) and conditions for ending the spell (attacking/casting).",
+        "scaling_mechanism": "Standard scaling for duration/area/targets. Here, it correctly scales by adding one target per spell slot level above 2nd."
+      },
+      "mechanics": {
+        "casting_time": "Action economy is standard for a tactical spell.",
+        "range": "Touch suggests adjacency or proximity is required for initial casting.",
+        "duration": "Concentration provides a hard limit and interaction point (subject to standard concentration rules).",
+        "effect_summary": "Grants invisibility to a target creature and their carried/worn equipment. Ends upon offensive action.",
+        "spell_slot_scaling": "Scaling is effective; increasing the number of targets is a valuable increase for a higher-level slot."
+      },
+      "zod_errors_present": false,
+      "archivist_notes": "The data entry for Invisibility is complete, accurate, and follows standard D&D 5e conventions for spell descriptions, components, and scaling. No mechanical inconsistencies detected."
+    }
+  },
+  "timestamp": "2026-01-17T07:22:37.933Z"
+}

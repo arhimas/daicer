@@ -1,0 +1,27 @@
+{
+  "file": "atoms/equipment-categories.json",
+  "type": "unknown",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "UNKNOWN",
+    "file": "equipment-categories.json",
+    "analysis": {
+      "consistency": "High. The data structure is simple and consistent with common metadata formats (name/description).",
+      "quality": "High. Data is clear, concise, and unambiguous.",
+      "mechanics": "Describes a classification category ('Simple Weapon') with a brief definition ('Basic weapons.'). This is appropriate for cataloging game items or equipment lists."
+    },
+    "recommendations": [
+      {
+        "area": "Contextualization",
+        "detail": "Identify the source system or game context for this entity to ensure consistency with other cataloged data."
+      },
+      {
+        "area": "Expansion",
+        "detail": "Consider adding metadata fields like 'category_id' or 'parent_category' if hierarchical structures are used."
+      }
+    ],
+    "zod_validation_status": "PASS"
+  },
+  "timestamp": "2026-01-17T07:22:24.892Z"
+}

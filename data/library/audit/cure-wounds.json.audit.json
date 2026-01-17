@@ -1,0 +1,18 @@
+{
+  "file": "molecules/spells/cure-wounds.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "cure-wounds.json",
+    "analysis": {
+      "consistency": "The data is internally consistent. All standard fields for a spell entry are present and their values align with typical D&D 5e spell structures (e.g., level 1, casting time, components, scaling rules).",
+      "quality": "High quality. The description is complete, including the crucial clarification about ineffectiveness on undead and constructs, and the At Higher Levels scaling rule is clearly defined.",
+      "mechanics": "Standard single-target healing spell. \n- **Level:** 1st (Evocation).\n- **Action Cost:** 1 action.\n- **Effect:** Heals 1d8 + modifier.\n- **Targeting:** Touch.\n- **Scaling:** Improves linearly by +1d8 per spell slot level above 1st (e.g., 2nd level slot heals 2d8 + mod).\n- **Limitation:** Does not affect Undead or Constructs."
+    },
+    "issues_found": false,
+    "suggested_changes": []
+  },
+  "timestamp": "2026-01-17T07:22:45.288Z"
+}

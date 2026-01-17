@@ -1,0 +1,31 @@
+{
+  "file": "molecules/spells/message.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "message.json",
+    "analysis": {
+      "consistency": {
+        "level_school_combination": "Consistent. Level 0 (Cantrip) spells are generally simple utility or minor combat effects. Transmutation fits a utility spell like this.",
+        "time_duration_mechanics": "Consistent. A 1-action casting time resulting in a 1-round duration is suitable for a brief, immediate communication effect.",
+        "components_complexity": "Consistent. V, S, M components are standard. The material component (copper wire) is trivial and appropriate for a low-level utility spell.",
+        "range_utility": "Consistent. 120 feet is a good range for targeted, non-line-of-sight communication."
+      },
+      "quality": {
+        "flavor": "High. The spell perfectly captures the flavor of discrete, targeted, whispered communication, even through barriers.",
+        "clarity": "Excellent. The description clearly defines the sender/receiver relationship (only target hears) and the necessary environmental bypass rules (line of effect, not line of sight, with specific blocking materials).",
+        "utility_balance": "Excellent. As a 0-level spell, its utility for reconnaissance and stealthy coordination is high but balanced by its very short duration (1 round for reply) and limited range for direct conversation."
+      },
+      "mechanics": {
+        "core_function": "One-way outbound audio transmission (whisper) and one-way inbound audio reception (whisper) in response.",
+        "barrier_interaction": "The spell establishes an auditory link that can bypass most common non-magical barriers, but it is explicitly blocked by magical silence, significant stone/metal, or thick wood, enforcing reasonable limitations for a cantrip.",
+        "target_restriction": "Requires familiarity or knowledge of the target's location beyond the barrier, preventing random targeting through walls.",
+        "class_inclusion": "Appropriate distribution among Bard (subtle communication), Sorcerer, and Wizard (utility/trickery)."
+      }
+    },
+    "archivist_notes": "This is a well-designed, low-level utility spell. Its mechanics clearly define how it interacts with the environment, maintaining functional utility while imposing necessary constraints via the material component and specific obstruction rules. No inconsistencies or mechanical flaws detected."
+  },
+  "timestamp": "2026-01-17T07:22:36.581Z"
+}

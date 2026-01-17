@@ -1,0 +1,49 @@
+{
+  "file": "atoms/features/monk-empty-body.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-empty-body.json",
+    "analysis": {
+      "consistency": {
+        "overall": "Consistent",
+        "notes": "The feature title, slug, and class are consistent. The mechanics align with high-level Monk abilities, utilizing Ki points for powerful, temporary effects."
+      },
+      "quality": {
+        "overall": "High",
+        "notes": "This is a powerful capstone-like feature (Level 18). Providing invisibility with damage resistance (excluding force) is a very strong defensive and tactical option for a single action. The ability to cast Astral Projection as a bonus effect adds significant utility for exploration/scouting, although the restriction against bringing others is important."
+      },
+      "mechanics": {
+        "primary_effect": {
+          "cost": "4 Ki Points",
+          "action": "Action",
+          "duration": "1 minute",
+          "benefits": [
+            "Invisibility",
+            "Resistance to all damage except force damage"
+          ]
+        },
+        "secondary_effect": {
+          "cost": "8 Ki Points",
+          "action": "Casting Astral Projection (no components)",
+          "limitation": "Cannot bring other creatures."
+        },
+        "balance_assessment": "The 4 Ki cost for invisibility and resistance seems balanced for a 18th-level feature, effectively trading a significant chunk of Ki for extreme survivability or stealth. The Astral Projection option offers high utility at a higher cost."
+      },
+      "suggestions": [
+        "Ensure that the duration of invisibility is correctly specified (1 minute).",
+        "Clarify if the resistance is active only while invisible, or if the resistance effect is tied to the 1-minute duration regardless of whether invisibility is broken (assuming it lasts the full minute)."
+      ]
+    },
+    "extracted_data": {
+      "slug": "monk-empty-body",
+      "name": "Empty Body",
+      "class": "monk",
+      "level": 18,
+      "description": "Beginning at 18th level, you can use your action to spend 4 ki points to become [invisible](#invisible) for 1 minute. During that time, you also have resistance to all damage but force damage.\n\nAdditionally, you can spend 8 ki points to cast the [_astral projection_](#astral-projection) spell, without needing material components. When you do so, you can't take any other creatures with you."
+    }
+  },
+  "timestamp": "2026-01-17T07:23:15.029Z"
+}

@@ -1,0 +1,38 @@
+{
+  "file": "molecules/spells/resurrection.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "resurrection.json",
+    "analysis": {
+      "consistency": {
+        "level_school_match": true,
+        "component_description_match": true,
+        "casting_time_duration_logic": "Consistent: A complex, high-level spell with a long casting time and instantaneous effect upon completion."
+      },
+      "quality": {
+        "completeness": "High. Contains all standard D&D 5e spell fields (slug, name, level, school, ritual, casting_time, range, components, duration, description, classes).",
+        "clarity": "Excellent. The effects, especially the revival conditions and the severe after-effects (-4 penalty that fades on long rests), are clearly detailed.",
+        "balance_consideration": "Appropriate for a 7th-level spell. The cost (1,000 gp diamond consumption) and the significant ongoing mechanical penalty balance the powerful effect of returning a creature to life."
+      },
+      "mechanics": {
+        "revival_conditions": "Specific: Must be dead less than a century, not from old age, soul must be free and willing. This prevents reanimation of unwilling undead or extremely ancient/fading souls.",
+        "positive_effects": [
+          "Returns target to life with full HP.",
+          "Neutralizes poisons.",
+          "Cures normal diseases.",
+          "Closes mortal wounds and restores missing body parts."
+        ],
+        "negative_effects": [
+          "Target receives a permanent -4 penalty to all rolls, which fades by 1 after each long rest.",
+          "If cast on someone dead for a year or more, the caster suffers Disadvantage on all rolls and cannot cast spells until completing a long rest."
+        ],
+        "interaction_with_other_effects": "Explicitly states that magical diseases/curses are NOT removed and persist after resurrection, requiring separate removal."
+      }
+    },
+    "data_archivist_notes": "The spell data is complete and mechanically sound for a high-tier restoration effect. The dual penalty system (one for the resurrected, one for the caster in extreme cases) provides good mechanical friction."
+  },
+  "timestamp": "2026-01-17T07:22:33.323Z"
+}

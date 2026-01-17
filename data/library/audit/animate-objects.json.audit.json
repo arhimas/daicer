@@ -1,0 +1,34 @@
+{
+  "file": "molecules/spells/animate-objects.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "animate-objects.json",
+    "analysis": {
+      "consistency": {
+        "level_and_slots": "Consistent. The spell is 5th level, and the 'At Higher Levels' section correctly references casting with slots of 6th level or higher to animate more objects (two additional per slot level above 5th).",
+        "object_limits": "Consistent. The description clearly states the maximum number of objects (10 total objects based on size counts) and the maximum size (Huge).",
+        "statistics_table": "The statistics provided in the table (HP, AC, Attack Bonus/Damage, Str, Dex) align with standard D&D 5e monster stat blocks for animated objects, though specific attack bonuses and damage scaling are implicit based on typical progression."
+      },
+      "quality": {
+        "completeness": "High. Includes all necessary details: level, casting components, time, range, duration, limitations (size/ownership), command structure (bonus action), and detailed statistics in a clear table format.",
+        "clarity": "Very high. The mechanics for commanding the objects, the object size limitations/cost (Medium=2, Large=4, Huge=8), and the return to object form upon destruction are clearly explained.",
+        "formatting": "Good. The use of a table for statistics is excellent for readability."
+      },
+      "mechanics": {
+        "action_economy": "Balanced. Casting time is 1 action. Commanding the animated objects uses the caster's bonus action, which is standard for ongoing concentration control spells.",
+        "object_costing": "The system of counting larger objects as multiple 'slots' towards the 10-object limit is a key balancing factor and is clearly defined.",
+        "stat_derivation": "The spell defines unique derived statistics (HP, AC, Attack, Ability Scores) based on size, which is mechanically sound for this specific spell effect.",
+        "attack_details": "The base attack is defined as a melee slam, but the text wisely notes that the GM *might* rule for slashing/piercing damage based on the object's nature, allowing for necessary situational rulings.",
+        "movement": "The rule regarding speed (30 ft, flying if not capable of walking, 0 if attached) is comprehensive and addresses edge cases effectively."
+      },
+      "potential_issues_or_notes": [
+        "The attack bonus calculation for the slam attack is implicitly derived from the listed damage/stat block structure but is not explicitly stated as a single value in the attack description (e.g., '+8 to hit' is listed in the table, but the description just says 'makes a slam attack... determined by its size'). This is minor as the table provides the necessary data.",
+        "The description of the attack bonus/damage in the table uses the structure '+X to hit, YdZ + W damage', which is standard 5e format."
+      ]
+    }
+  },
+  "timestamp": "2026-01-17T07:22:50.425Z"
+}

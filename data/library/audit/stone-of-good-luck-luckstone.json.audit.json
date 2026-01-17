@@ -1,0 +1,23 @@
+{
+  "file": "molecules/items/stone-of-good-luck-luckstone.json",
+  "type": "item",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "ITEM",
+    "file": "stone-of-good-luck-luckstone.json",
+    "analysis": {
+      "consistency": "High. The name, type, and rarity are consistent across the raw data fields.",
+      "quality": "Good. The description clearly states the mechanical effect.",
+      "mechanics": {
+        "type": "Wondrous item",
+        "rarity": "Uncommon",
+        "attunement_required": true,
+        "effect": "While on person, gain +1 bonus to ability checks and saving throws.",
+        "discrepancies": "None detected. The source line confirms all primary attributes."
+      }
+    },
+    "archivist_notes": "The item provides a very straightforward and common bonus, fitting the Uncommon rarity."
+  },
+  "timestamp": "2026-01-17T07:22:52.240Z"
+}

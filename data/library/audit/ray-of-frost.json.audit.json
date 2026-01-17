@@ -1,0 +1,24 @@
+{
+  "file": "molecules/spells/ray-of-frost.json",
+  "type": "spell",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "SPELL",
+    "file": "ray-of-frost.json",
+    "analysis": {
+      "consistency": "High. The data fields align perfectly with standard D&D 5e spell block format.",
+      "quality": "High. The description is detailed, covering damage, effect (speed reduction), scaling, and classes.",
+      "mechanics": {
+        "type": "Ranged Spell Attack",
+        "damage_dice": "1d8 (cold)",
+        "effect": "Speed reduction of 10 feet until the start of the caster's next turn.",
+        "scaling": "Damage increases by 1d8 at levels 5, 11, and 17.",
+        "level": 0,
+        "components_check": "V, S (Verbal, Somatic) - standard for low-level attack spells."
+      },
+      "zod_errors_found": false
+    }
+  },
+  "timestamp": "2026-01-17T07:22:32.605Z"
+}

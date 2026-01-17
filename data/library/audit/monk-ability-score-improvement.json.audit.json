@@ -1,0 +1,33 @@
+{
+  "file": "atoms/features/monk-ability-score-improvement.json",
+  "type": "feature",
+  "zod_valid": true,
+  "zod_errors": [],
+  "llm_audit": {
+    "entity": "FEATURE",
+    "file": "monk-ability-score-improvement.json",
+    "analysis": {
+      "consistency": {
+        "name_matches_content": true,
+        "level_matches_class_progression": true,
+        "class_association_correct": true
+      },
+      "quality": {
+        "completeness": "Excellent. Contains all necessary fields: slug, name, class, level, description, and subclass flag.",
+        "readability": "High. The description is clear and directly quotes standard D&D 5e text.",
+        "formatting": "Good. Standard JSON structure."
+      },
+      "mechanics": {
+        "type": "Ability Score Improvement (ASI)",
+        "trigger": "Level milestones (4th, 8th, 12th, 16th, 19th)",
+        "effect": "Choose one ability score to increase by 2 OR two ability scores by 1 each.",
+        "limitations": [
+          "Cannot increase score above 20."
+        ],
+        "notes": "This feature mirrors the standard ASI provided to all classes at these levels, confirming its mechanical standard implementation for the Monk class."
+      },
+      "recommendations": []
+    }
+  },
+  "timestamp": "2026-01-17T07:23:14.447Z"
+}
