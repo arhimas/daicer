@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "terrains",
+  "info": {
+    "singularName": "terrain",
+    "pluralName": "terrains",
+    "displayName": "Terrain",
+    "description": "Voxel types and biome ground definitions"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+
+    "isWalkable": {
+      "type": "boolean",
+      "default": true
+    },
+    "isTransparent": {
+      "type": "boolean",
+      "default": false
+    },
+    "isLiquid": {
+      "type": "boolean",
+      "default": false
+    },
+    "damagePerTick": {
+      "type": "integer",
+      "default": 0
+    },
+    "luminance": {
+        "type": "integer",
+        "default": 0,
+        "min": 0,
+        "max": 15
+    },
+    "moisture": {
+        "type": "decimal",
+        "default": 0.5,
+        "min": 0,
+        "max": 1
+    },
+    "temperature": {
+        "type": "decimal",
+        "default": 0.5,
+        "min": 0,
+        "max": 1
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "terrains"
+    },
+    "noise_config": {
+        "type": "component",
+        "repeatable": false,
+        "component": "world.noise-config"
+    },
+    "texture": {
+        "type": "customField",
+        "customField": "plugin::map-explorer.texture-grid"
+    }
+  }
+}

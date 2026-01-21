@@ -83,8 +83,10 @@ describe('GraphQL Queries & Resolvers', () => {
       // Verify filters
       expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          filters: expect.objectContaining({ 
-             name: { $contains: 'goblin' } 
+          filters: expect.objectContaining({
+            $or: expect.arrayContaining([
+              { name: { $contains: 'goblin' } },
+            ]),
           }),
         })
       );
@@ -99,9 +101,11 @@ describe('GraphQL Queries & Resolvers', () => {
       // Check calls. Should see 1 call to entity findMany with monster filter
       expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          filters: expect.arrayContaining([
-            { type: 'monster' }
-          ]),
+          filters: expect.objectContaining({
+            $or: expect.arrayContaining([
+              { type: 'monster' },
+            ]),
+          }),
         })
       );
     });
@@ -113,9 +117,11 @@ describe('GraphQL Queries & Resolvers', () => {
       
       expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          filters: expect.arrayContaining([
-            { type: 'player' }
-          ]),
+          filters: expect.objectContaining({
+            $or: expect.arrayContaining([
+              { type: 'player' },
+            ]),
+          }),
         })
       );
     });

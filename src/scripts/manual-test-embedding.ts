@@ -5,7 +5,7 @@ async function test() {
   console.log('🚀 Testing EmbeddingService (Local Transformers Jina V2)...');
 
   try {
-    const text = 'SOTA Embedding Test';
+    const text = 'Embedding Service Test';
     console.log(`Input: "${text}"`);
     console.log('Generating embedding (first run may take time to download model)...');
 

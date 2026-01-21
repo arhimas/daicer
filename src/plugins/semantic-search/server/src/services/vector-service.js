@@ -1,4 +1,4 @@
-const { client } = require('pg'); // Ensure pg is available if needed, but strapi handles it.
+// const { client } = require('pg'); // Ensure pg is available if needed, but strapi handles it.
 
 // Lazy load sqlite deps to prevent crash on Postgres/pgvector environments
 let sqliteVec = null;

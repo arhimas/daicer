@@ -2281,7 +2281,7 @@
   resolved "https://registry.yarnpkg.com/@standard-schema/spec/-/spec-1.1.0.tgz#a79b55dbaf8604812f52d140b2c9ab41bc150bb8"
   integrity sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==
 
-"@strapi/admin@5.33.3":
+"@strapi/admin@5.33.3", "@strapi/admin@^5.33.3":
   version "5.33.3"
   resolved "https://registry.yarnpkg.com/@strapi/admin/-/admin-5.33.3.tgz#6027875ea776ec1255440897446762add7649b96"
   integrity sha512-7GPVwdVe4O6LiTHJW8QXA2BImy5ouTOyxcjlvPvCeYlxP5EINxCvGLBfvA96Hbf/5sI0Dcl0uD+QLe2QtH6CZA==
@@ -2377,7 +2377,7 @@
     xdg-app-paths "8.3.0"
     yup "0.32.9"
 
-"@strapi/content-manager@5.33.3":
+"@strapi/content-manager@5.33.3", "@strapi/content-manager@^5.33.3":
   version "5.33.3"
   resolved "https://registry.yarnpkg.com/@strapi/content-manager/-/content-manager-5.33.3.tgz#f9ef367004b552bd2a60196378bc0af97818f7bf"
   integrity sha512-CrdXwfXUlASEA/j/mheR8KgDMr7FPVL6BBraOjkfENnsqajPyPn0HKC3obnr2RvLGu/z4ju20UorTEi/F9DQvw==

@@ -75,7 +75,38 @@ export default {
       const { registerAutoEmbeddingSubscriber } = await import('./subscribers/auto-embed');
       registerAutoEmbeddingSubscriber(strapi);
 
-      // 4. SOTA Queue Initialization
+      // 4. Seeding Queue Configuration (if missing)
+      try {
+        const queueConfig = await strapi.documents('api::queue-configuration.queue-configuration').findFirst();
+        if (!queueConfig) {
+          strapi.log.info('[Bootstrap] Seeding default Queue Configuration...');
+          const { QueueName } = await import('./queues/contract');
+          
+          await strapi.documents('api::queue-configuration.queue-configuration').create({
+            data: {
+              globalEnabled: true,
+              queues: Object.values(QueueName).map(name => ({
+                queueName: name,
+                enabled: true,
+                concurrency: 1,
+                settings: {
+                  retryAttempts: 3,
+                  retryDelay: 1000,
+                  removeOnComplete: true,
+                  removeOnFail: false,
+                },
+              })),
+            },
+           status: 'published',
+          });
+          strapi.log.info('[Bootstrap] Default Queue Configuration seeded.');
+        }
+      } catch (_err) {
+         // This might fail if the content type is not yet sync'd or table doesn't exist on first run
+         strapi.log.warn('[Bootstrap] Failed to seed Queue Configuration (ignorable on first build).');
+      }
+
+      // 5. Background Queue Initialization
       // Only initialize if REDIS_HOST is defined or explicitly enabled, to avoid crashes in local dev scripts
       if (process.env.REDIS_HOST || process.env.ENABLE_QUEUES === 'true') {
         try {
@@ -84,17 +115,18 @@ export default {
 
           // Register Workers (Side-effects)
           await import('./queues/definitions/embedding');
-          await import('./queues/definitions/generate-image');
-          await import('./queues/definitions/generate-text');
+          await import('./queues/definitions/generate-text-remote');
+          await import('./queues/definitions/generate-text-local');
           await import('./queues/definitions/cron-maintenance');
           await import('./queues/definitions/genesis');
           await import('./queues/definitions/compile');
+          await import('./queues/definitions/translate-entity');
 
           // Initialize Managers
           QueueManager.init(strapi);
           WorkerManager.init(strapi);
 
-          strapi.log.info('[Bootstrap] SOTA Queues & Workers Initialized 🚀');
+          strapi.log.info('[Bootstrap] Background Queues & Workers Initialized 🚀');
         } catch (error) {
           strapi.log.warn('[Bootstrap] Queue initialization skipped (Redis missing or config error).', error);
         }

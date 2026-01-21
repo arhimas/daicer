@@ -15,7 +15,9 @@ export default factories.createCoreService('api::knowledge-source.knowledge-sour
   async sync(sourceId: number) {
     try {
       // 1. Fetch Source
-      const source = await strapi.entityService.findOne('api::knowledge-source.knowledge-source', sourceId);
+      const source = await strapi.entityService.findOne('api::knowledge-source.knowledge-source', sourceId, {
+        populate: ['tags']
+      }) as unknown as { content: string; name: string; tags?: { name: string }[] };
       if (!source) throw new Error(`Knowledge Source ${sourceId} not found`);
 
       const { content, name, tags } = source;
@@ -44,7 +46,8 @@ export default factories.createCoreService('api::knowledge-source.knowledge-sour
         if (chunk.content.length < 10) continue;
 
         // Inject Tags Context
-        const tagContext = tags && tags.length > 0 ? `[Tags: ${tags.join(', ')}]\n` : '';
+        const tagArray = tags ? tags.map(t => t.name) : [];
+        const tagContext = tagArray.length > 0 ? `[Tags: ${tagArray.join(', ')}]\n` : '';
         const finalContent = tagContext + chunk.content;
 
         await strapi.entityService.create('api::knowledge-snippet.knowledge-snippet', {
@@ -52,6 +55,7 @@ export default factories.createCoreService('api::knowledge-source.knowledge-sour
             title: chunk.title,
             content: finalContent,
             source: sourceId,
+            sourceType: 'manual', // Required by schema
             // embedding: null, // Implicitly null, auto-embed will pick it up
           },
         });

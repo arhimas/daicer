@@ -33,5 +33,29 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/constructions',
+      handler: 'mapController.getConstructions',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/constructions',
+      handler: 'mapController.saveConstruction',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/generate-texture',
+      handler: 'mapController.generateTexture',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };

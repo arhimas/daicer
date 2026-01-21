@@ -1,6 +1,7 @@
-import { QueueName } from './contract';
+import { QueueName, QueueConfiguration } from './contract';
 import type { Core } from '@strapi/strapi';
 import { Worker, Job } from 'bullmq';
+import { DevLogger } from '../utils/dev-logger';
 
 // Registry of Worker Handlers
 const workerRegistry: Record<string, (job: Job, strapi: Core.Strapi) => Promise<unknown>> = {};
@@ -9,9 +10,11 @@ export class WorkerManager {
   private static instance: WorkerManager;
   private strapi: Core.Strapi;
   private workers: Worker[] = [];
+  private logger: DevLogger;
 
   private constructor(strapi: Core.Strapi) {
     this.strapi = strapi;
+    this.logger = new DevLogger('WorkerManager', strapi);
   }
 
   static init(strapi: Core.Strapi) {
@@ -30,7 +33,7 @@ export class WorkerManager {
 
   /**
    * Register a processor for a queue.
-
+   *
    * Call this from your definition files.
    */
   static register(queueName: QueueName, handler: (job: Job, strapi: Core.Strapi) => Promise<unknown>) {
@@ -38,10 +41,26 @@ export class WorkerManager {
   }
 
   private async startAll() {
-    this.strapi.log.info(`[WorkerManager] Starting workers for ${Object.keys(workerRegistry).length} queues...`);
+    this.logger.info(`Starting workers for ${Object.keys(workerRegistry).length} queues...`);
+
+    // Fetch Global Configuration
+    let config: QueueConfiguration | null = null;
+    try {
+      config = (await this.strapi
+        .documents('api::queue-configuration.queue-configuration')
+        .findFirst({
+          populate: ['queues', 'queues.settings'],
+        })) as unknown as QueueConfiguration | null;
+    } catch (_err) {
+      this.logger.warn('Failed to fetch configuration, falling back to defaults.');
+    }
+
+    if (config && config.globalEnabled === false) {
+      this.logger.warn('⚠️ Queues are globally disabled in configuration.');
+      return;
+    }
 
     // Resolve Redis Connection Config
-    // We prioritize the plugin config, but fallback to manual env vars if needed
     const connection = {
       host: process.env.REDIS_HOST || 'localhost',
       port: parseInt(process.env.REDIS_PORT || '6379'),
@@ -50,43 +69,73 @@ export class WorkerManager {
     };
 
     for (const [queueName, handler] of Object.entries(workerRegistry)) {
-      this.strapi.log.info(`[WorkerManager] Initializing native BullMQ Worker for: ${queueName}`);
+      // Resolve Queue Specific Config
+      let concurrency = 1;
+      let settings = undefined;
+
+      if (config && config.queues) {
+        const queueConfig = config.queues.find((q) => q.queueName === queueName);
+        if (queueConfig) {
+          if (queueConfig.enabled === false) {
+            this.logger.info(`⏸️ Skipping worker for ${queueName} (Disabled in Config)`);
+            continue;
+          }
+          concurrency = queueConfig.concurrency || 1;
+          settings = queueConfig.settings;
+        }
+      }
+
+      this.logger.info(`Initializing native BullMQ Worker for: ${queueName} (Concurrency: ${concurrency})`);
 
       try {
+        const workerLogger = new DevLogger(`Worker:${queueName}`, this.strapi);
+        
         const worker = new Worker(
           queueName,
           async (job) => {
-            this.strapi.log.info(`[Worker:${queueName}] Processing job ${job.id}`);
+            const tracker = workerLogger.start(`Job ${job.id}`);
             try {
-              return await handler(job, this.strapi);
+              const result = await handler(job, this.strapi);
+              tracker.end();
+              return result;
             } catch (err) {
-              this.strapi.log.error(`[Worker:${queueName}] Failed jid=${job.id}:`, err);
+              tracker.fail(err);
               throw err;
             }
           },
           {
             connection,
-            concurrency: 1,
+            concurrency,
+            ...(settings ? {
+               limiter: settings.rateLimit ? { max: settings.rateLimit, duration: 1000 } : undefined,
+            } : {}),
+            removeOnComplete: settings?.removeOnComplete ?? { count: 100 },
+            removeOnFail: settings?.removeOnFail ?? { count: 500 },
           }
         );
 
-        worker.on('completed', (job) => {
-          this.strapi.log.debug(`[WorkerManager] Job ${job.id} completed in ${queueName}`);
-        });
+        // worker.on('completed', (job) => { /* handled inside handler wrapper */ });
 
         worker.on('failed', (job, err) => {
-          this.strapi.log.error(`[Worker:${queueName}] Job ${job?.id} failed globally:`, err);
+             // We can log global failures here as a backup, but the try/catch inside the processor handles specific job failure context better
+             // However, BullMQ might fail outside of the processor (e.g. stalled)
+             // workerLogger.error(`Global Failure for ${job?.id}`, err);
+        });
+        
+        // General worker errors (connection issues etc)
+        worker.on('error', (err) => {
+             workerLogger.error('Worker connection error', err);
         });
 
         this.workers.push(worker);
       } catch (err) {
-        this.strapi.log.error(`[WorkerManager] Failed to create worker for ${queueName}`, err);
+        this.logger.error(`Failed to create worker for ${queueName}`, err);
       }
     }
   }
 
   async destroy() {
-    this.strapi.log.info('[WorkerManager] Gracefully shutting down workers...');
+    this.logger.info('Gracefully shutting down workers...');
     await Promise.all(this.workers.map((w) => w.close()));
   }
 }

@@ -3,9 +3,9 @@
  * Handles item transactions: Dropping (to World), Picking Up (from World), and Death Drops.
  */
 
-import { factories } from '@strapi/strapi';
+import { Core } from '@strapi/strapi';
 
-export default factories.createCoreService('api::game.inventory-service', ({ strapi }) => ({
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Drops a specific item from an entity's inventory into the world.
    * Creates a new EntitySheet (type: 'loot') at the entity's position.
@@ -240,9 +240,9 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
     if (itemIndex === -1) throw new Error('Item not found in inventory');
 
     const itemToEquip = inventory[itemIndex];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const equipmentData = itemToEquip.item?.equipment_data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const properties = equipmentData?.properties || [];
     const isTwoHanded = properties.some((p: { slug: string }) => p.slug === 'two-handed');
 
@@ -327,4 +327,4 @@ export default factories.createCoreService('api::game.inventory-service', ({ str
           return total + (w * q);
       }, 0);
   }
-}));
+});

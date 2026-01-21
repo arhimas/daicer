@@ -12,6 +12,12 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "world": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::world.world",
+      "inversedBy": "voxelChanges"
+    },
     "chunkX": {
       "type": "integer",
       "required": true

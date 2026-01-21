@@ -465,34 +465,37 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCompilationReportCompilationReport extends Struct.CollectionTypeSchema {
-  collectionName: 'compilation_reports';
+export interface ApiConstructionConstruction extends Struct.CollectionTypeSchema {
+  collectionName: 'constructions';
   info: {
-    description: 'Dead Letter Queue for Entity Compilation Failures';
-    displayName: 'Compilation Report';
-    pluralName: 'compilation-reports';
-    singularName: 'compilation-report';
+    description: 'A saved voxel structure (village, castle, etc.)';
+    displayName: 'Construction';
+    pluralName: 'constructions';
+    singularName: 'construction';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['village', 'castle', 'tower', 'dungeon', 'house', 'shop', 'temple', 'misc']
+    > &
+      Schema.Attribute.DefaultTo<'misc'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    entityId: Schema.Attribute.String & Schema.Attribute.Required;
-    entityName: Schema.Attribute.String;
-    entityType: Schema.Attribute.String & Schema.Attribute.Required;
-    error: Schema.Attribute.Text & Schema.Attribute.Required;
+    depth: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<16>;
+    height: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<16>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::compilation-report.compilation-report'> &
-      Schema.Attribute.Private;
-    logs: Schema.Attribute.JSON;
-    phase: Schema.Attribute.Enumeration<['Atom', 'Molecule', 'Compound', 'Blueprint']> & Schema.Attribute.Required;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::construction.construction'> & Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    previewImage: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
-    resolved: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    severity: Schema.Attribute.Enumeration<['Fatal', 'Warning']> & Schema.Attribute.DefaultTo<'Fatal'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    voxels: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::map-explorer.construction-grid'>;
+    width: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<16>;
   };
 }
 
@@ -698,6 +701,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -795,6 +799,7 @@ export interface ApiFeatureFeature extends Struct.CollectionTypeSchema {
       }>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -904,6 +909,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'common'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spell_data: Schema.Attribute.Component<'game.spell-data', false>;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     type: Schema.Attribute.Enumeration<
       [
         'weapon',
@@ -987,7 +993,7 @@ export interface ApiKnowledgeSourceKnowledgeSource extends Struct.CollectionType
       Schema.Attribute.DefaultTo<'manual'>;
     publishedAt: Schema.Attribute.DateTime;
     snippets: Schema.Attribute.Relation<'oneToMany', 'api::knowledge-snippet.knowledge-snippet'>;
-    tags: Schema.Attribute.JSON;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -1196,6 +1202,31 @@ export interface ApiPromptPrompt extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiQueueConfigurationQueueConfiguration extends Struct.SingleTypeSchema {
+  collectionName: 'queue_configurations';
+  info: {
+    description: 'Global configuration for background job queues';
+    displayName: 'Queue Configuration';
+    pluralName: 'queue-configurations';
+    singularName: 'queue-configuration';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    globalEnabled: Schema.Attribute.Boolean & Schema.Attribute.Required & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::queue-configuration.queue-configuration'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    queues: Schema.Attribute.Component<'queue.config', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -1413,6 +1444,7 @@ export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
       ['Abjuration', 'Conjuration', 'Divination', 'Enchantment', 'Evocation', 'Illusion', 'Necromancy', 'Transmutation']
     >;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -1507,6 +1539,115 @@ export interface ApiSubclassSubclass extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTagTag extends Struct.CollectionTypeSchema {
+  collectionName: 'tags';
+  info: {
+    description: 'Unified Tagging System for Entities, Terrains, and Knowledge';
+    displayName: 'Tag';
+    pluralName: 'tags';
+    singularName: 'tag';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#333333'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    entities: Schema.Attribute.Relation<'manyToMany', 'api::entity.entity'>;
+    features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
+    items: Schema.Attribute.Relation<'manyToMany', 'api::item.item'>;
+    knowledge_sources: Schema.Attribute.Relation<'manyToMany', 'api::knowledge-source.knowledge-source'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::tag.tag'> & Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    spells: Schema.Attribute.Relation<'manyToMany', 'api::spell.spell'>;
+    terrains: Schema.Attribute.Relation<'manyToMany', 'api::terrain.terrain'>;
+    type: Schema.Attribute.Enumeration<
+      [
+        'custom',
+        'mechanic',
+        'lore',
+        'visual',
+        'meta',
+        'terrain',
+        'school',
+        'language',
+        'damage',
+        'condition',
+        'size',
+        'alignment',
+        'rarity',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'custom'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
+  collectionName: 'terrains';
+  info: {
+    description: 'Voxel types and biome ground definitions';
+    displayName: 'Terrain';
+    pluralName: 'terrains';
+    singularName: 'terrain';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    damagePerTick: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    isLiquid: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isTransparent: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isWalkable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::terrain.terrain'> & Schema.Attribute.Private;
+    luminance: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 15;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    moisture: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0.5>;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    noise_config: Schema.Attribute.Component<'world.noise-config', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
+    temperature: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0.5>;
+    texture: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.texture-grid'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -1674,6 +1815,7 @@ export interface ApiVoxelChangeVoxelChange extends Struct.CollectionTypeSchema {
     voxelX: Schema.Attribute.Integer & Schema.Attribute.Required;
     voxelY: Schema.Attribute.Integer & Schema.Attribute.Required;
     voxelZ: Schema.Attribute.Integer & Schema.Attribute.Required;
+    world: Schema.Attribute.Relation<'manyToOne', 'api::world.world'>;
   };
 }
 
@@ -1733,37 +1875,42 @@ export interface ApiWorldWorld extends Struct.CollectionTypeSchema {
   };
   attributes: {
     adventureLength: Schema.Attribute.Enumeration<['flash', 'short', 'medium', 'long', 'epic', 'legendary']> &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'short'>;
     chunkSize: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<32>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText;
     detail: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<4>;
-    elevationScale: Schema.Attribute.Float;
+    elevationScale: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0.5>;
     fogRadius: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
-    globalScale: Schema.Attribute.Float;
+    globalScale: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0.02>;
     history: Schema.Attribute.RichText;
     language: Schema.Attribute.String & Schema.Attribute.DefaultTo<'en-US'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::world.world'> & Schema.Attribute.Private;
-    moistureScale: Schema.Attribute.Float;
+    moistureScale: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0.015>;
     name: Schema.Attribute.String & Schema.Attribute.DefaultTo<'New World'>;
     publishedAt: Schema.Attribute.DateTime;
-    roadDensity: Schema.Attribute.Float;
+    roadDensity: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0.1>;
     room: Schema.Attribute.Relation<'oneToOne', 'api::room.room'>;
-    roughness: Schema.Attribute.Float;
-    seaLevel: Schema.Attribute.Float;
+    roughness: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0.5>;
+    seaLevel: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0>;
     seed: Schema.Attribute.String;
-    structureChance: Schema.Attribute.Float;
-    structureSizeAvg: Schema.Attribute.Integer;
-    structureSpacing: Schema.Attribute.Integer;
-    temperatureOffset: Schema.Attribute.Float;
+    startingRadius: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<4>;
+    structureChance: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0.1>;
+    structureSizeAvg: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<10>;
+    structureSpacing: Schema.Attribute.Integer & Schema.Attribute.Required & Schema.Attribute.DefaultTo<3>;
+    temperatureOffset: Schema.Attribute.Float & Schema.Attribute.Required & Schema.Attribute.DefaultTo<0>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    voxelChanges: Schema.Attribute.Relation<'oneToMany', 'api::voxel-change.voxel-change'>;
+    voxels: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.world-grid'>;
     worldBackground: Schema.Attribute.RichText;
     worldSize: Schema.Attribute.Enumeration<['intimate', 'small', 'medium', 'large', 'vast', 'epic']> &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'small'>;
-    worldType: Schema.Attribute.String & Schema.Attribute.DefaultTo<'terra'>;
+    worldType: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.DefaultTo<'terra'>;
   };
 }
 
@@ -2180,7 +2327,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
       'api::class.class': ApiClassClass;
-      'api::compilation-report.compilation-report': ApiCompilationReportCompilationReport;
+      'api::construction.construction': ApiConstructionConstruction;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;
       'api::dm-setting.dm-setting': ApiDmSettingDmSetting;
       'api::entity-sheet.entity-sheet': ApiEntitySheetEntitySheet;
@@ -2196,12 +2343,15 @@ declare module '@strapi/strapi' {
       'api::message.message': ApiMessageMessage;
       'api::proficiency.proficiency': ApiProficiencyProficiency;
       'api::prompt.prompt': ApiPromptPrompt;
+      'api::queue-configuration.queue-configuration': ApiQueueConfigurationQueueConfiguration;
       'api::race.race': ApiRaceRace;
       'api::room.room': ApiRoomRoom;
       'api::rule-set.rule-set': ApiRuleSetRuleSet;
       'api::spell.spell': ApiSpellSpell;
       'api::status-effect.status-effect': ApiStatusEffectStatusEffect;
       'api::subclass.subclass': ApiSubclassSubclass;
+      'api::tag.tag': ApiTagTag;
+      'api::terrain.terrain': ApiTerrainTerrain;
       'api::time-frame.time-frame': ApiTimeFrameTimeFrame;
       'api::trait.trait': ApiTraitTrait;
       'api::turn-lock.turn-lock': ApiTurnLockTurnLock;

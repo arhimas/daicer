@@ -5,25 +5,101 @@ import { PluginIcon } from './components/PluginIcon';
 
 export default {
   register(app: any) {
-    app.addMenuLink({
-      to: `plugins/${PLUGIN_ID}`,
-      icon: PluginIcon,
-      intlLabel: {
-        id: `${PLUGIN_ID}.plugin.name`,
-        defaultMessage: PLUGIN_ID,
-      },
-      Component: async () => {
-        const { App } = await import('./pages/App');
 
-        return App;
-      },
-    });
 
     app.registerPlugin({
       id: PLUGIN_ID,
       initializer: Initializer,
       isReady: false,
       name: PLUGIN_ID,
+    });
+
+    app.customFields.register({
+        name: "voxel-grid",
+        pluginId: PLUGIN_ID, 
+        type: "json", 
+        intlLabel: {
+          id: "map-explorer.voxel-grid.label",
+          defaultMessage: "Voxel Grid",
+        },
+        intlDescription: {
+          id: "map-explorer.voxel-grid.description",
+          defaultMessage: "Edit 3D Voxel Structure",
+        },
+        icon: PluginIcon,
+        components: {
+          Input: async () =>
+            import('./components/VoxelInput').then((module) => ({
+              default: module.VoxelInput,
+            })),
+        },
+        options: {},
+    });
+
+    app.customFields.register({
+        name: "texture-grid",
+        pluginId: PLUGIN_ID, 
+        type: "json", 
+        intlLabel: {
+          id: "map-explorer.texture-grid.label",
+          defaultMessage: "Texture Painter",
+        },
+        intlDescription: {
+          id: "map-explorer.texture-grid.description",
+          defaultMessage: "Paint 32x32 Texture",
+        },
+        icon: PluginIcon,
+        components: {
+          Input: async () =>
+            import('./components/TextureInput').then((module) => ({
+              default: module.TextureInput,
+            })),
+        },
+        options: {},
+    });
+
+    app.customFields.register({
+        name: "construction-grid",
+        pluginId: PLUGIN_ID, 
+        type: "json", 
+        intlLabel: {
+          id: "map-explorer.construction-grid.label",
+          defaultMessage: "Construction Builder",
+        },
+        intlDescription: {
+          id: "map-explorer.construction-grid.description",
+          defaultMessage: "Edit 3D Construction",
+        },
+        icon: PluginIcon,
+        components: {
+          Input: async () =>
+            import('./components/VoxelInput').then((module) => ({
+              default: module.VoxelInput,
+            })),
+        },
+        options: {},
+    });
+
+    app.customFields.register({
+        name: "world-grid",
+        pluginId: PLUGIN_ID, 
+        type: "json", 
+        intlLabel: {
+          id: "map-explorer.world-grid.label",
+          defaultMessage: "World Map",
+        },
+        intlDescription: {
+          id: "map-explorer.world-grid.description",
+          defaultMessage: "View/Edit World Chunks",
+        },
+        icon: PluginIcon,
+        components: {
+          Input: async () =>
+            import('./components/WorldVoxelInput').then((module) => ({
+              default: module.WorldVoxelInput,
+            })),
+        },
+        options: {},
     });
   },
 

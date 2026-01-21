@@ -1,0 +1,90 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tags",
+  "info": {
+    "singularName": "tag",
+    "pluralName": "tags",
+    "displayName": "Tag",
+    "description": "Unified Tagging System for Entities, Terrains, and Knowledge"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "custom",
+        "mechanic",
+        "lore",
+        "visual",
+        "meta",
+        "terrain",
+        "school",
+        "language",
+        "damage",
+        "condition",
+        "size",
+        "alignment",
+        "rarity"
+      ],
+      "default": "custom",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})|rgba\\(.*\\)|transparent$",
+      "default": "#333333"
+    },
+    "description": {
+      "type": "text"
+    },
+    "terrains": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::terrain.terrain",
+      "mappedBy": "tags"
+    },
+    "knowledge_sources": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::knowledge-source.knowledge-source",
+      "mappedBy": "tags"
+    },
+    "entities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::entity.entity",
+      "mappedBy": "tags"
+    },
+    "spells": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::spell.spell",
+      "mappedBy": "tags"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::item.item",
+      "mappedBy": "tags"
+    },
+    "features": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::feature.feature",
+      "mappedBy": "tags"
+    }
+  }
+}

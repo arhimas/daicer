@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_queue_configs",
+  "info": {
+    "displayName": "Config",
+    "icon": "cog",
+    "description": "Configuration for a specific queue"
+  },
+  "options": {},
+  "attributes": {
+    "queueName": {
+      "type": "enumeration",
+      "enum": [
+        "embedding",
+        "generate-text-remote",
+        "generate-text-local",
+        "maintenance",
+        "genesis",
+        "compile",
+        "translate-entity"
+      ],
+      "required": true
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "concurrency": {
+      "type": "integer",
+      "default": 1,
+      "min": 1,
+      "required": true
+    },
+    "settings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "queue.settings"
+    }
+  }
+}

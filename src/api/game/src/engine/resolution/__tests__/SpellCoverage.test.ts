@@ -43,7 +43,7 @@ const targetEntity = {
 };
 
 // Enrichment Map to simulate "Polished" data
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const SPELL_CONFIGS: Record<string, any> = {
   // ---------------- HEALS ----------------
   'cure-wounds': {

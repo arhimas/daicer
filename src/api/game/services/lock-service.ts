@@ -2,9 +2,9 @@
  * LockService
  * Handles pessimistic locking for Room Turns to prevent race conditions.
  */
-import { factories } from '@strapi/strapi';
+import { Core } from '@strapi/strapi';
 
-export default factories.createCoreService('api::game.lock-service', ({ strapi }) => ({
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Attempt to acquire a lock for a room.
    * @param roomId The ID of the room to lock.
@@ -113,4 +113,4 @@ export default factories.createCoreService('api::game.lock-service', ({ strapi }
     });
     return locks.length > 0;
   },
-}));
+});

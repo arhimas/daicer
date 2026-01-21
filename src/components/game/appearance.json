@@ -27,6 +27,10 @@
     },
     "description": {
       "type": "text"
+    },
+    "texture": {
+      "type": "customField",
+      "customField": "plugin::map-explorer.texture-grid"
     }
   }
 }

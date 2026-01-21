@@ -43,12 +43,14 @@ export class StructureRenderer {
     const limitY = tiles[0].length;
     const limitX = tiles[0][0].length;
     if (lx >= 0 && lx < limitX && ly >= 0 && ly < limitY && lz >= 0 && lz <= 6) {
-      const t = tiles[lz][ly][lx];
+      if (tiles[lz] && tiles[lz][ly] && tiles[lz][ly][lx]) {
+        const t = tiles[lz][ly][lx];
       t.block = block;
       t.isWalkable = (
         [BlockType.FLOOR_STONE, BlockType.FLOOR_WOOD, BlockType.STAIRS_UP, BlockType.STAIRS_DOWN] as BlockType[]
       ).includes(block);
-      t.isTransparent = t.isWalkable;
+        t.isTransparent = t.isWalkable;
+      }
     }
   }
 

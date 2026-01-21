@@ -53,7 +53,12 @@ async function main() {
          const items = await strapi.documents('api::item.item').findMany({ fields: ['slug', 'documentId'] });
          return new Map(items.map((i: any) => [i.slug, i.documentId]));
     };
-    let dbItemMap = await refreshItemMap();
+    const dbItemMap = await refreshItemMap();
+
+    // 1.1 Load Tags Map
+    const allTags = await strapi.documents('api::tag.tag' as any).findMany({ fields: ['name', 'documentId'] });
+    const tagMap = new Map<string, string>(allTags.map((t: any) => [t.name.toLowerCase(), t.documentId]));
+    console.log(`🏷️  Loaded ${tagMap.size} tags for reference.`);
         
     for (const file of files) {
         const filePath = path.join(backendRoot, file);
@@ -263,7 +268,20 @@ async function main() {
                 }
             }
 
-            // 4. Construct Entity Payload
+            // 4. Resolve Tags
+            const relatedTags: string[] = [];
+            
+            // Helper to add tag if exists
+            const addTag = (name: string) => {
+                const id = tagMap.get(name.toLowerCase());
+                if (id) relatedTags.push(id);
+            };
+
+            if (entry.type) addTag(entry.type); // e.g. "Fiend"
+            if (entry.size) addTag(entry.size); // e.g. "Large"
+            if (entry.alignment) addTag(entry.alignment); // e.g. "Lawful Evil"
+
+            // 5. Construct Entity Payload
             const payload: any = {
                 slug: entry.slug,
                 name: entry.name,
@@ -280,6 +298,7 @@ async function main() {
                 stats: entry.stats, // component
                 actions: actionIds, // relation
                 inventory: finalInventory, // component
+                tags: relatedTags, // relation
             } as any;
 
             try {

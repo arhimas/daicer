@@ -33,7 +33,7 @@ async function verify() {
 
       // DEBUG INJECTION
 
-      console.log(chalk.bold.magenta('\n🧪 Starting SOTA Search Verification Suite...\n'));
+      console.log(chalk.bold.magenta('\n🧪 Starting Search Verification Suite...\n'));
 
       const suite = [
         {
@@ -98,13 +98,13 @@ async function verify() {
 
       console.log(chalk.bold(`\nSummary: ${passed}/${suite.length} Tests Passed`));
       if (passed === suite.length) {
-        console.log(chalk.green.bold('All SOTA checks verified. Granularity Logic is SOLID. 🚀'));
+        console.log(chalk.green.bold('All Granularity checks verified. Granularity Logic is SOLID. 🚀'));
       } else {
         console.log(chalk.red.bold('Some tests failed. Check logic. ⚠️'));
       }
     }
 
-    await runTests(); // Run the new SOTA tests
+    await runTests(); // Run the new Granularity tests
 
     console.log('\n🧪 Verifying Unified Search Service (Legacy Tests)...');
 

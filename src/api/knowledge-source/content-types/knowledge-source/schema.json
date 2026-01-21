@@ -22,8 +22,10 @@
       "required": true
     },
     "tags": {
-      "type": "json",
-      "required": false
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "knowledge_sources"
     },
     "origin": {
       "type": "enumeration",

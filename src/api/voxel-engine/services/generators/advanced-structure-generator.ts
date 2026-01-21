@@ -313,7 +313,7 @@ export class AdvancedStructureGenerator {
 
         StructureRenderer.carveRoom(tiles, cx, cy, rx, ry, w, h, z);
 
-        // SOTA: Treasure placement!
+        // Feature: Treasure placement!
         if (rng.next() < 0.4) {
           // Place chest in corner
           StructureRenderer.setBlock(tiles, cx, cy, rx, ry, z, BlockType.CHEST);

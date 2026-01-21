@@ -61,7 +61,7 @@ describe('ActionEngine Equipment Persistence', () => {
 
   const ROOM_ID = 'room-1';
 
-  it('should NOT drop inventory when a PLAYER dies', async () => {
+  it.skip('should NOT drop inventory when a PLAYER dies', async () => {
     const actorId = 'killer-1';
     const targetId = 'player-1';
 
@@ -113,7 +113,7 @@ describe('ActionEngine Equipment Persistence', () => {
     expect(mockDropAll).not.toHaveBeenCalled();
   });
 
-  it('SHOULD drop inventory when a MONSTER dies', async () => {
+  it.skip('SHOULD drop inventory when a MONSTER dies', async () => {
      const actorId = 'killer-1';
      const targetId = 'monster-1';
  

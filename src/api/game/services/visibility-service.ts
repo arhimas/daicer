@@ -1,4 +1,5 @@
-import { factories } from '@strapi/strapi';
+
+import { Core } from '@strapi/strapi';
 
 interface Position {
   x: number;
@@ -10,7 +11,7 @@ interface Position {
 const VIEW_RADIUS_CHUNKS = 1; // 3x3 Grid around player
 const VIEW_RADIUS_TILES = 20; // Exact tile distance check
 
-export default factories.createCoreService('api::game.visibility-service', () => ({
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   getVisibleChunkCoords(centerPos: Position) {
     const centerChunkX = Math.floor(centerPos.x / 16);
     const centerChunkY = Math.floor(centerPos.y / 16);
@@ -54,4 +55,4 @@ export default factories.createCoreService('api::game.visibility-service', () =>
       return this.isEntityVisible(observerPos, pos);
     });
   },
-}));
+});

@@ -100,7 +100,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       documentId: roomDocumentId,
       data: {
         players: updatedPlayers,
-      } as Partial<RoomWithSheets>, // Using Partial for update data structure if exact type not available or broad
+      } as any, // Using Partial for update data structure if exact type not available or broad
     });
 
     return updatedPlayers;

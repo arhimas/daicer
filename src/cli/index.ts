@@ -8,6 +8,7 @@ import { knowledgeCommand } from './commands/knowledge';
 import { genesisCommand, runGenesis } from './commands/genesis';
 import { compileCommand, runCompile } from './commands/compile';
 import { embedCommand, runEmbed } from './commands/embed';
+import { logsCommand } from './commands/logs';
 
 const program = new Command();
 
@@ -21,6 +22,7 @@ program.addCommand(knowledgeCommand);
 program.addCommand(genesisCommand);
 program.addCommand(compileCommand);
 program.addCommand(embedCommand);
+program.addCommand(logsCommand);
 
 // Parse Arguments
 // Global Pre-Action: Banner logic
@@ -100,6 +102,7 @@ if (!process.argv.slice(2).length) {
           { name: '⚛️  Genesis (Seed Data)', value: 'genesis' },
           { name: '🛠️  Compile Entities', value: 'compile' },
           { name: '🧠 Re-Embed All', value: 'embed' },
+          { name: '📜 Logs Viewer', value: 'logs' },
           { name: '--------------------------------', value: 'sep2', disabled: true },
           { name: '🚪 Exit', value: 'exit' },
         ],
@@ -142,6 +145,10 @@ if (!process.argv.slice(2).length) {
             choices: [{ name: 'Yes', value: true }, { name: 'No (Foreground)', value: false }],
           });
            await runEmbed('all', { queue });
+        } else if (action === 'logs') {
+           // We can't really call the command action directly easily without sub-parsing, 
+           // but we can spawn the logic. For now just say use the CLI arg.
+           console.log("Please run 'yarn cli logs' directly for the interactive viewer.");
         }
       } catch {
         // Catch command errors to prevent crashing the menu

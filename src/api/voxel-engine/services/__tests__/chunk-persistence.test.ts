@@ -60,6 +60,10 @@ describe('ChunkManager Persistence', () => {
         }),
       },
     };
+    // Mock Strapi Documents API
+    (global as any).strapi.documents = vi.fn().mockImplementation(() => ({
+      findMany: mockDbFindMany, // Re-use the db mock for documents API too
+    }));
 
     chunkManager = ChunkManager.getInstance();
   });
@@ -79,7 +83,7 @@ describe('ChunkManager Persistence', () => {
     // 2. Update Cache (only if cached)
     // We strictly want to test Persistence (Step 1).
 
-    await chunkManager.editVoxel(chunkX, chunkY, voxelX, voxelY, voxelZ, newType as any, 'testing', metadata);
+    await chunkManager.editVoxel(chunkX, chunkY, voxelX, voxelY, voxelZ, newType as any, 'testing', undefined, metadata);
 
     expect(mockDbCreate).toHaveBeenCalledWith({
       data: expect.objectContaining({

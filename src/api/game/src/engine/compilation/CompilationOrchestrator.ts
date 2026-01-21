@@ -50,14 +50,16 @@ export class CompilationOrchestrator {
      strapi.log.info(`[Compilation] Processing Collection: ${uid}`);
      
      const populate = this.getPopulate(uid);
-     
+
      // 1. Fetchall
      const entries = await strapi.entityService.findMany(uid, {
          populate
      });
 
-     for (const entry of entries) {
-         await this.compileEntity(uid, entry.id, entry);
+     if (Array.isArray(entries)) {
+         for (const entry of entries) {
+             await this.compileEntity(uid, (entry as any).id, entry);
+         }
      }
   }
 
@@ -142,19 +144,11 @@ export class CompilationOrchestrator {
           }
       });
 
-      // If Invalid, Create Report
-      if (!result.success) {
-          await strapi.entityService.create('api::compilation-report.compilation-report', {
-              data: {
-                  phase: 'Atom', // dynamic later
-                  entityType: uid,
-                  entityId: String(id), // Strapi 5 might use Document ID, ensure string
-                  severity: 'Fatal',
-                  error: result.error || 'Unknown Error',
-                  logs: result.logs,
-                  resolved: false
-              }
-          });
+      // 2. Log Result
+      if (result.status === 'Valid') {
+        strapi.log.info(`[Compilation] ${uid}:${id} -> ${result.status}`);
+      } else {
+        strapi.log.warn(`[Compilation] ${uid}:${id} -> ${result.status} (${result.error})`);
       }
   }
 }

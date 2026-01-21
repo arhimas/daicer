@@ -1,1 +1,4 @@
-export default ['backend', 'frontend'];
+export default [
+    '.', 
+    'src/plugins/*'
+];

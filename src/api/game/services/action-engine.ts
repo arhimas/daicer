@@ -450,7 +450,7 @@ export default ({ strapi }) => ({
           const lx = ((px % chunkSize) + chunkSize) % chunkSize;
           const ly = ((py % chunkSize) + chunkSize) % chunkSize;
 
-          await cm.editVoxel(cx, cy, lx, ly, pz, undefined, 'Entity Death', {
+          await cm.editVoxel(cx, cy, lx, ly, pz, undefined, roomId, 'Entity Death', {
             type: 'death_marker',
             victim: (target as { name?: string }).name || 'Entity',
           });

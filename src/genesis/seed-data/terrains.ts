@@ -1,0 +1,86 @@
+
+export interface TerrainSeed {
+    name: string;
+    slug: string;
+    color: string;
+    isWalkable: boolean;
+    isTransparent: boolean;
+    isLiquid: boolean;
+    damagePerTick: number;
+    luminance: number; // 0-15
+    moisture: number; // 0.0 - 1.0 (Desert - Swamp)
+    temperature: number; // 0.0 - 1.0 (Frozen - Hell)
+    tags: string[];
+    noise_config?: {
+        octaves: number;
+        persistence: number;
+        lacunarity: number;
+        scale: number;
+        height_offset: number;
+    };
+}
+
+const DEFAULT_NOISE = { octaves: 4, persistence: 0.5, lacunarity: 2.0, scale: 1.0, height_offset: 0.0 };
+
+export const TERRAINS: TerrainSeed[] = [
+    // --- EXISTING TYPES ---
+    { name: 'Air', slug: 'air', color: 'transparent', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.5, temperature: 0.5, tags: ['core'], noise_config: { ...DEFAULT_NOISE, scale: 0 } },
+    { name: 'Stone', slug: 'stone', color: '#7d7d7d', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.1, temperature: 0.5, tags: ['natural', 'mineral'], noise_config: { ...DEFAULT_NOISE, scale: 20, octaves: 5 } },
+    { name: 'Dirt', slug: 'dirt', color: '#5d4037', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.5, temperature: 0.5, tags: ['natural', 'soil'], noise_config: { ...DEFAULT_NOISE, scale: 15 } },
+    { name: 'Grass', slug: 'grass', color: '#388e3c', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.6, temperature: 0.5, tags: ['natural', 'vegetation'], noise_config: { ...DEFAULT_NOISE, scale: 10, persistence: 0.6 } },
+    { name: 'Water', slug: 'water', color: '#1976d2', isWalkable: true, isTransparent: true, isLiquid: true, damagePerTick: 0, luminance: 0, moisture: 1.0, temperature: 0.5, tags: ['natural', 'liquid'] },
+    { name: 'Sand', slug: 'sand', color: '#fbc02d', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.8, tags: ['natural', 'soil'] },
+    { name: 'Wood', slug: 'wood', color: '#5d4037', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.4, temperature: 0.5, tags: ['natural', 'vegetation'] },
+    { name: 'Leaves', slug: 'leaves', color: '#2e7d32', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.6, temperature: 0.5, tags: ['natural', 'vegetation'] },
+    { name: 'Snow', slug: 'snow', color: '#ffffff', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.8, temperature: 0.1, tags: ['natural', 'cold'] },
+    { name: 'Ice', slug: 'ice', color: '#90caf9', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.9, temperature: 0.0, tags: ['natural', 'cold'] },
+    { name: 'Lava', slug: 'lava', color: '#d32f2f', isWalkable: false, isTransparent: false, isLiquid: true, damagePerTick: 10, luminance: 15, moisture: 0.0, temperature: 1.0, tags: ['natural', 'hot', 'hazard'] },
+    { name: 'Bedrock', slug: 'bedrock', color: '#212121', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.0, tags: ['natural', 'indestructible'] },
+    { name: 'Gravel', slug: 'gravel', color: '#9e9e9e', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.2, temperature: 0.5, tags: ['natural', 'soil'] },
+    { name: 'Obsidian', slug: 'obsidian', color: '#000000', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.2, tags: ['natural', 'volcanic'] },
+    { name: 'Glass', slug: 'glass', color: 'rgba(255, 255, 255, 0.3)', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.5, tags: ['artificial'] },
+    { name: 'Planks', slug: 'planks', color: '#8d6e63', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.3, temperature: 0.5, tags: ['artificial'] },
+    { name: 'Brick', slug: 'brick', color: '#b71c1c', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.1, temperature: 0.5, tags: ['artificial'] },
+    { name: 'Cobblestone', slug: 'cobblestone', color: '#616161', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.2, temperature: 0.5, tags: ['artificial'] },
+    { name: 'Sandstone', slug: 'sandstone', color: '#f57f17', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.7, tags: ['natural'] },
+    { name: 'Clay', slug: 'clay', color: '#9fa8da', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.8, temperature: 0.5, tags: ['natural'] },
+    { name: 'Gold Ore', slug: 'gold_ore', color: '#fdd835', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.1, temperature: 0.5, tags: ['natural', 'ore'] },
+    { name: 'Iron Ore', slug: 'iron_ore', color: '#d7ccc8', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.1, temperature: 0.5, tags: ['natural', 'ore'] },
+    { name: 'Coal Ore', slug: 'coal_ore', color: '#424242', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.1, temperature: 0.5, tags: ['natural', 'ore'] },
+    { name: 'Diamond Ore', slug: 'diamond_ore', color: '#00bcd4', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.1, temperature: 0.5, tags: ['natural', 'ore'] },
+    { name: 'Torch', slug: 'torch', color: '#ffeb3b', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 14, moisture: 0.0, temperature: 0.8, tags: ['artificial', 'light'] },
+    { name: 'Chest', slug: 'chest', color: '#795548', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.3, temperature: 0.5, tags: ['artificial', 'storage'] },
+    { name: 'Crafting Table', slug: 'crafting_table', color: '#d7ccc8', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.3, temperature: 0.5, tags: ['artificial'] },
+    { name: 'Furnace', slug: 'furnace', color: '#616161', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.8, tags: ['artificial'] },
+    { name: 'Door', slug: 'door', color: '#795548', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.3, temperature: 0.5, tags: ['artificial'] },
+    { name: 'Fence', slug: 'fence', color: '#8d6e63', isWalkable: false, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.3, temperature: 0.5, tags: ['artificial'] },
+
+    // --- 20 NEW TYPES ---
+    // Magical / Exotic
+    { name: 'Arcane Crystal', slug: 'arcane_crystal', color: '#800080', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 1, luminance: 8, moisture: 0.5, temperature: 0.5, tags: ['magical', 'hazard'] },
+    { name: 'Ethereal Mist', slug: 'ethereal_mist', color: 'rgba(230, 230, 250, 0.4)', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 4, moisture: 1.0, temperature: 0.5, tags: ['magical', 'gas'] },
+    { name: 'Void Stone', slug: 'void_stone', color: '#0a0a0a', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.0, tags: ['magical', 'dark'] },
+    { name: 'Solis Bricks', slug: 'solis_bricks', color: '#ffcc00', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 10, moisture: 0.0, temperature: 0.9, tags: ['magical', 'artificial'] },
+    
+    // Industrial / Dungeon
+    { name: 'Steel Grate', slug: 'steel_grate', color: '#607d8b', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.5, tags: ['artificial', 'industrial'] },
+    { name: 'Acid Pool', slug: 'acid_pool', color: '#76ff03', isWalkable: false, isTransparent: false, isLiquid: true, damagePerTick: 5, luminance: 4, moisture: 1.0, temperature: 0.6, tags: ['industrial', 'hazard', 'liquid'] },
+    { name: 'Rusty Metal', slug: 'rusty_metal', color: '#8d6e63', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.8, temperature: 0.5, tags: ['artificial', 'decay'] },
+    { name: 'Dungeon Floor', slug: 'dungeon_floor', color: '#455a64', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.6, temperature: 0.3, tags: ['dungeon', 'artificial'] },
+    
+    // Biome Variants
+    { name: 'Mud', slug: 'mud', color: '#4e342e', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 1.0, temperature: 0.5, tags: ['natural', 'soil', 'swamp'] },
+    { name: 'Permafrost', slug: 'permafrost', color: '#cfd8dc', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.5, temperature: 0.0, tags: ['natural', 'cold', 'soil'] },
+    { name: 'Red Sand', slug: 'red_sand', color: '#bf360c', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.9, tags: ['natural', 'soil', 'desert'] },
+    { name: 'Jungle Wood', slug: 'jungle_wood', color: '#3e2723', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.9, temperature: 0.8, tags: ['natural', 'vegetation', 'jungle'] },
+    { name: 'Savanna Grass', slug: 'savanna_grass', color: '#8bc34a', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.3, temperature: 0.8, tags: ['natural', 'vegetation', 'savanna'] },
+    { name: 'Mycelium', slug: 'mycelium', color: '#7e57c2', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.7, temperature: 0.5, tags: ['natural', 'fungi'] },
+    
+    // Structures
+    { name: 'Bookshelf', slug: 'bookshelf', color: '#8d6e63', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.2, temperature: 0.5, tags: ['artificial', 'furniture'] },
+    { name: 'Altar', slug: 'altar', color: '#263238', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 2, moisture: 0.0, temperature: 0.5, tags: ['artificial', 'religious'] },
+    { name: 'Throne', slug: 'throne', color: '#fdd835', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.0, temperature: 0.5, tags: ['artificial', 'furniture', 'royal'] },
+    { name: 'Scaffolding', slug: 'scaffolding', color: '#ffecb3', isWalkable: true, isTransparent: true, isLiquid: false, damagePerTick: 0, luminance: 0, moisture: 0.2, temperature: 0.5, tags: ['artificial', 'industrial'] },
+    { name: 'Spike Trap', slug: 'spike_trap', color: '#9e9e9e', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 15, luminance: 0, moisture: 0.3, temperature: 0.5, tags: ['artificial', 'trap'] },
+    { name: 'Teleporter Pad', slug: 'teleporter_pad', color: '#00e5ff', isWalkable: true, isTransparent: false, isLiquid: false, damagePerTick: 0, luminance: 10, moisture: 0.0, temperature: 0.5, tags: ['artificial', 'tech'] },
+];

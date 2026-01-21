@@ -49,6 +49,7 @@ export interface GameAppearance extends Struct.ComponentSchema {
     hair: Schema.Attribute.String;
     height: Schema.Attribute.Decimal;
     skin: Schema.Attribute.String;
+    texture: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.texture-grid'>;
     weight: Schema.Attribute.Decimal;
   };
 }
@@ -654,6 +655,114 @@ export interface GameStats extends Struct.ComponentSchema {
   };
 }
 
+export interface QueueConfig extends Struct.ComponentSchema {
+  collectionName: 'components_queue_configs';
+  info: {
+    description: 'Configuration for a specific queue';
+    displayName: 'Config';
+    icon: 'cog';
+  };
+  attributes: {
+    concurrency: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.Required & Schema.Attribute.DefaultTo<true>;
+    queueName: Schema.Attribute.Enumeration<
+      [
+        'embedding',
+        'generate-text-remote',
+        'generate-text-local',
+        'maintenance',
+        'genesis',
+        'compile',
+        'translate-entity',
+      ]
+    > &
+      Schema.Attribute.Required;
+    settings: Schema.Attribute.Component<'queue.settings', false>;
+  };
+}
+
+export interface QueueSettings extends Struct.ComponentSchema {
+  collectionName: 'components_queue_settings';
+  info: {
+    description: 'Advanced BullMQ settings';
+    displayName: 'Settings';
+    icon: 'sliders-h';
+  };
+  attributes: {
+    removeOnComplete: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    removeOnFail: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    retryAttempts: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<3>;
+    retryDelay: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1000>;
+    timeout: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+  };
+}
+
+export interface WorldNoiseConfig extends Struct.ComponentSchema {
+  collectionName: 'components_world_noise_configs';
+  info: {
+    description: 'Procedural generation noise settings for biomes';
+    displayName: 'Noise Config';
+  };
+  attributes: {
+    height_offset: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<0>;
+    lacunarity: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<2>;
+    octaves: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 10;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<4>;
+    persistence: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0.5>;
+    scale: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -687,6 +796,9 @@ declare module '@strapi/strapi' {
       'game.spell-data': GameSpellData;
       'game.spellbook': GameSpellbook;
       'game.stats': GameStats;
+      'queue.config': QueueConfig;
+      'queue.settings': QueueSettings;
+      'world.noise-config': WorldNoiseConfig;
     }
   }
 }

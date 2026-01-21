@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_queue_settings",
+  "info": {
+    "displayName": "Settings",
+    "icon": "sliders-h",
+    "description": "Advanced BullMQ settings"
+  },
+  "options": {},
+  "attributes": {
+    "retryAttempts": {
+      "type": "integer",
+      "default": 3,
+      "min": 0
+    },
+    "retryDelay": {
+      "type": "integer",
+      "default": 1000,
+      "min": 0,
+      "description": "Delay between retries in milliseconds"
+    },
+    "removeOnComplete": {
+      "type": "boolean",
+      "default": true
+    },
+    "removeOnFail": {
+      "type": "boolean",
+      "default": false
+    },
+    "timeout": {
+      "type": "integer",
+      "min": 0,
+      "description": "Job timeout in milliseconds"
+    }
+  }
+}

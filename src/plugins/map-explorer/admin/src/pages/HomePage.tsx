@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Page, Layouts } from '@strapi/strapi/admin';
+import { useFetchClient } from '@strapi/strapi/admin';
 import { 
   Main, 
   Box, 
@@ -10,54 +10,20 @@ import {
   SingleSelect,
   SingleSelectOption,
   TextInput,
-  Grid
+  Grid,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  HeaderLayout,
+  ContentLayout
 } from '@strapi/design-system';
+import { House, Earth, Check, Cross } from '@strapi/icons';
 import { useIntl } from 'react-intl';
-import { useFetchClient } from '@strapi/strapi/admin';
 import { PLUGIN_ID } from '../pluginId';
-import { Chunk, WorldConfig, BlockType } from '../types';
+import { Chunk, WorldConfig, BlockType, Construction } from '../types';
 
-// Constants
-const Z_MIN = -3;
-const Z_MAX = 3;
-const TILE_SIZE = 32;
-
-// Colors
-const BLOCK_COLORS: Record<BlockType, string> = {
-  air: 'transparent',
-  stone: '#7d7d7d',
-  dirt: '#5d4037',
-  grass: '#388e3c',
-  water: '#1976d2',
-  sand: '#fbc02d',
-  wood: '#5d4037',
-  leaves: '#2e7d32',
-  snow: '#ffffff',
-  ice: '#90caf9',
-  lava: '#d32f2f',
-  bedrock: '#212121',
-  gravel: '#9e9e9e',
-  obsidian: '#000000',
-  glass: 'rgba(255, 255, 255, 0.3)',
-  planks: '#8d6e63',
-  brick: '#b71c1c',
-  cobblestone: '#616161',
-  sandstone: '#f57f17',
-  clay: '#9fa8da',
-  gold_ore: '#fdd835',
-  iron_ore: '#d7ccc8',
-  coal_ore: '#424242',
-  diamond_ore: '#00bcd4',
-  torch: '#ffeb3b',
-  chest: '#795548',
-  crafting_table: '#d7ccc8',
-  furnace: '#616161',
-  door: '#795548',
-  fence: '#8d6e63',
-  unknown: '#ff00ff'
-};
-
-const BLOCK_TYPES = Object.keys(BLOCK_COLORS) as BlockType[];
+import { Z_MIN, Z_MAX, TILE_SIZE, BLOCK_COLORS, BLOCK_TYPES } from '../constants';
 
 const HomePage = () => {
   const { formatMessage } = useIntl();
@@ -72,13 +38,69 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedBlock, setSelectedBlock] = useState<BlockType>('stone');
   const [configForm, setConfigForm] = useState<Partial<WorldConfig>>({});
+  
+  // Builder Mode State
+  const [mode, setMode] = useState<'explorer' | 'builder'>('explorer');
+  const [constructionName, setConstructionName] = useState('');
+  const [constructionCategory, setConstructionCategory] = useState<Construction['category']>('misc');
+  const [library, setLibrary] = useState<Construction[]>([]);
 
   // Initial Data Fetch
   useEffect(() => {
     fetchConfig();
     fetchChunk();
+    fetchLibrary();
   }, [chunkX, chunkY]); 
+  
+  // When switching modes, reset data if needed
+  useEffect(() => {
+      if (mode === 'builder') {
+          // Initialize empty chunk for builder
+          const emptyLayers = Array(16).fill(null).map(() => Array(16).fill(null).map(() => Array(16).fill(null)));
+          setChunk({ x: 0, y: 0, tiles: emptyLayers });
+      } else {
+          fetchChunk();
+      }
+  }, [mode]);
 
+  const fetchLibrary = async () => {
+      try {
+          const res = await get(`/${PLUGIN_ID}/constructions`);
+          if (res.data) setLibrary(res.data);
+      } catch (e) {
+          console.error('Failed to fetch library', e);
+      }
+  };
+  
+  const loadConstruction = (c: Construction) => {
+      // Convert flat voxel list back to 3D array
+      const layers = Array(16).fill(null).map(() => Array(16).fill(null).map(() => Array(16).fill(null)));
+      
+      if (c.voxels && Array.isArray(c.voxels)) {
+          c.voxels.forEach(v => {
+              if (v.z >= 0 && v.z < 16 && v.y >= 0 && v.y < 16 && v.x >= 0 && v.x < 16) {
+                 if (!layers[v.z]) layers[v.z] = Array(16).fill(null).map(() => Array(16).fill(null));
+                 if (!layers[v.z][v.y]) layers[v.z][v.y] = Array(16).fill(null);
+                 
+                 layers[v.z][v.y][v.x] = {
+                     x: v.x, y: v.y, z: v.z,
+                     block: v.type,
+                     biome: 'construction',
+                     isWalkable: true,
+                     isTransparent: false,
+                     variant: 0
+                 };
+              }
+          });
+      }
+      
+      setChunk({ x: 0, y: 0, tiles: layers });
+      setConstructionName(c.name);
+      setConstructionCategory(c.category as any);
+  };
+
+  // ... (fetchConfig, fetchChunk unchanged)
+  
   const fetchConfig = async () => {
     try {
       const res = await get(`/${PLUGIN_ID}/config`);
@@ -90,8 +112,11 @@ const HomePage = () => {
   };
 
   const fetchChunk = async () => {
+    if (mode === 'builder') return; // Don't fetch world chunk in builder mode
+
     setLoading(true);
     try {
+      // In Explorer, we fetch the world chunk
       const res = await get(`/${PLUGIN_ID}/chunk?x=${chunkX}&y=${chunkY}`);
       setChunk(res.data);
     } catch (error) {
@@ -105,7 +130,7 @@ const HomePage = () => {
     try {
         await put(`/${PLUGIN_ID}/config`, configForm);
         fetchConfig();
-        fetchChunk(); // Refresh chunk as config might change generation
+        if (mode === 'explorer') fetchChunk(); 
     } catch (error) {
         console.error('Failed to update config', error);
     }
@@ -120,128 +145,168 @@ const HomePage = () => {
     
     const tileX = Math.floor(x / TILE_SIZE);
     const tileY = Math.floor(y / TILE_SIZE);
+    
+    // Ensure Z is within bounds (0-15 for array indexing typically, or relative to sea level)
+    // Our chunk.tiles is array[16][16][16] usually? 
+    // Backend Voxel Engine usually handles infinite Z. 
+    // Frontend Chunk type is Tile[][][].
+    // Let's assume frontend logic works with relative Z for now or 0-indexed layers.
+    // NOTE: currentZ can be -3..3 
+    // We Map -3..3 to 0..6 for rendering index in line 154: `const zIndex = currentZ + 3;`
+    // So we must use that index for local updates.
+    
+    const zIndex = currentZ + 3;
 
     if (tileX >= 0 && tileX < 16 && tileY >= 0 && tileY < 16) {
-        // Optimistic update
-        // We should really update local state but simpler to re-fetch or trust backend
         
-        try {
-            await post(`/${PLUGIN_ID}/voxel`, {
-                chunkX,
-                chunkY,
-                voxelX: tileX,
-                voxelY: tileY,
-                voxelZ: currentZ,
-                newType: selectedBlock,
-                reason: 'Admin Map Explorer'
-            });
-            fetchChunk(); // Refresh to confirm
-        } catch (error) {
-            console.error('Failed to update voxel', error);
+        if (mode === 'builder') {
+             // Local Edit
+             const newChunk = { ...chunk };
+             if (!newChunk.tiles) newChunk.tiles = [];
+             if (!newChunk.tiles[zIndex]) newChunk.tiles[zIndex] = [];
+             
+             // Ensure row exists
+             if (!newChunk.tiles[zIndex][tileY]) newChunk.tiles[zIndex][tileY] = Array(16).fill(null);
+             
+             newChunk.tiles[zIndex][tileY][tileX] = {
+                 x: tileX, y: tileY, z: currentZ,
+                 block: selectedBlock,
+                 biome: 'custom',
+                 isWalkable: true, 
+                 isTransparent: false,
+                 variant: 0
+             };
+             setChunk(newChunk);
+             
+        } else {
+            // Explorer Edit (Persistent)
+            try {
+                await post(`/${PLUGIN_ID}/voxel`, {
+                    chunkX,
+                    chunkY,
+                    voxelX: tileX,
+                    voxelY: tileY,
+                    voxelZ: currentZ,
+                    newType: selectedBlock,
+                    reason: 'Admin Map Explorer'
+                });
+                fetchChunk(); 
+            } catch (error) {
+                console.error('Failed to update voxel', error);
+            }
         }
     }
   };
+  
+  // ... render loop unchanged ...
 
-  // Rendering Loop
-  useEffect(() => {
-    if (!chunk || !canvasRef.current) return;
-    const ctx = canvasRef.current.getContext('2d');
-    if (!ctx) return;
+  // ... handleNextChunk unchanged ...
 
-    // Clear
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+  const saveConstruction = async () => {
+      if (!constructionName || !chunk) return;
+      
+      // Flatten chunk to Voxel List
+      const voxels: {x:number, y:number, z:number, type: BlockType}[] = [];
+      
+      // Iterate all layers in chunk.tiles
+      // Note: chunk.tiles might be sparse or array based.
+      chunk.tiles.forEach((layer, zIdx) => {
+          if (!layer) return;
+          layer.forEach((row, y) => {
+             if (!row) return;
+             row.forEach((tile, x) => {
+                 if (tile && tile.block !== 'air') {
+                     // We map back from array index 0..16 to logical Z if needed?
+                     // line 154: zIndex = currentZ + 3. 
+                     // So Logical Z = zIndex - 3?
+                     // Or do we just save as 0..16 relative to construction base?
+                     // Let's save as Relative 0..16 for Construction.
+                     voxels.push({
+                         x, 
+                         y, 
+                         z: zIdx, // Save array index as absolute Z for construction
+                         type: tile.block
+                     });
+                 } 
+             });
+          });
+      });
 
-    const zIndex = currentZ + 3;
-
-    if (!chunk.tiles || !chunk.tiles[zIndex]) {
-        // Draw missing layer text
-        ctx.fillStyle = '#000';
-        ctx.fillText(`No Data at Z=${currentZ}`, 10, 20);
-        return;
-    }
-
-    const layer = chunk.tiles[zIndex];
-    const size = 16;
-    
-    // Resize canvas if needed
-    canvasRef.current.width = size * TILE_SIZE;
-    canvasRef.current.height = size * TILE_SIZE;
-
-    // Iterate tiles
-    for (let y = 0; y < size; y++) {
-      for (let x = 0; x < size; x++) {
-        const tile = layer[y] ? layer[y][x] : null;
-        let color = BLOCK_COLORS.unknown;
-        
-        if (tile) {
-            color = BLOCK_COLORS[tile.block as BlockType] || BLOCK_COLORS.unknown;
-        } else {
-            color = '#000000'; // Void
-        }
-        
-        ctx.fillStyle = color;
-        ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        
-        // Draw grid
-        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
-        ctx.strokeRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      try {
+          await post(`/${PLUGIN_ID}/constructions`, {
+              name: constructionName,
+              category: constructionCategory,
+              width: 16, height: 16, depth: 16,
+              voxels: voxels
+          });
+          alert('Construction saved!');
+          fetchLibrary();
+      } catch(e) {
+          console.error(e);
+          alert('Failed to save');
       }
-    }
-
-  }, [chunk, currentZ]);
-
-  const handleNextChunk = (dx: number, dy: number) => {
-    setChunkX(prev => prev + dx);
-    setChunkY(prev => prev + dy);
   };
 
   return (
-    <Page.Main>
-      <Layouts.Header
-        title="Map Explorer"
-        subtitle={`Viewing Chunk (${chunkX}, ${chunkY}) at Z=${currentZ} - Seed: ${config?.seed || 'Loading...'}`}
-        primaryAction={<Button onClick={() => fetchChunk()} loading={loading}>Refresh</Button>}
+    <Main>
+      <HeaderLayout
+        title={mode === 'builder' ? "Structure Builder" : "Map Explorer"}
+        primaryAction={
+             mode === 'builder' ? (
+                <Button startIcon={<Earth />} onClick={() => setMode('explorer')} variant="tertiary">
+                    Back to Explorer
+                </Button>
+             ) : (
+                <Button startIcon={<House />} onClick={() => setMode('builder')}>
+                    Structure Builder
+                </Button>
+             )
+        }
+        subtitle={mode === 'builder' ? "Create and save new structures" : `Exploring Chunk [${chunkX}, ${chunkY}]`}
       />
-      <Layouts.Content>
-        <Box padding={8} background="neutral100">
+      <ContentLayout>
+         <Box padding={8} background="neutral100">
+             {/* ... (Existing Grid Content) ... */}
             <Grid.Root gap={4}>
-                {/* Left Column: Controls */}
-                <Grid.Item col={3} s={12}>
-                    <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius>
-                        <Typography variant="delta" tag="h2">Navigation</Typography>
-                        <Box paddingTop={4}>
-                            <Flex gap={2} justifyContent="center" paddingBottom={2}>
-                                <Button onClick={() => handleNextChunk(0, -1)}>North</Button>
-                            </Flex>
-                            <Flex gap={2} justifyContent="center">
-                                <Button onClick={() => handleNextChunk(-1, 0)}>West</Button>
-                                <Box padding={2}><Typography>({chunkX}, {chunkY})</Typography></Box>
-                                <Button onClick={() => handleNextChunk(1, 0)}>East</Button>
-                            </Flex>
-                            <Flex gap={2} justifyContent="center" paddingTop={2}>
-                                <Button onClick={() => handleNextChunk(0, 1)}>South</Button>
-                            </Flex>
-                        </Box>
-                        
-                        <Box paddingTop={6}>
-                        <Typography variant="sigma" tag="h3">Z-Level ({currentZ})</Typography>
-                        <Flex gap={2} paddingTop={2}>
-                            <Button 
-                                disabled={currentZ <= Z_MIN} 
-                                onClick={() => setCurrentZ(z => Math.max(Z_MIN, z - 1))}
-                            >
-                                Down
-                            </Button>
-                            <Button 
-                                disabled={currentZ >= Z_MAX} 
-                                onClick={() => setCurrentZ(z => Math.min(Z_MAX, z + 1))}
-                            >
-                                Up
-                            </Button>
-                        </Flex>
-                        </Box>
+                 <Grid.Item col={3} s={12}>
+                      <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius>
+                        <Typography variant="delta" tag="h2">{mode === 'builder' ? "Builder Tools" : "Navigation"}</Typography>
+                         
+                         {/* Navigation Controls */}
+                         {mode === 'explorer' && (
+                             <Box paddingTop={4}>
+                                 <Flex gap={2}>
+                                     <Box>
+                                        <Typography variant="pi" fontWeight="bold">X: </Typography>
+                                        <NumberInput value={chunkX} onValueChange={setChunkX} />
+                                     </Box>
+                                     <Box>
+                                        <Typography variant="pi" fontWeight="bold">Y: </Typography>
+                                        <NumberInput value={chunkY} onValueChange={setChunkY} />
+                                     </Box>
+                                 </Flex>
+                             </Box>
+                         )}
 
-                        <Box paddingTop={6}>
+                         <Box paddingTop={6}>
+                            <Typography variant="sigma" tag="h3">Z-Level ({currentZ})</Typography>
+                             <Flex gap={2} paddingTop={2}>
+                             <Button 
+                                 disabled={currentZ <= Z_MIN} 
+                                 onClick={() => setCurrentZ(z => Math.max(Z_MIN, z - 1))}
+                             >
+                                 Down
+                             </Button>
+                             <Button 
+                                 disabled={currentZ >= Z_MAX} 
+                                 onClick={() => setCurrentZ(z => Math.min(Z_MAX, z + 1))}
+                             >
+                                 Up
+                             </Button>
+                         </Flex>
+                         </Box>
+                         
+                         <Box paddingTop={6}>
                             <Typography variant="sigma" tag="h3">Brush</Typography>
                             <SingleSelect 
                                 label="Block Type" 
@@ -253,58 +318,105 @@ const HomePage = () => {
                                 ))}
                             </SingleSelect>
                         </Box>
-                    </Box>
-                </Grid.Item>
 
-                {/* Middle Column: Map */}
-                <Grid.Item col={6} s={12}>
-                    <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius style={{ display: 'flex', justifyContent: 'center' }}>
-                        <canvas 
-                            ref={canvasRef} 
-                            onClick={handleCanvasClick}
-                            style={{ cursor: 'crosshair', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}
-                        />
-                    </Box>
-                </Grid.Item>
-                
-                {/* Right Column: Config */}
+                     </Box>
+                 </Grid.Item>
+
+                 <Grid.Item col={6} s={12}>
+                     <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius style={{ display: 'flex', justifyContent: 'center' }}>
+                         <canvas 
+                             ref={canvasRef} 
+                             onClick={handleCanvasClick}
+                             style={{ cursor: 'crosshair', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}
+                         />
+                     </Box>
+                 </Grid.Item>
+                 
                 <Grid.Item col={3} s={12}>
                     <Box background="neutral0" padding={4} shadow="filterShadow" hasRadius>
-                        <Typography variant="delta" tag="h2">World Config</Typography>
-                        <Box paddingTop={4}>
-                            <TextInput 
-                                label="Seed" 
-                                name="seed" 
-                                value={configForm.seed || ''} 
-                                onChange={(e: any) => setConfigForm(s => ({...s, seed: e.target.value}))}
-                            />
-                        </Box>
-                        <Box paddingTop={2}>
-                            <NumberInput 
-                                label="Chunk Size" 
-                                name="chunkSize" 
-                                value={configForm.chunkSize || 16} 
-                                onValueChange={(val: number) => setConfigForm(s => ({...s, chunkSize: val}))}
-                            />
-                        </Box>
-                        <Box paddingTop={2}>
-                            <NumberInput 
-                                label="Sea Level" 
-                                name="seaLevel" 
-                                value={configForm.seaLevel || 0}
-                                step={0.1} 
-                                onValueChange={(val: number) => setConfigForm(s => ({...s, seaLevel: val}))}
-                            />
-                        </Box>
-                        <Box paddingTop={4}>
-                            <Button fullWidth onClick={handleUpdateConfig}>Save Config</Button>
-                        </Box>
+                        {mode === 'builder' ? (
+                            <>
+                                <Typography variant="delta" tag="h2">Save Construction</Typography>
+                                <Box paddingTop={4}>
+                                    <TextInput 
+                                        label="Name" 
+                                        name="c_name" 
+                                        value={constructionName} 
+                                        onChange={(e: any) => setConstructionName(e.target.value)}
+                                    />
+                                </Box>
+                                <Box paddingTop={2}>
+                                    <SingleSelect 
+                                        label="Category" 
+                                        value={constructionCategory} 
+                                        onChange={setConstructionCategory}
+                                    >
+                                        {['village', 'castle', 'tower', 'dungeon', 'house', 'shop', 'temple', 'misc'].map(c => (
+                                           <SingleSelectOption key={c} value={c}>{c}</SingleSelectOption> 
+                                        ))}
+                                    </SingleSelect>
+                                </Box>
+                                <Box paddingTop={4}>
+                                    <Button fullWidth onClick={saveConstruction} startIcon={<Check />}>Save Structure</Button>
+                                </Box>
+                                
+                                <Box paddingTop={8} paddingBottom={2}>
+                                    <Typography variant="delta" tag="h3">Library</Typography>
+                                </Box>
+                                <Box background="neutral100" padding={2} hasRadius style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                                    {library.length === 0 && <Typography variant="pi" textColor="neutral600">No structures saved.</Typography>}
+                                    {library.map(c => (
+                                        <Box key={c.documentId} padding={2} marginBottom={2} background="neutral0" shadow="filterShadow" hasRadius cursor="pointer" onClick={() => loadConstruction(c)}>
+                                            <Flex justifyContent="space-between">
+                                                <Typography fontWeight="bold">{c.name}</Typography>
+                                                <Typography variant="pi">{c.category}</Typography>
+                                            </Flex>
+                                            <Box paddingTop={1}>
+                                                <Typography variant="pi" textColor="neutral600">{c.voxels?.length || 0} voxels</Typography>
+                                            </Box>
+                                        </Box>
+                                    ))}
+                                </Box>
+                            </>
+                        ) : (
+                            <>
+                                <Typography variant="delta" tag="h2">World Config</Typography>
+                                <Box paddingTop={4}>
+                                    <TextInput 
+                                        label="Seed" 
+                                        name="seed" 
+                                        value={configForm.seed || ''} 
+                                        onChange={(e: any) => setConfigForm(s => ({...s, seed: e.target.value}))}
+                                    />
+                                </Box>
+                                <Box paddingTop={2}>
+                                    <NumberInput 
+                                        label="Chunk Size" 
+                                        name="chunkSize" 
+                                        value={configForm.chunkSize || 16} 
+                                        onValueChange={(val: number) => setConfigForm(s => ({...s, chunkSize: val}))}
+                                    />
+                                </Box>
+                                <Box paddingTop={2}>
+                                    <NumberInput 
+                                        label="Sea Level" 
+                                        name="seaLevel" 
+                                        value={configForm.seaLevel || 0}
+                                        step={0.1} 
+                                        onValueChange={(val: number) => setConfigForm(s => ({...s, seaLevel: val}))}
+                                    />
+                                </Box>
+                                <Box paddingTop={4}>
+                                    <Button fullWidth onClick={handleUpdateConfig}>Save Config</Button>
+                                </Box>
+                            </>
+                        )}
                     </Box>
                 </Grid.Item>
             </Grid.Root>
-        </Box>
-      </Layouts.Content>
-    </Page.Main>
+         </Box>
+      </ContentLayout>
+    </Main>
   );
 };
 

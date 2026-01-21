@@ -59,20 +59,22 @@ async function main() {
       console.error('❌ Manifest not found.');
   }
 
-  // 5. SOTA Pipeline (Audit -> Merge -> Seed)
-  log('🧬 Running SOTA Pipeline...');
+  // 5. Canonical Pipeline (Audit -> Merge -> Seed)
+  log('🧬 Running Canonical Pipeline...');
+  console.log('🔄  \x1b[1m\x1b[36mRunning Seed Compiler (Building TS Seeds)...\x1b[0m');
   try {
-      // Merge (Raw + Audit -> Seed)
-      log('   - Merging Canonical Seeds...');
-      execSync('yarn ts-node src/scripts/genesis/sota-merge.ts', { stdio: 'inherit', cwd: process.cwd() });
-      
-      // Seed (Seed -> DB)
-      log('   - Seeding Database...');
-      execSync('yarn ts-node src/scripts/genesis/sota-seed.ts', { stdio: 'inherit', cwd: process.cwd() });
+    execSync('yarn ts-node --transpile-only src/scripts/genesis/compile-seeds.ts', { stdio: 'inherit', cwd: process.cwd() });
+  } catch (error) {
+    console.error('❌ Seed Compilation failed.');
+    process.exit(1);
+  }
 
-  } catch (e) {
-      console.error('❌ SOTA Pipeline failed.', e);
-      process.exit(1);
+  console.log('🌱  \x1b[1m\x1b[36mRunning Canonical Seed (Ingesting to Strapi)...\x1b[0m');
+  try {
+    execSync('yarn ts-node --transpile-only src/scripts/genesis/canonical-seed.ts', { stdio: 'inherit', cwd: process.cwd() });
+  } catch (error) {
+    console.error('❌ Canonical Pipeline failed.');
+    process.exit(1);
   }
 
   log('✨ Genesis Reboot Successful.');

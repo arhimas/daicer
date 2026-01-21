@@ -394,8 +394,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           // We access Room strictly
           const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
           // Safe entropy access
-          const roomWorld = room?.world && typeof room.world === 'object' ? room.world : {};
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const roomAny = room as any;
+          const roomWorld = roomAny?.world && typeof roomAny.world === 'object' ? roomAny.world : {};
           const current = 'time' in roomWorld ? (roomWorld as any).time : 0;
           const day = Math.floor(current / 86400);
           newTime = day * 86400 + hours * 3600 + minutes * 60;
@@ -409,7 +410,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
     // Update
     const oldRoom = await strapi.documents('api::room.room').findOne({ documentId: roomId });
-    const oldWorld = oldRoom?.world && typeof oldRoom.world === 'object' ? oldRoom.world : {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const oldRoomAny = oldRoom as any;
+    const oldWorld = oldRoomAny?.world && typeof oldRoomAny.world === 'object' ? oldRoomAny.world : {};
 
     await strapi.documents('api::room.room').update({
       documentId: roomId,
@@ -427,7 +430,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   // 14. GET_TIME
   register('get_time', 'Get time', z.object({}), async (roomId, _p, _u) => {
     const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
-    const roomWorld = room?.world && typeof room.world === 'object' ? room.world : {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const roomAny = room as any;
+    const roomWorld = roomAny?.world && typeof roomAny.world === 'object' ? roomAny.world : {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const time = 'time' in roomWorld ? (roomWorld as any).time : 0;
     const day = Math.floor(time / 86400);
@@ -443,7 +448,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   register('set_entropy', 'Set condition', SetEntropySchema, async (roomId, payload, _u) => {
     const p = SetEntropySchema.parse(payload);
     const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
-    const entropy = EntropyStateSchema.parse(room?.entropyState || {});
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const entropy = EntropyStateSchema.parse((room as any)?.entropyState || {});
 
     const condition = entropy.conditions.find((c) => c.key.toLowerCase() === p.key.toLowerCase());
     if (condition) {
@@ -464,7 +470,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   // 16. GET_ENTROPY
   register('get_entropy', 'Get conditions', z.object({}), async (roomId, _p, _u) => {
     const room = await strapi.documents('api::room.room').findOne({ documentId: roomId });
-    return EntropyStateSchema.parse(room?.entropyState || {});
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return EntropyStateSchema.parse((room as any)?.entropyState || {});
   });
 
   // 17. SET_WEATHER
@@ -520,7 +527,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
     return spells
       .map(
-        (s) =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (s: any) =>
           `### ${s.name} (Level ${s.level} ${s.school || '?'})\n- Range: ${s.range}\n- Components: ${s.components}\n- Duration: ${s.duration}\n- Description: ${s.description}`
       )
       .join('\n---\n');
@@ -533,7 +541,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     const classes = await strapi.documents('api::class.class').findMany({
       filters: { name: { $containsi: p.query } },
       limit: 5,
-      populate: ['proficiencies'],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      populate: ['proficiencies'] as any,
     });
     if (!classes || classes.length === 0) return `No classes found matching "${p.query}".`;
     return (
@@ -555,7 +564,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     const races = await strapi.documents('api::race.race').findMany({
       filters: { name: { $containsi: p.query } },
       limit: 5,
-      populate: ['traits'],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      populate: ['traits'] as any,
     });
     if (!races || races.length === 0) return `No races found matching "${p.query}".`;
     return (
@@ -634,11 +644,14 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   const LocationContextSchema = z.object({ x: z.number(), y: z.number() });
   register('get_location_context', 'Get location context', LocationContextSchema, async (roomId, payload, _u) => {
     const p = LocationContextSchema.parse(payload);
-    const room = await strapi.documents('api::room.room').findOne({ documentId: roomId, populate: ['settings'] });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const room = await strapi.documents('api::room.room').findOne({ documentId: roomId, populate: ['dmSettings'] as any });
     if (!room) throw new Error('Room not found');
-    const seed = room.world?.seed || room.settings?.seed || room.config?.seed || 'default';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const r = room as any;
+    const seed = r.world?.seed || r.settings?.seed || r.config?.seed || 'default';
     const config: WorldConfig = {
-      ...(room.world || {}),
+      ...(r.world || {}),
       seed,
       chunkSize: 32,
       globalScale: 0.01,

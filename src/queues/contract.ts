@@ -6,11 +6,12 @@ import { z } from 'zod';
  */
 export enum QueueName {
   EMBEDDING = 'embedding',
-  GENERATE_IMAGE = 'generate-image',
-  GENERATE_TEXT = 'generate-text',
+  GENERATE_TEXT_REMOTE = 'generate-text-remote',
+  GENERATE_TEXT_LOCAL = 'generate-text-local',
   MAINTENANCE = 'maintenance',
   GENESIS = 'genesis',
   COMPILE = 'compile',
+  TRANSLATE_ENTITY = 'translate-entity',
 }
 
 /**
@@ -24,17 +25,18 @@ export const JobSchemas = {
     action: z.enum(['upsert', 'delete']),
     sourceType: z.enum(['source-code', 'game-entity', 'manual']).optional(),
   }),
-  [QueueName.GENERATE_IMAGE]: z.object({
-    prompt: z.string(),
-    targetUid: z.string(),
-    targetId: z.string().or(z.number()),
-    field: z.string().optional().default('image'),
-  }),
-  [QueueName.GENERATE_TEXT]: z.object({
+  [QueueName.GENERATE_TEXT_REMOTE]: z.object({
     prompt: z.string(),
     targetUid: z.string(),
     targetId: z.string().or(z.number()),
     field: z.string(),
+  }),
+  [QueueName.GENERATE_TEXT_LOCAL]: z.object({
+    prompt: z.string(),
+    targetUid: z.string(),
+    targetId: z.string().or(z.number()),
+    field: z.string(),
+    model: z.string().optional(), // Pass enum value
   }),
   [QueueName.MAINTENANCE]: z.object({
     task: z.string(),
@@ -48,6 +50,11 @@ export const JobSchemas = {
     phase: z.string().optional(),
     targetUid: z.string().optional(),
     targetId: z.string().optional(),
+  }),
+  [QueueName.TRANSLATE_ENTITY]: z.object({
+    contentType: z.string(),
+    documentId: z.string(),
+    targetLocales: z.array(z.string()).optional(),
   }),
 };
 
@@ -65,9 +72,34 @@ export type JobPayloads = {
  */
 export interface JobResults {
   [QueueName.EMBEDDING]: { success: boolean; vectorId?: string; error?: string };
-  [QueueName.GENERATE_IMAGE]: { success: boolean; assetId?: number; error?: string };
-  [QueueName.GENERATE_TEXT]: { success: boolean; text?: string; error?: string };
+  [QueueName.GENERATE_TEXT_REMOTE]: { success: boolean; text?: string; error?: string };
+  [QueueName.GENERATE_TEXT_LOCAL]: { success: boolean; text?: string; error?: string };
   [QueueName.MAINTENANCE]: { processed: number };
   [QueueName.GENESIS]: { success: boolean; entriesProcessed: number; error?: string };
   [QueueName.COMPILE]: { success: boolean; compiledCount: number; error?: string };
+  [QueueName.TRANSLATE_ENTITY]: { success: boolean; locale?: string; error?: string };
+}
+
+/**
+ * Configuration Types
+ */
+export interface QueueSettings {
+  retryAttempts?: number;
+  retryDelay?: number;
+  removeOnComplete?: boolean;
+  removeOnFail?: boolean;
+  timeout?: number;
+  rateLimit?: number;
+}
+
+export interface QueueConfigItem {
+  queueName: string;
+  enabled: boolean;
+  concurrency: number;
+  settings: QueueSettings;
+}
+
+export interface QueueConfiguration {
+  globalEnabled: boolean;
+  queues: QueueConfigItem[];
 }

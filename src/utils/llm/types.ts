@@ -46,3 +46,26 @@ export const DEFAULT_TEXT_CONFIG: Required<GeminiConfig> = {
   topK: 40,
   timeout: 0,
 };
+
+/**
+ * Local model identifiers
+ * STRICT: Gemma 3 / Gemma 3n ONLY.
+ */
+export enum LocalModel {
+  GEMMA_3_27B_IT = 'google/gemma-3-27b-it',
+  GEMMA_3_12B_IT = 'google/gemma-3-12b-it',
+  GEMMA_3_4B_IT = 'google/gemma-3-4b-it',
+  GEMMA_3_1B_IT = 'google/gemma-3-1b-it',
+  GEMMA_3N_1B_IT = 'google/gemma-3n-1b-it',
+}
+
+/**
+ * Configuration for Local models
+ */
+export interface LocalConfig {
+  model?: LocalModel;
+  maxTokens?: number;
+  temperature?: number;
+  quantization?: 'q8' | 'q4' | 'fp16' | 'int8';
+  device?: 'cpu' | 'gpu' | 'auto';
+}

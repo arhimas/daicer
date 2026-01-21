@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "queue_configurations",
+  "info": {
+    "singularName": "queue-configuration",
+    "pluralName": "queue-configurations",
+    "displayName": "Queue Configuration",
+    "description": "Global configuration for background job queues"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "globalEnabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "queues": {
+      "type": "component",
+      "repeatable": true,
+      "component": "queue.config"
+    }
+  }
+}

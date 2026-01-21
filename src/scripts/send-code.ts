@@ -67,7 +67,7 @@ async function sendCode() {
 
     // Proposal: We assume title = `[Code] relative/path`.
     // We fetch all snippets for this source, selecting 'title' and 'content' (hashed?).
-    // To be safe and sota, let's fetch all titles + length?
+    // To be safe, let's fetch all titles + length?
     // Let's implement a wrapper.
 
     let processed = 0;

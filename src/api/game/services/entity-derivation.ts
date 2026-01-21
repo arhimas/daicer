@@ -38,17 +38,47 @@ interface ResolvedAction {
   description?: string;
 }
 
-export default factories.createCoreService('api::game.entity-derivation', ({ strapi }) => ({
+import { Core } from '@strapi/strapi';
+
+// Define the shape of the Populated Sheet to satisfy TypeScript
+// We rely on loose typing here as generated types are strictly relational IDs for relations
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type PopulatedSheet = any & {
+  documentId: string;
+  stats?: any; 
+  actions?: any[];
+  features?: any[];
+  inventory?: any[];
+  conditions?: any[];
+  proficiencies?: any[];
+  proficiences?: any[]; // typo safety
+  resistances?: string[];
+  immunities?: string[];
+  vulnerabilities?: string[];
+  speed?: number | { walk: number };
+  armorClass?: number;
+};
+
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   async deriveAndPersist(sheetId: string) {
-    // 1. Fetch the Sheet (Deep Populate)
-    const sheet = await strapi.entityService.findOne('api::entity-sheet.entity-sheet', sheetId, {
+    // 1. Fetch Sheet with DEEP population
+    const sheetRaw = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: sheetId,
+       
       populate: {
         stats: true,
         inventory: {
           populate: {
-            equipment_category: true,
-            damage_type: true,
-            properties: true,
+            item: {
+              populate: {
+                equipment_data: {
+                  populate: {
+                    damage_type: true,
+                    properties: true,
+                  },
+                },
+              },
+            },
           },
         },
         spellbook: {
@@ -67,12 +97,14 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
         race: true,
         class: true,
         proficiencies: true,
-      },
+      } as any, // Deep nested populate often fails strict TS checks in Strapi 5
     });
 
-    if (!sheet) {
+    if (!sheetRaw) {
       throw new Error(`EntitySheet ${sheetId} not found`);
     }
+
+    const sheet = sheetRaw as unknown as PopulatedSheet;
 
     // 2. Direct Hydration (No Adapter)
     // We construct a lightweight Entity object for derivation purposes
@@ -84,8 +116,8 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
       stats: sheet.stats || {},
       hp: sheet.currentHp ?? sheet.maxHp,
       maxHp: sheet.maxHp,
-      armorClass: sheet.armorClass,
-      speed: sheet.speed || 30, // Or fetch from stats component
+      armorClass: sheet.ac || 10, // Mapped from 'ac'
+      speed: sheet.stats?.walkSpeed || 30, // Or fetch from stats component
       actions: sheet.actions || [],
       features: sheet.features || [],
 
@@ -178,23 +210,7 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
       data: {
         currentHp: entity.hp,
         maxHp: entity.maxHp,
-        ac: entity.armorClass, // Note: Schema calls it 'ac'
-        // speed: entity.speed, // Schema defines 'speed' component on sheet? No, wait.
-        // EntitySheet schema uses `stats` component which has walkSpeed etc.
-        // But we computed derived speed in Entity.
-        // Let's check EntitySheet schema again (from prev output).
-        // It has `position` component. Attributes `stats` component.
-        // `stats` component has `walkSpeed` etc.
-        // We should update the `stats` component if we want to persist derived speed?
-        // OR rely on derivation every time.
-        // The user wants "ActiveState" gone. That means "Sheet" is the Runtime State.
-        // So we MUST write back the current HP, AC, etc.
-        // We do not need to write back 'stats' if they are just base scores.
-        // But if speed changes (Haste), we need to write it somewhere.
-        // EntitySheet has `active_effects` json? No we deleted it?
-        // We added `tempHp`, `computedSkills` etc.
-        // We did NOT add `speed` component to root.
-        // `stats` component has speed. We can update that.
+        ac: entity.armorClass, 
         
         computedWeight, // Persist calculated weight
 
@@ -206,17 +222,10 @@ export default factories.createCoreService('api::game.entity-derivation', ({ str
         computedSaves,
         computedActions,
         defenses,
-
-        // If we want to persist derived stats (e.g. enhanced strength), we overwrite stats?
-        // Usually Sheet stats = Base.
-        // Derived stats = effective.
-        // If we overwrite Sheet stats, we lose Base.
-        // For now, we only persist COMPUTED outputs (skills, saves, actions).
-        // Base stats remain as the source.
       } as unknown as Record<string, unknown>,
     });
   },
-}));
+});
 
 function determineActionType(action: { type?: string; range?: string | { type?: string } }): string {
   if (action.type) return action.type;

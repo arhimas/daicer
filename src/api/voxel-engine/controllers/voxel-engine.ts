@@ -21,8 +21,8 @@ export default ({ strapi }) => ({
       }
 
       // Fallback: Legacy single chunk support (from existing route call)
-      const { x, y } = ctx.request.body;
-      const chunk = await service.getChunk(x || 0, y || 0, config);
+      const { x, y, world } = ctx.request.body;
+      const chunk = await service.getChunk(x || 0, y || 0, config, world);
       ctx.body = chunk;
     } catch (err) {
       // Use strapi.log if available from injection, or global strapi

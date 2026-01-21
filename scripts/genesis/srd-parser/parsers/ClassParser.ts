@@ -144,7 +144,7 @@ export class ClassParser {
     if (name === 'Signature Spell') return 'Signature Spells'; // Plural in header
     
     // 2. Formatting (remove parens like (d6), (1/rest))
-    let normalized = name.replace(/\s*\(.*?\)/g, '');
+    const normalized = name.replace(/\s*\(.*?\)/g, '');
     
     // 3. Improvements mapping
     // "Wild Shape improvement" -> "Wild Shape"

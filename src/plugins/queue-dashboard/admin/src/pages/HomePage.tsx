@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Page, Layouts } from '@strapi/strapi/admin';
-import { Typography, EmptyStateLayout, Box, Grid, Alert } from '@strapi/design-system';
+import { Typography, EmptyStateLayout, Box, Grid, Alert, Flex } from '@strapi/design-system';
 import { useFetchClient } from '@strapi/strapi/admin';
 import { QueueWidget } from '../components/QueueWidget';
 
@@ -53,15 +53,15 @@ const HomePage = () => {
   }, [get]);
 
   return (
-    <Page.Main>
-      <Page.Title>Queue Dashboard</Page.Title>
-      <Layouts.Header 
-        title="Queue Dashboard" 
-        subtitle="Real-time monitoring of job queues" 
-        as="h2" 
-      />
-      <Layouts.Content>
-        {/* FIX: Error Display */}
+    <Layouts.Content>
+      <Box padding={8} background="neutral100">
+        <Layouts.Header 
+          title="Queue Dashboard" 
+          subtitle="Real-time monitoring and management of background job queues." 
+          as="h2" 
+        />
+        
+        {/* Error Display */}
         {error && (
           <Box paddingBottom={4}>
             <Alert closeLabel="Close" title="Error" variant="danger" onClose={() => setError(null)}>
@@ -71,22 +71,22 @@ const HomePage = () => {
         )}
 
         {loading && queues.length === 0 ? (
-          <Box padding={8}>
-            <Typography>Loading...</Typography>
-          </Box>
+           <Flex justifyContent="center" padding={8}>
+             <Typography variant="beta" textColor="neutral600">Loading Queues...</Typography>
+           </Flex>
         ) : !error && queues.length === 0 ? (
           <EmptyStateLayout content="No queues active or detected." />
         ) : (
           <Grid.Root gap={5}>
             {queues.map((q) => (
-              <Grid.Item col={4} s={12} key={q.name}>
+              <Grid.Item col={6} s={12} key={q.name}>
                 <QueueWidget stats={q} />
               </Grid.Item>
             ))}
           </Grid.Root>
         )}
-      </Layouts.Content>
-    </Page.Main>
+      </Box>
+    </Layouts.Content>
   );
 };
 

@@ -1,0 +1,22 @@
+[project]
+name = "daicer-llm"
+version = "0.1.0"
+description = "Local LLM Inference Service"
+authors = [
+    {name = "Daicer"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "transformers",
+    "torch",
+    "accelerate",
+    "bitsandbytes"
+]
+
+[tool.poetry]
+packages = [{include = "daicer_llm"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

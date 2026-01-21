@@ -8,6 +8,10 @@
     "description": "PGVector-based Semantic Search",
     "kind": "plugin"
   },
+  "scripts": {
+    "build": "echo 'No build needed for semantic-search'",
+    "watch": "echo 'No watch needed for semantic-search'"
+  },
   "dependencies": {},
   "main": "strapi-server.js"
 }

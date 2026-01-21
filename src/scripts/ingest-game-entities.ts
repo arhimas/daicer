@@ -49,7 +49,7 @@ async function main() {
       }
 
       // 1. Fetch All IDs only (lightweight)
-      const entries = await strapi.entityService.findMany(model as `api::${string}.${string}`, {
+      const entries = await strapi.entityService.findMany(model as any, {
         fields: ['id'],
         limit: -1, // No limit
       });
@@ -66,7 +66,7 @@ async function main() {
       bar.start();
 
       // 3. Process in Batches
-      const ids: number[] = Array.isArray(entries) ? entries.map((e: { id: number }) => e.id) : [];
+      const ids: number[] = Array.isArray(entries) ? entries.map((e: any) => e.id) : [];
 
       for (let i = 0; i < ids.length; i += BATCH_CONCURRENCY) {
         const batch = ids.slice(i, i + BATCH_CONCURRENCY);

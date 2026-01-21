@@ -9,12 +9,13 @@ import {
   ProgressBar, 
   Button, 
   Modal, 
-  Grid
+  Grid,
+  IconButton
 } from '@strapi/design-system';
 
 // I will implement a "JobDetailsModal" subcomponent in the same file to keep it self-contained.
 
-import { Play, Cross, Trash } from '@strapi/icons';
+import { Play, Cross, Trash, Eye } from '@strapi/icons';
 import { useFetchClient, useNotification } from '@strapi/strapi/admin';
 
 interface Job {
@@ -43,6 +44,11 @@ interface QueueStats {
     active: Job[];
     waiting: Job[];
     failed: Job[];
+  };
+  settings?: {
+    concurrency?: number;
+    rateLimit?: number;
+    running?: boolean;
   };
 }
 
@@ -113,9 +119,6 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
   const total = stats.counts.active + stats.counts.completed + stats.counts.failed + stats.counts.waiting;
   const progress = total > 0 ? (stats.counts.completed / total) * 100 : 0;
   
-  // Custom "Circular" approximation using standard Badge/Box radius?
-  // No, I'll stick to a clean Block layout as requested "colorful blocks".
-  
   const handleAction = async (action: 'pause' | 'resume' | 'retry' | 'clean', method: 'put' | 'post') => {
     setIsLoading(true);
     try {
@@ -141,117 +144,127 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
     <>
       <Card style={{ height: '100%' }}>
         <CardBody>
-          <Box padding={4}>
+          <Box padding={6}>
+            {/* Header: Name and Status */}
             <Flex justifyContent="space-between" alignItems="center" marginBottom={6}>
-              <Typography variant="delta" fontWeight="bold">
-                {stats.name}
-              </Typography>
-              {stats.isPaused ? <Badge>Paused</Badge> : <Badge variant="success">Running</Badge>}
+               <Flex direction="column" alignItems="start" gap={1}>
+                  <Typography variant="delta" fontWeight="bold">
+                    {stats.name}
+                  </Typography>
+                  {stats.settings && (
+                     <Flex gap={2}>
+                        <Typography variant="pi" textColor="neutral600">Concurrency: {stats.settings.concurrency ?? 1}</Typography>
+                        {stats.settings.rateLimit && <Typography variant="pi" textColor="neutral600">| Rate: {stats.settings.rateLimit}/s</Typography>}
+                     </Flex>
+                  )}
+               </Flex>
+               <Flex gap={2}>
+                  {stats.isPaused ? <Badge>Paused</Badge> : <Badge variant="success">Running</Badge>}
+               </Flex>
             </Flex>
 
             {/* Stats Grid - "Colorful Blocks" */}
-            <Grid.Root gap={2} marginBottom={6}>
+            <Grid.Root gap={4} marginBottom={6}>
               <Grid.Item col={4}>
                  <Box 
-                   padding={3} 
+                   padding={4} 
                    background="primary100" 
                    hasRadius 
-                   borderColor="primary200"
+                   shadow="filterShadow"
                    cursor="pointer"
                    onClick={() => setInspectType('active')}
                  >
-                    <Flex direction="column" alignItems="start">
-                       <Typography variant="alpha" textColor="primary600">{stats.counts.active}</Typography>
-                       <Typography variant="pi" textColor="primary600" fontWeight="bold">ACTIVE</Typography>
+                    <Flex direction="column" alignItems="center" gap={1}>
+                       <Typography variant="alpha" textColor="primary600" fontWeight="bold">{stats.counts.active}</Typography>
+                       <Typography variant="sigma" textColor="primary600">ACTIVE</Typography>
                     </Flex>
                  </Box>
               </Grid.Item>
               <Grid.Item col={4}>
                  <Box 
-                   padding={3} 
-                   background="secondary100" 
+                   padding={4} 
+                   background="warning100" 
                    hasRadius 
-                   borderColor="secondary200"
+                   shadow="filterShadow"
                    cursor="pointer"
                    onClick={() => setInspectType('waiting')}
                  >
-                    <Flex direction="column" alignItems="start">
-                       <Typography variant="alpha" textColor="secondary600">{stats.counts.waiting}</Typography>
-                       <Typography variant="pi" textColor="secondary600" fontWeight="bold">WAITING</Typography>
+                    <Flex direction="column" alignItems="center" gap={1}>
+                       <Typography variant="alpha" textColor="warning700" fontWeight="bold">{stats.counts.waiting}</Typography>
+                       <Typography variant="sigma" textColor="warning700">WAITING</Typography>
                     </Flex>
                  </Box>
               </Grid.Item>
               <Grid.Item col={4}>
                  <Box 
-                   padding={3} 
+                   padding={4} 
                    background="danger100" 
                    hasRadius 
-                   borderColor="danger200"
+                   shadow="filterShadow"
                    cursor="pointer"
                    onClick={() => setInspectType('failed')}
                  >
-                    <Flex direction="column" alignItems="start">
-                       <Typography variant="alpha" textColor="danger600">{stats.counts.failed}</Typography>
-                       <Typography variant="pi" textColor="danger600" fontWeight="bold">FAILED</Typography>
+                    <Flex direction="column" alignItems="center" gap={1}>
+                       <Typography variant="alpha" textColor="danger600" fontWeight="bold">{stats.counts.failed}</Typography>
+                       <Typography variant="sigma" textColor="danger600">FAILED</Typography>
                     </Flex>
                  </Box>
               </Grid.Item>
             </Grid.Root>
 
             <Box marginBottom={6}>
-              <Flex justifyContent="space-between" marginBottom={1}>
-                <Typography variant="small" textColor="neutral600">
-                  Success Rate
+              <Flex justifyContent="space-between" marginBottom={2}>
+                <Typography variant="pi" textColor="neutral600" fontWeight="bold">
+                  SUCCESS RATE
                 </Typography>
-                <Typography variant="small" textColor="neutral600">
-                  {Math.round(progress)}%
+                <Typography variant="pi" textColor="neutral600">
+                  {Math.round(progress)}% ({stats.counts.completed} completed)
                 </Typography>
               </Flex>
               <ProgressBar value={progress} size="S" />
             </Box>
 
-            <Flex gap={2} justifyContent="flex-end" wrap="wrap">
-              {stats.isPaused ? (
-                <Button 
-                  startIcon={<Play />} 
-                  onClick={() => handleAction('resume', 'put')} 
-                  disabled={isLoading}
-                  variant="default"
-                  size="S"
-                >
-                  Resume
-                </Button>
-              ) : (
-                <Button 
-                  startIcon={<Cross />} 
-                  onClick={() => handleAction('pause', 'put')} 
-                  disabled={isLoading}
-                  variant="secondary"
-                  size="S"
-                >
-                  Pause
-                </Button>
-              )}
-              
-              <Button 
-                startIcon={<Play />} 
-                onClick={() => handleAction('retry', 'post')} 
-                disabled={isLoading || stats.counts.failed === 0} 
-                variant="ghost"
-                size="S"
-              >
-                Retry
-              </Button>
+            <Flex gap={2} justifyContent="space-between" borderTop={1} borderColor="neutral150" paddingTop={4}>
+               <Flex gap={2}>
+                  {stats.isPaused ? (
+                    <Button 
+                      startIcon={<Play />} 
+                      onClick={() => handleAction('resume', 'put')} 
+                      disabled={isLoading}
+                      variant="default"
+                      size="S"
+                    >
+                      Resume
+                    </Button>
+                  ) : (
+                    <Button 
+                      startIcon={<Cross />} 
+                      onClick={() => handleAction('pause', 'put')} 
+                      disabled={isLoading}
+                      variant="secondary"
+                      size="S"
+                    >
+                      Pause
+                    </Button>
+                  )}
+               </Flex>
 
-              <Button 
-                startIcon={<Trash />} 
-                onClick={() => handleAction('clean', 'post')}
-                variant="danger-light" 
-                disabled={isLoading}
-                size="S"
-              >
-                Clean
-              </Button>
+               <Flex gap={2}>
+                  <IconButton 
+                    label="Retry Failed"
+                    icon={<Play />} 
+                    onClick={() => handleAction('retry', 'post')} 
+                    disabled={isLoading || stats.counts.failed === 0} 
+                    variant="ghost"
+                  />
+                  <IconButton 
+                    label="Cleaner Queue"
+                    icon={<Trash />} 
+                    onClick={() => handleAction('clean', 'post')}
+                    variant="ghost" 
+                    disabled={isLoading}
+                  />
+               </Flex>
             </Flex>
           </Box>
         </CardBody>

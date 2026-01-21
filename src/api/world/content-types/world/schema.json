@@ -18,6 +18,12 @@
       "target": "api::room.room",
       "inversedBy": "world"
     },
+    "voxelChanges": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::voxel-change.voxel-change",
+      "mappedBy": "world"
+    },
     "name": {
       "type": "string",
       "default": "New World"
@@ -51,48 +57,81 @@
       "default": 10
     },
     "globalScale": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0.02
     },
     "seaLevel": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0
     },
     "elevationScale": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0.5
     },
     "roughness": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0.5
     },
     "moistureScale": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0.015
     },
     "temperatureOffset": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0
     },
     "roadDensity": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0.1
     },
     "structureChance": {
-      "type": "float"
+      "type": "float",
+      "required": true,
+      "default": 0.1
     },
     "structureSpacing": {
-      "type": "integer"
+      "type": "integer",
+      "required": true,
+      "default": 3
     },
     "structureSizeAvg": {
-      "type": "integer"
+      "type": "integer",
+      "required": true,
+      "default": 10
     },
     "worldSize": {
       "type": "enumeration",
       "enum": ["intimate", "small", "medium", "large", "vast", "epic"],
-      "default": "small"
+      "default": "small",
+      "required": true
     },
     "worldType": {
       "type": "string",
-      "default": "terra"
+      "default": "terra",
+      "required": true
     },
     "adventureLength": {
       "type": "enumeration",
       "enum": ["flash", "short", "medium", "long", "epic", "legendary"],
-      "default": "short"
+      "default": "short",
+      "required": true
+    },
+    "startingRadius": {
+      "type": "integer",
+      "default": 4,
+      "required": true
+    },
+    "voxels": {
+        "type": "customField",
+        "customField": "plugin::map-explorer.world-grid",
+        "required": false
     }
   }
 }

@@ -6,7 +6,7 @@ export type EmbeddingTask = 'retrieval.query' | 'retrieval.passage' | 'text-matc
 /**
  * Service for generating vector embeddings using Jina-Embeddings-v2 via local Transformer pipeline.
  *
- * 🚀 **SOTA Implementation**:
+ * 🚀 **Advanced Implementation**:
  * - Uses local `local_models` cache.
  * - Zero network latency after initial download.
  * - Supports quantized Jina v2 (8192 token context).

@@ -93,7 +93,7 @@ export class ChunkManager {
     return chunk;
   }
 
-  public async getChunk(x: number, y: number, config: WorldConfig): Promise<Chunk> {
+  public async getChunk(x: number, y: number, config: WorldConfig, worldId?: string): Promise<Chunk> {
     const key = `${config.seed}_${x}_${y}`;
     if (this.cache.has(key)) return this.cache.get(key)!;
 
@@ -104,11 +104,16 @@ export class ChunkManager {
         resolve: async (chunk) => {
           // Apply Persistence Here
           try {
-            const changes = (await strapi.db.query('api::voxel-change.voxel-change').findMany({
-              where: {
+            const filters: any = {
                 chunkX: chunk.x,
                 chunkY: chunk.y,
-              },
+            };
+            if (worldId) {
+                filters.world = { documentId: worldId };
+            }
+
+            const changes = (await strapi.documents('api::voxel-change.voxel-change').findMany({
+              filters: filters,
             })) as unknown as VoxelChangeRecord[];
 
             if (changes && changes.length > 0) {
@@ -138,6 +143,7 @@ export class ChunkManager {
     voxelY: number,
     voxelZ: number,
     newType: BlockType | undefined,
+    worldId?: string,
     reason?: string,
     metadata?: Record<string, unknown>
   ) {
@@ -165,7 +171,7 @@ export class ChunkManager {
         // If still not found (not in cache and no config to fetch), we might fallback or error.
         // Fallback: 'dirt' (unsafe) or just fail.
         if (!solvedType) {
-          // SOTA Safety: Default to 'air' but log warning? Or 'dirt'?
+          // Safety: Default to 'air' but log warning? Or 'dirt'?
           // Let's assume 'dirt' for stability if cache miss, but ideally we should fetch.
           // Given we don't have 'config' here easily, we rely on cache or previous systems.
           // We will default to 'dirt' to ensure persistence succeeds, but log it.
@@ -182,6 +188,7 @@ export class ChunkManager {
     // 2. Persist to DB
     await strapi.db.query('api::voxel-change.voxel-change').create({
       data: {
+        world: worldId,
         chunkX,
         chunkY,
         voxelX,

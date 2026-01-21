@@ -105,6 +105,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       limit: 1,
     });
     const room = rooms[0];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const r = room as any;
 
     if (!room) {
       console.error(`[SpawnService] Room not found. Input ID: ${roomId}`);
@@ -112,7 +114,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     }
 
     console.info(
-      `[SpawnService] Found Room for Monster Spawn: ${room.documentId} (Name: ${room.name}, Locale: ${room.locale})`
+      `[SpawnService] Found Room for Monster Spawn: ${room.documentId} (Name: ${r.name}, Locale: ${r.locale})`
     );
 
     // 3. Create Entity Sheet
@@ -211,7 +213,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       };
 
       const newSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
-        data: sheetData,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: sheetData as any,
         status: 'published',
       });
       console.info(`[SpawnService] EntitySheet Created: ${newSheet.documentId}`);
@@ -267,6 +270,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       limit: 1,
     });
     const room = rooms[0];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const r = room as any;
 
     if (!room) {
       console.error(`[SpawnService] Room not found during character spawn. Input ID: ${roomId}`);
@@ -286,7 +291,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
     }
 
-    console.info(`[SpawnService] Found Room: ${room.documentId} (Name: ${room.name || 'Unknown'})`);
+    console.info(`[SpawnService] Found Room: ${room.documentId} (Name: ${r.name || 'Unknown'})`);
     console.info(`[SpawnService] Creating EntitySheet for character: ${character.name} in room: ${room.documentId}`);
 
     // Prepare Derivation Context
@@ -414,7 +419,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     };
 
     const newSheet = await strapi.documents('api::entity-sheet.entity-sheet').create({
-      data: sheetData,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data: sheetData as any,
       status: 'published',
     });
 

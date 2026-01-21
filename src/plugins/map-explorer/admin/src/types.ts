@@ -1,35 +1,13 @@
-export type BlockType =
-  | 'air'
-  | 'stone'
-  | 'dirt'
-  | 'grass'
-  | 'water'
-  | 'sand'
-  | 'wood'
-  | 'leaves'
-  | 'snow'
-  | 'ice'
-  | 'lava'
-  | 'bedrock'
-  | 'gravel'
-  | 'obsidian'
-  | 'glass'
-  | 'planks'
-  | 'brick'
-  | 'cobblestone'
-  | 'sandstone'
-  | 'clay'
-  | 'gold_ore'
-  | 'iron_ore'
-  | 'coal_ore'
-  | 'diamond_ore'
-  | 'torch'
-  | 'chest'
-  | 'crafting_table'
-  | 'furnace'
-  | 'door'
-  | 'fence'
-  | 'unknown';
+export interface TerrainType {
+  slug: string;
+  name: string;
+  color: string;
+  isWalkable?: boolean;
+  isTransparent?: boolean;
+  [key: string]: unknown;
+}
+
+export type BlockType = string;
 
 export interface Tile {
   x: number;
@@ -40,6 +18,7 @@ export interface Tile {
   isWalkable: boolean;
   isTransparent: boolean;
   variant: number;
+  pixels?: string[][]; // 32x32 hex color grid
   metadata?: Record<string, unknown>;
 }
 
@@ -58,4 +37,15 @@ export interface WorldConfig {
   structureChance: number;
   roadDensity: number;
   [key: string]: any;
+}
+
+export interface Construction {
+    id: number;
+    documentId: string;
+    name: string;
+    category: string;
+    width: number;
+    height: number;
+    depth: number;
+    voxels: { x: number, y: number, z: number, type: BlockType }[];
 }

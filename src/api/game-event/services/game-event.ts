@@ -33,7 +33,8 @@ const getWorldGenerator = async (strapi: Core.Strapi, roomDocumentId: string) =>
   return new WorldGenerator(config);
 };
 
-export default factories.createCoreService('api::game-event.game-event', ({ strapi }: { strapi: Core.Strapi }) => ({
+// Replaced factories.createCoreService with standard factory for type safety
+export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Log an event to the Time Machine
    */
@@ -66,14 +67,15 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
     const turnNumber = lastEvent ? (lastEvent.turn_number || 0) + 1 : 1;
 
     const event = await strapi.documents('api::game-event.game-event').create({
+       
       data: {
         room: roomDocumentId,
         type,
         payload,
         actorId,
-        timestamp: Date.now(),
-        turn_number: turnNumber,
-      },
+        timestamp: Date.now().toString(), // Ensuring string if using newer schema convention
+        turnNumber: turnNumber, // CamelCase
+      } as any,
     });
 
     // Broadcast logic removed
@@ -206,4 +208,4 @@ export default factories.createCoreService('api::game-event.game-event', ({ stra
 
     return `Void at ${x},${y}`;
   },
-}));
+});

@@ -43,11 +43,14 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         // But sequence is strictly ordered.
         // Let's rely on Timestamp for粗 filtering and Sequence for Strict ordering.
         timestamp: {
-          $gt: timeFrames[0]?.timestamp || 0,
-          $lte: targetTimestamp,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          $gt: (timeFrames[0]?.timestamp || 0) as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          $lte: targetTimestamp as any,
         },
       },
-      sort: 'sequenceId:asc', // CRITICAL: Replay in order
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      sort: 'sequenceId:asc' as any, // CRITICAL: Replay in order
       limit: 10000, // Safety cap
     });
 
@@ -66,13 +69,16 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       // We might need a "Event -> Action" mapper here.
       // For now, assume strict 1:1 mapping for 'MOVE', 'ATTACK'.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const evt = event as any;
       const action = {
-        type: event.type,
-        actorId: event.actorId,
-        payload: event.payload,
+        type: evt.type,
+        actorId: evt.actorId,
+        payload: evt.payload,
       };
 
-      currentState = processor.process(currentState, [action]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      currentState = processor.process(currentState, [action as any]);
     }
 
     return currentState;
