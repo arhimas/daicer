@@ -48,6 +48,9 @@ export type Attribute = z.infer<typeof AttributeSchema>;
 // **CRITICAL DECISION**: If the codebase uses `Attribute.STR`, removing the enum breaks code.
 // I should keep the Enum definition if it provides values, but ensure the Type matches Zod.
 
+/**
+ * Attribute Keys mapped to Display Names.
+ */
 export const Attribute = {
   STR: 'Strength',
   DEX: 'Dexterity',

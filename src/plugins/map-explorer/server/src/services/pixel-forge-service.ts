@@ -29,6 +29,13 @@ export const PixelForgeService = ({ strapi: _strapi }: { strapi: Core.Strapi }) 
     /**
      * Main entry point to generate a full creature sprite
      */
+    /**
+     * Main entry point to generate a full creature sprite.
+     * Composes anatomy parts based on race/gender config using 32x32 grids.
+     * 
+     * @param config - Generation parameters (race, gender, skinTone).
+     * @returns Array of PixelLayers sorted by Z-Index.
+     */
     generateCreature(config: GenerationConfig): PixelLayer[] {
         const layers: PixelLayer[] = [];
 

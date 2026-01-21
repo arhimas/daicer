@@ -1,4 +1,7 @@
-// Re-export from shared to maintain backward compatibility during migration
+/**
+ * Re-exports Action Definitions and Schemas from the Shared Kernel.
+ * This ensures the Engine stays in sync with the API Contracts.
+ */
 export {
   ActionType,
   DamageSchema,

@@ -87,6 +87,9 @@ export const EntityTraitSchema = z.object({
   description: z.string().optional(),
 });
 
+/**
+ * Strict Inventory Item Schema.
+ */
 export const InventoryItemSchema = z.object({
   id: z.string().optional(),
   quantity: z.number(),
@@ -148,6 +151,11 @@ export const SpellbookSchema = z.object({
   slots: SpellSlotsSchema,
 });
 
+/**
+ * Complete Zod Schema for the Entity Sheet.
+ * Used for validation on both frontend and backend to ensure integrity
+ * of the JSON blob stored in `data` field of Entity Entities.
+ */
 export const EntitySheetSchema = z.object({
   id: z.string().optional(),
   documentId: z.string().optional(),

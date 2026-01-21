@@ -82,7 +82,14 @@ export function validateAttack(
 }
 
 /**
- * Resolves a unified Attack Action using SRO Architecture.
+ * Resolves a unified Attack Action using SRO (Source-Resolver-Output) Architecture.
+ * 
+ * Features:
+ * - Checks Range (Validation Layer).
+ * - Applies Conditions (Advantage/Disadvantage).
+ * - Rolling (Hit/Miss/Crit).
+ * - Feature Injection (Sneak Attack, Rage).
+ * - Damage Resolution (Resistance/Vulnerability).
  */
 export function resolveAttack(
   attacker: Entity,

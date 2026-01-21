@@ -1,6 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export const getMutationResolvers = (strapi) => ({
+  /**
+   * Creates a new game room along with its World and DM Settings.
+   *
+   * @param _parent - GraphQL Parent (unused)
+   * @param args - Mutation arguments containing world data
+   * @param context - Request context (user state)
+   */
   createRoom: async (_parent, args, context) => {
     const { data } = args;
     const { state } = context;
@@ -110,6 +117,9 @@ export const getMutationResolvers = (strapi) => ({
     });
   },
 
+  /**
+   * Generates the initial world description and lore.
+   */
   generateWorld: async (_parent, args, _context) => {
     const { roomId, language } = args;
     const rooms = await strapi.documents('api::room.room').findMany({
@@ -135,12 +145,18 @@ export const getMutationResolvers = (strapi) => ({
     });
   },
 
+  /**
+   * Triggers the TurnPipeline to process all pending actions for a room.
+   */
   processTurn: async (_parent, args, _context) => {
     const { roomId } = args;
     // Use the reliable TurnPipeline to collect and process actions
     return strapi.service('api::game.turn-pipeline').processRoomTurn(roomId);
   },
 
+  /**
+   * Adds a user to a room's player list.
+   */
   joinRoom: async (_parent, args, context) => {
     const { code } = args;
     const { user } = context.state;
@@ -175,6 +191,9 @@ export const getMutationResolvers = (strapi) => ({
     });
   },
 
+  /**
+   * Links a character sheet to a player in the room.
+   */
   addCharacter: async (_parent, args, context) => {
     const { roomId, character } = args;
     const { user } = context.state;
@@ -182,11 +201,17 @@ export const getMutationResolvers = (strapi) => ({
     return strapi.service('api::game.game').addCharacter(roomId, character, user);
   },
 
+  /**
+   * Transitions the room from setup to active gameplay.
+   */
   startGame: async (_parent, args, _context) => {
     const { roomId, language } = args;
     return strapi.service('api::game.game').startGame(roomId, language);
   },
 
+  /**
+   * Submits a player's intent/action for the current turn.
+   */
   submitAction: async (_parent, args, context) => {
     const { roomId, action, mode } = args;
     const { user } = context.state;
@@ -197,26 +222,41 @@ export const getMutationResolvers = (strapi) => ({
     return strapi.service('api::game.turn-processing').submitAction(roomId, action, user, mode);
   },
 
+  /**
+   * Spawns a creature (monster/NPC) into the room.
+   */
   spawnCreature: async (_parent, args, _context) => {
     const { roomId, creature } = args;
     return strapi.service('api::game.game').spawnCreature(roomId, creature);
   },
 
+  /**
+   * Generates a face portrait using the Asset pipelines.
+   */
   generateAvatarPortrait: async (_parent, args, _context) => {
     const { payload, referenceImage } = args;
     return strapi.service('api::assets.assets').generatePortrait({ payload, referenceImage });
   },
 
+  /**
+   * Generates an upper-body image based on a portrait.
+   */
   generateAvatarUpperBody: async (_parent, args, _context) => {
     const { payload, portrait, referenceImage } = args;
     return strapi.service('api::assets.assets').generateUpperBody({ payload, portrait, referenceImage });
   },
 
+  /**
+   * Generates a full-body image.
+   */
   generateAvatarFullBody: async (_parent, args, _context) => {
     const { payload, portrait, upperBody, referenceImage } = args;
     return strapi.service('api::assets.assets').generateFullBody({ payload, portrait, upperBody, referenceImage });
   },
 
+  /**
+   * Generates a voxel terrain chunk for the client.
+   */
   generateTerrainChunk: async (_parent, args, _context) => {
     const { roomId, chunkX, chunkY, chunkSize } = args;
     const rooms = await strapi.documents('api::room.room').findMany({
@@ -237,6 +277,9 @@ export const getMutationResolvers = (strapi) => ({
 
   generateTerrain: async () => true,
 
+  /**
+   * Direct tool execution (Debug/Admin use).
+   */
   executeTool: async (_parent, args, context) => {
     const { roomId, command } = args;
     const { user } = context.state;
@@ -247,6 +290,9 @@ export const getMutationResolvers = (strapi) => ({
     return { success: true, message: result };
   },
 
+  /**
+   * Handles player answers for conversational agents.
+   */
   submitAgentAnswer: async (_parent, args, context) => {
     const { questionId, answer } = args;
     const { user } = context.state;

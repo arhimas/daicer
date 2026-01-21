@@ -3,6 +3,7 @@ import { BaseCompiler, CompilationResult } from '../Compiler';
 
 /**
  * Validates 'api::feature.feature' entities.
+ * 
  * 1. Checks basic metadata.
  * 2. Checks if logic exists in FeatureRegistry (Optional, but good info).
  */

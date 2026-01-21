@@ -3,6 +3,10 @@ import chalk from 'chalk';
 
 type LogLevel = 'info' | 'warn' | 'error' | 'debug';
 
+/**
+ * Standardized Logger for Development.
+ * Wraps Strapi's logger with added scope context and performance timing utilities.
+ */
 export class DevLogger {
   private scope: string;
   private strapi: Core.Strapi;
@@ -77,6 +81,10 @@ export class DevLogger {
     this.strapi.log.debug(message, { scope: this.scope, ...meta });
   }
 
+  /**
+   * Starts a timer for a job/task.
+   * Returns an object with `end()` and `fail()` methods to stop the timer and log result.
+   */
   start(jobName: string): { end: () => void; fail: (err: any) => void } {
     const startTime = Date.now();
     this.info(`🚀 Starting: ${jobName}`, { event: 'job_start', job: jobName });

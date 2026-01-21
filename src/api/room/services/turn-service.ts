@@ -12,7 +12,13 @@ import { TurnAction, TurnData, TurnActionType, TurnActionTypeSchema, RoomContext
 
 export default ({ strapi }) => ({
   /**
-   * Add an action to the pending queue
+   * Add an action to the pending queue for the current turn.
+   * Validates player presence and action format.
+   *
+   * @param roomId - The room context.
+   * @param playerId - The player submitting the action.
+   * @param actionPayload - The raw action data (type, intent, metadata).
+   * @returns The updated TurnData.
    */
   async addAction(roomId: string | number, playerId: string | number, actionPayload: Record<string, unknown>) {
     // Explicit Cast/Check logic to avoid 'as any' blindly
@@ -190,12 +196,14 @@ Resolve this turn.
   },
 
   /**
-   * The "Delta Resolver"
-   * Processing the turn:
-   * 1. lock the room
-   * 2. process actions (mock)
-   * 3. update history
-   * 4. clear queue
+   * The "Delta Resolver" - Processes the accumulated turn actions.
+   * 1. Locks the room (Phase: Processing).
+   * 2. Resolves outcomes via LLM (Dungeon Master Agent).
+   * 3. Executes mechanical tool calls (Move, Damage, Dice).
+   * 4. Updates Room History and resets Turn Queue.
+   *
+   * @param roomId - The room to process.
+   * @returns processing result with history and new room state.
    */
   async processTurn(roomId: string | number) {
     const room = (await strapi.entityService.findOne('api::room.room', roomId, {

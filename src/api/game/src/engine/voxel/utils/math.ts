@@ -1,5 +1,6 @@
 /**
- * Alea PRNG for deterministic generation
+ * Alea PRNG for deterministic generation.
+ * A pseudo-random number generator that is seeded to provide consistent results for the same seed.
  */
 export class Alea {
   private s0: number = 0;
@@ -41,6 +42,10 @@ export class Alea {
     if (this.s2 < 0) this.s2 += 1;
   }
 
+  /**
+   * Generates the next random number between 0 (inclusive) and 1 (exclusive).
+   * @returns A number [0, 1)
+   */
   next(): number {
     const t = 2091639 * this.s0 + this.c * 2.3283064365386963e-10;
     this.s0 = this.s1;
@@ -52,7 +57,8 @@ export class Alea {
 }
 
 /**
- * Fast Simplex Noise Implementation (Simplified for 2D)
+ * Fast Simplex Noise Implementation (Simplified for 2D).
+ * Provides coherent noise generation for organic textures like terrain height and moisture.
  */
 export class FastNoise {
   private perm: number[] = [];
@@ -95,6 +101,13 @@ export class FastNoise {
     [0, -1],
   ];
 
+  /**
+   * Generates 2D simplex noise for a given coordinate.
+   *
+   * @param xin - X input coordinate
+   * @param yin - Y input coordinate
+   * @returns Noise value at (x, y)
+   */
   public noise2D(xin: number, yin: number): number {
     const F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
     const s = (xin + yin) * F2;
@@ -152,7 +165,17 @@ export class FastNoise {
     return 70.0 * (n0_val + n1_val + n2_val);
   }
 
-  // Fractal Brownian Motion
+  /**
+   * Fractal Brownian Motion (FBM) noise generation.
+   * Layers multiple octaves of noise to create detail.
+   *
+   * @param x - X coordinate
+   * @param y - Y coordinate
+   * @param octaves - Number of layers of noise to combine
+   * @param persistence - How much amplitude decreases per octave (default 0.5)
+   * @param lacunarity - How much frequency increases per octave (default 2.0)
+   * @returns Normalized FBM noise value
+   */
   public fbm(x: number, y: number, octaves: number, persistence: number = 0.5, lacunarity: number = 2.0): number {
     let total = 0;
     let amplitude = 1;
@@ -170,12 +193,21 @@ export class FastNoise {
   }
 }
 
+/**
+ * Represents a point in 3D integer space.
+ */
 export interface Point3D {
   x: number;
   y: number;
   z: number;
 }
 
+/**
+ * Calculates Euclidean distance between two 3D points.
+ * @param a - Start point
+ * @param b - End point
+ * @returns The distance between a and b.
+ */
 export function calculateDistance(a: Point3D, b: Point3D): number {
   return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) + Math.pow(a.z - b.z, 2));
 }

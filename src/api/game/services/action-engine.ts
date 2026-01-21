@@ -78,9 +78,13 @@ export default ({ strapi }) => ({
   rng: new Alea('default-seed'),
 
   /**
-   * Dispatch a Command (or batch).
-   * By default, it persists changes to maintain backward compatibility (legacy mode).
-   * Set `dryRun: true` or call `resolve` directly for the new pipeline.
+   * Dispatches a Command (or batch of Commands) to the engine for resolution.
+   * acts as the primary entry point for all game logic affecting world state.
+   *
+   * @param roomId - The room context.
+   * @param commands - Array of commands to execute.
+   * @param dryRun - If true, returns the result without persisting state changes.
+   * @returns Array of ActionResults, one for each command.
    */
   async dispatch(roomId: string, commands: EngineCommand[], dryRun = false): Promise<ActionResult[]> {
     const results: ActionResult[] = [];

@@ -93,6 +93,16 @@ export class ChunkManager {
     return chunk;
   }
 
+  /**
+   * Retrieves a Chunk, utilizing caching and worker threads.
+   * Applies any persistent voxel changes overlaying the generated base.
+   *
+   * @param x - Chunk X.
+   * @param y - Chunk Y.
+   * @param config - Generation configuration.
+   * @param worldId - Optional world ID for filtering persistent changes.
+   * @returns Promise resolving to the Chunk.
+   */
   public async getChunk(x: number, y: number, config: WorldConfig, worldId?: string): Promise<Chunk> {
     const key = `${config.seed}_${x}_${y}`;
     if (this.cache.has(key)) return this.cache.get(key)!;
@@ -136,6 +146,20 @@ export class ChunkManager {
     });
   }
 
+  /**
+   * Modifies a single voxel and persists the change.
+   * Updates local cache immediately to reflect the edit.
+   *
+   * @param chunkX - Chunk X.
+   * @param chunkY - Chunk Y.
+   * @param voxelX - Local Voxel X (0-15).
+   * @param voxelY - Local Voxel Y (0-15).
+   * @param voxelZ - Local Voxel Z (-3 to 3).
+   * @param newType - New BlockType.
+   * @param worldId - World Context.
+   * @param reason - Reason/Source of edit.
+   * @param metadata - Additional metadata for the tile.
+   */
   public async editVoxel(
     chunkX: number,
     chunkY: number,

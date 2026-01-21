@@ -2,7 +2,8 @@
 // import { GoogleGenAI, HarmCategory, HarmBlockThreshold } from '@google/genai';
 
 /**
- * Initialize the Google GenAI client
+ * Initialize the Google GenAI client.
+ * Requires GEMINI_API_KEY environment variable.
  */
 async function getClient() {
   const { GoogleGenAI } = await import('@google/genai');

@@ -1,6 +1,15 @@
 import { z } from 'zod';
 import type { Core } from '@strapi/strapi';
 
+/**
+ * Dynamically generates GraphQL definitions for registered game tools.
+ *
+ * This function reflects on the `ToolRegistry` and automatically creates
+ * GraphQL Mutations and Input Types for each registered tool, enabling
+ * frontend clients to discover and invoke tools without manual schema updates.
+ *
+ * @param strapi - The Strapi Core instance.
+ */
 export const generateToolGraphQL = (strapi: Core.Strapi) => {
   const toolRegistry = strapi.service('api::agent.tool-registry');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

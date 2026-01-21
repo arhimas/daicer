@@ -6,244 +6,258 @@
 
 // Remeber update JSDOCs and READMEs
 
+## 🔍 Audit & Deprecation Candidates (Action Required)
+> [!WARNING]
+> These files may be obsolete or require significant refactoring based on current architectural direction (No WSS, Voxel-driven entities).
+
+### `src/shared/events`
+- [?] `src/shared/events/contract.ts`
+  - **Reason**: User stated "no wss". These schemas define socket payloads. Verify if they are repurposed for SSE/HTTP or if they should be deleted.
+
+### `src/utils/llm`
+- [?] `src/utils/llm/image.ts`
+  - **Reason**: User stated "images for entities that now should be voxel guided". Verify if this generic image generator is still needed for other assets (world/items) or if it's dead code.
+
+---
+
 ## Phase 1: Foundation (Deepest)
 
 ### `src/api/voxel-engine/src/utils`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/voxel-engine/src/utils/math.ts`
+  - [x] `src/api/voxel-engine/src/utils/math.ts`
 
 ### `src/lifecycle/graphql`
 - [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/lifecycle/graphql/index.ts`
-  - [ ] `src/lifecycle/graphql/mutation-resolvers.ts`
-  - [ ] `src/lifecycle/graphql/resolvers.ts`
-  - [ ] `src/lifecycle/graphql/tool-generator.ts`
-  - [ ] `src/lifecycle/graphql/type-defs.ts`
+  - [x] `src/lifecycle/graphql/index.ts`
+  - [x] `src/lifecycle/graphql/mutation-resolvers.ts`
+  - [x] `src/lifecycle/graphql/resolvers.ts`
+  - [x] `src/lifecycle/graphql/tool-generator.ts`
+  - [x] `src/lifecycle/graphql/type-defs.ts`
 
 ### `src/plugins/map-explorer/admin/src/utils`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/plugins/map-explorer/admin/src/utils/getTranslation.ts`
-  - [ ] `src/plugins/map-explorer/admin/src/utils/render-engine.ts`
-  - [ ] `src/plugins/map-explorer/admin/src/utils/shape-tools.ts`
+  - [x] `src/plugins/map-explorer/admin/src/utils/getTranslation.ts`
+  - [x] `src/plugins/map-explorer/admin/src/utils/render-engine.ts`
+  - [x] `src/plugins/map-explorer/admin/src/utils/shape-tools.ts`
 
 ### `src/plugins/queue-dashboard/admin/src/utils`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/plugins/queue-dashboard/admin/src/utils/getTranslation.ts`
+  - [x] `src/plugins/queue-dashboard/admin/src/utils/getTranslation.ts`
 
 ### `src/schemas`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/schemas/agent-responses.ts`
-  - [ ] `src/schemas/dm-turn.ts`
+  - [x] `src/schemas/agent-responses.ts`
+  - [x] `src/schemas/dm-turn.ts`
 
 ### `src/shared`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/shared/index.ts`
+  - [x] `src/shared/index.ts`
 
 ### `src/shared/events`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/shared/events/contract.ts`
+  - [x] `src/shared/events/contract.ts`
 
 ### `src/shared/schemas`
 - [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/shared/schemas/actions.ts`
-  - [ ] `src/shared/schemas/actor.ts`
-  - [ ] `src/shared/schemas/common.ts`
-  - [ ] `src/shared/schemas/entity.ts`
-  - [ ] `src/shared/schemas/events.ts`
-  - [ ] `src/shared/schemas/index.ts`
+  - [x] `src/shared/schemas/actions.ts`
+  - [x] `src/shared/schemas/actor.ts`
+  - [x] `src/shared/schemas/common.ts`
+  - [x] `src/shared/schemas/entity.ts`
+  - [x] `src/shared/schemas/events.ts`
+  - [x] `src/shared/schemas/index.ts`
 
 ### `src/shared/utils`
 - [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/shared/utils/markdown-chunker.ts`
-  - [ ] `src/shared/utils/room-rune-generator.ts`
+  - [x] `src/shared/utils/markdown-chunker.ts`
+  - [x] `src/shared/utils/room-rune-generator.ts`
 
 ### `src/types`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/types/ActionDefinition.ts`
-  - [ ] `src/types/EntitySheet.ts`
-  - [ ] `src/types/index.ts`
+  - [x] `src/types/ActionDefinition.ts`
+  - [x] `src/types/EntitySheet.ts`
+  - [x] `src/types/index.ts`
 
 ### `src/utils`
 - [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/utils/dev-logger.ts`
-  - [ ] `src/utils/error-handling.ts`
-  - [ ] `src/utils/prompt.ts`
-  - [ ] `src/utils/room-code.ts`
-  - [ ] `src/utils/upload.ts`
+  - [x] `src/utils/dev-logger.ts`
+  - [x] `src/utils/error-handling.ts`
+  - [x] `src/utils/prompt.ts`
+  - [x] `src/utils/room-code.ts`
+  - [x] `src/utils/upload.ts`
 
 ### `src/utils/exporters`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/utils/exporters/god-mode.ts`
+  - [x] `src/utils/exporters/god-mode.ts`
 
 ### `src/utils/llm`
 - [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/utils/llm/gemini.ts`
-  - [ ] `src/utils/llm/image.ts`
-  - [ ] `src/utils/llm/index.ts`
-  - [ ] `src/utils/llm/local.ts`
-  - [ ] `src/utils/llm/python-bridge.ts`
-  - [ ] `src/utils/llm/structured.ts`
-  - [ ] `src/utils/llm/text.ts`
-  - [ ] `src/utils/llm/types.ts`
+  - [x] `src/utils/llm/gemini.ts`
+  - [x] `src/utils/llm/image.ts`
+  - [x] `src/utils/llm/index.ts`
+  - [x] `src/utils/llm/local.ts`
+  - [x] `src/utils/llm/python-bridge.ts`
+  - [x] `src/utils/llm/structured.ts`
+  - [x] `src/utils/llm/text.ts`
+  - [x] `src/utils/llm/types.ts`
 
 ## Phase 2: Core Engines (Complex Logic)
 
 ### `src/api/game/src/engine`
 - [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/index.ts`
+  - [x] `src/api/game/src/engine/index.ts`
 
 ### `src/api/game/src/engine/compilation`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/compilation/CompilationOrchestrator.ts`
-  - [ ] `src/api/game/src/engine/compilation/Compiler.ts`
+  - [x] `src/api/game/src/engine/compilation/CompilationOrchestrator.ts`
+  - [x] `src/api/game/src/engine/compilation/Compiler.ts`
 
 ### `src/api/game/src/engine/compilation/atoms`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/compilation/atoms/ConditionCompiler.ts`
-  - [ ] `src/api/game/src/engine/compilation/atoms/DamageTypeCompiler.ts`
+  - [x] `src/api/game/src/engine/compilation/atoms/ConditionCompiler.ts`
+  - [x] `src/api/game/src/engine/compilation/atoms/DamageTypeCompiler.ts`
 
 ### `src/api/game/src/engine/compilation/blueprints`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/compilation/blueprints/EntityCompiler.ts`
+  - [x] `src/api/game/src/engine/compilation/blueprints/EntityCompiler.ts`
 
 ### `src/api/game/src/engine/compilation/compounds`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/compilation/compounds/EquipmentCompiler.ts`
+  - [x] `src/api/game/src/engine/compilation/compounds/EquipmentCompiler.ts`
 
 ### `src/api/game/src/engine/compilation/molecules`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/compilation/molecules/FeatureCompiler.ts`
-  - [ ] `src/api/game/src/engine/compilation/molecules/SpellCompiler.ts`
+  - [x] `src/api/game/src/engine/compilation/molecules/FeatureCompiler.ts`
+  - [x] `src/api/game/src/engine/compilation/molecules/SpellCompiler.ts`
 
 ### `src/api/game/src/engine/constants`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/constants/physics.ts`
+  - [x] `src/api/game/src/engine/constants/physics.ts`
 
 ### `src/api/game/src/engine/core`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/core/deterministic-turn-processor.ts`
-  - [ ] `src/api/game/src/engine/core/game-loop.ts`
+  - [x] `src/api/game/src/engine/core/deterministic-turn-processor.ts`
+  - [x] `src/api/game/src/engine/core/game-loop.ts`
 
 ### `src/api/game/src/engine/derivation`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/derivation/ActionHydrator.ts`
-  - [ ] `src/api/game/src/engine/derivation/attributes.ts`
-  - [ ] `src/api/game/src/engine/derivation/capabilities.ts`
-  - [ ] `src/api/game/src/engine/derivation/defenses.ts`
-  - [ ] `src/api/game/src/engine/derivation/index.ts`
-  - [ ] `src/api/game/src/engine/derivation/skills.ts`
-  - [ ] `src/api/game/src/engine/derivation/types.ts`
+  - [x] `src/api/game/src/engine/derivation/ActionHydrator.ts`
+  - [x] `src/api/game/src/engine/derivation/attributes.ts`
+  - [x] `src/api/game/src/engine/derivation/capabilities.ts`
+  - [x] `src/api/game/src/engine/derivation/defenses.ts`
+  - [x] `src/api/game/src/engine/derivation/index.ts`
+  - [x] `src/api/game/src/engine/derivation/skills.ts`
+  - [x] `src/api/game/src/engine/derivation/types.ts`
 
 ### `src/api/game/src/engine/engine`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/engine/action-dispatcher.ts`
+  - [x] `src/api/game/src/engine/engine/action-dispatcher.ts`
 
 ### `src/api/game/src/engine/entropy`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/entropy/index.ts`
+  - [x] `src/api/game/src/engine/entropy/index.ts`
 
 ### `src/api/game/src/engine/mechanics/damage`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/mechanics/damage/DamageInstance.ts`
-  - [ ] `src/api/game/src/engine/mechanics/damage/DamageType.ts`
+  - [x] `src/api/game/src/engine/mechanics/damage/DamageInstance.ts`
+  - [x] `src/api/game/src/engine/mechanics/damage/DamageType.ts`
 
 ### `src/api/game/src/engine/mechanics/features`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/mechanics/features/rage.ts`
-  - [ ] `src/api/game/src/engine/mechanics/features/sneak-attack.ts`
+  - [x] `src/api/game/src/engine/mechanics/features/rage.ts`
+  - [x] `src/api/game/src/engine/mechanics/features/sneak-attack.ts`
 
 ### `src/api/game/src/engine/mechanics/registry`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/mechanics/registry/ClassDefinition.ts`
-  - [ ] `src/api/game/src/engine/mechanics/registry/ClassRegistry.ts`
-  - [ ] `src/api/game/src/engine/mechanics/registry/FeatureRegistry.ts`
+  - [x] `src/api/game/src/engine/mechanics/registry/ClassDefinition.ts`
+  - [x] `src/api/game/src/engine/mechanics/registry/ClassRegistry.ts`
+  - [x] `src/api/game/src/engine/mechanics/registry/FeatureRegistry.ts`
 
 ### `src/api/game/src/engine/resolution`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/resolution/ActionDispatcher.ts`
+  - [x] `src/api/game/src/engine/resolution/ActionDispatcher.ts`
 
 ### `src/api/game/src/engine/rules`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/rules/actions.ts`
-  - [ ] `src/api/game/src/engine/rules/combat.ts`
-  - [ ] `src/api/game/src/engine/rules/conditions.ts`
-  - [ ] `src/api/game/src/engine/rules/dice.ts`
-  - [ ] `src/api/game/src/engine/rules/dnd5e.ts`
-  - [ ] `src/api/game/src/engine/rules/leveling.ts`
-  - [ ] `src/api/game/src/engine/rules/magic.ts`
-  - [ ] `src/api/game/src/engine/rules/narrator.ts`
-  - [ ] `src/api/game/src/engine/rules/resting.ts`
-  - [ ] `src/api/game/src/engine/rules/spatial.ts`
+  - [x] `src/api/game/src/engine/rules/actions.ts`
+  - [x] `src/api/game/src/engine/rules/combat.ts`
+  - [x] `src/api/game/src/engine/rules/conditions.ts`
+  - [x] `src/api/game/src/engine/rules/dice.ts`
+  - [x] `src/api/game/src/engine/rules/dnd5e.ts`
+  - [x] `src/api/game/src/engine/rules/leveling.ts`
+  - [x] `src/api/game/src/engine/rules/magic.ts`
+  - [x] `src/api/game/src/engine/rules/narrator.ts`
+  - [x] `src/api/game/src/engine/rules/resting.ts`
+  - [x] `src/api/game/src/engine/rules/spatial.ts`
 
 ### `src/api/game/src/engine/schemas`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/schemas/commands.ts`
-  - [ ] `src/api/game/src/engine/schemas/entity-min.ts`
-  - [ ] `src/api/game/src/engine/schemas/entity-sheet.ts`
-  - [ ] `src/api/game/src/engine/schemas/game.ts`
-  - [ ] `src/api/game/src/engine/schemas/index.ts`
-  - [ ] `src/api/game/src/engine/schemas/voxel.ts`
+  - [x] `src/api/game/src/engine/schemas/commands.ts`
+  - [x] `src/api/game/src/engine/schemas/entity-min.ts`
+  - [x] `src/api/game/src/engine/schemas/entity-sheet.ts`
+  - [x] `src/api/game/src/engine/schemas/game.ts`
+  - [x] `src/api/game/src/engine/schemas/index.ts`
+  - [x] `src/api/game/src/engine/schemas/voxel.ts`
 
 ### `src/api/game/src/engine/types`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/types/blueprint.ts`
-  - [ ] `src/api/game/src/engine/types/engine.ts`
-  - [ ] `src/api/game/src/engine/types/index.ts`
-  - [ ] `src/api/game/src/engine/types/rules.ts`
+  - [x] `src/api/game/src/engine/types/blueprint.ts`
+  - [x] `src/api/game/src/engine/types/engine.ts`
+  - [x] `src/api/game/src/engine/types/index.ts`
+  - [x] `src/api/game/src/engine/types/rules.ts`
 
 ### `src/api/game/src/engine/utils`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/utils/geometry.ts`
-  - [ ] `src/api/game/src/engine/utils/movement.ts`
+  - [x] `src/api/game/src/engine/utils/geometry.ts`
+  - [x] `src/api/game/src/engine/utils/movement.ts`
 
 ### `src/api/game/src/engine/voxel`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/voxel/config.ts`
-  - [ ] `src/api/game/src/engine/voxel/terrain-generator.ts`
+  - [x] `src/api/game/src/engine/voxel/config.ts`
+  - [x] `src/api/game/src/engine/voxel/terrain-generator.ts`
 
 ### `src/api/game/src/engine/voxel/utils`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/voxel/utils/math.ts`
+  - [x] `src/api/game/src/engine/voxel/utils/math.ts`
 
 ### `src/api/game/src/engine/world`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/api/game/src/engine/world/index.ts`
-  - [ ] `src/api/game/src/engine/world/world-atlas.ts`
+  - [x] `src/api/game/src/engine/world/index.ts`
+  - [x] `src/api/game/src/engine/world/world-atlas.ts`
 
 ### `src/api/voxel-engine/controllers`
 - [ ] README.md (NO README)
@@ -302,10 +316,10 @@
   - [ ] `src/services/unified-search-service.ts`
 
 ### `src/services/mechanics`
-- [ ] README.md (NO README)
+- [x] README.md (**HAS README**)
 - Files:
-  - [ ] `src/services/mechanics/action-generator.ts`
-  - [ ] `src/services/mechanics/feature-hydrator.ts`
+  - [x] `src/services/mechanics/action-generator.ts`
+  - [x] `src/services/mechanics/feature-hydrator.ts`
 
 ## Phase 4: Feature Domains (Services)
 

@@ -3,12 +3,12 @@ import { DerivationContext } from './types';
 import { ActionHydrator } from './ActionHydrator';
 
 /**
- * Derives movement speeds.
+ * Derives movement speeds based on Race, Armor penalties, and Attributes.
  *
- * Logic:
- * - Base speed from Race
- * - Modifiers can be added (e.g. Monk Unarmored Movement, Mobile feat) - Placeholder for now.
- * - Heavy Armor penalty (if str < str_minimum)
+ * Rules:
+ * - Base speed from Race.
+ * - Heavy Armor penalty: -10ft if Str < StrReq.
+ * - (Future) Monk/Barbarian speed bonuses.
  */
 // ... (deriveSpeed)
 export function deriveSpeed(context: DerivationContext): { walk: number; [key: string]: number } {

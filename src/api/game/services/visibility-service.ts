@@ -12,6 +12,13 @@ const VIEW_RADIUS_CHUNKS = 1; // 3x3 Grid around player
 const VIEW_RADIUS_TILES = 20; // Exact tile distance check
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
+  /**
+   * Calculates the coordinates of chunks visible from a center point.
+   * Used for loading/streaming relevant map data.
+   *
+   * @param centerPos - The observer's position.
+   * @returns Array of chunk coordinates {x, y}.
+   */
   getVisibleChunkCoords(centerPos: Position) {
     const centerChunkX = Math.floor(centerPos.x / 16);
     const centerChunkY = Math.floor(centerPos.y / 16);

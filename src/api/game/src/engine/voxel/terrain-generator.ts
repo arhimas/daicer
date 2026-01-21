@@ -2,6 +2,13 @@ import { Alea, FastNoise } from './utils/math';
 import { Tile, BlockType, BiomeType, ZLevel, WorldConfig } from '../types';
 import { WorldAtlas } from '../world';
 
+/**
+ * Core procedural terrain generator for the voxel engine.
+ * Uses Simplex noise, Voronoi diagrams (via hydration), and biome rules to generate
+ * volumetric chunk data.
+ *
+ * Supports 7-layer voxel generation (3 layers underground, surface, 3 layers sky).
+ */
 export class TerrainGenerator {
   private noiseElevation: FastNoise;
   private noiseMoisture: FastNoise;
@@ -9,6 +16,11 @@ export class TerrainGenerator {
   public config: WorldConfig;
   private atlas?: WorldAtlas;
 
+  /**
+   * Creates a new TerrainGenerator instance.
+   * @param config - World generation configuration (seed, scales, etc.)
+   * @param atlas - Optional WorldAtlas for macro-structure awareness (cities, roads)
+   */
   constructor(config: WorldConfig, atlas?: WorldAtlas) {
     this.config = config;
     this.atlas = atlas;
@@ -17,6 +29,13 @@ export class TerrainGenerator {
     this.noiseMoisture = new FastNoise(config.seed + '_moist');
   }
 
+  /**
+   * Generates a full 3D chunk of voxel tiles.
+   *
+   * @param chunkX - The X coordinate of the chunk
+   * @param chunkY - The Y coordinate of the chunk
+   * @returns A 7-layer 3D array of Tiles [z][y][x]
+   */
   public generate(chunkX: number, chunkY: number): Tile[][][] {
     const size = this.config.chunkSize;
     const worldOffsetX = chunkX * size;
@@ -81,6 +100,15 @@ export class TerrainGenerator {
     return tiles;
   }
 
+  /**
+   * Generates a single tile at a specific 3D coordinate.
+   * Useful for sampling or raycasting without generating entire chunks.
+   *
+   * @param x - World X coordinate
+   * @param y - World Y coordinate
+   * @param z - Level Z coordinate needed
+   * @returns The generated Tile
+   */
   public getTileAt(x: number, y: number, z: ZLevel): Tile {
     const nx = x * this.config.globalScale;
     const ny = y * this.config.globalScale;
@@ -171,6 +199,15 @@ export class TerrainGenerator {
     return { x, y, z, block, biome, isWalkable, isTransparent, variant: this.rng.next(), elevation, moisture };
   }
 }
+
+/**
+ * Factory function to create a functional generator interface.
+ * Returns a generator function that abstracts the class instance.
+ *
+ * @param seed - The seed string for RNG
+ * @param params - Optional configuration overrides
+ * @returns A generic generation function `(chunkX, chunkY) => Tile[][][]`
+ */
 export function createUnifiedTerrainGenerator(seed: string, params: Partial<WorldConfig> = {}) {
   // Merge defaults with overrides
   const config: WorldConfig = {

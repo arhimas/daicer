@@ -112,10 +112,11 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   /**
    * Translates an entity based on its Strapi Schema.
    * INTELLIGENT: Respects field types to avoid breaking Enums, UIDs, and Relations.
-   * 
-   * @param entity The entity data to translate
-   * @param contentTypeUID The Strapi UID of the content type (e.g. 'api::spell.spell')
-   * @param targetLang The target language
+   *
+   * @param entity - The entity data to translate.
+   * @param contentTypeUID - The Strapi UID of the content type (e.g. 'api::spell.spell').
+   * @param targetLang - The target language.
+   * @returns Translated entity object.
    */
   translateEntity(entity: any, contentTypeUID: string, targetLang: SupportedLanguage): any {
     if (!entity || typeof entity !== 'object') return entity;

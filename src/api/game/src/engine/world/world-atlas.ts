@@ -1,23 +1,45 @@
 import { Alea, FastNoise } from '../voxel/utils/math';
 import { WorldConfig } from '../types';
 
+/**
+ * Represents metadata about a generated world region (Voronoi cell).
+ */
 export interface RegionInfo {
+  /** Unique ID of the region (e.g. "12,45" based on grid index). */
   id: string; // "12,45"
+  /** World coordinates of the region center. */
   center: { x: number; y: number };
+  /** Dominant biome of the region. */
   biome: string; // "Forest"
+  /** Procedurally generated name of the region. */
   name: string; // "Eldoria"
+  /** Economic wealth factor (0-1). */
   wealth: number; // 0-1
+  /** Danger/Hostility factor (0-1). */
   danger: number; // 0-1
 }
 
+/**
+ * Represents a macro-structure (City, Village, Ruin) located in a region.
+ */
 export interface StructureRef {
+  /** Type of structure. */
   type: 'city' | 'village' | 'ruin' | 'none';
+  /** Name of the structure (usually matches region name). */
   name: string;
+  /** Radius of influence in world units. */
   radius: number;
+  /** Exact center coordinates. */
   center: { x: number; y: number };
+  /** Deterministic seed for internal structure generation. */
   seed: string;
 }
 
+/**
+ * Manages macro-scale world features using an infinite Voronoi grid.
+ * Determines where regions, cities, and major landmarks are located
+ * before the voxel engine generates the terrain details.
+ */
 export class WorldAtlas {
   private noiseRegions: FastNoise;
   private rng: Alea;
@@ -37,11 +59,11 @@ export class WorldAtlas {
 
   /**
    * Get the region info for a world position.
-   * Uses Jittered Grid (Infinite Voronoi) approach.
-   */
-  /**
-   * Get the region info for a world position.
-   * Uses Jittered Grid (Infinite Voronoi) approach.
+   * Uses Jittered Grid (Infinite Voronoi) approach to find the closest region center.
+   *
+   * @param x - World X coordinate
+   * @param y - World Y coordinate
+   * @returns The RegionInfo for the enclosing Voronoi cell.
    */
   public getRegion(x: number, y: number): RegionInfo {
     const cellSize = Math.max(1, Math.floor(this.config.structureSpacing)) * this.config.chunkSize;
@@ -117,6 +139,10 @@ export class WorldAtlas {
   /**
    * Check if there is a structure at this location.
    * A Structure exists at the Center of a Region if RNG permits.
+   *
+   * @param x - World X coordinate
+   * @param y - World Y coordinate
+   * @returns StructureRef if inside a structure's radius, null otherwise.
    */
   public getStructure(x: number, y: number): StructureRef | null {
     const region = this.getRegion(x, y);
@@ -158,6 +184,10 @@ export class WorldAtlas {
   /**
    * Get structure data for a specific grid cell indices.
    * Used by CivilizationGenerator to iterate potential structure sites.
+   *
+   * @param cx - Cell X index
+   * @param cy - Cell Y index
+   * @returns Stats and ID of the potential region center.
    */
   public getRegionStatsForCell(cx: number, cy: number): { center: { x: number; y: number; seed: string }; id: string } {
     const cellSize = Math.max(1, Math.floor(this.config.structureSpacing)) * this.config.chunkSize;
@@ -177,6 +207,13 @@ export class WorldAtlas {
     };
   }
 
+  /**
+   * Deterministically retrieves structure info for a specific cell index, if one exists.
+   *
+   * @param cx - Cell X index
+   * @param cy - Cell Y index
+   * @returns StructureRef or null
+   */
   public getStructureInCell(cx: number, cy: number): StructureRef | null {
     const { center, id } = this.getRegionStatsForCell(cx, cy);
     const stats = this.generateRegionData(id, center);

@@ -8,9 +8,14 @@ import { chunkMarkdown } from '../../../shared';
 // Service
 export default factories.createCoreService('api::knowledge-source.knowledge-source', ({ strapi }) => ({
   /**
-   * Syncs a Knowledge Source: Chunks content -> Creates Snippets
-   * Embeddings are generated asynchronously via the 'auto-embed' subscriber.
-   * @param sourceId ID of the Knowledge Source
+   * Syncs a Knowledge Source: Chunks content -> Creates Snippets.
+   * - Fetches source entity.
+   * - Chunks markdown content.
+   * - Deletes old snippets (Wipe & Replace).
+   * - Creates new snippets (Async Embedding via 'auto-embed' lifecycle).
+   *
+   * @param sourceId - ID of the Knowledge Source.
+   * @returns Promise<void>
    */
   async sync(sourceId: number) {
     try {

@@ -1,6 +1,11 @@
 import { Entity, EntityAction } from '../../types';
 import { CombatContext, FeatureHandler, FeatureRegistry } from '../registry/FeatureRegistry';
 
+/**
+ * Rogue Sneak Attack Implementation.
+ * Checks Finesse/Range + Advantage/Ally interaction.
+ * Adds level-scaling precision damage.
+ */
 export const SneakAttack: FeatureHandler = {
   name: 'Sneak Attack',
 

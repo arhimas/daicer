@@ -46,6 +46,15 @@ const parseTextAction = (text: string, actorId: string): EngineCommand | null =>
 };
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
+  /**
+   * Orchestrates the complete Turn Lifecycle ("Sandwich" Architecture).
+   * Intent -> Resolution -> Persistence -> Narration -> Broadcast.
+   * Uses lock services to prevent race conditions.
+   *
+   * @param roomId - The room context.
+   * @param inputs - Raw inputs (text or commands).
+   * @returns processing result.
+   */
   async processTurn(roomId: string, inputs: TurnInput[]) {
     const lockService = strapi.service('api::game.lock-service');
     const holderId = `pipeline-${Date.now()}-${Math.random().toString(36).substring(7)}`;

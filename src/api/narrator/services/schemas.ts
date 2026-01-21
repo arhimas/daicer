@@ -6,6 +6,10 @@ export const ToolCallSchema = z.object({
   reasoning: z.string().describe('Why this tool is being called'),
 });
 
+/**
+ * Schema for Narrator Response.
+ * Defines the structured output expected from the LLM or Tool execution.
+ */
 export const NarratorResponseSchema = z.object({
   thought_process: z.string().describe("Hidden reasoning for the Dungeon Master's decisions."),
   narration: z.string().describe('The public narration content to be displayed to the players.'),

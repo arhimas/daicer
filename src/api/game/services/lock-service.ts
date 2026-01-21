@@ -6,10 +6,12 @@ import { Core } from '@strapi/strapi';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Attempt to acquire a lock for a room.
-   * @param roomId The ID of the room to lock.
-   * @param holderId The ID of the entity/process requesting the lock.
-   * @param ttlSeconds Time-to-live for the lock in seconds.
+   * Attempts to acquire a pessimistic lock for a room's turn processing.
+   * Prevents race conditions during concurrent turn requests.
+   *
+   * @param roomId - The ID of the room to lock.
+   * @param holderId - The ID of the entity/process requesting the lock.
+   * @param ttlSeconds - Time-to-live for the lock in seconds (default: 5).
    * @returns true if lock acquired, false if already locked.
    */
   async acquire(roomId: string, holderId: string, ttlSeconds: number = 5): Promise<boolean> {

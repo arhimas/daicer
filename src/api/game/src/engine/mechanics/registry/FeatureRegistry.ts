@@ -27,6 +27,10 @@ export interface FeatureHandler {
   applyToHitBonus?(attacker: Entity, context: CombatContext): number;
 }
 
+/**
+ * Registry for Special Abilities (Feats, Class Features).
+ * Maps specific feature names ("Sneak Attack", "Rage") to executable code `FeatureHandler`.
+ */
 export class FeatureRegistry {
   private static handlers = new Map<string, FeatureHandler>();
 

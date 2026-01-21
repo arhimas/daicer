@@ -1,5 +1,10 @@
 import { DMStyle } from '../types';
 
+/**
+ * Utilities for controlling the AI Dungeon Master's narrative style.
+ * Defines levels for Verbosity, Detail, Engagement, and Narrative Control.
+ */
+
 export const DM_VERBOSITY_LEVELS = [
   'Whisper (Minimal)',
   'Terse',

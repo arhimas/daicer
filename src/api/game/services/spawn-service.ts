@@ -64,7 +64,13 @@ interface PopulatedBlueprint {
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Spawn a monster into a room by creating a CharacterSheet
+   * Spawns a monster into a room by creating a fully populated EntitySheet.
+   * Resolves the blueprint, derives stats, and places the entity.
+   *
+   * @param roomId - The target room.
+   * @param monsterId - The monster blueprint ID (documentId).
+   * @param position - The spawn coordinates.
+   * @returns The created EntitySheet.
    */
   async spawnMonster(
     roomId: string | number,

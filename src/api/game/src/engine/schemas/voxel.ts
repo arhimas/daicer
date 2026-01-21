@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
-// Enums
+/**
+ * Enumeration of all Voxel Block Types.
+ * Maps logical names (Code) to texture keys or behavior flags.
+ */
 export const BlockTypeSchema = z.nativeEnum({
   AIR: 'air',
   GRASS: 'grass',

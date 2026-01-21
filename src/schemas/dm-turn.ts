@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+/**
+ * Tool Call Schema.
+ *
+ * Structure for tool invocations suggested by the DM AI.
+ */
 export const ToolCallSchema = z.object({
   tool: z.enum(['roll_dice', 'move_entity', 'apply_damage', 'deduct_resource']),
   args: z
@@ -8,6 +13,11 @@ export const ToolCallSchema = z.object({
   reasoning: z.string().optional().describe('Why this tool is being called (e.g. "Goblin attacks Player")'),
 });
 
+/**
+ * DM Turn Output Schema.
+ *
+ * The final structure for a processed DM Turn, containing the narrative and any mechanical side effects.
+ */
 export const DMTurnSchema = z.object({
   narrative: z.string().describe('The markdown descriptions of what happens in the turn. Be vivid and immersive.'),
   tool_calls: z.array(ToolCallSchema).describe('List of mechanical actions to execute sequentially.'),

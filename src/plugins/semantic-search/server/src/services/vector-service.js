@@ -120,9 +120,10 @@ module.exports = ({ strapi }) => ({
   },
 
   /**
-   * Search an specific Entity Table using SQLite-Vec
+   * Search a specific Entity Table using SQLite-Vec or PGVector.
+   * Dynamically adapts query based on DB client.
    * @param {string} uid - Model UID (api::spell.spell)
-   * @param {number[]} vector
+   * @param {number[]} vector - Query Vector
    * @param {number} limit
    */
   async searchEntity(uid, vector, limit = 5) {

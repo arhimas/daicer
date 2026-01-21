@@ -8,14 +8,12 @@ const TOOL_REGEX = /^([a-zA-Z0-9_]+)\((.*)\)$/s;
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Execute a tool string directly, bypassing LLM parsing.
-   * @param roomId
-   * @param toolString
-   */
-  /**
-   * Execute a tool string directly, bypassing LLM parsing.
-   * @param roomId
-   * @param toolString
+   * Executes a raw tool string command (e.g. `spawn_monster(id="dragon")`).
+   * Parses the string and routes it to the ToolRegistry.
+   *
+   * @param roomId - The room context.
+   * @param toolString - The raw tool invocation string.
+   * @returns The result of the tool execution.
    */
   async execute(roomId: string, toolString: string) {
     strapi.log.info(`[ToolExecutor] Executing: ${toolString}`);

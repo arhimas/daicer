@@ -3,6 +3,7 @@ import { ConditionType } from '../../rules/conditions';
 
 /**
  * Validates 'api::status-effect' entities against the Engine's Condition rules.
+ * Ensures the slug matches a known condition in the engine enum.
  */
 export class ConditionCompiler extends BaseCompiler<Record<string, unknown>> {
     readonly name = 'ConditionCompiler';

@@ -51,6 +51,13 @@ const getQueues = (): Queue[] => {
 };
 
 export default {
+  /**
+   * Retrieves statistics for all registered BullMQ queues.
+   * Includes counts, active jobs, and status.
+   * GET /api/queue-dashboard/stats
+   *
+   * @param ctx - Koa Context
+   */
   async getStats(ctx: DashboardContext) {
     try {
       const queues = getQueues();
@@ -114,6 +121,10 @@ export default {
     }
   },
 
+  /**
+   * Pauses a specific queue.
+   * POST /api/queue-dashboard/queue/:queueName/pause
+   */
   async pause(ctx: DashboardContext) {
     const { queueName } = ctx.params;
     try {
@@ -132,6 +143,10 @@ export default {
     }
   },
 
+  /**
+   * Resumes a paused queue.
+   * POST /api/queue-dashboard/queue/:queueName/resume
+   */
   async resume(ctx: DashboardContext) {
     const { queueName } = ctx.params;
     try {
@@ -150,6 +165,10 @@ export default {
     }
   },
 
+  /**
+   * Cleans (removes) jobs of a specific type from a queue.
+   * POST /api/queue-dashboard/queue/:queueName/clean?type=failed
+   */
   async clean(ctx: DashboardContext) {
     const { queueName } = ctx.params;
     const type = ((ctx.query.type as string) || 'failed');

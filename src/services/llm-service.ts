@@ -5,7 +5,20 @@ const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 // User specified model for 2026 context
 const FALLBACK_MODELS = ['gemini-3-flash-preview', 'gemini-2.0-flash-exp', 'gemini-1.5-flash'];
 
+/**
+ * Service wrapper for interacting with Large Language Models (specifically Google's Gemini).
+ * Provides fallback strategies and error handling for text generation.
+ */
 export const llmService = {
+  /**
+   * Generates text content based on a prompt using the Gemini API.
+   * Tries the requested model first, then iterates through fallbacks if allowed/needed.
+   *
+   * @param prompt - The input prompt text.
+   * @param modelName - The preferred model name to use (default: 'gemini-3-flash-preview').
+   * @returns The generated text response.
+   * @throws Error if API key is missing or all models fail.
+   */
   generate: async (prompt: string, modelName: string = 'gemini-3-flash-preview') => {
     if (!apiKey) {
         console.warn('[LLMService] Check your .env: GEMINI_API_KEY or GOOGLE_API_KEY is missing.');

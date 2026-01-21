@@ -11,6 +11,20 @@ interface Message {
 }
 
 export default ({ strapi }) => ({
+  /**
+   * Generates the narrative response for a game turn using the LLM.
+   * Aggregates context from players, world state, and chat history.
+   *
+   * @param roomId - The room context.
+   * @param worldDescription - The static description of the world.
+   * @param messages - Recent chat history.
+   * @param players - Active players.
+   * @param entities - All entities in the scene.
+   * @param language - Output language.
+   * @param settings - World/DM settings.
+   * @param mapImage - Optional visual context for the LLM.
+   * @returns Structured Turn Response (Summary + Perspectives).
+   */
   async generateNarrativeResponse(
     roomId: string,
     worldDescription: string,

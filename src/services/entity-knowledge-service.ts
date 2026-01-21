@@ -14,10 +14,18 @@ const ENTITY_UIDS = EMBEDDABLE_MODELS;
 // import { entityToMarkdown } from '../utils/entity-markdown'; // Commented out until utils restored
 const entityToMarkdown = (type: string, name: string, data: unknown) => JSON.stringify(data, null, 2); // Stub fallback
 
+/**
+ * Service to sync Game Entities (Class, Spell, Monster, etc.) to the Knowledge Base.
+ * It converts an Entity into a formatted Markdown KnowledgeSource with Tags and Embeddings.
+ */
 export class EntityKnowledgeService {
   /**
    * Syncs one specific entity to a KnowledgeSource.
-   * If the entity is deleted, we should delete the source (handled by logic outside or by clearing here).
+   * Handles querying the entity with full population, generating a markdown representation,
+   * creating a vector embedding, and updating the entity record with the new embedding.
+   *
+   * @param uid - The Strapi Content-Type UID (e.g. 'api::spell.spell').
+   * @param entityId - The ID or Document ID of the entity to sync.
    */
   async syncEntity(uid: string, entityId: number | string) {
     if (!ENTITY_UIDS.includes(uid)) return;

@@ -5,6 +5,13 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::time-frame.time-frame', ({ strapi }) => ({
+  /**
+   * Captures a snapshot of the current game state for history replay.
+   *
+   * @param roomId - The room to snapshot.
+   * @param gameState - The full state object (entities, settings, etc).
+   * @returns The created TimeFrame entity.
+   */
   async createSnapshot(roomId: string, gameState: unknown) {
     const room = await strapi.entityService.findOne('api::room.room', roomId, {
       populate: ['turns'],
@@ -27,6 +34,14 @@ export default factories.createCoreService('api::time-frame.time-frame', ({ stra
     });
   },
 
+  /**
+   * Retrieves a Point-of-View filtered game state.
+   * Used for reconstructing what a specific player saw at a specific time.
+   *
+   * @param timeFrameId - The snapshot ID.
+   * @param _playerId - The viewer (for filtering fog of war, hidden items).
+   * @returns The (potentially filtered) gameState.
+   */
   async getPOV(timeFrameId: string, _playerId: string) {
     const timeFrame = await strapi.entityService.findOne('api::time-frame.time-frame', timeFrameId, {
       populate: ['room'],

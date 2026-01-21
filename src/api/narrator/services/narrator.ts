@@ -38,6 +38,18 @@ interface CharacterSheet {
 }
 
 export default ({ strapi }: { strapi: StrapiInterface }) => ({
+  /**
+   * Processes a Narrator Action (Player Input).
+   * 1. Resolves User and Room context.
+   * 2. Persists the User Message to the Chat Log.
+   * 3. Selects Execution Mode:
+   *    - Direct: Executes a specific tool directly (bypassing LLM).
+   *    - Agent: Invokes the LLM Agent with available tools.
+   * 4. Post-Processes results (Snapshots, Narration persistence).
+   *
+   * @param input - The input object containing roomId, text, and options.
+   * @returns The structured NarratorResponse.
+   */
   async processAction({ roomId, input, mode, userId, direct }: NarratorInput) {
     strapi.log.info(`[Narrator] Processing action in room ${roomId} (mode: ${mode})`);
 

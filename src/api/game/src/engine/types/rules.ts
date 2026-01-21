@@ -1,6 +1,9 @@
 import { EntitySheet } from './index';
 
-// Represents the Global Rule Configuration (from Strapi api::rule-set)
+/**
+ * Represents the Global Rule Configuration (from Strapi api::rule-set).
+ * Defines scale tables for XP and Proficiency.
+ */
 export interface RuleSet {
   xp_table: number[];
   proficiency_table: { [level: string]: number }; // Strapi might return string keys

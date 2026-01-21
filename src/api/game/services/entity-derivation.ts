@@ -60,6 +60,12 @@ type PopulatedSheet = any & {
 };
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
+  /**
+   * Derives runtime values (Stats, AC, Actions) from the raw EntitySheet data and persists the updates.
+   * This ensures that changes to base stats or equipment are instantly reflected in gameplay mechanics.
+   *
+   * @param sheetId - The documentId of the EntitySheet to update.
+   */
   async deriveAndPersist(sheetId: string) {
     // 1. Fetch Sheet with DEEP population
     const sheetRaw = await strapi.documents('api::entity-sheet.entity-sheet').findOne({

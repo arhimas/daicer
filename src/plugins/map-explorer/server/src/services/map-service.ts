@@ -1,6 +1,10 @@
 import type { Core } from '@strapi/strapi';
 
 const service = ({ strapi }: { strapi: Core.Strapi }) => ({
+  /**
+   * Retrieves global map generation settings.
+   * Returns defaults if no config is found in DB.
+   */
   async getWorldConfig() {
     // Assuming single world instance for now
     const world = await strapi.db.query('api::world.world').findOne();

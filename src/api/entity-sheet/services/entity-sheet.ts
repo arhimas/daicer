@@ -1,7 +1,5 @@
 /**
- * entity-sheet service
+ * Entity Sheet Service
+ * Core service for the 'Entity Sheet' - the runtime character/monster instance.
  */
-
-import { factories } from '@strapi/strapi';
-
 export default factories.createCoreService('api::entity-sheet.entity-sheet');

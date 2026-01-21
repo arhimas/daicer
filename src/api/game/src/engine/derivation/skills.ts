@@ -22,12 +22,14 @@ export const SKILL_ABILITY_MAP: Record<string, AbilityScore> = {
 };
 
 /**
- * Calculates Proficiency Bonus based on level.
+ * Calculates Proficiency Bonus based on character total level.
  * Formula: ceil(1 + level / 4)
- * Level 1-4: +2
- * Level 5-8: +3
- * ...
- * Level 17-20: +6
+ * 
+ * - Level 1-4: +2
+ * - Level 5-8: +3
+ * - Level 9-12: +4
+ * - Level 13-16: +5
+ * - Level 17-20: +6
  */
 export function calculateProficiencyBonus(level: number): number {
   if (level < 1) return 2; // Minimum PB

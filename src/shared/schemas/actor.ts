@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+/**
+ * Schema for Actor Movement Speed.
+ * Supports legacy numeric value (walk speed) or detailed movement modes.
+ */
 export const SpeedSchema = z.union([
   z.number(), // Legacy support
   z.object({

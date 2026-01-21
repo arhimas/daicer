@@ -3,7 +3,9 @@ import { PythonBridge } from './python-bridge';
 import { LocalModel, LocalConfig } from './types';
 
 /**
- * Singleton to manage Local LLM state and memory via Python Bridge
+ * Singleton manager for Local LLM inference.
+ * Bridges to a Python environment to run quantized models (Gemma 3).
+ * WARNING: High memory usage.
  */
 class LocalLLMManager {
   private static instance: LocalLLMManager;
@@ -23,8 +25,11 @@ class LocalLLMManager {
   }
 
   /**
-   * Initialize or switch the model.
-   * This is heavy operation.
+   * Initialize or switch the loaded local model.
+   * This is a heavy blocking operation that may take seconds to minutes.
+   * 
+   * @param model - The model identifier (LocalModel enum).
+   * @param quantization - Quantization level (q4 recommended for most consumer hardware).
    */
   public async loadModel(model: LocalModel, quantization: 'q8' | 'q4' | 'fp16' | 'int8' = 'q4') {
     if (this.currentModel === model) {

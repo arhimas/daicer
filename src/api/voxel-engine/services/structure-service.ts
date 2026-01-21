@@ -6,6 +6,15 @@ import { AdvancedStructureGenerator } from './generators/advanced-structure-gene
 export class StructureService {
   constructor(private config: WorldConfig) {}
 
+  /**
+   * Determines the major structure (if any) for a given region.
+   * Uses deterministic RNG based on region coordinates.
+   *
+   * @param regionX - Region X.
+   * @param regionY - Region Y.
+   * @param regionSize - Size of the region in tiles.
+   * @returns StructureInfo describing type, position, and size.
+   */
   public getRegionStructure(regionX: number, regionY: number, regionSize: number): StructureInfo {
     // Unique seed for this region's structure
     const seed = `${this.config.seed}_reg_${regionX}_${regionY}`;

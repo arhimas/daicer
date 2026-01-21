@@ -36,7 +36,14 @@ const getWorldGenerator = async (strapi: Core.Strapi, roomDocumentId: string) =>
 // Replaced factories.createCoreService with standard factory for type safety
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Log an event to the Time Machine
+   * Logs a significant Game Event to the immutable ledger (Time Machine).
+   * Ensures the event is strictly ordered by Turn Number.
+   *
+   * @param roomInputId - The ID of the room (documentId or public roomId).
+   * @param type - The event type string (e.g. 'MOVE', 'ATTACK').
+   * @param payload - The structured data for the event.
+   * @param actorId - Optional ID of the entity performing the action.
+   * @returns The created GameEvent document.
    */
   async logEvent(roomInputId: string, type: string, payload: unknown, actorId?: string) {
     // Resolve Room ID (Robust Lookup)
@@ -84,7 +91,13 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 
   /**
-   * Validate a move request via the Engine
+   * Validates a proposed movement action against physics and game state.
+   * Checks terrain walkability and entity collision.
+   *
+   * @param roomDocumentId - The room context.
+   * @param from - Starting coordinates.
+   * @param to - Destination coordinates.
+   * @returns Object indicating validity and refusal reason if any.
    */
   async validateMove(roomDocumentId: string, from: Coordinates, to: Coordinates) {
     // Validate inputs with Zod (Runtime Safety)
@@ -125,7 +138,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 
   /**
-   * Reconstruct Game State by replaying events
+   * Reconstructs the current authoritative Game State by replaying all events in order.
+   * Essential for 'Event Sourcing' pattern.
+   *
+   * @param roomDocumentId - The room to reconstruct state for.
+   * @returns The derived GameState object (entities, positions, etc.).
    */
   async getGameState(roomDocumentId: string) {
     const events = await strapi.documents('api::game-event.game-event').findMany({
@@ -182,7 +199,13 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 
   /**
-   * Inspect Terrain at a location
+   * Inspects the terrain at a specific coordinate.
+   *
+   * @param roomDocumentId - Room ID.
+   * @param x - World X coordinate.
+   * @param y - World Y coordinate.
+   * @param _radius - Inspection radius (unused currently).
+   * @returns String description of the terrain.
    */
   async inspectTerrain(roomDocumentId: string, x: number, y: number, _radius: number) {
     const gen = await getWorldGenerator(strapi, roomDocumentId);

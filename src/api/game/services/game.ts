@@ -11,10 +11,29 @@ import type { Chunk } from '../src/engine';
 export default ({ strapi }) => ({
   // --- Delegates ---
 
+  /**
+   * Generates a new world based on provided settings.
+   * Delegates to the WorldGeneration service.
+   *
+   * @param settings - Configuration for biome, size, and difficulty.
+   * @param language - Output language.
+   * @returns The initial world description.
+   */
   async generateWorld(settings: WorldSettings, language: Language = 'en'): Promise<string> {
     return strapi.service('api::game.world-generation').generateWorld(settings, language);
   },
 
+  /**
+   * Main Orchestrator for processing a Game Turn.
+   * Aggregates context (players, creatures, map) and delegates to the Turn Pipeline.
+   *
+   * @param roomId - The room context.
+   * @param worldDescription - Current narrative context.
+   * @param messages - Recent chat history.
+   * @param players - Active players.
+   * @param creatures - Active creatures.
+   * @returns The result of the turn processing.
+   */
   async processTurn(
     roomId: string,
     worldDescription: string,

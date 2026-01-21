@@ -10,12 +10,22 @@ export * from './capabilities';
 export * from './skills';
 export * from './types';
 
+/**
+ * The Central Derivation Engine.
+ * 
+ * Responsible for taking a "static" Entity Sheet (Stats, Inventory, Race)
+ * and calculating all "live" runtime values (AC, HP, Speed, Attack Bonuses, Save DCs).
+ * 
+ * This is the bridge between the Content Management System (Strapi) and the Game Engine.
+ */
 export class EntityDeriver {
   static calculateModifier = calculateModifier;
   static calculateProficiencyBonus = calculateProficiencyBonus;
 
   /**
-   * Derives all dependent stats from the context.
+   * Main entry point. Derives all dependent stats from the context.
+   * @param context - The raw input data containing stats, equipment, etc.
+   * @returns A fully populated object with derived stats (ac, hp, actions).
    */
   static derive(context: DerivationContext) {
     // 0. Normalize Attributes (Handle mismatch between Schema 'str' and Logic 'strength')

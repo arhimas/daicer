@@ -6,9 +6,11 @@
 
 export default ({ strapi }) => ({
   /**
-   * ROLL DICE
    * Validates and executes a dice roll expression.
    * Format: "1d20+5", "2d6", "1d100-2"
+   *
+   * @param expression - The dice string (e.g., "1d20+2").
+   * @returns Object containing total, individual rolls, and metadata.
    */
   rollDice(expression: string) {
     // 1. Validation
@@ -49,9 +51,14 @@ export default ({ strapi }) => ({
   },
 
   /**
-   * MOVE ENTITY
    * Updates coordinates of a character if valid.
-   * Checks: Speed Limit, Map Bounds (basic), Terrain Obstacles (Todo)
+   * Checks: Speed Limit (Movement Budget logic handled by Turn Service eventually).
+   * Note: Currently uses Chebychev distance (D&D 5e default for grids).
+   *
+   * @param characterId - The entity to move.
+   * @param x - Target X coordinate.
+   * @param y - Target Y coordinate.
+   * @returns Movement result with distance and dash status.
    */
   async moveEntity(characterId: string | number, x: number, y: number) {
     // 1. Fetch Character Sheet

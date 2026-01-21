@@ -2,6 +2,10 @@ import { Chunk, WorldConfig } from '../../game/src/engine/types';
 import { ChunkManager } from './chunk-manager';
 
 export default () => ({
+  /**
+   * Retrieves a generated 16x16 Chunk.
+   * Delegates to the Singleton ChunkManager.
+   */
   async getChunk(x: number, y: number, config: WorldConfig, worldId?: string): Promise<Chunk> {
     return ChunkManager.getInstance().getChunk(x, y, config, worldId);
   },

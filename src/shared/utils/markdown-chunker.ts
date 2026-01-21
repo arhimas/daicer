@@ -1,11 +1,16 @@
 import { TokenTextSplitter } from '@langchain/textsplitters';
 import { getEncoding } from 'js-tiktoken';
 
+/**
+ * Represents a discrete chunk of knowledge extracted from a larger document.
+ * Includes metadata for context and hierarchy.
+ */
 export interface KnowledgeChunk {
   title: string;
   content: string;
   level: number;
   path: string[];
+  // pageContent?: string; // Optional alias if using LangChain directly
 }
 
 interface MarkdownNode {
@@ -161,6 +166,15 @@ async function processNode(node: MarkdownNode, path: string[], chunks: Knowledge
   });
 }
 
+/**
+ * Intelligent Markdown Splitter.
+ *
+ * Splits markdown content into semantic chunks based on header hierarchy.
+ * Preserves context (parent headers) and respects token limits.
+ *
+ * @param content - Raw markdown string.
+ * @returns Array of structured KnowledgeChunks.
+ */
 export async function chunkMarkdown(content: string): Promise<KnowledgeChunk[]> {
   const root = parseMarkdownTree(content);
   const chunks: KnowledgeChunk[] = [];

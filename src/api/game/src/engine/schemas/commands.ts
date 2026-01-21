@@ -4,6 +4,10 @@ import { AttributeSchema } from './entity-sheet';
 
 // === Base Command Types ===
 
+/**
+ * Base Schema for all Action/Command types.
+ * Enforces `id` and `timestamp` for traceability and ordering.
+ */
 export const BaseCommandSchema = z.object({
   id: z.string().uuid().optional(), // Optional client-side ID for tracking
   timestamp: z.number().optional(),

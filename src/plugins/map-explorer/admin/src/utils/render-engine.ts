@@ -20,7 +20,23 @@ const SENSIBLE_COLORS: Record<string, string> = {
     default: '#9e9e9e'
 };
 
+/**
+ * Canvas Rendering Engine for Voxel Maps.
+ *
+ * Handles multi-layer tile rendering, sub-pixel textures, and ghosting layers.
+ */
 export class RenderEngine {
+    /**
+     * Renders a complete view of a chunk onto a canvas context.
+     *
+     * @param ctx - Canvas Rendering Context (2D).
+     * @param chunk - The voxel data chunk to render.
+     * @param currentZ - The specific Z-level (height) to render as the active layer.
+     * @param scale - Zoom scale factor (default 1.0).
+     * @param pan - Panning offset (x, y).
+     * @param terrains - Registry of available terrain types for texture/color lookup.
+     * @param options - Configuration options (grid, ghosting, preview).
+     */
     static render(
         ctx: CanvasRenderingContext2D,
         chunk: Chunk,
@@ -88,6 +104,9 @@ export class RenderEngine {
         }
     }
 
+    /**
+     * Internal method to render a single Z-layer.
+     */
     private static renderLayer(
         ctx: CanvasRenderingContext2D, 
         layer: (Tile | null)[][], 
@@ -217,6 +236,9 @@ export class RenderEngine {
         });
     }
 
+    /**
+     * Resolves a color string for a given block type or slug.
+     */
     static getBlockColor(slug: string, terrains: TerrainType[]) {
         if (!slug) return SENSIBLE_COLORS.default;
         if (slug.startsWith('#') || slug.startsWith('rgb') || slug === 'transparent') {

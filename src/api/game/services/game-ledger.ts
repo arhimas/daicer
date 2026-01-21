@@ -12,12 +12,12 @@ export interface LedgerEvent {
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Propose an event to the ledger.
-   * This is the ENTRY POINT for all state changes.
-   * Logic:
-   * 1. Assign deterministic sequenceId
-   * 2. Commit to DB
-   * 3. Broadcast
+   * Logs an authoritative event to the Ledger (Time Machine).
+   * Ensures sequential integrity via optimistic sequence IDs.
+   *
+   * @param roomId - The room context.
+   * @param eventData - The event payload, type, and metadata.
+   * @returns The persisted GameEvent.
    */
   async logEvent(roomId: string, eventData: LedgerEvent) {
     // 1. Get Room Context to verify existence

@@ -4,6 +4,10 @@ import { z } from 'zod';
 // Action Types (Runtime/Engine)
 // ============================================================================
 
+/**
+ * Enumeration of all supported action types in the game engine.
+ * These drive the state machine transitioning entities from Intent -> Resolution.
+ */
 export enum ActionType {
   Attack = 'attack',
   CastSpell = 'cast_spell',
@@ -17,18 +21,28 @@ export enum ActionType {
   Grapple = 'grapple',
 }
 
+/**
+ * Reusable schema for damage dice definition.
+ */
 export const DamageSchema = z.object({
-  dice: z.string(),
-  bonus: z.number(),
-  type: z.string(),
+  dice: z.string(),   // e.g. "1d8"
+  bonus: z.number(),  // e.g. 3
+  type: z.string(),   // e.g. "slashing"
 });
 
+/**
+ * Reusable schema for saving throws.
+ */
 export const SaveSchema = z.object({
-  stat: z.string(),
-  dc: z.number(),
+  stat: z.string(), // e.g. "dex"
+  dc: z.number(),   // e.g. 15
 });
 
 // Schemas for the *Intent* (what the user/LLM asks to do)
+
+/**
+ * Intent to attack a specific target with a known weapon/action.
+ */
 export const AttackIntentSchema = z.object({
   type: z.literal(ActionType.Attack),
   actionId: z.string(), // ID of the action on the character sheet (e.g., "longsword-attack-1")
@@ -37,6 +51,9 @@ export const AttackIntentSchema = z.object({
   disadvantage: z.boolean().optional(),
 });
 
+/**
+ * Intent to cast a spell, optionally targeting entities or a location.
+ */
 export const CastSpellIntentSchema = z.object({
   type: z.literal(ActionType.CastSpell),
   actionId: z.string(), // ID from structuredActions
@@ -81,6 +98,9 @@ export type ActionIntent = z.infer<typeof ActionIntentSchema>;
 // Discriminated types for the "Flattened List" on the Character Sheet
 // These replace the generic `ActionSchema`
 
+/**
+ * Definition for a Melee Weapon Attack.
+ */
 export const MeleeAttackDefinitionSchema = z.object({
   type: z.enum(['melee', 'melee_attack']),
   id: z.string(),
@@ -92,6 +112,9 @@ export const MeleeAttackDefinitionSchema = z.object({
   damage: z.array(DamageSchema),
 });
 
+/**
+ * Definition for a Ranged Weapon Attack.
+ */
 export const RangedAttackDefinitionSchema = z.object({
   type: z.enum(['ranged', 'ranged_attack']),
   id: z.string(),
@@ -103,6 +126,9 @@ export const RangedAttackDefinitionSchema = z.object({
   ammoType: z.string().optional(),
 });
 
+/**
+ * Definition for a Prepared Spell.
+ */
 export const SpellDefinitionSchema = z.object({
   type: z.literal('spell'),
   id: z.string(), // ID of this prepared instance
@@ -151,6 +177,9 @@ export const ReactionDefinitionSchema = z.object({
 });
 
 // Update the Union
+/**
+ * Discriminated Union of all action definitions stored on an entity's sheet.
+ */
 export const ActionDefinitionSchema = z.discriminatedUnion('type', [
   MeleeAttackDefinitionSchema,
   RangedAttackDefinitionSchema,

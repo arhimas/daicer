@@ -1,14 +1,26 @@
 export interface CodeSnippetData {
+  /** The title of the snippet, usually prefixed with [Code]. */
   title: string;
+  /** The truncated or full content of the file. */
   content: string;
+  /** The type of source, typically 'source-code'. */
   sourceType: 'source-code';
+  /** The formatted text used for generating embeddings. */
   embeddingText: string;
 }
 
+/**
+ * Service responsible for ingesting raw source code files into the Knowledge Base.
+ * It handles validation, truncation, and metadata formatting to prepare code for RAG.
+ */
 export class CodeIngestionService {
   /**
    * Transforms raw file content into a structured Knowledge Snippet object.
    * Handles truncation, metadata tagging, and title formatting.
+   *
+   * @param relativePath - The file path relative to the project root.
+   * @param content - The raw string content of the file.
+   * @returns A structured CodeSnippetData object or null if validation fails.
    */
   generateSnippetData(relativePath: string, content: string): CodeSnippetData | null {
     // 1. Validation
@@ -39,6 +51,10 @@ export class CodeIngestionService {
 
   /**
    * Determines if a file should be processed based on its path.
+   * Excludes node_modules, dist, tests, and declaration files.
+   *
+   * @param relativePath - The file path to check.
+   * @returns True if the file should be ingested, false otherwise.
    */
   isValidFile(relativePath: string): boolean {
     // Basic guards - extended logic can go here (e.g. specific excludes not covered by glob)

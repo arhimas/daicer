@@ -17,6 +17,17 @@ import { findPath } from '../rules/spatial';
 import { TerrainGenerator } from '../voxel/terrain-generator';
 import { WorldConfig, ZLevel } from '../types';
 
+/**
+ * The Central Dispatcher for all Game Actions.
+ * 
+ * Responsibilities:
+ * 1. Takes a `Command` (Intent).
+ * 2. Validates it against the current State.
+ * 3. Resolves the Logic (Movement, Combat, Skill Checks).
+ * 4. Returns a `ActionResult` containing Events and State Diff.
+ * 
+ * This is the ONLY way to mutate the Game State.
+ */
 export class ActionDispatcher {
   private rng: Alea;
 

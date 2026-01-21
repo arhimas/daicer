@@ -3,6 +3,12 @@
  */
 
 export default ({ strapi }) => ({
+  /**
+   * Executes a specific tool via the Agent service.
+   * POST /api/agent/execute
+   *
+   * @param ctx - Koa Context (body: { roomId, toolName, payload })
+   */
   async executeTool(ctx) {
     try {
       const { roomId, toolName, payload } = ctx.request.body;

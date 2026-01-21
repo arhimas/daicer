@@ -1,6 +1,10 @@
 import { Entity, EntityAction } from '../../types';
 import { CombatContext, FeatureHandler, FeatureRegistry } from '../registry/FeatureRegistry';
 
+/**
+ * Barbarian Rage Implementation.
+ * Adds +2 damage to melee Strength attacks if raging.
+ */
 export const Rage: FeatureHandler = {
   name: 'Rage',
 

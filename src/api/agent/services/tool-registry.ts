@@ -49,10 +49,17 @@ const EntropyStateSchema = z.object({
 // Generic handler type
 type ToolHandler = (roomId: string, payload: unknown, user: unknown) => Promise<unknown>;
 
+/**
+ * Definition of a registered agent tool.
+ */
 interface ToolDefinition {
+  /** Unique snake_case identifier (e.g., 'perform_attack'). */
   name: string;
+  /** Human-readable description for LLM context. */
   description: string;
+  /** Zod schema for payload validation. */
   schema: z.ZodSchema;
+  /** The executable logic for the tool. */
   handler: ToolHandler;
 }
 

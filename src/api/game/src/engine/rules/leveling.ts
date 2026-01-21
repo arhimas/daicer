@@ -5,6 +5,14 @@ import { calculateModifier } from './dnd5e';
 /**
  * Pure Functional Reducer for Level Up.
  * Returns a NEW EntitySheet with updated stats based on Rules and Class Definition.
+ * 
+ * Logic:
+ * 1. Increases Level.
+ * 2. Adds HP (Fixed avg + Con mod).
+ * 3. Adds Hit Die.
+ * 4. Recalculates Proficiency Bonus.
+ * 5. Expands Spell Slots (if applicable).
+ * 6. Adds Features (as Relation Stubs).
  */
 export function resolveLevelUp(sheet: EntitySheet, classDef: ClassDefinition, rules: RuleSet): EntitySheet {
   // Create a shallow copy (or deep if needed, shallow is usually fine for top-level structs in Redux-like patterns,

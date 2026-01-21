@@ -24,6 +24,17 @@ interface RoomWithSheets {
 }
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
+  /**
+   * Persists a completed Game Turn to the database.
+   * Creates the Turn entity, optional Message, and snapshots the Game State.
+   *
+   * @param roomId - The room context.
+   * @param narrative - The generated narrative summary.
+   * @param playerActions - The list of actions performed.
+   * @param type - Turn type (group, combat, etc).
+   * @param metadata - Additional metadata.
+   * @returns The created Turn context.
+   */
   async persistTurn(
     roomId: string,
     narrative: string,

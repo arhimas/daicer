@@ -1,6 +1,10 @@
 import { Entity } from '../../types';
 import { DamageType } from './DamageType';
 
+/**
+ * Represents a discrete packet of damage.
+ * Knows how to resolve itself against a target's resistances/immunities.
+ */
 export class DamageInstance {
   constructor(
     public readonly amount: number,

@@ -19,6 +19,13 @@ const PRIME = BigInt(920419823);
 // User requested "offsetted to its half", half of MODULUS is appropriate.
 const OFFSET = MODULUS / BigInt(2); // 1,088,391,168
 
+/**
+ * Generates a 6-character alphanumeric room code from a sequential ID.
+ * Uses an affine cipher to obfuscate the sequence.
+ * 
+ * @param counter - Sequential ID (e.g., from database).
+ * @returns A 6-char code (e.g., "7XK92A").
+ */
 export function generateRoomCode(counter: number | bigint): string {
   const x = BigInt(counter);
 
@@ -38,6 +45,9 @@ export function generateRoomCode(counter: number | bigint): string {
   return code;
 }
 
+/**
+ * Validates format of a room code.
+ */
 export function isValidRoomCode(code: string): boolean {
   return /^[A-Z0-9]{6}$/.test(code);
 }

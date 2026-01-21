@@ -1,3 +1,9 @@
+/**
+ * Utility for generating URL-safe, short 6-character locators (Runes) for Rooms.
+ * 
+ * Maps sequential integer IDs (Database IDs) to a scrambled base-36 string.
+ * This obfuscates the sequential nature of IDs while maintaining a 1:1 reversible mapping.
+ */
 export class RoomRuneGenerator {
   private readonly alphabet: string;
   private readonly base: number;

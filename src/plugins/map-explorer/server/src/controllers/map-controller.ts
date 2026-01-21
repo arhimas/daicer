@@ -1,6 +1,13 @@
 import type { Core } from '@strapi/strapi';
 
 const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
+  /**
+   * Retrieves a generated 3D Chunk for the Map Explorer.
+   * Can filter by World ID if persistent changes are tracked per world.
+   * GET /api/map-explorer/chunk
+   *
+   * @param ctx - Koa context (query: { x, y, worldId })
+   */
   async getMapChunk(ctx) {
     const { x, y } = ctx.query;
     if (!x || !y) {
@@ -20,6 +27,11 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
     }
   },
 
+  /**
+   * Updates a single Voxel type/state.
+   * Persists changes to the Voxel Engine Service.
+   * POST /api/map-explorer/voxel
+   */
   async updateVoxel(ctx) {
     const { chunkX, chunkY, voxelX, voxelY, voxelZ, newType, reason, worldId } = ctx.request.body;
 
@@ -71,6 +83,11 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
     }
   },
 
+  /**
+   * Generates a 2D multi-layer sprite using PixelForge tech.
+   * Composes body parts into a single flattened texture/grid.
+   * POST /api/map-explorer/generate-texture
+   */
   async generateTexture(ctx) {
     const { size, config } = ctx.request.body;
     

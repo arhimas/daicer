@@ -1,6 +1,7 @@
 
 /**
- * Custom Admin Routes for Game API
+ * Custom Admin Routes for Game API.
+ * Defines endpoints restricted to the admin panel.
  */
 export default {
   routes: [

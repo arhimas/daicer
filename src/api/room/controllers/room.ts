@@ -4,6 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { RoomCreationInput, RoomPlayer } from '../types';
 
 export default factories.createCoreController('api::room.room', ({ strapi }) => ({
+  /**
+   * Creates a new Game Room.
+   * Generates a unique Room Code (UUID -> Numeric/String).
+   * POST /api/room/create
+   *
+   * @param ctx - Koa Context (body: { settings, structures, ... })
+   * @returns The created Room entity.
+   */
   async create(ctx) {
     const { user } = ctx.state;
     // Ensure user is authenticated
@@ -89,6 +97,11 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
     }
   },
 
+  /**
+   * Joins an existing Room.
+   * Handles player registration and prevents duplicates.
+   * POST /api/room/:id/join
+   */
   async join(ctx) {
     const { id } = ctx.params;
     const { user } = ctx.state;
@@ -143,7 +156,11 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
   },
 
   /**
-   * Submit an Action to the pending turn
+   * Submit an Action to the pending turn queue.
+   * Validates payload and enqueues it.
+   * POST /api/room/:id/action
+   *
+   * @param ctx - Koa Context (body: { action })
    */
   async submitAction(ctx) {
     const { id } = ctx.params;
@@ -169,7 +186,9 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
   },
 
   /**
-   * Trigger the turn resolution
+   * Triggers the Turn Resolution Process (Process Phase).
+   * Calculates outcomes and updates the world state.
+   * POST /api/room/:id/trigger
    */
   async triggerTurn(ctx) {
     const { id } = ctx.params;

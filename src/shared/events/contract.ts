@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+/**
+ * Structured Action Schema.
+ *
+ * Defines the wire format for actions attached to entities in updates.
+ */
 export const StructuredActionSchema = z.object({
   id: z.string().optional(),
   name: z.string(),
@@ -19,6 +24,11 @@ export const StructuredActionSchema = z.object({
 });
 export type StructuredAction = z.infer<typeof StructuredActionSchema>;
 
+/**
+ * Entity Update Schema.
+ *
+ * Defines the properties synchronized to clients for a game entity.
+ */
 export const EntityUpdateSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -44,11 +54,17 @@ export const EntityUpdateSchema = z.object({
 });
 export type EntityUpdate = z.infer<typeof EntityUpdateSchema>;
 
+/**
+ * Payload for 'entities:update' event.
+ */
 export const EntitiesUpdatePayloadSchema = z.object({
   entities: z.array(EntityUpdateSchema),
 });
 export type EntitiesUpdatePayload = z.infer<typeof EntitiesUpdatePayloadSchema>;
 
+/**
+ * Payload for turn processing events ('turn:processing', 'turn:complete').
+ */
 export const SocketTurnProcessPayloadSchema = z.object({
   roomId: z.string(),
   turnNumber: z.number().optional(),
@@ -57,12 +73,18 @@ export const SocketTurnProcessPayloadSchema = z.object({
 });
 export type SocketTurnProcessPayload = z.infer<typeof SocketTurnProcessPayloadSchema>;
 
+/**
+ * Generic game update payload.
+ */
 export const GameUpdatePayloadSchema = z.object({
   type: z.string(),
   data: z.any(),
 });
 export type GameUpdatePayload = z.infer<typeof GameUpdatePayloadSchema>;
 
+/**
+ * Payload for 'message:new' event.
+ */
 export const MessagePayloadSchema = z.object({
   id: z.string(),
   content: z.string(),
@@ -72,7 +94,11 @@ export const MessagePayloadSchema = z.object({
 });
 export type MessagePayload = z.infer<typeof MessagePayloadSchema>;
 
-// Union of all possible payloads for generic handling
+/**
+ * Discriminated Union of all Socket Events.
+ *
+ * Used for type-safe event handling on both client and server.
+ */
 export const SocketEventSchema = z.discriminatedUnion('event', [
   z.object({ event: z.literal('entities:update'), payload: EntitiesUpdatePayloadSchema }),
   z.object({ event: z.literal('turn:processing'), payload: SocketTurnProcessPayloadSchema }),

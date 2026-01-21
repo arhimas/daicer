@@ -30,7 +30,13 @@ interface ChunkManager {
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Spawns a terrain feature (Tree, Rock) or Entity Flora at the given location.
+   * Spawns a terrain feature (Tree, Rock) or flora at the given location.
+   * Uses a hybrid strategy: checks for Entity Blueprints first, then falls back to Voxel/Flora buffers.
+   *
+   * @param roomId - The room context.
+   * @param type - The general type (e.g. 'tree').
+   * @param subtype - The specific subtype (e.g. 'oak').
+   * @param position - The target coordinates.
    */
   async spawnFeature(roomId: string, type: string, subtype: string, position: { x: number; y: number; z: number }) {
     // 1. Check for Entity Blueprint first (The "Hybrid Strategy")

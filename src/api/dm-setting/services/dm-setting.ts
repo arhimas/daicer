@@ -1,7 +1,5 @@
 /**
- * dm-setting service
+ * DM Setting Service
+ * Configuration service for Dungeon Master settings per room.
  */
-
-import { factories } from '@strapi/strapi';
-
 export default factories.createCoreService('api::dm-setting.dm-setting');

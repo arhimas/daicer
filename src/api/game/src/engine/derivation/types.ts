@@ -1,6 +1,9 @@
 import { Attributes } from './attributes';
 export { Attributes };
 
+/**
+ * Represents an item in an inventory during derivation.
+ */
 export interface Equipment {
   name: string;
   equipment_category?: {

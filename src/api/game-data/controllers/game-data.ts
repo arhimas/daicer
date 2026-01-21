@@ -99,6 +99,13 @@ const TEMPLATES: Record<string, unknown> = {
 };
 
 export default () => ({
+  /**
+   * Retrieves a character template by archetype.
+   * GET /api/game-data/template/:archetype
+   *
+   * @param ctx - Koa Context (params: { archetype })
+   * @returns Template object or fallback data.
+   */
   async getTemplate(ctx) {
     const { archetype } = ctx.params;
     const key = archetype?.toLowerCase();

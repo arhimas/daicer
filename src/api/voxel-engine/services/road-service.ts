@@ -9,6 +9,18 @@ export class RoadService {
     private structureService: StructureService
   ) {}
 
+  /**
+   * Connects a structure to its neighbors using Bresenham's Line Algorithm.
+   * Clears vegetation and builds bridges over water.
+   *
+   * @param source - The source structure.
+   * @param rx - Region X.
+   * @param ry - Region Y.
+   * @param regionSize - Size of the region.
+   * @param tiles - Tile array to modify.
+   * @param chunkOffX - World Offset X of the chunk.
+   * @param chunkOffY - World Offset Y of the chunk.
+   */
   public connectStructureToNeighbors(
     source: StructureInfo,
     rx: number,

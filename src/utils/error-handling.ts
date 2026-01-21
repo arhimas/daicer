@@ -6,6 +6,9 @@ export interface StrapiErrorDetails {
   }>;
 }
 
+/**
+ * Standard Error interface for Strapi 5 errors.
+ */
 export interface StrapiError extends Error {
   details?: StrapiErrorDetails;
   status?: number;

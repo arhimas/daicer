@@ -21,7 +21,13 @@ function extractText(content: unknown): string {
 
 export default ({ strapi }) => ({
   /**
-   * Generate Portrait (Face Close-up)
+   * Generates a high-quality "Portrait" (Face Close-up) image for an entity.
+   * Utilizes the 'image_generation_master_prompt' and 'image_framing_portrait' Prompts.
+   *
+   * @param context - The generation context.
+   * @param context.payload - Entity data (name, appearance, tone).
+   * @param context.referenceImage - Optional base64 reference image to guide generation.
+   * @returns Object containing base64 data and mimeType.
    */
   async generatePortrait({ payload, referenceImage }) {
     strapi.log.info(`[Assets] Generating Portrait for ${payload.name}`);
@@ -88,7 +94,14 @@ export default ({ strapi }) => ({
   },
 
   /**
-   * Generate Upper Body (Waist Up)
+   * Generates an "Upper Body" (Waist Up) image for an entity.
+   * Can use the generated portrait as a reference for facial consistency.
+   *
+   * @param context - The generation context.
+   * @param context.payload - Entity data.
+   * @param context.portrait - The previously generated portrait result (optional).
+   * @param context.referenceImage - Explicit reference image (optional override).
+   * @returns Object containing base64 data and mimeType.
    */
   async generateUpperBody({ payload, portrait, referenceImage }) {
     strapi.log.info(`[Assets] Generating Upper Body for ${payload.name}`);
@@ -137,7 +150,11 @@ export default ({ strapi }) => ({
   },
 
   /**
-   * Generate Full Body (Head to Toe)
+   * Generates a "Full Body" (Head to Toe) image for an entity.
+   * Uses Upper Body or Portrait as reference for consistency.
+   *
+   * @param context - The generation context.
+   * @param context.upperBody - The previously generated upper body result (optional).
    */
   async generateFullBody({ payload, portrait, upperBody, referenceImage }) {
     strapi.log.info(`[Assets] Generating Full Body for ${payload.name}`);

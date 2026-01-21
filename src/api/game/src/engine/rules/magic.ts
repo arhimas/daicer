@@ -32,6 +32,11 @@ function findSpell(sheet: EntitySheet, actionId: string): ActionDefinition | und
 
 /**
  * Validates if a spell can be cast.
+ * 
+ * Checks:
+ * 1. Preparation (Action exists).
+ * 2. Slots (If leveled).
+ * 3. Range (Calculated vs Target Pos).
  */
 export function validateSpellCast(
   caster: EntitySheet,

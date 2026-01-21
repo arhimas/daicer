@@ -1,3 +1,6 @@
+/**
+ * Default parameters for World Generation and Physics.
+ */
 export const DEFAULT_WORLD_CONFIG = {
   chunkSize: 32,
   seaLevel: 0,
@@ -12,6 +15,9 @@ export const DEFAULT_WORLD_CONFIG = {
   structureSizeAvg: 20,
   roadDensity: 0.2,
   fogRadius: 10,
+  /**
+   * The height of the world in Voxel units.
+   */
 };
 
 export const PHYSICS_CONSTANTS = {

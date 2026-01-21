@@ -12,12 +12,25 @@ interface RaceFeatureSource {
   description: string;
 }
 
+/**
+ * Context required to hydrate features for a character.
+ */
 interface HydrationContext {
+  /** Current level of the character (for filtering level-gated features). */
   characterLevel: number;
+  /** Raw class feature data sources. */
   classFeatures: ClassFeatureSource[];
+  /** Raw race feature data sources. */
   raceFeatures: RaceFeatureSource[];
 }
 
+/**
+ * Converts raw database Feature sources into active EntityFeature objects.
+ * Filters class features by character level and combines them with racial features.
+ *
+ * @param ctx - The hydration context containing level and raw sources.
+ * @returns A list of active EntityFeatures.
+ */
 export function hydrateFeatures(ctx: HydrationContext): EntityFeature[] {
   const features: EntityFeature[] = [];
 

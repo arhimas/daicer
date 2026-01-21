@@ -36,6 +36,13 @@ export async function getPrompt(key: string, locale: Language, defaultText: stri
   return defaultText;
 }
 
+/**
+ * Bulk fetch prompts from Strapi CMS.
+ * @param keys - Array of prompt keys (UIDs)
+ * @param locale - Language code
+ * @param defaults - Map of default fallback text per key
+ * @returns Map of key -> prompt text
+ */
 export async function getPrompts(
   keys: string[],
   locale: Language,

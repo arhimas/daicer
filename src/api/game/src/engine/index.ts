@@ -1,3 +1,8 @@
+/**
+ * Core Engine Barrel File.
+ * Exports types, rules, utilities, and derivation logic for the game engine.
+ */
+
 export * from './types';
 export * from './voxel/config';
 export * from './voxel/terrain-generator';

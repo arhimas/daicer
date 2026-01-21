@@ -32,8 +32,10 @@ type LLMRequest = LocalGenerationRequest | RemoteGenerationRequest;
 
 export const llmGateway = {
   /**
-   * Queue a generation job.
-   * Auto-routes to correct queue based on provider preference.
+   * Queues a generation job for asynchronous processing.
+   * Auto-routes to the correct queue (Local vs Remote) based on the provider flag.
+   *
+   * @param request - The generation request configuration.
    */
   queue: async (request: LLMRequest) => {
     const { prompt, targetUid, targetId, field, provider } = request;

@@ -1,7 +1,5 @@
 /**
- * action service
+ * Action Service
+ * Core service for the 'Action' content type.
  */
-
-import { factories } from '@strapi/strapi';
-
 export default factories.createCoreService('api::action.action');

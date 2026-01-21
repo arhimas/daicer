@@ -10,6 +10,10 @@ module.exports = ({ strapi }) => ({
   pipelineInstance: null,
   modelName: 'Xenova/jina-embeddings-v2-small-en',
 
+  /**
+   * Initializes the Transformers.js pipeline.
+   * Lazy loads the model into memory.
+   */
   async init() {
     if (this.pipelineInstance) return;
 
@@ -36,6 +40,11 @@ module.exports = ({ strapi }) => ({
     }
   },
 
+  /**
+   * Generates a Vector Embedding for the given text.
+   * @param {string} text 
+   * @returns {Promise<number[]>} 1xn Vector
+   */
   async generateEmbedding(text) {
     if (!text || !text.trim()) return [];
 

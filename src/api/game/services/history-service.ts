@@ -4,8 +4,12 @@ import { DeterministicTurnProcessor, GameState } from '../src/engine/core/determ
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Replay the game state to a specific point in time.
-   * "The Time Machine"
+   * Replays the game state to a specific point in time ("The Time Machine").
+   * Fetches the nearest snapshot and reapplies subsequent events.
+   *
+   * @param roomId - The room context.
+   * @param targetTimestamp - The target time to reconstruct state for.
+   * @returns Excepted GameState at the target timestamp.
    */
   async replayTo(roomId: string, targetTimestamp: number) {
     // 1. Find Nearest Snapshot (TimeFrame) BEFORE target

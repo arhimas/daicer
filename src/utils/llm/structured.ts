@@ -55,7 +55,14 @@ CORRECT approach:
 }
 
 /**
- * Internal structured generation with schema validation
+ * Internal structured generation wrapper with schema validation options.
+ * 
+ * @param schema - Zod schema for validation.
+ * @param systemPrompt - Instructions for the model.
+ * @param userPrompt - User input.
+ * @param language - Target language.
+ * @param config - Gen config (model, temperature) + optional images.
+ * @returns Validated object matching schema T.
  */
 // Private function for structured generation
 export async function generateStructured<T extends z.ZodType>(

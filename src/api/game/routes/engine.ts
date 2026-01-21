@@ -1,3 +1,7 @@
+/**
+ * Engine Routes.
+ * Public/Authenticated endpoints for core game engine operations.
+ */
 export default {
   routes: [
     {

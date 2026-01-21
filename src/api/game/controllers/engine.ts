@@ -4,6 +4,13 @@
  */
 
 export default ({ strapi }) => ({
+  /**
+   * Spawns entities (monsters/characters) into a room.
+   * POST /api/engine/spawn
+   *
+   * @param ctx - Koa Context (body: { roomId, type, entityId, position })
+   * @returns Spawned Entity data
+   */
   async spawn(ctx) {
     const { roomId, type, entityId, position } = ctx.request.body;
 
@@ -30,6 +37,13 @@ export default ({ strapi }) => ({
     }
   },
 
+  /**
+   * Executes deterministic actions for a room.
+   * POST /api/engine/execute
+   *
+   * @param ctx - Koa Context (body: { roomId, actions })
+   * @returns Execution result
+   */
   async execute(ctx) {
     const { roomId, actions } = ctx.request.body;
     const user = ctx.state.user; // If auth is used

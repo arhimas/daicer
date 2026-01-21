@@ -1,4 +1,12 @@
 export default ({ strapi }) => ({
+  /**
+   * Generates a Voxel Preview (Chunk) without saving.
+   * Used for real-time map exploration or editor preview.
+   * POST /api/voxel-engine/preview
+   *
+   * @param ctx - Koa Context (body: { chunks, config } or { x, y, world })
+   * @returns 3D Chunk Data
+   */
   async voxelPreview(ctx) {
     const { chunks, config } = ctx.request.body;
 

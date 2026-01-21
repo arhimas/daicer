@@ -1,6 +1,11 @@
 import { EntitySheet } from '../types';
 
 /**
+ * Core 5e Math Utilities.
+ * Pure functions for basic rules (Modifiers, PB, Snapshots).
+ */
+
+/**
  * Calculates the ability modifier for a given ability score.
  * Formula: floor((score - 10) / 2)
  */

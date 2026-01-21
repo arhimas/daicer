@@ -1,6 +1,13 @@
 import { EngineCommandSchema, EngineCommand } from '../schemas/commands';
 
 export default ({ strapi }) => ({
+  /**
+   * Safe entry point for God Mode commands.
+   * Validates commands against strict schemas before processing.
+   * POST /api/game/god-mode/execute
+   *
+   * @param ctx - Koa Context (body: { roomId, commands })
+   */
   async godModeExecute(ctx) {
     const { roomId, commands } = ctx.request.body;
 

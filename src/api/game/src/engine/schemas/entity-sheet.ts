@@ -1,5 +1,7 @@
-// Re-export from shared to maintain backward compatibility during migration
-// effectively declaring that "the schema lives in shared now"
+/**
+ * Re-exports Entity Sheet Schemas from the Shared Kernel.
+ * This establishes the 'Single Source of Truth' for data structures.
+ */
 export {
   AttributeSchema,
   SavingThrowsSchema,

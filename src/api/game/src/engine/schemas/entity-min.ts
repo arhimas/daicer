@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
-// We need a lightweight EntitySchema for the world state to replace z.any()
+/**
+ * A lightweight Entity Schema for World State replication.
+ * Used when sending large lists of entities to the client (e.g. Lobby, Map View)
+ * without sending the full Character Sheet.
+ */
 export const MinEntitySchema = z
   .object({
     id: z.string(),

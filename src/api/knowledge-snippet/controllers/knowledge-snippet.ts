@@ -6,6 +6,13 @@ import { factories } from '@strapi/strapi';
 
 // Controller
 export default factories.createCoreController('api::knowledge-snippet.knowledge-snippet', ({ strapi: _strapi }) => ({
+  /**
+   * Semantic Search for Knowledge Snippets.
+   * GET /api/knowledge-snippet/search
+   *
+   * @param ctx - Koa Context (query: { q, mode, targets })
+   * @returns Search results
+   */
   async search(ctx) {
     const { q } = ctx.query;
 

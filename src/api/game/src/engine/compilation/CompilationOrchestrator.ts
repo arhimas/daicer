@@ -10,6 +10,11 @@ import { EntityCompiler } from './blueprints/EntityCompiler';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const strapi: any;
 
+/**
+ * Orchestrates the validation and "compilation" of game content.
+ * Follows the Genesis "Atom -> Molecule -> Compound -> Blueprint" order.
+ * Updates the `compilation_state` component on entities in Strapi.
+ */
 export class CompilationOrchestrator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private compilers: Map<string, ICompiler<any>> = new Map();
@@ -28,6 +33,10 @@ export class CompilationOrchestrator {
     this.compilers.set(compiler.name, compiler);
   }
 
+  /**
+   * Runs a specific compilation phase (e.g. 'Atom').
+   * Finds all relevant Strapi Content Types and compiles them.
+   */
   async runPhase(phase: 'Atom' | 'Molecule' | 'Compound' | 'Blueprint'): Promise<void> {  
     strapi.log.info(`[Compilation] Starting Phase: ${phase}`);
     

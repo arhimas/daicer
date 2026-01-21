@@ -2,6 +2,14 @@ import { DynamicStructuredTool } from '@langchain/core/tools';
 import { z } from 'zod';
 import type { Core } from '@strapi/strapi';
 
+/**
+ * Retrieves and adapts tools from the central Tool Registry.
+ *
+ * @param strapi - Strapi instance.
+ * @param roomDocumentId - Contextual Room ID for tool execution.
+ * @param _mode - Execution mode (game/debug).
+ * @returns Array of LangChain DynamicStructuredTools.
+ */
 export const getRegistryTools = (strapi: Core.Strapi, roomDocumentId: string, _mode: 'game' | 'debug' = 'game') => {
   const tools: DynamicStructuredTool[] = [];
 

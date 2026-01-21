@@ -1,12 +1,17 @@
 /**
- * Centralized Zod schemas for all LLM structured outputs
- * Ported for Strapi
+ * Centralized Zod schemas for all LLM structured outputs.
+ *
+ * Defines the contract between the LLM services and the application logic.
+ * Ported for Strapi compatibility.
  */
 
 import { z } from 'zod';
 
 /**
- * DM Turn Response Schema
+ * DM Turn Response Schema.
+ *
+ * Defines the structure of the Dungeon Master's narrative response,
+ * including individual player perspectives and metadata.
  */
 export const TurnResponseSchema = z.object({
   overall_summary: z.string().describe('The main narrative summary visible to all players'),
@@ -33,7 +38,9 @@ export const TurnResponseSchema = z.object({
 export type TurnResponse = z.infer<typeof TurnResponseSchema>;
 
 /**
- * World Description Schema
+ * World Description Schema.
+ *
+ * Used for generating high-level campaign settings and world context.
  */
 export const WorldDescriptionSchema = z.object({
   title: z.string().describe('Campaign title'),
@@ -59,7 +66,9 @@ export const WorldDescriptionSchema = z.object({
 export type WorldDescription = z.infer<typeof WorldDescriptionSchema>;
 
 /**
- * Combat Narration Schema
+ * Combat Narration Schema.
+ *
+ * Structured output for detailing combat actions and their immediate consequences.
  */
 export const CombatNarrationSchema = z.object({
   narration: z.string().describe('Dramatic description of the combat action'),
@@ -76,7 +85,9 @@ export const CombatNarrationSchema = z.object({
 export type CombatNarration = z.infer<typeof CombatNarrationSchema>;
 
 /**
- * Character Opening Schema
+ * Character Opening Schema.
+ *
+ * Defines the initial scene setting for a new character entering the world.
  */
 export const CharacterOpeningSchema = z.object({
   opening: z.string().describe('Personal opening scene for this character'),
@@ -91,7 +102,9 @@ export const CharacterOpeningSchema = z.object({
 export type CharacterOpening = z.infer<typeof CharacterOpeningSchema>;
 
 /**
- * Historical Period Response Schema
+ * Historical Period Response Schema.
+ *
+ * Used for generating procedural history and lore backfilling.
  */
 export const HistoricalPeriodResponseSchema = z.object({
   narrative: z.string().describe('Rich markdown narrative of events this period'),
@@ -128,7 +141,9 @@ export const HistoricalPeriodResponseSchema = z.object({
 export type HistoricalPeriodResponse = z.infer<typeof HistoricalPeriodResponseSchema>;
 
 /**
- * Simple Narrative Response
+ * Simple Narrative Response.
+ *
+ * Generic schema for plain text narrative generation with basic metadata.
  */
 export const NarrativeResponseSchema = z.object({
   content: z.string().describe('The narrative content'),
@@ -144,7 +159,9 @@ export const NarrativeResponseSchema = z.object({
 export type NarrativeResponse = z.infer<typeof NarrativeResponseSchema>;
 
 /**
- * Tool Response Schema
+ * Tool Response Schema.
+ *
+ * Standardized structure for responses from LLM-invoked tools.
  */
 export const ToolResponseSchema = z.object({
   success: z.boolean(),

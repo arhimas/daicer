@@ -2,6 +2,9 @@
  * Dice Engine for Deterministic Resolution.
  */
 
+/**
+ * Describes a dice roll request (e.g. 2d6 + 4).
+ */
 export interface DiceRollDefinition {
   count: number;
   sides: number;

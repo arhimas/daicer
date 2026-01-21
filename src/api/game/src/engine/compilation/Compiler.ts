@@ -1,10 +1,17 @@
 
+/**
+ * A single log entry from the compilation process.
+ */
 export interface CompilationLog {
   level: 'info' | 'warn' | 'error';
   message: string;
   data?: unknown;
 }
 
+/**
+ * The final output of a compilation run.
+ * Determines if the entity is safe to use in the runtime engine.
+ */
 export interface CompilationResult {
   success: boolean;
   /**

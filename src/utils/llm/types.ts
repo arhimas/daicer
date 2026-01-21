@@ -5,7 +5,8 @@
 import type { Language } from '../../api/game/src/engine/types';
 
 /**
- * Gemini model identifiers
+ * Gemini model identifiers.
+ * Preview models are subject to rate limiting and deprecation.
  */
 export enum GeminiModel {
   FLASH = 'gemini-3-flash-preview',
@@ -13,7 +14,7 @@ export enum GeminiModel {
 }
 
 /**
- * Base configuration for Gemini models
+ * Base configuration for Gemini models.
  */
 export interface GeminiConfig {
   temperature?: number;

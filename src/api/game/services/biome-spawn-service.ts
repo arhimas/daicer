@@ -13,8 +13,10 @@ interface MonsterBlueprint {
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
-   * Fetch ALL potential monsters for Global Spawning.
-   * Now includes Dragons, Giants, Undead, Elementals, etc.
+   * Fetches the complete catalog of entities (monsters) eligible for spawning.
+   * This includes all drafted and published entities to allow for diverse encounters.
+   *
+   * @returns List of monster blueprints containing basic meta-data (level, cr, type).
    */
   async getAllMonsters(): Promise<MonsterBlueprint[]> {
     const monsters = await strapi.documents('api::entity.entity').findMany({

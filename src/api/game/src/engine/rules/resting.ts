@@ -1,5 +1,9 @@
 import { z } from 'zod';
 import { EntitySheetSchema } from '../schemas/entity-sheet';
+/**
+ * Resting Mechanics (Short & Long).
+ * Handles Resource Recovery, HP Healing, and Hit Dice Logic.
+ */
 import { rollDie } from './dice';
 import { calculateModifier } from './dnd5e';
 

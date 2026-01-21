@@ -28,6 +28,10 @@ export class EmbeddingService {
     // To strictly force offline after download, we'd toggle allowRemoteModels = false.
   }
 
+  /**
+   * Ensures the embedding model is initialized and ready.
+   * Handles concurrent initialization requests using a wait loop.
+   */
   private async ensureInitialized(): Promise<void> {
     if (this.pipeline) return;
     if (this.isInitializing) {
@@ -59,8 +63,11 @@ export class EmbeddingService {
 
   /**
    * Generates a vector embedding for the given text.
-   * @param text The text to embed.
-   * @param task (Unused in v2-small-en pipeline pure usage, but kept for interface/future)
+   *
+   * @param text - The text content to embed.
+   * @param _task - Optional task type hint (unused in v2-small-en pipeline pure usage, but kept for interface compatibility).
+   * @returns A promise resolving to an array of numbers representing the embedding vector.
+   * @throws Error if pipeline fails to initialize or generation fails.
    */
   async generateEmbedding(text: string, _task: EmbeddingTask = 'text-matching'): Promise<number[]> {
     if (!text || text.trim().length === 0) {
@@ -93,6 +100,10 @@ export class EmbeddingService {
     }
   }
 
+  /**
+   * Terminates the embedding service (placeholder for future cleanup logic).
+   * Currently clears the pipeline reference.
+   */
   terminate() {
      // No-op for transformers.js usually, unless we want to dispose the session if possible.
      // In JS/ONNX runtime, explicit disposal isn't always strictly exposed via pipeline API easily 

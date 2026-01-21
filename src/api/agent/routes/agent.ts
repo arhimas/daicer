@@ -1,3 +1,7 @@
+/**
+ * Agent Router.
+ * Custom router for Agent tool execution endpoints.
+ */
 export default {
   routes: [
     {

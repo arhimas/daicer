@@ -3,7 +3,12 @@ import path from 'path';
 import os from 'os';
 
 /**
- * Helper to upload a base64 image to Strapi Media Library
+ * Helper to upload a base64 image to Strapi Media Library.
+ * Handles parsing, temporary file creation, and Strapi Upload Service interaction.
+ *
+ * @param base64Data - Raw base64 string (data:image/...).
+ * @param filename - Desired filename without extension (extension inferred from mime).
+ * @returns Object with ID and URL of uploaded file, or null on failure.
  */
 export async function uploadBase64Image(
   base64Data: string,

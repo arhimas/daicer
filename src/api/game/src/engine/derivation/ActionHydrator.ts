@@ -4,7 +4,12 @@ import { calculateModifier } from './attributes';
 
 export class ActionHydrator {
   /**
-   * Hydrate Actions from Equipment (Weapons)
+   * Hydrates a raw Item (Weapon) into a usable RuntimeAction.
+   * Calculates attack bonuses, damage dice + modifiers based on wielder's stats.
+   * 
+   * @param item - The serialized Item/Equipment data.
+   * @param context - The wielder's context (stats, proficiency).
+   * @returns Array of RuntimeActions (e.g. "Longsword", "Longsword (Two-Handed)").
    */
   static hydrateFromEquipment(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

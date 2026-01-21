@@ -17,6 +17,14 @@ export class ChunkBuilder {
     this.civGen = new CivilizationGenerator(config, this.atlas);
   }
 
+  /**
+   * Orchestrates the generation of a complete 16x16x7 Chunk.
+   * Pipeline: Terrain -> Flora -> Civilization (Roads/Structures).
+   *
+   * @param chunkX - Chunk X coordinate.
+   * @param chunkY - Chunk Y coordinate.
+   * @returns The fully generated Chunk object.
+   */
   public generateChunk(chunkX: number, chunkY: number): Chunk {
     const size = this.config.chunkSize;
     const worldOffsetX = chunkX * size;

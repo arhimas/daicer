@@ -4,6 +4,9 @@ import { AbstractBlueprint } from '../../src/engine/types/blueprint';
  * Resolves a Strapi Entity into an Engine Blueprint.
  * Refactored to use Direct Hydration (removing Adapter dependency).
  * Handles generic 'Entity' type (Player, Monster, etc.)
+ *
+ * @param entity - The raw Strapi entity to resolve.
+ * @returns The hydrated AbstractBlueprint.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const resolveEntityBlueprint = (entity: any): AbstractBlueprint => {

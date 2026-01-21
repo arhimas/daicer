@@ -3,6 +3,13 @@
  */
 
 export default {
+  /**
+   * Processes player input via the Narrator engine.
+   * Handles intent classification, tool execution, and response generation.
+   * POST /api/narrator/action
+   *
+   * @param ctx - Koa Context (body: { roomId, input, mode })
+   */
   async handleAction(ctx) {
     const { roomId, input, mode } = ctx.request.body;
 

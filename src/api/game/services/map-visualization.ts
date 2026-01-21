@@ -2,7 +2,17 @@ import { PNG } from 'pngjs';
 import { Chunk, Player, Creature, ZLevel } from '../src/engine';
 
 /**
- * Generates a PNG representation of the map chunk with visibility logic (Fog of War)
+ * Generates a PNG representation of the map chunk with visibility logic (Fog of War).
+ * Renders terrain tiles, entities, and unexplored areas based on player vision.
+ *
+ * @param chunk - The voxel chunk data.
+ * @param players - List of active players for vision calculation.
+ * @param creatures - List of creatures to render.
+ * @param exploredTiles - Set of tile keys that have been explored.
+ * @param center - The center point of the view.
+ * @param width - Image width in tiles (default 32).
+ * @param height - Image height in tiles (default 32).
+ * @returns PNG Buffer.
  */
 export async function generateMapImage(
   chunk: Chunk,

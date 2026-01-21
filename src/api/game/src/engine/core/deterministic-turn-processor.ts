@@ -14,12 +14,12 @@ export interface GameState {
 }
 
 /**
- * DeterministicTurnProcessor
- *
- * Pure logic class for processing a turn.
- * Does NOT interact with Database or Network.
- * Input: Initial State + Actions
- * Output: New State
+ * Pure logic processor for a single turn in the Simulation.
+ * 
+ * DESIGN:
+ * This class MUST remain pure (no Side Effects, no DB calls).
+ * It takes State + Actions -> Returns New State.
+ * This ensures replayability and testability of the core game logic.
  */
 export class DeterministicTurnProcessor {
   /**

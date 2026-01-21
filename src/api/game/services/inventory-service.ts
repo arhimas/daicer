@@ -9,6 +9,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Drops a specific item from an entity's inventory into the world.
    * Creates a new EntitySheet (type: 'loot') at the entity's position.
+   *
+   * @param entityId - The source entity.
+   * @param itemComponentId - The ID of the item component instance to drop.
+   * @returns Success status and message.
    */
   async dropItem(entityId: string, itemComponentId: string): Promise<{ success: boolean; message: string }> {
     // 1. Fetch Source Entity

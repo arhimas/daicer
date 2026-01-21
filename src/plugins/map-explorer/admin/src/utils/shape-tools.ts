@@ -1,4 +1,12 @@
 
+/**
+ * Calculates pixel coordinates for a given geometric shape.
+ *
+ * @param p1 - Start point coordinate.
+ * @param p2 - End point coordinate.
+ * @param toolType - The type of shape to generate ('rect' or 'circle').
+ * @returns An array of `{x, y}` coordinates representing the filled shape.
+ */
 export const getShapePixels = (p1: {x:number, y:number}, p2: {x:number, y:number}, toolType: 'rect' | 'circle') => {
     const pixels: {x:number, y:number}[] = [];
     const x1 = Math.min(p1.x, p2.x);

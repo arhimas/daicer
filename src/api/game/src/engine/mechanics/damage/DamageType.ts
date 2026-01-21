@@ -1,3 +1,6 @@
+/**
+ * Supported Damage Types in the Engine.
+ */
 export type DamageType =
   | 'slashing'
   | 'piercing'

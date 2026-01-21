@@ -31,6 +31,12 @@ interface StrapiCharacter {
 }
 
 export default ({ strapi }) => ({
+  /**
+   * Creates a simplified snapshot of entity states for frontend consumption.
+   *
+   * @param entitySheets - Raw entity sheet data.
+   * @returns Record of snapshots keyed by ID.
+   */
   createSnapshot(entitySheets: unknown[]) {
     const snapshot: Record<string, unknown> = {};
     for (const sheet of entitySheets) {
@@ -49,7 +55,15 @@ export default ({ strapi }) => ({
     return snapshot;
   },
 
-  async addPlayerEntity(
+  /**
+   * Onboards a player into a specific Room, creating their EntitySheet and linking it.
+   * Handles avatar processing, stat derivation, and initial placement.
+   *
+   * @param roomId - The room to join.
+   * @param entityData - The character creation payload (race, class, stats, etc).
+   * @param user - The authenticated user.
+   * @returns The created entity context.
+    */
     roomId: string,
     entityData: Record<string, unknown>,
     user: { documentId: string; id: string; username: string }

@@ -1,3 +1,7 @@
+/**
+ * Standard D&D 5e Conditions.
+ * These drive state-based logic in Combat (Advantage, Speed 0, etc).
+ */
 export enum ConditionType {
   Blinded = 'Blinded',
   Charmed = 'Charmed',

@@ -15,6 +15,13 @@ interface GenerateWeaponActionInput {
   isProficient: boolean;
 }
 
+/**
+ * Generates an executable EntityAction from a raw Weapon Item.
+ * Calculates To-Hit and Damage bonuses based on D&D 5e rules (Finesse, Ranged/Melee properties).
+ *
+ * @param input - The weapon, stats, and proficiency context.
+ * @returns A fully derived EntityAction ready for the ActionDispatcher.
+ */
 export function generateWeaponAction(input: GenerateWeaponActionInput): EntityAction {
   const { weapon, stats, proficiencyBonus, isProficient } = input;
 

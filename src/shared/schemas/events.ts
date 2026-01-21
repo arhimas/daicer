@@ -16,6 +16,9 @@ export const SpawnEntityPayloadSchema = z.object({
 
 export type SpawnEntityPayload = z.infer<typeof SpawnEntityPayloadSchema>;
 
+/**
+ * Union schema for all Game Events (Movement, Spawning, etc).
+ */
 export const GameEventPayloadSchema = z.union([
   z.object({ type: z.literal('MOVE'), payload: MapMovePayloadSchema }),
   z.object({ type: z.literal('SPAWN_ENTITY'), payload: SpawnEntityPayloadSchema }),
@@ -26,6 +29,9 @@ export type GameEventStrict = z.infer<typeof GameEventPayloadSchema>;
 
 // Socket Payloads
 
+/**
+ * Payload for joining a game room.
+ */
 export const RoomJoinSchema = z.object({
   roomId: z.string(),
   token: z.string().optional(),
@@ -34,6 +40,9 @@ export const RoomJoinSchema = z.object({
 
 export type RoomJoinPayload = z.infer<typeof RoomJoinSchema>;
 
+/**
+ * Payload for initiating turn processing.
+ */
 export const TurnProcessSchema = z.object({
   roomId: z.string(),
   language: z.string().optional(),
@@ -41,6 +50,9 @@ export const TurnProcessSchema = z.object({
 
 export type TurnProcessPayload = z.infer<typeof TurnProcessSchema>;
 
+/**
+ * Payload for client-submitted player actions.
+ */
 export const PlayerActionSchema = z.object({
   roomId: z.string(),
   // Union of action types for strict validation
@@ -58,6 +70,9 @@ export const PlayerActionSchema = z.object({
 
 export type PlayerActionPayload = z.infer<typeof PlayerActionSchema>;
 
+/**
+ * Payload for signaling player readiness.
+ */
 export const PlayerReadySchema = z.object({
   roomId: z.string(),
   isReady: z.boolean(),

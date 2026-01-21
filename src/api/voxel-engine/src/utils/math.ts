@@ -1,5 +1,10 @@
 /**
- * Alea PRNG for deterministic generation
+ * Alea PRNG for deterministic generation.
+ *
+ * Implements the Alea algorithm (Johannes Baagøe) for high-quality pseudo-random number generation.
+ * Crucial for deterministic procedural generation in the voxel engine.
+ *
+ * @see {@link https://github.com/nquinlan/better-random-numbers-for-javascript-mirror}
  */
 export class Alea {
   private s0: number = 0;
@@ -7,10 +12,21 @@ export class Alea {
   private s2: number = 0;
   private c: number = 1;
 
+  /**
+   * Creates a new Alea PRNG instance.
+   *
+   * @param {string} seed - The seed string for deterministic generation.
+   */
   constructor(seed: string) {
     this.seed(seed);
   }
 
+  /**
+   * Mash function for hashing the seed.
+   *
+   * @param {string | number} data - Data to mash.
+   * @returns {number} The mashed value.
+   */
   private mash(data: string | number): number {
     let n = 0xefc8249d;
     const str = String(data);
@@ -27,6 +43,11 @@ export class Alea {
     return (n >>> 0) * 2.3283064365386963e-10;
   }
 
+  /**
+   * Initializes the PRNG state with the given seed.
+   *
+   * @param {string} seed - The initialization seed.
+   */
   private seed(seed: string) {
     this.s0 = this.mash(' ');
     this.s1 = this.mash(' ');
@@ -41,6 +62,11 @@ export class Alea {
     if (this.s2 < 0) this.s2 += 1;
   }
 
+  /**
+   * Returns the next random number in the sequence [0, 1).
+   *
+   * @returns {number} A pseudo-random number between 0 (inclusive) and 1 (exclusive).
+   */
   next(): number {
     const t = 2091639 * this.s0 + this.c * 2.3283064365386963e-10;
     this.s0 = this.s1;
@@ -52,17 +78,28 @@ export class Alea {
 }
 
 /**
- * Fast Simplex Noise Implementation (Simplified for 2D)
+ * Fast Simplex Noise Implementation (Simplified for 2D).
+ *
+ * Provides 2D Simplex Noise and Fractal Brownian Motion (fbm) for terrain generation.
+ * Uses `Alea` for deterministic permutation table generation.
  */
 export class FastNoise {
   private perm: number[] = [];
   private rng: Alea;
 
+  /**
+   * Creates a new FastNoise instance.
+   *
+   * @param {string} seed - The seed for the noise generator.
+   */
   constructor(seed: string) {
     this.rng = new Alea(seed);
     this.buildPermutationTable();
   }
 
+  /**
+   * Builds the permutation table using the PRNG.
+   */
   private buildPermutationTable() {
     const p = new Uint8Array(256);
     for (let i = 0; i < 256; i++) p[i] = i;
@@ -95,6 +132,13 @@ export class FastNoise {
     [0, -1],
   ];
 
+  /**
+   * Generates 2D Simplex Noise.
+   *
+   * @param {number} xin - X coordinate.
+   * @param {number} yin - Y coordinate.
+   * @returns {number} Noise value (typically between -1 and 1).
+   */
   public noise2D(xin: number, yin: number): number {
     const F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
     const s = (xin + yin) * F2;
@@ -152,7 +196,16 @@ export class FastNoise {
     return 70.0 * (n0_val + n1_val + n2_val);
   }
 
-  // Fractal Brownian Motion
+  /**
+   * Fractal Brownian Motion (fbm).
+   *
+   * @param {number} x - X coordinate.
+   * @param {number} y - Y coordinate.
+   * @param {number} octaves - Number of noise layers (octaves).
+   * @param {number} persistence - How much amplitude decreases per octave (default 0.5).
+   * @param {number} lacunarity - How much frequency increases per octave (default 2.0).
+   * @returns {number} The combined noise value (normalized).
+   */
   public fbm(x: number, y: number, octaves: number, persistence: number = 0.5, lacunarity: number = 2.0): number {
     let total = 0;
     let amplitude = 1;
@@ -170,12 +223,22 @@ export class FastNoise {
   }
 }
 
+/**
+ * Represents a point in 3D space.
+ */
 export interface Point3D {
   x: number;
   y: number;
   z: number;
 }
 
+/**
+ * Calculates Euclidean distance between two 3D points.
+ *
+ * @param {Point3D} a - First point.
+ * @param {Point3D} b - Second point.
+ * @returns {number} Distance between a and b.
+ */
 export function calculateDistance(a: Point3D, b: Point3D): number {
   return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) + Math.pow(a.z - b.z, 2));
 }

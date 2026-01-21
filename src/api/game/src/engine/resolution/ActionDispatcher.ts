@@ -13,11 +13,19 @@ export interface ResolutionResult {
 
 export class ActionDispatcher {
   /**
-   * Resolve an action against a target
-   * @param source The attacker
-   * @param target The defender
-   * @param action The action being used
-   * @param rollSeed (Optional) for deterministic rolling
+   * Resolves a "hydrated" RuntimeAction against a target Entity.
+   * This is the "Engine Room" where dice meets stats.
+   * 
+   * Pipeline:
+   * 1. Attack Roll (d20 + Bonus vs AC).
+   * 2. Saving Throw (d20 + Bonus vs DC) - If applicable.
+   * 3. Effect Application (Damage/Condition resolution).
+   * 
+   * @param source - The actor performing the action.
+   * @param target - The entity being targeted.
+   * @param action - The full RuntimeAction object (hydrated).
+   * @param _rollSeed - Optional seed for deterministic replay.
+   * @returns Detailed ResolutionResult including logs and final damage.
    */
   static resolve(source: Entity, target: Entity, action: RuntimeAction, _rollSeed?: string): ResolutionResult {
     // Using Entity for source/target wrapper

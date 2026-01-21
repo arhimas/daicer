@@ -45,7 +45,10 @@ export const DMStyleSchema = z.object({
   customDirectives: z.string(),
 });
 
-// Fix z.record usage
+/**
+ * Configuration for World Generation and Game Settings.
+ * Controls aesthetics, difficulty, and procedural parameters.
+ */
 export const WorldSettingsSchema = z.object({
   worldType: WorldTypeSchema,
   worldSize: WorldSizeSchema,

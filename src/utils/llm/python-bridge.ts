@@ -11,6 +11,10 @@ interface BridgeRequest {
   reject: (error: any) => void;
 }
 
+/**
+ * Manages a persistent Python child process for LLM inference.
+ * Communicates via JSON-RPC over stdin/stdout.
+ */
 export class PythonBridge {
   private pythonProcess: ChildProcess | null = null;
   private pendingRequests: Map<string, BridgeRequest> = new Map();
@@ -84,10 +88,16 @@ export class PythonBridge {
     });
   }
   
+  /**
+   * Commands the python process to load a specific model into memory.
+   */
   public async loadModel(modelId: string, quantization?: string) {
       return this.send('load', { model: modelId, quantization });
   }
 
+  /**
+   * Commands the python process to generate text.
+   */
   public async generate(prompt: string, maxTokens: number = 256, temperature: number = 0.7) {
       return this.send('generate', { prompt, max_new_tokens: maxTokens, temperature });
   }

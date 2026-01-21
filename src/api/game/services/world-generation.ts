@@ -36,6 +36,14 @@ function formatDmStyle(style: DmStyle) {
 }
 
 export default ({ strapi }) => ({
+  /**
+   * Generates a rich campaign world description using the LLM.
+   * Includes key locations, threats, and adventure hooks based on settings.
+   *
+   * @param settings - Configuration settings.
+   * @param language - Output language.
+   * @returns Markdown formatted world description.
+   */
   async generateWorld(settings: WorldSettings, language: Language = 'en'): Promise<string> {
     const { WorldDescriptionSchema } = await import('../../../schemas/agent-responses');
 

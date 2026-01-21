@@ -7,7 +7,8 @@ import { GeminiModel, GeminiConfig, DEFAULT_TEXT_CONFIG } from './types';
 import { z } from 'zod';
 
 /**
- * Get Gemini API key from environment
+ * Get Gemini API key from environment.
+ * Throws if GEMINI_API_KEY is not set.
  */
 function getApiKey(): string {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -18,7 +19,11 @@ function getApiKey(): string {
 }
 
 /**
- * Create a Gemini model instance
+ * Creates a configured Gemini model instance using LangChain.
+ * 
+ * @param model - The specific Gemini model version to use.
+ * @param config - Configuration options (temperature, max tokens, etc).
+ * @returns Configured ChatGoogleGenerativeAI instance.
  */
 export function getGeminiModel(
   model: GeminiModel = GeminiModel.FLASH,
@@ -43,7 +48,12 @@ export function getGeminiModel(
 }
 
 /**
- * Helper to get a model configured for structured output
+ * Creates a Gemini model configured to return structured JSON adhering to a Zod schema.
+ * 
+ * @param schema - Zod schema defining the expected output structure.
+ * @param model - Gemini model version.
+ * @param config - Configuration options.
+ * @returns Runnable model that outputs typed objects.
  */
 export function getStructuredGeminiModel(
   schema: z.ZodType,

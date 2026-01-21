@@ -1,5 +1,9 @@
 import { EntityFeature } from '../../types';
 
+/**
+ * Defines the structure of a Character Class (Game System Level).
+ * Used for leveling up and feature distribution.
+ */
 export interface ClassDefinition {
   name: string;
   hitDie: 'd6' | 'd8' | 'd10' | 'd12';

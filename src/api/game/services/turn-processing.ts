@@ -7,6 +7,11 @@ interface Message {
 }
 
 export default ({ strapi }) => ({
+  /**
+   * Legacy Turn Processor (Phase 1).
+   * Routes deterministic logic and generates map images.
+   * Being replaced by the new Pipeline Service.
+   */
   async processTurn(
     roomId: string,
     worldDescription: string,

@@ -15,6 +15,14 @@ export class BiomeService {
     this.noiseMoisture = new FastNoise(config.seed + '_moist');
   }
 
+  /**
+   * Generates the base terrain for a chunk using multi-layered Simplex Noise.
+   * Calculates elevation, moisture, and biomes for every column.
+   *
+   * @param chunkX - Chunk X coordinate.
+   * @param chunkY - Chunk Y coordinate.
+   * @param tiles - The 3D tile array to populate.
+   */
   public generateBaseTerrain(chunkX: number, chunkY: number, tiles: Tile[][][]): void {
     const size = this.config.chunkSize;
     const worldOffsetX = chunkX * size;

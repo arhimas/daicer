@@ -1,5 +1,9 @@
 import { ClassDefinition } from './ClassDefinition';
 
+/**
+ * Static registry for all playable classes.
+ * Allows looking up class logic by name (slug).
+ */
 export class ClassRegistry {
   private static classes = new Map<string, ClassDefinition>();
 
