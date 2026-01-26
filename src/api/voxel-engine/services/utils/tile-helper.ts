@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Alea } from '../../src/utils/math';
 import { Tile, BiomeType, BlockType, ZLevel } from '../../../game/src/engine/types';
 import { CHUNK_SIZE } from './constants';

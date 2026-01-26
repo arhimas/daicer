@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * Inventory Service
  * Handles item transactions: Dropping (to World), Picking Up (from World), and Death Drops.
  */
@@ -260,7 +264,20 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     // Set target item to equipped + slot.
     // If target is 2H -> Set Main Hand. Check Off Hand occupied? Unequip it.
     
-    const newInventory = inventory.map((i: any) => {
+    interface InventoryItem {
+        id: number;
+        documentId?: string;
+        isEquipped?: boolean;
+        slot?: string;
+        item?: {
+            name: string;
+            equipment_data?: {
+                properties?: Array<{ slug: string }>;
+            };
+        };
+    }
+    
+    const newInventory = (inventory as InventoryItem[]).map((i) => {
         // The item itself
         if (i.id === itemToEquip.id || i.documentId === itemToEquip.documentId) {
              return { ...i, isEquipped: true, slot };
@@ -323,9 +340,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       if (!entity) return 0;
       
-      const inventory = entity.inventory || [];
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return inventory.reduce((total: number, entry: any) => {
+      const inventory = (entity.inventory || []) as unknown as { item?: { weight?: number }; quantity?: number }[];
+      return inventory.reduce((total: number, entry) => {
           const w = entry.item?.weight || 0;
           const q = entry.quantity || 1;
           return total + (w * q);

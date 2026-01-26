@@ -52,9 +52,9 @@ const getZoneCentroid = (blueprint: ZoneType[][], targetZone: ZoneType): Point |
     x: Math.round(sumX / count),
     y: Math.round(sumY / count), // Default center
     // We attach extra props for smarter alignment (not in Point interface but useful internally)
-    // @ts-ignore
+    // @ts-expect-error - accessing internal minY
     minY, 
-    // @ts-ignore
+    // @ts-expect-error - accessing internal maxY
     maxY
   };
 };
@@ -103,7 +103,7 @@ const getSmartAnchor = (asset: Asset, target: AnchorType): { point: Point, metho
       // Target: Top of the head (for Hats)
       const zone = getZoneCentroid(blueprint, 'head');
       if (zone) {
-          // @ts-ignore - accessing internal minY
+          // @ts-expect-error - accessing internal minY
           return { point: { x: zone.x, y: zone.minY }, method: 'Blueprint (Head Top)' };
       }
       // Smart Scan: Top-most visual pixel
@@ -114,7 +114,7 @@ const getSmartAnchor = (asset: Asset, target: AnchorType): { point: Point, metho
       // Target: Bottom of a Hat (to sit on a head)
       const zone = getZoneCentroid(blueprint, 'head'); // Hat usually fills 'head' zone
       if (zone) {
-           // @ts-ignore
+           // @ts-expect-error - accessing internal maxY
            return { point: { x: zone.x, y: zone.maxY }, method: 'Blueprint (Hat Bottom)' };
       }
       return { point: { x: visual.cx, y: visual.maxY }, method: 'Visual Extremity (Bottom)' };
@@ -124,7 +124,7 @@ const getSmartAnchor = (asset: Asset, target: AnchorType): { point: Point, metho
       // Target: Bottom of feet (for Boots) or Bottom of creature (to align boots)
       const zone = getZoneCentroid(blueprint, 'legs');
       if (zone) {
-          // @ts-ignore
+          // @ts-expect-error - accessing internal maxY
           return { point: { x: zone.x, y: zone.maxY }, method: 'Blueprint (Feet Bottom)' };
       }
       return { point: { x: visual.cx, y: visual.maxY }, method: 'Visual Extremity (Bottom)' };

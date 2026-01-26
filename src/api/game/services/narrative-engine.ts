@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { generateStructured } from '../../../utils/llm/structured';
 import { getPrompt, formatPrompt } from '../../../utils/prompt';
 import { formatDmInstruction } from '../src/engine';

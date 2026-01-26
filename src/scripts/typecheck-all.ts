@@ -38,7 +38,7 @@ function runCommand(command: string, cwd: string, name: string) {
         console.log(chalk.cyan(`Checking ${name}...`));
         execSync(command, { cwd, stdio: 'inherit' });
         console.log(chalk.green(`✓ ${name} passed.`));
-    } catch (e) {
+    } catch (_e) {
         console.error(chalk.red(`✗ ${name} failed typecheck.`));
         process.exit(1);
     }

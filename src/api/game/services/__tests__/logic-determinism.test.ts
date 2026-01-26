@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { describe, it, expect } from 'vitest';
 import { ChunkBuilder } from '../../../voxel-engine/services/chunk-builder'; // Relative path from api/game/services/__tests__
 import crypto from 'crypto';

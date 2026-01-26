@@ -34,7 +34,7 @@ async function main() {
 
     // Load Proficiencies for mapping
     const profs = await strapi.documents('api::proficiency.proficiency').findMany({ fields: ['name', 'documentId'] });
-    const profMap = new Map(profs.map((p: any) => [p.name, p.documentId]));
+    const _profMap = new Map(profs.map((p: any) => [p.name, p.documentId]));
         
     for (const file of files) {
         const filePath = path.join(backendRoot, file);
@@ -51,7 +51,7 @@ async function main() {
         const entry = Array.isArray(data) ? data[0] : data; // Safe fallback if legacy array
 
         // Map Proficiencies
-        const mappedProfs: string[] = [];
+        const _mappedProfs: string[] = [];
         if (entry.proficiencies && Array.isArray(entry.proficiencies)) {
             // ... (keep logic)
         }

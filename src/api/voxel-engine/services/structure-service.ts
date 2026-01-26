@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Alea } from '../src/utils/math';
 import { BlockType, StructureInfo, Tile, WorldConfig } from '../../game/src/engine/types';
 import { TileHelper } from './utils/tile-helper';

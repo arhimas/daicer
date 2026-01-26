@@ -1,5 +1,4 @@
-export {};
-const { createStrapi } = require('@strapi/strapi');
+import { createStrapi } from '@strapi/strapi';
 
 async function main() {
   try {
@@ -14,7 +13,6 @@ async function main() {
       distDir: 'dist', // Strapi 5 often needs this, but we'll try without if it fails
     }).load();
 
-    // @ts-ignore
     const service = app.service('api::game.translation');
 
     if (!service) {

@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * Action Registry
  * The "Tool Box" for the Engine and DM Agent.
  * Contains deterministic logic for game mechanics.

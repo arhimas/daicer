@@ -1,4 +1,8 @@
-import { Chunk, WorldConfig } from '../../game/src/engine/types';
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+import { Chunk, WorldConfig, BlockType } from '../../game/src/engine/types';
 import { ChunkManager } from './chunk-manager';
 
 export default () => ({
@@ -16,7 +20,7 @@ export default () => ({
     voxelX: number,
     voxelY: number,
     voxelZ: number,
-    newType: any, // Strapi services types are loose, but we leverage internally
+    newType: BlockType, // Strapi services types are loose, but we leverage internally
     reason?: string,
     worldId?: string,
     metadata?: Record<string, unknown>

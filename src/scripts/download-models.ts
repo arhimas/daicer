@@ -1,6 +1,6 @@
 import 'dotenv/config'; // Load .env for HF_TOKEN
 import { env } from '@huggingface/transformers';
-import path from 'path';
+// import path from 'path';
 import { localLLM } from '../utils/llm/local';
 import { LocalModel } from '../utils/llm/types';
 

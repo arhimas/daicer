@@ -166,7 +166,7 @@ async function main() {
                     process.stdout.write('+');
                     upsertCount++;
                 }
-            } catch (err) {
+            } catch (_err) {
                  // console.error(`\n      ❌ Error ingesting ${entry.slug}: ${JSON.stringify((err as any).details?.errors || err)}`);
             }
         console.log(`\n   ✅ Synced ${upsertCount} new spells, updated ${skipCount} existing from ${filename}.`);

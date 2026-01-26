@@ -36,7 +36,7 @@ export interface WorldConfig {
   seaLevel: number;
   structureChance: number;
   roadDensity: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Construction {
@@ -48,4 +48,15 @@ export interface Construction {
     height: number;
     depth: number;
     voxels: { x: number, y: number, z: number, type: BlockType }[];
+}
+
+export interface EntityState {
+  id: string;
+  position: { x: number; y: number; z: number };
+  hp: number;
+  maxHp: number;
+}
+
+export interface ReplayGameState {
+  entities: EntityState[];
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Page, Layouts } from '@strapi/strapi/admin';
+import { Layouts } from '@strapi/strapi/admin';
 import { Typography, EmptyStateLayout, Box, Grid, Alert, Flex } from '@strapi/design-system';
 import { useFetchClient } from '@strapi/strapi/admin';
 import { QueueWidget } from '../components/QueueWidget';

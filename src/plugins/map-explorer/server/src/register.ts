@@ -40,6 +40,26 @@ const register = ({ strapi }: { strapi: Core.Strapi }) => {
         isResizable: false
     }
   });
+
+  strapi.customFields.register({
+    name: "sprite-grid",
+    plugin: "map-explorer",
+    type: "json", 
+    inputSize: {
+        default: 12,
+        isResizable: false
+    }
+  });
+
+  strapi.customFields.register({
+    name: "pixel-generator",
+    plugin: "map-explorer",
+    type: "json",
+    inputSize: {
+        default: 12, // full width
+        isResizable: false
+    }
+  });
 };
 
 export default register;

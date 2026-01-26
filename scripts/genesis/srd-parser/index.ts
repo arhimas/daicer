@@ -4,7 +4,7 @@ import { MarkdownSplitter } from './MarkdownSplitter';
 import { ClassParser } from './parsers/ClassParser';
 import { SpellParser } from './parsers/SpellParser';
 import { ItemParser } from './parsers/ItemParser';
-import { ClassFeature, slugify, ParseResult } from './types';
+import { ParseResult } from './types';
 
 const SRD_PATH = '/Users/lg/lab/daicer/SRD.md';
 
@@ -73,19 +73,22 @@ if (!fs.existsSync(OUT_ITEMS)) fs.mkdirSync(OUT_ITEMS, { recursive: true });
          // Schema for Request (from batch-polish.ts):
          // { custom_id, request: { contents: [...], generation_config: ... } }
          
-         const prompt = `
-            You are an expert Dungeon Master and Game Designer.
-            Task: Polish this D&D 5e Feature.
-            
-            Feature: ${feature.name} (${result.classData.name} Level ${feature.level})
-            Raw Description:
-            ${feature.description}
-            
-            Requirements:
-            1. Enhance the description to be vivid and clear.
-            2. Extract any specific mechanics if implied but not explicit.
-            3. Return valid JSON satisfying the schema.
-         `;
+         // { custom_id, request: { contents: [...], generation_config: ... } }
+         
+         // const prompt = `
+         //    You are an expert Dungeon Master and Game Designer.
+         //    Task: Polish this D&D 5e Feature.
+         //    
+         //    Feature: ${feature.name} (${result.classData.name} Level ${feature.level})
+         //    Raw Description:
+         //    ${feature.description}
+         //    
+         //    Requirements:
+         //    1. Enhance the description to be vivid and clear.
+         //    2. Extract any specific mechanics if implied but not explicit.
+         //    3. Return valid JSON satisfying the schema.
+         // `;
+         // Came from original plan to generate JSONL here, but deferred.
          // Defined schema in batch-polish is for Magic Items.
          // We might need a different schema for Features?
          // User said "polish all our atoms molecules...".
@@ -183,6 +186,6 @@ if (!fs.existsSync(OUT_ITEMS)) fs.mkdirSync(OUT_ITEMS, { recursive: true });
   console.log(`[SRD-Parser] Complete. Exported ${allExports.length} items to srd-export.json.`);
 }
 
-const allExports: any[] = []; // Global buffer
+const allExports: Record<string, unknown>[] = []; // Global buffer
 
 main();

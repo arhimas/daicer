@@ -22,7 +22,7 @@ export const embedCommand = new Command('embed')
 
 export async function runEmbed(typeArg: string, options: { queue?: boolean; json?: boolean }) {
   const { default: chalk } = await import('chalk');
-  const { JuicyProgressBar } = await import('../../scripts/utils/progressBar'); // Assuming this exists or copy logic
+  // const { JuicyProgressBar } = await import('../../scripts/utils/progressBar'); // Assuming this exists or copy logic
   
   if (!options.json) {
     console.log(chalk.bold(`\n🧠  Embedding: ${chalk.cyan(typeArg)}`));

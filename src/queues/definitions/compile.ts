@@ -12,11 +12,11 @@ export default async function compile(
     let count = 0;
 
     if (phase) {
-      // @ts-ignore
+      // @ts-expect-error: Phase enum is string compatible
       await orchestrator.runPhase(phase);
       count = 100; // Placeholder, orchestrator doesn't return count yet
     } else if (targetUid && targetId) {
-      const result = await orchestrator.compileEntity(targetUid, targetId);
+      await orchestrator.compileEntity(targetUid, targetId);
       count = 1;
     }
 
@@ -24,11 +24,11 @@ export default async function compile(
       success: true,
       compiledCount: count,
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       success: false,
       compiledCount: 0,
-      error: error.message,
+      error: error instanceof Error ? error.message : String(error),
     };
   }
 }

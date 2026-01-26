@@ -1,4 +1,3 @@
-
 /**
  * Custom Admin Routes for Game API.
  * Defines endpoints restricted to the admin panel.
@@ -13,7 +12,6 @@ export default {
         type: 'admin',
         policies: ['admin::isAuthenticatedAdmin'],
         middlewares: [],
-        auth: false,
       },
     },
   ],

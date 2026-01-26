@@ -88,12 +88,12 @@ export class GeminiService {
     return clean;
   }
 
-  private validateAndRepairGrid(data: any): string[][] {
-      let grid = data;
+  private validateAndRepairGrid(data: unknown): string[][] {
+      let grid = data as unknown[]; // Initial assumption, refine later
 
       // Case 1: Wrapped in object (e.g. { grid: [...] })
       if (!Array.isArray(grid) && typeof grid === 'object' && grid !== null) {
-          const possibleArray = Object.values(grid).find(val => Array.isArray(val) && val.length > 0);
+          const possibleArray = Object.values(grid as Record<string, unknown>).find(val => Array.isArray(val) && val.length > 0);
           if (possibleArray) {
               grid = possibleArray;
           }
@@ -127,7 +127,7 @@ export class GeminiService {
       }
 
       // 2. Fix Columns
-      grid = grid.map((row: any) => {
+      grid = grid.map((row) => {
           if (!Array.isArray(row)) return Array(32).fill('transparent');
           
           let newRow = [...row]; // Copy to avoid mutation issues
@@ -138,10 +138,10 @@ export class GeminiService {
               newRow.push('transparent');
           }
           // Ensure String Strings
-          return newRow.map((cell: any) => (typeof cell === 'string' ? cell : 'transparent'));
+          return newRow.map((cell) => (typeof cell === 'string' ? cell : 'transparent'));
       });
 
-      return grid;
+      return grid as string[][]; // Assert final shape
   }
 
   // --- PROMPT ENGINEERING ENGINE ---
@@ -276,7 +276,7 @@ export class GeminiService {
       
       try {
           rawData = JSON.parse(safeJson);
-      } catch (parseError) {
+      } catch {
           console.warn("JSON Parse failed, attempting fallback recovery...", safeJson);
           throw new Error("Failed to parse pixel grid from model response.");
       }
@@ -289,9 +289,11 @@ export class GeminiService {
 
       return { pixelData: cleanData, enhancedPrompt };
 
-    } catch (error: any) {
+    } catch (error) {
       console.error("Gemini Forge Error:", error);
-      if (error.status === 404 || (error.message && error.message.includes('404'))) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const err = error as any;
+      if (err.status === 404 || (err.message && err.message.includes('404'))) {
           throw new Error(`Model ${config.model} not found or not available in this region.`);
       }
       throw error;

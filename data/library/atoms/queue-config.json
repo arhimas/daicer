@@ -1,0 +1,39 @@
+[
+  {
+    "queueName": "genesis",
+    "enabled": true,
+    "concurrency": 1,
+    "settings": {
+      "retryAttempts": 3,
+      "retryDelay": 1000,
+      "removeOnComplete": true,
+      "removeOnFail": false
+    }
+  },
+  {
+    "queueName": "embedding",
+    "enabled": true,
+    "concurrency": 2,
+    "settings": {
+      "retryAttempts": 5,
+      "retryDelay": 2000,
+      "removeOnComplete": true
+    }
+  },
+  {
+    "queueName": "generate-text-remote",
+    "enabled": true,
+    "concurrency": 5,
+    "settings": {
+        "timeout": 60000
+    }
+  },
+  {
+    "queueName": "compile",
+    "enabled": true,
+    "concurrency": 1,
+    "settings": {
+        "removeOnComplete": true
+    }
+  }
+]

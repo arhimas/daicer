@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '../../game/src/engine/types';
 import { Alea, FastNoise } from '../src/utils/math';
 import { TileHelper } from './utils/tile-helper';

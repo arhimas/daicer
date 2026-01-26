@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 const TEMPLATES: Record<string, unknown> = {
   fighter: {
     name: 'Valen Heritage',

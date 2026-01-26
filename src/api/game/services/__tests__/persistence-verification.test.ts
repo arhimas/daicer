@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import biomeSpawnServiceFactory from '../biome-spawn-service';
 import { BiomeType } from '../../src/engine/types';

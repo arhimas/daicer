@@ -109,7 +109,7 @@ async function main() {
                 process.stdout.write('+');
             }
             upsertCount++;
-        } catch (err: any) {
+        } catch (_err: any) {
              // console.error(`Error ${entry.slug}: ${err.message}`);
         }
     }

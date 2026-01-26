@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { describe, it, expect } from 'vitest';
 import { AdvancedStructureGenerator } from '../advanced-structure-generator';
 import { StructureInfo, Tile } from '../../../game/src/engine/types';

@@ -1,4 +1,4 @@
-import { factories } from '@strapi/strapi';
+// import { factories } from '@strapi/strapi';
 import { TAG_ATOMS } from '../../genesis/seed-data/tags';
 
 export async function loadTags(strapi: any) {

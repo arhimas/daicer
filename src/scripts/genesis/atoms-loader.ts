@@ -14,6 +14,7 @@ interface AtomDefinition {
   file: string;
   uid: string;
   name: string;
+  uniqueKey?: string;
 }
 
 const ATOMS: AtomDefinition[] = [
@@ -62,6 +63,12 @@ const ATOMS: AtomDefinition[] = [
     uid: 'api::feature.feature',
     name: 'Features',
   },
+  {
+    file: 'prompts.json',
+    uid: 'api::prompt.prompt',
+    name: 'Prompts',
+    uniqueKey: 'key'
+  }
 ];
 
 
@@ -89,22 +96,24 @@ export async function loadAtoms(strapi: any) {
 
       let upsertCount = 0;
       for (const entry of data) {
-        // Auto-generate slug if missing
-        if (!entry.slug && entry.name) {
+        // Auto-generate slug if missing, ONLY if uniqueKey is NOT set or IS slug
+        const keyField = atom.uniqueKey || 'slug';
+
+        if (keyField === 'slug' && !entry.slug && entry.name) {
             entry.slug = entry.name
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/(^-|-$)+/g, '');
         }
 
-        if (!entry.slug) {
-            console.warn(`      ⚠️ Skipping entry without slug: ${JSON.stringify(entry)}`);
+        if (!entry[keyField]) {
+            console.warn(`      ⚠️ Skipping entry without ${keyField}: ${JSON.stringify(entry)}`);
             continue;
         }
 
-        // Idempotent Upsert based on Slug
+        // Idempotent Upsert based on keyField
         const existing = await strapi.documents(atom.uid as any).findFirst({
-            filters: { slug: entry.slug }
+            filters: { [keyField]: entry[keyField] }
         });
 
         if (existing) {

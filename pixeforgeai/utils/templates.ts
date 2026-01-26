@@ -19,11 +19,7 @@ const fill = (grid: ZoneType[][], x: number, y: number, w: number, h: number, ty
   }
 };
 
-const drawSymmetrical = (grid: ZoneType[][], x: number, y: number, w: number, h: number, type: ZoneType) => {
-  fill(grid, x, y, w, h, type); 
-  const mirrorX = GRID - (x + w); 
-  fill(grid, mirrorX, y, w, h, type); 
-};
+// const drawSymmetrical = ... (removed)
 
 // --- SCALING LOGIC ---
 
@@ -54,7 +50,7 @@ const getBounds = (s: CreatureSize) => {
 
 const generateItem = (grid: ZoneType[][], archetype: Archetype, size: CreatureSize) => {
   const b = getBounds(size);
-  const { min, max, size: s } = b;
+  const { min, size: s } = b;
 
   // Helper for relative scaling within bounds
   const px = (percent: number) => Math.floor(min + (s * percent));
@@ -164,7 +160,7 @@ const generateItem = (grid: ZoneType[][], archetype: Archetype, size: CreatureSi
 
 const generateCreature = (grid: ZoneType[][], archetype: Archetype, size: CreatureSize) => {
   const b = getBounds(size);
-  const { min, max, size: s } = b;
+  const { min, size: s } = b;
 
   const px = (p: number) => Math.floor(min + (s * p));
   const py = (p: number) => Math.floor(min + (s * p));

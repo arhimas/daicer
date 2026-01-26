@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { generateText } from '../../../utils/llm';
 import { getPrompt, formatPrompt } from '../../../utils/prompt';
 import { uploadBase64Image } from '../../../utils/upload';
@@ -5,6 +9,57 @@ import { createCharacterSnapshot, formatDmInstruction, EntityDeriver } from '../
 import type { WorldSettings, Player, EntitySheet, Language } from '../src/engine';
 
 // Helper to format DM style
+
+interface StrapiClass {
+  documentId: string;
+  name: string;
+  hit_die?: number;
+}
+
+interface StrapiRace {
+  documentId: string;
+  name: string;
+  speed?: number;
+}
+
+interface StrapiItem {
+  id: string | number;
+  documentId?: string;
+  name: string;
+  [key: string]: unknown;
+}
+
+interface StrapiEquipmentEntry {
+  isEquipped: boolean;
+  item: StrapiItem;
+}
+
+interface StrapiCharacter {
+  documentId: string;
+  name: string;
+  classes?: { class: StrapiClass; level: number }[];
+  race?: string | StrapiRace;
+  stats: unknown;
+  appearance?: unknown;
+  backstory?: string;
+  background?: string;
+  equipment?: StrapiEquipmentEntry[];
+}
+
+interface OnboardPlayerData {
+  name: string;
+  documentId?: string;
+  race?: string;
+  class?: string;
+  characterClass?: string;
+  baseStats?: Record<string, number>;
+  attributes?: Record<string, number>;
+  backstory?: string;
+  background?: string;
+  equipment?: unknown[];
+  avatarPreview?: Record<string, { id?: string | number; url?: string; data?: string; mimeType?: string }>;
+  _raceSpeed?: number;
+}
 
 interface PopulatedEntitySheet extends Omit<
   EntitySheet,
@@ -16,18 +71,6 @@ interface PopulatedEntitySheet extends Omit<
   classes?: { class: string | { name: string }; level: number }[];
   characterClass?: string;
   personality?: { traits: string; ideals: string; bonds: string; flaws: string };
-}
-
-interface StrapiCharacter {
-  documentId: string;
-  name: string;
-  classes?: { class: { name: string; documentId: string }; level: number }[];
-  race?: string;
-  stats: unknown;
-  appearance?: unknown;
-  backstory?: string;
-  background?: string;
-  equipment?: unknown[];
 }
 
 export default ({ strapi }) => ({
@@ -63,9 +106,10 @@ export default ({ strapi }) => ({
    * @param entityData - The character creation payload (race, class, stats, etc).
    * @param user - The authenticated user.
    * @returns The created entity context.
-    */
+   */
+  async onboardPlayer(
     roomId: string,
-    entityData: Record<string, unknown>,
+    entityData: OnboardPlayerData,
     user: { documentId: string; id: string; username: string }
   ) {
     // 1. Fetch Room with populated players
@@ -148,12 +192,13 @@ export default ({ strapi }) => ({
         const races = await strapi.documents('api::race.race').findMany({
           filters: { name: entityData.race },
         });
-        if (races && races.length > 0) {
-          raceId = races[0].documentId;
-          if ('speed' in races[0]) {
-            (entityData as Record<string, unknown>)._raceSpeed = races[0].speed;
+          if (races && races.length > 0) {
+            raceId = races[0].documentId;
+            const race = races[0] as unknown as StrapiRace;
+            if (race.speed) {
+              entityData._raceSpeed = race.speed;
+            }
           }
-        }
       }
 
       let classId = null;
@@ -210,25 +255,21 @@ export default ({ strapi }) => ({
       charisma: rawStats.charisma || 10,
     };
 
-    const equipmentList = (createdEntity.equipment as { isEquipped: boolean; item: unknown }[]) || [];
-    const equipmentForDeriver = equipmentList
+    const equipmentForDeriver = ((createdEntity.equipment as StrapiEquipmentEntry[]) || [])
       .filter((entry) => entry.isEquipped && entry.item)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((entry) => ({ ...(entry.item as any), name: (entry.item as any).name }));
+      .map((entry) => ({ ...entry.item, name: entry.item.name }));
 
     const derived = EntityDeriver.derive({
       attributes,
       classes: createdEntity.classes?.map((c) => ({
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        name: (c.class as any).name,
+        name: c.class.name,
         level: c.level,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        hitDie: (c.class as any).hit_die,
+        hitDie: c.class.hit_die ? `d${c.class.hit_die}` : undefined,
       })),
       level: 1,
       equipment: equipmentForDeriver,
       race: {
-        speed: (entityData as Record<string, unknown>)._raceSpeed as number,
+        speed: entityData._raceSpeed as number,
       },
     });
 

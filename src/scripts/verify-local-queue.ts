@@ -2,7 +2,7 @@
 import { createStrapi } from '@strapi/strapi';
 import { QueueName } from '../queues/contract';
 import { QueueManager } from '../queues/queue-manager';
-import { localLLM } from '../utils/llm/local';
+import { localLLM as _localLLM } from '../utils/llm/local';
 import { LocalModel } from '../utils/llm/types';
 
 // Mock DB update so we don't need real entities

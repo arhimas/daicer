@@ -1,5 +1,4 @@
 import type { Core } from '@strapi/strapi';
-import chalk from 'chalk';
 
 type LogLevel = 'info' | 'warn' | 'error' | 'debug';
 
@@ -53,22 +52,22 @@ export class DevLogger {
     };
   }
 
-  log(level: LogLevel, message: string, meta: Record<string, any> = {}) {
+  log(level: LogLevel, message: string, meta: Record<string, unknown> = {}) {
     this.strapi.log[level](message, {
         ...meta,
         scope: this.scope,
     }); 
   }
 
-  info(message: string, meta?: Record<string, any>) {
+  info(message: string, meta?: Record<string, unknown>) {
     this.strapi.log.info(message, { scope: this.scope, ...meta });
   }
 
-  warn(message: string, meta?: Record<string, any>) {
+  warn(message: string, meta?: Record<string, unknown>) {
     this.strapi.log.warn(message, { scope: this.scope, ...meta });
   }
 
-  error(message: string, error?: any) {
+  error(message: string, error?: unknown) {
     this.strapi.log.error(message, { 
         scope: this.scope, 
         error: error instanceof Error ? 
@@ -77,7 +76,7 @@ export class DevLogger {
     });
   }
 
-  debug(message: string, meta?: Record<string, any>) {
+  debug(message: string, meta?: Record<string, unknown>) {
     this.strapi.log.debug(message, { scope: this.scope, ...meta });
   }
 
@@ -85,7 +84,7 @@ export class DevLogger {
    * Starts a timer for a job/task.
    * Returns an object with `end()` and `fail()` methods to stop the timer and log result.
    */
-  start(jobName: string): { end: () => void; fail: (err: any) => void } {
+  start(jobName: string): { end: () => void; fail: (err: unknown) => void } {
     const startTime = Date.now();
     this.info(`🚀 Starting: ${jobName}`, { event: 'job_start', job: jobName });
 
@@ -99,7 +98,7 @@ export class DevLogger {
             durationMs: duration
         });
       },
-      fail: (err: any) => {
+      fail: (err: unknown) => {
         const duration = Date.now() - startTime;
         this.error(`❌ Failed: ${jobName}`, { 
             event: 'job_fail', 

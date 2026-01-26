@@ -56,7 +56,7 @@ if (!process.argv.slice(2).length) {
     const { default: boxen } = await import('boxen');
     const { default: gradient } = await import('gradient-string');
     const { default: chalk } = await import('chalk');
-    const { select, input } = await import('@inquirer/prompts');
+    const { select, input: _input } = await import('@inquirer/prompts');
 
     // Import command runners
     const { runExplore } = await import('./commands/explore');

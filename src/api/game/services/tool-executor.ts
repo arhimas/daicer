@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Core } from '@strapi/strapi';
 
 // Regex to parse tool calls like: tool_name(arg1="val", arg2=123, arg3='{"a":1}')

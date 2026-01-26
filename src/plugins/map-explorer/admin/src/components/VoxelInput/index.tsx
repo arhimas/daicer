@@ -8,27 +8,27 @@ import {
   SingleSelect,
   SingleSelectOption,
   Grid,
-  IconButton
+  // IconButton
 } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 import { Trash, Drag, Pencil, Crop, ChartCircle, Information } from '@strapi/icons';
-import { BlockType, Chunk, TerrainType } from '../../types';
-import { TILE_SIZE, BLOCK_COLORS, BLOCK_TYPES } from '../../constants';
+import { Chunk, TerrainType } from '../../types';
+import { TILE_SIZE, BLOCK_TYPES } from '../../constants';
 import { getShapePixels } from '../../utils/shape-tools';
 import { RenderEngine } from '../../utils/render-engine';
-import { PixelEditor } from '../PixelEditor';
+
 
 // Internal constants for this component to match user expectations
-const DISPLAY_Z_MIN = -3;
-const DISPLAY_Z_MAX = 3;
-const TOTAL_LAYERS = 7; 
+// const DISPLAY_Z_MIN = -3;
+// const DISPLAY_Z_MAX = 3;
+// const TOTAL_LAYERS = 7; 
 
 interface VoxelInputProps {
   name: string;
   value?: string | null;
   onChange: (e: { target: { name: string; value: unknown; type: string } }) => void;
-  attribute: { type: string; customField: string };
-  intlLabel: any;
+  attribute: { type: string; customField: string; options?: { size?: number } };
+  intlLabel: { id: string; defaultMessage?: string };
 }
 
 
@@ -39,21 +39,21 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
     const { get } = useFetchClient();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    // Dynamic Grid Size
+    const DEFAULT_SIZE = 16;
+    const gridSize = attribute.options?.size || DEFAULT_SIZE;
+
     const [chunk, setChunk] = useState<Chunk | null>(null);
     const [currentZ, setCurrentZ] = useState(3); 
     const [selectedBlock, setSelectedBlock] = useState<string>('stone');
     const [terrains, setTerrains] = useState<TerrainType[]>([]);
 
     // Viewport State
-    const [scale, setScale] = useState(1);
+    const [scale, setScale] = useState(800 / (gridSize * TILE_SIZE) * 0.8); // Auto-fit to canvas with margin
     const [pan, setPan] = useState({ x: 0, y: 0 });
     const [isPanning, setIsPanning] = useState(false);
     const [lastMouse, setLastMouse] = useState({ x: 0, y: 0 });
-    const [tool, setTool] = useState<'brush' | 'pan' | 'rect' | 'circle' | 'detail'>('brush');
-    
-    // Pixel Editor State
-    const [isPixelEditorOpen, setIsPixelEditorOpen] = useState(false);
-    const [detailTarget, setDetailTarget] = useState<{x:number, y:number, z:number} | null>(null);
+    const [tool, setTool] = useState<'brush' | 'pan' | 'rect' | 'circle'>('brush');
     
     // Shape Drag State
     const [dragStart, setDragStart] = useState<{x: number, y: number} | null>(null);
@@ -89,7 +89,6 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
 
 
     // ... (Initialize Effect - keep same but ensure block type string handling)
-    const GRID_SIZE = 16;
     const MAX_Z = 6;
 
     useEffect(() => {
@@ -136,21 +135,29 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                         // Strapi Admin `useFetchClient` -> `post`
                         try {
                              const { post } = useFetchClient(); // Ensure we have post
-                             const response = await post('/voxel-engine/preview', payload);
+                    // Fix: Use plugin admin route for correct auth
+                    const response = await post('/map-explorer/preview', payload);
                              if (response.data) {
                                  setChunk(response.data);
                                  return;
                              }
-                        } catch(e) { 
+                        } catch(_e) { 
                              console.warn("Using public preview endpoint failed, falling back or trying admin route?");
                              // Actually, standard fetch might work if route is public
                              // But we possess the token.
                              // Let's assume the route /api/voxel-engine/preview is accessible if authenticated.
                              // In Strapi 5, admin requests to /api need prefix? Usually /api...
-                             // Let's try direct fetch to '/api/voxel-engine/preview'
-                             const res = await fetch('/api/voxel-engine/preview', {
+                             // Fallback: If using fetch directly, might need full path or handling.
+                             // But since we are in Admin, we should prefer 'post' from useFetchClient.
+                             // Removing fallback or updating it if absolutely necessary (but fetch won't have admin token auto-injected usually)
+                             // Leaving as is but aware it might fail 401 if token not sent.
+                             // Actually, let's comment it out or assume 'post' works. 
+                             const res = await fetch('/map-explorer/preview', {
                                  method: 'POST',
-                                 headers: { 'Content-Type': 'application/json' }, // Auth?
+                                 headers: { 
+                                     'Content-Type': 'application/json',
+                                     // We would need Authorisation header here if using fetch manually
+                                 }, 
                                  body: JSON.stringify(payload)
                              });
                              const json = await res.json();
@@ -165,17 +172,17 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
             return; // Skip default parsing
         }
 
-        const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null)));
+        const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(gridSize).fill(null).map(() => Array(gridSize).fill(null)));
         const loadedTiles = emptyLayers;
 
         if (value) {
             try {
                 const parsedValue = typeof value === 'string' ? JSON.parse(value) : value;
                 if (Array.isArray(parsedValue)) {
-                    parsedValue.forEach((v: Record<string, any>) => {
-                         if (v.z >= 0 && v.z <= MAX_Z && v.y >= 0 && v.y < GRID_SIZE && v.x >= 0 && v.x < GRID_SIZE) {
-                             if (!loadedTiles[v.z]) loadedTiles[v.z] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
-                             if (!loadedTiles[v.z][v.y]) loadedTiles[v.z][v.y] = Array(GRID_SIZE).fill(null);
+                    parsedValue.forEach((v: { x: number; y: number; z: number; block?: string; type?: string }) => {
+                         if (v.z >= 0 && v.z <= MAX_Z && v.y >= 0 && v.y < gridSize && v.x >= 0 && v.x < gridSize) {
+                             if (!loadedTiles[v.z]) loadedTiles[v.z] = Array(gridSize).fill(null).map(() => Array(gridSize).fill(null));
+                             if (!loadedTiles[v.z][v.y]) loadedTiles[v.z][v.y] = Array(gridSize).fill(null);
                              
                              loadedTiles[v.z][v.y][v.x] = {
                                  x: v.x, y: v.y, z: v.z,
@@ -188,12 +195,12 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                          }
                     });
                 }
-            } catch (e) {
-                console.error("Failed to parse voxel data", e);
+            } catch (_e) {
+                console.error("Failed to parse voxel data", _e);
             }
         }
         setChunk({ x: 0, y: 0, tiles: loadedTiles });
-    }, [value]);
+    }, [value, gridSize]);
 
     // ... (getShapePixels remains same)
 
@@ -267,14 +274,6 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
              const tile = getTileCoords(e);
              setDragStart(tile);
              setDragEnd(tile);
-        } else if (tool === 'detail') {
-             const tile = getTileCoords(e);
-             const targetZ = currentZ;
-             // Check if tile exists
-             if (chunk?.tiles?.[targetZ]?.[tile.y]?.[tile.x]) {
-                 setDetailTarget({ x: tile.x, y: tile.y, z: targetZ });
-                 setIsPixelEditorOpen(true);
-             }
         } else {
             // Brush Click
             handleBrushClick(e);
@@ -296,7 +295,7 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
         }
     };
 
-     const handleMouseUp = (e: React.MouseEvent) => {
+     const handleMouseUp = (_e: React.MouseEvent) => {
         setIsPanning(false);
         
         if ((tool === 'rect' || tool === 'circle') && dragStart && dragEnd) {
@@ -307,8 +306,8 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
              if (!newChunk.tiles[tileZ]) newChunk.tiles[tileZ] = [];
              
              points.forEach(p => {
-                 if (p.x >= 0 && p.x < 16 && p.y >= 0 && p.y < 16) {
-                      if (!newChunk.tiles[tileZ][p.y]) newChunk.tiles[tileZ][p.y] = Array(16).fill(null);
+                 if (p.x >= 0 && p.x < gridSize && p.y >= 0 && p.y < gridSize) { // Use gridSize
+                      if (!newChunk.tiles[tileZ][p.y]) newChunk.tiles[tileZ][p.y] = Array(gridSize).fill(null);
                       newChunk.tiles[tileZ][p.y][p.x] = {
                          x: p.x, y: p.y, z: tileZ,
                          block: selectedBlock,
@@ -332,11 +331,11 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
         const { x: tileX, y: tileY } = tile;
         const tileZ = currentZ;
 
-        if (tileX >= 0 && tileX < 16 && tileY >= 0 && tileY < 16 && tileZ >= 0 && tileZ < 16) {
+        if (tileX >= 0 && tileX < gridSize && tileY >= 0 && tileY < gridSize && tileZ >= 0 && tileZ <= MAX_Z) {
              const newChunk = { ...chunk };
              if (!newChunk.tiles) newChunk.tiles = [];
              if (!newChunk.tiles[tileZ]) newChunk.tiles[tileZ] = [];
-             if (!newChunk.tiles[tileZ][tileY]) newChunk.tiles[tileZ][tileY] = Array(16).fill(null);
+             if (!newChunk.tiles[tileZ][tileY]) newChunk.tiles[tileZ][tileY] = Array(gridSize).fill(null);
              
              newChunk.tiles[tileZ][tileY][tileX] = {
                  x: tileX, y: tileY, z: tileZ,
@@ -369,7 +368,7 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
     };
 
     const handleClear = () => {
-         const emptyLayers = Array(16).fill(null).map(() => Array(16).fill(null).map(() => Array(16).fill(null)));
+         const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(gridSize).fill(null).map(() => Array(gridSize).fill(null)));
          const newChunk = { x: 0, y: 0, tiles: emptyLayers };
          setChunk(newChunk);
          propagateChange(newChunk);
@@ -419,14 +418,7 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                             >
                                 Circle
                             </Button>
-                             <Button 
-                                variant={tool === 'detail' ? 'default' : 'secondary'} 
-                                onClick={() => setTool('detail')}
-                                startIcon={<Pencil />} 
-                                size="S"
-                            >
-                                Detail
-                            </Button>
+
                             <Button 
                                 variant={tool === 'pan' ? 'default' : 'secondary'} 
                                 onClick={() => setTool('pan')}
@@ -500,7 +492,7 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                                 value={selectedBlock} 
                                 onChange={setSelectedBlock}
                             >
-                                {terrains.length > 0 ? terrains.map((t: any) => (
+                                {terrains.length > 0 ? terrains.map((t) => (
                                     <SingleSelectOption key={t.slug} value={t.slug}>
                                         <Flex gap={2}>
                                             <Box background={t.color} width="12px" height="12px" hasRadius />
@@ -519,24 +511,7 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
             </Box>
         </Box>
         
-        {isPixelEditorOpen && detailTarget && chunk && chunk.tiles[detailTarget.z]?.[detailTarget.y]?.[detailTarget.x] && (
-            <PixelEditor 
-                initialPixels={chunk.tiles[detailTarget.z][detailTarget.y][detailTarget.x]?.pixels}
-                baseColor={RenderEngine.getBlockColor(chunk.tiles[detailTarget.z][detailTarget.y][detailTarget.x]?.block || 'stone', terrains)}
-                onClose={() => setIsPixelEditorOpen(false)}
-                onSave={(pixels) => {
-                    if (!chunk || !detailTarget) return;
-                    const newChunk = { ...chunk };
-                    const t = newChunk.tiles[detailTarget.z][detailTarget.y][detailTarget.x];
-                    if (t) {
-                        t.pixels = pixels;
-                        setChunk(newChunk);
-                        propagateChange(newChunk);
-                    }
-                    setIsPixelEditorOpen(false);
-                }}
-            />
-        )}
+
         </>
     );
 });

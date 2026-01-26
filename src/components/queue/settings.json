@@ -30,6 +30,17 @@
       "type": "integer",
       "min": 0,
       "description": "Job timeout in milliseconds"
+    },
+    "maxMemoryMB": {
+      "type": "integer",
+      "min": 0,
+      "description": "Max RSS memory allowed before rejecting new jobs"
+    },
+    "maxCpuPercent": {
+      "type": "integer",
+      "min": 0,
+      "max": 100,
+      "description": "Max System Load (approx) allowed before rejecting new jobs"
     }
   }
 }

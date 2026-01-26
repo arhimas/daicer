@@ -1,8 +1,12 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * game-event service
  */
 
-import { factories } from '@strapi/strapi';
+// import { factories } from '@strapi/strapi';
 import { WorldGenerator } from '../../voxel-engine/services/world-generator-logic';
 import { PhysicsEngine } from '../../voxel-engine/services/utils/physics';
 import { MapMovePayloadSchema, SpawnEntityPayloadSchema } from '../../../shared';
@@ -82,6 +86,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         actorId,
         timestamp: Date.now().toString(), // Ensuring string if using newer schema convention
         turnNumber: turnNumber, // CamelCase
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any,
     });
 

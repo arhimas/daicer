@@ -4,16 +4,14 @@ import {
   Typography, 
   Button, 
   Flex,
-  SingleSelect,
-  SingleSelectOption,
   Grid
 } from '@strapi/design-system';
-import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
+// import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { useIntl } from 'react-intl';
-import { Trash, Drag, Pencil, Crop, ChartCircle, Information, Magic } from '@strapi/icons';
-import { RenderEngine } from '../../utils/render-engine';
-import { TerrainType, Chunk } from '../../types';
+import { Trash, Drag, Pencil, Magic } from '@strapi/icons';
+// import { RenderEngine } from '../../utils/render-engine';
+import { Chunk } from '../../types';
 
 // Constants for Texture Mode
 const GRID_SIZE = 32;
@@ -23,8 +21,8 @@ interface TextureInputProps {
   name: string;
   value?: string | null;
   onChange: (e: { target: { name: string; value: unknown; type: string } }) => void;
-  attribute: { type: string; customField: string };
-  intlLabel: any;
+  attribute: { type: string; customField: string; options?: { size?: number } };
+  intlLabel: { id: string; defaultMessage?: string };
 }
 
 export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps>((props, _ref) => {
@@ -34,8 +32,11 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Access Parent Entity Context
-    const ctx: any = useContentManagerContext ? useContentManagerContext() : { form: { values: {} } };
-    const modifiedData = ctx?.form?.values || {};
+    // Access Parent Entity Context
+    // Unstable hook usage removed to prevent runtime crash
+    // const ctx = useContentManagerContext ? useContentManagerContext() : { form: { values: {} } } as any;
+    // const modifiedData = (ctx?.form?.values || {}) as Record<string, unknown>;
+    const modifiedData: Record<string, unknown> = {}; // Fallback empty for now
 
     // State
     const [chunk, setChunk] = useState<Chunk | null>(null);
@@ -48,8 +49,8 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
     const [lastMouse, setLastMouse] = useState({ x: 0, y: 0 });
     const [tool, setTool] = useState<'brush' | 'pan' | 'rect' | 'circle'>('brush');
     
-    const [dragStart, setDragStart] = useState<{x: number, y: number} | null>(null);
-    const [dragEnd, setDragEnd] = useState<{x: number, y: number} | null>(null);
+    // const [dragStart, setDragStart] = useState<{x: number, y: number} | null>(null);
+    // const [dragEnd, setDragEnd] = useState<{x: number, y: number} | null>(null);
 
     // Initial Data Load
     useEffect(() => {
@@ -85,14 +86,14 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                     loadedTiles = emptyLayers;
                     requiresAutoFill = false;
 
-                    parsedValue.forEach((v: Record<string, any>) => {
+                    parsedValue.forEach((v: { x: number; y: number; z: number; type?: string; block?: string }) => {
                          if (v.z === 0 && v.y >= 0 && v.y < GRID_SIZE && v.x >= 0 && v.x < GRID_SIZE) {
                              if (!loadedTiles[0]) loadedTiles[0] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
                              if (!loadedTiles[0][v.y]) loadedTiles[0][v.y] = Array(GRID_SIZE).fill(null);
                              
                              loadedTiles[0][v.y][v.x] = {
                                  x: v.x, y: v.y, z: 0,
-                                 block: v.type || v.block, 
+                                 block: v.type || v.block || '#888888', 
                                  biome: 'custom',
                                  isWalkable: true,
                                  isTransparent: false,
@@ -155,7 +156,7 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
         ctx.scale(scale, scale);
 
         // Grid Lines
-        const TILE_SIZE = 32; // Texture Mode is 32x32 grid, each block is a pixel visually
+        // const TILE_SIZE = 32;
         // Actually, TextureInput usually renders big. 
         // Previously TILE_SIZE=32 implied 32px per cell? 
         // Yes, 512x512 canvas / 16 grid = 32. 

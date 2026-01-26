@@ -410,6 +410,34 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
+  collectionName: 'blueprints';
+  info: {
+    description: 'Anatomy/Structure definitions for PixelForge Sprites';
+    displayName: 'Blueprint';
+    pluralName: 'blueprints';
+    singularName: 'blueprint';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<['Creature', 'Item', 'Structure', 'Effect', 'Terrain']> &
+      Schema.Attribute.DefaultTo<'Creature'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    grid: Schema.Attribute.JSON & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::blueprint.blueprint'> & Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    zones: Schema.Attribute.JSON & Schema.Attribute.Required;
+  };
+}
+
 export interface ApiClassClass extends Struct.CollectionTypeSchema {
   collectionName: 'classes';
   info: {
@@ -673,7 +701,6 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
-    image: Schema.Attribute.Media<'images'>;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
     languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
     level: Schema.Attribute.Integer &
@@ -693,11 +720,15 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-generator'>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
     resources: Schema.Attribute.Component<'game.resource-pool', true>;
-    size: Schema.Attribute.Enumeration<['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']>;
+    size: Schema.Attribute.Enumeration<
+      ['Fine', 'Diminutive', 'Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan', 'Colossal']
+    > &
+      Schema.Attribute.DefaultTo<'Medium'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
@@ -888,7 +919,6 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_data: Schema.Attribute.Component<'game.equipment-data', false>;
-    image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     lore: Schema.Attribute.RichText &
@@ -904,9 +934,14 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-generator'>;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Enumeration<['common', 'uncommon', 'rare', 'very_rare', 'legendary', 'artifact']> &
       Schema.Attribute.DefaultTo<'common'>;
+    size: Schema.Attribute.Enumeration<
+      ['Fine', 'Diminutive', 'Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan', 'Colossal']
+    > &
+      Schema.Attribute.DefaultTo<'Medium'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spell_data: Schema.Attribute.Component<'game.spell-data', false>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
@@ -2326,6 +2361,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
+      'api::blueprint.blueprint': ApiBlueprintBlueprint;
       'api::class.class': ApiClassClass;
       'api::construction.construction': ApiConstructionConstruction;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;

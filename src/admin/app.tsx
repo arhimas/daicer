@@ -21,7 +21,7 @@ const TARGET_MODELS = [
   'api::equipment-category.equipment-category',
 ];
 
-const LocaleGeneratorBulkAction = ({ documents, model }: { documents: any[], model: string }) => {
+const LocaleGeneratorBulkAction = ({ documents, model }: { documents: Array<{ documentId: string }>; model: string }) => {
     if (!TARGET_MODELS.includes(model)) {
         return null;
     }
@@ -35,15 +35,20 @@ const LocaleGeneratorBulkAction = ({ documents, model }: { documents: any[], mod
                  return;
              }
              
-             const documentIds = documents.map((doc: any) => doc.documentId);
+             const documentIds = documents.map((doc) => doc.documentId);
 
              try {
+                 const token = sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken');
+                 const headers: Record<string, string> = {
+                     'Content-Type': 'application/json',
+                 };
+                 if (token) {
+                     headers['Authorization'] = `Bearer ${token}`;
+                 }
+
                  const response = await fetch('/api/game/generate-locales', {
                      method: 'POST',
-                     headers: {
-                         'Content-Type': 'application/json',
-                         'Authorization': `Bearer ${sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken')}` 
-                     },
+                     headers,
                      body: JSON.stringify({
                          contentType: model,
                          documentIds
@@ -99,9 +104,10 @@ export default {
   bootstrap(app: StrapiApp) {
     console.log('Using Daicer Custom Admin Extensions');
 
-    // @ts-ignore
+    // @ts-expect-error - content-manager plugin internal API
     const contentManager = app.getPlugin('content-manager');
     if (contentManager) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         contentManager.apis.addBulkAction((actions: any[]) => {
             return [...actions, LocaleGeneratorBulkAction];
         });

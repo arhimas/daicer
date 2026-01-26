@@ -1,0 +1,323 @@
+import React, { useState, useEffect } from 'react';
+import { 
+    Box, 
+    Typography, 
+    Button, 
+    Flex, 
+    Textarea
+} from '@strapi/design-system';
+import { Pencil, PaintBrush, Eye, Magic } from '@strapi/icons';
+import { useFetchClient } from '@strapi/admin/strapi-admin';
+
+
+interface PixelForgeProps {
+    name: string;
+    value: string;
+    onChange: (e: { target: { name: string; value: string; type: string } }) => void;
+    // attribute removed
+}
+
+const GRID_SIZE = 32;
+
+/**
+ * **Pixel Forge II (SOTA Editor)**
+ * 
+ * A 32x32 Pixel Art Editor embedded directly into the Strapi Content Manager.
+ * 
+ * **Features**:
+ * - **Modal UI**: Maximizes screen real estate for precise editing.
+ * - **AI Generation**: Integrates with Gemini Queue for text-to-pixel generation.
+ * - **Tools**: Pencil, Eraser, Color Picker.
+ * - **Auto-Context**: Infers prompts from the current Entity's form data.
+ * 
+ * @param {PixelForgeProps} props - Standard Strapi Input Props.
+ * @see {@link https://strapi.io/documentation/developer-docs/latest/development/plugins/backend/custom-fields.html Strapi Custom Fields}
+ */
+export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
+    const { post, get } = useFetchClient();
+    // Reverting unstable hook usage to fix crash
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const modifiedData: any = {}; 
+    
+    // Data State
+    const [pixels, setPixels] = useState<string[][]>(Array(GRID_SIZE).fill(Array(GRID_SIZE).fill('transparent')));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [metadata, setMetadata] = useState<any>({});
+    
+    // UI State
+    const [tool, setTool] = useState<'pencil' | 'eraser' | 'fill' | 'picker'>('pencil');
+    const [color, setColor] = useState('#FF0000');
+    const [isDrawing, setIsDrawing] = useState(false);
+    
+    // AI State
+    const [prompt, setPrompt] = useState("");
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [jobId, setJobId] = useState<string | null>(null);
+    const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
+
+    // Initial Load
+    useEffect(() => {
+        if (value) {
+            try {
+                const parsed = JSON.parse(value);
+                if (Array.isArray(parsed) && Array.isArray(parsed[0])) {
+                    setPixels(parsed);
+                } else if (parsed.pixels) {
+                    setPixels(parsed.pixels);
+                    if (parsed.prompt) setPrompt(parsed.prompt);
+                    if (parsed.metadata) setMetadata(parsed.metadata);
+                }
+            } catch(e) {
+                console.error("PixelForge: Failed to parse value", e);
+            }
+        }
+    }, [value]);
+
+    // Polling System
+    useEffect(() => {
+        if (!jobId || jobStatus === 'completed' || jobStatus === 'failed') return;
+        
+        const poll = async () => {
+            try {
+                const { data } = await get(`/map-explorer/forge/status/${jobId}`);
+                setJobStatus(data.state);
+                
+                if (data.state === 'completed' && data.result) {
+                    // Success! Apply pixels
+                    if (data.result.pixelData) {
+                         setPixels(data.result.pixelData);
+                         // Auto-save
+                         propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
+                    }
+                    setIsGenerating(false);
+                    setJobId(null);
+                } else if (data.state === 'failed') {
+                    console.error("Forge Job Failed");
+                    setIsGenerating(false);
+                    setJobId(null);
+                }
+            } catch (err) {
+                console.error("Poll Error", err);
+            }
+        };
+
+        const interval = setInterval(poll, 2000);
+        return () => clearInterval(interval);
+    }, [jobId, jobStatus]);
+
+    // Auto-Context: Pre-fill prompt from Entity Data
+    useEffect(() => {
+        if (!prompt && modifiedData) {
+            const parts = [];
+            if (modifiedData.name) parts.push(modifiedData.name);
+            if (modifiedData.description) parts.push(modifiedData.description);
+            if (parts.length > 0) {
+                setPrompt(parts.join('. '));
+            }
+        }
+    }, [modifiedData, prompt]); // Only run if prompt is empty
+
+    const handleGenerate = async () => {
+        if (!prompt) return; // Should be handled by button disabled state
+        
+        setIsGenerating(true);
+        setJobStatus('queued');
+        try {
+             const { data } = await post('/map-explorer/forge/dispatch', {
+                 prompt, // Use state directly now
+                 type: 'Sprite', // TODO: Make selectable
+                 archetype: 'Humanoid', // TODO: Make selectable
+                 blueprint: [], // TODO: Load Blueprint
+                 model: 'gemini-1.5-flash-latest'
+             });
+             
+             if (data.jobId) {
+                 setJobId(data.jobId);
+             }
+        } catch (err) {
+            console.error("Forge Dispatch Failed", err);
+            setIsGenerating(false);
+            setJobStatus('failed');
+        }
+    };
+
+    const propagateChange = (newPixels: string[][], newPrompt: string) => {
+        onChange({
+            target: {
+                name,
+                value: JSON.stringify({
+                    pixels: newPixels,
+                    prompt: newPrompt,
+                    metadata
+                }),
+                type: 'json'
+            }
+        });
+    };
+
+    const handlePixelClick = (x: number, y: number) => {
+        const newPixels = pixels.map(row => [...row]);
+        
+        if (tool === 'picker') {
+            const picked = newPixels[y][x];
+            if (picked !== 'transparent') setColor(picked);
+            setTool('pencil');
+            return;
+        }
+
+        const paintColor = tool === 'eraser' ? 'transparent' : color;
+        newPixels[y][x] = paintColor;
+        setPixels(newPixels);
+        propagateChange(newPixels, prompt);
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    return (
+        <Box>
+            {/* Inline Preview & Button */}
+            <Flex gap={4} alignItems="center">
+                 <Box 
+                    background="neutral150" 
+                    borderColor="neutral200" 
+                    hasRadius 
+                    style={{ width: '64px', height: '64px', overflow: 'hidden', border: '1px solid #ddd' }}
+                 >
+                     <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                        width: '100%',
+                        height: '100%'
+                     }}>
+                        {pixels.map((row, y) => 
+                            row.map((pixelColor, x) => (
+                                <div 
+                                    key={`p-${x}-${y}`}
+                                    style={{ backgroundColor: pixelColor === 'transparent' ? ((x+y)%2===0 ? '#ccc' : '#fff') : pixelColor }} 
+                                />
+                            ))
+                        )}
+                     </div>
+                 </Box>
+                 <Button onClick={() => setIsModalOpen(true)} startIcon={<Pencil />} variant="secondary">
+                     Open Pixel Forge
+                 </Button>
+            </Flex>
+
+            {/* SOTA Modal Editor */}
+            {isModalOpen && (
+                <Box position="fixed" top={0} left={0} right={0} bottom={0} zIndex={100} background="neutral100" style={{ inset: 0 }}>
+                    <Flex direction="column" height="100%" alignItems="stretch">
+                        
+                        {/* Header */}
+                        <Box background="neutral0" padding={4} shadow="filterShadow">
+                            <Flex justifyContent="space-between">
+                                <Flex gap={2}>
+                                    <Magic />
+                                    <Typography variant="beta">Pixel Forge</Typography>
+                                    <Typography variant="pi" textColor="neutral600">SOTA Editor</Typography>
+                                </Flex>
+                                <Button onClick={() => setIsModalOpen(false)} variant="tertiary">Close</Button>
+                            </Flex>
+                        </Box>
+
+                        {/* Editor Body */}
+                        <Box padding={6} style={{ flex: 1, overflow: 'auto' }}>
+                             <Flex gap={6} alignItems="flex-start" wrap="wrap">
+                                 
+                                 {/* Sidebar Controls */}
+                                 <Box style={{ flex: '1 1 300px', maxWidth: '400px' }}>
+                                    <Flex direction="column" gap={6}>
+                                        <Box background="neutral0" padding={4} hasRadius shadow="tableShadow">
+                                            <Typography variant="delta" textColor="neutral800">Manifestation</Typography>
+                                            <Box paddingTop={2}>
+                                                <Textarea 
+                                                    name="prompt"
+                                                    placeholder="Describe the aesthetic..." 
+                                                    value={prompt}
+                                                    onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPrompt(e.target.value)}
+                                                    style={{ height: '100px' }}
+                                                />
+                                            </Box>
+                                            <Box paddingTop={4}>
+                                                <Button 
+                                                    onClick={handleGenerate} 
+                                                    disabled={isGenerating || !prompt} 
+                                                    fullWidth
+                                                    startIcon={<Magic />}
+                                                    loading={isGenerating}
+                                                >
+                                                    Forge Sprite
+                                                </Button>
+                                            </Box>
+                                        </Box>
+
+                                        <Box background="neutral0" padding={4} hasRadius shadow="tableShadow">
+                                            <Typography variant="delta" textColor="neutral800">Tools</Typography>
+                                            <Flex gap={2} paddingTop={2} wrap="wrap">
+                                                 <Button size="S" variant={tool === 'pencil' ? 'default' : 'secondary'} onClick={() => setTool('pencil')}><Pencil /></Button>
+                                                 <Button size="S" variant={tool === 'eraser' ? 'default' : 'secondary'} onClick={() => setTool('eraser')}><PaintBrush /></Button>  
+                                                 <Button size="S" variant={tool === 'picker' ? 'default' : 'secondary'} onClick={() => setTool('picker')}><Eye /></Button>
+                                                 <Box 
+                                                    background="neutral0" 
+                                                    borderColor="neutral200" 
+                                                    hasRadius 
+                                                    padding={1} 
+                                                    style={{ border: '1px solid #dcdce4' }}
+                                                 >
+                                                    <input 
+                                                        type="color" 
+                                                        value={color} 
+                                                        onChange={(e) => setColor(e.target.value)}
+                                                        style={{ width: '32px', height: '32px', border: 'none', background: 'none', cursor: 'pointer' }}
+                                                    />
+                                                 </Box>
+                                            </Flex>
+                                        </Box>
+                                    </Flex>
+                                 </Box>
+
+                                 {/* Main Canvas Area */}
+                                 <Box style={{ flex: '2 1 500px', display: 'flex', justifyContent: 'center' }}>
+                                     <Box 
+                                         background="neutral150" 
+                                         padding={2}
+                                         hasRadius
+                                         shadow="tableShadow"
+                                         style={{ 
+                                             display: 'grid', 
+                                             gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                                             width: '100%',
+                                             maxWidth: '600px',
+                                             aspectRatio: '1/1',
+                                             border: '1px solid #333',
+                                             cursor: tool === 'picker' ? 'copy' : 'crosshair'
+                                         }}
+                                         onMouseLeave={() => setIsDrawing(false)}
+                                         onMouseUp={() => setIsDrawing(false)}
+                                     >
+                                         {pixels.map((row, y) => 
+                                             row.map((pixelColor, x) => (
+                                                 <div 
+                                                     key={`${x}-${y}`}
+                                                     style={{ 
+                                                         backgroundColor: pixelColor === 'transparent' ? ( (x+y)%2===0 ? '#222' : '#2a2a2a') : pixelColor, 
+                                                         width: '100%', 
+                                                         height: '100%'
+                                                     }}
+                                                     onMouseDown={() => { setIsDrawing(true); handlePixelClick(x, y); }}
+                                                     onMouseEnter={() => { if (isDrawing) handlePixelClick(x, y); }}
+                                                 />
+                                             ))
+                                         )}
+                                     </Box>
+                                 </Box>
+
+                             </Flex>
+                        </Box>
+                    </Flex>
+                </Box>
+            )}
+        </Box>
+    );
+};

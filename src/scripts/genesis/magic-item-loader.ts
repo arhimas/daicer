@@ -16,6 +16,7 @@ console.log('\n🛡️  \x1b[1m\x1b[33mSafe Mode Enabled: Background Workers Dis
 // -------------------------------------------------------------------------
 // Parsing Helpers (Reused from Spell Loader)
 // -------------------------------------------------------------------------
+/*
 function parseCastingTime(raw: string) {
     if (!raw) return { time_value: 1, time_unit: 'Action' };
     const lower = raw.toLowerCase().trim();
@@ -35,7 +36,9 @@ function parseCastingTime(raw: string) {
     }
     return { time_value, time_unit };
 }
+*/
 
+/*
 function parseComponents(raw: string) {
     if (!raw) return { verbal: false, somatic: false, material: false };
     return {
@@ -47,7 +50,9 @@ function parseComponents(raw: string) {
         cost_gp: 0
     };
 }
+*/
 
+/*
 function parseDuration(raw: string) {
     if (!raw) return { type: 'Instantaneous' };
     const lower = raw.toLowerCase().trim();
@@ -72,7 +77,9 @@ function parseDuration(raw: string) {
     }
     return { type, value, unit };
 }
+*/
 
+/*
 function parseRange(raw: string | undefined): any {
     if (!raw) return null; // Don't create component if no range
     const lower = raw.toLowerCase().trim();
@@ -94,6 +101,7 @@ function parseRange(raw: string | undefined): any {
     // Fallback
     return { type: 'Ranged (Feet)', distance: 0 }; 
 }
+*/
 
 async function main() {
   console.log('✨  \x1b[1m\x1b[35mStarting Genesis: Magic Item Loader...\x1b[0m\n');
@@ -114,11 +122,11 @@ async function main() {
     console.log(`\n📚 Found ${files.length} magic item definition files.`);
 
     // Load damage types and weapon properties for equipment mapping
-    const damageTypes = await strapi.documents('api::damage-type.damage-type').findMany({ fields: ['slug', 'documentId'] });
-    const damageTypeMap = new Map(damageTypes.map((dt: any) => [dt.slug, dt.documentId]));
+    // const damageTypes = await strapi.documents('api::damage-type.damage-type').findMany({ fields: ['slug', 'documentId'] });
+    // const damageTypeMap = new Map(damageTypes.map((dt: any) => [dt.slug, dt.documentId]));
 
-    const weaponProps = await strapi.documents('api::weapon-property.weapon-property').findMany({ fields: ['slug', 'documentId'] });
-    const weaponPropMap = new Map(weaponProps.map((wp: any) => [wp.slug, wp.documentId]));
+    // const weaponProps = await strapi.documents('api::weapon-property.weapon-property').findMany({ fields: ['slug', 'documentId'] });
+    // const weaponPropMap = new Map(weaponProps.map((wp: any) => [wp.slug, wp.documentId]));
         
     for (const file of files) {
         const filePath = path.join(backendRoot, file);
@@ -168,7 +176,7 @@ async function main() {
                     process.stdout.write('+');
                     upsertCount++;
                 }
-            } catch (err: any) {
+            } catch (_err: any) {
                  // console.error(`\n      ❌ Error ingesting ${entry.slug}: ${err.message}`);
             }
         console.log(`\n   ✅ Synced ${upsertCount} new magic items, updated ${skipCount} existing from ${filename}.`);

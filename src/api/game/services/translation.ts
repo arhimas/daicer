@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * Translation Service
  * 
  * A simple service to handle translation tasks within the Daicer ecosystem.
@@ -67,10 +71,10 @@ export default ({ strapi }: { strapi: Strapi }) => ({
    * @param options.translateKeys If true, object keys will also be translated.
    */
   translateJson(
-    data: any, 
+    data: unknown, 
     targetLang: SupportedLanguage, 
     options: { translateKeys?: boolean } = {}
-  ): any {
+  ): unknown {
     const { translateKeys = false } = options;
 
     if (data === null || data === undefined) {
@@ -86,10 +90,10 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     }
 
     if (typeof data === 'object') {
-      const result: any = {};
+      const result: Record<string, unknown> = {};
       
-      for (const key of Object.keys(data)) {
-        const value = data[key];
+      for (const key of Object.keys(data as Record<string, unknown>)) {
+        const value = (data as Record<string, unknown>)[key];
         
         // Handle Key Translation
         let newKey = key;
@@ -118,18 +122,18 @@ export default ({ strapi }: { strapi: Strapi }) => ({
    * @param targetLang - The target language.
    * @returns Translated entity object.
    */
-  translateEntity(entity: any, contentTypeUID: string, targetLang: SupportedLanguage): any {
+  translateEntity(entity: unknown, contentTypeUID: string, targetLang: SupportedLanguage): unknown {
     if (!entity || typeof entity !== 'object') return entity;
 
     // Get the schema
-    // @ts-ignore
+    // @ts-expect-error - Accessing internal contentTypes register which may not be fully typed in Strapi 5 Core
     const schema = strapi.contentTypes[contentTypeUID] || strapi.components[contentTypeUID];
     if (!schema) {
         console.warn(`[TranslationService] Schema not found for UID: ${contentTypeUID}. Falling back to simple JSON translation.`);
         return this.translateJson(entity, targetLang, { translateKeys: false });
     }
 
-    const result: any = { ...entity }; // Shallow copy to start
+    const result: Record<string, unknown> = { ...(entity as Record<string, unknown>) }; // Shallow copy to start
 
     for (const key of Object.keys(entity)) {
         // Skip system fields
@@ -161,7 +165,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             case 'component':
                 if (attr.repeatable) {
                     if (Array.isArray(value)) {
-                        result[key] = value.map((item: any) => 
+                        result[key] = value.map((item: unknown) => 
                             this.translateEntity(item, attr.component, targetLang)
                         );
                     }
@@ -174,8 +178,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
             case 'dynamiczone':
                 if (Array.isArray(value)) {
-                    result[key] = value.map((item: any) => {
-                        const componentUID = item.__component;
+                    result[key] = value.map((item: Record<string, unknown>) => {
+                        const componentUID = item.__component as string;
                         if (componentUID) {
                             return this.translateEntity(item, componentUID, targetLang);
                         }

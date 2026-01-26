@@ -48,16 +48,24 @@ export class RenderEngine {
             showGrid?: boolean; 
             ghostLowerLayers?: boolean; 
             preview?: { points: {x:number, y:number}[], color: string };
+            preventClear?: boolean; // New option for multi-chunk composition
         } = {}
     ) {
-        const { showGrid = true, ghostLowerLayers = true, preview } = options;
+        const { showGrid = true, ghostLowerLayers = true, preview, preventClear = false } = options;
 
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        if (!preventClear) {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
 
         // Nearest Neighbor for crispy pixels
         ctx.imageSmoothingEnabled = false;
 
+        // If we simply translate/scale here, it stacks with existing transform if preventClear is true?
+        // Yes, standard canvas behavior.
+        // However, we need to be careful. Typically RenderEngine assumes it owns the context state.
+        // Users using preventClear must handle their own context isolation (save/restore) OUTSIDE this call.
+        
         ctx.translate(pan.x, pan.y);
         ctx.scale(scale, scale);
 
@@ -135,7 +143,7 @@ export class RenderEngine {
                 // 2. Terrain texture pixels (Shared asset)
                 // 3. Sensible Color Fallback
                 
-                let pixels: any = tile.pixels && tile.pixels.length > 0 
+                let pixels: unknown = tile.pixels && tile.pixels.length > 0 
                     ? tile.pixels 
                     : (terrain?.texture || terrain?.pixels); 
                 
@@ -143,7 +151,7 @@ export class RenderEngine {
                 if (typeof pixels === 'string') {
                     try {
                         pixels = JSON.parse(pixels);
-                    } catch (e) {
+                    } catch {
                          // warning suppressed
                     }
                 }
@@ -169,7 +177,7 @@ export class RenderEngine {
                      } 
                      // Case 2: Flattened Voxel List (from TextureInput)
                      else if (pixels.length > 0 && typeof pixels[0] === 'object') {
-                         (pixels as any[]).forEach((p) => {
+                         (pixels as Array<{x:number; y:number; z?: number; block?:string; type?: string;}>).forEach((p) => {
                              const color = p.block || p.type;
                              if (p && color && color !== 'air') {
                                  // p is {x, y, z, block|type} relative to 32x32 grid

@@ -1,6 +1,6 @@
 
 import fs from 'fs';
-import path from 'path';
+// import path from 'path';
 
 export class MarkdownSplitter {
   constructor(private filePath: string) {}

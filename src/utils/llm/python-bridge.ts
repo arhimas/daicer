@@ -6,9 +6,9 @@ import readline from 'readline';
 interface BridgeRequest {
   id: string;
   command: 'load' | 'generate';
-  payload: Record<string, any>;
-  resolve: (data: any) => void;
-  reject: (error: any) => void;
+  payload: Record<string, unknown>;
+  resolve: (data: unknown) => void;
+  reject: (error: Error | unknown) => void;
 }
 
 /**
@@ -73,7 +73,7 @@ export class PythonBridge {
     }
   }
 
-  public async send(command: 'load' | 'generate', payload: any): Promise<any> {
+  public async send<T = unknown>(command: 'load' | 'generate', payload: Record<string, unknown>): Promise<T> {
     if (!this.pythonProcess || !this.pythonProcess.stdin) {
       throw new Error('Python bridge not ready');
     }
@@ -81,7 +81,7 @@ export class PythonBridge {
     const id = Math.random().toString(36).substring(7);
     
     return new Promise((resolve, reject) => {
-      this.pendingRequests.set(id, { id, command, payload, resolve, reject });
+      this.pendingRequests.set(id, { id, command, payload, resolve: resolve as (data: unknown) => void, reject });
       
       const request = JSON.stringify({ id, command, payload });
       this.pythonProcess!.stdin!.write(request + '\n');

@@ -78,7 +78,7 @@ class LocalLLMManager {
       // otherwise null = full precision / auto
 
       try {
-        await this.bridge.loadModel(repoId, pyQuant as any);
+        await this.bridge.loadModel(repoId, pyQuant || undefined);
         this.currentModel = model;
         console.log(`[LocalLLM] Model ${model} loaded successfully.`);
       } catch (error) {

@@ -29,7 +29,7 @@ function main() {
     
     console.log(`Checking ${classContent.name} (${slug})...`);
     
-    const seenFeatures = new Set<string>();
+    // const seenFeatures = new Set<string>();
     
     classContent.progression.forEach(level => {
       level.features.forEach(featName => {

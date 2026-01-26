@@ -1,6 +1,5 @@
-export {};
-const { createStrapi } = require('@strapi/strapi');
-const path = require('path');
+import { createStrapi } from '@strapi/strapi';
+import path from 'path';
 
 async function run() {
   const backendRoot = path.resolve(__dirname, '../..');

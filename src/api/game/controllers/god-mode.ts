@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { EngineCommandSchema, EngineCommand } from '../schemas/commands';
 
 export default ({ strapi }) => ({

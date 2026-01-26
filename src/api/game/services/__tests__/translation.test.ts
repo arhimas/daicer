@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 
 import { describe, it, expect } from 'vitest';
 import translationServiceFactory from '../translation';
@@ -37,7 +41,7 @@ describe('TranslationService', () => {
 
     it('should handle empty or non-string inputs gracefully', () => {
       expect(service.translate('', 'es')).toBe('');
-      // @ts-ignore
+      // @ts-expect-error - Testing runtime behavior
       expect(service.translate(123, 'es')).toBe(123);
     });
   });
@@ -70,11 +74,7 @@ describe('TranslationService', () => {
       // Hello -> Hola
       // Value -> [ES] Value
       
-      const expected = {
-        'Hola': 'Hola', // dictionary match for greeting? No 'greeting' is not in dic. 'Hello' is key? No 'greeting' is key.
-        '[ES] greeting': 'Hola', // As 'greeting' is not in dictionary
-        '[ES] unknown': '[ES] Value'
-      };
+      // (expected removed)
 
       // Wait, 'greeting' is NOT in dictionary.
       // So key 'greeting' -> '[ES] greeting'
@@ -95,16 +95,7 @@ describe('TranslationService', () => {
         }
       };
 
-      const expected = {
-        level1: {
-          level2: [
-            { text: 'Mundo' }, // 'Hello' -> 'Mundo'? No 'Hello'->'Hola' (es), 'Mundo' (pt).
-            // Let's use 'pt'
-            { text: 'Mundo' }
-          ],
-          fixed: 123
-        }
-      };
+      // (expected removed)
 
       // 'Hello' -> 'Olá' (pt), 'World' -> 'Mundo' (pt)
       const expectedPt = {

@@ -15,7 +15,7 @@ import {
 
 // I will implement a "JobDetailsModal" subcomponent in the same file to keep it self-contained.
 
-import { Play, Cross, Trash, Eye } from '@strapi/icons';
+import { Play, Cross, Trash } from '@strapi/icons';
 import { useFetchClient, useNotification } from '@strapi/strapi/admin';
 
 interface Job {
@@ -251,19 +251,21 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
 
                <Flex gap={2}>
                   <IconButton 
-                    label="Retry Failed"
-                    icon={<Play />} 
+                    label="Retry Failed" 
                     onClick={() => handleAction('retry', 'post')} 
                     disabled={isLoading || stats.counts.failed === 0} 
                     variant="ghost"
-                  />
+                  >
+                    <Play />
+                  </IconButton>
                   <IconButton 
-                    label="Cleaner Queue"
-                    icon={<Trash />} 
+                    label="Cleaner Queue" 
                     onClick={() => handleAction('clean', 'post')}
                     variant="ghost" 
                     disabled={isLoading}
-                  />
+                  >
+                    <Trash />
+                  </IconButton>
                </Flex>
             </Flex>
           </Box>

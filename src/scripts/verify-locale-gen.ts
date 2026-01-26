@@ -1,6 +1,5 @@
 
-export {};
-const { createStrapi } = require('@strapi/strapi');
+import { createStrapi } from '@strapi/strapi';
 
 async function main() {
   try {
@@ -50,7 +49,7 @@ async function main() {
     };
 
     // Call the function
-    const result = await controller.generateLocales(ctx);
+    const result: any = await controller.generateLocales(ctx as any, undefined);
     console.log('Controller Result:', JSON.stringify(result, null, 2));
 
     if (result.report.failed > 0) {

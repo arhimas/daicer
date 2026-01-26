@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * LLM Gateway Service
  * 
  * The single entry point for all LLM operations in Daicer.
@@ -6,10 +10,8 @@
  */
 
 import { QueueName } from '../../../queues/contract';
-import { JobSchemas } from '../../../queues/contract';
-import type { Core } from '@strapi/strapi';
 import { QueueManager } from '../../../queues/queue-manager';
-import { LocalModel, LocalConfig, GeminiModel, GeminiConfig } from '../../../utils/llm/types';
+import { LocalModel, LocalConfig, GeminiConfig } from '../../../utils/llm/types';
 
 interface GenerationRequest {
   prompt: string;
@@ -72,13 +74,13 @@ export const llmGateway = {
    * Direct Synchronous Generation (WARNING: BLOCKS EVENT LOOP if Local)
    * Use only for debugging or strictly required synchronous ops.
    */
-  generateSync: async (prompt: string, provider: 'local' | 'remote' = 'remote', config: any = {}) => {
+  generateSync: async (prompt: string, provider: 'local' | 'remote' = 'remote', config: LocalConfig | GeminiConfig = {}) => {
     if (provider === 'local') {
         const { localLLM } = await import('../../../utils/llm/local');
         return localLLM.generate(prompt, config);
     } else {
         const { llmService } = await import('../../../services/llm-service');
-        return llmService.generate(prompt, config.model); // Legacy service for now
+        return llmService.generate(prompt, (config as { model?: string }).model); // Legacy service for now
     }
   }
 };

@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Worker } from 'worker_threads';
 import path from 'path';
 import { Chunk, WorldConfig, BlockType } from '../../game/src/engine/types';
@@ -114,7 +118,7 @@ export class ChunkManager {
         resolve: async (chunk) => {
           // Apply Persistence Here
           try {
-            const filters: any = {
+            const filters: Record<string, unknown> = {
                 chunkX: chunk.x,
                 chunkY: chunk.y,
             };

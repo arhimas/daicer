@@ -103,7 +103,8 @@ function getSchema(type: EntityType): z.ZodSchema<any> {
 // ---------------------------------------------------------------------------
 
 // We use a simplified Schema object for the SDK to avoid type errors
-const auditJsonSchema = {
+// const auditJsonSchema = { ... } // Unused for now
+/* const auditJsonSchema = {
     type: "OBJECT", // Use string literal for type
     properties: {
         quality_score: { type: "NUMBER", description: "0-100 score of data quality" },
@@ -117,7 +118,7 @@ const auditJsonSchema = {
         mechanics_fix: { type: "OBJECT", description: "Proposed JSON patches for mechanical fields", nullable: true }
     },
     required: ["quality_score", "issues", "lore_snippet"]
-};
+}; */
 
 async function processFile(filepath: string) {
     const filename = path.basename(filepath);
@@ -130,7 +131,7 @@ async function processFile(filepath: string) {
         const raw = fs.readFileSync(filepath, 'utf-8');
         data = JSON.parse(raw);
         if (Array.isArray(data)) data = data[0];
-    } catch (e) {
+    } catch (_e) {
         return { error: "JSON Parse Failed", file: relativePath };
     }
 
@@ -167,7 +168,7 @@ async function processFile(filepath: string) {
         let result;
         try {
             result = await model.generateContent(prompt);
-        } catch (err: any) {
+        } catch (_err: any) {
             // Fallback
             // console.warn(`Model ${MODEL_NAME} failed, trying ${FALLBACK_MODEL}`);
             model = genAI.getGenerativeModel({ 

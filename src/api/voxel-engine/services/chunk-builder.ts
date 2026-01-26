@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Chunk, WorldConfig } from '../../game/src/engine/types';
 import { TerrainGenerator } from '../src/terrain-generator';
 import { WorldAtlas } from '../../game/src/engine/world/world-atlas';

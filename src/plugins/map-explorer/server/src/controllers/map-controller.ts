@@ -20,7 +20,12 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
       // For now, assume config is generic or derived from worldId if implemented properly in service.
       const worldId = ctx.query.worldId as string;
       
-      const chunk = await strapi.service('api::voxel-engine.voxel-engine').getChunk(parseInt(x as string), parseInt(y as string), config, worldId);
+      const chunk = await strapi.service('api::voxel-engine.voxel-engine').getChunk(
+          typeof x === 'string' ? parseInt(x) : 0, 
+          typeof y === 'string' ? parseInt(y) : 0, 
+          config, 
+          worldId
+      );
       ctx.body = chunk;
     } catch (err) {
       ctx.badRequest('Failed to fetch chunk', { error: err });
@@ -33,7 +38,16 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
    * POST /api/map-explorer/voxel
    */
   async updateVoxel(ctx) {
-    const { chunkX, chunkY, voxelX, voxelY, voxelZ, newType, reason, worldId } = ctx.request.body;
+    const { chunkX, chunkY, voxelX, voxelY, voxelZ, newType, reason, worldId } = ctx.request.body as {
+        chunkX: number;
+        chunkY: number;
+        voxelX: number;
+        voxelY: number;
+        voxelZ: number;
+        newType: string;
+        reason?: string;
+        worldId?: string;
+    };
 
     try {
       await strapi.service('api::voxel-engine.voxel-engine').editVoxel(
@@ -133,8 +147,8 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
 
     // Fallback Legacy Logic
     const GRID_SIZE = 32;
-    const tiles: any[][] = Array(GRID_SIZE).fill(null).map((_, y) => 
-       Array(GRID_SIZE).fill(null).map((_, x) => null)
+    const tiles: (Record<string, unknown> | null)[][] = Array(GRID_SIZE).fill(null).map(() => 
+       Array(GRID_SIZE).fill(null).map(() => null)
     );
 
     const startX = Math.floor((GRID_SIZE - dimension) / 2);
@@ -162,6 +176,67 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
         y: 0, 
         tiles: [tiles] 
     };
+  },
+
+  /**
+   * Generates Pixel Art for an Entity or Item and saves it to the Media Library.
+   * POST /api/map-explorer/generate-pixel-art
+   */
+  async generatePixelArt(ctx) {
+      const { id, model } = ctx.request.body; // model: 'entity' | 'item'
+
+      if (!id || !['entity', 'item'].includes(model)) {
+          return ctx.badRequest('Invalid parameters. Require id and model (entity|item).');
+      }
+
+      try {
+          const service = strapi.plugin('map-explorer').service('pixelForgeService');
+          let grid: string[][];
+
+          if (model === 'entity') {
+              grid = await service.generateEntity(id);
+          } else {
+              grid = await service.generateItem(id);
+          }
+          
+          // Return the grid directly for the UI to consume/save/preview
+          ctx.body = { success: true, file: null, pixels: grid };
+
+      } catch (err) {
+          strapi.log.error('[PixelForge] Generation failed:', err);
+          ctx.badRequest('Generation failed', { error: err.message });
+      }
+  },
+
+  /**
+   * GET /api/map-explorer/timeline?roomId=...
+   */
+  async getTimeline(ctx) {
+    const { roomId } = ctx.query;
+    if (!roomId) return ctx.badRequest('Missing roomId');
+
+    try {
+      const data = await strapi.service('api::game.history-service').getTimelineData(roomId as string);
+      ctx.body = data;
+    } catch (err) {
+      ctx.badRequest('Failed to fetch timeline', { error: err });
+    }
+  },
+
+  /**
+   * POST /api/map-explorer/replay
+   * Body: { roomId, timestamp }
+   */
+  async replay(ctx) {
+    const { roomId, timestamp } = ctx.request.body;
+    if (!roomId || timestamp === undefined) return ctx.badRequest('Missing params');
+
+    try {
+      const state = await strapi.service('api::game.history-service').replayTo(roomId, timestamp);
+      ctx.body = state;
+    } catch (err) {
+      ctx.badRequest('Failed to replay state', { error: err });
+    }
   }
 });
 

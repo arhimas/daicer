@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import type { EntropyState } from '../src/engine/entropy';
 import type { Player, Creature, WorldSettings, Chunk, Language } from '../src/engine/types';
 // Local definition to avoid missing shared export

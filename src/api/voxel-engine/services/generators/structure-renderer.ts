@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Tile, BlockType } from '../../../game/src/engine/types';
 import { StructureInfo } from '../../../game/src/engine/types';
 

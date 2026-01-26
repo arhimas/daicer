@@ -16,6 +16,7 @@ async function translateEntityProcessor(job: { data: JobPayloads[QueueName.TRANS
 
   try {
       // 1. Fetch Original
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const entity = await strapi.documents(contentType as any).findOne({
           documentId,
           populate: '*', // Deep populate might be needed, but start with *
@@ -42,6 +43,7 @@ async function translateEntityProcessor(job: { data: JobPayloads[QueueName.TRANS
              const translatedEntity = await translationService.translateEntity(cleanData, contentType, targetLocale);
 
              // Update (Create Localization)
+             // eslint-disable-next-line @typescript-eslint/no-explicit-any
              await strapi.documents(contentType as any).update({
                  documentId,
                  locale: targetLocale,

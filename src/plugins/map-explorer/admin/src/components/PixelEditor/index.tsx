@@ -8,7 +8,7 @@ import {
   Modal,
   Grid
 } from '@strapi/design-system';
-import { RenderEngine } from '../../utils/render-engine';
+
 
 interface PixelEditorProps {
     initialPixels?: string[][]; // 32x32

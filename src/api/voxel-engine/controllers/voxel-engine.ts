@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 export default ({ strapi }) => ({
   /**
    * Generates a Voxel Preview (Chunk) without saving.

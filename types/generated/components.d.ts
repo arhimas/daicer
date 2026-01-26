@@ -697,6 +697,21 @@ export interface QueueSettings extends Struct.ComponentSchema {
     icon: 'sliders-h';
   };
   attributes: {
+    maxCpuPercent: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      >;
+    maxMemoryMB: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
     removeOnComplete: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     removeOnFail: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     retryAttempts: Schema.Attribute.Integer &

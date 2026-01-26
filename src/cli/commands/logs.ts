@@ -51,6 +51,6 @@ export const logsCommand = new Command('logs')
     tail.stderr.on('data', (data) => console.error(chalk.red(`tail error: ${data}`)));
   });
 
-export const runLogs = async (options: any) => {
+export const runLogs = async (_options: any) => {
     // Programmatic runner if needed
 };

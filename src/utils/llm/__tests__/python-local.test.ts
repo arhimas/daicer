@@ -1,5 +1,5 @@
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { localLLM } from '../local';
 import { LocalModel } from '../types';
 
@@ -31,7 +31,7 @@ describe('LocalLLMManager (Python Bridge)', () => {
 
   it('should be a singleton', () => {
     const instance1 = localLLM;
-    // @ts-ignore
+    // @ts-expect-error: Private access for testing singleton
     const instance2 = localLLM.constructor.getInstance ? localLLM.constructor.getInstance() : localLLM;
     expect(instance1).toBe(instance2);
   });

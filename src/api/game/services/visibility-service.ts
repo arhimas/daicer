@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 
 import { Core } from '@strapi/strapi';
 
@@ -11,7 +15,7 @@ interface Position {
 const VIEW_RADIUS_CHUNKS = 1; // 3x3 Grid around player
 const VIEW_RADIUS_TILES = 20; // Exact tile distance check
 
-export default ({ strapi }: { strapi: Core.Strapi }) => ({
+export default ({ strapi: _strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Calculates the coordinates of chunks visible from a center point.
    * Used for loading/streaming relevant map data.

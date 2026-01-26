@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Core } from '@strapi/strapi';
 
 import { DeterministicTurnProcessor, GameState } from '../src/engine/core/deterministic-turn-processor';
@@ -112,6 +116,43 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       })),
       exploredTiles: explored,
       timeSeconds: 0,
+    };
+  },
+
+  /**
+   * Retrieves the timeline metadata for a room.
+   * Returns a sorted list of events and snapshot markers.
+   */
+  async getTimelineData(roomId: string, limit = 1000) {
+    const events = await strapi.documents('api::game-event.game-event').findMany({
+      filters: { room: { documentId: roomId } },
+      sort: 'sequenceId:desc',
+      limit,
+    });
+
+    const snapshots = await strapi.documents('api::time-frame.time-frame').findMany({
+      filters: { room: { documentId: roomId } },
+      sort: 'sequenceId:desc',
+      limit: Math.ceil(limit / 10), // Heuristic: fewer snapshots than events
+    });
+
+    return {
+      events: events.map((e) => ({
+        type: 'event',
+        id: e.documentId,
+        sequenceId: e.sequenceId,
+        timestamp: e.timestamp,
+        eventType: (e as unknown as { type: string }).type,
+        summary: (e as unknown as { summary?: string; type: string }).summary || (e as unknown as { type: string }).type,
+        payload: (e as unknown as { payload: unknown }).payload,
+      })),
+      snapshots: snapshots.map((s) => ({
+        type: 'snapshot',
+        id: s.documentId,
+        sequenceId: s.sequenceId,
+        timestamp: s.timestamp,
+        summary: 'World Snapshot',
+      })),
     };
   },
 });

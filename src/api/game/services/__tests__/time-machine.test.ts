@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Core } from '@strapi/strapi';
 import GameLedgerFactory from '../game-ledger';

@@ -2,7 +2,7 @@
 import { GoogleGenAI } from "@google/genai";
 import * as fs from 'fs';
 import * as path from 'path';
-import * as readline from 'readline';
+// import * as readline from 'readline';
 import 'dotenv/config';
 
 // ---------------------------------------------------------------------------

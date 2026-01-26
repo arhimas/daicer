@@ -1,13 +1,14 @@
 // const { client } = require('pg'); // Ensure pg is available if needed, but strapi handles it.
 
 // Lazy load sqlite deps to prevent crash on Postgres/pgvector environments
-let sqliteVec = null;
-let betterSqlite3 = null;
+// Lazy load sqlite deps to prevent crash on Postgres/pgvector environments
+// let sqliteVec = null;
+// let betterSqlite3 = null;
 
 try {
-  sqliteVec = require('sqlite-vec');
-  betterSqlite3 = require('better-sqlite3');
-} catch (e) {
+  require('sqlite-vec');
+  require('better-sqlite3');
+} catch {
   // console.warn('SQLite dependencies not found. Semantic Search will strictly use pgvector if configured.');
 }
 

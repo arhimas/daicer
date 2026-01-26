@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * Agent Service
  * Orchestrates high-level agent interactions, including tool execution and dialogue handling.
  */

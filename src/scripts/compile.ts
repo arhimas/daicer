@@ -30,7 +30,7 @@ async function main() {
 
     if (phaseArg) {
       console.log(`📦 Running Compilation Phase: ${phaseArg}`);
-      // @ts-ignore
+      // @ts-expect-error: Phase enum is string compatible
       await orchestrator.runPhase(phaseArg);
     } 
     else if (targetUid && targetId) {

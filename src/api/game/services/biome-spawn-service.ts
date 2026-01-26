@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Core } from '@strapi/strapi';
 import { BiomeType } from '../src/engine/types'; // Removed unused BlockType
 import { CHUNK_SIZE } from '../../voxel-engine/services/utils/constants';

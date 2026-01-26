@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { parentPort } from 'worker_threads';
 import { ChunkBuilder } from './chunk-builder';
 import { WorldConfig } from '../../game/src/engine/types';

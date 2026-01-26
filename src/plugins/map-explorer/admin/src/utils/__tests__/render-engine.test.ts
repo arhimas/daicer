@@ -1,6 +1,6 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { RenderEngine } from '../render-engine';
-import { Chunk, TerrainType } from '../../types';
+import { Chunk } from '../../types';
 
 // Mock Canvas Context
 const mockCtx = {

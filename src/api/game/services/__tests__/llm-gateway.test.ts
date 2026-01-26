@@ -1,7 +1,11 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { llmGateway } from '../llm-gateway';
-import { QueueManager } from '../../../../queues/queue-manager';
+// import { QueueManager } from '../../../../queues/queue-manager';
 import { QueueName } from '../../../../queues/contract';
 
 // Mock QueueManager

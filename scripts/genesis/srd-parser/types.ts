@@ -22,8 +22,8 @@ export interface ClassValidationData {
     level: number;
     pb: number;
     features: string[];
-    spell_slots?: Record<number, number>; // level -> amount
-    class_specific?: Record<string, any>; // e.g. "Rage Damage", "Sneak Attack"
+    span_slots?: Record<number, number>; // level -> amount
+    class_specific?: Record<string, unknown>; // e.g. "Rage Damage", "Sneak Attack"
   }>;
 }
 
@@ -38,6 +38,6 @@ export function slugify(text: string): string {
         .toLowerCase()
         .trim()
         .replace(/\s+/g, '-')     // Replace spaces with -
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-');  // Replace multiple - with single -
+        .replace(/[^\w-]+/g, '')  // Remove all non-word chars
+        .replace(/--+/g, '-');    // Replace multiple - with single -
 }

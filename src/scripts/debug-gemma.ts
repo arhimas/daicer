@@ -1,5 +1,5 @@
 
-import { pipeline, env, AutoConfig } from '@huggingface/transformers';
+import { env, pipeline } from '@huggingface/transformers';
 import path from 'path';
 
 // Configure cache
@@ -38,7 +38,7 @@ async function testLoad4B() {
         // However, we can try to pass a config object if the API supports it.
         // Or we rely on the fact that if we can't load it, we can't use it.
         
-        const pipe = await pipeline('text-generation', modelId, {
+        await pipeline('text-generation', modelId, {
             dtype: 'q4',
         });
         console.log('✅ Success 4B!');

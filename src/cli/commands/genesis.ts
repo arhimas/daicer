@@ -23,7 +23,7 @@ export const genesisCommand = new Command('genesis')
 
 export async function runGenesis(type: string, options: { queue?: boolean; clean?: boolean; json?: boolean }) {
   const { default: chalk } = await import('chalk');
-  const { default: ora } = await import('ora');
+  // const { default: ora } = await import('ora');
 
   if (!options.json) {
     console.log(chalk.bold(`\n⚛️  Genesis: ${chalk.cyan(type)}`));
@@ -55,7 +55,6 @@ export async function runGenesis(type: string, options: { queue?: boolean; clean
     // 2. Direct Mode
     if (!options.json) console.log(chalk.yellow('   Running directly (Foreground)...'));
 
-    try {
       let result;
       // Depending on type, call specific loader
       if (type === 'atoms') {
@@ -73,10 +72,6 @@ export async function runGenesis(type: string, options: { queue?: boolean; clean
       } else {
         console.log(chalk.green('   ✅ Genesis Complete.'));
       }
-
-    } catch (err) {
-      throw err;
-    }
   }
 
   // Only stop strapi if we started it (getStrapi handles singleton)

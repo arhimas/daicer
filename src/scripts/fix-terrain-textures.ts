@@ -1,6 +1,6 @@
 export {};
-const { createStrapi } = require('@strapi/strapi');
-const path = require('path');
+import { createStrapi } from '@strapi/strapi';
+import path from 'path';
 
 const GRID_SIZE = 32;
 
@@ -28,14 +28,7 @@ async function run() {
 
     console.log(`Found ${terrains.length} terrains.`);
 
-    const createDefaultTile = (x: number, y: number, color: string) => ({
-      x, y, z: 0,
-      block: color, 
-      biome: 'custom',
-      isWalkable: true,
-      isTransparent: false,
-      variant: 0
-    });
+    // const createDefaultTile = ... (unused)
 
     // Color map based on common names if possible, else grey
     const getSensibleColor = (slug: string) => {
@@ -66,7 +59,7 @@ async function run() {
                try {
                    const parsed = JSON.parse(textureData);
                    if (Array.isArray(parsed) && parsed.length === 0) needsUpdate = true;
-               } catch (e) {
+               } catch (_e) {
                    needsUpdate = true;
                }
             }
@@ -91,7 +84,7 @@ async function run() {
                documentId: terrain.documentId,
                data: {
                    texture: flattened
-               },
+               } as unknown as Record<string, unknown>,
                status: 'draft' // Keep it draft if it was draft? Or publish? 
                // Documents API update usually keeps status unless specified? 
                // Actually we should prob publish if it was published. 

@@ -169,7 +169,7 @@ export const registerGraphQLExtension = (strapi) => {
                         showAllCharacters ? { type: 'player' } : null,
                         // General search
                         (!showAllMonsters && !showAllCharacters) ? { name: { $contains: query } } : null
-                      ].filter(Boolean) as any[], // filtered nulls
+                      ].filter(Boolean) as Record<string, unknown>[], // filtered nulls
                     },
                     fields: ['name', 'documentId', 'type'],
                     limit: 50,

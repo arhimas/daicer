@@ -1,5 +1,5 @@
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { localLLM } from '../local';
 import { LocalModel } from '../types';
 
@@ -7,7 +7,7 @@ import { LocalModel } from '../types';
 const mockPipeline = vi.fn();
 vi.mock('@huggingface/transformers', () => ({
   env: { cacheDir: '', allowLocalModels: false },
-  pipeline: (task: string, model: string, opts: any) => mockPipeline(task, model, opts)
+  pipeline: (task: string, model: string, opts: unknown) => mockPipeline(task, model, opts)
 }));
 
 describe('LocalLLMManager', () => {

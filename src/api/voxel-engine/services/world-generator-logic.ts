@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Chunk, WorldConfig } from '../../game/src/engine/types';
 import { ChunkManager } from './chunk-manager';
 

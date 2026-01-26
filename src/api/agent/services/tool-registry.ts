@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * Tool Registry Service
  *
  * Maps string tool names to handlers.
@@ -404,7 +408,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const roomAny = room as any;
           const roomWorld = roomAny?.world && typeof roomAny.world === 'object' ? roomAny.world : {};
-          const current = 'time' in roomWorld ? (roomWorld as any).time : 0;
+          const current = 'time' in roomWorld ? (roomWorld as { time?: number }).time || 0 : 0;
           const day = Math.floor(current / 86400);
           newTime = day * 86400 + hours * 3600 + minutes * 60;
         }
@@ -440,8 +444,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const roomAny = room as any;
     const roomWorld = roomAny?.world && typeof roomAny.world === 'object' ? roomAny.world : {};
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const time = 'time' in roomWorld ? (roomWorld as any).time : 0;
+    const time = 'time' in roomWorld ? (roomWorld as { time?: number }).time || 0 : 0;
     const day = Math.floor(time / 86400);
     const secondsInDay = time % 86400;
     const hours = Math.floor(secondsInDay / 3600);

@@ -37,7 +37,7 @@ async function main() {
   log('📖 Running SRD Parser...');
   try {
     execSync('yarn ts-node scripts/genesis/srd-parser/index.ts', { stdio: 'inherit', cwd: process.cwd() });
-  } catch (e) {
+  } catch {
     console.error('❌ Parser failed.');
     process.exit(1);
   }
@@ -64,7 +64,7 @@ async function main() {
   console.log('🔄  \x1b[1m\x1b[36mRunning Seed Compiler (Building TS Seeds)...\x1b[0m');
   try {
     execSync('yarn ts-node --transpile-only src/scripts/genesis/compile-seeds.ts', { stdio: 'inherit', cwd: process.cwd() });
-  } catch (error) {
+  } catch {
     console.error('❌ Seed Compilation failed.');
     process.exit(1);
   }
@@ -72,7 +72,7 @@ async function main() {
   console.log('🌱  \x1b[1m\x1b[36mRunning Canonical Seed (Ingesting to Strapi)...\x1b[0m');
   try {
     execSync('yarn ts-node --transpile-only src/scripts/genesis/canonical-seed.ts', { stdio: 'inherit', cwd: process.cwd() });
-  } catch (error) {
+  } catch {
     console.error('❌ Canonical Pipeline failed.');
     process.exit(1);
   }

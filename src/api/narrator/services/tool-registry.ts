@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { DynamicStructuredTool } from '@langchain/core/tools';
 import { z } from 'zod';
 import type { Core } from '@strapi/strapi';

@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blueprints",
+  "info": {
+    "singularName": "blueprint",
+    "pluralName": "blueprints",
+    "displayName": "Blueprint",
+    "description": "Anatomy/Structure definitions for PixelForge Sprites"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Creature",
+        "Item",
+        "Structure",
+        "Effect",
+        "Terrain"
+      ],
+      "default": "Creature"
+    },
+    "grid": {
+      "type": "json",
+      "required": true,
+      "description": "32x32 Matrix of Zone IDs"
+    },
+    "zones": {
+      "type": "json",
+      "required": true,
+      "description": "List of Zone Definitions { id, name, color }"
+    }
+  }
+}

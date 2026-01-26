@@ -2,7 +2,9 @@ import { Job } from 'bullmq';
 import { JobPayloads, JobResults, QueueName } from '../contract';
 import { loadAtoms } from '../../scripts/genesis/atoms-loader';
 
-declare const strapi: any; // Strapi global is available in worker context
+import type { Core } from '@strapi/strapi';
+
+declare const strapi: Core.Strapi;
 
 export default async function genesis(
   job: Job<JobPayloads[QueueName.GENESIS]>
@@ -28,11 +30,11 @@ export default async function genesis(
       success: true,
       entriesProcessed: processed,
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       success: false,
       entriesProcessed: processed,
-      error: error.message,
+      error: error instanceof Error ? error.message : String(error),
     };
   }
 }

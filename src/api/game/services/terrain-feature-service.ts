@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Core } from '@strapi/strapi';
 import { BlockType, Tile, ZLevel } from '../../game/src/engine/types';
 import { FloraGenerator } from '../../voxel-engine/services/generators/flora-generator';

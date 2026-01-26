@@ -5,6 +5,7 @@
 **The Pure Logic Core.**
 
 > **Dependency-Free Rulesset & Physics.**
+> **Voxel-First Entity Derivation.**
 
 </div>
 
@@ -55,6 +56,10 @@ The logic for the Entropy System.
 Code responsible for calculating a final `EntitySheet` from a raw blueprint.
 
 - **`EntityDeriver`**: Merges `Race` + `Class` + `Items` -> `Stats`.
+
+### 5. `compilation/` (The Assembler)
+
+Compiles raw data models into efficient runtime atoms.
 
 ---
 

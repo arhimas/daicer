@@ -1,4 +1,8 @@
 /**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
+/**
  * Action Engine Service (Refactored for Sandwich Pipeline)
  * Handles game action dispatching.
  * Separates Logic (Resolution) from Persistence for the Command Pipeline.
@@ -359,9 +363,9 @@ export default ({ strapi }) => ({
     if (isHit || isCrit) {
       if (actionDef.damage && Array.isArray(actionDef.damage)) {
         for (const di of actionDef.damage) {
-          const count = di.diceCount || 1;
-          const face = di.diceValue || 6;
-          const flat = di.flatBonus || 0;
+          const count = di.diceCount ?? 1;
+          const face = di.diceValue ?? 6;
+          const flat = di.flatBonus ?? 0;
           let roll = 0;
           for (let i = 0; i < count; i++) roll += Math.floor(Math.random() * face) + 1;
           if (isCrit) for (let i = 0; i < count; i++) roll += Math.floor(Math.random() * face) + 1; // Double dice

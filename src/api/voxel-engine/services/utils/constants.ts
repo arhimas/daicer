@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { BlockType } from '../../../game/src/engine/types';
 
 export const CHUNK_SIZE = 32;

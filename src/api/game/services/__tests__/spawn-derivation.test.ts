@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { describe, it, expect } from 'vitest';
 import { EntityDeriver } from '../../src/engine/derivation';
 import { DerivationContext } from '../../src/engine/derivation/types';

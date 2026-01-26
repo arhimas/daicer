@@ -67,7 +67,7 @@ export class CompilationOrchestrator {
 
      if (Array.isArray(entries)) {
          for (const entry of entries) {
-             await this.compileEntity(uid, (entry as any).id, entry);
+             await this.compileEntity(uid, (entry as { id: number }).id, entry);
          }
      }
   }

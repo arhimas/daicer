@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 
 /**
  * Locale Generator Controller
@@ -8,7 +12,8 @@
 import { QueueManager } from '../../../queues/queue-manager';
 import { QueueName } from '../../../queues/contract';
 
-export default ({ strapi }) => ({
+ 
+export default ({ strapi: _strapi }) => ({
   
   /**
    * Generates locales for a list of entities via Queues.
@@ -30,7 +35,7 @@ export default ({ strapi }) => ({
     let queueManager: QueueManager;
     try {
         queueManager = QueueManager.get();
-    } catch (e) {
+    } catch {
         // Fallback or Error if queues are not enabled
         return ctx.badRequest('QueueManager not available. Ensure Redis is configured and queues enabled.');
     }
@@ -47,10 +52,11 @@ export default ({ strapi }) => ({
             }
         );
         report.enqueued++;
-      } catch (err: any) {
+      } catch (err) {
         console.error(`Failed to enqueue translation for ${documentId}:`, err);
         report.failed++;
-        report.errors.push(`Error enqueueing ${documentId}: ${err.message}`);
+        const msg = err instanceof Error ? err.message : String(err);
+        report.errors.push(`Error enqueueing ${documentId}: ${msg}`);
       }
     }
 

@@ -1,9 +1,10 @@
-import { getTranslation } from './utils/getTranslation';
 import { PLUGIN_ID } from './pluginId';
 import { Initializer } from './components/Initializer';
 import { PluginIcon } from './components/PluginIcon';
+// import { App } from './pages/App';
 
 export default {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register(app: any) {
 
 
@@ -13,6 +14,21 @@ export default {
       isReady: false,
       name: PLUGIN_ID,
     });
+
+    app.addMenuLink({
+      to: `/plugins/${PLUGIN_ID}`,
+      icon: PluginIcon,
+      intlLabel: {
+        id: `${PLUGIN_ID}.plugin.name`,
+        defaultMessage: 'Map Explorer',
+      },
+      Component: async () => import('./pages/App').then((mod) => mod.App),
+      permissions: [],
+    });
+
+
+
+
 
     app.customFields.register({
         name: "voxel-grid",
@@ -101,7 +117,52 @@ export default {
         },
         options: {},
     });
+
+    app.customFields.register({
+        name: "sprite-grid",
+        pluginId: PLUGIN_ID, 
+        type: "json", 
+        intlLabel: {
+          id: "map-explorer.sprite-grid.label",
+          defaultMessage: "Pixel Forge",
+        },
+        intlDescription: {
+          id: "map-explorer.sprite-grid.description",
+          defaultMessage: "AI-Powered Pixel Art Editor (SOTA)",
+        },
+        icon: PluginIcon,
+        components: {
+          Input: async () =>
+            import('./components/PixelForge').then((module) => ({
+              default: module.PixelForge,
+            })),
+        },
+        options: {},
+    });
+
+    app.customFields.register({
+        name: "pixel-generator",
+        pluginId: PLUGIN_ID,
+        type: "json", // Virtual, doesn't really store data, just UI
+        intlLabel: {
+          id: "map-explorer.pixel-generator.label",
+          defaultMessage: "Pixel Art Generator",
+        },
+        intlDescription: {
+          id: "map-explorer.pixel-generator.description",
+          defaultMessage: "Generate Pixel Art from Attributes",
+        },
+        icon: PluginIcon,
+        components: {
+          Input: async () =>
+            import('./components/PixelGenerator').then((module) => ({
+              default: module.default,
+            })),
+        },
+        options: {},
+    });
   },
+
 
   async registerTrads({ locales }: { locales: string[] }) {
     return Promise.all(

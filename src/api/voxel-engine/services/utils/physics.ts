@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 import { Coordinates, BlockType, Chunk } from '../../../game/src/engine/types';
 import { CHUNK_SIZE } from './constants';
 // Re-shim PHYSICS_CONSTANTS if it was removed or use local constant

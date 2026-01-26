@@ -57,5 +57,53 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/timeline',
+      handler: 'mapController.getTimeline',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/replay',
+      handler: 'mapController.replay',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/generate-pixel-art',
+      handler: 'mapController.generatePixelArt',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/forge/dispatch',
+      handler: 'forgeController.dispatch',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'GET',
+      path: '/forge/status/:jobId',
+      handler: 'forgeController.status',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/preview',
+      handler: 'voxelPreview.generate',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };

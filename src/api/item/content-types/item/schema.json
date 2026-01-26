@@ -65,11 +65,10 @@
       "type": "float",
       "default": 0
     },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images"]
+    "size": {
+      "type": "enumeration",
+      "enum": ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"],
+      "default": "Medium"
     },
     "equipment_data": {
       "type": "component",
@@ -98,6 +97,10 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "inversedBy": "items"
+    },
+    "pixel_generator": {
+      "type": "customField",
+      "customField": "plugin::map-explorer.pixel-generator"
     }
   }
 }

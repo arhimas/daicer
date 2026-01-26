@@ -44,7 +44,7 @@ const getSizeBounds = (size: CreatureSize) => {
   };
 };
 
-export const BlueprintEditor: React.FC<BlueprintEditorProps> = ({ blueprint, onChange, archetype, size = 'Medium', onReset }) => {
+export const BlueprintEditor: React.FC<BlueprintEditorProps> = ({ blueprint, onChange, size = 'Medium', onReset }) => {
   const [activeZone, setActiveZone] = useState<ZoneType>('core');
   const [isDrawing, setIsDrawing] = useState(false);
   const [history, setHistory] = useState<ZoneType[][][]>([]);

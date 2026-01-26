@@ -90,6 +90,8 @@ export interface QueueSettings {
   removeOnFail?: boolean;
   timeout?: number;
   rateLimit?: number;
+  maxMemoryMB?: number;
+  maxCpuPercent?: number;
 }
 
 export interface QueueConfigItem {

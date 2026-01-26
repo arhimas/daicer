@@ -1,3 +1,7 @@
+/**
+ * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
+ * Keep documentation synchronized with code at all times.
+ */
 
 import { describe, it, expect } from 'vitest';
 import translationServiceFactory from '../translation';
@@ -10,18 +14,18 @@ describe('TranslationService Hardened Tests', () => {
 
   describe('translate (Robustness)', () => {
     it('should handle null/undefined inputs', () => {
-      // @ts-ignore
+      // @ts-expect-error - Testing runtime validation
       expect(service.translate(null, 'es')).toBe(null);
-      // @ts-ignore
+      // @ts-expect-error - Testing runtime validation
       expect(service.translate(undefined, 'es')).toBe(undefined);
     });
 
     it('should handle non-string inputs gracefully', () => {
-      // @ts-ignore
+      // @ts-expect-error - Testing runtime validation
       expect(service.translate(12345, 'en')).toBe(12345);
-      // @ts-ignore
+      // @ts-expect-error - Testing runtime validation
       expect(service.translate(true, 'pt')).toBe(true);
-      // @ts-ignore
+      // @ts-expect-error - Testing runtime validation
       expect(service.translate({}, 'es')).toEqual({});
     });
 
@@ -73,12 +77,12 @@ describe('TranslationService Hardened Tests', () => {
     });
 
     it('should ignore prototype pollution attempts', () => {
-      const malicious = JSON.parse('{"__proto__": {"polluted": true}}');
+      // const malicious = JSON.parse('{"__proto__": {"polluted": true}}');
       // While we can't easily prevent Object.keys from iterating if it's there?
       // Actually standard JSON.parse doesn't set __proto__.
       // But if passed as object:
       const payload = {};
-      // @ts-ignore
+      // @ts-expect-error - Testing malicious proto pollution
       payload['__proto__'] = { val: 'bad' };
       
       const result = service.translateJson(payload, 'es');

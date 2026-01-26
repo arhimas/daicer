@@ -64,7 +64,7 @@ export async function runCompile(options: { phase?: string; target?: string; id?
 
     let result;
     if (options.phase) {
-      // @ts-ignore
+      // @ts-expect-error - Runtime dynamic dispatch
       await orchestrator.runPhase(options.phase);
       result = { success: true, phase: options.phase };
     } else if (options.target && options.id) {

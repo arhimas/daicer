@@ -2,6 +2,7 @@ import { QueueName, QueueConfiguration } from './contract';
 import type { Core } from '@strapi/strapi';
 import { Worker, Job } from 'bullmq';
 import { DevLogger } from '../utils/dev-logger';
+import { ResourceGuard, SystemOverloadError } from './resource-guard';
 
 // Registry of Worker Handlers
 const workerRegistry: Record<string, (job: Job, strapi: Core.Strapi) => Promise<unknown>> = {};
@@ -95,10 +96,22 @@ export class WorkerManager {
           async (job) => {
             const tracker = workerLogger.start(`Job ${job.id}`);
             try {
+              // Resource Guard: Admission Control
+              if (settings) {
+                 const { maxMemoryMB, maxCpuPercent } = settings;
+                 await ResourceGuard.check({ maxMemoryMB, maxCpuPercent });
+              }
+
               const result = await handler(job, this.strapi);
               tracker.end();
               return result;
             } catch (err) {
+              if (err instanceof SystemOverloadError) {
+                 workerLogger.warn(`[ResourceGuard] ${err.message}. Retrying later...`);
+                 // Throwing error causes BullMQ to retry based on backoff settings
+                 // We might want to add a distinct custom error or delay, 
+                 // but standard retry is safest for now.
+              }
               tracker.fail(err);
               throw err;
             }
@@ -116,7 +129,7 @@ export class WorkerManager {
 
         // worker.on('completed', (job) => { /* handled inside handler wrapper */ });
 
-        worker.on('failed', (job, err) => {
+        worker.on('failed', (_job, _err) => {
              // We can log global failures here as a backup, but the try/catch inside the processor handles specific job failure context better
              // However, BullMQ might fail outside of the processor (e.g. stalled)
              // workerLogger.error(`Global Failure for ${job?.id}`, err);
