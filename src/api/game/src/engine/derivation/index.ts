@@ -2,13 +2,18 @@ import { calculateModifier } from './attributes';
 import { calculateAC, calculateHP } from './defenses';
 import { deriveSpeed, deriveActions } from './capabilities';
 import { calculateSkillBonus, calculateProficiencyBonus } from './skills';
-import { DerivationContext } from './types';
+import { DerivationContext, EntityStats } from './types';
 
 export * from './attributes';
 export * from './defenses';
 export * from './capabilities';
 export * from './skills';
-export * from './types';
+export * from './attributes';
+export * from './defenses';
+export * from './capabilities';
+export * from './skills';
+// export * from './types'; // Removed to avoid naming conflict with Attributes alias vs EntityStats
+export type { DerivationContext, RuntimeAction, Equipment } from './types';
 
 /**
  * The Central Derivation Engine.
@@ -114,7 +119,7 @@ export class EntityDeriver {
         // Need to know if proficient. For now assuming 0 if not passed in context.
         // Ideally context should have 'skills' map.
         0,
-        context.attributes,
+        context.attributes as EntityStats,
         context.proficiencyBonus
       );
 

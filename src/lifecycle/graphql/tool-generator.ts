@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import type { Core } from '@strapi/strapi';
+import { toCamelCase, capitalize } from '../../shared/utils/text-utils';
+import type { ToolDefinition } from '../../api/agent/services/tool-registry';
 
 /**
  * Dynamically generates GraphQL definitions for registered game tools.
@@ -11,9 +13,8 @@ import type { Core } from '@strapi/strapi';
  * @param strapi - The Strapi Core instance.
  */
 export const generateToolGraphQL = (strapi: Core.Strapi) => {
-  const toolRegistry = strapi.service('api::agent.tool-registry');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const tools = (toolRegistry as any).getTools();
+  const toolRegistry = strapi.service('api::agent.tool-registry') as { getTools: () => ToolDefinition[] };
+  const tools = toolRegistry.getTools();
 
   let toolTypeDefs = `
     type AgentToolParameter {
@@ -34,7 +35,8 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
     }
   `;
 
-  const toolResolvers = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const toolResolvers: { Mutation: Record<string, any>; Query: Record<string, any> } = {
     Mutation: {},
     Query: {
       getAgentTools: () => {
@@ -74,8 +76,7 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
     `;
 
     // Generate Resolver
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    toolResolvers.Mutation[camelName] = async (_parent: any, _args: { roomId: string; input: any }, _ctx: any) => {
+    toolResolvers.Mutation[camelName] = async (_parent: unknown, args: { roomId: string; input: unknown }, _ctx: unknown) => {
       // const { input } = args;
       // const _payload = input?.payload || input;
       // const _user = ctx?.state?.user;
@@ -104,14 +105,6 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
 
 // --- Helpers ---
 
-function toCamelCase(str: string) {
-  return str.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-}
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
 function zodToSDLFields(schema: z.ZodSchema): string {
   if (schema instanceof z.ZodObject) {
     const shape = schema.shape;
@@ -121,6 +114,10 @@ function zodToSDLFields(schema: z.ZodSchema): string {
         return `${key}: ${type}`;
       })
       .join('\n');
+  }
+  if (schema instanceof z.ZodUnion || schema instanceof z.ZodDiscriminatedUnion) {
+      // Very basic union support - probably just JSON
+      return 'payload: JSON'; 
   }
   return '';
 }

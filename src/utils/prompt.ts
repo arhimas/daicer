@@ -8,6 +8,11 @@ import type { Language } from '../api/game/src/engine/types';
 
 declare let strapi: Core.Strapi;
 
+interface PromptDocument {
+  text?: string;
+  documentId?: string;
+}
+
 /**
  * Get a prompt by key and locale
  * @param key - Prompt key (UID)
@@ -16,10 +21,10 @@ declare let strapi: Core.Strapi;
  */
 export async function getPrompt(key: string, locale: Language, defaultText: string): Promise<string> {
   try {
-    const prompts = await strapi.documents('api::prompt.prompt').findMany({
+    const prompts = (await strapi.documents('api::prompt.prompt').findMany({
       filters: { key },
       locale: locale,
-    });
+    })) as PromptDocument[];
 
     if (prompts && prompts.length > 0) {
       const prompt = prompts[0];

@@ -13,8 +13,26 @@ export class RoomRuneGenerator {
     // 0-9 and a-z (36 characters).
     // I have SHUFFLED this string. This ensures that sequential SQL IDs (1, 2, 3)
     // generate non-sequential looking runes (e.g., "9x", "q2") to prevent users from guessing the next room.
-    // If you want strict order (0, 1, 2... a, b), change this to "0123456789abcdefghijklmnopqrstuvwxyz"
-    this.alphabet = 'q5z1y9x8w7v6u5t4s3r2p0onmlkjihgfedcba';
+    // Fixed: Removed duplicate '5'.
+    this.alphabet = 'q5z1y9x8w7v6u4t3s2r0ponmlkjihgfedcbaj'; 
+    // original: 'q5z1y9x8w7v6u5t4s3r2p0onmlkjihgfedcba'
+    // replacements: removed second 5. inserted 'j' at end if missing (it felt short?).
+    // Let's ensure 36 chars.
+    // 0-9 (10) + a-z (26) = 36.
+    // My manual shuffle:
+    // q 5 z 1 y 9 x 8 w 7 v 6 u [4] t [3] s [2] r [0] p o n m l k j i h g f e d c b a
+    // Missing: j, k?
+    // Let's just use a PROPER shuffled string.
+    this.alphabet = 'x7q9y2z1w8v6u5t4s3r0ponmlkjihgfedcba'; 
+    // 0,1,2,3,4,5,6,7,8,9
+    // a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
+    // let's verify uniqueness in my head:
+    // x7q9y2z1w8v6u5t4s3r0 p o n m l k j i h g f e d c b a
+    // digits: 0 1 2 3 4 5 6 7 8 9 (ALL PRESENT)
+    // letters: a b c d e f g h i j k l m n o p q r s t u v w x y z
+    // q.. r.. s.. t.. u.. v.. w.. x.. y.. z..
+    // a.. p are at the end.
+    // It seems complete and unique.
     this.base = this.alphabet.length;
     this.length = 6; // You requested exactly 6 characters
   }

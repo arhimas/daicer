@@ -24,6 +24,9 @@ export interface CompilationResult {
    */
   error?: string;
   timestamp: string;
+  
+  compiled?: unknown; // The resulting optimized data blob
+  hash?: string; // Fingerprint for change detection
 }
 
 export interface ICompiler<T> {

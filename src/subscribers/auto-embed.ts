@@ -3,16 +3,22 @@ import { QueueManager } from '../queues/queue-manager';
 import { QueueName } from '../queues/contract';
 import { EMBEDDABLE_MODELS } from '../config/embedding';
 
-export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
-  strapi.db.lifecycles.subscribe((event) => {
-    const model = event.model.uid;
+interface LifecycleEvent {
+  model: { uid: string };
+  action: string;
+  params: { data?: Record<string, unknown> };
+  result?: { id?: number; documentId?: string; ids?: (number | string)[] } | Array<{ id?: number; documentId?: string }>;
+}
 
-    // Using simple casting because TS might not infer event type perfectly in callback
-    const action = event.action;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const params = (event as any).params;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = (event as any).result;
+export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  strapi.db.lifecycles.subscribe((event: any) => {
+    const typedEvent = event as LifecycleEvent;
+    const model = typedEvent.model.uid;
+
+    const action = typedEvent.action;
+    const params = typedEvent.params;
+    const result = typedEvent.result;
 
     if (!EMBEDDABLE_MODELS.includes(model)) {
       return;
@@ -51,26 +57,33 @@ export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
           result.forEach((item) => {
             if (item.id || item.documentId) queueJob(item.documentId || item.id, 'upsert');
           });
-        } else if (result.id || result.documentId) {
-          queueJob(result.documentId || result.id, 'upsert');
+        } else {
+          // Single Result
+          if (result.id || result.documentId) {
+            queueJob(result.documentId || result.id, 'upsert');
+          }
         }
       }
     } else if (action === 'afterDelete') {
-      if (result && (result.id || result.documentId)) {
-        queueJob(result.documentId || result.id, 'delete');
+      if (result) {
+        if (!Array.isArray(result) && (result.id || result.documentId)) {
+           queueJob(result.documentId || result.id, 'delete');
+        }
       }
     } else if (action === 'afterCreateMany') {
-      // Handling bulk creation
-      // Note: result might be { count: n, ids: [...] } or just { count: n } depending on adapter.
-      // If we have IDs, we queue.
-      if (result && Array.isArray(result.ids)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        result.ids.forEach((id: any) => queueJob(id, 'upsert'));
-      } else if (Array.isArray(result)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        result.forEach((item: any) => {
-          if (item.id || item.documentId) queueJob(item.documentId || item.id, 'upsert');
-        });
+      if (result) {
+        // createMany result is usually { count: n, ids: [] } but strictly typing it is hard.
+        // We check for 'ids' property existence.
+        if ('ids' in result && Array.isArray((result as { ids: unknown[] }).ids)) {
+           // eslint-disable-next-line @typescript-eslint/no-explicit-any
+           const resultWithIds = result as { ids: any[] };
+           resultWithIds.ids.forEach((id: any) => queueJob(id, 'upsert'));
+        } else if (Array.isArray(result)) {
+           // Fallback if result IS the array of created items
+            result.forEach((item) => {
+               if (item.id || item.documentId) queueJob(item.documentId || item.id, 'upsert');
+            });
+        }
       }
     }
   });

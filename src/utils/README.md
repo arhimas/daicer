@@ -26,7 +26,17 @@ Geometry helpers that pure `engine` checks might need validation for or API-spec
 
 - _Note: Most heavy math should live in `@daicer/engine`._
 
-### 3. `upload.ts` (Media Handling)
+### 3. `entity-geometry.ts` (The Spatial Authority)
+
+The Single Source of Truth for mapping D&D Size Categories (Tiny...Gargantuan) to Pixel Dimensions.
+
+- **Mandate**: `1 Foot = 32 Pixels` (The Golden Ratio).
+- **Scope**: Used by Frontend (Canvas), Backend (PixelForge), and AI (Gemini Prompts).
+- **API**:
+    - `getPixelDimensions(size)`: Returns 32, 64, 96, 128...
+    - `getCellFootprint(size)`: Returns 1, 2, 3, 4...
+
+### 4. `upload.ts` (Media Handling)
 
 Wrappers around Strapi's Upload Plugin to handle generated Map Images and Tokens.
 

@@ -2,15 +2,32 @@ import { errors } from '@strapi/utils';
 const { ApplicationError } = errors;
 
 import { FeatureHydrator } from '../../../../services/mechanics/feature-hydrator';
+import { InventorySchema, type InventoryItem } from '../../../../types/Inventory';
+import { EntityDeriver, Equipment } from '../../../game/src/engine'; // Ensure Index exports Equipment or import from types
+import { EntityStats } from '../../../game/src/engine/derivation/types';
+
+import type { Core } from '@strapi/strapi';
+
+interface LifecycleEvent {
+  action: string;
+  model: { uid: string };
+  params: {
+    data?: any; // Data can be partial, keeping any for flexibility or Record<string, unknown>
+    where?: { documentId?: string; id?: number | string };
+  };
+  result?: {
+    documentId?: string;
+    id?: number | string;
+  };
+}
 
 // Helper to access Strapi global safely if needed or type
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare let strapi: any;
+declare let strapi: Core.Strapi;
 
 export default {
-  async beforeCreate(event) {
+  async beforeCreate(event: LifecycleEvent) {
     const { data } = event.params;
-    validateInventorySlots(data);
+    if (data) validateInventorySlots(data);
 
     // In create, we might not have all relations populated in 'data', so we might skip or try best effort.
     // Usually creation sends IDs. If we want auto-hydration on create, we'd need to fetch the related entities (class, race) by ID.
@@ -21,20 +38,20 @@ export default {
     // However, for robustness, we'll try to process if we have the data.
   },
 
-  async beforeUpdate(event) {
+  async beforeUpdate(event: LifecycleEvent) {
     const { data, where } = event.params;
-    validateInventorySlots(data);
+    if (data) validateInventorySlots(data);
 
     // Only run expensive hydration if relevant fields changed
     const relevantFields = ['inventory', 'stats', 'level', 'class', 'race', 'attributes'];
-    const needsUpdate = relevantFields.some((key) => key in data);
+    const needsUpdate = data && relevantFields.some((key) => key in data);
 
     if (needsUpdate && where && where.documentId) {
       await updateDerivedData(event);
     }
   },
 
-  async afterCreate(event) {
+  async afterCreate(event: LifecycleEvent) {
     const { result } = event;
     try {
       if (result && result.documentId) {
@@ -46,7 +63,7 @@ export default {
     }
   },
 
-  async afterUpdate(event) {
+  async afterUpdate(event: LifecycleEvent) {
     const { result } = event;
     try {
       if (result && result.documentId) {
@@ -59,15 +76,26 @@ export default {
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// Validates inventory slots using strict Zod schema
 function validateInventorySlots(data: any) {
   if (!data.inventory || !Array.isArray(data.inventory)) {
     return;
   }
 
-  const slots = new Set();
+  // Parse against Zod Schema to ensure structure
+  const result = InventorySchema.safeParse(data.inventory);
+  
+  if (!result.success) {
+      // If schema validation fails, log warning but maybe allow loose data if legacy?
+      // For strictness, we throw.
+      const issues = result.error.issues.map(i => i.message).join(', ');
+      throw new ApplicationError(`Invalid Inventory Structure: ${issues}`);
+  }
 
-  for (const item of data.inventory) {
+  const items = result.data;
+  const slots = new Set<string>();
+
+  for (const item of items) {
     // Skip if item doesn't have a slot or is in backpack
     if (!item.slot || item.slot === 'backpack') {
       continue;
@@ -81,10 +109,7 @@ function validateInventorySlots(data: any) {
   }
 }
 
-import { EntityDeriver, Equipment } from '../../../game/src/engine'; // Ensure Index exports Equipment or import from types
-import { Attributes } from '../../../game/src/engine/derivation/types';
-
-async function updateDerivedData(event) {
+async function updateDerivedData(event: LifecycleEvent) {
   const { where, data } = event.params;
 
   // 1. Fetch current full state from DB for context
@@ -106,63 +131,61 @@ async function updateDerivedData(event) {
   // Merge data over current
   const level = data.level ?? current.level ?? 1;
   const rawStats = data.stats || current.stats || {};
-  const attributes: Attributes = {
+  
+  const attributes: EntityStats = {
     strength: rawStats.strength || 10,
     dexterity: rawStats.dexterity || 10,
     constitution: rawStats.constitution || 10,
     intelligence: rawStats.intelligence || 10,
     wisdom: rawStats.wisdom || 10,
     charisma: rawStats.charisma || 10,
+    passivePerception: 10, // Default
+    initiativeBonus: 0, // Default
   };
 
   const inventory = data.inventory || current.inventory || [];
+  const inventoryResult = InventorySchema.safeParse(inventory);
+  const validatedInventory = inventoryResult.success ? inventoryResult.data : [];
 
   // 2b. Resolve Equipment for Deriver
-  const equippedInventory = inventory.filter((i: { isEquipped: boolean; item: unknown }) => i.isEquipped);
+  const equippedInventory = validatedInventory.filter((i: InventoryItem) => i.isEquipped);
   const equipmentForDeriver: Equipment[] = [];
 
   if (equippedInventory.length > 0) {
-    // If inventory items are relations and already populated (if we populated deep enough)
-    // Strapi v5 populate is deep?
-    // Let's prefer fetching Equipment definitions by ID or Name if relations aren't fully expanded.
-    // For robustness:
     for (const invEntry of equippedInventory) {
       if (invEntry.item) {
-        // If item is object (populated relation), use it. Else fetch by ID/Name.
-        let equipDef = invEntry.item;
+        let equipDef: any = invEntry.item;
+        
+        // If item is just ID/Name string, fetch it
         if (typeof equipDef !== 'object') {
-          // Try to find by Name (legacy/test support) or ID
-          // We try findFirst with name filter first as "Longsword" is clearly a name.
-          // If we wanted to be strict about IDs, we'd use findOne, but for now restore flexibility.
-          const found = await strapi.documents('api::equipment.equipment').findFirst({
+           const found = await strapi.documents('api::equipment.equipment').findFirst({
             filters: { name: equipDef }, // Assume string is Name
             populate: ['equipment_category', 'damage_type', 'properties'],
           });
+
           if (found) {
-            equipDef = found;
+             equipDef = found;
           } else {
-            // If not found by name, could it be an ID?
-            // Try findOne as fallback? Or assume it was a Name and fail?
-            // Let's try findOne if name search fails.
-            try {
-              equipDef = await strapi.documents('api::equipment.equipment').findOne({
-                documentId: equipDef,
-                populate: ['equipment_category', 'damage_type', 'properties'],
-              });
-            } catch {
-              equipDef = null;
-            }
+             // Fallback ID fetch
+             try {
+               equipDef = await strapi.documents('api::equipment.equipment').findOne({
+                 documentId: String(equipDef),
+                 populate: ['equipment_category', 'damage_type', 'properties'],
+               });
+             } catch {
+               equipDef = null;
+             }
           }
         } else {
-          // Ensure nested fields are present, if not, refetch might be safer but let's assume populate worked if possible.
-          // Actually `populate: { inventory: { populate: ['item'] } }` above might not map deep fields of item.
-          if (!equipDef.equipment_category) {
-            equipDef = await strapi.documents('api::equipment.equipment').findOne({
-              documentId: equipDef.documentId,
-              populate: ['equipment_category', 'damage_type', 'properties'],
-            });
-          }
+           // It's an object, check if deeply populated
+           if (!equipDef.equipment_category) {
+             equipDef = await strapi.documents('api::equipment.equipment').findOne({
+               documentId: equipDef.documentId,
+               populate: ['equipment_category', 'damage_type', 'properties'],
+             });
+           }
         }
+
         if (equipDef) {
           // Clone and attach isEquipped status for Deriver
           equipmentForDeriver.push({ ...equipDef, isEquipped: true });
@@ -173,17 +196,12 @@ async function updateDerivedData(event) {
 
   // 3. Run Deriver
   const derived = EntityDeriver.derive({
+    stats: attributes, 
     attributes,
+    proficiencyBonus: 2, // Default
     level,
     equipment: equipmentForDeriver,
     race: { speed: current.race?.speed || 30 }, // Or fetch new race if data.race changed
-    // Classes support? EntitySheet has 'class' relation (singular or plural??)
-    // The schema says `class` (singular). spawn-service mapped `classes` (plural) from Character Blueprint.
-    // EntitySheet seems to support SINGLE class for now in schema?
-    // Checking schema.json: "class": { "type": "relation", "target": "api::class.class" } -> One to One?
-    // Implementation Plan mentions Multiclass support.
-    // If EntitySheet only has one class relation, we are limited.
-    // But let's stick to what we have.
     hitDie: 8, // TODO: Fetch from class relation
   });
 

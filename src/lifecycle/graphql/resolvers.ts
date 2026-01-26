@@ -1,24 +1,34 @@
 import { getMutationResolvers } from './mutation-resolvers';
 import { typeDefs as staticTypeDefs } from './type-defs';
 import { generateToolGraphQL } from './tool-generator';
-import type { RuntimeAction, DerivationContext } from '../../api/game/src/engine/derivation/types';
+import { ActionHydrator, SerializedItem } from '../../api/game/src/engine/derivation/ActionHydrator';
+import type { RuntimeAction, DerivationContext, EntityStats } from '../../api/game/src/engine/derivation/types';
 import { EntitySheetSchema } from '../../shared/schemas/entity';
+
+interface EquipmentData {
+  damage_dice?: string;
+  damage_type?: { name: string; slug?: string };
+  properties?: Array<{ name: string; slug: string }>;
+  range_normal?: number;
+  range_long?: number;
+  armor_class_base?: number;
+  armor_class_dex_bonus?: boolean;
+  str_minimum?: number;
+  stealth_disadvantage?: boolean;
+  [key: string]: unknown;
+}
 
 interface InventoryEntry {
   item: {
     id: string | number;
     documentId: string;
     type: string;
-    equipment_data?: {
-      [key: string]: unknown;
-      damage_dice?: string;
-      properties?: unknown[];
-    };
+    equipment_data?: EquipmentData;
     name?: string;
     image?: unknown;
     damage_dice?: string;
-    damage_type?: unknown;
-    properties?: unknown[];
+    damage_type?: unknown; // Legacy field on item?
+    properties?: unknown[]; // Legacy field on item?
     [key: string]: unknown;
   };
   isEquipped: boolean;
@@ -26,7 +36,19 @@ interface InventoryEntry {
 }
 
 interface SpellEntry {
-  spell: unknown;
+  spell: {
+    documentId: string;
+    name: string;
+    type?: string;
+    description?: string;
+    level?: number;
+    school?: string;
+    castingTime?: string;
+    range?: string;
+    components?: string[];
+    duration?: string;
+    [key: string]: unknown; 
+  };
   [key: string]: unknown;
 }
 
@@ -95,20 +117,34 @@ export const registerGraphQLExtension = (strapi) => {
 
             if (!actor) return [];
 
+            const rawInventory = (actor.inventory as InventoryEntry[]) || [];
+            const equipmentList = rawInventory
+              .filter((entry) => entry.isEquipped && entry.item)
+              .map((entry) => {
+                const itemData = entry.item;
+                const eqData: EquipmentData = itemData.equipment_data || {};
+                
+                return {
+                    name: itemData.name || 'Unknown Item',
+                    slug: itemData.documentId || String(itemData.id), // SerializedItem keys
+                    type: itemData.type,
+                    equipment_category: { slug: itemData.type },
+                    damage_dice: eqData.damage_dice || itemData.damage_dice,
+                    damage_type: { name: eqData.damage_type?.name || 'bludgeoning' },
+                    properties: eqData.properties,
+                    range_normal: eqData.range_normal,
+                    range_long: eqData.range_long,
+                } as unknown as SerializedItem;
+              });
+
             const context: DerivationContext = {
-              attributes: (actor.stats ||
-                {}) as unknown as import('../../api/game/src/engine/derivation/types').Attributes,
-              proficiencyBonus: 2,
-              equipment: ((actor.inventory as InventoryEntry[]) || [])
-                .filter((entry) => entry.isEquipped && entry.item)
-                .map((entry) => ({
-                  ...entry.item,
-                  ...(entry.item.equipment_data || {}),
-                  equipment_category: { slug: entry.item.type },
-                })) as unknown as import('../../api/game/src/engine/derivation/types').Equipment[],
+              stats: (actor.stats || {}) as EntityStats, // Mapped type
+              attributes: (actor.stats || {}) as EntityStats, // Aliased in new structure
+              proficiencyBonus: 2, 
+              level: 1, // Default
+              equipment: equipmentList,
             };
 
-            const { ActionHydrator } = await import('../../api/game/src/engine/derivation/ActionHydrator');
             const allActions: RuntimeAction[] = [];
 
             context.equipment.forEach((item) => {
@@ -119,7 +155,10 @@ export const registerGraphQLExtension = (strapi) => {
             if (actor.spellbook) {
               (actor.spellbook as SpellEntry[]).forEach((entry) => {
                 if (entry.spell) {
-                  allActions.push(ActionHydrator.hydrateFromSpell(entry.spell, context));
+                if (entry.spell) {
+                   // Ensure compatibility with SerializedItem or ActionHydrator expectations
+                  allActions.push(ActionHydrator.hydrateFromSpell(entry.spell as unknown as SerializedItem, context));
+                }
                 }
               });
             }
@@ -128,13 +167,13 @@ export const registerGraphQLExtension = (strapi) => {
             return allActions.map((a: RuntimeAction) => ({
               id: a.id,
               name: a.name,
-              type: a.type || 'action', // Ensure type is present
+              type: a.cost?.actionType || 'action', 
               sourceType: a.sourceType,
               sourceId: a.sourceId,
               description: a.description,
               img: a.img,
               cost: a.cost,
-              range: a.range,
+              range: a.range ? (a.range.type === 'ranged' ? `${a.range.value} ft` : a.range.type) : undefined,
               attackBonus: a.attack?.bonus,
               damage: a.effects?.find((e) => e.type === 'damage' || e.type === 'healing')?.dice,
             }));
@@ -294,11 +333,7 @@ export const registerGraphQLExtension = (strapi) => {
             // Max dist is 360 (at 6am/6pm).
             // Normalized: 1 - (dist / 360)
             lightLevel = 0.2 + 0.8 * Math.cos((dist / 360) * (Math.PI / 2));
-            // Cosine might be better:
-            // Map 360..1080 to -PI/2 .. PI/2
-            // 6AM -> 0, Noon -> 1, 6PM -> 0
           } else {
-            // Night is constant 0.2 or slightly simpler
             lightLevel = 0.2;
           }
 
@@ -322,9 +357,6 @@ export const registerGraphQLExtension = (strapi) => {
           const service = strapi.service('api::voxel-engine.voxel-engine');
 
           // Execute all chunk generations in parallel
-          // Note: Since this is CPU bound (procedural generation),
-          // Promise.all doesn't make it faster on single thread JS,
-          // but it allows formatting the response efficiently.
           const results = await Promise.all(
             chunks.map(async (c: { x: number; y: number }) => {
               return service.getChunk(c.x, c.y, config);
@@ -413,10 +445,6 @@ export const registerGraphQLExtension = (strapi) => {
             }
           }
 
-          // Messages - handled by Room.messages resolver or we can fetch here if specific view logic needed
-          // But strict schema says "messages: [Message]" in GameView.
-          // We can leave it null and let frontend query gameView { room { messages } } or
-          // if we want it top level:
           const messages = await strapi.documents('api::message.message').findMany({
             filters: { room: { documentId: roomId } },
             sort: 'timestamp:desc', // or asc

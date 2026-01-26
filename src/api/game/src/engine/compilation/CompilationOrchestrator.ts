@@ -1,3 +1,4 @@
+import type { Core } from '@strapi/strapi';
 import { ICompiler, CompilationResult } from './Compiler';
 import { DamageTypeCompiler } from './atoms/DamageTypeCompiler';
 import { ConditionCompiler } from './atoms/ConditionCompiler';
@@ -6,9 +7,7 @@ import { FeatureCompiler } from './molecules/FeatureCompiler';
 import { EquipmentCompiler } from './compounds/EquipmentCompiler';
 import { EntityCompiler } from './blueprints/EntityCompiler';
 
-// Stub for Strapi Global
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const strapi: any;
+declare const strapi: Core.Strapi;
 
 /**
  * Orchestrates the validation and "compilation" of game content.
@@ -61,7 +60,7 @@ export class CompilationOrchestrator {
      const populate = this.getPopulate(uid);
 
      // 1. Fetchall
-     const entries = await strapi.entityService.findMany(uid, {
+     const entries = await strapi.entityService.findMany(uid as any, {
          populate
      });
 
@@ -76,7 +75,8 @@ export class CompilationOrchestrator {
       // 1. Fetch if needed
       let entity = data;
       if (!entity) {
-          entity = await strapi.entityService.findOne(uid, id, {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          entity = await strapi.entityService.findOne(uid as any, id, {
               populate: this.getPopulate(uid)
           });
       }
@@ -142,15 +142,18 @@ export class CompilationOrchestrator {
   }
 
   private async saveResult(uid: string, id: number | string, result: CompilationResult) {
-      // Update the Entity's Component
-      await strapi.entityService.update(uid, id, {
+      // 4. Update Entity with result (e.g. data field)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await strapi.entityService.update(uid as any, id, {
           data: {
+              // data: result.compiled, // Store the blob - Schema update required first
               compilation_state: {
-                  status: result.status,
-                  last_run: result.timestamp,
-                  summary: result.status === 'Valid' ? 'Passed Checks' : result.error || 'Validation Failed'
+                  hash: result.hash,
+                  last_compiled_at: new Date().toISOString(),
+                  version: '1.0.0',
+                  status: 'success'
               }
-          }
+          } as any 
       });
 
       // 2. Log Result

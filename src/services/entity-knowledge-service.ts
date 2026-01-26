@@ -35,23 +35,19 @@ export class EntityKnowledgeService {
 
     // Strapi 5 Logic: Handle Document ID vs ID
     if (typeof entityId === 'string') {
+      // Use string as UID for dynamic lookup, but typed return
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       entity = await strapi.documents(uid as any).findOne({
         documentId: entityId,
         populate: '*',
       });
     } else {
-      // Fallback for ID (though documents API prefers documentId, findOne can filter by id if we use where?)
-      // documents().findOne({ documentId }) is standard. If we have ID, we might need a filter.
-      // But entityService.findOne(uid, id) works for ID.
-      // Let's try documents first if string, else entityService?
-      // Actually, converting to documents API fully is safer for V5.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const [found] = await strapi.documents(uid as any).findMany({
         filters: { id: entityId },
         populate: '*',
         limit: 1,
-      });
+      }) as unknown[]; // Safer intermediate cast
       entity = found;
     }
 

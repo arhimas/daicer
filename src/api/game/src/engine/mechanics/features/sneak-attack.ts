@@ -12,7 +12,8 @@ export const SneakAttack: FeatureHandler = {
   canApply: (attacker: Entity, action: EntityAction, context: CombatContext): boolean => {
     // 1. Must use Finesse or Ranged weapon
     // MVP: Check action type or properties
-    const isFinesse = ['ranged', 'ranged_attack'].includes(action.type) || action.properties?.includes('finesse'); // Assuming properties are hydrated on action
+    const hasFinesse = action.properties?.some(p => p === 'finesse') || false;
+    const isFinesse = ['ranged', 'ranged_attack'].includes(action.type) || hasFinesse;
 
     if (!isFinesse) return false;
 

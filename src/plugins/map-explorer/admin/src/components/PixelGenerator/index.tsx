@@ -12,7 +12,7 @@ interface PixelGeneratorInputProps {
   onChange: (event: { target: { name: string; value: string; type: string } }) => void;
 }
 
-const PixelGeneratorInput = ({ name, value, attribute, onChange }: PixelGeneratorInputProps) => {
+const PixelGeneratorInput = ({ name, value: _value, attribute: _attribute, onChange }: PixelGeneratorInputProps) => {
   const { formatMessage } = useIntl();
   const { post } = useFetchClient();
   const [loading, setLoading] = useState(false);

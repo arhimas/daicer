@@ -6,6 +6,8 @@
  */
 
 import { z } from 'zod';
+// Import the CommandSchema definition for strict validation of LLM outputs
+import { CommandSchema } from '../api/game/src/engine/schemas/commands';
 
 /**
  * DM Turn Response Schema.
@@ -32,7 +34,7 @@ export const TurnResponseSchema = z.object({
       suggestedActions: z.array(z.string()).nullable().describe('Suggested next actions for players (null if none)'),
     })
     .nullable(),
-  commands: z.any().optional().describe('Structured commands to execute (Move, Attack, etc.)'), // Using z.any() for now to avoid deep type issues, should be ZodSchema
+  commands: z.array(CommandSchema).optional().describe('Structured commands to execute (Move, Attack, etc.)'),
 });
 
 export type TurnResponse = z.infer<typeof TurnResponseSchema>;
@@ -166,7 +168,7 @@ export type NarrativeResponse = z.infer<typeof NarrativeResponseSchema>;
 export const ToolResponseSchema = z.object({
   success: z.boolean(),
   message: z.string(),
-  data: z.any().nullable(),
+  data: z.unknown().nullable(),
   error: z.string().nullable(),
 });
 

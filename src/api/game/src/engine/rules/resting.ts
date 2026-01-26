@@ -22,6 +22,10 @@ export interface RestResult {
  * Performs a Short Rest.
  * Allows spending Hit Dice to heal.
  * Resets "short-rest" resources.
+ * 
+ * @param sheet - The entity sheet to mutate.
+ * @param hitDiceToSpend - Number of hit dice to spend.
+ * @returns RestResult describing changes.
  */
 export function shortRest(sheet: EntitySheet, hitDiceToSpend: number): RestResult {
   let hpHealed = 0;
@@ -35,7 +39,7 @@ export function shortRest(sheet: EntitySheet, hitDiceToSpend: number): RestResul
 
   // Dice Parsing: "1d8" -> sides=8
   const hitDieStr = sheet.hitDice.die || '1d8'; // Default fallback
-  const sides = parseInt(hitDieStr.replace(/[^0-9]/g, '')) || 8;
+  const sides = parseInt(hitDieStr.replace(/[^0-9]/g, ''), 10) || 8;
 
   for (let i = 0; i < hitDiceToSpend; i++) {
     if (currentHitDice > 0) {
@@ -53,29 +57,7 @@ export function shortRest(sheet: EntitySheet, hitDiceToSpend: number): RestResul
   // 2. Reset Resources (Short Rest)
   const recoveredList: string[] = [];
 
-  // Features
-  // Note: FeatureSchema in character.ts had usage: { max, current, per }
-  // We need to iterate sheet.features.
-  // BUT `sheet.features` is array(FeatureSchema).
-  // Wait, I updated FeatureSchema in schema/character.ts to have `current`.
-
-  // Need to clone strictly or return mutations?
-  // Engine functions should ideally return the *diff* or a *clone*, or expect mutation.
-  // For MVP simplification, we assume the caller will start using the new state,
-  // but to keep it deterministic and avoid side-effects on input ref if possible,
-  // we usually return a new object or just the numeric deltas.
-  // However, `sheet` structure is deep.
-  // Let's perform logic assuming Mutable Sheet for now (or caller clones).
-  // DANGER: Pure functions are better.
-  // But strictly cloning deeply is expensive.
-  // I will act on the sheet reference passed in? No, that's side-effecty.
-  // I will return the "Result" describing changes, AND perform the mutation?
-  // Or just return the Result, and let the caller apply?
-  // "hpHealed" is easy. Resets are lists.
-  // Let's assume this function MUTATES the sheet for convenience in this MVP,
-  // as Redux/State management will likely wrap this in an Immer producer anyway.
-
-  // Apply HP changes
+  // Apply State Changes (Mutation)
   sheet.hp = newHp;
   sheet.hitDice.current = currentHitDice;
 
@@ -83,7 +65,6 @@ export function shortRest(sheet: EntitySheet, hitDiceToSpend: number): RestResul
   if (Array.isArray(sheet.features)) {
     sheet.features.forEach((f) => {
       if (f.usage && (f.usage.per === 'short_rest' || f.usage.per === 'short')) {
-        // Normalized strings?
         f.usage.current = f.usage.max; // Reset
         recoveredList.push(f.name);
       }
@@ -91,28 +72,16 @@ export function shortRest(sheet: EntitySheet, hitDiceToSpend: number): RestResul
   }
 
   // Reset Resources (Generic Pools)
-  sheet.resources.forEach((r) => {
-    if (r.refresh === 'short-rest') {
-      r.current = r.max;
-      recoveredList.push(r.name);
-    }
-  });
-
-  // Warlock Slots come back on Short Rest (Pact Magic).
-  // This requires knowing CLASS logic.
-  // MVP: explicit `refresh` on spell slots?
-  // SpellSlotsSchema didn't have `refresh`.
-  // Warlock slots are special.
-  // For MVP, we might skip Warlock auto-detection unless explicitly flagged.
-  // Or check class name?
-  if (sheet.characterClass.toLowerCase().includes('warlock')) {
-    if (sheet.spellbook && sheet.spellbook.slots) {
-      sheet.spellbook.slots.forEach((_s) => {
-        // Pact Magic slots usually have a MAX level, and all are same level.
-        // Logic is complex. Skipping Warlock short rest slots for MVP unless genericized.
+  if (sheet.resources) {
+      sheet.resources.forEach((r) => {
+        if (r.refresh === 'short-rest') {
+          r.current = r.max;
+          recoveredList.push(r.name);
+        }
       });
-    }
   }
+
+  // MVP: Skipping complex Warlock slot logic until strict Class definitions are available.
 
   return {
     hpHealed,

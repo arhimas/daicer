@@ -8,44 +8,36 @@ import {
 } from '@strapi/design-system';
 import { Pencil, PaintBrush, Eye, Magic } from '@strapi/icons';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
-
+import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
+import { getPixelDimensions } from '../../utils/entity-geometry';
 
 interface PixelForgeProps {
     name: string;
     value: string;
     onChange: (e: { target: { name: string; value: string; type: string } }) => void;
-    // attribute removed
 }
-
-const GRID_SIZE = 32;
 
 /**
  * **Pixel Forge II (SOTA Editor)**
  * 
- * A 32x32 Pixel Art Editor embedded directly into the Strapi Content Manager.
- * 
- * **Features**:
- * - **Modal UI**: Maximizes screen real estate for precise editing.
- * - **AI Generation**: Integrates with Gemini Queue for text-to-pixel generation.
- * - **Tools**: Pencil, Eraser, Color Picker.
- * - **Auto-Context**: Infers prompts from the current Entity's form data.
- * 
- * @param {PixelForgeProps} props - Standard Strapi Input Props.
- * @see {@link https://strapi.io/documentation/developer-docs/latest/development/plugins/backend/custom-fields.html Strapi Custom Fields}
+ * A Dynamic Pixel Art Editor embedded directly into the Strapi Content Manager.
+ * Supports Variable Resolutions (32x32 to 128x128) based on Entity Size.
  */
 export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const { post, get } = useFetchClient();
-    // Reverting unstable hook usage to fix crash
+    const { form } = useContentManagerContext(); // Access sibling data (size)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const modifiedData: any = {}; 
+    const modifiedData = (form as any)?.values || {};
+    const entitySize = modifiedData.size || 'medium'; // Default to medium if undefined
+    const gridSize = getPixelDimensions(entitySize); // Dynamic Resolution (32, 64, 128...)
     
     // Data State
-    const [pixels, setPixels] = useState<string[][]>(Array(GRID_SIZE).fill(Array(GRID_SIZE).fill('transparent')));
+    const [pixels, setPixels] = useState<string[][]>(Array(gridSize).fill(Array(gridSize).fill('transparent')));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [metadata, setMetadata] = useState<any>({});
     
     // UI State
-    const [tool, setTool] = useState<'pencil' | 'eraser' | 'fill' | 'picker'>('pencil');
+    const [tool, setTool] = useState<'pencil' | 'eraser' | 'picker'>('pencil');
     const [color, setColor] = useState('#FF0000');
     const [isDrawing, setIsDrawing] = useState(false);
     
@@ -54,24 +46,51 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const [isGenerating, setIsGenerating] = useState(false);
     const [jobId, setJobId] = useState<string | null>(null);
     const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Initial Load
+    // Initial Load & Resizing Logic
     useEffect(() => {
         if (value) {
             try {
                 const parsed = JSON.parse(value);
+                let loadedPixels: string[][] = [];
+
                 if (Array.isArray(parsed) && Array.isArray(parsed[0])) {
-                    setPixels(parsed);
+                    loadedPixels = parsed;
                 } else if (parsed.pixels) {
-                    setPixels(parsed.pixels);
+                    loadedPixels = parsed.pixels;
                     if (parsed.prompt) setPrompt(parsed.prompt);
                     if (parsed.metadata) setMetadata(parsed.metadata);
                 }
+
+                // Resize Guard: If loaded pixels don't match grid size, pad or crop?
+                // For now, if sizes mismatch, we trust the DB data but warn, 
+                // OR we can implement migration logic here. 
+                // Simplest SOTA: Just use loaded data, but UI grid might look weird if mismatch.
+                // Let's force reset if dimensions are fundamentally different to avoid crash.
+                if (loadedPixels.length !== gridSize) {
+                    console.warn(`PixelForge: Dimension mismatch. Loaded ${loadedPixels.length}, Expected ${gridSize}. Resizing...`);
+                    // Create new empty grid of correct size
+                    const newGrid = Array(gridSize).fill(null).map(() => Array(gridSize).fill('transparent'));
+                    // Copy what fits
+                    for(let y=0; y<Math.min(loadedPixels.length, gridSize); y++) {
+                        for(let x=0; x<Math.min(loadedPixels[0].length, gridSize); x++) {
+                            newGrid[y][x] = loadedPixels[y][x];
+                        }
+                    }
+                    setPixels(newGrid);
+                } else {
+                    setPixels(loadedPixels);
+                }
+
             } catch(e) {
                 console.error("PixelForge: Failed to parse value", e);
             }
+        } else {
+            // Initialize empty grid if no value
+            setPixels(Array(gridSize).fill(Array(gridSize).fill('transparent')));
         }
-    }, [value]);
+    }, [value, gridSize]); // Re-run when entitySize changes (gridSize)
 
     // Polling System
     useEffect(() => {
@@ -83,16 +102,13 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                 setJobStatus(data.state);
                 
                 if (data.state === 'completed' && data.result) {
-                    // Success! Apply pixels
                     if (data.result.pixelData) {
                          setPixels(data.result.pixelData);
-                         // Auto-save
                          propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
                     }
                     setIsGenerating(false);
                     setJobId(null);
                 } else if (data.state === 'failed') {
-                    console.error("Forge Job Failed");
                     setIsGenerating(false);
                     setJobId(null);
                 }
@@ -105,37 +121,31 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         return () => clearInterval(interval);
     }, [jobId, jobStatus]);
 
-    // Auto-Context: Pre-fill prompt from Entity Data
+    // Auto-Context
     useEffect(() => {
         if (!prompt && modifiedData) {
             const parts = [];
             if (modifiedData.name) parts.push(modifiedData.name);
             if (modifiedData.description) parts.push(modifiedData.description);
-            if (parts.length > 0) {
-                setPrompt(parts.join('. '));
-            }
+            if (parts.length > 0) setPrompt(parts.join('. '));
         }
-    }, [modifiedData, prompt]); // Only run if prompt is empty
+    }, [modifiedData, prompt]);
 
     const handleGenerate = async () => {
-        if (!prompt) return; // Should be handled by button disabled state
-        
+        if (!prompt) return;
         setIsGenerating(true);
         setJobStatus('queued');
         try {
              const { data } = await post('/map-explorer/forge/dispatch', {
-                 prompt, // Use state directly now
-                 type: 'Sprite', // TODO: Make selectable
-                 archetype: 'Humanoid', // TODO: Make selectable
-                 blueprint: [], // TODO: Load Blueprint
+                 prompt, 
+                 type: 'Sprite', 
+                 archetype: 'Humanoid', 
+                 size: entitySize, // Pass Dynamic Size to Backend
                  model: 'gemini-1.5-flash-latest'
              });
              
-             if (data.jobId) {
-                 setJobId(data.jobId);
-             }
-        } catch (err) {
-            console.error("Forge Dispatch Failed", err);
+             if (data.jobId) setJobId(data.jobId);
+        } catch (_err) {
             setIsGenerating(false);
             setJobStatus('failed');
         }
@@ -156,6 +166,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     };
 
     const handlePixelClick = (x: number, y: number) => {
+        // Deep copy because row arrays might be shared references if initialized via .fill(Array())
         const newPixels = pixels.map(row => [...row]);
         
         if (tool === 'picker') {
@@ -171,11 +182,61 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         propagateChange(newPixels, prompt);
     };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleAutoCenter = () => {
+        const matrix = pixels;
+        const rows = matrix.length;
+        const cols = matrix[0].length;
+        
+        let minX = cols, maxX = -1, minY = rows, maxY = -1;
+        
+        // Scan
+        for(let y=0; y<rows; y++) {
+            for(let x=0; x<cols; x++) {
+                if(matrix[y][x] !== 'transparent') {
+                    if(x < minX) minX = x;
+                    if(x > maxX) maxX = x;
+                    if(y < minY) minY = y;
+                    if(y > maxY) maxY = y;
+                }
+            }
+        }
+        
+        if(maxX === -1) return; // Empty
+        
+        const width = maxX - minX + 1;
+        const height = maxY - minY + 1;
+        const centerX = minX + Math.floor(width/2);
+        const centerY = minY + Math.floor(height/2);
+        
+        const targetCenterX = Math.floor(cols/2);
+        const targetCenterY = Math.floor(rows/2);
+        
+        const deltaX = targetCenterX - centerX;
+        const deltaY = targetCenterY - centerY;
+        
+        if(deltaX === 0 && deltaY === 0) return;
+        
+        const newMatrix = Array(rows).fill(null).map(() => Array(cols).fill('transparent'));
+        
+        for(let y=0; y<rows; y++) {
+            for(let x=0; x<cols; x++) {
+                if(matrix[y][x] !== 'transparent') {
+                    const newX = x + deltaX;
+                    const newY = y + deltaY;
+                    if(newX >= 0 && newX < cols && newY >= 0 && newY < rows) {
+                        newMatrix[newY][newX] = matrix[y][x];
+                    }
+                }
+            }
+        }
+        
+        setPixels(newMatrix);
+        propagateChange(newMatrix, prompt);
+    };
 
     return (
         <Box>
-            {/* Inline Preview & Button */}
+            {/* Inline Preview */}
             <Flex gap={4} alignItems="center">
                  <Box 
                     background="neutral150" 
@@ -185,7 +246,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                  >
                      <div style={{
                         display: 'grid',
-                        gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                        gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
                         width: '100%',
                         height: '100%'
                      }}>
@@ -200,7 +261,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                      </div>
                  </Box>
                  <Button onClick={() => setIsModalOpen(true)} startIcon={<Pencil />} variant="secondary">
-                     Open Pixel Forge
+                     Open Pixel Forge ({gridSize}x{gridSize})
                  </Button>
             </Flex>
 
@@ -215,7 +276,9 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                 <Flex gap={2}>
                                     <Magic />
                                     <Typography variant="beta">Pixel Forge</Typography>
-                                    <Typography variant="pi" textColor="neutral600">SOTA Editor</Typography>
+                                    <Typography variant="pi" textColor="neutral600">
+                                        {entitySize.toUpperCase()} ({gridSize}px)
+                                    </Typography>
                                 </Flex>
                                 <Button onClick={() => setIsModalOpen(false)} variant="tertiary">Close</Button>
                             </Flex>
@@ -258,6 +321,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                  <Button size="S" variant={tool === 'pencil' ? 'default' : 'secondary'} onClick={() => setTool('pencil')}><Pencil /></Button>
                                                  <Button size="S" variant={tool === 'eraser' ? 'default' : 'secondary'} onClick={() => setTool('eraser')}><PaintBrush /></Button>  
                                                  <Button size="S" variant={tool === 'picker' ? 'default' : 'secondary'} onClick={() => setTool('picker')}><Eye /></Button>
+                                                 <Button size="S" variant="secondary" onClick={handleAutoCenter} title="Auto-Center Content">center</Button>
                                                  <Box 
                                                     background="neutral0" 
                                                     borderColor="neutral200" 
@@ -286,7 +350,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                          shadow="tableShadow"
                                          style={{ 
                                              display: 'grid', 
-                                             gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                                             gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
                                              width: '100%',
                                              maxWidth: '600px',
                                              aspectRatio: '1/1',

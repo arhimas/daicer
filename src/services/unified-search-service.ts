@@ -1,8 +1,5 @@
-// Unified Search Service
-// import { embeddingService } from './embedding-service'; // Removed unused
-
-// eslint-disable-next-line no-var, @typescript-eslint/no-explicit-any
-declare var strapi: any; // Global Strapi
+import type { Core } from '@strapi/strapi';
+declare let strapi: Core.Strapi;
 
 /**
  * Represents a result from the unified search service.

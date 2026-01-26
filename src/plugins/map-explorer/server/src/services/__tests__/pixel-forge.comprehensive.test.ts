@@ -1,6 +1,6 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { PixelForgeService } from '../pixel-forge-service';
+import { PixelForgeService } from '../pixel-forge';
 
 // Mock generic strapi structure
 const mockStrapi = {
@@ -29,7 +29,7 @@ describe('PixelForgeService Comprehensive Suite (SOTA Generation)', () => {
             });
             mockStrapi.db.query = vi.fn().mockReturnValue({ findOne: mockFindOne });
 
-            const buffer = await service.generateEntity('ent_123');
+            const grid = await service.generateEntity('ent_123');
             
             expect(mockStrapi.db.query).toHaveBeenCalledWith('api::entity.entity');
             expect(mockFindOne).toHaveBeenCalledWith({
@@ -37,12 +37,10 @@ describe('PixelForgeService Comprehensive Suite (SOTA Generation)', () => {
                 populate: ['race', 'appearance', 'equipment', 'inventory']
             });
 
-            expect(Buffer.isBuffer(buffer)).toBe(true);
-            // Magic bytes for PNG: 89 50 4E 47
-            expect(buffer[0]).toBe(0x89);
-            expect(buffer[1]).toBe(0x50);
-            expect(buffer[2]).toBe(0x4E);
-            expect(buffer[3]).toBe(0x47);
+            expect(Array.isArray(grid)).toBe(true);
+            expect(Array.isArray(grid[0])).toBe(true);
+            // Size Check (Medium = 32)
+            expect(grid.length).toBe(32);
         });
 
         it('should throw error if entity not found', async () => {
@@ -60,9 +58,9 @@ describe('PixelForgeService Comprehensive Suite (SOTA Generation)', () => {
              });
              mockStrapi.db.query = vi.fn().mockReturnValue({ findOne: mockFindOne });
  
-             const buffer = await service.generateItem('item_sword');
-             expect(Buffer.isBuffer(buffer)).toBe(true);
-        });
+             const grid = await service.generateItem('item_sword');
+             expect(Array.isArray(grid)).toBe(true);
+         });
     });
 
     describe('3. Anatomy Generation Logic', () => {

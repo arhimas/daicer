@@ -56,7 +56,10 @@ type ToolHandler = (roomId: string, payload: unknown, user: unknown) => Promise<
 /**
  * Definition of a registered agent tool.
  */
-interface ToolDefinition {
+/**
+ * Definition of a registered agent tool.
+ */
+export interface ToolDefinition {
   /** Unique snake_case identifier (e.g., 'perform_attack'). */
   name: string;
   /** Human-readable description for LLM context. */
@@ -163,7 +166,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       interface HydrationContext {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         attributes: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        stats: any;
         proficiencyBonus: number;
+        level: number;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         equipment: any[];
       }
@@ -181,7 +187,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
       const context: HydrationContext = {
         attributes: actor.stats,
+        stats: actor.stats, // Map alias
         proficiencyBonus: 2, // TODO: Calc from level
+        level: Number(actor.level) || 1, 
         equipment,
       };
 

@@ -1,6 +1,6 @@
 import { BaseCompiler, CompilationResult } from '../Compiler';
 import { ActionHydrator } from '../../derivation/ActionHydrator';
-import { DerivationContext } from '../../derivation/types';
+import { DerivationContext, createValidationContext } from '../../derivation/types';
 
 /**
  * Validates 'api::item.item' entities.
@@ -31,17 +31,12 @@ export class EquipmentCompiler extends BaseCompiler<Record<string, any>> {
                         (data.equipment_category && ['weapon', 'simple-weapon', 'martial-weapon'].includes(data.equipment_category.slug));
 
         if (isWeapon) {
-            const mockContext: DerivationContext = {
-                stats: { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 },
-                attributes: { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 },
-                proficiencyBonus: 2,
-                spellcastingAbility: 'intelligence', // Irrelevant for weapons usually
-                level: 1,
-                equipment: [],
-            };
+            const mockContext = createValidationContext();
 
             try {
-                const actions = ActionHydrator.hydrateFromEquipment(data, mockContext);
+                // Cast to SerializedItem for hydration attempt
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const actions = ActionHydrator.hydrateFromEquipment(data as any, mockContext);
                 
                 if (!actions || actions.length === 0) {
                      this.logError(result, 'Weapon Hydration failed: No actions generated.');
@@ -61,7 +56,8 @@ export class EquipmentCompiler extends BaseCompiler<Record<string, any>> {
                      });
                 }
             } catch (e) {
-                this.logError(result, `Weapon Hydration Crash: ${e.message}`);
+                 
+                this.logError(result, `Weapon Hydration Crash: ${(e as Error).message}`);
             }
         }
 

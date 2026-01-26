@@ -260,7 +260,9 @@ export default ({ strapi }) => ({
       .map((entry) => ({ ...entry.item, name: entry.item.name }));
 
     const derived = EntityDeriver.derive({
+      stats: attributes, 
       attributes,
+      proficiencyBonus: 2, // Default
       classes: createdEntity.classes?.map((c) => ({
         name: c.class.name,
         level: c.level,

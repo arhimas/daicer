@@ -114,49 +114,14 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
       return ctx.unauthorized('You must be logged in to join a room');
     }
 
-    // Find room by roomId or code
-    const room = await strapi.db.query('api::room.room').findOne({
-      where: {
-        $or: [{ roomId: id }, { code: id }],
-      },
-    });
-
-    if (!room) {
-      return ctx.notFound('Room not found');
+    try {
+      const result = await strapi.service('api::room.room').joinRoom(id, user);
+      return { success: true, data: result.room, message: result.message };
+    } catch (e) {
+      const msg = (e as Error).message;
+      if (msg === 'Room not found') return ctx.notFound(msg);
+      return ctx.badRequest(msg);
     }
-
-    const players = Array.isArray(room.players) ? room.players : [];
-
-    // Strict fix: check implicit type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const isAlreadyJoined = players.some((p: any) => p.userId == user.id || p.userId == user.documentId);
-
-    if (isAlreadyJoined) {
-      return { success: true, data: room, message: 'Already joined' };
-    }
-
-    const newPlayer: RoomPlayer = {
-      id: user.id || user.documentId,
-      userId: user.id || user.documentId,
-      name: user.username || 'Player',
-      character: null,
-      isReady: false,
-      isOnline: true,
-      joinedAt: Date.now(),
-    };
-
-    const updatedPlayers = [...players, newPlayer];
-
-    const updateData: RoomCreationInput = {
-      players: updatedPlayers,
-    };
-
-    const updatedRoom = await strapi.entityService.update('api::room.room', room.documentId || room.id, {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: updateData as any,
-    });
-
-    return { success: true, data: updatedRoom };
   },
 
   /**

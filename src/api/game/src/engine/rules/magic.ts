@@ -1,7 +1,8 @@
-import { ActionIntent, ActionDefinition, ActionType } from './actions';
+import { ActionIntent, ActionType } from './actions';
 import { z } from 'zod';
 import { EntitySheetSchema } from '../schemas/entity-sheet';
 import { calculateDistance, Point3D } from '../voxel/utils/math';
+import { RuntimeAction } from '../derivation/types';
 
 type EntitySheet = z.infer<typeof EntitySheetSchema>;
 
@@ -26,17 +27,14 @@ export interface SpellResult {
   isAoE: boolean;
 }
 
-function findSpell(sheet: EntitySheet, actionId: string): ActionDefinition | undefined {
-  return sheet.structuredActions.find((a) => a.id === actionId && a.type === 'spell');
+function findSpell(sheet: EntitySheet, actionId: string): RuntimeAction | undefined {
+  // Safe cast since Engine ensures structuredActions are RuntimeActions
+  const actions = (sheet.structuredActions || []) as unknown as RuntimeAction[];
+  return actions.find((a) => a.id === actionId && a.sourceType === 'spell');
 }
 
 /**
  * Validates if a spell can be cast.
- * 
- * Checks:
- * 1. Preparation (Action exists).
- * 2. Slots (If leveled).
- * 3. Range (Calculated vs Target Pos).
  */
 export function validateSpellCast(
   caster: EntitySheet,
@@ -46,14 +44,14 @@ export function validateSpellCast(
 ): MagicValidationResult {
   if (intent.type !== ActionType.CastSpell) return { valid: false, reason: 'Invalid Intent' };
 
-  // 1. Check if Known/Prepared (Implicit in structuredActions existence)
+  // 1. Check if Known/Prepared
   const spellAction = findSpell(caster, intent.actionId);
-  if (!spellAction || spellAction.type !== 'spell') {
+  if (!spellAction || spellAction.sourceType !== 'spell') {
     return { valid: false, reason: 'Spell not prepared or not found in actions.' };
   }
 
   // 2. Check Spell Slots
-  const level = intent.level ?? spellAction.level;
+  const level = intent.level ?? spellAction.level ?? 0;
 
   // Cantrips (Level 0) are always valid recourse-wise
   if (level > 0) {
@@ -68,15 +66,20 @@ export function validateSpellCast(
 
   // 3. Range Check
   if (targetPos) {
-    // const range = parseInt(spellAction.range);
-    // For MVP assume range string is just number ?? Or "Touch"
     let maxDist = 5;
-    if (spellAction.range.toLowerCase().includes('touch'))
-      maxDist = 7; // Reach + slack
-    else {
-      const matches = spellAction.range.match(/\d+/);
-      if (matches) maxDist = parseInt(matches[0]);
-      else maxDist = 30; // Fallback
+    
+    // Check structured range object first
+    if (spellAction.range) {
+        if (spellAction.range.type === 'touch') maxDist = 7; // Reach + slack
+        else maxDist = spellAction.range.value || 30;
+    } else if (spellAction.originalRange) {
+        // Fallback to parsing string
+        if (spellAction.originalRange.toLowerCase().includes('touch')) maxDist = 7;
+        else {
+            const matches = spellAction.originalRange.match(/\d+/);
+            if (matches) maxDist = parseInt(matches[0]);
+            else maxDist = 30; 
+        }
     }
 
     const dist = calculateDistance(casterPos, targetPos);
@@ -90,8 +93,6 @@ export function validateSpellCast(
 
 /**
  * Resolves the casting of a spell.
- * - Deducts slots.
- * - Handles Concentration (Drop old, Set new).
  */
 export interface ResolveSpellResult {
   slotConsumed?: number;
@@ -107,21 +108,17 @@ export function resolveSpell(sheet: EntitySheet, intent: ActionIntent): ResolveS
     throw new Error('Invalid intent type for resolveSpell');
   }
 
-  const spell = sheet.structuredActions.find((a) => a.id === intent.actionId && a.type === 'spell');
+  const spell = findSpell(sheet, intent.actionId);
 
-  if (!spell || spell.type !== 'spell') {
+  if (!spell || spell.sourceType !== 'spell') {
     throw new Error(`Spell ${intent.actionId} not found`);
   }
 
   // 1. Deduct Slot (if not cantrip)
-  // Logic simplified: intent.level or spell.level?
-  // Use intent level (upcasting support hook).
   let slotConsumed: number | undefined;
 
-  const levelToConsume = intent.level ?? spell.level;
+  const levelToConsume = intent.level ?? spell.level ?? 0;
 
-  // Validate again (redundant but safe)? validateSpellCast caller usually does this.
-  // We just execute.
   if (levelToConsume > 0) {
     if (sheet.spellbook?.slots) {
       const slot = sheet.spellbook.slots.find((s) => s.level === levelToConsume);
@@ -152,16 +149,14 @@ export function resolveSpell(sheet: EntitySheet, intent: ActionIntent): ResolveS
   }
 
   // 3. Output
-  // Default DC from sheet or spell?
-  // SpellDefinition might have override, else Calculate from Spellbook.
   const dc = sheet.spellbook?.spellSaveDc ?? 10;
-  const saveStat = spell.save?.stat || 'dexterity'; // Default
+  const saveStat = spell.save?.attribute || 'dex'; 
 
   // AoE Check
-  // Infer from spell range/target logic?
-  // MVP: If range is "Self (15-foot cone)", it is AoE.
-  // If targetId is missing but location provided, implies AoE.
-  const isAoE = !!spell.range.match(/cone|sphere|line|cylinder|radius/i);
+  let isAoE = !!spell.aoe;
+  if (!isAoE && spell.originalRange) {
+      isAoE = !!spell.originalRange.match(/cone|sphere|line|cylinder|radius/i);
+  }
 
   return {
     slotConsumed,

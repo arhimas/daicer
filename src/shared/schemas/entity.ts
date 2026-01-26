@@ -205,7 +205,7 @@ export const EntitySheetSchema = z.object({
   expertises: z.array(z.string()),
 
   // Equipment & Inventory
-  equipment: z.array(z.any()), // Legacy/Flat
+  equipment: z.array(z.unknown()), // Legacy/Flat - Deprecated in favor of inventory, strictly unknown to force checking
   inventory: z.array(InventoryItemSchema).default([]), // New Strict
   currency: z.object({
     cp: z.number(),
@@ -218,7 +218,7 @@ export const EntitySheetSchema = z.object({
   // Actions & Capabilities
   actions: z.array(EntityActionSchema).default([]),
   // Deprecated support (optional)
-  structuredActions: z.array(z.any()).default([]),
+  structuredActions: z.array(z.unknown()).default([]),
 
   // Spellcasting
   spells: z.array(EntitySpellSchema).default([]),
@@ -231,10 +231,10 @@ export const EntitySheetSchema = z.object({
   features: z.array(FeatureSchema).default([]),
 
   // Lists (Legacy/Migration support combined with new)
-  talents: z.array(z.any()).default([]), // Simplified from TalentSchema
-
+  talents: z.array(TalentSchema).default([]), // Enforcing strict TalentSchema
+  
   // State Tracking
-  conditions: z.array(z.any()).default([]), // Simplified from ConditionSchema
+  conditions: z.array(ConditionSchema).default([]), // Enforcing strict ConditionSchema
   resources: z.array(ResourcePoolSchema).default([]),
 
   // Flavor / Blueprint Data

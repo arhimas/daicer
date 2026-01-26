@@ -15,7 +15,7 @@
  */
 
 import { Core } from '@strapi/strapi';
-import { EngineCommand, MoveCommand } from '../schemas/commands';
+import { Command as EngineCommand, MoveCommand } from '../src/engine/types';
 import { GameEvent } from '../schemas/events';
 import { ActionResult, StateDiff } from './action-engine';
 
@@ -96,11 +96,14 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       // 1. INTENT PHASE
       const commands: EngineCommand[] = [];
+      // Import ActionParser dynamically to avoid top-level side effects or circular deps if any
+      const { ActionParser } = await import('../src/engine/input/ActionParser');
+
       for (const input of inputs) {
         if (input.type === 'command' && input.command) {
           commands.push(input.command);
         } else if (input.type === 'text' && input.text && input.agentId) {
-          const parsed = parseTextAction(input.text, input.agentId);
+          const parsed = ActionParser.parse(input.text, input.agentId);
           if (parsed) {
             commands.push(parsed);
           } else {

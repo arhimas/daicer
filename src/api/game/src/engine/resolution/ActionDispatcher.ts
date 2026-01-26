@@ -37,7 +37,7 @@ export class ActionDispatcher {
     log.push(`Action: ${action.name} used by ${source.name} on ${target.name}`);
 
     // 1. Attack Roll
-    if ('attack' in action && action.attack) {
+    if (action.attack) {
       const d20 = Math.floor(Math.random() * 20) + 1; // Replace with deterministic PRNG if seed provided
       const total = d20 + action.attack.bonus;
       crit = d20 >= (action.attack.critRange || 20);
@@ -50,10 +50,21 @@ export class ActionDispatcher {
     }
 
     // 2. Saving Throw
-    if (hit && 'save' in action && action.save) {
+    if (hit && action.save) {
       // Look up target save bonus
-      const saveAttr = action.save.attribute; // e.g. 'dex'
-      const mod = Math.floor(((target.stats?.[saveAttr] || 10) - 10) / 2);
+      const saveAttrShort = action.save.attribute; // 'str', 'dex'
+      
+      const attrMap: Record<string, string> = {
+          str: 'strength', dex: 'dexterity', con: 'constitution',
+          int: 'intelligence', wis: 'wisdom', cha: 'charisma'
+      };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const targetStats = target.stats as any;
+      const fullAttr = attrMap[saveAttrShort] || 'dexterity';
+      
+      const statVal = targetStats?.[fullAttr] ?? 10;
+      const mod = Math.floor((statVal - 10) / 2);
+      
       const prof = 0; // TODO: Check proficiency
       const saveBonus = mod + prof; // Simplified
 
@@ -71,7 +82,7 @@ export class ActionDispatcher {
     const damageDetails: string[] = [];
     const conditionsApplied: string[] = [];
 
-    if (hit && 'effects' in action && action.effects) {
+    if (hit && action.effects) {
       action.effects.forEach((effect) => {
         if (effect.type === 'damage' || effect.type === 'healing') {
           // Parse Dice (e.g. "8d6")
@@ -90,7 +101,7 @@ export class ActionDispatcher {
           val += effect.flat || 0;
 
           // Handle Save Mapping
-          if ('save' in action && action.save && savePassed !== undefined && savePassed) {
+          if (action.save && savePassed !== undefined && savePassed) {
             if (action.save.effect === 'negate') val = 0;
             if (action.save.effect === 'half') val = Math.floor(val / 2);
           }

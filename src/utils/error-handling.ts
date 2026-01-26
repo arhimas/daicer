@@ -19,7 +19,7 @@ export interface StrapiError extends Error {
 /**
  * Type guard to check if an unknown error looks like a StrapiError
  */
-export function isStrapiError(error: unknown): error is StrapiError {
+function isStrapiError(error: unknown): error is StrapiError {
   return error instanceof Error && typeof (error as StrapiError).details === 'object';
 }
 

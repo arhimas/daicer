@@ -148,6 +148,14 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         }) || [];
 
     const derived = EntityDeriver.derive({
+      stats: {
+        strength: stats.strength || 10,
+        dexterity: stats.dexterity || 10,
+        constitution: stats.constitution || 10,
+        intelligence: stats.intelligence || 10,
+        wisdom: stats.wisdom || 10,
+        charisma: stats.charisma || 10,
+      },
       attributes: {
         strength: stats.strength || 10,
         dexterity: stats.dexterity || 10,
@@ -157,6 +165,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         charisma: stats.charisma || 10,
       },
       level: monster.level || Math.max(1, Math.floor(monster.challenge_rating || 1)),
+      proficiencyBonus: 2, // Default
       isMonster: true,
       equipment: equipmentForDeriver,
       innateActions: [],
@@ -341,21 +350,22 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     // Calculate Stats
     const derived = EntityDeriver.derive({
+      stats: attributes,
       attributes: attributes,
       classes:
         character.classes?.map((c) => ({
           name: c.class?.name || 'Unknown',
           level: c.level,
-          hitDie: c.class?.hit_die,
         })) || [],
       level: level,
       proficiencyBonus: undefined,
       equipment: equipmentForDeriver,
-      hitDie: hitDie,
+      hitDie: hitDie, // Number is allowed now
       race: {
         speed: (character.race?.speed as unknown as { walk: number }) || { walk: 30 }, // Handle strictly
       },
-      spells: activeSpells,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      spells: activeSpells as any,
     });
 
     // Check for collision

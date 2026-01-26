@@ -16,12 +16,17 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
 
   let baseSpeed: { walk: number; [key: string]: number } = { walk: 30 };
 
-  if (race?.speed) {
-    if (typeof race.speed === 'number') {
-      baseSpeed = { walk: race.speed };
-    } else {
-      baseSpeed = { ...race.speed } as { walk: number; [key: string]: number };
-    }
+  if (race) {
+      if (typeof race === 'object' && (race as any).speed) {
+         const rSpeed = (race as any).speed;
+         if (typeof rSpeed === 'number') {
+            baseSpeed = { walk: rSpeed };
+         } else {
+             baseSpeed = { ...rSpeed };
+         }
+      }
+      // If race is just a string name, we can't derive speed without lookup.
+      // Assuming defaults or it's handled upstream to inject speed.
   }
 
   // Heavy Armor Penalty
