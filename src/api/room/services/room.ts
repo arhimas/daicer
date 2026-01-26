@@ -49,7 +49,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
 
     // 1. Create with temp code
     const newRoom = await strapi.entityService.create('api::room.room', {
-      data: baseData as any,
+      data: baseData as unknown as Record<string, unknown>, // Cast to unknown before Record for Strapi 5 strictness
     });
 
     try {
@@ -72,7 +72,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
         data: {
             code: codeStr,
             roomId: codeStr
-        } as any,
+        },
       });
 
       return updatedRoom;
@@ -101,7 +101,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
 
     const players = Array.isArray(room.players) ? room.players : [];
     // Strict fix: check implicit type
-    const isAlreadyJoined = players.some((p: any) => p.userId == user.id || p.userId == user.documentId);
+    const isAlreadyJoined = players.some((p: RoomPlayer) => p.userId == user.id || p.userId == user.documentId);
 
     if (isAlreadyJoined) {
        return { room, message: 'Already joined', joined: false };
@@ -120,7 +120,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
     const updatedPlayers = [...players, newPlayer];
 
     const updatedRoom = await strapi.entityService.update('api::room.room', room.documentId || room.id, {
-      data: { players: updatedPlayers } as any,
+      data: { players: updatedPlayers as unknown },
     });
 
     return { room: updatedRoom, message: 'Joined successfully', joined: true };

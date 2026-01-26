@@ -45,11 +45,11 @@ describe('PixelForge', () => {
     render(<PixelForge name="test" value="null" onChange={vi.fn()} />);
     
     // Open Modal
-    const openBtn = screen.getByText('Open Pixel Forge');
+    const openBtn = screen.getByText(/Open Pixel Forge/i);
     fireEvent.click(openBtn);
 
     // Check for title inside Modal (Specific)
-    expect(await screen.findByText('SOTA Editor')).toBeDefined();
+    expect(await screen.findByText('Pixel Forge')).toBeDefined();
     expect(screen.getByText(/Manifestation/i)).toBeDefined();
     
     const btn = screen.getByText('Forge Sprite');
@@ -61,7 +61,7 @@ describe('PixelForge', () => {
       render(<PixelForge name="test" value="null" onChange={vi.fn()} />);
       
       // Open Modal
-      fireEvent.click(screen.getByText('Open Pixel Forge'));
+      fireEvent.click(screen.getByText(/Open Pixel Forge/i));
       
       // Wait for modal and enter prompt manually (Auto-context disabled for stability)
       const input = await screen.findByPlaceholderText('Describe the aesthetic...');

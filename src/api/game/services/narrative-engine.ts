@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { generateStructured } from '../../../utils/llm/structured';
-import { getPrompt, formatPrompt } from '../../../utils/prompt';
-import { formatDmInstruction } from '../src/engine';
+import { getPrompt } from '../../../utils/prompt';
+// import { formatDmInstruction } from '../src/engine';
 // import { getStrapiClient } from '../../../utils/strapi-client'; // Assuming utility location or use strapi global
 // import { EngineEntity } from './entity-adapter'; // Removed
 import type { Player, WorldSettings, Language, Entity } from '../src/engine';

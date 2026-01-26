@@ -115,7 +115,6 @@ export class ActionHydrator {
     const dex = attributes.dexterity ?? 10;
 
     // Finesse / Ranged Logic
-    let statUsed: 'strength' | 'dexterity' = 'strength'; // normalized paramAttribute
     let mod = calculateModifier(str);
     let attrKey = 'str'; // for paramAttribute string
 
@@ -123,7 +122,6 @@ export class ActionHydrator {
     const isFinesse = item.properties?.some((p) => p.slug === 'finesse') || false;
 
     if (isRanged || (isFinesse && calculateModifier(dex) > mod)) {
-      statUsed = 'dexterity';
       attrKey = 'dex';
       mod = calculateModifier(dex);
     }

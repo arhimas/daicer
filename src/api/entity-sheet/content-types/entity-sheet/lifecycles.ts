@@ -12,7 +12,7 @@ interface LifecycleEvent {
   action: string;
   model: { uid: string };
   params: {
-    data?: any; // Data can be partial, keeping any for flexibility or Record<string, unknown>
+    data?: Record<string, unknown>; // Data can be partial
     where?: { documentId?: string; id?: number | string };
   };
   result?: {
@@ -77,7 +77,7 @@ export default {
 };
 
 // Validates inventory slots using strict Zod schema
-function validateInventorySlots(data: any) {
+function validateInventorySlots(data: { inventory?: unknown }) {
   if (!data.inventory || !Array.isArray(data.inventory)) {
     return;
   }
@@ -154,7 +154,7 @@ async function updateDerivedData(event: LifecycleEvent) {
   if (equippedInventory.length > 0) {
     for (const invEntry of equippedInventory) {
       if (invEntry.item) {
-        let equipDef: any = invEntry.item;
+        let equipDef: unknown = invEntry.item;
         
         // If item is just ID/Name string, fetch it
         if (typeof equipDef !== 'object') {

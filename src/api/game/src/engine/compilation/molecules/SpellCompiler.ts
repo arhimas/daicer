@@ -1,6 +1,6 @@
 import { BaseCompiler, CompilationResult } from '../Compiler';
 import { ActionHydrator } from '../../derivation/ActionHydrator';
-import { DerivationContext, createValidationContext } from '../../derivation/types';
+import { createValidationContext } from '../../derivation/types';
 
 /**
  * Validates 'api::spell.spell' entities.

@@ -2,7 +2,6 @@ import { ConditionCompiler } from '../atoms/ConditionCompiler';
 import { DamageTypeCompiler } from '../atoms/DamageTypeCompiler';
 import { EntityCompiler } from '../blueprints/EntityCompiler';
 import { FeatureCompiler } from '../molecules/FeatureCompiler';
-import { ConditionType } from '../../rules/conditions';
 import { CompilationResult } from '../../Compiler';
 
 // Helper to extract error messages from logs

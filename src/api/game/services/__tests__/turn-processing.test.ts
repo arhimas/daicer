@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import turnProcessingFactory from '../turn-processing';
 
 // Mock Strapi Global
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     documents: vi.fn(),
     service: vi.fn(),
@@ -21,7 +21,7 @@ describe('Turn Processing Service', () => {
                 exploredTiles: []
             };
 
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({
                 findOne: vi.fn().mockResolvedValue(mockRoom),
                 update: vi.fn() 
@@ -30,7 +30,7 @@ describe('Turn Processing Service', () => {
             const updatePosMock = vi.fn();
             const persistTurnMock = vi.fn().mockResolvedValue({ turn: { documentId: 'turn-1' }, room: mockRoom });
             
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.service.mockImplementation((name) => {
                 if (name === 'api::game.turn-persistence') return { 
                     updateCharacterPosition: updatePosMock,
@@ -57,12 +57,12 @@ describe('Turn Processing Service', () => {
                 ]
             };
 
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({ findOne: vi.fn().mockResolvedValue(mockRoom) });
             const updatePosMock = vi.fn();
             const persistTurnMock = vi.fn().mockResolvedValue({ turn: { documentId: 'turn-1' }, room: mockRoom });
 
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.service.mockImplementation((name) => {
                 if (name === 'api::game.turn-persistence') return { updateCharacterPosition: updatePosMock, persistTurn: persistTurnMock };
                 return {};

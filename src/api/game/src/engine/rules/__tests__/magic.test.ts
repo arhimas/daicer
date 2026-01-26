@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { validateSpellCast, resolveSpell, MagicValidationResult } from '../magic';
-import { EntitySheet, ActionType } from '../../types';
+import { validateSpellCast, resolveSpell } from '../magic';
+import { ActionType } from '../../types';
 
 // Mock types since Magic module depends on EntitySheetSchema which is Zod.
 // We construct a valid object matching the interface
@@ -13,9 +13,28 @@ const createCaster = (slotsCur = 2, slotsMax = 2): any => ({
         concentratingOn: null
     },
     structuredActions: [
-        { id: 'magic_missile', name: 'Magic Missile', type: 'spell', level: 1, range: '120 feet' },
-        { id: 'burning_hands', name: 'Burning Hands', type: 'spell', level: 1, range: 'Self (15-foot cone)' },
-        { id: 'cantrip', name: 'Firebolt', type: 'spell', level: 0, range: '120 feet' }
+        { 
+            id: 'magic_missile', 
+            name: 'Magic Missile', 
+            sourceType: 'spell', 
+            level: 1, 
+            range: { type: 'ranged', value: 120 } 
+        },
+        { 
+            id: 'burning_hands', 
+            name: 'Burning Hands', 
+            sourceType: 'spell', 
+            level: 1, 
+            range: { type: 'self', value: 15 }, 
+            aoe: { shape: 'cone', size: 15 } // Inferred size from name
+        },
+        { 
+            id: 'cantrip', 
+            name: 'Firebolt', 
+            sourceType: 'spell', 
+            level: 0, 
+            range: { type: 'ranged', value: 120 } 
+        }
     ]
 });
 
@@ -84,7 +103,7 @@ describe('Magic Rules', () => {
             caster.structuredActions.push({ 
                 id: 'blur', 
                 name: 'Blur', 
-                type: 'spell', 
+                sourceType: 'spell', 
                 level: 2, 
                 range: 'Self', 
                 concentration: true 
@@ -105,7 +124,7 @@ describe('Magic Rules', () => {
             caster.structuredActions.push({ 
                 id: 'blur', 
                 name: 'Blur', 
-                type: 'spell', 
+                sourceType: 'spell', 
                 level: 2, 
                 range: 'Self', 
                 concentration: true 

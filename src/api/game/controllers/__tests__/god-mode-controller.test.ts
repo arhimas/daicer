@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import godModeControllerFactory from '../god-mode';
 
 // Mock Strapi Global
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     service: vi.fn(),
     log: { error: vi.fn() }
@@ -42,7 +42,7 @@ describe('God Mode Controller', () => {
             };
 
             const processTurn = vi.fn().mockResolvedValue({ success: true });
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.service.mockReturnValue({ processTurn });
 
             const controller = godModeControllerFactory({ strapi });

@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import inventoryServiceFactory from '../inventory-service';
 
 // Mock Strapi
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     documents: vi.fn(),
     service: vi.fn(),
@@ -33,7 +33,7 @@ describe('Inventory Service', () => {
             ];
 
             const updateMock = vi.fn();
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({
                 findOne: vi.fn().mockResolvedValue({ 
                     documentId: 'ent-1', inventory: initialInventory 
@@ -60,7 +60,7 @@ describe('Inventory Service', () => {
             ];
 
             const updateMock = vi.fn();
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({
                 findOne: vi.fn().mockResolvedValue({ documentId: 'ent-1', inventory: initialInventory }),
                 update: updateMock
@@ -82,7 +82,7 @@ describe('Inventory Service', () => {
              ];
  
              const updateMock = vi.fn();
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.documents.mockReturnValue({
                  findOne: vi.fn().mockResolvedValue({ documentId: 'ent-1', inventory: initialInventory }),
                  update: updateMock
@@ -107,7 +107,7 @@ describe('Inventory Service', () => {
                  { ...makeItem(2, 'Feather', null, [], 0.1), quantity: 10 }
              ];
              
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.documents.mockReturnValue({
                  findOne: vi.fn().mockResolvedValue({ inventory: inv })
              });

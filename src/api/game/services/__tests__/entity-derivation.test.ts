@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import entityDerivationFactory from '../entity-derivation';
 
 // Mock Strapi
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     documents: vi.fn(),
     service: vi.fn(),
@@ -40,7 +40,7 @@ describe('Entity Derivation Service', () => {
 
     it('calculates derived values correctly', async () => {
         const updateMock = vi.fn();
-        // @ts-ignore
+        // @ts-expect-error: Mock
         strapi.documents.mockReturnValue({
             findOne: vi.fn().mockResolvedValue(mockSheet),
             update: updateMock

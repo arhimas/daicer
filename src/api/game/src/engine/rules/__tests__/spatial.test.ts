@@ -4,7 +4,7 @@ describe('Spatial Engine', () => {
     describe('Bresenham Line of Sight (3D)', () => {
          const emptySpace = (_: Point3D) => false;
          const obstacleAt = (target: Point3D) => (p: Point3D) => p.x === target.x && p.y === target.y && p.z === target.z;
-         const wallAtX5 = (p: Point3D) => p.x === 5;
+         // const wallAtX5 = (p: Point3D) => p.x === 5;
 
         it('should have LoS in empty space', () => {
             const start = { x: 0, y: 0, z: 0 };

@@ -13,7 +13,7 @@ vi.mock('../../../../queues/queue-manager', () => ({
 }));
 
 // Mock Strapi Global
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {};
 
 describe('Locales Controller', () => {

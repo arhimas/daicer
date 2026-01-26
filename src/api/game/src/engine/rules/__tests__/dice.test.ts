@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseDiceString, roll, DiceResult } from '../dice';
+import { parseDiceString, roll } from '../dice';
 
 describe('Dice Engine', () => {
 

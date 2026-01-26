@@ -75,9 +75,8 @@ export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
         // createMany result is usually { count: n, ids: [] } but strictly typing it is hard.
         // We check for 'ids' property existence.
         if ('ids' in result && Array.isArray((result as { ids: unknown[] }).ids)) {
-           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-           const resultWithIds = result as { ids: any[] };
-           resultWithIds.ids.forEach((id: any) => queueJob(id, 'upsert'));
+           const resultWithIds = result as { ids: (string | number)[] };
+           resultWithIds.ids.forEach((id) => queueJob(id, 'upsert'));
         } else if (Array.isArray(result)) {
            // Fallback if result IS the array of created items
             result.forEach((item) => {

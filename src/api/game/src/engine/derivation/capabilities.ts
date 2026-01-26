@@ -17,8 +17,8 @@ export function deriveSpeed(context: DerivationContext): { walk: number; [key: s
   let baseSpeed: { walk: number; [key: string]: number } = { walk: 30 };
 
   if (race) {
-      if (typeof race === 'object' && (race as any).speed) {
-         const rSpeed = (race as any).speed;
+      if (typeof race === 'object' && 'speed' in race) {
+         const rSpeed = (race as { speed: number | { walk: number } }).speed;
          if (typeof rSpeed === 'number') {
             baseSpeed = { walk: rSpeed };
          } else {

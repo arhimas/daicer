@@ -60,7 +60,7 @@ export class CompilationOrchestrator {
      const populate = this.getPopulate(uid);
 
      // 1. Fetchall
-     const entries = await strapi.entityService.findMany(uid as any, {
+     const entries = await strapi.entityService.findMany(uid as unknown as 'api::entity.entity', {
          populate
      });
 
@@ -151,8 +151,8 @@ export class CompilationOrchestrator {
                   hash: result.hash,
                   last_compiled_at: new Date().toISOString(),
                   version: '1.0.0',
-                  status: 'success'
               }
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any 
       });
 

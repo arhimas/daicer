@@ -10,7 +10,7 @@ vi.mock('@strapi/strapi', () => ({
 import roomServiceFactory from '../room';
 
 // Mock Strapi Global
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     entityService: {
         create: vi.fn(),
@@ -37,9 +37,9 @@ describe('Room Service', () => {
             const createMock = vi.fn().mockResolvedValue({ id: 12345, documentId: 'r-1' });
             const updateMock = vi.fn().mockResolvedValue({ id: 12345, documentId: 'r-1', code: 'CODE' });
 
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.entityService.create = createMock;
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.entityService.update = updateMock;
 
             const service = roomServiceFactory({ strapi });
@@ -63,10 +63,10 @@ describe('Room Service', () => {
                  players: [{ userId: 'u-1', name: 'Owner' }] 
              };
 
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.db.query.mockReturnValue({ findOne: vi.fn().mockResolvedValue(existingRoom) });
              const updateMock = vi.fn().mockResolvedValue({ ...existingRoom, players: [...existingRoom.players, {}] });
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.entityService.update = updateMock;
 
              const service = roomServiceFactory({ strapi });
@@ -83,10 +83,10 @@ describe('Room Service', () => {
                  players: [{ userId: 'u-1', name: 'Owner' }] 
              };
 
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.db.query.mockReturnValue({ findOne: vi.fn().mockResolvedValue(existingRoom) });
              const updateMock = vi.fn();
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.entityService.update = updateMock;
 
              const service = roomServiceFactory({ strapi });

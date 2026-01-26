@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateAttack, resolveAttack, resolveGrapple, AttackResult, CombatPositions } from '../combat';
+import { validateAttack, resolveAttack, CombatPositions } from '../combat';
 import { Entity, ActionType } from '../../types';
 
 // Mock helpers
@@ -27,12 +27,8 @@ const createEntity = (id: string, name: string, hp: number = 10, ac: number = 12
 });
 
 // Deterministic RNG (always rolls 10)
-const fixedRng = () => 0.5; // (0.5 * 20) = 10, floor + 1? Alea usually 0..1. Logic: Math.floor(rng() * sides) + 1. 0.5 * 20 = 10. floor=10. +1 = 11.
-// Let's check `dice.ts` roll logic later or assume average.
-// Wait, `dice.ts` uses alea. If we pass a function returning 0.5, we depend on implementation.
-// Standard logic:  Math.floor(rng() * sides) + 1. 
-// If sides=20, 0.5 * 20 = 10. +1 = 11. 
-// If sides=6, 0.5 * 6 = 3. +1 = 4.
+// Deterministic RNG (always rolls 10)
+// const _fixedRng = () => 0.5;
 
 describe('Combat Rules', () => {
     describe('validateAttack', () => {
@@ -135,13 +131,13 @@ describe('Combat Rules', () => {
     });
 
     describe('resolveGrapple', () => {
-        const attacker = createEntity('p1', 'Attacker'); // Str 10 (+0)
-        const target = createEntity('t1', 'Target'); // Str 10 (+0), Dex 10 (+0)
+        const _attacker = createEntity('p1', 'Attacker'); // Str 10 (+0)
+        const _target = createEntity('t1', 'Target'); // Str 10 (+0), Dex 10 (+0)
 
         it('should succeed if attacker rolls higher', () => {
             // Attacker rolls 0.8 -> 17. Target rolls 0.2 -> 5.
-            const i = 0;
-            const seq = [0.8, 0.2];
+            const _i = 0;
+            const _seq = [0.8, 0.2];
             // Since resolveGrapple calls roll internal which uses default rng unless passed?
             // resolveGrapple DOES NOT accept rng argument currently in the interface.
             // This makes it hard to test deterministic.

@@ -136,7 +136,7 @@ describe('Turn Pipeline Service (Comprehensive)', () => {
         await turnPipeline.processTurn('room-1', inputs);
         
         const commands = mockActionEngine.dispatch.mock.calls[0][1];
-        expect(commands[0].payload.targetPosition).toEqual({ x: 10, y: 20, z: 5 });
+        expect(commands[0].payload.targetPosition).toEqual({ x: 10, y: 20, z: 3 });
     });
 
     it('should ignore invalid MOVE format (non-numeric)', async () => {

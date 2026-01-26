@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import engineControllerFactory from '../engine';
 
 // Mock Global Strapi
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     service: vi.fn(),
     log: { error: vi.fn() }
@@ -30,7 +30,7 @@ describe('Engine Controller', () => {
              };
              const spawnMonster = vi.fn().mockResolvedValue({ id: 'spawned-1' });
              
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.service.mockReturnValue({ spawnMonster });
 
              const controller = engineControllerFactory({ strapi });
@@ -50,7 +50,7 @@ describe('Engine Controller', () => {
              };
              const executeDeterministicTurn = vi.fn().mockResolvedValue({ success: true });
              
-             // @ts-ignore
+             // @ts-expect-error: Mock
              strapi.service.mockReturnValue({ executeDeterministicTurn });
 
              const controller = engineControllerFactory({ strapi });

@@ -1,5 +1,5 @@
 import { TerrainGenerator, createUnifiedTerrainGenerator } from '../terrain-generator';
-import { WorldConfig, BlockType, BiomeType, ZLevel } from '../../types';
+import { WorldConfig, BlockType, BiomeType } from '../../types';
 
 describe('Terrain Generator', () => {
     const baseConfig: WorldConfig = {

@@ -1,8 +1,8 @@
 import { vi } from 'vitest';
-import actionEngineFactory, { ActionResult } from '../action-engine';
+import actionEngineFactory from '../action-engine';
 
 // Mock Strapi global
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     documents: vi.fn(),
     service: vi.fn(),
@@ -17,7 +17,7 @@ describe('Action Engine Services', () => {
                 handleModifyTerrain: vi.fn().mockResolvedValue({})
             };
             
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.service.mockReturnValue(mockService);
 
             const engine = actionEngineFactory({ strapi });
@@ -42,7 +42,7 @@ describe('Action Engine Services', () => {
              const mockService = {
                 handleModifyTerrain: vi.fn().mockRejectedValue(new Error('Ooops'))
             };
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.service.mockReturnValue(mockService);
 
              const engine = actionEngineFactory({ strapi });

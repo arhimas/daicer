@@ -15,7 +15,7 @@
  */
 
 import { Core } from '@strapi/strapi';
-import { Command as EngineCommand, MoveCommand } from '../src/engine/types';
+import { Command as EngineCommand } from '../src/engine/types';
 import { GameEvent } from '../schemas/events';
 import { ActionResult, StateDiff } from './action-engine';
 
@@ -45,30 +45,8 @@ interface Player {
 }
 
 // Internal helper for text parsing
-const parseTextAction = (text: string, actorId: string): EngineCommand | null => {
-  if (text.startsWith('MOVE:')) {
-    const parts = text.replace('MOVE:', '').split(',');
-    if (parts.length >= 2) {
-      const x = Number(parts[0]);
-      const y = Number(parts[1]);
-      const z = parts.length > 2 ? Number(parts[2]) : 0;
-      
-      if (isNaN(x) || isNaN(y)) return null;
+// Internal helper for text parsing - Removed unused parseTextAction
 
-      return {
-        type: 'MOVE',
-        timestamp: Date.now(),
-        payload: {
-          actorId,
-          targetPosition: { x, y, z },
-          path: [], // Will be calculated by ActionEngine
-          mode: 'walk',
-        },
-      } as MoveCommand;
-    }
-  }
-  return null;
-};
 
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**

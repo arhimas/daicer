@@ -1,4 +1,4 @@
-import { EntityStats, EntitySheet } from '../types'; // Adjusted relative path to sibling directory (engine/types)
+import { EntityStats } from '../types'; // Adjusted relative path to sibling directory (engine/types)
 import { SerializedItem, SerializedSpell } from './ActionHydrator';
 
 export { EntityStats };

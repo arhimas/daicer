@@ -1,4 +1,4 @@
-import { Entity, WorldSettings, Language } from '../types';
+import { WorldSettings } from '../types';
 import { formatDmInstruction } from '../rules/narrator';
 
 interface PromptContext {

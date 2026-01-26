@@ -1,5 +1,5 @@
 
-import { isStrapiError, formatStrapiError, logStrapiError } from '../error-handling';
+import { formatStrapiError, logStrapiError } from '../error-handling';
 
 describe('Error Handling Utils', () => {
   describe('formatStrapiError', () => {
@@ -14,15 +14,13 @@ describe('Error Handling Utils', () => {
       });
 
     it('should format a StrapiError with details', () => {
-      const strapiError = {
-        name: 'ValidationError',
-        message: 'Invalid data',
-        details: {
+      const strapiError = new Error('Invalid data') as any;
+      strapiError.name = 'ValidationError';
+      strapiError.details = {
           errors: [
             { path: ['field', 'nested'], message: 'Must be unique', name: 'ValidationError' },
             { path: ['other'], message: 'Required', name: 'ValidationError' }
           ]
-        }
       };
       
       const formatted = formatStrapiError(strapiError);
@@ -31,10 +29,8 @@ describe('Error Handling Utils', () => {
     });
 
     it('should fallback to message if no details', () => {
-      const strapiError = {
-        name: 'ValidationError',
-        message: 'Invalid data containing no details',
-      };
+      const strapiError = new Error('Invalid data containing no details') as any;
+      strapiError.name = 'ValidationError';
       expect(formatStrapiError(strapiError)).toBe('Invalid data containing no details');
     });
   });
@@ -56,12 +52,10 @@ describe('Error Handling Utils', () => {
 
     it('should log detailed Strapi errors', () => {
         const mockLogger = { error: vi.fn() };
-        const strapiError = {
-            name: 'APIError',
-            message: 'Bad Request',
-            details: {
-                errors: [{ path: ['id'], message: 'Invalid ID', name: 'Error' }]
-            }
+        const strapiError = new Error('Bad Request') as any;
+        strapiError.name = 'APIError';
+        strapiError.details = {
+            errors: [{ path: ['id'], message: 'Invalid ID', name: 'Error' }]
         };
 
         logStrapiError(mockLogger, 'API', strapiError);

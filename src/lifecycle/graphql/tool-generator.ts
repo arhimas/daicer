@@ -76,7 +76,7 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
     `;
 
     // Generate Resolver
-    toolResolvers.Mutation[camelName] = async (_parent: unknown, args: { roomId: string; input: unknown }, _ctx: unknown) => {
+    toolResolvers.Mutation[camelName] = async (_parent: unknown, _args: { roomId: string; input: unknown }, _ctx: unknown) => {
       // const { input } = args;
       // const _payload = input?.payload || input;
       // const _user = ctx?.state?.user;

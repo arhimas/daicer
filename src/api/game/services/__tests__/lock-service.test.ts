@@ -2,7 +2,7 @@ import { vi } from 'vitest';
 import lockServiceFactory from '../lock-service';
 
 // Mock Global Strapi
-// @ts-ignore
+// @ts-expect-error: Mock
 global.strapi = {
     documents: vi.fn(),
     log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() }
@@ -16,7 +16,7 @@ describe('Lock Service', () => {
 
     describe('acquire', () => {
         it('acquires lock when no lock exists', async () => {
-            // @ts-ignore
+            // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({
                 findMany: vi.fn().mockResolvedValue([]),
                 create: vi.fn().mockResolvedValue({ id: 1 })
@@ -26,13 +26,13 @@ describe('Lock Service', () => {
             const result = await service.acquire('room-1', 'proc-1');
             
             expect(result).toBe(true);
-            // @ts-ignore
+            // @ts-expect-error: Mock
             expect(strapi.documents('api::turn-lock.turn-lock').create).toHaveBeenCalled();
         });
 
         it('rejects acquisition if valid lock exists', async () => {
              const future = new Date(Date.now() + 10000).toISOString();
-             // @ts-ignore
+             // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({
                 findMany: vi.fn().mockResolvedValue([{ documentId: 'lock-1', holder_id: 'proc-2', expires_at: future }]),
                 create: vi.fn()
@@ -49,7 +49,7 @@ describe('Lock Service', () => {
              const deleteMock = vi.fn();
              const createMock = vi.fn();
              
-             // @ts-ignore
+             // @ts-expect-error: Mock
             strapi.documents.mockReturnValue({
                 findMany: vi.fn().mockResolvedValue([{ documentId: 'lock-1', holder_id: 'proc-2', expires_at: past }]),
                 delete: deleteMock,
