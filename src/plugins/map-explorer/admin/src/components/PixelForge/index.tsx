@@ -6,9 +6,10 @@ import {
     Flex, 
     Textarea,
     SingleSelect,
-    SingleSelectOption
+    SingleSelectOption,
+    Grid
 } from '@strapi/design-system';
-import { Pencil, PaintBrush, Eye, Magic } from '@strapi/icons';
+import { Pencil, PaintBrush, Eye, Magic, Code, Check } from '@strapi/icons';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
 
@@ -24,6 +25,7 @@ interface PixelForgeProps {
  * 
  * A Dynamic Pixel Art Editor embedded directly into the Strapi Content Manager.
  * Supports Variable Resolutions (32x32 to 128x128) based on Entity Size.
+ * Updated for Gemini 3 Compatibility and Data I/O.
  */
 export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const { post, get } = useFetchClient();
@@ -49,11 +51,15 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     
     // AI State
     const [prompt, setPrompt] = useState("");
-    const [model, setModel] = useState("gemini-1.5-flash-latest");
+    const [model, setModel] = useState("gemini-3-flash-preview"); // Default to Gemini 3 Flash
     const [isGenerating, setIsGenerating] = useState(false);
     const [jobId, setJobId] = useState<string | null>(null);
     const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Data I/O State
+    const [isDataModalOpen, setIsDataModalOpen] = useState(false);
+    const [dataJson, setDataJson] = useState("");
 
     // Initial Load & Resizing Logic
     useEffect(() => {
@@ -149,14 +155,6 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         setIsGenerating(true);
         setJobStatus('queued');
         try {
-             // Determine mode based on prompt or toggle? For now, 'Sprite' is default.
-             // But if we want Blueprint, we need a way to ask for it.
-             // Adding Action Toggle to UI? Or just infer? 
-             // Let's add a "Generate Blueprint" button or action.
-             // For now, assume 'Sprite' unless specified.
-             // Wait, user wants "Blueprint Generation". 
-             // I'll add a 'action' parameter to handleGenerate or separate button.
-             
              const { data } = await post('/map-explorer/forge/dispatch', {
                  prompt, 
                  type: 'Sprite', 
@@ -171,29 +169,6 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                  entityData: modifiedData // Full Context Injection
              });
              
-             if (data.jobId) setJobId(data.jobId);
-        } catch (_err) {
-            setIsGenerating(false);
-            setJobStatus('failed');
-        }
-    };
-
-    const handleGenerateBlueprint = async () => {
-        if (!prompt) return;
-        setIsGenerating(true);
-        setJobStatus('queued');
-        try {
-             const { data } = await post('/map-explorer/forge/dispatch', {
-                 prompt, 
-                 type: 'Sprite', // Generic
-                 archetype: 'Humanoid',
-                 width: gridWidth,
-                 height: gridHeight,
-                 model,
-
-                 action: 'generate_blueprint',
-                 entityData: modifiedData // Full Context Injection
-             });
              if (data.jobId) setJobId(data.jobId);
         } catch (_err) {
             setIsGenerating(false);
@@ -284,6 +259,34 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         propagateChange(newMatrix, prompt);
     };
 
+    const handleOpenData = () => {
+        setDataJson(JSON.stringify({
+            pixels,
+            prompt,
+            metadata
+        }, null, 2));
+        setIsDataModalOpen(true);
+    };
+
+    const handleImportData = () => {
+        try {
+            const parsed = JSON.parse(dataJson);
+            if(parsed.pixels) setPixels(parsed.pixels);
+            if(parsed.prompt) setPrompt(parsed.prompt);
+            if(parsed.metadata) setMetadata(parsed.metadata);
+            
+            propagateChange(
+                parsed.pixels || pixels, 
+                parsed.prompt || prompt, 
+                parsed.metadata || metadata
+            );
+            setIsDataModalOpen(false);
+        } catch(e) {
+            console.error("Invalid JSON", e);
+            alert("Invalid JSON data");
+        }
+    };
+
     return (
         <Box>
             {/* Inline Preview */}
@@ -322,7 +325,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                         
                         {/* Header */}
                         <Box background="neutral0" padding={4} shadow="filterShadow">
-                            <Flex justifyContent="space-between">
+                            <Flex justifyContent="space-between" alignItems="center">
                                 <Flex gap={2}>
                                     <Magic />
                                     <Typography variant="beta">Pixel Forge</Typography>
@@ -334,144 +337,183 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                             </Flex>
                         </Box>
 
-                        {/* Editor Body */}
-                        <Box padding={6} style={{ flex: 1, overflow: 'auto' }}>
-                             <Flex gap={6} alignItems="flex-start" wrap="wrap">
+                        {/* Top Toolbar (Tools & Color) */}
+                        <Box background="neutral0" padding={2} shadow="tableShadow" zIndex={2}>
+                            <Flex gap={2} justifyContent="center" wrap="wrap">
+                                 <Button size="S" variant={tool === 'pencil' ? 'default' : 'secondary'} onClick={() => setTool('pencil')}><Pencil /></Button>
+                                 <Button size="S" variant={tool === 'eraser' ? 'default' : 'secondary'} onClick={() => setTool('eraser')}><PaintBrush /></Button>  
+                                 <Button size="S" variant={tool === 'picker' ? 'default' : 'secondary'} onClick={() => setTool('picker')}><Eye /></Button>
+                                 <Button size="S" variant="secondary" onClick={handleAutoCenter} title="Auto-Center Content">center</Button>
                                  
-                                 {/* Sidebar Controls */}
-                                 <Box style={{ flex: '1 1 300px', maxWidth: '400px' }}>
-                                    <Flex direction="column" gap={6}>
-                                        <Box background="neutral0" padding={4} hasRadius shadow="tableShadow">
-                                            <Typography variant="delta" textColor="neutral800">Manifestation</Typography>
-                                            <Box paddingTop={2}>
-                                                <Textarea 
-                                                    name="prompt"
-                                                    placeholder="Describe the aesthetic..." 
-                                                    value={prompt}
-                                                    onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPrompt(e.target.value)}
-                                                    style={{ height: '100px' }}
-                                                />
-                                            </Box>
-                                            <Box paddingTop={4}>
-                                                <SingleSelect 
-                                                    label="Model" 
-                                                    value={model} 
-                                                    onChange={setModel}
-                                                >
-                                                    <SingleSelectOption value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Fast)</SingleSelectOption>
-                                                    <SingleSelectOption value="gemini-1.5-pro-latest">Gemini 1.5 Pro (Quality)</SingleSelectOption>
-                                                    <SingleSelectOption value="gemini-3-pro-preview">Gemini 3.0 Pro Preview</SingleSelectOption>
-                                                </SingleSelect>
-                                            </Box>
-                                            <Box paddingTop={4}>
-                                                <Button 
-                                                    onClick={handleGenerate} 
-                                                    disabled={isGenerating || !prompt} 
-                                                    fullWidth
-                                                    startIcon={<Magic />}
-                                                    loading={isGenerating}
-                                                >
-                                                    Forge Sprite
-                                                </Button>
-                                                <Box paddingTop={2}>
-                                                    <Button 
-                                                        onClick={handleGenerateBlueprint} 
-                                                        disabled={isGenerating || !prompt} 
-                                                        fullWidth
-                                                        variant="secondary"
-                                                        startIcon={<Magic />}
-                                                        loading={isGenerating}
-                                                    >
-                                                        Forge Blueprint
-                                                    </Button>
-                                                </Box>
-                                            </Box>
-                                        </Box>
+                                 <Box width="1px" background="neutral200" height="24px" margin={2} />
 
-                                        <Box background="neutral0" padding={4} hasRadius shadow="tableShadow">
-                                            <Typography variant="delta" textColor="neutral800">Tools</Typography>
-                                            <Flex gap={2} paddingTop={2} wrap="wrap">
-                                                 <Button size="S" variant={tool === 'pencil' ? 'default' : 'secondary'} onClick={() => setTool('pencil')}><Pencil /></Button>
-                                                 <Button size="S" variant={tool === 'eraser' ? 'default' : 'secondary'} onClick={() => setTool('eraser')}><PaintBrush /></Button>  
-                                                 <Button size="S" variant={tool === 'picker' ? 'default' : 'secondary'} onClick={() => setTool('picker')}><Eye /></Button>
-                                                 <Button size="S" variant="secondary" onClick={handleAutoCenter} title="Auto-Center Content">center</Button>
-                                                  <Box 
-                                                    background="neutral0" 
-                                                    borderColor="neutral200" 
-                                                    hasRadius 
-                                                    padding={1} 
-                                                    style={{ border: '1px solid #dcdce4' }}
-                                                 >
-                                                    <input 
-                                                        type="color" 
-                                                        value={color} 
-                                                        onChange={(e) => setColor(e.target.value)}
-                                                        style={{ width: '32px', height: '32px', border: 'none', background: 'none', cursor: 'pointer' }}
-                                                    />
-                                                 </Box>
-                                                 <Button 
-                                                    size="S" 
-                                                    variant={showBlueprint ? 'default' : 'secondary'} 
-                                                    onClick={() => setShowBlueprint(!showBlueprint)}
-                                                    disabled={!metadata?.blueprint}
-                                                    title="Toggle Blueprint Overlay"
-                                                 >
-                                                    BP
-                                                 </Button>
-                                            </Flex>
-                                        </Box>
-                                    </Flex>
+                                  <Box 
+                                    background="neutral0" 
+                                    borderColor="neutral200" 
+                                    hasRadius 
+                                    padding={1} 
+                                    style={{ border: '1px solid #dcdce4', display: 'flex', alignItems: 'center' }}
+                                 >
+                                    <input 
+                                        type="color" 
+                                        value={color} 
+                                        onChange={(e) => setColor(e.target.value)}
+                                        style={{ width: '24px', height: '24px', border: 'none', background: 'none', cursor: 'pointer' }}
+                                    />
                                  </Box>
+                                 
+                                 <Button 
+                                    size="S" 
+                                    variant={showBlueprint ? 'default' : 'secondary'} 
+                                    onClick={() => setShowBlueprint(!showBlueprint)}
+                                    disabled={!metadata?.blueprint}
+                                    title="Toggle Blueprint Overlay"
+                                >
+                                    BP
+                                </Button>
 
-                                 {/* Main Canvas Area */}
-                                 <Box style={{ flex: '2 1 500px', display: 'flex', justifyContent: 'center' }}>
-                                     <Box 
-                                         background="neutral150" 
-                                         padding={2}
-                                         hasRadius
-                                         shadow="tableShadow"
-                                         style={{ 
-                                             display: 'grid', 
-                                             gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
-                                             width: '100%',
-                                             maxWidth: '600px',
-                                             aspectRatio: `${gridWidth}/${gridHeight}`,
-                                             border: '1px solid #333',
-                                             cursor: tool === 'picker' ? 'copy' : 'crosshair'
-                                         }}
-                                         onMouseLeave={() => setIsDrawing(false)}
-                                         onMouseUp={() => setIsDrawing(false)}
-                                     >
-                                         {pixels.map((row, y) => 
-                                             row.map((pixelColor, x) => (
-                                                 <div 
-                                                     key={`${x}-${y}`}
-                                                     style={{ 
-                                                         backgroundColor: pixelColor === 'transparent' ? ( (x+y)%2===0 ? '#222' : '#2a2a2a') : pixelColor, 
-                                                         width: '100%', 
-                                                         height: '100%',
-                                                         position: 'relative',
-                                                         display: 'flex',
-                                                         alignItems: 'center',
-                                                         justifyContent: 'center',
-                                                         fontSize: '8px',
-                                                         color: 'rgba(255,255,255,0.7)',
-                                                         userSelect: 'none'
-                                                     }}
-                                                     onMouseDown={() => { setIsDrawing(true); handlePixelClick(x, y); }}
-                                                     onMouseEnter={() => { if (isDrawing) handlePixelClick(x, y); }}
-                                                 >
-                                                     {showBlueprint && metadata?.blueprint?.[y]?.[x] && metadata.blueprint[y][x] !== '.' && (
-                                                         <span>{metadata.blueprint[y][x]}</span>
-                                                     )}
-                                                 </div>
-                                             ))
-                                         )}
-                                     </Box>
-                                 </Box>
+                                <Box width="1px" background="neutral200" height="24px" margin={2} />
 
-                             </Flex>
+                                <Button 
+                                    size="S" 
+                                    variant="secondary" 
+                                    startIcon={<Code />}
+                                    onClick={handleOpenData}
+                                    title="Import/Export Data"
+                                >
+                                    Data
+                                </Button>
+                            </Flex>
                         </Box>
+
+                        {/* Main Canvas Area (Scrollable, Centered, Dark BG) */}
+                        <Box 
+                            style={{ 
+                                flex: 1, 
+                                overflow: 'auto', 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                backgroundColor: '#212134' // Dark background for contrast
+                            }}
+                        >
+                             <Box 
+                                 background="neutral150" 
+                                 padding={0} // No padding, exact fit
+                                 shadow="tableShadow"
+                                 style={{ 
+                                     display: 'grid', 
+                                     gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
+                                     width: '90%', // Responsive width
+                                     maxWidth: '600px',
+                                     aspectRatio: `${gridWidth}/${gridHeight}`,
+                                     border: '1px solid #4a4a6a',
+                                     cursor: tool === 'picker' ? 'copy' : 'crosshair',
+                                     imageRendering: 'pixelated'
+                                 }}
+                                 onMouseLeave={() => setIsDrawing(false)}
+                                 onMouseUp={() => setIsDrawing(false)}
+                             >
+                                 {pixels.map((row, y) => 
+                                     row.map((pixelColor, x) => (
+                                         <div 
+                                             key={`${x}-${y}`}
+                                             style={{ 
+                                                 backgroundColor: pixelColor === 'transparent' ? ( (x+y)%2===0 ? '#222' : '#2a2a2a') : pixelColor, 
+                                                 width: '100%', 
+                                                 height: '100%',
+                                                 position: 'relative',
+                                                 display: 'flex',
+                                                 alignItems: 'center',
+                                                 justifyContent: 'center',
+                                                 fontSize: '8px',
+                                                 color: 'rgba(255,255,255,0.7)',
+                                                 userSelect: 'none'
+                                             }}
+                                             onMouseDown={() => { setIsDrawing(true); handlePixelClick(x, y); }}
+                                             onMouseEnter={() => { if (isDrawing) handlePixelClick(x, y); }}
+                                         >
+                                             {showBlueprint && metadata?.blueprint?.[y]?.[x] && metadata.blueprint[y][x] !== '.' && (
+                                                 <span>{metadata.blueprint[y][x]}</span>
+                                             )}
+                                         </div>
+                                     ))
+                                 )}
+                             </Box>
+                        </Box>
+
+                        {/* Bottom Manifestation Control */}
+                        <Box background="neutral0" padding={4} shadow="filterShadow" style={{ borderTop: '1px solid #eaeaef' }}>
+                            <Grid.Root gap={4}>
+                                <Grid.Item col={8} s={12}>
+                                    <Textarea 
+                                        name="prompt"
+                                        placeholder="Describe the aesthetic to manifest..." 
+                                        value={prompt}
+                                        onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPrompt(e.target.value)}
+                                        style={{ height: '80px', resize: 'none' }}
+                                    />
+                                </Grid.Item>
+                                <Grid.Item col={4} s={12}>
+                                    <Flex direction="column" gap={2} height="100%" justifyContent="center">
+                                         <SingleSelect 
+                                            placeholder="Model"
+                                            size="S"
+                                            value={model} 
+                                            onChange={setModel}
+                                        >
+                                            <SingleSelectOption value="gemini-3-flash-preview">Gemini 3 Flash Preview</SingleSelectOption>
+                                            <SingleSelectOption value="gemini-3-pro-preview">Gemini 3 Pro Preview</SingleSelectOption>
+                                        </SingleSelect>
+                                        
+                                        <Flex gap={2}>
+                                            <Button 
+                                                onClick={handleGenerate} 
+                                                disabled={isGenerating || !prompt} 
+                                                fullWidth
+                                                startIcon={<Magic />}
+                                                loading={isGenerating}
+                                                size="S"
+                                            >
+                                                Generate
+                                            </Button>
+                                        </Flex>
+                                    </Flex>
+                                </Grid.Item>
+                            </Grid.Root>
+                        </Box>
+                        
+                        {/* Data I/O Modal Overlay */}
+                        {isDataModalOpen && (
+                            <Box 
+                                position="fixed" 
+                                top={0} left={0} right={0} bottom={0} 
+                                zIndex={200} 
+                                background="neutral100" 
+                                style={{ inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}
+                            >
+                                <Box background="neutral0" padding={6} hasRadius shadow="popupShadow" style={{ width: '600px', maxWidth: '90%' }}>
+                                    <Typography variant="beta">Data Import/Export</Typography>
+                                    <Box paddingTop={4} paddingBottom={4}>
+                                        <Typography variant="pi" textColor="neutral600" paddingBottom={2}>
+                                            Copy/Paste the JSON data below to share or save.
+                                        </Typography>
+                                        <Textarea 
+                                            style={{ height: '300px', fontFamily: 'monospace', fontSize: '12px' }}
+                                            value={dataJson}
+                                            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setDataJson(e.target.value)}
+                                        />
+                                    </Box>
+                                    <Flex gap={2} justifyContent="flex-end">
+                                        <Button variant="tertiary" onClick={() => setIsDataModalOpen(false)}>Cancel</Button>
+                                        <Button variant="success" startIcon={<Check />} onClick={handleImportData}>
+                                            Import
+                                        </Button>
+                                    </Flex>
+                                </Box>
+                            </Box>
+                        )}
+
                     </Flex>
                 </Box>
             )}

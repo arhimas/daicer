@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import path from 'path';
+
 
 // Command: NODE_OPTIONS='--max-old-space-size=8192' strapi ts:generate-types
 const cmd = 'strapi';

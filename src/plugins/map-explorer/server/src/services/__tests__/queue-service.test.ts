@@ -47,7 +47,7 @@ describe('QueueService', () => {
       mockStrapi.config.get.mockReturnValue({ host: 'localhost' });
       await service.initialize();
       // We can't easily check internal state, but it shouldn't throw
-      expect(mockStrapi.log.info).toHaveBeenCalledWith('Pixel Forge Queue Initialized');
+      expect(mockStrapi.log.info).toHaveBeenCalledWith('Pixel Forge Queue Initialized (Concurrency: 3)');
     });
   });
 
@@ -63,7 +63,7 @@ describe('QueueService', () => {
       const jobData = { prompt: 'test' };
       await service.addJob(jobData);
       
-      expect(mockAdd).toHaveBeenCalledWith('generate-sprite', jobData);
+      expect(mockAdd).toHaveBeenCalledWith('generate-sprite', expect.objectContaining(jobData), expect.anything());
     });
   });
 });
