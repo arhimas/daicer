@@ -8,4 +8,5 @@ export enum QueueName {
   GENESIS = 'genesis',
   COMPILE = 'compile',
   TRANSLATE_ENTITY = 'translate-entity',
+  PIXEL_FORGE = 'pixel-forge',
 }

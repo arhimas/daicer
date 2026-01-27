@@ -4,7 +4,9 @@ import {
   Typography, 
   Button, 
   Flex,
-  Grid
+  Grid,
+  SingleSelect,
+  SingleSelectOption
 } from '@strapi/design-system';
 // import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
@@ -28,10 +30,9 @@ interface TextureInputProps {
 export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps>((props, _ref) => {
     const { name, value, onChange, attribute, intlLabel } = props;
     const { formatMessage } = useIntl();
-    const { post } = useFetchClient();
+    const { post, get } = useFetchClient();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    // Access Parent Entity Context
     // Access Parent Entity Context
     // Unstable hook usage removed to prevent runtime crash
     // const ctx = useContentManagerContext ? useContentManagerContext() : { form: { values: {} } } as any;
@@ -41,13 +42,93 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
     // State
     const [chunk, setChunk] = useState<Chunk | null>(null);
     const [selectedColor, setSelectedColor] = useState<string>('#000000');
+    const [opacity, setOpacity] = useState<number>(1);
+    const [showDebug, setShowDebug] = useState(false);
     
+    // AI State
+    const [jobId, setJobId] = useState<string | null>(null);
+    const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [model, setModel] = useState("gemini-3-pro-preview");
+
     // Viewport
     const [scale, setScale] = useState(1);
     const [pan, setPan] = useState({ x: 0, y: 0 });
     const [isPanning, setIsPanning] = useState(false);
     const [lastMouse, setLastMouse] = useState({ x: 0, y: 0 });
     const [tool, setTool] = useState<'brush' | 'pan' | 'rect' | 'circle'>('brush');
+
+    // ... (Initial Load Effect omitted, assuming it's retained as I am replacing from State line)
+    // Wait, I must be careful not to overwrite the Load Effect if I start replacement too high.
+    // I will replace mostly the logic parts and render parts.
+
+    // Helpers
+    const getRgba = (hex: string, alpha: number) => {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    };
+
+    const getActiveColor = () => getRgba(selectedColor, opacity);
+
+    // Polling System for AI Integration
+    useEffect(() => {
+        if (!jobId || jobStatus === 'completed' || jobStatus === 'failed') return;
+        
+        const poll = async () => {
+            try {
+                const { data } = await get(`/map-explorer/forge/status/${jobId}`);
+                setJobStatus(data.state);
+                
+                if (data.state === 'completed' && data.result) {
+                    if (data.result.pixelData) {
+                         // Convert 2D string array to Chunk format
+                         // Assume 32x32
+                         const newTiles = Array(MAX_Z + 1).fill(null).map(() => Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null)));
+                         
+                         // Fill Layer 0
+                         data.result.pixelData.forEach((row: string[], y: number) => {
+                             if (!newTiles[0][y]) newTiles[0][y] = Array(GRID_SIZE).fill(null);
+                             row.forEach((color: string, x: number) => {
+                                 if (x < GRID_SIZE && y < GRID_SIZE) {
+                                     newTiles[0][y][x] = {
+                                         x, y, z: 0,
+                                         block: color,
+                                         biome: 'custom',
+                                         isWalkable: true,
+                                         isTransparent: false,
+                                         variant: 0
+                                     };
+                                 }
+                             });
+                         });
+                         
+                         const newChunk = { x: 0, y: 0, tiles: newTiles };
+                         setChunk(newChunk);
+                         propagateChange(newChunk);
+                    }
+                    setIsGenerating(false);
+                    setJobId(null);
+                } else if (data.state === 'failed') {
+                    setIsGenerating(false);
+                    setJobId(null);
+                }
+            } catch (err) {
+                console.error("Poll Error", err);
+            }
+        };
+
+        const interval = setInterval(poll, 2000);
+        return () => clearInterval(interval);
+    }, [jobId, jobStatus]); 
+    
+    // I will rewrite the component Render mostly to include the new UI.
+    
+    // Let's do a narrower replacement for the State/Logic and then another for the JSX.
+    
+    // ...
+
     
     // const [dragStart, setDragStart] = useState<{x: number, y: number} | null>(null);
     // const [dragEnd, setDragEnd] = useState<{x: number, y: number} | null>(null);
@@ -283,9 +364,11 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
             if (!newChunk.tiles[0]) newChunk.tiles[0] = [];
             if (!newChunk.tiles[0][tile.y]) newChunk.tiles[0][tile.y] = Array(GRID_SIZE).fill(null);
             
+            const color = tool === 'brush' ? getActiveColor() : 'transparent'; // Eraser concept?
+
             newChunk.tiles[0][tile.y][tile.x] = {
                 x: tile.x, y: tile.y, z: 0,
-                block: selectedColor,
+                block: color,
                 biome: 'custom',
                 isWalkable: true,
                 isTransparent: false,
@@ -308,18 +391,38 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
     };
 
     const handleGenerate = async () => {
+        // Use SOTA AI Dispatch
+        const size = (modifiedData?.size as string) || 'Medium'; // Default to Medium
+        const entityName = (modifiedData?.name as string) || '';
+        const prompt = entityName || intlLabel?.defaultMessage || name; // Use Entity Name -> Label -> Field Name
+
+        setIsGenerating(true);
+        setJobStatus('queued');
+
         try {
-            const size = modifiedData?.size || 'Medium'; // Default to Medium
-            const { data } = await post('/map-explorer/generate-texture', { size, context: 'entity' });
-            
-            if (data && data.tiles) {
-                // Ensure tiles has proper structure for our component (Chunk)
-                // Backend returns { x, y, tiles: [ [row...], ... ] }
-                setChunk(data);
-                propagateChange(data);
-            }
+             // Extract current pixels to send as Input Image for refinement!
+             // Flatten the chunk into string[][]
+             let inputPixels: string[][] | undefined = undefined;
+             if (chunk && chunk.tiles && chunk.tiles[0]) {
+                 inputPixels = chunk.tiles[0].map(row => row.map(cell => cell ? cell.block : 'transparent'));
+             }
+
+             const { data } = await post('/map-explorer/forge/dispatch', {
+                 prompt: `${prompt} texture, ${size} size`,
+                 type: 'Terrain', 
+                 archetype: 'Environment', 
+                 size,
+
+                 model, 
+                 inputPixels, // Vision Support
+                 entityData: modifiedData // Full Context Injection
+             });
+             
+             if (data.jobId) setJobId(data.jobId);
         } catch (e) {
-            console.error("Failed to generate texture", e);
+            console.error("Failed to dispatch generation", e);
+            setIsGenerating(false);
+            setJobStatus('failed');
         }
     };
 
@@ -374,9 +477,11 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                                 onClick={handleGenerate} 
                                 startIcon={<Magic />}
                                 size="S"
+                                loading={isGenerating}
+                                disabled={isGenerating}
                                 title={`Generate from Size: ${modifiedData?.size || 'Unknown'}`}
                             >
-                                Generate
+                                {isGenerating ? 'Forging...' : 'Generate'}
                             </Button>
                             <Button 
                                 variant="danger-light" 
@@ -387,6 +492,21 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                                 Clear
                             </Button>
                         </Flex>
+
+                        {/* Model Selector */}
+                        <Box paddingBottom={3}>
+                            <SingleSelect 
+                                label="AI Model" 
+                                placeholder="Select Model"
+                                size="S"
+                                value={model} 
+                                onChange={setModel}
+                            >
+                                <SingleSelectOption value="gemini-3-pro-preview">Gemini 3.0 Pro Preview</SingleSelectOption>
+                                <SingleSelectOption value="gemini-3-flash-preview">Gemini 3.0 Flash Preview</SingleSelectOption>
+                                <SingleSelectOption value="gemini-2.0-flash-exp">Gemini 2.0 Flash Exp</SingleSelectOption>
+                            </SingleSelect>
+                        </Box>
 
                         <Box 
                             background="neutral150" 
@@ -406,9 +526,12 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                                 onMouseLeave={handleMouseUp}
                                 style={{ 
                                     width: '100%', 
+                                    height: 'auto',
+                                    aspectRatio: '1',
                                     maxWidth: 'none', 
                                     cursor: tool === 'pan' ? 'grab' : 'crosshair', 
-                                    imageRendering: 'pixelated' 
+                                    imageRendering: 'pixelated',
+                                    display: 'block' 
                                 }} 
                             />
                         </Box>
@@ -433,14 +556,56 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                                 ))}
                              </Flex>
                              <Box paddingTop={4}>
-                                <Typography variant="pi">Custom Hex</Typography>
+                                <Typography variant="pi">Active Color</Typography>
+                                <Flex gap={2} alignItems="center">
+                                    <Box 
+                                        width="32px" 
+                                        height="32px" 
+                                        background={getActiveColor()} // Show preview of RGBA
+                                        hasRadius 
+                                        borderColor="neutral200"
+                                        borderWidth="1px"
+                                        borderStyle="solid"
+                                    />
+                                    <input 
+                                        type="color" 
+                                        value={selectedColor} 
+                                        onChange={e => setSelectedColor(e.target.value)} 
+                                        style={{width: '60px', height: '32px', border: 'none', background: 'none'}} 
+                                    />
+                                </Flex>
+                             </Box>
+
+                             <Box paddingTop={4}>
+                                <Flex justifyContent="space-between">
+                                    <Typography variant="pi">Opacity: {Math.round(opacity * 100)}%</Typography>
+                                </Flex>
                                 <input 
-                                    type="color" 
-                                    value={selectedColor} 
-                                    onChange={e => setSelectedColor(e.target.value)} 
-                                    style={{width: '100%', height: '40px', marginTop: '8px'}} 
+                                    type="range" 
+                                    min="0" 
+                                    max="1" 
+                                    step="0.1" 
+                                    value={opacity} 
+                                    onChange={e => setOpacity(parseFloat(e.target.value))}
+                                    style={{ width: '100%' }}
                                 />
                              </Box>
+
+                             <Box paddingTop={6}>
+                                 <Button variant="tertiary" onClick={() => setShowDebug(!showDebug)} size="S">
+                                    {showDebug ? 'Hide Data' : 'Show Data'}
+                                 </Button>
+                                 {showDebug && (
+                                     <Box 
+                                        paddingTop={2} 
+                                        background="neutral100" 
+                                        style={{ maxHeight: '200px', overflow: 'auto', fontSize: '10px' }}
+                                     >
+                                         <pre>{value ? JSON.stringify(typeof value === 'string' ? JSON.parse(value) : value, null, 2) : 'null'}</pre>
+                                     </Box>
+                                 )}
+                             </Box>
+
                          </Box>
                      </Grid.Item>
                  </Grid.Root>

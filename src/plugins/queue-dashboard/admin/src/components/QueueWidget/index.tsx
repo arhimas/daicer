@@ -16,7 +16,7 @@ import {
 // I will implement a "JobDetailsModal" subcomponent in the same file to keep it self-contained.
 
 import { Play, Cross, Trash } from '@strapi/icons';
-import { useFetchClient, useNotification } from '@strapi/strapi/admin';
+import { useFetchClient, useNotification } from '@strapi/admin/strapi-admin';
 
 interface Job {
   id: string;
@@ -28,6 +28,7 @@ interface Job {
   progress: number;
   finishedOn?: number;
   processedOn?: number;
+  returnvalue?: unknown;
 }
 
 interface QueueStats {
@@ -44,6 +45,7 @@ interface QueueStats {
     active: Job[];
     waiting: Job[];
     failed: Job[];
+    completed?: Job[]; // Added
   };
   settings?: {
     concurrency?: number;
@@ -58,7 +60,7 @@ const JobDetailsModal = ({
   onClose 
 }: { 
   jobs: Job[], 
-  type: 'active' | 'waiting' | 'failed', 
+  type: 'active' | 'waiting' | 'failed' | 'completed', 
   onClose: () => void 
 }) => {
   const [expandedJob, setExpandedJob] = useState<string | null>(null);
@@ -84,17 +86,32 @@ const JobDetailsModal = ({
                       <Typography variant="pi">{job.name}</Typography>
                     </Flex>
                     
-                    {expandedJob === job.id && (
+                     {expandedJob === job.id && (
                       <Box paddingTop={4} marginTop={4} borderStyle="solid" borderTopWidth="1px" borderColor="neutral200">
                          {job.failedReason && (
                            <Box paddingBottom={2}>
                              <Typography textColor="danger600" fontWeight="bold">Error: {job.failedReason}</Typography>
                            </Box>
                          )}
+                         {job.finishedOn && (
+                            <Box paddingBottom={2}>
+                              <Typography variant="pi" textColor="success600">Finished: {new Date(job.finishedOn).toLocaleTimeString()}</Typography>
+                            </Box>
+                         )}
                          <Typography variant="sigma" textColor="neutral600">Payload:</Typography>
                          <Box background="neutral0" padding={2} hasRadius style={{overflow: 'auto', maxHeight: '200px'}}>
                            <pre style={{fontSize: '10px'}}>{JSON.stringify(job.data, null, 2)}</pre>
                          </Box>
+                         {job.returnvalue && (
+                            <>
+                                <Box paddingTop={4}>
+                                    <Typography variant="sigma" textColor="neutral600">Result / Response:</Typography>
+                                </Box>
+                                <Box background="neutral0" padding={2} hasRadius style={{overflow: 'auto', maxHeight: '200px', marginTop: '4px'}}>
+                                    <pre style={{fontSize: '10px'}}>{JSON.stringify(job.returnvalue, null, 2)}</pre>
+                                </Box>
+                            </>
+                         )}
                       </Box>
                     )}
                  </Box>
@@ -114,7 +131,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
   const { put, post } = useFetchClient();
   const { toggleNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
-  const [inspectType, setInspectType] = useState<'active' | 'waiting' | 'failed' | null>(null);
+  const [inspectType, setInspectType] = useState<'active' | 'waiting' | 'failed' | 'completed' | null>(null);
 
   const total = stats.counts.active + stats.counts.completed + stats.counts.failed + stats.counts.waiting;
   const progress = total > 0 ? (stats.counts.completed / total) * 100 : 0;
@@ -165,7 +182,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
 
             {/* Stats Grid - "Colorful Blocks" */}
             <Grid.Root gap={4} marginBottom={6}>
-              <Grid.Item col={4}>
+              <Grid.Item col={3}>
                  <Box 
                    padding={4} 
                    background="primary100" 
@@ -180,7 +197,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
                     </Flex>
                  </Box>
               </Grid.Item>
-              <Grid.Item col={4}>
+              <Grid.Item col={3}>
                  <Box 
                    padding={4} 
                    background="warning100" 
@@ -195,7 +212,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
                     </Flex>
                  </Box>
               </Grid.Item>
-              <Grid.Item col={4}>
+              <Grid.Item col={3}>
                  <Box 
                    padding={4} 
                    background="danger100" 
@@ -207,6 +224,21 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
                     <Flex direction="column" alignItems="center" gap={1}>
                        <Typography variant="alpha" textColor="danger600" fontWeight="bold">{stats.counts.failed}</Typography>
                        <Typography variant="sigma" textColor="danger600">FAILED</Typography>
+                    </Flex>
+                 </Box>
+              </Grid.Item>
+              <Grid.Item col={3}>
+                 <Box 
+                   padding={4} 
+                   background="success100" 
+                   hasRadius 
+                   shadow="filterShadow"
+                   cursor="pointer"
+                   onClick={() => setInspectType('completed')}
+                 >
+                    <Flex direction="column" alignItems="center" gap={1}>
+                       <Typography variant="alpha" textColor="success600" fontWeight="bold">{stats.counts.completed}</Typography>
+                       <Typography variant="sigma" textColor="success600">DONE</Typography>
                     </Flex>
                  </Box>
               </Grid.Item>
@@ -275,7 +307,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
       {inspectType && stats.jobs && (
         <JobDetailsModal 
           type={inspectType} 
-          jobs={stats.jobs[inspectType]} 
+          jobs={stats.jobs[inspectType] || []} 
           onClose={() => setInspectType(null)} 
         />
       )}

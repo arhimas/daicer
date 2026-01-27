@@ -1,4 +1,5 @@
 import { GoogleGenAI, Type } from "@google/genai";
+import { PNG } from "pngjs";
 
 // Types embedded for now to avoid complexity
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
@@ -11,19 +12,16 @@ export interface GenerationConfig {
   archetype: Archetype;
   blueprint: ZoneType[][];
   model?: string;
+  inputPixels?: string[][];
+  size?: string; // e.g. 'Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan'
+  width?: number;
+  height?: number;
+
+  action?: string; // 'generate_pixel' | 'generate_blueprint'
+  entityData?: Record<string, unknown>; // Full Context
 }
 
-const FALLBACK_COLORS: Record<string, string> = {
-    'core': '#5D4037',      // Wood/Leather/Dark Body
-    'head': '#FFCC80',      // Skin/Helmet
-    'hand_l': '#FFCC80',    // Skin
-    'hand_r': '#FFCC80',    // Skin
-    'weapon': '#CFD8DC',    // Steel
-    'legs': '#3E2723',      // Dark Leather
-    'back': '#90A4AE',      // Cloak/Wings
-    'accessory': '#FFD700', // Gold
-    'none': 'transparent'
-};
+
 
 const TERMS = {
     TERRAIN: ['Solid Block', 'Landscape/Floor', 'Terrain', 'Environment'],
@@ -32,41 +30,51 @@ const TERMS = {
 
 /**
  * **Gemini Pixel Forge Service**
- * 
- * Orchestrates the generation of 32x32 pixel sprites using Google's Gemini Flash 1.5.
- * Features robustness strategies including JSON repair, grid padding, and anatomy-aware post-processing.
- * 
- * 📖 **Manual**: [Pixel Forge Documentation](../../README.md#pixel-forge)
  */
 export default ({ strapi }) => ({
   /**
    * Generates pixel data for a requested entity/terrain.
-   * 
-   * **Flow**:
-   * 1. Constructs a context-aware prompt (Entity Type + Archetype).
-   * 2. Renders an ASCII blueprint layout to guide the LLM's spatial reasoning.
-   * 3. Calls Gemini API with strict JSON schema.
-   * 4. Repairs and Validates the output grid (Self-Healing).
-   * 
-   * @param {GenerationConfig} config - The configuration payload.
-   * @returns {Promise<{ pixelData: string[][], enhancedPrompt: string }>} The generated 32x32 grid.
    */
   async generatePixelData(config: GenerationConfig) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error("GEMINI_API_KEY not configured");
     
+    // Default to 32x32 if not specified
+    const WIDTH = config.width || 32;
+    const HEIGHT = config.height || 32;
+
     const ai = new GoogleGenAI({ apiKey });
-    const modelId = config.model || 'gemini-1.5-flash-latest'; // Default if not specified
+    const modelId = config.model || 'gemini-3-pro-preview'; // Default to Pro Preview
 
     const isTerrain = TERMS.TERRAIN.includes(config.archetype) || config.type === 'Terrain' || config.type === 'Environment';
     const isItem = TERMS.ITEM.includes(config.archetype) || config.type === 'Item';
     
     const enhancedPrompt = this.enhancePrompt(config.prompt, config.type, config.archetype);
 
+    // Size & Framing Logic
+    const size = config.size || 'Medium';
+    
+    // Core Sizing Instruction
+    let framingInstruction = `FITTING: Fill the ${WIDTH}x${HEIGHT} grid comfortably.`;
+    
+    if (WIDTH > 32 || HEIGHT > 32) {
+       framingInstruction = `
+       FITTING: LARGE ENTITY (${WIDTH}x${HEIGHT}). 
+       - UTILIZE the extra space for detail.
+       - IMPORTANT: The subject MUST be centered in the ${WIDTH}x${HEIGHT} canvas.
+       - If the subject is 'Gargantuan', fill the canvas to the edges.
+       - If the subject is 'Large' (64x64), leave a small 1-2 pixel transparent border if possible, but prioritize detail.
+       `;
+    } else if (['Tiny', 'Small'].includes(size)) {
+        framingInstruction = "FITTING: CENTER the object within the middle 16x16 to 24x24 pixels. LEAVE TRANSPARENT PADDING around the edges. Do NOT touch the 32x32 border.";
+    }
+
     let specificInstruction = "";
     if (isTerrain) {
         specificInstruction = `
         MODE: TERRAIN / TEXTURE GENERATION
+        - Scale: 32x32 pixels = 1 sq. ft.
+        - Canvas Size: ${WIDTH}x${HEIGHT}.
         - The ASCII Grid below represents the surface area.
         - '#' = Surface to fill.
         
@@ -78,39 +86,41 @@ export default ({ strapi }) => ({
     } else if (isItem) {
         specificInstruction = `
         MODE: ITEM / OBJECT GENERATION
+        - Scale: 32x32 pixels = 1 sq. ft.
+        - Canvas Size: ${WIDTH}x${HEIGHT}.
+        - ${framingInstruction}
         - The ASCII Grid below represents the object's shape.
-        - '#' = Handle/Shaft
-        - 'X' = Blade/Head
-        - '+' = Guard/Decoration
-        - 'O' = Top/Head
-        - 'L' = Bottom/Base
+        - '#' = Handle/Shaft, 'X' = Blade/Head...
         
-        CRITICAL: FILL EVERY SYMBOL in the grid with a non-transparent color.
+        CRITICAL: FILL blueprinted pixels. Keep transparency outside the object.
         `;
     } else {
         specificInstruction = `
         MODE: CREATURE GENERATION
+        - Scale: 32x32 pixels = 5 sq. ft (Standard).
+        - Canvas Size: ${WIDTH}x${HEIGHT}.
+        - ${framingInstruction}
         - The ASCII Grid below represents the creature's anatomy.
-        - 'O' = Head
-        - '#' = Torso
-        - 'r'/'l' = Hands
-        - 'L' = Legs
+        - CENTERING: The entity's "feet" or base should be roughly at Y=${Math.floor(HEIGHT * 0.8)} to Y=${HEIGHT-2}.
         
         CRITICAL: FILL the anatomy with colors matching the description.
         `;
     }
 
-    const asciiBlueprint = this.gridToAscii(config.blueprint);
-
+    const asciiBlueprint = (config.blueprint && Array.isArray(config.blueprint)) 
+        ? this.gridToAscii(config.blueprint) 
+        : "NO BLUEPRINT PROVIDED - GENERATE FREELY BASED ON PROMPT";
+    
     const systemInstruction = `
       You are a Pixel Art Engine. 
-      Your goal is to fill a 32x32 grid with hex colors based on an ASCII structural map.
+      Your goal is to fill a ${WIDTH}x${HEIGHT} grid with hex colors based on an ASCII structural map.
+      ${config.inputPixels ? "You are refining an existing sprite. Use the provided image as a strong reference for shape and color, but enhance it based on the prompt." : ""}
       
       RULES:
-      1. OUTPUT: JSON array of 32 arrays (rows). Each row contains 32 hex strings.
+      1. OUTPUT: JSON array of ${HEIGHT} arrays (rows). Each row contains ${WIDTH} hex strings.
       2. BACKGROUND: Use "transparent" for '.' (dots) in the ASCII map.
       3. FOREGROUND: You MUST provide a hex color (e.g., "#FF0000") for every non-dot character in the map.
-      4. STYLE: High contrast, vivid fantasy RPG style. 32x32 resolution.
+      4. STYLE: High contrast, vivid fantasy RPG style. ${WIDTH}x${HEIGHT} resolution.
       
       ${specificInstruction}
     `;
@@ -118,17 +128,50 @@ export default ({ strapi }) => ({
     const fullPrompt = `
       ${enhancedPrompt}
       
-      ASCII BLUEPRINT MAP (32x32):
+      ASCII BLUEPRINT MAP (${WIDTH}x${HEIGHT}):
       ${asciiBlueprint}
       
-      COMMAND: Translate this ASCII map into colored pixels. 
+      COMMAND: ${config.inputPixels ? "Refine the attached sprite." : "Translate this ASCII map into colored pixels."}
       If the map has a structure symbol, THAT PIXEL MUST BE COLORED.
+      
+      ${config.entityData ? `
+      CONTEXTUAL DATA (Use this to inform details, colors, and style):
+      \`\`\`json
+      ${JSON.stringify(config.entityData, null, 2)}
+      \`\`\`
+      ` : ""}
     `;
 
+    // Construct Parts
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const contents: any[] = [{ text: fullPrompt }];
+
+    // Image Injection
+    if (config.inputPixels && config.inputPixels.length > 0) {
+        try {
+            const pngBuffer = this.pixelsToPng(config.inputPixels);
+            const base64Image = pngBuffer.toString('base64');
+            strapi.log.info(`Gemini Forge: Injecting Reference Image (${base64Image.length} chars)`);
+            contents.push({
+                inlineData: {
+                    mimeType: "image/png",
+                    data: base64Image
+                }
+            });
+        } catch (e) {
+            strapi.log.warn("Failed to process inputPixels for Vision", e);
+        }
+    }
+
     try {
+      strapi.log.info(`Gemini Forge: Sending Request to ${modelId}...`);
+      // SDK might not support direct timeout in config object, so strictly relying on internal fetch defaults
+      // But we can try passing it if the SDK allows requestOptions. 
+      // For now, let's just log before/after safely.
+      
       const response = await ai.models.generateContent({
         model: modelId,
-        contents: fullPrompt,
+        contents: contents, 
         config: {
           systemInstruction,
           responseMimeType: "application/json",
@@ -141,6 +184,7 @@ export default ({ strapi }) => ({
           }
         },
       });
+      strapi.log.info(`Gemini Forge: Response Received.`);
 
       const safeJson = this.cleanJson(response.text || "");
       let rawData;
@@ -150,7 +194,7 @@ export default ({ strapi }) => ({
           throw new Error("Failed to parse pixel grid from model response.");
       }
       
-      const validatedData = this.validateAndRepairGrid(rawData);
+      const validatedData = this.validateAndRepairGrid(rawData, WIDTH, HEIGHT);
       const cleanData = this.postProcessPixelData(validatedData, config.blueprint);
 
       return { pixelData: cleanData, enhancedPrompt };
@@ -159,6 +203,103 @@ export default ({ strapi }) => ({
        strapi.log.error("Gemini Forge Error", error);
        throw error;
     }
+  },
+
+  async generateBlueprint(config: GenerationConfig) {
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) throw new Error("GEMINI_API_KEY not configured");
+
+      const width = config.width || 32;
+      const height = config.height || 32;
+      
+      const ai = new GoogleGenAI({ apiKey });
+      const modelId = config.model || 'gemini-3-pro-preview';
+
+      const prompt = `
+          ACT AS A BLUEPRINT ARCHITECT.
+          Task: Create a structural blueprint for a "${config.prompt}".
+          Context: Pixel Art RPG Asset (${config.archetype}).
+          Grid Size: ${width}x${height}.
+
+          LEGEND (Use strictly these characters):
+          - '#' : Body / Surface / Core Structure
+          - 'O' : Head / Top Feature
+          - 'X' : Weapon / dangerous part
+          - 'l' : Left Hand / Side
+          - 'r' : Right Hand / Side
+          - 'L' : Legs / Base / Bottom
+          - '+' : Accessory / Decoration
+          - '.' : Empty Space (Transparent)
+
+          INSTRUCTIONS:
+          1. Output a JSON array of strings.
+          2. Each string represents a ROW of ${width} characters.
+          3. Total ${height} rows.
+          4. Center the object in the grid.
+          5. Use '.' for empty space.
+          6. Draw a clear silhouette using the Legend characters.
+          
+          ${config.entityData ? `
+          CONTEXTUAL DATA:
+          \`\`\`json
+          ${JSON.stringify(config.entityData, null, 2)}
+          \`\`\`
+          ` : ""}
+      `;
+
+      try {
+          const response = await ai.models.generateContent({
+            model: modelId,
+            contents: [{ text: prompt }],
+            config: {
+                // Return array of strings (rows)
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING }
+                }
+            }
+          });
+
+          const safeJson = this.cleanJson(response.text || "");
+          const rawData = JSON.parse(safeJson);
+          
+          // Use same validator but output is effectively zone map
+          const validatedGrid = this.validateAndRepairGrid(rawData, width, height);
+          
+          const charToZone: Record<string, string> = {
+              '#': 'core', 'O': 'head', 'X': 'weapon', 
+              'l': 'hand_l', 'r': 'hand_r', 'L': 'legs', 
+              '+': 'accessory', '.': 'none'
+          };
+          
+          // SCHEMATIC COLORS (Visual Representation of Metadata)
+          const zoneToColor: Record<string, string> = {
+              'core': '#8B4513',      // SaddleBrown
+              'head': '#FFD700',      // Gold
+              'hand_l': '#FFA07A',    // LightSalmon
+              'hand_r': '#FFA07A',    // LightSalmon
+              'weapon': '#C0C0C0',    // Silver
+              'legs': '#2F4F4F',      // DarkSlateGray
+              'accessory': '#EE82EE', // Violet
+              'none': 'transparent'
+          };
+          
+          const visualGrid = validatedGrid.map(row => 
+              row.map(char => {
+                  const zone = charToZone[char] || 'none';
+                  return zoneToColor[zone] || 'transparent';
+              })
+          );
+
+          // Return 'pixelData' even for blueprint so normal canvas works
+          // Return raw 'validatedGrid' (Chars) as blueprint metadata
+          return { pixelData: visualGrid, blueprint: validatedGrid };
+
+      } catch (e) {
+          strapi.log.error("Blueprint Gen Error", e);
+          throw e;
+      }
   },
 
   enhancePrompt(rawPrompt: string, type: AssetType, archetype: Archetype): string {
@@ -179,7 +320,8 @@ export default ({ strapi }) => ({
     return `Create a pixel art asset: "${rawPrompt}". ${baseStyle}`;
   },
 
-  gridToAscii(blueprint: ZoneType[][]): string {
+  gridToAscii(blueprint?: ZoneType[][]): string {
+    if (!blueprint || !Array.isArray(blueprint)) return "................................\\n".repeat(32); // Empty grid if none provided
     const map: Record<string, string> = {
         'none': '.',
         'core': '#',
@@ -206,48 +348,86 @@ export default ({ strapi }) => ({
     return clean;
   },
 
-  validateAndRepairGrid(data: unknown): string[][] {
+  validateAndRepairGrid(data: unknown, width = 32, height = 32): string[][] {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let grid = data as any; // Safe internal cast
-      if (!Array.isArray(grid)) return Array(32).fill(Array(32).fill('transparent'));
+      if (!Array.isArray(grid)) return Array(height).fill(Array(width).fill('transparent'));
 
       // Case: Flattened
-      if (grid.length > 32 && !Array.isArray(grid[0])) {
+      if (grid.length > height && !Array.isArray(grid[0])) {
           const newGrid = [];
-          const chunkSize = 32;
+          const chunkSize = width;
           for (let i = 0; i < grid.length; i += chunkSize) {
-              if (newGrid.length >= 32) break;
+              if (newGrid.length >= height) break;
               newGrid.push(grid.slice(i, i + chunkSize));
           }
           grid = newGrid;
       }
 
       // Repair Dimensions
-      if (grid.length > 32) grid = grid.slice(0, 32);
-      while (grid.length < 32) grid.push(Array(32).fill('transparent'));
+      if (grid.length > height) grid = grid.slice(0, height);
+      while (grid.length < height) grid.push(Array(width).fill('transparent'));
 
       grid = grid.map((row) => {
-          if (!Array.isArray(row)) return Array(32).fill('transparent');
+          if (!Array.isArray(row)) return Array(width).fill('transparent');
           let newRow = [...row];
-          if (newRow.length > 32) newRow = newRow.slice(0, 32);
-          while (newRow.length < 32) newRow.push('transparent');
+          if (newRow.length > width) newRow = newRow.slice(0, width);
+          while (newRow.length < width) newRow.push('transparent');
           return newRow.map((cell) => (typeof cell === 'string' ? cell : 'transparent'));
       });
 
       return grid;
   },
 
-  postProcessPixelData(generated: string[][], blueprint: ZoneType[][]): string[][] {
-    return generated.map((row, y) => 
-        row.map((color, x) => {
-            const zone = blueprint[y]?.[x] || 'none';
-            const isTransparent = !color || color === 'transparent' || color === 'none';
-            if (!isTransparent) return color;
-            if (zone !== 'none') {
-                return FALLBACK_COLORS[zone] || '#808080';
-            }
-            return 'transparent';
+  postProcessPixelData(generated: string[][], _blueprint?: ZoneType[][]): string[][] {
+    return generated.map((row, _y) => 
+        row.map((color, _x) => {
+            // Strict RGBA: If AI returns transparent, it stays transparent.
+            // We do NOT backfill with 'FALLBACK_COLORS' based on blueprint.
+            // ASCII map is for guidance, not a coloring book.
+            return color || 'transparent'; 
         })
     );
+  },
+
+  pixelsToPng(grid: string[][]): Buffer {
+      const width = grid[0]?.length || 32;
+      const height = grid.length || 32;
+      const png = new PNG({ width, height });
+
+      for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+              const color = grid[y]?.[x] || 'transparent';
+              const idx = (width * y + x) << 2;
+
+              let r = 0, g = 0, b = 0, a = 0;
+
+              if (color !== 'transparent' && color !== 'none') {
+                  const rgb = this.hexToRgb(color);
+                  if (rgb) {
+                      r = rgb.r;
+                      g = rgb.g;
+                      b = rgb.b;
+                      a = 255;
+                  }
+              }
+
+              png.data[idx] = r;
+              png.data[idx + 1] = g;
+              png.data[idx + 2] = b;
+              png.data[idx + 3] = a;
+          }
+      }
+
+      return PNG.sync.write(png);
+  },
+
+  hexToRgb(hex: string): { r: number, g: number, b: number } | null {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+      } : null;
   }
 });

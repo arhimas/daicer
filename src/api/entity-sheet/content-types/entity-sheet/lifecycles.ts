@@ -159,7 +159,7 @@ async function updateDerivedData(event: LifecycleEvent) {
         // If item is just ID/Name string, fetch it
         if (typeof equipDef !== 'object') {
            const found = await strapi.documents('api::equipment.equipment').findFirst({
-            filters: { name: equipDef }, // Assume string is Name
+            filters: { name: equipDef as string }, // Assume string is Name
             populate: ['equipment_category', 'damage_type', 'properties'],
           });
 
@@ -176,11 +176,12 @@ async function updateDerivedData(event: LifecycleEvent) {
                equipDef = null;
              }
           }
-        } else {
+        } else if (equipDef) {
            // It's an object, check if deeply populated
-           if (!equipDef.equipment_category) {
+           const ed = equipDef as { equipment_category?: unknown; documentId: string };
+           if (!ed.equipment_category) {
              equipDef = await strapi.documents('api::equipment.equipment').findOne({
-               documentId: equipDef.documentId,
+               documentId: ed.documentId,
                populate: ['equipment_category', 'damage_type', 'properties'],
              });
            }
@@ -188,7 +189,7 @@ async function updateDerivedData(event: LifecycleEvent) {
 
         if (equipDef) {
           // Clone and attach isEquipped status for Deriver
-          equipmentForDeriver.push({ ...equipDef, isEquipped: true });
+          equipmentForDeriver.push({ ...(equipDef as object), isEquipped: true } as Equipment);
         }
       }
     }
@@ -215,11 +216,11 @@ async function updateDerivedData(event: LifecycleEvent) {
   // Preserve Hydration of features logic (legacy/separate)
   let classData = current.class;
   if (data.class && data.class !== current.class?.documentId) {
-    classData = await strapi.documents('api::class.class').findOne({ documentId: data.class, populate: ['features'] });
+    classData = await strapi.documents('api::class.class').findOne({ documentId: data.class as string, populate: ['features'] });
   }
   let raceData = current.race;
   if (data.race && data.race !== current.race?.documentId) {
-    raceData = await strapi.documents('api::race.race').findOne({ documentId: data.race, populate: ['features'] });
+    raceData = await strapi.documents('api::race.race').findOne({ documentId: data.race as string, populate: ['features'] });
   }
 
   const featuresInput = {

@@ -72,7 +72,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
         data: {
             code: codeStr,
             roomId: codeStr
-        },
+        } as unknown as Record<string, unknown>,
       });
 
       return updatedRoom;
@@ -120,7 +120,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
     const updatedPlayers = [...players, newPlayer];
 
     const updatedRoom = await strapi.entityService.update('api::room.room', room.documentId || room.id, {
-      data: { players: updatedPlayers as unknown },
+      data: { players: updatedPlayers } as unknown as Record<string, unknown>,
     });
 
     return { room: updatedRoom, message: 'Joined successfully', joined: true };

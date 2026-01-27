@@ -4,12 +4,14 @@ import {
     Typography, 
     Button, 
     Flex, 
-    Textarea
+    Textarea,
+    SingleSelect,
+    SingleSelectOption
 } from '@strapi/design-system';
 import { Pencil, PaintBrush, Eye, Magic } from '@strapi/icons';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
-import { getPixelDimensions } from '../../utils/entity-geometry';
+
 
 interface PixelForgeProps {
     name: string;
@@ -28,13 +30,17 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const { form } = useContentManagerContext(); // Access sibling data (size)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const modifiedData = (form as any)?.values || {};
-    const entitySize = modifiedData.size || 'medium'; // Default to medium if undefined
-    const gridSize = getPixelDimensions(entitySize); // Dynamic Resolution (32, 64, 128...)
+    
+    // Dynamic Sizing (Tiles -> Pixels)
+    const widthTiles = modifiedData.width || 1;
+    const heightTiles = modifiedData.height || 1;
+    const gridWidth = widthTiles * 32;
+    const gridHeight = heightTiles * 32;
     
     // Data State
-    const [pixels, setPixels] = useState<string[][]>(Array(gridSize).fill(Array(gridSize).fill('transparent')));
+    const [pixels, setPixels] = useState<string[][]>(Array(gridHeight).fill(Array(gridWidth).fill('transparent')));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [metadata, setMetadata] = useState<any>({});
+    const [metadata, setMetadata] = useState<Record<string, any>>({});
     
     // UI State
     const [tool, setTool] = useState<'pencil' | 'eraser' | 'picker'>('pencil');
@@ -43,6 +49,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     
     // AI State
     const [prompt, setPrompt] = useState("");
+    const [model, setModel] = useState("gemini-3-pro-preview");
     const [isGenerating, setIsGenerating] = useState(false);
     const [jobId, setJobId] = useState<string | null>(null);
     const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
@@ -64,17 +71,13 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                 }
 
                 // Resize Guard: If loaded pixels don't match grid size, pad or crop?
-                // For now, if sizes mismatch, we trust the DB data but warn, 
-                // OR we can implement migration logic here. 
-                // Simplest SOTA: Just use loaded data, but UI grid might look weird if mismatch.
-                // Let's force reset if dimensions are fundamentally different to avoid crash.
-                if (loadedPixels.length !== gridSize) {
-                    console.warn(`PixelForge: Dimension mismatch. Loaded ${loadedPixels.length}, Expected ${gridSize}. Resizing...`);
+                if (loadedPixels.length !== gridHeight || (loadedPixels[0] && loadedPixels[0].length !== gridWidth)) {
+                    console.warn(`PixelForge: Dimension mismatch. Loaded ${loadedPixels.length}x${loadedPixels[0]?.length}, Expected ${gridWidth}x${gridHeight}. Resizing...`);
                     // Create new empty grid of correct size
-                    const newGrid = Array(gridSize).fill(null).map(() => Array(gridSize).fill('transparent'));
+                    const newGrid = Array(gridHeight).fill(null).map(() => Array(gridWidth).fill('transparent'));
                     // Copy what fits
-                    for(let y=0; y<Math.min(loadedPixels.length, gridSize); y++) {
-                        for(let x=0; x<Math.min(loadedPixels[0].length, gridSize); x++) {
+                    for(let y=0; y<Math.min(loadedPixels.length, gridHeight); y++) {
+                        for(let x=0; x<Math.min(loadedPixels[0].length, gridWidth); x++) {
                             newGrid[y][x] = loadedPixels[y][x];
                         }
                     }
@@ -88,9 +91,9 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
             }
         } else {
             // Initialize empty grid if no value
-            setPixels(Array(gridSize).fill(Array(gridSize).fill('transparent')));
+            setPixels(Array(gridHeight).fill(Array(gridWidth).fill('transparent')));
         }
-    }, [value, gridSize]); // Re-run when entitySize changes (gridSize)
+    }, [value, gridWidth, gridHeight]);
 
     // Polling System
     useEffect(() => {
@@ -104,7 +107,15 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                 if (data.state === 'completed' && data.result) {
                     if (data.result.pixelData) {
                          setPixels(data.result.pixelData);
-                         propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
+                         // Store Blueprint Semantic Data if present
+                         if (data.result.blueprint) {
+                             const newMeta = { ...metadata, blueprint: data.result.blueprint };
+                             setMetadata(newMeta);
+                             propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt, newMeta);
+                             setShowBlueprint(true); // Auto-show
+                         } else {
+                             propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
+                         }
                     }
                     setIsGenerating(false);
                     setJobId(null);
@@ -131,17 +142,33 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         }
     }, [modifiedData, prompt]);
 
+    const [showBlueprint, setShowBlueprint] = useState(false);
+
     const handleGenerate = async () => {
         if (!prompt) return;
         setIsGenerating(true);
         setJobStatus('queued');
         try {
+             // Determine mode based on prompt or toggle? For now, 'Sprite' is default.
+             // But if we want Blueprint, we need a way to ask for it.
+             // Adding Action Toggle to UI? Or just infer? 
+             // Let's add a "Generate Blueprint" button or action.
+             // For now, assume 'Sprite' unless specified.
+             // Wait, user wants "Blueprint Generation". 
+             // I'll add a 'action' parameter to handleGenerate or separate button.
+             
              const { data } = await post('/map-explorer/forge/dispatch', {
                  prompt, 
                  type: 'Sprite', 
                  archetype: 'Humanoid', 
-                 size: entitySize, // Pass Dynamic Size to Backend
-                 model: 'gemini-1.5-flash-latest'
+                 size: 'Custom', 
+                 width: gridWidth,
+                 height: gridHeight,
+                 model,
+
+                 inputPixels: pixels,
+                 action: 'generate_pixel', // Default
+                 entityData: modifiedData // Full Context Injection
              });
              
              if (data.jobId) setJobId(data.jobId);
@@ -151,14 +178,37 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         }
     };
 
-    const propagateChange = (newPixels: string[][], newPrompt: string) => {
+    const handleGenerateBlueprint = async () => {
+        if (!prompt) return;
+        setIsGenerating(true);
+        setJobStatus('queued');
+        try {
+             const { data } = await post('/map-explorer/forge/dispatch', {
+                 prompt, 
+                 type: 'Sprite', // Generic
+                 archetype: 'Humanoid',
+                 width: gridWidth,
+                 height: gridHeight,
+                 model,
+
+                 action: 'generate_blueprint',
+                 entityData: modifiedData // Full Context Injection
+             });
+             if (data.jobId) setJobId(data.jobId);
+        } catch (_err) {
+            setIsGenerating(false);
+            setJobStatus('failed');
+        }
+    };
+
+    const propagateChange = (newPixels: string[][], newPrompt: string, newMetadata?: Record<string, unknown>) => {
         onChange({
             target: {
                 name,
                 value: JSON.stringify({
                     pixels: newPixels,
                     prompt: newPrompt,
-                    metadata
+                    metadata: newMetadata || metadata
                 }),
                 type: 'json'
             }
@@ -246,7 +296,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                  >
                      <div style={{
                         display: 'grid',
-                        gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+                        gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
                         width: '100%',
                         height: '100%'
                      }}>
@@ -261,7 +311,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                      </div>
                  </Box>
                  <Button onClick={() => setIsModalOpen(true)} startIcon={<Pencil />} variant="secondary">
-                     Open Pixel Forge ({gridSize}x{gridSize})
+                     Open Pixel Forge ({gridWidth}x{gridHeight})
                  </Button>
             </Flex>
 
@@ -277,7 +327,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                     <Magic />
                                     <Typography variant="beta">Pixel Forge</Typography>
                                     <Typography variant="pi" textColor="neutral600">
-                                        {entitySize.toUpperCase()} ({gridSize}px)
+                                        {widthTiles}x{heightTiles} Tiles ({gridWidth}x{gridHeight}px)
                                     </Typography>
                                 </Flex>
                                 <Button onClick={() => setIsModalOpen(false)} variant="tertiary">Close</Button>
@@ -303,6 +353,17 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                 />
                                             </Box>
                                             <Box paddingTop={4}>
+                                                <SingleSelect 
+                                                    label="Model" 
+                                                    value={model} 
+                                                    onChange={setModel}
+                                                >
+                                                    <SingleSelectOption value="gemini-3-pro-preview">Gemini 3.0 Pro Preview</SingleSelectOption>
+                                                    <SingleSelectOption value="gemini-3-flash-preview">Gemini 3.0 Flash Preview</SingleSelectOption>
+                                                    <SingleSelectOption value="gemini-2.0-flash-exp">Gemini 2.0 Flash Exp</SingleSelectOption>
+                                                </SingleSelect>
+                                            </Box>
+                                            <Box paddingTop={4}>
                                                 <Button 
                                                     onClick={handleGenerate} 
                                                     disabled={isGenerating || !prompt} 
@@ -312,6 +373,18 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                 >
                                                     Forge Sprite
                                                 </Button>
+                                                <Box paddingTop={2}>
+                                                    <Button 
+                                                        onClick={handleGenerateBlueprint} 
+                                                        disabled={isGenerating || !prompt} 
+                                                        fullWidth
+                                                        variant="secondary"
+                                                        startIcon={<Magic />}
+                                                        loading={isGenerating}
+                                                    >
+                                                        Forge Blueprint
+                                                    </Button>
+                                                </Box>
                                             </Box>
                                         </Box>
 
@@ -322,7 +395,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                  <Button size="S" variant={tool === 'eraser' ? 'default' : 'secondary'} onClick={() => setTool('eraser')}><PaintBrush /></Button>  
                                                  <Button size="S" variant={tool === 'picker' ? 'default' : 'secondary'} onClick={() => setTool('picker')}><Eye /></Button>
                                                  <Button size="S" variant="secondary" onClick={handleAutoCenter} title="Auto-Center Content">center</Button>
-                                                 <Box 
+                                                  <Box 
                                                     background="neutral0" 
                                                     borderColor="neutral200" 
                                                     hasRadius 
@@ -336,6 +409,15 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                         style={{ width: '32px', height: '32px', border: 'none', background: 'none', cursor: 'pointer' }}
                                                     />
                                                  </Box>
+                                                 <Button 
+                                                    size="S" 
+                                                    variant={showBlueprint ? 'default' : 'secondary'} 
+                                                    onClick={() => setShowBlueprint(!showBlueprint)}
+                                                    disabled={!metadata?.blueprint}
+                                                    title="Toggle Blueprint Overlay"
+                                                 >
+                                                    BP
+                                                 </Button>
                                             </Flex>
                                         </Box>
                                     </Flex>
@@ -350,10 +432,10 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                          shadow="tableShadow"
                                          style={{ 
                                              display: 'grid', 
-                                             gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
+                                             gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
                                              width: '100%',
                                              maxWidth: '600px',
-                                             aspectRatio: '1/1',
+                                             aspectRatio: `${gridWidth}/${gridHeight}`,
                                              border: '1px solid #333',
                                              cursor: tool === 'picker' ? 'copy' : 'crosshair'
                                          }}
@@ -367,11 +449,22 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                      style={{ 
                                                          backgroundColor: pixelColor === 'transparent' ? ( (x+y)%2===0 ? '#222' : '#2a2a2a') : pixelColor, 
                                                          width: '100%', 
-                                                         height: '100%'
+                                                         height: '100%',
+                                                         position: 'relative',
+                                                         display: 'flex',
+                                                         alignItems: 'center',
+                                                         justifyContent: 'center',
+                                                         fontSize: '8px',
+                                                         color: 'rgba(255,255,255,0.7)',
+                                                         userSelect: 'none'
                                                      }}
                                                      onMouseDown={() => { setIsDrawing(true); handlePixelClick(x, y); }}
                                                      onMouseEnter={() => { if (isDrawing) handlePixelClick(x, y); }}
-                                                 />
+                                                 >
+                                                     {showBlueprint && metadata?.blueprint?.[y]?.[x] && metadata.blueprint[y][x] !== '.' && (
+                                                         <span>{metadata.blueprint[y][x]}</span>
+                                                     )}
+                                                 </div>
                                              ))
                                          )}
                                      </Box>

@@ -699,6 +699,14 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     embeddingMetadata: Schema.Attribute.JSON & Schema.Attribute.Private;
     features: Schema.Attribute.Relation<'manyToMany', 'api::feature.feature'>;
+    height: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
@@ -737,6 +745,14 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     type: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    width: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     xp: Schema.Attribute.Integer;
   };
 }
@@ -919,6 +935,14 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     equipment_data: Schema.Attribute.Component<'game.equipment-data', false>;
+    height: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     lore: Schema.Attribute.RichText &
@@ -969,6 +993,14 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     value: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     weight: Schema.Attribute.Float & Schema.Attribute.DefaultTo<0>;
+    width: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
   };
 }
 

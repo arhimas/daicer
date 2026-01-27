@@ -1,0 +1,122 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import { Select } from '@strapi/ui-primitives';
+
+import * as SelectStories from './Select.stories';
+
+<Meta of={SelectStories} />
+
+# Select
+
+Forked from `@radix-ui/react-select`, we've added the ability to multi select.
+
+Displays a list of options for the user to pick from—triggered by an input or button. <br /> Alternatively, can be typed
+into to filter the list of options and set an option assuming a match.
+
+<ViewSource package="primitives" path="components/Select" />
+
+## Usage
+
+```ts
+import { Select } from '@strapi/ui-primitives';
+```
+
+### Single Item
+
+<Canvas of={SelectStories.SingleItem} />
+
+### Mulitple Items
+
+<Canvas of={SelectStories.MultipleItems} />
+
+### Nested Items
+
+<Canvas of={SelectStories.NestedItems} />
+
+## Anatomy
+
+The `Select` primitive is composed of the following components:
+
+- `Select.Root`
+- `Select.Trigger`
+- `Select.Value`
+- `Select.Icon`
+- `Select.Portal`
+- `Select.Content`
+- `Select.Viewport`
+- `Select.Item`
+- `Select.ItemText`
+- `Select.ItemIndicator`
+
+and is combined in the following way:
+
+```tsx
+<Select.Root>
+  <Select.Trigger>
+    <Select.Value placeholder="Pick me" />
+    <Select.Icon />
+  </Select.Trigger>
+  <Select.Portal>
+    <Select.Content>
+      <Select.Viewport>
+        <Select.Item value="1">
+          <Select.ItemText>Option 1</Select.ItemText>
+          <Select.ItemIndicator>
+            <Check />
+          </Select.ItemIndicator>
+        </Select.Item>
+        <Select.NoValueFound>No value found</Select.NoValueFound>
+        <Select.CreateItem>Create a new value</Select.CreateItem>
+      </Select.Viewport>
+    </Select.Content>
+  </Select.Portal>
+</Select.Root>
+```
+
+## API Reference
+
+### Root
+
+<ArgTypes of={Select.Root} />
+
+### Trigger
+
+<ArgTypes of={Select.Trigger} />
+
+### Value
+
+<ArgTypes of={Select.Value} />
+
+### Icon
+
+<ArgTypes of={Select.Icon} />
+
+### Portal
+
+<ArgTypes of={Select.Portal} />
+
+### Content
+
+<ArgTypes of={Select.Content} />
+
+### Viewport
+
+<ArgTypes of={Select.Viewport} />
+
+### Item
+
+<ArgTypes of={Select.Item} />
+
+### ItemText
+
+<ArgTypes of={Select.ItemText} />
+
+### ItemIndicator
+
+<ArgTypes of={Select.ItemIndicator} />
+
+## Accessibility
+
+Adheres to the [ListBox WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/).
+
+See the W3C [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
+example for more information.

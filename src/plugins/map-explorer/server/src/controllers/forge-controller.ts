@@ -2,11 +2,11 @@ import { Context } from 'koa';
 
 export default ({ strapi }) => ({
   async dispatch(ctx: Context) {
-    const { prompt, type, archetype, blueprint, model } = ctx.request.body;
+    const { prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action } = ctx.request.body;
 
     try {
         const job = await strapi.plugin('map-explorer').service('queueService').addJob({
-            prompt, type, archetype, blueprint, model
+            prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action
         });
         
         ctx.body = { jobId: job.id, status: 'queued' };
@@ -30,6 +30,15 @@ export default ({ strapi }) => ({
               result: state === 'completed' ? result : null,
               progress: job.progress
           };
+      } catch (err) {
+          ctx.throw(500, err);
+      }
+  },
+
+  async list(ctx: Context) {
+      try {
+          const summary = await strapi.plugin('map-explorer').service('queueService').getQueueSummary();
+          ctx.body = summary;
       } catch (err) {
           ctx.throw(500, err);
       }

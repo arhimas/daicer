@@ -12,6 +12,7 @@ interface JobSerialized {
     progress: number | object;
     finishedOn: number | null;
     processedOn: number | null;
+    returnvalue?: unknown;
 }
 
 export interface DashboardContext extends Context {
@@ -27,6 +28,8 @@ export interface DashboardContext extends Context {
             active: JobSerialized[];
             waiting: JobSerialized[];
             failed: JobSerialized[];
+            completed?: JobSerialized[]; // Added
+            delayed?: JobSerialized[];
           };
         }>
       | [];
@@ -72,10 +75,12 @@ export default {
             const counts = await q.getJobCounts();
             const isPaused = await q.isPaused();
             
-            const [active, waiting, failed] = await Promise.all([
-                q.getActive(0, 4),
-                q.getWaiting(0, 4),
-                q.getFailed(0, 4)
+            const [active, waiting, failed, completed, delayed] = await Promise.all([
+                q.getActive(0, 10),
+                q.getWaiting(0, 10),
+                q.getFailed(0, 10),
+                q.getCompleted(0, 10), // Show last 10 successful
+                q.getDelayed(0, 10)
             ]);
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,7 +93,8 @@ export default {
                 stacktrace: j.stacktrace,
                 progress: j.progress,
                 finishedOn: j.finishedOn,
-                processedOn: j.processedOn
+                processedOn: j.processedOn,
+                returnvalue: j.returnvalue
             });
 
             return {
@@ -98,7 +104,9 @@ export default {
               jobs: {
                 active: active.map(mapJob),
                 waiting: waiting.map(mapJob),
-                failed: failed.map(mapJob)
+                failed: failed.map(mapJob),
+                completed: completed.map(mapJob), // Added
+                delayed: delayed.map(mapJob)
               }
             };
           } catch (_qErr) {
@@ -106,7 +114,7 @@ export default {
               name: q.name,
               counts: { active: 0, completed: 0, failed: 0, waiting: 0, delayed: 0 },
               isPaused: true,
-              jobs: { active: [], waiting: [], failed: [] }, // Fallback
+              jobs: { active: [], waiting: [], failed: [], completed: [], delayed: [] }, // Fallback
               error: 'Failed to query queue',
             };
           }

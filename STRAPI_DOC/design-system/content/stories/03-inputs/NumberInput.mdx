@@ -1,0 +1,60 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+
+import * as NumberInputStories from './NumberInput.stories';
+
+<Meta of={NumberInputStories} />
+
+# NumberInput
+
+- [Overview](#overview)
+- [Usage](#usage)
+- [Props](#props)
+- [Variants](#variants)
+
+## Overview
+
+Number inputs allow users to add or edit numbers. They support several number formats.
+
+<ViewSource path="components/NumberInput" />
+
+## Usage
+
+```js
+import { NumberInput } from '@strapi/design-system';
+```
+
+## Variants
+
+### Basic
+
+<Canvas of={NumberInputStories.Base} />
+
+### With locale
+
+Different locales format numbers in distinct ways. For example, in the US (locale: `en-US`), the number `1000.5` is
+displayed as `1,000.5`, while in France (locale: `fr-FR`), the same number is displayed as `1 000,5`. The
+`NumberFormatter` uses the locale to ensure the displayed value in the input field is consistent with regional
+conventions. When users input numbers, the `NumberParser` will interpret the input according to the locale. For example,
+if the user enters `1.000,5` in a French locale, the parser understands that , is the decimal separator.
+
+<Canvas of={NumberInputStories.Locale} />
+
+### Disabled
+
+<Canvas of={NumberInputStories.Disabled} />
+
+### Size
+
+There are two options for sizes, `"S"` or `"M"`, the default is `"M"`.
+
+<Canvas of={NumberInputStories.Size} />
+
+### NumberInput Field
+
+NumberInput wrapped with [`Field`](../?path=/docs/components-field--docs) component
+
+<Canvas of={NumberInputStories.WithField} />
+
+## Props
+
+<Controls />

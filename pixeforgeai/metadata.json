@@ -1,7 +1,0 @@
-{
-  "name": "PixelForge AI",
-  "description": "An advanced pixel art asset generator that creates monsters, items, and races using AI. Supports reference-based evolution and blueprint constraints for precise game asset creation.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}

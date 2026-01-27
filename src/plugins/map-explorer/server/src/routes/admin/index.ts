@@ -98,6 +98,14 @@ export default {
       },
     },
     {
+      method: 'GET',
+      path: '/forge/queue',
+      handler: 'forgeController.list',
+      config: {
+        policies: [],
+      },
+    },
+    {
       method: 'POST',
       path: '/preview',
       handler: 'voxelPreview.generate',

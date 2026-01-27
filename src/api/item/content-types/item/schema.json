@@ -92,6 +92,16 @@
       "repeatable": false,
       "component": "game.compilation-state"
     },
+    "width": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
+    },
+    "height": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
+    },
     "tags": {
       "type": "relation",
       "relation": "manyToMany",
