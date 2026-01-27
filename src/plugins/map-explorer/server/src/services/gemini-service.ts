@@ -44,7 +44,7 @@ export default ({ strapi }) => ({
     const HEIGHT = config.height || 32;
 
     const ai = new GoogleGenAI({ apiKey });
-    const modelId = config.model || 'gemini-3-pro-preview'; // Default to Pro Preview
+    const modelId = config.model || 'gemini-1.5-flash-latest'; // High-speed model for sprites
 
     const isTerrain = TERMS.TERRAIN.includes(config.archetype) || config.type === 'Terrain' || config.type === 'Environment';
     const isItem = TERMS.ITEM.includes(config.archetype) || config.type === 'Item';
@@ -298,6 +298,85 @@ export default ({ strapi }) => ({
 
       } catch (e) {
           strapi.log.error("Blueprint Gen Error", e);
+          throw e;
+      }
+  },
+
+  async generateVoxelStructure(config: GenerationConfig) {
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) throw new Error("GEMINI_API_KEY not configured");
+
+      const width = config.width || 16;
+      const height = config.width || 16; // Square base usually
+      const depth = 7; // Fixed depth for now
+      
+      const ai = new GoogleGenAI({ apiKey });
+      const modelId = config.model || 'gemini-1.5-flash-latest';
+
+      const prompt = `
+          ACT AS A VOXEL ARCHITECT.
+          Task: Create a 3D Voxel Structure for a "${config.prompt}".
+          Context: RPG Construction / Building / Object.
+          Dimensions: ${width}x${width}x${depth} (X, Y, Z).
+          
+          BLOCK TYPES ALLOWED:
+          - stone, dirt, grass, wood, plank, sand, water, glass, leaf, coal, iron, gold, diamond, redstone
+          
+          INSTRUCTIONS:
+          1. Output specific JSON format: Array of { x, y, z, block }.
+          2. Coordinate System: 
+             - X: 0 to ${width-1}
+             - Y: 0 to ${width-1}
+             - Z: 0 to ${depth-1} (0 is bottom, ${depth-1} is top)
+          3. Only list non-air blocks.
+          4. Create a coherent structure matching the prompt.
+          5. Ensure structural integrity (blocks shouldn't floating illogically unless magical).
+          
+          ${config.entityData ? `
+          CONTEXTUAL DATA:
+          \`\`\`json
+          ${JSON.stringify(config.entityData, null, 2)}
+          \`\`\`
+          ` : ""}
+      `;
+
+      try {
+          const response = await ai.models.generateContent({
+            model: modelId,
+            contents: [{ text: prompt }],
+            config: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.ARRAY,
+                    items: {
+                        type: Type.OBJECT,
+                        properties: {
+                            x: { type: Type.INTEGER },
+                            y: { type: Type.INTEGER },
+                            z: { type: Type.INTEGER },
+                            block: { type: Type.STRING }
+                        },
+                        required: ["x", "y", "z", "block"]
+                    }
+                }
+            }
+          });
+
+          const safeJson = this.cleanJson(response.text || "");
+          const rawData = JSON.parse(safeJson);
+          
+          // Validate Bounds
+          const validatedVoxels = rawData.filter((v: any) => 
+               v.x >= 0 && v.x < width &&
+               v.y >= 0 && v.y < height &&
+               v.z >= 0 && v.z < depth &&
+               v.block && typeof v.block === 'string'
+          );
+
+          return { voxelData: validatedVoxels };
+
+      } catch (e) {
+          strapi.log.error("Voxel Gen Error", e);
           throw e;
       }
   },

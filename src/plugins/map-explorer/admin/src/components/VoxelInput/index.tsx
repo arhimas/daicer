@@ -11,7 +11,7 @@ import {
   // IconButton
 } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
-import { Trash, Drag, Pencil, Crop, ChartCircle, Information } from '@strapi/icons';
+import { Trash, Drag, Pencil, Crop, ChartCircle, Information, Magic } from '@strapi/icons';
 import { Chunk, TerrainType } from '../../types';
 import { TILE_SIZE, BLOCK_TYPES } from '../../constants';
 import { getShapePixels } from '../../utils/shape-tools';
@@ -36,7 +36,7 @@ interface VoxelInputProps {
 export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((props, _ref) => { // Ref is forwarded but not used locally
     const { name, value, onChange, attribute, intlLabel } = props;
     const { formatMessage } = useIntl();
-    const { get } = useFetchClient();
+    const { get, post } = useFetchClient();
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Dynamic Grid Size
@@ -58,6 +58,14 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
     // Shape Drag State
     const [dragStart, setDragStart] = useState<{x: number, y: number} | null>(null);
     const [dragEnd, setDragEnd] = useState<{x: number, y: number} | null>(null);
+
+    // AI Architect State
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [prompt, setPrompt] = useState("");
+    const [model, setModel] = useState("gemini-1.5-flash-latest");
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [jobId, setJobId] = useState<string | null>(null);
+    const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
 
     // Fetch Terrains
     useEffect(() => {
@@ -85,10 +93,84 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
         fetchTerrains();
     }, []);
 
-    // Helper: Get Color (Deprecated, using RenderEngine)
+    // Polling System (AI)
+    useEffect(() => {
+        if (!jobId || jobStatus === 'completed' || jobStatus === 'failed') return;
+        
+        const poll = async () => {
+            try {
+                const { data } = await get(`/map-explorer/forge/status/${jobId}`);
+                setJobStatus(data.state);
+                
+                if (data.state === 'completed' && data.result) {
+                    if (data.result.voxelData) {
+                         // Parse Voxel Data into Chunk
+                         const newChunk = parseVoxelDataToChunk(data.result.voxelData, gridSize);
+                         setChunk(newChunk);
+                         propagateChange(newChunk);
+                    }
+                    setIsGenerating(false);
+                    setJobId(null);
+                    setIsModalOpen(false); // Close on success
+                } else if (data.state === 'failed') {
+                    setIsGenerating(false);
+                    setJobId(null);
+                }
+            } catch (err) {
+                console.error("Poll Error", err);
+            }
+        };
+
+        const interval = setInterval(poll, 2000);
+        return () => clearInterval(interval);
+    }, [jobId, jobStatus, gridSize, get]);
+
+    const handleGenerate = async () => {
+        if (!prompt) return;
+        setIsGenerating(true);
+        setJobStatus('queued');
+        try {
+             const { data } = await post('/map-explorer/forge/dispatch', {
+                 prompt, 
+                 type: 'Construction', 
+                 action: 'generate_voxel',
+                 width: gridSize,
+                 model,
+                 entityData: { gridSize } // Context
+             });
+             
+             if (data.jobId) setJobId(data.jobId);
+        } catch (_err) {
+            console.error("Dispatch Error", _err);
+            setIsGenerating(false);
+            setJobStatus('failed');
+        }
+    };
+
+    const parseVoxelDataToChunk = (voxels: any[], size: number): Chunk => {
+        const MAX_Z = 6;
+        const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(size).fill(null).map(() => Array(size).fill(null)));
+        const loadedTiles = emptyLayers;
+
+        voxels.forEach((v: any) => {
+             if (v.z >= 0 && v.z <= MAX_Z && v.y >= 0 && v.y < size && v.x >= 0 && v.x < size) {
+                 if (!loadedTiles[v.z]) loadedTiles[v.z] = Array(size).fill(null).map(() => Array(size).fill(null));
+                 if (!loadedTiles[v.z][v.y]) loadedTiles[v.z][v.y] = Array(size).fill(null);
+                 
+                 loadedTiles[v.z][v.y][v.x] = {
+                     x: v.x, y: v.y, z: v.z,
+                     block: v.block || 'stone', 
+                     biome: 'custom',
+                     isWalkable: true,
+                     isTransparent: false,
+                     variant: 0,
+                 };
+             }
+        });
+        return { x: 0, y: 0, tiles: loadedTiles };
+    };
 
 
-    // ... (Initialize Effect - keep same but ensure block type string handling)
     const MAX_Z = 6;
 
     useEffect(() => {
@@ -102,9 +184,6 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
             
             const loadWorldChunk = async () => {
                 try {
-                    // Fetch full world config first? 
-                    // Ideally we should use the config from the form, but that's hard to access if dirty.
-                    // We'll fetch the current World Record to get its seed/radius config.
                     const { data: worldData } = await get(`/content-manager/collection-types/api::world.world/${worldId}`);
                     
                     if (worldData) {
@@ -114,49 +193,25 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                             world: worldId,
                             config: {
                                 seed: worldData.seed,
-                                // ... map other config fields if needed, or backend defaults 
-                                // Actually, backend getChunk lifecycle uses full config. 
-                                // We should pass minimal config and let backend resolve? 
-                                // No, getChunk needs config object.
-                                // We'll map essential noise params.
                                 detail: worldData.detail,
                                 roughness: worldData.roughness,
                                 globalScale: worldData.globalScale,
-                                // etc...
                             }
                         };
                         
-                        // Call Preview Endpoint
-                        // Note: We use the generic 'preview' but pass 'world' ID for persistence overlay
-                        // We need access to public API or admin internal?
-                        // Admin internal: Use request helper.
-                        // But /api/voxel-engine/preview is a content-api route.
-                        // We might need to use `fetch` or `post`.
-                        // Strapi Admin `useFetchClient` -> `post`
                         try {
                              const { post } = useFetchClient(); // Ensure we have post
-                    // Fix: Use plugin admin route for correct auth
-                    const response = await post('/map-explorer/preview', payload);
+                             const response = await post('/map-explorer/preview', payload);
                              if (response.data) {
                                  setChunk(response.data);
                                  return;
                              }
                         } catch(_e) { 
                              console.warn("Using public preview endpoint failed, falling back or trying admin route?");
-                             // Actually, standard fetch might work if route is public
-                             // But we possess the token.
-                             // Let's assume the route /api/voxel-engine/preview is accessible if authenticated.
-                             // In Strapi 5, admin requests to /api need prefix? Usually /api...
-                             // Fallback: If using fetch directly, might need full path or handling.
-                             // But since we are in Admin, we should prefer 'post' from useFetchClient.
-                             // Removing fallback or updating it if absolutely necessary (but fetch won't have admin token auto-injected usually)
-                             // Leaving as is but aware it might fail 401 if token not sent.
-                             // Actually, let's comment it out or assume 'post' works. 
                              const res = await fetch('/map-explorer/preview', {
                                  method: 'POST',
                                  headers: { 
                                      'Content-Type': 'application/json',
-                                     // We would need Authorisation header here if using fetch manually
                                  }, 
                                  body: JSON.stringify(payload)
                              });
@@ -202,8 +257,6 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
         setChunk({ x: 0, y: 0, tiles: loadedTiles });
     }, [value, gridSize]);
 
-    // ... (getShapePixels remains same)
-
     // Render Canvas
     useEffect(() => {
         if (!canvasRef.current || !chunk) return;
@@ -234,9 +287,6 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
 
     }, [chunk, currentZ, scale, pan, dragStart, dragEnd, tool, selectedBlock, terrains]);
 
-    
-    // ... (Event Handlers remain primarily the same, just keeping them in the block)
-    // ... (Including handleWheel, handleMouseDown, handleMouseMove, handleMouseUp, handleBrushClick, propagateChange, handleClear)
     
      const handleWheel = (e: React.WheelEvent) => {
         // e.preventDefault(); 
@@ -381,11 +431,21 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
     return (
         <>
         <Box>
-            <Flex gap={2} alignItems="center">
-                 <Typography variant="pi" fontWeight="bold">{label}</Typography>
-                 <span title="Each cell is 1ft². Layers (Z) are independent instances; there is no physics elevation calculation between them.">
-                    <Information aria-label="Info about depth" />
-                 </span>
+            <Flex gap={2} alignItems="center" justifyContent="space-between">
+                 <Flex gap={2}>
+                    <Typography variant="pi" fontWeight="bold">{label}</Typography>
+                    <span title="Each cell is 1ft². Layers (Z) are independent instances;">
+                        <Information aria-label="Info about depth" />
+                    </span>
+                 </Flex>
+                 <Button 
+                    startIcon={<Magic />} 
+                    variant="tertiary" 
+                    size="S" 
+                    onClick={() => setIsModalOpen(true)}
+                 >
+                    AI Architect
+                 </Button>
             </Flex>
             
             <Box paddingTop={2}>
@@ -504,14 +564,49 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                                 ))}
                             </SingleSelect>
                             
-
                          </Box>
                      </Grid.Item>
                  </Grid.Root>
             </Box>
         </Box>
         
-
+        {/* AI Architect Modal */}
+        {isModalOpen && (
+            <Box position="fixed" top={0} left={0} right={0} bottom={0} zIndex={100} background="neutral100" style={{ inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Box background="neutral0" padding={6} hasRadius shadow="popupShadow" style={{ maxWidth: '500px', width: '90%' }}>
+                    <Typography variant="beta">Voxel Architect</Typography>
+                    <Box paddingTop={4}>
+                        <textarea 
+                            style={{ width: '100%', height: '100px', padding: '10px', borderRadius: '4px', border: '1px solid #ccc' }}
+                            placeholder="Describe the structure (e.g. 'Ruined Stone Tower with moss')"
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                        />
+                    </Box>
+                    <Box paddingTop={4}>
+                         <SingleSelect 
+                            label="Model" 
+                            value={model} 
+                            onChange={setModel}
+                        >
+                            <SingleSelectOption value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Fast)</SingleSelectOption>
+                            <SingleSelectOption value="gemini-1.5-pro-latest">Gemini 1.5 Pro (Quality)</SingleSelectOption>
+                        </SingleSelect>
+                    </Box>
+                    <Flex gap={2} paddingTop={6} justifyContent="flex-end">
+                        <Button variant="tertiary" onClick={() => setIsModalOpen(false)}>Cancel</Button>
+                        <Button 
+                            startIcon={<Magic />} 
+                            onClick={handleGenerate} 
+                            loading={isGenerating} 
+                            disabled={!prompt}
+                        >
+                            Generate
+                        </Button>
+                    </Flex>
+                </Box>
+            </Box>
+        )}
         </>
     );
 });

@@ -8,9 +8,10 @@
 You cannot mark a task as "Done" until you pass the Gates.
 
 1.  **Codegen**: `yarn codegen` (Must pass).
-2.  **Lint**: `yarn lint` (0 Errors, 0 Warnings). **Warnings are Errors.**
-3.  **Typecheck**: `yarn typecheck` (0 Errors).
-4.  **Test**: `yarn test` (Must pass).
+2.  **Typecheck**: `yarn typecheck` (0 Errors).
+3.  **Lint**: `yarn lint` (0 Errors, 0 Warnings). **Warnings are Errors.**
+4.  **Build**: `yarn build` (Must pass).
+5.  **Test**: `yarn test` (Must pass).
 
 ## 2. Proactive Verification
 

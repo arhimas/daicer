@@ -49,7 +49,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     
     // AI State
     const [prompt, setPrompt] = useState("");
-    const [model, setModel] = useState("gemini-3-pro-preview");
+    const [model, setModel] = useState("gemini-1.5-flash-latest");
     const [isGenerating, setIsGenerating] = useState(false);
     const [jobId, setJobId] = useState<string | null>(null);
     const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
@@ -358,9 +358,9 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                                     value={model} 
                                                     onChange={setModel}
                                                 >
+                                                    <SingleSelectOption value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Fast)</SingleSelectOption>
+                                                    <SingleSelectOption value="gemini-1.5-pro-latest">Gemini 1.5 Pro (Quality)</SingleSelectOption>
                                                     <SingleSelectOption value="gemini-3-pro-preview">Gemini 3.0 Pro Preview</SingleSelectOption>
-                                                    <SingleSelectOption value="gemini-3-flash-preview">Gemini 3.0 Flash Preview</SingleSelectOption>
-                                                    <SingleSelectOption value="gemini-2.0-flash-exp">Gemini 2.0 Flash Exp</SingleSelectOption>
                                                 </SingleSelect>
                                             </Box>
                                             <Box paddingTop={4}>

@@ -18,7 +18,7 @@
     "test:cli": "vitest src/cli/__tests__/cli-e2e.test.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "codegen": "NODE_OPTIONS='--max-old-space-size=8192' strapi ts:generate-types",
+    "codegen": "ts-node src/scripts/codegen.ts",
     "typecheck": "ts-node src/scripts/typecheck-all.ts",
     "seed": "ts-node src/scripts/genesis/canonical-seed.ts",
     "reembed": "ts-node src/scripts/ingest-game-entities.ts",
@@ -82,7 +82,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "seedrandom": "^3.0.5",
-    "sharp": "^0.34.5",
+    "sharp": "0.33.5",
     "short-unique-id": "^5.3.2",
     "socket.io": "^4.8.1",
     "sqlite-vec": "^0.1.7-alpha.2",
@@ -91,6 +91,9 @@
     "ts-morph": "^27.0.2",
     "zod": "^4.3.6",
     "zod-to-json-schema": "^3.25.1"
+  },
+  "resolutions": {
+    "sharp": "0.33.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

@@ -1,4 +1,5 @@
 import { Queue, Worker } from 'bullmq';
+import { EntityGeometry } from '../utils/EntityGeometry';
 
 const QUEUE_NAME = 'pixel-forge';
 
@@ -27,6 +28,10 @@ export default ({ strapi }) => {
             if (action === 'generate_blueprint') {
                 return await service.generateBlueprint(job.data);
             }
+
+            if (action === 'generate_voxel') {
+                return await service.generateVoxelStructure(job.data);
+            }
             
             const result = await service.generatePixelData(job.data);
             return result;
@@ -52,6 +57,14 @@ export default ({ strapi }) => {
              throw new Error("Queue not initialized (Redis missing?)");
         }
         
+        // Inject Dimensions based on Size
+        if (typeof data.size === 'string' && EntityGeometry.isValidSize(data.size)) {
+            const { width, height } = EntityGeometry.getPixelDimensions(data.size);
+            data.width = width;
+            data.height = height;
+            strapi.log.info(`Pixel Forge: Injected Dimensions for ${data.size} Entity: ${width}x${height}`);
+        }
+
         const config = strapi.config.get('plugin::map-explorer.queue') || {};
         const keepSuccess = config.retentionSuccess || 100;
         const keepFailed = config.retentionFailed || 200;
