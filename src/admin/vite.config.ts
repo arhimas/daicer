@@ -12,8 +12,5 @@ export default (config) => {
         'clean-css': require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts'),
       },
     },
-    define: {
-      'process.env': {},
-    },
   });
 };
