@@ -129,13 +129,36 @@ export default ({ strapi }) => ({
         `;
     }
 
-    const asciiBlueprint = (config.blueprint && Array.isArray(config.blueprint)) 
-        ? this.gridToAscii(config.blueprint) 
-        : "NO BLUEPRINT PROVIDED - GENERATE FREELY";
+    // 3. Vision Pipeline (Mandatory 2x Scaling)
+    const visionInstruction = "Analyze the visual blueprint provided. The colored zones indicate semantic meaning (see system instructions).";
     
-    // Vision / Context Data
-    const visionInstruction = config.inputPixels ? "Refine the attached sprite." : "Translate this ASCII map into colored pixels.";
+    if (config.entityData) {
+        strapi.log.info(`Pixel Forge: Injecting Context Data (Keys: ${Object.keys(config.entityData).join(', ')})`);
+    }
     const contextData = config.entityData ? `CONTEXTUAL DATA: ${JSON.stringify(config.entityData)}` : "";
+
+    // Render Vision Input (Blueprint or Input Pixels)
+    let visionBuffer: Buffer;
+    
+    if (config.inputPixels && config.inputPixels.length > 0) {
+        // Iterative Refinement: Upscale current state 2x for "Zoomed In" focus
+        visionBuffer = this.pixelsToPng(config.inputPixels, 2); 
+    } else if (config.blueprint) {
+        // Blueprint Generation: Render blueprint structure 2x
+        const blueprintPixels = this.blueprintToPixels(config.blueprint);
+        visionBuffer = this.pixelsToPng(blueprintPixels, 2);
+    } else {
+        // Pure Vision fallback (Transparent Canvas)
+        visionBuffer = this.pixelsToPng(Array(HEIGHT).fill(Array(WIDTH).fill('transparent')));
+    }
+
+    const contentParts: { type: string; text?: string; image_url?: string }[] = [
+        { type: "text", text: "Manifest this sprite based on the visual input structure." },
+        { 
+            type: "image_url", 
+            image_url: `data:image/png;base64,${visionBuffer.toString('base64')}` 
+        }
+    ];
 
     // 3. Fetch Main System Template
     const systemTemplate = await this.getPromptTemplate('pixel-forge-system');
@@ -144,25 +167,10 @@ export default ({ strapi }) => ({
         height: HEIGHT,
         specificInstruction,
         enhancedPrompt,
-        asciiBlueprint,
+        // asciiBlueprint removed - Legacy Field
         visionInstruction,
         contextData
     });
-
-    const contentParts: (string | object)[] = [{ type: "text", text: "Proceed with generation based on system instructions." }];
-
-    if (config.inputPixels && config.inputPixels.length > 0) {
-        try {
-            const pngBuffer = this.pixelsToPng(config.inputPixels);
-            const base64Image = pngBuffer.toString('base64');
-            contentParts.push({
-                type: "image_url",
-                image_url: `data:image/png;base64,${base64Image}`
-            });
-        } catch (e) {
-            strapi.log.warn("Failed to process inputPixels for Vision", e);
-        }
-    }
 
     try {
         const model = await this.getModel(modelId);
@@ -284,14 +292,7 @@ export default ({ strapi }) => ({
   },
 
   // Helpers
-  gridToAscii(blueprint?: ZoneType[][]): string {
-    if (!blueprint || !Array.isArray(blueprint)) return "";
-    const map: Record<string, string> = {
-        'none': '.', 'core': '#', 'head': 'O', 'hand_l': 'l', 'hand_r': 'r', 
-        'weapon': 'X', 'legs': 'L', 'back': 'B', 'accessory': '+'
-    };
-    return blueprint.map(row => row.map(cell => map[cell] || '.').join('')).join('\n');
-  },
+  // gridToAscii removed (Vision Pipeline Enforcement)
 
   validateAndRepairGrid(data: unknown, width = 32, height = 32): string[][] {
       if (!Array.isArray(data)) return Array(height).fill(Array(width).fill('transparent'));
@@ -307,7 +308,7 @@ export default ({ strapi }) => ({
           while (newRow.length < width) newRow.push('transparent');
           return newRow.map((cell) => (typeof cell === 'string' ? cell : 'transparent'));
       });
-      return grid;
+      return grid as string[][];
   },
 
   postProcessPixelData(generated: string[][]): string[][] {
@@ -316,16 +317,47 @@ export default ({ strapi }) => ({
     );
   },
 
-  pixelsToPng(grid: string[][]): Buffer {
-      const width = grid[0]?.length || 32;
-      const height = grid.length || 32;
+  // Helpers
+  blueprintToPixels(blueprint: ZoneType[][]): string[][] {
+      if (!blueprint) return [];
+      
+      const ZONE_COLORS: Record<string, string> = {
+          'core': '#FFFFFF', // White for primary form
+          'head': '#FFFF00', // Yellow
+          'weapon': '#FF0000', // Red
+          'legs': '#0000FF', // Blue
+          'hand_l': '#00FF00', 
+          'hand_r': '#00FF00',
+          'accessory': '#FF00FF',
+          'none': 'transparent',
+          '.': 'transparent',
+          '#': '#FFFFFF' 
+      };
+
+      return blueprint.map(row => 
+          row.map(cell => ZONE_COLORS[cell] || ZONE_COLORS[cell.toLowerCase()] || 'transparent')
+      );
+  },
+
+  pixelsToPng(grid: string[][], scale = 1): Buffer {
+      const originalWidth = grid[0]?.length || 32;
+      const originalHeight = grid.length || 32;
+      
+      const width = originalWidth * scale;
+      const height = originalHeight * scale;
+      
       const png = new PNG({ width, height });
 
       for (let y = 0; y < height; y++) {
           for (let x = 0; x < width; x++) {
-              const color = grid[y]?.[x] || 'transparent';
+              // Map scaled coordinate back to original
+              const sourceX = Math.floor(x / scale);
+              const sourceY = Math.floor(y / scale);
+              
+              const color = grid[sourceY]?.[sourceX] || 'transparent';
               const idx = (width * y + x) << 2;
               let r = 0, g = 0, b = 0, a = 0;
+              
               if (color !== 'transparent' && color !== 'none') {
                   const rgb = this.hexToRgb(color);
                   if (rgb) { r = rgb.r; g = rgb.g; b = rgb.b; a = 255; }

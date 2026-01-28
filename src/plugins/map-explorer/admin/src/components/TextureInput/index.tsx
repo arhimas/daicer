@@ -406,7 +406,8 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                  const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null)));
                  const loadedTiles = emptyLayers;
 
-                 parsed.forEach((v: Record<string, unknown>) => {
+                 interface ParsedVoxel { x: number; y: number; z?: number; [key: string]: unknown }
+                 parsed.forEach((v: ParsedVoxel) => {
                      if (v.z === 0 && v.y >= 0 && v.y < GRID_SIZE && v.x >= 0 && v.x < GRID_SIZE) {
                          if (!loadedTiles[0]) loadedTiles[0] = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
                          if (!loadedTiles[0][v.y]) loadedTiles[0][v.y] = Array(GRID_SIZE).fill(null);

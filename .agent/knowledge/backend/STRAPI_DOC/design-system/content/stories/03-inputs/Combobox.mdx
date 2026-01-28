@@ -1,0 +1,104 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+
+import * as ComboboxStories from './Combobox.stories';
+
+<Meta of={ComboboxStories} />
+
+# Combobox
+
+- [Overview](#overview)
+- [Usage](#usage)
+- [Props](#props)
+- [Variants](#variants)
+
+## Overview
+
+An input field designed to not only offer users the ability to type the value they want, but also display a panel of
+suggestions which filter & autocomplete as the user types for a more fluid experience. This shouldn't be confused with
+the [`Select`](../?path=/docs/inputs-select--docs) component!
+
+<ViewSource path="components/Combobox" />
+
+## Usage
+
+```js
+import { Combobox, ComboboxOption } from '@strapi/design-system';
+```
+
+## Variants
+
+### Basic Combobox
+
+By default, the combobox is uncontrolled & uses both inline and list autocomplete, that is where as the user types
+suggestions (based on the order of the options) are shown in the input field whilst the list gradually gets filtered.
+
+<Canvas of={ComboboxStories.Base} />
+
+### Disabled
+
+Combobox can possibly not be available to select yet. This state can be related to a lack of permissions or a need to
+pursue another action first.
+
+<Canvas of={ComboboxStories.Disabled} />
+
+### Size
+
+There are two options for sizes, `"S"` or `"M"`, the default is `"M"`.
+
+<Canvas of={ComboboxStories.Size} />
+
+### Async data
+
+In some situations it might not be optimal to load all the data at once. In this case, you can use the `loading` prop to
+load more data when the user scrolls to the bottom of the list.
+
+NOTE! You also need to supply an `onLoadMore` callback as well as defining if `hasMoreItems` is true to show the
+spinner. In future iterations, we plan to omit the `hasMoreItems` prop.
+
+<Canvas of={ComboboxStories.Loading} />
+
+### Creating new options
+
+The Creatable Combobox allows users to create new options in addition to selecting from predefined ones. To enable this,
+set the `creatable` prop to true and provide an `onCreateOption` callback to handle new option creation. When a user
+types a value not found in the list, the callback adds it dynamically, making the component flexible for expanding
+options.
+
+<Canvas of={ComboboxStories.Creatable} />
+
+### Creating options always visible
+
+The Creatable Combobox allows users to have a button to trigger a callback when clicked in addition to selecting from
+predefined ones. To enable this, set the `creatable` prop to `visible` and provide an `onCreateOption` callback to
+handle the action we want to pursue. When a user types a value not found in the list, a not found message is shown, and
+in the options of the Combobox there is always a button to click to trigger the onCreateOption action.
+
+<Canvas of={ComboboxStories.CreatableVisible} />
+
+### Autocomplete settings
+
+By default, the combobox uses both inline and list autocomplete, however you can change this behaviour to only be
+`list (filter: startswith)`, `list (filter: contains)` or `none`. If you set the autocomplete mode to `none`, the first
+matching option will be visually focussed
+
+<Canvas of={ComboboxStories.Autocomplete} />
+
+### Combobox field
+
+Wrap the input in the necessary [`Field`](../?path=/docs/components-field--docs) component to create a powerful complete
+form input
+
+<Canvas of={ComboboxStories.WithField} />
+
+## Props
+
+### Combobox
+
+<Controls of={ComboboxStories.ComboboxProps} />
+
+### ComboboxOption
+
+The ComboboxOption is used inside the Combobox to render individual items. Each ComboboxOption has a value prop, which
+is the underlying value that will be selected when the user clicks on the option.
+
+<Controls of={ComboboxStories.ComboboxOptionProps} />

@@ -1,1 +1,0 @@
-For a general overview and understanding of the Strapi backend elements, please refer to the backend customization [introduction](/cms/backend-customization) and [diagram](/cms/backend-customization#interactive-diagram).

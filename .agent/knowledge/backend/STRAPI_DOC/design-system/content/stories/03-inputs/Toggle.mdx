@@ -1,0 +1,41 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+
+import * as ToggleStories from './Toggle.stories';
+
+<Meta of={ToggleStories} />
+
+# Toggle
+
+- [Overview](#overview)
+- [Usage](#usage)
+- [Props](#props)
+- [Variants](#variants)
+
+## Overview
+
+Enable users to switch a single option between on and off states
+
+<ViewSource path="components/Toggle" />
+
+## Usage
+
+```js
+import { Toggle } from '@strapi/design-system';
+```
+
+## Variants
+
+### Base
+
+<Canvas of={ToggleStories.Base} />
+
+### ToggleInput field
+
+ToggleInput wrapped with [`Field`](../?path=/docs/components-field--docs) component to create a powerful complete form
+input
+
+<Canvas of={ToggleStories.WithField} />
+
+## Props
+
+<Controls of={ToggleStories.Base} />

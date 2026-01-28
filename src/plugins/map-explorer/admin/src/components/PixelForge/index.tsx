@@ -20,29 +20,74 @@ interface PixelForgeProps {
     onChange: (e: { target: { name: string; value: string; type: string } }) => void;
 }
 
+interface EntityZone {
+    id: number;
+    documentId: string;
+    name: string;
+    slug: string;
+    color: string;
+    description?: string;
+}
+
+interface Blueprint {
+    id: number;
+    documentId: string;
+    name: string;
+    category: string;
+    description?: string;
+    grid: string[][];
+    zones?: Record<string, unknown>;
+}
+
+interface PixelForgeMetadata {
+    blueprint?: string[][];
+    loadedBlueprint?: string;
+    [key: string]: unknown;
+}
+
+interface StrapiContext {
+    form?: {
+        values?: Record<string, unknown>;
+    };
+    model?: string | { uid: string };
+}
+
+interface EntityData {
+    id?: number | string;
+    documentId?: string;
+    width?: number;
+    height?: number;
+    name?: string;
+    description?: string;
+    [key: string]: unknown;
+}
+
 /**
  * **Pixel Forge II (SOTA Editor)**
  * 
  * A Dynamic Pixel Art Editor embedded directly into the Strapi Content Manager.
  * Supports Variable Resolutions (32x32 to 128x128) based on Entity Size.
  * Updated for Gemini 3 Compatibility and Data I/O.
+ * 
+ * @security Strict Types Enforced
  */
 export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const { post, get } = useFetchClient();
-    const { form } = useContentManagerContext(); // Access sibling data (size)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const modifiedData = (form as any)?.values || {};
+    const { form, model: currentModel } = useContentManagerContext() as unknown as StrapiContext; 
+    
+    // Strict Access
+    const modifiedData = (form?.values || {}) as EntityData;
     
     // Dynamic Sizing (Tiles -> Pixels)
     const widthTiles = modifiedData.width || 1;
     const heightTiles = modifiedData.height || 1;
-    const gridWidth = widthTiles * 32;
-    const gridHeight = heightTiles * 32;
+    // Default to 32x32 if no explicit sizing (Standard Blueprint Size)
+    const gridWidth = modifiedData.width ? widthTiles * 32 : 32;
+    const gridHeight = modifiedData.height ? heightTiles * 32 : 32;
     
     // Data State
     const [pixels, setPixels] = useState<string[][]>(Array(gridHeight).fill(Array(gridWidth).fill('transparent')));
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [metadata, setMetadata] = useState<Record<string, any>>({});
+    const [metadata, setMetadata] = useState<PixelForgeMetadata>({});
     
     // UI State
     const [tool, setTool] = useState<'pencil' | 'eraser' | 'picker'>('pencil');
@@ -166,7 +211,11 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
 
                  inputPixels: pixels,
                  action: 'generate_pixel', // Default
-                 entityData: modifiedData // Full Context Injection
+                 entityData: modifiedData, // Fallback
+                 entityContext: {
+                     uid: typeof currentModel === 'string' ? currentModel : currentModel?.uid,
+                     documentId: modifiedData?.documentId || modifiedData?.id // Support both
+                 }
              });
              
              if (data.jobId) setJobId(data.jobId);
@@ -268,6 +317,57 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         setIsDataModalOpen(true);
     };
 
+    // Blueprint State
+    const [blueprints, setBlueprints] = useState<Blueprint[]>([]);
+    const [selectedBlueprintId, setSelectedBlueprintId] = useState<string | number | null>(null);
+
+    // Entity Zones State
+    const [entityZones, setEntityZones] = useState<EntityZone[]>([]);
+
+    // Fetch Blueprints & Zones
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch Blueprints
+                const bpRes = await get('/content-manager/collection-types/api::blueprint.blueprint?page=1&pageSize=100&sort=name:ASC');
+                if (bpRes.data.results) setBlueprints(bpRes.data.results);
+
+                // Fetch Entity Zones for Palette
+                const zoneRes = await get('/content-manager/collection-types/api::entity-zone.entity-zone?page=1&pageSize=100&sort=slug:ASC');
+                if (zoneRes.data.results) setEntityZones(zoneRes.data.results);
+
+            } catch (err) {
+                console.error("Failed to fetch data", err);
+            }
+        };
+        if (isModalOpen) fetchData();
+    }, [isModalOpen, get]);
+
+    const handleLoadBlueprint = () => {
+        const bp = blueprints.find(b => b.id === selectedBlueprintId || b.documentId === selectedBlueprintId);
+        if (!bp || !bp.grid) return;
+
+        // Visual Blueprint Load - Direct Color Mapping
+        // The DB now stores actual HEX codes in the grid, so no conversion is needed.
+        const newPixels = Array(gridHeight).fill(null).map(() => Array(gridWidth).fill('transparent'));
+        
+        bp.grid.forEach((row: string[], y: number) => {
+            if (y >= gridHeight) return;
+            row.forEach((color: string, x: number) => {
+                // Determine if color is valid hex or transparent
+                // In new seed, it's real hex. Legacy might need fallback.
+                if (x < gridWidth) {
+                    newPixels[y][x] = color === '.' ? 'transparent' : color;
+                }
+            });
+        });
+
+        setPixels(newPixels);
+        setMetadata({ ...metadata, blueprint: bp.grid, loadedBlueprint: bp.name });
+        propagateChange(newPixels, prompt, { ...metadata, blueprint: bp.grid });
+        setPrompt(bp.description || `A ${bp.name}...`);
+    };
+
     const handleImportData = () => {
         try {
             const parsed = JSON.parse(dataJson);
@@ -357,10 +457,30 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                     <input 
                                         type="color" 
                                         value={color} 
-                                        onChange={(e) => setColor(e.target.value)}
+                                        onChange={(e) => { setColor(e.target.value); setTool('pencil'); }}
                                         style={{ width: '24px', height: '24px', border: 'none', background: 'none', cursor: 'pointer' }}
                                     />
                                  </Box>
+
+                                 {/* Zone Palette */}
+                                 {entityZones.length > 0 && (
+                                     <Flex gap={1} wrap="wrap" style={{ maxWidth: '200px', marginLeft: '8px' }}>
+                                         {entityZones.map((z: EntityZone) => (
+                                             <button
+                                                 key={z.slug}
+                                                 title={`${z.name} (${z.slug})`}
+                                                 onClick={() => { setColor(z.color); setTool('pencil'); }}
+                                                 style={{
+                                                     width: '16px', height: '16px',
+                                                     backgroundColor: z.color,
+                                                     border: color === z.color ? '2px solid #000' : '1px solid #ccc',
+                                                     borderRadius: '2px',
+                                                     cursor: 'pointer'
+                                                 }}
+                                             />
+                                         ))}
+                                     </Flex>
+                                 )}
                                  
                                  <Button 
                                     size="S" 
@@ -453,6 +573,30 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                                         onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPrompt(e.target.value)}
                                         style={{ height: '80px', resize: 'none' }}
                                     />
+                                </Grid.Item>
+                                <Grid.Item col={12} s={12}>
+                                    <Flex gap={2} alignItems="center">
+                                         <SingleSelect 
+                                            placeholder="Load Blueprint..."
+                                            size="S"
+                                            value={selectedBlueprintId} 
+                                            onChange={setSelectedBlueprintId}
+                                        >
+                                            {blueprints.map((b: Blueprint) => (
+                                                <SingleSelectOption key={b.documentId || b.id} value={b.documentId || b.id}>
+                                                    {b.name} ({b.category})
+                                                </SingleSelectOption>
+                                            ))}
+                                        </SingleSelect>
+                                        <Button 
+                                            size="S" 
+                                            variant="secondary" 
+                                            onClick={handleLoadBlueprint}
+                                            disabled={!selectedBlueprintId}
+                                        >
+                                            Load
+                                        </Button>
+                                    </Flex>
                                 </Grid.Item>
                                 <Grid.Item col={4} s={12}>
                                     <Flex direction="column" gap={2} height="100%" justifyContent="center">

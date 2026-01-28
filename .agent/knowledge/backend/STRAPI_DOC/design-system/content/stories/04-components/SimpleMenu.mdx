@@ -1,0 +1,138 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import { SimpleMenu, MenuItem, Menu } from '@strapi/design-system';
+
+import * as SimpleMenuStories from './SimpleMenu.stories';
+
+<Meta of={SimpleMenuStories} />
+
+# SimpleMenu
+
+Displays a menu to the user – typically a list of actions or functions which is triggered by a `button`. This menu is
+built on top of the [RadixUI Dropdown Menu](https://www.radix-ui.com/docs/primitives/components/dropdown-menu)
+component. This component exports an easy to use `SimpleMenu` component but if you need more fine-grained control you
+can use it's styled primitives countpart `Menu`.
+
+<ViewSource path="components/SimpleMenu" />
+
+## Usage
+
+```js
+import { SimpleMenu, MenuItem } from '@strapi/design-system';
+```
+
+### Basic Usage
+
+<Canvas of={SimpleMenuStories.Basic} />
+
+### With Icons
+
+<Canvas of={SimpleMenuStories.WithIcons} />
+
+### Using Links & Routing Libraries
+
+By default you can define links in your menu by providing either the `isLink` or `isExternal` prop, the former infers an
+internal link so specific defaults may be different to what you expect.
+
+<Canvas of={SimpleMenuStories.WithLinks} />
+
+If you're using a framework e.g. `react-router-dom` or `nextjs` you'll probably want to use their `Link` component as a
+base. This is completely possible by using the `tag` prop:
+
+```jsx
+import { SimpleMenu, MenuItem } from '@strapi/design-system';
+import { NavLink } from 'react-router-dom'; // or import { Link } from 'next/link'
+
+const MyMenu = () => {
+  return (
+    <SimpleMenu label="Navigation">
+      <MenuItem as={NavLink} to="/" isLink>
+        Home
+      </MenuItem>
+      <MenuItem as={NavLink} to="/accounts" isLink>
+        Accounts
+      </MenuItem>
+      <MenuItem href="https://strapi.io/" isExternal>
+        Billing Provider
+      </MenuItem>
+    </SimpleMenu>
+  );
+};
+```
+
+### Nested Menus & Labels
+
+In some circumstances you'll want to create a more complex menu, this could be to section items with a label or to add a
+submenu. Both of these are possible with the `Menu` component collection, note we do not export the submenu or label
+feature separately like we do `SimpleMenu` and `MenuItem`, however the two work together perfectly.
+
+<Canvas of={SimpleMenuStories.NestedMenu} />
+
+## Props
+
+## SimpleMenu
+
+<TypeTable of={SimpleMenu} />
+
+## MenuItem
+
+<TypeTable of={MenuItem} />
+
+---
+
+# Menu
+
+In certain situations the `SimpleMenu` can be too restrictive, particularly if you want to customise the content
+container. For this, we recommend using `Menu`, it's a collection of components that can be composed in your own way.
+
+## Usage
+
+### Basic Usage
+
+```jsx
+import { Menu } from '@strapi/design-system';
+
+const MyMenu = () => {
+  return (
+    <Menu.Root>
+      <Menu.Trigger>Actions</Menu.Trigger>
+      <Menu.Content>
+        <Menu.Item onSelect={() => console.log('opening')}>Open</MenuItem>
+        <Menu.Separator />
+        <Menu.Item disabled onSelect={() => console.log('cloning')}>
+          Clone
+        </Menu.Item>
+        <Menu.Item onSelect={() => console.log('editing')}>Edit</MenuItem>
+        <Menu.Item color="danger600" onSelect={() => console.log('delete')}>
+          Delete
+        </Menu.Item>
+      </Menu.Content>
+    </Menu.Root>
+  );
+};
+```
+
+## Props
+
+### Root
+
+### Trigger
+
+### Content
+
+<ArgTypes of={Menu.Content} />
+
+### Item
+
+<ArgTypes of={Menu.Item} />
+
+### Separator
+
+### Label
+
+### SubRoot
+
+### SubTrigger
+
+<ArgTypes of={Menu.SubTrigger} />
+
+### SubContent

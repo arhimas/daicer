@@ -11,7 +11,18 @@ export enum EntitySize {
   Colossal = 'Colossal',
 }
 
-export const PIXELS_PER_FOOT = 32;
+// 32x32 pixels per 5ft square (Standard D&D / Pixel Art Scale)
+// Means 1ft = 6.4 pixels. 
+// Fine (0.5ft) -> 3.2px (round to 4 or 8)
+// Tiny (2.5ft) -> 16px
+// Small (5ft) -> 32px
+// Medium (5ft) -> 32px
+// Large (10ft) -> 64px
+// Huge (15ft) -> 96px
+// Gargantuan (20ft) -> 128px
+// Colossal (30ft) -> 192px
+
+export const PIXELS_PER_FOOT = 6.4; // Was 32, which resulted in Medium=160px (too big for JSON)
 
 export const EntitySpaceFeet: Record<EntitySize, number> = {
   [EntitySize.Fine]: 0.5,

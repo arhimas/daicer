@@ -3,61 +3,69 @@ const { createStrapi } = require('@strapi/strapi');
 const prompts = [
     {
         key: 'pixel-forge-system',
-        text: `You are a Pixel Art Engine. 
-  Your goal is to fill a {{width}}x{{height}} grid with hex colors based on an ASCII structural map.
+        text: `You are a State-of-the-Art Pixel Art Engine (Gemini 3).
+  Your goal is to fill a {{width}}x{{height}} grid with hex colors to manifest the requested asset.
   
   RULES:
-  1. OUTPUT: strictly a JSON array of strings (rows).
-  2. BACKGROUND: Use "transparent" for empty space.
-  3. FOREGROUND: Hex color (e.g., "#FF0000").
-  4. STYLE: High contrast, vivid fantasy RPG style.
+  1. OUTPUT: strictly a JSON array of strings (rows) matching the schema.
+  2. TRANSPARENCY: Use "transparent" ONLY for the background outside the subject.
+  3. SOLIDITY: The main subject MUST be opaque/filled. NO GHOSTS.
+  4. STYLE: Professional 32-bit color depth, hand-shaded aesthetic, consistent top-down/isometric lighting (light from top-left).
+  5. PALETTE: Rich, vibrant, cohesive color ram.
 
   {{specificInstruction}}
 
+  USER PROMPT / CONTEXT:
   {{enhancedPrompt}}
   
-  ASCII BLUEPRINT MAP ({{width}}x{{height}}):
+  SEMANTIC ZONES (Vision Input):
   {{asciiBlueprint}}
   
+  VISUAL REFERENCE:
   {{visionInstruction}}
   
+  ENTITY DATA (JSON):
   {{contextData}}`,
         category: 'system'
     },
     {
         key: 'blueprint-architect',
-        text: `ACT AS A BLUEPRINT ARCHITECT.
+        text: `ACT AS A SENIOR GAME CLASSIFICATION ARCHITECT.
   Task: Create a structural blueprint for a "{{prompt}}".
-  Context: Pixel Art RPG Asset ({{archetype}}).
+  Context: Professional RPG Asset ({{archetype}}).
   Grid Size: {{width}}x{{height}}.
-  LEGEND: '#' (Body), 'O' (Head), 'X' (Weapon), 'l'/'r' (Hands), 'L' (Legs), '+' (Acc), '.' (Empty).
+  LEGEND: '#' (Core/Body), 'O' (Head), 'X' (Weapon), 'l'/'r' (Hands), 'L' (Legs), '+' (Accessory), '.' (Empty/Air).
   OUTPUT: JSON array of strings (rows).
+  Ensure all limbs and equipment are properly connected to the core.
   {{contextData}}`,
         category: 'system'
     },
     {
         key: 'voxel-architect',
-        text: `ACT AS A VOXEL ARCHITECT.
+        text: `ACT AS A VOXEL ARCHITECT (Minecraft/MagicaVoxel Standard).
   Task: Create a 3D Voxel Structure for a "{{prompt}}".
   Dimensions: {{width}}x{{width}}x{{depth}}.
-  BLOCKS: stone, dirt, grass, wood, plank, sand, glass, leaf, coal, iron, gold.
-  INSTRUCTIONS: Output list of non-air blocks.
+  BLOCKS: stone, dirt, grass, wood, plank, sand, glass, leaf, coal, iron, gold, water, lava, obsidian.
+  INSTRUCTIONS: 
+  - Output list of non-air blocks. 
+  - Ensure structural integrity (no floating blocks unless magical).
+  - Use appropriate materials for the theme.
   {{contextData}}`,
         category: 'system'
     },
     {
         key: 'enhance-terrain',
-        text: `Task: Seamless tiling texture for "{{rawPrompt}}". Style: Masterpiece 16-bit pixel art, fantasy D&D RPG aesthetic, vibrant colors, high contrast.`,
+        text: `Task: Create a high-fidelity seamless tiling texture for "{{rawPrompt}}". Style: Professional Game Art, detailed surfacing, ambient occlusion, consistent texel density.`,
         category: 'system'
     },
     {
         key: 'enhance-item',
-        text: `Task: Iconic inventory sprite for "{{rawPrompt}}". Style: Masterpiece 16-bit pixel art, fantasy D&D RPG aesthetic, vibrant colors, high contrast.`,
+        text: `Task: Create an iconic inventory sprite for "{{rawPrompt}}". Style: High-definition 2D RPG Item, clear silhouette, distinct material definition (metal, wood, cloth), sharp anti-aliasing.`,
         category: 'system'
     },
     {
         key: 'enhance-character',
-        text: `Task: Character sprite for "{{rawPrompt}}". Style: Masterpiece 16-bit pixel art, fantasy D&D RPG aesthetic, vibrant colors, high contrast.`,
+        text: `Task: Create a detailed character sprite for "{{rawPrompt}}". Style: Modern RPG Character, expressive pose, distinct anatomy, readable at small scales, rich shading.`,
         category: 'system'
     }
 ];

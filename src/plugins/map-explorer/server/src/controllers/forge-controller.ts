@@ -2,11 +2,30 @@ import { Context } from 'koa';
 
 export default ({ strapi }) => ({
   async dispatch(ctx: Context) {
-    const { prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action } = ctx.request.body;
+    const { prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action, entityData, entityContext } = ctx.request.body;
+
+    // Deep Context Injection (Backend Side)
+    let enrichedEntityData = entityData || {};
+    if (entityContext?.uid && entityContext?.documentId) {
+        try {
+            // Strapi 5 Documents API
+            const deepData = await strapi.documents(entityContext.uid).findOne({
+                documentId: entityContext.documentId,
+                populate: '*' // Fetch level-1 relations/components
+            });
+            if (deepData) {
+                enrichedEntityData = { ...enrichedEntityData, ...deepData };
+                strapi.log.info(`Pixel Forge: Deep Fetched ${entityContext.uid} (${entityContext.documentId}). Keys: ${Object.keys(deepData).join(',')}`);
+            }
+        } catch (e) {
+            strapi.log.warn("Pixel Forge: Failed to deep fetch context", e);
+        }
+    }
 
     try {
         const job = await strapi.plugin('map-explorer').service('queueService').addJob({
-            prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action
+            prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action, 
+            entityData: enrichedEntityData
         });
         
         ctx.body = { jobId: job.id, status: 'queued' };

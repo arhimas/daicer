@@ -32,9 +32,22 @@
       "default": "Creature"
     },
     "grid": {
-      "type": "json",
+      "type": "customField",
+      "customField": "plugin::map-explorer.sprite-grid",
       "required": true,
-      "description": "32x32 Matrix of Zone IDs"
+      "description": "Visual Layout"
+    },
+    "width": {
+      "type": "integer",
+      "default": 1,
+      "min": 1,
+      "max": 128
+    },
+    "height": {
+      "type": "integer",
+      "default": 1,
+      "min": 1,
+      "max": 128
     },
     "zones": {
       "type": "json",

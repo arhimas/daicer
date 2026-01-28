@@ -1,12 +1,18 @@
-import { Queue, Worker } from 'bullmq';
+import type { Queue as QueueType, Worker as WorkerType } from 'bullmq';
 import { EntityGeometry } from '../utils/EntityGeometry';
+
+// Stealth require to bypass Strapi Plugin Build CJS Interop issues
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const req = require as any;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { Queue, Worker } = req('bullmq');
 
 const QUEUE_NAME = 'pixel-forge';
 
 export default ({ strapi }) => {
-  let queue: Queue;
+  let queue: QueueType;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let worker: Worker;
+  let worker: WorkerType;
 
   return {
     async initialize() {

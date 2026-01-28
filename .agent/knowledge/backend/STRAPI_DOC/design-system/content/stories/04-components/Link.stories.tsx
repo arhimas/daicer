@@ -1,0 +1,86 @@
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Flex, Link } from '@strapi/design-system';
+import { Strapi } from '@strapi/icons/symbols';
+import { outdent } from 'outdent';
+
+const meta: Meta<typeof Link> = {
+  title: 'Components/Link',
+  component: Link,
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Link>;
+
+export const Base = {
+  render: () => (
+    <Flex direction="column" alignItems="stretch" gap={5}>
+      <Link isExternal href="https://strapi.io/">
+        External link
+      </Link>
+    </Flex>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: outdent`
+          <Link isExternal href="https://strapi.io/">
+            External link
+          </Link>
+        `,
+      },
+    },
+  },
+  name: 'base',
+} satisfies Story;
+
+export const Disabled = {
+  render: () => (
+    <Flex direction="column" alignItems="stretch" gap={5}>
+      <Link isExternal href="https://strapi.io/" disabled>
+        Disabled link
+      </Link>
+    </Flex>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: outdent`
+          <Link isExternal href="https://strapi.io/" disabled>
+            Disabled link
+          </Link>
+        `,
+      },
+    },
+  },
+  name: 'disabled',
+} satisfies Story;
+
+export const Icons = {
+  render: () => (
+    <Flex direction="column" alignItems="stretch" gap={5}>
+      <div>
+        <Link isExternal href="https://strapi.io/" startIcon={<Strapi />}>
+          Strapi
+        </Link>
+      </div>
+      <div>
+        <Link isExternal href="https://strapi.io/" endIcon={<Strapi />}>
+          Strapi
+        </Link>
+      </div>
+    </Flex>
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: outdent`
+          <Link isExternal href="https://strapi.io/" startIcon={<Strapi />}>
+            Strapi
+          </Link>
+        `,
+      },
+    },
+  },
+  name: 'icons',
+} satisfies Story;

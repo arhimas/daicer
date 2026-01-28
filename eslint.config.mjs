@@ -5,7 +5,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['**/dist/**', '**/build/**', '.strapi/**', 'public/**', 'config/**', 'types/generated/**', 'script/**'],
+    ignores: ['**/dist/**', '**/build/**', '.strapi/**', 'public/**', 'config/**', 'types/generated/**', 'script/**', 'STRAPI_DOC/**', 'DEPS_DOCS/**'],
   },
   {
     // TypeScript files

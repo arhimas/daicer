@@ -1,6 +1,7 @@
 import type { Core } from '@strapi/strapi';
 
 const register = ({ strapi }: { strapi: Core.Strapi }) => {
+  console.log('>>> [Map Explorer] Registering Custom Fields...');
   strapi.customFields.register({
     name: "voxel-grid",
     plugin: "map-explorer",

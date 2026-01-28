@@ -1,0 +1,45 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import { Box } from '@strapi/design-system';
+
+import * as BoxStories from './Box.stories';
+
+<Meta of={BoxStories} />
+
+# Box
+
+This is the doc of the `Box` component
+
+<ViewSource path="primitives/Box" />
+
+## Imports
+
+```js
+import { Box } from '@strapi/design-system';
+```
+
+## Usage
+
+The `Box` component allows creation of containers according to the guidelines of the Strapi design system
+(border-radius, shadows, background-color, padding, border, etc).
+
+<Canvas of={BoxStories.Base} />
+
+## Box with responsive styles
+
+Responsive styles allow you to specify different values for properties based on different screen sizes or breakpoints.
+The values are defined as an object or array and are applied using a `min-width` condition. If a value is not specified
+for a particular breakpoint, it will inherit the value from the previous breakpoint. The breakpoints are defined in
+theme as : `initial: 0px, small: 520px, medium: 768px, large: 1080px`.
+
+<Canvas of={BoxStories.ResponsiveStyles} />
+
+## Box with logical properties
+
+The `Box` component is internally mapped to logical properties such as `paddingBlock`, `paddingInline`, `marginBlock`
+and `marginInline` added.
+
+<Canvas of={BoxStories.LogicalProperties} />
+
+## Props
+
+<ArgTypes of={Box} />

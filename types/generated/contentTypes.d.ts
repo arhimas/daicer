@@ -427,13 +427,33 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    grid: Schema.Attribute.JSON & Schema.Attribute.Required;
+    grid: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::map-explorer.sprite-grid'>;
+    height: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 128;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blueprint.blueprint'> & Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    width: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 128;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     zones: Schema.Attribute.JSON & Schema.Attribute.Required;
   };
 }
@@ -658,6 +678,32 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     tempHp: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
     type: Schema.Attribute.Enumeration<['player', 'monster', 'npc', 'loot']> & Schema.Attribute.DefaultTo<'player'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEntityZoneEntityZone extends Struct.CollectionTypeSchema {
+  collectionName: 'entity_zones';
+  info: {
+    description: 'Semantic zones for visual blueprints (e.g. Head, Weapon) mapped to fixed colors.';
+    displayName: 'Entity Zone';
+    pluralName: 'entity-zones';
+    singularName: 'entity-zone';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity-zone.entity-zone'> & Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -2399,6 +2445,7 @@ declare module '@strapi/strapi' {
       'api::damage-type.damage-type': ApiDamageTypeDamageType;
       'api::dm-setting.dm-setting': ApiDmSettingDmSetting;
       'api::entity-sheet.entity-sheet': ApiEntitySheetEntitySheet;
+      'api::entity-zone.entity-zone': ApiEntityZoneEntityZone;
       'api::entity.entity': ApiEntityEntity;
       'api::equipment-category.equipment-category': ApiEquipmentCategoryEquipmentCategory;
       'api::feature.feature': ApiFeatureFeature;

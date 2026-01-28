@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "outDir": "dist",
+    "declaration": true,
+    /* this can be reverted to "true" once we publish types for the design-system" */
+    "noImplicitAny": false,
+    "jsx": "react-jsx",
+    "types": ["vite/client"]
+  },
+  "include": ["styled.d.ts", "custom.d.ts", "stories/**/*", ".storybook/**/*", "components/**/*"]
+}

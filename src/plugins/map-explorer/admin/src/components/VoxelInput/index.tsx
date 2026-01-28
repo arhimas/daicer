@@ -139,12 +139,13 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
         }
     };
 
-    const parseVoxelDataToChunk = (voxels: Record<string, unknown>[], size: number): Chunk => {
+    interface ParsedVoxel { x: number; y: number; z: number; [key: string]: unknown }
+    const parseVoxelDataToChunk = (voxels: ParsedVoxel[], size: number): Chunk => {
         const MAX_Z = 6;
         const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(size).fill(null).map(() => Array(size).fill(null)));
         const loadedTiles = emptyLayers;
 
-        voxels.forEach((v: Record<string, unknown>) => {
+        voxels.forEach((v: ParsedVoxel) => {
              if (v.z >= 0 && v.z <= MAX_Z && v.y >= 0 && v.y < size && v.x >= 0 && v.x < size) {
                  if (!loadedTiles[v.z]) loadedTiles[v.z] = Array(size).fill(null).map(() => Array(size).fill(null));
                  if (!loadedTiles[v.z][v.y]) loadedTiles[v.z][v.y] = Array(size).fill(null);
@@ -421,7 +422,8 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
                  const emptyLayers = Array(MAX_Z + 1).fill(null).map(() => Array(gridSize).fill(null).map(() => Array(gridSize).fill(null)));
                  const loadedTiles = emptyLayers;
 
-                 parsed.forEach((v: Record<string, unknown>) => {
+                 interface ParsedVoxel { x: number; y: number; z: number; [key: string]: unknown }
+                 parsed.forEach((v: ParsedVoxel) => {
                      if (v.z >= 0 && v.z <= MAX_Z && v.y >= 0 && v.y < gridSize && v.x >= 0 && v.x < gridSize) {
                          if (!loadedTiles[v.z]) loadedTiles[v.z] = Array(gridSize).fill(null).map(() => Array(gridSize).fill(null));
                          if (!loadedTiles[v.z][v.y]) loadedTiles[v.z][v.y] = Array(gridSize).fill(null);
