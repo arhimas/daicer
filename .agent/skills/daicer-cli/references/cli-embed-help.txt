@@ -1,0 +1,15 @@
+yarn run v1.22.22
+$ ts-node -T src/cli/index.ts embed --help
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+Usage: daicer-cli embed [options] [type]
+
+Embedding Service: Vectorize Entities
+
+Arguments:
+  type        Content Type to embed (or "all") (default: "all")
+
+Options:
+  --queue     Run via Queue (Background) (default: false)
+  --json      Output raw JSON
+  -h, --help  display help for command
+Done in 0.92s.

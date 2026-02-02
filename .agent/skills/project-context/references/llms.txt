@@ -1,0 +1,37 @@
+# Daicer Agent Context Index
+
+## Project Context
+- [Decisions Log (ADR)](./decisions.md): History of architectural decisions.
+
+## Domain Knowledge (References)
+
+### AI Engineering
+> **Source**: `skills/ai-engineering/references/`
+- [LangChain Philosophy](../../ai-engineering/references/langchain_philosophy.md)
+- [Thinking in LangGraph](../../ai-engineering/references/thinking_in_langgraph.md)
+- [Vibe Coding](../../ai-engineering/references/vibe_coding.md)
+
+### System Architecture
+> **Source**: `skills/system-architecture/references/`
+- [High-Level Architecture](../../system-architecture/references/arch.md)
+
+### D&D 5e Rules
+> **Source**: `skills/dnd-rules/references/`
+- [SRD 5.1](../../dnd-rules/references/dnd-5e-srd.md)
+
+## Active Skills Management
+- [AI Engineering](../../ai-engineering/SKILL.md)
+- [Strapi Engineering](../../strapi-engineering/SKILL.md)
+- [System Architecture](../../system-architecture/SKILL.md)
+- [D&D Rules](../../dnd-rules/SKILL.md)
+- [CI/QA Gates](../../ci-qa-gates/SKILL.md)
+- [Daicer CLI](../../daicer-cli/SKILL.md)
+- [CodeConcat](../../codeconcat/SKILL.md)
+- [Brain Maintenance](../../brain-maintenance/SKILL.md)
+
+## Core Directives (Rules)
+> **Source**: `.agent/rules/`
+- [Agentic Architecture](../../../../rules/agentic-arch.md)
+- [Extreme Automation](../../../../rules/be-automate.md)
+- [Code Style](../../../../rules/code-style.md)
+- [Quality Gates](../../../../rules/quality-iron-gates.md)

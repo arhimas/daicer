@@ -1,0 +1,18 @@
+yarn run v1.22.22
+$ ts-node -T src/cli/index.ts genesis --help
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+Usage: daicer-cli genesis [options] [type]
+
+Genesis Service: Seed and Hydrate Data
+
+Arguments:
+  type        Type to seed (atoms, molecules, compounds, blueprints, all)
+              (default: "atoms")
+
+Options:
+  --queue     Run via Queue (Background) (default: false)
+  --clean     Clean DB before seeding (Not fully implemented yet) (default:
+              false)
+  --json      Output raw JSON
+  -h, --help  display help for command
+Done in 1.15s.

@@ -5,31 +5,98 @@ description: API for the Agent to interact with the Daicer Backend via CLI.
 
 # Daicer CLI Skill
 
-Use this skill to inspect the backend state, schemas, and knowledge base without needing to read raw files.
+**"You are blind without the CLI."**
 
-## Instructions
+This skill provides the primary interface for the Agent to perceive the backend state, inspect schemas, and query the knowledge base.
 
-Use `yarn cli` with the following subcommands based on user intent.
+## 📁 Reference Library
+Full command usage is available in the `references/` directory:
+- [Main Help](references/cli-main-help.txt)
+- [Explore Command](references/cli-explore-help.txt)
+- [Compile Command](references/cli-compile-help.txt)
+- [Genesis Command](references/cli-genesis-help.txt)
+- [Embed Command](references/cli-embed-help.txt)
+- [Logs Command](references/cli-logs-help.txt)
 
-### 1. Check Status
-*   **Intent**: "Is the backend running?", "Check connection"
-*   **Command**: `yarn cli status`
+## 🛠️ Usage Patterns
 
-### 2. Inspect Schemas
-*   **Intent**: "Show me the User schema", "What fields does an Item have?"
-*   **Command**: `yarn cli schema [uid]`
-    *   *Example*: `yarn cli schema plugin::users-permissions.user`
-    *   *Example*: `yarn cli schema api::item.item`
+### 1. 📡 System Status
+**Check if the backend is alive.**
+```bash
+yarn cli status --json
+```
 
-### 3. Query Knowledge (RAG)
-*   **Intent**: "What do we know about Voxel implementation?", "Search knowledge base"
-*   **Command**: `yarn cli knowledge "[query]"`
-    *   *Example*: `yarn cli knowledge "voxel chunk architecture"`
+### 2. 🔮 Deep Schema Inspection
+**Understand the shape of data before writing queries.**
+Use this instead of guessing field names.
+```bash
+# Get schema for a specific content type
+yarn cli schema --type "api::spell.spell" --json
 
-### 4. Genesis / Seeding
-*   **Intent**: "Reseed the database", "Run genesis"
-*   **Command**: `yarn cli genesis` (Use with caution, usually wipes data)
+# List all available Schemas
+yarn cli schema --list --json
+```
 
-## Notes
-*   Avoid interactive modes (like just `yarn cli explore`) unless you are sure you can handle the TTY output or the user asked to run it in a terminal they can see.
-*   For `yarn cli schema`, if you don't know the UID, try listing them or guessing based on standard naming (api::[name].[name]).
+### 3. 🔍 Data Exploration (Agentic Mode)
+**Fetch actual database content.**
+ALWAYS use `--json` so you receive machine-readable output.
+```bash
+# Find 5 spells
+yarn cli explore \
+  --type "api::spell.spell" \
+  --action find \
+  --limit 5 \
+  --json
+
+# Find a specific entity by Document ID
+yarn cli explore \
+  --type "api::monster.monster" \
+  --action findOne \
+  --document-id "doc_12345" \
+  --json
+
+# Filter search (JSON string required for filters)
+yarn cli explore \
+  --type "api::item.item" \
+  --action find \
+  --filters '{"rarity": "Legendary"}' \
+  --json
+```
+
+### 4. 🧠 Knowledge Retrieval (RAG)
+**Search the Vector Database.**
+Use this to answer questions about Game Rules, Code Context, or Lore.
+```bash
+yarn cli knowledge --query "How does the Entropy system work?" --json
+```
+
+### 5. ⚡ Compilation & Validation
+**Trigger logic pipelines for specific entities.**
+Useful for debugging why an entity isn't updating.
+```bash
+# Re-compile a specific spell
+yarn cli compile \
+  --target "api::spell.spell" \
+  --id "doc_123" \
+  --phase "Atom" \
+  --json
+```
+
+### 6. 🌱 Genesis & Seeding
+**Reset or Hydrate the world.**
+> ⚠️ **CAUTION**: Genesis actions can be destructive.
+```bash
+# Seed all Atoms (Basic definitions)
+yarn cli genesis atoms --json
+
+# Seed everything
+yarn cli genesis all --json
+```
+
+## 🚨 Troubleshooting
+
+| Error | Cause | Fix |
+| :--- | :--- | :--- |
+| `ConnectionRefused` | Backend is down. | Run `yarn start` or check logs. |
+| `UID Not Found` | Wrong Content Type UID. | Run `yarn cli schema --list` to find the correct UID. |
+| `JSON Parse Error` | CLI output mixed with logs. | Ensure `--json` is passed and `LOG_LEVEL=error` if needed. |

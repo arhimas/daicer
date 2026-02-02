@@ -1,0 +1,15 @@
+yarn run v1.22.22
+$ ts-node -T src/cli/index.ts compile --help
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+Usage: daicer-cli compile [options]
+
+Compilation Service: Validate and Hydrate Entities
+
+Options:
+  --phase <phase>  Compilation Phase (Atom, Molecule, Compound, Blueprint)
+  --target <uid>   Target Entity UID (e.g. api::spell.spell)
+  --id <id>        Target Entity Document ID or ID
+  --queue          Run via Queue (Background) (default: false)
+  --json           Output raw JSON
+  -h, --help       display help for command
+Done in 2.08s.

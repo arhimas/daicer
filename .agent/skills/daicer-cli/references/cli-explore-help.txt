@@ -1,0 +1,18 @@
+yarn run v1.22.22
+$ ts-node -T src/cli/index.ts explore --help
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+Usage: daicer-cli explore [options]
+
+Interactive explorer for Content Types
+
+Options:
+  -t, --type <uid>        Content Type UID (e.g. api::monster.monster)
+  -a, --action <action>   Action to perform (find, findOne, count)
+  -l, --limit <number>    Limit for find action (default: 10)
+  -p, --page <number>     Page for find action (default: 1)
+  -d, --document-id <id>  Document ID for findOne or mutation
+  --json                  Output raw JSON for Agents (Strict Envelope)
+  --save <path>           Save result to JSON file (optional)
+  --filters <json>        JSON string for filters (e.g. '{"name": "foo"}')
+  -h, --help              display help for command
+Done in 0.92s.

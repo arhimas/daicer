@@ -12,7 +12,7 @@ Use this skill when the user asks about Game Rules, Spells, Classes, Races, or M
 The full D&D 5e System Reference Document (SRD) is available in your Knowledge Base.
 
 ### 1. Consult the SRD
-*   **Source**: `.agent/knowledge/domain/dnd_5e_srd.md`
+*   **Source**: `references/dnd-5e-srd.md`
 *   **Action**: Use `view_file` or `grep_search` on this file to find specific rules.
 
 ### 2. Accuracy Mandate

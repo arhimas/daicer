@@ -1,0 +1,13 @@
+yarn run v1.22.22
+$ ts-node -T src/cli/index.ts logs --help
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+Usage: daicer-cli logs [options]
+
+📜 View and follow application logs
+
+Options:
+  -f, --follow          Follow log output (default: false)
+  -l, --lines <number>  Number of lines to show (default: "100")
+  -r, --raw             Show raw JSON instead of pretty print (default: false)
+  -h, --help            display help for command
+Done in 0.96s.
