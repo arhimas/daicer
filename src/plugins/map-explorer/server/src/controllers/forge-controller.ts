@@ -7,11 +7,22 @@ export default ({ strapi }) => ({
     // Pass everything to the queue service. 
     // The Gemini Service (Worker) will handle SOTA Context fetching and Schema Introspection.
     try {
-        const job = await strapi.plugin('map-explorer').service('queueService').addJob({
-            prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action, 
-            entityData,       // Raw form data (for Drafts)
-            entityContext     // UID/DocID (for Deep Fetch in Worker)
-        });
+        const queueService = strapi.plugin('map-explorer').service('queueService');
+        let job;
+
+        if (type === 'Blueprint' || action === 'generate_blueprint') {
+            job = await queueService.addBlueprintJob({
+                prompt, type, archetype, blueprint, model, size, width, height, action,
+                entityData,       
+                entityContext     
+            });
+        } else {
+            job = await queueService.addPixelJob({
+                prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action, 
+                entityData,       
+                entityContext     
+            });
+        }
         
         ctx.body = { jobId: job.id, status: 'queued' };
     } catch (err) {

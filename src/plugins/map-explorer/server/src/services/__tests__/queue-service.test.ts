@@ -29,7 +29,7 @@ vi.mock('bullmq', () => {
   };
 });
 
-describe.skip('QueueService', () => {
+describe('QueueService', () => {
   let service: ReturnType<typeof queueServiceFactory>;
   const mockStrapi = {
     log: { warn: vi.fn(), info: vi.fn(), error: vi.fn() },
@@ -48,27 +48,39 @@ describe.skip('QueueService', () => {
       await expect(service.initialize()).rejects.toThrow('Redis configuration is MANDATORY');
     });
 
-    it('should initialize Queue and Worker if Redis config exists', async () => {
+    it('should initialize Pixel and Blueprint Queues', async () => {
       mockStrapi.config.get.mockReturnValue({ host: 'localhost' });
       await service.initialize();
-      // We can't easily check internal state, but it shouldn't throw
-      expect(mockStrapi.log.info).toHaveBeenCalledWith('Pixel Forge Queue Initialized (Concurrency: 3)');
+      // Expect 2 queues initialized
+      expect(mockStrapi.log.info).toHaveBeenCalledWith('Pixel Forge Queues Initialized (Pixel: 1, Blueprint: 2)');
     });
   });
 
-  describe('addJob', () => {
-    it('should throw if queue not initialized', async () => {
-      await expect(service.addJob({})).rejects.toThrow('Queue not initialized');
+  describe('addPixelJob', () => {
+    it('should throw if queues not initialized', async () => {
+      await expect(service.addPixelJob({})).rejects.toThrow('Pixel Queue not initialized');
     });
 
-    it('should add job to queue', async () => {
+    it('should add job to pixel queue', async () => {
       mockStrapi.config.get.mockReturnValue({ host: 'localhost' });
       await service.initialize();
       
       const jobData = { prompt: 'test' };
-      await service.addJob(jobData);
+      await service.addPixelJob(jobData);
       
       expect(mockAdd).toHaveBeenCalledWith('generate-sprite', expect.objectContaining(jobData), expect.anything());
+    });
+  });
+
+  describe('addBlueprintJob', () => {
+     it('should add job to blueprint queue', async () => {
+      mockStrapi.config.get.mockReturnValue({ host: 'localhost' });
+      await service.initialize();
+      
+      const jobData = { prompt: 'blue test', type: 'Blueprint' };
+      await service.addBlueprintJob(jobData);
+      
+      expect(mockAdd).toHaveBeenCalledWith('generate-blueprint', expect.objectContaining(jobData), expect.anything());
     });
   });
 });

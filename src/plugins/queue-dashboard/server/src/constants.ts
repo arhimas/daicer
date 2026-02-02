@@ -9,4 +9,5 @@ export enum QueueName {
   COMPILE = 'compile',
   TRANSLATE_ENTITY = 'translate-entity',
   PIXEL_FORGE = 'pixel-forge',
+  BLUEPRINT_FORGE = 'blueprint-forge',
 }
