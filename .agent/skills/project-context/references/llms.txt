@@ -35,3 +35,11 @@
 - [Extreme Automation](../../../../rules/be-automate.md)
 - [Code Style](../../../../rules/code-style.md)
 - [Quality Gates](../../../../rules/quality-iron-gates.md)
+
+## Standard Operating Procedures (Workflows)
+> **Source**: `.agent/workflows/`
+- [Bug Fix Protocol](../../../../workflows/bug-fix.md): Reproduction -> Isolation -> Fix.
+- [New Feature Protocol](../../../../workflows/new-feature.md): Planning -> Implementation -> Verification.
+- [Refactoring Protocol](../../../../workflows/refactor.md): Safe code modernization.
+- [Workflow Standards](../../../../workflows/workflow-standards.md): Guidelines for agent workflows.
+
