@@ -13,17 +13,23 @@ const { mockAdd, mockGetJob } = vi.hoisted(() => ({
 
 vi.mock('bullmq', () => {
   return {
-    Queue: vi.fn().mockImplementation(() => ({
-      add: (...args: any[]) => {
-          console.log('[MockQueue] add called with:', args);
-          return mockAdd(...args);
-      },
-      getJob: mockGetJob,
-      getJobCounts: vi.fn().mockResolvedValue({}),
-      getJobs: vi.fn().mockResolvedValue([]),
-      on: vi.fn(),
-      close: vi.fn(),
-    })),
+    Queue: vi.fn().mockImplementation(function(this: any) {
+        return {
+        add: (...args: any[]) => {
+            console.log('[MockQueue] add called with:', args);
+             
+            return (mockAdd as any)(...args);
+        },
+        getJob: mockGetJob,
+        getJobCounts: vi.fn().mockResolvedValue({}),
+        getJobs: vi.fn().mockResolvedValue([]),
+        on: vi.fn(),
+        close: vi.fn(),
+        events: {
+          on: vi.fn(), 
+        },
+        };
+    }),
     Worker: vi.fn(),
     QueueEvents: vi.fn(),
   };

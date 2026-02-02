@@ -3,16 +3,16 @@ const { createStrapi } = require('@strapi/strapi');
 
 // 1. Definition of Entity Zones (for DB) and Character Map (for Generation)
 const ENTITY_ZONES = [
-    { name: 'Core', slug: 'core', color: '#FFFFFF', description: 'Main body mass' },
-    { name: 'Head', slug: 'head', color: '#FFFF00', description: 'Head area' },
-    { name: 'Weapon', slug: 'weapon', color: '#FF0000', description: 'Offensive zone' },
-    { name: 'Legs', slug: 'legs', color: '#0000FF', description: 'Movement zone' },
-    { name: 'Hand (L)', slug: 'hand_l', color: '#00FF00', description: 'Left hand' },
-    { name: 'Hand (R)', slug: 'hand_r', color: '#00FF00', description: 'Right hand' },
-    { name: 'Accessory', slug: 'accessory', color: '#FF00FF', description: 'Optional detail' },
-    { name: 'Wall', slug: 'wall', color: '#808080', description: 'Structural wall' },
-    { name: 'Ground', slug: 'ground', color: '#2E8B57', description: 'Terrain surface' },
-    { name: 'None', slug: 'none', color: 'transparent', description: 'Empty space' }
+    { name: 'Core', slug: 'core', color: '#FFFFFF', description: 'The central body mass or structural foundation.' },
+    { name: 'Head', slug: 'head', color: '#FFFF00', description: 'The sensory or command processing unit.' },
+    { name: 'Weapon', slug: 'weapon', color: '#FF0000', description: 'Offensive capabilities or dangerous extremities.' },
+    { name: 'Legs', slug: 'legs', color: '#0000FF', description: 'Locomotion and stability components.' },
+    { name: 'Hand (L)', slug: 'hand_l', color: '#00FF00', description: 'Left manipulator or grasp point.' },
+    { name: 'Hand (R)', slug: 'hand_r', color: '#00FF00', description: 'Right manipulator or grasp point.' },
+    { name: 'Accessory', slug: 'accessory', color: '#FF00FF', description: 'Decorative or utility attachments.' },
+    { name: 'Wall', slug: 'wall', color: '#808080', description: 'Impassable structural barrier.' },
+    { name: 'Ground', slug: 'ground', color: '#2E8B57', description: 'Walkable terrain surface.' },
+    { name: 'None', slug: 'none', color: 'transparent', description: 'Empty or negative space.' }
 ];
 
 // Characters used in procedural generation logic
@@ -181,10 +181,11 @@ async function seed() {
         ['Medium', 'Large', 'Gargantuan'].forEach(sizeName => {
             const dim = sizeName === 'Medium' ? 32 : (sizeName === 'Large' ? 64 : 128);
             ['unarmed', 'sword', 'axe'].forEach(wep => {
+                const weaponLabel = wep.charAt(0).toUpperCase() + wep.slice(1);
                 blueprints.push({
-                    name: `Humanoid_${sizeName}_${wep}`,
+                    name: `Humanoid Fighter (${sizeName}, ${weaponLabel})`,
                     category: 'Creature',
-                    description: `Procedural ${sizeName} ${wep} fighter.`,
+                    description: `A procedurally generated ${sizeName.toLowerCase()} humanoid fighter wielding a ${wep}.`,
                     grid: generateHumanoid(dim, wep) // Returns string[][] of chars
                 });
             });
@@ -193,9 +194,9 @@ async function seed() {
          // Procedural - Weapons
         ['Longsword', 'Dagger', 'Greatsword'].forEach((w, i) => {
             blueprints.push({
-                name: `Weapon_${w}`,
+                name: `Weapon: ${w}`,
                 category: 'Item',
-                description: `Procedural ${w}.`,
+                description: `A distinct, procedurally generated ${w} design.`,
                 grid: generateSword(32 + (i*16))
             });
         });
@@ -203,19 +204,20 @@ async function seed() {
         // Procedural - Potions
         ['Health', 'Mana', 'Stamina'].forEach(p => {
              blueprints.push({
-                name: `Potion_${p}`,
+                name: `Potion of ${p}`,
                 category: 'Item',
-                description: `Procedural ${p} potion.`,
+                description: `A vial containing a ${p.toLowerCase()} restoring liquid.`,
                 grid: generatePotion(32)
             });
         });
 
          // Procedural - Terrain
          ['Stone_Wall', 'Dirt_Floor'].forEach(t => {
+            const readable = t.replace('_', ' ');
             blueprints.push({
-                name: `Terrain_${t}`,
+                name: readable,
                 category: 'Terrain',
-                description: `Procedural ${t}.`,
+                description: `Standard 32x32 ${readable.toLowerCase()} tile.`,
                 grid: generateTerrain(32, t.includes('Wall') ? 'wall' : 'floor')
             });
          });

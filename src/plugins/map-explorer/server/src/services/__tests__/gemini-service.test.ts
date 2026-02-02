@@ -15,7 +15,7 @@ vi.mock('@langchain/google-genai', () => ({
     ChatGoogleGenerativeAI: mockChatGoogleGenerativeAI
 }));
 
-describe.skip('GeminiService', () => {
+describe('GeminiService', () => {
   let service: ReturnType<typeof geminiServiceFactory>;
   
   // Mock Strapi DB for Prompts
@@ -123,6 +123,53 @@ describe.skip('GeminiService', () => {
     });
 
 
+
+  describe('generateBlueprint', () => {
+      it('should return unique zones used in the grid', async () => {
+          // Mock successful prompt fetch
+          mockFindOne.mockResolvedValue({
+              key: 'blueprint-architect',
+              text: 'System Prompt'
+          });
+
+          // Mock LangChain response with a grid using explicit symbols
+          mockInvoke.mockResolvedValueOnce({
+             blueprint: [
+                 '..XX..', // . = none, X = weapon (implicit/fallback mapping)
+                 '..OO..', // O = head (implicit/fallback)
+             ]
+          });
+
+          // Mock DB Zones (using the mock object passed to factory)
+          const mockFindMany = vi.fn().mockResolvedValue([
+              { name: 'Weapon', slug: 'weapon', color: '#FF0000', symbol: 'X' },
+              { name: 'Head', slug: 'head', color: '#FFFF00', symbol: 'O' }
+          ]);
+
+          // Update query mock to return findMany as well
+          mockStrapi.db.query.mockReturnValue({
+              findOne: mockFindOne,
+              findMany: mockFindMany
+          });
+
+          const config = {
+              prompt: 'Test Sword',
+              type: 'Blueprint',
+              archetype: 'Item',
+              blueprint: [],
+              width: 6,
+              height: 2
+          };
+
+          // @ts-expect-error - Mock config
+          const result = await service.generateBlueprint(config);
+
+          expect(result.zones).toBeDefined();
+          expect(result.zones).toContain('weapon');
+          expect(result.zones).toContain('head');
+          expect(result.zones.length).toBe(2);
+      });
+  });
 
   describe('validateAndRepairGrid', () => {
     it('should return empty 32x32 if input is invalid', () => {

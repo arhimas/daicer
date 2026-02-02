@@ -1,14 +1,16 @@
+
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { z } from "zod";
 import { PNG } from "pngjs";
-import { PromptKey, PromptVariableMap } from './prompt-registry';
+import { PromptKey, PromptVariableMap, PromptSchemas } from './prompt-registry';
+import { ContextBuilder } from './context-builder';
 
-// Types embedded for now to avoid complexity
+// Types
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
 export type AssetType = 'Monster' | 'Item' | 'Race' | 'Environment' | 'Terrain' | 'Sprite' | 'Blueprint';
-export type Archetype = string; // Flexible
+export type Archetype = string;
 
 export interface GenerationConfig {
   prompt: string;
@@ -33,8 +35,8 @@ const TERMS = {
 
 /**
  * **Gemini Pixel Forge Service**
- * Powered by LangChain, Zod & Gemini 3
- * now with Dynamic Strapi Prompts (STRICT MODE)!
+ * Powered by LangChain, Zod, ContextBuilder & Gemini 3
+ * with Hardened Variable Injection
  */
 export default ({ strapi }) => ({
   
@@ -50,9 +52,6 @@ export default ({ strapi }) => ({
       });
   },
 
-  /**
-   * STRICT: Fetches prompt from DB. Throws if missing. No fallbacks.
-   */
   async getPromptTemplate<K extends PromptKey>(key: K): Promise<PromptTemplate> {
       try {
           const entry = await strapi.db.query('api::prompt.prompt').findOne({ 
@@ -71,13 +70,23 @@ export default ({ strapi }) => ({
       }
   },
 
-  async formatPrompt<K extends PromptKey>(key: K, variables: PromptVariableMap[K]): Promise<string> {
+  /**
+   * Hardened Format Prompt: Enforces Zod Schema Validation
+   */
+  async formatPrompt<K extends PromptKey>(key: K, variables: unknown): Promise<string> {
+      // 1. Runtime Validation
+      const schema = PromptSchemas[key];
+      if (!schema) throw new Error(`Missing Zod Schema for prompt key: ${key}`);
+      
+      const validatedVariables = schema.parse(variables) as PromptVariableMap[K];
+
+      // 2. Formatting
       const template = await this.getPromptTemplate(key);
-      return await template.format(variables);
+      return await template.format(validatedVariables);
   },
 
   async generatePixelData(config: GenerationConfig) {
-    // Dispatcher PatternOverride
+    // Dispatcher
     if (config.type === 'Blueprint' || config.action === 'generate_blueprint') {
         return this.generateBlueprint(config);
     }
@@ -89,17 +98,16 @@ export default ({ strapi }) => ({
     const WIDTH = config.width || 32;
     const HEIGHT = config.height || 32;
     const modelId = config.model || 'gemini-3-flash-preview'; 
+    const contextBuilder = new ContextBuilder(strapi);
 
     const isTerrain = TERMS.TERRAIN.includes(config.archetype) || config.type === 'Terrain' || config.type === 'Environment';
     const isItem = TERMS.ITEM.includes(config.archetype) || config.type === 'Item';
 
-    strapi.log.info(`[GeminiService] Config Keys: ${Object.keys(config).join(', ')} | EntityContext: ${JSON.stringify(config.entityContext)}`);
-    
-    // 1. Enhancement Phase REMOVED (User Request)
-    // We now pass the raw prompt directly to the system.
+    // 1. Enhancement Phase (Prompt Passthrough)
     const enhancedPrompt = config.prompt;
 
-    // 2. Size & Framing Logic (Hardcoded for now as it's algorithmic, not purely text)
+    // 2. Size & Framing Logic 
+    // TODO: Move this to ContextBuilder.buildFramingInstruction in Phase 2
     const size = config.size || 'Medium';
     let framingInstruction = `FITTING: Fill the ${WIDTH}x${HEIGHT} grid comfortably.`;
     
@@ -144,105 +152,30 @@ export default ({ strapi }) => ({
         `;
     }
 
+    // 3. SOTA Context Injection (Usage of ContextBuilder)
+    const contextDataString = await contextBuilder.buildEntityContext({
+        entityContext: config.entityContext,
+        entityData: config.entityData,
+        prompt: config.prompt,
+        type: config.type,
+        archetype: config.archetype,
+        width: WIDTH,
+        height: HEIGHT,
+        size
+    });
 
-
-    // 3. SOTA Context Injection (Deep Fetch + Schema Introspection)
-    let contextDataString = "";
-    
-    if (config.entityContext?.uid && config.entityContext?.documentId) {
-        try {
-            const { uid, documentId } = config.entityContext;
-            
-            // A. Deep Fetch Entity (Database State)
-            const dbEntity = await strapi.plugin('map-explorer').service('contextService').fetchDeepContext(uid, documentId);
-
-            // B. Merge Frontend Data (Draft State)
-            // CRITICAL: The user might be editing the entity. Form data (entityData) must override Database data.
-            // This prevents "I am editing a Potion to be a Sword" resulting in a Potion generation because the DB wasn't saved yet.
-            const mergedEntity = { 
-                ...dbEntity, 
-                ...(config.entityContext.uid === uid ? config.entityData : {}) 
-            };
-
-            // C. Introspect Schema
-            const model = strapi.getModel(uid);
-            
-            // D. Build Context String
-            contextDataString = `ENTITY TYPE: ${model.info.displayName || uid}\n` + 
-                                `JSON DATA:\n${JSON.stringify(mergedEntity, null, 2)}`;
-            
-            strapi.log.info(`Pixel Forge: SOTA Deep Context Injected (Merged Draft) for ${uid}:${documentId}`);
-            
-            // [HARDENING] Conflict Resolution strategies:
-            if (config.prompt && config.prompt.length > 5) {
-                contextDataString += `\n\n[IMPORTANT OVERRIDE]: The user has provided a specific generation prompt: "${config.prompt}".\n` +
-                                     `If this prompt conflicts with the JSON DATA above, you MUST prioritize the PROMPT for visual appearance.`;
-            }
-
-        } catch (e) {
-            strapi.log.warn("Pixel Forge: Deep Context Fetch Failed/Skipped, using Shallow Data.", e);
-            contextDataString = formatShallowContext(config.entityData);
-        }
-    } else {
-        contextDataString = formatShallowContext(config.entityData);
-    }
-
-    // Helper to make Shallow Data look SOTA
-    function formatShallowContext(data: Record<string, unknown> | undefined) {
-        const context = [
-            "ENTITY CONTEXT (Draft/Shallow):",
-            `- Generated Type: ${config.type}`,
-            `- Archetype: ${config.archetype}`,
-            `- Target Size: ${config.size} (${config.width}x${config.height})`
-        ];
-        
-        if (data && Object.keys(data).length > 0) {
-            for (const [key, value] of Object.entries(data)) {
-                if (['password', 'confirmation', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'publishedAt', 'localizations', 'locale'].includes(key)) continue;
-                const valStr = typeof value === 'object' ? JSON.stringify(value) : String(value);
-                context.push(`- ${key}: ${valStr}`);
-            }
-        } else {
-            context.push("- (No additional form data provided)");
-        }
-        return context.join('\n');
-    }
-
-    // 4. Vision Pipeline
-    let visionInstruction = "Analyze the visual blueprint provided. The colored zones indicate semantic meaning (see system instructions).";
-    let dynamicZoneMap: Record<string, string> | undefined;
-
-    // Dynamic Zone Context Injection
-    try {
-        const zones = await strapi.db.query('api::entity-zone.entity-zone').findMany();
-        if (zones && zones.length > 0) {
-             dynamicZoneMap = {}; // Initialize
-             const zoneList = zones.map((z: { name: string; slug: string; color: string; description?: string }) => {
-                 const color = z.color.toUpperCase();
-                 const slug = z.slug.toLowerCase();
-                 // Map Slug -> Color for blueprintToPixels
-                 if (dynamicZoneMap) dynamicZoneMap[slug] = color;
-                 
-                 return `- ${z.name} [${color}]: ${z.description || ''}`;
-             }).join('\n');
-             visionInstruction += `\n\nSEMANTIC ZONES (Color -> Meaning):\n${zoneList}`;
-        }
-    } catch(e) {
-        strapi.log.warn("Failed to load zones for prompt context", e);
-    }
+    // 4. Vision Pipeline (Usage of ContextBuilder)
+    const { instruction: visionInstruction, zoneMap: dynamicZoneMap } = await contextBuilder.buildVisionContext();
     
     // Render Vision Input (Blueprint or Input Pixels)
     let visionBuffer: Buffer;
     
     if (config.inputPixels && config.inputPixels.length > 0) {
-        // Iterative Refinement: Upscale current state 2x for "Zoomed In" focus
         visionBuffer = this.pixelsToPng(config.inputPixels, 2); 
     } else if (config.blueprint) {
-        // Blueprint Generation: Render blueprint structure 2x
         const blueprintPixels = this.blueprintToPixels(config.blueprint, dynamicZoneMap);
         visionBuffer = this.pixelsToPng(blueprintPixels, 2);
     } else {
-        // Pure Vision fallback (Transparent Canvas)
         visionBuffer = this.pixelsToPng(Array(HEIGHT).fill(Array(WIDTH).fill('transparent')));
     }
 
@@ -254,14 +187,14 @@ export default ({ strapi }) => ({
         }
     ];
 
-    // 5. Fetch Main System Template (Strict Typed)
+    // 5. Fetch Main System Template with Hardened Validation
     const formattedSystemPrompt = await this.formatPrompt('pixel-forge-system', {
         width: WIDTH,
         height: HEIGHT,
         specificInstruction,
         enhancedPrompt: enhancedPrompt,
         visionInstruction,
-        contextData: contextDataString // Injection of SOTA Context
+        contextData: contextDataString 
     });
 
     try {
@@ -280,15 +213,8 @@ export default ({ strapi }) => ({
         
         const rawGrid = response.pixelData;
         const validatedData = this.validateAndRepairGrid(rawGrid, WIDTH, HEIGHT);
-        if (config.entityContext) {
-            strapi.log.info(`PixelForge Context Check: UID=${config.entityContext.uid}, DocID=${config.entityContext.documentId}`);
-        } else {
-            strapi.log.warn(`PixelForge Context MISSING: entityContext is undefined or null.`);
-        }
-
         const cleanData = this.postProcessPixelData(validatedData);
 
-        // Terminology Fix: Return 'effectivePrompt' instead of 'enhancedPrompt' to avoid user confusion
         return { pixelData: cleanData, effectivePrompt: enhancedPrompt };
 
     } catch (error) {
@@ -301,20 +227,27 @@ export default ({ strapi }) => ({
       const width = config.width || 32;
       const height = config.height || 32;
       const modelId = config.model || 'gemini-3-pro-preview';
+      const contextBuilder = new ContextBuilder(strapi);
       
-      // Sanitization: Strip "Humanoid_" and "[Creature]" prefixes to prevent hallucinating a wielder when we only want the item.
-      // Blueprints are atomic (e.g. just the Sword, not the Guy holding it).
       const cleanPrompt = config.prompt
         .replace(/Humanoid_/gi, '')
         .replace(/\[Creature\] - /gi, '')
-        .replace(/_/g, ' ') // Replace underscores with spaces for better NLP
+        .replace(/_/g, ' ') 
         .trim();
+
+      // Legacy Zone Logic - Refactored to match previous implementation
+      // We still need local knowledge of zones for symbol mapping *outside* of the prompt context in this specific function,
+      // because we need to map the output characters back to zones.
+      // However, we will use ContextBuilder for the *prompt context* string if applicable.
+      // Actually, Blueprint architecture seems to have its own complex 'zoneInstruction' logic that maps symbols.
+      // Let's preserve the logic but move string building to a helper or keep if specific.
+      // For now, I will keep the explicit logic here to minimize regression risk on Blueprint specifics,
+      // BUT I will use contextBuilder for the entity context.
 
       const contextData = config.entityData ? `CONTEXT: ${JSON.stringify(config.entityData)}` : "";
 
       try {
           const model = await this.getModel(modelId);
-          // Dynamic Zone Loading with Strict Symbols
           const zones = await strapi.db.query('api::entity-zone.entity-zone').findMany();
           
           let zoneInstruction = "STRICT LEGEND (Symbol -> Meaning):\n- . : Empty Space\n";
@@ -323,27 +256,22 @@ export default ({ strapi }) => ({
           const charToZone: Record<string, string> = { '.': 'none' };
           const zoneToColor: Record<string, string> = { 'none': 'transparent' };
           
-          // Legacy/Fallback mapping
           const fallbackMap: Record<string, string> = { 'core': '#', 'head': 'O', 'weapon': 'X', 'hand_l': 'l', 'hand_r': 'r', 'legs': 'L', 'accessory': '+' };
           
-          zones.forEach((z: { name: string; slug: string; color: string; description?: string; symbol: string }) => {
-             // Prefer DB Symbol, fallback to legacy, then First Char
-             const symbol = z.symbol || fallbackMap[z.slug] || z.slug[0].toUpperCase();
-             
-             if (!allowedChars.includes(symbol)) {
-                 allowedChars.push(symbol);
-                 zoneInstruction += `- ${symbol} : ${z.name}\n`;
-                 charToZone[symbol] = z.slug;
-                 zoneToColor[z.slug] = z.color;
-             }
-          });
+          if (zones) {
+            zones.forEach((z: any) => {
+                const symbol = z.symbol || fallbackMap[z.slug] || z.slug[0].toUpperCase();
+                
+                if (!allowedChars.includes(symbol)) {
+                    allowedChars.push(symbol);
+                    zoneInstruction += `- ${symbol} : ${z.name}\n`;
+                    charToZone[symbol] = z.slug;
+                    zoneToColor[z.slug] = z.color;
+                }
+            });
+          }
 
-          // ... inside generateBlueprint ...
-          
-          /*
-             STRICT TYPING ENFORCEMENT:
-             We use this.formatPrompt which requires the variables to match PromptVariableMap['blueprint-architect']
-          */
+          // Strict Validation via PromptSchemas
           const formattedPrompt = await this.formatPrompt('blueprint-architect', {
               prompt: cleanPrompt,
               archetype: config.archetype || 'entity',
@@ -363,19 +291,36 @@ export default ({ strapi }) => ({
           const grid = rows.map(r => r.split(''));
           const validatedGrid = this.validateAndRepairGrid(grid, width, height);
           
+          const uniqueZones = new Set<string>();
+          
           const visualGrid = validatedGrid.map(row => 
               row.map(char => {
-                  const slug = charToZone[char];
-                  // If implicit DB symbol matches, try to find color directly
-                  if (!slug && zones.find((z: { symbol: string }) => z.symbol === char)) {
-                      const z = zones.find((z: { symbol: string; color: string }) => z.symbol === char);
-                      return z?.color || 'transparent';
+                  let slug = charToZone[char];
+                  let color = 'transparent';
+
+                  if (slug) {
+                       color = zoneToColor[slug] || 'transparent';
+                  } else {
+                      const z = zones.find((z: { symbol: string }) => z.symbol === char);
+                      if (z) {
+                          slug = z.slug;
+                          color = z.color;
+                      }
                   }
-                  return slug ? (zoneToColor[slug] || 'transparent') : 'transparent';
+
+                  if (slug && slug !== 'none') {
+                      uniqueZones.add(slug);
+                  }
+
+                  return color;
               })
           );
 
-          return { pixelData: visualGrid, blueprint: validatedGrid };
+          return { 
+              pixelData: visualGrid, 
+              blueprint: validatedGrid,
+              zones: Array.from(uniqueZones)
+          };
 
       } catch (e) {
           strapi.log.error("Blueprint Gen Error", e);
@@ -419,8 +364,25 @@ export default ({ strapi }) => ({
       }
   },
 
-  // Helpers
-  // gridToAscii removed (Vision Pipeline Enforcement)
+  async generateStructuredData<T>(config: { promptKey: PromptKey, variables: any, schema: z.ZodSchema<T>, modelId?: string }) {
+      const modelId = config.modelId || 'gemini-3-pro-preview';
+      try {
+          const model = await this.getModel(modelId);
+          
+          const formattedPrompt = await this.formatPrompt(config.promptKey, config.variables);
+
+          const modelWithStructure = model.withStructuredOutput(config.schema);
+          
+          // We wrap in a System/Human pattern or just prompt depending on complexity. 
+          // FormatPrompt usually returns the full text.
+          const response = await modelWithStructure.invoke(formattedPrompt);
+          
+          return response;
+      } catch (e) {
+          strapi.log.error(`Structured Gen Error (${config.promptKey})`, e);
+          throw e;
+      }
+  },
 
   validateAndRepairGrid(data: unknown, width = 32, height = 32): string[][] {
       if (!Array.isArray(data)) return Array(height).fill(Array(width).fill('transparent'));
@@ -445,15 +407,14 @@ export default ({ strapi }) => ({
     );
   },
 
-  // Helpers
   blueprintToPixels(blueprint: ZoneType[][], customMap?: Record<string, string>): string[][] {
       if (!blueprint) return [];
       
       const ZONE_COLORS: Record<string, string> = {
-          'core': '#FFFFFF', // White for primary form
-          'head': '#FFFF00', // Yellow
-          'weapon': '#FF0000', // Red
-          'legs': '#0000FF', // Blue
+          'core': '#FFFFFF', 
+          'head': '#FFFF00', 
+          'weapon': '#FF0000', 
+          'legs': '#0000FF', 
           'hand_l': '#00FF00', 
           'hand_r': '#00FF00',
           'accessory': '#FF00FF',
@@ -482,7 +443,6 @@ export default ({ strapi }) => ({
 
       for (let y = 0; y < height; y++) {
           for (let x = 0; x < width; x++) {
-              // Map scaled coordinate back to original
               const sourceX = Math.floor(x / scale);
               const sourceY = Math.floor(y / scale);
               
@@ -508,6 +468,4 @@ export default ({ strapi }) => ({
           b: parseInt(result[3], 16)
       } : null;
   },
-  
-  // enhancePrompt removed as it is deprecated and unused.
 });

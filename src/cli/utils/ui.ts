@@ -43,7 +43,7 @@ class UI {
   async welcome(title = 'DAICER CLI', subtitle = 'The Agentic Lens') {
     const { boxen, gradient, chalk } = await this.getTools();
     
-    console.log(
+    console.error(
       boxen(
         gradient.passion.multiline(`  🎲  ${title}  🎲  `) + 
         `\n${chalk.dim('─'.repeat(title.length + 8))}\n` +
@@ -66,7 +66,7 @@ class UI {
    */
   async header(title: string, icon = '🔹') {
     const { chalk, gradient } = await this.getTools();
-    console.log(`\n${icon}  ${chalk.bold(gradient.pastel(title))}\n`);
+    console.error(`\n${icon}  ${chalk.bold(gradient.pastel(title))}\n`);
   }
 
   /**
@@ -74,7 +74,7 @@ class UI {
    */
   async kv(key: string, value: string | number, color: 'blue' | 'green' | 'yellow' | 'red' | 'cyan' | 'magenta' = 'blue') {
     const { chalk } = await this.getTools();
-    console.log(`  ${chalk.dim('•')} ${chalk.bold(key)}: ${chalk[color](value)}`);
+    console.error(`  ${chalk.dim('•')} ${chalk.bold(key)}: ${chalk[color](value)}`);
   }
 
   /**
@@ -82,7 +82,7 @@ class UI {
    */
   async panel(content: string, options: { title?: string; color?: string; style?: 'classic' | 'round' | 'double' } = {}) {
     const { boxen, chalk } = await this.getTools();
-    console.log(
+    console.error(
       boxen(content, {
         padding: 1,
         margin: 1,
@@ -112,7 +112,7 @@ class UI {
     });
 
     rows.forEach(r => t.push(r));
-    console.log(t.toString());
+    console.error(t.toString());
   }
 
   /**
@@ -131,17 +131,17 @@ class UI {
    * Logging helpers
    */
   async log(msg: string) {
-    console.log(msg);
+    console.error(msg);
   }
 
   async success(msg: string) {
     const { chalk } = await this.getTools();
-    console.log(`${chalk.green.bold('✅ SUCCESS:')} ${msg}`);
+    console.error(`${chalk.green.bold('✅ SUCCESS:')} ${msg}`);
   }
 
   async warn(msg: string) {
     const { chalk } = await this.getTools();
-    console.log(`${chalk.yellow.bold('⚠️  WARNING:')} ${msg}`);
+    console.error(`${chalk.yellow.bold('⚠️  WARNING:')} ${msg}`);
   }
 
   async error(msg: string, err?: any) {
@@ -160,7 +160,9 @@ class UI {
    * JSON Output handler for Agent Mode
    */
   json(data: any) {
+    console.log('__JSON_START__');
     console.log(JSON.stringify(data, null, 2));
+    console.log('__JSON_END__');
   }
 
   /**

@@ -43,12 +43,32 @@ program.action(async () => {
 (async () => {
     try {
         await program.parseAsync(process.argv);
+        await flushAndExit(0);
     } catch (_err) {
         // Commander usually handles errors, but if something bubbles up:
         // console.error(err);
-        process.exit(1);
+        await flushAndExit(1);
     }
 })();
+
+async function flushAndExit(code: number) {
+    // Wait for stdout and stderr to drain
+    const streams = [process.stdout, process.stderr];
+    const promises = streams.map(stream => {
+        return new Promise<void>(resolve => {
+            if (stream.write('')) {
+                resolve();
+            } else {
+                stream.once('drain', resolve);
+            }
+        });
+    });
+
+    await Promise.all(promises);
+    // Extra safety flush for pipe lag
+    await new Promise(r => setTimeout(r, 100)); 
+    process.exit(code);
+}
 
 async function runInteractiveMenu() {
     await ui.welcome();

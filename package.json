@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:cli": "vitest src/cli/__tests__/cli-e2e.test.ts",
+    "test:cli": "vitest run src/cli/__tests__/cli-e2e.test.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "codegen": "ts-node src/scripts/codegen.ts",

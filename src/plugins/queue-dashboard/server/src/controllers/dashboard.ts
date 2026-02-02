@@ -1,6 +1,5 @@
 import { Context } from 'koa';
 import { Queue } from 'bullmq';
-import { QueueName } from '../constants';
 
 interface JobSerialized {
     id: string | undefined;
@@ -46,7 +45,9 @@ const getQueueService = () => strapi.plugin('bullmq').service('queue');
 const getQueues = (): Queue[] => {
   const service = getQueueService();
   const queues: Queue[] = [];
-  for (const name of Object.values(QueueName)) {
+  const configuredQueues = strapi.plugin('queue-dashboard').config('queues') as string[] || [];
+
+  for (const name of configuredQueues) {
     const q = service.get(name);
     if (q) queues.push(q);
   }

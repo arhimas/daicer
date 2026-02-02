@@ -6,6 +6,8 @@ describe('ForgeController', () => {
   
   const mockQueueService = {
     addJob: vi.fn(),
+    addPixelJob: vi.fn(),
+    addBlueprintJob: vi.fn(),
     getJob: vi.fn(),
   };
 
@@ -21,7 +23,7 @@ describe('ForgeController', () => {
   });
 
   describe('dispatch', () => {
-    it('should enqueue job and return jobId', async () => {
+    it('should enqueue Pixel job and return jobId', async () => {
       const ctx = {
         request: {
           body: { prompt: 'Test Sprite', type: 'Monster' }
@@ -30,24 +32,46 @@ describe('ForgeController', () => {
         throw: vi.fn()
       };
 
-      mockQueueService.addJob.mockResolvedValue({ id: 'job-123' });
+      mockQueueService.addPixelJob.mockResolvedValue({ id: 'job-123' });
 
       // @ts-expect-error - Mocking context
       await controller.dispatch(ctx);
 
-      expect(mockQueueService.addJob).toHaveBeenCalledWith(expect.objectContaining({
-        prompt: 'Test Sprite'
+      expect(mockQueueService.addPixelJob).toHaveBeenCalledWith(expect.objectContaining({
+        prompt: 'Test Sprite',
+        type: 'Monster'
       }));
       expect(ctx.body).toEqual({ jobId: 'job-123', status: 'queued' });
     });
 
-    it('should handle errors', async () => {
+    it('should enqueue Blueprint job and return jobId', async () => {
       const ctx = {
-        request: { body: {} },
+        request: {
+          body: { prompt: 'Test Blue', type: 'Blueprint' }
+        },
+        body: {},
         throw: vi.fn()
       };
 
-      mockQueueService.addJob.mockRejectedValue(new Error('Queue Error'));
+      mockQueueService.addBlueprintJob.mockResolvedValue({ id: 'job-456' });
+
+      // @ts-expect-error - Mocking context
+      await controller.dispatch(ctx);
+
+      expect(mockQueueService.addBlueprintJob).toHaveBeenCalledWith(expect.objectContaining({
+        prompt: 'Test Blue',
+        type: 'Blueprint'
+      }));
+      expect(ctx.body).toEqual({ jobId: 'job-456', status: 'queued' });
+    });
+
+    it('should handle errors', async () => {
+      const ctx = {
+        request: { body: { type: 'Monster' } },
+        throw: vi.fn()
+      };
+
+      mockQueueService.addPixelJob.mockRejectedValue(new Error('Queue Error'));
 
       // @ts-expect-error - Mocking context
       await controller.dispatch(ctx);

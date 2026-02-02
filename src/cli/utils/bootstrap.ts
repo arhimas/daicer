@@ -18,7 +18,7 @@ export async function getStrapi(): Promise<any> {
     console.warn('   Please run "yarn build" once if you encounter errors.');
   }
 
-  console.log('⏳ Booting Headless Strapi (Standalone Mode)...');
+  console.error('⏳ Booting Headless Strapi (Standalone Mode)...');
 
   // Create headless instance
   instance = createStrapi({
@@ -28,7 +28,7 @@ export async function getStrapi(): Promise<any> {
   try {
     // Load the application (connects to DB, loads schemas) but does NOT listen on port
     await instance.load();
-    console.log('✅ Strapi Loaded Successfully.');
+    console.error('✅ Strapi Loaded Successfully.');
 
     // Register shutdown hooks for CLI usage
     // This ensures that when the CLI command finishes (or ctrl+c), we kill python process

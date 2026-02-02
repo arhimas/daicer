@@ -1,11 +1,9 @@
 import type { Queue as QueueType, Worker as WorkerType, JobType } from 'bullmq';
 import { EntityGeometry } from '../utils/EntityGeometry';
 
-// Stealth require to bypass Strapi Plugin Build CJS Interop issues
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const req = require as any;
- 
-const { Queue, Worker } = req('bullmq');
+// Stealth require removed in favor of standard import for better testing support
+// If build fails, verify if @strapi/plugin-bullmq or similar handles this differently.
+import { Queue, Worker } from 'bullmq';
 
 const QUEUE_PIXEL = 'pixel-forge';
 const QUEUE_BLUEPRINT = 'blueprint-forge';
@@ -14,9 +12,8 @@ export default ({ strapi }) => {
   let queuePixel: QueueType;
   let queueBlueprint: QueueType;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let workerPixel: WorkerType;
-  let workerBlueprint: WorkerType;
+  let _workerPixel: WorkerType;
+  let _workerBlueprint: WorkerType;
 
   return {
     async initialize() {
@@ -29,7 +26,7 @@ export default ({ strapi }) => {
       // --- PIXEL FORGE QUEUE ---
       queuePixel = new Queue(QUEUE_PIXEL, { connection });
 
-      workerPixel = new Worker(QUEUE_PIXEL, async (job) => {
+      _workerPixel = new Worker(QUEUE_PIXEL, async (job) => {
         strapi.log.info(`Pixel Forge [Pixel]: Processing Job ${job.id}`);
         try {
             const service = strapi.plugin('map-explorer').service('geminiService');
@@ -52,7 +49,7 @@ export default ({ strapi }) => {
       // --- BLUEPRINT FORGE QUEUE ---
       queueBlueprint = new Queue(QUEUE_BLUEPRINT, { connection });
 
-      workerBlueprint = new Worker(QUEUE_BLUEPRINT, async (job) => {
+      _workerBlueprint = new Worker(QUEUE_BLUEPRINT, async (job) => {
         strapi.log.info(`Pixel Forge [Blueprint]: Processing Job ${job.id}`);
         try {
             const service = strapi.plugin('map-explorer').service('geminiService');

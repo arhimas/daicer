@@ -103,7 +103,11 @@ export async function runSchema(options: {
       fs.writeFileSync(savePath, output);
       if (!options.json) await ui.success(`Saved schema output to ${savePath}`);
     } else {
-      console.log(output);
+      if (options.json) {
+        ui.json(result);
+      } else {
+        console.log(output);
+      }
     }
   } catch (error: any) {
     if (options.json) {

@@ -22,7 +22,7 @@ export async function runStatus(options: { json?: boolean }) {
     const duration = Date.now() - start;
 
     if (isRaw) {
-      console.log(JSON.stringify({ status: 'online', url: rootUrl, latency: duration }));
+      ui.json({ status: 'online', url: rootUrl, latency: duration });
     } else {
       await ui.welcome('DAICER BACKEND', 'Status Check');
       
@@ -40,13 +40,11 @@ export async function runStatus(options: { json?: boolean }) {
     const isConnRefused = error.cause?.code === 'ECONNREFUSED' || error.code === 'ECONNREFUSED';
 
     if (isRaw) {
-      console.log(
-        JSON.stringify({
+      ui.json({
           status: 'offline',
           error: error.message,
           hint: isConnRefused ? 'Server likely not running' : 'Unknown Error',
-        })
-      );
+        });
     } else {
       await ui.panel(
         `💀 OFFLINE\n\nError: ${error.message}\nAction: Run 'yarn develop' in backend`,

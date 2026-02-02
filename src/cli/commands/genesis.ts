@@ -1,93 +1,124 @@
+
 import { Command } from 'commander';
 import { getStrapi, stopStrapi } from '../utils/bootstrap';
-import { QueueName } from '../../queues/contract';
 
 export const genesisCommand = new Command('genesis')
   .description('Genesis Service: Seed and Hydrate Data')
-  .argument('[type]', 'Type to seed (atoms, molecules, compounds, blueprints, all)', 'atoms')
-  .option('--queue', 'Run via Queue (Background)', false)
-  .option('--clean', 'Clean DB before seeding (Not fully implemented yet)', false)
-  .option('--json', 'Output raw JSON')
-  .action(async (type, options) => {
+  .argument('[param]', 'Subcommand (sync, craft) or Term relative to craft')
+  .option('--type <type>', 'Type for craft/sync', 'all')
+  .option('--queue', 'Run via Queue (Background)')
+  .option('--save', 'Save crafted result to Vault', false)
+  .action(async (param, options) => {
     try {
-      await runGenesis(type, options);
+      await runGenesis(param, options);
     } catch (error: any) {
-      if (options.json) {
-        console.log(JSON.stringify({ success: false, error: error.message }));
-      } else {
-        console.error('❌ Error:', error.message);
-      }
+      console.error('❌ Error:', error.message);
       process.exit(1);
     }
   });
 
-export async function runGenesis(type: string, options: { queue?: boolean; clean?: boolean; json?: boolean }) {
+export async function runGenesis(param: string, options: { type: string; queue?: boolean; save?: boolean }) {
   const { default: chalk } = await import('chalk');
-  // const { default: ora } = await import('ora');
+  const { select, input, confirm } = await import('@inquirer/prompts');
+  const path = await import('path');
+  const fs = await import('fs');
 
-  if (!options.json) {
-    console.log(chalk.bold(`\n⚛️  Genesis: ${chalk.cyan(type)}`));
+  let action = param;
+  if (!['sync', 'craft'].includes(action)) {
+      // Interactive Mode
+      action = await select({
+          message: 'Genesis Mode:',
+          choices: [
+              { name: '📥 Sync Vault to Database', value: 'sync' },
+              { name: '✨ Craft Entity (Generative AI)', value: 'craft' }
+          ]
+      });
   }
 
-  // Bootstrap Strapi
-  const strapi = await getStrapi();
-
-  if (options.queue) {
-    // 1. Queue Mode
-    if (!options.json) console.log(chalk.yellow('   Dispatching to Queue...'));
-    
-    // Lazy load QueueManager because it requires Strapi context
-    const { QueueManager } = await import('../../queues/queue-manager');
-    const queueManager = QueueManager.init(strapi);
-
-    const job = await queueManager.add(QueueName.GENESIS, `genesis-${type}-${Date.now()}`, {
-      type: type as any,
-      clean: options.clean,
-    });
-
-    if (options.json) {
-      console.log(JSON.stringify({ success: true, jobId: job.id, message: 'Dispatched to queue' }));
-    } else {
-      console.log(chalk.green(`   ✅ Job dispatched! ID: ${job.id}`));
-    }
-
-  } else {
-    // 2. Direct Mode
-    if (!options.json) console.log(chalk.yellow('   Running directly (Foreground)...'));
-
-      let result;
-      // Depending on type, call specific loader
-      if (type === 'atoms') {
-        const { loadAtoms } = await import('../../scripts/genesis/atoms-loader');
-        result = await loadAtoms(strapi);
-      } else {
-        // Fallback for others not yet refactored
-        if (!options.json) console.warn(chalk.red(`   ⚠️ Type '${type}' not yet fully refactored for CLI direct run. Only 'atoms' is supported directly right now.`));
-        // We could run the script via child_process if needed, or throw
-        throw new Error(`Type '${type}' not supported in direct CLI mode yet.`);
+  // --- SYNC MODE ---
+  if (action === 'sync') {
+      console.log(chalk.bold(`\n⚛️  Genesis Sync: ${chalk.cyan(options.type)}`));
+      
+      const strapi = await getStrapi(); // Boot Strapi
+      const { GenesisSeeder } = await import('../../genesis/seeder'); // Dynamic import to avoid type issues if strapi not loaded
+      
+      try {
+          const seeder = new GenesisSeeder(strapi);
+          await seeder.run();
+          console.log(chalk.green('\n✅ Sync Complete!'));
+      } finally {
+          await stopStrapi();
       }
-
-      if (options.json) {
-        console.log(JSON.stringify(result || { success: true }));
-      } else {
-        console.log(chalk.green('   ✅ Genesis Complete.'));
-      }
+      return;
   }
 
-  // Only stop strapi if we started it (getStrapi handles singleton)
-  // But for CLI command, we usually process.exit(0) at the end or let the caller loop.
-  // In `explore` we used `stopStrapi()` but here we might want to keep it open if using child process?
-  // But here we await. So we can stop.
-  
-  // NOTE: If we use Queue, we just dispatched. We can close.
-  // If we ran directly, we finished. We can close.
-  // However, `stopStrapi` might kill the worker if we are running in the SAME process? 
-  // No, CLI is separate process. The worker runs in the backend server.
-  // Wait, if we use --queue, we are adding to Redis. The worker is in the MAIN backend process.
-  
-  // But what if we are running the CLI and expecting it to process it?
-  // "The user wants to run the genesis on demand on other dbs to test..." 
-  // Usually --queue implies there is a worker running somewhere.
-  
-  await stopStrapi();
+  // --- CRAFT MODE ---
+  if (action === 'craft') {
+      let term = param && param !== 'craft' ? param : '';
+      if (!term) {
+          term = await input({ message: 'Enter Concept/Term (e.g. "Fireball", "Goblin"): ' });
+      }
+      
+      let type = options.type;
+      if (type === 'all' || !type) {
+         type = await select({
+             message: 'Entity Type:',
+             choices: ['spell', 'item', 'monster', 'feat', 'trait', 'class'].map(t => ({ value: t }))
+         });
+      }
+
+      console.log(chalk.bold(`\n✨ Crafting: ${chalk.cyan(term)} [${chalk.magenta(type)}]`));
+      
+      const strapi = await getStrapi();
+      
+      try {
+          // 1. RAG Lookup
+          const searchService = strapi.plugin('semantic-search').service('searchService');
+          const contextResults = await searchService.search({
+              query: term,
+              limit: 5
+          });
+          const contextSummary = contextResults.map((r: any) => `- ${r.title}: ${r.content?.substring(0, 100)}...`).join('\n');
+          
+          // 2. Generate
+          const geminiService = strapi.plugin('map-explorer').service('geminiService');
+          
+          // Resolve Schema
+          let schema;
+          const { Schemas } = await import('../../genesis'); // Ensure we export Schemas from index
+          // We need a map. Let's do simple mapping.
+          switch(type) {
+              case 'spell': schema = Schemas.SpellSchema; break;
+              case 'item': schema = Schemas.ItemSchema; break;
+              case 'monster': schema = Schemas.EntitySchema; break;
+              case 'trait': schema = Schemas.TraitSchema; break;
+              case 'feat': schema = Schemas.FeatureSchema; break;
+              case 'class': schema = Schemas.ClassSchema; break;
+              default: throw new Error(`Unknown type: ${type}`);
+          }
+
+          console.log(chalk.yellow('   🧠 Thinking...'));
+          const result = await geminiService.generateStructuredData({
+              promptKey: 'genesis-architect',
+              variables: {
+                  term,
+                  type,
+                  contextData: contextSummary
+              },
+              schema: schema
+          });
+
+          // 3. Display
+          console.log('\n' + chalk.green(JSON.stringify(result, null, 2)));
+
+          // 4. Save
+          if (options.save || await confirm({ message: 'Save to Vault?', default: true })) {
+               console.log(chalk.red('   ⚠️  Auto-save not fully implemented for single-file vault. Copy the JSON above!'));
+               // TODO: distinct files for vault.
+          }
+
+      } finally {
+          await stopStrapi();
+      }
+  }
 }

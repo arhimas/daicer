@@ -1,4 +1,8 @@
+import { QueueName } from '../constants';
+
 export default {
-  default: {},
+  default: {
+    queues: Object.values(QueueName),
+  },
   validator() {},
 };

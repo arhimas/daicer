@@ -6,7 +6,7 @@ const CLI_CMD = 'yarn --silent cli';
 // Ensure we are in backend root
 const CWD = path.resolve(__dirname, '../../..');
 
-describe.skip('CLI E2E (Standalone)', () => {
+describe('CLI E2E (Standalone)', () => {
   it('should report status online', () => {
     // This command still hits the API port, so it relies on 'yarn develop' running OR just checks port?
     // Wait, status command implementation: fetch(rootUrl, method: HEAD).
@@ -34,7 +34,8 @@ describe.skip('CLI E2E (Standalone)', () => {
   it('should explore characters (headless mode)', () => {
     // This ensures the Headless Strapi boots and connects to DB
     const start = Date.now();
-    const output = execSync(`${CLI_CMD} explore --type api::entity.entity --action count --json`, {
+    // Use 'plugin::users-permissions.user' as it is always present
+    const output = execSync(`${CLI_CMD} explore --type plugin::users-permissions.user --action count --json`, {
       cwd: CWD,
       encoding: 'utf-8',
       stdio: ['ignore', 'pipe', 'ignore'], // ignore stderr (spinner noise if any leaks)
@@ -52,62 +53,34 @@ describe.skip('CLI E2E (Standalone)', () => {
     const json = extractJSON(output);
     expect(Array.isArray(json)).toBe(true);
     expect(json.length).toBeGreaterThan(0);
-    const char = json.find((t: any) => t.uid === 'api::entity.entity');
+    const char = json.find((t: any) => t.uid === 'plugin::users-permissions.user');
     expect(char).toBeDefined();
   });
 
   function extractJSON(output: string): any {
-    // Filter out known log lines from dotenv or others that use []
-    // We look for the first line that looks like start of JSON but is NOT a log prefix
-    const lines = output.trim().split('\n');
+    const startMarker = '__JSON_START__';
+    const endMarker = '__JSON_END__';
+    
+    const startIndex = output.indexOf(startMarker);
+    const endIndex = output.indexOf(endMarker);
 
-    // Strategy 1: Look for pure JSON lines from the bottom up (most likely place for successful output)
-    for (let i = lines.length - 1; i >= 0; i--) {
-      const line = lines[i].trim();
-      if ((line.startsWith('{') && line.endsWith('}')) || (line.startsWith('[') && line.endsWith(']'))) {
-        // Check if it's a log line
-        if (line.startsWith('[dotenv') || line.startsWith('[Bootstrap]')) continue;
+    if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+        const jsonStr = output.substring(startIndex + startMarker.length, endIndex).trim();
         try {
-          return JSON.parse(line);
-        } catch {
-          continue;
+            return JSON.parse(jsonStr);
+        } catch (e) {
+            throw new Error(`Failed to parse framed JSON: ${e.message}\nRaw: ${jsonStr.substring(0, 100)}...`);
         }
-      }
     }
 
-    // Strategy 2: Find the first valid JSON start character that isn't part of a log tag
-    // We scan the string, but skip `[dotenv` or `[202...` patterns if possible.
-    // Converting log noise to empty strings might be safer.
-    const cleanOutput = output.replace(/^\[dotenv.*$/gm, '').replace(/^\[202.*$/gm, '');
+    // Fallback: Try regex if markers are missing (legacy check)
+    // But since we control the source, markers SHOULD be there.
+    // If we receive output from a version without markers, we fail.
+    // Output often contains logs, so "finding JSON" heuristically is flaky.
+    
+    // Debug info
+    // console.log('Raw Output:', output);
 
-    const firstBrace = cleanOutput.indexOf('{');
-    const firstBracket = cleanOutput.indexOf('[');
-    let start = -1;
-
-    if (firstBrace !== -1 && (firstBracket === -1 || firstBrace < firstBracket)) {
-      start = firstBrace;
-    } else if (firstBracket !== -1) {
-      start = firstBracket;
-    }
-
-    if (start !== -1) {
-      try {
-        // Attempt to parse from the found start to the end of cleaned output
-        // Note: cleaning might have removed end braces if they were mixed with logs? Unlikely.
-        // But output from execSync is full buffer.
-        // Use the ORIGINAL output substring logic but search in cleaned version relative indices?
-        // Easier: Just parse the substring from Clean Output.
-        return JSON.parse(cleanOutput.substring(start));
-      } catch {
-        // ignore
-      }
-    }
-
-    // As a fallback for the specific failure `[dotenv...` being interpreted as JSON start:
-    // If the regex replacement didn't catch it for some reason?
-    // The extractJSON failure showed it finding `[dotenv...`.
-    // The regex above handles it.
-
-    throw new Error(`Could not find valid JSON in CLI output. Raw:\n${output}`);
+    throw new Error(`Could not find JSON framing markers in output. Start: ${startIndex}, End: ${endIndex}, Length: ${output.length}. First 200 chars: ${output.substring(0, 200)}`);
   }
 });

@@ -18,6 +18,20 @@ export default ({ env }) => ({
   'queue-dashboard': {
     enabled: true,
     resolve: './src/plugins/queue-dashboard',
+    config: {
+      queues: [
+        'embedding',
+        'generate-image',
+        'generate-text-remote',
+        'generate-text-local',
+        'maintenance',
+        'genesis',
+        'compile',
+        'translate-entity',
+        'pixel-forge',
+        'blueprint-forge',
+      ],
+    },
   },
   'map-explorer': {
     enabled: true,
