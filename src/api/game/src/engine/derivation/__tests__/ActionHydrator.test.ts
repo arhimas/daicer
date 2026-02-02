@@ -1,114 +1,96 @@
-import { ActionHydrator, SerializedItem, SerializedSpell } from '../ActionHydrator';
+import { describe, it, expect } from 'vitest';
+import { ActionHydrator } from '../ActionHydrator';
 import { DerivationContext } from '../types';
 
 describe('ActionHydrator', () => {
-  const mockContext: DerivationContext = {
-    stats: {
-      strength: 16, // +3
-      dexterity: 14, // +2
-      constitution: 14,
-      intelligence: 10,
-      wisdom: 10,
-      charisma: 10,
-      passivePerception: 10,
-      initiativeBonus: 0,
-    },
-    attributes: {
-      // Redundant but testing fallback
-      strength: 16,
-      dexterity: 14,
-      constitution: 14,
-      intelligence: 10,
-      wisdom: 10,
-      charisma: 10,
-    },
+  const mockContext = {
+    attributes: { strength: 10, dexterity: 12, constitution: 10, intelligence: 14, wisdom: 10, charisma: 10 },
+    stats: { strength: 10 },
     proficiencyBonus: 2,
-    level: 1,
-    spellcastingAbility: 'intelligence',
-    equipment: [],
-  };
+    spellcastingAbility: 'intelligence'
+  } as unknown as DerivationContext;
 
   describe('hydrateFromEquipment', () => {
-    it('should return empty actions for non-weapons', () => {
-      const item: SerializedItem = { name: 'Potion', type: 'consumable' };
-      const result = ActionHydrator.hydrateFromEquipment(item, mockContext);
-      expect(result).toHaveLength(0);
-    });
-
     it('should hydrate a simple melee weapon', () => {
-      const item: SerializedItem = {
-        name: 'Longsword',
-        type: 'weapon',
-        damage_dice: '1d8',
-        damage_type: { name: 'Slashing' },
-        equipment_category: { slug: 'martial-weapon' },
-      };
-      const result = ActionHydrator.hydrateFromEquipment(item, mockContext);
-      expect(result).toHaveLength(1); // No versatile property set on input item
-
-      const action = result[0];
-      expect(action.name).toBe('Longsword');
-      expect(action.attack?.bonus).toBe(5); // +3 STR +2 PROF
-      expect(action.effects?.[0].flat).toBe(3); // +3 STR
-    });
-
-    it('should handle finesse weapons using DEX if better', () => {
-      const dexContext = { ...mockContext, attributes: { ...mockContext.attributes, dexterity: 18, strength: 10 } };
-      // DEX 18 (+4), STR 10 (+0)
-
-      const item: SerializedItem = {
+      const item = {
+        id: '1',
         name: 'Dagger',
         damage_dice: '1d4',
-        properties: [{ slug: 'finesse' }],
+        range_normal: 5,
+        properties: [{ slug: 'finesse' }]
       };
 
-      const result = ActionHydrator.hydrateFromEquipment(item, dexContext);
-      expect(result[0].attack?.bonus).toBe(6); // +4 DEX +2 PROF
-      expect(result[0].effects?.[0].flat).toBe(4);
+      const actions = ActionHydrator.hydrateFromEquipment(item, mockContext);
+      
+      expect(actions).toHaveLength(1);
+      const action = actions[0];
+      expect(action.name).toBe('Dagger');
+      expect(action.attack?.type).toBe('melee_weapon');
+      // Dex 12 (+1) > Str 10 (+0), Finesse -> Dex used
+      expect(action.attack?.bonus).toBe(3); // 1 (mod) + 2 (prof)
+      expect(action.effects?.[0].flat).toBe(1); // Mod only
     });
 
-    it('should generate versatile action if present', () => {
-      const item: SerializedItem = {
+    it('should ignore non-weapons', () => {
+      const item = { name: 'Chair', type: 'furniture' };
+      const actions = ActionHydrator.hydrateFromEquipment(item, mockContext);
+      expect(actions).toHaveLength(0);
+    });
+
+    it('should handle versatile weapons', () => {
+      const item = {
+        id: '2',
         name: 'Longsword',
         damage_dice: '1d8',
         versatile_damage: '1d10',
-        equipment_category: { slug: 'weapon' },
+        equipment_category: { slug: 'martial-weapon' } // triggers isWeapon
       };
-      const result = ActionHydrator.hydrateFromEquipment(item, mockContext);
-      expect(result).toHaveLength(2);
-      expect(result[1].name).toContain('Two-Handed');
-      expect(result[1].effects?.[0].dice).toBe('1d10');
+
+      const actions = ActionHydrator.hydrateFromEquipment(item, mockContext);
+      
+      expect(actions).toHaveLength(2);
+      expect(actions[0].id).toContain('weapon_2'); // One hand
+      expect(actions[1].id).toContain('versatile'); // Two hand
+      expect(actions[1].effects?.[0].dice).toBe('1d10');
     });
   });
 
   describe('hydrateFromSpell', () => {
-    it('should hydrate a basic attack spell', () => {
-      const spell: SerializedSpell = {
+    it('should hydrate a damage spell (Fireball)', () => {
+      const spell = {
+        id: 'sp1',
+        name: 'Fireball',
+        level: 3,
+        damage_instances: [
+          { effect_type: 'Damage', damage_type: 'fire', dice_count: 8, dice_value: 6 }
+        ],
+        range_config: { type: 'ranged', distance: 150, aoe_shape: 'sphere', aoe_size: 20 },
+        mechanics_config: { action_type: 'Dexterity Save', save_effect: 'Half' }
+      };
+
+      const action = ActionHydrator.hydrateFromSpell(spell, mockContext);
+
+      expect(action.name).toBe('Fireball');
+      expect(action.cost?.amount).toBe(3); // Level 3 slot
+      expect(action.save?.attribute).toBe('dex');
+      expect(action.save?.dc).toBe(12); // 8 + 2 (prof) + 2 (Int mod)
+      expect(action.aoe?.shape).toBe('sphere');
+      expect(action.effects?.[0].dice).toBe('8d6');
+    });
+
+    it('should hydrate a ranged attack spell (Fire Bolt)', () => {
+      const spell = {
         name: 'Fire Bolt',
         level: 0,
         mechanics_config: { action_type: 'Ranged Spell Attack' },
-        range_config: { type: 'Ranged', distance: 120 },
-        damage_instances: [{ effect_type: 'Damage', damage_type: 'Fire', dice_count: 1, dice_value: 10 }],
+        range_config: { type: 'ranged', distance: 120 },
+        damage_instances: [{ damage_type: 'fire', dice_count: 1, dice_value: 10 }]
       };
 
-      const result = ActionHydrator.hydrateFromSpell(spell, mockContext); // INT 10 (+0) -> Attack +2
-      expect(result.attack?.bonus).toBe(2);
-      expect(result.range.type).toBe('ranged');
-      expect(result.effects![0].subtype).toBe('Fire');
-    });
+      const action = ActionHydrator.hydrateFromSpell(spell, mockContext);
 
-    it('should hydrate a save spell', () => {
-      const spell: SerializedSpell = {
-        name: 'Fireball',
-        level: 3,
-        mechanics_config: { action_type: 'Dexterity Save', save_effect: 'Half' },
-        damage_instances: [{ effect_type: 'Damage', damage_type: 'Fire', dice_count: 8, dice_value: 6 }],
-      };
-
-      const result = ActionHydrator.hydrateFromSpell(spell, mockContext); // INT 10 (+0) -> DC 8+0+2=10
-      expect(result.save?.attribute).toBe('dex');
-      expect(result.save?.dc).toBe(10);
-      expect(result.save?.effect).toBe('half');
+      expect(action.attack?.type).toBe('ranged_spell');
+      expect(action.attack?.bonus).toBe(4); // 2 (prof) + 2 (Int mod)
     });
   });
 });

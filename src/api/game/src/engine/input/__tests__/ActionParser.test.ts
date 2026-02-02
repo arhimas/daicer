@@ -1,30 +1,33 @@
+import { describe, it, expect } from 'vitest';
 import { ActionParser } from '../ActionParser';
 
 describe('ActionParser', () => {
-  it('returns null for unknown commands', () => {
-    expect(ActionParser.parse('HELLO', 'actor-1')).toBeNull();
-  });
+    it('should parse valid MOVE command', () => {
+        const cmd = ActionParser.parse('MOVE:10,20,1', 'actor1');
+        expect(cmd).not.toBeNull();
+        expect(cmd?.type).toBe('MOVE');
+        if (cmd?.type === 'MOVE') {
+            expect(cmd.payload.actorId).toBe('actor1');
+            expect(cmd.payload.targetPosition).toEqual({ x: 10, y: 20, z: 1 });
+        }
+    });
 
-  it('parses MOVE command correctly', () => {
-    const cmd = ActionParser.parse('MOVE:10,20', 'actor-1');
-    expect(cmd).not.toBeNull();
-    expect(cmd?.type).toBe('MOVE');
-    if (cmd?.type === 'MOVE') {
-      expect(cmd.payload.actorId).toBe('actor-1');
-      expect(cmd.payload.targetPosition.x).toBe(10);
-      expect(cmd.payload.targetPosition.y).toBe(20);
-      expect(cmd.payload.targetPosition.z).toBe(0); // Default Z
-    }
-  });
+    it('should handle optional Z', () => {
+        const cmd = ActionParser.parse('MOVE:5,5', 'actor1');
+        if (cmd?.type === 'MOVE') {
+             expect(cmd.payload.targetPosition.z).toBe(0);
+        }
+    });
 
-  it('parses 3D MOVE command', () => {
-    const cmd = ActionParser.parse('MOVE:5,5,1', 'actor-1');
-    if (cmd?.type === 'MOVE') {
-      expect(cmd.payload.targetPosition.z).toBe(1);
-    }
-  });
+    it('should clamp Z', () => {
+         const cmd = ActionParser.parse('MOVE:5,5,100', 'actor1');
+         if (cmd?.type === 'MOVE') {
+             expect(cmd.payload.targetPosition.z).toBe(3);
+         }
+    });
 
-  it('handles invalid coordinates gracefully', () => {
-    expect(ActionParser.parse('MOVE:a,b', 'actor-1')).toBeNull();
-  });
+    it('should return null for invalid syntax', () => {
+        expect(ActionParser.parse('ATTACK:thing', 'actor1')).toBeNull(); // Only MOVE supported
+        expect(ActionParser.parse('MOVE:invalid', 'actor1')).toBeNull();
+    });
 });

@@ -31,7 +31,7 @@ describe('ActionDispatcher', () => {
       actionId: 'action-1',
       sourceId: 'source-1',
       type: 'attack',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
       attack: {
         bonus: 5,
         critRange: 20,

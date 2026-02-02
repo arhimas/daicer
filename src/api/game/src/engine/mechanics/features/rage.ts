@@ -13,7 +13,7 @@ export const Rage: FeatureHandler = {
     const isRaging = attacker.conditions?.some((c) => c.name === 'Rage');
 
     // 2. Must be Melee Weapon Attack using Strength
-    const isMelee = ['melee', 'melee_attack'].includes(action.type);
+    const isMelee = ['melee', 'melee_attack', 'melee_weapon'].includes(action.type);
 
     return !!(isRaging && isMelee);
   },

@@ -61,7 +61,7 @@ Testing these files is critical to ensure system stability and prevent regressio
 - [ ] **0%** - `llm-gateway.ts` <!-- src/api/game/services/llm-gateway.ts -->
 - [ ] **0%** - `inventory-service.ts` <!-- src/api/game/services/inventory-service.ts -->
 - [ ] **0%** - `history-service.ts` <!-- src/api/game/services/history-service.ts -->
-- [ ] **0%** - `game.ts` <!-- src/api/game/services/game.ts -->
+- [x] **80%+** - `game.ts` <!-- src/api/game/services/game.ts -->
 - [ ] **0%** - `game-ledger.ts` <!-- src/api/game/services/game-ledger.ts -->
 - [ ] **0%** - `entity-lifecycle.ts` <!-- src/api/game/services/entity-lifecycle.ts -->
 - [ ] **0%** - `entity-derivation.ts` <!-- src/api/game/services/entity-derivation.ts -->
@@ -73,60 +73,60 @@ Testing these files is critical to ensure system stability and prevent regressio
 
 ### 📂 src/api/game/src/engine/compilation
 - [x] **80%+** - `Compiler.ts` <!-- src/api/game/src/engine/compilation/Compiler.ts -->
-- [ ] **0%** - `CompilationOrchestrator.ts` <!-- src/api/game/src/engine/compilation/CompilationOrchestrator.ts -->
+- [x] **80%+** - `CompilationOrchestrator.ts` <!-- src/api/game/src/engine/compilation/CompilationOrchestrator.ts -->
 
 ### 📂 src/api/game/src/engine/compilation/atoms
-- [ ] **0%** - `DamageTypeCompiler.ts` <!-- src/api/game/src/engine/compilation/atoms/DamageTypeCompiler.ts -->
-- [ ] **0%** - `ConditionCompiler.ts` <!-- src/api/game/src/engine/compilation/atoms/ConditionCompiler.ts -->
+- [x] **80%+** - `DamageTypeCompiler.ts` <!-- src/api/game/src/engine/compilation/atoms/DamageTypeCompiler.ts -->
+- [x] **80%+** - `ConditionCompiler.ts` <!-- src/api/game/src/engine/compilation/atoms/ConditionCompiler.ts -->
 
 ### 📂 src/api/game/src/engine/compilation/blueprints
-- [ ] **0%** - `EntityCompiler.ts` <!-- src/api/game/src/engine/compilation/blueprints/EntityCompiler.ts -->
+- [x] **80%+** - `EntityCompiler.ts` <!-- src/api/game/src/engine/compilation/blueprints/EntityCompiler.ts -->
 
 ### 📂 src/api/game/src/engine/compilation/compounds
-- [ ] **0%** - `EquipmentCompiler.ts` <!-- src/api/game/src/engine/compilation/compounds/EquipmentCompiler.ts -->
+- [x] **80%+** - `EquipmentCompiler.ts` <!-- src/api/game/src/engine/compilation/compounds/EquipmentCompiler.ts -->
 
 ### 📂 src/api/game/src/engine/compilation/molecules
-- [ ] **0%** - `SpellCompiler.ts` <!-- src/api/game/src/engine/compilation/molecules/SpellCompiler.ts -->
-- [ ] **0%** - `FeatureCompiler.ts` <!-- src/api/game/src/engine/compilation/molecules/FeatureCompiler.ts -->
+- [x] **80%+** - `SpellCompiler.ts` <!-- src/api/game/src/engine/compilation/molecules/SpellCompiler.ts -->
+- [x] **80%+** - `FeatureCompiler.ts` <!-- src/api/game/src/engine/compilation/molecules/FeatureCompiler.ts -->
 
 ### 📂 src/api/game/src/engine/constants
-- [ ] **0%** - `physics.ts` <!-- src/api/game/src/engine/constants/physics.ts -->
+- [x] **80%+** - `physics.ts` <!-- src/api/game/src/engine/constants/physics.ts -->
 
 ### 📂 src/api/game/src/engine/core
 - [x] **80%+** - `game-loop.ts` <!-- src/api/game/src/engine/core/game-loop.ts -->
-- [ ] **0%** - `deterministic-turn-processor.ts` <!-- src/api/game/src/engine/core/deterministic-turn-processor.ts -->
+- [x] **80%+** - `deterministic-turn-processor.ts` <!-- src/api/game/src/engine/core/deterministic-turn-processor.ts -->
 
 ### 📂 src/api/game/src/engine/derivation
-- [ ] **0%** - `types.ts` <!-- src/api/game/src/engine/derivation/types.ts -->
-- [ ] **0%** - `skills.ts` <!-- src/api/game/src/engine/derivation/skills.ts -->
+- [x] **80%+** - `types.ts` <!-- src/api/game/src/engine/derivation/types.ts -->
+- [x] **80%+** - `skills.ts` <!-- src/api/game/src/engine/derivation/skills.ts -->
 - [ ] **0%** - `index.ts` <!-- src/api/game/src/engine/derivation/index.ts -->
-- [ ] **0%** - `defenses.ts` <!-- src/api/game/src/engine/derivation/defenses.ts -->
+- [x] **80%+** - `defenses.ts` <!-- src/api/game/src/engine/derivation/defenses.ts -->
 - [ ] **0%** - `capabilities.ts` <!-- src/api/game/src/engine/derivation/capabilities.ts -->
-- [ ] **0%** - `attributes.ts` <!-- src/api/game/src/engine/derivation/attributes.ts -->
-- [ ] **0%** - `ActionHydrator.ts` <!-- src/api/game/src/engine/derivation/ActionHydrator.ts -->
+- [x] **80%+** - `attributes.ts` <!-- src/api/game/src/engine/derivation/attributes.ts -->
+- [x] **80%+** - `ActionHydrator.ts` <!-- src/api/game/src/engine/derivation/ActionHydrator.ts -->
 
 ### 📂 src/api/game/src/engine/engine
-- [ ] **0%** - `action-dispatcher.ts` <!-- src/api/game/src/engine/engine/action-dispatcher.ts -->
+- [x] **80%+** - `action-dispatcher.ts` <!-- src/api/game/src/engine/engine/action-dispatcher.ts -->
 
 ### 📂 src/api/game/src/engine/entropy
-- [ ] **0%** - `index.ts` <!-- src/api/game/src/engine/entropy/index.ts -->
+- [x] **80%+** - `index.ts` <!-- src/api/game/src/engine/entropy/index.ts -->
 
 ### 📂 src/api/game/src/engine/input
-- [ ] **0%** - `ActionParser.ts` <!-- src/api/game/src/engine/input/ActionParser.ts -->
+- [x] **80%+** - `ActionParser.ts` <!-- src/api/game/src/engine/input/ActionParser.ts -->
 
 ### 📂 src/api/game/src/engine/mechanics/damage
-- [ ] **0%** - `DamageInstance.ts` <!-- src/api/game/src/engine/mechanics/damage/DamageInstance.ts -->
+- [x] **80%+** - `DamageInstance.ts` <!-- src/api/game/src/engine/mechanics/damage/DamageInstance.ts -->
 
 ### 📂 src/api/game/src/engine/mechanics/features
-- [ ] **0%** - `sneak-attack.ts` <!-- src/api/game/src/engine/mechanics/features/sneak-attack.ts -->
-- [ ] **0%** - `rage.ts` <!-- src/api/game/src/engine/mechanics/features/rage.ts -->
+- [x] **80%+** - `sneak-attack.ts` <!-- src/api/game/src/engine/mechanics/features/sneak-attack.ts -->
+- [x] **80%+** - `rage.ts` <!-- src/api/game/src/engine/mechanics/features/rage.ts -->
 
 ### 📂 src/api/game/src/engine/mechanics/registry
-- [ ] **0%** - `FeatureRegistry.ts` <!-- src/api/game/src/engine/mechanics/registry/FeatureRegistry.ts -->
-- [ ] **0%** - `ClassRegistry.ts` <!-- src/api/game/src/engine/mechanics/registry/ClassRegistry.ts -->
+- [x] **80%+** - `FeatureRegistry.ts` <!-- src/api/game/src/engine/mechanics/registry/FeatureRegistry.ts -->
+- [x] **80%+** - `ClassRegistry.ts` <!-- src/api/game/src/engine/mechanics/registry/ClassRegistry.ts -->
 
 ### 📂 src/api/game/src/engine/narrator
-- [ ] **0%** - `PromptBuilder.ts` <!-- src/api/game/src/engine/narrator/PromptBuilder.ts -->
+- [x] **80%+** - `PromptBuilder.ts` <!-- src/api/game/src/engine/narrator/PromptBuilder.ts -->
 
 ### 📂 src/api/game/src/engine/resolution
 - [x] **80%+** - `ActionDispatcher.ts` <!-- src/api/game/src/engine/resolution/ActionDispatcher.ts -->

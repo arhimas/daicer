@@ -87,8 +87,9 @@ export function calculateHP(context: DerivationContext): number {
   if (typeof hitDie === 'number') {
     maxHitDie = hitDie;
   } else {
-    const match = hitDie.match(/d?(\d+)/);
-    maxHitDie = match ? parseInt(match[1]) : 8;
+    const parts = hitDie.split('d');
+    maxHitDie = parseInt(parts[parts.length - 1]);
+    if (isNaN(maxHitDie)) maxHitDie = 8;
   }
 
   const avgHitDie = maxHitDie / 2 + 1;

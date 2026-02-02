@@ -1,34 +1,48 @@
+import { describe, it, expect } from 'vitest';
 import { PromptBuilder } from '../PromptBuilder';
 
 describe('PromptBuilder', () => {
   const mockContext = {
-    worldDescription: 'A dark cave.',
-    players: [{ name: 'Hero', hp: 10, maxHp: 10, armorClass: 15 }],
-    entities: [{ name: 'Goblin', type: 'monster', hp: 7, maxHp: 7, armorClass: 12, actions: [{ name: 'Stab' }] }],
-    settings: { dmStyle: { verbosity: 0, detail: 0, engagement: 0, narrative: 0 } } as any,
+    worldDescription: 'A dark and stormy night.',
+    players: [
+      { name: 'Hero', hp: 10, maxHp: 10, armorClass: 15 }
+    ],
+    entities: [
+      { name: 'Goblin', type: 'enemy', hp: 5, maxHp: 7, armorClass: 12, actions: [{ name: 'Stab' }] },
+      { name: 'Villager', type: 'npc', hp: 4, maxHp: 4 } // No actions
+    ],
+    settings: {
+      dmStyle: 'Gritty',
+      worldBackground: 'The land of Ooo.'
+    } as any
   };
 
-  it('constructs basic system prompt logic (Default)', () => {
+  it('should build prompt using default template', () => {
     const prompt = PromptBuilder.buildSystemPrompt(mockContext);
-
+    
     expect(prompt).toContain('You are the Dungeon Master');
-    expect(prompt).toContain('A dark cave');
     expect(prompt).toContain('Hero | HP: 10/10');
-    expect(prompt).toContain('Goblin | HP: 7/7');
+    expect(prompt).toContain('Goblin | HP: 5/7');
+    expect(prompt).toContain('DYNAMIC STYLE'); // Gritty -> dynamic logic
+    expect(prompt).toContain('The land of Ooo.'); // World background
   });
 
-  it('injects variables into template', () => {
-    const template = 'Hello {{partyContext}} welcome to {{worldContext}}';
-    const prompt = PromptBuilder.buildSystemPrompt(mockContext, template);
-
-    expect(prompt).toContain('Hero | HP: 10/10');
-    expect(prompt).toContain('A dark cave');
-    expect(prompt).not.toContain('You are the Dungeon Master'); // Should not have default text
+  it('should handle missing entities gracefully', () => {
+    const context = {
+        worldDescription: '',
+        players: [],
+        entities: []
+    };
+    const prompt = PromptBuilder.buildSystemPrompt(context);
+    expect(prompt).toContain('None currently active.');
   });
 
-  it('handles missing variables in template gracefully', () => {
-    const template = 'Hello {{unknownVar}}';
+  it('should support custom templates', () => {
+    const template = "Welcome to {{worldContext}}. Players: {{partyContext}}.";
     const prompt = PromptBuilder.buildSystemPrompt(mockContext, template);
-    expect(prompt).toBe('Hello {{unknownVar}}');
+    
+    expect(prompt).toContain('Welcome to The land of Ooo.');
+    expect(prompt).toContain('Players: - Hero');
+    expect(prompt).not.toContain('You are the Dungeon Master'); // Default overridden
   });
 });

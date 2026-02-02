@@ -13,7 +13,7 @@ export const SneakAttack: FeatureHandler = {
     // 1. Must use Finesse or Ranged weapon
     // MVP: Check action type or properties
     const hasFinesse = action.properties?.some((p) => p === 'finesse') || false;
-    const isFinesse = ['ranged', 'ranged_attack'].includes(action.type) || hasFinesse;
+    const isFinesse = ['ranged', 'ranged_attack', 'ranged_weapon'].includes(action.type) || hasFinesse;
 
     if (!isFinesse) return false;
 

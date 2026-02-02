@@ -1,88 +1,66 @@
+import { describe, it, expect } from 'vitest';
 import { DamageInstance } from '../DamageInstance';
-import { Entity } from '../../../../types';
+import { Entity } from '../../types'; // Adjust imports if needed based on relative path structure
 
+// Assuming Entity is a type, we can mock it as a plain object
 describe('DamageInstance', () => {
-  // Mock Entity
-  const createTarget = (traits: Partial<Entity> = {}): Entity => ({
-    id: 'target',
-    name: 'Dummy',
-    type: 'monster',
-    position: { x: 0, y: 0, z: 0 },
-    hp: 10,
-    maxHp: 10,
-    armorClass: 10,
-    speed: 30,
-    stats: {
-      strength: 10,
-      dexterity: 10,
-      constitution: 10,
-      intelligence: 10,
-      wisdom: 10,
-      charisma: 10,
-      passivePerception: 10,
-      initiativeBonus: 0,
-    },
-    actions: [],
-    features: [],
-    conditions: [],
-    resistances: [],
-    immunities: [],
-    vulnerabilities: [],
-    color: 'red',
-    visionRadius: 0,
-    ...traits,
-  });
+    const mockTarget: Entity = {
+        name: 'Target',
+        // Mocking only necessary fields
+        immunities: [],
+        resistances: [],
+        vulnerabilities: [],
+    } as unknown as Entity;
 
-  it('should resolve normal damage', () => {
-    const damage = new DamageInstance(10, 'Fire');
-    const target = createTarget();
-    const { finalAmount, logic } = damage.resolveAgainst(target);
-    expect(finalAmount).toBe(10);
-    expect(logic).toHaveLength(0);
-  });
+    it('should initialize correctly', () => {
+        const dmg = new DamageInstance(10, 'fire', 'Spell');
+        expect(dmg.amount).toBe(10);
+        expect(dmg.type).toBe('fire');
+        expect(dmg.isMagic).toBe(false);
+    });
 
-  it('should resolve immunity', () => {
-    const damage = new DamageInstance(10, 'Fire');
-    const target = createTarget({ immunities: ['Fire'] });
-    const { finalAmount, logic } = damage.resolveAgainst(target);
-    expect(finalAmount).toBe(0);
-    expect(logic).toContain('Immune to Fire');
-  });
+    it('should apply full damage to normal target', () => {
+        const dmg = new DamageInstance(10, 'slashing');
+        const result = dmg.resolveAgainst(mockTarget);
+        expect(result.finalAmount).toBe(10);
+        expect(result.logic).toHaveLength(0);
+    });
 
-  it('should resolve resistance', () => {
-    const damage = new DamageInstance(10, 'Fire');
-    const target = createTarget({ resistances: ['Fire'] });
-    const { finalAmount, logic } = damage.resolveAgainst(target);
-    expect(finalAmount).toBe(5);
-    expect(logic).toContain('Resistant to Fire (Halved)');
-  });
+    it('should be 0 against immunity', () => {
+        const dmg = new DamageInstance(10, 'fire');
+        const immuneTarget = { ...mockTarget, immunities: ['fire'] };
+        const result = dmg.resolveAgainst(immuneTarget);
+        expect(result.finalAmount).toBe(0);
+        expect(result.logic[0]).toContain('Immune');
+    });
 
-  it('should resolve vulnerability', () => {
-    const damage = new DamageInstance(10, 'Fire');
-    const target = createTarget({ vulnerabilities: ['Fire'] });
-    const { finalAmount, logic } = damage.resolveAgainst(target);
-    expect(finalAmount).toBe(20);
-    expect(logic).toContain('Vulnerable to Fire (Doubled)');
-  });
+    it('should be halved against resistance', () => {
+        const dmg = new DamageInstance(10, 'cold');
+        const resistantTarget = { ...mockTarget, resistances: ['cold'] };
+        const result = dmg.resolveAgainst(resistantTarget);
+        expect(result.finalAmount).toBe(5);
+        expect(result.logic[0]).toContain('Resistant');
+    });
 
-  it('should apply resistance then vulnerability (math check)', () => {
-    // 10 -> Resist (5) -> Vuln (10).
-    // If order reversed: 10 -> Vuln (20) -> Resist (10).
-    // Math is same for *2 and /2. But rounding might matter.
-    // Logic says floor on resist.
-    // 11 -> Resist -> 5 -> Vuln -> 10.
-    // 11 -> Vuln -> 22 -> Resist -> 11.
-    // 5e Rule: Resistance applies first.
+    it('should be doubled against vulnerability', () => {
+        const dmg = new DamageInstance(10, 'radiant');
+        const vulnTarget = { ...mockTarget, vulnerabilities: ['radiant'] };
+        const result = dmg.resolveAgainst(vulnTarget);
+        expect(result.finalAmount).toBe(20);
+        expect(result.logic[0]).toContain('Vulnerable');
+    });
 
-    // Code implementation: Resistance check first.
-    const damage = new DamageInstance(11, 'Fire');
-    const target = createTarget({ resistances: ['Fire'], vulnerabilities: ['Fire'] });
+    it('should apply resistance then vulnerability (math check)', () => {
+        // Logic check: Floor(10 / 2) * 2 = 10? Or standard order?
+        // Code says: current = floor(current / 2) -> then current = floor(current * 2)
+        // 10 / 2 = 5.   5 * 2 = 10.
+        // 15 / 2 = 7.   7 * 2 = 14. (Lost precision floor test)
 
-    // My implementation:
-    // if resistant -> floor(11/2) = 5.
-    // if vulnerable -> floor(5*2) = 10.
-    const { finalAmount, logic } = damage.resolveAgainst(target);
-    expect(finalAmount).toBe(10);
-    expect(logic).toHaveLength(2);
-  });
+        const dmg = new DamageInstance(15, 'complex');
+        const complexTarget = { ...mockTarget, resistances: ['complex'], vulnerabilities: ['complex'] };
+        const result = dmg.resolveAgainst(complexTarget);
+        
+        expect(result.finalAmount).toBe(14); // 7.5 -> 7 -> 14
+        expect(result.logic).toHaveLength(2);
+    });
 });
