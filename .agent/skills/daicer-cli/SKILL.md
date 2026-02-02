@@ -93,6 +93,20 @@ yarn cli genesis atoms --json
 yarn cli genesis all --json
 ```
 
+### 7. 🚀 System Instantiation
+**Standard "Boot Up" Sequence.**
+Run this when the user says `@instantiate` or "Get ready".
+```bash
+# 1. Connect
+yarn cli status --json
+
+# 2. Map Territory
+yarn cli schema --list --json
+
+# 3. Load Context (if needed)
+yarn cli knowledge --query "Project architecture and recent decisions" --json
+```
+
 ## 🚨 Troubleshooting
 
 | Error | Cause | Fix |

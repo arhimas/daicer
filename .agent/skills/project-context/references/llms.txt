@@ -28,6 +28,8 @@
 - [Daicer CLI](../../daicer-cli/SKILL.md)
 - [CodeConcat](../../codeconcat/SKILL.md)
 - [Brain Maintenance](../../brain-maintenance/SKILL.md)
+- [Skill Creator](../../skill-creator/SKILL.md)
+- [Visual Design](../../visual-design/SKILL.md)
 
 ## Core Directives (Rules)
 > **Source**: `.agent/rules/`
