@@ -1,5 +1,5 @@
 ---
-title: OpenAPI specification 
+title: OpenAPI specification
 description: Learn how to generate OpenAPI specifications for your Strapi applications using the @strapi/openapi package
 displayed_sidebar: cmsSidebar
 pagination_prev: cms/api/document
@@ -11,11 +11,11 @@ tags:
 
 # OpenAPI specification generation
 
-Strapi provides a command-line tool to generate <ExternalLink to="https://www.openapis.org/" text="OpenAPI"/> specifications for your applications. 
+Strapi provides a command-line tool to generate <ExternalLink to="https://www.openapis.org/" text="OpenAPI"/> specifications for your applications.
 
 The CLI tool automatically creates comprehensive API documentation that describes all available endpoints, parameters, and response formats in your Strapi application's Content API. Among the possible use cases, the generated specification can then be easily integrated into documentation tools like <ExternalLink to="https://swagger.io/tools/swagger-ui/" text="Swagger UI "/>.
 
-:::callout 🚧  Experimental feature
+:::callout 🚧 Experimental feature
 The OpenAPI generation feature is currently experimental. Its behavior and output might change in future releases without following semantic versioning. For additional information and context, please refer to the <ExternalLink text="Strapi Contributor Docs " to="https://contributor.strapi.io/openapi" />.
 :::
 
@@ -53,6 +53,7 @@ You can also path an optional `--output` argument to specify the path and filena
 ```bash
 yarn strapi openapi generate --output ./docs/api-spec.json
 ```
+
 </TabItem>
 
 <TabItem value="npm" label="NPM">
@@ -129,6 +130,7 @@ The generated OpenAPI specification follows the <ExternalLink to="https://spec.o
   }
 }
 ```
+
 </ExpandableContent>
 
 <div class="mermaid-download-link">
@@ -154,132 +156,125 @@ With the following steps you can quickly generate a [Swagger UI](https://swagger
 
 1. Generate a specification:
 
-    <Tabs groupId="yarn-npm">
-    <TabItem value="yarn" label="Yarn">
+   <Tabs groupId="yarn-npm">
+   <TabItem value="yarn" label="Yarn">
 
-    ```bash
-    yarn strapi openapi generate --output ./public/swagger-spec.json
-    ```
+   ```bash
+   yarn strapi openapi generate --output ./public/swagger-spec.json
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    <TabItem value="npm" label="NPM">
+   <TabItem value="npm" label="NPM">
 
-    ```bash
-    npm run strapi openapi generate -- --output ./public/swagger-spec.json
-    ```
+   ```bash
+   npm run strapi openapi generate -- --output ./public/swagger-spec.json
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+   </Tabs>
 
 2. Update [the `/config/middlewares.js` configuration file](/cms/configurations/middlewares) with the following code:
 
-    <Tabs groupId="js-ts">
-    <TabItem value="js" label="JavaScript">
+   <Tabs groupId="js-ts">
+   <TabItem value="js" label="JavaScript">
 
-    ```js title="/config/middlewares.js"
-    module.exports = [
-      'strapi::logger',
-      'strapi::errors',
-      {
-        name: 'strapi::security',
-        config: {
-          contentSecurityPolicy: {
-            useDefaults: true,
-            directives: {
-              'script-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
-              'style-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
-              'connect-src': ["'self'", 'https:'],
-              'img-src': ["'self'", 'data:', 'blob:', 'https:'],
-              'media-src': ["'self'", 'data:', 'blob:'],
-              upgradeInsecureRequests: null,
-            },
-          },
-        },
-      },
-      'strapi::cors',
-      'strapi::poweredBy',
-      'strapi::query',
-      'strapi::body',
-      'strapi::session',
-      'strapi::favicon',
-      'strapi::public',
-    ];
-    ```
+   ```js title="/config/middlewares.js"
+   module.exports = [
+     'strapi::logger',
+     'strapi::errors',
+     {
+       name: 'strapi::security',
+       config: {
+         contentSecurityPolicy: {
+           useDefaults: true,
+           directives: {
+             'script-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
+             'style-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
+             'connect-src': ["'self'", 'https:'],
+             'img-src': ["'self'", 'data:', 'blob:', 'https:'],
+             'media-src': ["'self'", 'data:', 'blob:'],
+             upgradeInsecureRequests: null,
+           },
+         },
+       },
+     },
+     'strapi::cors',
+     'strapi::poweredBy',
+     'strapi::query',
+     'strapi::body',
+     'strapi::session',
+     'strapi::favicon',
+     'strapi::public',
+   ];
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    <TabItem value="ts" label="TypeScript">
+   <TabItem value="ts" label="TypeScript">
 
-    ```js title="/config/middlewares.ts"
-    export default [
-      'strapi::logger',
-      'strapi::errors',
-      {
-        name: 'strapi::security',
-        config: {
-          contentSecurityPolicy: {
-            useDefaults: true,
-            directives: {
-              'script-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
-              'style-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
-              'connect-src': ["'self'", 'https:'],
-              'img-src': ["'self'", 'data:', 'blob:', 'https:'],
-              'media-src': ["'self'", 'data:', 'blob:'],
-              upgradeInsecureRequests: null,
-            },
-          },
-        },
-      },
-      'strapi::cors',
-      'strapi::poweredBy',
-      'strapi::query',
-      'strapi::body',
-      'strapi::session',
-      'strapi::favicon',
-      'strapi::public',
-    ];
-    ```
+   ```js title="/config/middlewares.ts"
+   export default [
+     'strapi::logger',
+     'strapi::errors',
+     {
+       name: 'strapi::security',
+       config: {
+         contentSecurityPolicy: {
+           useDefaults: true,
+           directives: {
+             'script-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
+             'style-src': ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
+             'connect-src': ["'self'", 'https:'],
+             'img-src': ["'self'", 'data:', 'blob:', 'https:'],
+             'media-src': ["'self'", 'data:', 'blob:'],
+             upgradeInsecureRequests: null,
+           },
+         },
+       },
+     },
+     'strapi::cors',
+     'strapi::poweredBy',
+     'strapi::query',
+     'strapi::body',
+     'strapi::session',
+     'strapi::favicon',
+     'strapi::public',
+   ];
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+   </Tabs>
 
-    This will ensure the Swagger UI display from <ExternalLink to="https://unpkg.com/" text="unpkg.com" /> is not blocked by Strapi's CSP policy handled by the [security middleware](/cms/configurations/middlewares#security).
+   This will ensure the Swagger UI display from <ExternalLink to="https://unpkg.com/" text="unpkg.com" /> is not blocked by Strapi's CSP policy handled by the [security middleware](/cms/configurations/middlewares#security).
 
 3. Create a `public/openapi.html` file in your Strapi project to display the Swagger UI, with the following code:
 
-    ```html
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>API Documentation</title>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui.css"
-        />
-      </head>
-      <body>
-        <div id="swagger-ui"></div>
-        <script src="https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui-bundle.js"></script>
-        <script src="https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui-standalone-preset.js"></script>
-        <script>
-          window.onload = function () {
-            SwaggerUIBundle({
-              url: './swagger-spec.json',
-              dom_id: '#swagger-ui',
-              presets: [
-                SwaggerUIBundle.presets.apis,
-                SwaggerUIStandalonePreset
-              ],
-              layout: 'StandaloneLayout',
-            });
-          };
-        </script>
-      </body>
-    </html>
-    ```
+   ```html
+   <!DOCTYPE html>
+   <html>
+     <head>
+       <title>API Documentation</title>
+       <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui.css" />
+     </head>
+     <body>
+       <div id="swagger-ui"></div>
+       <script src="https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui-bundle.js"></script>
+       <script src="https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui-standalone-preset.js"></script>
+       <script>
+         window.onload = function () {
+           SwaggerUIBundle({
+             url: './swagger-spec.json',
+             dom_id: '#swagger-ui',
+             presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+             layout: 'StandaloneLayout',
+           });
+         };
+       </script>
+     </body>
+   </html>
+   ```
 
 4. Restart the Strapi server with `yarn develop` or `npm run develop` and visit the `/openapi.html` page. The Swagger UI should be displayed:
 
-    ![Swagger UI example with Strapi OpenAPI specification](/img/assets/apis/swagger-open-api.png)
+   ![Swagger UI example with Strapi OpenAPI specification](/img/assets/apis/swagger-open-api.png)

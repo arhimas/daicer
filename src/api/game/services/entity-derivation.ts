@@ -4,12 +4,7 @@
  */
 import { Core } from '@strapi/strapi';
 import { EntityDeriver } from '../src/engine/derivation';
-import { 
-  Entity, 
-  EntityStats, 
-  EntityFeature,
-  InventoryItem 
-} from '../src/engine/types';
+import { Entity, EntityStats, EntityFeature, InventoryItem } from '../src/engine/types';
 
 const SKILLS = [
   'acrobatics',
@@ -32,7 +27,14 @@ const SKILLS = [
   'survival',
 ] as const;
 
-const ATTRIBUTES: (keyof EntityStats & string)[] = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+const ATTRIBUTES: (keyof EntityStats & string)[] = [
+  'strength',
+  'dexterity',
+  'constitution',
+  'intelligence',
+  'wisdom',
+  'charisma',
+];
 
 interface ResolvedAction {
   documentId?: string;
@@ -57,15 +59,15 @@ interface PopulatedSheet {
   maxHp?: number;
   ac?: number;
   position?: { x: number; y: number; z: number };
-  
+
   stats?: EntityStats; // Strongly typed
   actions?: ResolvedAction[]; // Component structure (different from EntityAction)
   features?: EntityFeature[];
   inventory?: { item?: InventoryItem; quantity?: number }[];
-  
+
   conditions?: { name: string; [key: string]: unknown }[];
   proficiencies?: Array<{ slug?: string; name: string }>;
-  
+
   resistances?: string[];
   immunities?: string[];
   vulnerabilities?: string[];
@@ -84,7 +86,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     // 1. Fetch Sheet with DEEP population
     const sheetRaw = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
       documentId: sheetId,
-       
+
       populate: {
         stats: true,
         inventory: {
@@ -117,8 +119,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         race: true,
         class: true,
         proficiencies: true,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any, 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any,
     });
 
     if (!sheetRaw) {
@@ -128,9 +130,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     const sheet = sheetRaw as unknown as PopulatedSheet;
 
     // Validate and cast Type
-    const entityType: Entity['type'] = ['player', 'npc', 'monster', 'object'].includes(sheet.type as string) 
-        ? (sheet.type as Entity['type']) 
-        : 'npc';
+    const entityType: Entity['type'] = ['player', 'npc', 'monster', 'object'].includes(sheet.type as string)
+      ? (sheet.type as Entity['type'])
+      : 'npc';
 
     // 2. Direct Hydration (No Adapter)
     // We construct a lightweight Entity object for derivation purposes
@@ -140,18 +142,26 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       type: entityType,
       level: sheet.level || 1,
       stats: sheet.stats || {
-          strength: 10, dexterity: 10, constitution: 10, 
-          intelligence: 10, wisdom: 10, charisma: 10,
-          passivePerception: 10, initiativeBonus: 0
+        strength: 10,
+        dexterity: 10,
+        constitution: 10,
+        intelligence: 10,
+        wisdom: 10,
+        charisma: 10,
+        passivePerception: 10,
+        initiativeBonus: 0,
       },
       hp: sheet.currentHp ?? sheet.maxHp ?? 10,
       maxHp: sheet.maxHp ?? 10,
       armorClass: sheet.ac || 10, // Mapped from 'ac'
-      speed: typeof sheet.speed === 'number' 
-          ? sheet.speed 
-          : (typeof sheet.speed === 'object' && sheet.speed?.walk ? sheet.speed.walk : 30),
-      
-      // Note: mapping ResolvedAction[] to EntityAction[] matches roughly 
+      speed:
+        typeof sheet.speed === 'number'
+          ? sheet.speed
+          : typeof sheet.speed === 'object' && sheet.speed?.walk
+            ? sheet.speed.walk
+            : 30,
+
+      // Note: mapping ResolvedAction[] to EntityAction[] matches roughly
       // but strictly speaking we map them to computedActions later.
       // For Entity interface, direct assignment might be loose.
       // But we are using this 'entity' primarily as a transient holder for stats.
@@ -162,7 +172,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       immunities: sheet.immunities || [],
       vulnerabilities: sheet.vulnerabilities || [],
 
-      equipment: (sheet.inventory || []).map(entry => entry.item).filter((i): i is InventoryItem => !!i),
+      equipment: (sheet.inventory || []).map((entry) => entry.item).filter((i): i is InventoryItem => !!i),
 
       // Add other required props of Entity interface with defaults
       position: sheet.position || { x: 0, y: 0, z: 0 },
@@ -237,9 +247,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     // Weight Calculation
     const computedWeight = (sheet.inventory || []).reduce((acc: number, entry) => {
-        const w = entry.item?.weight || 0;
-        const q = entry.quantity || 1;
-        return acc + (w * q);
+      const w = entry.item?.weight || 0;
+      const q = entry.quantity || 1;
+      return acc + w * q;
     }, 0);
 
     // 4. Update EntitySheet directly
@@ -248,8 +258,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       data: {
         currentHp: entity.hp,
         maxHp: entity.maxHp,
-        ac: entity.armorClass, 
-        
+        ac: entity.armorClass,
+
         computedWeight, // Persist calculated weight
 
         tempHp: 0, // Default or tracking? Entity doesn't have tempHp in interface yet?

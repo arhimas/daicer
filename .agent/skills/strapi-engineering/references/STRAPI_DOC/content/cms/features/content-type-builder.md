@@ -3,12 +3,12 @@ title: Content-type Builder
 description: Learn to use the Content-type Builder.
 toc_max_heading_level: 5
 tags:
-- admin panel
-- content type builder
-- content types
-- component
-- dynamic zone
-- custom field
+  - admin panel
+  - content type builder
+  - content types
+  - component
+  - dynamic zone
+  - custom field
 ---
 
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
@@ -62,7 +62,8 @@ Clicking on the **...** button next to **Save** gives access to other options, s
 
 The Content-type Builder allows to create new content-types: single and collection types, but also components.
 
-#### Creating content-types with Strapi AI <NewBadge /> {#strapi-ai}  
+#### Creating content-types with Strapi AI <NewBadge /> {#strapi-ai}
+
 <GrowthBadge />
 
 [When enabled](/cms/configurations/admin-panel#strapi-ai), Strapi AI adds an assistant that helps you create or edit content types with natural language.
@@ -70,8 +71,8 @@ The Content-type Builder allows to create new content-types: single and collecti
 To use Strapi AI with the Content-Type Builder, click on the <Icon name="sparkle" color="#7B79FF"/> button in the bottom right corner of the admin panel, and describe what you need:
 
 <ThemedImage
-  alt="Strapi AI in Content-Type Builder"
-  sources={{
+alt="Strapi AI in Content-Type Builder"
+sources={{
     light: '/img/assets/content-manager/strapi-ai-ctb.gif',
     dark: '/img/assets/content-manager/strapi-ai-ctb.gif',
   }}
@@ -82,7 +83,7 @@ You can also use the <Icon name="paperclip" classes="ph" /> button at the bottom
 :::tip
 The more precise your prompts, the more accurate your created schemas are likely to be.
 
-  For example, the following prompt example works well when creating relations: `Could you please generate a collection of dogs then also generate an owner collection and add relationship to dogs? An owner can have multiple dogs, but a dog can only have one owner.`
+For example, the following prompt example works well when creating relations: `Could you please generate a collection of dogs then also generate an owner collection and add relationship to dogs? An owner can have multiple dogs, but a dog can only have one owner.`
 :::
 
 <StrapiAiCredits />
@@ -90,8 +91,8 @@ The more precise your prompts, the more accurate your created schemas are likely
 #### Creating content-types manually {#new-content-type}
 
 <ThemedImage
-  alt="Content-type creation"
-  sources={{
+alt="Content-type creation"
+sources={{
     light: '/img/assets/content-type-builder/content-type-creation.png',
     dark: '/img/assets/content-type-builder/content-type-creation_DARK.png',
   }}
@@ -99,13 +100,13 @@ The more precise your prompts, the more accurate your created schemas are likely
 
 1. Choose whether you want to create a collection type or a single type.
 2. In the <Icon name="layout" /> Content-type Builder's category of the content-type you want to create, click on **Create new collection/single type**.
-3. In the content-type creation window, write the name of the new content-type in the *Display name* textbox.
-4. Check the *API ID* to make sure the automatically pre-filled values are correct. Collection type names are indeed automatically pluralized when displayed in the Content Manager. It is recommended to opt for singular names, but the *API ID* field allows to fix any pluralization mistake.
+3. In the content-type creation window, write the name of the new content-type in the _Display name_ textbox.
+4. Check the _API ID_ to make sure the automatically pre-filled values are correct. Collection type names are indeed automatically pluralized when displayed in the Content Manager. It is recommended to opt for singular names, but the _API ID_ field allows to fix any pluralization mistake.
 5. (optional) In the Advanced Settings tab, configure the available settings for the new content-type:
-      | Setting name    | Instructions                                                                                                                                     |
-      |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-      | Draft & publish | Tick the checkbox to allow entries of the content-type to be managed as draft versions, before they are published (see [Draft & Publish](/cms/features/draft-and-publish)). |
-      | Internationalization | Tick the checkbox to allow entries of the content-type to be translated into other locales. |
+   | Setting name | Instructions |
+   |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+   | Draft & publish | Tick the checkbox to allow entries of the content-type to be managed as draft versions, before they are published (see [Draft & Publish](/cms/features/draft-and-publish)). |
+   | Internationalization | Tick the checkbox to allow entries of the content-type to be translated into other locales. |
 6. Click on the **Continue** button.
 7. Add and configure chosen fields for your content-type (see [Configuring fields for content-types](#configuring-fields-content-type)).
 8. Click on the **Save** button.
@@ -117,8 +118,8 @@ New content-types are only considered created once they have been saved. Saving 
 #### New component
 
 <ThemedImage
-  alt="Component creation"
-  sources={{
+alt="Component creation"
+sources={{
     light: '/img/assets/content-type-builder/component-creation-1.png',
     dark: '/img/assets/content-type-builder/component-creation-1_DARK.png',
   }}
@@ -126,7 +127,7 @@ New content-types are only considered created once they have been saved. Saving 
 
 1. In the Components category of the <Icon name="layout" /> Content-type Builder sub navigation, click on **Create new component**.
 2. In the component creation window, configure the basic settings of the new component:
-   - Write the name of the component in the *Display name* textbox.
+   - Write the name of the component in the _Display name_ textbox.
    - Select an available category, or enter in the textbox a new category name to create one.
    - _(optional)_ Choose an icon representing the new component. You can use the search <Icon name="magnifying-glass" classes="ph-bold" /> to find an icon instead of scrolling through the list.
 3. Click on the **Continue** button.
@@ -138,8 +139,8 @@ New content-types are only considered created once they have been saved. Saving 
 The Content-type Builder allows to manage all existing content-types. For an chosen content-type or component to edit, the right side of the Content-type Builder interface displays all available editing and management options.
 
 <ThemedImage
-  alt="Content-type Builder's edition interface"
-  sources={{
+alt="Content-type Builder's edition interface"
+sources={{
     light: '/img/assets/content-type-builder/new_CTB.png',
     dark: '/img/assets/content-type-builder/new_CTB_DARK.png',
   }}
@@ -154,33 +155,33 @@ The Content-type Builder allows to manage all existing content-types. For an cho
 
   <TabItem value="CTBasicSettings" label="Basic settings">
 
-  <ThemedImage
-    alt="Content-type Builder's basic settings"
-    sources={{
+<ThemedImage
+alt="Content-type Builder's basic settings"
+sources={{
       light: '/img/assets/content-type-builder/basic-settings.png',
       dark: '/img/assets/content-type-builder/basic-settings_DARK.png',
     }}
-  />
+/>
 
-  * **Display name**: Name of the content-type or component as it will be displayed in the admin panel.
-  * **API ID (singular)**: Name of the content-type or component as it will be used in the API. It is automatically generated from the display name, but can be edited.
-  * **API ID (plural)**: Plural name of the content-type or component as it will be used in the API. It is automatically generated from the display name, but can be edited.
-  * **Type**: Type of the content-type or component. It can be either a **Collection type** or a **Single type**.
+- **Display name**: Name of the content-type or component as it will be displayed in the admin panel.
+- **API ID (singular)**: Name of the content-type or component as it will be used in the API. It is automatically generated from the display name, but can be edited.
+- **API ID (plural)**: Plural name of the content-type or component as it will be used in the API. It is automatically generated from the display name, but can be edited.
+- **Type**: Type of the content-type or component. It can be either a **Collection type** or a **Single type**.
 
   </TabItem>
 
   <TabItem value="CTAdvancedSettings" label="Advanced settings">
 
-  <ThemedImage
-    alt="Content-type Builder's advanced settings"
-    sources={{
+<ThemedImage
+alt="Content-type Builder's advanced settings"
+sources={{
       light: '/img/assets/content-type-builder/advanced-settings.png',
       dark: '/img/assets/content-type-builder/advanced-settings_DARK.png',
     }}
-  />
+/>
 
-  * **Draft & Publish**: Enable the [Draft & Publish](/cms/features/draft-and-publish) feature for the content-type or component. It is disabled by default.
-  * **Internationalization**: Enable the [Internationalization](/cms/features/internationalization) feature for the content-type or component. It is disabled by default.
+- **Draft & Publish**: Enable the [Draft & Publish](/cms/features/draft-and-publish) feature for the content-type or component. It is disabled by default.
+- **Internationalization**: Enable the [Internationalization](/cms/features/internationalization) feature for the content-type or component. It is disabled by default.
 
   </TabItem>
 
@@ -191,6 +192,7 @@ The Content-type Builder allows to manage all existing content-types. For an cho
 #### Fields
 
 From the table that lists the fields of your content-type, you can:
+
 - Click on the <Icon name="pencil-simple" /> button to access a field's basic and advanced settings to edit them
 - Click on the **Add another field** buttons to create a new field for the selected content-type
 - Click on the <Icon name="dots-six-vertical" classes="ph-bold"/> button and drag and drop any field to reorder the content-type's fields
@@ -211,8 +213,8 @@ Depending on what content-type or component is being created or edited, not all 
 :::
 
 <ThemedImage
-  alt="Fields selection"
-  sources={{
+alt="Fields selection"
+sources={{
     light: '/img/assets/content-type-builder/fields-selection.png',
     dark: '/img/assets/content-type-builder/fields-selection_DARK.png',
   }}
@@ -226,25 +228,25 @@ The Text field displays a textbox that can contain small text. This field can be
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name | Instructions                                                                                            |
-|--------------|---------------------------------------------------------------------------------------------------------|
-| Name         | Write the name of the Text field.                                                                       |
-| Type         | Choose between *Short text* (255 characters maximum) and *Long text*, to allow more or less space to fill up the Text field.     |
+| Setting name | Instructions                                                                                                                 |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| Name         | Write the name of the Text field.                                                                                            |
+| Type         | Choose between _Short text_ (255 characters maximum) and _Long text_, to allow more or less space to fill up the Text field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                  |
-|----------------|-------------------------------------------------------------------------------|
-| Default value  | Write the default value of the Text field.                                    |
-| RegExp pattern | Write a regular expression to make sure the value of the Text field matches a specific format. |
-| Private field  | Tick to make the field private and prevent it from being found via the API.   |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Write the default value of the Text field.                                                                                                            |
+| RegExp pattern                     | Write a regular expression to make sure the value of the Text field matches a specific format.                                                        |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.    |
-| Unique field   | Tick to prevent another field to be identical to this one.                    |
-| Maximum length | Tick to define a maximum number of characters allowed.                        |
-| Minimum length | Tick to define a minimum number of characters allowed.                        |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Unique field                       | Tick to prevent another field to be identical to this one.                                                                                            |
+| Maximum length                     | Tick to define a maximum number of characters allowed.                                                                                                |
+| Minimum length                     | Tick to define a minimum number of characters allowed.                                                                                                |
 
 </TabItem>
 
@@ -265,17 +267,17 @@ The Rich Text (Blocks) field displays an editor with live rendering and various 
 <TabItem value="base" label="Basic settings">
 
 | Setting name | Instructions                                    |
-|--------------|-------------------------------------------------|
+| ------------ | ----------------------------------------------- |
 | Name         | Write the name of the Rich Text (Blocks) field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
 
 </TabItem>
@@ -301,23 +303,23 @@ The Number field displays a field for any kind of number: integer, decimal and f
 <TabItem value="base" label="Basic settings">
 
 | Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
+| ------------- | --------------------------------------------------------------- |
 | Name          | Write the name of the Number field.                             |
-| Number format | Choose between *integer*, *big integer*, *decimal* and *float*. |
+| Number format | Choose between _integer_, _big integer_, _decimal_ and _float_. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Number field.                                |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Write the default value of the Number field.                                                                                                          |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
-| Maximum value  | Tick to define a maximum value allowed.                      |
-| Minimum value  | Tick to define a minimum value allowed.                      |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Unique field                       | Tick to prevent another field to be identical to this one.                                                                                            |
+| Maximum value                      | Tick to define a maximum value allowed.                                                                                                               |
+| Minimum value                      | Tick to define a minimum value allowed.                                                                                                               |
 
 </TabItem>
 
@@ -337,22 +339,22 @@ The Date field can display a date (year, month, day), time (hour, minute, second
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Date field.                               |
-| Type          | Choose between *date*, *datetime* and *time*                    |
+| Setting name | Instructions                                 |
+| ------------ | -------------------------------------------- |
+| Name         | Write the name of the Date field.            |
+| Type         | Choose between _date_, _datetime_ and _time_ |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Date field.                                  |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Write the default value of the Date field.                                                                                                            |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Unique field                       | Tick to prevent another field to be identical to this one.                                                                                            |
 
 </TabItem>
 
@@ -372,22 +374,22 @@ The Password field displays a password field that is encrypted.
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Password field.                           |
+| Setting name | Instructions                          |
+| ------------ | ------------------------------------- |
+| Name         | Write the name of the Password field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Password field.                              |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Write the default value of the Password field.                                                                                                        |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Maximum length                     | Tick to define a maximum number of characters allowed.                                                                                                |
+| Minimum length                     | Tick to define a minimum number of characters allowed.                                                                                                |
 
 </TabItem>
 
@@ -399,7 +401,6 @@ The Password field displays a password field that is encrypted.
 
 </Tabs>
 
-
 #### <img width="28" src="/img/assets/icons/v5/ctb_media.svg" /> Media {#media}
 
 The Media field allows to choose one or more media files (e.g. image, video) from those uploaded in the Media Library of the application.
@@ -408,22 +409,22 @@ The Media field allows to choose one or more media files (e.g. image, video) fro
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Media field.                              |
-| Type          | Choose between *Multiple media* to allow multiple media uploads, and *Single media* to only allow one media upload. |
+| Setting name | Instructions                                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Name         | Write the name of the Media field.                                                                                  |
+| Type         | Choose between _Multiple media_ to allow multiple media uploads, and _Single media_ to only allow one media upload. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Select allowed types of media  | Click on the drop-down list to untick media types not allowed for this field. |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Select allowed types of media      | Click on the drop-down list to untick media types not allowed for this field.                                                                         |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Unique field                       | Tick to prevent another field to be identical to this one.                                                                                            |
 
 </TabItem>
 
@@ -441,12 +442,12 @@ The Relation field allows to establish a relation with another content-type, tha
 
 There are 6 different types of relations:
 
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_oneway.svg" /> One way: Content-type A *has one* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_1to1.svg" /> One-to-one: Content-type A *has and belong to one* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_1tomany.svg" /> One-to-many: Content-type A *belongs to many* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyto1.svg" /> Many-to-one: Content-type B *has many* Content-type A
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_manytomany.svg" /> Many-to-many: Content-type A *has and belongs to many* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyway.svg" /> Many way: Content-type A *has many* Content-type B
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_oneway.svg" /> One way: Content-type A _has one_ Content-type B
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_1to1.svg" /> One-to-one: Content-type A _has and belong to one_ Content-type B
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_1tomany.svg" /> One-to-many: Content-type A _belongs to many_ Content-type B
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyto1.svg" /> Many-to-one: Content-type B _has many_ Content-type A
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_manytomany.svg" /> Many-to-many: Content-type A _has and belongs to many_ Content-type B
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyway.svg" /> Many way: Content-type A _has many_ Content-type B
 
 :::info Multi relations and single relations
 Relations where at least one side can reference several entries are called multi relations. In the Content-type Builder, this includes one-to-many, many-to-one, many-to-many, and many-way relations. These relations appear as multi-select fields in the Content Manager and return arrays from the REST, GraphQL, and Document Service APIs; while single relations (one-way and one-to-one relations) return a single linked entry (see [Managing relations with API requests](/cms/api/rest/relations) for more information).
@@ -460,16 +461,16 @@ Configuring the basic settings of the Relation field consists in choosing with w
 
 1. Click on the 2nd grey box to define the content-type B. It must be an already created collection type.
 2. Click on the icon representing the relation to establish between the content-types.
-3. Choose the *Field name* of the content-type A, meaning the name that will be used for the field in the content-type A.
-4. (optional if disabled by the relation type) Choose the *Field name* of the content-type B.
+3. Choose the _Field name_ of the content-type A, meaning the name that will be used for the field in the content-type A.
+4. (optional if disabled by the relation type) Choose the _Field name_ of the content-type B.
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name  | Instructions                                                                |
+| ------------- | --------------------------------------------------------------------------- |
+| Private field | Tick to make the field private and prevent it from being found via the API. |
 
 </TabItem>
 
@@ -483,8 +484,9 @@ Configuring the basic settings of the Relation field consists in choosing with w
 
 :::tip Modeling nested page hierarchies
 To model a navigable tree of pages:
+
 1. Add a `Page` collection type with a "Slug" (UID) and (optionally) an "Order" (Integer) field to control sibling ordering.
-2. Create a Relation field from `Page` to `Page` and choose *Many-to-one* so each page can set its "Parent page". Strapi automatically provides the inverse "Children pages" relation.
+2. Create a Relation field from `Page` to `Page` and choose _Many-to-one_ so each page can set its "Parent page". Strapi automatically provides the inverse "Children pages" relation.
 3. When reading data, populate `children` recursively to load the tree. Keep the recursion depth small to avoid large responses.
 
 <details>
@@ -516,21 +518,21 @@ The Boolean field displays a toggle button to manage boolean values (e.g. Yes or
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Boolean field.                            |
+| Setting name | Instructions                         |
+| ------------ | ------------------------------------ |
+| Name         | Write the name of the Boolean field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Choose the default value of the Boolean field: *true*, *null* or *false*.   |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Choose the default value of the Boolean field: _true_, _null_ or _false_.                                                                             |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Unique field                       | Tick to prevent another field to be identical to this one.                                                                                            |
 
 </TabItem>
 
@@ -550,19 +552,19 @@ The JSON field allows to configure data in a JSON format, to store JSON objects 
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the JSON field.                               |
+| Setting name | Instructions                      |
+| ------------ | --------------------------------- |
+| Name         | Write the name of the JSON field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
 
 </TabItem>
 
@@ -582,23 +584,23 @@ The Email field displays an email address field with format validation to ensure
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Email field.                              |
+| Setting name | Instructions                       |
+| ------------ | ---------------------------------- |
+| Name         | Write the name of the Email field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Email field.                                 |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Write the default value of the Email field.                                                                                                           |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Unique field                       | Tick to prevent another field to be identical to this one.                                                                                            |
+| Maximum length                     | Tick to define a maximum number of characters allowed.                                                                                                |
+| Minimum length                     | Tick to define a minimum number of characters allowed.                                                                                                |
 
 </TabItem>
 
@@ -618,22 +620,22 @@ The Password field displays a password field that is encrypted.
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Password field.                           |
+| Setting name | Instructions                          |
+| ------------ | ------------------------------------- |
+| Name         | Write the name of the Password field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Password field.                              |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Write the default value of the Password field.                                                                                                        |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
+| Maximum length                     | Tick to define a maximum number of characters allowed.                                                                                                |
+| Minimum length                     | Tick to define a minimum number of characters allowed.                                                                                                |
 
 </TabItem>
 
@@ -653,22 +655,22 @@ The Enumeration field allows to configure a list of values displayed in a drop-d
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Enumeration field.                        |
-| Values        | Write the values of the enumeration, one per line.              |
+| Setting name | Instructions                                       |
+| ------------ | -------------------------------------------------- |
+| Name         | Write the name of the Enumeration field.           |
+| Values       | Write the values of the enumeration, one per line. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Choose the default value of the Enumeration field.                          |
-| Name override for GraphQL | Write a custom GraphQL schema type to override the default one for the field. |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                          |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default value                      | Choose the default value of the Enumeration field.                                                                                                    |
+| Name override for GraphQL          | Write a custom GraphQL schema type to override the default one for the field.                                                                         |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                           |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                            |
 
 </TabItem>
 
@@ -692,17 +694,17 @@ The UID field displays a field that sets a unique identifier, optionally based o
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name   | Instructions                                                    |
-|----------------|-----------------------------------------------------------------|
+| Setting name   | Instructions                                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------------ |
 | Name           | Write the name of the UID field. It must not contain special characters or spaces.                     |
-| Attached field | Choose what existing field to attach to the UID field. Choose *None* to not attach any specific field. |
+| Attached field | Choose what existing field to attach to the UID field. Choose _None_ to not attach any specific field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
 | Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
+| -------------- | --------------------------------------------------------------------------- |
 | Default value  | Write the default value of the UID field.                                   |
 | Private field  | Tick to make the field private and prevent it from being found via the API. |
 | Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
@@ -732,21 +734,21 @@ The Rich Text (Markdown) field displays an editor with basic formatting options 
 <TabItem value="base" label="Basic settings">
 
 | Setting name | Instructions                                      |
-|--------------|---------------------------------------------------|
+| ------------ | ------------------------------------------------- |
 | Name         | Write the name of the Rich Text (Markdown) field. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Rich Text field.                             |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| Setting name                       | Instructions                                                                                                                                                 |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Default value                      | Write the default value of the Rich Text field.                                                                                                              |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                                  |
 | Enable localization for this field | (if [Internationalization plugin](/cms/features/internationalization) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                                   |
+| Maximum length                     | Tick to define a maximum number of characters allowed.                                                                                                       |
+| Minimum length                     | Tick to define a minimum number of characters allowed.                                                                                                       |
 
 </TabItem>
 
@@ -764,29 +766,29 @@ Components are a combination of several fields. Components allow to create reusa
 
 When configuring a component through the Content-type Builder, it is possible to either:
 
-- create a new component by clicking on *Create a new component* (see [Creating a new component](#new-component)),
-- or use an existing one by clicking on *Use an existing component*.
+- create a new component by clicking on _Create a new component_ (see [Creating a new component](#new-component)),
+- or use an existing one by clicking on _Use an existing component_.
 
 <Tabs>
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name       | Instructions                                                    |
-|--------------------|-----------------------------------------------------------------|
-| Name               | Write the name of the component for the content-type.           |
-| Select a component | When using an existing component only - Select from the drop-down list an existing component. |
-| Type               | Choose between *Repeatable component* to be able to use several times the component for the content-type, or *Single component* to limit to only one time the use of the component. |
+| Setting name       | Instructions                                                                                                                                                                        |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name               | Write the name of the component for the content-type.                                                                                                                               |
+| Select a component | When using an existing component only - Select from the drop-down list an existing component.                                                                                       |
+| Type               | Choose between _Repeatable component_ to be able to use several times the component for the content-type, or _Single component_ to limit to only one time the use of the component. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                            |
-|----------------|-----------------------------------------------------------------------------------------|
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.              |
-| Private field  | Tick to make the field private and prevent it from being found via the API.             |
-| Maximum value  | For repeatable components only - Tick to define a maximum number of characters allowed. |
-| Minimum value  | For repeatable components only - Tick to define a minimum number of characters allowed. |
+| Setting name                       | Instructions                                                                                                                                               |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                                 |
+| Private field                      | Tick to make the field private and prevent it from being found via the API.                                                                                |
+| Maximum value                      | For repeatable components only - Tick to define a maximum number of characters allowed.                                                                    |
+| Minimum value                      | For repeatable components only - Tick to define a minimum number of characters allowed.                                                                    |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the component to be translated per available locale. |
 
 </TabItem>
@@ -807,19 +809,19 @@ Dynamic zones are a combination of components that can be added to content-types
 
 <TabItem value="base" label="Basic settings">
 
-| Setting name       | Instructions                                                    |
-|--------------------|-----------------------------------------------------------------|
-| Name               | Write the name of the dynamic zone for the content-type.        |
+| Setting name | Instructions                                             |
+| ------------ | -------------------------------------------------------- |
+| Name         | Write the name of the dynamic zone for the content-type. |
 
 </TabItem>
 
 <TabItem value="advanced" label="Advanced settings">
 
-| Setting name   | Instructions                                                                            |
-|----------------|-----------------------------------------------------------------------------------------|
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.              |
-| Maximum value  | Tick to define a maximum number of characters allowed.                                  |
-| Minimum value  | Tick to define a minimum number of characters allowed.                                  |
+| Setting name                       | Instructions                                                                                                                                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Required field                     | Tick to prevent creating or saving an entry if the field is not filled in.                                                                                    |
+| Maximum value                      | Tick to define a maximum number of characters allowed.                                                                                                        |
+| Minimum value                      | Tick to define a minimum number of characters allowed.                                                                                                        |
 | Enable localization for this field | (if [Internationalization](/cms/features/internationalization) is enabled for the content-type) Allow the dynamic zone to be translated per available locale. |
 
 </TabItem>
@@ -859,8 +861,8 @@ Deleting a content-type only deletes what was created and available from the Con
 :::
 
 <ThemedImage
-  alt="Deletion of content type in Content-type Builder"
-  sources={{
+alt="Deletion of content type in Content-type Builder"
+sources={{
     light: '/img/assets/content-type-builder/new_CTB_deletion.png',
     dark: '/img/assets/content-type-builder/new_CTB_deletion_DARK.png',
   }}

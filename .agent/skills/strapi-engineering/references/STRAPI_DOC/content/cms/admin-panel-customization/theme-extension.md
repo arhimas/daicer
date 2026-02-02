@@ -5,8 +5,8 @@ displayed_sidebar: cmsSidebar
 sidebar_label: Theme extension
 toc_max_heading_level: 4
 tags:
-- admin panel
-- admin panel customization
+  - admin panel
+  - admin panel customization
 ---
 
 # Theme extension
@@ -25,7 +25,6 @@ The default <ExternalLink to="https://github.com/strapi/design-system/tree/main/
 
 The following example shows how to override the primary color by customizing the light and dark theme keys in the [admin panel configuration](/cms/configurations/admin-panel):
 
-
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
 
@@ -35,24 +34,23 @@ export default {
     theme: {
       light: {
         colors: {
-          primary600: "#4A6EFF",
+          primary600: '#4A6EFF',
         },
       },
       dark: {
         colors: {
-          primary600: "#9DB2FF",
+          primary600: '#9DB2FF',
         },
       },
     },
   },
   bootstrap() {},
-}
+};
 ```
 
 </TabItem>
 
 <TabItem value="ts" label="TypeScript">
-
 
 ```ts title="/src/admin/app.ts"
 export default {
@@ -71,7 +69,7 @@ export default {
     },
   },
   bootstrap() {},
-}
+};
 ```
 
 </TabItem>

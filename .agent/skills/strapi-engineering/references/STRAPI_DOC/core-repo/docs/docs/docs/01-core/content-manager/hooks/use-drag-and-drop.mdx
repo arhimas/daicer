@@ -54,14 +54,7 @@ const MyComponent = ({ onMoveItem }) => {
         <Placeholder />
       ) : (
         <Flex ref={composedRefs} data-handler-id={handlerId}>
-          <IconButton
-            tag="div"
-            role="button"
-            tabIndex={0}
-            aria-label="Drag"
-            borderWidth={0}
-            onKeyDown={handleKeyDown}
-          >
+          <IconButton tag="div" role="button" tabIndex={0} aria-label="Drag" borderWidth={0} onKeyDown={handleKeyDown}>
             <Drag />
           </IconButton>
           {'My item'}
@@ -87,12 +80,11 @@ import { composeRefs } from 'path/to/utils';
 import { Placeholder } from './Placeholder';
 
 const MyComponent = ({ onDropItem }) => {
-  const [{ handlerId, handleKeyDown, isOverDropTarget, direction }, myRef, dropRef, dragRef] =
-    useDragAndDrop(true, {
-      type: 'my-type',
-      index,
-      onDropItem,
-    });
+  const [{ handlerId, handleKeyDown, isOverDropTarget, direction }, myRef, dropRef, dragRef] = useDragAndDrop(true, {
+    type: 'my-type',
+    index,
+    onDropItem,
+  });
 
   const composedRefs = composeRefs(myRef, dragRef);
 
@@ -100,14 +92,7 @@ const MyComponent = ({ onDropItem }) => {
     <Box ref={dropRef} cursor={'all-scroll'}>
       {isOverDropTarget && <Placeholder direction={direction} />}
       <Flex ref={composedRefs} data-handler-id={handlerId}>
-        <IconButton
-          tag="div"
-          role="button"
-          tabIndex={0}
-          aria-label="Drag"
-          borderWidth={0}
-          onKeyDown={handleKeyDown}
-        >
+        <IconButton tag="div" role="button" tabIndex={0} aria-label="Drag" borderWidth={0} onKeyDown={handleKeyDown}>
           <Drag />
         </IconButton>
         {'My item'}
@@ -133,12 +118,11 @@ import { composeRefs } from 'path/to/utils';
 import { Placeholder } from './Placeholder';
 
 const MyComponent = ({ onMoveItem }) => {
-  const [{ handlerId, isDragging, handleKeyDown }, myRef, dropRef, dragRef, dragPreviewRef] =
-    useDragAndDrop(true, {
-      type: 'my-type',
-      index,
-      onMoveItem,
-    });
+  const [{ handlerId, isDragging, handleKeyDown }, myRef, dropRef, dragRef, dragPreviewRef] = useDragAndDrop(true, {
+    type: 'my-type',
+    index,
+    onMoveItem,
+  });
 
   // highlight-start
   useEffect(() => {
@@ -154,14 +138,7 @@ const MyComponent = ({ onMoveItem }) => {
         <Placeholder />
       ) : (
         <Flex ref={composedRefs} data-handler-id={handlerId}>
-          <IconButton
-            tag="div"
-            role="button"
-            tabIndex={0}
-            aria-label="Drag"
-            borderWidth={0}
-            onKeyDown={handleKeyDown}
-          >
+          <IconButton tag="div" role="button" tabIndex={0} aria-label="Drag" borderWidth={0} onKeyDown={handleKeyDown}>
             <Drag />
           </IconButton>
           {'My item'}
@@ -253,14 +230,7 @@ setLiveText(
 You might notice in the [basic usage](#basic-usage) section this piece of code:
 
 ```jsx
-<IconButton
-  tag="div"
-  role="button"
-  tabIndex={0}
-  aria-label="Drag"
-  borderWidth={0}
-  onKeyDown={handleKeyDown}
->
+<IconButton tag="div" role="button" tabIndex={0} aria-label="Drag" borderWidth={0} onKeyDown={handleKeyDown}>
   <Drag />
 </IconButton>
 ```

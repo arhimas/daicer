@@ -2,10 +2,10 @@
 title: Okta SSO provider
 description: Learn how to configure the SSO provider to sign in and sign up into your Strapi application through Okta.
 displayed_sidebar: cmsSidebar
-tags: 
-- SSO
-- providers
-- configuration
+tags:
+  - SSO
+  - providers
+  - configuration
 ---
 
 # Okta provider SSO configuration
@@ -53,26 +53,24 @@ When setting the `OKTA_DOMAIN` environment variable, make sure to include the pr
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/admin.js"
-
-const OktaOAuth2Strategy = require("passport-okta-oauth20").Strategy;
+const OktaOAuth2Strategy = require('passport-okta-oauth20').Strategy;
 
 module.exports = ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "okta",
-        displayName: "Okta",
-        icon: "https://www.okta.com/sites/default/files/Okta_Logo_BrightBlue_Medium-thumbnail.png",
+        uid: 'okta',
+        displayName: 'Okta',
+        icon: 'https://www.okta.com/sites/default/files/Okta_Logo_BrightBlue_Medium-thumbnail.png',
         createStrategy: (strapi) =>
           new OktaOAuth2Strategy(
             {
-              clientID: env("OKTA_CLIENT_ID"),
-              clientSecret: env("OKTA_CLIENT_SECRET"),
-              audience: env("OKTA_DOMAIN"),
-              scope: ["openid", "email", "profile"],
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL("okta"),
+              clientID: env('OKTA_CLIENT_ID'),
+              clientSecret: env('OKTA_CLIENT_SECRET'),
+              audience: env('OKTA_DOMAIN'),
+              scope: ['openid', 'email', 'profile'],
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('okta'),
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {
@@ -92,26 +90,24 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
-import { Strategy as OktaOAuth2Strategy } from "passport-okta-oauth20";
+import { Strategy as OktaOAuth2Strategy } from 'passport-okta-oauth20';
 
 export default ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "okta",
-        displayName: "Okta",
-        icon: "https://www.okta.com/sites/default/files/Okta_Logo_BrightBlue_Medium-thumbnail.png",
+        uid: 'okta',
+        displayName: 'Okta',
+        icon: 'https://www.okta.com/sites/default/files/Okta_Logo_BrightBlue_Medium-thumbnail.png',
         createStrategy: (strapi) =>
           new OktaOAuth2Strategy(
             {
-              clientID: env("OKTA_CLIENT_ID"),
-              clientSecret: env("OKTA_CLIENT_SECRET"),
-              audience: env("OKTA_DOMAIN"),
-              scope: ["openid", "email", "profile"],
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL("okta"),
+              clientID: env('OKTA_CLIENT_ID'),
+              clientSecret: env('OKTA_CLIENT_SECRET'),
+              audience: env('OKTA_DOMAIN'),
+              scope: ['openid', 'email', 'profile'],
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('okta'),
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {

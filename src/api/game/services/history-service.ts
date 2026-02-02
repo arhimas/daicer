@@ -143,7 +143,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         sequenceId: e.sequenceId,
         timestamp: e.timestamp,
         eventType: (e as unknown as { type: string }).type,
-        summary: (e as unknown as { summary?: string; type: string }).summary || (e as unknown as { type: string }).type,
+        summary:
+          (e as unknown as { summary?: string; type: string }).summary || (e as unknown as { type: string }).type,
         payload: (e as unknown as { payload: unknown }).payload,
       })),
       snapshots: snapshots.map((s) => ({

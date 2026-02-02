@@ -5,13 +5,13 @@ displayed_sidebar: cmsSidebar
 toc_max_heading_level: 3
 description: Strapi's admin panel offers a single entry point file for its configuration.
 tags:
-- admin panel
-- API token
-- authentication
-- base configuration
-- configuration
-- minimal configuration
-- password
+  - admin panel
+  - API token
+  - authentication
+  - base configuration
+  - configuration
+  - minimal configuration
+  - password
 ---
 
 # Admin panel configuration
@@ -28,11 +28,11 @@ The present page acts as a reference for all the configuration parameters and va
 
 The admin panel behavior can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `autoOpen`                        | Enable or disable administration opening on start.                                                                                                                                                 | boolean       | `true`                                                                                                                              |
-| `watchIgnoreFiles`                | Add custom files that should not be watched during development.<br/><br/> See more <ExternalLink to="https://github.com/paulmillr/chokidar#path-filtering" text="here" /> (property `ignored`).                                        | array(string) | `[]`                                                                                                                                |
-| `serveAdminPanel`                 | If false, the admin panel won't be served.<br/><br/>Note: the `index.html` will still be served                                            | boolean       | `true`                                                                                                                              |
+| Parameter          | Description                                                                                                                                                                                     | Type          | Default |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------- |
+| `autoOpen`         | Enable or disable administration opening on start.                                                                                                                                              | boolean       | `true`  |
+| `watchIgnoreFiles` | Add custom files that should not be watched during development.<br/><br/> See more <ExternalLink to="https://github.com/paulmillr/chokidar#path-filtering" text="here" /> (property `ignored`). | array(string) | `[]`    |
+| `serveAdminPanel`  | If false, the admin panel won't be served.<br/><br/>Note: the `index.html` will still be served                                                                                                 | boolean       | `true`  |
 
 :::note config/admin vs. src/admin/app configurations
 Some UI elements of the admin panel must be configured in the `src/admin/app` file:
@@ -61,14 +61,13 @@ export default {
 
 By default, Strapi's admin panel is exposed via `http://localhost:1337/admin`. For security reasons, the host, port, and path can be updated.
 
-
 The server configuration for the admin panel can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `url`                             | Path to access the admin panel. If the URL is relative, it will be concatenated with the server URL.<br/><br/>Example: `/dashboard` makes the admin panel accessible at `http://localhost:1337/dashboard`.                                                                                | string        | `/admin`                                                                                                                            |
-| `host`                            | Host for the admin panel server. | string        | `localhost`                                                                                                                         |
-| `port`                            | Port for the admin panel server. | string        | `8000`                                                                                                                              |
+| Parameter | Description                                                                                                                                                                                                | Type   | Default     |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----------- |
+| `url`     | Path to access the admin panel. If the URL is relative, it will be concatenated with the server URL.<br/><br/>Example: `/dashboard` makes the admin panel accessible at `http://localhost:1337/dashboard`. | string | `/admin`    |
+| `host`    | Host for the admin panel server.                                                                                                                                                                           | string | `localhost` |
+| `port`    | Port for the admin panel server.                                                                                                                                                                           | string | `8000`      |
 
 :::note
 If you add a path to the `url` option, it won't prefix your application. To do so, use a proxy server like Nginx (see [optional software deployment guides](/cms/deployment#additional-resources)).
@@ -81,7 +80,7 @@ To make the admin panel accessible at another path, for instance at `http://loca
 ```js title="/config/admin.js"
 module.exports = ({ env }) => ({
   // … other configuration properties
-  url: "/dashboard",
+  url: '/dashboard',
 });
 ```
 
@@ -96,10 +95,10 @@ If the admin panel server and the back-end server are not hosted on the same ser
 
 ```js title="/config/admin.js"
 module.exports = ({ env }) => ({
-  host: "my-host.com",
+  host: 'my-host.com',
   port: 3000,
   // Additionally you can define another path instead of the default /admin one 👇
-  // url: '/dashboard' 
+  // url: '/dashboard'
 });
 ```
 
@@ -108,7 +107,7 @@ module.exports = ({ env }) => ({
 
 ```js title="/config/admin.ts"
 export default ({ env }) => ({
-  host: "my-host.com",
+  host: 'my-host.com',
   port: 3000,
   // Additionally you can define another path instead of the default /admin one 👇
   // url: '/dashboard'
@@ -176,6 +175,7 @@ After saving the file, restart `strapi develop`. Vite will now trust requests wh
 ### Deploy on different servers {#deploy-on-different-servers}
 
 Unless you chose to deploy Strapi's back-end server and admin panel server on different servers, by default:
+
 - The back-end server and the admin panel server both run on the same host and port (`http://localhost:1337/`)
 - The admin panel is accessible at the `/admin` path while the back-end server is accessible at the `/api` path
 
@@ -188,19 +188,19 @@ The following example setup allows you to serve the admin panel from one domain 
 
 ```js title="/config/server.js"
 module.exports = ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
-  url: "http://yourbackend.com",
+  host: env('HOST', '0.0.0.0'),
+  port: env.int('PORT', 1337),
+  url: 'http://yourbackend.com',
 });
 ```
 
 ```js title="/config/admin.js"
 module.exports = ({ env }) => ({
   /**
-   * Note: The administration will be accessible from the root of the domain 
+   * Note: The administration will be accessible from the root of the domain
    * (ex: http://yourfrontend.com/)
-   */ 
-  url: "/",
+   */
+  url: '/',
   serveAdminPanel: false, // http://yourbackend.com will not serve any static admin files
 });
 ```
@@ -210,19 +210,19 @@ module.exports = ({ env }) => ({
 
 ```js title="/config/server.ts"
 export default ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
-  url: "http://yourbackend.com",
+  host: env('HOST', '0.0.0.0'),
+  port: env.int('PORT', 1337),
+  url: 'http://yourbackend.com',
 });
 ```
 
 ```js title="/config/admin.ts"
 export default ({ env }) => ({
   /**
-   * Note: The administration will be accessible from the root of the domain 
+   * Note: The administration will be accessible from the root of the domain
    * (ex: http://yourfrontend.com/)
-   */ 
-  url: "/",
+   */
+  url: '/',
   serveAdminPanel: false, // http://yourbackend.com will not serve any static admin files
 });
 ```
@@ -231,7 +231,8 @@ export default ({ env }) => ({
 </Tabs>
 
 With this configuration:
-- The admin panel will be accessible at `http://yourfrontend.com` 
+
+- The admin panel will be accessible at `http://yourfrontend.com`
 - All API requests from the panel will be sent to `http://yourbackend.com`
 - The backend server will not serve any static admin files due to `serveAdminPanel: false`
 
@@ -239,19 +240,19 @@ With this configuration:
 
 The [API tokens](/cms/features/api-tokens) feature can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `apiToken.salt`                   | Salt used to generate API tokens                                                                                                                            | string        | Random string                                                                                                                       |
-| `apiToken.secrets.encryptionKey`   | Encryption key used to set API tokens visibility in the admin panel | string | Random string |
+| Parameter                        | Description                                                         | Type   | Default       |
+| -------------------------------- | ------------------------------------------------------------------- | ------ | ------------- |
+| `apiToken.salt`                  | Salt used to generate API tokens                                    | string | Random string |
+| `apiToken.secrets.encryptionKey` | Encryption key used to set API tokens visibility in the admin panel | string | Random string |
 
 ## Audit logs
 
 The [Audit Logs](/cms/features/audit-logs) feature can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `auditLogs.enabled`               | Enable or disable the Audit Logs feature                                                                                                                         | boolean       | `true`                                                                                                                              |
-| `auditLogs.retentionDays`         | How long Audit Logs are kept, in days.<br /><br />_The behavior differs for self-hosted vs. Strapi Cloud customers, see the note under the table._               | integer       | 90                                                                                                                                  |
+| Parameter                 | Description                                                                                                                                        | Type    | Default |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
+| `auditLogs.enabled`       | Enable or disable the Audit Logs feature                                                                                                           | boolean | `true`  |
+| `auditLogs.retentionDays` | How long Audit Logs are kept, in days.<br /><br />_The behavior differs for self-hosted vs. Strapi Cloud customers, see the note under the table._ | integer | 90      |
 
 :::note Retention days for self-hosted vs. Strapi Cloud users
 For Strapi Cloud customers, the `auditLogs.retentionDays` value stored in the license information is used, unless a _smaller_ `retentionDays` value is defined in the `config/admin.js|ts` configuration file.
@@ -265,17 +266,17 @@ The authentication system, including [SSO configuration](/cms/configurations/gui
 
 To configure basic authentication, use the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `auth`                            | Authentication configuration                                                                                                                                                                       | object        | -                                                                                                                                   |
-| `auth.secret`                     | Secret used to encode JWT tokens                                                                                                                                                                   | string        | `undefined`                                                                                                                         |
-| `auth.domain`                     | Domain used within the cookie for SSO authentication <EnterpriseBadge /> <SsoBadge />)                                                                                                                             | string        | `undefined`                                                                                                                         |
-| `auth.providers`                  | List of authentication providers used for SSO                                                                                           | array(object) | -                                                                                                                                   |
-| `auth.options`                    | Options object passed to jsonwebtoken                                                                                                                | object        | -                                                                                                                                   |
-| `auth.options.expiresIn`          | JWT expire time used in jsonwebtoken                                                                                                                 | object        | `30d`                                                                                                                               |
-| `auth.events`                     | Record of all the events subscribers registered for the authentication                                                                                                                             | object        | `{}`                                                                                                                                |
-| `auth.events.onConnectionSuccess` | Function called when an admin user log in successfully to the administration panel                                                                                                                 | function      | `undefined`                                                                                                                         |
-| `auth.events.onConnectionError`   | Function called when an admin user fails to log in to the administration panel                                                                                                                     | function      | `undefined`                                                                                                                         |
+| Parameter                         | Description                                                                            | Type          | Default     |
+| --------------------------------- | -------------------------------------------------------------------------------------- | ------------- | ----------- |
+| `auth`                            | Authentication configuration                                                           | object        | -           |
+| `auth.secret`                     | Secret used to encode JWT tokens                                                       | string        | `undefined` |
+| `auth.domain`                     | Domain used within the cookie for SSO authentication <EnterpriseBadge /> <SsoBadge />) | string        | `undefined` |
+| `auth.providers`                  | List of authentication providers used for SSO                                          | array(object) | -           |
+| `auth.options`                    | Options object passed to jsonwebtoken                                                  | object        | -           |
+| `auth.options.expiresIn`          | JWT expire time used in jsonwebtoken                                                   | object        | `30d`       |
+| `auth.events`                     | Record of all the events subscribers registered for the authentication                 | object        | `{}`        |
+| `auth.events.onConnectionSuccess` | Function called when an admin user log in successfully to the administration panel     | function      | `undefined` |
+| `auth.events.onConnectionError`   | Function called when an admin user fails to log in to the administration panel         | function      | `undefined` |
 
 Additional configuration parameters are available for [session management](#session-management).
 
@@ -298,78 +299,78 @@ Strapi's session management system supports both admin panel authentication and 
 
 To configure session lifespans and behavior, use the following parameters:
 
-| Parameter                                 | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `auth.sessions`                           | Session management configuration                                                                                                                                                                   | object        | `{}`                                                                                                                                |
-| `auth.sessions.accessTokenLifespan`       | Access token lifespan in seconds                                                                                                                                                                   | number        | `1800` (30 minutes)                                                                                                                 |
-| `auth.sessions.maxRefreshTokenLifespan`   | Maximum refresh token lifespan in seconds                                                                                                                                                          | number        | `2592000` (30 days, or legacy `expiresIn` value)                                                                                   |
-| `auth.sessions.idleRefreshTokenLifespan`  | Idle refresh token timeout in seconds                                                                                                                                                              | number        | `604800` (7 days)                                                                                                                   |
-| `auth.sessions.maxSessionLifespan`        | Maximum session duration in seconds                                                                                                                                                                | number        | `2592000` (30 days, or legacy `expiresIn` value)                                                                                   |
-| `auth.sessions.idleSessionLifespan`       | Session idle timeout in seconds                                                                                                                                                                    | number        | `3600` (1 hour)                                                                                                                     |
+| Parameter                                | Description                               | Type   | Default                                          |
+| ---------------------------------------- | ----------------------------------------- | ------ | ------------------------------------------------ |
+| `auth.sessions`                          | Session management configuration          | object | `{}`                                             |
+| `auth.sessions.accessTokenLifespan`      | Access token lifespan in seconds          | number | `1800` (30 minutes)                              |
+| `auth.sessions.maxRefreshTokenLifespan`  | Maximum refresh token lifespan in seconds | number | `2592000` (30 days, or legacy `expiresIn` value) |
+| `auth.sessions.idleRefreshTokenLifespan` | Idle refresh token timeout in seconds     | number | `604800` (7 days)                                |
+| `auth.sessions.maxSessionLifespan`       | Maximum session duration in seconds       | number | `2592000` (30 days, or legacy `expiresIn` value) |
+| `auth.sessions.idleSessionLifespan`      | Session idle timeout in seconds           | number | `3600` (1 hour)                                  |
 
 ### Cookie configuration
 
 To configure HTTP cookies for admin authentication, use the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `auth.cookie`                     | Cookie configuration for admin authentication                                                                                                                                                      | object        | `{}`                                                                                                                                |
-| `auth.cookie.domain`              | Cookie domain (inherits from server if not set)                                                                                                                                                   | string        | `undefined`                                                                                                                         |
-| `auth.cookie.path`                | Cookie path                                                                                                                                                                                        | string        | `'/admin'`                                                                                                                          |
-| `auth.cookie.sameSite`            | <ExternalLink to="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#samesitesamesite-value" text="SameSite cookie attribute"/>                                                                                                                                                                          | string        | `'lax'`                                                                                                                             |
+| Parameter              | Description                                                                                                                                                 | Type   | Default     |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----------- |
+| `auth.cookie`          | Cookie configuration for admin authentication                                                                                                               | object | `{}`        |
+| `auth.cookie.domain`   | Cookie domain (inherits from server if not set)                                                                                                             | string | `undefined` |
+| `auth.cookie.path`     | Cookie path                                                                                                                                                 | string | `'/admin'`  |
+| `auth.cookie.sameSite` | <ExternalLink to="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#samesitesamesite-value" text="SameSite cookie attribute"/> | string | `'lax'`     |
 
 ## Feature flags
 
 The feature flags can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `flags`                           | Settings to turn certain features or elements of the admin on or off                                                                                                                               | object        | {}                                                                                                                                  |
-| `flags.nps`                       | Enable/Disable the Net Promoter Score popup                                                                                                                                                        | boolean       | `true`                                                                                                                              |
-| `flags.promoteEE`                 | Enable/Disable the promotion of Strapi Enterprise features                                                                                                                                         | boolean       | `true`                                                                                                                              |
+| Parameter         | Description                                                          | Type    | Default |
+| ----------------- | -------------------------------------------------------------------- | ------- | ------- |
+| `flags`           | Settings to turn certain features or elements of the admin on or off | object  | {}      |
+| `flags.nps`       | Enable/Disable the Net Promoter Score popup                          | boolean | `true`  |
+| `flags.promoteEE` | Enable/Disable the promotion of Strapi Enterprise features           | boolean | `true`  |
 
 ## Forgot password
 
 The forgot password functionality, including [email templating](/cms/features/users-permissions#templating-emails), can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `forgotPassword`                  | Settings to customize the forgot password email                                                        | object        | {}                                                                                                                                  |
-| `forgotPassword.emailTemplate`    | Email template as defined in email plugin                                                                                         | object        | Default template |
-| `forgotPassword.from`             | Sender mail address                                                                                                                                                                                | string        | Default value defined in <br />your provider configuration                             |
-| `forgotPassword.replyTo`          | Default address or addresses the receiver is asked to reply to                                                                                                                                     | string        | Default value defined in <br />your provider configuration                             |
+| Parameter                      | Description                                                    | Type   | Default                                                    |
+| ------------------------------ | -------------------------------------------------------------- | ------ | ---------------------------------------------------------- |
+| `forgotPassword`               | Settings to customize the forgot password email                | object | {}                                                         |
+| `forgotPassword.emailTemplate` | Email template as defined in email plugin                      | object | Default template                                           |
+| `forgotPassword.from`          | Sender mail address                                            | string | Default value defined in <br />your provider configuration |
+| `forgotPassword.replyTo`       | Default address or addresses the receiver is asked to reply to | string | Default value defined in <br />your provider configuration |
 
 ## Rate limiting
 
 The rate limiting for the admin panel's authentication endpoints can be configured with the following parameters. Additional configuration options come from the <ExternalLink text="koa2-ratelimit" to="https://www.npmjs.com/package/koa2-ratelimit"/> package:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `rateLimit`                       | Settings to customize the rate limiting of the admin panel's authentication endpoints | object        | {}                                                                                                                                  |
-| `rateLimit.enabled`               | Enable or disable the rate limiter                                                                                                                                                                 | boolean       | `true`                                                                                                                              |
-| `rateLimit.interval`              | Time window for requests to be considered as part of the same rate limiting bucket                                                                                                                 | object        | `{ min: 5 }`                                                                                                                        |
-| `rateLimit.max`                   | Maximum number of requests allowed in the time window                                                                                                                                              | integer       | `5`                                                                                                                                 |
-| `rateLimit.delayAfter`            | Number of requests allowed before delaying responses                                                                                                                                               | integer       | `1`                                                                                                                                 |
-| `rateLimit.timeWait`              | Time to wait before responding to a request (in milliseconds)                                                                                                                                      | integer       | `3000`                                                                                                                              |
-| `rateLimit.prefixKey`             | Prefix for the rate limiting key                                                                                                                                                                   | string        | `${userEmail}:${ctx.request.path}:${ctx.request.ip}`                                                                                |
-| `rateLimit.whitelist`             | Array of IP addresses to whitelist from rate limiting                                                                                                                                              | array(string) | `[]`                                                                                                                                |
-| `rateLimit.store`                 | Rate limiting storage location (Memory, Sequelize, or Redis). For more information see the koa2-ratelimit documentation               | object        | `MemoryStore`                                                                                                                       |
+| Parameter              | Description                                                                                                             | Type          | Default                                              |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------- |
+| `rateLimit`            | Settings to customize the rate limiting of the admin panel's authentication endpoints                                   | object        | {}                                                   |
+| `rateLimit.enabled`    | Enable or disable the rate limiter                                                                                      | boolean       | `true`                                               |
+| `rateLimit.interval`   | Time window for requests to be considered as part of the same rate limiting bucket                                      | object        | `{ min: 5 }`                                         |
+| `rateLimit.max`        | Maximum number of requests allowed in the time window                                                                   | integer       | `5`                                                  |
+| `rateLimit.delayAfter` | Number of requests allowed before delaying responses                                                                    | integer       | `1`                                                  |
+| `rateLimit.timeWait`   | Time to wait before responding to a request (in milliseconds)                                                           | integer       | `3000`                                               |
+| `rateLimit.prefixKey`  | Prefix for the rate limiting key                                                                                        | string        | `${userEmail}:${ctx.request.path}:${ctx.request.ip}` |
+| `rateLimit.whitelist`  | Array of IP addresses to whitelist from rate limiting                                                                   | array(string) | `[]`                                                 |
+| `rateLimit.store`      | Rate limiting storage location (Memory, Sequelize, or Redis). For more information see the koa2-ratelimit documentation | object        | `MemoryStore`                                        |
 
 ## Strapi AI <NewBadge /> {#strapi-ai}
 
 Strapi AI, adding features to the [Content-Type Builder](/cms/features/content-type-builder#strapi-ai) and [Media Library](/cms/features/media-library#ai-powered-metadata-generation) with <GrowthBadge /> plans, can be enabled or disabled:
 
-| Parameter    | Description                              | Type     | Default         |
-| ------------ | ---------------------------------------- | -------- | --------------- |
-| `ai.enabled` | Whether Strapi AI is enabled or not      |  boolean | `true`          |
+| Parameter    | Description                         | Type    | Default |
+| ------------ | ----------------------------------- | ------- | ------- |
+| `ai.enabled` | Whether Strapi AI is enabled or not | boolean | `true`  |
 
 ## Transfer tokens
 
 Transfer tokens for the [Data transfer](/cms/data-management/transfer) feature can be configured with the following parameters:
 
-| Parameter                         | Description                                                                                                                                                                                        | Type          | Default                                                                                                                             |
-|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `transfer.token.salt`             | Salt used to generate Transfer tokens.<br/><br/>If no transfer token salt is defined, transfer features will be disabled.               | string        | a random string                                                                                                                       |
+| Parameter             | Description                                                                                                               | Type   | Default         |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------ | --------------- |
+| `transfer.token.salt` | Salt used to generate Transfer tokens.<br/><br/>If no transfer token salt is defined, transfer features will be disabled. | string | a random string |
 
 :::note Retention days for self-hosted vs. Strapi Cloud users
 For Strapi Cloud customers, the `auditLogs.retentionDays` value stored in the license information is used, unless a _smaller_ `retentionDays` value is defined in the `config/admin.js|ts` configuration file.
@@ -397,19 +398,19 @@ module.exports = ({ env }) => ({
   apiToken: {
     salt: env('API_TOKEN_SALT', 'someRandomLongString'),
   },
-  auditLogs: { // only accessible with an Enterprise plan
+  auditLogs: {
+    // only accessible with an Enterprise plan
     enabled: env.bool('AUDIT_LOGS_ENABLED', true),
   },
   auth: {
     secret: env('ADMIN_JWT_SECRET', 'someSecretKey'),
   },
-  transfer: { 
-    token: { 
+  transfer: {
+    token: {
       salt: env('TRANSFER_TOKEN_SALT', 'anotherRandomLongString'),
-    } 
+    },
   },
 });
-
 ```
 
 </TabItem>
@@ -417,21 +418,21 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
 export default ({ env }) => ({
   apiToken: {
     salt: env('API_TOKEN_SALT', 'someRandomLongString'),
   },
-   auditLogs: { // only accessible with an Enterprise plan
+  auditLogs: {
+    // only accessible with an Enterprise plan
     enabled: env.bool('AUDIT_LOGS_ENABLED', true),
   },
   auth: {
     secret: env('ADMIN_JWT_SECRET', 'someSecretKey'),
   },
-  transfer: { 
-    token: { 
+  transfer: {
+    token: {
       salt: env('TRANSFER_TOKEN_SALT', 'anotherRandomLongString'),
-    } 
+    },
   },
 });
 ```
@@ -448,7 +449,6 @@ export default ({ env }) => ({
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/admin.js"
-
 module.exports = ({ env }) => ({
   apiToken: {
     salt: env('API_TOKEN_SALT', 'someRandomLongString'),
@@ -459,7 +459,8 @@ module.exports = ({ env }) => ({
   ai: {
     enabled: false, // use this to disable Strapi AI
   },
-  auditLogs: { // only accessible with an Enterprise plan
+  auditLogs: {
+    // only accessible with an Enterprise plan
     enabled: env.bool('AUDIT_LOGS_ENABLED', true),
     retentionDays: 120,
   },
@@ -504,16 +505,15 @@ module.exports = ({ env }) => ({
   },
   rateLimit: {
     interval: { hour: 1, min: 30 },
-    timeWait: 3*1000,
+    timeWait: 3 * 1000,
     max: 10,
   },
-  transfer: { 
-    token: { 
+  transfer: {
+    token: {
       salt: env('TRANSFER_TOKEN_SALT', 'anotherRandomLongString'),
-    } 
+    },
   },
 });
-
 ```
 
 </TabItem>
@@ -521,7 +521,6 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
 export default ({ env }) => ({
   apiToken: {
     salt: env('API_TOKEN_SALT', 'someRandomLongString'),
@@ -532,7 +531,8 @@ export default ({ env }) => ({
   ai: {
     enabled: false, // use this to disable Strapi AI
   },
-  auditLogs: { // only accessible with an Enterprise plan
+  auditLogs: {
+    // only accessible with an Enterprise plan
     enabled: env.bool('AUDIT_LOGS_ENABLED', true),
     retentionDays: 120,
   },
@@ -577,13 +577,13 @@ export default ({ env }) => ({
   },
   rateLimit: {
     interval: { hour: 1, min: 30 },
-    timeWait: 3*1000,
+    timeWait: 3 * 1000,
     max: 10,
   },
-  transfer: { 
-    token: { 
+  transfer: {
+    token: {
       salt: env('TRANSFER_TOKEN_SALT', 'anotherRandomLongString'),
-    } 
+    },
   },
 });
 ```

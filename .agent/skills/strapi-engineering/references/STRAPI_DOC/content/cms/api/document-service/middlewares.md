@@ -28,18 +28,18 @@ A middleware is a function that receives a context and a next function.
 Syntax: `(context, next) => ReturnType<typeof next>`
 
 | Parameter | Description                           | Type       |
-|-----------|---------------------------------------|------------|
+| --------- | ------------------------------------- | ---------- |
 | `context` | Middleware context                    | `Context`  |
 | `next`    | Call the next middleware in the stack | `function` |
 
 #### `context`
 
-| Parameter     | Description                                                                          | Type          |
-|---------------|--------------------------------------------------------------------------------------|---------------|
+| Parameter     | Description                                                                     | Type          |
+| ------------- | ------------------------------------------------------------------------------- | ------------- |
 | `action`      | The method that is running ([see available methods](/cms/api/document-service)) | `string`      |
 | `params`      | The method params ([see available methods](/cms/api/document-service))          | `Object`      |
-| `uid`         | Content type unique identifier                                                       | `string`      |
-| `contentType` | Content type                                                                         | `ContentType` |
+| `uid`         | Content type unique identifier                                                  | `string`      |
+| `contentType` | Content type                                                                    | `ContentType` |
 
 <details>
 <summary>Examples:</summary>
@@ -47,7 +47,6 @@ Syntax: `(context, next) => ReturnType<typeof next>`
 The following examples show what `context` might include depending on the method called:
 
 <Tabs>
-
 
 <TabItem value="find-one" label="findOne">
 

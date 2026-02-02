@@ -6,15 +6,15 @@ canonicalUrl: https://docs.strapi.io/cms/data-management/export.html
 pagination_prev: cms/data-management/import
 pagination_next: cms/data-management/transfer
 tags:
-- configure data encryption
-- data management system
-- data export
-- disable data compression
-- exclude option
-- metadata.json file
-- relations
-- strapi export
-- tar.gz.enc file 
+  - configure data encryption
+  - data management system
+  - data export
+  - disable data compression
+  - exclude option
+  - metadata.json file
+  - relations
+  - strapi export
+  - tar.gz.enc file
 ---
 
 # Data export
@@ -33,9 +33,10 @@ The `strapi export` command is part of the [Data Management feature](/cms/featur
 The following documentation details the available options to customize your data export. The export command and all of the available options are run using the [Strapi CLI](/cms/cli#strapi-export).
 
 :::caution
-* Admin users and API tokens are not exported.
-* Media from a 3rd party provider (e.g., Cloudinary or AWS S3) are not included in the export as those files do not exist in the upload folders.
-:::
+
+- Admin users and API tokens are not exported.
+- Media from a 3rd party provider (e.g., Cloudinary or AWS S3) are not included in the export as those files do not exist in the upload folders.
+  :::
 
 ## Understand the exported archive
 
@@ -213,13 +214,14 @@ npm run strapi export -- --no-compress
 
 ## Export only selected types of data
 
-The default `strapi export` command exports your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to export only the listed items by passing a comma-separated string  with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always exported, as schema matching is used for `strapi import`.
+The default `strapi export` command exports your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to export only the listed items by passing a comma-separated string with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always exported, as schema matching is used for `strapi import`.
 
 :::note
 Media such as images consist of the file (asset) and the entity in the database. If you use the `--only` flag to export `content`, the asset database records are still included, and could render as broken links.
 :::
 
 ### Example: Export only entities and relations
+
 <br/>
 
 <Tabs groupId="yarn-npm">

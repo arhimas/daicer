@@ -18,10 +18,7 @@
           "armor_class": 20,
           "hit_points": 200,
           "speed": "30 ft. (walk), 30 ft. (swim), 0 ft. (retracted)",
-          "damage_immunities": [
-            "poison",
-            "psychic"
-          ],
+          "damage_immunities": ["poison", "psychic"],
           "depth_limit": "900 feet (takes 2d6 bludgeoning damage per minute below this)"
         },
         "vehicle_details": {

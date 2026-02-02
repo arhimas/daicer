@@ -3,9 +3,9 @@ title: Sentry plugin
 displayed_sidebar: cmsSidebar
 description: Track errors in your Strapi application.
 tags:
-- environment
-- global Sentry service
-- Sentry 
+  - environment
+  - global Sentry service
+  - Sentry
 ---
 
 # Sentry plugin
@@ -24,10 +24,10 @@ This plugin enables you to track errors in your Strapi application using Sentry.
 
 By using the Sentry plugin you can:
 
-* Initialize a Sentry instance upon startup of a Strapi application
-* Send Strapi application errors as events to Sentry
-* Include additional metadata in Sentry events to assist in debugging
-* Expose a global Sentry service usable by the Strapi server
+- Initialize a Sentry instance upon startup of a Strapi application
+- Send Strapi application errors as events to Sentry
+- Include additional metadata in Sentry events to assist in debugging
+- Expose a global Sentry service usable by the Strapi server
 
 ## Installation
 
@@ -57,11 +57,11 @@ npm install @strapi/plugin-sentry
 
 Create or edit your `/config/plugins` file to configure the Sentry plugin. The following properties are available:
 
-| Property | Type | Default Value | Description |
-| -------- | ---- | ------------- |------------ |
-| `dsn` | string | `null` | Your Sentry <ExternalLink to="https://docs.sentry.io/product/sentry-basics/dsn-explainer/" text="data source name"/>. |
-| `sendMetadata` | boolean | `true` | Whether the plugin should attach additional information (e.g., OS, browser, etc.) to the events sent to Sentry. |
-| `init` | object | `{}` | A config object that is passed directly to Sentry during initialization (see official <ExternalLink to="https://docs.sentry.io/platforms/node/configuration/options/" text="Sentry documentation"/> for available options). |
+| Property       | Type    | Default Value | Description                                                                                                                                                                                                                 |
+| -------------- | ------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dsn`          | string  | `null`        | Your Sentry <ExternalLink to="https://docs.sentry.io/product/sentry-basics/dsn-explainer/" text="data source name"/>.                                                                                                       |
+| `sendMetadata` | boolean | `true`        | Whether the plugin should attach additional information (e.g., OS, browser, etc.) to the events sent to Sentry.                                                                                                             |
+| `init`         | object  | `{}`          | A config object that is passed directly to Sentry during initialization (see official <ExternalLink to="https://docs.sentry.io/platforms/node/configuration/options/" text="Sentry documentation"/> for available options). |
 
 The following is an example basic configuration:
 
@@ -70,7 +70,6 @@ The following is an example basic configuration:
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/plugins.js"
-
 module.exports = ({ env }) => ({
   // ...
   sentry: {
@@ -89,7 +88,6 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/plugins.ts"
-
 export default ({ env }) => ({
   // ...
   sentry: {
@@ -200,10 +198,10 @@ const sentryService = strapi.plugin('sentry').service('sentry');
 
 This service exposes the following methods:
 
-| Method | Description | Parameters |
-| ------ | ----------- | ---------- |
-| `sendError()` | Manually send errors to Sentry. | <ul><li><code>error</code>: The error to be sent.</li><li><code>configureScope</code>: Optional. Enables you to customize the error event.</li></ul> See the official <ExternalLink to="https://docs.sentry.io/platforms/node/enriching-events/scopes/#configuring-the-scope" text="Sentry documentation"/> for more details. |
-| `getInstance()` | Used for direct access to the Sentry instance. | - |
+| Method          | Description                                    | Parameters                                                                                                                                                                                                                                                                                                                    |
+| --------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sendError()`   | Manually send errors to Sentry.                | <ul><li><code>error</code>: The error to be sent.</li><li><code>configureScope</code>: Optional. Enables you to customize the error event.</li></ul> See the official <ExternalLink to="https://docs.sentry.io/platforms/node/enriching-events/scopes/#configuring-the-scope" text="Sentry documentation"/> for more details. |
+| `getInstance()` | Used for direct access to the Sentry instance. | -                                                                                                                                                                                                                                                                                                                             |
 
 The `sendError()` method can be used as follows:
 
@@ -212,10 +210,7 @@ try {
   // Your code here
 } catch (error) {
   // Either send a simple error
-  strapi
-    .plugin('sentry')
-    .service('sentry')
-    .sendError(error);
+  strapi.plugin('sentry').service('sentry').sendError(error);
 
   // Or send an error with a customized Sentry scope
   strapi
@@ -232,8 +227,5 @@ try {
 The `getInstance()` method is accessible as follows:
 
 ```js
-const sentryInstance = strapi
-  .plugin('sentry')
-  .service('sentry')
-  .getInstance();
+const sentryInstance = strapi.plugin('sentry').service('sentry').getInstance();
 ```

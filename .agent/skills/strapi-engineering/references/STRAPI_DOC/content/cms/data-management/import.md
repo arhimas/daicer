@@ -1,18 +1,18 @@
 ---
-title: Data import 
+title: Data import
 description: Import data using the Strapi CLI
 displayed_sidebar: cmsSidebar
 canonicalUrl: https://docs.strapi.io/cms/data-management/import.html
 pagination_prev: cms/features/data-management
 pagination_next: cms/data-management/export
 tags:
-- data management system
-- data import
-- exclude option
-- force option
-- metadata.json file
-- strapi import
-- tar.gz.enc file 
+  - data management system
+  - data import
+  - exclude option
+  - force option
+  - metadata.json file
+  - strapi import
+  - tar.gz.enc file
 ---
 
 # Data import
@@ -214,7 +214,7 @@ npm strapi import -- -f /path/to/my/file/export_20221213105643.tar.gz.enc --excl
 
 ## Include only specified data types during import
 
-The default `strapi import` command imports your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to export only the listed items by passing a comma-separated string  with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always imported, as schema matching is used for `strapi import`.
+The default `strapi import` command imports your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to export only the listed items by passing a comma-separated string with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always imported, as schema matching is used for `strapi import`.
 
 :::note
 Media such as images consist of the file (asset) and the entity in the database. If you use the `--only` flag to import `content` the asset database records are still included, and could render as broken links.

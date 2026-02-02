@@ -17,10 +17,10 @@ export type { DerivationContext, RuntimeAction, Equipment } from './types';
 
 /**
  * The Central Derivation Engine.
- * 
+ *
  * Responsible for taking a "static" Entity Sheet (Stats, Inventory, Race)
  * and calculating all "live" runtime values (AC, HP, Speed, Attack Bonuses, Save DCs).
- * 
+ *
  * This is the bridge between the Content Management System (Strapi) and the Game Engine.
  */
 export class EntityDeriver {

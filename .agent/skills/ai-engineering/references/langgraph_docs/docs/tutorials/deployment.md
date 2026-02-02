@@ -9,7 +9,6 @@ Get started deploying your LangGraph applications locally or on the cloud with
 - [LangGraph Template Quickstart](../concepts/template_applications.md): Start building with LangGraph Platform using a template application.
 - [Deploy with LangGraph Cloud Quickstart](../cloud/quick_start.md): Deploy a LangGraph app using LangGraph Cloud.
 
-
 ## Deployment Options
 
 - [Self-Hosted Lite](../concepts/self_hosted.md): A free (up to 1 million nodes executed), limited version of LangGraph Platform that you can run locally or in a self-hosted manner

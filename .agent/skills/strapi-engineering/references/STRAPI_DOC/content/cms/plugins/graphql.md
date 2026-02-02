@@ -4,17 +4,16 @@ displayed_sidebar: cmsSidebar
 toc_max_heading_level: 6
 description: Use a GraphQL endpoint in your Strapi project to fetch and mutate your content.
 tags:
-- admin panel 
-- API token
-- Apollo Server 
-- getters
-- GraphQL API
-- GraphQL 
-- policies
-- plugins 
-- middlewares
-- Users, Roles & Permissions
-
+  - admin panel
+  - API token
+  - Apollo Server
+  - getters
+  - GraphQL API
+  - GraphQL
+  - policies
+  - plugins
+  - middlewares
+  - Users, Roles & Permissions
 ---
 
 # GraphQL plugin
@@ -32,8 +31,8 @@ By default Strapi create [REST endpoints](/cms/api/rest#endpoints) for each of y
 </IdentityCard>
 
 <ThemedImage
-  alt="GraphQL playground use example"
-  sources={{
+alt="GraphQL playground use example"
+sources={{
     light:'/img/assets/apis/use-graphql-playground.gif',
     dark:'/img/assets/apis/use-graphql-playground_DARK.gif',
   }}
@@ -91,7 +90,7 @@ The GraphQL plugin has the following specific configuration options that should 
 | `amountLimit`      | Number              | Limits the maximum number of items returned in a single response.                                                                                                | `100`         | Use cautiously to avoid performance issues.         |
 | `playgroundAlways` | Boolean             | [Deprecated] Enables GraphQL Playground in all environments (deprecated).                                                                                        | `false`       | Prefer using `landingPage` instead.                 |
 | `landingPage`      | Boolean \| Function | Enables or disables the landing page for GraphQL. Accepts a boolean or a function returning a boolean or an ApolloServerPlugin implementing `renderLandingPage`. |               | `false` in production, `true` in other environments |
-| `apolloServer`     | Object              | Passes configuration options directly to Apollo Server.                                                                                                          | `{}`          | Example: `{ tracing: true }`    
+| `apolloServer`     | Object              | Passes configuration options directly to Apollo Server.                                                                                                          | `{}`          | Example: `{ tracing: true }`                        |
 
 :::caution
 The maximum number of items returned by the response is limited to 100 by default. This value can be changed using the `amountLimit` configuration option, but should only be changed after careful consideration: a large query can cause a DDoS (Distributed Denial of Service) and may cause abnormal load on your Strapi server, as well as your database server.
@@ -142,13 +141,12 @@ export default () => ({
       },
     },
   },
-})
+});
 ```
 
 </TabItem>
 
 </Tabs>
-
 
 #### Dynamically enable Apollo Sandbox
 
@@ -197,6 +195,7 @@ export default ({ env }) => {
   },
 };
 ```
+
 </TabItem>
 
 </Tabs>
@@ -235,7 +234,10 @@ To add these exceptions only for the `/graphql` path (recommended), you can crea
 module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
     if (ctx.request.path === '/graphql') {
-      ctx.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net apollo-server-landing-page.cdn.apollographql.com; connect-src 'self' https:; img-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; media-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; frame-src sandbox.embed.apollographql.com; manifest-src apollo-server-landing-page.cdn.apollographql.com;");
+      ctx.set(
+        'Content-Security-Policy',
+        "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net apollo-server-landing-page.cdn.apollographql.com; connect-src 'self' https:; img-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; media-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; frame-src sandbox.embed.apollographql.com; manifest-src apollo-server-landing-page.cdn.apollographql.com;"
+      );
     }
     await next();
   };
@@ -250,7 +252,10 @@ module.exports = (config, { strapi }) => {
 export default (config, { strapi }) => {
   return async (ctx, next) => {
     if (ctx.request.path === '/graphql') {
-      ctx.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net apollo-server-landing-page.cdn.apollographql.com; connect-src 'self' https:; img-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; media-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; frame-src sandbox.embed.apollographql.com; manifest-src apollo-server-landing-page.cdn.apollographql.com;");
+      ctx.set(
+        'Content-Security-Policy',
+        "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net apollo-server-landing-page.cdn.apollographql.com; connect-src 'self' https:; img-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; media-src 'self' data: blob: apollo-server-landing-page.cdn.apollographql.com; frame-src sandbox.embed.apollographql.com; manifest-src apollo-server-landing-page.cdn.apollographql.com;"
+      );
     }
     await next();
   };
@@ -270,7 +275,6 @@ To simplify and automate the build of the GraphQL schema, we introduced the Shad
 If you've generated an API called `Document` using [the interactive `strapi generate` CLI](/cms/cli#strapi-generate) or the administration panel, your model looks like this:
 
 ```json title="/src/api/[api-name]/content-types/document/schema.json"
-
 {
   "kind": "collectionType",
   "collectionName": "documents",
@@ -352,14 +356,14 @@ type DocumentRelationResponseCollection {
 }
 
 # Queries to retrieve one or multiple restaurants.
-type Query  {
+type Query {
   document(id: ID): DocumentEntityResponse
   documents(
     filters: DocumentFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
     publicationState: PublicationState = LIVE
-):DocumentEntityResponseCollection
+  ): DocumentEntityResponseCollection
 }
 
 # Mutations to create, update or delete a restaurant.
@@ -376,9 +380,9 @@ type Mutation {
 
 Strapi provides a programmatic API to customize GraphQL, which allows:
 
-* disabling some operations for the [Shadow CRUD](#shadow-crud)
-* [using getters](#using-getters) to return information about allowed operations
-* registering and using an `extension` object to [extend the existing schema](#extending-the-schema) (e.g. extend types or define custom resolvers, policies and middlewares)
+- disabling some operations for the [Shadow CRUD](#shadow-crud)
+- [using getters](#using-getters) to return information about allowed operations
+- registering and using an `extension` object to [extend the existing schema](#extending-the-schema) (e.g. extend types or define custom resolvers, policies and middlewares)
 
 <details> 
 <summary>Example of GraphQL customizations</summary>
@@ -388,7 +392,6 @@ Strapi provides a programmatic API to customize GraphQL, which allows:
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/src/index.js"
-
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -398,13 +401,13 @@ module.exports = {
    */
   register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
-    
+
     extensionService.shadowCRUD('api::restaurant.restaurant').disable();
     extensionService.shadowCRUD('api::category.category').disableQueries();
     extensionService.shadowCRUD('api::address.address').disableMutations();
     extensionService.shadowCRUD('api::document.document').field('locked').disable();
     extensionService.shadowCRUD('api::like.like').disableActions(['create', 'update', 'delete']);
-    
+
     const extension = ({ nexus }) => ({
       // Nexus
       types: [
@@ -454,7 +457,6 @@ module.exports = {
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/src/index.ts"
-
 export default {
   /**
    * An asynchronous register function that runs before
@@ -464,13 +466,13 @@ export default {
    */
   register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
-    
+
     extensionService.shadowCRUD('api::restaurant.restaurant').disable();
     extensionService.shadowCRUD('api::category.category').disableQueries();
     extensionService.shadowCRUD('api::address.address').disableMutations();
     extensionService.shadowCRUD('api::document.document').field('locked').disable();
     extensionService.shadowCRUD('api::like.like').disableActions(['create', 'update', 'delete']);
-    
+
     const extension = ({ nexus }) => ({
       // Nexus
       types: [
@@ -525,13 +527,13 @@ export default {
 
 The `extension` service provided with the GraphQL plugin exposes functions that can be used to disable operations on Content-Types:
 
-| Content-type function | Description                                    | Argument type    | Possible argument values |
-| --------------------  | ---------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| `disable()`           | Fully disable the Content-Type                 | -                | -                                                                                                          |
-| `disableQueries()`    | Only disable queries for the Content-Type      | -                | -                                                                                                          |
-| `disableMutations()`  | Only disable mutations for the Content-Type    | -                | -                                                                                                          |
-| `disableAction()`     | Disable a specific action for the Content-Type | String           | One value from the list:<ul><li>`create`</li><li>`find`</li><li>`findOne`</li><li>`update`</li><li>`delete`</li></ul>   |
-| `disableActions()`    | Disable specific actions for the Content-Type  | Array of Strings | Multiple values from the list: <ul><li>`create`</li><li>`find`</li><li>`findOne`</li><li>`update`</li><li>`delete`</li></ul>  |
+| Content-type function | Description                                    | Argument type    | Possible argument values                                                                                                     |
+| --------------------- | ---------------------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `disable()`           | Fully disable the Content-Type                 | -                | -                                                                                                                            |
+| `disableQueries()`    | Only disable queries for the Content-Type      | -                | -                                                                                                                            |
+| `disableMutations()`  | Only disable mutations for the Content-Type    | -                | -                                                                                                                            |
+| `disableAction()`     | Disable a specific action for the Content-Type | String           | One value from the list:<ul><li>`create`</li><li>`find`</li><li>`findOne`</li><li>`update`</li><li>`delete`</li></ul>        |
+| `disableActions()`    | Disable specific actions for the Content-Type  | Array of Strings | Multiple values from the list: <ul><li>`create`</li><li>`find`</li><li>`findOne`</li><li>`update`</li><li>`delete`</li></ul> |
 
 Actions can also be disabled at the field level, with the following functions:
 
@@ -546,19 +548,10 @@ Actions can also be disabled at the field level, with the following functions:
 
 ```js
 // Disable the 'find' operation on the 'restaurant' content-type in the 'restaurant' API
-strapi
-  .plugin('graphql')
-  .service('extension')
-  .shadowCRUD('api::restaurant.restaurant')
-  .disableAction('find')
+strapi.plugin('graphql').service('extension').shadowCRUD('api::restaurant.restaurant').disableAction('find');
 
 // Disable the 'name' field on the 'document' content-type in the 'document' API
-strapi
-  .plugin('graphql')
-  .service('extension')
-  .shadowCRUD('api::document.document')
-  .field('name')
-  .disable()
+strapi.plugin('graphql').service('extension').shadowCRUD('api::document.document').field('name').disable();
 ```
 
 ##### Using getters
@@ -594,12 +587,12 @@ This extension, defined either as an object or a function returning an object, w
 
 The object describing the extension accepts the following parameters:
 
-| Parameter         | Type   | Description                                                                                  |
-| ----------------- | ------ | -------------------------------------------------------------------------------------------- |
-| `types`           | Array  | Allows extending the schema types using <ExternalLink to="https://nexusjs.org/" text="Nexus"/>-based type definitions |
-| `typeDefs`        | String | Allows extending the schema types using <ExternalLink to="https://graphql.org/learn/schema/" text="GraphQL SDL"/>     |
-| `plugins`         | Array  | Allows extending the schema using Nexus <ExternalLink to="https://nexusjs.org/docs/plugins" text="plugins"/>          |
-| `resolvers`       | Object | Defines custom resolvers                                                                     |
+| Parameter         | Type   | Description                                                                                                                                                                                          |
+| ----------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `types`           | Array  | Allows extending the schema types using <ExternalLink to="https://nexusjs.org/" text="Nexus"/>-based type definitions                                                                                |
+| `typeDefs`        | String | Allows extending the schema types using <ExternalLink to="https://graphql.org/learn/schema/" text="GraphQL SDL"/>                                                                                    |
+| `plugins`         | Array  | Allows extending the schema using Nexus <ExternalLink to="https://nexusjs.org/docs/plugins" text="plugins"/>                                                                                         |
+| `resolvers`       | Object | Defines custom resolvers                                                                                                                                                                             |
 | `resolversConfig` | Object | Defines [configuration options for the resolvers](#custom-configuration-for-resolvers), such as [authorization](#authorization-configuration), [policies](#policies) and [middlewares](#middlewares) |
 
 :::tip
@@ -673,9 +666,9 @@ A resolver is a GraphQL query or mutation handler (i.e. a function, or a collect
 
 When [extending the GraphQL schema](#extending-the-schema), the `resolversConfig` key can be used to define a custom configuration for a resolver, which can include:
 
-* [authorization configuration](#authorization-configuration) with the `auth` key
-* [policies with the `policies`](#policies) key
-* and [middlewares with the `middlewares`](#middlewares) key
+- [authorization configuration](#authorization-configuration) with the `auth` key
+- [policies with the `policies`](#policies) key
+- and [middlewares with the `middlewares`](#middlewares) key
 
 :::tip
 The [advanced queries](/cms/api/graphql/advanced-queries) guide might contain additional information suitable for your use case, including multi-level queries and custom resolvers examples.
@@ -695,12 +688,13 @@ For instance, if a 'Category' content-type exists and is queried through GraphQL
 To query a single category, which is done with the `Query.category` handler, the request is allowed if the the `findOne` permission is given.
 
 Please refer to the user guide on how to [define permissions with the Users & Permissions plugin](/cms/features/rbac#editing-a-role).
+
 </details>
 
 To change how the authorization is configured, use the resolver configuration defined at `resolversConfig.[MyResolverName]`. The authorization can be configured:
 
-* either with `auth: false` to fully bypass the authorization system and allow all requests,
-* or with a `scope` attribute that accepts an array of strings to define the permissions required to authorize the request.
+- either with `auth: false` to fully bypass the authorization system and allow all requests,
+- or with a `scope` attribute that accepts an array of strings to define the permissions required to authorize the request.
 
 <details>
 <summary> Examples of authorization configuration</summary>
@@ -710,7 +704,6 @@ To change how the authorization is configured, use the resolver configuration de
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/src/index.js"
-
 module.exports = {
   register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
@@ -721,8 +714,8 @@ module.exports = {
           /**
            * Querying the Categories content-type
            * bypasses the authorization system.
-           */ 
-          auth: false
+           */
+          auth: false,
         },
         'Query.restaurants': {
           /**
@@ -732,14 +725,13 @@ module.exports = {
            * of the 'Address' API
            */
           auth: {
-            scope: ['api::address.address.find']
-          }
+            scope: ['api::address.address.find'],
+          },
         },
-      }
-    })
-  }
-}
-
+      },
+    });
+  },
+};
 ```
 
 </TabItem>
@@ -747,7 +739,6 @@ module.exports = {
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/src/index.ts"
-
 export default {
   register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
@@ -758,8 +749,8 @@ export default {
           /**
            * Querying the Categories content-type
            * bypasses the authorization system.
-           */ 
-          auth: false
+           */
+          auth: false,
         },
         'Query.restaurants': {
           /**
@@ -769,14 +760,13 @@ export default {
            * of the 'Address' API
            */
           auth: {
-            scope: ['api::address.address.find']
-          }
+            scope: ['api::address.address.find'],
+          },
         },
-      }
-    })
-  }
-}
-
+      },
+    });
+  },
+};
 ```
 
 </TabItem>
@@ -793,8 +783,8 @@ The `policies` key is an array accepting a list of policies, each item in this l
 Policies directly implemented in `resolversConfig` are functions that take a `context` object and the `strapi` instance as arguments.
 The `context` object gives access to:
 
-* the `parent`, `args`, `context` and `info` arguments of the GraphQL resolver,
-* Koa's <ExternalLink to="https://koajs.com/#context" text="context"/> with `context.http` and <ExternalLink to="https://koajs.com/#ctx-state" text="state"/> with `context.state`.
+- the `parent`, `args`, `context` and `info` arguments of the GraphQL resolver,
+- Koa's <ExternalLink to="https://koajs.com/#context" text="context"/> with `context.http` and <ExternalLink to="https://koajs.com/#ctx-state" text="state"/> with `context.state`.
 
 <details>
 <summary> Example of GraphQL policies applied to resolvers</summary>
@@ -818,7 +808,7 @@ module.exports = {
               /**
                * If 'categories' have a parent, the function returns true,
                * so the request won't be blocked by the policy.
-               */ 
+               */
               return context.parent !== undefined;
             }
             /**
@@ -858,7 +848,7 @@ export default {
               /**
                * If 'categories' have a parent, the function returns true,
                * so the request won't be blocked by the policy.
-               */ 
+               */
               return context.parent !== undefined;
             }
             /**
@@ -891,7 +881,7 @@ The [advanced policies](/cms/api/graphql/advanced-policies) guide might contain 
 
 ###### Middlewares
 
-[Middlewares](/cms/backend-customization/middlewares) can be applied to a GraphQL resolver through the `resolversConfig.[MyResolverName].middlewares` key. The only difference between the GraphQL and REST implementations is that the `config` key becomes `options`.  
+[Middlewares](/cms/backend-customization/middlewares) can be applied to a GraphQL resolver through the `resolversConfig.[MyResolverName].middlewares` key. The only difference between the GraphQL and REST implementations is that the `config` key becomes `options`.
 
 The `middlewares` key is an array accepting a list of middlewares, each item in this list being either a reference to an already registered middleware or an implementation that is passed directly (see [middlewares configuration documentation](/cms/backend-customization/routes#middlewares)).
 
@@ -924,10 +914,10 @@ module.exports = {
              */
             async (next, parent, args, context, info) => {
               console.time('Resolving categories');
-              
+
               // call the next resolver
               const res = await next(parent, args, context, info);
-              
+
               console.timeEnd('Resolving categories');
 
               return res;
@@ -991,10 +981,10 @@ export default {
              */
             async (next, parent, args, context, info) => {
               console.time('Resolving categories');
-              
+
               // call the next resolver
               const res = await next(parent, args, context, info);
-              
+
               console.timeEnd('Resolving categories');
 
               return res;
@@ -1066,7 +1056,6 @@ To increase GraphQL security even further, 3rd-party tools can be used. See the 
 
 The GraphQL plugin adds a GraphQL endpoint accessible and provides access to a GraphQL playground, accessing at the `/graphql` route of the Strapi admin panel, to interactively build your queries and mutations and read documentation tailored to your content types. For detailed instructions on how to use the GraphQL Playground, please refer to the official <ExternalLink to="https://www.apollographql.com/docs/apollo-server/v2/testing/graphql-playground" text="Apollo Server documentation"/>.
 
-
 :::note
 Strapi uses `documentId` as the unique identifier for entities instead of `id`. When using Apollo Client with Strapi's GraphQL API, you need to [configure](https://www.apollographql.com/docs/react/caching/cache-configuration#customizing-identifier-generation-globally) the `InMemoryCache` to use `documentId` for cache normalization:
 
@@ -1074,16 +1063,15 @@ Strapi uses `documentId` as the unique identifier for entities instead of `id`. 
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: "http://localhost:1337/graphql" }),
+  link: new HttpLink({ uri: 'http://localhost:1337/graphql' }),
   cache: new InMemoryCache({
-    dataIdFromObject: (o) => `${o.__typename}:${o["documentId"]}`,
+    dataIdFromObject: (o) => `${o.__typename}:${o['documentId']}`,
   }),
 });
 ```
 
 This ensures that Apollo Client correctly caches and updates your GraphQL data based on Strapi's identifier structure.
 :::
-
 
 ### Usage with the Users & Permissions feature {#usage-with-the-users--permissions-plugin}
 
@@ -1092,7 +1080,6 @@ The [Users & Permissions feature](/cms/features/users-permissions) allows protec
 #### Registration
 
 Usually you need to sign up or register before being recognized as a user then perform authorized requests.
-
 
 <Request title="Mutation">
 

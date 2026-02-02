@@ -29,7 +29,7 @@ trigger: always_on
 
 - **Rule**: Every exported function MUST have JSDoc.
 - **Linking**: JSDoc MUST link to the relevant Strapi documentation file in `STRAPI_DOC/` if it relies on a specific API.
-    - Example: `@see file://STRAPI_DOC/content/cms/backend-customization/controllers.md`
+  - Example: `@see file://STRAPI_DOC/content/cms/backend-customization/controllers.md`
 
 ## 5. Type Definitions
 

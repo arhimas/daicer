@@ -6,7 +6,7 @@ export default async function compile(
   job: Job<JobPayloads[QueueName.COMPILE]>
 ): Promise<JobResults[QueueName.COMPILE]> {
   const { phase, targetUid, targetId } = job.data;
-  
+
   try {
     const orchestrator = new CompilationOrchestrator();
     let count = 0;

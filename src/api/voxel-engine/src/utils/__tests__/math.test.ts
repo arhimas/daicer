@@ -1,4 +1,3 @@
-
 import { Alea, FastNoise, calculateDistance } from '../math';
 
 describe('Voxel Engine Math Utils', () => {

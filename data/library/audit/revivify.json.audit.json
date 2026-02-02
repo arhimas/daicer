@@ -22,10 +22,7 @@
           "Cannot revive creatures that died of old age.",
           "Cannot restore missing body parts."
         ],
-        "classes": [
-          "cleric",
-          "paladin"
-        ],
+        "classes": ["cleric", "paladin"],
         "notes": "This spell provides a narrow but essential resurrection capability, balancing its powerful effect with a strict time limit and material cost."
       },
       "zod_errors": "NONE"

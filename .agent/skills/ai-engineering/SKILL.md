@@ -9,14 +9,15 @@ This skill contains the authoritative guides for implementing AI systems in this
 
 ## Resources
 
-*   **LangGraph**: `references/langgraph_docs/`
-*   **LangChain**: `references/langchain_docs/`
-*   **Philosophy**: `references/langchain_philosophy.md`
-*   **Vibe Coding**: `references/vibe_coding.md`
+- **LangGraph**: `references/langgraph_docs/`
+- **LangChain**: `references/langchain_docs/`
+- **Philosophy**: `references/langchain_philosophy.md`
+- **Vibe Coding**: `references/vibe_coding.md`
 
 ## Usage
 
 Consult these resources when:
+
 1.  Designing new Agents or Graphs.
 2.  Implementing LangChain chains.
 3.  Understanding the "Thinking in LangGraph" methodology.

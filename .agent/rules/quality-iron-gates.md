@@ -20,7 +20,7 @@ You cannot mark a task as "Done" until you pass the Gates.
 ## 2. Proactive Verification
 
 - **Do not wait** for the user to run these. Run them yourself after **EVERY** significant change.
-- **Fix immediately**: If Lint fails, fix it *now*. Do not continue writing logic on broken foundations.
+- **Fix immediately**: If Lint fails, fix it _now_. Do not continue writing logic on broken foundations.
 
 ## 3. Dependency Management
 

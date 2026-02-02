@@ -5,7 +5,18 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['**/dist/**', '**/build/**', '.strapi/**', 'public/**', 'config/**', 'types/generated/**', 'script/**', 'STRAPI_DOC/**', 'DEPS_DOCS/**', '.agent/**'],
+    ignores: [
+      '**/dist/**',
+      '**/build/**',
+      '.strapi/**',
+      'public/**',
+      'config/**',
+      'types/generated/**',
+      'script/**',
+      'STRAPI_DOC/**',
+      'DEPS_DOCS/**',
+      '.agent/**',
+    ],
   },
   {
     // TypeScript files
@@ -15,7 +26,10 @@ export default tseslint.config(
       '@typescript-eslint/ban-ts-comment': 'warn',
       'no-console': 'off',
       'prefer-const': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-require-imports': 'warn',
       'no-empty': 'warn',
       'no-useless-catch': 'warn',

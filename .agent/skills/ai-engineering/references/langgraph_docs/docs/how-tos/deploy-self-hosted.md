@@ -26,7 +26,6 @@ You will eventually need to pass in the following environment variables to the L
 - `LANGSMITH_API_KEY`: (If using [Self-Hosted Lite]) LangSmith API key. This will be used to authenticate ONCE at server start up.
 - `LANGGRAPH_CLOUD_LICENSE_KEY`: (If using Self-Hosted Enterprise) LangGraph Platform license key. This will be used to authenticate ONCE at server start up.
 
-
 ## Build the Docker Image
 
 Please read the [Application Structure](../concepts/application_structure.md) guide to understand how to structure your LangGraph application.
@@ -70,52 +69,51 @@ If you want to run this quickly without setting up a separate Redis and Postgres
     * If your application requires additional environment variables, you can pass them in a similar way.
     * If using Self-Hosted Enterprise, you must provide `LANGGRAPH_CLOUD_LICENSE_KEY` as an additional environment variable.
 
-
 ### Using Docker Compose
 
 ```yml
 volumes:
-    langgraph-data:
-        driver: local
+  langgraph-data:
+    driver: local
 services:
-    langgraph-redis:
-        image: redis:6
-        healthcheck:
-            test: redis-cli ping
-            interval: 5s
-            timeout: 1s
-            retries: 5
-    langgraph-postgres:
-        image: postgres:16
-        ports:
-            - "5433:5432"
-        environment:
-            POSTGRES_DB: postgres
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-        volumes:
-            - langgraph-data:/var/lib/postgresql/data
-        healthcheck:
-            test: pg_isready -U postgres
-            start_period: 10s
-            timeout: 1s
-            retries: 5
-            interval: 5s
-    langgraph-api:
-        image: ${IMAGE_NAME}
-        ports:
-            - "8123:8000"
-        depends_on:
-            langgraph-redis:
-                condition: service_healthy
-            langgraph-postgres:
-                condition: service_healthy
-        env_file:
-            - .env
-        environment:
-            REDIS_URI: redis://langgraph-redis:6379
-            LANGSMITH_API_KEY: ${LANGSMITH_API_KEY}
-            POSTGRES_URI: postgres://postgres:postgres@langgraph-postgres:5432/postgres?sslmode=disable
+  langgraph-redis:
+    image: redis:6
+    healthcheck:
+      test: redis-cli ping
+      interval: 5s
+      timeout: 1s
+      retries: 5
+  langgraph-postgres:
+    image: postgres:16
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - langgraph-data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U postgres
+      start_period: 10s
+      timeout: 1s
+      retries: 5
+      interval: 5s
+  langgraph-api:
+    image: ${IMAGE_NAME}
+    ports:
+      - '8123:8000'
+    depends_on:
+      langgraph-redis:
+        condition: service_healthy
+      langgraph-postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      REDIS_URI: redis://langgraph-redis:6379
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY}
+      POSTGRES_URI: postgres://postgres:postgres@langgraph-postgres:5432/postgres?sslmode=disable
 ```
 
 You can then run `docker compose up` with this Docker compose file in the same folder.
@@ -127,6 +125,7 @@ You can test that the application is up by checking:
 ```shell
 curl --request GET --url 0.0.0.0:8123/ok
 ```
+
 Assuming everything is running correctly, you should see a response like:
 
 ```shell

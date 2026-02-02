@@ -57,12 +57,12 @@ export class MockGameDatabase {
           if (params?.filters?.room?.documentId) {
             const roomId = params.filters.room.documentId;
             results = results.filter((doc) => {
-               // Handle population logic shim
-               if (doc.room && typeof doc.room === 'object') return doc.room.documentId === roomId;
-               return doc.room === roomId;
+              // Handle population logic shim
+              if (doc.room && typeof doc.room === 'object') return doc.room.documentId === roomId;
+              return doc.room === roomId;
             });
           }
-          
+
           return JSON.parse(JSON.stringify(results));
         }),
 
@@ -78,30 +78,30 @@ export class MockGameDatabase {
         }),
 
         create: vi.fn(async ({ data }: { data: any }) => {
-           // Auto-gen ID if missing
-           const docId = data.documentId || `doc-${Date.now()}-${Math.random()}`;
-           const newDoc = { ...data, documentId: docId };
-           
-           if (!this.store.has(uid)) this.store.set(uid, new Map());
-           this.store.get(uid)!.set(docId, newDoc);
-           return newDoc;
+          // Auto-gen ID if missing
+          const docId = data.documentId || `doc-${Date.now()}-${Math.random()}`;
+          const newDoc = { ...data, documentId: docId };
+
+          if (!this.store.has(uid)) this.store.set(uid, new Map());
+          this.store.get(uid)!.set(docId, newDoc);
+          return newDoc;
         }),
       }),
 
       // Mock other services if needed
       service: (name: string) => {
-         if (name === 'api::game.inventory-service') {
-             return {
-                 dropItem: vi.fn().mockResolvedValue({ success: true }),
-                 dropAll: vi.fn().mockResolvedValue({ success: true }),
-                 pickupItem: vi.fn().mockResolvedValue({ success: true }),
-                 dropItemAt: vi.fn().mockResolvedValue({ success: true }),
-             }
-         }
-         return {
-             handleModifyTerrain: vi.fn().mockResolvedValue({ success: true })
-         };
-      }
+        if (name === 'api::game.inventory-service') {
+          return {
+            dropItem: vi.fn().mockResolvedValue({ success: true }),
+            dropAll: vi.fn().mockResolvedValue({ success: true }),
+            pickupItem: vi.fn().mockResolvedValue({ success: true }),
+            dropItemAt: vi.fn().mockResolvedValue({ success: true }),
+          };
+        }
+        return {
+          handleModifyTerrain: vi.fn().mockResolvedValue({ success: true }),
+        };
+      },
     };
   }
 }
@@ -109,7 +109,7 @@ export class MockGameDatabase {
 export const createTestContext = () => {
   const db = new MockGameDatabase();
   const strapiMock = db.getMockStrapi();
-  
+
   // Stub Global Strapi
   vi.stubGlobal('strapi', strapiMock);
 

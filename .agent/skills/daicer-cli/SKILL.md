@@ -10,7 +10,9 @@ description: API for the Agent to interact with the Daicer Backend via CLI.
 This skill provides the primary interface for the Agent to perceive the backend state, inspect schemas, and query the knowledge base.
 
 ## 📁 Reference Library
+
 Full command usage is available in the `references/` directory:
+
 - [Main Help](references/cli-main-help.txt)
 - [Explore Command](references/cli-explore-help.txt)
 - [Compile Command](references/cli-compile-help.txt)
@@ -21,14 +23,18 @@ Full command usage is available in the `references/` directory:
 ## 🛠️ Usage Patterns
 
 ### 1. 📡 System Status
+
 **Check if the backend is alive.**
+
 ```bash
 yarn cli status --json
 ```
 
 ### 2. 🔮 Deep Schema Inspection
+
 **Understand the shape of data before writing queries.**
 Use this instead of guessing field names.
+
 ```bash
 # Get schema for a specific content type
 yarn cli schema --type "api::spell.spell" --json
@@ -38,8 +44,10 @@ yarn cli schema --list --json
 ```
 
 ### 3. 🔍 Data Exploration (Agentic Mode)
+
 **Fetch actual database content.**
 ALWAYS use `--json` so you receive machine-readable output.
+
 ```bash
 # Find 5 spells
 yarn cli explore \
@@ -64,15 +72,19 @@ yarn cli explore \
 ```
 
 ### 4. 🧠 Knowledge Retrieval (RAG)
+
 **Search the Vector Database.**
 Use this to answer questions about Game Rules, Code Context, or Lore.
+
 ```bash
 yarn cli knowledge --query "How does the Entropy system work?" --json
 ```
 
 ### 5. ⚡ Compilation & Validation
+
 **Trigger logic pipelines for specific entities.**
 Useful for debugging why an entity isn't updating.
+
 ```bash
 # Re-compile a specific spell
 yarn cli compile \
@@ -83,8 +95,11 @@ yarn cli compile \
 ```
 
 ### 6. 🌱 Genesis & Seeding
+
 **Reset or Hydrate the world.**
+
 > ⚠️ **CAUTION**: Genesis actions can be destructive.
+
 ```bash
 # Seed all Atoms (Basic definitions)
 yarn cli genesis atoms --json
@@ -94,8 +109,10 @@ yarn cli genesis all --json
 ```
 
 ### 7. 🚀 System Instantiation
+
 **Standard "Boot Up" Sequence.**
 Run this when the user says `@instantiate` or "Get ready".
+
 ```bash
 # 1. Connect
 yarn cli status --json
@@ -109,8 +126,8 @@ yarn cli knowledge --query "Project architecture and recent decisions" --json
 
 ## 🚨 Troubleshooting
 
-| Error | Cause | Fix |
-| :--- | :--- | :--- |
-| `ConnectionRefused` | Backend is down. | Run `yarn start` or check logs. |
-| `UID Not Found` | Wrong Content Type UID. | Run `yarn cli schema --list` to find the correct UID. |
-| `JSON Parse Error` | CLI output mixed with logs. | Ensure `--json` is passed and `LOG_LEVEL=error` if needed. |
+| Error               | Cause                       | Fix                                                        |
+| :------------------ | :-------------------------- | :--------------------------------------------------------- |
+| `ConnectionRefused` | Backend is down.            | Run `yarn start` or check logs.                            |
+| `UID Not Found`     | Wrong Content Type UID.     | Run `yarn cli schema --list` to find the correct UID.      |
+| `JSON Parse Error`  | CLI output mixed with logs. | Ensure `--json` is passed and `LOG_LEVEL=error` if needed. |

@@ -34,10 +34,7 @@
           "example_slot_7": "8d8 damage, 8d8 damage",
           "example_slot_9": "10d8 damage, 10d8 damage"
         },
-        "constraints": [
-          "Requires a solid surface for placement.",
-          "Duration is Concentration."
-        ]
+        "constraints": ["Requires a solid surface for placement.", "Duration is Concentration."]
       }
     }
   },

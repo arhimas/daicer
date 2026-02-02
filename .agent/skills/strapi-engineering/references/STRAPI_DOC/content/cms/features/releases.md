@@ -3,14 +3,15 @@ title: Releases
 description: Learn how to use the Releases feature that enables content managers to organize entries to publish/unpublish simultaneously
 toc_max_heading_level: 5
 tags:
-- admin panel
-- features
-- Enterprise feature
-- Growth feature
-- releases
+  - admin panel
+  - features
+  - Enterprise feature
+  - Growth feature
+  - releases
 ---
 
 # Releases
+
 <GrowthBadge/>
 
 <Tldr>
@@ -40,8 +41,8 @@ To be able to include your content in releases, and to schedule and publish thos
 2. Click **Save**.
 
 <ThemedImage
-  alt="Release settings"
-  sources={{
+alt="Release settings"
+sources={{
     light: '/img/assets/releases/release-settings.png',
     dark: '/img/assets/releases/release-settings_DARK.png',
   }}
@@ -51,7 +52,7 @@ To be able to include your content in releases, and to schedule and publish thos
 
 **Path to configure the feature:** <Icon name="paper-plane-tilt" /> Releases
 
-1. Click the <Icon name="plus" classes="ph-bold" /> **New Release** button in the upper right corner.  
+1. Click the <Icon name="plus" classes="ph-bold" /> **New Release** button in the upper right corner.
 2. Give the release a name.
 3. (_optional_) If you want to schedule the release publication instead of publishing the release manually, check the **Schedule release** checkbox and define the date, time, and timezone for publication.
 4. Click the **Continue** button.
@@ -61,8 +62,8 @@ Your releases can be renamed afterwards, by editing the release using the <Icon 
 :::
 
 <ThemedImage
-  alt="Adding a new release"
-  sources={{
+alt="Adding a new release"
+sources={{
     light: '/img/assets/releases/new-release.png',
     dark: '/img/assets/releases/new-release_DARK.png',
   }}
@@ -100,9 +101,10 @@ Since publishing an entry with a release means turning a draft entry into a publ
 ### Including content in a release
 
 :::prerequisites
+
 - Before entries can be added to a release, you must create a release from the <Icon name="paper-plane-tilt" /> Releases page.
 - Adding content to a release requires the appropriate permissions for the Content-Releases plugin (see [configuring administrator roles](/cms/features/users-permissions)).
-:::
+  :::
 
 #### One entry at a time
 
@@ -110,10 +112,10 @@ Since publishing an entry with a release means turning a draft entry into a publ
 
 1. Click on <Icon name="dots-three-outline" /> in the _Entry_ area on the right side of the interface.
 2. In the list, click on the <Icon name="paper-plane-tilt" /> **Add to release** button.
-2. Select which release to add this entry to.
-3. Click on the **Publish** or **Unpublish** button depending on whether you want the entry to be published or unpublished when the release itself is published, then click **Continue**.
+3. Select which release to add this entry to.
+4. Click on the **Publish** or **Unpublish** button depending on whether you want the entry to be published or unpublished when the release itself is published, then click **Continue**.
 
-The *Releases* box on the right should show which release(s) the entry is included in.
+The _Releases_ box on the right should show which release(s) the entry is included in.
 
 :::info
 If [Releases scheduling](/cms/features/releases#scheduling-a-release) is enabled and the entry is added to a scheduled release, the release date and time will also be displayed.
@@ -129,8 +131,8 @@ If [Releases scheduling](/cms/features/releases#scheduling-a-release) is enabled
 4. Click on the **Publish** or **Unpublish** button to decide whether these entries will be published or unpublished when the release is published, then click **Continue**.
 
 <ThemedImage
-  alt="Including content in a release"
-  sources={{
+alt="Including content in a release"
+sources={{
     light: '/img/assets/releases/releases-cm-list-view.png',
     dark: '/img/assets/releases/releases-cm-list-view_DARK.png',
   }}
@@ -140,7 +142,7 @@ If [Releases scheduling](/cms/features/releases#scheduling-a-release) is enabled
 
 **Path:** Edit view of the <Icon name="feather" /> Content Manager
 
-1. In the *Releases* box in the right sidebar, click on <Icon name="dots-three-outline" /> below the name of the release.
+1. In the _Releases_ box in the right sidebar, click on <Icon name="dots-three-outline" /> below the name of the release.
 2. Click the **Remove from release** button.
 
 ### Scheduling a release
@@ -150,10 +152,12 @@ If [Releases scheduling](/cms/features/releases#scheduling-a-release) is enabled
 Releases can be [published manually](#publishing-a-release) or scheduled to be automatically published at a given date and time, with the timezone of your choice.
 
 You can schedule a release:
+
 - when [creating the release](#creating-a-release),
 - or once the release is already created, by editing it.
 
 To schedule an existing release, while on a release page:
+
 1. Click on the <Icon name="dots-three-outline" /> button in the top right corner of the admin panel.
 2. Select <Icon name="pencil-simple" /> **Edit**.
 3. In the modal, check the **Schedule release** checkbox.
@@ -161,8 +165,8 @@ To schedule an existing release, while on a release page:
 5. Click **Save**.
 
 <ThemedImage
-  alt="Release scheduling"
-  sources={{
+alt="Release scheduling"
+sources={{
     light: '/img/assets/releases/release-scheduling.png',
     dark: '/img/assets/releases/release-scheduling_DARK.png',
   }}
@@ -182,18 +186,18 @@ Publishing a release means that all the actions (publish or unpublish) defined f
 
 To publish a release, click the **Publish** button in the top right corner of the admin panel. Before, make sure to check the status of both the release and its entries.
 
-  - A badge at the top of the interface indicates the status of your release:
-    - `Empty`: no entry has been added to the release yet
-    - `Blocked`: content has been added to the release but at least one issue in an entry prevents the release from being published
-    - `Ready`: content has been added to the release, all checks have been passed and the release can be published
-    - `Done`: the release has been released and is now done
+- A badge at the top of the interface indicates the status of your release:
+  - `Empty`: no entry has been added to the release yet
+  - `Blocked`: content has been added to the release but at least one issue in an entry prevents the release from being published
+  - `Ready`: content has been added to the release, all checks have been passed and the release can be published
+  - `Done`: the release has been released and is now done
 
-  - The _Status_ column displays the status of each entry:
-    - <Icon name="check-circle" color="rgb(58,115,66)"/> Already published: the entry is already published and publishing the release will not affect this entry 
-    - <Icon name="check-circle" color="rgb(58,115,66)"/> Already unpublished: the entry is already unpublished, and publishing the release will not affect this entry.
-    - <Icon name="check-circle" color="rgb(58,115,66)"/> Ready to publish: the entry is ready to  be published with the release
-    - <Icon name="check-circle" color="rgb(58,115,66)"/> Ready to unpublish: the entry is ready to  be unpublished with the release
-    - <Icon name="x-circle" color="rgb(190,51,33)" /> Not ready to publish: the entry cannot be published because some fields are incorrectly filled, or it hasn't reached the required stage for publishing. In this case, the release will be indicated as *Blocked* until all issues have been fixed.
+- The _Status_ column displays the status of each entry:
+  - <Icon name="check-circle" color="rgb(58,115,66)"/> Already published: the entry is already published and publishing the release will not affect this entry
+  - <Icon name="check-circle" color="rgb(58,115,66)"/> Already unpublished: the entry is already unpublished, and publishing the release will not affect this entry.
+  - <Icon name="check-circle" color="rgb(58,115,66)"/> Ready to publish: the entry is ready to be published with the release
+  - <Icon name="check-circle" color="rgb(58,115,66)"/> Ready to unpublish: the entry is ready to be unpublished with the release
+  - <Icon name="x-circle" color="rgb(190,51,33)" /> Not ready to publish: the entry cannot be published because some fields are incorrectly filled, or it hasn't reached the required stage for publishing. In this case, the release will be indicated as _Blocked_ until all issues have been fixed.
 
 If your release is `Blocked` because some of your entries have a <Icon name="x-circle" color="rgb(190,51,33)" /> status, click the <Icon name="dots-three-outline" /> button, then **Edit the entry** to fix the issues until all entries have the <Icon name="check-circle" color="rgb(58,115,66)"/> status.
 
@@ -206,8 +210,8 @@ Once a release is published, the release itself cannot be updated. You can not r
 :::
 
 <ThemedImage
-  alt="Release publish"
-  sources={{
+alt="Release publish"
+sources={{
     light: '/img/assets/releases/publish-release.png',
     dark: '/img/assets/releases/publish-release_DARK.png',
   }}

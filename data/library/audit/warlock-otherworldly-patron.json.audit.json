@@ -11,12 +11,7 @@
       "quality": "High quality. It accurately describes the foundational feature of the Warlock class, establishing the source of power and the level progression for subclass features.",
       "mechanics": {
         "level_gained": 1,
-        "applies_at_levels": [
-          1,
-          6,
-          10,
-          14
-        ],
+        "applies_at_levels": [1, 6, 10, 14],
         "type": "Core Class Feature/Subclass Foundation",
         "notes": "This feature itself is the prerequisite for the Warlock's subclass (Patron) features. It defines the initial choice and the subsequent feature level progression (1st, 6th, 10th, 14th)."
       }

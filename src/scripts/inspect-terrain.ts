@@ -5,9 +5,9 @@ async function run() {
   const backendRoot = path.resolve(__dirname, '../..');
   process.chdir(backendRoot);
 
-  const strapi = await createStrapi({ 
-      distDir: 'dist',
-      appDir: backendRoot
+  const strapi = await createStrapi({
+    distDir: 'dist',
+    appDir: backendRoot,
   }).load();
 
   try {
@@ -18,18 +18,17 @@ async function run() {
 
     console.log('--- Inspecting Terrains ---');
     terrains.forEach((t: any) => {
-        console.log(`\nName: ${t.name}, Slug: ${t.slug}, DocumentId: ${t.documentId}`);
-        console.log(`Texture Type: ${typeof t.texture}`);
-        if (Array.isArray(t.texture)) {
-            console.log(`Texture Length: ${t.texture.length}`);
-            if (t.texture.length > 0) {
-                console.log('Sample Pixel:', JSON.stringify(t.texture[0]));
-            }
-        } else {
-            console.log('Texture Value:', t.texture);
+      console.log(`\nName: ${t.name}, Slug: ${t.slug}, DocumentId: ${t.documentId}`);
+      console.log(`Texture Type: ${typeof t.texture}`);
+      if (Array.isArray(t.texture)) {
+        console.log(`Texture Length: ${t.texture.length}`);
+        if (t.texture.length > 0) {
+          console.log('Sample Pixel:', JSON.stringify(t.texture[0]));
         }
+      } else {
+        console.log('Texture Value:', t.texture);
+      }
     });
-
   } catch (error) {
     console.error(error);
   } finally {

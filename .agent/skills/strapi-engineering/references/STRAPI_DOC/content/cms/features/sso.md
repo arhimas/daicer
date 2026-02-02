@@ -3,13 +3,14 @@ title: Single Sign-On (SSO)
 description: Learn to use the SSO feature which manages authentication through an identity provider.
 toc_max_heading_level: 6
 tags:
-- admin panel
-- SSO
-- single sign-on
-- features
+  - admin panel
+  - SSO
+  - single sign-on
+  - features
 ---
 
 # Single Sign-On (SSO)
+
 <EnterpriseBadge /> <SsoBadge />
 
 <Tldr>
@@ -39,14 +40,14 @@ General settings for SSO are available in the admin panel, and additional SSO pr
 
 ### Admin panel settings
 
-**Path to configure the feature:** <Icon name="gear-six" /> *Global settings > Single Sign-On*
+**Path to configure the feature:** <Icon name="gear-six" /> _Global settings > Single Sign-On_
 
-1. In the *Single Sign-On* interface, define your chosen new settings:
+1. In the _Single Sign-On_ interface, define your chosen new settings:
 
-| Setting name      | Instructions      |
-| ----------------- | ---------------------|
-| Auto-registration | Click on **True** to allow the automatic creation of a new Strapi administrator when an SSO login does not match an existing Strapi administrator account. If this setting is set on **False**, new Strapi administrators accounts must be created manually beforehand. |
-| Default role      | Choose among the drop-down list the role to attribute by default to auto-registered Strapi administrators through SSO login.           |
+| Setting name                  | Instructions                                                                                                                                                                                                                                                                                                                                          |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Auto-registration             | Click on **True** to allow the automatic creation of a new Strapi administrator when an SSO login does not match an existing Strapi administrator account. If this setting is set on **False**, new Strapi administrators accounts must be created manually beforehand.                                                                               |
+| Default role                  | Choose among the drop-down list the role to attribute by default to auto-registered Strapi administrators through SSO login.                                                                                                                                                                                                                          |
 | Local authentication lock-out | Choose among the drop-down list the roles for which the local authentication capabilities are disabled (see [Users & Permissions feature](/cms/features/users-permissions#advanced-settings) documentation).<br />Users locked out of local authentication will be forced to use SSO to login and will not be able to change or reset their password. |
 
 2. Click the **Save** button.
@@ -58,8 +59,8 @@ In the meantime, the only way to get in if the Super Admin can't log in is to te
 :::
 
 <ThemedImage
-  alt="SSO settings"
-  sources={{
+alt="SSO settings"
+sources={{
     light: '/img/assets/settings/settings-sso.png',
     dark: '/img/assets/settings/settings-sso_DARK.png',
   }}

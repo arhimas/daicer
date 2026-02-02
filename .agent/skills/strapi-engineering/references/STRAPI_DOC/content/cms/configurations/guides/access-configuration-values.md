@@ -3,8 +3,8 @@ title: Access configuration values
 description: Learn how to access Strapi 5 configuration values from the code.
 displayed_sidebar: cmsSidebar
 tags:
-- configuration
-- configuration guide
+  - configuration
+  - configuration guide
 ---
 
 # How to access to configuration values from the code
@@ -17,21 +17,21 @@ If the `/config/server.ts|js` file has the following configuration:
 
 <TabItem value="js" label="JavaScript">
 
-  ```js
-  module.exports = {
-    host: '0.0.0.0',
-  };
-  ```
+```js
+module.exports = {
+  host: '0.0.0.0',
+};
+```
 
 </TabItem>
 
 <TabItem value="ts" label="TypeScript">
 
-  ```ts
-  export default {
-    host: '0.0.0.0',
-  };
-  ```
+```ts
+export default {
+  host: '0.0.0.0',
+};
+```
 
 </TabItem>
 
@@ -39,9 +39,9 @@ If the `/config/server.ts|js` file has the following configuration:
 
 then the `server.host` key can be accessed as:
 
-  ```js
-  strapi.config.get('server.host', 'defaultValueIfUndefined');
-  ```
+```js
+strapi.config.get('server.host', 'defaultValueIfUndefined');
+```
 
 Nested keys are accessible with the <ExternalLink to="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors#dot_notation" text="dot notation"/>.
 

@@ -12,10 +12,7 @@
       "mechanics": {
         "concept": "Weapon categorization based on weight/size.",
         "implication": "Suggests game mechanics related to dual-wielding penalties or bonuses, or specific weapon proficiency checks.",
-        "data_points": [
-          "size_indicator: light",
-          "primary_benefit: ease of handling/two-weapon fighting compatibility"
-        ]
+        "data_points": ["size_indicator: light", "primary_benefit: ease of handling/two-weapon fighting compatibility"]
       },
       "suggested_improvements": "None necessary for this specific entry, but context for 'two weapons' mechanics would be beneficial in related files."
     },

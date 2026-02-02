@@ -25,10 +25,7 @@
             "ringed": "60 ft diameter, 20 ft high, 5 ft thick"
           }
         },
-        "secondary_effects": [
-          "Provides three-quarters cover",
-          "Space is difficult terrain"
-        ],
+        "secondary_effects": ["Provides three-quarters cover", "Space is difficult terrain"],
         "class_viability": "Cleric (Appropriate for a Level 6 Evocation spell, often associated with divine barriers or protection/punishment magic)."
       },
       "errors_found": "NONE",

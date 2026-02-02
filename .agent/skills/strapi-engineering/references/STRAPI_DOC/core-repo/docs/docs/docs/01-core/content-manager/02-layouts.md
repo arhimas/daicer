@@ -48,10 +48,7 @@ interface InputProps {
   name: string;
   placeholder?: string;
   required?: boolean;
-  type: Exclude<
-    Attribute.Kind,
-    'media' | 'blocks' | 'richtext' | 'uid' | 'dynamiczone' | 'component' | 'relation'
-  >;
+  type: Exclude<Attribute.Kind, 'media' | 'blocks' | 'richtext' | 'uid' | 'dynamiczone' | 'component' | 'relation'>;
 }
 
 interface EditFieldSharedProps extends Omit<InputProps, 'type'> {
@@ -113,10 +110,7 @@ interface ListFieldLayout {
   /**
    * Typically used by plugins to render a custom cell
    */
-  cellFormatter?: (
-    data: { [key: string]: unknown },
-    header: Omit<ListFieldLayout, 'cellFormatter'>
-  ) => React.ReactNode;
+  cellFormatter?: (data: { [key: string]: unknown }, header: Omit<ListFieldLayout, 'cellFormatter'>) => React.ReactNode;
   label: string | MessageDescriptor;
   /**
    * the name of the attribute we use to display the actual name e.g. relations

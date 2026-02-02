@@ -48,11 +48,7 @@ interface DocumentRBACContextValue {
   canReadFields: string[];
   canUpdate?: boolean;
   canUpdateFields: string[];
-  canUserAction: (
-    fieldName: string,
-    fieldsUserCanAction: string[],
-    fieldType: Attribute.Kind
-  ) => boolean;
+  canUserAction: (fieldName: string, fieldsUserCanAction: string[], fieldType: Attribute.Kind) => boolean;
   isLoading: boolean;
 }
 ```

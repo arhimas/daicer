@@ -2,10 +2,10 @@
 title: GitHub SSO provider
 description: Learn how to configure the SSO provider to sign in and sign up into your Strapi application through GitHub.
 displayed_sidebar: cmsSidebar
-tags: 
-- SSO
-- providers
-- configuration
+tags:
+  - SSO
+  - providers
+  - configuration
 ---
 
 # GitHub provider SSO configuration
@@ -49,25 +49,23 @@ The GitHub SSO provider is configured in the `auth.providers` array of [the `con
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/admin.js"
-
-const GithubStrategy = require("passport-github2");
+const GithubStrategy = require('passport-github2');
 
 module.exports = ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "github",
-        displayName: "Github",
-        icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png",
+        uid: 'github',
+        displayName: 'Github',
+        icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png',
         createStrategy: (strapi) =>
           new GithubStrategy(
             {
-              clientID: env("GITHUB_CLIENT_ID"),
-              clientSecret: env("GITHUB_CLIENT_SECRET"),
-              scope: ["user:email"],
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL("github"),
+              clientID: env('GITHUB_CLIENT_ID'),
+              clientSecret: env('GITHUB_CLIENT_SECRET'),
+              scope: ['user:email'],
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('github'),
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {
@@ -80,7 +78,6 @@ module.exports = ({ env }) => ({
     ],
   },
 });
-
 ```
 
 </TabItem>
@@ -88,25 +85,23 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
-import { Strategy as GithubStrategy } from "passport-github2";
+import { Strategy as GithubStrategy } from 'passport-github2';
 
 export default ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "github",
-        displayName: "Github",
-        icon: "https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png",
+        uid: 'github',
+        displayName: 'Github',
+        icon: 'https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png',
         createStrategy: (strapi) =>
           new GithubStrategy(
             {
-              clientID: env("GITHUB_CLIENT_ID"),
-              clientSecret: env("GITHUB_CLIENT_SECRET"),
-              scope: ["user:email"],
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL("github"),
+              clientID: env('GITHUB_CLIENT_ID'),
+              clientSecret: env('GITHUB_CLIENT_SECRET'),
+              scope: ['user:email'],
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('github'),
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {
@@ -119,10 +114,8 @@ export default ({ env }) => ({
     ],
   },
 });
-
 ```
 
 </TabItem>
 
 </Tabs>
-

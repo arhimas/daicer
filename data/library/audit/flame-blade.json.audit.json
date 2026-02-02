@@ -41,12 +41,8 @@
           "mechanism": "Increases by 1d6 for every two slot levels above 2nd.",
           "example_scaling": "3rd level slot: 3d6; 4th level slot: 4d6; 5th level slot: 5d6; 6th level slot: 6d6; 7th level slot: 7d6; 8th level slot: 8d6; 9th level slot: 9d6."
         },
-        "utility": [
-          "Light source (10ft bright, 10ft dim)"
-        ],
-        "class_compatibility": [
-          "druid"
-        ]
+        "utility": ["Light source (10ft bright, 10ft dim)"],
+        "class_compatibility": ["druid"]
       },
       "zod_errors": "NONE"
     }

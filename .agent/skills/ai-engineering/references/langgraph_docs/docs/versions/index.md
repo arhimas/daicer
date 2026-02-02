@@ -10,7 +10,7 @@ As LangGraph.js continues to evolve and improve, breaking changes are sometimes 
 - (Breaking) Removed `writes` from checkpoints. You will need to upgrade your checkpointer packages.
 - (Breaking) Allow async serialization and deserialization of values from checkpointers.
 - (Breaking) Removed unused support for SharedValue and managed values.
-- Improved type-inference of configurable fields (0.4.0) and `streamMode: "updates"` (0.4.4). 
+- Improved type-inference of configurable fields (0.4.0) and `streamMode: "updates"` (0.4.4).
 - Added support for `context` property and `Runtime` type.
 - Added support for `deleteThread` in checkpointers.
 - Added support for `durability` property superseding `checkpointDuring`.

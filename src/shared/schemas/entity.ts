@@ -232,7 +232,7 @@ export const EntitySheetSchema = z.object({
 
   // Lists (Legacy/Migration support combined with new)
   talents: z.array(TalentSchema).default([]), // Enforcing strict TalentSchema
-  
+
   // State Tracking
   conditions: z.array(ConditionSchema).default([]), // Enforcing strict ConditionSchema
   resources: z.array(ResourcePoolSchema).default([]),

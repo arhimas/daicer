@@ -14,11 +14,7 @@
       "Survival"
     ],
     "proficiencies": {
-      "armor": [
-        "Light armor",
-        "medium armor",
-        "shields (druids will not wear armor or use shields made of metal)"
-      ],
+      "armor": ["Light armor", "medium armor", "shields (druids will not wear armor or use shields made of metal)"],
       "weapons": [
         "Clubs",
         "daggers",
@@ -31,31 +27,20 @@
         "slings",
         "spears"
       ],
-      "tools": [
-        "Herbalism kit"
-      ],
-      "saving_throws": [
-        "Intelligence",
-        "Wisdom"
-      ]
+      "tools": ["Herbalism kit"],
+      "saving_throws": ["Intelligence", "Wisdom"]
     },
     "equipment": [],
     "progression": [
       {
         "level": 1,
         "pb": 2,
-        "features": [
-          "Druidic",
-          "Spellcasting"
-        ]
+        "features": ["Druidic", "Spellcasting"]
       },
       {
         "level": 2,
         "pb": 2,
-        "features": [
-          "Wild Shape",
-          "Druid Circle"
-        ]
+        "features": ["Wild Shape", "Druid Circle"]
       },
       {
         "level": 3,
@@ -65,10 +50,7 @@
       {
         "level": 4,
         "pb": 2,
-        "features": [
-          "Wild Shape",
-          "Ability Score Improvement"
-        ]
+        "features": ["Wild Shape", "Ability Score Improvement"]
       },
       {
         "level": 5,
@@ -78,9 +60,7 @@
       {
         "level": 6,
         "pb": 3,
-        "features": [
-          "Druid Circle feature"
-        ]
+        "features": ["Druid Circle feature"]
       },
       {
         "level": 7,
@@ -90,10 +70,7 @@
       {
         "level": 8,
         "pb": 3,
-        "features": [
-          "Wild Shape",
-          "Ability Score Improvement"
-        ]
+        "features": ["Wild Shape", "Ability Score Improvement"]
       },
       {
         "level": 9,
@@ -103,9 +80,7 @@
       {
         "level": 10,
         "pb": 4,
-        "features": [
-          "Druid Circle feature"
-        ]
+        "features": ["Druid Circle feature"]
       },
       {
         "level": 11,
@@ -115,9 +90,7 @@
       {
         "level": 12,
         "pb": 4,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 13,
@@ -127,9 +100,7 @@
       {
         "level": 14,
         "pb": 5,
-        "features": [
-          "Druid Circle feature"
-        ]
+        "features": ["Druid Circle feature"]
       },
       {
         "level": 15,
@@ -139,9 +110,7 @@
       {
         "level": 16,
         "pb": 5,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 17,
@@ -151,24 +120,17 @@
       {
         "level": 18,
         "pb": 6,
-        "features": [
-          "Timeless Body",
-          "Beast Spells"
-        ]
+        "features": ["Timeless Body", "Beast Spells"]
       },
       {
         "level": 19,
         "pb": 6,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 20,
         "pb": 6,
-        "features": [
-          "Archdruid"
-        ]
+        "features": ["Archdruid"]
       }
     ]
   }

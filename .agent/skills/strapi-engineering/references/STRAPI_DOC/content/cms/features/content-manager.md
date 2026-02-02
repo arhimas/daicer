@@ -3,13 +3,13 @@ title: Content Manager
 description: Learn to use the Content Manager.
 toc_max_heading_level: 4
 tags:
-- admin panel
-- content manager
-- list view
-- edit view
-- component
-- dynamic zone
-- relational field
+  - admin panel
+  - content manager
+  - list view
+  - edit view
+  - component
+  - dynamic zone
+  - relational field
 ---
 
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
@@ -46,11 +46,11 @@ The <Icon name="feather" /> Content Manager contains the available collection an
 
 Content can be created, managed and published from the 2 categories displayed in the sub navigation of the <Icon name="feather" /> Content Manager:
 
-- *Collection types*, which lists available content-types managing several entries. For each available collection type, multiple entries can be created, which is why each collection type is divided into 2 interfaces:
+- _Collection types_, which lists available content-types managing several entries. For each available collection type, multiple entries can be created, which is why each collection type is divided into 2 interfaces:
   - the list view, which displays a table with all entries created for that collection type.
   - the edit view, which focuses on a chosen entry of your collection type, and from where you can actually manage the content.
 
-- *Single types*, which lists available content-types with only one entry. Unlike collection types, which have multiple entries, single types are not created for multiple uses. In other words, there can only be one default entry per available single type. There is therefore no list view in the Single types category.
+- _Single types_, which lists available content-types with only one entry. Unlike collection types, which have multiple entries, single types are not created for multiple uses. In other words, there can only be one default entry per available single type. There is therefore no list view in the Single types category.
 
 :::tip
 Click the search icons <Icon name="magnifying-glass" classes="ph-bold" /> to use a text search and find one of your content-types and/or entries more quickly!
@@ -129,8 +129,8 @@ Relational fields can also be displayed in the list view. Please refer to <Exter
 -->
 
 <ThemedImage
-  alt="Displayed fields in the settings of a list view in the Content Manager"
-  sources={{
+alt="Displayed fields in the settings of a list view in the Content Manager"
+sources={{
     light: '/img/assets/content-manager/content-manager_displayed-fields.png',
     dark: '/img/assets/content-manager/content-manager_displayed-fields_DARK.png',
   }}
@@ -145,8 +145,8 @@ The configurations only apply to the list view of the collection type from which
 :::
 
 <ThemedImage
-  alt="Settings of a list view in the Content Manager"
-  sources={{
+alt="Settings of a list view in the Content Manager"
+sources={{
     light: '/img/assets/content-manager/content-manager_settings-list-view.png',
     dark: '/img/assets/content-manager/content-manager_settings-list-view_DARK.png',
   }}
@@ -159,14 +159,14 @@ The configurations only apply to the list view of the collection type from which
 1. In the list view of your collection type, click on the settings button <Icon name="gear-six" /> then <Icon name="list-plus" classes="ph-bold" /> **Configure the view** to be redirected to the list view configuration interface.
 2. In the Settings area, define your chosen new settings:
 
-| Setting name           | Instructions                                                                                       |
-| ---------------------- | -------------------------------------------------------------------------------------------------- |
+| Setting name           | Instructions                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
 | Enable search          | Click on **TRUE** or **FALSE** to able or disable the search.                                          |
 | Enable filters         | Click on **TRUE** or **FALSE** to able or disable filters.                                             |
 | Enable bulk actions    | Click on **TRUE** or **FALSE** to able or disable the multiple selection boxes in the list view table. |
-| Entries per page       | Choose among the drop-down list the number of entries per page.                                    |
-| Default sort attribute | Choose the sorting field that will be used by default.                                             |
-| Default sort order     | Choose the sorting type that will be applied by default.                                           |
+| Entries per page       | Choose among the drop-down list the number of entries per page.                                        |
+| Default sort attribute | Choose the sorting field that will be used by default.                                                 |
+| Default sort order     | Choose the sorting type that will be applied by default.                                               |
 
 3. Click on the **Save** button.
 
@@ -181,10 +181,10 @@ The configurations only apply to the list view of the collection type from which
    - Click the reorder button <Icon name="dots-six-vertical" classes="ph-bold" /> and drag and drop it to the place you want it to be displayed among the other fields.
 3. Click the edit button <Icon name="pencil-simple" /> to access its available own settings:
 
-| Setting name              | Instructions                                                              |
-| ------------------------- | ------------------------------------------------------------------------- |
-| Label                     | Write the label to be used for the field in the list view table.          |
-| Enable sort on this field | Click on **TRUE** or **FALSE** to able or disable the sort on the field.  |
+| Setting name              | Instructions                                                             |
+| ------------------------- | ------------------------------------------------------------------------ |
+| Label                     | Write the label to be used for the field in the list view table.         |
+| Enable sort on this field | Click on **TRUE** or **FALSE** to able or disable the sort on the field. |
 
 4. Click on the **Save** button.
 
@@ -199,7 +199,7 @@ Note also that relational fields have a couple limitations when it comes to sort
 
 - Sorting cannot be enabled for relational fields which display several fields.
 - Relational fields cannot be set as default sort.
-:::
+  :::
 
 </TabItem>
 
@@ -208,8 +208,8 @@ Note also that relational fields have a couple limitations when it comes to sort
 ### Configuring the edit view {#edit-view-settings}
 
 <ThemedImage
-  alt="Configuring the edit view of the Content Manager"
-  sources={{
+alt="Configuring the edit view of the Content Manager"
+sources={{
     light: '/img/assets/content-manager/edit-view-config2.png',
     dark: '/img/assets/content-manager/edit-view-config2_DARK.png',
   }}
@@ -222,9 +222,9 @@ Note also that relational fields have a couple limitations when it comes to sort
 1. In the edit view of your content-type, click on the <Icon name="dots-three-outline" /> button then <Icon name="list-plus" classes="ph-bold" /> **Configure the view**.
 2. In the Settings area, define your chosen new settings:
 
-| Setting name    | Instructions                                                                          |
-| --------------- | ------------------------------------------------------------------------------------- |
-| Entry title     | Choose among the drop-down list the field that should be used as title for the entry. |
+| Setting name | Instructions                                                                          |
+| ------------ | ------------------------------------------------------------------------------------- |
+| Entry title  | Choose among the drop-down list the field that should be used as title for the entry. |
 
 3. Click on the **Save** button.
 
@@ -239,14 +239,14 @@ Note also that relational fields have a couple limitations when it comes to sort
    - Click the reorder button <Icon name="dots-six-vertical" classes="ph-bold" /> and drag and drop it to the place you want it to be displayed among the other fields.
 3. Click the edit button <Icon name="pencil-simple" /> of a field to access its available settings:
 
-| Setting name    | Instructions                                                                              |
-| --------------- | ----------------------------------------------------------------------------------------- |
-| Label           | Write the label that should be used for the field.                                        |
-| Description     | Write a description for the field, to help other administrators fill it properly.         |
-| Placeholder     | Write the placeholder that should be displayed by default in the field.                   |
-| Editable field  | Click on **TRUE** or **FALSE** to able or disable the edition of the field by administrators. |
-| Size            | Select the size in which the field should be displayed in the Content Manager. Note that this setting is neither available for JSON and Rich Text fields, nor dynamic zones and components. |
-| Entry title     | *(relational fields only)* Write the entry title that should be used for the relational field. It is recommended to choose well the entry title of relational fields as the more comprehensive it is, the easier it will be for administrators to manage the content of relational fields from the edit view. |
+| Setting name   | Instructions                                                                                                                                                                                                                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Label          | Write the label that should be used for the field.                                                                                                                                                                                                                                                            |
+| Description    | Write a description for the field, to help other administrators fill it properly.                                                                                                                                                                                                                             |
+| Placeholder    | Write the placeholder that should be displayed by default in the field.                                                                                                                                                                                                                                       |
+| Editable field | Click on **TRUE** or **FALSE** to able or disable the edition of the field by administrators.                                                                                                                                                                                                                 |
+| Size           | Select the size in which the field should be displayed in the Content Manager. Note that this setting is neither available for JSON and Rich Text fields, nor dynamic zones and components.                                                                                                                   |
+| Entry title    | _(relational fields only)_ Write the entry title that should be used for the relational field. It is recommended to choose well the entry title of relational fields as the more comprehensive it is, the easier it will be for administrators to manage the content of relational fields from the edit view. |
 
 4. Click on the **Save** button.
 
@@ -269,8 +269,8 @@ Note also that the settings are defined for the component itself, which means th
 In Strapi, writing content consists in filling up fields, which are meant to contain specific content (e.g. text, numbers, media, etc.). These fields were configured for the collection or single type beforehand, through the [Content-type Builder](/cms/features/content-type-builder).
 
 <ThemedImage
-  alt="Edit view to write content"
-  sources={{
+alt="Edit view to write content"
+sources={{
     light: '/img/assets/content-manager/edit-view3.png',
     dark: '/img/assets/content-manager/edit-view3_DARK.png',
   }}
@@ -279,8 +279,8 @@ In Strapi, writing content consists in filling up fields, which are meant to con
 To write or edit content:
 
 1. In the <Icon name="feather" /> Content Manager:
-    - Either click on the **Create new entry** button in the top right corner of the collection type of your choice to create a new entry,
-    - Or access the edit view of your already created collection type's entry or single type.
+   - Either click on the **Create new entry** button in the top right corner of the collection type of your choice to create a new entry,
+   - Or access the edit view of your already created collection type's entry or single type.
 2. Write your content, following the available field schema. You can refer to the table below for more information and instructions on how to fill up each field type.
 
 :::note
@@ -294,21 +294,21 @@ If Draft & Publish is enabled for your content-type (it's enabled by default), t
 :::
 -->
 
-| Field name  | Instructions                                                                                                                                                                                                                                                                                                                                                              |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Text        | Write your content in the textbox.                                                                                                                                                                                                                                                                                                                                        |
-| Rich text (Markdown) | Write your textual content in the editor, in Markdown. Some basic formatting options (titles, bold, italics, underline) are available in the top bar of the editor to apply to selected text. A **Preview mode/Markdown mode** button to switch between modes is also available. <br /><br /> 💡 The box can be expanded by clicking on **Expand** in the bottom bar. It displays side by side, at the same time, the textbox that you can edit and the preview. |
-| Rich text (Blocks) | Write and manage your content in the editor, which automatically renders live all additions/updates. In the Blocks editor, paragraphs behave as blocks of text: hovering on a paragraph will display an icon <Icon name="dots-six-vertical" classes="ph-bold"/> on which to click to reorder the content. Options to format or enrich the content are also accessible from the top bar of the editor (basic formatting options, code, links, image etc.). <!-- <br /><br /> 💡 Type `/` in the editor to have access to the list of all available options and select one. --> <br /><br /> 💡 You can use text formatting keyboard shortcuts in the Blocks editor (e.g. bold, italics, underline, and pasting link). |
-| Number      | Write your number in the textbox. Up and down arrows, displayed on the right of the box, allow to increase or decrease the current number indicated in the textbox.                                                                                                                                                                                                       |
-| Date        | 1. Click the date and/or time box. <br /> 2. Type the date and time or choose a date using the calendar and/or a time from the list. The calendar view fully supports keyboard-based navigation. |
-| Media       | 1. Click the media area. <br /> 2. Choose an asset from the [Media Library](/cms/features/media-library) or from a [folder](/cms/features/media-library#organizing-assets-with-folders) if you created some, or click the **Add more assets** button to add a new file to the Media Library. <br /><br /> 💡 It is possible to drag and drop the chosen file in the media area.                                                                                                                                   |
-| Relation    | Choose an entry from the drop-down list. See [relational fields](#relational-fields) for more information.                                                                                                                                                                                                          |
-| Boolean     | Click on **TRUE** or **FALSE**.                                                                                                                                                                                                                                                                                                                                               |
-| JSON        | Write your content, in JSON format, in the code textbox.                                                                                                                                                                                                                                                                                                                  |
-| Email       | Write a complete and valid email address.                                                                                                                                                                                                                                                                                                                                 |
-| Password    | Write a password. <br /><br /> 💡 Click the <Icon name="eye" /> icon, displayed on the right of the box, to show the password.                                                                                                                                                                                                                                                                |
-| Enumeration | 1. Click the drop-down list. <br /> 2. Choose an entry from the list.                                                                                                                                                                                                                                                                                                       |
-| UID         | Write a unique identifier in the textbox. A "Regenerate" button, displayed on the right of the box, allows automatically generating a UID based on the content type name.                                                                                                                                                                                                |
+| Field name           | Instructions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Text                 | Write your content in the textbox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Rich text (Markdown) | Write your textual content in the editor, in Markdown. Some basic formatting options (titles, bold, italics, underline) are available in the top bar of the editor to apply to selected text. A **Preview mode/Markdown mode** button to switch between modes is also available. <br /><br /> 💡 The box can be expanded by clicking on **Expand** in the bottom bar. It displays side by side, at the same time, the textbox that you can edit and the preview.                                                                                                                                                                                                                                                     |
+| Rich text (Blocks)   | Write and manage your content in the editor, which automatically renders live all additions/updates. In the Blocks editor, paragraphs behave as blocks of text: hovering on a paragraph will display an icon <Icon name="dots-six-vertical" classes="ph-bold"/> on which to click to reorder the content. Options to format or enrich the content are also accessible from the top bar of the editor (basic formatting options, code, links, image etc.). <!-- <br /><br /> 💡 Type `/` in the editor to have access to the list of all available options and select one. --> <br /><br /> 💡 You can use text formatting keyboard shortcuts in the Blocks editor (e.g. bold, italics, underline, and pasting link). |
+| Number               | Write your number in the textbox. Up and down arrows, displayed on the right of the box, allow to increase or decrease the current number indicated in the textbox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Date                 | 1. Click the date and/or time box. <br /> 2. Type the date and time or choose a date using the calendar and/or a time from the list. The calendar view fully supports keyboard-based navigation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Media                | 1. Click the media area. <br /> 2. Choose an asset from the [Media Library](/cms/features/media-library) or from a [folder](/cms/features/media-library#organizing-assets-with-folders) if you created some, or click the **Add more assets** button to add a new file to the Media Library. <br /><br /> 💡 It is possible to drag and drop the chosen file in the media area.                                                                                                                                                                                                                                                                                                                                      |
+| Relation             | Choose an entry from the drop-down list. See [relational fields](#relational-fields) for more information.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Boolean              | Click on **TRUE** or **FALSE**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| JSON                 | Write your content, in JSON format, in the code textbox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Email                | Write a complete and valid email address.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Password             | Write a password. <br /><br /> 💡 Click the <Icon name="eye" /> icon, displayed on the right of the box, to show the password.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Enumeration          | 1. Click the drop-down list. <br /> 2. Choose an entry from the list.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| UID                  | Write a unique identifier in the textbox. A "Regenerate" button, displayed on the right of the box, allows automatically generating a UID based on the content type name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 :::note
 Filling out a [custom field](/cms/features/content-type-builder#custom-fields) depends on the type of content handled by the field. Please refer to the dedicated documentation for each custom field hosted on the <ExternalLink to="https://market.strapi.io" text="Marketplace"/>.
@@ -325,17 +325,17 @@ There are 2 types of components: non-repeatable and repeatable components.
 <TabItem value="NonRepeatable" label="Non-repeatable components">
 
 <ThemedImage
-  alt="Non-repeatable component - No entry yet"
-  width="80%"
-  sources={{
+alt="Non-repeatable component - No entry yet"
+width="80%"
+sources={{
     light: '/img/assets/content-manager/edit-view_component3.png',
     dark: '/img/assets/content-manager/edit-view_component3_DARK.png',
   }}
 />
 <ThemedImage
-  alt="Non-repeatable component - With entries"
-  width="80%"
-  sources={{
+alt="Non-repeatable component - With entries"
+width="80%"
+sources={{
     light: '/img/assets/content-manager/edit-view_component2.png',
     dark: '/img/assets/content-manager/edit-view_component2_DARK.png',
   }}
@@ -355,9 +355,9 @@ To delete the non-repeatable component, click on the delete button <Icon name="t
 <TabItem value="Repeatable" label="Repeatable components">
 
 <ThemedImage
-  alt="Repeatable component"
-  width="80%"
-  sources={{
+alt="Repeatable component"
+width="80%"
+sources={{
     light: '/img/assets/content-manager/edit-view_component4.png',
     dark: '/img/assets/content-manager/edit-view_component4_DARK.png',
   }}
@@ -389,16 +389,16 @@ Unlike regular fields, the order of the entries of a repeatable component is imp
 Dynamic zones are a combination of components, which themselves are composed of several fields. Writing the content of a dynamic zone requires additional steps in order to access the fields.
 
 <ThemedImage
-  alt="Writing content for a dynamic zone"
-  sources={{
+alt="Writing content for a dynamic zone"
+sources={{
     light: '/img/assets/content-manager/edit-view_dynamic-zone-1.png',
     dark: '/img/assets/content-manager/edit-view_dynamic-zone-1_DARK.png',
   }}
 />
 
 <ThemedImage
-  alt="Writing content for a dynamic zone"
-  sources={{
+alt="Writing content for a dynamic zone"
+sources={{
     light: '/img/assets/content-manager/edit-view_dynamic-zone-2.png',
     dark: '/img/assets/content-manager/edit-view_dynamic-zone-2_DARK.png',
   }}
@@ -423,7 +423,7 @@ Unlike regular fields, the order of the fields and components inside a dynamic f
 
 #### Relational fields
 
-Relation-type fields added to a content-type allow establishing a relation with another collection type. These fields are called "relational fields". 
+Relation-type fields added to a content-type allow establishing a relation with another collection type. These fields are called "relational fields".
 
 The content of relational fields is written from the edit view of the content-type they belong to. However, relational fields can point to one or several entries of the other collection type, this is why in the Content Manager it is possible to manage a content-type's relational fields to choose which entries are relevant.
 
@@ -447,8 +447,8 @@ In the Content Manager, from the edit view of my Restaurant entries, I can manag
 The relational fields of a content-type are displayed among regular fields. For each relational field is displayed a drop-down list containing all available entry titles. It allows to choose which entry the relational fields should point to. You can either choose one or several entries depending on the type of relation that was established.-->
 
 <ThemedImage
-  alt="Relational fields in the edit view"
-  sources={{
+alt="Relational fields in the edit view"
+sources={{
     light: '/img/assets/content-manager/edit-view_relational-fields2.png',
     dark: '/img/assets/content-manager/edit-view_relational-fields2_DARK.png',
   }}
@@ -461,9 +461,9 @@ The relational fields of a content-type are displayed among regular fields. For 
 Many-to-one, one-to-one, and one-way types of relation only allow to choose one entry per relational field.
 
 <ThemedImage
-  alt="One-choice relational fields"
-  width="40%"
-  sources={{
+alt="One-choice relational fields"
+width="40%"
+sources={{
     light: '/img/assets/content-manager/RF_one-choice2.png',
     dark: '/img/assets/content-manager/RF_one-choice2_DARK.png',
   }}
@@ -483,9 +483,9 @@ To remove the entry selected in the drop-down list, click on the delete button <
 Many-to-many, one-to-many, and many-ways types of relation allow to choose several entries per relational field.
 
 <ThemedImage
-  alt="Multiple choices relational fields"
-  width="40%"
-  sources={{
+alt="Multiple choices relational fields"
+width="40%"
+sources={{
     light: '/img/assets/content-manager/RF_multiple-choices2.png',
     dark: '/img/assets/content-manager/RF_multiple-choices2_DARK.png',
   }}
@@ -506,15 +506,17 @@ Entries from multiple-choice relational fields can be reordered, indicated by a 
 </Tabs>
 
 :::tip
+
 - Not all entries are listed by default: more can be displayed by clicking on the **Load more** button. Also, instead of choosing an entry by scrolling the list, you can click any relational field drop-down list and type to search a specific entry.
 
 - Click on the name of an entry to display a modal from where you will be able to edit the relational field's content-type. For now, you can only edit a relation on-the-fly and not create a new one.
-:::
+  :::
 
 :::note
+
 - If the [Draft & Publish feature](/cms/features/draft-and-publish) is activated for the content-type the relational field belongs to, you will notice blue or green dots next to the entries names in the drop-down list. They indicate the status of the entry, respectively draft or published content.
 - If the [Internationalization (i18n) feature](/cms/features/internationalization) is enabled for the content-type, the list of entries may be limited or differ from one locale to another. Only relevant entries that can possibly be chosen for a relational field will be listed.
-:::
+  :::
 
 <!-- Add a section "Managing entries" here with the explanations of the list view interface? Or before "Creating & Writing content"? Or maybe have 1. "Creating & managing entries" 2. "Writing content"? Or just use a Guideflow? -->
 
@@ -526,12 +528,12 @@ You can delete content by deleting any entry of a collection type, or the defaul
 2. In the window that pops up, click on the **Confirm** button to confirm the deletion.
 
 <ThemedImage
-  alt="Deleting entries"
-  sources={{
+alt="Deleting entries"
+sources={{
     light: '/img/assets/content-manager/deleting-entries.png',
     dark: '/img/assets/content-manager/deleting-entries_DARK.png',
   }}
 />
 
 :::tip
-You can delete entries from the list view of a collection type, by clicking on <Icon name="dots-three-outline" />  on the right side of the entry's record in the table, then choosing the <Icon name="trash"/> **Delete document** button.<br/>If [Internationalization](/cms/features/internationalization) is enabled for the content-type, **Delete document** deletes all locales while **Delete locale** only deletes the currently listed locale.
+You can delete entries from the list view of a collection type, by clicking on <Icon name="dots-three-outline" /> on the right side of the entry's record in the table, then choosing the <Icon name="trash"/> **Delete document** button.<br/>If [Internationalization](/cms/features/internationalization) is enabled for the content-type, **Delete document** deletes all locales while **Delete locale** only deletes the currently listed locale.

@@ -58,29 +58,31 @@ export default ({ strapi }) => ({
     const languageName = languageMap[language] || 'English';
 
     // 1. Fetch Template
-    const systemPromptTemplate = await getPrompt('dm_system_instruction', language, ''); // Empty defaults to Builder's internal default if passed as undefined? 
+    const systemPromptTemplate = await getPrompt('dm_system_instruction', language, ''); // Empty defaults to Builder's internal default if passed as undefined?
     // Builder logic: if template string provided, it uses it. If '', it assumes it's a template of empty string.
     // We should pass undefined if empty to trigger default.
     const validTemplate = systemPromptTemplate || undefined;
 
     // 2. Build Context
     const context = {
-        worldDescription,
-        players: players.map(p => ({
-            name: p.character?.name || 'Unknown',
-            hp: p.character?.currentHp,
-            maxHp: p.character?.maxHp,
-            armorClass: Number(p.character?.ac || 10)
+      worldDescription,
+      players: players.map((p) => ({
+        name: p.character?.name || 'Unknown',
+        hp: p.character?.currentHp,
+        maxHp: p.character?.maxHp,
+        armorClass: Number(p.character?.ac || 10),
+      })),
+      entities: entities
+        .filter((e) => e.type !== 'player')
+        .map((e) => ({
+          name: e.name,
+          type: e.type,
+          hp: e.hp,
+          maxHp: e.maxHp,
+          armorClass: e.armorClass,
+          actions: e.actions,
         })),
-        entities: entities.filter(e => e.type !== 'player').map(e => ({
-            name: e.name,
-            type: e.type,
-            hp: e.hp,
-            maxHp: e.maxHp,
-            armorClass: e.armorClass,
-            actions: e.actions
-        })),
-        settings
+      settings,
     };
 
     // 3. Construct System Prompt
@@ -118,4 +120,3 @@ ${mapImage ? '\n[Image Attached]' : ''}`;
     });
   },
 });
-

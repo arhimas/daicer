@@ -4,11 +4,11 @@ description: Strapi 5 uses koa-body v6, which updates node formidable to v2.
 sidebar_label: koa-body v6 and formidable v2
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - body middleware
- - dependencies
- - ctx
- - upgrade to Strapi 5
+  - breaking changes
+  - body middleware
+  - dependencies
+  - ctx
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -32,13 +32,13 @@ Strapi 5 uses <ExternalLink to="https://github.com/koajs/koa-body" text="`koa-bo
 
 A user might create custom endpoints and handle files with the `ctx` object:
 
-  ```js
-  const endpoint = (ctx) => {
-      ctx.request.files.fileName.path
-      ctx.request.files.fileName.name
-      ctx.request.files.fileName.type
-  }
-  ```
+```js
+const endpoint = (ctx) => {
+  ctx.request.files.fileName.path;
+  ctx.request.files.fileName.name;
+  ctx.request.files.fileName.type;
+};
+```
 
 </SideBySideColumn>
 
@@ -48,13 +48,13 @@ A user might create custom endpoints and handle files with the `ctx` object:
 
 A user might still create custom endpoints and handle files with the `ctx` object, but the property names are different:
 
-  ```js
-  const endpoint = (ctx) => {
-    ctx.request.files.fileName.filepath
-    ctx.request.files.fileName.originalFilename
-    ctx.request.files.fileName.mimetype
-  }
-  ```
+```js
+const endpoint = (ctx) => {
+  ctx.request.files.fileName.filepath;
+  ctx.request.files.fileName.originalFilename;
+  ctx.request.files.fileName.mimetype;
+};
+```
 
 </SideBySideColumn>
 

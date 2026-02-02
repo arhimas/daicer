@@ -33,7 +33,7 @@ Register the policy in `/config/policies.ts` and apply it to a resolver:
 ```ts title="/config/policies.ts"
 export default {
   'api::restaurant.restaurant': {
-    find: [ 'global::limit-public-results' ],
+    find: ['global::limit-public-results'],
   },
 };
 ```
@@ -47,7 +47,7 @@ export default async ({ state }, config, { strapi }) => {
   const userGroups = await strapi.query('plugin::users-permissions.group').findMany({
     where: { users: { id: state.user.id } },
   });
-  return userGroups.some(g => g.name === config.group);
+  return userGroups.some((g) => g.name === config.group);
 };
 ```
 

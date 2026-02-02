@@ -4,9 +4,9 @@ description: In Strapi 5, the 'defaultIndex' option is removed from the 'public'
 sidebar_label: defaultIndex removed
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - middlewares
- - upgrade to Strapi 5
+  - breaking changes
+  - middlewares
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -28,7 +28,7 @@ In Strapi 5, the 'defaultIndex' option does not exist anymore and the root `/` U
 
 **In Strapi v4**
 
-There is a `defaultIndex` option in the `public` middleware to add a custom page on the root `/`   URL of the admin panel.
+There is a `defaultIndex` option in the `public` middleware to add a custom page on the root `/` URL of the admin panel.
 
 </SideBySideColumn>
 

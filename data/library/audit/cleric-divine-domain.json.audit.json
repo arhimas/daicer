@@ -22,12 +22,7 @@
       "class": "cleric",
       "level_gained": 1,
       "feature_type": "Subclass Selection",
-      "scaling_levels": [
-        2,
-        6,
-        8,
-        17
-      ]
+      "scaling_levels": [2, 6, 8, 17]
     }
   },
   "timestamp": "2026-01-17T07:23:16.697Z"

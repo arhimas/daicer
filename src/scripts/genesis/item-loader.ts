@@ -44,44 +44,43 @@ async function main() {
     console.log(`\n📚 Found ${files.length} armor definition files.`);
 
     for (const file of files) {
-        const filePath = path.join(backendRoot, file);
-        const filename = path.basename(file);
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        
-        console.log(`   Processing \x1b[33m${filename}\x1b[0m (${data.length} entries)...`);
+      const filePath = path.join(backendRoot, file);
+      const filename = path.basename(file);
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-        let upsertCount = 0;
-        let skipCount = 0;
-        
-        for (const entry of data) {
-            try {
-                const existing = await strapi.documents('api::item.item').findFirst({
-                    filters: { slug: entry.slug }
-                });
+      console.log(`   Processing \x1b[33m${filename}\x1b[0m (${data.length} entries)...`);
 
-                if (existing) {
-                    await strapi.documents('api::item.item').update({
-                        documentId: existing.documentId,
-                        data: { ...entry, publishedAt: new Date() }
-                    });
-                    process.stdout.write('.');
-                    skipCount++;
-                } else {
-                    await strapi.documents('api::item.item').create({
-                        data: { ...entry, publishedAt: new Date() }
-                    });
-                    process.stdout.write('+');
-                    upsertCount++;
-                }
-            } catch (err) {
-                console.error(`\n      ❌ Error ingesting ${entry.slug}:`, err);
-            }
+      let upsertCount = 0;
+      let skipCount = 0;
+
+      for (const entry of data) {
+        try {
+          const existing = await strapi.documents('api::item.item').findFirst({
+            filters: { slug: entry.slug },
+          });
+
+          if (existing) {
+            await strapi.documents('api::item.item').update({
+              documentId: existing.documentId,
+              data: { ...entry, publishedAt: new Date() },
+            });
+            process.stdout.write('.');
+            skipCount++;
+          } else {
+            await strapi.documents('api::item.item').create({
+              data: { ...entry, publishedAt: new Date() },
+            });
+            process.stdout.write('+');
+            upsertCount++;
+          }
+        } catch (err) {
+          console.error(`\n      ❌ Error ingesting ${entry.slug}:`, err);
         }
-        console.log(`\n   ✅ Synced ${upsertCount} new armor pieces, updated ${skipCount} existing from ${filename}.`);
+      }
+      console.log(`\n   ✅ Synced ${upsertCount} new armor pieces, updated ${skipCount} existing from ${filename}.`);
     }
 
     console.log(`\n✨ \x1b[32mGenesis Armor Load Complete!\x1b[0m\n`);
-
   } catch (error) {
     console.error('\n❌ Fatal Error:', error);
   } finally {

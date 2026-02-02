@@ -4,15 +4,15 @@ sidebar_label: Middlewares
 displayed_sidebar: cmsSidebar
 description: Strapi offers a single entry point file for its middlewares configurations.
 tags:
-- base configuration
-- body middleware
-- configuration
-- global middlewares
-- internal middleware
-- middlewares
-- middlewares customization
-- middleware type
-- route middlewares
+  - base configuration
+  - body middleware
+  - configuration
+  - global middlewares
+  - internal middleware
+  - middlewares
+  - middlewares customization
+  - middleware type
+  - route middlewares
 ---
 
 import MiddlewareTypes from '/docs/snippets/middleware-types.md'
@@ -40,7 +40,6 @@ The `./config/middlewares.js` file exports an array, where order matters and con
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // The array is pre-populated with internal, built-in middlewares, prefixed by `strapi::`
   'strapi::logger',
@@ -49,7 +48,7 @@ module.exports = [
   'strapi::cors',
 
   // custom middleware that does not require any configuration
-  'global::my-custom-node-module', 
+  'global::my-custom-node-module',
 
   // custom name to find a package or a path
   {
@@ -89,7 +88,6 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // The array is pre-populated with internal, built-in middlewares, prefixed by `strapi::`
   'strapi::logger',
@@ -127,12 +125,12 @@ If you aren't sure where to place a middleware in the stack, add it to the end o
 
 Global middlewares can be classified into different types depending on their origin, which defines the following naming conventions:
 
-| Middleware type   | Origin                                                                                                                                                                                                                                  | Naming convention                                                                                                    |
-|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| Internal          | Built-in middlewares (i.e. included with Strapi), automatically loaded                                                                                                                                                                  | `strapi::middleware-name`                                                                                            |
-| Application-level | Loaded from the `./src/middlewares` folder                                                                                                                                                                                              | `global::middleware-name`                                                                                            |
-| API-level         | Loaded from the `./src/api/[api-name]/middlewares` folder                                                                                                                                                                               | `api::api-name.middleware-name`                                                                                      |
-| Plugin            | Exported from `strapi-server.js` in the [`middlewares` property of the plugin interface](/cms/plugins-development/server-api#middlewares)                                                                                               | `plugin::plugin-name.middleware-name`                                                                                |
+| Middleware type   | Origin                                                                                                                                                                                                                                                           | Naming convention                                                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Internal          | Built-in middlewares (i.e. included with Strapi), automatically loaded                                                                                                                                                                                           | `strapi::middleware-name`                                                                                            |
+| Application-level | Loaded from the `./src/middlewares` folder                                                                                                                                                                                                                       | `global::middleware-name`                                                                                            |
+| API-level         | Loaded from the `./src/api/[api-name]/middlewares` folder                                                                                                                                                                                                        | `api::api-name.middleware-name`                                                                                      |
+| Plugin            | Exported from `strapi-server.js` in the [`middlewares` property of the plugin interface](/cms/plugins-development/server-api#middlewares)                                                                                                                        | `plugin::plugin-name.middleware-name`                                                                                |
 | External          | Can be:<ul><li>either node modules installed with <ExternalLink to="https://www.npmjs.com/search?q=strapi-middleware" text="npm"/></li><li>or local middlewares (i.e. custom middlewares created locally and configured in `./config/middlewares.js`.)</li></ul> | -<br/><br/>As they are directly configured and resolved from the configuration file, they have no naming convention. |
 
 ## Optional configuration
@@ -140,7 +138,7 @@ Global middlewares can be classified into different types depending on their ori
 Middlewares can have an optional configuration with the following parameters:
 
 | Parameter | Description                                                       | Type     |
-|-----------|-------------------------------------------------------------------|----------|
+| --------- | ----------------------------------------------------------------- | -------- |
 | `config`  | Used to define or override the middleware configuration           | `Object` |
 | `resolve` | Path to the middleware's folder (useful for external middlewares) | `String` |
 
@@ -148,35 +146,35 @@ Middlewares can have an optional configuration with the following parameters:
 
 Strapi's core includes the following internal middlewares, mostly used for performances, security and error handling:
 
-| Middleware                                                         | Added by Default | Required |
-|--------------------------------------------------------------------|------------------|----------|
-| [body](#body)                                                      | Yes              | Yes      |
-| [compression](#compression)                                        | No               | No       |
-| [cors](#cors)                                                      | Yes              | Yes      |
-| [errors](#errors)                                                  | Yes              | Yes      |
-| [favicon](#favicon)                                                | Yes              | Yes      |
-| [ip](#ip)                                                          | No               | No       |
-| [logger](#logger)                                                  | Yes              | No       |
-| [poweredBy](#poweredby)                                            | Yes              | No       |
-| [query](#query)                                                    | Yes              | Yes      |
-| [response-time](#response-time)                                    | No               | No       |
+| Middleware                                                    | Added by Default | Required |
+| ------------------------------------------------------------- | ---------------- | -------- |
+| [body](#body)                                                 | Yes              | Yes      |
+| [compression](#compression)                                   | No               | No       |
+| [cors](#cors)                                                 | Yes              | Yes      |
+| [errors](#errors)                                             | Yes              | Yes      |
+| [favicon](#favicon)                                           | Yes              | Yes      |
+| [ip](#ip)                                                     | No               | No       |
+| [logger](#logger)                                             | Yes              | No       |
+| [poweredBy](#poweredby)                                       | Yes              | No       |
+| [query](#query)                                               | Yes              | Yes      |
+| [response-time](#response-time)                               | No               | No       |
 | [responses](/cms/backend-customization/requests-responses.md) | Yes              | Yes      |
-| [public](#public)                                                  | Yes              | Yes      |
-| [security](#security)                                              | Yes              | Yes      |
-| [session](#session)                                                | Yes              | No       |
+| [public](#public)                                             | Yes              | Yes      |
+| [security](#security)                                         | Yes              | Yes      |
+| [session](#session)                                           | Yes              | No       |
 
 ### `body`
 
 The `body` middleware is based on <ExternalLink to="https://github.com/koajs/koa-body" text="koa-body"/>. Tt uses the <ExternalLink to="https://github.com/felixge/node-formidable" text="`node-formidable`"/> library to process files. `body` accepts the following options:
 
-| Option       | Description                                                                                                                             | Type                  | Default     |
-|--------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------|-------------|
-| `multipart`  | Parse multipart bodies                                                                                                                  | `Boolean`             | `true`      |
-| `patchKoa`   | Patch request body to Koa's `ctx.request`                                                                                               | `Boolean`             | `true`      |
-| `jsonLimit`  | The byte (if integer) limit of the JSON body                                                                                            | `String` or `Integer` | `1mb`       |
-| `formLimit`  | The byte (if integer) limit of the form body                                                                                            | `String` or `Integer` | `56kb`      |
-| `textLimit`  | The byte (if integer) limit of the text body                                                                                            | `String` or `Integer` | `56kb`      |
-| `encoding`   | Sets encoding for incoming form fields                                                                                                  | `String`              | `utf-8`     |
+| Option       | Description                                                                                                                                                      | Type                  | Default     |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- |
+| `multipart`  | Parse multipart bodies                                                                                                                                           | `Boolean`             | `true`      |
+| `patchKoa`   | Patch request body to Koa's `ctx.request`                                                                                                                        | `Boolean`             | `true`      |
+| `jsonLimit`  | The byte (if integer) limit of the JSON body                                                                                                                     | `String` or `Integer` | `1mb`       |
+| `formLimit`  | The byte (if integer) limit of the form body                                                                                                                     | `String` or `Integer` | `56kb`      |
+| `textLimit`  | The byte (if integer) limit of the text body                                                                                                                     | `String` or `Integer` | `56kb`      |
+| `encoding`   | Sets encoding for incoming form fields                                                                                                                           | `String`              | `utf-8`     |
 | `formidable` | Options to pass to the `formidable` multipart parser (see <ExternalLink to="https://github.com/felixge/node-formidable" text="node-formidable documentation"/>). | `Object`              | `undefined` |
 
 For a full list of available options for `koa-body`, check the <ExternalLink to="https://github.com/koajs/koa-body#options" text="koa-body documentation"/>.
@@ -189,7 +187,6 @@ For a full list of available options for `koa-body`, check the <ExternalLink to=
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
@@ -202,7 +199,7 @@ module.exports = [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -210,7 +207,6 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
@@ -223,7 +219,7 @@ export default [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -237,7 +233,7 @@ export default [
 The `compression` middleware is based on <ExternalLink to="https://github.com/koajs/compress" text="koa-compress"/>. It accepts the following options:
 
 | Option            | Description                                                                | Type                  | Default    |
-|-------------------|----------------------------------------------------------------------------|-----------------------|------------|
+| ----------------- | -------------------------------------------------------------------------- | --------------------- | ---------- |
 | `threshold`       | Minimum response size in bytes to compress                                 | `String` or `Integer` | `1kb`      |
 | `br`              | Toggle Brotli compression                                                  | `Boolean`             | `true`     |
 | `gzip`            | Toggle gzip compression                                                    | `Boolean`             | `false`    |
@@ -252,17 +248,16 @@ The `compression` middleware is based on <ExternalLink to="https://github.com/ko
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
     name: 'strapi::compression',
     config: {
-      br: false
+      br: false,
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -270,17 +265,16 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
     name: 'strapi::compression',
     config: {
-      br: false
+      br: false,
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -293,15 +287,14 @@ export default [
 
 This security middleware is about cross-origin resource sharing (CORS) and is based on <ExternalLink to="https://github.com/koajs/cors" text="@koa/cors"/>. It accepts the following options:
 
-| Option              | Type                                                      | Description          | Default value                                              |
-|---------------------|-----------------------------------------------------------|----------------------|------------------------------------------------------------|
-| `origin`            | Configure the `Access-Control-Allow-Origin` header        | `String` or `Array` or `Function`  | `'*'`                                                      |
-| `maxAge`            | Configure the `Access-Control-Max-Age` header, in seconds | `String` or `Number` | `31536000`                                                 |
-| `credentials`       | Configure the `Access-Control-Allow-Credentials` header   | `Boolean`            | `true`                                                     |
-| `methods`           | Configure the `Access-Control-Allow-Methods` header       | `Array` or `String`  | `['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']`      |
-| `headers`           | Configure the `Access-Control-Allow-Headers` header       | `Array` or `String`  | Request headers passed in `Access-Control-Request-Headers` |
-| `keepHeaderOnError` | Add set headers to `err.header` if an error is thrown     | `Boolean`            | `false`                                                    |
-
+| Option              | Type                                                      | Description                       | Default value                                              |
+| ------------------- | --------------------------------------------------------- | --------------------------------- | ---------------------------------------------------------- |
+| `origin`            | Configure the `Access-Control-Allow-Origin` header        | `String` or `Array` or `Function` | `'*'`                                                      |
+| `maxAge`            | Configure the `Access-Control-Max-Age` header, in seconds | `String` or `Number`              | `31536000`                                                 |
+| `credentials`       | Configure the `Access-Control-Allow-Credentials` header   | `Boolean`                         | `true`                                                     |
+| `methods`           | Configure the `Access-Control-Allow-Methods` header       | `Array` or `String`               | `['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']`      |
+| `headers`           | Configure the `Access-Control-Allow-Headers` header       | `Array` or `String`               | Request headers passed in `Access-Control-Request-Headers` |
+| `keepHeaderOnError` | Add set headers to `err.header` if an error is thrown     | `Boolean`                         | `false`                                                    |
 
 <details>
 <summary> Example: Custom configuration for the cors middleware</summary>
@@ -311,7 +304,6 @@ This security middleware is about cross-origin resource sharing (CORS) and is ba
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
@@ -324,7 +316,7 @@ module.exports = [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -332,7 +324,6 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
@@ -345,24 +336,21 @@ export default [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
 
 </Tabs>
 
-
-
 </details>
 
 <details>
 <summary> Example: Custom configuration for the cors middleware within a function as parameter</summary>
 
-`origin` can take a Function as parameter following this signature 
+`origin` can take a Function as parameter following this signature
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
@@ -373,13 +361,13 @@ export default [
         if (origin === 'http://localhost:3000') {
           return origin; // The returns will be part of the Access-Control-Allow-Origin header
         }
-        
+
         return ''; // Fail cors check
-      }
+      },
     },
   },
   // ...
-]
+];
 ```
 
 </details>
@@ -395,7 +383,7 @@ The middleware doesn't have any configuration options.
 The `favicon` middleware serves the favicon and is based on <ExternalLink to="https://github.com/koajs/favicon" text="koa-favicon"/>. It accepts the following options:
 
 | Option   | Description                                      | Type      | Default value   |
-|----------|--------------------------------------------------|-----------|-----------------|
+| -------- | ------------------------------------------------ | --------- | --------------- |
 | `path`   | Path to the favicon file                         | `String`  | `'favicon.ico'` |
 | `maxAge` | Cache-control max-age directive, in milliseconds | `Integer` | `86400000`      |
 
@@ -407,17 +395,16 @@ The `favicon` middleware serves the favicon and is based on <ExternalLink to="ht
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
     name: 'strapi::favicon',
     config: {
-      path: './public/uploads/custom-fav-abc123.ico'
+      path: './public/uploads/custom-fav-abc123.ico',
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -425,17 +412,16 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
     name: 'strapi::favicon',
     config: {
-      path: './public/uploads/custom-fav-abc123.ico'
+      path: './public/uploads/custom-fav-abc123.ico',
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -449,7 +435,7 @@ export default [
 The `ip` middleware is an IP filter middleware based on <ExternalLink to="https://github.com/nswbmw/koa-ip" text="koa-ip"/>. It accepts the following options:
 
 | Option      | Description     | Type    | Default value |
-|-------------|-----------------|---------|---------------|
+| ----------- | --------------- | ------- | ------------- |
 | `whitelist` | Whitelisted IPs | `Array` | `[]`          |
 | `blacklist` | Blacklisted IPs | `Array` | `[]`          |
 
@@ -465,7 +451,6 @@ The `whitelist` and `blacklist` options support wildcards (e.g. `whitelist: ['19
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
@@ -476,7 +461,7 @@ module.exports = [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -484,7 +469,6 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
@@ -495,7 +479,7 @@ export default [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -518,7 +502,6 @@ To define a custom configuration for the `logger` middleware, create a dedicated
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/logger.js"
-
 'use strict';
 
 const {
@@ -530,10 +513,7 @@ module.exports = {
   transports: [
     new winston.transports.Console({
       level: 'http',
-      format: winston.format.combine(
-        levelFilter('http'),
-        prettyPrint({ timestamps: 'YYYY-MM-DD hh:mm:ss.SSS' })
-      ),
+      format: winston.format.combine(levelFilter('http'), prettyPrint({ timestamps: 'YYYY-MM-DD hh:mm:ss.SSS' })),
     }),
   ],
 };
@@ -544,7 +524,6 @@ module.exports = {
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/logger.ts"
-
 'use strict';
 
 const {
@@ -556,10 +535,7 @@ export default {
   transports: [
     new winston.transports.Console({
       level: 'http',
-      format: winston.format.combine(
-        levelFilter('http'),
-        prettyPrint({ timestamps: 'YYYY-MM-DD hh:mm:ss.SSS' })
-      ),
+      format: winston.format.combine(levelFilter('http'), prettyPrint({ timestamps: 'YYYY-MM-DD hh:mm:ss.SSS' })),
     }),
   ],
 };
@@ -576,7 +552,7 @@ export default {
 The `poweredBy` middleware adds a `X-Powered-By` parameter to the response header. It accepts the following options:
 
 | Option      | Description                        | Type     | Default value          |
-|-------------|------------------------------------|----------|------------------------|
+| ----------- | ---------------------------------- | -------- | ---------------------- |
 | `poweredBy` | Value of the `X-Powered-By` header | `String` | `'Strapi <strapi.io>'` |
 
 <details>
@@ -587,17 +563,16 @@ The `poweredBy` middleware adds a `X-Powered-By` parameter to the response heade
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
     name: 'strapi::poweredBy',
     config: {
-      poweredBy: 'Some Awesome Company <example.com>'
+      poweredBy: 'Some Awesome Company <example.com>',
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -605,17 +580,16 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
     name: 'strapi::poweredBy',
     config: {
-      poweredBy: 'Some Awesome Company <example.com>'
+      poweredBy: 'Some Awesome Company <example.com>',
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -628,8 +602,8 @@ export default [
 
 The `query` middleware is a query parser based on <ExternalLink to="https://github.com/ljharb/qs" text="qs"/>. It accepts the following options:
 
-| Option               | Description                                                                                                                      | Type      | Default value |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------|-----------|---------------|
+| Option               | Description                                                                                                                                               | Type      | Default value |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- |
 | `strictNullHandling` | Distinguish between null values and empty strings (see <ExternalLink to="https://github.com/ljharb/qs#handling-of-null-values" text="qs documentation"/>) | `Boolean` | `true`        |
 | `arrayLimit`         | Maximum index limit when parsing arrays (see <ExternalLink to="https://github.com/ljharb/qs#parsing-arrays" text="qs documentation"/>)                    | `Number`  | `100`         |
 | `depth`              | Maximum depth of nested objects when parsing objects (see <ExternalLink to="https://github.com/ljharb/qs#parsing-objects" text="qs documentation"/>)      | `Number`  | `20`          |
@@ -642,7 +616,6 @@ The `query` middleware is a query parser based on <ExternalLink to="https://gith
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
@@ -653,7 +626,7 @@ module.exports = [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -661,7 +634,6 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
@@ -672,7 +644,7 @@ export default [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -691,9 +663,9 @@ The middleware doesn't have any configuration options.
 
 The `public` middleware is a static file serving middleware, based on <ExternalLink to="https://github.com/koajs/static" text="koa-static"/>. It accepts the following options:
 
-| Option         | Description                                         | Type      | Default value |
-|----------------|-----------------------------------------------------|-----------|---------------|
-| `maxAge`       | Cache-control max-age directive, in milliseconds    | `Integer` | `60000`       |
+| Option   | Description                                      | Type      | Default value |
+| -------- | ------------------------------------------------ | --------- | ------------- |
+| `maxAge` | Cache-control max-age directive, in milliseconds | `Integer` | `60000`       |
 
 :::tip
 You can customize the path of the public folder by editing the [server configuration file](/cms/configurations/server.md#available-options).
@@ -707,18 +679,17 @@ You can customize the path of the public folder by editing the [server configura
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
     name: 'strapi::public',
     config: {
       defer: true,
-      index: env('INDEX_PATH', 'index-dev.html')
+      index: env('INDEX_PATH', 'index-dev.html'),
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -726,18 +697,17 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
     name: 'strapi::public',
     config: {
       defer: true,
-      index: env('INDEX_PATH', 'index-dev.html')
+      index: env('INDEX_PATH', 'index-dev.html'),
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -751,7 +721,7 @@ export default [
 The security middleware is based on <ExternalLink to="https://helmetjs.github.io/" text="koa-helmet"/>. It accepts the following options:
 
 | Option                      | Description                                                                                   | Type                  | Default value |
-|-----------------------------|-----------------------------------------------------------------------------------------------|-----------------------|---------------|
+| --------------------------- | --------------------------------------------------------------------------------------------- | --------------------- | ------------- |
 | `crossOriginEmbedderPolicy` | Set the `Cross-Origin-Embedder-Policy` header to `require-corp`                               | `Boolean`             | `false`       |
 | `crossOriginOpenerPolicy`   | Set the `Cross-Origin-Opener-Policy` header                                                   | `Boolean`             | `false`       |
 | `crossOriginResourcePolicy` | Set the `Cross-Origin-Resource-Policy` header                                                 | `Boolean`             | `false`       |
@@ -780,7 +750,6 @@ The default directives include a `market-assets.strapi.io` value. This value is 
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
@@ -810,7 +779,7 @@ module.exports = [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -818,7 +787,6 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
@@ -848,13 +816,12 @@ export default [
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
 
 </Tabs>
-
 
 </details>
 
@@ -863,7 +830,7 @@ export default [
 The `session` middleware allows the use of cookie-based sessions, based on <ExternalLink to="https://github.com/koajs/session" text="koa-session"/>. It accepts the following options:
 
 | Option       | Description                                                                                                            | Type                     | Default value                           |
-|--------------|------------------------------------------------------------------------------------------------------------------------|--------------------------|-----------------------------------------|
+| ------------ | ---------------------------------------------------------------------------------------------------------------------- | ------------------------ | --------------------------------------- |
 | `key`        | Cookie key                                                                                                             | `String`                 | `'koa.sess'`                            |
 | `maxAge`     | Maximum lifetime of the cookies, in milliseconds. Using `'session'` will expire the cookie when the session is closed. | `Integer` or `'session'` | `86400000`                              |
 | `autoCommit` | Automatically commit headers                                                                                           | `Boolean`                | `true`                                  |
@@ -883,18 +850,17 @@ The `session` middleware allows the use of cookie-based sessions, based on <Exte
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/middlewares.js"
-
 module.exports = [
   // ...
   {
     name: 'strapi::session',
     config: {
       rolling: true,
-      renew: true
+      renew: true,
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
@@ -902,24 +868,21 @@ module.exports = [
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/middlewares.ts"
-
 export default [
   // ...
   {
     name: 'strapi::session',
     config: {
       rolling: true,
-      renew: true
+      renew: true,
     },
   },
   // ...
-]
+];
 ```
 
 </TabItem>
 
 </Tabs>
-
-
 
 </details>

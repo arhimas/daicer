@@ -24,10 +24,7 @@
         "core_function": "Resource generation (sustenance)",
         "balance_assessment": "Well-balanced for a 3rd-level spell, effectively solving logistical issues for extended adventuring parties. The time limit on food spoilage prevents infinite stockpiling.",
         "scaling_potential": "Low (Effect is fixed, not dependent on spell slot level for higher-level casting)",
-        "key_interactions": [
-          "Survival checks",
-          "Long rests requiring sustenance"
-        ]
+        "key_interactions": ["Survival checks", "Long rests requiring sustenance"]
       },
       "zod_errors": "NONE",
       "recommendations": []

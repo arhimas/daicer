@@ -4,6 +4,7 @@ description: Use Strapi's Entity Service API to perform CRUD (create, read, upda
 displayed_sidebar: cmsSidebar
 unlisted: true
 ---
+
 import ManagingRelations from '/docs/snippets/managing-relations.md'
 import ESdeprecated from '/docs/snippets/entity-service-deprecated.md'
 
@@ -13,10 +14,10 @@ import ESdeprecated from '/docs/snippets/entity-service-deprecated.md'
 
 The [Entity Service API](/cms/api/entity-service) is built on top of the the [Query Engine API](/cms/api/query-engine) and uses it to perform CRUD operations on entities.
 
-
 The `uid` parameter used in function calls for this API is a `string` built with the following format: `[category]::[content-type]` where `category` is one of: `admin`, `plugin` or `api`.
 
 Examples:
+
 - A correct `uid` to get users of the Strapi admin panel is `admin::user`.
 - A possible `uid` for the Upload plugin could be `plugin::upload.file`.
 - As the `uid`s for user-defined custom content-types follow the `api::[content-type]` syntax, if a content-type `article` exists, it is referenced by `api::article.article`.
@@ -33,9 +34,9 @@ Syntax: `findOne(uid: string, id: ID, parameters: Params)` ⇒ `Entry`
 
 ### Parameters
 
-| Parameter  | Description | Type |
-| ---------- | --------------- | --------------- |
-| `fields`   | Attributes to return | `String[]`  |
+| Parameter  | Description                                                                             | Type                                                    |
+| ---------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `fields`   | Attributes to return                                                                    | `String[]`                                              |
 | `populate` | Relations, components and dynamic zones to [populate](/cms/api/entity-service/populate) | [`PopulateParameter`](/cms/api/entity-service/populate) |
 
 ### Example
@@ -55,15 +56,15 @@ Syntax: `findMany(uid: string, parameters: Params)` ⇒ `Entry[]`
 
 ### Parameters
 
-| Parameter   | Description | Type   |
-| ----------- | ------ | -------------- |
-| `fields`  | Attributes to return   | `String[]`  |
-| `filters` | [Filters](/cms/api/entity-service/filter) to use   | [`FiltersParameters`](/cms/api/entity-service/filter)             |
-| `start`   | Number of entries to skip (see [pagination](/cms/api/entity-service/order-pagination#pagination))   | `Number`  |
-| `limit`   | Number of entries to return (see [pagination](/cms/api/entity-service/order-pagination#pagination)) | `Number`  |
-| `sort`   | [Order](/cms/api/entity-service/order-pagination) definition  | [`OrderByParameter`](/cms/api/entity-service/order-pagination) |
-| `populate`  | Relations, components and dynamic zones to [populate](/cms/api/entity-service/populate)  | [`PopulateParameter`](/cms/api/entity-service/populate)         |
-| `publicationState` | Publication state, can be:<ul><li>`live` to return only published entries</li><li>`preview` to return both draft entries & published entries (default)</li></ul>   | `PublicationStateParameter`  |
+| Parameter          | Description                                                                                                                                                      | Type                                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `fields`           | Attributes to return                                                                                                                                             | `String[]`                                                     |
+| `filters`          | [Filters](/cms/api/entity-service/filter) to use                                                                                                                 | [`FiltersParameters`](/cms/api/entity-service/filter)          |
+| `start`            | Number of entries to skip (see [pagination](/cms/api/entity-service/order-pagination#pagination))                                                                | `Number`                                                       |
+| `limit`            | Number of entries to return (see [pagination](/cms/api/entity-service/order-pagination#pagination))                                                              | `Number`                                                       |
+| `sort`             | [Order](/cms/api/entity-service/order-pagination) definition                                                                                                     | [`OrderByParameter`](/cms/api/entity-service/order-pagination) |
+| `populate`         | Relations, components and dynamic zones to [populate](/cms/api/entity-service/populate)                                                                          | [`PopulateParameter`](/cms/api/entity-service/populate)        |
+| `publicationState` | Publication state, can be:<ul><li>`live` to return only published entries</li><li>`preview` to return both draft entries & published entries (default)</li></ul> | `PublicationStateParameter`                                    |
 
 ### Example
 
@@ -81,7 +82,7 @@ const entries = await strapi.entityService.findMany('api::article.article', {
 :::tip
 To retrieve only draft entries, combine the `preview` publication state and the `publishedAt` fields:
 
-```js
+````js
 const entries = await strapi.entityService.findMany('api::article.article', {
   publicationState: 'preview',
   filters: {
@@ -117,7 +118,7 @@ const entry = await strapi.entityService.create('api::article.article', {
     title: 'My Article',
   },
 });
-```
+````
 
 ## update()
 
@@ -133,11 +134,11 @@ Syntax: `update(uid: string, id: ID, parameters: Params)` ⇒ `Entry`
 
 ### Parameters
 
-| Parameter  | Description | Type |
-| ---------- | ------------- | ---------- |
-| `fields`   | Attributes to return | `String[]`  |
+| Parameter  | Description                                                                             | Type                                                    |
+| ---------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `fields`   | Attributes to return                                                                    | `String[]`                                              |
 | `populate` | Relations, components and dynamic zones to [populate](/cms/api/entity-service/populate) | [`PopulateParameter`](/cms/api/entity-service/populate) |
-| `data`     | Input data  | `object`  |
+| `data`     | Input data                                                                              | `object`                                                |
 
 ### Example
 
@@ -157,9 +158,9 @@ Syntax: `delete(uid: string, id: ID, parameters: Params)` ⇒ `Entry`
 
 ### Parameters
 
-| Parameter  | Description | Type |
-| ---------- | --------- | -------- |
-| `fields`   | Attributes to return | `String[]`  |
+| Parameter  | Description                                                                             | Type                                                    |
+| ---------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| `fields`   | Attributes to return                                                                    | `String[]`                                              |
 | `populate` | Relations, components and dynamic zones to [populate](/cms/api/entity-service/populate) | [`PopulateParameter`](/cms/api/entity-service/populate) |
 
 ### Example

@@ -2,16 +2,16 @@
 title: Status
 description: Use Strapi's REST API to work with draft or published versions of your documents.
 sidebarDepth: 3
-sidebar_label:  Status
+sidebar_label: Status
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- find
-- interactive query builder
-- REST API
-- qs library
-- status
+  - API
+  - Content API
+  - find
+  - interactive query builder
+  - REST API
+  - qs library
+  - status
 ---
 
 import QsIntroFull from '/docs/snippets/qs-intro-full.md'
@@ -55,11 +55,14 @@ Since published versions are returned by default, passing no status parameter is
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  status: 'draft',
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+const query = qs.stringify(
+  {
+    status: 'draft',
+  },
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/articles?${query}`);
 ```
@@ -91,7 +94,7 @@ await request(`/api/articles?${query}`);
       "updatedAt": "2024-03-06T21:38:46.353Z",
       "publishedAt": null,
       "locale": "en"
-    },
+    }
     // …
   ],
   "meta": {

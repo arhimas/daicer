@@ -19,9 +19,9 @@ this includes:
 # Example
 
 ```js
-import { signalsByName, signalsByNumber } from 'human-signals'
+import { signalsByName, signalsByNumber } from 'human-signals';
 
-console.log(signalsByName.SIGINT)
+console.log(signalsByName.SIGINT);
 // {
 //   name: 'SIGINT',
 //   number: 2,
@@ -32,7 +32,7 @@ console.log(signalsByName.SIGINT)
 //   standard: 'ansi'
 // }
 
-console.log(signalsByNumber[8])
+console.log(signalsByNumber[8]);
 // {
 //   name: 'SIGFPE',
 //   number: 8,

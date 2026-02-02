@@ -15,12 +15,12 @@ export class ActionDispatcher {
   /**
    * Resolves a "hydrated" RuntimeAction against a target Entity.
    * This is the "Engine Room" where dice meets stats.
-   * 
+   *
    * Pipeline:
    * 1. Attack Roll (d20 + Bonus vs AC).
    * 2. Saving Throw (d20 + Bonus vs DC) - If applicable.
    * 3. Effect Application (Damage/Condition resolution).
-   * 
+   *
    * @param source - The actor performing the action.
    * @param target - The entity being targeted.
    * @param action - The full RuntimeAction object (hydrated).
@@ -53,18 +53,22 @@ export class ActionDispatcher {
     if (hit && action.save) {
       // Look up target save bonus
       const saveAttrShort = action.save.attribute; // 'str', 'dex'
-      
+
       const attrMap: Record<string, string> = {
-          str: 'strength', dex: 'dexterity', con: 'constitution',
-          int: 'intelligence', wis: 'wisdom', cha: 'charisma'
+        str: 'strength',
+        dex: 'dexterity',
+        con: 'constitution',
+        int: 'intelligence',
+        wis: 'wisdom',
+        cha: 'charisma',
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const targetStats = target.stats as any;
       const fullAttr = attrMap[saveAttrShort] || 'dexterity';
-      
+
       const statVal = targetStats?.[fullAttr] ?? 10;
       const mod = Math.floor((statVal - 10) / 2);
-      
+
       const prof = 0; // TODO: Check proficiency
       const saveBonus = mod + prof; // Simplified
 

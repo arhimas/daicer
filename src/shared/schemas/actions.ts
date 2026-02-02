@@ -25,9 +25,9 @@ export enum ActionType {
  * Reusable schema for damage dice definition.
  */
 export const DamageSchema = z.object({
-  dice: z.string(),   // e.g. "1d8"
-  bonus: z.number(),  // e.g. 3
-  type: z.string(),   // e.g. "slashing"
+  dice: z.string(), // e.g. "1d8"
+  bonus: z.number(), // e.g. 3
+  type: z.string(), // e.g. "slashing"
 });
 
 /**
@@ -35,7 +35,7 @@ export const DamageSchema = z.object({
  */
 export const SaveSchema = z.object({
   stat: z.string(), // e.g. "dex"
-  dc: z.number(),   // e.g. 15
+  dc: z.number(), // e.g. 15
 });
 
 // Schemas for the *Intent* (what the user/LLM asks to do)

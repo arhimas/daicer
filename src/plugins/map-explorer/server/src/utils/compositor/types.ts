@@ -1,4 +1,13 @@
-export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
+export type ZoneType =
+  | 'core'
+  | 'head'
+  | 'hand_l'
+  | 'hand_r'
+  | 'weapon'
+  | 'back'
+  | 'legs'
+  | 'accessory'
+  | 'none';
 export type Archetype = string;
 
 export interface AssetStub {
@@ -14,4 +23,11 @@ export interface Point {
   maxY?: number;
 }
 
-export type AnchorType = 'primary_hand' | 'off_hand' | 'head_top' | 'head_bottom' | 'feet_bottom' | 'body_center' | 'item_grip';
+export type AnchorType =
+  | 'primary_hand'
+  | 'off_hand'
+  | 'head_top'
+  | 'head_bottom'
+  | 'feet_bottom'
+  | 'body_center'
+  | 'item_grip';

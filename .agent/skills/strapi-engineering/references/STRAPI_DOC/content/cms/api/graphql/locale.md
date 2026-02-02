@@ -13,7 +13,7 @@ To fetch all documents <DocumentDefinition/> for a specific locale, pass the `lo
 
 <ApiCall>
 
-<Request> 
+<Request>
 
 ```graphql
 query {
@@ -42,7 +42,7 @@ query {
         "documentId": "m9n8o7p6q5r4s3t2u1v0wxyz",
         "name": "Pizzeria Arrivederci",
         "locale": "fr"
-      },
+      }
     ]
   }
 }
@@ -58,7 +58,7 @@ To fetch a documents <DocumentDefinition/> for a specific locale, pass the `docu
 
 <ApiCall>
 
-<Request title="Example query"> 
+<Request title="Example query">
 
 ```graphql
 query Restaurant($documentId: ID!, $locale: I18NLocaleCode) {
@@ -73,7 +73,7 @@ query Restaurant($documentId: ID!, $locale: I18NLocaleCode) {
 
 </Request>
 
- <Response title="Example response"> 
+ <Response title="Example response">
 
 ```json
 {

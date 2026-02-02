@@ -5,7 +5,7 @@ import { calculateModifier } from './dnd5e';
 /**
  * Pure Functional Reducer for Level Up.
  * Returns a NEW EntitySheet with updated stats based on Rules and Class Definition.
- * 
+ *
  * Logic:
  * 1. Increases Level.
  * 2. Adds HP (Fixed avg + Con mod).
@@ -98,16 +98,16 @@ export function resolveLevelUp(sheet: EntitySheet, classDef: ClassDefinition, ru
     // In a real Strapi relation, we'd add the ID. Here we push the stub.
     // We check if we already have it to avoid double-adding on re-calc (though levelUp is usually state transition).
     for (const feat of levelData.features) {
-       // Simple duplication check by name for now, assuming unique names per class feature set
-       const exists = newSheet.features.find(f => f.name === feat.name);
-       if (!exists) {
-         newSheet.features.push({
-           documentId: feat.documentId,
-           name: feat.name,
-           // We could hydrate description/type if available in ClassDef, but typically it lives on the Feature entity itself.
-           // The Engine hydration phase (later) would fetch the full Feature logic.
-         });
-       }
+      // Simple duplication check by name for now, assuming unique names per class feature set
+      const exists = newSheet.features.find((f) => f.name === feat.name);
+      if (!exists) {
+        newSheet.features.push({
+          documentId: feat.documentId,
+          name: feat.name,
+          // We could hydrate description/type if available in ClassDef, but typically it lives on the Feature entity itself.
+          // The Engine hydration phase (later) would fetch the full Feature logic.
+        });
+      }
     }
   }
 

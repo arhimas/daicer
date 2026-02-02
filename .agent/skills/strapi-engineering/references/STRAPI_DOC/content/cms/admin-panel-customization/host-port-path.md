@@ -5,9 +5,8 @@ displayed_sidebar: cmsSidebar
 sidebar_label: URL, host, and port configuration
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
-
+  - admin panel
+  - admin panel customization
 ---
 
 # Admin panel customization: Host, port, and path configuration
@@ -26,7 +25,7 @@ To make the admin panel accessible at another path, for instance at `http://loca
 ```js title="/config/admin.js"
 module.exports = ({ env }) => ({
   // … other configuration properties
-  url: "/dashboard",
+  url: '/dashboard',
 });
 ```
 
@@ -37,8 +36,8 @@ Since by default the back-end server and the admin panel server run on the same 
 
 ```js title="/config/server.js"
 module.exports = ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
+  host: env('HOST', '0.0.0.0'),
+  port: env.int('PORT', 1337),
 });
 ```
 
@@ -48,8 +47,8 @@ module.exports = ({ env }) => ({
 
 ```js title="/config/server.ts"
 export default ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
+  host: env('HOST', '0.0.0.0'),
+  port: env.int('PORT', 1337),
 });
 ```
 
@@ -67,10 +66,10 @@ This is done in the admin panel configuration file, for example to host the admi
 
 ```js title="./config/admin.js"
 module.exports = ({ env }) => ({
-  host: "my-host.com",
+  host: 'my-host.com',
   port: 3000,
   // Additionally you can define another path instead of the default /admin one 👇
-  // url: '/dashboard' 
+  // url: '/dashboard'
 });
 ```
 
@@ -80,7 +79,7 @@ module.exports = ({ env }) => ({
 
 ```js title="./config/admin.ts"
 export default ({ env }) => ({
-  host: "my-host.com",
+  host: 'my-host.com',
   port: 3000,
   // Additionally you can define another path instead of the default /admin one 👇
   // url: '/dashboard'

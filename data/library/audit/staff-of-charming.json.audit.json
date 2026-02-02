@@ -19,14 +19,7 @@
       "mechanics": {
         "item_type": "Staff",
         "attunement_required": true,
-        "attunement_classes": [
-          "bard",
-          "cleric",
-          "druid",
-          "sorcerer",
-          "warlock",
-          "wizard"
-        ],
+        "attunement_classes": ["bard", "cleric", "druid", "sorcerer", "warlock", "wizard"],
         "charges_system": {
           "max_charges": 10,
           "regeneration": "1d8 + 2 daily at dawn",

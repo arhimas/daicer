@@ -18,7 +18,10 @@ async function main() {
     if (!service) {
       console.error('❌ Service api::game.translation NOT found.');
       // List available services to debug
-      console.log('Available services:', Object.keys(app.services).filter(k => k.includes('game')));
+      console.log(
+        'Available services:',
+        Object.keys(app.services).filter((k) => k.includes('game'))
+      );
       process.exit(1);
     }
     console.log('✅ Service api::game.translation found.');
@@ -28,28 +31,27 @@ async function main() {
     const translated = service.translate(text, 'pt');
     console.log(`Test 1: Translate "${text}" to PT -> "${translated}"`);
     if (translated === 'Espada') {
-        console.log('✅ Dictionary lookup works.');
+      console.log('✅ Dictionary lookup works.');
     } else {
-        console.log('⚠️ Dictionary lookup mismatch (might be expected if mock dict is limited).');
+      console.log('⚠️ Dictionary lookup mismatch (might be expected if mock dict is limited).');
     }
 
     // Test 2: JSON Translation
     const input = {
       name: 'hello',
       nested: {
-        item: 'shield'
-      }
+        item: 'shield',
+      },
     };
     console.log('Test 2: translating JSON: ', JSON.stringify(input));
     const jsonResult = service.translateJson(input, 'es', { translateKeys: false });
     console.log('Result:', JSON.stringify(jsonResult, null, 2));
 
     if (jsonResult.name === 'Hola' && jsonResult.nested.item === 'Escudo') {
-        console.log('✅ JSON recursive translation works.');
+      console.log('✅ JSON recursive translation works.');
     } else {
-        console.log('⚠️ JSON translation mismatch.');
+      console.log('⚠️ JSON translation mismatch.');
     }
-
   } catch (error) {
     console.error('❌ Error during verification:', error);
   } finally {

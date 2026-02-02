@@ -6,8 +6,6 @@ import { PluginIcon } from './components/PluginIcon';
 export default {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register(app: any) {
-
-
     app.registerPlugin({
       id: PLUGIN_ID,
       initializer: Initializer,
@@ -26,143 +24,138 @@ export default {
       permissions: [],
     });
 
-
-
-
-
     app.customFields.register({
-        name: "voxel-grid",
-        pluginId: PLUGIN_ID, 
-        type: "json", 
-        intlLabel: {
-          id: "map-explorer.voxel-grid.label",
-          defaultMessage: "Voxel Grid",
-        },
-        intlDescription: {
-          id: "map-explorer.voxel-grid.description",
-          defaultMessage: "Edit 3D Voxel Structure",
-        },
-        icon: PluginIcon,
-        components: {
-          Input: async () =>
-            import('./components/VoxelInput').then((module) => ({
-              default: module.VoxelInput,
-            })),
-        },
-        options: {},
+      name: 'voxel-grid',
+      pluginId: PLUGIN_ID,
+      type: 'json',
+      intlLabel: {
+        id: 'map-explorer.voxel-grid.label',
+        defaultMessage: 'Voxel Grid',
+      },
+      intlDescription: {
+        id: 'map-explorer.voxel-grid.description',
+        defaultMessage: 'Edit 3D Voxel Structure',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/VoxelInput').then((module) => ({
+            default: module.VoxelInput,
+          })),
+      },
+      options: {},
     });
 
     app.customFields.register({
-        name: "texture-grid",
-        pluginId: PLUGIN_ID, 
-        type: "json", 
-        intlLabel: {
-          id: "map-explorer.texture-grid.label",
-          defaultMessage: "Texture Painter",
-        },
-        intlDescription: {
-          id: "map-explorer.texture-grid.description",
-          defaultMessage: "Paint 32x32 Texture",
-        },
-        icon: PluginIcon,
-        components: {
-          Input: async () =>
-            import('./components/TextureInput').then((module) => ({
-              default: module.TextureInput,
-            })),
-        },
-        options: {},
+      name: 'texture-grid',
+      pluginId: PLUGIN_ID,
+      type: 'json',
+      intlLabel: {
+        id: 'map-explorer.texture-grid.label',
+        defaultMessage: 'Texture Painter',
+      },
+      intlDescription: {
+        id: 'map-explorer.texture-grid.description',
+        defaultMessage: 'Paint 32x32 Texture',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/TextureInput').then((module) => ({
+            default: module.TextureInput,
+          })),
+      },
+      options: {},
     });
 
     app.customFields.register({
-        name: "construction-grid",
-        pluginId: PLUGIN_ID, 
-        type: "json", 
-        intlLabel: {
-          id: "map-explorer.construction-grid.label",
-          defaultMessage: "Construction Builder",
-        },
-        intlDescription: {
-          id: "map-explorer.construction-grid.description",
-          defaultMessage: "Edit 3D Construction",
-        },
-        icon: PluginIcon,
-        components: {
-          Input: async () =>
-            import('./components/VoxelInput').then((module) => ({
-              default: module.VoxelInput,
-            })),
-        },
-        options: {},
+      name: 'construction-grid',
+      pluginId: PLUGIN_ID,
+      type: 'json',
+      intlLabel: {
+        id: 'map-explorer.construction-grid.label',
+        defaultMessage: 'Construction Builder',
+      },
+      intlDescription: {
+        id: 'map-explorer.construction-grid.description',
+        defaultMessage: 'Edit 3D Construction',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/VoxelInput').then((module) => ({
+            default: module.VoxelInput,
+          })),
+      },
+      options: {},
     });
 
     app.customFields.register({
-        name: "world-grid",
-        pluginId: PLUGIN_ID, 
-        type: "json", 
-        intlLabel: {
-          id: "map-explorer.world-grid.label",
-          defaultMessage: "World Map",
-        },
-        intlDescription: {
-          id: "map-explorer.world-grid.description",
-          defaultMessage: "View/Edit World Chunks",
-        },
-        icon: PluginIcon,
-        components: {
-          Input: async () =>
-            import('./components/WorldVoxelInput').then((module) => ({
-              default: module.WorldVoxelInput,
-            })),
-        },
-        options: {},
+      name: 'world-grid',
+      pluginId: PLUGIN_ID,
+      type: 'json',
+      intlLabel: {
+        id: 'map-explorer.world-grid.label',
+        defaultMessage: 'World Map',
+      },
+      intlDescription: {
+        id: 'map-explorer.world-grid.description',
+        defaultMessage: 'View/Edit World Chunks',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/WorldVoxelInput').then((module) => ({
+            default: module.WorldVoxelInput,
+          })),
+      },
+      options: {},
     });
 
     app.customFields.register({
-        name: "sprite-grid",
-        pluginId: PLUGIN_ID, 
-        type: "json", 
-        intlLabel: {
-          id: "map-explorer.sprite-grid.label",
-          defaultMessage: "Pixel Forge",
-        },
-        intlDescription: {
-          id: "map-explorer.sprite-grid.description",
-          defaultMessage: "AI-Powered Pixel Art Editor (SOTA)",
-        },
-        icon: PluginIcon,
-        components: {
-          Input: async () =>
-            import('./components/PixelForge').then((module) => ({
-              default: module.PixelForge,
-            })),
-        },
-        options: {},
+      name: 'sprite-grid',
+      pluginId: PLUGIN_ID,
+      type: 'json',
+      intlLabel: {
+        id: 'map-explorer.sprite-grid.label',
+        defaultMessage: 'Pixel Forge',
+      },
+      intlDescription: {
+        id: 'map-explorer.sprite-grid.description',
+        defaultMessage: 'AI-Powered Pixel Art Editor (SOTA)',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/PixelForge').then((module) => ({
+            default: module.PixelForge,
+          })),
+      },
+      options: {},
     });
 
     app.customFields.register({
-        name: "pixel-generator",
-        pluginId: PLUGIN_ID,
-        type: "json", // Virtual, doesn't really store data, just UI
-        intlLabel: {
-          id: "map-explorer.pixel-generator.label",
-          defaultMessage: "Pixel Art Generator",
-        },
-        intlDescription: {
-          id: "map-explorer.pixel-generator.description",
-          defaultMessage: "Generate Pixel Art from Attributes",
-        },
-        icon: PluginIcon,
-        components: {
-          Input: async () =>
-            import('./components/PixelGenerator').then((module) => ({
-              default: module.default,
-            })),
-        },
-        options: {},
+      name: 'pixel-generator',
+      pluginId: PLUGIN_ID,
+      type: 'json', // Virtual, doesn't really store data, just UI
+      intlLabel: {
+        id: 'map-explorer.pixel-generator.label',
+        defaultMessage: 'Pixel Art Generator',
+      },
+      intlDescription: {
+        id: 'map-explorer.pixel-generator.description',
+        defaultMessage: 'Generate Pixel Art from Attributes',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/PixelGenerator').then((module) => ({
+            default: module.default,
+          })),
+      },
+      options: {},
     });
   },
-
 
   async registerTrads({ locales }: { locales: string[] }) {
     return Promise.all(

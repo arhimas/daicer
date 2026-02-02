@@ -5,16 +5,14 @@
 
 /**
  * Locale Generator Controller
- * 
+ *
  * Handles manual triggering of locale generation for selected entities.
  * Designed to be called from the Strapi Admin Bulk Actions.
  */
 import { QueueManager } from '../../../queues/queue-manager';
 import { QueueName } from '../../../queues/contract';
 
- 
 export default ({ strapi: _strapi }) => ({
-  
   /**
    * Generates locales for a list of entities via Queues.
    * POST /api/game/generate-locales
@@ -29,28 +27,24 @@ export default ({ strapi: _strapi }) => ({
     const report = {
       enqueued: 0,
       failed: 0,
-      errors: [] as string[]
+      errors: [] as string[],
     };
 
     let queueManager: QueueManager;
     try {
-        queueManager = QueueManager.get();
+      queueManager = QueueManager.get();
     } catch {
-        // Fallback or Error if queues are not enabled
-        return ctx.badRequest('QueueManager not available. Ensure Redis is configured and queues enabled.');
+      // Fallback or Error if queues are not enabled
+      return ctx.badRequest('QueueManager not available. Ensure Redis is configured and queues enabled.');
     }
 
     for (const documentId of documentIds) {
       try {
-        await queueManager.add(
-            QueueName.TRANSLATE_ENTITY,
-            `translate-${contentType}-${documentId}`,
-            {
-                contentType,
-                documentId,
-                targetLocales: locales
-            }
-        );
+        await queueManager.add(QueueName.TRANSLATE_ENTITY, `translate-${contentType}-${documentId}`, {
+          contentType,
+          documentId,
+          targetLocales: locales,
+        });
         report.enqueued++;
       } catch (err) {
         console.error(`Failed to enqueue translation for ${documentId}:`, err);
@@ -62,7 +56,7 @@ export default ({ strapi: _strapi }) => ({
 
     return {
       message: `Enqueued ${report.enqueued} jobs.`,
-      report
+      report,
     };
-  }
+  },
 });

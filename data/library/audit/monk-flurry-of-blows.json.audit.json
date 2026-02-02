@@ -16,10 +16,7 @@
           "amount": 1
         },
         "effect": "Two unarmed strikes, immediately after taking the Attack action.",
-        "prerequisites": [
-          "Monk class",
-          "Attack action taken on current turn"
-        ]
+        "prerequisites": ["Monk class", "Attack action taken on current turn"]
       }
     },
     "metadata": {

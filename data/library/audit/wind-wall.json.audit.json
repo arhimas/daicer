@@ -35,10 +35,7 @@
           "Deflects ordinary projectiles launched at targets behind the wall upward (does not affect large projectiles like boulders).",
           "Prevents creatures in gaseous form from passing through."
         ],
-        "classes": [
-          "druid",
-          "ranger"
-        ],
+        "classes": ["druid", "ranger"],
         "notes": "The damage upon appearance is unusual for a purely defensive/utility wall spell, but mechanically sound. The deflection rules are specific and balanced for the level."
       }
     },

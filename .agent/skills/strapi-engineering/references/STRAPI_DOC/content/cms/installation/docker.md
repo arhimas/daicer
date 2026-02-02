@@ -5,9 +5,9 @@ pagination_prev: cms/installation/cli
 pagination_next: cms/features/admin-panel
 description: Quickly create a Docker container from a local project.
 tags:
-- installation
-- environment 
-- MySQL
+  - installation
+  - environment
+  - MySQL
 ---
 
 import DockerEnvTable from '/docs/snippets/docker-env-table.md'
@@ -19,7 +19,7 @@ Strapi does not build any official container images. The following instructions 
 :::
 
 :::danger
- Strapi applications are not meant to be connected to a pre-existing database, not created by a Strapi application, nor connected to a Strapi v3 database. The Strapi team will not support such attempts. Attempting to connect to an unsupported database may, and most likely will, result in lost data such as dropped tables.
+Strapi applications are not meant to be connected to a pre-existing database, not created by a Strapi application, nor connected to a Strapi v3 database. The Strapi team will not support such attempts. Attempting to connect to an unsupported database may, and most likely will, result in lost data such as dropped tables.
 :::
 
 The following documentation will guide you through building a custom <ExternalLink to="https://www.docker.com/" text="Docker"/> container with an existing Strapi project.
@@ -156,7 +156,7 @@ services:
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
     ports:
-      - "1337:1337"
+      - '1337:1337'
     networks:
       - strapi
     depends_on:
@@ -178,7 +178,7 @@ services:
       - strapi-data:/var/lib/mysql
       #- ./data:/var/lib/mysql # if you want to use a bind folder
     ports:
-      - "3306:3306"
+      - '3306:3306'
     networks:
       - strapi
 
@@ -196,7 +196,7 @@ networks:
 <TabItem value="mariadb" label="MariaDB">
 
 ```yml title="./docker-compose.yml"
-version: "3"
+version: '3'
 services:
   strapi:
     container_name: strapi
@@ -223,7 +223,7 @@ services:
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
     ports:
-      - "1337:1337"
+      - '1337:1337'
     networks:
       - strapi
     depends_on:
@@ -244,7 +244,7 @@ services:
       - strapi-data:/var/lib/mysql
       #- ./data:/var/lib/mysql # if you want to use a bind folder
     ports:
-      - "3306:3306"
+      - '3306:3306'
     networks:
       - strapi
 
@@ -262,7 +262,7 @@ networks:
 <TabItem value="postgresql" label="PostgreSQL">
 
 ```yml title="./docker-compose.yml"
-version: "3"
+version: '3'
 services:
   strapi:
     container_name: strapi
@@ -289,7 +289,7 @@ services:
       - ./.env:/opt/app/.env
       - ./public/uploads:/opt/app/public/uploads
     ports:
-      - "1337:1337"
+      - '1337:1337'
     networks:
       - strapi
     depends_on:
@@ -310,7 +310,7 @@ services:
       #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
 
     ports:
-      - "5432:5432"
+      - '5432:5432'
     networks:
       - strapi
 

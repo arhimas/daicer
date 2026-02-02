@@ -8,7 +8,7 @@ However, we often want LLM systems that can pick their own control flow! This is
 - Using an LLM to decide which of many tools to call
 - Using an LLM to decide whether the generated answer is sufficient or more work is needed
 
-There are many different types of [agent architectures](https://blog.langchain.dev/what-is-a-cognitive-architecture/) to consider, which given an LLM varying levels of control. On one extreme, a router allows an LLM to select a single step from a specified set of options and, on the other extreme, a fully autonomous long-running agent may have complete freedom to select any sequence of steps that it wants for a given problem. 
+There are many different types of [agent architectures](https://blog.langchain.dev/what-is-a-cognitive-architecture/) to consider, which given an LLM varying levels of control. On one extreme, a router allows an LLM to select a single step from a specified set of options and, on the other extreme, a fully autonomous long-running agent may have complete freedom to select any sequence of steps that it wants for a given problem.
 
 ![Agent Types](img/agent_types.png)
 
@@ -27,21 +27,21 @@ In practice, there is often a trade-off between control and reliability. As we g
 
 ## Core Principles
 
-The motivation of LangGraph is to help bend the curve, preserving higher reliability as we give the agent more control over the application. We'll outline a few specific pillars of LangGraph that make it well suited for building reliable agents. 
+The motivation of LangGraph is to help bend the curve, preserving higher reliability as we give the agent more control over the application. We'll outline a few specific pillars of LangGraph that make it well suited for building reliable agents.
 
 ![Langgraph](img/langgraph.png)
 
 **Controllability**
 
-LangGraph gives the developer a high degree of [control](/langgraphjs/how-tos#controllability) by expressing the flow of the application as a set of nodes and edges. All nodes can access and modify a common state (memory). The control flow of the application can set using edges that connect nodes, either deterministically or via conditional logic. 
+LangGraph gives the developer a high degree of [control](/langgraphjs/how-tos#controllability) by expressing the flow of the application as a set of nodes and edges. All nodes can access and modify a common state (memory). The control flow of the application can set using edges that connect nodes, either deterministically or via conditional logic.
 
 **Persistence**
 
-LangGraph gives the developer many options for [persisting](/langgraphjs/how-tos#persistence) graph state using short-term or long-term (e.g., via a database) memory. 
+LangGraph gives the developer many options for [persisting](/langgraphjs/how-tos#persistence) graph state using short-term or long-term (e.g., via a database) memory.
 
 **Human-in-the-Loop**
 
-The persistence layer enables several different [human-in-the-loop](/langgraphjs/how-tos#human-in-the-loop) interaction patterns with agents; for example, it's possible to pause an agent, review its state, edit it state, and approve a follow-up step. 
+The persistence layer enables several different [human-in-the-loop](/langgraphjs/how-tos#human-in-the-loop) interaction patterns with agents; for example, it's possible to pause an agent, review its state, edit it state, and approve a follow-up step.
 
 **Streaming**
 

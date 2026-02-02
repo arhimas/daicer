@@ -6,7 +6,7 @@ pagination_prev: cms/backend-customization/examples/policies
 pagination_next: cms/backend-customization/examples/middlewares
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
 # Examples cookbook: Custom routes
 
@@ -52,7 +52,6 @@ Additional information can be found in the [Policies](/cms/backend-customization
 In the `/api` folder of the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> project, replace the content of the `api/src/api/review/routes/review.js` file with the following code:
 
 ```jsx title="src/api/review/routes/review.js"
-
 'use strict';
 
 const { createCoreRouter } = require('@strapi/strapi').factories;

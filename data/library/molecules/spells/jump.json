@@ -9,10 +9,5 @@
   "components": "V, S, M (a grasshopper's hind leg)",
   "duration": "1 minute",
   "description": "You touch a creature. The creature's jump distance is tripled until the spell ends.",
-  "classes": [
-    "druid",
-    "ranger",
-    "sorcerer",
-    "wizard"
-  ]
+  "classes": ["druid", "ranger", "sorcerer", "wizard"]
 }

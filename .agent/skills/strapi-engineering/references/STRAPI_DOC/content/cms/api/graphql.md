@@ -2,17 +2,17 @@
 title: GraphQL API
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- documentId
-- filters
-- GraphQL
-- mutation
-- pagination
-- pagination by offset
-- pagination by page
-- plural API ID
-- sort
+  - API
+  - Content API
+  - documentId
+  - filters
+  - GraphQL
+  - mutation
+  - pagination
+  - pagination by offset
+  - pagination by page
+  - plural API ID
+  - sort
 ---
 
 import DeepFilteringBlogLink from '/docs/snippets/deep-filtering-blog.md'
@@ -46,8 +46,8 @@ npm install @strapi/plugin-graphql
 Once installed, the GraphQL playground is accessible at the `/graphql` URL and can be used to interactively build your queries and mutations and read documentation tailored to your content-types:
 
 <ThemedImage
-  alt="GraphQL playground use example"
-  sources={{
+alt="GraphQL playground use example"
+sources={{
     light:'/img/assets/apis/use-graphql-playground.gif',
     dark:'/img/assets/apis/use-graphql-playground_DARK.gif',
   }}
@@ -58,14 +58,14 @@ Once installed, the GraphQL playground is accessible at the `/graphql` URL and c
 The GraphQL plugin exposes only one endpoint that handles all queries and mutations. The default endpoint is `/graphql` and is defined in the [plugins configuration file](/cms/plugins/graphql#code-based-configuration):
 
 ```js title="/config/plugins.js|ts"
-  export default {
-    shadowCRUD: true,
-    endpoint: '/graphql', // <— single GraphQL endpoint
-    subscriptions: false,
-    maxLimit: -1,
-    apolloServer: {},
-    v4CompatibilityMode: process.env.STRAPI_GRAPHQL_V4_COMPATIBILITY_MODE ?? false,
-  };
+export default {
+  shadowCRUD: true,
+  endpoint: '/graphql', // <— single GraphQL endpoint
+  subscriptions: false,
+  maxLimit: -1,
+  apolloServer: {},
+  v4CompatibilityMode: process.env.STRAPI_GRAPHQL_V4_COMPATIBILITY_MODE ?? false,
+};
 ```
 
 :::note No GraphQL API to upload media files
@@ -83,7 +83,7 @@ Queries in GraphQL are used to fetch data without modifying it.
 When a content-type is added to your project, 2 automatically generated GraphQL queries are added to your schema, named after the content-type's singular and plural API IDs, as in the following example:
 
 | Content-type display name | Singular API ID | Plural API ID |
-|---------------------------|-----------------|---------------|
+| ------------------------- | --------------- | ------------- |
 | Restaurant                | `restaurant`    | `restaurants` |
 
 <details>
@@ -119,7 +119,6 @@ Documents <DocumentDefinition/> can be fetched by their `documentId`.
 To fetch multiple documents <DocumentDefinition/> you can use simple, flat queries or <ExternalLink to="https://www.apollographql.com/docs/technotes/TN0029-relay-style-connections/" text="Relay-style"/> queries:
 
 Flat queries return only the requested fields for each document. Relay-style queries end with `_connection` and return a `nodes` array together with a `pageInfo` object. Use Relay-style queries when you need pagination metadata.
-
 
 <Tabs groupId="flat-relay">
 
@@ -204,7 +203,7 @@ The following example fetches all documents from the "Restaurant" content-type u
         nodes {
           documentId
           name
-        } 
+        }
       }
     }
     pageInfo {
@@ -239,7 +238,7 @@ This works:
         nodes {
           documentId
           name
-        } 
+        }
       }
     }
     pageInfo {
@@ -392,7 +391,7 @@ The following example fetches data for the `label` attribute of a "Closingperiod
   restaurants {
     dz {
       __typename
-      ...on ComponentDefaultClosingperiod {
+      ... on ComponentDefaultClosingperiod {
         # define which attributes to return for the component
         label
       }
@@ -443,13 +442,13 @@ Aggregations follow the same filters, locale, publication status, and permission
 
 The table below lists all supported aggregation operators:
 
-| Operator | Description | Supported field types |
-| --- | --- | --- |
-| `count` | Returns the number of documents that match the query. | All content-types |
-| `avg` | Computes the arithmetic mean per numeric field. | Number, integer, decimal |
-| `sum` | Computes the total per numeric field. | Number, integer, decimal |
-| `min` | Returns the smallest value per field. | Number, integer, decimal, date, datetime |
-| `max` | Returns the largest value per field. | Number, integer, decimal, date, datetime |
+| Operator  | Description                                                                       | Supported field types                                              |
+| --------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `count`   | Returns the number of documents that match the query.                             | All content-types                                                  |
+| `avg`     | Computes the arithmetic mean per numeric field.                                   | Number, integer, decimal                                           |
+| `sum`     | Computes the total per numeric field.                                             | Number, integer, decimal                                           |
+| `min`     | Returns the smallest value per field.                                             | Number, integer, decimal, date, datetime                           |
+| `max`     | Returns the largest value per field.                                              | Number, integer, decimal, date, datetime                           |
 | `groupBy` | Buckets results by unique values and exposes nested aggregations for each bucket. | Scalar fields (string, number, boolean, date, datetime), relations |
 
 :::note
@@ -513,11 +512,7 @@ Aggregations run on the entire result set that matches the query filters, not on
 
 ```graphql title="Example: Paginate takeaway restaurants and count all matches"
 {
-  restaurants_connection(
-    filters: { takeAway: { eq: true } }
-    pagination: { page: 2, pageSize: 5 }
-    sort: "name:asc"
-  ) {
+  restaurants_connection(filters: { takeAway: { eq: true } }, pagination: { page: 2, pageSize: 5 }, sort: "name:asc") {
     nodes {
       documentId
       name
@@ -546,11 +541,11 @@ When a content-type is added to your project, 3 automatically generated GraphQL 
 
 For instance, for a "Restaurant" content-type, the following mutations are generated:
 
-| Use case                                    | Singular API ID     |
-|---------------------------------------------|---------------------|
-| Create a new "Restaurant" document          | `createRestaurant`  |
-| Update an existing "Restaurant" restaurant  | `updateRestaurant`  |
-| Delete an existing "Restaurant" restaurant  | `deleteRestaurant`  |
+| Use case                                   | Singular API ID    |
+| ------------------------------------------ | ------------------ |
+| Create a new "Restaurant" document         | `createRestaurant` |
+| Update an existing "Restaurant" restaurant | `updateRestaurant` |
+| Delete an existing "Restaurant" restaurant | `deleteRestaurant` |
 
 ### Create a new document
 
@@ -558,17 +553,15 @@ When creating new documents, the `data` argument will have an associated input t
 
 For instance, if your Strapi project contains the "Restaurant" content-type, you will have the following:
 
-| Mutation           | Argument         | Input type         |
-|--------------------|------------------|--------------------|
-| `createRestaurant` | `data`           | `RestaurantInput!` |
+| Mutation           | Argument | Input type         |
+| ------------------ | -------- | ------------------ |
+| `createRestaurant` | `data`   | `RestaurantInput!` |
 
 The following example creates a new document for the "Restaurant" content-type and returns its `name` and `documentId`:
 
 ```graphql
 mutation CreateRestaurant($data: RestaurantInput!) {
-  createRestaurant(data: {
-    name: "Pizzeria Arrivederci"
-  }) {
+  createRestaurant(data: { name: "Pizzeria Arrivederci" }) {
     name
     documentId
   }
@@ -581,10 +574,7 @@ The implementation of the mutations also supports relational attributes. For exa
 
 ```graphql
 mutation CreateCategory {
-  createCategory(data: { 
-    Name: "Italian Food"
-    restaurants: ["a1b2c3d4e5d6f7g8h9i0jkl", "bf97tfdumkcc8ptahkng4puo"]
-  }) {
+  createCategory(data: { Name: "Italian Food", restaurants: ["a1b2c3d4e5d6f7g8h9i0jkl", "bf97tfdumkcc8ptahkng4puo"] }) {
     documentId
     Name
     restaurants {
@@ -605,18 +595,15 @@ When updating an existing document <DocumentDefinition/>, pass the `documentId` 
 
 For instance, if your Strapi project contains the "Restaurant" content-type, you will have the following:
 
-| Mutation           | Argument         | Input type         |
-|--------------------|------------------|--------------------|
-| `updateRestaurant` | `data`           | `RestaurantInput!` |
+| Mutation           | Argument | Input type         |
+| ------------------ | -------- | ------------------ |
+| `updateRestaurant` | `data`   | `RestaurantInput!` |
 
 For instance, the following example updates an existing document from the "Restaurants" content-type and give it a new name:
 
 ```graphql
 mutation UpdateRestaurant($documentId: ID!, $data: RestaurantInput!) {
-  updateRestaurant(
-    documentId: "bf97tfdumkcc8ptahkng4puo",
-    data: { name: "Pizzeria Amore" }
-  ) {
+  updateRestaurant(documentId: "bf97tfdumkcc8ptahkng4puo", data: { name: "Pizzeria Amore" }) {
     documentId
     name
   }
@@ -635,10 +622,7 @@ For instance, the following example updates a document from the "Restaurant" con
 
 ```graphql
 mutation UpdateRestaurant($documentId: ID!, $data: RestaurantInput!) {
-  updateRestaurant(
-    documentId: "slwsiopkelrpxpvpc27953je",
-    data: { categories: ["kbbvj00fjiqoaj85vmylwi17"] }
-  ) {
+  updateRestaurant(documentId: "slwsiopkelrpxpvpc27953je", data: { categories: ["kbbvj00fjiqoaj85vmylwi17"] }) {
     documentId
     name
     categories {
@@ -676,8 +660,8 @@ Media fields mutations use files `id`. However, GraphQL API queries in Strapi 5 
 - either in the [Media Library](/cms/features/media-library) from the admin panel,
 
   <ThemedImage
-    alt="Media Library screenshot highlighting how to find a media file id"
-    sources={{
+  alt="Media Library screenshot highlighting how to find a media file id"
+  sources={{
       light: '/img/assets/apis/media-field-id.png',
       dark: '/img/assets/apis/media-field-id.png'
     }}
@@ -691,20 +675,15 @@ When updating an uploaded media file, pass the media's `id` (not its `documentId
 
 For instance, if your Strapi project contains the "Restaurant" content-type, you will have the following:
 
-| Mutation           | Argument         | Input type         |
-|--------------------|------------------|--------------------|
-| `updateUploadFile` | `info`           | `FileInfoInput!`   |
+| Mutation           | Argument | Input type       |
+| ------------------ | -------- | ---------------- |
+| `updateUploadFile` | `info`   | `FileInfoInput!` |
 
 For instance, the following example updates the `alternativeText` attribute for a media file whose `id` is 3:
 
 ```graphql
 mutation Mutation($updateUploadFileId: ID!, $info: FileInfoInput) {
-  updateUploadFile(
-    id: 3,
-    info: {
-      alternativeText: "New alt text"
-    }
-  ) {
+  updateUploadFile(id: 3, info: { alternativeText: "New alt text" }) {
     documentId
     url
     alternativeText
@@ -925,33 +904,21 @@ The following operators are available:
 ```graphql title="Simple examples for logical operators (and, or, not)"
 # and - both category must be "pizza" AND averagePrice must be < 20
 {
-  restaurants(filters: {
-    and: [
-      { category: { eq: "pizza" } },
-      { averagePrice: { lt: 20 } }
-    ]
-  }) {
+  restaurants(filters: { and: [{ category: { eq: "pizza" } }, { averagePrice: { lt: 20 } }] }) {
     name
   }
 }
 
 # or - category is "pizza" OR category is "burger"
 {
-  restaurants(filters: {
-    or: [
-      { category: { eq: "pizza" } },
-      { category: { eq: "burger" } }
-    ]
-  }) {
+  restaurants(filters: { or: [{ category: { eq: "pizza" } }, { category: { eq: "burger" } }] }) {
     name
   }
 }
 
 # not - category must NOT be "pizza"
 {
-  restaurants(filters: {
-    not: { category: { eq: "pizza" } }
-  }) {
+  restaurants(filters: { not: { category: { eq: "pizza" } } }) {
     name
   }
 }
@@ -963,12 +930,7 @@ The following operators are available:
     filters: {
       and: [
         { not: { averagePrice: { gte: 20 } } }
-        {
-          or: [
-            { name: { eq: "Pizzeria" } }
-            { name: { startsWith: "Pizzeria" } }
-          ]
-        }
+        { or: [{ name: { eq: "Pizzeria" } }, { name: { startsWith: "Pizzeria" } }] }
       ]
     }
   ) {
@@ -985,7 +947,7 @@ The following operators are available:
 
 Queries can accept a `sort` parameter with the following syntax:
 
-- to sort based on a single value: `sort: "value"` 
+- to sort based on a single value: `sort: "value"`
 - to sort based on multiple values: `sort: ["value1", "value2"]`
 
 The sorting order can be defined with `:asc` (ascending order, default, can be omitted) or `:desc` (for descending order).
@@ -1029,10 +991,10 @@ Pagination methods can not be mixed. Always use either `page` with `pageSize` or
 
 ### Pagination by page
 
-| Parameter              | Description | Default |
-| ---------------------- | ----------- | ------- |
-| `pagination.page`      | Page number | 1       |
-| `pagination.pageSize`  | Page size   | 10      |
+| Parameter             | Description | Default |
+| --------------------- | ----------- | ------- |
+| `pagination.page`     | Page number | 1       |
+| `pagination.pageSize` | Page size   | 10      |
 
 ```graphql title="Example query: Pagination by page"
 {
@@ -1094,7 +1056,7 @@ To fetch all documents <DocumentDefinition/> for a specific locale, pass the `lo
 
 <ApiCall>
 
-<Request> 
+<Request>
 
 ```graphql
 query {
@@ -1123,7 +1085,7 @@ query {
         "documentId": "m9n8o7p6q5r4s3t2u1v0wxyz",
         "name": "Pizzeria Arrivederci",
         "locale": "fr"
-      },
+      }
     ]
   }
 }
@@ -1139,7 +1101,7 @@ To fetch a documents <DocumentDefinition/> for a specific locale, pass the `docu
 
 <ApiCall>
 
-<Request title="Example query"> 
+<Request title="Example query">
 
 ```graphql
 query Restaurant($documentId: ID!, $locale: I18NLocaleCode) {
@@ -1154,7 +1116,7 @@ query Restaurant($documentId: ID!, $locale: I18NLocaleCode) {
 
 </Request>
 
- <Response title="Example response"> 
+ <Response title="Example response">
 
 ```json
 {
@@ -1226,7 +1188,7 @@ mutation DeleteRestaurant($documentId: ID!, $locale: I18NLocaleCode) {
 
 ## Advanced use cases
 
-Click on the following cards for short guides on more advanced use cases leveraging the GraphQL API and Strapi features: 
+Click on the following cards for short guides on more advanced use cases leveraging the GraphQL API and Strapi features:
 
 <CustomDocCardsWrapper>
   <CustomDocCard emoji="🖼️" title="Advanced queries" description="View examples of multi-level queries and custom resolver chains for the GraphQL API." link="/cms/api/graphql/advanced-queries" />

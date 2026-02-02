@@ -8,12 +8,7 @@
   "attributes": {
     "status": {
       "type": "enumeration",
-      "enum": [
-        "Pending",
-        "Valid",
-        "Invalid",
-        "Warning"
-      ],
+      "enum": ["Pending", "Valid", "Invalid", "Warning"],
       "default": "Pending",
       "required": true
     },

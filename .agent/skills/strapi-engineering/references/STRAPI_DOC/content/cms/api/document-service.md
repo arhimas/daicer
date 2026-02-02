@@ -3,11 +3,11 @@ title: Document Service API
 description: The Document Service API is the recommended way to interact with your content from the back-end server or from plugins.
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- Documents
-- documentId
-- Document Service API
+  - API
+  - Content API
+  - Documents
+  - documentId
+  - Document Service API
 toc_max_heading_level: 4
 ---
 
@@ -60,18 +60,18 @@ Optionally, document objects can also include a `status` and `locale` property i
 
 Each section below documents the parameters and examples for a specific method:
 
-| Method | Purpose |
-| --- | --- |
-| [`findOne()`](#findone) | Fetch a document by `documentId`, optionally scoping to a locale or status. |
-| [`findFirst()`](#findfirst) | Return the first document that matches filters. |
-| [`findMany()`](#findmany) | List documents with filters, sorting, and pagination. |
-| [`create()`](#create) | Create a document, optionally targeting a locale. |
-| [`update()`](#update) | Update a document by `documentId`. |
-| [`delete()`](#delete) | Delete a document or a specific locale version. |
-| [`publish()`](#publish) | Publish the draft version of a document. |
-| [`unpublish()`](#unpublish) | Move a published document back to draft. |
-| [`discardDraft()`](#discarddraft) | Drop draft data and keep only the published version. |
-| [`count()`](#count) | Count how many documents match the parameters. |
+| Method                            | Purpose                                                                     |
+| --------------------------------- | --------------------------------------------------------------------------- |
+| [`findOne()`](#findone)           | Fetch a document by `documentId`, optionally scoping to a locale or status. |
+| [`findFirst()`](#findfirst)       | Return the first document that matches filters.                             |
+| [`findMany()`](#findmany)         | List documents with filters, sorting, and pagination.                       |
+| [`create()`](#create)             | Create a document, optionally targeting a locale.                           |
+| [`update()`](#update)             | Update a document by `documentId`.                                          |
+| [`delete()`](#delete)             | Delete a document or a specific locale version.                             |
+| [`publish()`](#publish)           | Publish the draft version of a document.                                    |
+| [`unpublish()`](#unpublish)       | Move a published document back to draft.                                    |
+| [`discardDraft()`](#discarddraft) | Drop draft data and keep only the published version.                        |
+| [`count()`](#count)               | Count how many documents match the parameters.                              |
 
 ### `findOne()`
 
@@ -81,13 +81,13 @@ Syntax: `findOne(parameters: Params) => Document`
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `documentId` | Document id | | `ID` |
-| [`locale`](/cms/api/document-service/locale#find-one)|  Locale of the document to find. | Default locale | String or `undefined` |
-| [`status`](/cms/api/document-service/status#find-one) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents</li><li>`'draft'` to find only draft documents</li></ul> | `'draft'` | `'published'` or `'draft'` |
-| [`fields`](/cms/api/document-service/fields#findone)   | [Select fields](/cms/api/document-service/fields#findone) to return   | All fields<br/>(except those not populated by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                             | Description                                                                                                                                                                                                                              | Default                                                | Type                       |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | -------------------------- |
+| `documentId`                                          | Document id                                                                                                                                                                                                                              |                                                        | `ID`                       |
+| [`locale`](/cms/api/document-service/locale#find-one) | Locale of the document to find.                                                                                                                                                                                                          | Default locale                                         | String or `undefined`      |
+| [`status`](/cms/api/document-service/status#find-one) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents</li><li>`'draft'` to find only draft documents</li></ul> | `'draft'`                                              | `'published'` or `'draft'` |
+| [`fields`](/cms/api/document-service/fields#findone)  | [Select fields](/cms/api/document-service/fields#findone) to return                                                                                                                                                                      | All fields<br/>(except those not populated by default) | Object                     |
+| [`populate`](/cms/api/document-service/populate)      | [Populate](/cms/api/document-service/populate) results with additional fields.                                                                                                                                                           | `null`                                                 | Object                     |
 
 #### Example
 
@@ -99,8 +99,8 @@ If only a `documentId` is passed without any other parameters, `findOne()` retur
 
 ```js
 await strapi.documents('api::restaurant.restaurant').findOne({
-  documentId: 'a1b2c3d4e5f6g7h8i9j0klm'
-})
+  documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
+});
 ```
 
 </Request>
@@ -127,17 +127,17 @@ The `findOne()` method returns the matching document if found, otherwise returns
 
 Find the first document matching the parameters.
 
-Syntax:  `findFirst(parameters: Params) => Document`
+Syntax: `findFirst(parameters: Params) => Document`
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| [`locale`](/cms/api/document-service/locale#find-first) |  Locale of the documents to find. | Default locale | String or `undefined` |
-| [`status`](/cms/api/document-service/status#find-first) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents</li><li>`'draft'` to find only draft documents</li></ul> | `'draft'` | `'published'` or `'draft'` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#findfirst)   | [Select fields](/cms/api/document-service/fields#findfirst) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                               | Description                                                                                                                                                                                                                              | Default                                               | Type                       |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------------------------- |
+| [`locale`](/cms/api/document-service/locale#find-first) | Locale of the documents to find.                                                                                                                                                                                                         | Default locale                                        | String or `undefined`      |
+| [`status`](/cms/api/document-service/status#find-first) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents</li><li>`'draft'` to find only draft documents</li></ul> | `'draft'`                                             | `'published'` or `'draft'` |
+| [`filters`](/cms/api/document-service/filters)          | [Filters](/cms/api/document-service/filters) to use                                                                                                                                                                                      | `null`                                                | Object                     |
+| [`fields`](/cms/api/document-service/fields#findfirst)  | [Select fields](/cms/api/document-service/fields#findfirst) to return                                                                                                                                                                    | All fields<br/>(except those not populate by default) | Object                     |
+| [`populate`](/cms/api/document-service/populate)        | [Populate](/cms/api/document-service/populate) results with additional fields.                                                                                                                                                           | `null`                                                | Object                     |
 
 #### Examples
 
@@ -152,7 +152,7 @@ By default, `findFirst()` returns the draft version, in the default locale, of t
 <Request title="Find the first document">
 
 ```js
-await strapi.documents('api::restaurant.restaurant').findFirst()
+await strapi.documents('api::restaurant.restaurant').findFirst();
 ```
 
 </Request>
@@ -184,15 +184,13 @@ If no `locale` or `status` parameters are passed, results return the draft versi
 <Request title="Find the first document that matches the defined filters">
 
 ```js
-await strapi.documents('api::restaurant.restaurant').findFirst(
-  {
-    filters: {
-      name: {
-        $startsWith: "Pizzeria"
-      }
-    }
-  }
-)
+await strapi.documents('api::restaurant.restaurant').findFirst({
+  filters: {
+    name: {
+      $startsWith: 'Pizzeria',
+    },
+  },
+});
 ```
 
 </Request>
@@ -221,15 +219,15 @@ Syntax: `findMany(parameters: Params) => Document[]`
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| [`locale`](/cms/api/document-service/locale#find-many) |  Locale of the documents to find. | Default locale | String or `undefined` |
-| [`status`](/cms/api/document-service/status#find-many) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents</li><li>`'draft'` to find only draft documents</li></ul> | `'draft'` | `'published'` or `'draft'` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#findmany)   | [Select fields](/cms/api/document-service/fields#findmany) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
-| [`pagination`](/cms/api/document-service/sort-pagination#pagination) | [Paginate](/cms/api/document-service/sort-pagination#pagination) results |
-| [`sort`](/cms/api/document-service/sort-pagination#sort) | [Sort](/cms/api/document-service/sort-pagination#sort) results | | | 
+| Parameter                                                            | Description                                                                                                                                                                                                                              | Default                                               | Type                       |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------------------------- |
+| [`locale`](/cms/api/document-service/locale#find-many)               | Locale of the documents to find.                                                                                                                                                                                                         | Default locale                                        | String or `undefined`      |
+| [`status`](/cms/api/document-service/status#find-many)               | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents</li><li>`'draft'` to find only draft documents</li></ul> | `'draft'`                                             | `'published'` or `'draft'` |
+| [`filters`](/cms/api/document-service/filters)                       | [Filters](/cms/api/document-service/filters) to use                                                                                                                                                                                      | `null`                                                | Object                     |
+| [`fields`](/cms/api/document-service/fields#findmany)                | [Select fields](/cms/api/document-service/fields#findmany) to return                                                                                                                                                                     | All fields<br/>(except those not populate by default) | Object                     |
+| [`populate`](/cms/api/document-service/populate)                     | [Populate](/cms/api/document-service/populate) results with additional fields.                                                                                                                                                           | `null`                                                | Object                     |
+| [`pagination`](/cms/api/document-service/sort-pagination#pagination) | [Paginate](/cms/api/document-service/sort-pagination#pagination) results                                                                                                                                                                 |
+| [`sort`](/cms/api/document-service/sort-pagination#sort)             | [Sort](/cms/api/document-service/sort-pagination#sort) results                                                                                                                                                                           |                                                       |                            |
 
 #### Examples
 
@@ -244,7 +242,7 @@ When no parameter is passed, `findMany()` returns the draft version in the defau
 <Request title="Find documents that match a specific filter">
 
 ```js
-await strapi.documents('api::restaurant.restaurant').findMany()
+await strapi.documents('api::restaurant.restaurant').findMany();
 ```
 
 </Request>
@@ -254,20 +252,20 @@ await strapi.documents('api::restaurant.restaurant').findMany()
 ```js {5,6}
 [
   {
-    documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-    name: "Biscotte Restaurant",
+    documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
+    name: 'Biscotte Restaurant',
     publishedAt: null, // draft version (default)
-    locale: "en" // default locale
+    locale: 'en', // default locale
     // …
   },
   {
-    documentId: "j9k8l7m6n5o4p3q2r1s0tuv",
-    name: "Pizzeria Arrivederci",
+    documentId: 'j9k8l7m6n5o4p3q2r1s0tuv',
+    name: 'Pizzeria Arrivederci',
     publishedAt: null,
-    locale: "en"
+    locale: 'en',
     // …
   },
-]
+];
 ```
 
 </Response>
@@ -285,15 +283,13 @@ If no `locale` or `status` parameters are passed, results return the draft versi
 <Request title="Find documents that match a specific filter">
 
 ```js
-await strapi.documents('api::restaurant.restaurant').findMany(
-  {
-    filters: {  
-      name: {
-        $startsWith: 'Pizzeria'
-      }
-    }
-  }
-)
+await strapi.documents('api::restaurant.restaurant').findMany({
+  filters: {
+    name: {
+      $startsWith: 'Pizzeria',
+    },
+  },
+});
 ```
 
 </Request>
@@ -303,14 +299,14 @@ await strapi.documents('api::restaurant.restaurant').findMany(
 ```js
 [
   {
-    documentId: "j9k8l7m6n5o4p3q2r1s0tuv",
-    name: "Pizzeria Arrivederci",
-    locale: "en", // default locale
+    documentId: 'j9k8l7m6n5o4p3q2r1s0tuv',
+    name: 'Pizzeria Arrivederci',
+    locale: 'en', // default locale
     publishedAt: null, // draft version (default)
     // …
-  }, 
+  },
   // …
-]
+];
 ```
 
 </Response>
@@ -329,7 +325,7 @@ await documents('api:restaurant.restaurant').findMany({ locale: 'fr', fallbackLo
 
 ```js
 await documents('api:restaurant.restaurant').findMany({ locale: 'fr', populateLocales: ['en', 'it'] } );
-// Option of response forma for this case 
+// Option of response forma for this case
 {
   data: {
 		title: { "Wonderful" }
@@ -342,7 +338,7 @@ await documents('api:restaurant.restaurant').findMany({ locale: 'fr', populateLo
 
 
 await documents('api:restaurant.restaurant').findMany({ locale: ['en', 'it'] } );
-// Option of response format for this case 
+// Option of response format for this case
 {
   data: {
 		title: {
@@ -365,12 +361,12 @@ Syntax: `create(parameters: Params) => Document`
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| [`locale`](/cms/api/document-service/locale#create) | Locale of the documents to create. | Default locale | String or `undefined` |
-| [`fields`](/cms/api/document-service/fields#create)   | [Select fields](/cms/api/document-service/fields#create) to return   | All fields<br/>(except those not populated by default)  | Object |
-| [`status`](/cms/api/document-service/status#create) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Can be set to `'published'` to automatically publish the draft version of a document while creating it  | -| `'published'` |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                           | Description                                                                                                                                                                                         | Default                                                | Type                  |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------- |
+| [`locale`](/cms/api/document-service/locale#create) | Locale of the documents to create.                                                                                                                                                                  | Default locale                                         | String or `undefined` |
+| [`fields`](/cms/api/document-service/fields#create) | [Select fields](/cms/api/document-service/fields#create) to return                                                                                                                                  | All fields<br/>(except those not populated by default) | Object                |
+| [`status`](/cms/api/document-service/status#create) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Can be set to `'published'` to automatically publish the draft version of a document while creating it | -                                                      | `'published'`         |
+| [`populate`](/cms/api/document-service/populate)    | [Populate](/cms/api/document-service/populate) results with additional fields.                                                                                                                      | `null`                                                 | Object                |
 
 #### Example
 
@@ -383,9 +379,9 @@ If no `locale` parameter is passed, `create()` creates the draft version of the 
 ```js
 await strapi.documents('api::restaurant.restaurant').create({
   data: {
-    name: 'Restaurant B'
-  }
-})
+    name: 'Restaurant B',
+  },
+});
 ```
 
 </Request>
@@ -416,14 +412,14 @@ Syntax: `update(parameters: Params) => Promise<Document>`
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `documentId` | Document id | | `ID` |
-| [`locale`](/cms/api/document-service/locale#update) | Locale of the document to update. | Default locale | String or `null` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#update)   | [Select fields](/cms/api/document-service/fields#update) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`status`](/cms/api/document-service/status#update) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Can be set to `'published'` to automatically publish the draft version of a document while updating it  | - | `'published'` |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                           | Description                                                                                                                                                                                         | Default                                               | Type             |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------- |
+| `documentId`                                        | Document id                                                                                                                                                                                         |                                                       | `ID`             |
+| [`locale`](/cms/api/document-service/locale#update) | Locale of the document to update.                                                                                                                                                                   | Default locale                                        | String or `null` |
+| [`filters`](/cms/api/document-service/filters)      | [Filters](/cms/api/document-service/filters) to use                                                                                                                                                 | `null`                                                | Object           |
+| [`fields`](/cms/api/document-service/fields#update) | [Select fields](/cms/api/document-service/fields#update) to return                                                                                                                                  | All fields<br/>(except those not populate by default) | Object           |
+| [`status`](/cms/api/document-service/status#update) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Can be set to `'published'` to automatically publish the draft version of a document while updating it | -                                                     | `'published'`    |
+| [`populate`](/cms/api/document-service/populate)    | [Populate](/cms/api/document-service/populate) results with additional fields.                                                                                                                      | `null`                                                | Object           |
 
 :::tip
 Published versions are read-only, so you can not technically update the published version of a document.
@@ -431,7 +427,7 @@ To update a document and publish the new version right away, you can:
 
 - update its draft version with `update()`, then [publish it](#publish) with `publish()`,
 - or directly add `status: 'published'` along with the other parameters passed to `update()` (see [`status` documentation](/cms/api/document-service/status#update)).
-:::
+  :::
 
 :::caution
 It's not recommended to update repeatable components with the Document Service API (see the related [breaking change entry](/cms/migration/v4-to-v5/breaking-changes/do-not-update-repeatable-components-with-document-service-api.md) for more details).
@@ -446,10 +442,10 @@ If no `locale` parameter is passed, `update()` updates the document for the defa
 <Request>
 
 ```js
-await strapi.documents('api::restaurant.restaurant').update({ 
-    documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
-    data: { name: "New restaurant name" }
-})
+await strapi.documents('api::restaurant.restaurant').update({
+  documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
+  data: { name: 'New restaurant name' },
+});
 ```
 
 </Request>
@@ -486,13 +482,13 @@ Syntax: `delete(parameters: Params): Promise<{ documentId: ID, entries: Number }
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `documentId`| Document id | | `ID`|
-| [`locale`](/cms/api/document-service/locale#delete) | Locale version of the document to delete. | `null`<br/>(deletes only the default locale) | String, `'*'`, or `null` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#delete)   | [Select fields](/cms/api/document-service/fields#delete) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                           | Description                                                                    | Default                                               | Type                     |
+| --------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------ |
+| `documentId`                                        | Document id                                                                    |                                                       | `ID`                     |
+| [`locale`](/cms/api/document-service/locale#delete) | Locale version of the document to delete.                                      | `null`<br/>(deletes only the default locale)          | String, `'*'`, or `null` |
+| [`filters`](/cms/api/document-service/filters)      | [Filters](/cms/api/document-service/filters) to use                            | `null`                                                | Object                   |
+| [`fields`](/cms/api/document-service/fields#delete) | [Select fields](/cms/api/document-service/fields#delete) to return             | All fields<br/>(except those not populate by default) | Object                   |
+| [`populate`](/cms/api/document-service/populate)    | [Populate](/cms/api/document-service/populate) results with additional fields. | `null`                                                | Object                   |
 
 #### Example
 
@@ -503,11 +499,10 @@ If no `locale` parameter is passed, `delete()` only deletes the default locale v
 ```js
 await strapi.documents('api::restaurant.restaurant').delete({
   documentId: 'a1b2c3d4e5f6g7h8i9j0klm', // documentId,
-})
+});
 ```
 
 </Request>
-
 
 <Response>
 
@@ -555,13 +550,13 @@ Syntax: `publish(parameters: Params): Promise<{ documentId: ID, entries: Number 
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `documentId`| Document id | | `ID`|
-| [`locale`](/cms/api/document-service/locale#publish) | Locale of the documents to publish. | Only the default locale | String, `'*'`, or `null` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#publish)   | [Select fields](/cms/api/document-service/fields#publish) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                            | Description                                                                    | Default                                               | Type                     |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------ |
+| `documentId`                                         | Document id                                                                    |                                                       | `ID`                     |
+| [`locale`](/cms/api/document-service/locale#publish) | Locale of the documents to publish.                                            | Only the default locale                               | String, `'*'`, or `null` |
+| [`filters`](/cms/api/document-service/filters)       | [Filters](/cms/api/document-service/filters) to use                            | `null`                                                | Object                   |
+| [`fields`](/cms/api/document-service/fields#publish) | [Select fields](/cms/api/document-service/fields#publish) to return            | All fields<br/>(except those not populate by default) | Object                   |
+| [`populate`](/cms/api/document-service/populate)     | [Populate](/cms/api/document-service/populate) results with additional fields. | `null`                                                | Object                   |
 
 #### Example
 
@@ -620,13 +615,13 @@ Syntax: `unpublish(parameters: Params): Promise<{ documentId: ID, entries: Numbe
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `documentId`| Document id | | `ID`|
-| [`locale`](/cms/api/document-service/locale#unpublish) | Locale of the documents to unpublish. | Only the default locale | String, `'*'`, or `null` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#unpublish)   | [Select fields](/cms/api/document-service/fields#unpublish) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                              | Description                                                                    | Default                                               | Type                     |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------ |
+| `documentId`                                           | Document id                                                                    |                                                       | `ID`                     |
+| [`locale`](/cms/api/document-service/locale#unpublish) | Locale of the documents to unpublish.                                          | Only the default locale                               | String, `'*'`, or `null` |
+| [`filters`](/cms/api/document-service/filters)         | [Filters](/cms/api/document-service/filters) to use                            | `null`                                                | Object                   |
+| [`fields`](/cms/api/document-service/fields#unpublish) | [Select fields](/cms/api/document-service/fields#unpublish) to return          | All fields<br/>(except those not populate by default) | Object                   |
+| [`populate`](/cms/api/document-service/populate)       | [Populate](/cms/api/document-service/populate) results with additional fields. | `null`                                                | Object                   |
 
 #### Example
 
@@ -638,7 +633,7 @@ If no `locale` parameter is passed, `unpublish()` only unpublishes the default l
 
 ```js
 await strapi.documents('api::restaurant.restaurant').unpublish({
-  documentId: 'a1b2c3d4e5f6g7h8i9j0klm' 
+  documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
 });
 ```
 
@@ -675,13 +670,13 @@ Syntax: `discardDraft(parameters: Params): Promise<{ documentId: ID, entries: Nu
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| `documentId`| Document id | | `ID`|
-| [`locale`](/cms/api/document-service/locale#discard-draft) | Locale of the documents to discard. | Only the default locale. | String, `'*'`, or `null` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
-| [`fields`](/cms/api/document-service/fields#discarddraft)   | [Select fields](/cms/api/document-service/fields#discarddraft) to return   | All fields<br/>(except those not populate by default)  | Object |
-| [`populate`](/cms/api/document-service/populate) | [Populate](/cms/api/document-service/populate) results with additional fields. | `null` | Object |
+| Parameter                                                  | Description                                                                    | Default                                               | Type                     |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------ |
+| `documentId`                                               | Document id                                                                    |                                                       | `ID`                     |
+| [`locale`](/cms/api/document-service/locale#discard-draft) | Locale of the documents to discard.                                            | Only the default locale.                              | String, `'*'`, or `null` |
+| [`filters`](/cms/api/document-service/filters)             | [Filters](/cms/api/document-service/filters) to use                            | `null`                                                | Object                   |
+| [`fields`](/cms/api/document-service/fields#discarddraft)  | [Select fields](/cms/api/document-service/fields#discarddraft) to return       | All fields<br/>(except those not populate by default) | Object                   |
+| [`populate`](/cms/api/document-service/populate)           | [Populate](/cms/api/document-service/populate) results with additional fields. | `null`                                                | Object                   |
 
 #### Example
 
@@ -693,7 +688,7 @@ If no `locale` parameter is passed, `discardDraft()` discards draft data and ove
 
 ```js
 strapi.documents.discardDraft({
-  documentId: 'a1b2c3d4e5f6g7h8i9j0klm', 
+  documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
 });
 ```
 
@@ -728,11 +723,11 @@ Syntax: `count(parameters: Params) => number`
 
 #### Parameters
 
-| Parameter | Description | Default | Type |
-|-----------|-------------|---------|------|
-| [`locale`](/cms/api/document-service/locale#count) | Locale of the documents to count | Default locale | String or `null` |
-| [`status`](/cms/api/document-service/status#count) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents </li><li>`'draft'` to find draft documents (will return all documents)</li></ul> | `'draft'` | `'published'` or `'draft'` |
-| [`filters`](/cms/api/document-service/filters) | [Filters](/cms/api/document-service/filters) to use | `null` | Object |
+| Parameter                                          | Description                                                                                                                                                                                                                                                      | Default        | Type                       |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------------------------- |
+| [`locale`](/cms/api/document-service/locale#count) | Locale of the documents to count                                                                                                                                                                                                                                 | Default locale | String or `null`           |
+| [`status`](/cms/api/document-service/status#count) | _If [Draft & Publish](/cms/features/draft-and-publish) is enabled for the content-type_:<br/>Publication status, can be: <ul><li>`'published'` to find only published documents </li><li>`'draft'` to find draft documents (will return all documents)</li></ul> | `'draft'`      | `'published'` or `'draft'` |
+| [`filters`](/cms/api/document-service/filters)     | [Filters](/cms/api/document-service/filters) to use                                                                                                                                                                                                              | `null`         | Object                     |
 
 :::note
 Since published documents necessarily also have a draft counterpart, a published document is still counted as having a draft version.
@@ -752,7 +747,7 @@ If no parameter is passed, the `count()` method the total number of documents fo
 <Request>
 
 ```js
-await strapi.documents('api::restaurant.restaurant').count()
+await strapi.documents('api::restaurant.restaurant').count();
 ```
 
 </Request>
@@ -768,7 +763,7 @@ If no `locale` parameter is passed, documents are counted for the default locale
 <Request>
 
 ```js
-strapi.documents('api::restaurant.restaurant').count({ status: 'published' })
+strapi.documents('api::restaurant.restaurant').count({ status: 'published' });
 ```
 
 </Request>
@@ -781,8 +776,8 @@ If no `locale` and no `status` parameter is passed, draft documents (which is th
 
 ```js
 /**
- * Count number of draft documents (default if status is omitted) 
- * in English (default locale) 
+ * Count number of draft documents (default if status is omitted)
+ * in English (default locale)
  * whose name starts with 'Pizzeria'
  */
 strapi.documents('api::restaurant.restaurant').count({ filters: { name: { $startsWith: "Pizzeria" }}})`

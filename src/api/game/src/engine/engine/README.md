@@ -1,4 +1,3 @@
-
 # The Game Engine
 
 This directory contains the runtime engine logic that processes inputs and updates the state.
@@ -6,7 +5,9 @@ This directory contains the runtime engine logic that processes inputs and updat
 ## Components
 
 ### `ActionDispatcher`
+
 The primary entry point for gameplay logic. It implements the "Command Pattern".
+
 - Accepts strict `Command` objects (Move, Attack, CastSpell).
 - Validates pre-conditions (Range, Resource Cost).
 - Resolves the outcome using deterministic RNG (`Alea`).

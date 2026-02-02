@@ -4,9 +4,9 @@ description: In Strapi 5, the 'strapi-utils' core package has been refactored. T
 sidebar_label: strapi-utils refactored
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - strapi-utils
- - upgrade to Strapi 5
+  - breaking changes
+  - strapi-utils
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -26,33 +26,33 @@ In Strapi 5, the `strapi-utils` core package has been refactored. This page list
 
 ## List of changes
 
-| Element                   |  Description of the change |
-|---------------------------|-----------------------------------------------------------------------------------------------------|
-| `arrays` utils            | Added, and moved the `stringIncludes` method inside it (see [additional notes](#additional-notes)). |
-| <ul><li>`dates` utils</li><li>`objects` utils</li><li>`async` utils</li><li>`strings` utils</li></ul> | Added (see [additional notes](#additional-notes)).| Added (see [additional notes](#additional-notes)). |
-| `strings.getCommonPath`    | Added |
-| `nameToSlug`               | Moved to `strings.nameToSlug` |
-| `nameToCollectionName`     | Moved to `strings.nameToCollectionName` |
-| `stringIncludes`           | Moved to `arrays.includesString` |
-| `stringEquals`             | Moved to `strings.isEqual` |
-| `isCamelCase`              | Moved to `strings.isCamelCase` |
-| `isKebabCase`              | Moved to `strings.isKebabCase` |
-| `toKebabCase`              | Moved to `strings.toKebabCase` |
-| `toRegressedEnumValue`     | Moved to `strings.toRegressedEnumValue` |
-| `startsWithANumber`        | Moved to `strings.startsWithANumber` |
-| `joinBy`                   | Moved to `strings.joinBy` |
-| `keysDeep` | Moved to `objects.keysDeep` |
-| `generateTimestampCode`    | Moved to `dates.timestampCode` |
-|  `pipeAsync`               | Moved to  `async.pipe` |
-|  `mapAsync`                | Moved to  `async.map` |
-|  `reduceAsync`             | Moved to  `async.reduce` |
-| `convertQueryParams`       | Replaced (see [additional notes](#additional-notes)). |
-| `validate` and `sanitize`  | Updated  (see [additional notes](#additional-notes)). |
-| `getCommonBeginning`       | Removed |
-| <ul><li>`getConfigUrls`</li><li>`getAbsoluteAdminUrl`</li><li>`getAbsoluteServerUrl`</li></ul> | Removed |
-| `forEachAsync`             | Removed |
-| `removeUndefined`          | Removed |
-| `templateConfiguration`    | Removed (see [additional notes](#additional-notes)). |
+| Element                                                                                               | Description of the change                                                                           |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `arrays` utils                                                                                        | Added, and moved the `stringIncludes` method inside it (see [additional notes](#additional-notes)). |
+| <ul><li>`dates` utils</li><li>`objects` utils</li><li>`async` utils</li><li>`strings` utils</li></ul> | Added (see [additional notes](#additional-notes)).                                                  | Added (see [additional notes](#additional-notes)). |
+| `strings.getCommonPath`                                                                               | Added                                                                                               |
+| `nameToSlug`                                                                                          | Moved to `strings.nameToSlug`                                                                       |
+| `nameToCollectionName`                                                                                | Moved to `strings.nameToCollectionName`                                                             |
+| `stringIncludes`                                                                                      | Moved to `arrays.includesString`                                                                    |
+| `stringEquals`                                                                                        | Moved to `strings.isEqual`                                                                          |
+| `isCamelCase`                                                                                         | Moved to `strings.isCamelCase`                                                                      |
+| `isKebabCase`                                                                                         | Moved to `strings.isKebabCase`                                                                      |
+| `toKebabCase`                                                                                         | Moved to `strings.toKebabCase`                                                                      |
+| `toRegressedEnumValue`                                                                                | Moved to `strings.toRegressedEnumValue`                                                             |
+| `startsWithANumber`                                                                                   | Moved to `strings.startsWithANumber`                                                                |
+| `joinBy`                                                                                              | Moved to `strings.joinBy`                                                                           |
+| `keysDeep`                                                                                            | Moved to `objects.keysDeep`                                                                         |
+| `generateTimestampCode`                                                                               | Moved to `dates.timestampCode`                                                                      |
+| `pipeAsync`                                                                                           | Moved to `async.pipe`                                                                               |
+| `mapAsync`                                                                                            | Moved to `async.map`                                                                                |
+| `reduceAsync`                                                                                         | Moved to `async.reduce`                                                                             |
+| `convertQueryParams`                                                                                  | Replaced (see [additional notes](#additional-notes)).                                               |
+| `validate` and `sanitize`                                                                             | Updated (see [additional notes](#additional-notes)).                                                |
+| `getCommonBeginning`                                                                                  | Removed                                                                                             |
+| <ul><li>`getConfigUrls`</li><li>`getAbsoluteAdminUrl`</li><li>`getAbsoluteServerUrl`</li></ul>        | Removed                                                                                             |
+| `forEachAsync`                                                                                        | Removed                                                                                             |
+| `removeUndefined`                                                                                     | Removed                                                                                             |
+| `templateConfiguration`                                                                               | Removed (see [additional notes](#additional-notes)).                                                |
 
 ## Additional Notes
 
@@ -78,7 +78,7 @@ In Strapi 5, the `strapi-utils` core package has been refactored. This page list
 
   convertQueryParams.transformParamsToQuery(...); // becomes the example below
 
-  // Strapi 5 
+  // Strapi 5
   // Those utils required the strapi app context, so we decided to expose a strapi service for it
   strapi.get('query-params').transform();
   ```
@@ -87,7 +87,7 @@ In Strapi 5, the `strapi-utils` core package has been refactored. This page list
 
   ```js
   // Strapi v4
-  import { validate, sanitize } from '@strapi/utils';
+  import { validate, sanitize } from '@strapi/utils';
 
   validate.contentAPI.xxx();
   sanitize.contentAPI.xxx();

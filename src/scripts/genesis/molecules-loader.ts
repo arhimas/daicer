@@ -18,12 +18,12 @@ async function main() {
   const { createStrapi } = await import('@strapi/strapi');
   const strapi = await createStrapi({
     appDir: backendRoot,
-    distDir: 'dist', 
+    distDir: 'dist',
   }).load();
 
   try {
     const moleculesDir = path.join(backendRoot, 'data/library/molecules');
-    
+
     // --- LOOKUPS ---
     console.log('\n🔎 Building Atom Lookups...');
     const damageTypes = await strapi.documents('api::damage-type.damage-type').findMany();
@@ -39,32 +39,32 @@ async function main() {
     console.log(`\n📚 Found ${spellFiles.length} spell definition files.`);
 
     for (const file of spellFiles) {
-        const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
-        console.log(`   Processing ${path.basename(file)} (${data.length} entries)...`);
-        
-        // ... (Spell logic remains same) ...
-        let upsertCount = 0;
-        for (const spell of data) {
-             const existing = await strapi.documents('api::spell.spell').findFirst({
-                filters: { slug: spell.slug }
-            });
-            const spellData = { ...spell, publishedAt: new Date() };
+      const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
+      console.log(`   Processing ${path.basename(file)} (${data.length} entries)...`);
 
-             if (existing) {
-                await strapi.documents('api::spell.spell').update({
-                    documentId: existing.documentId,
-                    data: spellData
-                });
-                process.stdout.write('.');
-            } else {
-                await strapi.documents('api::spell.spell').create({
-                    data: spellData
-                });
-                process.stdout.write('+');
-            }
-            upsertCount++;
+      // ... (Spell logic remains same) ...
+      let upsertCount = 0;
+      for (const spell of data) {
+        const existing = await strapi.documents('api::spell.spell').findFirst({
+          filters: { slug: spell.slug },
+        });
+        const spellData = { ...spell, publishedAt: new Date() };
+
+        if (existing) {
+          await strapi.documents('api::spell.spell').update({
+            documentId: existing.documentId,
+            data: spellData,
+          });
+          process.stdout.write('.');
+        } else {
+          await strapi.documents('api::spell.spell').create({
+            data: spellData,
+          });
+          process.stdout.write('+');
         }
-        console.log(`\n   ✅ Synced ${upsertCount} spells from ${path.basename(file)}.`);
+        upsertCount++;
+      }
+      console.log(`\n   ✅ Synced ${upsertCount} spells from ${path.basename(file)}.`);
     }
 
     // --- ITEMS ---
@@ -72,69 +72,72 @@ async function main() {
     console.log(`\n🛡️  Found ${itemFiles.length} item definition files.`);
 
     for (const file of itemFiles) {
-        const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
-        console.log(`   Processing ${path.basename(file)} (${data.length} entries)...`);
+      const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
+      console.log(`   Processing ${path.basename(file)} (${data.length} entries)...`);
 
-        let upsertCount = 0;
-        for (const item of data) {
-            // Resolve Relations for Equipment Data
-            if (item.equipment_data) {
-                // Resolve Damage Type
-                if (item.equipment_data.damage_type && typeof item.equipment_data.damage_type === 'string') {
-                    const dtId = damageTypeMap.get(item.equipment_data.damage_type);
-                    if (dtId) {
-                         item.equipment_data.damage_type = dtId;
-                    } else {
-                        console.warn(`\n   ⚠️  Warning: Damage Type '${item.equipment_data.damage_type}' not found for item '${item.slug}'.`);
-                        item.equipment_data.damage_type = null;
-                    }
-                }
-                // Resolve Weapon Properties
-                if (item.equipment_data.properties && Array.isArray(item.equipment_data.properties)) {
-                    item.equipment_data.properties = item.equipment_data.properties.map((slug: string) => {
-                         const wpId = weaponPropMap.get(slug);
-                         if (!wpId) console.warn(`\n   ⚠️  Warning: Property '${slug}' not found for item '${item.slug}'.`);
-                         return wpId;
-                    }).filter(Boolean);
-                }
-            }
-
-            // Idempotent Upsert
-            const existing = await strapi.documents('api::item.item').findFirst({
-                filters: { slug: item.slug }
-            });
-
-            const itemData = {
-                ...item,
-                publishedAt: new Date(),
-            };
-
-            if (existing) {
-                await strapi.documents('api::item.item').update({
-                    documentId: existing.documentId,
-                    data: itemData
-                });
-                process.stdout.write('.');
+      let upsertCount = 0;
+      for (const item of data) {
+        // Resolve Relations for Equipment Data
+        if (item.equipment_data) {
+          // Resolve Damage Type
+          if (item.equipment_data.damage_type && typeof item.equipment_data.damage_type === 'string') {
+            const dtId = damageTypeMap.get(item.equipment_data.damage_type);
+            if (dtId) {
+              item.equipment_data.damage_type = dtId;
             } else {
-                await strapi.documents('api::item.item').create({
-                    data: itemData
-                });
-                process.stdout.write('+');
+              console.warn(
+                `\n   ⚠️  Warning: Damage Type '${item.equipment_data.damage_type}' not found for item '${item.slug}'.`
+              );
+              item.equipment_data.damage_type = null;
             }
-            upsertCount++;
+          }
+          // Resolve Weapon Properties
+          if (item.equipment_data.properties && Array.isArray(item.equipment_data.properties)) {
+            item.equipment_data.properties = item.equipment_data.properties
+              .map((slug: string) => {
+                const wpId = weaponPropMap.get(slug);
+                if (!wpId) console.warn(`\n   ⚠️  Warning: Property '${slug}' not found for item '${item.slug}'.`);
+                return wpId;
+              })
+              .filter(Boolean);
+          }
         }
-        console.log(`\n   ✅ Synced ${upsertCount} items from ${path.basename(file)}.`);
+
+        // Idempotent Upsert
+        const existing = await strapi.documents('api::item.item').findFirst({
+          filters: { slug: item.slug },
+        });
+
+        const itemData = {
+          ...item,
+          publishedAt: new Date(),
+        };
+
+        if (existing) {
+          await strapi.documents('api::item.item').update({
+            documentId: existing.documentId,
+            data: itemData,
+          });
+          process.stdout.write('.');
+        } else {
+          await strapi.documents('api::item.item').create({
+            data: itemData,
+          });
+          process.stdout.write('+');
+        }
+        upsertCount++;
+      }
+      console.log(`\n   ✅ Synced ${upsertCount} items from ${path.basename(file)}.`);
     }
 
     console.log(`\n✨ \x1b[32mGenesis Molecules Load Complete!\x1b[0m\n`);
-
   } catch (error: any) {
     console.error('\n❌ Fatal Error:', error.message);
     if (error.details) {
-        console.error('Validation Errors:', JSON.stringify(error.details, null, 2));
+      console.error('Validation Errors:', JSON.stringify(error.details, null, 2));
     }
     if (error instanceof Error) {
-        console.error(error.stack);
+      console.error(error.stack);
     }
   } finally {
     await strapi.destroy();

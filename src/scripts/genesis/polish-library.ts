@@ -1,4 +1,3 @@
-
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -29,25 +28,25 @@ async function main() {
     const files = await glob(pattern, { cwd: backendRoot });
 
     console.log(`\n📚 Found ${files.length} library files to polish.`);
-    
+
     for (const file of files) {
-        const filePath = path.join(backendRoot, file);
-        const filename = path.basename(file);
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        
-        console.log(`   Processing \x1b[33m${filename}\x1b[0m (${data.length} entries)...`);
+      const filePath = path.join(backendRoot, file);
+      const filename = path.basename(file);
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-        const polishedData: any[] = [];
-        let modifiedCount = 0;
+      console.log(`   Processing \x1b[33m${filename}\x1b[0m (${data.length} entries)...`);
 
-        for (const entry of data) {
-            console.log(`   🎨 Polishing: ${entry.name}...`);
-            
-            // CONTEXT GATHERING
-            // TODO: In a real scenario, we would search Vector DB here.
-            // For now, we rely on the LLM's internal knowledge + Schema hint.
-            
-            const prompt = `
+      const polishedData: any[] = [];
+      let modifiedCount = 0;
+
+      for (const entry of data) {
+        console.log(`   🎨 Polishing: ${entry.name}...`);
+
+        // CONTEXT GATHERING
+        // TODO: In a real scenario, we would search Vector DB here.
+        // For now, we rely on the LLM's internal knowledge + Schema hint.
+
+        const prompt = `
 Role: You are a Legendary Game Designer and Fantasy Writer (D&D 5e Expert).
 Task: Polish the following Game Entity JSON. Make it "State of the Art".
 
@@ -65,39 +64,40 @@ Requirements:
 Make it feel premium, like a high-end TTRPG supplement.
 `;
 
-            try {
-                // Call Gemini
-                // We assume Gemini returns raw text, we might need to strip markdown block
-                let rawResponse = await llmService.generate(prompt);
-                
-                // Cleanup Markdown code blocks if present
-                rawResponse = rawResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-                
-                const polishedEntry = JSON.parse(rawResponse);
-                
-                // Merge back preserve ID/Slug integrity if LLM messed it (it shouldn't if prompted well, but safety first)
-                if (polishedEntry.slug !== entry.slug) {
-                     console.warn(`      ⚠️ LLM changed slug from ${entry.slug} to ${polishedEntry.slug}. Reverting.`);
-                     polishedEntry.slug = entry.slug;
-                }
-                
-                polishedData.push(polishedEntry);
-                modifiedCount++;
-                // process.stdout.write('✨');
-                
-            } catch (e) {
-                console.error(`      ❌ Failed to polish ${entry.name}: ${e.message}`);
-                polishedData.push(entry); // Keep original on failure
-            }
+        try {
+          // Call Gemini
+          // We assume Gemini returns raw text, we might need to strip markdown block
+          let rawResponse = await llmService.generate(prompt);
+
+          // Cleanup Markdown code blocks if present
+          rawResponse = rawResponse
+            .replace(/```json/g, '')
+            .replace(/```/g, '')
+            .trim();
+
+          const polishedEntry = JSON.parse(rawResponse);
+
+          // Merge back preserve ID/Slug integrity if LLM messed it (it shouldn't if prompted well, but safety first)
+          if (polishedEntry.slug !== entry.slug) {
+            console.warn(`      ⚠️ LLM changed slug from ${entry.slug} to ${polishedEntry.slug}. Reverting.`);
+            polishedEntry.slug = entry.slug;
+          }
+
+          polishedData.push(polishedEntry);
+          modifiedCount++;
+          // process.stdout.write('✨');
+        } catch (e) {
+          console.error(`      ❌ Failed to polish ${entry.name}: ${e.message}`);
+          polishedData.push(entry); // Keep original on failure
         }
-        
-        // Save back to disk
-        fs.writeFileSync(filePath, JSON.stringify(polishedData, null, 2));
-        console.log(`\n   💾 Overwrote \x1b[36m${filename}\x1b[0m with ${modifiedCount} polished entries.`);
+      }
+
+      // Save back to disk
+      fs.writeFileSync(filePath, JSON.stringify(polishedData, null, 2));
+      console.log(`\n   💾 Overwrote \x1b[36m${filename}\x1b[0m with ${modifiedCount} polished entries.`);
     }
 
     console.log(`\n✨ \x1b[32mPolishing Complete!\x1b[0m\n`);
-
   } catch (error) {
     console.error('\n❌ Fatal Error:', error);
   } finally {

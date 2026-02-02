@@ -3,15 +3,15 @@ title: Policies
 description: Strapi policies are functions that execute specific logic on each request before it reaches the controller. Policies can be customized according to your needs.
 displayed_sidebar: cmsSidebar
 tags:
-- backend customization
-- backend server
-- controllers
-- global policies
-- plugin policies
-- middlewares
-- policies
-- REST API 
-- routes
+  - backend customization
+  - backend server
+  - controllers
+  - global policies
+  - plugin policies
+  - middlewares
+  - policies
+  - REST API
+  - routes
 ---
 
 # Policies
@@ -35,7 +35,7 @@ Policies can be global or scoped. [Global policies](#global-policies) can be ass
 
 A new policy can be implemented:
 
-- with the [interactive CLI command `strapi generate`](/cms/cli#strapi-generate) 
+- with the [interactive CLI command `strapi generate`](/cms/cli#strapi-generate)
 - or manually by creating a JavaScript file in the appropriate folder (see [project structure](/cms/project-structure)):
   - `./src/policies/` for global policies
   - `./src/api/[api-name]/policies/` for API policies
@@ -50,9 +50,9 @@ Global policy implementation example:
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/policies/is-authenticated.js"
-
 module.exports = (policyContext, config, { strapi }) => {
-  if (policyContext.state.user) { // if a session is open
+  if (policyContext.state.user) {
+    // if a session is open
     // go to next policy or reach the controller's action
     return true;
   }
@@ -66,9 +66,9 @@ module.exports = (policyContext, config, { strapi }) => {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/policies/is-authenticated.ts"
-
 export default (policyContext, config, { strapi }) => {
-  if (policyContext.state.user) { // if a session is open
+  if (policyContext.state.user) {
+    // if a session is open
     // go to next policy or reach the controller's action
     return true;
   }
@@ -90,13 +90,13 @@ Policies can be configured using a `config` object:
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/[api-name]/policies/my-policy.js"
-
 module.exports = (policyContext, config, { strapi }) => {
-    if (policyContext.state.user.role.code === config.role) { // if user's role is the same as the one described in configuration
-      return true;
-    }
+  if (policyContext.state.user.role.code === config.role) {
+    // if user's role is the same as the one described in configuration
+    return true;
+  }
 
-    return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
+  return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
 };
 ```
 
@@ -105,14 +105,14 @@ module.exports = (policyContext, config, { strapi }) => {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/[api-name]/policies/my-policy.ts"
-
 export default (policyContext, config, { strapi }) => {
-    if (policyContext.state.user.role.code === config.role) { // if user's role is the same as the one described in configuration
-      return true;
-    }
+  if (policyContext.state.user.role.code === config.role) {
+    // if user's role is the same as the one described in configuration
+    return true;
+  }
 
-    return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
-  };
+  return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
+};
 ```
 
 </TabItem>
@@ -141,7 +141,6 @@ Global policies can be associated to any route in a project.
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.js"
-
 module.exports = {
   routes: [
     {
@@ -154,11 +153,11 @@ module.exports = {
           we call the global 'is-authenticated' policy,
           found at ./src/policies/is-authenticated.js.
          */
-        policies: ['global::is-authenticated']
-      }
-    }
-  ]
-}
+        policies: ['global::is-authenticated'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -166,7 +165,6 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/restaurant/routes/custom-restaurant.ts"
-
 export default {
   routes: [
     {
@@ -179,11 +177,11 @@ export default {
           we call the global 'is-authenticated' policy,
           found at ./src/policies/is-authenticated.js.
          */
-        policies: ['global::is-authenticated']
-      }
-    }
-  ]
-}
+        policies: ['global::is-authenticated'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -198,7 +196,6 @@ Plugins can add and expose policies to an application. For example, the [Users &
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.js"
-
 module.exports = {
   routes: [
     {
@@ -210,11 +207,11 @@ module.exports = {
           The `isAuthenticated` policy prodived with the `users-permissions` plugin 
           is executed before the `find` action in the `Restaurant.js` controller.
         */
-        policies: ['plugin::users-permissions.isAuthenticated']
-      }
-    }
-  ]
-}
+        policies: ['plugin::users-permissions.isAuthenticated'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -222,7 +219,6 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/restaurant/routes/custom-restaurant.ts"
-
 export default {
   routes: [
     {
@@ -234,11 +230,11 @@ export default {
           The `isAuthenticated` policy prodived with the `users-permissions` plugin 
           is executed before the `find` action in the `Restaurant.js` controller.
         */
-        policies: ['plugin::users-permissions.isAuthenticated']
-      }
-    }
-  ]
-}
+        policies: ['plugin::users-permissions.isAuthenticated'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -253,7 +249,6 @@ API policies are associated to the routes defined in the API where they have bee
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/policies/is-admin.js."
-
 module.exports = async (policyContext, config, { strapi }) => {
   if (policyContext.state.user.role.name === 'Administrator') {
     // Go to next policy or will reach the controller's action.
@@ -265,7 +260,6 @@ module.exports = async (policyContext, config, { strapi }) => {
 ```
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.js"
-
 module.exports = {
   routes: [
     {
@@ -277,13 +271,11 @@ module.exports = {
           The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.js`
           is executed before the `find` action in the `Restaurant.js` controller.
          */
-        policies: ['is-admin']
-      }
-    }
-  ]
-}
-
-
+        policies: ['is-admin'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -291,7 +283,6 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/restaurant/policies/is-admin.ts"
-
 export default (policyContext, config, { strapi }) => {
   if (policyContext.state.user.role.name === 'Administrator') {
     // Go to next policy or will reach the controller's action.
@@ -300,11 +291,9 @@ export default (policyContext, config, { strapi }) => {
 
   return false;
 };
-
 ```
 
 ```ts title="./src/api/restaurant/routes/custom-restaurant.ts"
-
 export default {
   routes: [
     {
@@ -316,12 +305,11 @@ export default {
           The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.js`
           is executed before the `find` action in the `Restaurant.ts` controller.
          */
-        policies: ['is-admin']
-      }
-    }
-  ]
-}
-
+        policies: ['is-admin'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -334,7 +322,6 @@ To use a policy in another API, reference it with the following syntax: `api::[a
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/category/routes/custom-category.js"
-
 module.exports = {
   routes: [
     {
@@ -346,11 +333,11 @@ module.exports = {
           The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.js`
           is executed before the `find` action in the `Restaurant.js` controller.
         */
-        policies: ['api::restaurant.is-admin']
-      }
-    }
-  ]
-}
+        policies: ['api::restaurant.is-admin'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>
@@ -358,7 +345,6 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/category/routes/custom-category.ts"
-
 export default {
   routes: [
     {
@@ -370,11 +356,11 @@ export default {
           The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.ts`
           is executed before the `find` action in the `Restaurant.js` controller.
         */
-        policies: ['api::restaurant.is-admin']
-      }
-    }
-  ]
-}
+        policies: ['api::restaurant.is-admin'],
+      },
+    },
+  ],
+};
 ```
 
 </TabItem>

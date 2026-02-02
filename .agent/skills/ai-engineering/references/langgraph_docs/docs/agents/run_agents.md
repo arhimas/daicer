@@ -1,8 +1,6 @@
 # Running agents
 
-
 Agents support execution using either `.invoke()` for full responses, or `.stream()` for **incremental** [streaming](#streaming-output) of the output. This section explains how to provide input, interpret output, enable streaming, and control execution limits.
-
 
 ## Basic usage
 
@@ -27,25 +25,24 @@ Agents use a language model that expects a list of `messages` as an input. There
 
 Agent input must be an object with a `messages` key. Supported formats are:
 
-| Format             | Example                                                                                                                       |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| String             | `{ messages: "Hello" }`  — Interpreted as a [HumanMessage](https://js.langchain.com/docs/concepts/messages/#humanmessage) |
-| Message object | `{ messages: { "role": "user", "content": "Hello" } }`                                                                          |
-| List of messages   | `{ messages: [ {"role": "user", "content": "Hello" } ] }`                                                                        |
-| With custom state  | `{ messages: [ {"role": "user", "content": "Hello"} ], "user_name": "Alice" }` — If using a custom `stateSchema`               |
+| Format            | Example                                                                                                                  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| String            | `{ messages: "Hello" }` — Interpreted as a [HumanMessage](https://js.langchain.com/docs/concepts/messages/#humanmessage) |
+| Message object    | `{ messages: { "role": "user", "content": "Hello" } }`                                                                   |
+| List of messages  | `{ messages: [ {"role": "user", "content": "Hello" } ] }`                                                                |
+| With custom state | `{ messages: [ {"role": "user", "content": "Hello"} ], "user_name": "Alice" }` — If using a custom `stateSchema`         |
 
 Messages are automatically converted into LangChain's internal message format. You can read
 more about [LangChain messages](https://js.langchain.com/docs/concepts/messages/#langchain-messages) in the LangChain documentation.
 
 !!! tip "Using custom agent state"
 
-    You can provide additional fields defined in your agent's state schema directly in the input dictionary. This allows dynamic behavior based on runtime data or prior tool outputs.  
+    You can provide additional fields defined in your agent's state schema directly in the input dictionary. This allows dynamic behavior based on runtime data or prior tool outputs.
     See the [context guide](./context.md) for full details.
 
 !!! note
 
     A string input for `messages` is converted to a [HumanMessage](https://js.langchain.com/docs/concepts/messages/#humanmessage). This behavior differs from the `prompt` parameter in `createReactAgent`, which is interpreted as a [SystemMessage](https://js.langchain.com/docs/concepts/messages/#systemmessage) when passed as a string.
-
 
 ## Output format
 
@@ -68,12 +65,10 @@ Agents support streaming responses for more responsive applications. This includ
 Streaming is available in both sync and async modes:
 
 ```ts
-for await (
-  const chunk of await agent.stream(
-    { messages: [ { role: "user", content: "what is the weather in sf" } ] },
-    { streamMode: "updates" },
-  )
-) {
+for await (const chunk of await agent.stream(
+  { messages: [{ role: 'user', content: 'what is the weather in sf' }] },
+  { streamMode: 'updates' }
+)) {
   console.log(chunk);
 }
 ```

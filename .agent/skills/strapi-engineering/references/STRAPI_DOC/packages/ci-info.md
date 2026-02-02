@@ -19,12 +19,12 @@ npm install ci-info --save
 ## Usage
 
 ```js
-var ci = require('ci-info')
+var ci = require('ci-info');
 
 if (ci.isCI) {
-  console.log('The name of the CI server is:', ci.name)
+  console.log('The name of the CI server is:', ci.name);
 } else {
-  console.log('This program is not running on a CI server')
+  console.log('This program is not running on a CI server');
 }
 ```
 
@@ -55,7 +55,7 @@ Officially supported CI servers:
 | [Gerrit CI](https://www.gerritcodereview.com)                                   | `ci.GERRIT`             | 🚫   |
 | [GitHub Actions](https://github.com/features/actions/)                          | `ci.GITHUB_ACTIONS`     | ✅   |
 | [GitLab CI](https://about.gitlab.com/gitlab-ci/)                                | `ci.GITLAB`             | ✅   |
-| [Gitea Actions](https://about.gitea.com/)                                       | `ci.GITEA_ACTIONS`      | 🚫  |
+| [Gitea Actions](https://about.gitea.com/)                                       | `ci.GITEA_ACTIONS`      | 🚫   |
 | [GoCD](https://www.go.cd/)                                                      | `ci.GOCD`               | 🚫   |
 | [Google Cloud Build](https://cloud.google.com/build)                            | `ci.GOOGLE_CLOUD_BUILD` | 🚫   |
 | [Harness CI](https://www.harness.io/products/continuous-integration)            | `ci.HARNESS`            | 🚫   |
@@ -122,10 +122,10 @@ complete list, see the support table above.
 
 ci-info has been ported to the following languages
 
-| Language | Repository |
-|----------|------------|
-| Go       | https://github.com/hofstadter-io/cinful |
-| Rust     | https://github.com/sagiegurari/ci_info |
+| Language | Repository                               |
+| -------- | ---------------------------------------- |
+| Go       | https://github.com/hofstadter-io/cinful  |
+| Rust     | https://github.com/sagiegurari/ci_info   |
 | Kotlin   | https://github.com/cloudflightio/ci-info |
 
 ## License

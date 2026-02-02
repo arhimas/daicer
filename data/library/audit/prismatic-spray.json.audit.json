@@ -17,13 +17,7 @@
         "components": "V, S",
         "duration": "Instantaneous",
         "save_type": "Dexterity (initial effect)",
-        "damage_types": [
-          "fire",
-          "acid",
-          "lightning",
-          "poison",
-          "cold"
-        ],
+        "damage_types": ["fire", "acid", "lightning", "poison", "cold"],
         "unique_mechanics": [
           {
             "effect_number": 6,

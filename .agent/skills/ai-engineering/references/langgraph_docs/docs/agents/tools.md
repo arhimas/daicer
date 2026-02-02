@@ -9,27 +9,27 @@ You can either [define your own tools](#define-tools) or use [prebuilt integrati
 You create tools using the [`tool`](https://api.js.langchain.com/functions/_langchain_core.tools.tool-1.html) function:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
 // highlight-next-line
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const multiply = tool(
   async (input: { a: number; b: number }) => {
     return input.a * input.b;
   },
   {
-    name: "multiply",
+    name: 'multiply',
     schema: z.object({
-      a: z.number().describe("First operand"),
-      b: z.number().describe("Second operand"),
+      a: z.number().describe('First operand'),
+      b: z.number().describe('Second operand'),
     }),
-    description: "Multiply two numbers.",
+    description: 'Multiply two numbers.',
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [multiply],
@@ -46,16 +46,16 @@ You can put these arguments in the `state` or `config` of the agent, and access
 this information inside the tool:
 
 ```ts
-import { z } from "zod";
-import { tool } from "@langchain/core/tools";
+import { z } from 'zod';
+import { tool } from '@langchain/core/tools';
 // highlight-next-line
 import {
   // highlight-next-line
   getCurrentTaskInput,
   // highlight-next-line
   LangGraphRunnableConfig,
-} from "@langchain/langgraph";
-import { MessagesAnnotation } from "@langchain/langgraph";
+} from '@langchain/langgraph';
+import { MessagesAnnotation } from '@langchain/langgraph';
 
 const myTool = tool(
   async (
@@ -75,11 +75,11 @@ const myTool = tool(
     // ...
   },
   {
-    name: "myTool",
+    name: 'myTool',
     schema: z.object({
-      myToolArg: z.number().describe("Tool arg"),
+      myToolArg: z.number().describe('Tool arg'),
     }),
-    description: "My tool.",
+    description: 'My tool.',
   }
 );
 ```
@@ -92,22 +92,22 @@ allow users to disable this feature.
 For supported providers, you can disable parallel tool calling by setting `parallel_tool_calls: false` via the `model.bindTools()` method:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { ChatOpenAI } from "@langchain/openai";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { ChatOpenAI } from '@langchain/openai';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const add = tool(
   async (input: { a: number; b: number }) => {
     return input.a + input.b;
   },
   {
-    name: "add",
+    name: 'add',
     schema: z.object({
-      a: z.number().describe("First operand"),
-      b: z.number().describe("Second operand"),
+      a: z.number().describe('First operand'),
+      b: z.number().describe('Second operand'),
     }),
-    description: "Add two numbers.",
+    description: 'Add two numbers.',
   }
 );
 
@@ -116,16 +116,16 @@ const multiply = tool(
     return input.a * input.b;
   },
   {
-    name: "multiply",
+    name: 'multiply',
     schema: z.object({
-      a: z.number().describe("First operand"),
-      b: z.number().describe("Second operand"),
+      a: z.number().describe('First operand'),
+      b: z.number().describe('Second operand'),
     }),
-    description: "Multiply two numbers.",
+    description: 'Multiply two numbers.',
   }
 );
 
-const llm = new ChatOpenAI({ model: "gpt-4.1" });
+const llm = new ChatOpenAI({ model: 'gpt-4.1' });
 
 const tools = [add, multiply];
 const agent = createReactAgent({
@@ -136,7 +136,7 @@ const agent = createReactAgent({
 });
 
 const response = await agent.invoke({
-  messages: [{ role: "user", content: "what's 3 + 5 and 4 * 7?" }],
+  messages: [{ role: 'user', content: "what's 3 + 5 and 4 * 7?" }],
 });
 ```
 
@@ -145,35 +145,35 @@ const response = await agent.invoke({
 Use `returnDirect: true` to return tool results immediately and stop the agent loop:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const add = tool(
   async (input: { a: number; b: number }) => {
     return input.a + input.b;
   },
   {
-    name: "add",
+    name: 'add',
     schema: z.object({
-      a: z.number().describe("First operand"),
-      b: z.number().describe("Second operand"),
+      a: z.number().describe('First operand'),
+      b: z.number().describe('Second operand'),
     }),
-    description: "Add two numbers.",
+    description: 'Add two numbers.',
     // highlight-next-line
     returnDirect: true,
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [add],
 });
 
 const response = await agent.invoke({
-  messages: [{ role: "user", content: "what's 3 + 5?" }],
+  messages: [{ role: 'user', content: "what's 3 + 5?" }],
 });
 ```
 
@@ -182,37 +182,37 @@ const response = await agent.invoke({
 To force the agent to use specific tools, you can set the `tool_choice` option in `model.bindTools()`:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const greet = tool(
   async (input: { userName: string }) => {
     return `Hello ${input.userName}!`;
   },
   {
-    name: "greet",
+    name: 'greet',
     schema: z.object({
-      userName: z.string().describe("Name of the user to greet"),
+      userName: z.string().describe('Name of the user to greet'),
     }),
-    description: "Greet user.",
+    description: 'Greet user.',
     // highlight-next-line
     returnDirect: true,
   }
 );
 
-const llm = new ChatAnthropic({ model: "claude-3-7-sonnet-latest" });
+const llm = new ChatAnthropic({ model: 'claude-3-7-sonnet-latest' });
 const tools = [greet];
 
 const agent = createReactAgent({
   // highlight-next-line
-  llm: llm.bindTools(tools, { tool_choice: { type: "tool", name: "greet" } }),
+  llm: llm.bindTools(tools, { tool_choice: { type: 'tool', name: 'greet' } }),
   tools,
 });
 
 const response = await agent.invoke({
-  messages: "Hi, I am Bob",
+  messages: 'Hi, I am Bob',
 });
 ```
 
@@ -315,18 +315,18 @@ By default, the agent will catch all exceptions raised during tool calls and wil
 You can use prebuilt tools from model providers by passing a dictionary with tool specs to the `tools` parameter of `createReactAgent`. For example, to use the `web_search_preview` tool from OpenAI:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
 
-const llm = await initChatModel("openai:gpt-4o-mini");
+const llm = await initChatModel('openai:gpt-4o-mini');
 
 const agent = createReactAgent({
   llm,
-  tools: [{ type: "web_search_preview" }],
+  tools: [{ type: 'web_search_preview' }],
 });
 
 const response = await agent.invoke({
-  messages: ["What was a positive news story from today?"],
+  messages: ['What was a positive news story from today?'],
 });
 ```
 

@@ -11,16 +11,22 @@ export default (config) => {
         { find: /^clean-css/, replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts') },
         { find: 'url', replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts') },
         { find: 'punycode', replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts') },
-        { find: 'postcss-selector-parser', replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts') },
-        { find: 'postcss-value-parser', replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts') },
+        {
+          find: 'postcss-selector-parser',
+          replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts'),
+        },
+        {
+          find: 'postcss-value-parser',
+          replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts'),
+        },
         { find: 'css-loader', replacement: require.resolve('../plugins/map-explorer/admin/src/shims/mock.ts') },
       ],
     },
     optimizeDeps: {
       exclude: [
-        'postcss', 
-        'source-map-js', 
-        'url', 
+        'postcss',
+        'source-map-js',
+        'url',
         'clean-css',
         'prismjs', // PrismJS causes optimization loops
         'punycode',
@@ -28,22 +34,10 @@ export default (config) => {
     },
     build: {
       rollupOptions: {
-        external: [
-            'postcss', 
-            'source-map-js', 
-            'url', 
-            'clean-css',
-            'punycode'
-        ],
+        external: ['postcss', 'source-map-js', 'url', 'clean-css', 'punycode'],
       },
       commonjsOptions: {
-        ignore: [
-            'postcss', 
-            'source-map-js', 
-            'url', 
-            'clean-css', 
-            'punycode'
-        ],
+        ignore: ['postcss', 'source-map-js', 'url', 'clean-css', 'punycode'],
       },
     },
   });

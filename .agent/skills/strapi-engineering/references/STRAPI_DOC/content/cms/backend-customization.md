@@ -3,23 +3,24 @@ title: Back-end customization
 description: All elements of Strapi's back end, like routes, policies, middlewares, controllers, services, models, requests, responses, and webhooks, can be customized.
 pagination_next: cms/backend-customization/requests-responses
 tags:
-- backend customization
-- backend server
-- Content-type Builder 
-- controllers
-- Document Service API 
-- global middlewares
-- GraphQL API
-- HTTP server
-- middlewares
-- Query Engine API
-- REST API 
-- route middlewares
+  - backend customization
+  - backend server
+  - Content-type Builder
+  - controllers
+  - Document Service API
+  - global middlewares
+  - GraphQL API
+  - HTTP server
+  - middlewares
+  - Query Engine API
+  - REST API
+  - route middlewares
 ---
 
 <div className="custom-mermaid-layout">
 
 # Backend customization
+
 <Tldr>
 Strapi’s back end is a Koa-based server where requests pass through global middlewares, routes, controllers, services, and models before the Document Service returns responses.
 </Tldr>
@@ -49,12 +50,12 @@ A request can travel through the Strapi back end as follows:
 5. [Controllers](/cms/backend-customization/controllers) execute code once a route has been reached. [Services](/cms/backend-customization/services) are optional, additional code that can be used to build custom logic reusable by controllers.
 6. The code executed by the controllers and services interacts with the [models](/cms/backend-customization/models) that are a representation of the content content structure stored in the database.<br />Interacting with the data represented by the models is handled by the [Document Service](/cms/api/document-service) and [Query Engine](/cms/api/query-engine).
 7. You can implement [Document Service middlewares](/cms/api/document-service/middlewares) to control the data before it's sent to the Query Engine. The Query Engine can also use lifecycle hooks though we recommend you use Document Service middlewares unless you absolutely need to directly interact with the database.
-7. The server returns a [response](/cms/backend-customization/requests-responses). The response can travel back through route middlewares and global middlewares before being sent.
+8. The server returns a [response](/cms/backend-customization/requests-responses). The response can travel back through route middlewares and global middlewares before being sent.
 
 Both global and route middlewares include an asynchronous callback function, `await next()`. Depending on what is returned by the middleware, the request will either go through a shorter or longer path through the back end:
 
-* If a middleware returns nothing, the request will continue travelling through the various core elements of the back end (i.e., controllers, services, and the other layers that interact with the database).
-* If a middleware returns before calling `await next()`, a response will be immediately sent, skipping the rest of the core elements. Then it will go back down the same chain it came up.
+- If a middleware returns nothing, the request will continue travelling through the various core elements of the back end (i.e., controllers, services, and the other layers that interact with the database).
+- If a middleware returns before calling `await next()`, a response will be immediately sent, skipping the rest of the core elements. Then it will go back down the same chain it came up.
 
 :::info
 Please note that all customizations described in the pages of this section are only for the REST API. [GraphQL customizations](/cms/plugins/graphql#customization) are described in the GraphQL plugin documentation.

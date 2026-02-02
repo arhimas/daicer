@@ -34,10 +34,7 @@ const ACTIONS = {
 To use the permission checker, retrieve it from the **content-manager** plugin:
 
 ```ts
-const permissionChecker = strapi
-  .plugin('content-manager')
-  .service('permission-checker')
-  .create({ userAbility, model });
+const permissionChecker = strapi.plugin('content-manager').service('permission-checker').create({ userAbility, model });
 ```
 
 - `userAbility`: The user's ability object containing their permissions. Accessed on the request context object: `ctx.state.userAbility`

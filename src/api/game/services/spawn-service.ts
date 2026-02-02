@@ -61,8 +61,8 @@ interface PopulatedBlueprint {
     };
   }>;
   spell_config?: {
-    prepared_spells?: Array<{ documentId: string; name?: string; }>;
-    known_spells?: Array<{ documentId: string; name?: string; }>;
+    prepared_spells?: Array<{ documentId: string; name?: string }>;
+    known_spells?: Array<{ documentId: string; name?: string }>;
   };
 }
 
@@ -346,7 +346,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     const activeSpells = [
       ...(character.spell_config?.prepared_spells || []),
       ...(character.spell_config?.known_spells || []),
-    ].map(s => ({ ...s, id: s.documentId, name: s.name || 'Unknown Spell' }));
+    ].map((s) => ({ ...s, id: s.documentId, name: s.name || 'Unknown Spell' }));
 
     // Calculate Stats
     const derived = EntityDeriver.derive({

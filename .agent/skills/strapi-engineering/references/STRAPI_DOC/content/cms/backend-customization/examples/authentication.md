@@ -6,7 +6,7 @@ pagination_prev: cms/backend-customization/examples
 pagination_next: cms/backend-customization/examples/services-and-controllers
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
 # Examples cookbook: Authentication flow with JWT
 
@@ -34,7 +34,6 @@ Let's add a basic login page to the front-end, <ExternalLink to="https://nextjs.
   <img src="/img/assets/backend-customization/tutorial-auth-flow.png" alt="Example login page" />
   <em><figcaption style={{ fontSize: '12px' }}>A possible example of a login form on the front-end website of FoodAdvisor</figcaption></em>
 </figure>
-
 
 </SideBySideColumn>
 </SideBySideContainer>
@@ -66,12 +65,11 @@ Additional information about JWT authentication can be found in the [Users & Per
 
 **🧑‍💻 Code example:**
 
-To achieve this, in the `/client` folder of the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> project, you could create a `pages/auth/login.js` file that contains the following example code.  Highlighted lines show the request sent to the `/auth/local` route provided by Strapi's Users & Permissions plugin:
+To achieve this, in the `/client` folder of the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> project, you could create a `pages/auth/login.js` file that contains the following example code. Highlighted lines show the request sent to the `/auth/local` route provided by Strapi's Users & Permissions plugin:
 
 This file uses the formik package - install it using `yarn add formik` and restart the dev server.
 
 ```jsx title="/client/pages/auth/login.js" {21-27}
-
 import React from 'react';
 import { useFormik } from 'formik';
 import { Button, Input } from '@nextui-org/react';
@@ -103,15 +101,15 @@ const Login = () => {
        */
       const { jwt } = await res.json();
       /**
-       * Stores the JWT in the localStorage of the browser. 
+       * Stores the JWT in the localStorage of the browser.
        * A better implementation would be to do this with an authentication context provider
        * or something more sophisticated, but it's not the purpose of this tutorial.
        */
-      localStorage.setItem('token', jwt); 
+      localStorage.setItem('token', jwt);
     },
   });
   /**
-   * The following code renders a basic login form 
+   * The following code renders a basic login form
    * accessible from the localhost:3000/auth/login page.
    */
   return (
@@ -119,13 +117,7 @@ const Login = () => {
       <div className="h-full w-full flex justify-center items-center my-24">
         <form onSubmit={handleSubmit} className="flex flex-col gap-y-6 w-4/12 ">
           <h1 className="font-bold text-3xl mb-6">Login</h1>
-          <Input
-            onChange={handleChange}
-            type="email"
-            name="identifier"
-            label="Email"
-            placeholder="Enter your email"
-          />
+          <Input onChange={handleChange} type="email" name="identifier" label="Email" placeholder="Enter your email" />
           <Input
             type="password"
             name="password"
@@ -228,13 +220,7 @@ const EnhancedLogin = () => {
       <div className="h-full w-full flex justify-center items-center my-24">
         <form onSubmit={handleSubmit} className="flex flex-col gap-y-6 w-4/12">
           <h1 className="font-bold text-3xl mb-6">Enhanced Login</h1>
-          <Input
-            onChange={handleChange}
-            type="email"
-            name="identifier"
-            label="Email"
-            placeholder="Enter your email"
-          />
+          <Input onChange={handleChange} type="email" name="identifier" label="Email" placeholder="Enter your email" />
           <Input
             type="password"
             name="password"
@@ -242,11 +228,7 @@ const EnhancedLogin = () => {
             placeholder="Enter your password"
             onChange={handleChange}
           />
-          <Button
-            type="submit"
-            className="bg-primary rounded-md text-muted"
-            disabled={isLoading}
-          >
+          <Button type="submit" className="bg-primary rounded-md text-muted" disabled={isLoading}>
             {isLoading ? 'Logging in...' : 'Login'}
           </Button>
         </form>
@@ -257,6 +239,7 @@ const EnhancedLogin = () => {
 
 export default EnhancedLogin;
 ```
+
 ```
 
 <br />
@@ -264,3 +247,4 @@ export default EnhancedLogin;
 :::strapi What's next?
 Learn more about how custom [services and controllers](/cms/backend-customization/examples/services-and-controllers) can help you tweak a Strapi-based application.
 :::
+```

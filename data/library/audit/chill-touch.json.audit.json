@@ -15,11 +15,7 @@
         "effect_duration": "Until start of caster's next turn (HP regain prevention)",
         "secondary_effect": "If target is undead, disadvantage on attack rolls against caster until end of caster's next turn.",
         "attack_type": "Ranged Spell Attack",
-        "classes": [
-          "sorcerer",
-          "warlock",
-          "wizard"
-        ]
+        "classes": ["sorcerer", "warlock", "wizard"]
       },
       "notes": "This spell serves as excellent early-game damage paired with strong defensive utility against undead, which aligns well with the Necromancy school and its primary users (Warlocks/Wizards)."
     }

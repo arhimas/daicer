@@ -25,9 +25,9 @@ export interface Tile {
 export interface Chunk {
   x: number;
   y: number;
-  tiles: Tile[][][]; // [Z][Y][X] - Note: Z in backend might be shifted. 
-                     // Frontend usually expects logic Z. Backend stores 0..6 for -3..3?
-                     // Need to verify rendering logic.
+  tiles: Tile[][][]; // [Z][Y][X] - Note: Z in backend might be shifted.
+  // Frontend usually expects logic Z. Backend stores 0..6 for -3..3?
+  // Need to verify rendering logic.
 }
 
 export interface WorldConfig {
@@ -40,14 +40,14 @@ export interface WorldConfig {
 }
 
 export interface Construction {
-    id: number;
-    documentId: string;
-    name: string;
-    category: string;
-    width: number;
-    height: number;
-    depth: number;
-    voxels: { x: number, y: number, z: number, type: BlockType }[];
+  id: number;
+  documentId: string;
+  name: string;
+  category: string;
+  width: number;
+  height: number;
+  depth: number;
+  voxels: { x: number; y: number; z: number; type: BlockType }[];
 }
 
 export interface EntityState {

@@ -40,7 +40,7 @@ CORRECT approach:
 /**
  * Generates text response using Gemini Flash (or configured model).
  * Automatically handles System Prompt fetching and language injection.
- * 
+ *
  * @param systemPromptKeyOrContent - Key to fetch from DB or raw string content.
  * @param userPrompt - The user's input/query.
  * @param language - Target language (defaults to 'en').

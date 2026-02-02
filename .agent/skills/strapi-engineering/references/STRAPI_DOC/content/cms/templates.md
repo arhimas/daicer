@@ -3,9 +3,9 @@ title: Templates
 description: Use and create pre-made Strapi applications designed for a specific use case.
 displayed_sidebar: cmsSidebar
 tags:
-- installation
-- templates
-- CLI
+  - installation
+  - templates
+  - CLI
 ---
 
 # Templates
@@ -46,15 +46,15 @@ In addition to the mandatory `--template` parameter, you can pass the optional `
 
 The following table lists all the possible ways to define which template to use:
 
-| Syntax | Description |
-|--------|-------------|
-| `--template website` | Using one of the <ExternalLink to="https://github.com/strapi/strapi/tree/develop/templates" text="Strapi-maintained templates"/> calling it by its (folder) name. |
-| `--template strapi/strapi` | Using the template's GitHub repository shorthand.<br/>This will use the default repository branch. |
-| `--template strapi/strapi/some/sub/path` | Using the template's GitHub repository shorthand and specifying a subpath.<br/>This will use the default repository branch. |
-| `--template strapi/strapi`<br/>`--template-branch=xxx`<br/>`--template-path=some/sub/path` | The most verbose way, explicitly defining a template branch and a subpath. |
-| `--template https://github.com/owner/some-template-repo` | Using a full repository URL.<br/>This will use the default repository branch. |
-| `--template https://github.com/owner/some-template-repo --template-branch=xxx --template-path=sub/path` | Using a full repository URL, and specifying both the branch and the subpath for the template. |
-| `--template https://github.com/strapi/strapi/tree/branch/sub/path` | Using a repository, branch, and subpath directly.<br/><br/>⚠️ _Warning: This won't work with branch names that include a `/`. In such cases, it's best to explicitly define `--template-branch` and `--template-path`._ |
+| Syntax                                                                                                  | Description                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--template website`                                                                                    | Using one of the <ExternalLink to="https://github.com/strapi/strapi/tree/develop/templates" text="Strapi-maintained templates"/> calling it by its (folder) name.                                                       |
+| `--template strapi/strapi`                                                                              | Using the template's GitHub repository shorthand.<br/>This will use the default repository branch.                                                                                                                      |
+| `--template strapi/strapi/some/sub/path`                                                                | Using the template's GitHub repository shorthand and specifying a subpath.<br/>This will use the default repository branch.                                                                                             |
+| `--template strapi/strapi`<br/>`--template-branch=xxx`<br/>`--template-path=some/sub/path`              | The most verbose way, explicitly defining a template branch and a subpath.                                                                                                                                              |
+| `--template https://github.com/owner/some-template-repo`                                                | Using a full repository URL.<br/>This will use the default repository branch.                                                                                                                                           |
+| `--template https://github.com/owner/some-template-repo --template-branch=xxx --template-path=sub/path` | Using a full repository URL, and specifying both the branch and the subpath for the template.                                                                                                                           |
+| `--template https://github.com/strapi/strapi/tree/branch/sub/path`                                      | Using a repository, branch, and subpath directly.<br/><br/>⚠️ _Warning: This won't work with branch names that include a `/`. In such cases, it's best to explicitly define `--template-branch` and `--template-path`._ |
 
 ## Creating a template
 

@@ -19,15 +19,17 @@ interface EventListProps {
 
 export const EventList = ({ events, selectedId, onSelect }: EventListProps) => {
   return (
-    <Box 
-      background="neutral0" 
-      hasRadius 
-      shadow="tableShadow" 
+    <Box
+      background="neutral0"
+      hasRadius
+      shadow="tableShadow"
       style={{ height: '100%', overflowY: 'auto' }}
     >
       {events.length === 0 ? (
         <Box padding={4}>
-          <Typography variant="pi" textColor="neutral600">No events found.</Typography>
+          <Typography variant="pi" textColor="neutral600">
+            No events found.
+          </Typography>
         </Box>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -40,7 +42,7 @@ export const EventList = ({ events, selectedId, onSelect }: EventListProps) => {
                 borderBottom: '1px solid #eee',
                 cursor: 'pointer',
                 background: selectedId === evt.id ? '#e6f7ff' : 'transparent',
-                borderLeft: evt.type === 'snapshot' ? '4px solid #7b61ff' : '4px solid transparent'
+                borderLeft: evt.type === 'snapshot' ? '4px solid #7b61ff' : '4px solid transparent',
               }}
             >
               <Flex justifyContent="space-between">

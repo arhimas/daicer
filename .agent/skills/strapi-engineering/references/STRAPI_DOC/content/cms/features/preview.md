@@ -4,9 +4,9 @@ description: With the Preview feature, you can preview your front-end directly f
 displayedSidebar: userSidebar
 toc_max_heading_level: 4
 tags:
-- content manager
-- preview
-- features
+  - content manager
+  - preview
+  - features
 ---
 
 # Preview
@@ -25,9 +25,10 @@ With the Preview feature, you can preview your front end application directly fr
 </IdentityCard>
 
 <!-- TODO: add a dark mode screenshot -->
+
 <ThemedImage
-  alt="Previewing content"
-  sources={{
+alt="Previewing content"
+sources={{
     light: '/img/assets/content-manager/previewing-content-desktop-mobile.gif',
     dark: '/img/assets/content-manager/previewing-content-desktop-mobile.gif',
   }}
@@ -40,7 +41,8 @@ With the Preview feature, you can preview your front end application directly fr
 ## Configuration
 
 :::note Notes
-* The following environment variables must be defined in your `.env` file, replacing example values with appropriate values:
+
+- The following environment variables must be defined in your `.env` file, replacing example values with appropriate values:
 
   ```bash
   CLIENT_URL=https://your-frontend-app.com
@@ -49,8 +51,8 @@ With the Preview feature, you can preview your front end application directly fr
 
   The `PREVIEW_SECRET` key is optional but required with Next.js draft mode.
 
-* A front-end application for your Strapi project should be already created and set up.
-:::
+- A front-end application for your Strapi project should be already created and set up.
+  :::
 
 ### Configuration components
 
@@ -59,6 +61,7 @@ The Preview feature configuration is stored in the `preview` object of [the `con
 #### Activation flag
 
 Enables or disables the preview feature:
+
 ```javascript title="config/admin.ts|js" {3}
 // …
 preview: {
@@ -121,7 +124,7 @@ When [Draft & Publish](/cms/features/draft-and-publish) is enabled for your cont
 async handler(uid, { documentId, locale, status }) {
    const document = await strapi.documents(uid).findOne({ documentId });
    const pathname = getPreviewPathname(uid, { locale, document });
-   if (status === 'published')  { 
+   if (status === 'published')  {
       // return the published version
    }
    // return the draft version
@@ -162,32 +165,32 @@ Add the URL generation logic with a `getPreviewPathname` function. The following
 // Function to generate preview pathname based on content type and document
 const getPreviewPathname = (uid, { locale, document }): string => {
   const { slug } = document;
-  
+
   // Handle different content types with their specific URL patterns
   switch (uid) {
     // Handle pages with predefined routes
-    case "api::page.page":
+    case 'api::page.page':
       switch (slug) {
-        case "homepage":
+        case 'homepage':
           return `/${locale}`; // Localized homepage
-        case "pricing":
-          return "/pricing"; // Pricing page
-        case "contact":
-          return "/contact"; // Contact page
-        case "faq":
-          return "/faq"; // FAQ page
+        case 'pricing':
+          return '/pricing'; // Pricing page
+        case 'contact':
+          return '/contact'; // Contact page
+        case 'faq':
+          return '/faq'; // FAQ page
       }
     // Handle product pages
-    case "api::product.product": {
+    case 'api::product.product': {
       if (!slug) {
-        return "/products"; // Products listing page
+        return '/products'; // Products listing page
       }
       return `/products/${slug}`; // Individual product page
     }
     // Handle blog articles
-    case "api::article.article": {
+    case 'api::article.article': {
       if (!slug) {
-        return "/blog"; // Blog listing page
+        return '/blog'; // Blog listing page
       }
       return `/blog/${slug}`; // Individual article page
     }
@@ -216,8 +219,8 @@ const getPreviewPathname = (uid, { locale, document }): string => {
 // Main configuration export
 export default ({ env }) => {
   // Get environment variables
-  const clientUrl = env("CLIENT_URL"); // Frontend application URL
-  const previewSecret = env("PREVIEW_SECRET"); // Secret key for preview authentication
+  const clientUrl = env('CLIENT_URL'); // Frontend application URL
+  const previewSecret = env('PREVIEW_SECRET'); // Secret key for preview authentication
 
   return {
     // Other admin-related configurations go here
@@ -229,7 +232,7 @@ export default ({ env }) => {
         async handler(uid, { documentId, locale, status }) {
           // Fetch the complete document from Strapi
           const document = await strapi.documents(uid).findOne({ documentId });
-          
+
           // Generate the preview pathname based on content type and document
           const pathname = getPreviewPathname(uid, { locale, document });
 
@@ -250,8 +253,8 @@ export default ({ env }) => {
     },
   };
 };
-
 ```
+
 #### 4. [Front end] Set up the front-end preview route {#4-setup-frontend-route}
 
 Setting up the front-end preview route is highly dependent on the framework used for your front-end application.
@@ -262,24 +265,24 @@ For instance, <ExternalLink to="https://nextjs.org/docs/app/building-your-applic
 If using Next.js, a basic implementation could be like in the following example taken from the <ExternalLink to="https://github.com/strapi/LaunchPad/tree/feat/preview" text="Launchpad"/> Strapi demo application:
 
 ```typescript title="/next/api/preview/route.ts"
-import { draftMode } from "next/headers";
-import { redirect } from "next/navigation";
+import { draftMode } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export async function GET(request: Request) {
   // Parse query string parameters
   const { searchParams } = new URL(request.url);
-  const secret = searchParams.get("secret");
-  const url = searchParams.get("url");
-  const status = searchParams.get("status");
+  const secret = searchParams.get('secret');
+  const url = searchParams.get('url');
+  const status = searchParams.get('status');
 
   // Check the secret and next parameters
   // This secret should only be known to this route handler and the CMS
   if (secret !== process.env.PREVIEW_SECRET) {
-    return new Response("Invalid token", { status: 401 });
+    return new Response('Invalid token', { status: 401 });
   }
 
   // Enable Draft Mode by setting the cookie
-  if (status === "published") {
+  if (status === 'published') {
     draftMode().disable();
   } else {
     draftMode().enable();
@@ -287,7 +290,7 @@ export async function GET(request: Request) {
 
   // Redirect to the path from the fetched post
   // We don't redirect to searchParams.slug as that might lead to open redirect vulnerabilities
-  redirect(url || "/");
+  redirect(url || '/');
 }
 ```
 
@@ -307,33 +310,28 @@ Once the preview system is set up, you need to adapt your data fetching logic to
 The following, taken from the <ExternalLink to="https://github.com/strapi/LaunchPad/tree/feat/preview" text="Launchpad" /> Strapi demo application, is an example of how to implement draft-aware data fetching in your Next.js front-end application:
 
 ```typescript {8-18}
-import { draftMode } from "next/headers";
-import qs from "qs";
+import { draftMode } from 'next/headers';
+import qs from 'qs';
 
-export default async function fetchContentType(
-  contentType: string,
-  params: Record = {}
-): Promise {
+export default async function fetchContentType(contentType: string, params: Record = {}): Promise {
   // Check if Next.js draft mode is enabled
   const { isEnabled: isDraftMode } = await draftMode();
-  
+
   try {
     const queryParams = { ...params };
     // Add status=draft parameter when draft mode is enabled
     if (isDraftMode) {
-      queryParams.status = "draft";
+      queryParams.status = 'draft';
     }
-    
+
     const url = `${baseURL}/${contentType}?${qs.stringify(queryParams)}`;
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch data from Strapi (url=${url}, status=${response.status})`
-      );
+      throw new Error(`Failed to fetch data from Strapi (url=${url}, status=${response.status})`);
     }
     return await response.json();
   } catch (error) {
-    console.error("Error fetching content:", error);
+    console.error('Error fetching content:', error);
     throw error;
   }
 }
@@ -349,6 +347,7 @@ const pageData = await fetchContentType('api::page.page', {
 ```
 
 ### Live Preview implementation
+
 <GrowthBadge/> <EnterpriseBadge />
 
 After setting up the basic Preview feature, you can enhance the experience by implementing Live Preview.
@@ -367,7 +366,6 @@ There are 2 messages to listen to:
 In order to receive the `previewScript` message, you need to let Strapi know that your frontend is ready to receive it. This is done by posting a `previewReady` message to the parent window.
 
 When putting it all together, a component ready to be added to your global layout could look like:
-
 
 <Tabs groupId="js-ts">
 <TabItem label="JavaScript" value="js">
@@ -411,6 +409,7 @@ export default function LivePreview() {
   return null;
 }
 ```
+
 </TabItem>
 
 <TabItem label="TypeScript" value="ts">
@@ -475,38 +474,33 @@ Metadatas will only be added in your Content API responses when the `strapi-enco
 For a Next.js application, you may use the `draftMode()` method from `next/headers` to detect if draft mode is enabled, and set the header accordingly in all your API calls:
 
 ```typescript {20-23}
-import { draftMode } from "next/headers";
-import qs from "qs";
+import { draftMode } from 'next/headers';
+import qs from 'qs';
 
-export default async function fetchContentType(
-  contentType: string,
-  params: Record = {}
-): Promise {
+export default async function fetchContentType(contentType: string, params: Record = {}): Promise {
   // Check if Next.js draft mode is enabled
   const { isEnabled: isDraftMode } = await draftMode();
-  
+
   try {
     const queryParams = { ...params };
     // Add status=draft parameter when draft mode is enabled
     if (isDraftMode) {
-      queryParams.status = "draft";
+      queryParams.status = 'draft';
     }
-    
+
     const url = `${baseURL}/${contentType}?${qs.stringify(queryParams)}`;
     const response = await fetch(url, {
       headers: {
         // Enable content source maps in preview mode
-        "strapi-encode-source-maps": isDraftMode ? "true" : "false",
+        'strapi-encode-source-maps': isDraftMode ? 'true' : 'false',
       },
     });
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch data from Strapi (url=${url}, status=${response.status})`
-      );
+      throw new Error(`Failed to fetch data from Strapi (url=${url}, status=${response.status})`);
     }
     return await response.json();
   } catch (error) {
-    console.error("Error fetching content:", error);
+    console.error('Error fetching content:', error);
     throw error;
   }
 }
@@ -518,16 +512,18 @@ export default async function fetchContentType(
 
 :::strapi Preview vs. Live Preview
 Based on your CMS plan, your experience with Preview will be different:
+
 - With the Free plan, Preview will be full screen only.
 - With the <GrowthBadge /> and <EnterpriseBadge /> plans, you get access to an enhanced experience called Live Preview. With Live Preview, you can see the Preview alongside the Edit view of the Content Manager, and you can also edit the content directly within the preview itself by double-clicking on any content.
-:::
+  :::
 
 Once the Preview feature is properly set up, an **Open preview** button is visible on the right side of the [Content Manager's edit view](/cms/features/content-manager#overview). Clicking it will display the preview of your content as it will appear in your front-end application, but directly within Strapi's the admin panel.
 
 <!-- TODO: add a dark mode GIF -->
+
 <ThemedImage
-  alt="Previewing content"
-  sources={{
+alt="Previewing content"
+sources={{
     light: '/img/assets/content-manager/previewing-content3.gif',
     dark: '/img/assets/content-manager/previewing-content3.gif',
   }}
@@ -545,19 +541,21 @@ In the Edit view of the Content Manager, the Open preview button will be disable
 :::
 
 ### Live Preview
+
 <GrowthBadge /> <EnterpriseBadge />
 
 Live Preview is the enhanced Preview experience available with Strapi’s paid CMS plans.
 
 With Live Preview, in addition to what’s included in the Free plan, you can:
 
-* Use the Side Editor to view both the entry’s Edit view in the Content Manager and the front-end preview side by side. You can also switch between full-screen and side-by-side preview using the <Icon name="arrow-line-left" classes="ph-bold" /> and <Icon name="arrow-line-right" classes="ph-bold" /> buttons.
-* Double-click any content in the preview pane to edit it in place. This opens a popover that syncs the front-end content with the corresponding field in Strapi.
+- Use the Side Editor to view both the entry’s Edit view in the Content Manager and the front-end preview side by side. You can also switch between full-screen and side-by-side preview using the <Icon name="arrow-line-left" classes="ph-bold" /> and <Icon name="arrow-line-right" classes="ph-bold" /> buttons.
+- Double-click any content in the preview pane to edit it in place. This opens a popover that syncs the front-end content with the corresponding field in Strapi.
 
 <!-- TODO: add dark mode GIF -->
+
 <ThemedImage
-  alt="Previewing content"
-  sources={{
+alt="Previewing content"
+sources={{
     light: '/img/assets/content-manager/previewing-content-live.gif',
     dark: '/img/assets/content-manager/previewing-content-live.gif',
   }}
@@ -567,6 +565,7 @@ With Live Preview, in addition to what’s included in the Free plan, you can:
 This feature is currently experimental. Feel free to share <ExternalLink to="https://feedback.strapi.io/" text="feedback"/> or <ExternalLink to="https://github.com/strapi/strapi/issues" text="issues" /> with the Strapi team.
 
 The current version of Live Preview comes with the following limitations:
-* Blocks fields are not detected, and changing them in the Side Editor won’t be reflected in the preview. Clicking on Save after updates should however still work.
-* Media assets and fields in dynamic zones are not handled.
-:::
+
+- Blocks fields are not detected, and changing them in the Side Editor won’t be reflected in the preview. Clicking on Save after updates should however still work.
+- Media assets and fields in dynamic zones are not handled.
+  :::

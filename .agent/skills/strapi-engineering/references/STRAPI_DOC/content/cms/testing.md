@@ -16,7 +16,7 @@ tags:
 Testing relies on Jest and Supertest with an in-memory SQLite database, a patched Strapi test harness that also supports TypeScript configuration files, and helpers that automatically register the `/hello` route and authenticated role during setup.
 </Tldr>
 
-The present guide provides a hands-on approach to configuring <ExternalLink to="https://jestjs.io/" text="Jest"/> in a Strapi 5 application, mocking the Strapi object for unit testing plugin code, and using  <ExternalLink to="https://github.com/visionmedia/supertest" text="Supertest"/> to test REST endpoints end to end.
+The present guide provides a hands-on approach to configuring <ExternalLink to="https://jestjs.io/" text="Jest"/> in a Strapi 5 application, mocking the Strapi object for unit testing plugin code, and using <ExternalLink to="https://github.com/visionmedia/supertest" text="Supertest"/> to test REST endpoints end to end.
 
 The guide aims to recreate the minimal test suite available in the <ExternalLink to="https://codesandbox.io/p/github/pwizla/strapi-unit-testing-examples/main?import=true" text="strapi-unit-testing-examples" /> CodeSandbox link.
 
@@ -30,64 +30,62 @@ We'll first install test tools, add a command to run our tests, and configure Je
 
 1. Install Jest and Supertest by running the following command in a terminal:
 
-    <Tabs groupId="yarn-npm">
+   <Tabs groupId="yarn-npm">
 
-    <TabItem value="yarn" label="Yarn">
+   <TabItem value="yarn" label="Yarn">
 
-    ```bash
-    yarn add jest supertest --dev
-    ```
+   ```bash
+   yarn add jest supertest --dev
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    <TabItem value="npm" label="NPM">
+   <TabItem value="npm" label="NPM">
 
-    ```bash
-    npm install jest supertest --save-dev
-    ```
+   ```bash
+   npm install jest supertest --save-dev
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    </Tabs>
-
-    * `Jest` provides the test runner and assertion utilities.
-    * `Supertest` allows you to test all the `api` routes as they were instances of <ExternalLink to="https://nodejs.org/api/http.html#class-httpserver" text="http.Server"/>.
+   </Tabs>
+   - `Jest` provides the test runner and assertion utilities.
+   - `Supertest` allows you to test all the `api` routes as they were instances of <ExternalLink to="https://nodejs.org/api/http.html#class-httpserver" text="http.Server"/>.
 
 2. Update the `package.json` file of your Strapi project with the following:
+   - Add a `test` command to the `scripts` section so it looks as follows:
 
-    * Add a `test` command to the `scripts` section so it looks as follows:
+     ```json {12}
+       "scripts": {
+         "build": "strapi build",
+         "console": "strapi console",
+         "deploy": "strapi deploy",
+         "dev": "strapi develop",
+         "develop": "strapi develop",
+         "seed:example": "node ./scripts/seed.js",
+         "start": "strapi start",
+         "strapi": "strapi",
+         "upgrade": "npx @strapi/upgrade latest",
+         "upgrade:dry": "npx @strapi/upgrade latest --dry",
+         "test": "jest --forceExit --detectOpenHandles"
+       },
+     ```
 
-      ```json {12}
-        "scripts": {
-          "build": "strapi build",
-          "console": "strapi console",
-          "deploy": "strapi deploy",
-          "dev": "strapi develop",
-          "develop": "strapi develop",
-          "seed:example": "node ./scripts/seed.js",
-          "start": "strapi start",
-          "strapi": "strapi",
-          "upgrade": "npx @strapi/upgrade latest",
-          "upgrade:dry": "npx @strapi/upgrade latest --dry",
-          "test": "jest --forceExit --detectOpenHandles"
-        },
-      ```
+   - Configure Jest at the bottom of the file to ignore Strapi build artifacts and to map any root-level modules you import from tests:
 
-    * Configure Jest at the bottom of the file to ignore Strapi build artifacts and to map any root-level modules you import from tests:
-
-      ```json
-        "jest": {
-          "testPathIgnorePatterns": [
-            "/node_modules/",
-            ".tmp",
-            ".cache"
-          ],
-          "testEnvironment": "node",
-          "moduleNameMapper": {
-            "^/create-service$": "<rootDir>/create-service"
-          }
-        }
-      ```
+     ```json
+       "jest": {
+         "testPathIgnorePatterns": [
+           "/node_modules/",
+           ".tmp",
+           ".cache"
+         ],
+         "testEnvironment": "node",
+         "moduleNameMapper": {
+           "^/create-service$": "<rootDir>/create-service"
+         }
+       }
+     ```
 
 ## Mock Strapi for plugin unit tests
 
@@ -239,9 +237,9 @@ Recommendations:
 
 We will create a `tests` folder in your project root and add the example files below. These 3 files work together to create a complete testing infrastructure:
 
-* `ts-compiler-options.js` defines how TypeScript files should be compiled for testing
-* `ts-runtime.js` enables Jest to understand and execute TypeScript files on the fly
-* `strapi.js` is the main **test harness** <Annotation>A test harness is a collection of software and test data configured to test an application by running it in predefined conditions and monitoring its behavior.<br/><br/>In the present case, our test harness sets up a complete Strapi instance in an isolated testing environment, handles TypeScript files, and provides utilities to make testing easier.</Annotation> that sets up and tears down Strapi instances for tests
+- `ts-compiler-options.js` defines how TypeScript files should be compiled for testing
+- `ts-runtime.js` enables Jest to understand and execute TypeScript files on the fly
+- `strapi.js` is the main **test harness** <Annotation>A test harness is a collection of software and test data configured to test an application by running it in predefined conditions and monitoring its behavior.<br/><br/>In the present case, our test harness sets up a complete Strapi instance in an isolated testing environment, handles TypeScript files, and provides utilities to make testing easier.</Annotation> that sets up and tears down Strapi instances for tests
 
 ### TypeScript compiler configuration
 
@@ -615,19 +613,11 @@ let instance;
 async function setupStrapi() {
   if (!instance) {
     instance = await createStrapi().load();
-    
+
     // Register the /api/hello test route automatically
     const contentApi = instance.server?.api?.('content-api');
     if (contentApi && !instance.__helloRouteRegistered) {
-      const createHelloService = require(path.join(
-        __dirname,
-        '..',
-        'src',
-        'api',
-        'hello',
-        'services',
-        'hello'
-      ));
+      const createHelloService = require(path.join(__dirname, '..', 'src', 'api', 'hello', 'services', 'hello'));
       const helloService = createHelloService({ strapi: instance });
 
       contentApi.routes([
@@ -646,19 +636,19 @@ async function setupStrapi() {
       contentApi.mount(instance.server.router);
       instance.__helloRouteRegistered = true;
     }
-    
+
     await instance.start();
     global.strapi = instance;
 
-  // Optionally seed example data for tests if requested
-  if (process.env.TEST_SEED === 'true') {
-    try {
-      const { seedExampleApp } = require(path.join(__dirname, '..', 'scripts', 'seed'));
-      await seedExampleApp();
-    } catch (e) {
-      console.warn('Seeding failed:', e);
+    // Optionally seed example data for tests if requested
+    if (process.env.TEST_SEED === 'true') {
+      try {
+        const { seedExampleApp } = require(path.join(__dirname, '..', 'scripts', 'seed'));
+        await seedExampleApp();
+      } catch (e) {
+        console.warn('Seeding failed:', e);
+      }
     }
-  }
 
     // Patch the user service to automatically assign the authenticated role
     const userService = strapi.plugins['users-permissions']?.services?.user;
@@ -734,60 +724,60 @@ Some API tests benefit from having a known set of documents preloaded. You can e
 
 1. Export a seeding function from your project script (e.g. `./scripts/seed.js`):
 
-    ```js title="./scripts/seed.js"
-    async function seedExampleApp() {
-      // In test environment, skip complex seeding and just log
-      if (process.env.NODE_ENV === 'test') {
-        console.log('Test seeding: Skipping complex data import (not needed for basic tests)');
-        return;
-      }
+   ```js title="./scripts/seed.js"
+   async function seedExampleApp() {
+     // In test environment, skip complex seeding and just log
+     if (process.env.NODE_ENV === 'test') {
+       console.log('Test seeding: Skipping complex data import (not needed for basic tests)');
+       return;
+     }
 
-      const shouldImportSeedData = await isFirstRun();
-      if (shouldImportSeedData) {
-        try {
-          console.log('Setting up the template...');
-          await importSeedData();
-          console.log('Ready to go');
-        } catch (error) {
-          console.log('Could not import seed data');
-          console.error(error);
-        }
-      }
-    }
+     const shouldImportSeedData = await isFirstRun();
+     if (shouldImportSeedData) {
+       try {
+         console.log('Setting up the template...');
+         await importSeedData();
+         console.log('Ready to go');
+       } catch (error) {
+         console.log('Could not import seed data');
+         console.error(error);
+       }
+     }
+   }
 
-    // Allow usage both as a CLI and as a library from tests
-    if (require.main === module) {
-      main().catch((error) => {
-        console.error(error);
-        process.exit(1);
-      });
-    }
+   // Allow usage both as a CLI and as a library from tests
+   if (require.main === module) {
+     main().catch((error) => {
+       console.error(error);
+       process.exit(1);
+     });
+   }
 
-    module.exports = { seedExampleApp };
-    ```
+   module.exports = { seedExampleApp };
+   ```
 
 2. In the test harness, call the function when `TEST_SEED=true` (see lines 313-321 highlighted in the code example from the [main test harness](#main-test-harness)).
 
 3. Run your tests with seeding enabled:
 
-    <Tabs groupId="yarn-npm">
-    <TabItem value="yarn" label="Yarn">
+   <Tabs groupId="yarn-npm">
+   <TabItem value="yarn" label="Yarn">
 
-      ```bash
-      TEST_SEED=true yarn test
-      ```
+   ```bash
+   TEST_SEED=true yarn test
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    <TabItem value="npm" label="NPM">
+   <TabItem value="npm" label="NPM">
 
-      ```bash
-      TEST_SEED=true npm run test
-      ```
+   ```bash
+   TEST_SEED=true npm run test
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    </Tabs>
+   </Tabs>
 
 Seeding runs after Strapi starts, so services, permissions, and uploads are available.
 

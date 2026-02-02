@@ -2,7 +2,7 @@ import { Room, Player, Entity, WorldSettings } from './index';
 
 /**
  * The Runtime Game State.
- * 
+ *
  * Contains all in-memory data for the active session.
  * - Entities (Mutable)
  * - Room Config

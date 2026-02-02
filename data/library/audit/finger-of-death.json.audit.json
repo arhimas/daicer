@@ -19,11 +19,7 @@
         "effect": "Inflicts high necrotic damage (7d8 + 30) on a failed Constitution save, half on success. Special effect: If a humanoid is killed by this spell, it rises as a permanent, commanded zombie on the caster's next turn.",
         "damage_type": "necrotic",
         "save_type": "Constitution",
-        "class_availability": [
-          "sorcerer",
-          "warlock",
-          "wizard"
-        ]
+        "class_availability": ["sorcerer", "warlock", "wizard"]
       },
       "notes": "The damage scaling (7d8 + 30) is notably high for a 7th-level spell, leaning into the instant-kill potential via the zombie creation feature, which balances the raw damage output."
     }

@@ -18,11 +18,7 @@
         "duration": "24 hours",
         "effect": "Charmed condition applied to a beast, requires a Wisdom save. Fails if target Intelligence is 4 or higher. Broken by harming the target or companions.",
         "scaling": "Affects one additional beast per spell slot level above 1st.",
-        "classes": [
-          "bard",
-          "druid",
-          "ranger"
-        ],
+        "classes": ["bard", "druid", "ranger"],
         "notes": "The material component is consumed, indicated by the common notation for non-costly material components (though 'a morsel of food' suggests consumption)."
       },
       "zod_errors": "NONE"

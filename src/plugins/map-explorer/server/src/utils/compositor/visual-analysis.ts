@@ -4,8 +4,11 @@ import { Point, ZoneType } from './types';
 export const getVisualBounds = (pixels: string[][]) => {
   const height = pixels.length;
   const width = pixels[0]?.length || 0;
-  
-  let minX = width, maxX = -1, minY = height, maxY = -1;
+
+  let minX = width,
+    maxX = -1,
+    minY = height,
+    maxY = -1;
   let hasPixels = false;
 
   pixels.forEach((row, y) => {
@@ -21,15 +24,27 @@ export const getVisualBounds = (pixels: string[][]) => {
     });
   });
 
-  return hasPixels ? { minX, maxX, minY, maxY, cx: Math.floor((minX + maxX) / 2), cy: Math.floor((minY + maxY) / 2) } : null;
+  return hasPixels
+    ? {
+        minX,
+        maxX,
+        minY,
+        maxY,
+        cx: Math.floor((minX + maxX) / 2),
+        cy: Math.floor((minY + maxY) / 2),
+      }
+    : null;
 };
 
 // Find the centroid of a specific zone
 export const getZoneCentroid = (blueprint: ZoneType[][], targetZone: ZoneType): Point | null => {
-  let sumX = 0, sumY = 0, count = 0;
+  let sumX = 0,
+    sumY = 0,
+    count = 0;
   // We also track bounds to find specific edges (like top of head)
   const height = blueprint?.length || 32;
-  let minY = height, maxY = -1;
+  let minY = height,
+    maxY = -1;
 
   if (!blueprint) return null;
 
@@ -51,7 +66,7 @@ export const getZoneCentroid = (blueprint: ZoneType[][], targetZone: ZoneType): 
     x: Math.round(sumX / count),
     y: Math.round(sumY / count), // Default center
     // We attach extra props for smarter alignment (not in Point interface but useful internally)
-    minY, 
-    maxY
+    minY,
+    maxY,
   };
 };

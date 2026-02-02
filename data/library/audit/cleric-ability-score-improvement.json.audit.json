@@ -18,16 +18,8 @@
       "mechanics": {
         "type": "Ability Score Improvement",
         "trigger_level": 4,
-        "subsequent_levels": [
-          8,
-          12,
-          16,
-          19
-        ],
-        "options": [
-          "Increase one ability score by 2 (max 20)",
-          "Increase two different ability scores by 1 (max 20)"
-        ],
+        "subsequent_levels": [8, 12, 16, 19],
+        "options": ["Increase one ability score by 2 (max 20)", "Increase two different ability scores by 1 (max 20)"],
         "class_specific": "This is the standard, non-subclass ASI progression shared by Clerics and most other full casters/martial classes."
       }
     },

@@ -9,8 +9,8 @@ This skill maintains the historical and decision-making context of the project.
 
 ## Resources
 
-*   **Decision Log (ADRs)**: `references/decisions.md`
-*   **LLM Context Index**: `references/llms.txt`
+- **Decision Log (ADRs)**: `references/decisions.md`
+- **LLM Context Index**: `references/llms.txt`
 
 ## Usage
 

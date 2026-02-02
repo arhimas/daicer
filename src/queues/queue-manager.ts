@@ -34,38 +34,36 @@ export class QueueManager {
   async add<T extends QueueName>(queueName: T, jobName: string, data: JobPayloads[T], opts?: JobsOptions) {
     // 0. Check Configuration
     try {
-      const config = (await this.strapi
-        .documents('api::queue-configuration.queue-configuration')
-        .findFirst({
-          populate: ['queues', 'queues.settings'],
-        })) as unknown as QueueConfiguration | null;
+      const config = (await this.strapi.documents('api::queue-configuration.queue-configuration').findFirst({
+        populate: ['queues', 'queues.settings'],
+      })) as unknown as QueueConfiguration | null;
 
       if (config) {
         if (config.globalEnabled === false) {
-           throw new Error(`[QueueManager] Job rejected: Queues are globally disabled.`);
+          throw new Error(`[QueueManager] Job rejected: Queues are globally disabled.`);
         }
 
         if (config.queues) {
           const queueConfig = config.queues.find((q) => q.queueName === queueName);
           if (queueConfig) {
-             if (queueConfig.enabled === false) {
-                throw new Error(`[QueueManager] Job rejected: Queue '${queueName}' is disabled.`);
-             }
+            if (queueConfig.enabled === false) {
+              throw new Error(`[QueueManager] Job rejected: Queue '${queueName}' is disabled.`);
+            }
 
-             // Merge Defaults from Config if opts not provided or partial
-             const settings = queueConfig.settings;
-             if (settings) {
-                opts = {
-                  attempts: settings.retryAttempts ?? 3,
-                  backoff: {
-                    type: 'fixed',
-                    delay: settings.retryDelay ?? 1000,
-                  },
-                  removeOnComplete: settings.removeOnComplete ?? true,
-                  removeOnFail: settings.removeOnFail ?? false,
-                  ...opts, // Allow override per call
-                };
-             }
+            // Merge Defaults from Config if opts not provided or partial
+            const settings = queueConfig.settings;
+            if (settings) {
+              opts = {
+                attempts: settings.retryAttempts ?? 3,
+                backoff: {
+                  type: 'fixed',
+                  delay: settings.retryDelay ?? 1000,
+                },
+                removeOnComplete: settings.removeOnComplete ?? true,
+                removeOnFail: settings.removeOnFail ?? false,
+                ...opts, // Allow override per call
+              };
+            }
           }
         }
       }

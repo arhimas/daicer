@@ -31,9 +31,7 @@
         "attack_type": "Ranged Spell Attack",
         "damage_type": "Fire",
         "action_economy": "Can be sustained as an object, or used as an action to attack (which ends the spell).",
-        "class_compatibility": [
-          "Druid"
-        ],
+        "class_compatibility": ["Druid"],
         "potential_issues": "None identified. The spell clearly states that using the attack action ends the spell, which is a key mechanical choice for the user."
       }
     }

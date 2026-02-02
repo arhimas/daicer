@@ -23,10 +23,7 @@
       "mechanics": {
         "type": "Progression/Improvement",
         "trigger": "Leveling Up",
-        "options": [
-          "Increase one score by +2",
-          "Increase two scores by +1"
-        ],
+        "options": ["Increase one score by +2", "Increase two scores by +1"],
         "maximum_cap_applied": true,
         "notes": "Mechanically standard. Provides essential character growth opportunities."
       },

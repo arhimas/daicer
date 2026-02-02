@@ -2,10 +2,10 @@
 title: Keycloak SSO provider
 description: Learn how to configure the SSO provider to sign in and sign up into your Strapi application through Keycloak.
 displayed_sidebar: cmsSidebar
-tags: 
-- SSO
-- providers
-- configuration
+tags:
+  - SSO
+  - providers
+  - configuration
 ---
 
 # Keycloak (OpenID Connect) provider SSO configuration
@@ -49,30 +49,26 @@ The Keycloak SSO provider is configured in the `auth.providers` array of [the `c
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/admin.js"
-
-const KeyCloakStrategy = require("passport-keycloak-oauth2-oidc");
+const KeyCloakStrategy = require('passport-keycloak-oauth2-oidc');
 
 module.exports = ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "keycloak",
-        displayName: "Keycloak",
-        icon: "https://raw.githubusercontent.com/keycloak/keycloak-admin-ui/main/themes/keycloak/logo.svg",
+        uid: 'keycloak',
+        displayName: 'Keycloak',
+        icon: 'https://raw.githubusercontent.com/keycloak/keycloak-admin-ui/main/themes/keycloak/logo.svg',
         createStrategy: (strapi) =>
           new KeyCloakStrategy(
             {
-              clientID: env("KEYCLOAK_CLIENT_ID", ""),
-              realm: env("KEYCLOAK_REALM", ""),
-              publicClient: env.bool("KEYCLOAK_PUBLIC_CLIENT", false),
-              clientSecret: env("KEYCLOAK_CLIENT_SECRET", ""),
-              sslRequired: env("KEYCLOAK_SSL_REQUIRED", "external"),
-              authServerURL: env("KEYCLOAK_AUTH_SERVER_URL", ""),
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL(
-                  "keycloak"
-                ),
+              clientID: env('KEYCLOAK_CLIENT_ID', ''),
+              realm: env('KEYCLOAK_REALM', ''),
+              publicClient: env.bool('KEYCLOAK_PUBLIC_CLIENT', false),
+              clientSecret: env('KEYCLOAK_CLIENT_SECRET', ''),
+              sslRequired: env('KEYCLOAK_SSL_REQUIRED', 'external'),
+              authServerURL: env('KEYCLOAK_AUTH_SERVER_URL', ''),
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('keycloak'),
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {
@@ -92,30 +88,26 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
-import { Strategy as KeyCloakStrategy } from "passport-keycloak-oauth2-oidc";
+import { Strategy as KeyCloakStrategy } from 'passport-keycloak-oauth2-oidc';
 
 export default ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "keycloak",
-        displayName: "Keycloak",
-        icon: "https://raw.githubusercontent.com/keycloak/keycloak-admin-ui/main/themes/keycloak/logo.svg",
+        uid: 'keycloak',
+        displayName: 'Keycloak',
+        icon: 'https://raw.githubusercontent.com/keycloak/keycloak-admin-ui/main/themes/keycloak/logo.svg',
         createStrategy: (strapi) =>
           new KeyCloakStrategy(
             {
-              clientID: env("KEYCLOAK_CLIENT_ID", ""),
-              realm: env("KEYCLOAK_REALM", ""),
-              publicClient: env.bool("KEYCLOAK_PUBLIC_CLIENT", false),
-              clientSecret: env("KEYCLOAK_CLIENT_SECRET", ""),
-              sslRequired: env("KEYCLOAK_SSL_REQUIRED", "external"),
-              authServerURL: env("KEYCLOAK_AUTH_SERVER_URL", ""),
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL(
-                  "keycloak"
-                ),
+              clientID: env('KEYCLOAK_CLIENT_ID', ''),
+              realm: env('KEYCLOAK_REALM', ''),
+              publicClient: env.bool('KEYCLOAK_PUBLIC_CLIENT', false),
+              clientSecret: env('KEYCLOAK_CLIENT_SECRET', ''),
+              sslRequired: env('KEYCLOAK_SSL_REQUIRED', 'external'),
+              authServerURL: env('KEYCLOAK_AUTH_SERVER_URL', ''),
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('keycloak'),
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {

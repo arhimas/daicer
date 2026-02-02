@@ -47,7 +47,7 @@ interface SpellEntry {
     range?: string;
     components?: string[];
     duration?: string;
-    [key: string]: unknown; 
+    [key: string]: unknown;
   };
   [key: string]: unknown;
 }
@@ -123,24 +123,24 @@ export const registerGraphQLExtension = (strapi) => {
               .map((entry) => {
                 const itemData = entry.item;
                 const eqData: EquipmentData = itemData.equipment_data || {};
-                
+
                 return {
-                    name: itemData.name || 'Unknown Item',
-                    slug: itemData.documentId || String(itemData.id), // SerializedItem keys
-                    type: itemData.type,
-                    equipment_category: { slug: itemData.type },
-                    damage_dice: eqData.damage_dice || itemData.damage_dice,
-                    damage_type: { name: eqData.damage_type?.name || 'bludgeoning' },
-                    properties: eqData.properties,
-                    range_normal: eqData.range_normal,
-                    range_long: eqData.range_long,
+                  name: itemData.name || 'Unknown Item',
+                  slug: itemData.documentId || String(itemData.id), // SerializedItem keys
+                  type: itemData.type,
+                  equipment_category: { slug: itemData.type },
+                  damage_dice: eqData.damage_dice || itemData.damage_dice,
+                  damage_type: { name: eqData.damage_type?.name || 'bludgeoning' },
+                  properties: eqData.properties,
+                  range_normal: eqData.range_normal,
+                  range_long: eqData.range_long,
                 } as unknown as SerializedItem;
               });
 
             const context: DerivationContext = {
               stats: (actor.stats || {}) as EntityStats, // Mapped type
               attributes: (actor.stats || {}) as EntityStats, // Aliased in new structure
-              proficiencyBonus: 2, 
+              proficiencyBonus: 2,
               level: 1, // Default
               equipment: equipmentList,
             };
@@ -155,10 +155,10 @@ export const registerGraphQLExtension = (strapi) => {
             if (actor.spellbook) {
               (actor.spellbook as SpellEntry[]).forEach((entry) => {
                 if (entry.spell) {
-                if (entry.spell) {
-                   // Ensure compatibility with SerializedItem or ActionHydrator expectations
-                  allActions.push(ActionHydrator.hydrateFromSpell(entry.spell as unknown as SerializedItem, context));
-                }
+                  if (entry.spell) {
+                    // Ensure compatibility with SerializedItem or ActionHydrator expectations
+                    allActions.push(ActionHydrator.hydrateFromSpell(entry.spell as unknown as SerializedItem, context));
+                  }
                 }
               });
             }
@@ -167,7 +167,7 @@ export const registerGraphQLExtension = (strapi) => {
             return allActions.map((a: RuntimeAction) => ({
               id: a.id,
               name: a.name,
-              type: a.cost?.actionType || 'action', 
+              type: a.cost?.actionType || 'action',
               sourceType: a.sourceType,
               sourceId: a.sourceId,
               description: a.description,
@@ -207,7 +207,7 @@ export const registerGraphQLExtension = (strapi) => {
                         showAllMonsters ? { type: 'monster' } : null,
                         showAllCharacters ? { type: 'player' } : null,
                         // General search
-                        (!showAllMonsters && !showAllCharacters) ? { name: { $contains: query } } : null
+                        !showAllMonsters && !showAllCharacters ? { name: { $contains: query } } : null,
                       ].filter(Boolean) as Record<string, unknown>[], // filtered nulls
                     },
                     fields: ['name', 'documentId', 'type'],
@@ -224,9 +224,7 @@ export const registerGraphQLExtension = (strapi) => {
                 : [],
             ]);
 
-            strapi.log.info(
-              `[Resolver] Found ${(entities || []).length} entities, ${(items || []).length} items`
-            );
+            strapi.log.info(`[Resolver] Found ${(entities || []).length} entities, ${(items || []).length} items`);
 
             return [
               ...(entities || []).map((e: { documentId: string; name: string; type: string }) => ({

@@ -7,8 +7,8 @@ Description of the proposed feature or proposed changes.
 
 # Motivation
 
-Please make sure to explain the motivation for this proposal. 
-It means explaining the use case(s) and the functional feature(s) this proposal is trying to solve. 
+Please make sure to explain the motivation for this proposal.
+It means explaining the use case(s) and the functional feature(s) this proposal is trying to solve.
 
 Try to only talk about the intent, not the proposed solution here.
 
@@ -16,7 +16,7 @@ Try to only talk about the intent, not the proposed solution here.
 
 Describe the proposal in detail:
 
-- Explaining the design so that someone who knows Strapi can understand and someone who works on it can implement the proposal. 
+- Explaining the design so that someone who knows Strapi can understand and someone who works on it can implement the proposal.
 - Think about edge cases and include examples.
 
 # Example

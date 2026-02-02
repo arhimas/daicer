@@ -2,9 +2,7 @@
   "file": "molecules/classes/ranger.json",
   "type": "class",
   "zod_valid": false,
-  "zod_errors": [
-    "hit_die: Invalid input: expected string, received number"
-  ],
+  "zod_errors": ["hit_die: Invalid input: expected string, received number"],
   "llm_audit": {
     "entity": "CLASS",
     "file": "ranger.json",
@@ -24,10 +22,7 @@
     "mechanics_analysis": {
       "class_name": "Ranger",
       "base_hit": "d10",
-      "key_features_at_level_1": [
-        "Favored Enemy",
-        "Natural Explorer"
-      ],
+      "key_features_at_level_1": ["Favored Enemy", "Natural Explorer"],
       "progression_gaps": [
         {
           "level": 9,
@@ -62,85 +57,52 @@
         "Survival"
       ],
       "proficiencies": {
-        "armor": [
-          "Light armor",
-          "medium armor",
-          "shields"
-        ],
-        "weapons": [
-          "Simple weapons",
-          "martial weapons"
-        ],
-        "tools": [
-          "None"
-        ],
-        "saving_throws": [
-          "Strength",
-          "Dexterity"
-        ]
+        "armor": ["Light armor", "medium armor", "shields"],
+        "weapons": ["Simple weapons", "martial weapons"],
+        "tools": ["None"],
+        "saving_throws": ["Strength", "Dexterity"]
       },
       "equipment": [],
       "progression": [
         {
           "level": 1,
           "pb": 2,
-          "features": [
-            "Favored Enemy",
-            "Natural Explorer"
-          ]
+          "features": ["Favored Enemy", "Natural Explorer"]
         },
         {
           "level": 2,
           "pb": 2,
-          "features": [
-            "Fighting Style",
-            "Spellcasting"
-          ]
+          "features": ["Fighting Style", "Spellcasting"]
         },
         {
           "level": 3,
           "pb": 2,
-          "features": [
-            "Ranger Archetype",
-            "Primeval Awareness"
-          ]
+          "features": ["Ranger Archetype", "Primeval Awareness"]
         },
         {
           "level": 4,
           "pb": 2,
-          "features": [
-            "Ability Score Improvement"
-          ]
+          "features": ["Ability Score Improvement"]
         },
         {
           "level": 5,
           "pb": 3,
-          "features": [
-            "Extra Attack"
-          ]
+          "features": ["Extra Attack"]
         },
         {
           "level": 6,
           "pb": 3,
-          "features": [
-            "Favored Enemy",
-            "Natural Explorer"
-          ]
+          "features": ["Favored Enemy", "Natural Explorer"]
         },
         {
           "level": 7,
           "pb": 3,
-          "features": [
-            "Ranger Archetype feature"
-          ]
+          "features": ["Ranger Archetype feature"]
         },
         {
           "level": 8,
           "pb": 3,
-          "features": [
-            "Ability Score Improvement",
-            "Land's Stride"
-          ]
+          "features": ["Ability Score Improvement", "Land's Stride"]
         },
         {
           "level": 9,
@@ -150,24 +112,17 @@
         {
           "level": 10,
           "pb": 4,
-          "features": [
-            "Natural Explorer",
-            "Hide in Plain Sight"
-          ]
+          "features": ["Natural Explorer", "Hide in Plain Sight"]
         },
         {
           "level": 11,
           "pb": 4,
-          "features": [
-            "Ranger Archetype feature"
-          ]
+          "features": ["Ranger Archetype feature"]
         },
         {
           "level": 12,
           "pb": 4,
-          "features": [
-            "Ability Score Improvement"
-          ]
+          "features": ["Ability Score Improvement"]
         },
         {
           "level": 13,
@@ -177,24 +132,17 @@
         {
           "level": 14,
           "pb": 5,
-          "features": [
-            "Favored Enemy",
-            "Vanish"
-          ]
+          "features": ["Favored Enemy", "Vanish"]
         },
         {
           "level": 15,
           "pb": 5,
-          "features": [
-            "Ranger Archetype feature"
-          ]
+          "features": ["Ranger Archetype feature"]
         },
         {
           "level": 16,
           "pb": 5,
-          "features": [
-            "Ability Score Improvement"
-          ]
+          "features": ["Ability Score Improvement"]
         },
         {
           "level": 17,
@@ -204,23 +152,17 @@
         {
           "level": 18,
           "pb": 6,
-          "features": [
-            "Feral Senses"
-          ]
+          "features": ["Feral Senses"]
         },
         {
           "level": 19,
           "pb": 6,
-          "features": [
-            "Ability Score Improvement"
-          ]
+          "features": ["Ability Score Improvement"]
         },
         {
           "level": 20,
           "pb": 6,
-          "features": [
-            "Foe Slayer"
-          ]
+          "features": ["Foe Slayer"]
         }
       ]
     }

@@ -2,9 +2,7 @@
   "file": "molecules/classes/druid.json",
   "type": "class",
   "zod_valid": false,
-  "zod_errors": [
-    "hit_die: Invalid input: expected string, received number"
-  ],
+  "zod_errors": ["hit_die: Invalid input: expected string, received number"],
   "llm_audit": {
     "entity": "CLASS",
     "file": "druid.json",
@@ -39,11 +37,7 @@
           "Survival"
         ],
         "proficiencies": {
-          "armor": [
-            "Light armor",
-            "medium armor",
-            "shields (druids will not wear armor or use shields made of metal)"
-          ],
+          "armor": ["Light armor", "medium armor", "shields (druids will not wear armor or use shields made of metal)"],
           "weapons": [
             "Clubs",
             "daggers",
@@ -56,23 +50,15 @@
             "slings",
             "spears"
           ],
-          "tools": [
-            "Herbalism kit"
-          ],
-          "saving_throws": [
-            "Intelligence",
-            "Wisdom"
-          ]
+          "tools": ["Herbalism kit"],
+          "saving_throws": ["Intelligence", "Wisdom"]
         },
         "equipment": [],
         "progression": [
           {
             "level": 1,
             "pb": 2,
-            "features": [
-              "Druidic",
-              "Spellcasting"
-            ]
+            "features": ["Druidic", "Spellcasting"]
           }
         ]
       }

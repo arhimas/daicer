@@ -232,10 +232,19 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Equips an item, handling slot validation and auto-unequipping conflicting items.
    */
-  async equipItem(entityId: string, itemComponentId: string, slot: string): Promise<{ success: boolean; message: string }> {
+  async equipItem(
+    entityId: string,
+    itemComponentId: string,
+    slot: string
+  ): Promise<{ success: boolean; message: string }> {
     const entity = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
       documentId: entityId,
-      populate: ['inventory', 'inventory.item', 'inventory.item.equipment_data', 'inventory.item.equipment_data.properties'],
+      populate: [
+        'inventory',
+        'inventory.item',
+        'inventory.item.equipment_data',
+        'inventory.item.equipment_data.properties',
+      ],
     });
 
     if (!entity) throw new Error('Entity not found');
@@ -248,9 +257,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     if (itemIndex === -1) throw new Error('Item not found in inventory');
 
     const itemToEquip = inventory[itemIndex];
-     
+
     const equipmentData = itemToEquip.item?.equipment_data;
-     
+
     const properties = equipmentData?.properties || [];
     const isTwoHanded = properties.some((p: { slug: string }) => p.slug === 'two-handed');
 
@@ -258,66 +267,66 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     // 1. If equipping 2H: Unequip Main Hand AND Off Hand.
     // 2. If equipping into Off Hand: Unequip existing Off Hand AND 2H Weapon in Main Hand.
     // 3. If equipping into Main Hand: Unequip existing Main Hand AND if new item is 2H, unequip Off Hand.
-    
+
     // Simplification:
     // Iterate all items.
     // Set target item to equipped + slot.
     // If target is 2H -> Set Main Hand. Check Off Hand occupied? Unequip it.
-    
+
     interface InventoryItem {
-        id: number;
-        documentId?: string;
-        isEquipped?: boolean;
-        slot?: string;
-        item?: {
-            name: string;
-            equipment_data?: {
-                properties?: Array<{ slug: string }>;
-            };
+      id: number;
+      documentId?: string;
+      isEquipped?: boolean;
+      slot?: string;
+      item?: {
+        name: string;
+        equipment_data?: {
+          properties?: Array<{ slug: string }>;
         };
+      };
     }
-    
+
     const newInventory = (inventory as InventoryItem[]).map((i) => {
-        // The item itself
-        if (i.id === itemToEquip.id || i.documentId === itemToEquip.documentId) {
-             return { ...i, isEquipped: true, slot };
-        }
-        
-        // Validation Checks against OTHER items
-        if (i.isEquipped) {
-            // Case A: Target is 2H Main Hand.
-            if (isTwoHanded && slot === 'main_hand') {
-                 // Conflict if item is in Main OR Off hand
-                 if (i.slot === 'main_hand' || i.slot === 'off_hand') {
-                     return { ...i, isEquipped: false };
-                 }
-            }
+      // The item itself
+      if (i.id === itemToEquip.id || i.documentId === itemToEquip.documentId) {
+        return { ...i, isEquipped: true, slot };
+      }
 
-            // Case B: Target is Off Hand. 
-            if (slot === 'off_hand') {
-                // Conflict if item is Off Hand
-                if (i.slot === 'off_hand') return { ...i, isEquipped: false };
-                
-                // Conflict if item is Main Hand AND Two Handed
-                if (i.slot === 'main_hand') {
-                    const iProps = i.item?.equipment_data?.properties || [];
-                    const iIs2H = iProps.some((p: { slug: string }) => p.slug === 'two-handed');
-                    if (iIs2H) return { ...i, isEquipped: false };
-                }
-            }
-            
-            // Case C: Target is Main Hand (1H).
-            if (slot === 'main_hand' && !isTwoHanded) {
-                 if (i.slot === 'main_hand') return { ...i, isEquipped: false };
-            }
-            
-            // Case D: Standard Slot Swap (Head, Armor, etc)
-            if (i.slot === slot) {
-                return { ...i, isEquipped: false }; 
-            }
+      // Validation Checks against OTHER items
+      if (i.isEquipped) {
+        // Case A: Target is 2H Main Hand.
+        if (isTwoHanded && slot === 'main_hand') {
+          // Conflict if item is in Main OR Off hand
+          if (i.slot === 'main_hand' || i.slot === 'off_hand') {
+            return { ...i, isEquipped: false };
+          }
         }
 
-        return i;
+        // Case B: Target is Off Hand.
+        if (slot === 'off_hand') {
+          // Conflict if item is Off Hand
+          if (i.slot === 'off_hand') return { ...i, isEquipped: false };
+
+          // Conflict if item is Main Hand AND Two Handed
+          if (i.slot === 'main_hand') {
+            const iProps = i.item?.equipment_data?.properties || [];
+            const iIs2H = iProps.some((p: { slug: string }) => p.slug === 'two-handed');
+            if (iIs2H) return { ...i, isEquipped: false };
+          }
+        }
+
+        // Case C: Target is Main Hand (1H).
+        if (slot === 'main_hand' && !isTwoHanded) {
+          if (i.slot === 'main_hand') return { ...i, isEquipped: false };
+        }
+
+        // Case D: Standard Slot Swap (Head, Armor, etc)
+        if (i.slot === slot) {
+          return { ...i, isEquipped: false };
+        }
+      }
+
+      return i;
     });
 
     await strapi.documents('api::entity-sheet.entity-sheet').update({
@@ -332,19 +341,19 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
    * Calculates total weight of inventory.
    */
   async calculateWeight(entityId: string): Promise<number> {
-      // Allow passing full entity to avoid fetch if needed? For now strict ID.
-      const entity = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
-          documentId: entityId,
-          populate: ['inventory', 'inventory.item']
-      });
+    // Allow passing full entity to avoid fetch if needed? For now strict ID.
+    const entity = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
+      documentId: entityId,
+      populate: ['inventory', 'inventory.item'],
+    });
 
-      if (!entity) return 0;
-      
-      const inventory = (entity.inventory || []) as unknown as { item?: { weight?: number }; quantity?: number }[];
-      return inventory.reduce((total: number, entry) => {
-          const w = entry.item?.weight || 0;
-          const q = entry.quantity || 1;
-          return total + (w * q);
-      }, 0);
-  }
+    if (!entity) return 0;
+
+    const inventory = (entity.inventory || []) as unknown as { item?: { weight?: number }; quantity?: number }[];
+    return inventory.reduce((total: number, entry) => {
+      const w = entry.item?.weight || 0;
+      const q = entry.quantity || 1;
+      return total + w * q;
+    }, 0);
+  },
 });

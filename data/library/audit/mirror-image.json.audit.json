@@ -29,10 +29,7 @@
           "destruction_condition": "Hit by an attack",
           "damage_resistance": "Ignores all other damage and effects"
         },
-        "end_conditions": [
-          "Duration ends (1 minute)",
-          "All three duplicates are destroyed"
-        ],
+        "end_conditions": ["Duration ends (1 minute)", "All three duplicates are destroyed"],
         "counter_conditions": [
           "Creature cannot see the caster",
           "Creature relies on senses other than sight (e.g., blindsight)",

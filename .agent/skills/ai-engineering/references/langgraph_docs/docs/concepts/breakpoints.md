@@ -56,7 +56,7 @@ Static breakpoints are triggered either **before** or **after** a node executes.
     ```typescript
     await graph.invoke(
         inputs,
-        { 
+        {
             configurable: { thread_id: "someThread" },
             interruptBefore: ["nodeA"],
             interruptAfter: ["nodeB", "nodeC"]
@@ -109,7 +109,7 @@ We recommend that you [**use the `interrupt` function instead**](#the-interrupt-
     Let's assume we run the graph with an input that triggers the dynamic breakpoint and then attempt to resume the graph execution simply by passing in `null` for the input.
 
     ```typescript
-    // Attempt to continue the graph execution with no change to state after we hit the dynamic breakpoint 
+    // Attempt to continue the graph execution with no change to state after we hit the dynamic breakpoint
     for await (const event of await graph.stream(null, threadConfig)) {
         console.log(event);
     }

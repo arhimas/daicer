@@ -35,7 +35,7 @@ export class FilterBuilder {
 
     // Implicit AND for now
     return {
-      $and: filters.map(f => this.toStrapiFilter(f))
+      $and: filters.map((f) => this.toStrapiFilter(f)),
     };
   }
 
@@ -52,21 +52,21 @@ export class FilterBuilder {
         { name: '> Greater ($gt)', value: '$gt' },
         { name: '< Less ($lt)', value: '$lt' },
         { name: '[ ] In List ($in)', value: '$in' },
-      ]
+      ],
     });
 
     let value: any;
-    
+
     if (operator === '$in' || operator === '$notIn') {
       const valStr = await input({ message: 'Values (comma separated):' });
-      value = valStr.split(',').map(s => s.trim());
+      value = valStr.split(',').map((s) => s.trim());
     } else {
-        const valStr = await input({ message: 'Value:' });
-        // Try to infer type
-        if (valStr === 'true') value = true;
-        else if (valStr === 'false') value = false;
-        else if (!isNaN(Number(valStr)) && valStr.trim() !== '') value = Number(valStr);
-        else value = valStr;
+      const valStr = await input({ message: 'Value:' });
+      // Try to infer type
+      if (valStr === 'true') value = true;
+      else if (valStr === 'false') value = false;
+      else if (!isNaN(Number(valStr)) && valStr.trim() !== '') value = Number(valStr);
+      else value = valStr;
     }
 
     return { field, operator: operator as FilterOp, value };
@@ -75,23 +75,23 @@ export class FilterBuilder {
   private toStrapiFilter(node: FilterNode): any {
     // Handle nested fields (e.g. stats.hp)
     if (node.field.includes('.')) {
-        const parts = node.field.split('.');
-        const root: any = {};
-        let current = root;
-        
-        for (let i = 0; i < parts.length - 1; i++) {
-            current[parts[i]] = {};
-            current = current[parts[i]];
-        }
-        
-        current[parts[parts.length - 1]] = { [node.operator]: node.value };
-        return root;
+      const parts = node.field.split('.');
+      const root: any = {};
+      let current = root;
+
+      for (let i = 0; i < parts.length - 1; i++) {
+        current[parts[i]] = {};
+        current = current[parts[i]];
+      }
+
+      current[parts[parts.length - 1]] = { [node.operator]: node.value };
+      return root;
     }
 
     return {
       [node.field]: {
-        [node.operator]: node.value
-      }
+        [node.operator]: node.value,
+      },
     };
   }
 }

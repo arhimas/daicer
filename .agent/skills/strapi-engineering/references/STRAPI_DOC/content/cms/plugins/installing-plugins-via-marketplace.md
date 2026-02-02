@@ -3,10 +3,10 @@ title: Installing Plugins via the Marketplace
 displayed_sidebar: cmsSidebar
 sidebar_position: 2
 tags:
-- plugins
-- provider
-- marketplace
-- upload plugin
+  - plugins
+  - provider
+  - marketplace
+  - upload plugin
 ---
 
 # Using the Marketplace
@@ -24,8 +24,8 @@ Keep in mind however that v4 and v5 plugins are not cross-compatible, but that p
 :::
 
 <ThemedImage
-  alt="The Marketplace interface"
-  sources={{
+alt="The Marketplace interface"
+sources={{
     light: '/img/assets/plugins/marketplace-plugins.png',
     dark: '/img/assets/plugins/marketplace-plugins_DARK.png',
   }}
@@ -53,7 +53,7 @@ In the top right corner of the Marketplace, the **Submit plugin** button redirec
 
 To install a new plugin or provider via the Marketplace:
 
-1. Go to the <Icon name="shopping-cart" /> *Marketplace*.
+1. Go to the <Icon name="shopping-cart" /> _Marketplace_.
 2. Choose the **Plugins** tab to browse available plugins or the **Providers** tab to browse available providers.
 3. Choose an available plugin/provider and click on the **More** <Icon name="arrow-square-out" /> button.
 4. Once redirected to the Strapi Market website, follow the plugin/provider-specific implementation instructions.

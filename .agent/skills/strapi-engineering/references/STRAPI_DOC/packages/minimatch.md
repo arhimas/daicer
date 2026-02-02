@@ -11,13 +11,13 @@ objects.
 
 ```js
 // hybrid module, load with require() or import
-import { minimatch } from 'minimatch'
+import { minimatch } from 'minimatch';
 // or:
-const { minimatch } = require('minimatch')
+const { minimatch } = require('minimatch');
 
-minimatch('bar.foo', '*.foo') // true!
-minimatch('bar.foo', '*.bar') // false!
-minimatch('bar.foo', '*.+(bar|foo)', { debug: true }) // true, and noisy!
+minimatch('bar.foo', '*.foo'); // true!
+minimatch('bar.foo', '*.bar'); // false!
+minimatch('bar.foo', '*.+(bar|foo)', { debug: true }); // true, and noisy!
 ```
 
 ## Features
@@ -86,8 +86,8 @@ is set in the options.
 Create a minimatch object by instantiating the `minimatch.Minimatch` class.
 
 ```javascript
-var Minimatch = require('minimatch').Minimatch
-var mm = new Minimatch(pattern, options)
+var Minimatch = require('minimatch').Minimatch;
+var mm = new Minimatch(pattern, options);
 ```
 
 ### Properties
@@ -148,7 +148,7 @@ All other methods are internal, and will be called as necessary.
 Main export. Tests a path against the pattern using the options.
 
 ```javascript
-var isJS = minimatch(file, '*.js', { matchBase: true })
+var isJS = minimatch(file, '*.js', { matchBase: true });
 ```
 
 ### minimatch.filter(pattern, options)
@@ -157,7 +157,7 @@ Returns a function that tests its
 supplied argument, suitable for use with `Array.filter`. Example:
 
 ```javascript
-var javascripts = fileList.filter(minimatch.filter('*.js', { matchBase: true }))
+var javascripts = fileList.filter(minimatch.filter('*.js', { matchBase: true }));
 ```
 
 ### minimatch.escape(pattern, options = {})
@@ -195,7 +195,7 @@ files, in the style of fnmatch or glob. If nothing is matched, and
 options.nonull is set, then return a list containing the pattern itself.
 
 ```javascript
-var javascripts = minimatch.match(fileList, '*.js', { matchBase: true })
+var javascripts = minimatch.match(fileList, '*.js', { matchBase: true });
 ```
 
 ### minimatch.makeRe(pattern, options)
@@ -291,9 +291,9 @@ you do not walk down paths that can never be a match.
 For example,
 
 ```js
-minimatch('/a/b', '/a/*/c/d', { partial: true }) // true, might be /a/b/c/d
-minimatch('/a/b', '/**/d', { partial: true }) // true, might be /a/b/.../d
-minimatch('/x/y/z', '/a/**/z', { partial: true }) // false, because x !== a
+minimatch('/a/b', '/a/*/c/d', { partial: true }); // true, might be /a/b/c/d
+minimatch('/a/b', '/**/d', { partial: true }); // true, might be /a/b/.../d
+minimatch('/x/y/z', '/a/**/z', { partial: true }); // false, because x !== a
 ```
 
 ### windowsPathsNoEscape
@@ -354,7 +354,6 @@ is equivalent in all cases).
   pattern are preserved.
 - `2` (or higher) - Much more aggressive optimizations, suitable
   for use with file-walking cases:
-
   - Remove cases where a double-dot `..` follows a pattern
     portion that is not `**`, `.`, or empty `''`. Remove empty
     and `.` portions of the pattern, where safe to do so (ie,

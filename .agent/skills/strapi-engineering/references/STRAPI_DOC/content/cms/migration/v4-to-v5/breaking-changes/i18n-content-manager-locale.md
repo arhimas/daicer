@@ -4,9 +4,9 @@ description: Internationalization (i18n) is now part of the Strapi core and no l
 sidebar_label: i18n part of strapi core
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - Internationalization (i18n)
- - upgrade to Strapi 5
+  - breaking changes
+  - Internationalization (i18n)
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

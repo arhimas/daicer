@@ -4,9 +4,9 @@ description: Strapi 5 detects what package manager you are using to run the CLI,
 sidebar_label: yarn not the default package manager
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - dependencies
- - upgrade to Strapi 5
+  - breaking changes
+  - dependencies
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -52,9 +52,8 @@ Strapi detects what package manager you are using to run the CLI, and uses this 
 
 ### Notes
 
-* Since Strapi detects the package manager used to run the command and uses it to install dependencies, this means the following example use cases will happen:
-
-  - `npx create-strapi-app`  installs the dependencies with `npm`
+- Since Strapi detects the package manager used to run the command and uses it to install dependencies, this means the following example use cases will happen:
+  - `npx create-strapi-app` installs the dependencies with `npm`
   - `npm create …` installs the dependencies with `npm`
   - `yarn create …` installs the dependencies with `yarn`
   - `yarn dlx …` installs the dependencies with `yarn`

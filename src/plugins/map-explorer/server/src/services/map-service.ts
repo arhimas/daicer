@@ -13,14 +13,14 @@ const service = ({ strapi }: { strapi: Core.Strapi }) => {
       const uid = getConfig('world');
       const world = await strapi.db.query(uid).findOne();
       if (!world) {
-          // Return default structure if none exists
-          return {
-              seed: 'daicer',
-              chunkSize: 16,
-              seaLevel: 0,
-              structureChance: 0.1,
-              roadDensity: 0.1
-          };
+        // Return default structure if none exists
+        return {
+          seed: 'daicer',
+          chunkSize: 16,
+          seaLevel: 0,
+          structureChance: 0.1,
+          roadDensity: 0.1,
+        };
       }
       return world;
     },
@@ -29,29 +29,29 @@ const service = ({ strapi }: { strapi: Core.Strapi }) => {
       const uid = getConfig('world');
       const world = await strapi.db.query(uid).findOne();
       if (world) {
-          return await strapi.documents(uid).update({
-              documentId: world.documentId,
-              data
-          });
+        return await strapi.documents(uid).update({
+          documentId: world.documentId,
+          data,
+        });
       } else {
-          return await strapi.documents(uid).create({
-              data
-          });
+        return await strapi.documents(uid).create({
+          data,
+        });
       }
     },
 
     async getConstructions() {
-        const uid = getConfig('construction');
-        return await strapi.documents(uid).findMany();
+      const uid = getConfig('construction');
+      return await strapi.documents(uid).findMany();
     },
 
     async saveConstruction(data) {
-        // If ID or DocumentID exists, update. Else create.
-        const uid = getConfig('construction');
-        return await strapi.documents(uid).create({
-            data
-        });
-    }
+      // If ID or DocumentID exists, update. Else create.
+      const uid = getConfig('construction');
+      return await strapi.documents(uid).create({
+        data,
+      });
+    },
   };
 };
 

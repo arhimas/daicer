@@ -4,10 +4,10 @@ description: In Strapi 5, the GraphQL API has been updated. It handles the new, 
 sidebar_label: GraphQL API updated
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content API
- - GraphQL
- - upgrade to Strapi 5
+  - breaking changes
+  - content API
+  - GraphQL
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -24,12 +24,12 @@ Flat queries still return a simple array of documents. You can also use Relay-st
 
 ## List of changes
 
-| Topic                        |  Description of the changes |
-|------------------------------|-----------------------------------------------------------------------------------------------------|
+| Topic                        | Description of the changes                                                                                                                                                                                                                                                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | File upload support          | <ul><li>Removed `uploadFile` `uploadFiles` mutations</li><li>Removed `updateFileInfo` mutation in favor of using the `updateUploadFile` mutation</li><li>Removed `removeFile` mutation in favor of using the `deleteUploadFile` mutation</li><li>Removed `folder` queries & mutations</li><li>Removed `createUploadFile` mutation</li></ul> |
-| Internationalization support | Removed the `createXXLocalization` mutations in favor of being able to update any locale from the main `updateXXX` mutation |
-| Draft & Publish support      | Removed `publicationState` in favor of `status` to align with the new Draft & Publish behavior |
-| Schema changes               | <ul><li>Simplified the basic queries with no `meta`/`pagination`</li><li>Introduced `Connection` to add pagination</li></ul> |
+| Internationalization support | Removed the `createXXLocalization` mutations in favor of being able to update any locale from the main `updateXXX` mutation                                                                                                                                                                                                                 |
+| Draft & Publish support      | Removed `publicationState` in favor of `status` to align with the new Draft & Publish behavior                                                                                                                                                                                                                                              |
+| Schema changes               | <ul><li>Simplified the basic queries with no `meta`/`pagination`</li><li>Introduced `Connection` to add pagination</li></ul>                                                                                                                                                                                                                |
 
 For an extensive description of the new Strapi 5 GraphQL API, please refer to the [GraphQL API](/cms/api/graphql) reference documentation.
 
@@ -149,10 +149,7 @@ To gradually convert to the new GraphQL API format, follow these steps:
 
    ```graphql
    mutation UpdateRestaurant {
-     updateRestaurant(
-       documentId: "some-doc-id",
-       data: { title: "My great restaurant" }
-     ) {
+     updateRestaurant(documentId: "some-doc-id", data: { title: "My great restaurant" }) {
        data {
          documentId
          attributes {
@@ -273,7 +270,7 @@ To gradually convert to the new GraphQL API format, follow these steps:
    }
    ```
 
-5. *(Optional)* If you need Relay-compliant pagination, rename `data` to `nodes` and `meta.pagination` to `pageInfo`. When a client does not need pagination metadata, you can also drop `_connection` entirely.
+5. _(Optional)_ If you need Relay-compliant pagination, rename `data` to `nodes` and `meta.pagination` to `pageInfo`. When a client does not need pagination metadata, you can also drop `_connection` entirely.
 
    ```graphql
    {

@@ -2,9 +2,7 @@
   "file": "molecules/classes/barbarian.json",
   "type": "class",
   "zod_valid": false,
-  "zod_errors": [
-    "hit_die: Invalid input: expected string, received number"
-  ],
+  "zod_errors": ["hit_die: Invalid input: expected string, received number"],
   "llm_audit": {
     "entity": "CLASS",
     "file": "barbarian.json",

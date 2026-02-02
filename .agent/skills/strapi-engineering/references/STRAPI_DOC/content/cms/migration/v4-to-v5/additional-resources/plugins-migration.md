@@ -16,6 +16,7 @@ Starting with Strapi 5, the platform includes a [Plugin SDK](/cms/plugins-develo
 :::
 
 ## Recommended steps to migrate a plugin
+
 :::prerequisites
 Your Strapi application is already running on the latest v5 minor and patch version. If it's not, follow the [step-by-step guide](/cms/migration/v4-to-v5/step-by-step) to upgrade to Strapi 5.
 :::
@@ -27,6 +28,7 @@ Upgrading a Strapi v4 plugin to Strapi 5 consists in:
 
 Alternatively, you can manually update your Strapi v4 plugin to use the Plugin SDK.
 The manual steps include:
+
 1. If your code uses a format other than CommonJS, update the `package.json` file and specify the appropriate exports property.
 2. Reorganize your Strapi v4 code to align with the Strapi 5 [plugin structure](/cms/plugins-development/plugin-structure)
 

@@ -81,11 +81,11 @@ export default {
         if (!queueConfig) {
           strapi.log.info('[Bootstrap] Seeding default Queue Configuration...');
           const { QueueName } = await import('./queues/contract');
-          
+
           await strapi.documents('api::queue-configuration.queue-configuration').create({
             data: {
               globalEnabled: true,
-              queues: Object.values(QueueName).map(name => ({
+              queues: Object.values(QueueName).map((name) => ({
                 queueName: name,
                 enabled: true,
                 concurrency: 1,
@@ -97,13 +97,13 @@ export default {
                 },
               })),
             },
-           status: 'published',
+            status: 'published',
           });
           strapi.log.info('[Bootstrap] Default Queue Configuration seeded.');
         }
       } catch (_err) {
-         // This might fail if the content type is not yet sync'd or table doesn't exist on first run
-         strapi.log.warn('[Bootstrap] Failed to seed Queue Configuration (ignorable on first build).');
+        // This might fail if the content type is not yet sync'd or table doesn't exist on first run
+        strapi.log.warn('[Bootstrap] Failed to seed Queue Configuration (ignorable on first build).');
       }
 
       // 5. Background Queue Initialization
@@ -149,7 +149,7 @@ export default {
       if (embeddingService && typeof embeddingService.terminate === 'function') {
         embeddingService.terminate();
       }
-      
+
       const { WorkerManager } = await import('./queues/worker-manager');
       await WorkerManager.stop();
 

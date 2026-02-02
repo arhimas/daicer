@@ -8,14 +8,7 @@
     "file": "dust-of-dryness.json",
     "analysis": {
       "consistency": {
-        "data_points": [
-          "name",
-          "type",
-          "rarity",
-          "requires_attunement",
-          "description",
-          "source_type_rarity"
-        ],
+        "data_points": ["name", "type", "rarity", "requires_attunement", "description", "source_type_rarity"],
         "assessment": "The data is internally consistent. The 'rarity' (Uncommon) matches the 'source_type_rarity' field.",
         "issues": []
       },

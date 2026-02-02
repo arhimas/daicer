@@ -47,7 +47,6 @@ interface Player {
 // Internal helper for text parsing
 // Internal helper for text parsing - Removed unused parseTextAction
 
-
 export default ({ strapi }: { strapi: Core.Strapi }) => ({
   /**
    * Orchestrates the complete Turn Lifecycle ("Sandwich" Architecture).
@@ -94,7 +93,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       // 2. RESOLUTION PHASE (Pure Logic)
       const actionEngine = strapi.service('api::game.action-engine');
-      
+
       // We expect actionEngine to return `ActionResult[]`
       const results: ActionResult[] = await actionEngine.dispatch(roomId, commands, true); // dryRun=true
 
@@ -133,7 +132,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           // Explicitly cast to unknown first to satisfy strict Strapi document creation types if they don't match exactly
           // but we know it matches GameEvent structure.
           const e = await strapi.documents('api::game-event.game-event').create({
-            data: event as unknown as Record<string, unknown>, 
+            data: event as unknown as Record<string, unknown>,
           });
           createdEvents.push(e as unknown as GameEvent & { documentId: string });
         }
@@ -143,7 +142,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           data: {
             room: roomId,
             metadata: {
-              events: createdEvents.map((e) => e.documentId)
+              events: createdEvents.map((e) => e.documentId),
             },
             actions: commands as unknown as Record<string, unknown>,
             status: 'complete',
@@ -155,12 +154,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       });
 
       // D. Create TimeFrame Snapshot
-      const entitiesInRoom = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
+      const entitiesInRoom = (await strapi.documents('api::entity-sheet.entity-sheet').findMany({
         filters: {
           room: { documentId: roomId },
         },
-        populate: ['stats'], 
-      }) as unknown as EntitySheet[];
+        populate: ['stats'],
+      })) as unknown as EntitySheet[];
 
       const characterSnapshots = entitiesInRoom.map((e) => ({
         name: e.name,
@@ -173,7 +172,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       await strapi.documents('api::time-frame.time-frame').create({
         data: {
-          turnNumber: -1, 
+          turnNumber: -1,
           timestamp: new Date().toISOString(),
           room: roomId,
           gameState: {
@@ -190,12 +189,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           documentId: roomId,
           populate: ['world', 'dmSettings', 'players', 'players.character'],
         });
-        
+
         if (room) {
-           const currentEntities = await strapi.documents('api::entity-sheet.entity-sheet').findMany({
+          const currentEntities = (await strapi.documents('api::entity-sheet.entity-sheet').findMany({
             filters: { room: { documentId: roomId } },
             populate: ['stats', 'computedActions'],
-          }) as unknown as EntitySheet[];
+          })) as unknown as EntitySheet[];
 
           // Map to Narrative Engine format
           const narrEntities = currentEntities.map((e) => ({
@@ -209,27 +208,29 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
             actions: e.computedActions || [],
           }));
 
-          const narrPlayers = (room.players || [] as unknown as Player[]).map((p: Player) => ({
-             ...p,
+          const narrPlayers = (room.players || ([] as unknown as Player[])).map((p: Player) => ({
+            ...p,
             character: p.character,
           }));
 
-          const narration = await strapi.service('api::game.narrative-engine').generateNarrativeResponse(
-            roomId,
-            room.world?.description || 'A dark room.',
-            [], 
-            narrPlayers,
-            narrEntities,
-            room.world?.language || 'en',
-            { ...room.world, ...room.dmSettings },
-            undefined, 
-            undefined, 
-            undefined 
-          );
+          const narration = await strapi
+            .service('api::game.narrative-engine')
+            .generateNarrativeResponse(
+              roomId,
+              room.world?.description || 'A dark room.',
+              [],
+              narrPlayers,
+              narrEntities,
+              room.world?.language || 'en',
+              { ...room.world, ...room.dmSettings },
+              undefined,
+              undefined,
+              undefined
+            );
 
           if (narration && narration.overall_summary) {
             await strapi.documents('api::turn.turn').update({
-              documentId: turnId, 
+              documentId: turnId,
               data: { summary: narration.overall_summary } as unknown as Record<string, unknown>,
             });
 
@@ -250,7 +251,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       }
 
       return { success: true, turnId: turnId };
-      
     } finally {
       // 6. UNLOCK
       await lockService.release(roomId, holderId);
@@ -278,7 +278,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           const json = JSON.parse(p.action);
           if (json.type) {
             inputs.push({ type: 'command', agentId: p.character?.documentId, command: json });
-            continue; 
+            continue;
           }
         } catch {
           // Not JSON
@@ -290,7 +290,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     if (inputs.length === 0) return { success: true, message: 'No actions pending.' };
 
     const result = await this.processTurn(roomId, inputs);
-    
+
     // Clear Actions (Post-Processing)
     if (result.success) {
       const updatedPlayers = players.map((p) => ({ ...p, action: null, isReady: false }));

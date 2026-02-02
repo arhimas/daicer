@@ -20,10 +20,7 @@
         "type": "Character Advancement/Attribute Modification",
         "trigger": "Reaching specific class levels (4, 6, 8, 12, 14, 16, 19).",
         "effect": "Increases ability scores.",
-        "options": [
-          "Increase one ability score by 2.",
-          "Increase two ability scores by 1 each."
-        ],
+        "options": ["Increase one ability score by 2.", "Increase two ability scores by 1 each."],
         "limitation": "Ability scores cannot be increased above 20 by this feature."
       },
       "data_archivist_notes": "This data entry is highly accurate and conforms perfectly to established D&D 5e rules for the Fighter's Ability Score Improvement feature. No mechanical ambiguities found."

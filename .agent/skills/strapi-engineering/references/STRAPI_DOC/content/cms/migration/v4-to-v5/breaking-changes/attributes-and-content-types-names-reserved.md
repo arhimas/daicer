@@ -4,10 +4,10 @@ description: In Strapi 5, some attributes and content types names are reserved, 
 sidebar_label: Reserved names
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - models
- - content API
- - upgrade to Strapi 5
+  - breaking changes
+  - models
+  - content API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -74,4 +74,4 @@ Model names can **not** be prefixed with `strapi`, `_strapi`, or `__strapi`.
 
 ### Manual procedure
 
-Rename any custom field or content-type that falls under the restriction list *before* any migration to prevent data loss or other unexpected issues.
+Rename any custom field or content-type that falls under the restriction list _before_ any migration to prevent data loss or other unexpected issues.

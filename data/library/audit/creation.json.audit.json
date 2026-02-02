@@ -15,9 +15,7 @@
       },
       "quality": {
         "notes": "The formatting of the material duration table is presented as HTML within the raw data. For archival purposes, this information should be extracted into a structured format for easier programmatic access.",
-        "issues": [
-          "Raw data contains embedded HTML table structure which needs normalization."
-        ]
+        "issues": ["Raw data contains embedded HTML table structure which needs normalization."]
       },
       "mechanics": {
         "notes": "This is a utility conjuration/creation spell with specific limitations on size, material type (nonliving, vegetable or mineral), and use as a component for other spells (which causes failure). The scaling mechanism is clear.",
@@ -38,10 +36,7 @@
         "range": "30 feet",
         "components": "V, S, M (a tiny piece of matter of the same type of the item you plan to create)",
         "duration": "Special",
-        "classes": [
-          "sorcerer",
-          "wizard"
-        ],
+        "classes": ["sorcerer", "wizard"],
         "effect_details": {
           "max_size": "5-foot cube (at 5th level)",
           "material_type": "Nonliving object of vegetable matter, soft goods, rope, wood, or mineral objects (stone, crystal, metal).",

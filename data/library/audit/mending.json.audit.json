@@ -35,13 +35,7 @@
           "Repair limited to breaks/tears no larger than 1 foot in any dimension.",
           "Cannot restore magic to an item, even if it physically repairs a magic item."
         ],
-        "class_availability": [
-          "bard",
-          "cleric",
-          "druid",
-          "sorcerer",
-          "wizard"
-        ]
+        "class_availability": ["bard", "cleric", "druid", "sorcerer", "wizard"]
       }
     },
     "zod_errors": "NONE"

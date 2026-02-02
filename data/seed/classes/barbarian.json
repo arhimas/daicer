@@ -2,176 +2,114 @@
   "slug": "barbarian",
   "name": "Barbarian",
   "hit_die": 12,
-  "proficiency_choices": [
-    "Animal Handling",
-    "Athletics",
-    "Intimidation",
-    "Nature",
-    "Perception",
-    "Survival"
-  ],
+  "proficiency_choices": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
   "proficiencies": {
-    "armor": [
-      "Light armor",
-      "medium armor",
-      "shields"
-    ],
-    "weapons": [
-      "Simple weapons",
-      "martial weapons"
-    ],
-    "tools": [
-      "None"
-    ],
-    "saving_throws": [
-      "Strength",
-      "Constitution"
-    ]
+    "armor": ["Light armor", "medium armor", "shields"],
+    "weapons": ["Simple weapons", "martial weapons"],
+    "tools": ["None"],
+    "saving_throws": ["Strength", "Constitution"]
   },
   "equipment": [],
   "progression": [
     {
       "level": 1,
       "pb": 2,
-      "features": [
-        "Rage",
-        "Unarmored Defense"
-      ]
+      "features": ["Rage", "Unarmored Defense"]
     },
     {
       "level": 2,
       "pb": 2,
-      "features": [
-        "Reckless Attack",
-        "Danger Sense"
-      ]
+      "features": ["Reckless Attack", "Danger Sense"]
     },
     {
       "level": 3,
       "pb": 2,
-      "features": [
-        "Primal Path"
-      ]
+      "features": ["Primal Path"]
     },
     {
       "level": 4,
       "pb": 2,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 5,
       "pb": 3,
-      "features": [
-        "Extra Attack",
-        "Fast Movement"
-      ]
+      "features": ["Extra Attack", "Fast Movement"]
     },
     {
       "level": 6,
       "pb": 3,
-      "features": [
-        "Path feature"
-      ]
+      "features": ["Path feature"]
     },
     {
       "level": 7,
       "pb": 3,
-      "features": [
-        "Feral Instinct"
-      ]
+      "features": ["Feral Instinct"]
     },
     {
       "level": 8,
       "pb": 3,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 9,
       "pb": 4,
-      "features": [
-        "Brutal Critical"
-      ]
+      "features": ["Brutal Critical"]
     },
     {
       "level": 10,
       "pb": 4,
-      "features": [
-        "Path feature"
-      ]
+      "features": ["Path feature"]
     },
     {
       "level": 11,
       "pb": 4,
-      "features": [
-        "Relentless Rage"
-      ]
+      "features": ["Relentless Rage"]
     },
     {
       "level": 12,
       "pb": 4,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 13,
       "pb": 5,
-      "features": [
-        "Brutal Critical"
-      ]
+      "features": ["Brutal Critical"]
     },
     {
       "level": 14,
       "pb": 5,
-      "features": [
-        "Path feature"
-      ]
+      "features": ["Path feature"]
     },
     {
       "level": 15,
       "pb": 5,
-      "features": [
-        "Persistent Rage"
-      ]
+      "features": ["Persistent Rage"]
     },
     {
       "level": 16,
       "pb": 5,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 17,
       "pb": 6,
-      "features": [
-        "Brutal Critical"
-      ]
+      "features": ["Brutal Critical"]
     },
     {
       "level": 18,
       "pb": 6,
-      "features": [
-        "Indomitable Might"
-      ]
+      "features": ["Indomitable Might"]
     },
     {
       "level": 19,
       "pb": 6,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 20,
       "pb": 6,
-      "features": [
-        "Primal Champion"
-      ]
+      "features": ["Primal Champion"]
     }
   ]
 }

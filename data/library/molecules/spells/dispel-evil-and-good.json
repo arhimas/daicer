@@ -9,8 +9,5 @@
   "components": "V, S, M (holy water or powdered silver and iron)",
   "duration": "Concentration, up to 1 minute",
   "description": "Shimmering energy surrounds and protects you from fey, undead, and creatures originating from beyond the material plane. For the duration, celestials, elementals, fey, fiends, and undead have disadvantage on attack rolls against you.\n\nYou can end the spell early by using either of the following special functions.\n\n**_Break Enchantment._** As your action, you touch a creature you can reach that is [charmed](#charmed), [frightened](#frightened), or possessed by a celestial, an elemental, a fey, a fiend, or an undead. The creature you touch is no longer charmed, frightened, or possessed by such creatures.\n\n**_Dismissal._** As your action, make a melee spell attack against a celestial, an elemental, a fey, a fiend, or an undead you can reach. On a hit, you attempt to drive the creature back to its home plane. The creature must succeed on a Charisma saving throw or be sent back to its home plane (if it isn't there already). If they aren't on their home plane, undead are sent to a parallel necrotic plane, and fey are sent to a fey plane.",
-  "classes": [
-    "cleric",
-    "paladin"
-  ]
+  "classes": ["cleric", "paladin"]
 }

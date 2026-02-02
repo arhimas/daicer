@@ -4,14 +4,14 @@ displayed_sidebar: cloudSidebar
 description: Configure Strapi Cloud to use a third-party upload provider.
 canonicalUrl: https://docs.strapi.io/cloud/advanced/upload.html
 tags:
-- configuration
-- upload provider
-- provider
-- plugins
-- middlewares
-- Strapi Cloud
-- Strapi Cloud configuration
-- Strapi Cloud project
+  - configuration
+  - upload provider
+  - provider
+  - plugins
+  - middlewares
+  - Strapi Cloud
+  - Strapi Cloud configuration
+  - Strapi Cloud project
 ---
 
 # Upload Provider
@@ -54,17 +54,16 @@ To configure a 3rd-party upload provider in your Strapi project, create or edit 
 <TabItem value="js" label="JavaScript">
 
 ```js title=./config/env/production/plugins.js
-
 module.exports = ({ env }) => ({
-// … some unrelated plugins configuration options
-// highlight-start
-upload: {
-   config: {
+  // … some unrelated plugins configuration options
+  // highlight-start
+  upload: {
+    config: {
       // … provider-specific upload configuration options go here
-   }
-// highlight-end
-// … some other unrelated plugins configuration options
-}
+    },
+    // highlight-end
+    // … some other unrelated plugins configuration options
+  },
 });
 ```
 
@@ -72,17 +71,16 @@ upload: {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title=./config/env/production/plugins.ts
-
 export default ({ env }) => ({
-// … some unrelated plugins configuration options
-// highlight-start
-upload: {
-   config: {
+  // … some unrelated plugins configuration options
+  // highlight-start
+  upload: {
+    config: {
       // … provider-specific upload configuration options go here
-   }
-// highlight-end
-// … some other unrelated plugins configuration options
-}
+    },
+    // highlight-end
+    // … some other unrelated plugins configuration options
+  },
 });
 ```
 
@@ -250,20 +248,8 @@ module.exports = [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': [
-            "'self'", 
-            'data:', 
-            'blob:', 
-            'market-assets.strapi.io', 
-            'res.cloudinary.com'
-          ],
-          'media-src': [
-            "'self'",
-            'data:',
-            'blob:',
-            'market-assets.strapi.io',
-            'res.cloudinary.com',
-          ],
+          'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com'],
+          'media-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com'],
           upgradeInsecureRequests: null,
         },
       },
@@ -326,20 +312,8 @@ export default [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': [
-            "'self'", 
-            'data:', 
-            'blob:', 
-            'market-assets.strapi.io', 
-            'res.cloudinary.com'
-          ],
-          'media-src': [
-            "'self'",
-            'data:',
-            'blob:',
-            'market-assets.strapi.io',
-            'res.cloudinary.com',
-          ],
+          'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com'],
+          'media-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com'],
           upgradeInsecureRequests: null,
         },
       },
@@ -407,7 +381,7 @@ Before pushing the above changes to GitHub, add environment variables to the Str
 <TabItem value="cloudinary" label="Cloudinary">
 
 | Variable            | Value                   |
-|---------------------|-------------------------|
+| ------------------- | ----------------------- |
 | `CLOUDINARY_NAME`   | your_cloudinary_name    |
 | `CLOUDINARY_KEY`    | your_cloudinary_api_key |
 | `CLOUDINARY_SECRET` | your_cloudinary_secret  |
@@ -416,7 +390,7 @@ Before pushing the above changes to GitHub, add environment variables to the Str
 <TabItem value="amazon-s3" label="Amazon S3">
 
 | Variable            | Value                  |
-|---------------------|------------------------|
+| ------------------- | ---------------------- |
 | `AWS_ACCESS_KEY_ID` | your_aws_access_key_id |
 | `AWS_ACCESS_SECRET` | your_aws_access_secret |
 | `AWS_REGION`        | your_aws_region        |

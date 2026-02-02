@@ -27,9 +27,7 @@
         "magic_status": "Becomes magical"
       },
       "zod_errors_found": false,
-      "recommendations": [
-        "The data appears consistent and mechanically sound based on typical D&D 5e item standards."
-      ]
+      "recommendations": ["The data appears consistent and mechanically sound based on typical D&D 5e item standards."]
     }
   },
   "timestamp": "2026-01-17T07:22:57.866Z"

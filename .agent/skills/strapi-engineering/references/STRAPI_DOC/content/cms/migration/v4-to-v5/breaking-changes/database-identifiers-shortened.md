@@ -4,9 +4,9 @@ description: Database identifiers are shortened in Strapi v5 and can't be longer
 sidebar_label: Database identifiers shortened
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - database
- - upgrade to Strapi 5
+  - breaking changes
+  - database
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -71,7 +71,7 @@ Database identifiers can't be longer than 55 characters and will be shortened.
   | `order_inv_fk`         | `oifk`        |
   | `order`                | `ord`         |
   | `primary`              | `pk`          |
-  | `unique`               | `uq`         |
+  | `unique`               | `uq`          |
 
 ### Manual procedure
 

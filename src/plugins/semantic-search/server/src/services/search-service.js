@@ -48,7 +48,13 @@ module.exports = ({ strapi }) => ({
     const searchAll = targetSet.size === 0;
 
     // 2. Search Manual Docs (Knowledge Sources)
-    if (searchAll || targetSet.has('manual') || targetSet.has('knowledge') || targetSet.has('code') || targetSet.has('schema')) {
+    if (
+      searchAll ||
+      targetSet.has('manual') ||
+      targetSet.has('knowledge') ||
+      targetSet.has('code') ||
+      targetSet.has('schema')
+    ) {
       try {
         const rows = await vectorService.searchManual(vector, limit);
         rows.forEach((row) => {

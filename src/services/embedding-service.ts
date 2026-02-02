@@ -20,10 +20,10 @@ export class EmbeddingService {
   constructor() {
     // Configure local cache directory at project root
     this.cacheDir = path.resolve(process.cwd(), 'local_models');
-    
+
     // Configure transformers env
     env.cacheDir = this.cacheDir;
-    env.allowLocalModels = true; 
+    env.allowLocalModels = true;
     // We allow remote models so it can download them once, then it uses cache.
     // To strictly force offline after download, we'd toggle allowRemoteModels = false.
   }
@@ -80,7 +80,7 @@ export class EmbeddingService {
 
       // Jina v2 handles long context, but let's be safe if it's absurdly huge
       // The model limit is 8192 tokens.
-      
+
       const output = await this.pipeline(text, {
         pooling: 'mean',
         normalize: true,
@@ -88,12 +88,11 @@ export class EmbeddingService {
 
       // output.tolist() returns number[][] because of batching, but we sent one string
       // so we want the first element.
-      const raw = output.tolist(); 
+      const raw = output.tolist();
       if (Array.isArray(raw) && raw.length > 0 && Array.isArray(raw[0])) {
-          return raw[0] as number[];
+        return raw[0] as number[];
       }
       return raw as unknown as number[]; // Fallback if shape differs, though mean pooling usually returns [dim]
-      
     } catch (error) {
       console.error('❌ [EmbeddingService] Generation failed:', error);
       throw error;
@@ -105,10 +104,10 @@ export class EmbeddingService {
    * Currently clears the pipeline reference.
    */
   terminate() {
-     // No-op for transformers.js usually, unless we want to dispose the session if possible.
-     // In JS/ONNX runtime, explicit disposal isn't always strictly exposed via pipeline API easily 
-     // without digging into the model session. For now, we leave it.
-     this.pipeline = null;
+    // No-op for transformers.js usually, unless we want to dispose the session if possible.
+    // In JS/ONNX runtime, explicit disposal isn't always strictly exposed via pipeline API easily
+    // without digging into the model session. For now, we leave it.
+    this.pipeline = null;
   }
 }
 

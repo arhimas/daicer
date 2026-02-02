@@ -3,10 +3,10 @@ title: Users & Permissions
 description: Learn to use the Users & Permissions and API tokens features to manage end-users.
 toc_max_heading_level: 5
 tags:
-- admin panel
-- users & permissions
-- api tokens
-- features
+  - admin panel
+  - users & permissions
+  - api tokens
+  - features
 ---
 
 # Users & Permissions
@@ -34,29 +34,29 @@ The Users & Permissions feature allows to create and manage roles for end users,
 
 #### Creating a new role
 
-**Path:** <Icon name="gear-six" /> *Users & Permissions plugin > Roles*
+**Path:** <Icon name="gear-six" /> _Users & Permissions plugin > Roles_
 
-On the top right side of the *Roles* interface, an **Add new role** button is displayed. It allows to create a new role for end users of your Strapi application.
+On the top right side of the _Roles_ interface, an **Add new role** button is displayed. It allows to create a new role for end users of your Strapi application.
 
 Click on the **Add new role** button to be redirected to the roles edition interface, where you will be able to name your new role and define its details and permissions (see [Editing a role](#editing-a-role)).
 
 <ThemedImage
-  alt="End-users roles interface"
-  sources={{
+alt="End-users roles interface"
+sources={{
     light: '/img/assets/users-permissions/end-user_roles.png',
     dark: '/img/assets/users-permissions/end-user_roles_DARK.png',
   }}
 />
 
 :::note
-The end-user role attributed by default to all new end users can be defined in the *Advanced settings* sub-section of *Users & Permissions plugin* (see [Advanced settings](#advanced-settings)).
+The end-user role attributed by default to all new end users can be defined in the _Advanced settings_ sub-section of _Users & Permissions plugin_ (see [Advanced settings](#advanced-settings)).
 :::
 
 #### Editing a role
 
-**Path:** <Icon name="gear-six" /> *Users & Permissions plugin > Roles*
+**Path:** <Icon name="gear-six" /> _Users & Permissions plugin > Roles_
 
-The *Roles* interface displays all created roles for the end users of your Strapi application.
+The _Roles_ interface displays all created roles for the end users of your Strapi application.
 
 By default, 2 end-user roles are defined for any Strapi application:
 
@@ -66,16 +66,16 @@ By default, 2 end-user roles are defined for any Strapi application:
 More roles can however be created (see [Creating a new role](#creating-a-new-role)), and all can be edited through the role edition interface.
 
 1. Click on the edit button <Icon name="pencil-simple" /> of the role to edit — except if you directly landed on the role edition interface from creating a new role.
-2. Fill in the *Role details*, following the instructions from the table below:
+2. Fill in the _Role details_, following the instructions from the table below:
 
-| Role details  | Instructions |
-| ------------- | ---------------------------------------- |
-| Name          | Write the new name of the role in the textbox. |
-| Description   | Write the description of the role in the textbox. It should help administrators understand what the role gives access to. |
+| Role details | Instructions                                                                                                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Name         | Write the new name of the role in the textbox.                                                                            |
+| Description  | Write the description of the role in the textbox. It should help administrators understand what the role gives access to. |
 
-3. Configure the end-user role's *Permissions* by:
-    1. Clicking on the name of the permission category to configure (e.g. Application, Content-Manager, Email etc.).
-    2. Ticking the boxes of the actions and permissions to grant for the role.
+3. Configure the end-user role's _Permissions_ by:
+   1. Clicking on the name of the permission category to configure (e.g. Application, Content-Manager, Email etc.).
+   2. Ticking the boxes of the actions and permissions to grant for the role.
 4. Click on the **Save** button.
 
 :::tip
@@ -83,8 +83,8 @@ When ticking an action or permission box, related bound routes of the API are di
 :::
 
 <ThemedImage
-  alt="Configuring a role for end users"
-  sources={{
+alt="Configuring a role for end users"
+sources={{
     light: '/img/assets/users-permissions/end-user_roles-config.png',
     dark: '/img/assets/users-permissions/end-user_roles-config_DARK.png',
   }}
@@ -92,7 +92,7 @@ When ticking an action or permission box, related bound routes of the API are di
 
 #### Deleting a role
 
-**Path:** <Icon name="gear-six" /> *Users & Permissions plugin > Roles*
+**Path:** <Icon name="gear-six" /> _Users & Permissions plugin > Roles_
 
 Although the 2 default end-user roles cannot be deleted, the other ones can, as long as no end user still has this role attributed to their account.
 
@@ -101,20 +101,20 @@ Although the 2 default end-user roles cannot be deleted, the other ones can, as 
 
 ### Providers
 
-**Path:** <Icon name="gear-six" /> *Users & Permissions plugin > Providers*
+**Path:** <Icon name="gear-six" /> _Users & Permissions plugin > Providers_
 
 The Users & Permissions feature allows enabling and configuring providers, for end users to login via a third-party provider to access the content of a front-end application through the Strapi application API.
 
 By default, a list of providers is available including one, "Email", enabled by default for all Strapi applications with Users & Permissions enabled.
 
 1. Click on the edit <Icon name="pencil-simple" /> button of the provider to enable and configure.
-2. In the provider edition window, click on the **TRUE** button of the *Enable* option.
+2. In the provider edition window, click on the **TRUE** button of the _Enable_ option.
 3. Fill in the provider's configurations. Each provider has its own specific set of configurations (see [Users & Permissions providers documentation](/cms/configurations/users-and-permissions-providers#setting-up-the-provider---examples)).
 4. Click on the **Save** button.
 
 <ThemedImage
-  alt="Providers interface"
-  sources={{
+alt="Providers interface"
+sources={{
     light: '/img/assets/settings/up_providers.png',
     dark: '/img/assets/settings/up_providers_DARK.png',
   }}
@@ -127,7 +127,6 @@ Other providers that are not proposed by default by Strapi can be added manually
 <CustomDocCard icon="list-plus" title="Creating a custom provider" description="Learn how to create your own custom provider for the Users & Permissions feature." link="/cms/configurations/users-and-permissions-providers/new-provider-guide" />
 </CustomDocCardsWrapper>
 
-
 <!---
 :::tip
 Click the search button <Icon name="search" classes="ph-bold" /> above the table to use a text search and find one of your providers more quickly!
@@ -136,7 +135,7 @@ Click the search button <Icon name="search" classes="ph-bold" /> above the table
 
 ### Email templates
 
-**Path:** <Icon name="gear-six" /> *Users & Permissions plugin > Email templates*
+**Path:** <Icon name="gear-six" /> _Users & Permissions plugin > Email templates_
 
 The Users & Permissions feature uses 2 email templates, "Email address confirmation" and "Reset password", that are sent to end users:
 
@@ -147,18 +146,18 @@ Both email templates can be modified.
 
 1. Click on the edit <Icon name="pencil-simple" /> button of the email template to configure and edit.
 2. Configure the email template:
-    | Setting name   | Instructions |
-    |--------------- | ----------------------------------------------- |
-    | Shipper name   | Indicate the name of the shipper of the email.                                                   |
-    | Shipper email  | Indicate the email address of the shipper of the email.                                          |
-    | Response email | (optional) Indicate the email address to which responses emails from the end users will be sent. |
-    | Subject        | Write the subject of the email. Variables can be used (see [templating emails](#templating-emails)).             |
+   | Setting name | Instructions |
+   |--------------- | ----------------------------------------------- |
+   | Shipper name | Indicate the name of the shipper of the email. |
+   | Shipper email | Indicate the email address of the shipper of the email. |
+   | Response email | (optional) Indicate the email address to which responses emails from the end users will be sent. |
+   | Subject | Write the subject of the email. Variables can be used (see [templating emails](#templating-emails)). |
 3. Edit the content of the email in the "Message" textbox. Email templates content is in HTML and uses variables (see [templating emails](#templating-emails)).
 4. Click on the **Finish** button.
 
 <ThemedImage
-  alt="Email templates interface"
-  sources={{
+alt="Email templates interface"
+sources={{
     light: '/img/assets/settings/up_email-templates.png',
     dark: '/img/assets/settings/up_email-templates_DARK.png',
   }}
@@ -166,25 +165,25 @@ Both email templates can be modified.
 
 ### Advanced Settings
 
-**Path:** <Icon name="gear-six" /> *Users & Permissions plugin > Advanced settings*
+**Path:** <Icon name="gear-six" /> _Users & Permissions plugin > Advanced settings_
 
-All settings related to the Users & Permissions feature are managed from the *Advanced Settings* interface, including the choice of a default role for end users, the enablement of sign-ups and email confirmation, as well as the choice of landing page for resetting a password.
+All settings related to the Users & Permissions feature are managed from the _Advanced Settings_ interface, including the choice of a default role for end users, the enablement of sign-ups and email confirmation, as well as the choice of landing page for resetting a password.
 
 1. Configure the settings of your choice, following the instructions below:
-    | Setting name  | Instructions         |
-    | ------------------------------------ | --------------------------------------------------------------|
-    | Default role for authenticated users | Click the drop-down list to choose the default role for new end users.                                                                                             |
-    | One account per email address        | Click on the **TRUE** button to limit to 1 the number of end-user accounts with the same email address.<br/>Click on **FALSE** to disable this limitation and allow several end-user accounts to be associated with the same email address (e.g. `kai.doe@strapi.io` can be used when logging in via several different providers).  |
-    | Enable sign-ups                      | Click on the **TRUE** button to enable end-user sign-ups.<br/>Click on **FALSE** to prevent end-user registration to your front-end application(s).                        |
-    | Reset password page                  | Indicate the URL of the reset password page for your front-end application(s).                                                                                     |
-    | Enable email confirmation            | Click on the **TRUE** button to enable end-user account confirmation by sending them a confirmation email.<br/>Click on **FALSE** to disable account confirmation.         |
-    | Redirection url                      | Indicate the URL of the page where end users should be redirected after confirming their Strapi account.                                                           |
+   | Setting name | Instructions |
+   | ------------------------------------ | --------------------------------------------------------------|
+   | Default role for authenticated users | Click the drop-down list to choose the default role for new end users. |
+   | One account per email address | Click on the **TRUE** button to limit to 1 the number of end-user accounts with the same email address.<br/>Click on **FALSE** to disable this limitation and allow several end-user accounts to be associated with the same email address (e.g. `kai.doe@strapi.io` can be used when logging in via several different providers). |
+   | Enable sign-ups | Click on the **TRUE** button to enable end-user sign-ups.<br/>Click on **FALSE** to prevent end-user registration to your front-end application(s). |
+   | Reset password page | Indicate the URL of the reset password page for your front-end application(s). |
+   | Enable email confirmation | Click on the **TRUE** button to enable end-user account confirmation by sending them a confirmation email.<br/>Click on **FALSE** to disable account confirmation. |
+   | Redirection url | Indicate the URL of the page where end users should be redirected after confirming their Strapi account. |
 
 2. Click the **Save** button.
 
 <ThemedImage
-  alt="Advanced settings interface"
-  sources={{
+alt="Advanced settings interface"
+sources={{
     light: '/img/assets/settings/up_settings.png',
     dark: '/img/assets/settings/up_settings_DARK.png',
   }}
@@ -206,10 +205,10 @@ The Users & Permissions feature supports 2 JWT management modes.
 
 Defining which mode is used is done by setting the `jwtManagement` property of the `users-permissions.config` object in the [`/config/plugins` file](/cms/configurations/plugins). The property accepts either `legacy-support` or `refresh`:
 
-| Mode | Description | Use case |
-|------|-------------|----------|
-| `legacy-support` | (default) Issues long-lived JWTs using traditional configuration | Existing applications, simple authentication |
-| `refresh` | Uses session management with short-lived access tokens and refresh tokens for enhanced security | New applications, enhanced security requirements<br />(additional information can be found in [admin panel configuration](/cms/configurations/admin-panel#session-management) documentation) |
+| Mode             | Description                                                                                     | Use case                                                                                                                                                                                     |
+| ---------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `legacy-support` | (default) Issues long-lived JWTs using traditional configuration                                | Existing applications, simple authentication                                                                                                                                                 |
+| `refresh`        | Uses session management with short-lived access tokens and refresh tokens for enhanced security | New applications, enhanced security requirements<br />(additional information can be found in [admin panel configuration](/cms/configurations/admin-panel#session-management) documentation) |
 
 For backwards compatibility, the Users & Permission feature defaults to legacy mode:
 
@@ -227,10 +226,11 @@ module.exports = ({ env }) => ({
 ```
 
 :::note Notes
+
 - `jwtSecret` is a random string used to create new JWTs, typically set using the `JWT_SECRET` [environment variable](/cms/configurations/environment#strapi).
 - `jwt.expiresIn` is (legacy-mode only) is expressed in seconds or a string describing a time span.<br/>
   Eg: 60, "45m", "10h", "2 days", "7d", "2y". A numeric value is interpreted as a seconds count. If you use a string be sure you provide the time units (minutes, hours, days, years, etc), otherwise milliseconds unit is used by default ("120" is equal to "120ms").
-:::
+  :::
 
 :::warning
 Setting JWT expiry for more than 30 days is not recommended due to security concerns.
@@ -243,7 +243,6 @@ When the `refresh` mode is used, the configuration file could look like as follo
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/plugins.js"
-
 module.exports = ({ env }) => ({
   // …
   'users-permissions': {
@@ -272,7 +271,6 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/plugins.ts"
-
 export default ({ env }) => ({
   // …
   'users-permissions': {
@@ -313,10 +311,10 @@ The following example shows how to ensure a field called "nickname" is accepted 
 ```js title="/config/plugins.js"
 module.exports = ({ env }) => ({
   // ...
-  "users-permissions": {
+  'users-permissions': {
     config: {
       register: {
-        allowedFields: ["nickname"],
+        allowedFields: ['nickname'],
       },
     },
   },
@@ -331,10 +329,10 @@ module.exports = ({ env }) => ({
 ```ts title="/config/plugins.ts"
 export default ({ env }) => ({
   // ...
-  "users-permissions": {
+  'users-permissions': {
     config: {
       register: {
-        allowedFields: ["nickname"],
+        allowedFields: ['nickname'],
       },
     },
   },
@@ -348,19 +346,17 @@ export default ({ env }) => ({
 
 ### Rate limiting configuration
 
-Rate limiting is applied to authentication and registration endpoints to prevent abuse.  The following parameters can be configured to change its behavior. Additional configuration options are provided by the <ExternalLink text="koa2-ratelimit" to="https://github.com/ysocorp/koa2-ratelimit?tab=readme-ov-file#configuration"/> package:
-
+Rate limiting is applied to authentication and registration endpoints to prevent abuse. The following parameters can be configured to change its behavior. Additional configuration options are provided by the <ExternalLink text="koa2-ratelimit" to="https://github.com/ysocorp/koa2-ratelimit?tab=readme-ov-file#configuration"/> package:
 
 The following options are available in [the `/config/plugins` file](/cms/configurations/plugins):
 
-| Parameter | Description | Type | Default |
-| --------- | ----------- | ---- | ------- |
-| `ratelimit` | Settings to customize the rate limiting of the authentications and registration endpoints | object | `{}` |
-| `ratelimit.enabled` | Enable or disable the rate limiter | boolean | `true` |
-| `ratelimit.interval` | Time window for requests to be considered as part of the same rate limiting bucket | object | `{ min: 5 }` |
-| `ratelimit.max` | Maximum number of requests allowed in the time window | integer | `5` |
-| `ratelimit.prefixKey` | Prefix for the rate limiting key | string | `${userIdentifier}:${requestPath}:${ctx.request.ip}` |
-
+| Parameter             | Description                                                                               | Type    | Default                                              |
+| --------------------- | ----------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
+| `ratelimit`           | Settings to customize the rate limiting of the authentications and registration endpoints | object  | `{}`                                                 |
+| `ratelimit.enabled`   | Enable or disable the rate limiter                                                        | boolean | `true`                                               |
+| `ratelimit.interval`  | Time window for requests to be considered as part of the same rate limiting bucket        | object  | `{ min: 5 }`                                         |
+| `ratelimit.max`       | Maximum number of requests allowed in the time window                                     | integer | `5`                                                  |
+| `ratelimit.prefixKey` | Prefix for the rate limiting key                                                          | string  | `${userIdentifier}:${requestPath}:${ctx.request.ip}` |
 
 <Tabs groupId="js-ts">
 
@@ -456,7 +452,6 @@ By default you can set a `JWT_SECRET` environment variable and it will be used a
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/extensions/users-permissions/config/jwt.js"
-
 module.exports = {
   jwtSecret: process.env.SOME_ENV_VAR,
 };
@@ -467,7 +462,6 @@ module.exports = {
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/extensions/users-permissions/config/jwt.ts"
-
 export default {
   jwtSecret: process.env.SOME_ENV_VAR,
 };
@@ -482,8 +476,8 @@ export default {
 By default, Strapi SSO only redirects to the redirect URL that is exactly equal to the url in the configuration:
 
 <ThemedImage
-  alt="Users & Permissions configuration"
-  sources={{
+alt="Users & Permissions configuration"
+sources={{
       light: '/img/assets/users-permissions/sso-config-custom-validator.png',
       dark: '/img/assets/users-permissions/sso-config-custom-validator_DARK.png'
     }}
@@ -502,10 +496,10 @@ If you need to configure a custom handler to accept other URLs, you can create a
           // cbUrl is where Strapi is being asked to redirect the auth info
           // that was received from the provider to
 
-          // in this case, we will only validate that the 
+          // in this case, we will only validate that the
           // if using a base url, you should always include the trailing slash
           // although in real-world usage you should also include the full paths
-          if (cbUrl.startsWith('https://myproxy.mysite.com/') || 
+          if (cbUrl.startsWith('https://myproxy.mysite.com/') ||
               cbUrl.startsWith('https://mysite.com/')) {
             return;
           }
@@ -530,8 +524,8 @@ The Users & Permissions feature can be used both via the admin panel, to create 
 With the Users & Permissions feature, the end users and their account information are managed as a content-type. When Users & Permissions is installed on a Strapi application, 3 collection types are automatically created, including "User" which is the only one available directly in the Content Manager.
 
 <ThemedImage
-  alt="Managing end users via the Content Manager"
-  sources={{
+alt="Managing end users via the Content Manager"
+sources={{
     light: '/img/assets/users-permissions/end-user_content-manager.png',
     dark: '/img/assets/users-permissions/end-user_content-manager_DARK.png',
   }}
@@ -542,14 +536,14 @@ Registering new end users in a front-end application with the Users & Permission
 1. Go to the User collection type in the <Icon name="feather" /> Content Manager.
 2. Click on the **Create new entry** button in the top right corner.
 3. Fill in the default fields of the entry. Additional fields added specifically for your Strapi application by your administrators may be displayed as well.
-    | Field     | Instructions    |
-    | --------- | ---------------------------- |
-    | Username  | Write the username of the end user.    |
-    | Email     | Write the complete email address of the end user in the textbox.   |
-    | Password  | (optional) Write a new password in the textbox. You can click on the <Icon name="eye" /> icon for the password to be shown. |
-    | Confirmed | (optional) Click **ON** for the end-user account to be confirmed.                                           |
-    | Blocked   | (optional) Click **ON** to block the account of the end user, to prevent them to access content.            |
-    | Role      | (optional) Indicate the role that should be granted to the new end user. If this field is not filled in, the end user will be attributed the role set as default (see "Default role" option in [advanced settings](#advanced-settings)). |
+   | Field | Instructions |
+   | --------- | ---------------------------- |
+   | Username | Write the username of the end user. |
+   | Email | Write the complete email address of the end user in the textbox. |
+   | Password | (optional) Write a new password in the textbox. You can click on the <Icon name="eye" /> icon for the password to be shown. |
+   | Confirmed | (optional) Click **ON** for the end-user account to be confirmed. |
+   | Blocked | (optional) Click **ON** to block the account of the end user, to prevent them to access content. |
+   | Role | (optional) Indicate the role that should be granted to the new end user. If this field is not filled in, the end user will be attributed the role set as default (see "Default role" option in [advanced settings](#advanced-settings)). |
 4. Click on the **Save** button.
 
 :::note
@@ -557,7 +551,6 @@ If end users can register themselves on your front-end application (see "Enable 
 :::
 
 ### API usage
-
 
 Each time an API request is sent the server checks if an `Authorization` header is present and verifies if the user making the request has access to the resource.
 
@@ -569,22 +562,22 @@ When you create a user without a role, or if you use the `/api/auth/local/regist
 
 The Users & Permissions feature provides the following authentication endpoints for user management and [Content API](/cms/api/rest) access:
 
-| Method | URL | Description |
-| ------ | --- | ----------- |
-| `POST` | `/api/auth/local` | User login with email/username and password<br/>(see [`identifier` parameter](#identifier)) |
-| `POST` | `/api/auth/local/register` | [User registration](#user-registration) |
-| `POST` | `/api/auth/forgot-password` | Request password reset |
-| `POST` | `/api/auth/reset-password` | Reset password using token |
-| `GET` | `/api/auth/email-confirmation` | Confirm user email address |
+| Method | URL                            | Description                                                                                 |
+| ------ | ------------------------------ | ------------------------------------------------------------------------------------------- |
+| `POST` | `/api/auth/local`              | User login with email/username and password<br/>(see [`identifier` parameter](#identifier)) |
+| `POST` | `/api/auth/local/register`     | [User registration](#user-registration)                                                     |
+| `POST` | `/api/auth/forgot-password`    | Request password reset                                                                      |
+| `POST` | `/api/auth/reset-password`     | Reset password using token                                                                  |
+| `GET`  | `/api/auth/email-confirmation` | Confirm user email address                                                                  |
 
 #### Session management endpoints
 
 When [session management](#jwt-management-modes) is enabled (`jwtManagement: 'refresh'`), additional endpoints are available:
 
-| Method | URL | Description |
-| ------ | --- | ----------- |
-| `POST` | `/api/auth/refresh` | Refresh access token using refresh token |
-| `POST` | `/api/auth/logout` | Revoke user sessions (supports device-specific logout) |
+| Method | URL                 | Description                                            |
+| ------ | ------------------- | ------------------------------------------------------ |
+| `POST` | `/api/auth/refresh` | Refresh access token using refresh token               |
+| `POST` | `/api/auth/logout`  | Revoke user sessions (supports device-specific logout) |
 
 To refresh your authentication token you could for instance send the following request:
 
@@ -638,13 +631,13 @@ axios
     identifier: 'user@strapi.io',
     password: 'strapiPassword',
   })
-  .then(response => {
+  .then((response) => {
     // Handle success.
     console.log('Well done!');
     console.log('User profile', response.data.user);
     console.log('User token', response.data.jwt);
   })
-  .catch(error => {
+  .catch((error) => {
     // Handle error.
     console.log('An error occurred:', error.response);
   });
@@ -666,6 +659,7 @@ If you use **Postman**, set the **body** to **raw** and select **JSON** as your 
 If the request is successful you will receive the **user's JWT** in the `jwt` key:
 
 **Legacy mode response:**
+
 ```json
 {
     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTc2OTM4MTUwLCJleHAiOjE1Nzk1MzAxNTB9.UgsjjXkAZ-anD257BF7y1hbjuY3ogNceKfTAQtzDEsU",
@@ -678,6 +672,7 @@ If the request is successful you will receive the **user's JWT** in the `jwt` ke
 ```
 
 **Session management mode response:**
+
 ```json
 {
     "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", // Short-lived access token
@@ -715,11 +710,11 @@ axios
       Authorization: `Bearer ${token}`,
     },
   })
-  .then(response => {
+  .then((response) => {
     // Handle success.
     console.log('Data: ', response.data);
   })
-  .catch(error => {
+  .catch((error) => {
     // Handle error.
     console.log('An error occurred:', error.response);
   });
@@ -740,13 +735,13 @@ axios
     email: 'user@strapi.io',
     password: 'strapiPassword',
   })
-  .then(response => {
+  .then((response) => {
     // Handle success.
     console.log('Well done!');
     console.log('User profile', response.data.user);
     console.log('User token', response.data.jwt);
   })
-  .catch(error => {
+  .catch((error) => {
     // Handle error.
     console.log('An error occurred:', error.response);
   });
@@ -759,7 +754,7 @@ The `user` object is available to successfully authenticated requests.
 The authenticated `user` object is a property of `ctx.state`.
 
 ```js
-create: async ctx => {
+create: async (ctx) => {
   const { id } = ctx.state.user;
 
   const depositObj = {

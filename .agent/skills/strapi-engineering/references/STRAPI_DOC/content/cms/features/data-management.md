@@ -4,12 +4,12 @@ sidebar_position: 1
 description: Learn to use the Data Management to import, export, or transfer data between different Strapi instances.
 toc_max_heading_level: 5
 tags:
-- admin panel
-- features
-- data management
-- data import
-- data export
-- data transfer
+  - admin panel
+  - features
+  - data management
+  - data import
+  - data export
+  - data transfer
 ---
 
 # Data Management
@@ -18,7 +18,7 @@ tags:
 Data Management handles CLI-based import, export, and transfer of content between Strapi instances with partial configuration in the admin panel. Step-by-step commands and prerequisite settings explained in this documentation ensure safe migrations.
 </Tldr>
 
-The Data Management feature can be used to import, export, or transfer data. Data Management is  CLI-based only, but is partly configured in the admin panel.
+The Data Management feature can be used to import, export, or transfer data. Data Management is CLI-based only, but is partly configured in the admin panel.
 
 <IdentityCard>
   <IdentityCardItem icon="credit-card" title="Plan">Free feature</IdentityCardItem>
@@ -37,19 +37,19 @@ Some configuration options for the Data Management feature are available in the 
 A `transfer.token.salt` should be defined in the `config/admin` configuration file (see [code-based configuration](#code-based-configuration)).
 :::
 
-**Path to configure the feature:** <Icon name="gear-six" /> *Settings > Global settings > Transfer Tokens*
+**Path to configure the feature:** <Icon name="gear-six" /> _Settings > Global settings > Transfer Tokens_
 
 Transfer tokens allow users to authorize the `strapi transfer` CLI command (see [Data transfer](/cms/data-management/transfer) documentation).
 
 <ThemedImage
-  alt="Transfer tokens"
-  sources={{
+alt="Transfer tokens"
+sources={{
     light: '/img/assets/settings/settings_transfer-token.png',
     dark: '/img/assets/settings/settings_transfer-token_DARK.png',
   }}
 />
 
-The *Transfer Tokens* interface displays a table listing all of the created Transfer tokens. More specifically, it displays each Transfer token's name, description, date of creation, and date of last use.
+The _Transfer Tokens_ interface displays a table listing all of the created Transfer tokens. More specifically, it displays each Transfer token's name, description, date of creation, and date of last use.
 
 From there, administrators can also:
 
@@ -60,17 +60,17 @@ From there, administrators can also:
 
 1. Click on the **Create new Transfer Token** button.
 2. In the Transfer token edition interface, configure the new Transfer token:
-    | Setting name   | Instructions                                                                  |
-    | -------------- | ----------------------------------------------------------------------------- |
-    | Name           | Write the name of the Transfer token.                                         |
-    | Description    | (optional) Write a description for the Transfer token.                        |
-    | Token duration | Choose a token duration: *7 days*, *30 days*, *90 days*, or *Unlimited*.      |
-    | Token type | Choose a token type:<ul><li>*Push* to allow transfers from local to remote instances only,</li><li>*Pull* to allow transfers from remote to local instances only,</li><li>or *Full Access* to allow both types of transfer.</li></ul>      |
+   | Setting name | Instructions |
+   | -------------- | ----------------------------------------------------------------------------- |
+   | Name | Write the name of the Transfer token. |
+   | Description | (optional) Write a description for the Transfer token. |
+   | Token duration | Choose a token duration: _7 days_, _30 days_, _90 days_, or _Unlimited_. |
+   | Token type | Choose a token type:<ul><li>_Push_ to allow transfers from local to remote instances only,</li><li>_Pull_ to allow transfers from remote to local instances only,</li><li>or _Full Access_ to allow both types of transfer.</li></ul> |
 3. Click on the **Save** button. The new Transfer token will be displayed at the top of the interface, along with a copy button <Icon name="copy" />.
 
 <ThemedImage
-  alt="Custom Transfer Token"
-  sources={{
+alt="Custom Transfer Token"
+sources={{
     light: '/img/assets/settings/settings_create-transfer-token.png',
     dark: '/img/assets/settings/settings_create-transfer-token_DARK.png',
   }}
@@ -98,13 +98,12 @@ A `transfer.token.salt` value must be defined in [the `config/admin` file](/cms/
 ```js title="/config/admin.js"
 module.exports = ({ env }) => ({
   // …
-  transfer: { 
-    token: { 
+  transfer: {
+    token: {
       salt: env('TRANSFER_TOKEN_SALT', 'anotherRandomLongString'),
-    } 
+    },
   },
 });
-
 ```
 
 </TabItem>
@@ -114,10 +113,10 @@ module.exports = ({ env }) => ({
 ```ts title="/config/admin.ts"
 export default ({ env }) => ({
   // …
-  transfer: { 
-    token: { 
+  transfer: {
+    token: {
       salt: env('TRANSFER_TOKEN_SALT', 'anotherRandomLongString'),
-    } 
+    },
   },
 });
 ```

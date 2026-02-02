@@ -8,16 +8,16 @@
 
 The **Functional API** allows you to add LangGraph's key features -- [persistence](./persistence.md), [memory](./memory.md), [human-in-the-loop](./human_in_the_loop.md), and [streaming](./streaming.md) — to your applications with minimal changes to your existing code.
 
-It is designed to integrate these features into existing code that may use standard language primitives for branching and control flow, such as `if` statements, `for` loops, and function calls. Unlike many data orchestration frameworks that require restructuring code into an explicit pipeline or DAG, the Functional API allows you to incorporate these capabilities without enforcing a rigid execution model.  
+It is designed to integrate these features into existing code that may use standard language primitives for branching and control flow, such as `if` statements, `for` loops, and function calls. Unlike many data orchestration frameworks that require restructuring code into an explicit pipeline or DAG, the Functional API allows you to incorporate these capabilities without enforcing a rigid execution model.
 
-The **Functional API** uses two key building blocks:  
+The **Functional API** uses two key building blocks:
 
 - **`entrypoint`** – An **entrypoint** is a wrapper that takes a function as the starting point of a workflow. It encapsulates workflow logic and manages execution flow, including handling _long-running tasks_ and [interrupts](human_in_the_loop.md).
 - **`task`** – Represents a discrete unit of work, such as an API call or data processing step, that can be executed asynchronously within an entrypoint. Tasks return a future-like object that can be awaited or resolved synchronously.
 
 This provides a minimal abstraction for building workflows with state management and streaming.
 
-!!! tip 
+!!! tip
 
     For users who prefer a more declarative approach, LangGraph's [Graph API](./low_level.md) allows you to define workflows using a Graph paradigm. Both APIs share the same underlying runtime, so you can use them together in the same application.
     Please see the [Functional API vs. Graph API](#functional-api-vs-graph-api) section for a comparison of the two paradigms.
@@ -27,33 +27,30 @@ This provides a minimal abstraction for building workflows with state management
 Below we demonstrate a simple application that writes an essay and [interrupts](human_in_the_loop.md) to request human review.
 
 ```typescript
-import { task, entrypoint, interrupt, MemorySaver } from "@langchain/langgraph";
+import { task, entrypoint, interrupt, MemorySaver } from '@langchain/langgraph';
 
-const writeEssay = task("write_essay", (topic: string): string => {
+const writeEssay = task('write_essay', (topic: string): string => {
   // A placeholder for a long-running task.
   return `An essay about topic: ${topic}`;
 });
 
-const workflow = entrypoint(
-  { checkpointer: new MemorySaver(), name: "workflow" },
-  async (topic: string) => {
-    const essay = await writeEssay(topic);
-    const isApproved = interrupt({
-      // Any json-serializable payload provided to interrupt as argument.
-      // It will be surfaced on the client side as an Interrupt when streaming data
-      // from the workflow.
-      essay, // The essay we want reviewed.
-      // We can add any additional information that we need.
-      // For example, introduce a key called "action" with some instructions.
-      action: "Please approve/reject the essay",
-    });
+const workflow = entrypoint({ checkpointer: new MemorySaver(), name: 'workflow' }, async (topic: string) => {
+  const essay = await writeEssay(topic);
+  const isApproved = interrupt({
+    // Any json-serializable payload provided to interrupt as argument.
+    // It will be surfaced on the client side as an Interrupt when streaming data
+    // from the workflow.
+    essay, // The essay we want reviewed.
+    // We can add any additional information that we need.
+    // For example, introduce a key called "action" with some instructions.
+    action: 'Please approve/reject the essay',
+  });
 
-    return {
-      essay, // The essay that was generated
-      isApproved, // Response from HIL
-    };
-  }
-);
+  return {
+    essay, // The essay that was generated
+    isApproved, // Response from HIL
+  };
+});
 ```
 
 ??? example "Detailed Explanation"
@@ -139,12 +136,12 @@ The function **must accept a single positional argument**, which serves as the w
 You will often want to pass a **checkpointer** to the `entrypoint` function to enable persistence and use features like **human-in-the-loop**.
 
 ```typescript
-import { entrypoint, MemorySaver } from "@langchain/langgraph";
+import { entrypoint, MemorySaver } from '@langchain/langgraph';
 
 const checkpointer = new MemorySaver();
 
 const myWorkflow = entrypoint(
-  { checkpointer, name: "myWorkflow" },
+  { checkpointer, name: 'myWorkflow' },
   async (someInput: Record<string, any>): Promise<number> => {
     // some logic that may involve long-running tasks like API calls,
     // and may be interrupted for human-in-the-loop.
@@ -303,17 +300,14 @@ This allows accessing the state from the previous invocation using the [`getPrev
 By default, the previous state is the return value of the previous invocation.
 
 ```typescript
-const myWorkflow = entrypoint(
-  { checkpointer, name: "myWorkflow" },
-  async (number: number) => {
-    const previous = getPreviousState<number>();
-    return number + (previous ?? 0);
-  }
-);
+const myWorkflow = entrypoint({ checkpointer, name: 'myWorkflow' }, async (number: number) => {
+  const previous = getPreviousState<number>();
+  return number + (previous ?? 0);
+});
 
 const config = {
   configurable: {
-    thread_id: "some_thread_id",
+    thread_id: 'some_thread_id',
   },
 };
 
@@ -328,23 +322,20 @@ await myWorkflow.invoke(2, config); // 3 (previous was 1 from the previous invoc
 The first value is the return value of the entrypoint, and the second value is the value that will be saved in the checkpoint.
 
 ```typescript
-const myWorkflow = entrypoint(
-  { checkpointer, name: "myWorkflow" },
-  async (number: number) => {
-    const previous = getPreviousState<number>();
-    // This will return the previous value to the caller, saving
-    // 2 * number to the checkpoint, which will be used in the next invocation
-    // for the previous state
-    return entrypoint.final({
-      value: previous ?? 0,
-      save: 2 * number,
-    });
-  }
-);
+const myWorkflow = entrypoint({ checkpointer, name: 'myWorkflow' }, async (number: number) => {
+  const previous = getPreviousState<number>();
+  // This will return the previous value to the caller, saving
+  // 2 * number to the checkpoint, which will be used in the next invocation
+  // for the previous state
+  return entrypoint.final({
+    value: previous ?? 0,
+    save: 2 * number,
+  });
+});
 
 const config = {
   configurable: {
-    thread_id: "1",
+    thread_id: '1',
   },
 };
 
@@ -385,12 +376,9 @@ const slowComputation = task({"slowComputation", async (inputValue: any) => {
 Tasks _cannot_ be called directly from the main application code.
 
 ```typescript
-const myWorkflow = entrypoint(
-  { checkpointer, name: "myWorkflow" },
-  async (someInput: number) => {
-    return await slowComputation(someInput);
-  }
-);
+const myWorkflow = entrypoint({ checkpointer, name: 'myWorkflow' }, async (someInput: number) => {
+  return await slowComputation(someInput);
+});
 ```
 
 ### Retry Policy
@@ -400,7 +388,7 @@ You can specify a [retry policy](./low_level.md#retry-policies) for a **task** b
 ```typescript
 const slowComputation = task(
   {
-    name: "slowComputation",
+    name: 'slowComputation',
     // only attempt to run this task once before giving up
     retry: { maxAttempts: 1 },
   },
@@ -599,14 +587,11 @@ await myWorkflow.invoke([{ value: 1, anotherValue: 2 }]);
 Tasks can be executed in parallel by invoking them concurrently and waiting for the results. This is useful for improving performance in IO bound tasks (e.g., calling APIs for LLMs).
 
 ```typescript
-const addOne = task("addOne", (number: number) => number + 1);
+const addOne = task('addOne', (number: number) => number + 1);
 
-const graph = entrypoint(
-  { checkpointer, name: "graph" },
-  async (numbers: number[]) => {
-    return await Promise.all(numbers.map(addOne));
-  }
-);
+const graph = entrypoint({ checkpointer, name: 'graph' }, async (numbers: number[]) => {
+  return await Promise.all(numbers.map(addOne));
+});
 ```
 
 ### Calling subgraphs
@@ -641,19 +626,16 @@ You can call other **entrypoints** from within an **entrypoint** or a **task**.
 
 ```typescript
 const someOtherWorkflow = entrypoint(
-  { name: "someOtherWorkflow" }, // Will automatically use the checkpointer from the parent entrypoint
+  { name: 'someOtherWorkflow' }, // Will automatically use the checkpointer from the parent entrypoint
   async (inputs: { value: number }) => {
     return inputs.value;
   }
 );
 
-const myWorkflow = entrypoint(
-  { checkpointer, name: "myWorkflow" },
-  async (inputs: Record<string, any>) => {
-    const value = await someOtherWorkflow.invoke([{ value: 1 }]);
-    return value;
-  }
-);
+const myWorkflow = entrypoint({ checkpointer, name: 'myWorkflow' }, async (inputs: Record<string, any>) => {
+  const value = await someOtherWorkflow.invoke([{ value: 1 }]);
+  return value;
+});
 ```
 
 ### Streaming custom data
@@ -661,25 +643,20 @@ const myWorkflow = entrypoint(
 You can stream custom data from an **entrypoint** by using the `write` method on `config`. This allows you to write custom data to the `custom` stream.
 
 ```typescript
-import {
-  entrypoint,
-  task,
-  MemorySaver,
-  LangGraphRunnableConfig,
-} from "@langchain/langgraph";
+import { entrypoint, task, MemorySaver, LangGraphRunnableConfig } from '@langchain/langgraph';
 
-const addOne = task("addOne", (x: number) => x + 1);
+const addOne = task('addOne', (x: number) => x + 1);
 
-const addTwo = task("addTwo", (x: number) => x + 2);
+const addTwo = task('addTwo', (x: number) => x + 2);
 
 const checkpointer = new MemorySaver();
 
 const main = entrypoint(
-  { checkpointer, name: "main" },
+  { checkpointer, name: 'main' },
   async (inputs: { number: number }, config: LangGraphRunnableConfig) => {
-    config.writer?.("hello"); // Write some data to the `custom` stream
+    config.writer?.('hello'); // Write some data to the `custom` stream
     await addOne(inputs.number); // Will write data to the `updates` stream
-    config.writer?.("world"); // Write some more data to the `custom` stream
+    config.writer?.('world'); // Write some more data to the `custom` stream
     await addTwo(inputs.number); // Will write data to the `updates` stream
     return 5;
   }
@@ -687,14 +664,11 @@ const main = entrypoint(
 
 const config = {
   configurable: {
-    thread_id: "1",
+    thread_id: '1',
   },
 };
 
-const stream = await main.stream(
-  { number: 1 },
-  { streamMode: ["custom", "updates"], ...config }
-);
+const stream = await main.stream({ number: 1 }, { streamMode: ['custom', 'updates'], ...config });
 
 for await (const chunk of stream) {
   console.log(chunk);
@@ -702,20 +676,20 @@ for await (const chunk of stream) {
 ```
 
 ```typescript
-["updates", { addOne: 2 }][("updates", { addTwo: 3 })][("custom", "hello")][
-  ("custom", "world")
-][("updates", { main: 5 })];
+['updates', { addOne: 2 }][('updates', { addTwo: 3 })][('custom', 'hello')][('custom', 'world')][
+  ('updates', { main: 5 })
+];
 ```
 
 ### Resuming after an error
 
 ```typescript
-import { entrypoint, task, MemorySaver } from "@langchain/langgraph";
+import { entrypoint, task, MemorySaver } from '@langchain/langgraph';
 
 // Global variable to track the number of attempts
 let attempts = 0;
 
-const getInfo = task("getInfo", () => {
+const getInfo = task('getInfo', () => {
   /*
    * Simulates a task that fails once before succeeding.
    * Throws an error on the first attempt, then returns "OK" on subsequent tries.
@@ -723,51 +697,48 @@ const getInfo = task("getInfo", () => {
   attempts += 1;
 
   if (attempts < 2) {
-    throw new Error("Failure"); // Simulate a failure on the first attempt
+    throw new Error('Failure'); // Simulate a failure on the first attempt
   }
-  return "OK";
+  return 'OK';
 });
 
 // Initialize an in-memory checkpointer for persistence
 const checkpointer = new MemorySaver();
 
-const slowTask = task("slowTask", async () => {
+const slowTask = task('slowTask', async () => {
   /*
    * Simulates a slow-running task by introducing a 1-second delay.
    */
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  return "Ran slow task.";
+  return 'Ran slow task.';
 });
 
-const main = entrypoint(
-  { checkpointer, name: "main" },
-  async (inputs: Record<string, any>) => {
-    /*
-     * Main workflow function that runs the slowTask and getInfo tasks sequentially.
-     *
-     * Parameters:
-     * - inputs: Record<string, any> containing workflow input values.
-     *
-     * The workflow first executes `slowTask` and then attempts to execute `getInfo`,
-     * which will fail on the first invocation.
-     */
-    const slowTaskResult = await slowTask(); // Blocking call to slowTask
-    await getInfo(); // Error will be thrown here on the first attempt
-    return slowTaskResult;
-  }
-);
+const main = entrypoint({ checkpointer, name: 'main' }, async (inputs: Record<string, any>) => {
+  /*
+   * Main workflow function that runs the slowTask and getInfo tasks sequentially.
+   *
+   * Parameters:
+   * - inputs: Record<string, any> containing workflow input values.
+   *
+   * The workflow first executes `slowTask` and then attempts to execute `getInfo`,
+   * which will fail on the first invocation.
+   */
+  const slowTaskResult = await slowTask(); // Blocking call to slowTask
+  await getInfo(); // Error will be thrown here on the first attempt
+  return slowTaskResult;
+});
 
 // Workflow execution configuration with a unique thread identifier
 const config = {
   configurable: {
-    thread_id: "1", // Unique identifier to track workflow execution
+    thread_id: '1', // Unique identifier to track workflow execution
   },
 };
 
 // This invocation will take ~1 second due to the slowTask execution
 try {
   // First invocation will throw an error due to the `getInfo` task failing
-  await main.invoke({ anyInput: "foobar" }, config);
+  await main.invoke({ anyInput: 'foobar' }, config);
 } catch (err) {
   // Handle the failure gracefully
 }
@@ -780,7 +751,7 @@ await main.invoke(null, config);
 ```
 
 ```typescript
-"Ran slow task.";
+'Ran slow task.';
 ```
 
 ### Human-in-the-loop

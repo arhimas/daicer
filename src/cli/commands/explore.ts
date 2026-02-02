@@ -16,7 +16,7 @@ interface ExploreOptions {
   save?: string;
   filters?: string;
   // Deep cardinality flag
-  all?: boolean; 
+  all?: boolean;
 }
 
 export const exploreCommand = new Command('explore')
@@ -35,9 +35,9 @@ export const exploreCommand = new Command('explore')
     } catch (error) {
       if (options.json) {
         ui.json({
-            meta: { success: false, error: error.message || String(error) },
-            data: null,
-          });
+          meta: { success: false, error: error.message || String(error) },
+          data: null,
+        });
       } else {
         await ui.error('Error during exploration', error);
       }
@@ -121,10 +121,7 @@ export async function runExplore(options: ExploreOptions) {
   while (keepRunning) {
     if (!isRaw && !action) {
       // If no action flag, ask user
-        await ui.panel(
-            `${finalType.uid}`,
-            { title: finalType.info.displayName, style: 'round', color: 'blue' }
-        );
+      await ui.panel(`${finalType.uid}`, { title: finalType.info.displayName, style: 'round', color: 'blue' });
 
       currentAction = (await select({
         message: 'Choose an action:',
@@ -213,35 +210,35 @@ export async function runExplore(options: ExploreOptions) {
       // 🤖 LLM Strict Mode
       ui.json({
         meta: {
-            type: finalType.uid,
-            action: currentAction,
-            filters: currentFilters,
-            ...meta,
+          type: finalType.uid,
+          action: currentAction,
+          filters: currentFilters,
+          ...meta,
         },
         data: result,
       });
       keepRunning = false; // LLM is one-shot
     } else {
       // 🧑 Human Mode
-      
+
       if (currentAction === 'count') {
-        // const { chalk } = await import('prettyjson') as any || {}; 
+        // const { chalk } = await import('prettyjson') as any || {};
         // chalk is not used here? Wait, we need it for coloring the result?
         // Ah, ui.kv handles coloring. So we don't need chalk here.
         await ui.kv('Total Entries', result as number, 'green');
         keepRunning = false;
       } else if (currentAction === 'findOne' || finalType.kind === 'singleType') {
-         // Use dynamic import for prettyjson to be safe
-         const { default: prettyjson } = await import('prettyjson');
-         console.log('\n' + prettyjson.render(result));
-         keepRunning = false;
+        // Use dynamic import for prettyjson to be safe
+        const { default: prettyjson } = await import('prettyjson');
+        console.log('\n' + prettyjson.render(result));
+        keepRunning = false;
       } else {
         // Table View for 'find'
 
         const data = Array.isArray(result) ? result : [result].filter(Boolean); // handle null
 
         if (data.length === 0) {
-           await ui.warn('(No results found)');
+          await ui.warn('(No results found)');
         } else {
           // Derive headers
           const firstKey = Object.keys(data[0] || {}).filter((k) => k !== 'id' && k !== 'documentId');
@@ -249,20 +246,19 @@ export async function runExplore(options: ExploreOptions) {
 
           await ui.table(
             headers,
-            data.map((row: any) => headers.map(h => {
+            data.map((row: any) =>
+              headers.map((h) => {
                 const val = row[h];
                 if (typeof val === 'object') return '[Obj]';
                 return String(val).substring(0, 30);
-            }))
+              })
+            )
           );
 
           // Pagination Info
           if (meta.pagination) {
             const p = meta.pagination as any;
-            await ui.panel(
-                `Page ${p.page} of ${p.pageCount} | Total: ${p.total}`,
-                { style: 'classic', color: 'gray' }
-            );
+            await ui.panel(`Page ${p.page} of ${p.pageCount} | Total: ${p.total}`, { style: 'classic', color: 'gray' });
           }
         }
 
@@ -298,20 +294,20 @@ export async function runExplore(options: ExploreOptions) {
             currentFilters = JSON.parse(filterStr);
             currentPage = 1;
           } catch {
-             await ui.error('Invalid JSON');
+            await ui.error('Invalid JSON');
           }
         } else if (nextStep === 'builder') {
-            // Invoke the new Filter Builder
-            const newFilters = await filterBuilder.build(finalType.uid);
-            // Merge or replace? Let's replace for simplicity or strictly add to $and
-            // Currently filterBuilder returns a full filter object.
-            currentFilters = newFilters;
-            currentPage = 1;
-            await ui.success('Filters updated!');
+          // Invoke the new Filter Builder
+          const newFilters = await filterBuilder.build(finalType.uid);
+          // Merge or replace? Let's replace for simplicity or strictly add to $and
+          // Currently filterBuilder returns a full filter object.
+          currentFilters = newFilters;
+          currentPage = 1;
+          await ui.success('Filters updated!');
         } else if (nextStep === 'clear_filters') {
-            currentFilters = {};
-            currentPage = 1;
-            await ui.success('Filters cleared.');
+          currentFilters = {};
+          currentPage = 1;
+          await ui.success('Filters cleared.');
         } else if (nextStep === 'detail') {
           const did = await input({ message: 'Enter Document ID:' });
           currentAction = 'findOne';

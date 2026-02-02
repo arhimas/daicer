@@ -1,4 +1,3 @@
-
 export enum EntitySize {
   Fine = 'Fine',
   Diminutive = 'Diminutive',
@@ -12,7 +11,7 @@ export enum EntitySize {
 }
 
 // 32x32 pixels per 5ft square (Standard D&D / Pixel Art Scale)
-// Means 1ft = 6.4 pixels. 
+// Means 1ft = 6.4 pixels.
 // Fine (0.5ft) -> 3.2px (round to 4 or 8)
 // Tiny (2.5ft) -> 16px
 // Small (5ft) -> 32px
@@ -65,55 +64,55 @@ export const EntityGeometry = {
 
   /**
    * Run-Length Encoding (RLE) to minimize grid storage.
-   * Format: "count" + "x" + "color". 
+   * Format: "count" + "x" + "color".
    * Special Case: "transparent" -> "T".
    * Example: ["transparent", "transparent", "red"] -> ["2xT", "1xred"]
    */
   compressRow(row: string[]): string[] {
-      const compressed: string[] = [];
-      if (!row || row.length === 0) return compressed;
+    const compressed: string[] = [];
+    if (!row || row.length === 0) return compressed;
 
-      let currentColor = row[0];
-      let count = 0;
+    let currentColor = row[0];
+    let count = 0;
 
-      for (const color of row) {
-          if (color === currentColor) {
-              count++;
-          } else {
-              const code = currentColor === 'transparent' ? 'T' : currentColor;
-              compressed.push(`${count}x${code}`);
-              currentColor = color;
-              count = 1;
-          }
+    for (const color of row) {
+      if (color === currentColor) {
+        count++;
+      } else {
+        const code = currentColor === 'transparent' ? 'T' : currentColor;
+        compressed.push(`${count}x${code}`);
+        currentColor = color;
+        count = 1;
       }
-      // Push last segment
-      const code = currentColor === 'transparent' ? 'T' : currentColor;
-      compressed.push(`${count}x${code}`);
-      
-      return compressed;
+    }
+    // Push last segment
+    const code = currentColor === 'transparent' ? 'T' : currentColor;
+    compressed.push(`${count}x${code}`);
+
+    return compressed;
   },
 
   decompressRow(compressedRow: string[]): string[] {
-      const row: string[] = [];
-      for (const segment of compressedRow) {
-          const [countStr, ...colorParts] = segment.split('x');
-          const count = parseInt(countStr, 10);
-          let color = colorParts.join('x'); // Rejoin if color had 'x' (rare but safe)
-          
-          if (color === 'T') color = 'transparent';
-          
-          for (let i = 0; i < count; i++) {
-              row.push(color);
-          }
+    const row: string[] = [];
+    for (const segment of compressedRow) {
+      const [countStr, ...colorParts] = segment.split('x');
+      const count = parseInt(countStr, 10);
+      let color = colorParts.join('x'); // Rejoin if color had 'x' (rare but safe)
+
+      if (color === 'T') color = 'transparent';
+
+      for (let i = 0; i < count; i++) {
+        row.push(color);
       }
-      return row;
+    }
+    return row;
   },
 
   compressGrid(grid: string[][]): string[][] {
-      return grid.map(row => this.compressRow(row));
+    return grid.map((row) => this.compressRow(row));
   },
 
   decompressGrid(grid: string[][]): string[][] {
-      return grid.map(row => this.decompressRow(row));
-  }
+    return grid.map((row) => this.decompressRow(row));
+  },
 };

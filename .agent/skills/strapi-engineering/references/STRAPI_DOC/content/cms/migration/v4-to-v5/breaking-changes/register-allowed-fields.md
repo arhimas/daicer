@@ -4,9 +4,9 @@ description: In Strapi 5, The Users & Permissions plugin's `register.allowedFiel
 sidebar_label: register.allowedFields defaults to []
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - users & permissions
- - upgrade to Strapi 5
+  - breaking changes
+  - users & permissions
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

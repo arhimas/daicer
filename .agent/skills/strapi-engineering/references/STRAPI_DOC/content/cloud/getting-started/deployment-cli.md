@@ -6,9 +6,9 @@ canonicalUrl: https://docs.strapi.io/cloud/getting-started/deployment-cli.html
 sidebar_position: 2
 sidebar_label: with Cloud CLI
 tags:
-- Strapi Cloud
-- deployment
-- CLI
+  - Strapi Cloud
+  - deployment
+  - CLI
 ---
 
 # Project deployment with the Command Line Interface (CLI)
@@ -21,7 +21,7 @@ Before you can deploy your Strapi application on Strapi Cloud using the Command 
 - Have a Google, GitHub or GitLab account.
 - Have an already created Strapi project (see [Installing from CLI in the CMS Documentation](/cms/installation/cli)), stored locally. The project must be less than 100MB.
 - Have available storage in your hard drive where the temporary folder of your operating system is stored.
-:::
+  :::
 
 ## Logging in to Strapi Cloud
 
@@ -34,16 +34,16 @@ Before you can deploy your Strapi application on Strapi Cloud using the Command 
   <Tabs groupId="yarn-npm">
   <TabItem value="yarn" label="Yarn">
 
-  ```bash
-  yarn strapi login
-  ```
+```bash
+yarn strapi login
+```
 
   </TabItem>
   <TabItem value="npm" label="NPM">
 
-  ```bash
-  npx run strapi login
-  ```
+```bash
+npx run strapi login
+```
 
   </TabItem>
   </Tabs>
@@ -59,22 +59,22 @@ Before you can deploy your Strapi application on Strapi Cloud using the Command 
   <Tabs groupId="yarn-npm">
   <TabItem value="yarn" label="Yarn">
 
-  ```bash
-  yarn strapi deploy
-  ```
+```bash
+yarn strapi deploy
+```
 
   </TabItem>
   <TabItem value="npm" label="NPM">
 
-  ```bash
-  npx run strapi deploy
-  ```
+```bash
+npx run strapi deploy
+```
 
   </TabItem>
   </Tabs>
 
 2. Follow the progression bar in the terminal until confirmation that the project was successfully deployed with Strapi Cloud.
-Deploying the project will create a new Strapi Cloud project on the Free plan.
+   Deploying the project will create a new Strapi Cloud project on the Free plan.
 
 ### Automatically deploying subsequent changes
 

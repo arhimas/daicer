@@ -16,23 +16,23 @@ This guide shows how to add custom authentication to your LangGraph Platform app
 ## 1. Implement authentication
 
 ```typescript
-import { Auth, HTTPException } from "@langchain/langgraph-sdk/auth";
+import { Auth, HTTPException } from '@langchain/langgraph-sdk/auth';
 
 export const auth = new Auth()
   .authenticate(async (request: Request) => {
-    const authorization = request.headers.get("authorization");
-    const token = authorization?.split(" ").at(-1);
+    const authorization = request.headers.get('authorization');
+    const token = authorization?.split(' ').at(-1);
 
     try {
       const userId = (await verifyToken(token)) as string;
       return userId;
     } catch (error) {
-      throw new HTTPException(401, { message: "Invalid token", cause: error });
+      throw new HTTPException(401, { message: 'Invalid token', cause: error });
     }
   })
-  .on("*", ({ value, user }) => {
+  .on('*', ({ value, user }) => {
     // Add owner to the resource metadata
-    if ("metadata" in value) {
+    if ('metadata' in value) {
       value.metadata ??= {};
       value.metadata.owner = user.identity;
     }
@@ -40,12 +40,12 @@ export const auth = new Auth()
     // Filter the resource by the owner
     return { owner: user.identity };
   })
-  .on("store", ({ user, value }) => {
+  .on('store', ({ user, value }) => {
     if (value.namespace != null) {
       // Assuming you organize information in store like (user_id, resource_type, resource_id)
       const [userId, resourceType, resourceId] = value.namespace;
       if (userId !== user.identity) {
-        throw new HTTPException(403, { message: "Not authorized" });
+        throw new HTTPException(403, { message: 'Not authorized' });
       }
     }
   });
@@ -138,9 +138,9 @@ Assuming you are using JWT token authentication, you could access your deploymen
 By default, if you add custom authorization on your resources, this will also apply to interactions made from the Studio. If you want, you can handle logged-in Studio users in a special way with [isStudioUser()](../../reference/functions/sdk_auth.isStudioUser.html).
 
 ```typescript
-import { Auth, isStudioUser } from "@langchain/langgraph-sdk/auth";
+import { Auth, isStudioUser } from '@langchain/langgraph-sdk/auth';
 
-export const auth = new Auth().on("*", ({ value, user }) => {
+export const auth = new Auth().on('*', ({ value, user }) => {
   // If the request is made using LangSmith API-key auth
   if (isStudioUser(user)) {
     // E.g., allow all requests
@@ -148,7 +148,7 @@ export const auth = new Auth().on("*", ({ value, user }) => {
   }
 
   // Otherwise, apply regular authorization logic ...
-  if ("metadata" in value) {
+  if ('metadata' in value) {
     value.metadata ??= {};
     value.metadata.owner = user.identity;
   }

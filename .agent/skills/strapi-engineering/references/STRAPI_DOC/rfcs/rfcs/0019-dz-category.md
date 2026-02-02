@@ -7,9 +7,9 @@ Modify the component selector in the dynamic zone by adding the categories
 
 # Motivation
 
-We feel like the “category” on the component isn’t being used to it’s potential. When creating complex layout with lots of possible components, you end up with an horizontal scroll that make the experience quite uneasy. 
+We feel like the “category” on the component isn’t being used to it’s potential. When creating complex layout with lots of possible components, you end up with an horizontal scroll that make the experience quite uneasy.
 
-Below we seperated our blocks in two categories, one for the basic components, and the other for data associations. 
+Below we seperated our blocks in two categories, one for the basic components, and the other for data associations.
 
 ![categories](https://user-images.githubusercontent.com/505236/93095387-54247900-f6a3-11ea-96f5-d32429cc60a1.jpg)
 

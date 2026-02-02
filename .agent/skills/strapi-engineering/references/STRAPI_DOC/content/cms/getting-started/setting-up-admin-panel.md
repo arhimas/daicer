@@ -3,11 +3,10 @@ title: Setting up the admin panel
 displayed_sidebar: cmsSidebar
 description: How to setup your Strapi Admin Panel
 tags:
-- admin panel
-- administrator
-- password
+  - admin panel
+  - administrator
+  - password
 ---
-
 
 Before going over individual features, we recommend the following steps to set up and configure your Strapi admin panel correctly. Once you complete the setup, you can access the admin panel through the provided URL.
 
@@ -34,6 +33,7 @@ To access the admin panel:
 3. Click on the **Login** button. You should be redirected to the homepage of the admin panel.
 
 ### Using SSO for authentication {#using-sso}
+
 <EnterpriseBadge /> <SsoBadge />
 
 If your Strapi application was configured to allow authentication through SSO (see [Configuring Single Sign-On](/cms/features/sso)), you can access the admin panel using a specific provider instead of logging in with a regular Strapi administrator account.
@@ -76,8 +76,8 @@ To change the password of your account:
 1. Go to your administrator profile.
 2. Fill in the password-related options:
 
-| Password modification |                                                                                                                  |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Password modification |                                                                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | Current password      | Write your current password in the textbox. <br/> 💡 You can click on the <Icon name="eye" /> icon for the password to be shown. |
 | Password              | Write the new password in the textbox. <br/> 💡 You can click on the <Icon name="eye" /> icon for the password to be shown.      |
 | Password confirmation | Write the same new password in the textbox. <br/> 💡 You can click on the <Icon name="eye" /> icon for the password to be shown. |

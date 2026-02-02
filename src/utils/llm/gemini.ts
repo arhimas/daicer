@@ -20,7 +20,7 @@ function getApiKey(): string {
 
 /**
  * Creates a configured Gemini model instance using LangChain.
- * 
+ *
  * @param model - The specific Gemini model version to use.
  * @param config - Configuration options (temperature, max tokens, etc).
  * @returns Configured ChatGoogleGenerativeAI instance.
@@ -49,7 +49,7 @@ export function getGeminiModel(
 
 /**
  * Creates a Gemini model configured to return structured JSON adhering to a Zod schema.
- * 
+ *
  * @param schema - Zod schema defining the expected output structure.
  * @param model - Gemini model version.
  * @param config - Configuration options.

@@ -125,7 +125,7 @@ const RANDOM_EVENTS_POOL: Omit<RandomEvent, 'turnTriggered' | 'type' | 'visibili
  * The Entropy System manages "World CHAOS" and "narrative variance".
  * It tracks global conditions (Weather, Politics) and introduces random events
  * based on an accumulating "Entropy Pool".
- * 
+ *
  * As turns pass without incident, Entropy rises, making an event more likely.
  * When an event occurs, Entropy falls.
  */

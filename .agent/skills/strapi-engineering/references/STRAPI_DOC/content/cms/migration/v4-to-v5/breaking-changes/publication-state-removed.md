@@ -4,12 +4,12 @@ description: In Strapi 5, 'publicationState' can no longer be used in Content AP
 sidebar_label: status instead of publicationState
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - Content API
- - GraphQL API
- - Document Service API
- - Draft & Publish
- - upgrade to Strapi 5
+  - breaking changes
+  - Content API
+  - GraphQL API
+  - Document Service API
+  - Draft & Publish
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -61,10 +61,10 @@ In Strapi 5, the [Draft & Publish feature](/cms/features/draft-and-publish) has 
 
 ### Notes
 
-* There are no fallbacks to return by default the published version, and return the draft version if no published version is found.
-* Additional information about how to use the new `status` parameter can be found in the [REST API](/cms/api/rest/status), [GraphQL API](/cms/api/graphql#status), and [Document Service API](/cms/api/document-service/status) documentation.
+- There are no fallbacks to return by default the published version, and return the draft version if no published version is found.
+- Additional information about how to use the new `status` parameter can be found in the [REST API](/cms/api/rest/status), [GraphQL API](/cms/api/graphql#status), and [Document Service API](/cms/api/document-service/status) documentation.
 
 ### Migration procedure
 
-* API calls initiated from the front end (REST API, GraphQL API) that used `publicationState` need to be manually updated.
-* If `publicationState` is used in your custom back-end code with the Entity Service API in Strapi v4, a codemod will automatically handle the change for Strapi 5 (see [Entity Service to Document Service migration reference](/cms/migration/v4-to-v5/additional-resources/from-entity-service-to-document-service) for additional details).
+- API calls initiated from the front end (REST API, GraphQL API) that used `publicationState` need to be manually updated.
+- If `publicationState` is used in your custom back-end code with the Entity Service API in Strapi v4, a codemod will automatically handle the change for Strapi 5 (see [Entity Service to Document Service migration reference](/cms/migration/v4-to-v5/additional-resources/from-entity-service-to-document-service) for additional details).

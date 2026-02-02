@@ -1,4 +1,3 @@
-
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -71,50 +70,50 @@ function buildPlugins() {
 }
 
 async function runWatch() {
-    const plugins = getPluginDirectories();
-    if (plugins.length === 0) {
-        console.log(chalk.yellow("No plugins to watch."));
-        return;
-    }
+  const plugins = getPluginDirectories();
+  if (plugins.length === 0) {
+    console.log(chalk.yellow('No plugins to watch.'));
+    return;
+  }
 
-    console.log(chalk.blue.bold(`\nReflecting watchers for ${plugins.length} plugins...\n`));
+  console.log(chalk.blue.bold(`\nReflecting watchers for ${plugins.length} plugins...\n`));
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { concurrently } = require('concurrently');
-    
-    // Only watch plugins that actually have a package.json
-    const jobs = plugins
-        .filter(plugin => fs.existsSync(path.join(PLUGINS_DIR, plugin, 'package.json')))
-        .map(plugin => ({
-            command: `npm run watch`,
-            name: `plugin:${plugin}`,
-            cwd: path.join(PLUGINS_DIR, plugin),
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { concurrently } = require('concurrently');
+
+  // Only watch plugins that actually have a package.json
+  const jobs = plugins
+    .filter((plugin) => fs.existsSync(path.join(PLUGINS_DIR, plugin, 'package.json')))
+    .map((plugin) => ({
+      command: `npm run watch`,
+      name: `plugin:${plugin}`,
+      cwd: path.join(PLUGINS_DIR, plugin),
     }));
 
-     try {
-        await concurrently(jobs, {
-            prefix: 'name',
-            killOthers: ['failure', 'success'],
-            restartTries: 3,
-            prefixColors: ['magenta', 'cyan', 'yellow', 'blue'] // varied colors
-        }).result;
-    } catch (_e) {
-        // Concurrently throws when process exits
-    }
+  try {
+    await concurrently(jobs, {
+      prefix: 'name',
+      killOthers: ['failure', 'success'],
+      restartTries: 3,
+      prefixColors: ['magenta', 'cyan', 'yellow', 'blue'], // varied colors
+    }).result;
+  } catch (_e) {
+    // Concurrently throws when process exits
+  }
 }
 
 // --- Main ---
 
 (async () => {
-    await initChalk();
-    const mode = process.argv[2];
+  await initChalk();
+  const mode = process.argv[2];
 
-    if (mode === 'build') {
-        buildPlugins();
-    } else if (mode === 'watch') {
-        await runWatch();
-    } else {
-        console.log(chalk.red('Usage: ts-node src/scripts/plugin-tools.ts [build|watch]'));
-        process.exit(1);
-    }
+  if (mode === 'build') {
+    buildPlugins();
+  } else if (mode === 'watch') {
+    await runWatch();
+  } else {
+    console.log(chalk.red('Usage: ts-node src/scripts/plugin-tools.ts [build|watch]'));
+    process.exit(1);
+  }
 })();

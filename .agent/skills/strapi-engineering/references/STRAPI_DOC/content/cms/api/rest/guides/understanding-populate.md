@@ -4,20 +4,20 @@ description: Learn what populating means and how you can use the populate parame
 displayed_sidebar: cmsSidebar
 toc_max_heading_level: 6
 tags:
-- API
-- components
-- Content API
-- dynamic zones
-- guides
-- populate
-- REST API
-- REST API guides
+  - API
+  - components
+  - Content API
+  - dynamic zones
+  - guides
+  - populate
+  - REST API
+  - REST API guides
 ---
 
 import QsIntroFull from '/docs/snippets/qs-intro-full.md'
 import QsForQueryTitle from '/docs/snippets/qs-for-query-title.md'
 import QsForQueryBody from '/docs/snippets/qs-for-query-body.md'
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
 # 🧠 Understanding the `populate` parameter for the REST API
@@ -158,10 +158,11 @@ With the `populate=*` parameter, a `GET` request to `/api/articles` also returns
 The following example is the full response for the first of all 4 entries from the `articles` content-types (the data from articles with ids 2, 3, and 4 is truncated for brevity).
 
 Scroll down to see that the response size is much bigger than without populate. The response now includes additional fields (see highlighted lines) such as:
-* the `image` media field (which stores all information about the article cover, including all its different formats), 
-* the first-level fields of the `blocks` dynamic zone and the `seo` component,
-* the `category` relation and its fields,
-* and even some information about the articles translated in other languages, as shown by the `localizations` object.
+
+- the `image` media field (which stores all information about the article cover, including all its different formats),
+- the first-level fields of the `blocks` dynamic zone and the `seo` component,
+- the `category` relation and its fields,
+- and even some information about the articles translated in other languages, as shown by the `localizations` object.
 
 :::tip
 To populate deeply nested components, see the [populate components](#populate-components) section.
@@ -360,11 +361,11 @@ Populate as an object<br/>(to populate 1 relation several levels deep):
 
 ```json
 {
-  populate: {
-    category: {
-      populate: ['restaurants'],
-    },
-  },
+  "populate": {
+    "category": {
+      "populate": ["restaurants"]
+    }
+  }
 }
 ```
 
@@ -375,12 +376,8 @@ Populate as an array<br/>(to populate many relations 1 level deep)
 
 ```json
 {
-  populate: [ 
-    'articles',
-    'restaurants'
-  ],
+  "populate": ["articles", "restaurants"]
 }
-
 ```
 
 </ColumnRight>
@@ -394,10 +391,10 @@ You can populate specific relations 1 level deep by using the populate parameter
 
 Since the REST API uses the <ExternalLink to="https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets" text="LHS bracket notation"/> (i.e., with square brackets `[]`), the parameter syntaxes to populate 1 level deep would look like the following:
 
-| How many relations to populate | Syntax example    |
-|-------------------------------|--------------------|
-| Only 1 relation |  `populate[0]=a-relation-name`   |
-| Several relations | `populate[0]=relation-name&populate[1]=another-relation-name&populate[2]=yet-another-relation-name` |
+| How many relations to populate | Syntax example                                                                                      |
+| ------------------------------ | --------------------------------------------------------------------------------------------------- |
+| Only 1 relation                | `populate[0]=a-relation-name`                                                                       |
+| Several relations              | `populate[0]=relation-name&populate[1]=another-relation-name&populate[2]=yet-another-relation-name` |
 
 Let's compare and explain what happens with and without populating relations 1 level deep when sending queries to the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> example application:
 
@@ -618,11 +615,11 @@ The syntax for advanced query parameters can be quite complex to build manually.
 
 ```json
 {
-  populate: {
-    category: {
-      populate: ['restaurants'],
-    },
-  },
+  "populate": {
+    "category": {
+      "populate": ["restaurants"]
+    }
+  }
 }
 ```
 
@@ -927,17 +924,17 @@ Notice there's no mention of the `metaSocial` component nested within the `seo` 
       }
     },
     {
-      "id": 2,
+      "id": 2
       // truncated content
     },
     {
-      "id": 3,
+      "id": 3
       // truncated content
     },
     {
-      "id": 4,
+      "id": 4
       // truncated content
-    },
+    }
   ],
   "meta": {
     "pagination": {
@@ -1003,17 +1000,17 @@ Notice that we now have the `metaSocial` component-related data included with th
       }
     },
     {
-      "id": 2,
+      "id": 2
       // truncated content
     },
     {
-      "id": 3,
+      "id": 3
       // truncated content
     },
     {
-      "id": 4,
+      "id": 4
       // truncated content
-    },
+    }
   ],
   "meta": {
     "pagination": {
@@ -1227,7 +1224,7 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
     },
     {
       "id": 3,
-      // … 
+      // …
     },
     {
       "id": 4,
@@ -1265,22 +1262,24 @@ The syntax for advanced query parameters can be quite complex to build manually.
 
 ```json
 {
-  populate: {
-    blocks: { // asking to populate the blocks dynamic zone
-      on: { // using a detailed population strategy to explicitly define what you want
-        'blocks.related-articles': {
-          populate: {
-           'articles': {
-             populate: ['image']
-           }
-         }
+  "populate": {
+    "blocks": {
+      // asking to populate the blocks dynamic zone
+      "on": {
+        // using a detailed population strategy to explicitly define what you want
+        "blocks.related-articles": {
+          "populate": {
+            "articles": {
+              "populate": ["image"]
+            }
+          }
         },
-        'blocks.cta-command-line': {
-          populate: '*'
+        "blocks.cta-command-line": {
+          "populate": "*"
         }
-      },
-    },
-  },
+      }
+    }
+  }
 }
 ```
 

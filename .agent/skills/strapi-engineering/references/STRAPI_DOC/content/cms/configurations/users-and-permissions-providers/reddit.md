@@ -3,10 +3,10 @@ title: Reddit provider setup for Users & Permissions
 description: Learn how to setup the Reddit provider for the Users & Permissions feature.
 displayed_sidebar: cmsSidebar
 tags:
-- users and permissions
-- providers
-- configuration
-- customization
+  - users and permissions
+  - providers
+  - configuration
+  - customization
 ---
 
 import ConfigDone from '/docs/snippets/u-and-p-provider-config-done.md'

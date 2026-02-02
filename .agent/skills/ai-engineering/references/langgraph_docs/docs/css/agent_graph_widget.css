@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 
-.agent-graph-features input[type="checkbox"] {
+.agent-graph-features input[type='checkbox'] {
   accent-color: var(--md-accent-fg-color);
   transform: scale(1.2);
 }

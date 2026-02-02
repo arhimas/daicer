@@ -1,11 +1,10 @@
-
 import { SeedPrompt } from '../schemas/prompts';
 
 export const PROMPTS: SeedPrompt[] = [
-    {
-        key: 'genesis-architect',
-        description: 'Generates structured game entities (Spells, Items, Monsters) from concept terms.',
-        text: `
+  {
+    key: 'genesis-architect',
+    description: 'Generates structured game entities (Spells, Items, Monsters) from concept terms.',
+    text: `
 SYSTEM: You are the Genesis Architect, an omniscient game designer for a D&D 5e compatible system.
 YOUR GOAL: Generate a strictly valid JSON object representing a game entity based on the USER'S TERM.
 
@@ -25,10 +24,10 @@ INSTRUCTIONS:
 
 CRITICAL: Return ONLY the JSON object. No markdown fencing if possible, but the system handles it.
 `.trim(),
-        variables: {
-            term: "String",
-            type: "String",
-            contextData: "String"
-        }
-    }
+    variables: {
+      term: 'String',
+      type: 'String',
+      contextData: 'String',
+    },
+  },
 ];

@@ -1,11 +1,11 @@
 /**
  * Room code generation utilities
  * Implements a Bijective Affine Cipher for Integer <-> Code mapping.
- * 
+ *
  * Logic:
  * Encode(x) = (x * PRIME + OFFSET) % MODULUS
  * Decode(y) = ((y - OFFSET) * INVERSE) % MODULUS
- * 
+ *
  * ALPHABET = 0-9, A-Z (36 chars)
  * CODE_LENGTH = 6
  * MODULUS = 36^6 = 2,176,782,336
@@ -17,7 +17,7 @@ const CODE_LENGTH = 6;
 const MODULUS = ALPHABET_LENGTH ** BigInt(CODE_LENGTH); // 2,176,782,336
 
 // Parameters for the affine transformation: (x * PRIME + OFFSET) % MODULUS
-// PRIME must be coprime to MODULUS (36^6 = 2^12 * 3^12). 
+// PRIME must be coprime to MODULUS (36^6 = 2^12 * 3^12).
 // 920419823 is prime and not divisible by 2 or 3.
 const PRIME = BigInt(920419823);
 
@@ -30,16 +30,16 @@ const OFFSET = MODULUS / BigInt(2); // 1,088,391,168
 
 /**
  * Encodes a sequential integer ID into a 6-character alphanumeric room code.
- * 
+ *
  * @param id - The sequential ID (e.g., from database). Must be < MODULUS.
  * @returns A 6-char code (e.g., "7XK92A").
  */
 export function generateRoomCode(id: number | bigint): string {
   const x = BigInt(id);
-  
+
   // Ensure x is within bounds
   if (x >= MODULUS) {
-      throw new Error(`ID ${id} exceeds maximum room code capacity (${MODULUS})`);
+    throw new Error(`ID ${id} exceeds maximum room code capacity (${MODULUS})`);
   }
 
   // 1. Affine Transformation
@@ -60,7 +60,7 @@ export function generateRoomCode(id: number | bigint): string {
 
 /**
  * Decodes a 6-character room code back into its original integer ID.
- * 
+ *
  * @param code - The 6-char room code.
  * @returns The original integer ID, or -1 if invalid.
  */
@@ -80,7 +80,7 @@ export function decodeRoomCode(code: string): number {
   // Handle negative modulo correctly in JS
   let diff = obfuscated - OFFSET;
   while (diff < 0) diff += MODULUS;
-  
+
   const id = (diff * PRIME_INVERSE) % MODULUS;
 
   return Number(id);

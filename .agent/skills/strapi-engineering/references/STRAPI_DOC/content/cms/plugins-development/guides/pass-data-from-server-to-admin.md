@@ -4,15 +4,15 @@ description: Learn how to pass data from server to admin panel with a Strapi plu
 sidebar_label: Pass data from server to admin
 displayed_sidebar: cmsSidebar
 tags:
-- admin panel
-- admin routes 
-- content-type
-- guides
-- plugins
-- plugins development guides
+  - admin panel
+  - admin routes
+  - content-type
+  - guides
+  - plugins
+  - plugins development guides
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
 # How to pass data from server to admin panel with a Strapi plugin
 
@@ -53,8 +53,8 @@ module.exports = {
           auth: false,
         },
       },
-    ]
-  }
+    ],
+  },
   // ...
 };
 ```
@@ -69,8 +69,8 @@ Let's create a basic custom controller that simply returns a simple text:
 module.exports = {
   async index(ctx) {
     ctx.body = 'You are in the my-plugin-content-type controller!';
-  }
-}
+  },
+};
 ```
 
 This means that when sending a GET request to the `/my-plugin/pass-data` URL endpoint, you should get the `You are in the my-plugin-content-type controller!` text returned with the response.
@@ -98,12 +98,12 @@ You will be able to use `foobarRequests.getFoobar()` in the code of an admin pan
 For instance, within a React component, you could use `useEffect` to get the data after the component initializes:
 
 ```js title="/my-plugin/admin/src/components/MyComponent/index.js"
-import foobarRequests from "../../api/foobar";
+import foobarRequests from '../../api/foobar';
 const [foobar, setFoobar] = useState([]);
 
 // …
 useEffect(() => {
-  foobarRequests.getFoobar().then(res => {
+  foobarRequests.getFoobar().then((res) => {
     setSchemas(res.data);
   });
 }, [setFoobar]);

@@ -127,7 +127,7 @@ module.exports = ({ env }) => ({
   // other config parameters
   secrets: {
     encryptionKey: env('ENCRYPTION_KEY'),
-  }
+  },
 });
 ```
 
@@ -140,7 +140,7 @@ export default ({ env }) => ({
   // other config parameters
   secrets: {
     encryptionKey: env('ENCRYPTION_KEY'),
-  }
+  },
 });
 ```
 

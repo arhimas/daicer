@@ -4,13 +4,13 @@ sidebar_label: Configure RBAC conditions
 displayed_sidebar: cmsSidebar
 description: In Strapi, RBAC is an approach to restricting access to some features of the admin panel to some users. The Community Edition of Strapi offers 3 default roles.
 tags:
-- administrator
-- admin panel
-- configuration
-- configuration guide
-- guides
-- RBAC (Role-Based Access Control)
-- Users, Roles & Permissions
+  - administrator
+  - admin panel
+  - configuration
+  - configuration guide
+  - guides
+  - RBAC (Role-Based Access Control)
+  - Users, Roles & Permissions
 ---
 
 # How to create custom conditions for Role-Based Access Control (RBAC)
@@ -98,7 +98,6 @@ To be available in the admin panel, conditions should be declared and registered
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/src/index.js"
-
 module.exports = async () => {
   await strapi.admin.services.permission.conditionProvider.register({
     displayName: 'Billing amount under 10K',
@@ -114,7 +113,6 @@ module.exports = async () => {
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/src/index.ts"
-
 export default async () => {
   await strapi.admin.services.permission.conditionProvider.register({
     displayName: 'Billing amount under 10K',
@@ -136,28 +134,27 @@ To register multiple conditions, defined as an array of [condition objects](#dec
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/src/index.js"
-
 const conditions = [
   {
-    displayName: "Entity has same name as user",
-    name: "same-name-as-user",
-    plugin: "name of a plugin if created in a plugin",
+    displayName: 'Entity has same name as user',
+    name: 'same-name-as-user',
+    plugin: 'name of a plugin if created in a plugin',
     handler: (user) => {
       return { name: user.name };
     },
   },
   {
-    displayName: "Email address from strapi.io",
-    name: "email-strapi-dot-io",
+    displayName: 'Email address from strapi.io',
+    name: 'email-strapi-dot-io',
     async handler(user) {
       return user.email.includes('@strapi.io');
     },
-  }
+  },
 ];
 
 module.exports = {
   async bootstrap(/*{ strapi }*/) {
-  // do your boostrap
+    // do your boostrap
 
     await strapi.admin.services.permission.conditionProvider.registerMany(conditions);
   },

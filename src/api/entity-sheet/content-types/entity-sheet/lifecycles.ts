@@ -84,12 +84,12 @@ function validateInventorySlots(data: { inventory?: unknown }) {
 
   // Parse against Zod Schema to ensure structure
   const result = InventorySchema.safeParse(data.inventory);
-  
+
   if (!result.success) {
-      // If schema validation fails, log warning but maybe allow loose data if legacy?
-      // For strictness, we throw.
-      const issues = result.error.issues.map(i => i.message).join(', ');
-      throw new ApplicationError(`Invalid Inventory Structure: ${issues}`);
+    // If schema validation fails, log warning but maybe allow loose data if legacy?
+    // For strictness, we throw.
+    const issues = result.error.issues.map((i) => i.message).join(', ');
+    throw new ApplicationError(`Invalid Inventory Structure: ${issues}`);
   }
 
   const items = result.data;
@@ -131,7 +131,7 @@ async function updateDerivedData(event: LifecycleEvent) {
   // Merge data over current
   const level = data.level ?? current.level ?? 1;
   const rawStats = data.stats || current.stats || {};
-  
+
   const attributes: EntityStats = {
     strength: rawStats.strength || 10,
     dexterity: rawStats.dexterity || 10,
@@ -155,36 +155,36 @@ async function updateDerivedData(event: LifecycleEvent) {
     for (const invEntry of equippedInventory) {
       if (invEntry.item) {
         let equipDef: unknown = invEntry.item;
-        
+
         // If item is just ID/Name string, fetch it
         if (typeof equipDef !== 'object') {
-           const found = await strapi.documents('api::equipment.equipment').findFirst({
+          const found = await strapi.documents('api::equipment.equipment').findFirst({
             filters: { name: equipDef as string }, // Assume string is Name
             populate: ['equipment_category', 'damage_type', 'properties'],
           });
 
           if (found) {
-             equipDef = found;
+            equipDef = found;
           } else {
-             // Fallback ID fetch
-             try {
-               equipDef = await strapi.documents('api::equipment.equipment').findOne({
-                 documentId: String(equipDef),
-                 populate: ['equipment_category', 'damage_type', 'properties'],
-               });
-             } catch {
-               equipDef = null;
-             }
+            // Fallback ID fetch
+            try {
+              equipDef = await strapi.documents('api::equipment.equipment').findOne({
+                documentId: String(equipDef),
+                populate: ['equipment_category', 'damage_type', 'properties'],
+              });
+            } catch {
+              equipDef = null;
+            }
           }
         } else if (equipDef) {
-           // It's an object, check if deeply populated
-           const ed = equipDef as { equipment_category?: unknown; documentId: string };
-           if (!ed.equipment_category) {
-             equipDef = await strapi.documents('api::equipment.equipment').findOne({
-               documentId: ed.documentId,
-               populate: ['equipment_category', 'damage_type', 'properties'],
-             });
-           }
+          // It's an object, check if deeply populated
+          const ed = equipDef as { equipment_category?: unknown; documentId: string };
+          if (!ed.equipment_category) {
+            equipDef = await strapi.documents('api::equipment.equipment').findOne({
+              documentId: ed.documentId,
+              populate: ['equipment_category', 'damage_type', 'properties'],
+            });
+          }
         }
 
         if (equipDef) {
@@ -197,7 +197,7 @@ async function updateDerivedData(event: LifecycleEvent) {
 
   // 3. Run Deriver
   const derived = EntityDeriver.derive({
-    stats: attributes, 
+    stats: attributes,
     attributes,
     proficiencyBonus: 2, // Default
     level,
@@ -216,11 +216,15 @@ async function updateDerivedData(event: LifecycleEvent) {
   // Preserve Hydration of features logic (legacy/separate)
   let classData = current.class;
   if (data.class && data.class !== current.class?.documentId) {
-    classData = await strapi.documents('api::class.class').findOne({ documentId: data.class as string, populate: ['features'] });
+    classData = await strapi
+      .documents('api::class.class')
+      .findOne({ documentId: data.class as string, populate: ['features'] });
   }
   let raceData = current.race;
   if (data.race && data.race !== current.race?.documentId) {
-    raceData = await strapi.documents('api::race.race').findOne({ documentId: data.race as string, populate: ['features'] });
+    raceData = await strapi
+      .documents('api::race.race')
+      .findOne({ documentId: data.race as string, populate: ['features'] });
   }
 
   const featuresInput = {

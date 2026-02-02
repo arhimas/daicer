@@ -3,10 +3,10 @@ title: MySQL v5 unsupported
 description: MySQL v5 is not supported in Strapi v5 anymore.
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - database
- - MySQL
- - upgrade to Strapi 5
+  - breaking changes
+  - database
+  - MySQL
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -50,8 +50,8 @@ MySQL v8 is the minimum required version.
 
 ### Notes
 
-* The [CLI installation guide](/cms/installation/cli) lists the databases supported by Strapi 5.
-* Please also consider that only the `mysql2` package can be used with Strapi 5 for MySQL databases (see the [related breaking change entry](/cms/migration/v4-to-v5/breaking-changes/only-mysql2-package-for-mysql)).
+- The [CLI installation guide](/cms/installation/cli) lists the databases supported by Strapi 5.
+- Please also consider that only the `mysql2` package can be used with Strapi 5 for MySQL databases (see the [related breaking change entry](/cms/migration/v4-to-v5/breaking-changes/only-mysql2-package-for-mysql)).
 
 ### Migration procedure
 

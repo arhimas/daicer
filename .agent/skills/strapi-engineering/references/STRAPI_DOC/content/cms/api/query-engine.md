@@ -4,10 +4,10 @@ title: Query Engine API
 description: Strapi provides a Query Engine API to give unrestricted internal access to the database layer at a lower level.
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- introduction
-- Query Engine API
+  - API
+  - Content API
+  - introduction
+  - Query Engine API
 ---
 
 import EntityQueryKnex from '/docs/snippets/entity-query-knex.md'
@@ -28,7 +28,8 @@ The Strapi backend provides a Query Engine API to interact with the database lay
 The Query Engine is available through `strapi.db.query`:
 
 ```js
-strapi.db.query('api::blog.article').findMany({ // uid syntax: 'api::api-name.content-type-name'
+strapi.db.query('api::blog.article').findMany({
+  // uid syntax: 'api::api-name.content-type-name'
   where: {
     title: {
       $startsWith: '2021',

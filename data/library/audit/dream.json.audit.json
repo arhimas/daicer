@@ -29,11 +29,7 @@
           "failure_consequence": "Nightmare lasts the sleep duration, preventing rest benefits. Target takes 3d6 psychic damage upon waking.",
           "modifier": "If caster has a bodily part of the target, the save is made with disadvantage."
         },
-        "classes": [
-          "bard",
-          "warlock",
-          "wizard"
-        ]
+        "classes": ["bard", "warlock", "wizard"]
       }
     },
     "notes": "The mechanic involving the messenger choosing to wait for the target to fall asleep is crucial for managing the 1-minute casting time versus the target's immediate state. The dual nature of the spell (communication vs. psychological attack) is well-defined."

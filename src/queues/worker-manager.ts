@@ -47,11 +47,9 @@ export class WorkerManager {
     // Fetch Global Configuration
     let config: QueueConfiguration | null = null;
     try {
-      config = (await this.strapi
-        .documents('api::queue-configuration.queue-configuration')
-        .findFirst({
-          populate: ['queues', 'queues.settings'],
-        })) as unknown as QueueConfiguration | null;
+      config = (await this.strapi.documents('api::queue-configuration.queue-configuration').findFirst({
+        populate: ['queues', 'queues.settings'],
+      })) as unknown as QueueConfiguration | null;
     } catch (_err) {
       this.logger.warn('Failed to fetch configuration, falling back to defaults.');
     }
@@ -90,7 +88,7 @@ export class WorkerManager {
 
       try {
         const workerLogger = new DevLogger(`Worker:${queueName}`, this.strapi);
-        
+
         const worker = new Worker(
           queueName,
           async (job) => {
@@ -98,8 +96,8 @@ export class WorkerManager {
             try {
               // Resource Guard: Admission Control
               if (settings) {
-                 const { maxMemoryMB, maxCpuPercent } = settings;
-                 await ResourceGuard.check({ maxMemoryMB, maxCpuPercent });
+                const { maxMemoryMB, maxCpuPercent } = settings;
+                await ResourceGuard.check({ maxMemoryMB, maxCpuPercent });
               }
 
               const result = await handler(job, this.strapi);
@@ -107,10 +105,10 @@ export class WorkerManager {
               return result;
             } catch (err) {
               if (err instanceof SystemOverloadError) {
-                 workerLogger.warn(`[ResourceGuard] ${err.message}. Retrying later...`);
-                 // Throwing error causes BullMQ to retry based on backoff settings
-                 // We might want to add a distinct custom error or delay, 
-                 // but standard retry is safest for now.
+                workerLogger.warn(`[ResourceGuard] ${err.message}. Retrying later...`);
+                // Throwing error causes BullMQ to retry based on backoff settings
+                // We might want to add a distinct custom error or delay,
+                // but standard retry is safest for now.
               }
               tracker.fail(err);
               throw err;
@@ -119,9 +117,11 @@ export class WorkerManager {
           {
             connection,
             concurrency,
-            ...(settings ? {
-               limiter: settings.rateLimit ? { max: settings.rateLimit, duration: 1000 } : undefined,
-            } : {}),
+            ...(settings
+              ? {
+                  limiter: settings.rateLimit ? { max: settings.rateLimit, duration: 1000 } : undefined,
+                }
+              : {}),
             removeOnComplete: settings?.removeOnComplete ?? { count: 100 },
             removeOnFail: settings?.removeOnFail ?? { count: 500 },
           }
@@ -130,14 +130,14 @@ export class WorkerManager {
         // worker.on('completed', (job) => { /* handled inside handler wrapper */ });
 
         worker.on('failed', (_job, _err) => {
-             // We can log global failures here as a backup, but the try/catch inside the processor handles specific job failure context better
-             // However, BullMQ might fail outside of the processor (e.g. stalled)
-             // workerLogger.error(`Global Failure for ${job?.id}`, err);
+          // We can log global failures here as a backup, but the try/catch inside the processor handles specific job failure context better
+          // However, BullMQ might fail outside of the processor (e.g. stalled)
+          // workerLogger.error(`Global Failure for ${job?.id}`, err);
         });
-        
+
         // General worker errors (connection issues etc)
         worker.on('error', (err) => {
-             workerLogger.error('Worker connection error', err);
+          workerLogger.error('Worker connection error', err);
         });
 
         this.workers.push(worker);

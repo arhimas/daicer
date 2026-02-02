@@ -1,4 +1,3 @@
-
 // import { StructuredGenerator } from './structured';
 // import { PythonBridge } from './python-bridge';
 // import { LocalModel, LocalConfig } from './types';
@@ -10,12 +9,14 @@
  */
 // Stub replacement for LocalLLMManager
 const resultStub = {
-    loadModel: async (...args: unknown[]) => { console.warn('Local LLM via PythonBridge is pending replacement.', args); },
-    generate: async (...args: unknown[]) => { 
-        console.warn('Local LLM via PythonBridge is pending replacement.', args); 
-        return "Local LLM disabled."; 
-    },
-    reset: () => {}
+  loadModel: async (...args: unknown[]) => {
+    console.warn('Local LLM via PythonBridge is pending replacement.', args);
+  },
+  generate: async (...args: unknown[]) => {
+    console.warn('Local LLM via PythonBridge is pending replacement.', args);
+    return 'Local LLM disabled.';
+  },
+  reset: () => {},
 };
 
 export const localLLM = resultStub;

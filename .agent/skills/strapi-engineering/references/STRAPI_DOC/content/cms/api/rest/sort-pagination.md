@@ -5,15 +5,15 @@ sidebar_label: Sort & Pagination
 sidebarDepth: 3
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- interactive query builder
-- pagination
-- pagination by page
-- pagination by offset
-- REST API
-- sort
-- qs library
+  - API
+  - Content API
+  - interactive query builder
+  - pagination
+  - pagination by page
+  - pagination by offset
+  - REST API
+  - sort
+  - qs library
 ---
 
 import QsIntroFull from '/docs/snippets/qs-intro-full.md'
@@ -42,7 +42,6 @@ The sorting order can be defined with:
 - `:asc` for ascending order (default order, can be omitted)
 - or `:desc` for descending order.
 
-
 ### Example: Sort using 2 fields
 
 You can sort by multiple fields by passing fields in a `sort` array.
@@ -63,11 +62,14 @@ You can sort by multiple fields by passing fields in a `sort` array.
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  sort: ['Description', 'Name'],
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+const query = qs.stringify(
+  {
+    sort: ['Description', 'Name'],
+  },
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/restaurants?${query}`);
 ```
@@ -93,7 +95,7 @@ await request(`/api/restaurants?${query}`);
             }
           ]
         }
-      ],
+      ]
       // …
     },
     {
@@ -110,10 +112,10 @@ await request(`/api/restaurants?${query}`);
             }
           ]
         }
-      ],
+      ]
       // …
-    },
-   // … 
+    }
+    // …
   ],
   "meta": {
     // …
@@ -126,7 +128,7 @@ await request(`/api/restaurants?${query}`);
 
 ### Example: Sort using 2 fields and set the order
 
-Using the `sort` parameter and defining `:asc` or  `:desc` on sorted fields, you can get results sorted in a particular order.
+Using the `sort` parameter and defining `:asc` or `:desc` on sorted fields, you can get results sorted in a particular order.
 
 <br />
 
@@ -144,11 +146,14 @@ Using the `sort` parameter and defining `:asc` or  `:desc` on sorted fields, you
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  sort: ['Description:asc', 'Name:desc'],
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+const query = qs.stringify(
+  {
+    sort: ['Description:asc', 'Name:desc'],
+  },
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/restaurants?${query}`);
 ```
@@ -174,7 +179,7 @@ await request(`/api/restaurants?${query}`);
             }
           ]
         }
-      ],
+      ]
       // …
     },
     {
@@ -191,9 +196,9 @@ await request(`/api/restaurants?${query}`);
             }
           ]
         }
-      ],
+      ]
       // …
-    },
+    }
     // …
   ],
   "meta": {
@@ -241,14 +246,17 @@ To paginate results by page, use the following parameters:
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  pagination: {
-    page: 1,
-    pageSize: 10,
+const query = qs.stringify(
+  {
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
   },
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/articles?${query}`);
 ```
@@ -282,7 +290,7 @@ To paginate results by offset, use the following parameters:
 
 | Parameter               | Type    | Description                                                    | Default |
 | ----------------------- | ------- | -------------------------------------------------------------- | ------- |
-| `pagination[start]`     | Integer | Start value (i.e. first entry to return)                      | 0       |
+| `pagination[start]`     | Integer | Start value (i.e. first entry to return)                       | 0       |
 | `pagination[limit]`     | Integer | Number of entries to return                                    | 25      |
 | `pagination[withCount]` | Boolean | Toggles displaying the total number of entries to the response | `true`  |
 
@@ -304,14 +312,17 @@ The default and maximum values for `pagination[limit]` can be [configured in the
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  pagination: {
-    start: 0,
-    limit: 10,
+const query = qs.stringify(
+  {
+    pagination: {
+      start: 0,
+      limit: 10,
+    },
   },
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/articles?${query}`);
 ```

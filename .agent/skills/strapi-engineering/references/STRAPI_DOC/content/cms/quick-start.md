@@ -5,11 +5,11 @@ sidebar_position: 2
 title: Quick Start Guide - Strapi Developer Docs
 description: Get ready to get Strapi, your favorite open-source headless cms up and running in less than 3 minutes.
 tags:
- - guides
- - Content-type Builder
- - collection type
- - Content Manager
- - Strapi Cloud
+  - guides
+  - Content-type Builder
+  - collection type
+  - Content Manager
+  - Strapi Cloud
 ---
 
 import InstallPrerequisites from '/docs/snippets/installation-prerequisites.md'
@@ -18,7 +18,7 @@ import InstallPrerequisites from '/docs/snippets/installation-prerequisites.md'
 
 Strapi offers a lot of flexibility. Whether you want to go fast and quickly see the final result, or would rather dive deeper into the product, we got you covered. For this tutorial, we'll go for the DIY approach and build a project and content structure from scratch, then deploy your project to Strapi Cloud to add data from there.
 
-*Estimated completion time: 5-10 minutes*
+_Estimated completion time: 5-10 minutes_
 
 :::prerequisites
 <InstallPrerequisites components={props.components} />
@@ -39,13 +39,13 @@ Follow the steps below by clicking on the togglable content to read more instruc
 
 1. Run the following command in a terminal:
 
-    <TabItem value="npm" label="NPM">
+   <TabItem value="npm" label="NPM">
 
-    ```bash
-    npx create-strapi@latest my-strapi-project
-    ```
+   ```bash
+   npx create-strapi@latest my-strapi-project
+   ```
 
-    </TabItem>
+   </TabItem>
 
 2. The terminal will prompt you to log in or sign up. Once you do, a 30-day trial of the <GrowthBadge tooltip="The CMS Growth plan includes the Live Preview, Releases, and Content History features."/> plan will be automatically applied to your project. Ensure `Login/Sign up` is selected in the terminal, or use arrow keys to select it, and press Enter.
 
@@ -55,25 +55,25 @@ Follow the steps below by clicking on the togglable content to read more instruc
 
 5. Once logged in, the browser will display a "Congratulations, you're all set!" message and you can safely close the browser tab and get back to the terminal.
 
-    <ThemedImage
-      alt="Login GIF"
-      sources={{
-        light: '/img/assets/quick-start-guide/qsg-cloud-login.gif',
-        dark: '/img/assets/quick-start-guide/qsg-cloud-login.gif',
-      }}
-    />
+   <ThemedImage
+   alt="Login GIF"
+   sources={{
+       light: '/img/assets/quick-start-guide/qsg-cloud-login.gif',
+       dark: '/img/assets/quick-start-guide/qsg-cloud-login.gif',
+     }}
+   />
 
 6. The terminal will now ask you a few questions. Press `Enter` to accept the default answer to all questions.
 
-    ![Questions and answers from the terminal](/img/assets/quick-start-guide/qsg-questions-answers-terminal.png)
+   ![Questions and answers from the terminal](/img/assets/quick-start-guide/qsg-questions-answers-terminal.png)
 
 As you will see in the terminal, your project is now building locally.
 
 :::info
 
-* The folder of your project will include a `.strapi-cloud.json` file used to link the local Strapi project on your machine to the Strapi servers.
-* Many more installation options are available. Please refer to the [installation documentation](/cms/installation) for details.
-:::
+- The folder of your project will include a `.strapi-cloud.json` file used to link the local Strapi project on your machine to the Strapi servers.
+- Many more installation options are available. Please refer to the [installation documentation](/cms/installation) for details.
+  :::
 
 </details>
 
@@ -98,7 +98,7 @@ sources={{
     light: '/img/assets/quick-start-guide/qsg-handson-part1-01-admin_panel-v5.png',
     dark: '/img/assets/quick-start-guide/qsg-handson-part1-01-admin_panel-v5_DARK.png',
 }}
-/> 
+/>
 
 </details>
 
@@ -132,7 +132,7 @@ Your restaurants directory will eventually include many restaurants, so we need 
 
 1. Click on the **Create your first Content type** button.<br />If it's not showing up, go to <Icon name="layout" /> <ExternalLink to="http://localhost:1337/admin/plugins/content-type-builder" text="Content-Type Builder"/> in the main navigation.
 2. Click on **Create new collection type**.
-3. Type `Restaurant` for the _Display name_, and click **Continue**.  
+3. Type `Restaurant` for the _Display name_, and click **Continue**.
 4. Click the Text field.
 5. Type `Name` in the _Name_ field.
 6. Switch to the _Advanced Settings_ tab, and check the **Required field** and the **Unique field** settings.
@@ -195,31 +195,31 @@ To deploy your project for free to Strapi Cloud, in your terminal:
 1. If the server for your local Strapi project is running, which should be the case if you followed this tutorial so far, press `Ctrl-C` to stop the server.
 2. Ensure you are in the folder of your Strapi project (if needed, run for instance `cd my-strapi-project` to reach this folder), and run the following command:
 
-    <Tabs groupId="yarn-npm">
+   <Tabs groupId="yarn-npm">
 
-    <TabItem value="yarn" label="Yarn">
+   <TabItem value="yarn" label="Yarn">
 
-      ```sh
-      yarn strapi deploy
-      ```
+   ```sh
+   yarn strapi deploy
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    <TabItem value="npm" label="NPM">
+   <TabItem value="npm" label="NPM">
 
-      ```sh
-      npm run strapi deploy
-      ```
+   ```sh
+   npm run strapi deploy
+   ```
 
-    </TabItem>
+   </TabItem>
 
-    </Tabs>
+   </Tabs>
 
 3. Answer questions in the terminal, giving your project a name (you can press Enter to keep the default name), choosing the recommended NodeJS version, and selecting the region closer to your current place:
 
-    ![Strapi Cloud terminal questions and answers](/img/assets/quick-start-guide/qsg-strapi-cloud-terminal-questions.png)
+   ![Strapi Cloud terminal questions and answers](/img/assets/quick-start-guide/qsg-strapi-cloud-terminal-questions.png)
 
-Within a few moments, your local project will be hosted on Strapi Cloud. 🚀 
+Within a few moments, your local project will be hosted on Strapi Cloud. 🚀
 
 Once it's done, the terminal will provide you a clickable link that starts with `https://cloud.strapi.io/projects`. Click on the link, or copy and paste it in your browser address bar, to visit the page.
 
@@ -253,8 +253,8 @@ Now that we have created a basic content structure with 2 collection types, "Res
 Now that your Strapi Cloud project is created, let's log in into the project:
 
 1. From your <ExternalLink to="https://cloud.strapi.io/projects" text="Strapi Cloud dashboard"/>, click the `my-strapi-project` project.
-3. Click the **Visit app** button.
-4. In the new page that opens, complete the form to create the first administrator user of this Strapi Cloud project.
+2. Click the **Visit app** button.
+3. In the new page that opens, complete the form to create the first administrator user of this Strapi Cloud project.
 
 Logged in into our first Strapi Cloud project, we will now add data from there.
 
@@ -283,7 +283,6 @@ Any project hosted on Strapi Cloud is accessible from its own URL, something lik
 
 <details>
 <summary>Step 2: Create an entry for the "Restaurant" collection type</summary>
-
 
 ### Step 2: Create an entry for the "Restaurant" collection type
 
@@ -315,7 +314,7 @@ Let's go to <Icon name="feather" /> _Content Manager > Collection types - Catego
 1. Click on **Create new entry**.
 2. Type `French Food` in the _Name_ field.
 3. Click **Save**.
-4. Go back to _Collection types - Category_, then click again on **Create new entry**.  
+4. Go back to _Collection types - Category_, then click again on **Create new entry**.
 5. Type `Brunch` in the _Name_ field, then click **Save**.
 
 <ThemedImage
@@ -370,7 +369,7 @@ First, navigate to <Icon name="feather" /> _Content Manager > Collection types -
 
 1. Click the "Brunch" entry.
 2. On the next screen, click **Publish**.
-3. In the _Confirmation_ window, click **Yes, publish**.  
+3. In the _Confirmation_ window, click **Yes, publish**.
 
 Then, go back to the Categories list and repeat for the "French Food" category.
 

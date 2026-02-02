@@ -4,17 +4,16 @@ description: Use Strapi's Document Service API to return either the draft or the
 displayed_sidebar: cmsSidebar
 sidebar_label: Status
 tags:
-- API
-- Content API
-- count()
-- Document Service API
-- Draft & Publish
-- findOne()
-- findMany()
-- findFirst()
-- published version
-- status
-
+  - API
+  - Content API
+  - count()
+  - Document Service API
+  - Draft & Publish
+  - findOne()
+  - findMany()
+  - findFirst()
+  - published version
+  - status
 ---
 
 # Document Service API: Usage with Draft & Publish
@@ -22,7 +21,7 @@ tags:
 By default the [Document Service API](/cms/api/document-service) returns the draft version of a document when the [Draft & Publish](/cms/features/draft-and-publish) feature is enabled. This page describes how to use the `status` parameter to:
 
 - return the published version of a document,
-- count documents depending on their status, 
+- count documents depending on their status,
 - and directly publish a document while creating it or updating it.
 
 :::note
@@ -42,7 +41,7 @@ To return the published version while [finding a specific document](/cms/api/doc
 ```js
 await strapi.documents('api::restaurant.restaurant').findOne({
   documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
-  status: 'published'
+  status: 'published',
 });
 ```
 
@@ -74,7 +73,7 @@ To return the published version while [finding the first document](/cms/api/docu
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").findFirst({
+const document = await strapi.documents('api::restaurant.restaurant').findFirst({
   status: 'published',
 });
 ```
@@ -106,8 +105,8 @@ To return the published version while [finding documents](/cms/api/document-serv
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::restaurant.restaurant").findMany({
-  status: 'published'
+const documents = await strapi.documents('api::restaurant.restaurant').findMany({
+  status: 'published',
 });
 ```
 
@@ -118,14 +117,14 @@ const documents = await strapi.documents("api::restaurant.restaurant").findMany(
 ```js {5}
 [
   {
-    documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-    name: "Biscotte Restaurant",
-    publishedAt: "2024-03-14T15:40:45.330Z",
-    locale: "en", // default locale
+    documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
+    name: 'Biscotte Restaurant',
+    publishedAt: '2024-03-14T15:40:45.330Z',
+    locale: 'en', // default locale
     // …
-  }
+  },
   // …
-]
+];
 ```
 
 </Response>
@@ -137,15 +136,15 @@ To take into account only draft or published versions of documents while [counti
 
 ```js
 // Count draft documents (also actually includes published documents)
-const draftsCount = await strapi.documents("api::restaurant.restaurant").count({
-  status: 'draft'
+const draftsCount = await strapi.documents('api::restaurant.restaurant').count({
+  status: 'draft',
 });
 ```
 
 ```js
 // Count only published documents
-const publishedCount = await strapi.documents("api::restaurant.restaurant").count({
-  status: 'published'
+const publishedCount = await strapi.documents('api::restaurant.restaurant').count({
+  status: 'published',
 });
 ```
 
@@ -166,10 +165,10 @@ To automatically publish a document while creating it, add `status: 'published'`
 ```js
 await strapi.documents('api::restaurant.restaurant').create({
   data: {
-    name: "New Restaurant",
+    name: 'New Restaurant',
   },
   status: 'published',
-})
+});
 ```
 
 </Request>
@@ -201,10 +200,10 @@ To automatically publish a document while updating it, add `status: 'published'`
 await strapi.documents('api::restaurant.restaurant').update({
   documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
   data: {
-    name: "Biscotte Restaurant (closed)",
+    name: 'Biscotte Restaurant (closed)',
   },
   status: 'published',
-})
+});
 ```
 
 </Request>
@@ -223,4 +222,3 @@ await strapi.documents('api::restaurant.restaurant').update({
 
 </Response>
 </ApiCall>
-

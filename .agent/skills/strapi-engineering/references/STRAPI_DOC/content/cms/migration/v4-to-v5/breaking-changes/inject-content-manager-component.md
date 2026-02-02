@@ -4,10 +4,10 @@ description: In Strapi 5, the Content Manager is a plugin, which affects the inj
 sidebar_label: injectContentManagerComponent() removed
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content manager
- - admin panel API
- - upgrade to Strapi 5
+  - breaking changes
+  - content manager
+  - admin panel API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -28,11 +28,9 @@ A component is injected into the Content Manager as follows:
 
 ```tsx
 app.injectContentManagerComponent('editView', 'right-links', {
-    name: 'PreviewButton',
-    Component: () => (
-      <Button onClick={() => window.alert('Not here, The preview is.')}>Preview</Button>
-    ),
-  });
+  name: 'PreviewButton',
+  Component: () => <Button onClick={() => window.alert('Not here, The preview is.')}>Preview</Button>,
+});
 ```
 
 **In Strapi 5**
@@ -41,23 +39,21 @@ A component is injected into the Content Manager as follows:
 
 ```tsx
 app.getPlugin('content-manager').injectComponent('editView', 'right-links', {
-    name: 'PreviewButton',
-    Component: () => (
-      <Button onClick={() => window.alert('Not here, The preview is.')}>Preview</Button>
-    ),
-  });
+  name: 'PreviewButton',
+  Component: () => <Button onClick={() => window.alert('Not here, The preview is.')}>Preview</Button>,
+});
 ```
 
 ### Migration steps
 
 Change your plugin `index.ts` file from:
 
-  ```js
-  app.injectContentManagerComponent()
-  ```
+```js
+app.injectContentManagerComponent();
+```
 
 to the following:
 
-  ```tsx
-  app.getPlugin('content-manager').injectComponent()
-  ```
+```tsx
+app.getPlugin('content-manager').injectComponent();
+```

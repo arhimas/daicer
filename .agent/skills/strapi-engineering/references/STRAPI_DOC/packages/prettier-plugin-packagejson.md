@@ -33,5 +33,5 @@ For prettier v3+ you need to configure
 module.exports = {
   // add this
   plugins: ['prettier-plugin-packagejson'],
-}
+};
 ```

@@ -11,7 +11,7 @@ Database migrations run one‑time scripts before schema sync to preserve data d
 
 Database migrations exist to run one-time queries against the database, typically to modify the tables structure or the data when upgrading the Strapi application. These migrations are run automatically when the application starts and are executed before the automated schema migrations that Strapi also performs on boot.
 
-:::callout 🚧  Experimental feature
+:::callout 🚧 Experimental feature
 Database migrations are experimental. This feature is still a work in progress and will continue to be updated and improved. In the meantime, feel free to ask for help on the <ExternalLink to="https://forum.strapi.io/" text="forum"/> or on the community <ExternalLink to="https://discord.strapi.io" text="Discord"/>.
 :::
 
@@ -22,10 +22,11 @@ Migrations are run using JavaScript migration files stored in `./database/migrat
 Strapi automatically detects migration files and run them once at the next startup in alphabetical order. Every new file is executed once. Migrations are run before the database tables are synced with the content-types schemas.
 
 :::warning
-* Currently Strapi does not support down migrations. This means that if you need to revert a migration, you will have to do it manually. It is planned to implement down migrations in the future but no timeline is currently available.
 
-* Strapi will delete any unknown tables without warning. This means that database migrations can only be used to keep data when changing the Strapi schema. The `forceMigration` and `runMigrations` [database configuration parameters](/cms/configurations/database#settings-configuration-object) can be used to fine-tune the database migrations behavior.
-:::
+- Currently Strapi does not support down migrations. This means that if you need to revert a migration, you will have to do it manually. It is planned to implement down migrations in the future but no timeline is currently available.
+
+- Strapi will delete any unknown tables without warning. This means that database migrations can only be used to keep data when changing the Strapi schema. The `forceMigration` and `runMigrations` [database configuration parameters](/cms/configurations/database#settings-configuration-object) can be used to fine-tune the database migrations behavior.
+  :::
 
 Migration files should export the function `up()`, which is used when upgrading (e.g. adding a new table `my_new_table`).
 
@@ -44,7 +45,7 @@ To create a migration file:
 2. Copy and paste the following template in the previously created file:
 
 ```jsx
-'use strict'
+'use strict';
 
 async function up(knex) {}
 
@@ -52,13 +53,12 @@ module.exports = { up };
 ```
 
 3. Fill in the template by adding actual migration code inside the `up()` function.
-`up()` receives a <ExternalLink to="https://knexjs.org/" text="Knex instance"/>, already in a transaction state, that can be used to run the database queries.
+   `up()` receives a <ExternalLink to="https://knexjs.org/" text="Knex instance"/>, already in a transaction state, that can be used to run the database queries.
 
 <details>
 <summary>Example of migration file</summary>
 
 ```jsx title="./database/migrations/2022.05.10T00.00.00.name-of-my-migration.js"
-
 module.exports = {
   async up(knex) {
     // You have full access to the Knex.js API with an already initialized connection to the database
@@ -67,7 +67,7 @@ module.exports = {
     await knex.schema.renameTable('oldName', 'newName');
 
     // Example: renaming a column
-    await knex.schema.table('someTable', table => {
+    await knex.schema.table('someTable', (table) => {
       table.renameColumn('oldName', 'newName');
     });
 
@@ -127,8 +127,8 @@ module.exports = ({ env }) => ({
     // Your database connection settings
   },
   settings: {
-    useTypescriptMigrations: true
-  }
+    useTypescriptMigrations: true,
+  },
 });
 ```
 
@@ -142,8 +142,8 @@ export default ({ env }) => ({
     // Your database connection settings
   },
   settings: {
-    useTypescriptMigrations: true
-  }
+    useTypescriptMigrations: true,
+  },
 });
 ```
 

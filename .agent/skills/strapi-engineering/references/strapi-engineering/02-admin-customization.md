@@ -7,6 +7,7 @@
 Strapi exposes "Zones" where plugins can inject React components.
 
 ### Implementation
+
 **File**: `src/admin/app.tsx` or plugin's `admin/src/index.tsx`
 
 ```typescript
@@ -19,22 +20,24 @@ export default {
       name: 'my-widget',
       Component: MyWidget,
     });
-  }
+  },
 };
 ```
 
 ### Available Zones
-| Zone | Description | Use Case |
-| :--- | :--- | :--- |
-| `content-manager.editView.right-links` | Sidebar of Edit View | Metadata, Status Checks, Quick Actions |
-| `content-manager.editView.informations` | Below "Information" box | Additional Context, Warnings |
-| `content-manager.listView.actions` | Top right of List View | Bulk Operations, Exports |
+
+| Zone                                    | Description             | Use Case                               |
+| :-------------------------------------- | :---------------------- | :------------------------------------- |
+| `content-manager.editView.right-links`  | Sidebar of Edit View    | Metadata, Status Checks, Quick Actions |
+| `content-manager.editView.informations` | Below "Information" box | Additional Context, Warnings           |
+| `content-manager.listView.actions`      | Top right of List View  | Bulk Operations, Exports               |
 
 ## 2. Managing Data in Admin
 
 The Admin Panel is isolated from the Server. You need "Bridges".
 
 ### A. Calling the API (`useFetchClient`)
+
 Use this hook to make authenticated requests to your backend (Controllers).
 
 ```typescript
@@ -51,6 +54,7 @@ const MyComponent = () => {
 ```
 
 ### B. Interacting with the Form (`useCMEditViewDataManager`)
+
 Use this to read/write the content currently being edited.
 
 ```typescript
@@ -63,7 +67,7 @@ const MyField = () => {
   const { modifiedData, onChange } = useCMEditViewDataManager();
 
   return (
-    <input 
+    <input
       value={modifiedData.title}
       onChange={e => onChange({ target: { name: 'title', value: e.target.value } })}
     />
@@ -72,9 +76,11 @@ const MyField = () => {
 ```
 
 ## 3. Custom Fields
+
 A "Custom Field" is a specialized Input Component tied to a specific data type in the Schema.
 
 ### Registration
+
 Allows the field to appear in Content Type Builder.
 
 ```typescript
@@ -92,6 +98,7 @@ app.customFields.register({
 ```
 
 ### Schema Usage
+
 ```json
 // schema.json
 "myColor": {
@@ -101,6 +108,7 @@ app.customFields.register({
 ```
 
 ## 📚 Official Reference
--   [Injection Zones API](https://docs.strapi.io/cms/plugins-development/admin-panel-api#injection-zones-api)
--   [Custom Fields Documentation](https://docs.strapi.io/cms/admin-panel/custom-fields)
--   [Strapi Design System](https://design-system.strapi.io)
+
+- [Injection Zones API](https://docs.strapi.io/cms/plugins-development/admin-panel-api#injection-zones-api)
+- [Custom Fields Documentation](https://docs.strapi.io/cms/admin-panel/custom-fields)
+- [Strapi Design System](https://design-system.strapi.io)

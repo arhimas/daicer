@@ -2,7 +2,7 @@
 
 Agents often require more than a list of messages to function effectively. They need **context**.
 
-Context includes *any* data outside the message list that can shape agent behavior or tool execution. This can be:
+Context includes _any_ data outside the message list that can shape agent behavior or tool execution. This can be:
 
 - Information passed at runtime, like a `user_id` or API credentials.
 - Internal state updated during a multi-step reasoning process.
@@ -11,10 +11,10 @@ Context includes *any* data outside the message list that can shape agent behavi
 LangGraph provides **three** primary ways to supply context:
 
 | Type                                                                         | Description                                   | Mutable? | Lifetime                |
-|------------------------------------------------------------------------------|-----------------------------------------------|----------|-------------------------|
-| [**Config**](#config-static-context)                                         | data passed at the start of a run             | ❌        | per run                 |
-| [**State**](#state-mutable-context)                                          | dynamic data that can change during execution | ✅        | per run or conversation |
-| [**Long-term Memory (Store)**](#long-term-memory-cross-conversation-context) | data that can be shared between conversations | ✅        | across conversations    |
+| ---------------------------------------------------------------------------- | --------------------------------------------- | -------- | ----------------------- |
+| [**Config**](#config-static-context)                                         | data passed at the start of a run             | ❌       | per run                 |
+| [**State**](#state-mutable-context)                                          | dynamic data that can change during execution | ✅       | per run or conversation |
+| [**Long-term Memory (Store)**](#long-term-memory-cross-conversation-context) | data that can be shared between conversations | ✅       | across conversations    |
 
 You can use context to:
 
@@ -36,10 +36,10 @@ for this purpose:
 
 ```ts
 await agent.invoke(
-  { messages: "hi!" },
+  { messages: 'hi!' },
   // highlight-next-line
-  { configurable: { userId: "user_123" } }
-)
+  { configurable: { userId: 'user_123' } }
+);
 ```
 
 ### State (mutable context)
@@ -56,12 +56,12 @@ const agent = createReactAgent({
   // Other agent parameters...
   // highlight-next-line
   stateSchema: CustomState,
-})
+});
 
 await agent.invoke(
   // highlight-next-line
-  { messages: "hi!", userName: "Jane" }
-)
+  { messages: 'hi!', userName: 'Jane' }
+);
 ```
 
 !!! tip "Turning on memory"
@@ -69,11 +69,9 @@ await agent.invoke(
     Please see the [memory guide](./memory.md) for more details on how to enable memory. This is a powerful feature that allows you to persist the agent's state across multiple invocations.
     Otherwise, the state is scoped only to a single agent run.
 
-
-
 ### Long-Term Memory (cross-conversation context)
 
-For context that spans *across* conversations or sessions, LangGraph allows access to **long-term memory** via a `store`. This can be used to read or update persistent facts (e.g., user profiles, preferences, prior interactions). For more, see the [Memory guide](./memory.md).
+For context that spans _across_ conversations or sessions, LangGraph allows access to **long-term memory** via a `store`. This can be used to read or update persistent facts (e.g., user profiles, preferences, prior interactions). For more, see the [Memory guide](./memory.md).
 
 ## Customizing Prompts with Context
 
@@ -165,8 +163,8 @@ Common use cases:
 
 Tools can access context through:
 
-* Use `RunnableConfig` for config access
-* Use `getCurrentTaskInput()` for agent state
+- Use `RunnableConfig` for config access
+- Use `getCurrentTaskInput()` for agent state
 
 === "Using config"
 
@@ -249,18 +247,17 @@ Tools can access context through:
     );
     ```
 
-
 ## Update context from tools
 
 Tools can modify the agent's state during execution. This is useful for persisting intermediate results or making information accessible to subsequent tools or prompts.
 
 ```ts
-import { Annotation, MessagesAnnotation, LangGraphRunnableConfig, Command } from "@langchain/langgraph";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
-import { ToolMessage } from "@langchain/core/messages";
-import { initChatModel } from "langchain/chat_models/universal";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
+import { Annotation, MessagesAnnotation, LangGraphRunnableConfig, Command } from '@langchain/langgraph';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
+import { ToolMessage } from '@langchain/core/messages';
+import { initChatModel } from 'langchain/chat_models/universal';
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
 
 const CustomState = Annotation.Root({
   ...MessagesAnnotation.spec,
@@ -269,18 +266,15 @@ const CustomState = Annotation.Root({
 });
 
 const getUserInfo = tool(
-  async (
-    _input: Record<string, never>,
-    config: LangGraphRunnableConfig
-  ): Promise<Command> => {
+  async (_input: Record<string, never>, config: LangGraphRunnableConfig): Promise<Command> => {
     const userId = config.configurable?.userId;
     if (!userId) {
-      throw new Error("Please provide a user id in config.configurable");
+      throw new Error('Please provide a user id in config.configurable');
     }
 
     const toolCallId = config.toolCall?.id;
 
-    const name = userId === "user_123" ? "John Smith" : "Unknown user";
+    const name = userId === 'user_123' ? 'John Smith' : 'Unknown user';
     // Return command to update state
     return new Command({
       update: {
@@ -290,7 +284,7 @@ const getUserInfo = tool(
         // highlight-next-line
         messages: [
           new ToolMessage({
-            content: "Successfully looked up user information",
+            content: 'Successfully looked up user information',
             tool_call_id: toolCallId,
           }),
         ],
@@ -298,13 +292,13 @@ const getUserInfo = tool(
     });
   },
   {
-    name: "get_user_info",
-    description: "Look up user information.",
+    name: 'get_user_info',
+    description: 'Look up user information.',
     schema: z.object({}),
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [getUserInfo],
@@ -313,9 +307,9 @@ const agent = createReactAgent({
 });
 
 await agent.invoke(
-  { messages: "look up user information" },
+  { messages: 'look up user information' },
   // highlight-next-line
-  { configurable: { userId: "user_123" } }
+  { configurable: { userId: 'user_123' } }
 );
 ```
 

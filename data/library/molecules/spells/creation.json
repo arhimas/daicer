@@ -9,8 +9,5 @@
   "components": "V, S, M (a tiny piece of matter of the same type of the item you plan to create)",
   "duration": "Special",
   "description": "You pull wisps of shadow material from the shadow planes to create a nonliving object of vegetable matter within range: soft goods, rope, wood, or something similar. You can also use this spell to create mineral objects such as stone, crystal, or metal. The object created must be no larger than a 5-foot cube, and the object must be of a form and material that you have seen before.\n\nThe duration depends on the object's material. If the object is composed of multiple materials, use the shortest duration.\n\n<table style=\"width:47%;\">\n<colgroup>\n<col width=\"31%\" />\n<col width=\"15%\" />\n</colgroup>\n<thead>\n<tr class=\"header\">\n<th align=\"left\">Material</th>\n<th align=\"left\">Duration</th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td align=\"left\">Vegetable matter</td>\n<td align=\"left\">1 day</td>\n</tr>\n<tr class=\"even\">\n<td align=\"left\">Stone or crystal</td>\n<td align=\"left\">12 hours</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"left\">Precious metals</td>\n<td align=\"left\">1 hour</td>\n</tr>\n<tr class=\"even\">\n<td align=\"left\">Gems</td>\n<td align=\"left\">10 minutes</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"left\">Adamantine or mithral</td>\n<td align=\"left\">1 minute</td>\n</tr>\n</tbody>\n</table>\n\nUsing any material created by this spell as another spell's material component causes that spell to fail.\n\n**_At Higher Levels._** When you cast this spell using a spell slot of 6th level or higher, the cube increases by 5 feet for each slot level above 5th.",
-  "classes": [
-    "sorcerer",
-    "wizard"
-  ]
+  "classes": ["sorcerer", "wizard"]
 }

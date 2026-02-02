@@ -33,16 +33,8 @@
         "transformation": {
           "spell_reference": "Polymorph",
           "effect": "Cast Polymorph on self, transforming into a bat.",
-          "conditions": [
-            "Requires Action.",
-            "Requires being in dim light or darkness.",
-            "Usable only once per dawn."
-          ],
-          "retained_stats": [
-            "Intelligence",
-            "Wisdom",
-            "Charisma"
-          ]
+          "conditions": ["Requires Action.", "Requires being in dim light or darkness.", "Usable only once per dawn."],
+          "retained_stats": ["Intelligence", "Wisdom", "Charisma"]
         }
       },
       "zod_errors": "NONE",

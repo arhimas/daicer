@@ -1,15 +1,15 @@
-
 import { z } from 'zod';
 import { Slug, RichText, RelationMany, SizeEnum } from './common';
 import { StatsSchema } from './components';
 
-export const EntitySchema = z.object({
+export const EntitySchema = z
+  .object({
     slug: Slug,
     name: z.string().min(1),
     description: RichText,
-    
-    size: SizeEnum.default("Medium"),
-    type: z.string().default("beast"), // e.g. "humanoid", "fiend"
+
+    size: SizeEnum.default('Medium'),
+    type: z.string().default('beast'), // e.g. "humanoid", "fiend"
     alignment: z.string().optional(), // "chaotic evil"
 
     level: z.number().int().default(1),
@@ -27,14 +27,19 @@ export const EntitySchema = z.object({
     traits: RelationMany, // Racial
     proficiencies: RelationMany,
     languages: RelationMany,
-    
-    inventory: z.array(z.object({
-        item: z.string(), // slug of item
-        quantity: z.number().int().default(1),
-        equipped: z.boolean().default(false)
-    })).optional(),
 
-    tags: RelationMany
-}).strict();
+    inventory: z
+      .array(
+        z.object({
+          item: z.string(), // slug of item
+          quantity: z.number().int().default(1),
+          equipped: z.boolean().default(false),
+        })
+      )
+      .optional(),
+
+    tags: RelationMany,
+  })
+  .strict();
 
 export type SeedEntity = z.infer<typeof EntitySchema>;

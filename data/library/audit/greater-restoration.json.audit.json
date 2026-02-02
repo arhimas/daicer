@@ -37,11 +37,7 @@
           "End any reduction to one of the target's ability scores",
           "End one effect reducing the target's hit point maximum"
         ],
-        "classes": [
-          "bard",
-          "cleric",
-          "druid"
-        ]
+        "classes": ["bard", "cleric", "druid"]
       },
       "zod_errors": "NONE"
     }

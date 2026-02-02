@@ -4,20 +4,20 @@ description: Use Strapi's Document Service API to work with locale versions with
 displayed_sidebar: cmsSidebar
 sidebar_label: Locale
 tags:
-- API
-- Content API
-- create()
-- count()
-- deleting content
-- Document Service API
-- discardDraft()
-- findOne()
-- findMany()
-- findFirst()
-- locale
-- publish()
-- update()
-- unpublishing content
+  - API
+  - Content API
+  - create()
+  - count()
+  - deleting content
+  - Document Service API
+  - discardDraft()
+  - findOne()
+  - findMany()
+  - findFirst()
+  - locale
+  - publish()
+  - update()
+  - unpublishing content
 ---
 
 # Document Service API: Using the `locale` parameter
@@ -314,9 +314,7 @@ The `*` wildcard is supported by the `locale` parameter to publish all locale ve
 <Request title="Publish all locales of a document">
 
 ```js
-await strapi
-  .documents('api::restaurant.restaurant')
-  .publish({ documentId: 'a1b2c3d4e5f6g7h8i9j0klm', locale: '*' });
+await strapi.documents('api::restaurant.restaurant').publish({ documentId: 'a1b2c3d4e5f6g7h8i9j0klm', locale: '*' });
 ```
 
 </Request>
@@ -365,9 +363,7 @@ To unpublish a specific locale version of a document, pass the `locale` as a par
 <Request title="Unpublish the French locale version of document">
 
 ```js
-await strapi
-  .documents('api::restaurant.restaurant')
-  .unpublish({ documentId: 'a1b2c3d4e5f6g7h8i9j0klm', locale: 'fr' });
+await strapi.documents('api::restaurant.restaurant').unpublish({ documentId: 'a1b2c3d4e5f6g7h8i9j0klm', locale: 'fr' });
 ```
 
 </Request>
@@ -393,9 +389,7 @@ The `*` wildcard is supported by the `locale` parameter, to unpublish all locale
 <Request title="Unpublish all locale versions of a document">
 
 ```js
-await strapi
-  .documents('api::restaurant.restaurant')
-  .unpublish({ documentId: 'a1b2c3d4e5f6g7h8i9j0klm', locale: '*' });
+await strapi.documents('api::restaurant.restaurant').unpublish({ documentId: 'a1b2c3d4e5f6g7h8i9j0klm', locale: '*' });
 ```
 
 </Request>

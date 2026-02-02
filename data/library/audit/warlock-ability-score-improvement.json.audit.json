@@ -19,17 +19,8 @@
       },
       "mechanics": {
         "type": "Ability Score Improvement (ASI)",
-        "triggers": [
-          "Level 4",
-          "Level 8",
-          "Level 12",
-          "Level 16",
-          "Level 19"
-        ],
-        "options": [
-          "+2 to one score (max 20)",
-          "+1 to two different scores (max 20)"
-        ],
+        "triggers": ["Level 4", "Level 8", "Level 12", "Level 16", "Level 19"],
+        "options": ["+2 to one score (max 20)", "+1 to two different scores (max 20)"],
         "class_specific": "No; this is a universal class progression feature, not specific to Warlock themes, but correctly attributed to the Warlock class progression table."
       },
       "recommendations": []

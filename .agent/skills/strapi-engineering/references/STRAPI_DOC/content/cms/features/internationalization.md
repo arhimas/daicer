@@ -3,12 +3,12 @@ title: Internationalization
 description: Learn how to use the Internationalization (i18n) feature that enables content managers to translate the content
 toc_max_heading_level: 5
 tags:
-- admin panel
-- internationalization
-- i18n
-- translation
-- locale
-- features
+  - admin panel
+  - internationalization
+  - i18n
+  - translation
+  - locale
+  - features
 ---
 
 import StrapiAiCredits from '/docs/snippets/strapi-ai-credits.md'
@@ -32,7 +32,7 @@ The Internationalization feature allows to manage content in different languages
 
 ## Configuration
 
-Before being usable in the Content Manager, the Internationalization feature must be configured from <Icon name="gear-six" /> *Settings*, and it should be enabled on your content types from the <Icon name="layout" /> _Content-type Builder_.
+Before being usable in the Content Manager, the Internationalization feature must be configured from <Icon name="gear-six" /> _Settings_, and it should be enabled on your content types from the <Icon name="layout" /> _Content-type Builder_.
 
 ### Content-type Builder
 
@@ -45,8 +45,8 @@ For your content types to be translatable with Internationalization in the Conte
 3. Tick the option named "Internationalization" at content-type level, and "Enable localization for this field" at field level.
 
 <ThemedImage
-  alt="Content-type Builder's advanced settings"
-  sources={{
+alt="Content-type Builder's advanced settings"
+sources={{
     light: '/img/assets/content-type-builder/advanced-settings.png',
     dark: '/img/assets/content-type-builder/advanced-settings_DARK.png',
   }}
@@ -54,9 +54,9 @@ For your content types to be translatable with Internationalization in the Conte
 
 ### Settings
 
-**Path to configure the feature:** <Icon name="gear-six" /> *Settings > Global Settings > Internationalization*
+**Path to configure the feature:** <Icon name="gear-six" /> _Settings > Global Settings > Internationalization_
 
-The *Internationalization* interface displays a table listing all locales available for the Strapi application. By default, only the English locale is configured and set as the default locale. 
+The _Internationalization_ interface displays a table listing all locales available for the Strapi application. By default, only the English locale is configured and set as the default locale.
 
 For each locale, the table displays the default ISO code of the locale, its optional display name and indicates if the locale is set as the default one. From the table, administrators can also:
 
@@ -72,29 +72,30 @@ It is not possible to create custom locales. Locales can only be created based o
 :::
 
 1. Click on the **Add new locale** button.
-2. In the locale addition window, choose your new locale among the *Locales* drop-down list. The latter lists alphabetically all locales, displayed as their ISO code, that can be added to your Strapi application.
-3. (optional) In the *Locale display name* textbox, write a new display name for your new locale.
-4. (optional) In the Advanced settings tab, tick the *Set as default locale* setting to make your new locale the default one for your Strapi application.
+2. In the locale addition window, choose your new locale among the _Locales_ drop-down list. The latter lists alphabetically all locales, displayed as their ISO code, that can be added to your Strapi application.
+3. (optional) In the _Locale display name_ textbox, write a new display name for your new locale.
+4. (optional) In the Advanced settings tab, tick the _Set as default locale_ setting to make your new locale the default one for your Strapi application.
 5. Click on the **Save** button to confirm the addition of your new locale.
 
 <ThemedImage
-  alt="Adding new locale with i18n"
-  sources={{
+alt="Adding new locale with i18n"
+sources={{
     light: '/img/assets/settings/new-locale-i18n.png',
     dark: '/img/assets/settings/new-locale-i18n_DARK.png',
   }}
 />
 
 #### Enabling AI-powered internationalization
-<GrowthBadge /> 
+
+<GrowthBadge />
 
 AI-Powered Internationalization enables automatic translations for all the locales in a project when the content in the default locale is updated. This enables content editors to have their content translated into multiple languages within a few seconds.
 
-AI-powered Internationalization is disabled by default. To enable it, go to <Icon name="gear-six" /> *Settings > Global Settings > Internationalization* and set <Icon name="sparkle" /> _AI Translations_ to _Enabled_.
+AI-powered Internationalization is disabled by default. To enable it, go to <Icon name="gear-six" /> _Settings > Global Settings > Internationalization_ and set <Icon name="sparkle" /> _AI Translations_ to _Enabled_.
 
 <ThemedImage
-  alt="Internationalization settings"
-  sources={{
+alt="Internationalization settings"
+sources={{
     light: '/img/assets/settings/i18n-with-ai.png',
     dark: '/img/assets/settings/i18n-with-ai_DARK.png',
   }}
@@ -120,30 +121,31 @@ To translate content in another locale:
 
 1. On the top right of the edit view, click on the locale drop-down list.
 2. Choose the locale in which you want to translate your content.
-3. Translate your content by filling up your content-type's fields. 
+3. Translate your content by filling up your content-type's fields.
 
 <ThemedImage
-  alt="Managing locales with i18n"
-  sources={{
+alt="Managing locales with i18n"
+sources={{
     light: '/img/assets/content-manager/locale-i18n.png',
     dark: '/img/assets/content-manager/locale-i18n_DARK.png',
   }}
 />
 
 :::tip
-Click on the <Icon name="globe-hemisphere-west" /> *Fill in from another locale* button, in the top right corner, for all non relational fields to be filled up with the values of another chosen locale. It can be useful if you do not remember what was the exact content in another locale. This button is not visible if you've enabled [AI-powered internationalization](#ai-powered-internationalization) since translations are automatically handled by Strapi AI.
+Click on the <Icon name="globe-hemisphere-west" /> _Fill in from another locale_ button, in the top right corner, for all non relational fields to be filled up with the values of another chosen locale. It can be useful if you do not remember what was the exact content in another locale. This button is not visible if you've enabled [AI-powered internationalization](#ai-powered-internationalization) since translations are automatically handled by Strapi AI.
 :::
 
 ### AI-powered internationalization <NewBadge /> {#ai-powered-internationalization}
-<GrowthBadge /> 
+
+<GrowthBadge />
 
 [When enabled](#enabling-ai-powered-internationalization), AI-powered internationalization enables automatic translations for all the locales in a project when the source content is updated. This enables content editors to have their content translated into multiple languages within a few seconds. The idea behind the feature is to ensure users only manually fill in content in the default locale, and Strapi AI translates it for all other existing locales.
 
 Once enabled, whenever you edit a content-type in the default locale and click **Save**, all other locales for the content-type should be translated automatically, which will be confirmed by an _All locales have been translated_ notification. Using this feature consumes Strapi AI credits.
 
 <ThemedImage
-  alt="Managing locales with AI-powered i18n"
-  sources={{
+alt="Managing locales with AI-powered i18n"
+sources={{
     light: '/img/assets/content-manager/locale-i18n-with-ai.png',
     dark: '/img/assets/content-manager/locale-i18n-with-ai_DARK.png',
   }}
@@ -151,9 +153,10 @@ Once enabled, whenever you edit a content-type in the default locale and click *
 
 :::caution
 AI-powered internationalization only works one way, keeping the default locale content as the unique source of truth. Consequently, once the feature is enabled:
+
 - Editing and saving content for any locale othen than the default one will not trigger automatic translations.
 - When editing the content for the default locale, the manual modifications made to other locales will be overwritten.
-:::
+  :::
 
 <StrapiAiCredits />
 

@@ -4,9 +4,9 @@ description: In Strapi 5, the getWhere() for permission provider instances has b
 sidebar_label: getWhere removed from permission provider
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - providers
- - upgrade to Strapi 5
+  - breaking changes
+  - providers
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -40,7 +40,7 @@ const values = provider.getWhere({ foo: 42, bar: 'baz' });
 You need to adopt a more conventional approach by first getting the provider values, then filtering them using a custom predicate:
 
 ```js
-const values = provider.values().filter(value => value.foo === 42 && value.bar === 'baz');
+const values = provider.values().filter((value) => value.foo === 42 && value.bar === 'baz');
 ```
 
 ## Migration
@@ -62,7 +62,5 @@ const values = provider.getWhere({ foo: 42, bar: 'baz' });
 **In Strapi 5**
 
 ```tsx
-const values = provider.values().filter(
-  value => value.foo === 42 && value.bar === 'baz'
-);
+const values = provider.values().filter((value) => value.foo === 42 && value.bar === 'baz');
 ```

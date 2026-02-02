@@ -5,14 +5,15 @@ displayed_sidebar: cmsSidebar
 sidebar_position: 2
 toc_max_heading_level: 5
 tags:
-- audit logs
-- admin panel
-- Enterprise feature
-- payload
-- features
+  - audit logs
+  - admin panel
+  - Enterprise feature
+  - payload
+  - features
 ---
 
 # Audit Logs
+
 <EnterpriseBadge />
 
 <VersionBadge version="4.6.0" />
@@ -31,8 +32,8 @@ The Audit Logs feature provides a searchable and filterable display of all activ
 </IdentityCard>
 
 <ThemedImage
-  alt="Audit Logs panel"
-  sources={{
+alt="Audit Logs panel"
+sources={{
     light: '/img/assets/settings/settings_audit-logs.png',
     dark: '/img/assets/settings/settings_audit-logs_DARK.png',
   }}
@@ -44,14 +45,14 @@ The Audit Logs feature provides a searchable and filterable display of all activ
 
 The Audit Logs feature logs the following events:
 
-| Event | Actions |
-| --- | --- |
-| Content Type | `create`, `update`, `delete` |
+| Event                 | Actions                                              |
+| --------------------- | ---------------------------------------------------- |
+| Content Type          | `create`, `update`, `delete`                         |
 | Entry (draft/publish) | `create`, `update`, `delete`, `publish`, `unpublish` |
-| Media | `create`, `update`, `delete` |
-| Login / Logout | `success`, `fail` |
-| Role / Permission | `create`, `update`, `delete` |
-| User | `create`, `update`, `delete` |
+| Media                 | `create`, `update`, `delete`                         |
+| Login / Logout        | `success`, `fail`                                    |
+| Role / Permission     | `create`, `update`, `delete`                         |
+| User                  | `create`, `update`, `delete`                         |
 
 For each log item, the following information is displayed:
 
@@ -59,7 +60,6 @@ For each log item, the following information is displayed:
 - Date: date and time of the action.
 - User: user who performed the action.
 - Details: displays a modal with more details about the action (e.g. the User IP address, the request body, or the response body).
-
 
 ### Filtering logs
 
@@ -70,8 +70,8 @@ By default, all logs are displayed in reverse chronological order. You can filte
 - Date: select a date (range) and time to filter by.
 
 <ThemedImage
-  alt="Audit Logs filters"
-  sources={{
+alt="Audit Logs filters"
+sources={{
     light: '/img/assets/settings/settings_audit-logs-filters.png',
     dark: '/img/assets/settings/settings_audit-logs-filters_DARK.png',
   }}
@@ -79,11 +79,11 @@ By default, all logs are displayed in reverse chronological order. You can filte
 
 ### Accessing log details {#log-details}
 
-For any log item, click the <Icon name="eye" /> icon to access a modal with more details about that action. In the modal, the *Payload* section displays the details in an interactive JSON component, enabling you to expand and collapse the JSON object.
+For any log item, click the <Icon name="eye" /> icon to access a modal with more details about that action. In the modal, the _Payload_ section displays the details in an interactive JSON component, enabling you to expand and collapse the JSON object.
 
 <ThemedImage
-  alt="Log details modal"
-  sources={{
+alt="Log details modal"
+sources={{
     light: '/img/assets/settings/settings_log-details.png',
     dark: '/img/assets/settings/settings_log-details_DARK.png',
   }}

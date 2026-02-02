@@ -19,11 +19,7 @@
         "effect": "Heals up to six creatures in a 30-foot-radius sphere centered on a point within range. Healing is 3d8 + spellcasting modifier.",
         "scaling": "Increases by 1d8 per spell slot level above 5th.",
         "target_limitation": "Up to six creatures; does not affect undead or constructs.",
-        "classes": [
-          "bard",
-          "cleric",
-          "druid"
-        ]
+        "classes": ["bard", "cleric", "druid"]
       },
       "zod_errors": "NONE",
       "recommendations": "None needed. The data appears complete and mechanically sound."

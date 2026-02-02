@@ -4,9 +4,9 @@ description: In Strapi 5, content-types with Draft & Publish disabled always hav
 sidebar_label: publishedAt always exists
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - draft & publish
- - upgrade to Strapi 5
+  - breaking changes
+  - draft & publish
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -46,7 +46,7 @@ In Strapi 5, the `publishedAt` attribute always exist even if Draft & Publish is
 
 ### Notes
 
-* If Draft & Publish is enabled, `publishedAt` is:
-  * `null` for drafts versions of documents
-  * and set to the publication date for published versions of documents.
-* If Draft & Publish is disabled, `publishedAt` is set to the latest creation or edition date of the document.
+- If Draft & Publish is enabled, `publishedAt` is:
+  - `null` for drafts versions of documents
+  - and set to the publication date for published versions of documents.
+- If Draft & Publish is disabled, `publishedAt` is set to the latest creation or edition date of the document.

@@ -115,7 +115,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       documentId: roomDocumentId,
       data: {
         players: updatedPlayers,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any, // Using Partial for update data structure if exact type not available or broad
     });
 

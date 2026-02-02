@@ -3,17 +3,17 @@ title: Routes
 description: Strapi routes handle requests to your content and are auto-generated for your content-types. Routes can be customized according to your needs.
 displayed_sidebar: cmsSidebar
 tags:
-- backend customization
-- backend server
-- controllers
-- core routers
-- custom routers
-- ctx
-- middlewares
-- policies
-- public routes
-- REST API 
-- routes
+  - backend customization
+  - backend server
+  - controllers
+  - core routers
+  - custom routers
+  - ctx
+  - middlewares
+  - policies
+  - public routes
+  - REST API
+  - routes
 ---
 
 # Routes
@@ -58,11 +58,11 @@ Strapi provides a `createCoreRouter` factory function that automatically generat
 
 A core router file is a JavaScript file exporting the result of a call to `createCoreRouter` with the following parameters:
 
-| Parameter | Description                                                                                  | Type     |
-| ----------| -------------------------------------------------------------------------------------------- | -------- |
-| `prefix`  | Allows passing in a custom prefix to add to all routers for this model (e.g. `/test`)        | `String` |
-| `only`    | Core routes that will only be loaded<br /><br/>Anything not in this array is ignored.        | `Array` | -->
-| `except`  | Core routes that should not be loaded<br/><br />This is functionally the opposite of the `only` parameter. | `Array` |
+| Parameter | Description                                                                                                                        | Type     |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------- | --- |
+| `prefix`  | Allows passing in a custom prefix to add to all routers for this model (e.g. `/test`)                                              | `String` |
+| `only`    | Core routes that will only be loaded<br /><br/>Anything not in this array is ignored.                                              | `Array`  | --> |
+| `except`  | Core routes that should not be loaded<br/><br />This is functionally the opposite of the `only` parameter.                         | `Array`  |
 | `config`  | Configuration to handle [policies](#policies), [middlewares](#middlewares) and [public availability](#public-routes) for the route | `Object` |
 
 <br/>
@@ -72,7 +72,6 @@ A core router file is a JavaScript file exporting the result of a call to `creat
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/[apiName]/routes/[routerName].js (e.g './src/api/restaurant/routes/restaurant.js')"
-
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
 module.exports = createCoreRouter('api::restaurant.restaurant', {
@@ -98,8 +97,7 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/[apiName]/routes/[routerName].ts (e.g './src/api/restaurant/routes/restaurant.ts')"
-
-import { factories } from '@strapi/strapi'; 
+import { factories } from '@strapi/strapi';
 
 export default factories.createCoreRouter('api::restaurant.restaurant', {
   prefix: '',
@@ -130,7 +128,6 @@ Generic implementation example:
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.js"
-
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
 module.exports = createCoreRouter('api::restaurant.restaurant', {
@@ -140,8 +137,8 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
       auth: false,
       policies: [],
       middlewares: [],
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -150,8 +147,7 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/restaurant/routes/restaurant.ts"
-
-import { factories } from '@strapi/strapi'; 
+import { factories } from '@strapi/strapi';
 
 export default factories.createCoreRouter('api::restaurant.restaurant', {
   only: ['find'],
@@ -160,8 +156,8 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
       auth: false,
       policies: [],
       middlewares: [],
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -174,12 +170,12 @@ This only allows a `GET` request on the `/restaurants` path from the core `find`
 
 Creating custom routers consists in creating a file that exports an array of objects, each object being a route with the following parameters:
 
-| Parameter                  | Description                                                                      | Type     |
-| -------------------------- | -------------------------------------------------------------------------------- | -------- |
-| `method`                   | Method associated to the route (i.e. `GET`, `POST`, `PUT`, `DELETE` or `PATCH`)  | `String` |
-| `path`                     | Path to reach, starting with a forward-leading slash (e.g. `/articles`)| `String` |
-| `handler`                  | Function to execute when the route is reached.<br/>Use the fully-qualified syntax `api::api-name.controllerName.actionName` (or `plugin::plugin-name.controllerName.actionName`). The short `<controllerName>.<actionName>` form for legacy projects also works. | `String` |
-| `config`<br /><br />_Optional_ | Configuration to handle [policies](#policies), [middlewares](#middlewares) and [public availability](#public-routes) for the route<br/><br/>           | `Object` |
+| Parameter                      | Description                                                                                                                                                                                                                                                      | Type     |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `method`                       | Method associated to the route (i.e. `GET`, `POST`, `PUT`, `DELETE` or `PATCH`)                                                                                                                                                                                  | `String` |
+| `path`                         | Path to reach, starting with a forward-leading slash (e.g. `/articles`)                                                                                                                                                                                          | `String` |
+| `handler`                      | Function to execute when the route is reached.<br/>Use the fully-qualified syntax `api::api-name.controllerName.actionName` (or `plugin::plugin-name.controllerName.actionName`). The short `<controllerName>.<actionName>` form for legacy projects also works. | `String` |
+| `config`<br /><br />_Optional_ | Configuration to handle [policies](#policies), [middlewares](#middlewares) and [public availability](#public-routes) for the route<br/><br/>                                                                                                                     | `Object` |
 
 <br/>
 
@@ -192,7 +188,7 @@ Routes files are loaded in alphabetical order. To load custom routes before core
 :::info Controller handler naming reference
 The `handler` string acts as a pointer to the controller action that should run for the route. Strapi supports the following formats:
 
-- API controllers:  `api::<api-name>.<controllerName>.<actionName>` (e.g. `api::restaurant.restaurant.exampleAction`). The `<controllerName>` comes from the controller filename inside `./src/api/<api-name>/controllers/`.
+- API controllers: `api::<api-name>.<controllerName>.<actionName>` (e.g. `api::restaurant.restaurant.exampleAction`). The `<controllerName>` comes from the controller filename inside `./src/api/<api-name>/controllers/`.
 - Plugin controllers: `plugin::<plugin-name>.<controllerName>.<actionName>` when the controller lives in a plugin.
 
 For backwards compatibility, Strapi also accepts a short `<controllerName>.<actionName>` string for API controllers, but using the fully-qualified form makes the route more explicit and avoids naming collisions across APIs and plugins.
@@ -213,20 +209,22 @@ In the following example, the custom routes file name is prefixed with `01-` to 
 const config = {
   type: 'content-api',
   routes: [
-    { // Path defined with an URL parameter
+    {
+      // Path defined with an URL parameter
       method: 'POST',
-      path: '/restaurants/:id/review', 
+      path: '/restaurants/:id/review',
       handler: 'api::restaurant.restaurant.review',
     },
-    { // Path defined with a regular expression
+    {
+      // Path defined with a regular expression
       method: 'GET',
       path: '/restaurants/:category([a-z]+)', // Only match when the URL parameter is composed of lowercase letters
       handler: 'api::restaurant.restaurant.findByCategory',
-    }
-  ]
-}
+    },
+  ],
+};
 
-module.exports = config
+module.exports = config;
 ```
 
 </TabItem>
@@ -279,7 +277,6 @@ Both [core routers](#configuring-core-routers) and [custom routers](#creating-cu
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.js"
-
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
 module.exports = createCoreRouter('api::restaurant.restaurant', {
@@ -290,15 +287,15 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
         'policy-name',
 
         // point to a registered policy with some custom configuration
-        { name: 'policy-name', config: {} }, 
-        
+        { name: 'policy-name', config: {} },
+
         // pass a policy implementation directly
         (policyContext, config, { strapi }) => {
           return true;
         },
-      ]
-    }
-  }
+      ],
+    },
+  },
 });
 ```
 
@@ -307,7 +304,6 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.ts"
-
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreRouter('api::restaurant.restaurant', {
@@ -318,15 +314,15 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
         'policy-name',
 
         // point to a registered policy with some custom configuration
-        { name: 'policy-name', config: {} }, 
-        
+        { name: 'policy-name', config: {} },
+
         // pass a policy implementation directly
         (policyContext, config, { strapi }) => {
           return true;
         },
-      ]
-    }
-  }
+      ],
+    },
+  },
 });
 ```
 
@@ -341,7 +337,6 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.js"
-
 module.exports = {
   routes: [
     {
@@ -354,13 +349,13 @@ module.exports = {
           'policy-name',
 
           // point to a registered policy with some custom configuration
-          { name: 'policy-name', config: {} }, 
+          { name: 'policy-name', config: {} },
 
           // pass a policy implementation directly
           (policyContext, config, { strapi }) => {
             return true;
           },
-        ]
+        ],
       },
     },
   ],
@@ -372,7 +367,6 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.ts"
-
 export default {
   routes: [
     {
@@ -385,13 +379,13 @@ export default {
           'policy-name',
 
           // point to a registered policy with some custom configuration
-          { name: 'policy-name', config: {} }, 
+          { name: 'policy-name', config: {} },
 
           // pass a policy implementation directly
           (policyContext, config, { strapi }) => {
             return true;
           },
-        ]
+        ],
       },
     },
   ],
@@ -421,7 +415,6 @@ export default {
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.js"
-
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
 module.exports = createCoreRouter('api::restaurant.restaurant', {
@@ -429,18 +422,18 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
     find: {
       middlewares: [
         // point to a registered middleware
-        'middleware-name', 
+        'middleware-name',
 
         // point to a registered middleware with some custom configuration
-        { name: 'middleware-name', config: {} }, 
+        { name: 'middleware-name', config: {} },
 
         // pass a middleware implementation directly
         (ctx, next) => {
           return next();
         },
-      ]
-    }
-  }
+      ],
+    },
+  },
 });
 ```
 
@@ -449,7 +442,6 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.ts"
-
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreRouter('api::restaurant.restaurant', {
@@ -457,18 +449,18 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
     find: {
       middlewares: [
         // point to a registered middleware
-        'middleware-name', 
+        'middleware-name',
 
         // point to a registered middleware with some custom configuration
-        { name: 'middleware-name', config: {} }, 
+        { name: 'middleware-name', config: {} },
 
         // pass a middleware implementation directly
         (ctx, next) => {
           return next();
         },
-      ]
-    }
-  }
+      ],
+    },
+  },
 });
 ```
 
@@ -484,7 +476,6 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.js"
-
 module.exports = {
   routes: [
     {
@@ -494,10 +485,10 @@ module.exports = {
       config: {
         middlewares: [
           // point to a registered middleware
-          'middleware-name', 
+          'middleware-name',
 
           // point to a registered middleware with some custom configuration
-          { name: 'middleware-name', config: {} }, 
+          { name: 'middleware-name', config: {} },
 
           // pass a middleware implementation directly
           (ctx, next) => {
@@ -515,8 +506,7 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.ts"
-
-export default  {
+export default {
   routes: [
     {
       method: 'GET',
@@ -525,10 +515,10 @@ export default  {
       config: {
         middlewares: [
           // point to a registered middleware
-          'middleware-name', 
+          'middleware-name',
 
           // point to a registered middleware with some custom configuration
-          { name: 'middleware-name', config: {} }, 
+          { name: 'middleware-name', config: {} },
 
           // pass a middleware implementation directly
           (ctx, next) => {
@@ -563,15 +553,14 @@ In some scenarios, it can be useful to have a route publicly available and contr
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.js"
-
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
 module.exports = createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
-      auth: false
-    }
-  }
+      auth: false,
+    },
+  },
 });
 ```
 
@@ -580,15 +569,14 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/routes/restaurant.ts"
-
 import { factories } from '@strapi/strapi';
 
-export default  factories.createCoreRouter('api::restaurant.restaurant', {
+export default factories.createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
-      auth: false
-    }
-  }
+      auth: false,
+    },
+  },
 });
 ```
 
@@ -604,7 +592,6 @@ export default  factories.createCoreRouter('api::restaurant.restaurant', {
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.js"
-
 module.exports = {
   routes: [
     {
@@ -624,8 +611,7 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/routes/custom-restaurant.ts"
-
-export default  {
+export default {
   routes: [
     {
       method: 'GET',

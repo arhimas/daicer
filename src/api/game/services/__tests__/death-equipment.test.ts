@@ -94,12 +94,12 @@ describe('ActionEngine Equipment Persistence', () => {
 
     // Execute Attack
     const command = {
-        type: 'ATTACK',
-        payload: {
-          actorId,
-          targetId,
-        },
-      };
+      type: 'ATTACK',
+      payload: {
+        actorId,
+        targetId,
+      },
+    };
 
     await actionEngine.dispatch(ROOM_ID, [command]);
 
@@ -118,54 +118,54 @@ describe('ActionEngine Equipment Persistence', () => {
   });
 
   it.skip('SHOULD drop inventory when a MONSTER dies', async () => {
-     const actorId = 'killer-1';
-     const targetId = 'monster-1';
- 
-     // Mock Data
-     const actor = {
-       documentId: actorId,
-       computedActions: [{ id: 'act-1', attack_bonus: 5, damage: [{ diceCount: 1, diceValue: 6, flatBonus: 100 }] }],
-       room: { documentId: ROOM_ID },
-     };
- 
-     const target = {
-       documentId: targetId,
-       type: 'monster', // Crucial: MONSTER TYPE
-       hp: 1,
-       armorClass: 10,
-       position: { x: 10, y: 10, z: 0 },
-       name: 'Goblin',
-     };
- 
-     // Mock FindOne
-     mockStrapi.documents().findOne.mockImplementation(async ({ documentId }: { documentId: string }) => {
-       if (documentId === actorId) return actor;
-       if (documentId === targetId) return target;
-       return null;
-     });
- 
-     // Execute Attack
-     const command = {
-        type: 'ATTACK', 
-        payload: {
-            actorId,
-            targetId, 
-        }
-     };
- 
-     await actionEngine.dispatch(ROOM_ID, [command]);
- 
-     // Verify: Event Emitted for Death
-     expect(mockCreateEvent).toHaveBeenCalledWith(
-       expect.objectContaining({
-         data: expect.objectContaining({
-           type: 'ENTITY_DEATH',
-           actor: targetId,
-         }),
-       })
-     );
- 
-     // Verify: DropAll WAS called
-     expect(mockDropAll).toHaveBeenCalledWith(targetId);
-   });
+    const actorId = 'killer-1';
+    const targetId = 'monster-1';
+
+    // Mock Data
+    const actor = {
+      documentId: actorId,
+      computedActions: [{ id: 'act-1', attack_bonus: 5, damage: [{ diceCount: 1, diceValue: 6, flatBonus: 100 }] }],
+      room: { documentId: ROOM_ID },
+    };
+
+    const target = {
+      documentId: targetId,
+      type: 'monster', // Crucial: MONSTER TYPE
+      hp: 1,
+      armorClass: 10,
+      position: { x: 10, y: 10, z: 0 },
+      name: 'Goblin',
+    };
+
+    // Mock FindOne
+    mockStrapi.documents().findOne.mockImplementation(async ({ documentId }: { documentId: string }) => {
+      if (documentId === actorId) return actor;
+      if (documentId === targetId) return target;
+      return null;
+    });
+
+    // Execute Attack
+    const command = {
+      type: 'ATTACK',
+      payload: {
+        actorId,
+        targetId,
+      },
+    };
+
+    await actionEngine.dispatch(ROOM_ID, [command]);
+
+    // Verify: Event Emitted for Death
+    expect(mockCreateEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          type: 'ENTITY_DEATH',
+          actor: targetId,
+        }),
+      })
+    );
+
+    // Verify: DropAll WAS called
+    expect(mockDropAll).toHaveBeenCalledWith(targetId);
+  });
 });

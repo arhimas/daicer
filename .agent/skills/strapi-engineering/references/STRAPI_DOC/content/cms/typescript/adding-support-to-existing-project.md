@@ -1,13 +1,13 @@
 ---
-title: Adding TypeScript support 
+title: Adding TypeScript support
 description: Learn how to add TypeScript support to an existing Strapi project.
 displayed_sidebar: cmsSidebar
 pagination_previous: cms/typescript/development
 tags:
-- allowJs flag
-- typescript
-- tsconfig.json file
-- project structure
+  - allowJs flag
+  - typescript
+  - tsconfig.json file
+  - project structure
 ---
 
 # Adding TypeScript support to existing Strapi projects
@@ -20,77 +20,45 @@ TypeScript support can be added to an existing Strapi project using the followin
 
 1. Add a `tsconfig.json` file at the project root and copy the following code, with the `allowJs` flag, to the file:
 
-  ```json title="./tsconfig.json"
-
-  {
-      "extends": "@strapi/typescript-utils/tsconfigs/server",
-      "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": ".",
-        "allowJs": true //enables the build without .ts files
-      },
-      "include": [
-        "./",
-        "src/**/*.json"
-      ],
-      "exclude": [
-        "node_modules/",
-        "build/",
-        "dist/",
-        ".cache/",
-        ".tmp/",
-        "src/admin/",
-        "**/*.test.ts",
-        "src/plugins/**"
-      ]
-    
-    }
-    
-  ```
+```json title="./tsconfig.json"
+{
+  "extends": "@strapi/typescript-utils/tsconfigs/server",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": ".",
+    "allowJs": true //enables the build without .ts files
+  },
+  "include": ["./", "src/**/*.json"],
+  "exclude": ["node_modules/", "build/", "dist/", ".cache/", ".tmp/", "src/admin/", "**/*.test.ts", "src/plugins/**"]
+}
+```
 
 2. Add a `tsconfig.json` file in the `./src/admin/` directory and copy the following code to the file:
 
-  ```json title="./src/admin/tsconfig.json"
-
-  {
-      "extends": "@strapi/typescript-utils/tsconfigs/admin",
-      "include": [
-        "../plugins/**/admin/src/**/*",
-        "./"
-      ],
-      "exclude": [
-        "node_modules/",
-        "build/",
-        "dist/",
-        "**/*.test.ts"
-      ]
-    }
-    
-  ```
+```json title="./src/admin/tsconfig.json"
+{
+  "extends": "@strapi/typescript-utils/tsconfigs/admin",
+  "include": ["../plugins/**/admin/src/**/*", "./"],
+  "exclude": ["node_modules/", "build/", "dist/", "**/*.test.ts"]
+}
+```
 
 3. _(optional)_ Delete the `.eslintrc` and `.eslintignore` files from the project root.
 4. Add an additional `'..'` to the `filename` property in the `database.ts` configuration file (only required for SQLite databases):
 
-  ```js title="./config/database.ts"
+```js title="./config/database.ts"
+const path = require('path');
 
-  const path = require('path');
-
-  module.exports = ({ env }) => ({
+module.exports = ({ env }) => ({
+  connection: {
+    client: 'sqlite',
     connection: {
-      client: 'sqlite',
-      connection: {
-        filename: path.join(
-          __dirname,
-          "..",
-          "..",
-          env("DATABASE_FILENAME", ".tmp/data.db")
-        ),
-      },
-      useNullAsDefault: true,
+      filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),
     },
-  });
-
-  ```
+    useNullAsDefault: true,
+  },
+});
+```
 
 5. Rebuild the admin panel and start the development server:
 
@@ -107,10 +75,10 @@ TypeScript support can be added to an existing Strapi project using the followin
 
   <TabItem value='npm' label="NPM">
 
-  ```sh
-  npm run build
-  npm run develop
-  ```
+```sh
+npm run build
+npm run develop
+```
 
   </TabItem>
 

@@ -5,7 +5,7 @@ module.exports = ({ strapi }) => ({
    * Unified Search Endpoint.
    * Delegates to Search Service to query Knowledge and Entities via Vector Search.
    * POST /api/semantic-search/search
-   * 
+   *
    * @param {object} ctx
    * @param {object} ctx.request.body
    * @param {string} ctx.request.body.query - The search string

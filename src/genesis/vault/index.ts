@@ -1,4 +1,3 @@
-
 // The Vault exports standard arrays of seed data.
 // These are populated by the 'genesis craft' command or manual entry.
 

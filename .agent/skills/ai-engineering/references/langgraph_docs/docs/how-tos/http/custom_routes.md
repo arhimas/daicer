@@ -24,11 +24,11 @@ Once you have a LangGraph project, add the following app code:
 
 ```typescript
 // ./src/agent/app.ts
-import { Hono } from "hono";
+import { Hono } from 'hono';
 
 export const app = new Hono();
 
-app.get("/hello", (c) => c.json({ hello: "world" }));
+app.get('/hello', (c) => c.json({ hello: 'world' }));
 ```
 
 ## Configure `langgraph.json`

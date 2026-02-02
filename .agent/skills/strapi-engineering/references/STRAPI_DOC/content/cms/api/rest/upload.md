@@ -2,11 +2,11 @@
 title: Upload files
 description: Learn how to use the /api/upload endpoints to upload files to Strapi with the REST API.
 tags:
-- API
-- Content API
-- upload
-- REST API
-- Media Library
+  - API
+  - Content API
+  - upload
+  - REST API
+  - Media Library
 ---
 
 # REST API: Upload files
@@ -22,9 +22,10 @@ The [Media Library feature](/cms/features/media-library) is powered in the back-
 | DELETE | `/api/upload/files/:id` | Delete a file       |
 
 :::note Notes
+
 - [Folders](/cms/features/media-library#organizing-assets-with-folders) are an admin panel-only feature and are not part of the Content API (REST or GraphQL). Files uploaded through REST are located in the automatically created "API Uploads" folder.
 - The GraphQL API does not support uploading media files. To upload files, use the REST API or directly add files from the [Media Library](/cms/features/media-library) in the admin panel. Some GraphQL mutations to update or delete uploaded media files are still possible (see [GraphQL API documentation](/cms/api/graphql#mutations-on-media-files) for details).
-:::
+  :::
 
 ## Upload files
 
@@ -60,7 +61,7 @@ When uploading an image, include a `fileInfo` object to set the file name, alt t
 
     await fetch('/api/upload', {
       method: 'post',
-      body: new FormData(e.target)
+      body: new FormData(e.target),
     });
   });
 </script>
@@ -77,7 +78,7 @@ import fetch, { blobFrom } from 'node-fetch';
 const file = await blobFrom('./1.png', 'image/png');
 const form = new FormData();
 
-form.append('files', file, "1.png");
+form.append('files', file, '1.png');
 form.append(
   'fileInfo',
   JSON.stringify({
@@ -91,7 +92,6 @@ const response = await fetch('http://localhost:1337/api/upload', {
   method: 'post',
   body: form,
 });
-
 ```
 
 </TabItem>
@@ -108,14 +108,14 @@ Upload one or more files that will be linked to a specific entry.
 
 The following parameters are accepted:
 
-| Parameter | Description |
-| --------- | ----------- |
-|`files`    | The file(s) to upload. The value(s) can be a Buffer or Stream. |
-|`path` (optional) | The folder where the file(s) will be uploaded to (only supported on strapi-provider-upload-aws-s3). |
-| `refId` | The ID of the entry which the file(s) will be linked to. |
-| `ref` | The unique ID (uid) of the model which the file(s) will be linked to (see more below). |
-| `source` (optional) | The name of the plugin where the model is located. |
-| `field` | The field of the entry which the file(s) will be precisely linked to. |
+| Parameter           | Description                                                                                         |
+| ------------------- | --------------------------------------------------------------------------------------------------- |
+| `files`             | The file(s) to upload. The value(s) can be a Buffer or Stream.                                      |
+| `path` (optional)   | The folder where the file(s) will be uploaded to (only supported on strapi-provider-upload-aws-s3). |
+| `refId`             | The ID of the entry which the file(s) will be linked to.                                            |
+| `ref`               | The unique ID (uid) of the model which the file(s) will be linked to (see more below).              |
+| `source` (optional) | The name of the plugin where the model is located.                                                  |
+| `field`             | The field of the entry which the file(s) will be precisely linked to.                               |
 
 For example, given the `Restaurant` model attributes:
 
@@ -128,10 +128,10 @@ For example, given the `Restaurant` model attributes:
     },
     "cover": {
       "type": "media",
-      "multiple": false,
+      "multiple": false
     }
   }
-// ...
+  // ...
 }
 ```
 
@@ -155,7 +155,7 @@ The following is an example of a corresponding front-end code:
 
     await fetch('/api/upload', {
       method: 'post',
-      body: new FormData(e.target)
+      body: new FormData(e.target),
     });
   });
 </script>
@@ -188,7 +188,6 @@ const response = await fetch(`http://localhost:1337/api/upload?id=${fileId}`, {
   method: 'post',
   body: form,
 });
-
 ```
 
 ## Models definition
@@ -243,4 +242,3 @@ The following example lets you upload and attach multiple pictures to the `resta
   // ...
 }
 ```
-

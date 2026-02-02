@@ -4,9 +4,9 @@ description: The Content Manager APIs reference lists the APIs available to plug
 displayed_sidebar: cmsSidebar
 toc_max_heading_level: 4
 tags:
-- admin panel API
-- plugins development
-- plugins
+  - admin panel API
+  - plugins development
+  - plugins
 ---
 
 # Content Manager APIs
@@ -39,8 +39,7 @@ When using TypeScript, the `apis` property returned by `app.getPlugin()` is type
   ```tsx
   import type { ContentManagerPlugin } from '@strapi/content-manager/strapi-admin';
 
-  const apis =
-    app.getPlugin('content-manager').apis as ContentManagerPlugin['config']['apis'];
+  const apis = app.getPlugin('content-manager').apis as ContentManagerPlugin['config']['apis'];
 
   apis.addEditViewSidePanel([ReleasesPanel]);
   ```
@@ -48,8 +47,7 @@ When using TypeScript, the `apis` property returned by `app.getPlugin()` is type
 - Passing a function that receives the current elements and return the new ones. This is useful if, for example, you want to add something in a specific position in the list, like in the following code:
 
   ```tsx
-  const apis =
-    app.getPlugin('content-manager').apis as ContentManagerPlugin['config']['apis'];
+  const apis = app.getPlugin('content-manager').apis as ContentManagerPlugin['config']['apis'];
 
   apis.addEditViewSidePanel((panels) => [SuperImportantPanel, ...panels]);
   ```
@@ -120,13 +118,13 @@ Adding a panel to the sidebar can be done this way:
 ```jsx title="my-plugin/components/my-panel.ts"
 import type { PanelComponent, PanelComponentProps } from '@strapi/content-manager/strapi-admin';
 
-const Panel: PanelComponent = ({ 
-  activeTab, 
-  collectionType, 
-  document, 
-  documentId, 
-  meta, 
-  model 
+const Panel: PanelComponent = ({
+  activeTab,
+  collectionType,
+  document,
+  documentId,
+  meta,
+  model
 }: PanelComponentProps) => {
   return {
     title: 'My Panel',
@@ -168,13 +166,15 @@ Use this API to add more actions to the Edit view or the List View of the Conten
 
 - `header` of the Edit view:
 
-    ![Header of the Edit view](/img/assets/content-manager-apis/add-document-action-header.png)
+  ![Header of the Edit view](/img/assets/content-manager-apis/add-document-action-header.png)
+
 - `panel` of the Edit view:
 
-    ![Panel of the Edit View](/img/assets/content-manager-apis/add-document-action-panel.png)
+  ![Panel of the Edit View](/img/assets/content-manager-apis/add-document-action-panel.png)
+
 - `table-row` of the List view:
 
-    ![Table-row in the List View](/img/assets/content-manager-apis/add-document-action-tablerow.png)
+  ![Table-row in the List View](/img/assets/content-manager-apis/add-document-action-tablerow.png)
 
 ```jsx
 addDocumentAction(actions: DescriptionReducer<DocumentActionComponent> | DocumentActionComponent[])
@@ -182,7 +182,7 @@ addDocumentAction(actions: DescriptionReducer<DocumentActionComponent> | Documen
 
 #### DocumentActionDescription
 
-The interface and properties of the API look like the following: 
+The interface and properties of the API look like the following:
 
 ```jsx
 interface DocumentActionDescription {
@@ -294,7 +294,7 @@ addBulkAction(actions: DescriptionReducer<BulkActionComponent> | BulkActionCompo
 
 #### BulkActionDescription
 
-The interface and properties of the API look like the following: 
+The interface and properties of the API look like the following:
 
 ```jsx
 interface BulkActionDescription {

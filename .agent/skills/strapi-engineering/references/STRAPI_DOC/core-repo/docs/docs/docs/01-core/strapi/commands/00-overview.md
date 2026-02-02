@@ -24,10 +24,7 @@ const myCommand: StrapiCommand = ({ argv, ctx }) => {
   // do something
   return createCommand('develop')
     .alias('dev')
-    .option(
-      '--no-build',
-      '[deprecated]: there is middleware for the server, it is no longer a separate process'
-    )
+    .option('--no-build', '[deprecated]: there is middleware for the server, it is no longer a separate process')
     .action((options) => {
       // do something with options & ctx
     });

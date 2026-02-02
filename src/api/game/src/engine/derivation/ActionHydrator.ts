@@ -3,109 +3,107 @@ import { calculateModifier } from './attributes';
 
 // Define DB Shapes (Stubbing them here to avoid any, ideally these come from Codegen/Strapi types)
 interface SerializedProperty {
-    slug: string;
-    name?: string;
+  slug: string;
+  name?: string;
 }
 
 export interface SerializedDamage {
-    effect_type: string; // 'Damage' | 'Healing'
-    damage_type: string;
-    dice_count: number;
-    dice_value: number;
-    flat_bonus?: number;
-    timing?: string;
+  effect_type: string; // 'Damage' | 'Healing'
+  damage_type: string;
+  dice_count: number;
+  dice_value: number;
+  flat_bonus?: number;
+  timing?: string;
 }
 
 interface SerializedReference {
-    documentId?: string;
-    id?: number | string;
-    slug?: string;
-    name?: string;
+  documentId?: string;
+  id?: number | string;
+  slug?: string;
+  name?: string;
 }
 
 export interface SerializedItem {
-    documentId?: string;
-    id?: number | string;
-    name: string;
-    description?: string;
-    slug?: string;
-    type?: string; // 'weapon', etc
-    image?: { url: string };
-    
-    // Weapon specifics
-    damage_dice?: string;
-    versatile_damage?: string;
-    damage_type?: { name: string };
-    range_normal?: number;
-    range_long?: number;
-    
-    equipment_category?: SerializedReference;
-    properties?: SerializedProperty[];
-    
-    // Engine Utils
-    isEquipped?: boolean;
-    armor_class_base?: number;
-    armor_class_dex_bonus?: boolean;
-    str_minimum?: number;
-    stealth_disadvantage?: boolean;
+  documentId?: string;
+  id?: number | string;
+  name: string;
+  description?: string;
+  slug?: string;
+  type?: string; // 'weapon', etc
+  image?: { url: string };
+
+  // Weapon specifics
+  damage_dice?: string;
+  versatile_damage?: string;
+  damage_type?: { name: string };
+  range_normal?: number;
+  range_long?: number;
+
+  equipment_category?: SerializedReference;
+  properties?: SerializedProperty[];
+
+  // Engine Utils
+  isEquipped?: boolean;
+  armor_class_base?: number;
+  armor_class_dex_bonus?: boolean;
+  str_minimum?: number;
+  stealth_disadvantage?: boolean;
 }
 
 export interface SerializedSpell {
-    documentId?: string;
-    id?: number | string;
-    name: string;
-    slug?: string;
-    level?: number;
-    school?: string; // Relation or string? Based on compiler, looks like string/relation check might be needed
-    description?: unknown; // Rich text often JSON
-    image?: { url: string };
+  documentId?: string;
+  id?: number | string;
+  name: string;
+  slug?: string;
+  level?: number;
+  school?: string; // Relation or string? Based on compiler, looks like string/relation check might be needed
+  description?: unknown; // Rich text often JSON
+  image?: { url: string };
 
-    mechanics_config?: {
-        action_type?: string; // "Melee Weapon Attack", "Dexterity Save", etc.
-        save_effect?: string;
-    };
-    
-    casting_config?: {
-        time_unit?: string;
-        components?: string[];
-        concentration?: boolean;
-    };
-    
-    range_config?: {
-        type?: string;
-        distance?: number;
-        aoe_shape?: string;
-        aoe_size?: number;
-        aoe_height?: number;
-    };
+  mechanics_config?: {
+    action_type?: string; // "Melee Weapon Attack", "Dexterity Save", etc.
+    save_effect?: string;
+  };
 
-    damage_instances?: SerializedDamage[];
-    condition_instances?: Array<{
-        condition: string;
-        duration_rounds?: number;
-        chance?: number;
-    }>;
+  casting_config?: {
+    time_unit?: string;
+    components?: string[];
+    concentration?: boolean;
+  };
+
+  range_config?: {
+    type?: string;
+    distance?: number;
+    aoe_shape?: string;
+    aoe_size?: number;
+    aoe_height?: number;
+  };
+
+  damage_instances?: SerializedDamage[];
+  condition_instances?: Array<{
+    condition: string;
+    duration_rounds?: number;
+    chance?: number;
+  }>;
 }
 
 export class ActionHydrator {
   /**
    * Hydrates a raw Item (Weapon) into a usable RuntimeAction.
    * Calculates attack bonuses, damage dice + modifiers based on wielder's stats.
-   * 
+   *
    * @param item - The serialized Item/Equipment data.
    * @param context - The wielder's context (stats, proficiency).
    * @returns Array of RuntimeActions (e.g. "Longsword", "Longsword (Two-Handed)").
    */
-  static hydrateFromEquipment(
-    item: SerializedItem,
-    context: DerivationContext
-  ): RuntimeAction[] {
+  static hydrateFromEquipment(item: SerializedItem, context: DerivationContext): RuntimeAction[] {
     const actions: RuntimeAction[] = [];
 
     // Check if it's a weapon or has damage dice
     const isWeapon =
       !!item.damage_dice ||
-      (item.equipment_category && ['weapon', 'simple-weapon', 'martial-weapon'].includes(item.equipment_category.slug || ''));
+      (item.equipment_category &&
+        ['weapon', 'simple-weapon', 'martial-weapon'].includes(item.equipment_category.slug || ''));
 
     if (!isWeapon) return actions;
 
@@ -193,18 +191,15 @@ export class ActionHydrator {
   /**
    * Hydrate Actions from Spells
    */
-  static hydrateFromSpell(
-    spell: SerializedSpell,
-    context: DerivationContext
-  ): RuntimeAction {
+  static hydrateFromSpell(spell: SerializedSpell, context: DerivationContext): RuntimeAction {
     const attributes = context.attributes || context.stats;
     const profBonus = context.proficiencyBonus || 2;
     // Default to Int if not specified (should be passed in context based on class)
     // Default to Int if not specified (should be passed in context based on class)
     const castStat = (context.spellcastingAbility || 'intelligence').toLowerCase();
     const attrs = attributes as unknown as Record<string, number>;
-    const castScore = (Number(attrs[castStat])) || 10;
-    
+    const castScore = Number(attrs[castStat]) || 10;
+
     const mod = calculateModifier(castScore);
     const spellAttackBonus = mod + profBonus;
     const saveDC = 8 + mod + profBonus;
@@ -228,9 +223,9 @@ export class ActionHydrator {
     if (definitions.action_type?.includes('Save')) {
       const saveAttr = definitions.action_type.split(' ')[0].toLowerCase().slice(0, 3); // "Dexterity" -> "dex"
       saveConfig = {
-        attribute: saveAttr as 'str'|'dex'|'con'|'int'|'wis'|'cha',
+        attribute: saveAttr as 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha',
         dc: saveDC,
-        effect: (definitions.save_effect?.toLowerCase() || 'none') as 'none'|'half'|'negate',
+        effect: (definitions.save_effect?.toLowerCase() || 'none') as 'none' | 'half' | 'negate',
       };
     }
 
@@ -292,7 +287,7 @@ export class ActionHydrator {
 
       aoe: range.aoe_shape
         ? {
-            shape: range.aoe_shape.toLowerCase() as 'sphere'|'cone'|'cube'|'line'|'cylinder',
+            shape: range.aoe_shape.toLowerCase() as 'sphere' | 'cone' | 'cube' | 'line' | 'cylinder',
             size: range.aoe_size || 0,
             height: range.aoe_height,
           }
@@ -301,14 +296,13 @@ export class ActionHydrator {
       attack: attackConfig,
       save: saveConfig,
       effects: effects,
-      
+
       level: spell.level,
       concentration: casting.concentration, // Assuming DB has this field in casting_config
       // Construct original range string for legacy compatibility or UI
-      originalRange: range.type === 'ranged' ? `${range.distance} ft` : range.type, 
+      originalRange: range.type === 'ranged' ? `${range.distance} ft` : range.type,
     };
 
     return action;
   }
 }
-

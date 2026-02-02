@@ -133,10 +133,7 @@ To define `UID.ContentType`, we extract every key (`Internal.Registry.Keys`) fro
 ```ts title="@strapi/types/uid.ts"
 import type { Internal, Public } from '@strapi/types';
 
-export type ContentType = Internal.Registry.Keys<
-  Public.ContentTypeSchemas,
-  Internal.UID.ContentType
->;
+export type ContentType = Internal.Registry.Keys<Public.ContentTypeSchemas, Internal.UID.ContentType>;
 ```
 
 :::note

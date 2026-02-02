@@ -3,14 +3,13 @@ title: Database configuration
 displayed_sidebar: cmsSidebar
 description: Strapi offers a single entry point file to configure its databases.
 tags:
-- base configuration
-- configuration
-- database
-- database connection
-- database settings
-- databases installation guides
-- MySQL
-
+  - base configuration
+  - configuration
+  - database
+  - database connection
+  - database settings
+  - databases installation guides
+  - MySQL
 ---
 
 import SupportedDatabases from '/docs/snippets/supported-databases.md'
@@ -29,7 +28,7 @@ The following databases are supported by Strapi:
 :::
 
 :::warning
- Strapi applications are not meant to be connected to a pre-existing database, not created by a Strapi application, nor connected to a Strapi v3 database. The Strapi team will not support such attempts. Attempting to connect to an unsupported database may, and most likely will, result in lost data.
+Strapi applications are not meant to be connected to a pre-existing database, not created by a Strapi application, nor connected to a Strapi v3 database. The Strapi team will not support such attempts. Attempting to connect to an unsupported database may, and most likely will, result in lost data.
 :::
 
 ## Configuration structure
@@ -41,40 +40,41 @@ The `/config/database.js|ts` file accepts 2 main configuration objects:
 
 ### `connection` configuration object
 
-| Parameter                                                | Description                                                                                           | Type      | Default |
-|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-----------|---------|
+| Parameter                                                | Description                                                                                                                                                                                                | Type      | Default |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
 | `client`                                                 | Database client to create the connection.<br/>Accepts the following values:<ul><li>`sqlite` for SQLite databases</li><li>`postgres` for PostgreSQL databases</li><li>`mysql` for MySQL databases</li></ul> | `String`  | -       |
-| `connection`                                             | Database [connection information](#connection-parameters)                                             | `Object`  | -       |
-| `debug`                                                  | Show database exchanges and errors.                                                                   | `Boolean` | `false` |
-| `useNullAsDefault`<br/><br />_Optional, only for SQLite_ | Use `NULL` as a default value                                                                         | `Boolean` | `true`  |
-| `pool`<br /><br />_Optional_                             | [Database pooling options](#database-pooling-options)                                                 | `Object`  | -       |
-| `acquireConnectionTimeout`<br /><br />_Optional_         | How long knex will wait before throwing a timeout error when acquiring a connection (in milliseconds) | `Integer` | `60000` |
+| `connection`                                             | Database [connection information](#connection-parameters)                                                                                                                                                  | `Object`  | -       |
+| `debug`                                                  | Show database exchanges and errors.                                                                                                                                                                        | `Boolean` | `false` |
+| `useNullAsDefault`<br/><br />_Optional, only for SQLite_ | Use `NULL` as a default value                                                                                                                                                                              | `Boolean` | `true`  |
+| `pool`<br /><br />_Optional_                             | [Database pooling options](#database-pooling-options)                                                                                                                                                      | `Object`  | -       |
+| `acquireConnectionTimeout`<br /><br />_Optional_         | How long knex will wait before throwing a timeout error when acquiring a connection (in milliseconds)                                                                                                      | `Integer` | `60000` |
 
 :::note
 Strapi only supports the following client values, and will automatically rewrite the `client` value to the following options before passing the configuration to Knex:
 
-| `client` value | Actual package used                                             |
-|----------------|-----------------------------------------------------------------|
-| sqlite         | <ExternalLink to="https://www.npmjs.com/package/better-sqlite3" text="better-sqlite3"/>  |
-| mysql          | <ExternalLink to="https://www.npmjs.com/package/mysql2" text="mysql2"/>                  |
-| postgres       | <ExternalLink to="https://www.npmjs.com/package/pg" text="pg"/>                          |
+| `client` value | Actual package used                                                                     |
+| -------------- | --------------------------------------------------------------------------------------- |
+| sqlite         | <ExternalLink to="https://www.npmjs.com/package/better-sqlite3" text="better-sqlite3"/> |
+| mysql          | <ExternalLink to="https://www.npmjs.com/package/mysql2" text="mysql2"/>                 |
+| postgres       | <ExternalLink to="https://www.npmjs.com/package/pg" text="pg"/>                         |
+
 :::
 
 #### Connection parameters
 
 The `connection.connection` object found in `./config/database.js` (or `./config/database.ts` for TypeScript) is used to pass database connection information and accepts the following parameters:
 
-| Parameter  | Description                                                                                                                   | Type                  |
-|------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------|
-| `connectionString`| Database connection string. When set, it overrides the other `connection.connection` properties. To disable use an empty string: `''`. <br/> **Available in `v4.6.2`+**           | `String`                  |
-| `host`     | Database host name. Default value: `localhost`.                                                                               | `String`              |
-| `port`     | Database port                                                                                                                 | `Integer`             |
-| `database` or `filename` | Database name or filename.   <ul><li>For MySQL or PostgreSQL, use the `database` key (with `host`, `port`, etc.).</li><li>For SQLite, only provide `filename`` which points to the database file.</li></ul> | `String`              |
-| `user`     | Username used to establish the connection                                                                                     | `String`              |
-| `password` | Password used to establish the connection                                                                                     | `String`              |
-| `timezone` | Set the default behavior for local time. Default value: `utc` <ExternalLink to="https://www.php.net/manual/en/timezones.php" text="Timezone options"/> | `String`              |
-| `schema`   | Set the default database schema. **Used only for Postgres DB.**                                                               | `String`              |
-| `ssl`      | For SSL database connection.<br/> Use an object to pass certificate files as strings.                                         | `Boolean` or `Object` |
+| Parameter                | Description                                                                                                                                                                                               | Type                  |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| `connectionString`       | Database connection string. When set, it overrides the other `connection.connection` properties. To disable use an empty string: `''`. <br/> **Available in `v4.6.2`+**                                   | `String`              |
+| `host`                   | Database host name. Default value: `localhost`.                                                                                                                                                           | `String`              |
+| `port`                   | Database port                                                                                                                                                                                             | `Integer`             |
+| `database` or `filename` | Database name or filename. <ul><li>For MySQL or PostgreSQL, use the `database` key (with `host`, `port`, etc.).</li><li>For SQLite, only provide `filename`` which points to the database file.</li></ul> | `String`              |
+| `user`                   | Username used to establish the connection                                                                                                                                                                 | `String`              |
+| `password`               | Password used to establish the connection                                                                                                                                                                 | `String`              |
+| `timezone`               | Set the default behavior for local time. Default value: `utc` <ExternalLink to="https://www.php.net/manual/en/timezones.php" text="Timezone options"/>                                                    | `String`              |
+| `schema`                 | Set the default database schema. **Used only for Postgres DB.**                                                                                                                                           | `String`              |
+| `ssl`                    | For SSL database connection.<br/> Use an object to pass certificate files as strings.                                                                                                                     | `Boolean` or `Object` |
 
 :::note
 Depending on the database client used, more parameters can be set (e.g., `charset` and `collation` for <ExternalLink to="https://github.com/mysqljs/mysql#connection-options" text="mysql"/>). Check the database client documentation to know what parameters are available, for instance the <ExternalLink to="https://node-postgres.com/apis/client#new-client" text="pg"/>, <ExternalLink to="https://github.com/mysqljs/mysql#connection-options" text="mysql"/>, and <ExternalLink to="https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md#new-databasepath-options" text="better-sqlite3"/> documentations.
@@ -88,16 +88,16 @@ The `connection.pool` object optionally found in `./config/database.js` (or `./c
 When using Docker, change the pool `min` value to `0` as Docker will kill any idle connections, making it impossible to keep any open connections to the database (see the <ExternalLink to="https://knexjs.org/guide/#pool" text="Tarn.js pool"/> settings used by Knex.js for more information).
 :::
 
-| Parameter                   | Description                                                                                                                                                                                | Type       | Default |
-|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------|
-| `min`                       | Minimum number of database connections to keepalive                                                                                                                                        | `Integer`  | `2`     |
-| `max`                       | Maximum number of database connections to keepalive                                                                                                                                        | `Integer`  | `10`    |
-| `acquireTimeoutMillis`      | Time in milliseconds before timing out a database connection attempt                                                                                                                       | `Integer`  | `60000` |
-| `createTimeoutMillis`       | Time in milliseconds before timing out a create query attempt                                                                                                                              | `Integer`  | `30000` |
-| `destroyTimeoutMillis`      | Time in milliseconds before timing out a destroy query attempt                                                                                                                             | `Integer`  | `5000`  |
-| `idleTimeoutMillis`         | Time in milliseconds before free database connections are destroyed                                                                                                                        | `Integer`  | `30000` |
-| `reapIntervalMillis`        | Time in milliseconds to check for idle database connections to destroy                                                                                                                     | `Integer`  | `1000`  |
-| `createRetryIntervalMillis` | Time in milliseconds to idle before retrying failed create actions                                                                                                                         | `Integer`  | `200`   |
+| Parameter                   | Description                                                                                                                                                                                                         | Type       | Default |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| `min`                       | Minimum number of database connections to keepalive                                                                                                                                                                 | `Integer`  | `2`     |
+| `max`                       | Maximum number of database connections to keepalive                                                                                                                                                                 | `Integer`  | `10`    |
+| `acquireTimeoutMillis`      | Time in milliseconds before timing out a database connection attempt                                                                                                                                                | `Integer`  | `60000` |
+| `createTimeoutMillis`       | Time in milliseconds before timing out a create query attempt                                                                                                                                                       | `Integer`  | `30000` |
+| `destroyTimeoutMillis`      | Time in milliseconds before timing out a destroy query attempt                                                                                                                                                      | `Integer`  | `5000`  |
+| `idleTimeoutMillis`         | Time in milliseconds before free database connections are destroyed                                                                                                                                                 | `Integer`  | `30000` |
+| `reapIntervalMillis`        | Time in milliseconds to check for idle database connections to destroy                                                                                                                                              | `Integer`  | `1000`  |
+| `createRetryIntervalMillis` | Time in milliseconds to idle before retrying failed create actions                                                                                                                                                  | `Integer`  | `200`   |
 | `afterCreate`               | Callback function to execute custom logic when the pool acquires a new connection.<br/><br/>See the <ExternalLink to="https://knexjs.org/#Installation-pooling" text="Knex.js documentation"/> for more information | `Function` | -       |
 
 ### `settings` configuration object
@@ -230,12 +230,7 @@ export default ({ env }) => ({
   connection: {
     client: 'sqlite',
     connection: {
-      filename: path.join(
-        __dirname,
-        '..',
-        '..',
-        env('DATABASE_FILENAME', path.join('.tmp', 'data.db'))
-      ),
+      filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', path.join('.tmp', 'data.db'))),
     },
     useNullAsDefault: true,
   },
@@ -292,7 +287,7 @@ await pluginStore.set({
 
 ## Environment variables in database configurations
 
-Strapi version `v4.6.2` and higher includes the database configuration options in the `./config/database.js` or `./config/database.ts` file. When a new project is created the environment variable `DATABASE_CLIENT` with the value `mysql`, `postgres`, or `sqlite` is automatically added to the `.env` file depending on which database you choose during project creation. Additionally, all of the environment variables necessary to connect to your local development database are also added to the `.env` file.  The following is an example of the generated configuration file:
+Strapi version `v4.6.2` and higher includes the database configuration options in the `./config/database.js` or `./config/database.ts` file. When a new project is created the environment variable `DATABASE_CLIENT` with the value `mysql`, `postgres`, or `sqlite` is automatically added to the `.env` file depending on which database you choose during project creation. Additionally, all of the environment variables necessary to connect to your local development database are also added to the `.env` file. The following is an example of the generated configuration file:
 
 <Tabs groupId="js-ts">
 <TabItem value="javascript" label="JavaScript">
@@ -318,10 +313,7 @@ module.exports = ({ env }) => {
           ca: env('DATABASE_SSL_CA', undefined),
           capath: env('DATABASE_SSL_CAPATH', undefined),
           cipher: env('DATABASE_SSL_CIPHER', undefined),
-          rejectUnauthorized: env.bool(
-            'DATABASE_SSL_REJECT_UNAUTHORIZED',
-            true
-          ),
+          rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
         },
       },
       pool: { min: env.int('DATABASE_POOL_MIN', 2), max: env.int('DATABASE_POOL_MAX', 10) },
@@ -340,10 +332,7 @@ module.exports = ({ env }) => {
           ca: env('DATABASE_SSL_CA', undefined),
           capath: env('DATABASE_SSL_CAPATH', undefined),
           cipher: env('DATABASE_SSL_CIPHER', undefined),
-          rejectUnauthorized: env.bool(
-            'DATABASE_SSL_REJECT_UNAUTHORIZED',
-            true
-          ),
+          rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
         },
         schema: env('DATABASE_SCHEMA', 'public'),
       },
@@ -351,11 +340,7 @@ module.exports = ({ env }) => {
     },
     sqlite: {
       connection: {
-        filename: path.join(
-          __dirname,
-          '..',
-          env('DATABASE_FILENAME', 'data.db')
-        ),
+        filename: path.join(__dirname, '..', env('DATABASE_FILENAME', 'data.db')),
       },
       useNullAsDefault: true,
     },
@@ -508,9 +493,9 @@ If you started your project with a version prior to `v4.6.2` you can convert you
 3. Add the environment variables from the preceding code example to your `.env` file.
 4. (_optional_) Add additional environment variables such as `DATABASE_URL` and the properties of the `ssl` object.
 5. Save the changes and restart your application.
-:::caution
-Do not overwrite the environment variables: `HOST`, `PORT`, `APP_KEYS`, `API_TOKEN_SALT`, and `ADMIN_JWT_SECRET`.
-:::
+   :::caution
+   Do not overwrite the environment variables: `HOST`, `PORT`, `APP_KEYS`, `API_TOKEN_SALT`, and `ADMIN_JWT_SECRET`.
+   :::
 
 ### Database connections using `connectionString`
 
@@ -523,16 +508,16 @@ Many managed database solutions use the property `connectionString` to connect a
 
 Development of a Strapi application commonly includes customization in the local development environment with a local development database, such as `SQLite`. When the application is ready for another environment such as production or staging the application is deployed with a different database instance, usually `MySQL`, `MariaDB`, or `PostgreSQL`. Database environment variables allow you to switch the attached database. To switch the database connection:
 
-* set a minimum of the `DATABASE_CLIENT` and `DATABASE_URL` for `MySQL`, `MariaDB`, and `PostgreSQL`,
-* or set a minimum of `DATABASE_CLIENT` and `DATABASE_FILENAME` for `SQLite`.
+- set a minimum of the `DATABASE_CLIENT` and `DATABASE_URL` for `MySQL`, `MariaDB`, and `PostgreSQL`,
+- or set a minimum of `DATABASE_CLIENT` and `DATABASE_FILENAME` for `SQLite`.
 
 For deployed versions of your application the database environment variables should be stored wherever your other secrets are stored. The following table gives examples of where the database environment variables should be stored:
 
 | Hosting option                                        | environment variable storage    |
-|-------------------------------------------------------|---------------------------------|
+| ----------------------------------------------------- | ------------------------------- |
 | Virtual private server/virtual machine (e.g. AWS EC2) | `ecosystem.config.js` or `.env` |
 | DigitalOcean App Platform                             | `Environment Variables` table   |
-| Heroku                                                | `Config vars` table                   |
+| Heroku                                                | `Config vars` table             |
 
 ## Databases installation
 

@@ -17,7 +17,7 @@ describe('GraphQL Queries & Resolvers', () => {
   // We need distinct mocks for different content types now
   const mockEntityFindMany = vi.fn();
   const mockItemFindMany = vi.fn();
-  
+
   // Default fallback
   const defaultMockFindMany = vi.fn();
 
@@ -67,11 +67,9 @@ describe('GraphQL Queries & Resolvers', () => {
     it('should search both monsters and characters (players) for normal query', async () => {
       mockEntityFindMany.mockResolvedValue([
         { documentId: 'm1', name: 'Goblin', type: 'monster' },
-        { documentId: 'c1', name: 'Hero', type: 'player' }
+        { documentId: 'c1', name: 'Hero', type: 'player' },
       ]);
-      mockItemFindMany.mockResolvedValue([
-        { documentId: 'i1', name: 'Sword', type: 'weapon' }
-      ]);
+      mockItemFindMany.mockResolvedValue([{ documentId: 'i1', name: 'Sword', type: 'weapon' }]);
 
       const res = await search('goblin');
 
@@ -84,9 +82,7 @@ describe('GraphQL Queries & Resolvers', () => {
       expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           filters: expect.objectContaining({
-            $or: expect.arrayContaining([
-              { name: { $contains: 'goblin' } },
-            ]),
+            $or: expect.arrayContaining([{ name: { $contains: 'goblin' } }]),
           }),
         })
       );
@@ -94,17 +90,15 @@ describe('GraphQL Queries & Resolvers', () => {
 
     it('should list all monsters when query is "monsters"', async () => {
       mockEntityFindMany.mockResolvedValue([{ documentId: 'm1', name: 'M1', type: 'monster' }]);
-      
+
       const res = await search('monsters');
       expect(res).toBeDefined();
-      
+
       // Check calls. Should see 1 call to entity findMany with monster filter
       expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           filters: expect.objectContaining({
-            $or: expect.arrayContaining([
-              { type: 'monster' },
-            ]),
+            $or: expect.arrayContaining([{ type: 'monster' }]),
           }),
         })
       );
@@ -112,15 +106,13 @@ describe('GraphQL Queries & Resolvers', () => {
 
     it('should list all characters when query is "characters"', async () => {
       mockEntityFindMany.mockResolvedValue([{ documentId: 'c1', name: 'C1', type: 'player' }]);
-      
+
       await search('characters');
-      
+
       expect(mockEntityFindMany).toHaveBeenCalledWith(
         expect.objectContaining({
           filters: expect.objectContaining({
-            $or: expect.arrayContaining([
-              { type: 'player' },
-            ]),
+            $or: expect.arrayContaining([{ type: 'player' }]),
           }),
         })
       );

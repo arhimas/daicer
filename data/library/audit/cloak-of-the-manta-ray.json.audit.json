@@ -18,10 +18,7 @@
       },
       "mechanics": {
         "attunement_required": false,
-        "primary_effects": [
-          "Breathe underwater",
-          "Swimming speed of 60 feet"
-        ],
+        "primary_effects": ["Breathe underwater", "Swimming speed of 60 feet"],
         "activation_trigger": "Pulling the hood up or down (requires an action)",
         "power_level": "Appropriate for Uncommon rarity; grants significant mobility/utility in aquatic environments."
       },

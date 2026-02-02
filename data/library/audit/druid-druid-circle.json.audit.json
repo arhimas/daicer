@@ -12,12 +12,7 @@
       "mechanics": {
         "level_gained": 2,
         "feature_type": "Subclass Choice/Archetype Selection",
-        "progression_levels": [
-          2,
-          6,
-          10,
-          14
-        ],
+        "progression_levels": [2, 6, 10, 14],
         "impact": "Establishes the player's Druid subclass (Circle) and gates subsequent subclass features."
       },
       "zod_errors": false

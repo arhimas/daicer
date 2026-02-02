@@ -19,10 +19,7 @@
       },
       "mechanics": {
         "type": "Instantaneous Single Target Elimination",
-        "constraints": [
-          "Must be able to see target.",
-          "Target must have 100 HP or fewer."
-        ],
+        "constraints": ["Must be able to see target.", "Target must have 100 HP or fewer."],
         "power_level_justification": "Level 9 designation is justified by the potential for instant, unavoidable death against appropriate targets."
       },
       "zod_errors": "NONE",

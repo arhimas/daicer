@@ -37,17 +37,9 @@
             "material": "Adamantine",
             "stability": "Magic prevents tipping.",
             "hp_per_component": 100,
-            "components": [
-              "Roof",
-              "Door",
-              "Walls (each)"
-            ],
-            "damage_immunities": [
-              "Nonmagical weapons (excluding siege weapons)"
-            ],
-            "damage_resistances": [
-              "All other damage"
-            ]
+            "components": ["Roof", "Door", "Walls (each)"],
+            "damage_immunities": ["Nonmagical weapons (excluding siege weapons)"],
+            "damage_resistances": ["All other damage"]
           }
         },
         "limitations": {

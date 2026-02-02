@@ -20,9 +20,7 @@
         "item_type": "Wondrous item",
         "rarity": "Uncommon",
         "attunement_required": false,
-        "prerequisites": [
-          "Proficiency with wind instruments"
-        ],
+        "prerequisites": ["Proficiency with wind instruments"],
         "charges": {
           "max": 3,
           "recharge_rate": "1d3 daily at dawn",

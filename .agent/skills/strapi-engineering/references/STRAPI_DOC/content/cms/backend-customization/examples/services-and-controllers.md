@@ -5,17 +5,17 @@ displayed_sidebar: cmsSidebar
 pagination_prev: cms/backend-customization/examples/authentication
 pagination_next: cms/backend-customization/examples/policies
 tags:
-- backend customization
-- backend server
-- controllers
-- custom controllers
-- custom services
-- ctx
-- REST API 
-- services
+  - backend customization
+  - backend server
+  - controllers
+  - custom controllers
+  - custom services
+  - ctx
+  - REST API
+  - services
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
 # Examples cookbook: Custom services and controllers
 
@@ -29,12 +29,12 @@ From the front-end website of <ExternalLink to="https://github.com/strapi/foodad
 
 This page will teach about the following advanced topics:
 
-| Topic | Section |
-|------|---------|
-| Create a component that interacts with the backend of Strapi | [REST API queries from the front-end](#rest-api-queries-from-the-front-end) |
-| Understand how services and controllers can play together    | [Controllers vs. services](#controllers-vs-services)     |
-| Create custom services | <ul><li>A [custom service](#custom-service-creating-a-review) that only uses the Entity Service API</li><li>Another more [advanced custom service](#custom-service-sending-an-email-to-the-restaurant-owner) that uses both Entity Service API and a Strapi plugin</li></ul> |
-| Use services in a controller | [Custom controller](#custom-controller) |
+| Topic                                                        | Section                                                                                                                                                                                                                                                                      |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Create a component that interacts with the backend of Strapi | [REST API queries from the front-end](#rest-api-queries-from-the-front-end)                                                                                                                                                                                                  |
+| Understand how services and controllers can play together    | [Controllers vs. services](#controllers-vs-services)                                                                                                                                                                                                                         |
+| Create custom services                                       | <ul><li>A [custom service](#custom-service-creating-a-review) that only uses the Entity Service API</li><li>Another more [advanced custom service](#custom-service-sending-an-email-to-the-restaurant-owner) that uses both Entity Service API and a Strapi plugin</li></ul> |
+| Use services in a controller                                 | [Custom controller](#custom-controller)                                                                                                                                                                                                                                      |
 
 <br/>
 
@@ -67,10 +67,10 @@ Let's add a small front-end component to restaurant pages. This component will a
 
 **🎯 Goals**:
 
-* Add a form to write a review.
-* Display the form on any restaurants page.
-* Send a POST request to Strapi's REST API when the form is submitted.
-* Use the [previously stored JWT](/cms/backend-customization/examples/authentication) to authenticate the request.
+- Add a form to write a review.
+- Display the form on any restaurants page.
+- Send a POST request to Strapi's REST API when the form is submitted.
+- Use the [previously stored JWT](/cms/backend-customization/examples/authentication) to authenticate the request.
 
 </SideBySideColumn>
 
@@ -89,6 +89,7 @@ Additional information on endpoints for content types can be found in the [REST 
 **🧑‍💻 Code example:**
 
 In the `/client` folder of the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> project, you could use the following code examples to:
+
 - create a new `pages/restaurant/RestaurantContent/Reviews/new-review.js` file,
 - and update the existing `components/pages/restaurant/RestaurantContent/Reviews/reviews.js`.
 
@@ -97,97 +98,82 @@ In the `/client` folder of the <ExternalLink to="https://github.com/strapi/fooda
 
 1. Create a new file in the `/client` folder to add a new component for writing reviews with the following code:
 
-  ```jsx title='/client/components/pages/restaurant/RestaurantContent/Reviews/new-review.js'
+```jsx title='/client/components/pages/restaurant/RestaurantContent/Reviews/new-review.js'
+import { Button, Input, Textarea } from '@nextui-org/react';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { getStrapiURL } from '../../../../../utils';
 
-  import { Button, Input, Textarea } from '@nextui-org/react';
-  import { useFormik } from 'formik';
-  import { useRouter } from 'next/router';
-  import React from 'react';
-  import { getStrapiURL } from '../../../../../utils';
+const NewReview = () => {
+  const router = useRouter();
 
-  const NewReview = () => {
-    const router = useRouter();
+  const { handleSubmit, handleChange, values } = useFormik({
+    initialValues: {
+      note: '',
+      content: '',
+    },
+    onSubmit: async (values) => {
+      /**
+       * Queries Strapi REST API to reach the reviews endpoint
+       * using the JWT previously stored in localStorage to authenticate
+       */
+      const res = await fetch(getStrapiURL('/reviews'), {
+        method: 'POST',
+        body: JSON.stringify({
+          restaurant: router.query.slug,
+          ...values,
+        }),
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    },
+  });
+  /**
+   * Renders the form
+   */
+  return (
+    <div className="my-6">
+      <h1 className="font-bold text-2xl mb-3">Write your review</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
+        <Input onChange={handleChange} name="note" type="number" min={1} max={5} label="Stars" />
+        <Textarea name="content" onChange={handleChange} placeholder="What do you think about this restaurant?" />
+        <Button type="submit" className="bg-primary text-white rounded-md self-start">
+          Send
+        </Button>
+      </form>
+    </div>
+  );
+};
 
-    const { handleSubmit, handleChange, values } = useFormik({
-      initialValues: {
-        note: '',
-        content: '',
-      },
-      onSubmit: async (values) => {
-        /**
-         * Queries Strapi REST API to reach the reviews endpoint
-         * using the JWT previously stored in localStorage to authenticate
-         */
-        const res = await fetch(getStrapiURL('/reviews'), {
-          method: 'POST',
-          body: JSON.stringify({
-            restaurant: router.query.slug,
-            ...values,
-          }),
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
-          },
-        });
-      },
-    });
-    /**
-     * Renders the form
-     */
-    return (
-      <div className="my-6">
-        <h1 className="font-bold text-2xl mb-3">Write your review</h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
-          <Input
-            onChange={handleChange}
-            name="note"
-            type="number"
-            min={1}
-            max={5}
-            label="Stars"
-          />
-          <Textarea
-            name="content"
-            onChange={handleChange}
-            placeholder="What do you think about this restaurant?"
-          />
-          <Button
-            type="submit"
-            className="bg-primary text-white rounded-md self-start"
-          >
-            Send
-          </Button>
-        </form>
-      </div>
-    );
-  };
-
-  export default NewReview;
-  ```
+export default NewReview;
+```
 
 2. Display the new form component on any restaurants page by adding the highlighted lines (7, 8, and 13) to the code used to render restaurant's information:
 
-  ```jsx title='/client/components/pages/restaurant/RestaurantContent/Reviews/reviews.js' showLineNumbers
-  import React from 'react';
-  import delve from 'dlv';
+```jsx title='/client/components/pages/restaurant/RestaurantContent/Reviews/reviews.js' showLineNumbers
+import React from 'react';
+import delve from 'dlv';
 
-  import { formatDistance } from 'date-fns';
+import { formatDistance } from 'date-fns';
 
-  import { getStrapiMedia } from '../../../../../utils';
-  // highlight-start
-  import { Textarea } from '@nextui-org/react';
-  import NewReview from './new-review';
-  // highlight-end
+import { getStrapiMedia } from '../../../../../utils';
+// highlight-start
+import { Textarea } from '@nextui-org/react';
+import NewReview from './new-review';
+// highlight-end
 
-  const Reviews = ({ reviews }) => {
-    return (
-      <div className="col-start-2 col-end-2 mt-24">
-        // highlight-next-line
-        <NewReview />
-        {reviews &&
-          reviews.map((review, index) => (
-    // …
-  ```
+const Reviews = ({ reviews }) => {
+  return (
+    <div className="col-start-2 col-end-2 mt-24">
+      // highlight-next-line
+      <NewReview />
+      {reviews &&
+        reviews.map((review, index) => (
+  // …
+```
 
 </details>
 
@@ -226,7 +212,7 @@ Let's update the existing `review.js` service file for the "Reviews" collection 
 - Use the `findMany()` method from the EntityService API to find a restaurant.
 - Use the `create()` method from the EntityService API to append data to the restaurant, populating the restaurant owner.
 - Return the new review data.
-    
+
 </SideBySideColumn>
 
 <SideBySideColumn>
@@ -258,14 +244,11 @@ module.exports = createCoreService('api::review.review', ({ strapi }) => ({
      * using the Entity Service API
      * to retrieve information about the restaurant.
      */
-    const restaurants = await strapi.entityService.findMany(
-      'api::restaurant.restaurant',
-      {
-        filters: {
-          slug: body.restaurant,
-        },
-      }
-    );
+    const restaurants = await strapi.entityService.findMany('api::restaurant.restaurant', {
+      filters: {
+        slug: body.restaurant,
+      },
+    });
 
     /**
      * Creates a new entry for the Reviews collection type
@@ -288,9 +271,10 @@ module.exports = createCoreService('api::review.review', ({ strapi }) => ({
 ```
 
 :::tip Tips
+
 - In a controller's code, the `create` method from this service can be called with `strapi.service('api::review.review').create(ctx)` where `ctx` is the request's [context](/cms/backend-customization/requests-responses).
 - The provided example code does not cover error handling. You should consider handling errors, for instance when the restaurant does not exist. Additional information can be found in the [Error handling](/cms/error-handling) documentation.
-:::
+  :::
 
 <br />
 
@@ -310,9 +294,10 @@ This service is an advanced code example using the [Email](/cms/features/email) 
 <SideBySideColumn>
 
 :::prerequisites
+
 - You have setup a [provider for the Email plugin](/cms/features/email), for instance the <ExternalLink to="https://www.npmjs.com/package/@strapi/provider-email-sendmail" text="Sendmail"/> provider.
 - In Strapi's admin panel, you have [created an `Email` single type](/cms/features/content-type-builder#creating-content-types) that contains a `from` Text field to define the sender email address.
-:::
+  :::
 
 </SideBySideColumn>
 
@@ -354,9 +339,8 @@ Additional information can be found in the [Services](/cms/backend-customization
 **🧑‍💻 Code example:**
 
 To create such a service, in the `/api` folder of the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> project, create a new `src/api/email/services/email.js` file with the following code:
-    
-```jsx title="src/api/email/services/email.js"
 
+```jsx title="src/api/email/services/email.js"
 const { createCoreService } = require('@strapi/strapi').factories;
 
 module.exports = createCoreService('api::email.email', ({ strapi }) => ({
@@ -366,10 +350,7 @@ module.exports = createCoreService('api::email.email', ({ strapi }) => ({
      * stored in the Email single type
      * using the Entity Service API.
      */
-    const emailConfig = await strapi.entityService.findOne(
-      'api::email.email',
-      1
-    );
+    const emailConfig = await strapi.entityService.findOne('api::email.email', 1);
 
     /**
      * Sends an email using:
@@ -432,13 +413,12 @@ In the `/api` folder of the <ExternalLink to="https://github.com/strapi/foodadvi
 <TabItem value="create-only" label="Custom controller without email service">
 
 ```jsx title="src/api/review/controllers/review.js"
-
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::review.review', ({ strapi }) => ({
   /**
    * As the controller action is named
-   * exactly like the original `create` action provided by the core controller, 
+   * exactly like the original `create` action provided by the core controller,
    * it overwrites it.
    */
   async create(ctx) {
@@ -457,13 +437,12 @@ module.exports = createCoreController('api::review.review', ({ strapi }) => ({
 <TabItem value="create-and-email" label="Custom controller with email service">
 
 ```jsx title="src/api/review/controllers/review.js"
-
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::review.review', ({ strapi }) => ({
   /**
    * As the controller action is named
-   * exactly like the original `create` action provided by the core controller, 
+   * exactly like the original `create` action provided by the core controller,
    * it overwrites it.
    */
   async create(ctx) {
@@ -489,9 +468,6 @@ module.exports = createCoreController('api::review.review', ({ strapi }) => ({
 </TabItem>
 
 </Tabs>
-
-
-
 
 <br />
 

@@ -37,15 +37,15 @@ MSRV of crates is currently `1.73`.
 To update all SWC crates you use, you can run `curl https://raw.githubusercontent.com/swc-project/swc/main/scripts/update-all-swc-crates.sh | bash -s`. This script will update all dependencies to the latest version and run `cargo build` to ensure that everything works.
 Note that you need
 
--   `jq`
--   `cargo upgrade`
+- `jq`
+- `cargo upgrade`
 
 command to run the script.
 
 Supported Node Versions:
 
--   Node v10+ for usage
--   Node v20+ for development
+- Node v10+ for usage
+- Node v20+ for development
 
 ---
 
@@ -85,8 +85,8 @@ Please see [benchmark results](https://swc.rs/docs/benchmark-transform) on the w
 
 SWC is a community-driven project, and is maintained by a group of [volunteers](https://swc.rs/docs/team). If you'd like to help support the future of the project, please consider:
 
--   Giving developer time on the project. (Message us on [Discord](https://discord.gg/GnHbXTdZz6) (preferred) or [Github discussions](https://github.com/swc-project/swc/discussions) for guidance!)
--   Giving funds by becoming a sponsor (see https://opencollective.com/swc)!
+- Giving developer time on the project. (Message us on [Discord](https://discord.gg/GnHbXTdZz6) (preferred) or [Github discussions](https://github.com/swc-project/swc/discussions) for guidance!)
+- Giving funds by becoming a sponsor (see https://opencollective.com/swc)!
 
 ## Contributing
 

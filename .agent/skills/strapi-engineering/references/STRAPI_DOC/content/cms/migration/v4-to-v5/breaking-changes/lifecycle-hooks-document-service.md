@@ -4,10 +4,10 @@ description: In Strapi 5, database lifecycle hooks are triggered differently wit
 sidebar_label: Lifecycle hooks
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - Document Service API
- - lifecycle hooks
- - upgrade to Strapi 5
+  - breaking changes
+  - Document Service API
+  - lifecycle hooks
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -53,22 +53,23 @@ Lifecycle hooks work the same way as in Strapi v4 but are triggered differently,
 ### Notes
 
 #### Database lifecycle hooks triggered by the Document Service API methods {#table}
+
 Depending on the [Document Service API methods](/cms/api/document-service) called, the following database lifecycle hooks are triggered:
 
-| Document Service API method       | Triggered database lifecycle hook(s) |
-|-----------------------------------|--------------------------------------|
-| `findOne()`                       | before(after) findOne                |
-| `findFirst()`                     | before(after) findOne                |
-| `findMany()`                      | before(after) findMany               |
-| `create()`                        | before(after) Create                 |
-| `create({ status: 'published' })` | <ul><li>before(after) Create️<br/>Triggered twice as it creates both the draft and published versions</li><li>before(after) Delete<ul><li>Deletes previous draft versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul> |
-| `update()`                        | <ul><li>before(after) Create<br/>when creating a new locale on a document</li><li>before(after) Update<br/>when updating an existing version of a document</li></ul> |
+| Document Service API method       | Triggered database lifecycle hook(s)                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `findOne()`                       | before(after) findOne                                                                                                                                                                                                                                                                                                                                                                                     |
+| `findFirst()`                     | before(after) findOne                                                                                                                                                                                                                                                                                                                                                                                     |
+| `findMany()`                      | before(after) findMany                                                                                                                                                                                                                                                                                                                                                                                    |
+| `create()`                        | before(after) Create                                                                                                                                                                                                                                                                                                                                                                                      |
+| `create({ status: 'published' })` | <ul><li>before(after) Create️<br/>Triggered twice as it creates both the draft and published versions</li><li>before(after) Delete<ul><li>Deletes previous draft versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul>                                                                                                     |
+| `update()`                        | <ul><li>before(after) Create<br/>when creating a new locale on a document</li><li>before(after) Update<br/>when updating an existing version of a document</li></ul>                                                                                                                                                                                                                                      |
 | `update({ status: 'published' })` | <ul><li>before(after) Create<br/>Can be triggered multiple times if deleting multiple locales (one per each locale)</li><li>before(after) Update<br/>when updating an existing version of a document</li><li>before(after) Delete<ul><li>Deletes previous published versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul> |
-| `delete()`                        | before(after) Delete<br/>Can be triggered multiple times if deleting multiple locales (one per each locale) |
-| `publish()`                       | <ul><li>before(after) Create<br/>Can be triggered multiple times if deleting multiple locales (one per each locale)</li><li>before(after) Delete<ul><li>Deletes previous published versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul> |
-| `unpublish()`                     | before(after) Delete<ul><li>Deletes all published versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul> |
-| `discardDraft()`                  | <ul><li>before(after) Create<ul><li>Creates new draft versions</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li><li>before(after) Delete<ul><li>Deletes previous draft versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul> |
-| `count()`                         | before(after) Count |
+| `delete()`                        | before(after) Delete<br/>Can be triggered multiple times if deleting multiple locales (one per each locale)                                                                                                                                                                                                                                                                                               |
+| `publish()`                       | <ul><li>before(after) Create<br/>Can be triggered multiple times if deleting multiple locales (one per each locale)</li><li>before(after) Delete<ul><li>Deletes previous published versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul>                                                                                  |
+| `unpublish()`                     | before(after) Delete<ul><li>Deletes all published versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul>                                                                                                                                                                                                                             |
+| `discardDraft()`                  | <ul><li>before(after) Create<ul><li>Creates new draft versions</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li><li>before(after) Delete<ul><li>Deletes previous draft versions of a document</li><li>Can be triggered multiple times if deleting multiple locales (one per each locale)</li></ul></li></ul>                                      |
+| `count()`                         | before(after) Count                                                                                                                                                                                                                                                                                                                                                                                       |
 
 :::note
 Bulk actions lifecycles (`createMany`, `updateMany`, `deleteMany`) will never be triggered by a Document Service API method.

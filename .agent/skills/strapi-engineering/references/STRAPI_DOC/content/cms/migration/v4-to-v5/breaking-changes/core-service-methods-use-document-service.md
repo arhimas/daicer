@@ -4,9 +4,9 @@ description: In Strapi 5, core service methods use the Document Service API inst
 sidebar_label: Core service methods use Document Service API
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - document service API
- - upgrade to Strapi 5
+  - breaking changes
+  - document service API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -51,60 +51,57 @@ Some core methods are calling `super.find(ctx)` which internally calls entity se
 
 The following examples show how the code should be updated:
 
-  **In Strapi v4:**
+**In Strapi v4:**
 
-  ```js title="/src/api/my-api-name/services/my-service.js"
-  const { createCoreService } = require('@strapi/strapi').factories;
+```js title="/src/api/my-api-name/services/my-service.js"
+const { createCoreService } = require('@strapi/strapi').factories;
 
-  module.exports = createCoreService('api::address.address', {
+module.exports = createCoreService('api::address.address', {
+  findOne(entityId, params) {
+    // customization
+    super.findOne(entityId, params);
 
-    findOne(entityId, params) {
-      // customization
-      super.findOne(entityId, params);
-      
-      // or to show a bit more context
-      strapi.entityService.findOne(uid, entityId, params);
-    },
-    
-    update(entityId, params) {
-      // customization
-      super.update(entityId, params);
-    },
-    
-    delete(entityId, params) {
-      // customization
-      super.delete(entityId, params)
-    }
+    // or to show a bit more context
+    strapi.entityService.findOne(uid, entityId, params);
+  },
 
-  });
-  ```
+  update(entityId, params) {
+    // customization
+    super.update(entityId, params);
+  },
 
-  **In Strapi 5:**
+  delete(entityId, params) {
+    // customization
+    super.delete(entityId, params);
+  },
+});
+```
 
-  ```js title="/src/api/my-api-name/services/my-service.js"
-  const { createCoreService } = require('@strapi/strapi').factories;
+**In Strapi 5:**
 
-  module.exports = createCoreService('api::address.address', {
+```js title="/src/api/my-api-name/services/my-service.js"
+const { createCoreService } = require('@strapi/strapi').factories;
 
-    findOne(documentId, params) {
-      // customization
-      super.findOne(documentId, params);
-      
-      // or to show a bit more context
-      strapi.documents(uid).findOne(documentId, params);
-    },
+module.exports = createCoreService('api::address.address', {
+  findOne(documentId, params) {
+    // customization
+    super.findOne(documentId, params);
 
-    update(documentId, params) {
-      // customization
-      super.update(documentId, params);
-    },
+    // or to show a bit more context
+    strapi.documents(uid).findOne(documentId, params);
+  },
 
-    delete(documentId, params) {
-      // customization
-      super.delete(documentId, params)
-    }
-  });
-  ```
+  update(documentId, params) {
+    // customization
+    super.update(documentId, params);
+  },
+
+  delete(documentId, params) {
+    // customization
+    super.delete(documentId, params);
+  },
+});
+```
 
 ### Manual procedure
 

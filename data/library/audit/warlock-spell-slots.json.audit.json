@@ -12,10 +12,7 @@
     "data_structure_notes": {
       "file": "warlock-spell-slots.json",
       "entity": "FEATURE",
-      "primary_keys": [
-        "class",
-        "level"
-      ],
+      "primary_keys": ["class", "level"],
       "notes": "The raw data is rich in presentation details (HTML table structure) that are stripped for primary attribute extraction, but the core information is extracted and reflected in the description. The entry is marked as `is_subclass_feature: true`, which appears contextually incorrect for base class progression tables, which are generally considered core class features, not subclass features. This might be a labeling error in the source system."
     },
     "suggested_refinement": "None required for the spell slot progression itself, as it is mechanically sound. A review of the `is_subclass_feature` flag might be warranted based on standard classification conventions."

@@ -4,11 +4,11 @@ description: In Strapi 5, the response format has been simplified and flattened,
 sidebar_label: New response format
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - Content API
- - REST API
- - GraphQL API
- - upgrade to Strapi 5
+  - breaking changes
+  - Content API
+  - REST API
+  - GraphQL API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -133,8 +133,9 @@ const client = axios.create({
   },
 });
 
-const articles = await client.get('/articles', { params: { populate: '*'} });
+const articles = await client.get('/articles', { params: { populate: '*' } });
 ```
+
 </details>
 
 :::tip

@@ -20,13 +20,7 @@
       "mechanics_review": {
         "feature_name": "Ability Score Improvement",
         "class_context": "Paladin",
-        "trigger_levels": [
-          4,
-          8,
-          12,
-          16,
-          19
-        ],
+        "trigger_levels": [4, 8, 12, 16, 19],
         "effect_options": [
           "Increase one ability score by 2 (up to a maximum of 20).",
           "Increase two different ability scores by 1 each (up to a maximum of 20 for each)."

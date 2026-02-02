@@ -4,11 +4,11 @@ description: Use Strapi's Document Service API to sort and paginate query result
 displayed_sidebar: cmsSidebar
 sidebar_label: Sort & Pagination
 tags:
-- API 
-- Content API 
-- Document Service API 
-- sort
-- pagination
+  - API
+  - Content API
+  - Document Service API
+  - sort
+  - pagination
 ---
 
 # Document Service API: Sorting and paginating results
@@ -27,8 +27,8 @@ To sort results based on a single field:
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
-  sort: "title:asc",
+const documents = await strapi.documents('api::article.article').findMany({
+  sort: 'title:asc',
 });
 ```
 
@@ -67,8 +67,8 @@ To sort on multiple fields, pass them all in an array:
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
-  sort: [{ title: "asc" }, { slug: "desc" }],
+const documents = await strapi.documents('api::article.article').findMany({
+  sort: [{ title: 'asc' }, { slug: 'desc' }],
 });
 ```
 
@@ -107,7 +107,7 @@ To paginate results, pass the `limit` and `start` parameters:
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
+const documents = await strapi.documents('api::article.article').findMany({
   limit: 10,
   start: 0,
 });

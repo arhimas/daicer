@@ -5,8 +5,8 @@ displayed_sidebar: cmsSidebar
 sidebar_label: Locales & translations
 toc_max_heading_level: 4
 tags:
-- admin panel
-- admin panel customization
+  - admin panel
+  - admin panel customization
 ---
 
 # Locales & translations
@@ -29,7 +29,7 @@ To update the list of available locales in the admin panel, set the `config.loca
 ```js title="/src/admin/app.js"
 export default {
   config: {
-    locales: ["ru", "zh"],
+    locales: ['ru', 'zh'],
   },
   bootstrap() {},
 };
@@ -42,7 +42,7 @@ export default {
 ```ts title="/src/admin/app.ts"
 export default {
   config: {
-    locales: ["ru", "zh"],
+    locales: ['ru', 'zh'],
   },
   bootstrap() {},
 };
@@ -70,14 +70,14 @@ These keys can be extended through the `config.translations` key in `src/admin/a
 ```js title="/src/admin/app.js"
 export default {
   config: {
-    locales: ["fr"],
+    locales: ['fr'],
     translations: {
       fr: {
-        "Auth.form.email.label": "test",
-        Users: "Utilisateurs",
-        City: "CITY (FRENCH)",
+        'Auth.form.email.label': 'test',
+        Users: 'Utilisateurs',
+        City: 'CITY (FRENCH)',
         // Customize the label of the Content Manager table.
-        Id: "ID french",
+        Id: 'ID french',
       },
     },
   },
@@ -92,14 +92,14 @@ export default {
 ```ts title="/src/admin/app.ts"
 export default {
   config: {
-    locales: ["fr"],
+    locales: ['fr'],
     translations: {
       fr: {
-        "Auth.form.email.label": "test",
-        Users: "Utilisateurs",
-        City: "CITY (FRENCH)",
+        'Auth.form.email.label': 'test',
+        Users: 'Utilisateurs',
+        City: 'CITY (FRENCH)',
         // Customize the label of the Content Manager table.
-        Id: "ID french",
+        Id: 'ID french',
       },
     },
   },
@@ -118,13 +118,13 @@ A plugin's key/value pairs are declared independently in the plugin's files at `
 ```js title="/src/admin/app.js"
 export default {
   config: {
-    locales: ["fr"],
+    locales: ['fr'],
     translations: {
       fr: {
-        "Auth.form.email.label": "test",
+        'Auth.form.email.label': 'test',
         // Translate a plugin's key/value pair by adding the plugin's name as a prefix
         // In this case, we translate the "plugin.name" key of plugin "content-type-builder"
-        "content-type-builder.plugin.name": "Constructeur de Type-Contenu",
+        'content-type-builder.plugin.name': 'Constructeur de Type-Contenu',
       },
     },
   },
@@ -139,13 +139,13 @@ export default {
 ```ts title="/src/admin/app.ts"
 export default {
   config: {
-    locales: ["fr"],
+    locales: ['fr'],
     translations: {
       fr: {
-        "Auth.form.email.label": "test",
+        'Auth.form.email.label': 'test',
         // Translate a plugin's key/value pair by adding the plugin's name as a prefix
         // In this case, we translate the "plugin.name" key of plugin "content-type-builder"
-        "content-type-builder.plugin.name": "Constructeur de Type-Contenu",
+        'content-type-builder.plugin.name': 'Constructeur de Type-Contenu',
       },
     },
   },

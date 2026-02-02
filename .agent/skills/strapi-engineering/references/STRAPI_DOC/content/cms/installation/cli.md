@@ -5,11 +5,11 @@ description: Fast-track local install for getting Strapi running on your compute
 pagination_prev: cms/installation
 pagination_next: cms/installation/docker
 tags:
-- installation
-- Command Line Interface (CLI)
-- database
-- MySQL
-- PostgreSQL
+  - installation
+  - Command Line Interface (CLI)
+  - database
+  - MySQL
+  - PostgreSQL
 ---
 
 import InstallPrerequisites from '/docs/snippets/installation-prerequisites.md'
@@ -31,73 +31,71 @@ Follow the steps below to create a new Strapi project, being sure to use the app
 
 1. In a terminal, run the following command:
 
-    <Tabs groupId="yarn-npm">
+   <Tabs groupId="yarn-npm">
 
-    <TabItem value="npm" label="NPM">
+   <TabItem value="npm" label="NPM">
 
-    ```bash
-    npx create-strapi@latest
-    ```
+   ```bash
+   npx create-strapi@latest
+   ```
 
-    <details>
-    <summary>Additional explanations for the command:</summary>
+   <details>
+   <summary>Additional explanations for the command:</summary>
+   - `npx` runs a command from a npm package
+   - `create-strapi` is the Strapi package
+   - `@latest` indicates that the latest version of Strapi is used
 
-    * `npx` runs a command from a npm package
-    * `create-strapi` is the Strapi package
-    * `@latest` indicates that the latest version of Strapi is used
+   :::tip
+   The older `npx create-strapi-app@latest` command still works and will provide the exact same experience as the newer `npx create-strapi@latest` command.
+   :::
 
-    :::tip
-    The older `npx create-strapi-app@latest` command still works and will provide the exact same experience as the newer `npx create-strapi@latest` command.
-    :::
+   Instead of npx, the traditional npm command can be used too, with `npm create strapi@latest`.
 
-    Instead of npx, the traditional npm command can be used too, with `npm create strapi@latest`.
+   Please note the additional dash between create and strapi when using npx: `npx create-strapi` vs. `npm create strapi`.
+   </details>
 
-    Please note the additional dash between create and strapi when using npx: `npx create-strapi` vs. `npm create strapi`.
-    </details>
-    
-    </TabItem>
+   </TabItem>
 
-    <TabItem value="yarn" label="Yarn">
+   <TabItem value="yarn" label="Yarn">
 
-    ```bash
-    yarn create strapi
-   
-    ```
+   ```bash
+   yarn create strapi
 
-    :::note
-    Yarn does not support passing the version tag such as `@latest`, as opposed to npm. If you experience unexpected results with yarn and the latest version of Strapi is not installed, you might need to <ExternalLink to="https://yarnpkg.com/cli/cache/clean" text="run the `yarn cache clean` command"/> to clean your Yarn cache.
-    :::
+   ```
 
-    </TabItem>
+   :::note
+   Yarn does not support passing the version tag such as `@latest`, as opposed to npm. If you experience unexpected results with yarn and the latest version of Strapi is not installed, you might need to <ExternalLink to="https://yarnpkg.com/cli/cache/clean" text="run the `yarn cache clean` command"/> to clean your Yarn cache.
+   :::
 
-    <TabItem value="pnpm" label="pnpm">
+   </TabItem>
 
-    :::caution
-    You might have issues with projects created with pnpm on Strapi Cloud. Strapi Cloud does not support pnpm yet, so it's recommended to use yarn or npm if you plan to eventually host your project on Strapi Cloud.
-    :::
+   <TabItem value="pnpm" label="pnpm">
 
-    ```bash
-    pnpm create strapi
-    ```
-    
-    </TabItem>
+   :::caution
+   You might have issues with projects created with pnpm on Strapi Cloud. Strapi Cloud does not support pnpm yet, so it's recommended to use yarn or npm if you plan to eventually host your project on Strapi Cloud.
+   :::
 
-    </Tabs>
+   ```bash
+   pnpm create strapi
+   ```
+
+   </TabItem>
+
+   </Tabs>
 
 2. The terminal will ask you whether you want to `Login/Signup` or `Skip` this step. Use arrow keys and press `Enter` to make your choice. If you choose to login, you'll receive a 30-day trial of the <GrowthBadge /> plan that will be automatically applied to your created project. If you skip this step, the project will fall back to the CMS Free plan.
 
 3. The terminal will ask you a few questions. For each of them, if you press `Enter` instead of typing something, the default answer (Yes) will be used:
 
-  ![Terminal prompts at installation](/img/assets/installation/prompts.png)
+![Terminal prompts at installation](/img/assets/installation/prompts.png)
 
-  :::tip
-  You can skip these questions using various options passed to the installation command. Please refer to the [table](#cli-installation-options) for the full list of available options.
-  :::
+:::tip
+You can skip these questions using various options passed to the installation command. Please refer to the [table](#cli-installation-options) for the full list of available options.
+:::
 
 4. _(optional)_ If you answered `n` for "no" to the default (SQLite) database question, the CLI will ask for more questions about the database:
-
-    * Use arrow keys to select the database type you want, then press `Enter`.
-    * Give the database a name, define the database host address and port, define the database admin username and password, and define whether the database will use a SSL connection.<br/>For any of these questions, if you press `Enter` without typing anything, the default value (indicated in parentheses in the terminal output) will be used.
+   - Use arrow keys to select the database type you want, then press `Enter`.
+   - Give the database a name, define the database host address and port, define the database admin username and password, and define whether the database will use a SSL connection.<br/>For any of these questions, if you press `Enter` without typing anything, the default value (indicated in parentheses in the terminal output) will be used.
 
 Once all questions have been answered, the script will start creating the Strapi project.
 
@@ -106,7 +104,7 @@ Once all questions have been answered, the script will start creating the Strapi
 The above installation guide only covers the basic installation option using the CLI. There are other options that can be used when creating a new Strapi project, for example:
 
 | Option                              | Description                                                                                                                                                                                                                                     |
-|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--no-run`                          | Do not start the application after it is created                                                                                                                                                                                                |
 | `--ts`<br/>`--typescript`           | Initialize the project with TypeScript (default)                                                                                                                                                                                                |
 | `--js`<br/>`--javascript`           | Initialize the project with JavaScript                                                                                                                                                                                                          |
@@ -119,7 +117,7 @@ The above installation guide only covers the basic installation option using the
 | `--no-git-init`                     | Do not initialize a git repository, skipping the related CLI prompt                                                                                                                                                                             |
 | `--example`                         | Add example data, skipping the related CLI prompt                                                                                                                                                                                               |
 | `--no-example`                      | Do not add example data, skipping the related CLI prompt                                                                                                                                                                                        |
-| `--skip-cloud`                      | Skip [Strapi login and project creation steps](#skipping-the-strapi-login-step)                                                                                                                                                     |
+| `--skip-cloud`                      | Skip [Strapi login and project creation steps](#skipping-the-strapi-login-step)                                                                                                                                                                 |
 | `--skip-db`                         | Skip all database-related prompts and create a project with the default (SQLite) database                                                                                                                                                       |
 | `--template <template-name-or-url>` | Create the application based on a given template.<br/>Additional options for templates are available, see the [templates documentation](/cms/templates) for details.                                                                            |
 | `--dbclient <dbclient>`             | Define the database client to use by replacing `<dbclient>` in the command by one of the these values:<ul><li>`sql` for a SQLite database (default)</li><li>`postgres` for a PostgreSQL database</li><li>`mysql` for a MySQL database</li></ul> |
@@ -133,10 +131,11 @@ The above installation guide only covers the basic installation option using the
 | `--quickstart`                      | (**Deprecated in Strapi 5**)<br/>Directly create the project in quickstart mode.                                                                                                                                                                |
 
 :::note Notes
-* If you do not pass a `--use-yarn|npm|pnpm` option, the installation script will use whatever package manager was used with the create command to install all dependencies (e.g., `npm create strapi` will install all the project's dependencies with npm).
-* For additional information about database configuration, please refer to the [database configuration documentation](/cms/configurations/database).
-* Experimental Strapi versions are released every Tuesday through Saturday at midnight GMT. You can create a new Strapi application based on the latest experimental release using `npx create-strapi@experimental`. Please use these experimental builds at your own risk. It is not recommended to use them in production.
-:::
+
+- If you do not pass a `--use-yarn|npm|pnpm` option, the installation script will use whatever package manager was used with the create command to install all dependencies (e.g., `npm create strapi` will install all the project's dependencies with npm).
+- For additional information about database configuration, please refer to the [database configuration documentation](/cms/configurations/database).
+- Experimental Strapi versions are released every Tuesday through Saturday at midnight GMT. You can create a new Strapi application based on the latest experimental release using `npx create-strapi@experimental`. Please use these experimental builds at your own risk. It is not recommended to use them in production.
+  :::
 
 ### Skipping the Strapi login step
 
@@ -165,9 +164,9 @@ If you want to host your project yourself and are not already familiar with GitH
 5. Log in to your GitHub account and <ExternalLink to="https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories" text="create a new repository"/>. Give the new repository a name, for instance `my-first-strapi-project`, and remember this name.
 6. Go back to the terminal and push your local repository to GitHub:
 
-  a. Run a command similar to the following: `git remote add origin git@github.com:yourname/my-first-strapi-project.git`, ensuring you replace `yourname` by your own GitHub profile name, and `my-first-strapi-project` by the actual name you used at step 4.
+a. Run a command similar to the following: `git remote add origin git@github.com:yourname/my-first-strapi-project.git`, ensuring you replace `yourname` by your own GitHub profile name, and `my-first-strapi-project` by the actual name you used at step 4.
 
-  b. Run the `git push --set-upstream origin main` command to finally push the commit to your GitHub repository.
+b. Run the `git push --set-upstream origin main` command to finally push the commit to your GitHub repository.
 
 Additional information about using git with the command line interface can be found in the <ExternalLink to="https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github#adding-a-local-repository-to-github-using-git" text="official GitHub documentation"/>.
 

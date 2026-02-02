@@ -22,7 +22,13 @@ export const compileCommand = new Command('compile')
     }
   });
 
-export async function runCompile(options: { phase?: string; target?: string; id?: string; queue?: boolean; json?: boolean }) {
+export async function runCompile(options: {
+  phase?: string;
+  target?: string;
+  id?: string;
+  queue?: boolean;
+  json?: boolean;
+}) {
   const { default: chalk } = await import('chalk');
 
   if (!options.json) {
@@ -39,7 +45,7 @@ export async function runCompile(options: { phase?: string; target?: string; id?
   if (options.queue) {
     // 1. Queue Mode
     if (!options.json) console.log(chalk.yellow('   Dispatching to Queue...'));
-    
+
     // Lazy load QueueManager
     const { QueueManager } = await import('../../queues/queue-manager');
     const queueManager = QueueManager.init(strapi);

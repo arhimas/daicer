@@ -21,14 +21,14 @@ $ npm install http-errors
 ## Example
 
 ```js
-var createError = require('http-errors')
-var express = require('express')
-var app = express()
+var createError = require('http-errors');
+var express = require('express');
+var app = express();
 
 app.use(function (req, res, next) {
-  if (!req.user) return next(createError(401, 'Please login to view this page.'))
-  next()
-})
+  if (!req.user) return next(createError(401, 'Please login to view this page.'));
+  next();
+});
 ```
 
 ## API
@@ -54,7 +54,7 @@ Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
 
 ```js
-var err = createError(404, 'This video does not exist!')
+var err = createError(404, 'This video does not exist!');
 ```
 
 - `status: 500` - the status code as a number
@@ -74,12 +74,12 @@ return value.
 fs.readFile('foo.txt', function (err, buf) {
   if (err) {
     if (err.code === 'ENOENT') {
-      var httpError = createError(404, err, { expose: false })
+      var httpError = createError(404, err, { expose: false });
     } else {
-      var httpError = createError(500, err)
+      var httpError = createError(500, err);
     }
   }
-})
+});
 ```
 
 - `status` - the status code as a number
@@ -100,7 +100,7 @@ Create a new error object with the given message `msg`.
 The error object inherits from `createError.HttpError`.
 
 ```js
-var err = new createError.NotFound()
+var err = new createError.NotFound();
 ```
 
 - `code` - the status code as a number
@@ -108,49 +108,49 @@ var err = new createError.NotFound()
 
 #### List of all constructors
 
-|Status Code|Constructor Name             |
-|-----------|-----------------------------|
-|400        |BadRequest                   |
-|401        |Unauthorized                 |
-|402        |PaymentRequired              |
-|403        |Forbidden                    |
-|404        |NotFound                     |
-|405        |MethodNotAllowed             |
-|406        |NotAcceptable                |
-|407        |ProxyAuthenticationRequired  |
-|408        |RequestTimeout               |
-|409        |Conflict                     |
-|410        |Gone                         |
-|411        |LengthRequired               |
-|412        |PreconditionFailed           |
-|413        |PayloadTooLarge              |
-|414        |URITooLong                   |
-|415        |UnsupportedMediaType         |
-|416        |RangeNotSatisfiable          |
-|417        |ExpectationFailed            |
-|418        |ImATeapot                    |
-|421        |MisdirectedRequest           |
-|422        |UnprocessableEntity          |
-|423        |Locked                       |
-|424        |FailedDependency             |
-|425        |TooEarly                     |
-|426        |UpgradeRequired              |
-|428        |PreconditionRequired         |
-|429        |TooManyRequests              |
-|431        |RequestHeaderFieldsTooLarge  |
-|451        |UnavailableForLegalReasons   |
-|500        |InternalServerError          |
-|501        |NotImplemented               |
-|502        |BadGateway                   |
-|503        |ServiceUnavailable           |
-|504        |GatewayTimeout               |
-|505        |HTTPVersionNotSupported      |
-|506        |VariantAlsoNegotiates        |
-|507        |InsufficientStorage          |
-|508        |LoopDetected                 |
-|509        |BandwidthLimitExceeded       |
-|510        |NotExtended                  |
-|511        |NetworkAuthenticationRequired|
+| Status Code | Constructor Name              |
+| ----------- | ----------------------------- |
+| 400         | BadRequest                    |
+| 401         | Unauthorized                  |
+| 402         | PaymentRequired               |
+| 403         | Forbidden                     |
+| 404         | NotFound                      |
+| 405         | MethodNotAllowed              |
+| 406         | NotAcceptable                 |
+| 407         | ProxyAuthenticationRequired   |
+| 408         | RequestTimeout                |
+| 409         | Conflict                      |
+| 410         | Gone                          |
+| 411         | LengthRequired                |
+| 412         | PreconditionFailed            |
+| 413         | PayloadTooLarge               |
+| 414         | URITooLong                    |
+| 415         | UnsupportedMediaType          |
+| 416         | RangeNotSatisfiable           |
+| 417         | ExpectationFailed             |
+| 418         | ImATeapot                     |
+| 421         | MisdirectedRequest            |
+| 422         | UnprocessableEntity           |
+| 423         | Locked                        |
+| 424         | FailedDependency              |
+| 425         | TooEarly                      |
+| 426         | UpgradeRequired               |
+| 428         | PreconditionRequired          |
+| 429         | TooManyRequests               |
+| 431         | RequestHeaderFieldsTooLarge   |
+| 451         | UnavailableForLegalReasons    |
+| 500         | InternalServerError           |
+| 501         | NotImplemented                |
+| 502         | BadGateway                    |
+| 503         | ServiceUnavailable            |
+| 504         | GatewayTimeout                |
+| 505         | HTTPVersionNotSupported       |
+| 506         | VariantAlsoNegotiates         |
+| 507         | InsufficientStorage           |
+| 508         | LoopDetected                  |
+| 509         | BandwidthLimitExceeded        |
+| 510         | NotExtended                   |
+| 511         | NetworkAuthenticationRequired |
 
 ## License
 

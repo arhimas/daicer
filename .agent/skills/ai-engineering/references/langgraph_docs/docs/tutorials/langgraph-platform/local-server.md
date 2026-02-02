@@ -54,9 +54,8 @@ $ npx @langchain/langgraph-cli@latest dev
 
 This will start up the LangGraph API server locally. If this runs successfully, you should see something like:
 
->    - 🚀 API: http://localhost:2024
->    - 🎨 Studio UI: https://smith.langchain.com/studio?baseUrl=http://localhost:2024
-
+> - 🚀 API: http://localhost:2024
+> - 🎨 Studio UI: https://smith.langchain.com/studio?baseUrl=http://localhost:2024
 
 !!! note "In-Memory Mode"
 
@@ -69,7 +68,7 @@ This will start up the LangGraph API server locally. If this runs successfully, 
 
 LangGraph Studio Web is a specialized UI that you can connect to LangGraph API server to enable visualization, interaction, and debugging of your application locally. Test your graph in the LangGraph Studio Web UI by visiting the URL provided in the output of the `langgraph dev` command.
 
->    - LangGraph Studio Web UI: https://smith.langchain.com/studio/?baseUrl=http://localhost:2024
+> - LangGraph Studio Web UI: https://smith.langchain.com/studio/?baseUrl=http://localhost:2024
 
 !!! info "Connecting to a server with a custom host/port"
 
@@ -79,9 +78,8 @@ LangGraph Studio Web is a specialized UI that you can connect to LangGraph API s
     https://smith.langchain.com/studio/baseUrl=http://localhost:8000
     ```
 
-
 !!! warning "Safari Compatibility"
-    
+
     Currently, LangGraph Studio Web does not support Safari when running a server locally.
 
 ## Test the API
@@ -201,7 +199,7 @@ LangGraph Studio Web is a specialized UI that you can connect to LangGraph API s
                 ]
             },
             \"stream_mode\": \"updates\"
-        }" 
+        }"
     ```
 
 !!! tip "Auth"
@@ -222,13 +220,13 @@ Now that you have a LangGraph app running locally, take your journey further by 
 
 Expand your knowledge with these resources:
 
-- **[LangGraph Platform Concepts](../../concepts/index.md#langgraph-platform)**: Understand the foundational concepts of the LangGraph Platform.  
+- **[LangGraph Platform Concepts](../../concepts/index.md#langgraph-platform)**: Understand the foundational concepts of the LangGraph Platform.
 - **[LangGraph Platform How-to Guides](../../how-tos/index.md#langgraph-platform)**: Discover step-by-step guides to build and deploy applications.
 
 ### 🛠️ Developer References
 
 Access detailed documentation for development and API usage:
 
-- **[LangGraph Server API Reference](../../cloud/reference/api/api_ref.html)**: Explore the LangGraph Server API documentation.  
+- **[LangGraph Server API Reference](../../cloud/reference/api/api_ref.html)**: Explore the LangGraph Server API documentation.
 - **[Python SDK Reference](../../cloud/reference/sdk/python_sdk_ref.md)**: Explore the Python SDK API Reference.
 - **[JS/TS SDK Reference](../../cloud/reference/sdk/js_ts_sdk_ref.md)**: Explore the JS/TS SDK API Reference.

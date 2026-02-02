@@ -5,8 +5,8 @@ displayed_sidebar: cmsSidebar
 sidebar_label: Logos
 toc_max_heading_level: 4
 tags:
-- admin panel
-- admin panel customization
+  - admin panel
+  - admin panel customization
 ---
 
 # Logos
@@ -53,14 +53,14 @@ import MenuLogo from "./extensions/my-menu-logo.png";
 
 export default {
   config: {
-    // … other configuration properties 
+    // … other configuration properties
     auth: { // Replace the Strapi logo in auth (login) views
       logo: AuthLogo,
     },
     menu: { // Replace the Strapi logo in the main navigation
       logo: MenuLogo,
     },
-    // … other configuration properties 
+    // … other configuration properties
 
   bootstrap() {},
 };
@@ -76,14 +76,14 @@ import MenuLogo from "./extensions/my-menu-logo.png";
 
 export default {
   config: {
-    // … other configuration properties 
+    // … other configuration properties
     auth: { // Replace the Strapi logo in auth (login) views
       logo: AuthLogo,
     },
     menu: { // Replace the Strapi logo in the main navigation
       logo: MenuLogo,
     },
-    // … other configuration properties 
+    // … other configuration properties
 
   bootstrap() {},
 };

@@ -25,9 +25,7 @@
         "maximum_damage": "5d8 radiant damage.",
         "conditional_bonus": "Applies if the target is Undead or Fiend (extra 1d8 damage)."
       },
-      "suggested_improvements": [
-        "None. The data accurately reflects the official feature text."
-      ],
+      "suggested_improvements": ["None. The data accurately reflects the official feature text."],
       "archival_status": "Approved"
     }
   },

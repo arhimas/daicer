@@ -4,20 +4,20 @@ pagination_prev: cms/plugins-development/plugin-structure
 pagination_next: cms/plugins-development/content-manager-apis
 toc_max_heading_level: 4
 tags:
-- admin panel
-- plugin APIs
-- asynchronous function
-- bootstrap function
-- hooks API
-- Injection Zones API
-- lifecycle function
-- menu
-- settings
-- plugins
-- plugins development
-- register function
-- reducers API
-- redux
+  - admin panel
+  - plugin APIs
+  - asynchronous function
+  - bootstrap function
+  - hooks API
+  - Injection Zones API
+  - lifecycle function
+  - menu
+  - settings
+  - plugins
+  - plugins development
+  - register function
+  - reducers API
+  - redux
 ---
 
 # Admin Panel API for plugins
@@ -48,7 +48,7 @@ The whole code for the admin panel part of your plugin could live in the `/strap
 
 The entry file for the Admin Panel API is `[plugin-name]/admin/src/index.js`. This file exports the required interface, with the following functions available:
 
-| Function type      | Available functions                                                     |
+| Function type       | Available functions                                                      |
 | ------------------- | ------------------------------------------------------------------------ |
 | Lifecycle functions | <ul><li> [register](#register)</li><li>[bootstrap](#bootstrap)</li></ul> |
 | Async function      | [registerTrads](#registertrads)                                          |
@@ -65,11 +65,11 @@ This function is called to load the plugin, even before the app is actually [boo
 
 Within the register function, a plugin can:
 
-* [register itself](#registerplugin) so it's available to the admin panel
-* add a new link to the main navigation (see [Menu API](#menu-api))
-* [create a new settings section](#createsettingsection)
-* define [injection zones](#injection-zones-api)
-* [add reducers](#reducers-api)
+- [register itself](#registerplugin) so it's available to the admin panel
+- add a new link to the main navigation (see [Menu API](#menu-api))
+- [create a new settings section](#createsettingsection)
+- define [injection zones](#injection-zones-api)
+- [add reducers](#reducers-api)
 
 #### registerPlugin()
 
@@ -79,11 +79,11 @@ Registers the plugin to make it available in the admin panel.
 
 This function returns an object with the following parameters:
 
-| Parameter        | Type                     | Description                                                                                        |
-| ---------------- | ------------------------ | -------------------------------------------------------------------------------------------------- |
-| `id`             | String                   | Plugin id                                                                                          |
-| `name`           | String                   | Plugin name                                                                                        |
-| `injectionZones` | Object                   | Declaration of available [injection zones](#injection-zones-api)                                       |
+| Parameter        | Type   | Description                                                      |
+| ---------------- | ------ | ---------------------------------------------------------------- |
+| `id`             | String | Plugin id                                                        |
+| `name`           | String | Plugin name                                                      |
+| `injectionZones` | Object | Declaration of available [injection zones](#injection-zones-api) |
 
 :::note
 Some parameters can be imported from the `package.json` file.
@@ -92,10 +92,9 @@ Some parameters can be imported from the `package.json` file.
 **Example:**
 
 ```js title="my-plugin/admin/src/index.js"
-
 // Auto-generated component
 import PluginIcon from './components/PluginIcon';
-import pluginId from './pluginId'
+import pluginId from './pluginId';
 
 export default {
   register(app) {
@@ -129,10 +128,10 @@ Exposes the bootstrap function, executed after all the plugins are [registered](
 
 Within the bootstrap function, a plugin can, for instance:
 
-* extend another plugin, using `getPlugin('plugin-name')`,
-* register hooks (see [Hooks API](#hooks-api)),
-* [add links to a settings section](#settings-api),
-* add actions and options to the Content Manager's List view and Edit view (see details on the [Content Manager APIs page](/cms/plugins-development/content-manager-apis)).
+- extend another plugin, using `getPlugin('plugin-name')`,
+- register hooks (see [Hooks API](#hooks-api)),
+- [add links to a settings section](#settings-api),
+- add actions and options to the Content Manager's List view and Edit view (see details on the [Content Manager APIs page](/cms/plugins-development/content-manager-apis)).
 
 **Example:**
 
@@ -142,7 +141,9 @@ module.exports = () => {
     // ...
     bootstrap(app) {
       // execute some bootstrap code
-      app.getPlugin('content-manager').injectComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' })
+      app
+        .getPlugin('content-manager')
+        .injectComponent('editView', 'right-links', { name: 'my-compo', Component: () => 'my-compo' });
     },
   };
 };
@@ -165,10 +166,8 @@ To reduce the build size, the admin panel is only shipped with 2 locales by defa
 export default {
   async registerTrads({ locales }) {
     const importedTrads = await Promise.all(
-      locales.map(locale => {
-        return import(
-          /* webpackChunkName: "[pluginId]-[request]" */ `./translations/${locale}.json`
-        )
+      locales.map((locale) => {
+        return import(/* webpackChunkName: "[pluginId]-[request]" */ `./translations/${locale}.json`)
           .then(({ default: data }) => {
             return {
               data: prefixPluginTranslations(data, pluginId),
@@ -195,18 +194,18 @@ export default {
 
 The Admin Panel API allows a plugin to take advantage of several small APIs to perform actions. Use this table as a reference:
 
-| Action                                   | API to use                              | Function to use                                   | Related lifecycle function  |
-| ---------------------------------------- | --------------------------------------- | ------------------------------------------------- | --------------------------- |
-| Add a new link to the main navigation    | [Menu API](#menu-api)                   | [`addMenuLink()`](#menu-api)                      | [`register()`](#register)   |
-| Create a new settings section            | [Settings API](#settings-api)           | [`createSettingSection()`](#createsettingsection) | [`register()`](#register)   |
-| Declare an injection zone                | [Injection Zones API](#injection-zones-api) | [`registerPlugin()`](#registerplugin)             | [`register()`](#register)   |
-| Add a reducer                            | [Reducers API](#reducers-api)                                       | [`addReducers()`](#reducers-api)                      | [`register()`](#register)   |
-| Create a hook                          | [Hooks API](#hooks-api)                 | [`createHook()`](#hooks-api)                    | [`register()`](#register)   |
-| Add a single link to a settings section  | [Settings API](#settings-api)           | [`addSettingsLink()`](#addsettingslink)             | [`bootstrap()`](#bootstrap) |
-| Add multiple links to a settings section | [Settings API](#settings-api)           | [`addSettingsLinks()`](#addsettingslinks)           | [`bootstrap()`](#bootstrap) |
-| Inject a Component in an injection zone  | [Injection Zones API](#injection-zones-api) | [`injectComponent()`](#injection-zones-api)           | [`bootstrap()`](#register)  |
+| Action                                                                   | API to use                                                            | Function to use                                                                                                                  | Related lifecycle function  |
+| ------------------------------------------------------------------------ | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Add a new link to the main navigation                                    | [Menu API](#menu-api)                                                 | [`addMenuLink()`](#menu-api)                                                                                                     | [`register()`](#register)   |
+| Create a new settings section                                            | [Settings API](#settings-api)                                         | [`createSettingSection()`](#createsettingsection)                                                                                | [`register()`](#register)   |
+| Declare an injection zone                                                | [Injection Zones API](#injection-zones-api)                           | [`registerPlugin()`](#registerplugin)                                                                                            | [`register()`](#register)   |
+| Add a reducer                                                            | [Reducers API](#reducers-api)                                         | [`addReducers()`](#reducers-api)                                                                                                 | [`register()`](#register)   |
+| Create a hook                                                            | [Hooks API](#hooks-api)                                               | [`createHook()`](#hooks-api)                                                                                                     | [`register()`](#register)   |
+| Add a single link to a settings section                                  | [Settings API](#settings-api)                                         | [`addSettingsLink()`](#addsettingslink)                                                                                          | [`bootstrap()`](#bootstrap) |
+| Add multiple links to a settings section                                 | [Settings API](#settings-api)                                         | [`addSettingsLinks()`](#addsettingslinks)                                                                                        | [`bootstrap()`](#bootstrap) |
+| Inject a Component in an injection zone                                  | [Injection Zones API](#injection-zones-api)                           | [`injectComponent()`](#injection-zones-api)                                                                                      | [`bootstrap()`](#register)  |
 | Add options and actions to the Content Manager's Edit view and List view | [Content Manager APIs](/cms/plugins-development/content-manager-apis) | <ul><li>`addEditViewSidePanel()`</li><li>`addDocumentAction`</li><li>`addDocumentHeaderAction`</li><li>`addBulkAction`</li></ul> | [`bootstrap()`](#bootstrap) |
-| Register a hook                          | [Hooks API](#hooks-api)                 | [`registerHook()`](#hooks-api)                    | [`bootstrap()`](#bootstrap)   |
+| Register a hook                                                          | [Hooks API](#hooks-api)                                               | [`registerHook()`](#hooks-api)                                                                                                   | [`bootstrap()`](#bootstrap) |
 
 :::tip Replacing the WYSIWYG
 The WYSIWYG editor can be replaced by taking advantage of [custom fields](/cms/features/custom-fields), for instance using the <ExternalLink to="https://market.strapi.io/plugins/@ckeditor-strapi-plugin-ckeditor" text="CKEditor custom field plugin"/>.
@@ -222,15 +221,15 @@ All variables defined in a `.env` file and prefixed by `STRAPI_ADMIN_` are avail
 
 The Menu API allows a plugin to add a new link to the main navigation through the `addMenuLink()` function with the following parameters:
 
-| Parameter     | Type             | Description                                                                                                                                                                                                              |
-| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `to`          | String           | Path the link should point to                                                                                                                                                                                            |
-| `icon`        | React Component       | Icon to display in the main navigation                                                                                                                                                                                   |
+| Parameter     | Type             | Description                                                                                                                                                                                                                                       |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `to`          | String           | Path the link should point to                                                                                                                                                                                                                     |
+| `icon`        | React Component  | Icon to display in the main navigation                                                                                                                                                                                                            |
 | `intlLabel`   | Object           | Label for the link, following the <ExternalLink to="https://formatjs.io/docs/react-intl" text="React Int'l"/> convention, with:<ul><li>`id`: id used to insert the localized label</li><li>`defaultMessage`: default label for the link</li></ul> |
-| `Component`   | Async function   | Returns a dynamic import of the plugin entry point                                                                                                                                                                      |
-| `permissions` | Array of Objects |  Permissions declared in the `permissions.js` file of the plugin                                                                                                                                                                                                                         |
-| `position`    | Integer          | Position in the menu      |
-| `licenseOnly` | Boolean | If set to `true`, adds a lightning ⚡️ icon next to the icon or menu entry to indicate that the feature or plugin requires a paid license.<br/>(Defaults to `false`) |
+| `Component`   | Async function   | Returns a dynamic import of the plugin entry point                                                                                                                                                                                                |
+| `permissions` | Array of Objects | Permissions declared in the `permissions.js` file of the plugin                                                                                                                                                                                   |
+| `position`    | Integer          | Position in the menu                                                                                                                                                                                                                              |
+| `licenseOnly` | Boolean          | If set to `true`, adds a lightning ⚡️ icon next to the icon or menu entry to indicate that the feature or plugin requires a paid license.<br/>(Defaults to `false`)                                                                               |
 
 :::note
 `intlLabel.id` are ids used in translation files (`[plugin-name]/admin/src/translations/[language].json`)
@@ -297,8 +296,8 @@ export default {
 
 The Settings API allows:
 
-* [creating a new setting section](#createsettingsection)
-* adding [a single link](#addsettingslink) or [multiple links at once](#addsettingslinks) to existing settings sections
+- [creating a new setting section](#createsettingsection)
+- adding [a single link](#addsettingslink) or [multiple links at once](#addsettingslinks) to existing settings sections
 
 :::note
 Adding a new section happens in the [register](#register) lifecycle while adding links happens during the [bootstrap](#bootstrap) lifecycle.
@@ -306,14 +305,14 @@ Adding a new section happens in the [register](#register) lifecycle while adding
 
 All functions accept links as objects with the following parameters:
 
-| Parameter     | Type             | Description                                                                                                                                                                                                              |
-| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`          | String           | React id                                                                                                                                                                                                                 |
-| `to`          | String           | Path the link should point to                                                                                                                                                                                            |
+| Parameter     | Type             | Description                                                                                                                                                                                                                                       |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`          | String           | React id                                                                                                                                                                                                                                          |
+| `to`          | String           | Path the link should point to                                                                                                                                                                                                                     |
 | `intlLabel`   | Object           | Label for the link, following the <ExternalLink to="https://formatjs.io/docs/react-intl" text="React Int'l"/> convention, with:<ul><li>`id`: id used to insert the localized label</li><li>`defaultMessage`: default label for the link</li></ul> |
-| `Component`   | Async function   | Returns a dynamic import of the plugin entry point                                                                                                                                                                       |
-| `permissions` | Array of Objects | Permissions declared in the `permissions.js` file of the plugin                                                                                                                                                          |
-| `licenseOnly` | Boolean | If set to `true`, adds a lightning ⚡️ icon next to the icon or menu entry to indicate that the feature or plugin requires a paid license.<br/>(Defaults to `false`) |
+| `Component`   | Async function   | Returns a dynamic import of the plugin entry point                                                                                                                                                                                                |
+| `permissions` | Array of Objects | Permissions declared in the `permissions.js` file of the plugin                                                                                                                                                                                   |
+| `licenseOnly` | Boolean          | If set to `true`, adds a lightning ⚡️ icon next to the icon or menu entry to indicate that the feature or plugin requires a paid license.<br/>(Defaults to `false`)                                                                               |
 
 #### createSettingSection()
 
@@ -323,10 +322,10 @@ Create a new settings section.
 
 The function takes 2 arguments:
 
-| Argument        | Type             | Description                                                                                                                                                                                                                                                                                                                   |
-| --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Argument        | Type             | Description                                                                                                                                                                                                                                                                                                                                               |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | first argument  | Object           | Section label:<ul><li>`id` (String): section id</li><li>`intlLabel` (Object): localized label for the section, following the <ExternalLink to="https://formatjs.io/docs/react-intl" text="React Int'l"/> convention, with:<ul><li>`id`: id used to insert the localized label</li><li>`defaultMessage`: default label for the section</li></ul></li></ul> |
-| second argument | Array of Objects | Links included in the section                                                                                                                                                                                                                                                                                                 |
+| second argument | Array of Objects | Links included in the section                                                                                                                                                                                                                                                                                                                             |
 
 :::note
 `intlLabel.id` are ids used in translation files (`[plugin-name]/admin/src/translations/[language].json`)
@@ -441,8 +440,8 @@ Injection zones refer to areas of a view's layout where a plugin allows another 
 
 Plugins can use:
 
-* Strapi's [predefined injection zones](#using-predefined-injection-zones) for the Content Manager,
-* or custom injection zones, created by a plugin
+- Strapi's [predefined injection zones](#using-predefined-injection-zones) for the Content Manager,
+- or custom injection zones, created by a plugin
 
 :::note
 Injection zones are defined in the [register()](#register) lifecycle but components are injected in the [bootstrap()](#bootstrap) lifecycle.
@@ -454,10 +453,10 @@ Strapi admin panel comes with predefined injection zones so components can be ad
 
 <!-- TODO: maybe add screenshots once the design system is ready? -->
 
-| View      | Injection zone name & Location                                                                                                                                            |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| List view | `actions`: sits between Filters and the cogs icon
-| Edit view | `right-links`: sits between "Configure the view" and "Edit" buttons                       |
+| View      | Injection zone name & Location                                      |
+| --------- | ------------------------------------------------------------------- |
+| List view | `actions`: sits between Filters and the cogs icon                   |
+| Edit view | `right-links`: sits between "Configure the view" and "Edit" buttons |
 
 #### Creating a custom injection zone
 
@@ -467,30 +466,29 @@ To create a custom injection zone, declare it as a `<InjectionZone />` React com
 
 A plugin has 2 different ways of injecting a component:
 
-* to inject a component from a plugin into another plugin's injection zones, use the `injectComponent()` function
-* to specifically inject a component into one of the Content Manager's [predefined injection zones](#using-predefined-injection-zones), use the `getPlugin('content-manager').injectComponent()` function instead
+- to inject a component from a plugin into another plugin's injection zones, use the `injectComponent()` function
+- to specifically inject a component into one of the Content Manager's [predefined injection zones](#using-predefined-injection-zones), use the `getPlugin('content-manager').injectComponent()` function instead
 
 Both the `injectComponent()` and `getPlugin('content-manager').injectComponent()` methods accept the following arguments:
 
-| Argument        | Type   | Description                                                                                                                                                                   |
-| --------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| first argument  | String | The view where the component is injected
-| second argument | String | The zone where the component is injected
+| Argument        | Type   | Description                                                                                                                                                                |
+| --------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| first argument  | String | The view where the component is injected                                                                                                                                   |
+| second argument | String | The zone where the component is injected                                                                                                                                   |
 | third argument  | Object | An object with the following keys:<ul><li>`name` (string): the name of the component</li><li>`Component` (function or class): the React component to be injected</li></ul> |
 
 <details>
 <summary>Example: Inject a component in the informations box of the Edit View of the Content Manager:</summary>
 
 ```jsx title="my-plugin/admin/src/index.js"
-
 export default {
   bootstrap(app) {
     app.getPlugin('content-manager').injectComponent('editView', 'informations', {
       name: 'my-plugin-my-compo',
       Component: () => 'my-compo',
     });
-  }
-}
+  },
+};
 ```
 
 </details>
@@ -507,7 +505,7 @@ const HomePage = () => {
   return (
     <main>
       <h1>This is the homepage</h1>
-	    <InjectionZone area="my-plugin.homePage.right" />
+      <InjectionZone area="my-plugin.homePage.right" />
     </main>
   );
 };
@@ -522,12 +520,12 @@ export default {
       // ...
       injectionZones: {
         homePage: {
-          right: []
-        }
-      }
+          right: [],
+        },
+      },
     });
   },
-}
+};
 ```
 
 ```jsx title="my-other-plugin/admin/src/index.js"
@@ -542,7 +540,7 @@ export default {
       name: 'my-other-plugin-component',
       Component: () => 'This component is injected',
     });
-  }
+  },
 };
 ```
 
@@ -556,9 +554,7 @@ Once an injection zone is defined, the component to be injected in the Content M
 <summary>Example of a basic component using the 'useContentManagerContext' hook</summary>
 
 ```js
-import {
-  unstable_useContentManagerContext as useContentManagerContext,
-} from '@strapi/strapi/admin';
+import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/strapi/admin';
 
 const MyCompo = () => {
   const {
@@ -576,11 +572,7 @@ const MyCompo = () => {
   } = useContentManagerContext();
 
   // Form state and handlers
-  const {
-    initialValues,
-    values,
-    onChange,
-  } = form;
+  const { initialValues, values, onChange } = form;
 
   /**
    * Layout structure:
@@ -608,9 +600,9 @@ export default MyCompo;
 
 Reducers are <ExternalLink to="https://redux.js.org/" text="Redux"/> reducers that can be used to share state between components. Reducers can be useful when:
 
-* Large amounts of application state are needed in many places in the application.
-* The application state is updated frequently.
-* The logic to update that state may be complex.
+- Large amounts of application state are needed in many places in the application.
+- The application state is updated frequently.
+- The logic to update that state may be complex.
 
 Reducers can be added to a plugin interface with the `addReducers()` function during the [`register`](#register) lifecycle.
 
@@ -619,21 +611,19 @@ A reducer is declared as an object with this syntax:
 **Example:**
 
 ```js title="my-plugin/admin/src/index.js"
-import { exampleReducer } from './reducers'
+import { exampleReducer } from './reducers';
 
 const reducers = {
   // Reducer Syntax
-  [`${pluginId}_exampleReducer`]: exampleReducer
-}
+  [`${pluginId}_exampleReducer`]: exampleReducer,
+};
 
 export default {
   register(app) {
-    app.addReducers(reducers)
+    app.addReducers(reducers);
   },
   bootstrap() {},
 };
-
-
 ```
 
 ### Hooks API
@@ -644,9 +634,9 @@ Hooks should be registered during the [bootstrap](#bootstrap) lifecycle of a plu
 
 Hooks can then be run in series, in waterfall or in parallel:
 
-* `runHookSeries` returns an array corresponding to the result of each function executed, ordered
-* `runHookParallel` returns an array corresponding to the result of the promise resolved by the function executed, ordered
-* `runHookWaterfall` returns a single value corresponding to all the transformations applied by the different functions starting with the initial value `args`.
+- `runHookSeries` returns an array corresponding to the result of each function executed, ordered
+- `runHookParallel` returns an array corresponding to the result of the promise resolved by the function executed, ordered
+- `runHookWaterfall` returns a single value corresponding to all the transformations applied by the different functions starting with the initial value `args`.
 
 <details>
 <summary>Example: Create a hook in a plugin and use it in another plugin</summary>
@@ -656,9 +646,8 @@ Hooks can then be run in series, in waterfall or in parallel:
 export default {
   register(app) {
     app.createHook('My-PLUGIN/MY_HOOK');
-  }
-}
-
+  },
+};
 ```
 
 ```jsx title="my-other-plugin/admin/src/index.js"
@@ -734,7 +723,7 @@ interface LayoutSettings extends Contracts.ContentTypes.Settings {
 }
 ```
 
-Strapi also includes a `Admin/CM/pages/EditView/mutate-edit-view-layout` hook that can be used to mutate the Edit View  of the [Content Manager](/cms/intro):
+Strapi also includes a `Admin/CM/pages/EditView/mutate-edit-view-layout` hook that can be used to mutate the Edit View of the [Content Manager](/cms/intro):
 
 ```tsx
 interface EditLayout {

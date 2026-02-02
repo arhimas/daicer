@@ -1,14 +1,14 @@
 ---
 title: Webpack Aliases are removed
-description: A simplified approach of aliasing in Strapi v5. 
+description: A simplified approach of aliasing in Strapi v5.
 sidebar_label: Webpack Aliases removed
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - dependencies
- - webpack
- - bundlers
- - upgrade to Strapi 5
+  - breaking changes
+  - dependencies
+  - webpack
+  - bundlers
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

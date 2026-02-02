@@ -23,9 +23,7 @@
       "potential_issues": [
         "The description relies heavily on the existence and availability of the 'giant' versions of these specific low-CR creatures, which are standard in official monster manuals."
       ],
-      "suggestions": [
-        "None needed; the spell is well-defined for its mechanical purpose."
-      ]
+      "suggestions": ["None needed; the spell is well-defined for its mechanical purpose."]
     }
   },
   "timestamp": "2026-01-17T07:22:40.866Z"

@@ -4,9 +4,9 @@ sidebar_position: 1
 description: Learn to use the Media Library which allows to display and manage all assets uploaded in the application.
 toc_max_heading_level: 5
 tags:
-- admin panel
-- features
-- media library
+  - admin panel
+  - features
+  - media library
 ---
 
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
@@ -44,18 +44,18 @@ In the admin panel, some Media Library settings are available via the Global Set
 
 1. Define your chosen new Media Library settings:
 
-    | Setting name   | Instructions   | Default value |
-    | -------------------------- | ----------------------- |---------------|
-    | Generate AI captions and alt texts automatically on upload! | Enabling this option will turn on [AI&#8209;powered metadata generation](#ai-powered-metadata-generation) <GrowthBadge /> | True |
-    Responsive friendly upload | Enabling this option will generate multiple formats (small, medium and large) of the uploaded asset.<br/>Default sizes for each format can be [configured through the code](#responsive-images). | True          |
-    | Size optimization          | Enabling this option will reduce the image size and slightly reduce its quality.                     | True          |
-    | Auto orientation           | Enabling this option will automatically rotate the image according to EXIF orientation tag.          | False         |
+   | Setting name                                                | Instructions                                                                                                                                                                                     | Default value |
+   | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
+   | Generate AI captions and alt texts automatically on upload! | Enabling this option will turn on [AI&#8209;powered metadata generation](#ai-powered-metadata-generation) <GrowthBadge />                                                                        | True          |
+   | Responsive friendly upload                                  | Enabling this option will generate multiple formats (small, medium and large) of the uploaded asset.<br/>Default sizes for each format can be [configured through the code](#responsive-images). | True          |
+   | Size optimization                                           | Enabling this option will reduce the image size and slightly reduce its quality.                                                                                                                 | True          |
+   | Auto orientation                                            | Enabling this option will automatically rotate the image according to EXIF orientation tag.                                                                                                      | False         |
 
 2. Click on the **Save** button.
 
 <ThemedImage
-  alt="Media Library settings"
-  sources={{
+alt="Media Library settings"
+sources={{
     light: '/img/assets/settings/settings_media-library-2.png',
     dark: '/img/assets/settings/settings_media-library-2_DARK.png',
   }}
@@ -67,18 +67,18 @@ In the admin panel, some Media Library settings are available via the Global Set
 
 1. Click on the <Icon name="gear-six" /> button just above the list of folders and assets, on the right side of the interface.
 2. Configure the Media Library view, following the instructions below:
-    | Setting name              | Instructions                                                              |
-    | ------------------------- | ------------------------------------------------------------------------- |
-    | Entries per page          | Use the dropdown to define the number of assets displayed by default per page. |
-    | Default sort order        | Use the dropdown to define the default order in which assets are displayed. This can be overriden when sorting assets in the Media Library. |
+   | Setting name | Instructions |
+   | ------------------------- | ------------------------------------------------------------------------- |
+   | Entries per page | Use the dropdown to define the number of assets displayed by default per page. |
+   | Default sort order | Use the dropdown to define the default order in which assets are displayed. This can be overriden when sorting assets in the Media Library. |
 
 :::note
 Both settings are used as the defaults in the Media Library and in the Content Manager's media upload modal. These settings are global across the entire Strapi project for all users.
 :::
 
 <ThemedImage
-  alt="Configure the view"
-  sources={{
+alt="Configure the view"
+sources={{
     light: '/img/assets/media-library/media-library_configure-the-view.png',
     dark: '/img/assets/media-library/media-library_configure-the-view_DARK.png',
   }}
@@ -106,12 +106,12 @@ Code-based configuration instructions on the present page detail options for the
 
 When using the default upload provider, the following specific configuration options can be declared in an `upload.config` object within [the `config/plugins` file](/cms/configurations/plugins). All parameters are optional:
 
-| Parameter                                   | Description                                                                                                         | Type    | Default |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
-| `providerOptions.localServer`        | Options that will be passed to <ExternalLink to="https://github.com/koajs/static" text="koa-static"/> upon which the Upload server is build (see [local server configuration](#local-server)) | Object  | -       |
-| `sizeLimit`                                  | Maximum file size in bytes (see [max file size](#max-file-size)) | Integer | `209715200`<br/><br/>(200 MB in bytes, i.e., 200 x 1024 x 1024 bytes) |
-| `breakpoints`             | Allows to override the breakpoints sizes at which responsive images are generated when the "Responsive friendly upload" option is set to `true` (see [responsive images](#responsive-images)) | Object | `{ large: 1000, medium: 750, small: 500 }` |
-| `security`             | Configures validation rules for uploaded files to enhance media security | Object | - |
+| Parameter                     | Description                                                                                                                                                                                   | Type    | Default                                                               |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------- |
+| `providerOptions.localServer` | Options that will be passed to <ExternalLink to="https://github.com/koajs/static" text="koa-static"/> upon which the Upload server is build (see [local server configuration](#local-server)) | Object  | -                                                                     |
+| `sizeLimit`                   | Maximum file size in bytes (see [max file size](#max-file-size))                                                                                                                              | Integer | `209715200`<br/><br/>(200 MB in bytes, i.e., 200 x 1024 x 1024 bytes) |
+| `breakpoints`                 | Allows to override the breakpoints sizes at which responsive images are generated when the "Responsive friendly upload" option is set to `true` (see [responsive images](#responsive-images)) | Object  | `{ large: 1000, medium: 750, small: 500 }`                            |
+| `security`                    | Configures validation rules for uploaded files to enhance media security                                                                                                                      | Object  | -                                                                     |
 
 :::note
 The Upload request timeout is defined in the server options, not in the Upload plugin options, as it's not specific to the Upload plugin but is applied to the whole Strapi server instance (see [upload request timeout](#upload-request-timeout)).
@@ -130,12 +130,12 @@ The following is an example of a custom configuration for the Upload plugin when
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/plugins.js"
-module.exports = ({ env })=>({
+module.exports = ({ env }) => ({
   upload: {
     config: {
       providerOptions: {
         localServer: {
-          maxage: 300000
+          maxage: 300000,
         },
       },
       sizeLimit: 250 * 1024 * 1024, // 256mb in bytes
@@ -144,11 +144,11 @@ module.exports = ({ env })=>({
         large: 1000,
         medium: 750,
         small: 500,
-        xsmall: 64
+        xsmall: 64,
       },
       security: {
         allowedTypes: ['image/*', 'application/*'],
-        deniedTypes: ['application/x-sh', 'application/x-dosexec']
+        deniedTypes: ['application/x-sh', 'application/x-dosexec'],
       },
     },
   },
@@ -165,7 +165,7 @@ export default () => ({
     config: {
       providerOptions: {
         localServer: {
-          maxage: 300000
+          maxage: 300000,
         },
       },
       sizeLimit: 250 * 1024 * 1024, // 256mb in bytes
@@ -174,15 +174,15 @@ export default () => ({
         large: 1000,
         medium: 750,
         small: 500,
-        xsmall: 64
+        xsmall: 64,
       },
       security: {
         allowedTypes: ['image/*', 'application/*'],
-        deniedTypes: ['application/x-sh', 'application/x-dosexec']
+        deniedTypes: ['application/x-sh', 'application/x-dosexec'],
       },
     },
   },
-})
+});
 ```
 
 </TabItem>
@@ -200,12 +200,12 @@ You can provide them by creating or editing [the `/config/plugins` file](/cms/co
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/plugins.js"
-module.exports = ({ env })=>({
+module.exports = ({ env }) => ({
   upload: {
     config: {
       providerOptions: {
         localServer: {
-          maxage: 300000
+          maxage: 300000,
         },
       },
     },
@@ -223,13 +223,14 @@ export default ({ env }) => ({
     config: {
       providerOptions: {
         localServer: {
-          maxage: 300000
+          maxage: 300000,
         },
       },
     },
   },
 });
 ```
+
 </TabItem>
 
 </Tabs>
@@ -252,11 +253,11 @@ The middleware used by the Upload package is [the `body` middleware](/cms/config
 module.exports = [
   // ...
   {
-    name: "strapi::body",
+    name: 'strapi::body',
     config: {
-      formLimit: "256mb", // modify form body
-      jsonLimit: "256mb", // modify JSON body
-      textLimit: "256mb", // modify text body
+      formLimit: '256mb', // modify form body
+      jsonLimit: '256mb', // modify JSON body
+      textLimit: '256mb', // modify text body
       formidable: {
         maxFileSize: 250 * 1024 * 1024, // multipart data, modify here limit of uploaded file size
       },
@@ -274,11 +275,11 @@ module.exports = [
 export default [
   // ...
   {
-    name: "strapi::body",
+    name: 'strapi::body',
     config: {
-      formLimit: "256mb", // modify form body
-      jsonLimit: "256mb", // modify JSON body
-      textLimit: "256mb", // modify text body
+      formLimit: '256mb', // modify form body
+      jsonLimit: '256mb', // modify JSON body
+      textLimit: '256mb', // modify text body
       formidable: {
         maxFileSize: 250 * 1024 * 1024, // multipart data, modify here limit of uploaded file size
       },
@@ -303,9 +304,9 @@ module.exports = {
   // ...
   upload: {
     config: {
-      sizeLimit: 250 * 1024 * 1024 // 256mb in bytes
-    }
-  }
+      sizeLimit: 250 * 1024 * 1024, // 256mb in bytes
+    },
+  },
 };
 ```
 
@@ -318,9 +319,9 @@ export default {
   // ...
   upload: {
     config: {
-      sizeLimit: 250 * 1024 * 1024 // 256mb in bytes
-    }
-  }
+      sizeLimit: 250 * 1024 * 1024, // 256mb in bytes
+    },
+  },
 };
 ```
 
@@ -352,10 +353,10 @@ module.exports = {
     config: {
       security: {
         allowedTypes: ['image/*', 'application/*'],
-        deniedTypes: ['application/x-sh', 'application/x-dosexec']
+        deniedTypes: ['application/x-sh', 'application/x-dosexec'],
       },
-    }
-  }
+    },
+  },
 };
 ```
 
@@ -370,10 +371,10 @@ export default {
     config: {
       security: {
         allowedTypes: ['image/*', 'application/*'],
-        deniedTypes: ['application/x-sh', 'application/x-dosexec']
+        deniedTypes: ['application/x-sh', 'application/x-dosexec'],
       },
-    }
-  }
+    },
+  },
 };
 ```
 
@@ -395,7 +396,6 @@ An alternate method is to set the `requestTimeout` value in [the `bootstrap` fun
 
 ```js title="/index.js"
 module.exports = {
-
   //...
 
   bootstrap({ strapi }) {
@@ -411,7 +411,6 @@ module.exports = {
 
 ```ts title="/index.ts"
 export default {
-
   //...
 
   bootstrap({ strapi }) {
@@ -429,11 +428,11 @@ export default {
 
 When the [`Responsive friendly upload` admin panel setting](#admin-panel-configuration) is enabled, the plugin will generate the following responsive image sizes:
 
-| Name    | Largest dimension |
-| :------ | :--------- |
-| large   | 1000px     |
-| medium  | 750px      |
-| small   | 500px      |
+| Name   | Largest dimension |
+| :----- | :---------------- |
+| large  | 1000px            |
+| medium | 750px             |
+| small  | 500px             |
 
 These sizes can be overridden in `/config/plugins`:
 
@@ -450,7 +449,7 @@ module.exports = ({ env }) => ({
         large: 1000,
         medium: 750,
         small: 500,
-        xsmall: 64
+        xsmall: 64,
       },
     },
   },
@@ -470,7 +469,7 @@ export default ({ env }) => ({
         large: 1000,
         medium: 750,
         small: 500,
-        xsmall: 64
+        xsmall: 64,
       },
     },
   },
@@ -498,8 +497,8 @@ The Media Library displays all assets uploaded in the application, either via th
 Assets uploaded to the Media Library can be inserted into content-types using the [Content Manager](/cms/features/content-manager#creating--writing-content).
 
 <ThemedImage
-  alt="Media Library overview, annotated"
-  sources={{
+alt="Media Library overview, annotated"
+sources={{
     light: '/img/assets/media-library/media-library_overview2.png',
     dark: '/img/assets/media-library/media-library_overview2_DARK.png',
   }}
@@ -561,40 +560,42 @@ Just above the list of folders and assets and next to the !<Icon name="funnel-si
 <details>
 <summary>List of media types and extensions supported by the Media Library</summary>
 
-| Media type | Supported extensions                                            |
-| ---------- | --------------------------------------------------------------- |
-| Image      | - JPEG<br />- PNG<br />- GIF<br />- SVG<br />- TIFF<br />- ICO<br />- DVU   |
+| Media type | Supported extensions                                                      |
+| ---------- | ------------------------------------------------------------------------- |
+| Image      | - JPEG<br />- PNG<br />- GIF<br />- SVG<br />- TIFF<br />- ICO<br />- DVU |
 | Video      | - MPEG<br />- MP4<br />- MOV (Quicktime)<br />- WMV<br />- AVI<br />- FLV |
-| Audio      | - MP3<br />- WAV<br />- OGG                                         |
-| File       | - CSV<br />- ZIP<br />- PDF<br />- XLS, XLSX<br />- JSON                |
+| Audio      | - MP3<br />- WAV<br />- OGG                                               |
+| File       | - CSV<br />- ZIP<br />- PDF<br />- XLS, XLSX<br />- JSON                  |
+
 <br/>
 
 </details>
 
 1. Click the **Add new assets** button in the upper right corner of the Media Library.
 2. Choose whether you want to upload the new asset from your computer or from an URL:
-    - from the computer, either drag & drop the asset directly or browse files on your system,
-    - from an URL, type or copy and paste an URL(s) in the _URL_ field, making sure multiple URLs are separated by carriage returns, then click **Next**.
+   - from the computer, either drag & drop the asset directly or browse files on your system,
+   - from an URL, type or copy and paste an URL(s) in the _URL_ field, making sure multiple URLs are separated by carriage returns, then click **Next**.
 3. (optional) Click the edit button <Icon name="pencil-simple" /> to view asset metadata and define a _File name_, _Alternative text_ and a _Caption_ for the asset (see [Managing individual assets](#managing-assets)).
 4. (optional) Add more assets by clicking **Add new assets** and going back to step 2.
 5. Click on **Upload assets to the library**.
 
 <ThemedImage
-  alt="Add new assets window"
-  sources={{
+alt="Add new assets window"
+sources={{
     light: '/img/assets/media-library/media-library_add-new-assets.png',
     dark: '/img/assets/media-library/media-library_add-new-assets_DARK.png',
   }}
 />
 
 #### Automatically generating metadata with Strapi AI <NewBadge /> {#ai-powered-metadata-generation}
+
 <GrowthBadge />
 
 [When enabled](/cms/configurations/admin-panel#strapi-ai), Strapi AI automatically generates alternative text and captions for images uploaded to the Media Library, helping you improve content accessibility and SEO. A modal window displays the AI-generated alternative text and caption, allowing you to review the metadata and modify it if needed:
 
 <ThemedImage
-  alt="AI metadata review modal"
-  sources={{
+alt="AI metadata review modal"
+sources={{
     light: '/img/assets/media-library/media-library_ai-metadata.png',
     dark: '/img/assets/media-library/media-library_ai-metadata_DARK.png',
   }}
@@ -613,8 +614,8 @@ The Media Library allows managing assets, which includes modifying assets' file 
 Click on the edit <Icon name="pencil-simple" /> button of an asset to open up the "Details" window, where all the available asset management options are available.
 
 <ThemedImage
-  alt="Annotated asset details window screenshot"
-  sources={{
+alt="Annotated asset details window screenshot"
+sources={{
     light: '/img/assets/media-library/media-library_asset-details.png',
     dark: '/img/assets/media-library/media-library_asset-details_DARK.png',
   }}
@@ -674,8 +675,8 @@ By default, the Media Library displays folders and assets created at the root le
 - all assets <ScreenshotNumberReference number="3" /> from this folder
 
 <ThemedImage
-  alt="Media library one folder deep, with back button and updated folder title"
-  sources={{
+alt="Media library one folder deep, with back button and updated folder title"
+sources={{
     light: '/img/assets/media-library/media-library_folder-content.png',
     dark: '/img/assets/media-library/media-library_folder-content_DARK.png',
   }}
@@ -710,8 +711,8 @@ Assets and folders can be moved to another folder from the root view of the Medi
 4. Click **Move**.
 
 <ThemedImage
-  alt="'Move elements to' popup"
-  sources={{
+alt="'Move elements to' popup"
+sources={{
     light: '/img/assets/media-library/media-library_move-assets.png',
     dark: '/img/assets/media-library/media-library_move-assets_DARK.png',
   }}

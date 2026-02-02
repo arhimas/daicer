@@ -3,8 +3,8 @@ title: From Entity Service API to Document Service API
 description: Learn how to transition from the Entity Service API of Strapi v4 to the Document Service API in Strapi 5
 displayed_sidebar: cmsSidebar
 tags:
-- document service API
-- upgrade to Strapi 5
+  - document service API
+  - upgrade to Strapi 5
 ---
 
 # Entity Service API to Document Service API migration reference
@@ -25,12 +25,12 @@ The codemod is only changing the function calls and some parameters. This can no
 
 The following list explains what is automatically handled by the codemod (✅), what is not handled by the codemod and must be handled 100% manually (❌) and what will still require manual intervention after the codemod has run (🚧):
 
-| Topic | Handled by the codemod? | Manual steps to perform |
-|-------|------------------------|--------------------------|
-| Code structure | ✅ Yes          | Nothing.<br/>The code structure is automatically migrated. |
-| `publicationState` removed in favor of [`status`](/cms/api/document-service/status) | ✅ Yes | Nothing.<br/>The codemod automatically transforms it. | 
-| Usage of `documentId` instead of the Strapi v4 unique identifiers | 🚧 Partially:<ul><li>The codemod adds the new `documentId` property to your code, since `documentId` is the new unique identifier to use in Strapi 5.</li><li>But the actual `documentId` value can not be guessed, so after the codemod has run, you will find `__TODO__` placeholder values in your code.</li></ul> | 👉  `__TODO__` placeholder values need to be manually updated.<br/><br/>For instance, you might change<br/>`documentId: "__TODO__"`<br/>to something like<br/>`documentId: "ln1gkzs6ojl9d707xn6v86mw"`.
-| Update of `published_at` to trigger publication | ❌ Not handled.<br/> | 👉 Update your code to use the new [`publish()`](/cms/api/document-service#publish), [`unpublish()`](/cms/api/document-service#publish), and [`discardDraft()`](/cms/api/document-service#publish) methods of the Document Service API instead. |
+| Topic                                                                               | Handled by the codemod?                                                                                                                                                                                                                                                                                               | Manual steps to perform                                                                                                                                                                                                                         |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Code structure                                                                      | ✅ Yes                                                                                                                                                                                                                                                                                                                | Nothing.<br/>The code structure is automatically migrated.                                                                                                                                                                                      |
+| `publicationState` removed in favor of [`status`](/cms/api/document-service/status) | ✅ Yes                                                                                                                                                                                                                                                                                                                | Nothing.<br/>The codemod automatically transforms it.                                                                                                                                                                                           |
+| Usage of `documentId` instead of the Strapi v4 unique identifiers                   | 🚧 Partially:<ul><li>The codemod adds the new `documentId` property to your code, since `documentId` is the new unique identifier to use in Strapi 5.</li><li>But the actual `documentId` value can not be guessed, so after the codemod has run, you will find `__TODO__` placeholder values in your code.</li></ul> | 👉 `__TODO__` placeholder values need to be manually updated.<br/><br/>For instance, you might change<br/>`documentId: "__TODO__"`<br/>to something like<br/>`documentId: "ln1gkzs6ojl9d707xn6v86mw"`.                                          |
+| Update of `published_at` to trigger publication                                     | ❌ Not handled.<br/>                                                                                                                                                                                                                                                                                                  | 👉 Update your code to use the new [`publish()`](/cms/api/document-service#publish), [`unpublish()`](/cms/api/document-service#publish), and [`discardDraft()`](/cms/api/document-service#publish) methods of the Document Service API instead. |
 
 ### Examples of function calls migration
 
@@ -45,8 +45,6 @@ The following examples show how the codemod from the upgrade tool updates the co
 
 ```tsx
 strapi.entityService.findOne(uid, entityId);
-
-
 ```
 
 </ColumnLeft>
@@ -57,7 +55,7 @@ strapi.entityService.findOne(uid, entityId);
 
 ```tsx
 strapi.documents(uid).findOne({
-  documentId: "__TODO__"
+  documentId: '__TODO__',
 });
 ```
 
@@ -74,9 +72,9 @@ strapi.documents(uid).findOne({
 
 ```tsx
 strapi.entityService.findMany(uid, {
-  fields: ["id", "name", "description"],
-  populate: ["author", "comments"],
-  publicationState: "preview",
+  fields: ['id', 'name', 'description'],
+  populate: ['author', 'comments'],
+  publicationState: 'preview',
 });
 ```
 
@@ -88,9 +86,9 @@ strapi.entityService.findMany(uid, {
 
 ```tsx
 strapi.documents(uid).findMany({
-  fields: ["id", "name", "description"],
-  populate: ["author", "comments"],
-  status: "draft",
+  fields: ['id', 'name', 'description'],
+  populate: ['author', 'comments'],
+  status: 'draft',
 });
 ```
 
@@ -107,7 +105,7 @@ strapi.documents(uid).findMany({
 ```tsx
 strapi.entityService.create(uid, {
   data: {
-    name: "John Doe",
+    name: 'John Doe',
     age: 30,
   },
 });
@@ -121,7 +119,7 @@ strapi.entityService.create(uid, {
 ```tsx
 strapi.documents(uid).create({
   data: {
-    name: "John Doe",
+    name: 'John Doe',
     age: 30,
   },
 });
@@ -140,11 +138,10 @@ strapi.documents(uid).create({
 ```tsx
 strapi.entityService.update(uid, entityId, {
   data: {
-    name: "John Doe",
+    name: 'John Doe',
     age: 30,
-  }
+  },
 });
-
 ```
 
 </ColumnLeft>
@@ -154,11 +151,11 @@ strapi.entityService.update(uid, entityId, {
 
 ```tsx
 strapi.documents(uid).update({
-  documentId: "__TODO__",
+  documentId: '__TODO__',
   data: {
-    name: "John Doe",
+    name: 'John Doe',
     age: 30,
-  }
+  },
 });
 ```
 
@@ -174,8 +171,6 @@ strapi.documents(uid).update({
 
 ```tsx
 strapi.entityService.delete(uid, entityId);
-
-
 ```
 
 </ColumnLeft>
@@ -185,7 +180,7 @@ strapi.entityService.delete(uid, entityId);
 
 ```tsx
 strapi.documents(uid).delete({
-  documentId: "__TODO__"
+  documentId: '__TODO__',
 });
 ```
 
@@ -225,39 +220,36 @@ strapi.documents(uid).count();
 
   ```tsx
   strapi.entityService.decorate((service) => {
-
     return Object.assign(service, {
-    
       findOne(entityId, params = {}) {
         // e.g., exclude soft deleted content
-        params.filters = { ...params.filters, deletedAt: { $notNull: true } } 
-        return service.findOne(entityId, params)
-      }
+        params.filters = { ...params.filters, deletedAt: { $notNull: true } };
+        return service.findOne(entityId, params);
+      },
     });
-  })
+  });
   ```
 
   **In Strapi 5**
 
   ```tsx
   strapi.documents.use((ctx, next) => {
-    if (ctx.uid !== "api::my-content-type.my-content-type") {
+    if (ctx.uid !== 'api::my-content-type.my-content-type') {
       return next();
     }
-    
+
     if (ctx.action === 'findOne') {
       // customization
-      ctx.params.filters = { ...params.filters, deletedAt: { $notNull: true } } 
+      ctx.params.filters = { ...params.filters, deletedAt: { $notNull: true } };
       const res = await next();
       // do something with the response if you want
       return res;
     }
-    
+
     return next();
   });
   ```
 
 * Update your custom code for `findMany()` on single types, taking into account that:
-
   - In Strapi v4, the `findMany()` function returns a single item when called on a single type.
   - In Strapi 5, the `findMany()` function is generic and always returns arrays, whether called on a single type or on a collection type. To get data for a single type with a `findMany()` call, extract the first item from the returned array.

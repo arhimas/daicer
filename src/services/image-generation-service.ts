@@ -19,7 +19,7 @@ export const imageGenerationService = {
    * @returns A promise resolving to the attachment result.
    */
   generateAndAttach: async (_payload: unknown) => {
-     console.log('[ImageGenerationService] Stubbed generateAndAttach.');
-     return { success: true, id: 1 };
-  }
+    console.log('[ImageGenerationService] Stubbed generateAndAttach.');
+    return { success: true, id: 1 };
+  },
 };

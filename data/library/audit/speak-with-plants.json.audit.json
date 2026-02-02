@@ -26,11 +26,7 @@
           "Plants cannot uproot or move entirely.",
           "Communication with plant creatures exists, but no magical influence is granted over them."
         ],
-        "class_support": [
-          "bard",
-          "druid",
-          "ranger"
-        ]
+        "class_support": ["bard", "druid", "ranger"]
       },
       "notes": "The effect radius being 30 feet centered on the caster is well-defined. The ability to question plants about the past day provides a clear utility niche. The terrain alteration is flexible, allowing both beneficial and detrimental application for 10 minutes."
     }

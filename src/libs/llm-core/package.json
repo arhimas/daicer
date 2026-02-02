@@ -2,20 +2,20 @@
   "name": "@daicer/llm-core",
   "version": "0.0.1",
   "description": "Core GenAI Logic, Prompt Registry, and Context Builders",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@langchain/google-genai": "^0.0.2",
-    "@langchain/core": "^0.1.5",
-    "zod": "^3.22.4",
+    "@langchain/google-genai": "^2.1.3",
+    "@langchain/core": "^1.1.10",
+    "zod": "^4.3.6",
     "pngjs": "^7.0.0"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
-    "@types/pngjs": "^6.4.2"
+    "@types/pngjs": "^6.0.5"
   }
 }

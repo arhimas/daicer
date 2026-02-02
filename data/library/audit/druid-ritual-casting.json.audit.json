@@ -18,10 +18,7 @@
       },
       "mechanics": {
         "type": "Core Class Feature (Implicitly, as it grants a universal ability)",
-        "prerequisites": [
-          "Spell must have the 'ritual' tag.",
-          "Spell must be prepared by the caster."
-        ],
+        "prerequisites": ["Spell must have the 'ritual' tag.", "Spell must be prepared by the caster."],
         "effect": "Allows the casting of ritual spells without expending a spell slot.",
         "notes": "This mirrors the standard Player's Handbook mechanic for classes that gain the Ritual Casting feature (like Wizard or Cleric/Druid in some interpretations), granting the ability to use the ritual tag mechanic."
       },

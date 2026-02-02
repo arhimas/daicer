@@ -9,9 +9,5 @@
   "components": "V",
   "duration": "Instantaneous",
   "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.",
-  "classes": [
-    "sorcerer",
-    "warlock",
-    "wizard"
-  ]
+  "classes": ["sorcerer", "warlock", "wizard"]
 }

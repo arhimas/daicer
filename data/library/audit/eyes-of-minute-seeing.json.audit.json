@@ -16,9 +16,7 @@
         "attunement_required": false,
         "clarity": "The mechanics are unambiguously clear: the item excels at extremely close inspection."
       },
-      "suggested_improvements": [
-        "None necessary; the item is well-defined for its Uncommon rarity level."
-      ]
+      "suggested_improvements": ["None necessary; the item is well-defined for its Uncommon rarity level."]
     },
     "archival_status": "Approved"
   },

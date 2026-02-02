@@ -4,11 +4,11 @@ title: Ordering & Pagination with the Query Engine API
 description: Use Strapi's Query Engine API to order and paginate the results of your queries.
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- sort
-- pagination
-- Query Engine API
+  - API
+  - Content API
+  - sort
+  - pagination
+  - Query Engine API
 ---
 
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
@@ -69,7 +69,7 @@ To paginate results returned by the Query Engine API, use the `offset` and `limi
 
 ```js
 strapi.db.query('api::article.article').findMany({
-  offset: 15, 
+  offset: 15,
   limit: 10,
 });
 ```

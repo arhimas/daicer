@@ -3,13 +3,14 @@ title: Homepage customization
 description: Learn about the Strapi admin panel Homepage and how to customize it with widgets.
 toc_max_heading_level: 6
 tags:
-- admin panel
-- homepage
-- widgets
-- features
+  - admin panel
+  - homepage
+  - widgets
+  - features
 ---
 
 # Homepage customization
+
 <VersionBadge version="5.13.0+" tooltip="Adding custom widgets is available since Strapi 5.13.0. The newest widgets (profile, entries, statistics) are available from Strapi 5.23.0."/>
 
 <Tldr>
@@ -24,10 +25,9 @@ The <Icon name="house" /> Homepage is the landing page of the Strapi admin panel
 - _Entries_: Displays the total number of Draft & Published entries.
 - _Project statistics_: Displays statistics about your entries, content-types, locales, assets, and more.
 
-
 <ThemedImage
-  alt="Homepage with default widgets"
-  sources={{
+alt="Homepage with default widgets"
+sources={{
     light: '/img/assets/admin-homepage/admin-panel-homepage.png',
     dark: '/img/assets/admin-homepage/admin-panel-homepage_DARK.png',
   }}
@@ -59,7 +59,6 @@ To register a widget, use `app.widgets.register()`:
 The examples on the present page will cover registering a widget through a plugin. Most of the code should be reusable if you register the widget in the application's global `register()` lifecycle method, except you should not pass the `pluginId` property.
 :::
 
-
 <Tabs groupId="js-ts">
 <TabItem value="javascript" label="JavaScript">
 
@@ -74,7 +73,7 @@ export default {
       id: pluginId,
       name: 'My Plugin',
     });
-    
+
     // Register a widget for the Homepage
     app.widgets.register({
       icon: MyWidgetIcon,
@@ -97,7 +96,7 @@ export default {
       pluginId: pluginId,
     });
   },
-  
+
   bootstrap() {},
   // ...
 };
@@ -119,7 +118,7 @@ export default {
       id: pluginId,
       name: 'My Plugin',
     });
-    
+
     // Register a widget for the Homepage
     app.widgets.register({
       icon: MyWidgetIcon,
@@ -142,7 +141,7 @@ export default {
       pluginId: pluginId,
     });
   },
-  
+
   bootstrap() {},
   // ...
 };
@@ -171,28 +170,28 @@ The peerDependency approach is recommended if the whole purpose of the plugin is
 
 The `app.widgets.register()` method can take either a single widget configuration object or an array of configuration objects. Each widget configuration object can accept the following properties:
 
-| Property    | Type                   | Description                                           | Required |
-|-------------|------------------------|-------------------------------------------------------|----------|
-| `icon`      | `React.ComponentType`  | Icon component to display beside the widget title     | Yes      |
-| `title`     | `MessageDescriptor`    | Title for the widget with translation support         | Yes      |
-| `component` | `() => Promise<React.ComponentType>` | Async function that returns the widget component | Yes      |
-| `id`        | `string`               | Unique identifier for the widget                      | Yes      |
-| `link`      | `Object`               | Optional link to add to the widget (see link object properties)| No       |
-| `pluginId`  | `string`               | ID of the plugin registering the widget               | No       |
-| `permissions` | `Permission[]`       | Permissions required to view the widget               | No       |
+| Property      | Type                                 | Description                                                     | Required |
+| ------------- | ------------------------------------ | --------------------------------------------------------------- | -------- |
+| `icon`        | `React.ComponentType`                | Icon component to display beside the widget title               | Yes      |
+| `title`       | `MessageDescriptor`                  | Title for the widget with translation support                   | Yes      |
+| `component`   | `() => Promise<React.ComponentType>` | Async function that returns the widget component                | Yes      |
+| `id`          | `string`                             | Unique identifier for the widget                                | Yes      |
+| `link`        | `Object`                             | Optional link to add to the widget (see link object properties) | No       |
+| `pluginId`    | `string`                             | ID of the plugin registering the widget                         | No       |
+| `permissions` | `Permission[]`                       | Permissions required to view the widget                         | No       |
 
 **Link object properties:**
 
 If you want to add a link to your widget (e.g., to navigate to a detailed view), you can provide a `link` object with the following properties:
 
-| Property | Type                | Description                                    | Required |
-|----------|---------------------|------------------------------------------------|----------|
-| `label`  | `MessageDescriptor` | The text to display for the link               | Yes      |
-| `href`   | `string`            | The URL where the link should navigate to      | Yes      |
+| Property | Type                | Description                               | Required |
+| -------- | ------------------- | ----------------------------------------- | -------- |
+| `label`  | `MessageDescriptor` | The text to display for the link          | Yes      |
+| `href`   | `string`            | The URL where the link should navigate to | Yes      |
 
 ### Creating a widget component
 
-Widget components should be designed to display content in a compact and informative way. 
+Widget components should be designed to display content in a compact and informative way.
 
 Here's how to implement a basic widget component:
 
@@ -215,7 +214,7 @@ const MyWidget = () => {
         // Replace with your actual API call
         const response = await fetch('/my-plugin/data');
         const result = await response.json();
-        
+
         setData(result);
         setLoading(false);
       } catch (err) {
@@ -279,7 +278,7 @@ const MyWidget: React.FC = () => {
         // Replace with your actual API call
         const response = await fetch('/my-plugin/data');
         const result = await response.json();
-        
+
         setData(result);
         setLoading(false);
       } catch (err) {
@@ -337,11 +336,11 @@ The green box above represents the area where the user’s React component (from
 
 Strapi provides several helper components to maintain a consistent user experience across widgets:
 
-| Component        | Description                                         | Usage                                |
-|------------------|-----------------------------------------------------|--------------------------------------|
-| `Widget.Loading` | Displays a loading spinner and message              | When data is being fetched           |
-| `Widget.Error`   | Displays an error state                             | When an error occurs                 |
-| `Widget.NoData`  | Displays when no data is available                  | When the widget has no data to show  |
+| Component              | Description                                   | Usage                                  |
+| ---------------------- | --------------------------------------------- | -------------------------------------- |
+| `Widget.Loading`       | Displays a loading spinner and message        | When data is being fetched             |
+| `Widget.Error`         | Displays an error state                       | When an error occurs                   |
+| `Widget.NoData`        | Displays when no data is available            | When the widget has no data to show    |
 | `Widget.NoPermissions` | Displays when user lacks required permissions | When the user cannot access the widget |
 
 These components help maintain a consistent look and feel across different widgets.
@@ -355,8 +354,8 @@ The following is a complete example of how to create a content metrics widget th
 The end result will look like the following in your admin panel's <Icon name="house" /> Homepage:
 
 <ThemedImage
-  alt="Billing tab of Profile page"
-  sources={{
+alt="Billing tab of Profile page"
+sources={{
       light: '/img/assets/homepage-customization/content-metrics-widget.png',
       dark: '/img/assets/homepage-customization/content-metrics-widget_DARK.png',
     }}
@@ -382,7 +381,7 @@ The following file registers the plugin and the widget:
 import { PLUGIN_ID } from './pluginId';
 import { Initializer } from './components/Initializer';
 import { PluginIcon } from './components/PluginIcon';
-import { Stethoscope } from '@strapi/icons'
+import { Stethoscope } from '@strapi/icons';
 
 export default {
   register(app) {
@@ -410,7 +409,7 @@ export default {
     app.widgets.register({
       icon: Stethoscope,
       title: {
-        id: `${PLUGIN_ID}.widget.metrics.title`, 
+        id: `${PLUGIN_ID}.widget.metrics.title`,
         defaultMessage: 'Content Metrics',
       },
       component: async () => {
@@ -418,7 +417,7 @@ export default {
         return component.default;
       },
       id: 'content-metrics',
-      pluginId: PLUGIN_ID, 
+      pluginId: PLUGIN_ID,
     });
   },
 
@@ -444,30 +443,30 @@ The following file defines the widget's component and its logic. It's tapping in
 ```jsx title="src/plugins/content-metrics/admin/src/components/MetricsWidget/index.js"
 import React, { useState, useEffect } from 'react';
 import { Table, Tbody, Tr, Td, Typography, Box } from '@strapi/design-system';
-import { Widget } from '@strapi/admin/strapi-admin'
+import { Widget } from '@strapi/admin/strapi-admin';
 
 const MetricsWidget = () => {
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState(null);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
         const response = await fetch('/api/content-metrics/count');
         const data = await response.json();
 
-        console.log("data:", data);
-        
+        console.log('data:', data);
+
         const formattedData = {};
-        
+
         if (data && typeof data === 'object') {
-          Object.keys(data).forEach(key => {
+          Object.keys(data).forEach((key) => {
             const value = data[key];
             formattedData[key] = typeof value === 'number' ? value : String(value);
           });
         }
-        
+
         setMetrics(formattedData);
         setLoading(false);
       } catch (err) {
@@ -476,26 +475,22 @@ const MetricsWidget = () => {
         setLoading(false);
       }
     };
-    
+
     fetchMetrics();
   }, []);
-  
+
   if (loading) {
-    return (
-      <Widget.Loading />
-    );
+    return <Widget.Loading />;
   }
-  
+
   if (error) {
-    return (
-      <Widget.Error />
-    );
+    return <Widget.Error />;
   }
-  
+
   if (!metrics || Object.keys(metrics).length === 0) {
     return <Widget.NoData>No content types found</Widget.NoData>;
   }
-  
+
   return (
     <Table>
       <Tbody>
@@ -505,7 +500,9 @@ const MetricsWidget = () => {
               <Typography variant="omega">{String(contentType)}</Typography>
             </Td>
             <Td>
-              <Typography variant="omega" fontWeight="bold">{String(count)}</Typography>
+              <Typography variant="omega" fontWeight="bold">
+                {String(count)}
+              </Typography>
             </Td>
           </Tr>
         ))}
@@ -526,32 +523,31 @@ module.exports = ({ strapi }) => ({
     try {
       // Get all content types
       const contentTypes = Object.keys(strapi.contentTypes)
-        .filter(uid => uid.startsWith('api::'))
+        .filter((uid) => uid.startsWith('api::'))
         .reduce((acc, uid) => {
           const contentType = strapi.contentTypes[uid];
           acc[contentType.info.displayName || uid] = 0;
           return acc;
         }, {});
-      
+
       // Count entities for each content type
       for (const [name, _] of Object.entries(contentTypes)) {
-        const uid = Object.keys(strapi.contentTypes)
-          .find(key => 
-            strapi.contentTypes[key].info.displayName === name || key === name
-          );
-          
+        const uid = Object.keys(strapi.contentTypes).find(
+          (key) => strapi.contentTypes[key].info.displayName === name || key === name
+        );
+
         if (uid) {
           // Using the count() method from the Document Service API
           const count = await strapi.documents(uid).count();
           contentTypes[name] = count;
         }
       }
-      
+
       ctx.body = contentTypes;
     } catch (err) {
       ctx.throw(500, err);
     }
-  }
+  },
 });
 ```
 
@@ -585,7 +581,7 @@ The following file registers the plugin and the widget:
 import { PLUGIN_ID } from './pluginId';
 import { Initializer } from './components/Initializer';
 import { PluginIcon } from './components/PluginIcon';
-import { Stethoscope } from '@strapi/icons'
+import { Stethoscope } from '@strapi/icons';
 
 export default {
   register(app) {
@@ -613,7 +609,7 @@ export default {
     app.widgets.register({
       icon: Stethoscope,
       title: {
-        id: `${PLUGIN_ID}.widget.metrics.title`, 
+        id: `${PLUGIN_ID}.widget.metrics.title`,
         defaultMessage: 'Content Metrics',
       },
       component: async () => {
@@ -621,7 +617,7 @@ export default {
         return component.default;
       },
       id: 'content-metrics',
-      pluginId: PLUGIN_ID, 
+      pluginId: PLUGIN_ID,
     });
   },
 
@@ -647,30 +643,30 @@ The following file defines the widget's component and its logic. It's tapping in
 ```tsx title="src/plugins/content-metrics/admin/src/components/MetricsWidget/index.ts"
 import React, { useState, useEffect } from 'react';
 import { Table, Tbody, Tr, Td, Typography, Box } from '@strapi/design-system';
-import { Widget } from '@strapi/admin/strapi-admin'
+import { Widget } from '@strapi/admin/strapi-admin';
 
 const MetricsWidget = () => {
   const [loading, setLoading] = useState(true);
   const [metrics, setMetrics] = useState(null);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
         const response = await fetch('/api/content-metrics/count');
         const data = await response.json();
 
-        console.log("data:", data);
-        
+        console.log('data:', data);
+
         const formattedData = {};
-        
+
         if (data && typeof data === 'object') {
-          Object.keys(data).forEach(key => {
+          Object.keys(data).forEach((key) => {
             const value = data[key];
             formattedData[key] = typeof value === 'number' ? value : String(value);
           });
         }
-        
+
         setMetrics(formattedData);
         setLoading(false);
       } catch (err) {
@@ -679,26 +675,22 @@ const MetricsWidget = () => {
         setLoading(false);
       }
     };
-    
+
     fetchMetrics();
   }, []);
-  
+
   if (loading) {
-    return (
-      <Widget.Loading />
-    );
+    return <Widget.Loading />;
   }
-  
+
   if (error) {
-    return (
-      <Widget.Error />
-    );
+    return <Widget.Error />;
   }
-  
+
   if (!metrics || Object.keys(metrics).length === 0) {
     return <Widget.NoData>No content types found</Widget.NoData>;
   }
-  
+
   return (
     <Table>
       <Tbody>
@@ -708,7 +700,9 @@ const MetricsWidget = () => {
               <Typography variant="omega">{String(contentType)}</Typography>
             </Td>
             <Td>
-              <Typography variant="omega" fontWeight="bold">{String(count)}</Typography>
+              <Typography variant="omega" fontWeight="bold">
+                {String(count)}
+              </Typography>
             </Td>
           </Tr>
         ))}
@@ -729,32 +723,31 @@ module.exports = ({ strapi }) => ({
     try {
       // Get all content types
       const contentTypes = Object.keys(strapi.contentTypes)
-        .filter(uid => uid.startsWith('api::'))
+        .filter((uid) => uid.startsWith('api::'))
         .reduce((acc, uid) => {
           const contentType = strapi.contentTypes[uid];
           acc[contentType.info.displayName || uid] = 0;
           return acc;
         }, {});
-      
+
       // Count entities for each content type using Document Service
       for (const [name, _] of Object.entries(contentTypes)) {
-        const uid = Object.keys(strapi.contentTypes)
-          .find(key => 
-            strapi.contentTypes[key].info.displayName === name || key === name
-          );
-          
+        const uid = Object.keys(strapi.contentTypes).find(
+          (key) => strapi.contentTypes[key].info.displayName === name || key === name
+        );
+
         if (uid) {
           // Using the count() method from Document Service instead of strapi.db.query
           const count = await strapi.documents(uid).count();
           contentTypes[name] = count;
         }
       }
-      
+
       ctx.body = contentTypes;
     } catch (err) {
       ctx.throw(500, err);
     }
-  }
+  },
 });
 ```
 

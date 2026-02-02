@@ -10,34 +10,32 @@ easily create complex multi-column command-line-interfaces.
 ## Example
 
 ```js
-const ui = require('cliui')()
+const ui = require('cliui')();
 
-ui.div('Usage: $0 [command] [options]')
+ui.div('Usage: $0 [command] [options]');
 
 ui.div({
   text: 'Options:',
-  padding: [2, 0, 1, 0]
-})
+  padding: [2, 0, 1, 0],
+});
 
 ui.div(
   {
-    text: "-f, --file",
+    text: '-f, --file',
     width: 20,
-    padding: [0, 4, 0, 4]
+    padding: [0, 4, 0, 4],
   },
   {
-    text: "the file to load." +
-      chalk.green("(if this description is long it wraps).")
-    ,
-    width: 20
+    text: 'the file to load.' + chalk.green('(if this description is long it wraps).'),
+    width: 20,
   },
   {
-    text: chalk.red("[required]"),
-    align: 'right'
+    text: chalk.red('[required]'),
+    align: 'right',
   }
-)
+);
 
-console.log(ui.toString())
+console.log(ui.toString());
 ```
 
 ## Deno/ESM Support
@@ -46,24 +44,24 @@ As of `v7` `cliui` supports [Deno](https://github.com/denoland/deno) and
 [ESM](https://nodejs.org/api/esm.html#esm_ecmascript_modules):
 
 ```typescript
-import cliui from "https://deno.land/x/cliui/deno.ts";
+import cliui from 'https://deno.land/x/cliui/deno.ts';
 
-const ui = cliui({})
+const ui = cliui({});
 
-ui.div('Usage: $0 [command] [options]')
+ui.div('Usage: $0 [command] [options]');
 
 ui.div({
   text: 'Options:',
-  padding: [2, 0, 1, 0]
-})
+  padding: [2, 0, 1, 0],
+});
 
 ui.div({
-  text: "-f, --file",
+  text: '-f, --file',
   width: 20,
-  padding: [0, 4, 0, 4]
-})
+  padding: [0, 4, 0, 4],
+});
 
-console.log(ui.toString())
+console.log(ui.toString());
 ```
 
 <img width="500" src="screenshot.png">
@@ -75,24 +73,20 @@ cliui exposes a simple layout DSL:
 If you create a single `ui.div`, passing a string rather than an
 object:
 
-* `\n`: characters will be interpreted as new rows.
-* `\t`: characters will be interpreted as new columns.
-* `\s`: characters will be interpreted as padding.
+- `\n`: characters will be interpreted as new rows.
+- `\t`: characters will be interpreted as new columns.
+- `\s`: characters will be interpreted as padding.
 
 **as an example...**
 
 ```js
 var ui = require('./')({
-  width: 60
-})
+  width: 60,
+});
 
-ui.div(
-  'Usage: node ./bin/foo.js\n' +
-  '  <regex>\t  provide a regex\n' +
-  '  <glob>\t  provide a glob\t [required]'
-)
+ui.div('Usage: node ./bin/foo.js\n' + '  <regex>\t  provide a regex\n' + '  <glob>\t  provide a glob\t [required]');
 
-console.log(ui.toString())
+console.log(ui.toString());
 ```
 
 **will output:**
@@ -106,7 +100,7 @@ Usage: node ./bin/foo.js
 ## Methods
 
 ```js
-cliui = require('cliui')
+cliui = require('cliui');
 ```
 
 ### cliui({width: integer})
@@ -124,11 +118,11 @@ Create a row with any number of columns, a column
 can either be a string, or an object with the following
 options:
 
-* **text:** some text to place in the column.
-* **width:** the width of a column.
-* **align:** alignment, `right` or `center`.
-* **padding:** `[top, right, bottom, left]`.
-* **border:** should a border be placed around the div?
+- **text:** some text to place in the column.
+- **width:** the width of a column.
+- **align:** alignment, `right` or `center`.
+- **padding:** `[top, right, bottom, left]`.
+- **border:** should a border be placed around the div?
 
 ### cliui.span(column, column, column)
 

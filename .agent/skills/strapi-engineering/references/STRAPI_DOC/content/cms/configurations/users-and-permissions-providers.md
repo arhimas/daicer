@@ -3,10 +3,10 @@ title: Users & Permissions Providers
 description: Learn how to setup providers for the Users & Permissions feature, or create your own.
 displayed_sidebar: cmsSidebar
 tags:
-- users and permissions
-- providers
-- configuration
-- customization
+  - users and permissions
+  - providers
+  - configuration
+  - customization
 ---
 
 # Users & Permissions providers
@@ -22,8 +22,9 @@ If you're looking to create your own custom provider, please refer to the [dedic
 For a better understanding, review the following description of the login flow. The example uses `github` as the provider but it works the same for other providers.
 
 Let's say that:
-* Strapi's backend is located at: `strapi.website.com`, and
-* Your app frontend is located at: `website.com`
+
+- Strapi's backend is located at: `strapi.website.com`, and
+- Your app frontend is located at: `website.com`
 
 1. The user goes on your frontend app (`https://website.com`) and clicks on your button `connect with Github`.
 2. The frontend redirects the tab to the backend URL: `https://strapi.website.com/api/connect/github`.
@@ -76,7 +77,7 @@ Later you will give this URL to your provider. <br/> For development, some provi
 
 Instead of a generic explanation we decided to show an example for each provider. You can also [create your own custom provider](/cms/configurations/users-and-permissions-providers/new-provider-guide).
 
-In the following examples, the frontend application will be the <ExternalLink to="https://github.com/strapi/strapi-examples/tree/master/examples/login-react" text="react login example application"/>  running on `http://localhost:3000`, while Strapi (i.e., the backend server) will be running on `http://localhost:1337`.
+In the following examples, the frontend application will be the <ExternalLink to="https://github.com/strapi/strapi-examples/tree/master/examples/login-react" text="react login example application"/> running on `http://localhost:3000`, while Strapi (i.e., the backend server) will be running on `http://localhost:1337`.
 
 <ExpandableDocCardsWrapper>
 <CustomDocCard icon="plugs-connected" title="Auth0" description="Configure authentication through the Users & Permissions feature with Auth0." link="/cms/configurations/users-and-permissions-providers/auth-zero" />

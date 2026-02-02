@@ -18,10 +18,7 @@
         "area_of_effect": "20-foot square",
         "damage_type": "bludgeoning",
         "damage_per_trigger": "3d6",
-        "trigger_conditions": [
-          "Enters affected area for the first time on a turn",
-          "Starts turn in affected area"
-        ],
+        "trigger_conditions": ["Enters affected area for the first time on a turn", "Starts turn in affected area"],
         "saving_throw": "Dexterity (DC vs. Spell Save DC)",
         "primary_effect": "Restrained (condition)",
         "secondary_effect": "Difficult Terrain",

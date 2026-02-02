@@ -224,14 +224,7 @@ import { GenericInput } from '@strapi/helper-plugin';
 
 const MyComponent = () => {
   return (
-    <GenericInput
-      type={'type'}
-      hint={'hint'}
-      label={'label'}
-      name={'name'}
-      onChange={onMetaChange}
-      value={'value'}
-    />
+    <GenericInput type={'type'} hint={'hint'} label={'label'} name={'name'} onChange={onMetaChange} value={'value'} />
   );
 };
 
@@ -265,9 +258,7 @@ const MyComponent = ({ area, ...compProps }) => {
     return null;
   }
 
-  return components.map(({ name, Component }) => (
-    <Component key={name} {...props} />
-  ));
+  return components.map(({ name, Component }) => <Component key={name} {...props} />);
 };
 ```
 
@@ -415,14 +406,7 @@ This component has been removed and not replaced. If you feel like you need this
 import { TextInput } from '@strapi/design-system';
 
 const MyComponent = (props) => {
-  return (
-    <TextInput
-      disabled
-      placeholder="No permissions to see this field"
-      type="text"
-      {...props}
-    />
-  );
+  return <TextInput disabled placeholder="No permissions to see this field" type="text" {...props} />;
 };
 ```
 
@@ -435,9 +419,7 @@ This component was moved to the `admin` package and can now be imported via the 
 import { PageSizeURLQuery } from '@strapi/helper-plugin';
 
 const MyComponent = () => {
-  return (
-    <PageSizeURLQuery options={['12', '24', '50', '100']} defaultValue="24" />
-  );
+  return <PageSizeURLQuery options={['12', '24', '50', '100']} defaultValue="24" />;
 };
 
 // After
@@ -552,11 +534,7 @@ const MyComponent = () => {
           return (
             <Tr key={name}>
               <Td>
-                <Typography
-                  textColor="neutral800"
-                  variant="omega"
-                  fontWeight="bold"
-                >
+                <Typography textColor="neutral800" variant="omega" fontWeight="bold">
                   {name}
                 </Typography>
               </Td>
@@ -605,19 +583,11 @@ Some common use cases are listed below:
 
 ```tsx
 // Before
-const { slug, isSingleType, isCreatingEntry, hasDraftAndPublished } =
-  useCMEditViewDataManager();
+const { slug, isSingleType, isCreatingEntry, hasDraftAndPublished } = useCMEditViewDataManager();
 
 // After
-const {
-  model,
-  collectionType,
-  id,
-  slug,
-  isCreatingEntry,
-  isSingleType,
-  hasDraftAndPublish,
-} = useContentManagerContext();
+const { model, collectionType, id, slug, isCreatingEntry, isSingleType, hasDraftAndPublish } =
+  useContentManagerContext();
 ```
 
 ```tsx
@@ -734,10 +704,7 @@ const { allPermission, refetchPermissions } = useRBACProvider();
 import { useAuth } from '@strapi/strapi/admin';
 
 const permissions = useAuth('COMPONENT_NAME', (state) => state.permissions);
-const refetchPermission = useAuth(
-  'COMPONENT_NAME',
-  (state) => state.refetchPermission
-);
+const refetchPermission = useAuth('COMPONENT_NAME', (state) => state.refetchPermission);
 ```
 
 ### OverlayBlocker
@@ -942,18 +909,13 @@ This util has been removed. If you need to use it, you should use the `checkUser
 import { hasPermissions } from '@strapi/helper-plugin';
 
 const permissions = await Promise.all(
-  generalSectionRawLinks.map(({ permissions }) =>
-    hasPermissions(userPermissions, permissions)
-  )
+  generalSectionRawLinks.map(({ permissions }) => hasPermissions(userPermissions, permissions))
 );
 
 // After
 import { useAuth } from '@strapi/strapi/admin';
 
-const { checkUserHasPermissions } = useAuth(
-  'COMPONENT_NAME',
-  (state) => state.checkUserHasPermissions
-);
+const { checkUserHasPermissions } = useAuth('COMPONENT_NAME', (state) => state.checkUserHasPermissions);
 ```
 
 ### normalizeAPIError
@@ -971,10 +933,7 @@ This util has been removed and not replaced. Your plugin should define this util
 ```tsx
 type TradOptions = Record<string, string>;
 
-const prefixPluginTranslations = (
-  trad: TradOptions,
-  pluginId: string
-): TradOptions => {
+const prefixPluginTranslations = (trad: TradOptions, pluginId: string): TradOptions => {
   if (!pluginId) {
     throw new TypeError("pluginId can't be empty");
   }

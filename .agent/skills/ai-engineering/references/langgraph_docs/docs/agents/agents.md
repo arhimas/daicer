@@ -21,34 +21,35 @@ npm install langchain @langchain/langgraph @langchain/anthropic
 Use [`createReactAgent`](/langgraphjs/reference/functions/langgraph_prebuilt.createReactAgent.html) to instantiate an agent:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
-const getWeather = tool( // (1)!
+const getWeather = tool(
+  // (1)!
   async (input: { city: string }) => {
     return `It's always sunny in ${input.city}!`;
   },
   {
-    name: "getWeather",
+    name: 'getWeather',
     schema: z.object({
-      city: z.string().describe("The city to get the weather for"),
+      city: z.string().describe('The city to get the weather for'),
     }),
-    description: "Get weather for a given city.",
+    description: 'Get weather for a given city.',
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest"); // (2)!
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest'); // (2)!
 const agent = createReactAgent({
   llm,
   tools: [getWeather], // (3)!
-  prompt: "You are a helpful assistant", // (4)!
+  prompt: 'You are a helpful assistant', // (4)!
 });
 
 // Run the agent
 await agent.invoke({
-  messages: [{ role: "user", content: "what is the weather in sf" }],
+  messages: [{ role: 'user', content: 'what is the weather in sf' }],
 });
 ```
 
@@ -62,11 +63,11 @@ await agent.invoke({
 Use [`initChatModel`](https://api.js.langchain.com/functions/langchain.chat_models_universal.initChatModel.html) to configure an LLM with specific parameters, such as temperature:
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
 
 // highlight-next-line
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest", {
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest', {
   // highlight-next-line
   temperature: 0,
 });
@@ -158,14 +159,14 @@ For more information, see [Context](./context.md).
 To allow multi-turn conversations with an agent, you need to enable [persistence](../concepts/persistence.md) by providing a `checkpointer` when creating an agent. At runtime you need to provide a config containing `thread_id` — a unique identifier for the conversation (session):
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { MemorySaver } from "@langchain/langgraph-checkpoint";
-import { initChatModel } from "langchain/chat_models/universal";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { MemorySaver } from '@langchain/langgraph-checkpoint';
+import { initChatModel } from 'langchain/chat_models/universal';
 
 // highlight-next-line
 const checkpointer = new MemorySaver();
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [getWeather],
@@ -175,15 +176,12 @@ const agent = createReactAgent({
 
 // Run the agent
 // highlight-next-line
-const config = { configurable: { thread_id: "1" } };
+const config = { configurable: { thread_id: '1' } };
 const sfResponse = await agent.invoke(
-  { messages: [{ role: "user", content: "what is the weather in sf" }] },
+  { messages: [{ role: 'user', content: 'what is the weather in sf' }] },
   config // (2)!
 );
-const nyResponse = await agent.invoke(
-  { messages: [{ role: "user", content: "what about new york?" }] },
-  config
-);
+const nyResponse = await agent.invoke({ messages: [{ role: 'user', content: 'what about new york?' }] }, config);
 ```
 
 1. `checkpointer` allows the agent to store its state at every step in the tool calling loop. This enables [short-term memory](./memory.md#short-term-memory) and [human-in-the-loop](./human-in-the-loop.md) capabilities.
@@ -200,15 +198,15 @@ For more information, see [Memory](./memory.md).
 To produce structured responses conforming to a schema, use the `responseFormat` parameter. The schema can be defined with a `zod` schema. The result will be accessible via the `structuredResponse` field.
 
 ```ts
-import { z } from "zod";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
+import { z } from 'zod';
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
 
 const WeatherResponse = z.object({
   conditions: z.string(),
 });
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [getWeather],
@@ -217,7 +215,7 @@ const agent = createReactAgent({
 });
 
 const response = await agent.invoke({
-  messages: [{ role: "user", content: "what is the weather in sf" }],
+  messages: [{ role: 'user', content: 'what is the weather in sf' }],
 });
 // highlight-next-line
 response.structuredResponse;

@@ -4,11 +4,11 @@ description: Use the REST API to manage the order of relations
 displayed_sidebar: cmsSidebar
 sidebar_label: Relations
 tags:
-- API 
-- relations
-- Content API
-- disconnect
-- REST API
+  - API
+  - relations
+  - Content API
+  - disconnect
+  - REST API
 ---
 
 # Managing relations with API requests
@@ -19,29 +19,29 @@ Relations between content-types can be managed through the [admin panel](/cms/fe
 
 Relations can be connected, disconnected or set through the Content API by passing parameters in the body of the request. These payloads work for both single-entry relations and multi relations (one-to-many, many-to-one, many-to-many, and many-way). When a relational field allows multiple links, the API expects arrays of relation IDs and returns arrays in responses.
 
-|  Parameter name         | Description | Type of update |
-|-------------------------|-------------|----------------|
-| [`connect`](#connect)   | Connects new entities.<br /><br />Can be used in combination with `disconnect`.<br /><br />Can be used with [positional arguments](#relations-reordering) to define an order for relations.    | Partial |
-| [`disconnect`](#disconnect)    | Disconnects entities.<br /><br />Can be used in combination with `connect`. | Partial |
-| [`set`](#set)           | Set entities to a specific set. Using `set` will overwrite all existing connections to other entities.<br /><br />Cannot be used in combination with `connect` or `disconnect`.  | Full |
+| Parameter name              | Description                                                                                                                                                                                 | Type of update |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| [`connect`](#connect)       | Connects new entities.<br /><br />Can be used in combination with `disconnect`.<br /><br />Can be used with [positional arguments](#relations-reordering) to define an order for relations. | Partial        |
+| [`disconnect`](#disconnect) | Disconnects entities.<br /><br />Can be used in combination with `connect`.                                                                                                                 | Partial        |
+| [`set`](#set)               | Set entities to a specific set. Using `set` will overwrite all existing connections to other entities.<br /><br />Cannot be used in combination with `connect` or `disconnect`.             | Full           |
 
 :::note
-Multi relations can be managed from the REST API and the [GraphQL API](/cms/api/graphql#fetch-relations): the  `connect`, `disconnect`, and `set` operations are available across both APIs. However, the [Document Service API](/cms/api/document-service) does not handle relations.
+Multi relations can be managed from the REST API and the [GraphQL API](/cms/api/graphql#fetch-relations): the `connect`, `disconnect`, and `set` operations are available across both APIs. However, the [Document Service API](/cms/api/document-service) does not handle relations.
 :::
 
 :::note
 When [Internationalization (i18n)](/cms/features/internationalization) is enabled on the content-type, you can also pass a locale to set relations for a specific locale, as in this Document Service API example:
 
 ```js
-await strapi.documents('api::restaurant.restaurant').update({ 
+await strapi.documents('api::restaurant.restaurant').update({
   documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
   locale: 'fr',
-  data: { 
+  data: {
     category: {
-      connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']
-    }
-  }
-})
+      connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv'],
+    },
+  },
+});
 ```
 
 If no locale is passed, the default locale will be assumed.
@@ -53,10 +53,10 @@ Using `connect` in the body of a request performs a partial update, connecting t
 
 `connect` accepts either a shorthand or a longhand syntax:
 
-| Syntax type | Syntax example |
-| ------------|----------------|
-| shorthand   | `connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']` |
-| longhand    | ```connect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
+| Syntax type | Syntax example                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------- |
+| shorthand   | `connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`                                 |
+| longhand    | `connect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]` |
 
 You can also use the longhand syntax to [reorder relations](#relations-reordering).
 
@@ -81,7 +81,7 @@ Sending the following request updates a `restaurant`, identified by its `documne
 {
   data: {
     categories: {
-      connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']
+      connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv'];
     }
   }
 }
@@ -94,19 +94,16 @@ Sending the following request updates a `restaurant`, identified by its `documne
 ```js
 const fetch = require('node-fetch');
 
-const response = await fetch(
-  'http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm',
-  {
-    method: 'put',
-    body: {
-      data: {
-        categories: {
-          connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']
-        }
-      }
-    }
-  }
-);
+const response = await fetch('http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm', {
+  method: 'put',
+  body: {
+    data: {
+      categories: {
+        connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv'],
+      },
+    },
+  },
+});
 ```
 
 </MultiLanguageSwitcherRequest>
@@ -127,10 +124,7 @@ Sending the following request updates a `restaurant`, identified by its `documne
 {
   data: {
     categories: {
-      connect: [
-        { documentId: 'z0y2x4w6v8u1t3s5r7q9onm' },
-        { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }
-      ]
+      connect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }];
     }
   }
 }
@@ -143,22 +137,16 @@ Sending the following request updates a `restaurant`, identified by its `documne
 ```js
 const fetch = require('node-fetch');
 
-const response = await fetch(
-  'http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm',
-  {
-    method: 'put',
-    body: {
-      data: {
-        categories: {
-          connect: [
-            { documentId: 'z0y2x4w6v8u1t3s5r7q9onm' },
-            { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }
-          ]
-        }
-      }
-    }
-  }
-);
+const response = await fetch('http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm', {
+  method: 'put',
+  body: {
+    data: {
+      categories: {
+        connect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }],
+      },
+    },
+  },
+});
 ```
 
 </MultiLanguageSwitcherRequest>
@@ -181,12 +169,12 @@ The syntaxes described in this documentation are useful for one-to-many, many-to
 
 To define the `position` for a relation, pass one of the following 4 different positional attributes:
 
-| Parameter name and syntax | Description                                                            | Type       |
-| ------------------------- | ---------------------------------------------------------------------- | ---------- |
+| Parameter name and syntax | Description                                                            | Type                  |
+| ------------------------- | ---------------------------------------------------------------------- | --------------------- |
 | `before: documentId`      | Positions the relation before the given `documentId`.                  | `documentId` (string) |
 | `after: documentId`       | Positions the relation after the given `documentId`.                   | `documentId` (string) |
-| `start: true`             | Positions the relation at the start of the existing list of relations. | Boolean    |
-| `end: true`               | Positions the relation at the end of the existing list of relations.   | Boolean    |
+| `start: true`             | Positions the relation at the start of the existing list of relations. | Boolean               |
+| `end: true`               | Positions the relation at the end of the existing list of relations.   | Boolean               |
 
 The `position` argument is optional and defaults to `position: { end: true }`.
 
@@ -221,9 +209,7 @@ Sending the following request updates a `restaurant`, identified by its `documen
 {
   data: {
     categories: {
-      connect: [
-        { documentId: 'ma12bc34de56fg78hi90jkl', position: { before: 'z0y2x4w6v8u1t3s5r7q9onm' } },
-      ]
+      connect: [{ documentId: 'ma12bc34de56fg78hi90jkl', position: { before: 'z0y2x4w6v8u1t3s5r7q9onm' } }];
     }
   }
 }
@@ -254,12 +240,12 @@ Sending the following example in the request body of a PUT request updates multi
   data: {
     categories: {
       connect: [
-        { id: '6u86wkc6x3parjd4emikhmx', position: { after: 'j9k8l7m6n5o4p3q2r1s0tuv'} },
+        { id: '6u86wkc6x3parjd4emikhmx', position: { after: 'j9k8l7m6n5o4p3q2r1s0tuv' } },
         { id: '3r1wkvyjwv0b9b36s7hzpxl', position: { before: 'z0y2x4w6v8u1t3s5r7q9onm' } },
         { id: 'rkyqa499i84197l29sbmwzl', position: { end: true } },
         { id: 'srkvrr77k96o44d9v6ef1vu' },
         { id: 'nyk7047azdgbtjqhl7btuxw', position: { start: true } },
-      ]
+      ];
     }
   }
 }
@@ -277,8 +263,8 @@ categories: [
   { id: '3r1wkvyjwv0b9b36s7hzpxl7' },
   { id: 'a1b2c3d4e5f6g7h8i9j0klm' },
   { id: 'rkyqa499i84197l29sbmwzl' },
-  { id: 'srkvrr77k96o44d9v6ef1vu9' }
-]
+  { id: 'srkvrr77k96o44d9v6ef1vu9' },
+];
 ```
 
 </TabItem>
@@ -295,13 +281,13 @@ In this situation you can select which locale you are connecting to:
 
 ```js
 data: {
-    categories: {
-      connect: [
-        { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', locale: 'en' },
-        // Connect to the same document id but with a different locale 👇
-        { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', locale: 'fr' },
-      ]
-   }
+  categories: {
+    connect: [
+      { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', locale: 'en' },
+      // Connect to the same document id but with a different locale 👇
+      { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', locale: 'fr' },
+    ];
+  }
 }
 ```
 
@@ -314,7 +300,7 @@ data: {
       { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', status: 'draft' },
       // Connect to the same document id but with different publication states 👇
       { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', status: 'published' },
-    ]
+    ];
   }
 }
 ```
@@ -325,10 +311,10 @@ Using `disconnect` in the body of a request performs a partial update, disconnec
 
 `disconnect` accepts either a shorthand or a longhand syntax:
 
-| Syntax type | Syntax example |
-| ------------|----------------|
-| shorthand   | `disconnect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`
-| longhand    | ```disconnect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
+| Syntax type | Syntax example                                                                                       |
+| ----------- | ---------------------------------------------------------------------------------------------------- |
+| shorthand   | `disconnect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`                                 |
+| longhand    | `disconnect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]` |
 
 `disconnect` can be used in combination with [`connect`](#connect).
 
@@ -390,10 +376,10 @@ Using `set` performs a full update, replacing all existing relations with the on
 
 `set` accepts a shorthand or a longhand syntax:
 
-| Syntax type | Syntax example                  |
-| ----------- | ------------------------------- |
-| shorthand   | `set: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`                   |
-| longhand    | ```set: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
+| Syntax type | Syntax example                                                                                |
+| ----------- | --------------------------------------------------------------------------------------------- |
+| shorthand   | `set: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`                                 |
+| longhand    | `set: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]` |
 
 As `set` replaces all existing relations, it should not be used in combination with other parameters. To perform a partial update, use [`connect`](#connect) and [`disconnect`](#disconnect).
 

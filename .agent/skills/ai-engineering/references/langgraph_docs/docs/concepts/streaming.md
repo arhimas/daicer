@@ -40,10 +40,10 @@ Additionally, any events that are created inside your nodes (LLM events, tool ev
 To make this more concrete and to see what this looks like, let's see what events are returned when we run a simple graph:
 
 ```typescript
-import { ChatOpenAI } from "@langchain/openai";
-import { StateGraph, MessagesAnnotation } from "langgraph";
+import { ChatOpenAI } from '@langchain/openai';
+import { StateGraph, MessagesAnnotation } from 'langgraph';
 
-const model = new ChatOpenAI({ model: "gpt-4-turbo-preview" });
+const model = new ChatOpenAI({ model: 'gpt-4-turbo-preview' });
 
 function callModel(state: typeof MessagesAnnotation.State) {
   const response = model.invoke(state.messages);
@@ -51,17 +51,14 @@ function callModel(state: typeof MessagesAnnotation.State) {
 }
 
 const workflow = new StateGraph(MessagesAnnotation)
-  .addNode("callModel", callModel)
-  .addEdge("start", "callModel")
-  .addEdge("callModel", "end");
+  .addNode('callModel', callModel)
+  .addEdge('start', 'callModel')
+  .addEdge('callModel', 'end');
 const app = workflow.compile();
 
-const inputs = [{ role: "user", content: "hi!" }];
+const inputs = [{ role: 'user', content: 'hi!' }];
 
-for await (const event of app.streamEvents(
-  { messages: inputs },
-  { version: "v2" }
-)) {
+for await (const event of app.streamEvents({ messages: inputs }, { version: 'v2' })) {
   const kind = event.event;
   console.log(`${kind}: ${event.name}`);
 }

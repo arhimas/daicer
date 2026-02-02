@@ -5,10 +5,10 @@ displayed_sidebar: cmsSidebar
 pagination_prev: cms/plugins-development/developing-plugins
 pagination_next: cms/upgrade-tool
 tags:
-- migration
-- upgrades
-- upgrade tool
-- Strapi version 
+  - migration
+  - upgrades
+  - upgrade tool
+  - Strapi version
 ---
 
 import InstallCommand from '/docs/snippets/install-npm-yarn.md'
@@ -31,8 +31,8 @@ You can find the current version number of your Strapi application:
 - either in the admin panel, by going to _Settings > Global Settings > Overview_ and looking at the Strapi version number printed in the Details section:
 
   <ThemedImage
-    alt="Finding your Strapi version number in the admin panel"
-    sources={{
+  alt="Finding your Strapi version number in the admin panel"
+  sources={{
       light: '/img/assets/migration/strapi-version-number.png',
       dark: '/img/assets/migration/strapi-version-number_DARK.png'
     }}

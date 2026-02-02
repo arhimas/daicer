@@ -19,11 +19,7 @@
         "area_of_effect": "15-foot-radius sphere",
         "effect": "Forces a Charisma saving throw on entry or at the start of the turn. Failed save prevents speaking deliberate lies while inside the area. Caster knows the result of the save.",
         "save_type": "Charisma",
-        "class_availability": [
-          "bard",
-          "cleric",
-          "paladin"
-        ],
+        "class_availability": ["bard", "cleric", "paladin"],
         "notes": "The spell is clear that creatures can still be evasive without lying, and are aware of the enchantment, allowing tactical avoidance of direct questions."
       },
       "zod_errors": "NONE"

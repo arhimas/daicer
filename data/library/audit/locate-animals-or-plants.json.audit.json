@@ -24,9 +24,7 @@
         "class_fit": "Excellent fit for Bard (minor utility), Druid (nature focus), and Ranger (tracking/survival)."
       },
       "zod_errors_present": false,
-      "recommendations": [
-        "No mechanical changes are necessary. The spell is well-balanced for its level."
-      ]
+      "recommendations": ["No mechanical changes are necessary. The spell is well-balanced for its level."]
     }
   },
   "timestamp": "2026-01-17T07:22:37.700Z"

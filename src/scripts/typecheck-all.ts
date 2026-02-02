@@ -1,4 +1,3 @@
-
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -34,49 +33,49 @@ function getPluginDirectories(): string[] {
 }
 
 function runCommand(command: string, cwd: string, name: string) {
-    try {
-        console.log(chalk.cyan(`Checking ${name}...`));
-        execSync(command, { cwd, stdio: 'inherit' });
-        console.log(chalk.green(`✓ ${name} passed.`));
-    } catch (_e) {
-        console.error(chalk.red(`✗ ${name} failed typecheck.`));
-        process.exit(1);
-    }
+  try {
+    console.log(chalk.cyan(`Checking ${name}...`));
+    execSync(command, { cwd, stdio: 'inherit' });
+    console.log(chalk.green(`✓ ${name} passed.`));
+  } catch (_e) {
+    console.error(chalk.red(`✗ ${name} failed typecheck.`));
+    process.exit(1);
+  }
 }
 
 async function runTypecheck() {
-    await initChalk();
-    
-    console.log(chalk.blue.bold(`\n🕵️  Starting Comprehensive Typecheck...\n`));
+  await initChalk();
 
-    // 1. Check Root
-    runCommand('tsc --noEmit', process.cwd(), 'ROOT');
+  console.log(chalk.blue.bold(`\n🕵️  Starting Comprehensive Typecheck...\n`));
 
-    // 2. Check Plugins
-    const plugins = getPluginDirectories();
-    for (const plugin of plugins) {
-        const pluginPath = path.join(PLUGINS_DIR, plugin);
-        
-        // Check Plugin Server
-        const serverTsConfig = path.join(pluginPath, 'server', 'tsconfig.json');
-        if (fs.existsSync(serverTsConfig)) {
-             runCommand('tsc -p server/tsconfig.json --noEmit', pluginPath, `${plugin} (Server)`);
-        } else {
-             // Fallback: Check if there is a root tsconfig in the plugin 
-             const rootTsConfig = path.join(pluginPath, 'tsconfig.json');
-             if (fs.existsSync(rootTsConfig)) {
-                runCommand('tsc -p tsconfig.json --noEmit', pluginPath, `${plugin} (Root)`);
-             }
-        }
+  // 1. Check Root
+  runCommand('tsc --noEmit', process.cwd(), 'ROOT');
 
-        // Check Plugin Admin
-        const adminTsConfig = path.join(pluginPath, 'admin', 'tsconfig.json');
-        if (fs.existsSync(adminTsConfig)) {
-            runCommand('tsc -p admin/tsconfig.json --noEmit', pluginPath, `${plugin} (Admin)`);
-        }
+  // 2. Check Plugins
+  const plugins = getPluginDirectories();
+  for (const plugin of plugins) {
+    const pluginPath = path.join(PLUGINS_DIR, plugin);
+
+    // Check Plugin Server
+    const serverTsConfig = path.join(pluginPath, 'server', 'tsconfig.json');
+    if (fs.existsSync(serverTsConfig)) {
+      runCommand('tsc -p server/tsconfig.json --noEmit', pluginPath, `${plugin} (Server)`);
+    } else {
+      // Fallback: Check if there is a root tsconfig in the plugin
+      const rootTsConfig = path.join(pluginPath, 'tsconfig.json');
+      if (fs.existsSync(rootTsConfig)) {
+        runCommand('tsc -p tsconfig.json --noEmit', pluginPath, `${plugin} (Root)`);
+      }
     }
 
-    console.log(chalk.green.bold(`\n✓ All systems typechecked successfully.\n`));
+    // Check Plugin Admin
+    const adminTsConfig = path.join(pluginPath, 'admin', 'tsconfig.json');
+    if (fs.existsSync(adminTsConfig)) {
+      runCommand('tsc -p admin/tsconfig.json --noEmit', pluginPath, `${plugin} (Admin)`);
+    }
+  }
+
+  console.log(chalk.green.bold(`\n✓ All systems typechecked successfully.\n`));
 }
 
 runTypecheck();

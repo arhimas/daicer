@@ -4,12 +4,12 @@ displayed_sidebar: cloudSidebar
 description: Manage Strapi Cloud account settings.
 canonicalUrl: https://docs.strapi.io/cloud/account/account-settings.html
 tags:
-- connect account
-- delete account
-- profile setting
-- project settings
-- Strapi Cloud
-- Strapi Cloud project
+  - connect account
+  - delete account
+  - profile setting
+  - project settings
+  - Strapi Cloud
+  - Strapi Cloud project
 pagination_next: cloud/account/account-billing
 ---
 
@@ -19,21 +19,21 @@ pagination_next: cloud/account/account-billing
 Settings of the Profile page include account details, connected accounts, and account deletion options.
 </Tldr>
 
-The *Profile* page enables you to manage your account details and preferences. It is accessible by clicking on your profile picture, on the top right hand corner of the interface, and **Profile**.
+The _Profile_ page enables you to manage your account details and preferences. It is accessible by clicking on your profile picture, on the top right hand corner of the interface, and **Profile**.
 
-There are 3 tabs available in the *Profile* interface: <Icon name="faders" /> [*General*](#general), <Icon name="credit-card" /> *Billing* and <Icon name="invoice" /> Invoices (the last 2 are documented in the [Account billing details](/cloud/account/account-billing) section of this documentation).
+There are 3 tabs available in the _Profile_ interface: <Icon name="faders" /> [_General_](#general), <Icon name="credit-card" /> _Billing_ and <Icon name="invoice" /> Invoices (the last 2 are documented in the [Account billing details](/cloud/account/account-billing) section of this documentation).
 
 ## General
 
-The <Icon name="faders" /> *General* tab enables you to edit the following details for your account profile:
+The <Icon name="faders" /> _General_ tab enables you to edit the following details for your account profile:
 
 - Details: to see the name associated with your account.
 - Connected accounts: to manage Google, GitHub, GitLab and email accounts connected with your Strapi Cloud account (see [Managing connected accounts](#managing-connected-accounts)).
 - Delete account: to permanently delete your Strapi Cloud account (see [Deleting Strapi Cloud account](#deleting-strapi-cloud-account)).
 
 <ThemedImage
-  alt="General tab of Profile page"
-  sources={{
+alt="General tab of Profile page"
+sources={{
     light: '/img/assets/cloud/settings-general.png',
     dark: '/img/assets/cloud/settings-general_DARK.png',
   }}
@@ -51,6 +51,6 @@ You can also click on the three dots button of a connected account and click on 
 
 You can delete your Strapi Cloud account, but it will be permanent and irreversible. All associated projects and their data will be deleted as well and the subscriptions for the projects will automatically be canceled.
 
-1. In the *Delete account* section of the <Icon name="faders" /> *General* tab, click on the **Delete account** button.
+1. In the _Delete account_ section of the <Icon name="faders" /> _General_ tab, click on the **Delete account** button.
 2. In the dialog, type `DELETE` in the textbox.
 3. Confirm the deletion of your account by clicking on the **Delete** button.

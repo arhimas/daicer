@@ -9,10 +9,11 @@ This skill provides the architectural blueprint for the system.
 
 ## Resources
 
-*   **Architecture Overview**: `references/arch.md`
+- **Architecture Overview**: `references/arch.md`
 
 ## Usage
 
 Consult this when:
+
 1.  Making high-level design decisions.
 2.  Understanding component boundaries.

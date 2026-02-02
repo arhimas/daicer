@@ -4,10 +4,10 @@ sidebar_label: Features
 description: Enable experimental Strapi features
 displayed_sidebar: cmsSidebar
 tags:
-- additional configuration
-- configuration
-- features configuration
-- future flag
+  - additional configuration
+  - configuration
+  - features configuration
+  - future flag
 ---
 
 # Features configuration
@@ -41,42 +41,41 @@ To enable a future flag:
 
   <TabItem value="js" label="JavaScript">
 
-  ```ts title="/config/features.ts"
-  module.exports = ({ env }) => ({
-    future: {
-      experimental_firstPublishedAt: env.bool('STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT', false),
-    },
-  })
+```ts title="/config/features.ts"
+module.exports = ({ env }) => ({
+  future: {
+    experimental_firstPublishedAt: env.bool('STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT', false),
+  },
+});
+```
 
-  ```
+This example assumes that you have an `.env` environment file at the root of your application and that the file includes the following line:
 
-  This example assumes that you have an `.env` environment file at the root of your application and that the file includes the following line:
+```json title=".env"
+STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT=true
+```
 
-  ```json title=".env"
-  STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT=true
-  ```
-
-  If your environment file does not include this value, the `experimental_firstPublishedAt` future flag property value will default to `false` and the experimental feature will not be enabled.
+If your environment file does not include this value, the `experimental_firstPublishedAt` future flag property value will default to `false` and the experimental feature will not be enabled.
 
   </TabItem>
 
   <TabItem value="ts" label="TypeScript">
 
-  ```ts title="/config/features.ts"
-  export default {
-    future: {
-      experimental_firstPublishedAt: env.bool('STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT', false),
-    },
-  };
-  ```
+```ts title="/config/features.ts"
+export default {
+  future: {
+    experimental_firstPublishedAt: env.bool('STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT', false),
+  },
+};
+```
 
-  This example assumes that you have an `.env` environment file at the root of your application and that the file includes the following line:
+This example assumes that you have an `.env` environment file at the root of your application and that the file includes the following line:
 
-  ```json title=".env"
-  STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT=true
-  ```
+```json title=".env"
+STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT=true
+```
 
-  If your environment file does not include this value, the `experimental_firstPublishedAt` future flag property value will default to `false` and the experimental feature will not be enabled.
+If your environment file does not include this value, the `experimental_firstPublishedAt` future flag property value will default to `false` and the experimental feature will not be enabled.
 
   </TabItem>
   </Tabs>
@@ -109,6 +108,6 @@ Developers can use the following APIs to interact with future flags:
 
 ## Available future flags
 
-| Property name | Related feature | Suggested environment variable name |
-| ------------- | --------------- | ---------------------------------- |
+| Property name                   | Related feature                                                                         | Suggested environment variable name             |
+| ------------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | `experimental_firstPublishedAt` | [Draft & Publish](/cms/features/draft-and-publish#recording-the-first-publication-date) | `STRAPI_FUTURE_EXPERIMENTAL_FIRST_PUBLISHED_AT` |

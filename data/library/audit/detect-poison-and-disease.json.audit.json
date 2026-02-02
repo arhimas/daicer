@@ -34,12 +34,7 @@
           "Requires concentration.",
           "Blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt."
         ],
-        "class_availability": [
-          "cleric",
-          "druid",
-          "paladin",
-          "ranger"
-        ]
+        "class_availability": ["cleric", "druid", "paladin", "ranger"]
       }
     },
     "assessment": "The data is consistent and high quality. The spell is a low-level utility Divination ritual accessible to divine casters, focused on detection with clear mechanical limitations regarding barriers."

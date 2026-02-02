@@ -24,10 +24,7 @@
         "duration": "1 hour",
         "base_effect": "Gain 1d4 + 4 temporary hit points.",
         "scaling_mechanism": "Additive. Gain +5 temporary HP per spell slot level above 1st.",
-        "class_availability": [
-          "sorcerer",
-          "wizard"
-        ]
+        "class_availability": ["sorcerer", "wizard"]
       },
       "zod_errors": "NONE"
     }

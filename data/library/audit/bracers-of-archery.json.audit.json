@@ -21,9 +21,7 @@
           "Proficiency with longbow and shortbow (if not already proficient).",
           "+2 bonus to damage rolls on ranged attacks made with longbows or shortbows."
         ],
-        "dependencies": [
-          "Requires attunement."
-        ],
+        "dependencies": ["Requires attunement."],
         "clarity_assessment": "The mechanics are clear. The proficiency grant is standard for items granting weapon skills. The +2 damage bonus is straightforward."
       },
       "data_issues": {

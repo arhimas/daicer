@@ -18,8 +18,8 @@ npm i yargs-parser --save
 ```
 
 ```js
-const argv = require('yargs-parser')(process.argv.slice(2))
-console.log(argv)
+const argv = require('yargs-parser')(process.argv.slice(2));
+console.log(argv);
 ```
 
 ```console
@@ -30,8 +30,8 @@ $ node example.js --foo=33 --bar hello
 _or parse a string!_
 
 ```js
-const argv = require('yargs-parser')('--foo=99 --bar=33')
-console.log(argv)
+const argv = require('yargs-parser')('--foo=99 --bar=33');
+console.log(argv);
 ```
 
 ```console
@@ -41,9 +41,9 @@ console.log(argv)
 Convert an array of mixed types before passing to `yargs-parser`:
 
 ```js
-const parse = require('yargs-parser')
-parse(['-f', 11, '--zoom', 55].join(' '))   // <-- array to string
-parse(['-f', 11, '--zoom', 55].map(String)) // <-- array of strings
+const parse = require('yargs-parser');
+parse(['-f', 11, '--zoom', 55].join(' ')); // <-- array to string
+parse(['-f', 11, '--zoom', 55].map(String)); // <-- array of strings
 ```
 
 ## Deno Example
@@ -51,12 +51,12 @@ parse(['-f', 11, '--zoom', 55].map(String)) // <-- array of strings
 As of `v19` `yargs-parser` supports [Deno](https://github.com/denoland/deno):
 
 ```typescript
-import parser from "https://deno.land/x/yargs_parser/deno.ts";
+import parser from 'https://deno.land/x/yargs_parser/deno.ts';
 
 const argv = parser('--foo=99 --bar=9987930', {
-  string: ['bar']
-})
-console.log(argv)
+  string: ['bar'],
+});
+console.log(argv);
 ```
 
 ## ESM Example
@@ -66,12 +66,12 @@ As of `v19` `yargs-parser` supports ESM (_both in Node.js and in the browser_):
 **Node.js:**
 
 ```js
-import parser from 'yargs-parser'
+import parser from 'yargs-parser';
 
 const argv = parser('--foo=99 --bar=9987930', {
-  string: ['bar']
-})
-console.log(argv)
+  string: ['bar'],
+});
+console.log(argv);
 ```
 
 **Browsers:**
@@ -80,12 +80,12 @@ console.log(argv)
 <!doctype html>
 <body>
   <script type="module">
-    import parser from "https://unpkg.com/yargs-parser@19.0.0/browser.js";
+    import parser from 'https://unpkg.com/yargs-parser@19.0.0/browser.js';
 
     const argv = parser('--foo=99 --bar=9987930', {
-      string: ['bar']
-    })
-    console.log(argv)
+      string: ['bar'],
+    });
+    console.log(argv);
   </script>
 </body>
 ```
@@ -98,34 +98,34 @@ Parses command line arguments returning a simple mapping of keys and values.
 
 **expects:**
 
-* `args`: a string or array of strings representing the options to parse.
-* `opts`: provide a set of hints indicating how `args` should be parsed:
-  * `opts.alias`: an object representing the set of aliases for a key: `{alias: {foo: ['f']}}`.
-  * `opts.array`: indicate that keys should be parsed as an array: `{array: ['foo', 'bar']}`.<br>
+- `args`: a string or array of strings representing the options to parse.
+- `opts`: provide a set of hints indicating how `args` should be parsed:
+  - `opts.alias`: an object representing the set of aliases for a key: `{alias: {foo: ['f']}}`.
+  - `opts.array`: indicate that keys should be parsed as an array: `{array: ['foo', 'bar']}`.<br>
     Indicate that keys should be parsed as an array and coerced to booleans / numbers:<br>
     `{array: [{ key: 'foo', boolean: true }, {key: 'bar', number: true}]}`.
-  * `opts.boolean`: arguments should be parsed as booleans: `{boolean: ['x', 'y']}`.
-  * `opts.coerce`: provide a custom synchronous function that returns a coerced value from the argument provided
+  - `opts.boolean`: arguments should be parsed as booleans: `{boolean: ['x', 'y']}`.
+  - `opts.coerce`: provide a custom synchronous function that returns a coerced value from the argument provided
     (or throws an error). For arrays the function is called only once for the entire array:<br>
     `{coerce: {foo: function (arg) {return modifiedArg}}}`.
-  * `opts.config`: indicate a key that represents a path to a configuration file (this file will be loaded and parsed).
-  * `opts.configObjects`: configuration objects to parse, their properties will be set as arguments:<br>
+  - `opts.config`: indicate a key that represents a path to a configuration file (this file will be loaded and parsed).
+  - `opts.configObjects`: configuration objects to parse, their properties will be set as arguments:<br>
     `{configObjects: [{'x': 5, 'y': 33}, {'z': 44}]}`.
-  * `opts.configuration`: provide configuration options to the yargs-parser (see: [configuration](#configuration)).
-  * `opts.count`: indicate a key that should be used as a counter, e.g., `-vvv` = `{v: 3}`.
-  * `opts.default`: provide default values for keys: `{default: {x: 33, y: 'hello world!'}}`.
-  * `opts.envPrefix`: environment variables (`process.env`) with the prefix provided should be parsed.
-  * `opts.narg`: specify that a key requires `n` arguments: `{narg: {x: 2}}`.
-  * `opts.normalize`: `path.normalize()` will be applied to values set to this key.
-  * `opts.number`: keys should be treated as numbers.
-  * `opts.string`: keys should be treated as strings (even if they resemble a number `-x 33`).
+  - `opts.configuration`: provide configuration options to the yargs-parser (see: [configuration](#configuration)).
+  - `opts.count`: indicate a key that should be used as a counter, e.g., `-vvv` = `{v: 3}`.
+  - `opts.default`: provide default values for keys: `{default: {x: 33, y: 'hello world!'}}`.
+  - `opts.envPrefix`: environment variables (`process.env`) with the prefix provided should be parsed.
+  - `opts.narg`: specify that a key requires `n` arguments: `{narg: {x: 2}}`.
+  - `opts.normalize`: `path.normalize()` will be applied to values set to this key.
+  - `opts.number`: keys should be treated as numbers.
+  - `opts.string`: keys should be treated as strings (even if they resemble a number `-x 33`).
 
 **returns:**
 
-* `obj`: an object representing the parsed value of `args`
-  * `key/value`: key value pairs for each argument and their aliases.
-  * `_`: an array representing the positional arguments.
-  * [optional] `--`:  an array with arguments after the end-of-options flag `--`.
+- `obj`: an object representing the parsed value of `args`
+  - `key/value`: key value pairs for each argument and their aliases.
+  - `_`: an array representing the positional arguments.
+  - [optional] `--`: an array with arguments after the end-of-options flag `--`.
 
 ### require('yargs-parser').detailed(args, opts={})
 
@@ -134,22 +134,22 @@ yargs engine.
 
 **expects:**
 
-* `args`: a string or array of strings representing options to parse.
-* `opts`: provide a set of hints indicating how `args`, inputs are identical to `require('yargs-parser')(args, opts={})`.
+- `args`: a string or array of strings representing options to parse.
+- `opts`: provide a set of hints indicating how `args`, inputs are identical to `require('yargs-parser')(args, opts={})`.
 
 **returns:**
 
-* `argv`: an object representing the parsed value of `args`
-  * `key/value`: key value pairs for each argument and their aliases.
-  * `_`: an array representing the positional arguments.
-  * [optional] `--`:  an array with arguments after the end-of-options flag `--`.
-* `error`: populated with an error object if an exception occurred during parsing.
-* `aliases`: the inferred list of aliases built by combining lists in `opts.alias`.
-* `newAliases`: any new aliases added via camel-case expansion:
-  * `boolean`: `{ fooBar: true }`
-* `defaulted`: any new argument created by `opts.default`, no aliases included.
-  * `boolean`: `{ foo: true }`
-* `configuration`: given by default settings and `opts.configuration`.
+- `argv`: an object representing the parsed value of `args`
+  - `key/value`: key value pairs for each argument and their aliases.
+  - `_`: an array representing the positional arguments.
+  - [optional] `--`: an array with arguments after the end-of-options flag `--`.
+- `error`: populated with an error object if an exception occurred during parsing.
+- `aliases`: the inferred list of aliases built by combining lists in `opts.alias`.
+- `newAliases`: any new aliases added via camel-case expansion:
+  - `boolean`: `{ fooBar: true }`
+- `defaulted`: any new argument created by `opts.default`, no aliases included.
+  - `boolean`: `{ foo: true }`
+- `configuration`: given by default settings and `opts.configuration`.
 
 <a name="configuration"></a>
 
@@ -162,15 +162,15 @@ of `opts`.
 ```js
 var parsed = parser(['--no-dice'], {
   configuration: {
-    'boolean-negation': false
-  }
-})
+    'boolean-negation': false,
+  },
+});
 ```
 
 ### short option groups
 
-* default: `true`.
-* key: `short-option-groups`.
+- default: `true`.
+- key: `short-option-groups`.
 
 Should a group of short-options be treated as boolean flags?
 
@@ -188,8 +188,8 @@ $ node example.js -abc
 
 ### camel-case expansion
 
-* default: `true`.
-* key: `camel-case-expansion`.
+- default: `true`.
+- key: `camel-case-expansion`.
 
 Should hyphenated arguments be expanded into camel-case aliases?
 
@@ -207,8 +207,8 @@ $ node example.js --foo-bar
 
 ### dot-notation
 
-* default: `true`
-* key: `dot-notation`
+- default: `true`
+- key: `dot-notation`
 
 Should keys that contain `.` be treated as objects?
 
@@ -226,8 +226,8 @@ $ node example.js --foo.bar
 
 ### parse numbers
 
-* default: `true`
-* key: `parse-numbers`
+- default: `true`
+- key: `parse-numbers`
 
 Should keys that look like numbers be treated as such?
 
@@ -245,8 +245,8 @@ $ node example.js --foo=99.3
 
 ### parse positional numbers
 
-* default: `true`
-* key: `parse-positional-numbers`
+- default: `true`
+- key: `parse-positional-numbers`
 
 Should positional keys that look like numbers be treated as such.
 
@@ -264,8 +264,8 @@ $ node example.js 99.3
 
 ### boolean negation
 
-* default: `true`
-* key: `boolean-negation`
+- default: `true`
+- key: `boolean-negation`
 
 Should variables prefixed with `--no` be treated as negations?
 
@@ -283,16 +283,16 @@ $ node example.js --no-foo
 
 ### combine arrays
 
-* default: `false`
-* key: `combine-arrays`
+- default: `false`
+- key: `combine-arrays`
 
 Should arrays be combined when provided by both command line arguments and
 a configuration file.
 
 ### duplicate arguments array
 
-* default: `true`
-* key: `duplicate-arguments-array`
+- default: `true`
+- key: `duplicate-arguments-array`
 
 Should arguments be coerced into an array when duplicated:
 
@@ -310,8 +310,8 @@ $ node example.js -x 1 -x 2
 
 ### flatten duplicate arrays
 
-* default: `true`
-* key: `flatten-duplicate-arrays`
+- default: `true`
+- key: `flatten-duplicate-arrays`
 
 Should array arguments be coerced into a single array when duplicated:
 
@@ -329,8 +329,8 @@ $ node example.js -x 1 2 -x 3 4
 
 ### greedy arrays
 
-* default: `true`
-* key: `greedy-arrays`
+- default: `true`
+- key: `greedy-arrays`
 
 Should arrays consume more than one positional argument following their flag.
 
@@ -350,15 +350,15 @@ $ node example --arr 1 2
 
 ### nargs eats options
 
-* default: `false`
-* key: `nargs-eats-options`
+- default: `false`
+- key: `nargs-eats-options`
 
 Should nargs consume dash options as well as positional arguments.
 
 ### negation prefix
 
-* default: `no-`
-* key: `negation-prefix`
+- default: `no-`
+- key: `negation-prefix`
 
 The prefix to use for negated boolean variables.
 
@@ -376,8 +376,8 @@ $ node example.js --quuxfoo
 
 ### populate --
 
-* default: `false`.
-* key: `populate--`
+- default: `false`.
+- key: `populate--`
 
 Should unparsed flags be stored in `--` or `_`.
 
@@ -397,8 +397,8 @@ $ node example.js a -b -- x y
 
 ### set placeholder key
 
-* default: `false`.
-* key: `set-placeholder-key`.
+- default: `false`.
+- key: `set-placeholder-key`.
 
 Should a placeholder be added for keys not set via the corresponding CLI argument?
 
@@ -418,8 +418,8 @@ $ node example.js -a 1 -c 2
 
 ### halt at non-option
 
-* default: `false`.
-* key: `halt-at-non-option`.
+- default: `false`.
+- key: `halt-at-non-option`.
 
 Should parsing stop at the first positional argument? This is similar to how e.g. `ssh` parses its command line.
 
@@ -439,8 +439,8 @@ $ node example.js -a run b -x y
 
 ### strip aliased
 
-* default: `false`
-* key: `strip-aliased`
+- default: `false`
+- key: `strip-aliased`
 
 Should aliases be removed before returning results?
 
@@ -460,10 +460,10 @@ $ node example.js --test-field 1
 
 ### strip dashed
 
-* default: `false`
-* key: `strip-dashed`
+- default: `false`
+- key: `strip-dashed`
 
-Should dashed keys be removed before returning results?  This option has no effect if
+Should dashed keys be removed before returning results? This option has no effect if
 `camel-case-expansion` is disabled.
 
 _If disabled:_
@@ -482,10 +482,10 @@ $ node example.js --test-field 1
 
 ### unknown options as args
 
-* default: `false`
-* key: `unknown-options-as-args`
+- default: `false`
+- key: `unknown-options-as-args`
 
-Should unknown options be treated like regular arguments?  An unknown option is one that is not
+Should unknown options be treated like regular arguments? An unknown option is one that is not
 configured in `opts`.
 
 _If disabled_

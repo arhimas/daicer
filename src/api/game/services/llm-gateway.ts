@@ -4,7 +4,7 @@
  */
 /**
  * LLM Gateway Service
- * 
+ *
  * The single entry point for all LLM operations in Daicer.
  * Routes requests to either Remote (Gemini) or Local (Gemma) queues.
  */
@@ -44,7 +44,7 @@ export const llmGateway = {
 
     if (provider === 'local') {
       const config = request.config || {};
-      
+
       // Default to Gemma 3 4B if not specified
       const model = config.model || LocalModel.GEMMA_3_4B_IT;
 
@@ -53,10 +53,10 @@ export const llmGateway = {
         targetUid,
         targetId,
         field,
-        model, 
+        model,
         // We might want to pass full config, but for now stick to Schema
       });
-      
+
       strapi.log.info(`[LLM-Gateway] Queued LOCAL generation for ${targetUid}:${targetId} using ${model}`);
     } else {
       // Remote
@@ -74,13 +74,17 @@ export const llmGateway = {
    * Direct Synchronous Generation (WARNING: BLOCKS EVENT LOOP if Local)
    * Use only for debugging or strictly required synchronous ops.
    */
-  generateSync: async (prompt: string, provider: 'local' | 'remote' = 'remote', config: LocalConfig | GeminiConfig = {}) => {
+  generateSync: async (
+    prompt: string,
+    provider: 'local' | 'remote' = 'remote',
+    config: LocalConfig | GeminiConfig = {}
+  ) => {
     if (provider === 'local') {
-        const { localLLM } = await import('../../../utils/llm/local');
-        return localLLM.generate(prompt, config);
+      const { localLLM } = await import('../../../utils/llm/local');
+      return localLLM.generate(prompt, config);
     } else {
-        const { llmService } = await import('../../../services/llm-service');
-        return llmService.generate(prompt, (config as { model?: string }).model); // Legacy service for now
+      const { llmService } = await import('../../../services/llm-service');
+      return llmService.generate(prompt, (config as { model?: string }).model); // Legacy service for now
     }
-  }
+  },
 };

@@ -19,10 +19,7 @@
       },
       "mechanics": {
         "attunement_required": false,
-        "effects": [
-          "Immunity to poisons (preventing the poisoned condition).",
-          "Immunity to poison damage."
-        ],
+        "effects": ["Immunity to poisons (preventing the poisoned condition).", "Immunity to poison damage."],
         "power_level_justification": "Grants full immunity to an entire damage type and condition, fitting for a 'Rare' item."
       },
       "zod_errors_found": false,

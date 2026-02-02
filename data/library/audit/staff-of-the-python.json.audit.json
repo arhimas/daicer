@@ -19,11 +19,7 @@
       "mechanics": {
         "attunement": {
           "attunement_required": true,
-          "attunement_classes": [
-            "cleric",
-            "druid",
-            "warlock"
-          ],
+          "attunement_classes": ["cleric", "druid", "warlock"],
           "source_of_restriction": "Source footer overrides general metadata."
         },
         "transformation_and_control": {

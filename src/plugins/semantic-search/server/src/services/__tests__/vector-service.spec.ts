@@ -47,9 +47,9 @@ describe('Vector Service (Plugin)', () => {
     // Setup Metadata
     mockMetadataGet.mockImplementation((uid) => {
       if (uid === 'api::knowledge-snippet.knowledge-snippet') {
-        return { 
+        return {
           tableName: 'knowledge_snippets',
-          attributes: { source: { joinColumn: { name: 'source_id' } } }
+          attributes: { source: { joinColumn: { name: 'source_id' } } },
         };
       }
       if (uid === 'api::knowledge-source.knowledge-source') {
@@ -67,11 +67,11 @@ describe('Vector Service (Plugin)', () => {
 
     // Verify calls
     expect(mockConnection).toHaveBeenCalledWith('knowledge_snippets');
-    
+
     // Verify Raw SQL generation for Postgres
     // The code calls connection.raw(...) inside select()
     const rawCalls = mockRaw.mock.calls;
-    const vectorSqlCall = rawCalls.find(call => call[0].includes('<=>'));
+    const vectorSqlCall = rawCalls.find((call) => call[0].includes('<=>'));
     expect(vectorSqlCall).toBeDefined();
     expect(vectorSqlCall[0]).toContain('1 - ((??::text)::vector <=> ?) as score');
     expect(vectorSqlCall[1][1]).toBe('[0.1,0.2,0.3]');
@@ -79,7 +79,7 @@ describe('Vector Service (Plugin)', () => {
 
   it('searchEntity should inspect metadata and use correct table', async () => {
     mockMetadataGet.mockReturnValue({ tableName: 'custom_spells' });
-    
+
     // Mock limit resolution
     mockLimit.mockResolvedValueOnce([]);
 
@@ -88,10 +88,10 @@ describe('Vector Service (Plugin)', () => {
 
     expect(mockMetadataGet).toHaveBeenCalledWith('api::spell.spell');
     expect(mockConnection).toHaveBeenCalledWith('custom_spells');
-    
+
     // Check raw calls for vector calc
     const rawCalls = mockRaw.mock.calls;
-    const vectorSqlCall = rawCalls.find(call => call[0].includes('<=>'));
+    const vectorSqlCall = rawCalls.find((call) => call[0].includes('<=>'));
     expect(vectorSqlCall).toBeDefined();
     expect(vectorSqlCall[1][0]).toContain('0.9');
   });

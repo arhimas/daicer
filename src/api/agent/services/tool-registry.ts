@@ -189,7 +189,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
         attributes: actor.stats,
         stats: actor.stats, // Map alias
         proficiencyBonus: 2, // TODO: Calc from level
-        level: Number(actor.level) || 1, 
+        level: Number(actor.level) || 1,
         equipment,
       };
 
@@ -663,7 +663,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   register('get_location_context', 'Get location context', LocationContextSchema, async (roomId, payload, _u) => {
     const p = LocationContextSchema.parse(payload);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const room = await strapi.documents('api::room.room').findOne({ documentId: roomId, populate: ['dmSettings'] as any });
+    const room = await strapi
+      .documents('api::room.room')
+      .findOne({ documentId: roomId, populate: ['dmSettings'] as any });
     if (!room) throw new Error('Room not found');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const r = room as any;

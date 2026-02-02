@@ -975,12 +975,11 @@ When answering questions about Strapi features, architecture, or best practices,
 
 Use WebFetch tool to access specific documentation pages when providing detailed answers about Strapi features or best practices.
 
-
 ## Testing the Enhanced Context
 
 With our enhanced CLAUDE.md file in place, Claude now has access to comprehensive Strapi documentation and can provide detailed, framework-specific answers. Here's an example of how this improved context works:
 
-``` bash
+```bash
 > how to create cron job in strapi
   ⎿  ⧉ Selected 1 lines from README.md in Visual Studio Code
 
@@ -1094,12 +1093,12 @@ The CLAUDE.md file is your project's knowledge base for AI collaboration. A well
 
 AI-powered development tools like V0 and Claude Code are awesome, but they're not magic. It is important to keep in mind that these tools should help you amplify your knowledge—but not replace it. AI is just like any tool, you need to understand how to use it effectively. Even though it might seem like magic, you have to remind yourself, that it will only be as good as the instructions and context you give.
 
-This space is evolving rapidly, and what works today might change six months from now. 
+This space is evolving rapidly, and what works today might change six months from now.
 
 I am going to continue to explore these tools and write about lessons learned from me experience building real-world projects.
 
 In the meantime, start experimenting. Create project, set up proper documentation, and see what these tools can do. Just remember—the goal isn't to stop thinking, it's to think better and build faster.
 
-Let me know your thoughts and feedback, I would love to here about it.  You can find me @codingthirty on X, or stop on by Mon - Fri 12:30 pm CST for Strapi's open office hours on our [Discord](https://discord.com/invite/strapi).
+Let me know your thoughts and feedback, I would love to here about it. You can find me @codingthirty on X, or stop on by Mon - Fri 12:30 pm CST for Strapi's open office hours on our [Discord](https://discord.com/invite/strapi).
 
 Paul

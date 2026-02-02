@@ -25,15 +25,9 @@
         ],
         "damage_on_hold_per_turn": "Evil creature takes damage again each time it ends its turn holding/carrying.",
         "attuned_benefit": {
-          "classes": [
-            "Cleric",
-            "Paladin"
-          ],
+          "classes": ["Cleric", "Paladin"],
           "alignment_requirement": "Good",
-          "benefits": [
-            "Functions as a holy symbol",
-            "+2 bonus to spell attack rolls while worn or held"
-          ]
+          "benefits": ["Functions as a holy symbol", "+2 bonus to spell attack rolls while worn or held"]
         },
         "charges": {
           "total": 7,

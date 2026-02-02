@@ -3,9 +3,9 @@ title: CRON jobs
 displayed_sidebar: cmsSidebar
 description: Strapi allows you to configure cron jobs for execution at specific dates and times, with optional reoccurrence rules.
 tags:
-- additional configuration
-- configuration
-- cron job
+  - additional configuration
+  - configuration
+  - cron job
 ---
 
 # Cron jobs
@@ -71,7 +71,7 @@ module.exports = {
       // Add your own logic here (e.g. send a queue of email, create a database backup, etc.).
     },
     options: {
-      rule: "0 0 1 * * 1",
+      rule: '0 0 1 * * 1',
     },
   },
 };
@@ -93,7 +93,7 @@ export default {
       // Add your own logic here (e.g. send a queue of email, create a database backup, etc.).
     },
     options: {
-      rule: "0 0 1 * * 1",
+      rule: '0 0 1 * * 1',
     },
   },
 };
@@ -125,8 +125,8 @@ module.exports = {
       /* Add your own logic here */
     },
     options: {
-      rule: "0 0 1 * * 1",
-      tz: "Asia/Dhaka",
+      rule: '0 0 1 * * 1',
+      tz: 'Asia/Dhaka',
     },
   },
 };
@@ -149,8 +149,8 @@ export default {
       /* Add your own logic here */
     },
     options: {
-      rule: "0 0 1 * * 1",
-      tz: "Asia/Dhaka",
+      rule: '0 0 1 * * 1',
+      tz: 'Asia/Dhaka',
     },
   },
 };
@@ -220,7 +220,7 @@ module.exports = {
       /* Add your own logic here */
     },
     options: {
-      rule: "* * * * * *",
+      rule: '* * * * * *',
       // start 10 seconds from now
       start: new Date(Date.now() + 10000),
       // end 20 seconds from now
@@ -242,7 +242,7 @@ export default {
     },
     // only run once after 10 seconds
     options: {
-      rule: "* * * * * *",
+      rule: '* * * * * *',
       // start 10 seconds from now
       start: new Date(Date.now() + 10000),
       // end 20 seconds from now
@@ -277,7 +277,7 @@ module.exports = {
    * Every monday at 1am.
    */
 
-  "0 0 1 * * 1": ({ strapi }) => {
+  '0 0 1 * * 1': ({ strapi }) => {
     // Add your own logic here (e.g. send a queue of email, create a database backup, etc.).
   },
 };
@@ -294,7 +294,7 @@ export default {
    * Every monday at 1am.
    */
 
-  "0 0 1 * * 1": ({ strapi }) => {
+  '0 0 1 * * 1': ({ strapi }) => {
     // Add your own logic here (e.g. send a queue of email, create a database backup, etc.).
   },
 };
@@ -313,11 +313,11 @@ To enable cron jobs, set `cron.enabled` to `true` in the [server configuration f
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/server.js"
-const cronTasks = require("./cron-tasks");
+const cronTasks = require('./cron-tasks');
 
 module.exports = ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
+  host: env('HOST', '0.0.0.0'),
+  port: env.int('PORT', 1337),
   cron: {
     enabled: true,
     tasks: cronTasks,
@@ -330,11 +330,11 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/server.ts"
-import cronTasks from "./cron-tasks";
+import cronTasks from './cron-tasks';
 
 export default ({ env }) => ({
-  host: env("HOST", "0.0.0.0"),
-  port: env.int("PORT", 1337),
+  host: env('HOST', '0.0.0.0'),
+  port: env.int('PORT', 1337),
   cron: {
     enabled: true,
     tasks: cronTasks,
@@ -357,10 +357,10 @@ module.exports = () => ({
       // runs every second
       myJob: {
         task: ({ strapi }) => {
-          console.log("hello from plugin");
+          console.log('hello from plugin');
         },
         options: {
-          rule: "* * * * * *",
+          rule: '* * * * * *',
         },
       },
     });
@@ -371,18 +371,17 @@ module.exports = () => ({
 Use `strapi.cron.remove` anywhere in your custom code to remove CRON jobs from the Strapi instance, passing in the key corresponding to the CRON job you want to remove:
 
 ```js
-strapi.cron.remove("myJob");
+strapi.cron.remove('myJob');
 ```
 
 :::note
 Cron jobs that are using the [key as the rule](/cms/configurations/cron#using-the-key-format) can not be removed.
 :::
 
-
 ## Listing cron jobs
 
 Use `strapi.cron.jobs` anywhere in your custom code to list all the cron jobs that are currently running:
 
 ```js
-strapi.cron.jobs
+strapi.cron.jobs;
 ```

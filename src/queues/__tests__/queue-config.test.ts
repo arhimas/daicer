@@ -46,7 +46,7 @@ describe('QueueManager Configuration', () => {
     // For this test, let's assume we can re-init or we just manually instantiate if we export it or use checking.
     // Actually, QueueManager has a private constructor.
     // We can use the static init method with our mock.
-    
+
     // Reset instance for testing
     (QueueManager as any).instance = undefined;
     queueManager = QueueManager.init(mockStrapi);
@@ -146,28 +146,28 @@ describe('QueueManager Configuration', () => {
   });
 
   it('should allow usage of default valid job payload', async () => {
-      mockFindFirst.mockResolvedValue(null);
-      
-      const payload = {
-        prompt: 'test',
-        targetUid: 'api::test',
-        targetId: '1',
-        field: 'desc'
-      };
+    mockFindFirst.mockResolvedValue(null);
 
-      await queueManager.add(QueueName.GENERATE_TEXT_LOCAL, 'test', payload);
-      expect(mockAdd).toHaveBeenCalled();
+    const payload = {
+      prompt: 'test',
+      targetUid: 'api::test',
+      targetId: '1',
+      field: 'desc',
+    };
+
+    await queueManager.add(QueueName.GENERATE_TEXT_LOCAL, 'test', payload);
+    expect(mockAdd).toHaveBeenCalled();
   });
 
   it('should throw validation error for invalid payload', async () => {
-      mockFindFirst.mockResolvedValue(null);
+    mockFindFirst.mockResolvedValue(null);
 
-      const invalidPayload = {
-        prompt: 123, // Invalid type
-      } as any;
+    const invalidPayload = {
+      prompt: 123, // Invalid type
+    } as any;
 
-      await expect(
-        queueManager.add(QueueName.GENERATE_TEXT_LOCAL, 'test', invalidPayload)
-      ).rejects.toThrow('Invalid job payload');
+    await expect(queueManager.add(QueueName.GENERATE_TEXT_LOCAL, 'test', invalidPayload)).rejects.toThrow(
+      'Invalid job payload'
+    );
   });
 });

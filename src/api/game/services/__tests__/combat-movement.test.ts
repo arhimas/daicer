@@ -17,9 +17,9 @@ vi.mock('../../src/engine/rules/spatial', () => ({
  * We ensure global 'strapi' is available before modules load.
  */
 const mockGlobalStrapi = {
-    log: { error: vi.fn(), info: vi.fn(), debug: vi.fn() },
-    db: { query: vi.fn() },
-    documents: vi.fn()
+  log: { error: vi.fn(), info: vi.fn(), debug: vi.fn() },
+  db: { query: vi.fn() },
+  documents: vi.fn(),
 };
 vi.stubGlobal('strapi', mockGlobalStrapi);
 
@@ -72,124 +72,124 @@ describe('Combat & Movement Mechanics (Stateful)', () => {
     });
 
     it('should fail if pathfinding returns empty path (Obstacle)', async () => {
-        const { db, actionEngine } = context;
-        
-        db.seed('api::entity-sheet.entity-sheet', [
-            {
-              documentId: 'hero-blocked',
-              name: 'Hero',
-              position: { x: 0, y: 0, z: 0 },
-              speed: { walk: 30 },
-              room: { documentId: 'room-1' },
-            },
-        ]);
+      const { db, actionEngine } = context;
 
-        // Mock Blocked Path
-        vi.mocked(findPath).mockReturnValue([]);
+      db.seed('api::entity-sheet.entity-sheet', [
+        {
+          documentId: 'hero-blocked',
+          name: 'Hero',
+          position: { x: 0, y: 0, z: 0 },
+          speed: { walk: 30 },
+          room: { documentId: 'room-1' },
+        },
+      ]);
 
-        const command = {
-            type: 'MOVE',
-            payload: { actorId: 'hero-blocked', targetPosition: { x: 10, y: 0, z: 0 }, mode: 'walk' },
-        };
+      // Mock Blocked Path
+      vi.mocked(findPath).mockReturnValue([]);
 
-        const results = await actionEngine.dispatch('room-1', [command]);
+      const command = {
+        type: 'MOVE',
+        payload: { actorId: 'hero-blocked', targetPosition: { x: 10, y: 0, z: 0 }, mode: 'walk' },
+      };
 
-        expect(results[0].success).toBe(false);
-        expect(results[0].message).toContain('Path blocked');
+      const results = await actionEngine.dispatch('room-1', [command]);
 
-        // Verify No State Change
-        const hero = db.getState('api::entity-sheet.entity-sheet', 'hero-blocked');
-        expect(hero.position).toEqual({ x: 0, y: 0, z: 0 });
+      expect(results[0].success).toBe(false);
+      expect(results[0].message).toContain('Path blocked');
+
+      // Verify No State Change
+      const hero = db.getState('api::entity-sheet.entity-sheet', 'hero-blocked');
+      expect(hero.position).toEqual({ x: 0, y: 0, z: 0 });
     });
   });
 
   describe('Combat Interaction', () => {
-      beforeEach(() => {
-          // Setup Combatants
-          const { db } = context;
-          db.seed('api::entity-sheet.entity-sheet', [
-              {
-                  documentId: 'attacker-1',
-                  name: 'Knight',
-                  position: { x: 0, y: 0, z: 0 },
-                  stats: { strength: 18 },
-                  computedActions: [
-                      {
-                          id: 'sword-attack',
-                          name: 'Sword',
-                          type: 'melee_attack',
-                          attackBonus: 10,
-                          damage: [{ diceCount: 1, diceValue: 8, flatBonus: 4, damageType: 'slashing' }]
-                      }
-                  ]
-              },
-              {
-                  documentId: 'victim-1',
-                  name: 'Goblin',
-                  hp: 20,
-                  maxHp: 20,
-                  armorClass: 12,
-                  position: { x: 5, y: 0, z: 0 }, // 5ft away (in range)
-              }
-          ]);
-      });
-
-      it('should apply damage and reduce HP on hit', async () => {
-          const { db, actionEngine } = context;
-
-          // Force Hit & Damage
-          vi.spyOn(Math, 'random').mockReturnValue(0.8); // High roll
-
-          const command = {
-              type: 'ATTACK',
-              payload: { actorId: 'attacker-1', targetId: 'victim-1', weaponId: 'sword-attack' }
-          };
-
-          const results = await actionEngine.dispatch('room-1', [command]);
-
-          expect(results[0].success).toBe(true);
-          
-          // Verify Persistence
-          const victim = db.getState('api::entity-sheet.entity-sheet', 'victim-1');
-          expect(victim.hp).toBeLessThan(20); // HP Should be reduced
-          expect(results[0].events.map((e: any) => e.type)).toContain('DAMAGE_DEALT');
-      });
-
-      it('should trigger death event when HP reaches 0', async () => {
-        const { db, actionEngine } = context;
-        
-        // Update Victim to have 1 HP
-        db.seed('api::entity-sheet.entity-sheet', [
+    beforeEach(() => {
+      // Setup Combatants
+      const { db } = context;
+      db.seed('api::entity-sheet.entity-sheet', [
+        {
+          documentId: 'attacker-1',
+          name: 'Knight',
+          position: { x: 0, y: 0, z: 0 },
+          stats: { strength: 18 },
+          computedActions: [
             {
-                documentId: 'victim-low',
-                name: 'Weak Goblin',
-                hp: 1,
-                maxHp: 20,
-                armorClass: 10,
-                position: { x: 5, y: 0, z: 0 },
+              id: 'sword-attack',
+              name: 'Sword',
+              type: 'melee_attack',
+              attackBonus: 10,
+              damage: [{ diceCount: 1, diceValue: 8, flatBonus: 4, damageType: 'slashing' }],
             },
-            {
-                documentId: 'attacker-1',
-                // ... reuse existing props ...
-                name: 'Knight',
-                computedActions: [{ id: 'punch', type: 'melee_attack', attackBonus: 100, damage: [{ flatBonus: 10 }] }]
-            } as any
-        ]);
+          ],
+        },
+        {
+          documentId: 'victim-1',
+          name: 'Goblin',
+          hp: 20,
+          maxHp: 20,
+          armorClass: 12,
+          position: { x: 5, y: 0, z: 0 }, // 5ft away (in range)
+        },
+      ]);
+    });
 
-        vi.spyOn(Math, 'random').mockReturnValue(0.9);
+    it('should apply damage and reduce HP on hit', async () => {
+      const { db, actionEngine } = context;
 
-        const command = {
-            type: 'ATTACK',
-            payload: { actorId: 'attacker-1', targetId: 'victim-low', weaponId: 'punch' }
-        };
+      // Force Hit & Damage
+      vi.spyOn(Math, 'random').mockReturnValue(0.8); // High roll
 
-        const results = await actionEngine.dispatch('room-1', [command]);
+      const command = {
+        type: 'ATTACK',
+        payload: { actorId: 'attacker-1', targetId: 'victim-1', weaponId: 'sword-attack' },
+      };
 
-        const victim = db.getState('api::entity-sheet.entity-sheet', 'victim-low');
-        expect(victim.hp).toBe(0);
+      const results = await actionEngine.dispatch('room-1', [command]);
 
-        const eventTypes = results[0].events.map((e: any) => e.type);
-        expect(eventTypes).toContain('ENTITY_DEATH');
-      });
+      expect(results[0].success).toBe(true);
+
+      // Verify Persistence
+      const victim = db.getState('api::entity-sheet.entity-sheet', 'victim-1');
+      expect(victim.hp).toBeLessThan(20); // HP Should be reduced
+      expect(results[0].events.map((e: any) => e.type)).toContain('DAMAGE_DEALT');
+    });
+
+    it('should trigger death event when HP reaches 0', async () => {
+      const { db, actionEngine } = context;
+
+      // Update Victim to have 1 HP
+      db.seed('api::entity-sheet.entity-sheet', [
+        {
+          documentId: 'victim-low',
+          name: 'Weak Goblin',
+          hp: 1,
+          maxHp: 20,
+          armorClass: 10,
+          position: { x: 5, y: 0, z: 0 },
+        },
+        {
+          documentId: 'attacker-1',
+          // ... reuse existing props ...
+          name: 'Knight',
+          computedActions: [{ id: 'punch', type: 'melee_attack', attackBonus: 100, damage: [{ flatBonus: 10 }] }],
+        } as any,
+      ]);
+
+      vi.spyOn(Math, 'random').mockReturnValue(0.9);
+
+      const command = {
+        type: 'ATTACK',
+        payload: { actorId: 'attacker-1', targetId: 'victim-low', weaponId: 'punch' },
+      };
+
+      const results = await actionEngine.dispatch('room-1', [command]);
+
+      const victim = db.getState('api::entity-sheet.entity-sheet', 'victim-low');
+      expect(victim.hp).toBe(0);
+
+      const eventTypes = results[0].events.map((e: any) => e.type);
+      expect(eventTypes).toContain('ENTITY_DEATH');
+    });
   });
 });

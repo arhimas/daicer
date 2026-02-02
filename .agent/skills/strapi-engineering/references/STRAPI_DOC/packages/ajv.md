@@ -148,30 +148,30 @@ In JavaScript:
 
 ```javascript
 // or ESM/TypeScript import
-import Ajv from "ajv"
+import Ajv from 'ajv';
 // Node.js require:
-const Ajv = require("ajv")
+const Ajv = require('ajv');
 
-const ajv = new Ajv() // options can be passed, e.g. {allErrors: true}
+const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
 
 const schema = {
-  type: "object",
+  type: 'object',
   properties: {
-    foo: {type: "integer"},
-    bar: {type: "string"},
+    foo: { type: 'integer' },
+    bar: { type: 'string' },
   },
-  required: ["foo"],
+  required: ['foo'],
   additionalProperties: false,
-}
+};
 
 const data = {
   foo: 1,
-  bar: "abc",
-}
+  bar: 'abc',
+};
 
-const validate = ajv.compile(schema)
-const valid = validate(data)
-if (!valid) console.log(validate.errors)
+const validate = ajv.compile(schema);
+const valid = validate(data);
+if (!valid) console.log(validate.errors);
 ```
 
 Learn how to use Ajv and see more examples in the [Guide: getting started](https://ajv.js.org/guide/getting-started.html)

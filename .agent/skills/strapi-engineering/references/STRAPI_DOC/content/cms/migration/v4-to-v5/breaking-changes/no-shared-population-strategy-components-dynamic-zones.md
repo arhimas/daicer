@@ -4,11 +4,11 @@ description: In Strapi 5, the shared population strategy is not supported anymor
 sidebar_label: No shared population strategy
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content API
- - population
- - REST API
- - upgrade to Strapi 5
+  - breaking changes
+  - content API
+  - population
+  - REST API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -56,8 +56,8 @@ Additional information on population is available in the [REST API documentation
 Users should ensure that components and dynamic zones are explicitly populated using `on` fragments, such as in the following example syntax and URL:
 
 - example generic syntax:
-  
-    `populate[dynamic-zone-name][on][component-category.component-name]=true`
+
+  `populate[dynamic-zone-name][on][component-category.component-name]=true`
 
 - example URL:
 

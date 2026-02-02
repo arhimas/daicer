@@ -2,19 +2,19 @@
 title: Filters
 description: Use Strapi's REST API to filter the results of your requests.
 sidebarDepth: 3
-sidebar_label:  Filters
+sidebar_label: Filters
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- complex filtering
-- Content API
-- deep filtering
-- filters
-- find
-- interactive query builder
-- locale
-- REST API
-- qs library
+  - API
+  - complex filtering
+  - Content API
+  - deep filtering
+  - filters
+  - find
+  - interactive query builder
+  - locale
+  - REST API
+  - qs library
 ---
 
 import QsIntroFull from '/docs/snippets/qs-intro-full.md'
@@ -97,15 +97,18 @@ You can use the `$eq` filter operator to find an exact match.
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  filters: {
-    username: {
-      $eq: 'John',
+const query = qs.stringify(
+  {
+    filters: {
+      username: {
+        $eq: 'John',
+      },
     },
   },
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/users?${query}`);
 ```
@@ -162,15 +165,18 @@ You can use the `$in` filter operator with an array of values to find multiple e
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  filters: {
-    id: {
-      $in: [3, 6, 8],
+const query = qs.stringify(
+  {
+    filters: {
+      id: {
+        $in: [3, 6, 8],
+      },
     },
   },
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/restaurants?${query}`);
 ```
@@ -185,21 +191,21 @@ await request(`/api/restaurants?${query}`);
     {
       "id": 3,
       "documentId": "ethwxjxtvuxl89jq720e38uk",
-      "name": "test3",
+      "name": "test3"
       // ...
     },
     {
       "id": 6,
       "documentId": "ethwxjxtvuxl89jq720e38uk",
-      "name": "test6",
+      "name": "test6"
       // ...
     },
     {
       "id": 8,
       "documentId": "cf07g1dbusqr8mzmlbqvlegx",
-      "name": "test8",
+      "name": "test8"
       // ...
-    },
+    }
   ],
   "meta": {
     // ...
@@ -229,35 +235,38 @@ Complex filtering is combining multiple filters using advanced methods such as c
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  filters: {
-    $and: [
-      {
-        $or: [
-          {
-            date: {
-              $eq: '2020-01-01',
+const query = qs.stringify(
+  {
+    filters: {
+      $and: [
+        {
+          $or: [
+            {
+              date: {
+                $eq: '2020-01-01',
+              },
             },
-          },
-          {
-            date: {
-              $eq: '2020-01-02',
+            {
+              date: {
+                $eq: '2020-01-02',
+              },
             },
-          },
-        ],
-      },
-      {
-        author: {
-          name: {
-            $eq: 'Kai doe',
+          ],
+        },
+        {
+          author: {
+            name: {
+              $eq: 'Kai doe',
+            },
           },
         },
-      },
-    ],
+      ],
+    },
   },
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/books?${query}`);
 ```
@@ -273,14 +282,14 @@ await request(`/api/books?${query}`);
       "id": 1,
       "documentId": "rxngxzclq0zdaqtvz67hj38d",
       "name": "test1",
-      "date": "2020-01-01",
+      "date": "2020-01-01"
       // ...
     },
     {
       "id": 2,
       "documentId": "kjkhff4e269a50b4vi16stst",
       "name": "test2",
-      "date": "2020-01-02",
+      "date": "2020-01-02"
       // ...
     }
   ],
@@ -298,12 +307,13 @@ await request(`/api/books?${query}`);
 Deep filtering is filtering on a relation's fields.
 
 :::note
+
 - Relations, media fields, components, and dynamic zones are not populated by default. Use the `populate` parameter to populate these content structures (see [`populate` documentation](/cms/api/rest/populate-select#population))
 - You can filter what you populate, you can also filter nested relations, but you can't use filters for polymorphic content structures (such as media fields and dynamic zones).
-:::
+  :::
 
 :::caution
-Querying your API with deep filters may cause performance issues.  If one of your deep filtering queries is too slow, we recommend building a custom route with an optimized version of the query.
+Querying your API with deep filters may cause performance issues. If one of your deep filtering queries is too slow, we recommend building a custom route with an optimized version of the query.
 :::
 
 <DeepFilteringBlogLink />
@@ -322,19 +332,22 @@ Querying your API with deep filters may cause performance issues.  If one of you
 
 ```js
 const qs = require('qs');
-const query = qs.stringify({
-  filters: {
-    chef: {
-      restaurants: {
-        stars: {
-          $eq: 5,
+const query = qs.stringify(
+  {
+    filters: {
+      chef: {
+        restaurants: {
+          stars: {
+            $eq: 5,
+          },
         },
       },
     },
   },
-}, {
-  encodeValuesOnly: true, // prettify URL
-});
+  {
+    encodeValuesOnly: true, // prettify URL
+  }
+);
 
 await request(`/api/restaurants?${query}`);
 ```

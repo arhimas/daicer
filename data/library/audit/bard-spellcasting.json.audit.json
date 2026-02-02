@@ -21,12 +21,7 @@
       "mechanics": {
         "is_core_feature": true,
         "impact_level": "High (Defines the class)",
-        "suggested_mechanic_keywords": [
-          "Spellcasting",
-          "Spellcasting Ability",
-          "Repertoire",
-          "Prepared Spells"
-        ]
+        "suggested_mechanic_keywords": ["Spellcasting", "Spellcasting Ability", "Repertoire", "Prepared Spells"]
       }
     },
     "archival_status": "Approved",

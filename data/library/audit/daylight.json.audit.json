@@ -24,9 +24,7 @@
         "area_of_effect": "Large 60-foot radius sphere (120-foot diameter).",
         "movement": "Can be anchored to a movable object, providing mobile lighting."
       },
-      "suggestions": [
-        "None. The spell data appears complete and consistent with standard D&D 5e mechanics."
-      ]
+      "suggestions": ["None. The spell data appears complete and consistent with standard D&D 5e mechanics."]
     }
   },
   "timestamp": "2026-01-17T07:22:45.287Z"

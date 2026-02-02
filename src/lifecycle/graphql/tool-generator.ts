@@ -76,7 +76,11 @@ export const generateToolGraphQL = (strapi: Core.Strapi) => {
     `;
 
     // Generate Resolver
-    toolResolvers.Mutation[camelName] = async (_parent: unknown, _args: { roomId: string; input: unknown }, _ctx: unknown) => {
+    toolResolvers.Mutation[camelName] = async (
+      _parent: unknown,
+      _args: { roomId: string; input: unknown },
+      _ctx: unknown
+    ) => {
       // const { input } = args;
       // const _payload = input?.payload || input;
       // const _user = ctx?.state?.user;
@@ -116,8 +120,8 @@ function zodToSDLFields(schema: z.ZodSchema): string {
       .join('\n');
   }
   if (schema instanceof z.ZodUnion || schema instanceof z.ZodDiscriminatedUnion) {
-      // Very basic union support - probably just JSON
-      return 'payload: JSON'; 
+    // Very basic union support - probably just JSON
+    return 'payload: JSON';
   }
   return '';
 }

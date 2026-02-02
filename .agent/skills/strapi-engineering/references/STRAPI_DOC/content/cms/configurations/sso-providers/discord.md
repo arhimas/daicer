@@ -2,10 +2,10 @@
 title: Discord SSO provider
 description: Learn how to configure the SSO provider to sign in and sign up into your Strapi application through Discord.
 displayed_sidebar: cmsSidebar
-tags: 
-- SSO
-- providers
-- configuration
+tags:
+  - SSO
+  - providers
+  - configuration
 ---
 
 # Discord provider SSO configuration
@@ -49,27 +49,23 @@ The Discord SSO provider is configured in the `auth.providers` array of [the `co
 <TabItem value="javascript" label="JavaScript">
 
 ```jsx title="/config/admin.js"
-
-const DiscordStrategy = require("passport-discord");
+const DiscordStrategy = require('passport-discord');
 
 module.exports = ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "discord",
-        displayName: "Discord",
-        icon: "https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/discord-512.png",
+        uid: 'discord',
+        displayName: 'Discord',
+        icon: 'https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/discord-512.png',
         createStrategy: (strapi) =>
           new DiscordStrategy(
             {
-              clientID: env("DISCORD_CLIENT_ID"),
-              clientSecret: env("DISCORD_SECRET"),
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL(
-                  "discord"
-                ),
-              scope: ["identify", "email"],
+              clientID: env('DISCORD_CLIENT_ID'),
+              clientSecret: env('DISCORD_SECRET'),
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('discord'),
+              scope: ['identify', 'email'],
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {
@@ -89,28 +85,23 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
-import { Strategy as DiscordStrategy } from "passport-discord";
-
+import { Strategy as DiscordStrategy } from 'passport-discord';
 
 export default ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "discord",
-        displayName: "Discord",
-        icon: "https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/discord-512.png",
+        uid: 'discord',
+        displayName: 'Discord',
+        icon: 'https://cdn0.iconfinder.com/data/icons/free-social-media-set/24/discord-512.png',
         createStrategy: (strapi) =>
           new DiscordStrategy(
             {
-              clientID: env("DISCORD_CLIENT_ID"),
-              clientSecret: env("DISCORD_SECRET"),
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL(
-                  "discord"
-                ),
-              scope: ["identify", "email"],
+              clientID: env('DISCORD_CLIENT_ID'),
+              clientSecret: env('DISCORD_SECRET'),
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('discord'),
+              scope: ['identify', 'email'],
             },
             (accessToken, refreshToken, profile, done) => {
               done(null, {
@@ -128,5 +119,3 @@ export default ({ env }) => ({
 </TabItem>
 
 </Tabs>
-
-

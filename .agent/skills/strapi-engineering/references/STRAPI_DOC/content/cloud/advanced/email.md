@@ -4,12 +4,12 @@ displayed_sidebar: cloudSidebar
 description: Configure Strapi Cloud to use a third-party email provider.
 canonicalUrl: https://docs.strapi.io/cloud/advanced/email.html
 tags:
-- configuration
-- email provider
-- provider
-- plugins
-- Strapi Cloud
-- Strapi Cloud project
+  - configuration
+  - email provider
+  - provider
+  - plugins
+  - Strapi Cloud
+  - Strapi Cloud project
 ---
 
 # Email Provider
@@ -52,17 +52,16 @@ In your Strapi project, create a `./config/env/production/plugins.js` or `./conf
 <TabItem value="js" label="JavaScript">
 
 ```js title=./config/env/production/plugins.js
-
 module.exports = ({ env }) => ({
   // … some unrelated plugins configuration options
   // highlight-start
   email: {
     config: {
-        // … provider-specific upload configuration options go here
-    }
-  // highlight-end
-  // … some other unrelated plugins configuration options
-  }
+      // … provider-specific upload configuration options go here
+    },
+    // highlight-end
+    // … some other unrelated plugins configuration options
+  },
 });
 ```
 
@@ -70,17 +69,16 @@ module.exports = ({ env }) => ({
 <TabItem value="ts" label="TypeScript">
 
 ```ts title=./config/env/production/plugins.ts
-
 export default ({ env }) => ({
   // … some unrelated plugins configuration options
   // highlight-start
   email: {
     config: {
-        // … provider-specific upload configuration options go here
-    }
-  // highlight-end
-  // … some other unrelated plugins configuration options
-  }
+      // … provider-specific upload configuration options go here
+    },
+    // highlight-end
+    // … some other unrelated plugins configuration options
+  },
 });
 ```
 
@@ -263,14 +261,14 @@ Before pushing the above changes to GitHub, add environment variables to the Str
 <TabItem value="sendgrid" label="SendGrid">
 
 | Variable           | Value                 |
-|--------------------|-----------------------|
+| ------------------ | --------------------- |
 | `SENDGRID_API_KEY` | your_sendgrid_api_key |
 
 </TabItem>
 <TabItem value="amazon-ses" label="Amazon SES">
 
 | Variable         | Value               |
-|------------------|---------------------|
+| ---------------- | ------------------- |
 | `AWS_SES_KEY`    | your_aws_ses_key    |
 | `AWS_SES_SECRET` | your_aws_ses_secret |
 
@@ -278,7 +276,7 @@ Before pushing the above changes to GitHub, add environment variables to the Str
 <TabItem value="mailgun" label="Mailgun">
 
 | Variable          | Value                |
-|-------------------|----------------------|
+| ----------------- | -------------------- |
 | `MAILGUN_API_KEY` | your_mailgun_api_key |
 | `MAILGUN_DOMAIN`  | your_mailgun_domain  |
 | `MAILGUN_URL`     | your_mailgun_url     |

@@ -4,9 +4,9 @@ description: In Strapi 5, the `strapi.fetch` object is now wrapping node Fetch A
 sidebar_label: strapi.fetch uses native fetch()
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - fetch
- - upgrade to Strapi 5
+  - breaking changes
+  - fetch
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -47,7 +47,7 @@ The `node-fetch` module is not used anymore. `strapi.fetch` calls the native `fe
 
 ### Notes
 
-* The parameters are mostly compatible but there are some differences.
+- The parameters are mostly compatible but there are some differences.
 
 ### Manual procedure
 
@@ -78,7 +78,7 @@ strapi.fetch(url, {
   method: 'POST',
   body,
   headers,
-  signal: AbortSignal.timeout(1000)
+  signal: AbortSignal.timeout(1000),
 }); // accepts the type RequestInit native to Node
 ```
 

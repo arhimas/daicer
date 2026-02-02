@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import narratorService from '../narrator';
+// import narratorService from '../narrator';
 import { AIMessage, HumanMessage } from '@langchain/core/messages';
 import type { Core } from '@strapi/strapi';
 type StrapiInterface = Core.Strapi;
@@ -35,10 +35,16 @@ import { createAgent } from 'langchain';
 
 describe('Narrator Service: Agent Cognition', () => {
   let strapi: StrapiInterface;
-  let service;
 
-  beforeEach(() => {
+  let service: any;
+
+  beforeEach(async () => {
     vi.clearAllMocks();
+    process.env.GEMINI_API_KEY = 'mock-key'; // Safety net
+
+    // Dynamic import to enforce mock precedence
+    const narratorService = (await import('../narrator')).default;
+
     (createAgent as unknown as vi.Mock).mockResolvedValue(mockAgent);
 
     strapi = {

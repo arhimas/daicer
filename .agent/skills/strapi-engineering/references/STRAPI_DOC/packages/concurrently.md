@@ -93,9 +93,9 @@ package.json:
     // ...
     "watch-js": "...",
     "watch-css": "...",
-    "watch-node": "..."
+    "watch-node": "...",
     // ...
-  }
+  },
   // ...
 }
 ```
@@ -123,9 +123,9 @@ Exclusion is also supported. Given the following scripts in package.json:
     "lint:js": "...",
     "lint:ts": "...",
     "lint:fix:js": "...",
-    "lint:fix:ts": "..."
+    "lint:fix:ts": "...",
     // ...
-  }
+  },
   // ...
 }
 ```
@@ -376,7 +376,7 @@ const { result } = concurrently(
     killOthers: ['failure', 'success'],
     restartTries: 3,
     cwd: path.resolve(__dirname, 'scripts'),
-  },
+  }
 );
 result.then(success, failure);
 ```

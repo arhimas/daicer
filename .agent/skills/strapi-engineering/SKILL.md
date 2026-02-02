@@ -9,9 +9,9 @@ This skill is the **Source of Truth** for all Backend/CMS development.
 
 ## Resources
 
-*   **Official Docs Audit**: `references/STRAPI_DOC/` (Contains local copies of key Strapi documentation)
-*   **Engineering Guides**: `references/strapi-engineering/`
-*   **Project Specifics**: `references/strapi/`
+- **Official Docs Audit**: `references/STRAPI_DOC/` (Contains local copies of key Strapi documentation)
+- **Engineering Guides**: `references/strapi-engineering/`
+- **Project Specifics**: `references/strapi/`
 
 ## Usage
 

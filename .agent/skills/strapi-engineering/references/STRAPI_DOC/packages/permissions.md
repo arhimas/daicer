@@ -40,13 +40,11 @@ See `lib/engine/hooks.js` -> `createEngineHooks` for available hooks.
 ```javascript
 const permissions = require('@strapi/permissions');
 
-const engine = permissions.engine
-  .new({ providers })
-  .on('before-format::validate.permission', ({ permission }) => {
-    if (permission.action === 'read') {
-      return false;
-    }
-  });
+const engine = permissions.engine.new({ providers }).on('before-format::validate.permission', ({ permission }) => {
+  if (permission.action === 'read') {
+    return false;
+  }
+});
 
 const ability = await engine.generateAbility([
   { action: 'read' },

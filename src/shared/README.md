@@ -1,4 +1,3 @@
-
 # Shared Library
 
 Code shared strictly between the Backend (Strapi/Node) and Frontend (React).

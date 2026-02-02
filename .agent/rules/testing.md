@@ -16,9 +16,9 @@ trigger: always_on
 
 - **External APIs**: **NEVER** call OpenAI, Strapi, or 3rd party APIs in tests.
 - **Mocking Strategy**:
-    - Mock the **Boundary**, not the **Logic**.
-    - Use `vitest` or `jest` mocks explicitly.
-    - **Do not mock types**: Use the real generated types from `yarn codegen`.
+  - Mock the **Boundary**, not the **Logic**.
+  - Use `vitest` or `jest` mocks explicitly.
+  - **Do not mock types**: Use the real generated types from `yarn codegen`.
 
 ## 3. Hostile Testing
 

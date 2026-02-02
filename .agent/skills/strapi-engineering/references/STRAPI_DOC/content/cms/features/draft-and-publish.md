@@ -4,12 +4,12 @@ description: Learn how you can use the Draft & Publish feature of Strapi 5 to ma
 displayed_sidebar: cmsSidebar
 toc_max_heading_level: 5
 tags:
- - content manager
- - content type builder
- - draft & publish
- - publishing a draft
- - unpublishing content
- - features
+  - content manager
+  - content type builder
+  - draft & publish
+  - publishing a draft
+  - unpublishing content
+  - features
 ---
 
 # Draft & Publish
@@ -41,8 +41,8 @@ For your content types to be managed with Draft & Publish in the Content Manager
 4. Click the **Finish** button.
 
 <ThemedImage
-  alt="Content-type Builder's advanced settings"
-  sources={{
+alt="Content-type Builder's advanced settings"
+sources={{
     light: '/img/assets/content-type-builder/advanced-settings.png',
     dark: '/img/assets/content-type-builder/advanced-settings_DARK.png',
   }}
@@ -74,8 +74,8 @@ While editing a document, you can see 2 tabs:
 - The _Published_ tab is a read-only tab where edition of all fields is disabled. The _Published_ tab only exists to show what is the content of fields in the published version.
 
 <ThemedImage
-  alt="Editing draft version"
-  sources={{
+alt="Editing draft version"
+sources={{
     light: '/img/assets/content-manager/editing_draft_version3.png',
     dark: '/img/assets/content-manager/editing_draft_version3_DARK.png',
   }}
@@ -84,6 +84,7 @@ While editing a document, you can see 2 tabs:
 By default, each newly created content is a draft. Drafts can be modified and saved at will, using the **Save** button in the _Entry_ box on the right side of the interface, until they are ready to be published.
 
 Once you made changes to a draft, you have 3 possible options, all available in the _Entry_ box on the right side of the interface:
+
 - **Publish** your document (see [Publishing a draft](#publishing-a-draft)),
 - **Save** your draft for later retrieval,
 - or discard changes, by clicking on <Icon name="dots-three-outline" /> and choosing <Icon name="x-circle" /> **Discard changes**.
@@ -106,19 +107,16 @@ Before publishing a draft, make sure it doesn't have relations with other non-pu
 When a document has both a draft and a published version available, the published version can be found in the _Published_ tab. If the document has only a draft version, you can not click on the _Published_ tab.
 
 <ThemedImage
-  alt="Editing published version"
-  sources={{
+alt="Editing published version"
+sources={{
     light: '/img/assets/content-manager/editing_published_version3.png',
     dark: '/img/assets/content-manager/editing_published_version3_DARK.png',
   }}
 />
 
-
 :::tip
 To schedule publication (i.e. convert a draft to a published entry at a given date and time) you can include it in a release and schedule the publication of that release. Please refer to the [Releases feature](/cms/features/releases) documentation for more information.
 :::
-
-
 
 ### Unpublishing content
 
@@ -130,13 +128,13 @@ If the draft version of the document contains content different from the publish
 
 1. From the _Draft_ tab, click on <Icon name="dots-three-outline" /> in the _Entry_ box on the right side of the interface and choose the **Unpublish** button.
 2. In the Confirmation dialog that opens, you can choose to:
-    - **Unpublish and keep last draft**, so that all the content you currently have in the _Draft_ tab is preserved, but the all the content from the _Published_ tab is definitely gone
-    - **Unpublish and replace last draft** to discard any existing content in the _Draft_ tab and replace it with the content of all fields from the _Published_ tab
+   - **Unpublish and keep last draft**, so that all the content you currently have in the _Draft_ tab is preserved, but the all the content from the _Published_ tab is definitely gone
+   - **Unpublish and replace last draft** to discard any existing content in the _Draft_ tab and replace it with the content of all fields from the _Published_ tab
 3. Click **Confirm**. The desired changes will be applied to both the _Draft_ and _Published_ tabs and the new status of the entry will also be reflected below the entry title.
 
 <ThemedImage
-  alt="Unpublish a document"
-  sources={{
+alt="Unpublish a document"
+sources={{
     light: '/img/assets/content-manager/content-manager_unpublish.png',
     dark: '/img/assets/content-manager/content-manager_unpublish_DARK.png',
   }}
@@ -153,8 +151,8 @@ If the [Internationalization feature](/cms/features/internationalization) is ins
 :::
 
 <ThemedImage
-  alt="Unpublish a document"
-  sources={{
+alt="Unpublish a document"
+sources={{
     light: '/img/assets/content-manager/bulk-publish.png',
     dark: '/img/assets/content-manager/bulk-publish_DARK.png',
   }}
@@ -195,4 +193,3 @@ On the back-end server of Strapi, the Document Service API can also be used to i
 <CustomDocCardsWrapper>
 <CustomDocCard icon="cube" title="Document Service API" description="Learn how to use the status parameter with the Document Service API." link="/cms/api/document-service/status"/>
 </CustomDocCardsWrapper>
-

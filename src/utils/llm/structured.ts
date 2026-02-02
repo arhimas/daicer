@@ -56,7 +56,7 @@ CORRECT approach:
 
 /**
  * Internal structured generation wrapper with schema validation options.
- * 
+ *
  * @param schema - Zod schema for validation.
  * @param systemPrompt - Instructions for the model.
  * @param userPrompt - User input.

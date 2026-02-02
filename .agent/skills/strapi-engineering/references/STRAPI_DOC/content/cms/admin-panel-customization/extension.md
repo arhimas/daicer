@@ -4,9 +4,8 @@ description: Learn more about extending Strapi's admin panel.
 displayed_sidebar: cmsSidebar
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
-
+  - admin panel
+  - admin panel customization
 ---
 
 import HotReloading from '/docs/snippets/hot-reloading-admin-panel.md'
@@ -28,8 +27,9 @@ There are 2 use cases where you might want to extend the admin panel:
   👉 This can be done by directly updating the `/src/admin/app` file, which can import any file located in `/src/admin/extensions`.
 
 :::strapi Additional resources
-* If you're searching for ways of replacing the default Rich text editor, please refer to the [corresponding page](/cms/admin-panel-customization/wysiwyg-editor).
-* The <ExternalLink to="https://design-system.strapi.io/?path=/docs/getting-started-welcome--docs" text="Strapi Design System documentation"/> also provide extensive additional information on developing for Strapi's admin panel.
-:::
+
+- If you're searching for ways of replacing the default Rich text editor, please refer to the [corresponding page](/cms/admin-panel-customization/wysiwyg-editor).
+- The <ExternalLink to="https://design-system.strapi.io/?path=/docs/getting-started-welcome--docs" text="Strapi Design System documentation"/> also provide extensive additional information on developing for Strapi's admin panel.
+  :::
 
 <HotReloading />

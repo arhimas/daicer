@@ -3,9 +3,9 @@ sidebar_label: 'Caching for app performance'
 displayed_sidebar: cloudSidebar
 sidebar_position: 4
 tags:
-- caching
-- Content Delivery Network (CDN)
-- Strapi Cloud
+  - caching
+  - Content Delivery Network (CDN)
+  - Strapi Cloud
 ---
 
 # Caching & Performance
@@ -18,9 +18,9 @@ For Strapi Cloud applications with large amounts of cacheable content, such as i
 
 CDN caching can help improve application performance in a few ways:
 
-* **Reducing Latency**: Caching frequently accessed content on edge servers located closer to the end-users can reduce the time it takes to load content.
-* **Offloading Origin Server**: By caching content on edge servers it can offload the origin server, reducing the load and allowing it to focus on delivering more dynamic content.
-* **Handling Traffic Spikes**: Help handle traffic spikes by distributing the load across multiple edge servers. This can prevent the origin server from becoming overwhelmed during peak traffic times and ensures a consistent user experience.
+- **Reducing Latency**: Caching frequently accessed content on edge servers located closer to the end-users can reduce the time it takes to load content.
+- **Offloading Origin Server**: By caching content on edge servers it can offload the origin server, reducing the load and allowing it to focus on delivering more dynamic content.
+- **Handling Traffic Spikes**: Help handle traffic spikes by distributing the load across multiple edge servers. This can prevent the origin server from becoming overwhelmed during peak traffic times and ensures a consistent user experience.
 
 ## Cache-Control Header in Strapi Cloud
 
@@ -35,10 +35,11 @@ Responses from dynamic apps served by Strapi Cloud are not cached by default. To
 function myHandler(req, res) {
   // Set the Cache-Control header to cache responses for 1 day
   res.setHeader('Cache-Control', 'max-age=86400');
-  
+
   // Add your logic to generate the response here
 }
 ```
+
 </TabItem>
 
 <TabItem value="ts" label="TypeScript">
@@ -49,9 +50,10 @@ import { Request, Response } from 'express';
 function myHandler(req: Request, res: Response) {
   // Set the Cache-Control header to cache responses for 1 day
   res.setHeader('Cache-Control', 'max-age=86400');
-  
+
   // Add your logic to generate the response here
 }
 ```
+
 </TabItem>
 </Tabs>

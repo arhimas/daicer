@@ -2,9 +2,7 @@
   "file": "molecules/classes/warlock.json",
   "type": "class",
   "zod_valid": false,
-  "zod_errors": [
-    "hit_die: Invalid input: expected string, received number"
-  ],
+  "zod_errors": ["hit_die: Invalid input: expected string, received number"],
   "llm_audit": {
     "entity": "CLASS",
     "file": "warlock.json",
@@ -36,50 +34,32 @@
           "Religion"
         ],
         "proficiencies": {
-          "armor": [
-            "Light armor"
-          ],
-          "weapons": [
-            "Simple weapons"
-          ],
-          "tools": [
-            "None"
-          ],
-          "saving_throws": [
-            "Wisdom",
-            "Charisma"
-          ]
+          "armor": ["Light armor"],
+          "weapons": ["Simple weapons"],
+          "tools": ["None"],
+          "saving_throws": ["Wisdom", "Charisma"]
         },
         "equipment": [],
         "progression": [
           {
             "level": 1,
             "pb": 2,
-            "features": [
-              "Otherworldly Patron",
-              "Pact Magic"
-            ]
+            "features": ["Otherworldly Patron", "Pact Magic"]
           },
           {
             "level": 2,
             "pb": 2,
-            "features": [
-              "Eldritch Invocations"
-            ]
+            "features": ["Eldritch Invocations"]
           },
           {
             "level": 3,
             "pb": 2,
-            "features": [
-              "Pact Boon"
-            ]
+            "features": ["Pact Boon"]
           },
           {
             "level": 4,
             "pb": 2,
-            "features": [
-              "Ability Score Improvement"
-            ]
+            "features": ["Ability Score Improvement"]
           },
           {
             "level": 5,
@@ -89,9 +69,7 @@
           {
             "level": 6,
             "pb": 3,
-            "features": [
-              "Otherworldly Patron feature"
-            ]
+            "features": ["Otherworldly Patron feature"]
           },
           {
             "level": 7,
@@ -101,9 +79,7 @@
           {
             "level": 8,
             "pb": 3,
-            "features": [
-              "Ability Score Improvement"
-            ]
+            "features": ["Ability Score Improvement"]
           },
           {
             "level": 9,
@@ -113,58 +89,42 @@
           {
             "level": 10,
             "pb": 4,
-            "features": [
-              "Otherworldly Patron feature"
-            ]
+            "features": ["Otherworldly Patron feature"]
           },
           {
             "level": 11,
             "pb": 4,
-            "features": [
-              "Mystic Arcanum"
-            ]
+            "features": ["Mystic Arcanum"]
           },
           {
             "level": 12,
             "pb": 4,
-            "features": [
-              "Ability Score Improvement"
-            ]
+            "features": ["Ability Score Improvement"]
           },
           {
             "level": 13,
             "pb": 5,
-            "features": [
-              "Mystic Arcanum"
-            ]
+            "features": ["Mystic Arcanum"]
           },
           {
             "level": 14,
             "pb": 5,
-            "features": [
-              "Otherworldly Patron feature"
-            ]
+            "features": ["Otherworldly Patron feature"]
           },
           {
             "level": 15,
             "pb": 5,
-            "features": [
-              "Mystic Arcanum"
-            ]
+            "features": ["Mystic Arcanum"]
           },
           {
             "level": 16,
             "pb": 5,
-            "features": [
-              "Ability Score Improvement"
-            ]
+            "features": ["Ability Score Improvement"]
           },
           {
             "level": 17,
             "pb": 6,
-            "features": [
-              "Mystic Arcanum"
-            ]
+            "features": ["Mystic Arcanum"]
           },
           {
             "level": 18,
@@ -174,16 +134,12 @@
           {
             "level": 19,
             "pb": 6,
-            "features": [
-              "Ability Score Improvement"
-            ]
+            "features": ["Ability Score Improvement"]
           },
           {
             "level": 20,
             "pb": 6,
-            "features": [
-              "Eldritch Master"
-            ]
+            "features": ["Eldritch Master"]
           }
         ]
       }

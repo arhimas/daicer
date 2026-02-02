@@ -24,10 +24,7 @@
           "The spell must be present in the caster's spellbook."
         ],
         "effect": "Allows the spell to be cast without being prepared, using the ritual casting time/procedure.",
-        "dependencies": [
-          "Spellbook access",
-          "Spell must have the 'ritual' tag"
-        ],
+        "dependencies": ["Spellbook access", "Spell must have the 'ritual' tag"],
         "notes": "This feature is crucial for the Wizard's spell versatility, distinguishing it from prepared casters who must track ritual spells separately in their daily preparation."
       },
       "archivist_review": {

@@ -14,9 +14,7 @@
         "trigger": "A creature you can see attacks a target other than you that is within 5 feet of you.",
         "cost": "Reaction",
         "effect": "Impose disadvantage on the attack roll.",
-        "prerequisites": [
-          "Must be wielding a shield."
-        ],
+        "prerequisites": ["Must be wielding a shield."],
         "balance_notes": "This feature seems mechanically similar to the Sentinel feat's reaction ability or perhaps a variant of the Sentinel feat's general theme, but focused purely on imposing disadvantage defensively. As a Level 1 feature (as indicated by the raw data), this might be unusually potent for a starting ability if it's not tied to the subclass entry level (usually Level 3 for Paladin subclasses), but the context implies it might be a homebrew or a feature from an unusual source given the standard Paladin progression. Assuming the level tag is contextual for tracking, the power level of imposing disadvantage on any adjacent attack using a reaction is strong but balanced by the reaction cost."
       }
     }

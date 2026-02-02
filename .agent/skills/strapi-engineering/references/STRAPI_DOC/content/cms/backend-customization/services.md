@@ -3,12 +3,12 @@ title: Services
 description: Strapi services are a set of reusable functions, useful to simplify controllers logic.
 displayed_sidebar: cmsSidebar
 tags:
-- backend customization
-- backend server
-- controllers
-- createCoreService 
-- services
-- REST API 
+  - backend customization
+  - backend server
+  - controllers
+  - createCoreService
+  - services
+  - REST API
 ---
 
 # Services
@@ -44,28 +44,27 @@ To manually create a service, export a factory function that returns the service
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/services/restaurant.js"
-
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>  ({
+module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) => ({
   // Method 1: Creating an entirely new custom service
   async exampleService(...args) {
-    let response = { okay: true }
+    let response = { okay: true };
 
     if (response.okay === false) {
-      return { response, error: true }
+      return { response, error: true };
     }
 
-    return response
+    return response;
   },
 
   // Method 2: Wrapping a core service (leaves core logic in place)
-  async find(...args) {  
+  async find(...args) {
     // Calling the default core controller
     const { results, pagination } = await super.find(...args);
 
     // some custom logic
-    results.forEach(result => {
+    results.forEach((result) => {
       result.counter = 1;
     });
 
@@ -75,7 +74,7 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
   // Method 3: Replacing a core service
   async findOne(documentId, params = {}) {
     return strapi.documents('api::restaurant.restaurant').findOne(documentId, this.getFetchParams(params));
-  }
+  },
 }));
 ```
 
@@ -84,28 +83,27 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/restaurant/services/restaurant.ts"
+import { factories } from '@strapi/strapi';
 
-import { factories } from '@strapi/strapi'; 
-
-export default factories.createCoreService('api::restaurant.restaurant', ({ strapi }) =>  ({
+export default factories.createCoreService('api::restaurant.restaurant', ({ strapi }) => ({
   // Method 1: Creating an entirely custom service
   async exampleService(...args) {
-    let response = { okay: true }
+    let response = { okay: true };
 
     if (response.okay === false) {
-      return { response, error: true }
+      return { response, error: true };
     }
 
-    return response
+    return response;
   },
 
   // Method 2: Wrapping a core service (leaves core logic in place)
-  async find(...args) {  
+  async find(...args) {
     // Calling the default core controller
     const { results, pagination } = await super.find(...args);
 
     // some custom logic
-    results.forEach(result => {
+    results.forEach((result) => {
       result.counter = 1;
     });
 
@@ -114,8 +112,8 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
 
   // Method 3: Replacing a core service
   async findOne(documentId, params = {}) {
-     return strapi.documents('api::restaurant.restaurant').findOne(documentId, this.getFetchParams(params));
-  }
+    return strapi.documents('api::restaurant.restaurant').findOne(documentId, this.getFetchParams(params));
+  },
 }));
 ```
 
@@ -137,8 +135,6 @@ The goal of a service is to store reusable functions. A `sendNewsletter` service
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/services/restaurant.js"
-
-
 const { createCoreService } = require('@strapi/strapi').factories;
 const nodemailer = require('nodemailer'); // Requires nodemailer to be installed (npm install nodemailer)
 
@@ -172,9 +168,7 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="./src/api/restaurant/services/restaurant.ts"
-
-
-import { factories } from '@strapi/strapi'; 
+import { factories } from '@strapi/strapi';
 const nodemailer = require('nodemailer'); // Requires nodemailer to be installed (npm install nodemailer)
 
 // Create reusable transporter object using SMTP transport.
@@ -188,7 +182,7 @@ const transporter = nodemailer.createTransport({
 
 export default factories.createCoreService('api::restaurant.restaurant', ({ strapi }) => ({
   sendNewsletter(from, to, subject, text) {
-    // Setup e-mail data. 
+    // Setup e-mail data.
     const options = {
       from,
       to,
@@ -213,8 +207,7 @@ The service is now available through the `strapi.service('api::restaurant.restau
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/restaurant/controllers/restaurant.js"
-
-module.exports = createCoreController('api::restaurant.restaurant', ({ strapi }) =>  ({
+module.exports = createCoreController('api::restaurant.restaurant', ({ strapi }) => ({
   // GET /hello
   async signup(ctx) {
     const { userData } = ctx.body;
@@ -238,8 +231,7 @@ module.exports = createCoreController('api::restaurant.restaurant', ({ strapi })
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/restaurant/controllers/restaurant.ts"
-
-export default factories.createCoreController('api::restaurant.restaurant', ({ strapi }) =>  ({
+export default factories.createCoreController('api::restaurant.restaurant', ({ strapi }) => ({
   // GET /hello
   async signup(ctx) {
     const { userData } = ctx.body;
@@ -267,8 +259,6 @@ export default factories.createCoreController('api::restaurant.restaurant', ({ s
 :::note
 When a new [content-type](/cms/backend-customization/models.md#content-types) is created, Strapi builds a generic service with placeholder code, ready to be customized.
 :::
-
-
 
 ### Extending core services
 
@@ -430,29 +420,29 @@ Services generated with `createCoreService` inherit methods that wrap the [Docum
 
 #### Collection types
 
-| Method | Description |
-| --- | --- |
-| `find(params)` | Wrapper for [`findMany`](/cms/api/document-service#findmany); returns a paginated list of documents. |
-| `findOne(documentId, params)` | Wrapper for [`findOne`](/cms/api/document-service#findone); returns a single document by its `documentId`. |
-| `create(params)` | Wrapper for [`create`](/cms/api/document-service#create); creates a new document. |
-| `update(documentId, params)` | Wrapper for [`update`](/cms/api/document-service#update); updates an existing document. |
-| `delete(documentId, params)` | Wrapper for [`delete`](/cms/api/document-service#delete); removes a document. |
-| `count(params)` | Wrapper for [`count`](/cms/api/document-service#count); returns the number of matching documents. |
-| `publish(documentId, params)` | Wrapper for [`publish`](/cms/api/document-service#publish); publishes a draft document. |
-| `unpublish(documentId, params)` | Wrapper for [`unpublish`](/cms/api/document-service#unpublish); unpublishes a document. |
-| `discardDraft(documentId, params)` | Wrapper for [`discardDraft`](/cms/api/document-service#discarddraft); deletes the draft copy. |
+| Method                             | Description                                                                                                |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `find(params)`                     | Wrapper for [`findMany`](/cms/api/document-service#findmany); returns a paginated list of documents.       |
+| `findOne(documentId, params)`      | Wrapper for [`findOne`](/cms/api/document-service#findone); returns a single document by its `documentId`. |
+| `create(params)`                   | Wrapper for [`create`](/cms/api/document-service#create); creates a new document.                          |
+| `update(documentId, params)`       | Wrapper for [`update`](/cms/api/document-service#update); updates an existing document.                    |
+| `delete(documentId, params)`       | Wrapper for [`delete`](/cms/api/document-service#delete); removes a document.                              |
+| `count(params)`                    | Wrapper for [`count`](/cms/api/document-service#count); returns the number of matching documents.          |
+| `publish(documentId, params)`      | Wrapper for [`publish`](/cms/api/document-service#publish); publishes a draft document.                    |
+| `unpublish(documentId, params)`    | Wrapper for [`unpublish`](/cms/api/document-service#unpublish); unpublishes a document.                    |
+| `discardDraft(documentId, params)` | Wrapper for [`discardDraft`](/cms/api/document-service#discarddraft); deletes the draft copy.              |
 
 #### Single types
 
-| Method | Description |
-| --- | --- |
-| `find(params)` | Returns the single document (uses [`findFirst`](/cms/api/document-service#findfirst) internally). |
+| Method                                | Description                                                                                                 |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `find(params)`                        | Returns the single document (uses [`findFirst`](/cms/api/document-service#findfirst) internally).           |
 | `createOrUpdate({ data, ...params })` | Creates the document if it doesn't exist or updates it (uses [`update`](/cms/api/document-service#update)). |
-| `delete(params)` | Deletes the document (uses [`delete`](/cms/api/document-service#delete)). |
-| `count(params)` | Counts documents matching the filters (uses [`count`](/cms/api/document-service#count)). |
-| `publish(params)` | Publishes a draft document (uses [`publish`](/cms/api/document-service#publish)). |
-| `unpublish(params)` | Unpublishes the document (uses [`unpublish`](/cms/api/document-service#unpublish)). |
-| `discardDraft(params)` | Deletes the draft copy (uses [`discardDraft`](/cms/api/document-service#discarddraft)). |
+| `delete(params)`                      | Deletes the document (uses [`delete`](/cms/api/document-service#delete)).                                   |
+| `count(params)`                       | Counts documents matching the filters (uses [`count`](/cms/api/document-service#count)).                    |
+| `publish(params)`                     | Publishes a draft document (uses [`publish`](/cms/api/document-service#publish)).                           |
+| `unpublish(params)`                   | Unpublishes the document (uses [`unpublish`](/cms/api/document-service#unpublish)).                         |
+| `discardDraft(params)`                | Deletes the draft copy (uses [`discardDraft`](/cms/api/document-service#discarddraft)).                     |
 
 #### Parameters and default behavior
 

@@ -7,23 +7,25 @@ interface StateInspectorProps {
 
 export const StateInspector = ({ data }: StateInspectorProps) => {
   return (
-    <Box 
-      background="neutral0" 
-      hasRadius 
-      shadow="filterShadow" 
-      padding={4} 
+    <Box
+      background="neutral0"
+      hasRadius
+      shadow="filterShadow"
+      padding={4}
       style={{ height: '100%', overflowY: 'auto' }}
     >
-      <Typography variant="delta" tag="h3" marginBottom={4}>Inspector</Typography>
-      
+      <Typography variant="delta" tag="h3" marginBottom={4}>
+        Inspector
+      </Typography>
+
       {data ? (
-        <pre 
-          style={{ 
-            fontSize: '12px', 
-            background: '#f6f6f6', 
-            padding: '1rem', 
+        <pre
+          style={{
+            fontSize: '12px',
+            background: '#f6f6f6',
+            padding: '1rem',
             borderRadius: '4px',
-            overflowX: 'auto'
+            overflowX: 'auto',
           }}
         >
           {JSON.stringify(data, null, 2)}

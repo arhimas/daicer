@@ -128,10 +128,10 @@ const wss = new WebSocketServer({
       // See zlib defaults.
       chunkSize: 1024,
       memLevel: 7,
-      level: 3
+      level: 3,
     },
     zlibInflateOptions: {
-      chunkSize: 10 * 1024
+      chunkSize: 10 * 1024,
     },
     // Other options settable:
     clientNoContextTakeover: true, // Defaults to negotiated value.
@@ -139,9 +139,9 @@ const wss = new WebSocketServer({
     serverMaxWindowBits: 10, // Defaults to negotiated value.
     // Below options specified as default values.
     concurrencyLimit: 10, // Limits zlib concurrency for perf.
-    threshold: 1024 // Size (in bytes) below which messages
+    threshold: 1024, // Size (in bytes) below which messages
     // should not be compressed if context takeover is disabled.
-  }
+  },
 });
 ```
 
@@ -153,7 +153,7 @@ server. To always disable the extension on the client, set the
 import WebSocket from 'ws';
 
 const ws = new WebSocket('ws://www.host.com/path', {
-  perMessageDeflate: false
+  perMessageDeflate: false,
 });
 ```
 
@@ -224,7 +224,7 @@ import { WebSocketServer } from 'ws';
 
 const server = createServer({
   cert: readFileSync('/path/to/cert.pem'),
-  key: readFileSync('/path/to/key.pem')
+  key: readFileSync('/path/to/key.pem'),
 });
 const wss = new WebSocketServer({ server });
 
@@ -538,8 +538,7 @@ We're using the GitHub [releases][changelog] for changelog entries.
 [client-report]: http://websockets.github.io/ws/autobahn/clients/
 [https-proxy-agent]: https://github.com/TooTallNate/node-https-proxy-agent
 [node-zlib-bug]: https://github.com/nodejs/node/issues/8871
-[node-zlib-deflaterawdocs]:
-  https://nodejs.org/api/zlib.html#zlib_zlib_createdeflateraw_options
+[node-zlib-deflaterawdocs]: https://nodejs.org/api/zlib.html#zlib_zlib_createdeflateraw_options
 [permessage-deflate]: https://tools.ietf.org/html/rfc7692
 [server-report]: http://websockets.github.io/ws/autobahn/servers/
 [session-parse-example]: ./examples/express-session-parse

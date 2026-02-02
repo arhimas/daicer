@@ -18,32 +18,29 @@ To learn more about how to use LangGraph, check out [the docs](https://langchain
 
 ```ts
 // npm install @langchain-anthropic
-import { createReactAgent, tool } from "langchain";
-import { ChatAnthropic } from "@langchain/anthropic";
+import { createReactAgent, tool } from 'langchain';
+import { ChatAnthropic } from '@langchain/anthropic';
 
-import { z } from "zod";
+import { z } from 'zod';
 
 const search = tool(
   async ({ query }) => {
-    if (
-      query.toLowerCase().includes("sf") ||
-      query.toLowerCase().includes("san francisco")
-    ) {
+    if (query.toLowerCase().includes('sf') || query.toLowerCase().includes('san francisco')) {
       return "It's 60 degrees and foggy.";
     }
     return "It's 90 degrees and sunny.";
   },
   {
-    name: "search",
-    description: "Call to surf the web.",
+    name: 'search',
+    description: 'Call to surf the web.',
     schema: z.object({
-      query: z.string().describe("The query to use in your search."),
+      query: z.string().describe('The query to use in your search.'),
     }),
   }
 );
 
 const model = new ChatAnthropic({
-  model: "claude-3-7-sonnet-latest",
+  model: 'claude-3-7-sonnet-latest',
 });
 
 const agent = createReactAgent({
@@ -54,8 +51,8 @@ const agent = createReactAgent({
 const result = await agent.invoke({
   messages: [
     {
-      role: "user",
-      content: "what is the weather in sf",
+      role: 'user',
+      content: 'what is the weather in sf',
     },
   ],
 });

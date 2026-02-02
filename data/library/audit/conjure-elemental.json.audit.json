@@ -23,9 +23,7 @@
         "risk_assessment": "High risk upon failure of concentration check. The elemental becomes hostile and cannot be dismissed until its duration expires (1 hour).",
         "scaling_impact": "At 9th level, this summons a CR 9 elemental, which is a very strong combat presence, balanced by the severe downside of losing control."
       },
-      "suggestions": [
-        "None. The spell is well-defined and balanced within the established ruleset."
-      ]
+      "suggestions": ["None. The spell is well-defined and balanced within the established ruleset."]
     }
   },
   "timestamp": "2026-01-17T07:22:46.843Z"

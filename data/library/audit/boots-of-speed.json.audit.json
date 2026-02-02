@@ -11,10 +11,7 @@
       "quality": "Good. The description is clear and references standard D&D 5e mechanics (bonus action, opportunity attack, long rest recharge). The formatting in the RAW DATA is typical of digital source material.",
       "mechanics": {
         "activation": "Bonus Action (Heel Click)",
-        "effect": [
-          "Double walking speed.",
-          "Attacks of opportunity made against the wearer have disadvantage."
-        ],
+        "effect": ["Double walking speed.", "Attacks of opportunity made against the wearer have disadvantage."],
         "duration_usage": "Cumulative 10 minutes of use total.",
         "recharge": "Finish a long rest.",
         "attunement": true,

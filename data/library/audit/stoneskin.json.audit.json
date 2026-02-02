@@ -25,12 +25,7 @@
         "concentration_required": true,
         "range": "Touch",
         "target_type": "Willing creature",
-        "class_availability": [
-          "druid",
-          "ranger",
-          "sorcerer",
-          "wizard"
-        ]
+        "class_availability": ["druid", "ranger", "sorcerer", "wizard"]
       },
       "notes": "The material component cost (100 gp) is significant and correctly noted as consumed, which balances the spell's powerful defensive effect."
     }

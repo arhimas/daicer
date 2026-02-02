@@ -3,9 +3,9 @@ sidebar_label: 'Cloud CLI'
 displayed_sidebar: cloudSidebar
 sidebar_position: 3
 tags:
-- Strapi Cloud
-- CLI
-- deployment
+  - Strapi Cloud
+  - CLI
+  - deployment
 pagination_next: cloud/advanced/database
 ---
 
@@ -56,7 +56,7 @@ Once you deployed your project, if you visit the Strapi Cloud dashboard, you may
 
 - Some areas in the dashboard that are usually reserved to display information about the git provider will be blank.
 - Some buttons, such as the **Trigger deploy** button, will be greyed out and unclickable since, unless you have [connected a git repository to your Strapi Cloud project](/cloud/getting-started/deployment-cli#automatically-deploying-subsequent-changes).
-:::
+  :::
 
 ## strapi link <NewBadge />
 

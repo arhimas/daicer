@@ -2,10 +2,10 @@
 title: Microsoft SSO provider
 description: Learn how to configure the SSO provider to sign in and sign up into your Strapi application through Microsoft.
 displayed_sidebar: cmsSidebar
-tags: 
-- SSO
-- providers
-- configuration
+tags:
+  - SSO
+  - providers
+  - configuration
 ---
 
 # Microsoft provider SSO configuration
@@ -49,32 +49,28 @@ The Microsoft SSO provider is configured in the `auth.providers` array of [the `
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/admin.js"
-
-const AzureAdOAuth2Strategy = require("passport-azure-ad-oauth2");
-const jwt = require("jsonwebtoken");
+const AzureAdOAuth2Strategy = require('passport-azure-ad-oauth2');
+const jwt = require('jsonwebtoken');
 
 module.exports = ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "azure_ad_oauth2",
-        displayName: "Microsoft",
-        icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/320px-Microsoft_logo_%282012%29.svg.png",
+        uid: 'azure_ad_oauth2',
+        displayName: 'Microsoft',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/320px-Microsoft_logo_%282012%29.svg.png',
         createStrategy: (strapi) =>
           new AzureAdOAuth2Strategy(
             {
-              clientID: env("MICROSOFT_CLIENT_ID", ""),
-              clientSecret: env("MICROSOFT_CLIENT_SECRET", ""),
-              scope: ["user:email"],
-              tenant: env("MICROSOFT_TENANT_ID", ""),
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL(
-                  "azure_ad_oauth2"
-                ),
+              clientID: env('MICROSOFT_CLIENT_ID', ''),
+              clientSecret: env('MICROSOFT_CLIENT_SECRET', ''),
+              scope: ['user:email'],
+              tenant: env('MICROSOFT_TENANT_ID', ''),
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('azure_ad_oauth2'),
             },
             (accessToken, refreshToken, params, profile, done) => {
-              let waadProfile = jwt.decode(params.id_token, "", true);
+              let waadProfile = jwt.decode(params.id_token, '', true);
               done(null, {
                 email: waadProfile.email,
                 username: waadProfile.email,
@@ -94,32 +90,28 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/admin.ts"
-
-import { Strategy as AzureAdOAuth2Strategy} from "passport-azure-ad-oauth2";
-import jwt from "jsonwebtoken";
+import { Strategy as AzureAdOAuth2Strategy } from 'passport-azure-ad-oauth2';
+import jwt from 'jsonwebtoken';
 
 export default ({ env }) => ({
   auth: {
     // ...
     providers: [
       {
-        uid: "azure_ad_oauth2",
-        displayName: "Microsoft",
-        icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/320px-Microsoft_logo_%282012%29.svg.png",
+        uid: 'azure_ad_oauth2',
+        displayName: 'Microsoft',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/320px-Microsoft_logo_%282012%29.svg.png',
         createStrategy: (strapi) =>
           new AzureAdOAuth2Strategy(
             {
-              clientID: env("MICROSOFT_CLIENT_ID", ""),
-              clientSecret: env("MICROSOFT_CLIENT_SECRET", ""),
-              scope: ["user:email"],
-              tenant: env("MICROSOFT_TENANT_ID", ""),
-              callbackURL:
-                strapi.admin.services.passport.getStrategyCallbackURL(
-                  "azure_ad_oauth2"
-                ),
+              clientID: env('MICROSOFT_CLIENT_ID', ''),
+              clientSecret: env('MICROSOFT_CLIENT_SECRET', ''),
+              scope: ['user:email'],
+              tenant: env('MICROSOFT_TENANT_ID', ''),
+              callbackURL: strapi.admin.services.passport.getStrategyCallbackURL('azure_ad_oauth2'),
             },
             (accessToken, refreshToken, params, profile, done) => {
-              let waadProfile = jwt.decode(params.id_token, "", true);
+              let waadProfile = jwt.decode(params.id_token, '', true);
               done(null, {
                 email: waadProfile.email,
                 username: waadProfile.email,

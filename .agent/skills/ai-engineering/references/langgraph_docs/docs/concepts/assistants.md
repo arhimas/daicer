@@ -21,14 +21,13 @@ In practice, an assistant is just an _instance_ of a graph with a specific confi
 
 Once you've created an assistant, you can save and version it to track changes to the configuration over time. You can think about this at three levels:
 
-1) The graph lays out the general agent application logic
-2) The agent configuration options represent parameters that can be changed
-3) Assistant versions save and track specific settings of the agent configuration options
+1. The graph lays out the general agent application logic
+2. The agent configuration options represent parameters that can be changed
+3. Assistant versions save and track specific settings of the agent configuration options
 
 For example, let's imagine you have a general writing agent. You have created a general graph architecture that works well for writing. However, there are different types of writing, e.g. blogs vs tweets. In order to get the best performance on each use case, you need to make some minor changes to the models and prompts used. In this setup, you could create an assistant for each use case - one for blog writing and one for tweeting. These would share the same graph structure, but they may use different models and different prompts. Read [this how-to](/langgraphjs/cloud/how-tos/assistant_versioning) to learn how you can use assistant versioning through both the [Studio](/langgraphjs/cloud/how-tos/index/#langgraph-studio) and the SDK.
 
 ![assistant versions](img/assistants.png)
-
 
 ## Resources
 

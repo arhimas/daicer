@@ -1,15 +1,15 @@
 ---
-title: Components and dynamic zones do not return an id 
+title: Components and dynamic zones do not return an id
 description: In Strapi 5, components and dynamic zones do not return an `id` with REST API requests so it's not possible to partially update them.
 sidebar_label: Components and dynamic zones do not return an id
 displayed_sidebar: cmsSidebar
 unlisted: true
 tags:
- - breaking changes
- - content API
- - components
- - dynamic zones
- - upgrade to Strapi 5
+  - breaking changes
+  - content API
+  - components
+  - dynamic zones
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -50,7 +50,7 @@ The response of components and dynamic zones in the REST API does not contain an
 
 ### Notes
 
-* In Strapi v4, you could do the following send requests that would return a component's `id`:
+- In Strapi v4, you could do the following send requests that would return a component's `id`:
 
   ```tsx
   // 1. GET /category/:id
@@ -63,22 +63,21 @@ The response of components and dynamic zones in the REST API does not contain an
     // Update component by its id
     component: {
       id: category.component.id // Use the id received in 1.
-      value: 'value' 
+      value: 'value'
     }
   }
   }
   ```
 
   So you could specify the component `id` to update the `value` field.
-  
-* In Strapi 5:
 
-  * The [Draft & Publish](/cms/features/draft-and-publish) feature has been reworked and documents <DocumentDefinition/> can have both a draft and a published version.
-  * The default behaviour of the Content API is to return published data, for instance `PUT /category/:id` can be used to update the draft version of a document and publish it.
-  * The REST API response returns the published version, so using the `id` would resort to trying to update the draft version of a component or dynamic zone with the unique identifier of its published version, which is not possible.
-  * Trying to partially update a component will result in the following error: `Some of the provided components in component are not related to the entity`.
+- In Strapi 5:
+  - The [Draft & Publish](/cms/features/draft-and-publish) feature has been reworked and documents <DocumentDefinition/> can have both a draft and a published version.
+  - The default behaviour of the Content API is to return published data, for instance `PUT /category/:id` can be used to update the draft version of a document and publish it.
+  - The REST API response returns the published version, so using the `id` would resort to trying to update the draft version of a component or dynamic zone with the unique identifier of its published version, which is not possible.
+  - Trying to partially update a component will result in the following error: `Some of the provided components in component are not related to the entity`.
 
-* This breaking change only affects the REST API, not the [Document Service API](/cms/api/document-service), because the Document Service API returns the draft version of a document by default. This also makes it possible to partially update a component or dynamic zone in the Content Manager.
+- This breaking change only affects the REST API, not the [Document Service API](/cms/api/document-service), because the Document Service API returns the draft version of a document by default. This also makes it possible to partially update a component or dynamic zone in the Content Manager.
 
 ### Manual procedure
 

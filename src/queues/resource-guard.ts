@@ -25,25 +25,21 @@ export class ResourceGuard {
       const rssMB = Math.round(memoryUsage.rss / 1024 / 1024);
 
       if (rssMB > limits.maxMemoryMB) {
-        throw new SystemOverloadError(
-          `Memory limit exceeded: Used ${rssMB}MB > Limit ${limits.maxMemoryMB}MB`
-        );
+        throw new SystemOverloadError(`Memory limit exceeded: Used ${rssMB}MB > Limit ${limits.maxMemoryMB}MB`);
       }
     }
 
     if (limits.maxCpuPercent) {
       // os.loadavg() returns [1, 5, 15] minutes load average
       // detailed load calculation is complex, so we use a simplified heuristic for now
-      // Load average / Number of CPUs = Load Factor. 
+      // Load average / Number of CPUs = Load Factor.
       // If factor > 1, the CPU is fully utilized.
       const cpus = os.cpus().length;
       const loadAvg1Min = os.loadavg()[0];
       const loadPercent = Math.round((loadAvg1Min / cpus) * 100);
 
       if (loadPercent > limits.maxCpuPercent) {
-        throw new SystemOverloadError(
-          `CPU limit exceeded: Load ${loadPercent}% > Limit ${limits.maxCpuPercent}%`
-        );
+        throw new SystemOverloadError(`CPU limit exceeded: Load ${loadPercent}% > Limit ${limits.maxCpuPercent}%`);
       }
     }
   }

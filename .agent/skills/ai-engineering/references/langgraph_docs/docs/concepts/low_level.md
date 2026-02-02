@@ -60,13 +60,7 @@ It is also possible to define explicit input and output schemas for a graph. In 
 Let's look at an example:
 
 ```ts
-import {
-  Annotation,
-  START,
-  StateGraph,
-  StateType,
-  UpdateType,
-} from "@langchain/langgraph";
+import { Annotation, START, StateGraph, StateType, UpdateType } from '@langchain/langgraph';
 
 const InputStateAnnotation = Annotation.Root({
   user_input: Annotation<string>,
@@ -85,43 +79,43 @@ const OverallStateAnnotation = Annotation.Root({
 
 const node1 = async (state: typeof InputStateAnnotation.State) => {
   // Write to OverallStateAnnotation
-  return { foo: state.user_input + " name" };
+  return { foo: state.user_input + ' name' };
 };
 
 const node2 = async (state: typeof OverallStateAnnotation.State) => {
   // Read from OverallStateAnnotation, write to OverallStateAnnotation
-  return { bar: state.foo + " is" };
+  return { bar: state.foo + ' is' };
 };
 
 const node3 = async (state: typeof OverallStateAnnotation.State) => {
   // Read from OverallStateAnnotation, write to OutputStateAnnotation
-  return { graph_output: state.bar + " Lance" };
+  return { graph_output: state.bar + ' Lance' };
 };
 
 // Most of the time the StateGraph type parameters are inferred by TypeScript,
 // but this is a special case where they must be specified explicitly in order
 // to avoid a type error.
 const graph = new StateGraph<
-  (typeof OverallStateAnnotation)["spec"],
-  StateType<(typeof OverallStateAnnotation)["spec"]>,
-  UpdateType<(typeof OutputStateAnnotation)["spec"]>,
+  (typeof OverallStateAnnotation)['spec'],
+  StateType<(typeof OverallStateAnnotation)['spec']>,
+  UpdateType<(typeof OutputStateAnnotation)['spec']>,
   typeof START,
-  (typeof InputStateAnnotation)["spec"],
-  (typeof OutputStateAnnotation)["spec"]
+  (typeof InputStateAnnotation)['spec'],
+  (typeof OutputStateAnnotation)['spec']
 >({
   input: InputStateAnnotation,
   output: OutputStateAnnotation,
   stateSchema: OverallStateAnnotation,
 })
-  .addNode("node1", node1)
-  .addNode("node2", node2)
-  .addNode("node3", node3)
-  .addEdge("__start__", "node1")
-  .addEdge("node1", "node2")
-  .addEdge("node2", "node3")
+  .addNode('node1', node1)
+  .addNode('node2', node2)
+  .addNode('node3', node3)
+  .addEdge('__start__', 'node1')
+  .addEdge('node1', 'node2')
+  .addEdge('node2', 'node3')
   .compile();
 
-await graph.invoke({ user_input: "My" });
+await graph.invoke({ user_input: 'My' });
 ```
 
 ```
@@ -137,7 +131,7 @@ Reducers are key to understanding how updates from nodes are applied to the `Sta
 **Example A:**
 
 ```typescript
-import { StateGraph, Annotation } from "@langchain/langgraph";
+import { StateGraph, Annotation } from '@langchain/langgraph';
 
 const State = Annotation.Root({
   foo: Annotation<number>,
@@ -152,7 +146,7 @@ In this example, no reducer functions are specified for any key. Let's assume th
 **Example B:**
 
 ```typescript
-import { StateGraph, Annotation } from "@langchain/langgraph";
+import { StateGraph, Annotation } from '@langchain/langgraph';
 
 const State = Annotation.Root({
   foo: Annotation<number>,
@@ -186,20 +180,20 @@ In addition to keeping track of message IDs, the `messagesStateReducer` function
 ```ts
 // this is supported
 {
-  messages: [new HumanMessage({ content: "message" })];
+  messages: [new HumanMessage({ content: 'message' })];
 }
 
 // and this is also supported
 {
-  messages: [{ role: "user", content: "message" }];
+  messages: [{ role: 'user', content: 'message' }];
 }
 ```
 
 Below is an example of a graph state annotation that uses `messagesStateReducer` as its reducer function.
 
 ```ts
-import type { BaseMessage } from "@langchain/core/messages";
-import { Annotation, type Messages } from "@langchain/langgraph";
+import type { BaseMessage } from '@langchain/core/messages';
+import { Annotation, type Messages } from '@langchain/langgraph';
 
 const StateAnnotation = Annotation.Root({
   messages: Annotation<BaseMessage[], Messages>({
@@ -243,7 +237,7 @@ The state of a `MessagesAnnotation` has a single key called `messages`. This is 
 We often see an array of messages being a key component of state, so this prebuilt state is intended to make it easy to use messages. Typically, there is more state to track than just messages, so we see people extend this state and add more fields, like:
 
 ```typescript
-import { Annotation, MessagesAnnotation } from "@langchain/langgraph";
+import { Annotation, MessagesAnnotation } from '@langchain/langgraph';
 
 const StateWithDocuments = Annotation.Root({
   ...MessagesAnnotation.spec, // Spread in the messages state
@@ -327,9 +321,9 @@ Behind the scenes, functions are converted to [RunnableLambda's](https://v02.api
 The `START` Node is a special node that represents the node sends user input to the graph. The main purpose for referencing this node is to determine which nodes should be called first.
 
 ```typescript
-import { START } from "@langchain/langgraph";
+import { START } from '@langchain/langgraph';
 
-graph.addEdge(START, "nodeA");
+graph.addEdge(START, 'nodeA');
 ```
 
 ### `END` Node
@@ -337,9 +331,9 @@ graph.addEdge(START, "nodeA");
 The `END` Node is a special node that represents a terminal node. This node is referenced when you want to denote which edges have no actions after they are done.
 
 ```typescript
-import { END } from "@langchain/langgraph";
+import { END } from '@langchain/langgraph';
 
-graph.addEdge("nodeA", END);
+graph.addEdge('nodeA', END);
 ```
 
 ## Edges
@@ -358,7 +352,7 @@ A node can have MULTIPLE outgoing edges. If a node has multiple out-going edges,
 If you **always** want to go from node A to node B, you can use the [addEdge](/langgraphjs/reference/classes/langgraph.StateGraph.html#addEdge) method directly.
 
 ```typescript
-graph.addEdge("nodeA", "nodeB");
+graph.addEdge('nodeA', 'nodeB');
 ```
 
 ### Conditional Edges
@@ -366,7 +360,7 @@ graph.addEdge("nodeA", "nodeB");
 If you want to **optionally** route to 1 or more edges (or optionally terminate), you can use the [addConditionalEdges](/langgraphjs/reference/classes/langgraph.StateGraph.html#addConditionalEdges) method. This method accepts the name of a node and a "routing function" to call after that node is executed:
 
 ```typescript
-graph.addConditionalEdges("nodeA", routingFunction);
+graph.addConditionalEdges('nodeA', routingFunction);
 ```
 
 Similar to nodes, the `routingFunction` accepts the current `state` of the graph and return a value.
@@ -376,9 +370,9 @@ By default, the return value `routingFunction` is used as the name of the node (
 You can optionally provide an object that maps the `routingFunction`'s output to the name of the next node.
 
 ```typescript
-graph.addConditionalEdges("nodeA", routingFunction, {
-  true: "nodeB",
-  false: "nodeC",
+graph.addConditionalEdges('nodeA', routingFunction, {
+  true: 'nodeB',
+  false: 'nodeC',
 });
 ```
 
@@ -446,7 +440,7 @@ This functionality requires `@langchain/langgraph>=0.2.31`.
 It can be convenient to combine control flow (edges) and state updates (nodes). For example, you might want to BOTH perform state updates AND decide which node to go to next in the SAME node rather than use a conditional edge. LangGraph provides a way to do so by returning a [`Command`](https://langchain-ai.github.io/langgraphjs/reference/classes/langgraph.Command.html) object from node functions:
 
 ```ts
-import { StateGraph, Annotation, Command } from "@langchain/langgraph";
+import { StateGraph, Annotation, Command } from '@langchain/langgraph';
 
 const StateAnnotation = Annotation.Root({
   foo: Annotation<string>,
@@ -456,10 +450,10 @@ const myNode = (state: typeof StateAnnotation.State) => {
   return new Command({
     // state update
     update: {
-      foo: "bar",
+      foo: 'bar',
     },
     // control flow
-    goto: "myOtherNode",
+    goto: 'myOtherNode',
   });
 };
 ```
@@ -468,12 +462,12 @@ With `Command` you can also achieve dynamic control flow behavior (identical to 
 
 ```ts
 const myNode = async (state: typeof StateAnnotation.State) => {
-  if (state.foo === "bar") {
+  if (state.foo === 'bar') {
     return new Command({
       update: {
-        foo: "baz",
+        foo: 'baz',
       },
-      goto: "myOtherNode",
+      goto: 'myOtherNode',
     });
   }
   // ...
@@ -499,8 +493,8 @@ If you are using [subgraphs](#subgraphs), you might want to navigate from a node
 ```ts
 const myNode = (state: typeof StateAnnotation.State) => {
   return new Command({
-    update: { foo: "bar" },
-    goto: "other_subgraph", // where `other_subgraph` is a node in the parent graph
+    update: { foo: 'bar' },
+    goto: 'other_subgraph', // where `other_subgraph` is a node in the parent graph
     graph: Command.PARENT,
   });
 };
@@ -578,7 +572,7 @@ When creating a graph, you can also mark that certain parts of the graph are con
 You can then pass this configuration into the graph using the `configurable` config field.
 
 ```typescript
-const config = { configurable: { llm: "anthropic" } };
+const config = { configurable: { llm: 'anthropic' } };
 
 await graph.invoke(inputs, config);
 ```

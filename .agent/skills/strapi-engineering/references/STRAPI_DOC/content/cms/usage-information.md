@@ -3,10 +3,10 @@ title: Usage information
 description: We are committed to providing a solution, with Strapi, that exceeds the expectations of the users and community. We are also committed to continuing to develop and make Strapi even better than it is today.
 sidebarDepth: 0
 tags:
-- collected data
-- telemetry
-- GDPR
-- UUID
+  - collected data
+  - telemetry
+  - GDPR
+  - UUID
 ---
 
 # Collected Usage Information

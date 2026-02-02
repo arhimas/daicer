@@ -17,42 +17,15 @@
         "sub_elements": [
           {
             "name": "Gray Bag of Tricks Creatures",
-            "list": [
-              "Weasel",
-              "Giant rat",
-              "Badger",
-              "Boar",
-              "Panther",
-              "Giant badger",
-              "Dire wolf",
-              "Giant elk"
-            ]
+            "list": ["Weasel", "Giant rat", "Badger", "Boar", "Panther", "Giant badger", "Dire wolf", "Giant elk"]
           },
           {
             "name": "Rust Bag of Tricks Creatures",
-            "list": [
-              "Rat",
-              "Owl",
-              "Mastiff",
-              "Goat",
-              "Giant goat",
-              "Giant boar",
-              "Lion",
-              "Brown bear"
-            ]
+            "list": ["Rat", "Owl", "Mastiff", "Goat", "Giant goat", "Giant boar", "Lion", "Brown bear"]
           },
           {
             "name": "Tan Bag of Tricks Creatures",
-            "list": [
-              "Jackal",
-              "Ape",
-              "Baboon",
-              "Axe beak",
-              "Black bear",
-              "Giant weasel",
-              "Giant hyena",
-              "Tiger"
-            ]
+            "list": ["Jackal", "Ape", "Baboon", "Axe beak", "Black bear", "Giant weasel", "Giant hyena", "Tiger"]
           }
         ]
       }

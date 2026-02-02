@@ -4,12 +4,13 @@ description: Learn how you can use the Content History feature of Strapi 5 to br
 displayed_sidebar: cmsSidebar
 toc_max_heading_level: 5
 tags:
- - content manager
- - content history
- - features
+  - content manager
+  - content history
+  - features
 ---
 
 # Content History
+
 <GrowthBadge /> <EnterpriseBadge/> <VersionBadge version="5.0.0" />
 
 <Tldr>
@@ -41,7 +42,6 @@ With Content History, you can browse your content through:
   - the user who created it,
   - and whether its status is Draft, Modified, or Published (see [Draft & Publish](/cms/features/draft-and-publish) for more information about document statuses).
 
-
 <ThemedImage
 alt="Accessing the Content History of a document"
 sources={{
@@ -60,7 +60,7 @@ You can choose to restore a previous version of a document. When restoring a ver
 
 1. Browse the Content History and select a version via the sidebar on the right.
 2. Click the **Restore** button.
-3. In the _Confirmation_ window, click **Restore**.  
+3. In the _Confirmation_ window, click **Restore**.
 
 :::note
 If the [Internationalization (i18n)](/cms/features/internationalization) feature is enabled for the content-type, restoring a version with a unique field (i.e. a field whose content is the same for all locales) will restore the content of this field for all locales.

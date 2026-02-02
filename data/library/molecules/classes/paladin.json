@@ -3,92 +3,54 @@
     "slug": "paladin",
     "name": "Paladin",
     "hit_die": 10,
-    "proficiency_choices": [
-      "Athletics",
-      "Insight",
-      "Intimidation",
-      "Medicine",
-      "Persuasion",
-      "Religion"
-    ],
+    "proficiency_choices": ["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"],
     "proficiencies": {
-      "armor": [
-        "All armor",
-        "shields"
-      ],
-      "weapons": [
-        "Simple weapons",
-        "martial weapons"
-      ],
-      "tools": [
-        "None"
-      ],
-      "saving_throws": [
-        "Wisdom",
-        "Charisma"
-      ]
+      "armor": ["All armor", "shields"],
+      "weapons": ["Simple weapons", "martial weapons"],
+      "tools": ["None"],
+      "saving_throws": ["Wisdom", "Charisma"]
     },
     "equipment": [],
     "progression": [
       {
         "level": 1,
         "pb": 2,
-        "features": [
-          "Divine Sense",
-          "Lay on Hands"
-        ]
+        "features": ["Divine Sense", "Lay on Hands"]
       },
       {
         "level": 2,
         "pb": 2,
-        "features": [
-          "Fighting Style",
-          "Spellcasting",
-          "Divine Smite"
-        ]
+        "features": ["Fighting Style", "Spellcasting", "Divine Smite"]
       },
       {
         "level": 3,
         "pb": 2,
-        "features": [
-          "Divine Health",
-          "Sacred Oath"
-        ]
+        "features": ["Divine Health", "Sacred Oath"]
       },
       {
         "level": 4,
         "pb": 2,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 5,
         "pb": 3,
-        "features": [
-          "Extra Attack"
-        ]
+        "features": ["Extra Attack"]
       },
       {
         "level": 6,
         "pb": 3,
-        "features": [
-          "Aura of Protection"
-        ]
+        "features": ["Aura of Protection"]
       },
       {
         "level": 7,
         "pb": 3,
-        "features": [
-          "Sacred Oath feature"
-        ]
+        "features": ["Sacred Oath feature"]
       },
       {
         "level": 8,
         "pb": 3,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 9,
@@ -98,23 +60,17 @@
       {
         "level": 10,
         "pb": 4,
-        "features": [
-          "Aura of Courage"
-        ]
+        "features": ["Aura of Courage"]
       },
       {
         "level": 11,
         "pb": 4,
-        "features": [
-          "Improved Divine Smite"
-        ]
+        "features": ["Improved Divine Smite"]
       },
       {
         "level": 12,
         "pb": 4,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 13,
@@ -124,23 +80,17 @@
       {
         "level": 14,
         "pb": 5,
-        "features": [
-          "Cleansing Touch"
-        ]
+        "features": ["Cleansing Touch"]
       },
       {
         "level": 15,
         "pb": 5,
-        "features": [
-          "Sacred Oath feature"
-        ]
+        "features": ["Sacred Oath feature"]
       },
       {
         "level": 16,
         "pb": 5,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 17,
@@ -150,23 +100,17 @@
       {
         "level": 18,
         "pb": 6,
-        "features": [
-          "Aura of Protection"
-        ]
+        "features": ["Aura of Protection"]
       },
       {
         "level": 19,
         "pb": 6,
-        "features": [
-          "Ability Score Improvement"
-        ]
+        "features": ["Ability Score Improvement"]
       },
       {
         "level": 20,
         "pb": 6,
-        "features": [
-          "Sacred Oath feature"
-        ]
+        "features": ["Sacred Oath feature"]
       }
     ]
   }

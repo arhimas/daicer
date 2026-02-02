@@ -21,12 +21,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
       '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
       '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
+      '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src/index.ts'),
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
         '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
         '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
+        '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src/index.ts'),
       },
     },
     coverage: {

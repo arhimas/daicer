@@ -21,10 +21,7 @@
         "target_restriction": "Applies only to creatures that need to breathe.",
         "primary_effect": "Incapacitated and Suffocating.",
         "save_and_repeat": "DC 15 CON save to avoid initially. Creatures can repeat the save at the end of each turn while conscious to end the effect on themselves.",
-        "countermeasures": [
-          "Successful subsequent Constitution saves.",
-          "The *lesser restoration* spell."
-        ],
+        "countermeasures": ["Successful subsequent Constitution saves.", "The *lesser restoration* spell."],
         "balance_notes": "Uncommon rarity seems appropriate for a single-use area control item that imposes two debilitating conditions (Incapacitated and Suffocating) via a moderate DC save (DC 15)."
       }
     }

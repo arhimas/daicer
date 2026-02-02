@@ -21,10 +21,7 @@
         "attunement_check_required": false,
         "charge_reading_capability": true,
         "effect_summary": "Provides detailed information about a touched magic item (properties, attunement needs, charges, current spells, creation spell) or reveals ongoing spells affecting a touched creature.",
-        "class_availability": [
-          "Bard",
-          "Wizard"
-        ],
+        "class_availability": ["Bard", "Wizard"],
         "material_component_cost": "100 gp (consumed/expended is not specified, but typically material components for rituals are not consumed unless stated)",
         "mechanics_notes": "The 1-minute casting time combined with the 'ritual' tag is standard for utility spells that take time out of combat. The material component cost is significant for a 1st-level spell, emphasizing its utility role."
       }

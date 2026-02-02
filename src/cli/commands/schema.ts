@@ -68,7 +68,7 @@ export async function runSchema(options: {
       await ui.header('Available Content Types');
       await ui.table(
         ['UID', 'Display Name', 'Kind'],
-        types.map(t => [t.uid, t.info.displayName, `${t.info.singularName}`])
+        types.map((t) => [t.uid, t.info.displayName, `${t.info.singularName}`])
       );
       return;
     }
@@ -77,7 +77,7 @@ export async function runSchema(options: {
       result = readAllSchemas();
     } else if (mode === 'single') {
       // Use Deep Read by default for single inspection
-      const { readSchemaDeep } = await import('../utils/schema'); 
+      const { readSchemaDeep } = await import('../utils/schema');
       result = readSchemaDeep(options.type!, 2); // Depth 2 as requested
 
       if (!result) {
@@ -125,10 +125,11 @@ async function printHumanSchema(schema: SchemaDefinition, indentLevel = 0) {
   const pad = ' '.repeat(indentLevel * 3);
 
   if (indentLevel === 0) {
-    await ui.panel(
-        `${schema.info.description || 'No description'}\nCollection: ${schema.collectionName}`,
-        { title: schema.info.displayName, style: 'round', color: 'blue' }
-    );
+    await ui.panel(`${schema.info.description || 'No description'}\nCollection: ${schema.collectionName}`, {
+      title: schema.info.displayName,
+      style: 'round',
+      color: 'blue',
+    });
     console.log(chalk.bold('   Attributes:'));
   } else {
     console.log(

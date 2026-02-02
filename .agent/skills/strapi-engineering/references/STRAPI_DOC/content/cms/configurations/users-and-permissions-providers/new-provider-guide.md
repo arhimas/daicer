@@ -3,10 +3,10 @@ title: Creating and adding a custom Users & Permissions provider
 description: todo
 displayed_sidebar: cmsSidebar
 tags:
-- users & permissions
-- providers
-- configuration
-- customization
+  - users & permissions
+  - providers
+  - configuration
+  - customization
 ---
 
 # Creating and adding a custom Users & Permissions provider
@@ -25,25 +25,25 @@ You can use [the `register` lifecycle function](/cms/configurations/functions#re
 module.exports = {
   register({ strapi }) {
     strapi
-      .plugin("users-permissions")
-      .service("providers-registry")
-      .add("example-provider-name", {
-        icon: "",
+      .plugin('users-permissions')
+      .service('providers-registry')
+      .add('example-provider-name', {
+        icon: '',
         enabled: true,
         grantConfig: {
-          key: "",
-          secret: "",
+          key: '',
+          secret: '',
           callback: `${strapi.config.server.url}/auth/example-provider-name/callback`,
-          scope: ["email"],
-          authorize_url: "https://awesome.com/authorize",
-          access_url: "https://awesome.com/token",
+          scope: ['email'],
+          authorize_url: 'https://awesome.com/authorize',
+          access_url: 'https://awesome.com/token',
           oauth: 2,
         },
         async authCallback({ accessToken, providers, purest }) {
           // use whatever you want here to get the user info
           return {
-            username: "test",
-            email: "test",
+            username: 'test',
+            email: 'test',
           };
         },
       });
@@ -51,7 +51,7 @@ module.exports = {
 };
 ```
 
-For additional information on parameters passed to `grantConfig`, please refer to the  <ExternalLink to="https://github.com/simov/grant" text="`grant` documentation"/>. For additional information about `purest` please refer to <ExternalLink to="https://github.com/simov/purest" text="`purest` documentation"/>.
+For additional information on parameters passed to `grantConfig`, please refer to the <ExternalLink to="https://github.com/simov/grant" text="`grant` documentation"/>. For additional information about `purest` please refer to <ExternalLink to="https://github.com/simov/purest" text="`purest` documentation"/>.
 
 ### Frontend setup
 
@@ -71,7 +71,7 @@ Now you can make authenticated requests, as described in [token usage](/cms/feat
   - **A session/cookie/cache problem**: You can try again in a private tab.
   - **The incorrect use of a domain with ngrok**: Check your urls and make sure that you use the ngrok url instead of `http://localhost:1337`. Don't forget to check the backend url set in the example app at `src/config.js`.
 - **You can't access your admin panel**: It's most likely because you built it with the backend url set with a ngrok url and you stopped/restarted ngrok. You need to replace the backend url with the new ngrok url and run `yarn build` or `npm run build` again.
-:::
+  :::
 
 ### Reset password
 
@@ -114,10 +114,10 @@ axios
   .post('http://localhost:1337/api/auth/forgot-password', {
     email: 'user@strapi.io', // user's email
   })
-  .then(response => {
+  .then((response) => {
     console.log('Your user received an email');
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('An error occurred:', error.response);
   });
 ```
@@ -139,10 +139,10 @@ axios
     password: 'userNewPassword',
     passwordConfirmation: 'userNewPassword',
   })
-  .then(response => {
+  .then((response) => {
     console.log("Your user's password has been reset.");
   })
-  .catch(error => {
+  .catch((error) => {
     console.log('An error occurred:', error.response);
   });
 ```
@@ -196,10 +196,10 @@ axios
   .post(`http://localhost:1337/api/auth/send-email-confirmation`, {
     email: 'user@strapi.io', // user's email
   })
-  .then(response => {
+  .then((response) => {
     console.log('Your user received an email');
   })
-  .catch(error => {
+  .catch((error) => {
     console.error('An error occurred:', error.response);
   });
 ```

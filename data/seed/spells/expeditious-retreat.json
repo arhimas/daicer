@@ -9,9 +9,5 @@
   "components": "V, S",
   "duration": "Concentration, up to 10 minutes",
   "description": "This spell allows you to move at an incredible pace. When you cast this spell, and then as a bonus action on each of your turns until the spell ends, you can take the Dash action.",
-  "classes": [
-    "sorcerer",
-    "warlock",
-    "wizard"
-  ]
+  "classes": ["sorcerer", "warlock", "wizard"]
 }

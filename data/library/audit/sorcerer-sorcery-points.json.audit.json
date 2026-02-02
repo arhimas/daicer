@@ -20,10 +20,7 @@
       "core_mechanic": "Resource management (Sorcery Points).",
       "scaling": "Points scale with character level.",
       "regeneration": "Full recovery on a Long Rest.",
-      "constraints": [
-        "Maximum points limited by level table.",
-        "Points are inherently tied to the Sorcerer class."
-      ],
+      "constraints": ["Maximum points limited by level table.", "Points are inherently tied to the Sorcerer class."],
       "potential_issues": "None identified based on the description alone; relies on external 'Sorcerer table' data for scaling reference."
     },
     "archival_summary": {

@@ -5,10 +5,10 @@ displayed_sidebar: cmsSidebar
 canonicalUrl: https://docs.strapi.io/cms/data-management/transfer.html
 pagination_prev: cms/data-management/export
 tags:
-- data management system
-- data transfer
-- strapi transfer
-- environment 
+  - data management system
+  - data transfer
+  - strapi transfer
+  - environment
 ---
 
 # Data transfer
@@ -22,9 +22,9 @@ The following documentation details the available options to customize your data
 
 :::caution
 
-* If you are using an SQLite database in the destination instance other database connections will be blocked while the `transfer` operation is running.
-* Admin users and API tokens are not transferred.
-* If you use websockets or Socket.io in your projects, the transfer command will fail. You will need to **temporarily disable websockets or Socket.io** or ensure that your websocket server is running on a different port than the Strapi server, or a on a specific route within Strapi to use the transfer command.
+- If you are using an SQLite database in the destination instance other database connections will be blocked while the `transfer` operation is running.
+- Admin users and API tokens are not transferred.
+- If you use websockets or Socket.io in your projects, the transfer command will fail. You will need to **temporarily disable websockets or Socket.io** or ensure that your websocket server is running on a different port than the Strapi server, or a on a specific route within Strapi to use the transfer command.
 
 :::
 
@@ -39,17 +39,18 @@ The CLI command consists of the following arguments:
 | `--force`      | Automatically answer "yes" to all prompts, including potentially destructive requests, and run non-interactively.                            |
 | `--exclude`    | Exclude data using comma-separated data types. The available types are: `content`, `files`, and `config`.                                    |
 | `--only`       | Include only these data. The available types are: `content`, `files`, and `config`.                                                          |
-| `--throttle` | Time in milliseconds to inject an artificial delay between the "chunks" during a transfer. |
-| `--verbose` | Enable verbose logs. |
+| `--throttle`   | Time in milliseconds to inject an artificial delay between the "chunks" during a transfer.                                                   |
+| `--verbose`    | Enable verbose logs.                                                                                                                         |
 
 :::caution
 Either `--to` or `--from` is required.
 :::
 
 :::tip Tips
-* Data transfers are authorized by transfer tokens, which are [managed from the admin panel](/cms/features/data-management#admin-panel-settings). From the admin panel, you can manage role-based permissions to tokens including `view`, `create`, `read`, `regenerate` and `delete`.
-* It might be convenient to store your transfer tokens into [environment variables](/cms/configurations/environment) to avoid copying/pasting. Just ensure that these tokens are not pushed to public repositories.
-:::
+
+- Data transfers are authorized by transfer tokens, which are [managed from the admin panel](/cms/features/data-management#admin-panel-settings). From the admin panel, you can manage role-based permissions to tokens including `view`, `create`, `read`, `regenerate` and `delete`.
+- It might be convenient to store your transfer tokens into [environment variables](/cms/configurations/environment) to avoid copying/pasting. Just ensure that these tokens are not pushed to public repositories.
+  :::
 
 :::warning
 When using nginx and a server that proxies requests into a localhost, issues might occur. To prevent them, ensure all the headers are forwarded correctly by changing the configuration file in `/etc/nginx/sites-available/yourdomain` as follows:
@@ -86,9 +87,10 @@ Initiating a data transfer depends on whether you want to push data to a remote 
 
 <TabItem value="push" label="Push data to remote">
 
-  1. Start the Strapi server for the destination instance.
-  2. In a new terminal window, navigate to the root directory of the source instance.
-  3. Run the following minimal command to initiate the transfer, ensuring `destinationURL` is the full URL to the admin panel (i.e., the URL includes the `/admin` part):
+1. Start the Strapi server for the destination instance.
+2. In a new terminal window, navigate to the root directory of the source instance.
+3. Run the following minimal command to initiate the transfer, ensuring `destinationURL` is the full URL to the admin panel (i.e., the URL includes the `/admin` part):
+
 
     <Tabs groupId="yarn-npm">
 
@@ -109,9 +111,9 @@ Initiating a data transfer depends on whether you want to push data to a remote 
     </TabItem>
 
     </Tabs>
-  
-  4. Add the transfer token when prompted to do so.
-  5. Answer **Yes** or **No** to the CLI prompt: "The transfer will delete all of the remote Strapi assets and its database. Are you sure you want to proceed?"
+
+4. Add the transfer token when prompted to do so.
+5. Answer **Yes** or **No** to the CLI prompt: "The transfer will delete all of the remote Strapi assets and its database. Are you sure you want to proceed?"
 
 </TabItem>
 
@@ -119,23 +121,23 @@ Initiating a data transfer depends on whether you want to push data to a remote 
 
 1. Start the Strapi server for the source instance.
 2. In a new terminal window, navigate to the root directory of the destination instance.
-  3. Run the following minimal command to initiate the transfer, ensuring `remoteURL` is the full URL to the admin panel (i.e., the URL includes the `/admin` part):
+3. Run the following minimal command to initiate the transfer, ensuring `remoteURL` is the full URL to the admin panel (i.e., the URL includes the `/admin` part):
 
   <Tabs groupId="yarn-npm">
 
   <TabItem value="yarn" label="yarn">
 
-  ```bash
-  yarn strapi transfer --from remoteURL
-  ```
+```bash
+yarn strapi transfer --from remoteURL
+```
 
   </TabItem>
 
   <TabItem value="npm" label="npm">
 
-  ```bash
-  npm run strapi transfer -- --from remoteURL
-  ```
+```bash
+npm run strapi transfer -- --from remoteURL
+```
 
   </TabItem>
 

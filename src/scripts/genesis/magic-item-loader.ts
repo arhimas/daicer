@@ -127,63 +127,62 @@ async function main() {
 
     // const weaponProps = await strapi.documents('api::weapon-property.weapon-property').findMany({ fields: ['slug', 'documentId'] });
     // const weaponPropMap = new Map(weaponProps.map((wp: any) => [wp.slug, wp.documentId]));
-        
+
     for (const file of files) {
-        const filePath = path.join(backendRoot, file);
-        const filename = path.basename(file);
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        
-        console.log(`   Processing \x1b[33m${filename}\x1b[0m (${data.length} entries)...`);
+      const filePath = path.join(backendRoot, file);
+      const filename = path.basename(file);
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-        let upsertCount = 0;
-        let skipCount = 0;
-        
-        // Single Object Entry
-        const entry = Array.isArray(data) ? data[0] : data;
+      console.log(`   Processing \x1b[33m${filename}\x1b[0m (${data.length} entries)...`);
 
-            // Construct Payload
-            const payload: any = {
-                slug: entry.slug,
-                name: entry.name,
-                type: entry.type,
-                rarity: entry.rarity,
-                value: entry.value,
-                weight: entry.weight,
-                description: entry.description,
-                publishedAt: new Date(),
-            };
-            
-            // ItemParser output doesn't have `equipment_data` or `spell_data` yet.
-            // It only has basic fields.
-            // We'll keep it simple to ensure basic metadata is loaded.
-            
-            try {
-                const existing = await strapi.documents('api::item.item').findFirst({
-                    filters: { slug: entry.slug }
-                });
+      let upsertCount = 0;
+      let skipCount = 0;
 
-                if (existing) {
-                    await strapi.documents('api::item.item').update({
-                        documentId: existing.documentId,
-                        data: payload
-                    });
-                    process.stdout.write('.');
-                    skipCount++;
-                } else {
-                    await strapi.documents('api::item.item').create({
-                        data: payload
-                    });
-                    process.stdout.write('+');
-                    upsertCount++;
-                }
-            } catch (_err: any) {
-                 // console.error(`\n      ❌ Error ingesting ${entry.slug}: ${err.message}`);
-            }
-        console.log(`\n   ✅ Synced ${upsertCount} new magic items, updated ${skipCount} existing from ${filename}.`);
+      // Single Object Entry
+      const entry = Array.isArray(data) ? data[0] : data;
+
+      // Construct Payload
+      const payload: any = {
+        slug: entry.slug,
+        name: entry.name,
+        type: entry.type,
+        rarity: entry.rarity,
+        value: entry.value,
+        weight: entry.weight,
+        description: entry.description,
+        publishedAt: new Date(),
+      };
+
+      // ItemParser output doesn't have `equipment_data` or `spell_data` yet.
+      // It only has basic fields.
+      // We'll keep it simple to ensure basic metadata is loaded.
+
+      try {
+        const existing = await strapi.documents('api::item.item').findFirst({
+          filters: { slug: entry.slug },
+        });
+
+        if (existing) {
+          await strapi.documents('api::item.item').update({
+            documentId: existing.documentId,
+            data: payload,
+          });
+          process.stdout.write('.');
+          skipCount++;
+        } else {
+          await strapi.documents('api::item.item').create({
+            data: payload,
+          });
+          process.stdout.write('+');
+          upsertCount++;
+        }
+      } catch (_err: any) {
+        // console.error(`\n      ❌ Error ingesting ${entry.slug}: ${err.message}`);
+      }
+      console.log(`\n   ✅ Synced ${upsertCount} new magic items, updated ${skipCount} existing from ${filename}.`);
     }
 
     console.log(`\n✨ \x1b[32mGenesis Magic Item Load Complete!\x1b[0m\n`);
-
   } catch (error) {
     console.error('\n❌ Fatal Error:', error);
   } finally {

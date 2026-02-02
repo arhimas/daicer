@@ -5,12 +5,12 @@ displayed_sidebar: cmsSidebar
 toc_max_heading_level: 5
 canonicalUrl: https://docs.strapi.io/cms/development/custom-fields.html
 tags:
-- admin panel
-- Components
-- Content-type Builder 
-- Content Manager 
-- custom fields
-- register function
+  - admin panel
+  - Components
+  - Content-type Builder
+  - Content Manager
+  - custom fields
+  - register function
 ---
 
 import CustomFieldRequiresPlugin from '/docs/snippets/custom-field-requires-plugin.md'
@@ -41,11 +41,12 @@ You can also develop your own custom field.
 Though the recommended way to add a custom field is through creating a plugin, app-specific custom fields can also be registered within the global `register` [function](/cms/configurations/functions) found in `src/index` and `src/admin/app` files.
 
 :::note Current limitations
-* Custom fields can only be shared and distributed on the Marketplace using plugins.
-* Custom fields cannot add new data types to Strapi and must use existing, built-in Strapi data types described in the [models' attributes](/cms/backend-customization/models#model-attributes) documentation. 
-* You also cannot modify an existing data type.
-* Special data types unique to Strapi, such as relation, media, component, or dynamic zone data types, cannot be used in custom fields.
-:::
+
+- Custom fields can only be shared and distributed on the Marketplace using plugins.
+- Custom fields cannot add new data types to Strapi and must use existing, built-in Strapi data types described in the [models' attributes](/cms/backend-customization/models#model-attributes) documentation.
+- You also cannot modify an existing data type.
+- Special data types unique to Strapi, such as relation, media, component, or dynamic zone data types, cannot be used in custom fields.
+  :::
 
 :::prerequisites
 <CustomFieldRequiresPlugin components={props.components} />
@@ -64,12 +65,12 @@ The `strapi.customFields` object exposes a `register()` method on the `Strapi` i
 <details>
 <summary>Parameters available to register the custom field on the server:</summary>
 
-| Parameter                         | Description                                                                                                                                             | Type     |
-| --------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------| -------- |
-| `name`                            | The name of the custom field                                                                                                                            | `String` |
+| Parameter                         | Description                                                                                                                                                                                                                                                   | Type     |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `name`                            | The name of the custom field                                                                                                                                                                                                                                  | `String` |
 | `plugin`<br/><br/>(_optional_)    | The name of the plugin creating the custom fields<br/><br/>❗️ If defined, the `pluginId` value on the admin panel registration must have the same value (see [Registering a custom field in the admin panel](#registering-a-custom-field-in-the-admin-panel)) | `String` |
-| `type`                            | The data type the custom field will use                                                                                                                 | `String` |
-| `inputSize`<br/><br/>(_optional_) | Parameters to define the width of a custom field's input in the admin panel                                                                             | `Object` |
+| `type`                            | The data type the custom field will use                                                                                                                                                                                                                       | `String` |
+| `inputSize`<br/><br/>(_optional_) | Parameters to define the width of a custom field's input in the admin panel                                                                                                                                                                                   | `Object` |
 
 The optional `inputSize` object, when specified, must contain all of the following parameters:
 
@@ -89,16 +90,16 @@ In the following example, the `color-picker` plugin was created using the CLI ge
 
 ```js title="/src/plugins/color-picker/server/register.js"
 module.exports = ({ strapi }) => {
-strapi.customFields.register({
-  name: "color",
-  plugin: "color-picker",
-  type: "string",
-  inputSize: {
-    // optional
-    default: 4,
-    isResizable: true,
-  },
-});
+  strapi.customFields.register({
+    name: 'color',
+    plugin: 'color-picker',
+    type: 'string',
+    inputSize: {
+      // optional
+      default: 4,
+      isResizable: true,
+    },
+  });
 };
 ```
 
@@ -108,16 +109,16 @@ strapi.customFields.register({
 
 ```ts title="/src/plugins/color-picker/server/register.ts"
 export default ({ strapi }: { strapi: any }) => {
-strapi.customFields.register({
-  name: "color",
-  plugin: "color-picker",
-  type: "string",
-  inputSize: {
-    // optional
-    default: 4,
-    isResizable: true,
-  },
-});
+  strapi.customFields.register({
+    name: 'color',
+    plugin: 'color-picker',
+    type: 'string',
+    inputSize: {
+      // optional
+      default: 4,
+      isResizable: true,
+    },
+  });
 };
 ```
 
@@ -131,18 +132,18 @@ The custom field could also be declared directly within the `strapi-server.js` f
 
 ```js title="/src/plugins/color-picker/strapi-server.js"
 module.exports = {
-register({ strapi }) {
-  strapi.customFields.register({
-    name: "color",
-    plugin: "color-picker",
-    type: "text",
-    inputSize: {
-      // optional
-      default: 4,
-      isResizable: true,
-    },
-  });
-},
+  register({ strapi }) {
+    strapi.customFields.register({
+      name: 'color',
+      plugin: 'color-picker',
+      type: 'text',
+      inputSize: {
+        // optional
+        default: 4,
+        isResizable: true,
+      },
+    });
+  },
 };
 ```
 
@@ -152,18 +153,18 @@ register({ strapi }) {
 
 ```ts title="/src/plugins/color-picker/strapi-server.ts"
 export default {
-register({ strapi }: { strapi: any }) {
-  strapi.customFields.register({
-    name: "color",
-    plugin: "color-picker",
-    type: "text",
-    inputSize: {
-      // optional
-      default: 4,
-      isResizable: true,
-    },
-  });
-},
+  register({ strapi }: { strapi: any }) {
+    strapi.customFields.register({
+      name: 'color',
+      plugin: 'color-picker',
+      type: 'text',
+      inputSize: {
+        // optional
+        default: 4,
+        isResizable: true,
+      },
+    });
+  },
 };
 ```
 
@@ -185,16 +186,16 @@ The `app.customFields` object exposes a `register()` method on the `StrapiApp` i
 <details>
 <summary>Parameters available to register the custom field on the server:</summary>
 
-| Parameter                        | Description                                                                                                                                  | Type                                                 |
-| -------------------------------- |----------------------------------------------------------------------------------------------------------------------------------------------| ---------------------------------------------------- |
-| `name`                           | Name of the custom field                                                                                                                     | `String`                                             |
-| `pluginId`<br/><br/>(_optional_) | Name of the plugin creating the custom field<br/><br/>❗️ If defined, the `plugin` value on the server registration must have the same value (see [Registering a custom field on the server](#registering-a-custom-field-on-the-server))  | `String`                                             |
-| `type`                           | Existing Strapi data type the custom field will use<br/><br/>❗️ Relations, media, components, or dynamic zones cannot be used.               | `String`                                             |
-| `icon`<br/><br/>(_optional_)     | Icon for the custom field                                                                                                                    | `React.ComponentType`                                |
-| `intlLabel`                      | Translation for the name                                                                                                                     | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
-| `intlDescription`                | Translation for the description                                                                                                              | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
-| `components`                     | Components needed to display the custom field in the Content Manager (see [components](#components))                                         |
-| `options`<br/><br/>(_optional_)  | Options to be used by the Content-type Builder (see [options](#options))                                                                     | `Object`                                             |
+| Parameter                        | Description                                                                                                                                                                                                                             | Type                                                                        |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `name`                           | Name of the custom field                                                                                                                                                                                                                | `String`                                                                    |
+| `pluginId`<br/><br/>(_optional_) | Name of the plugin creating the custom field<br/><br/>❗️ If defined, the `plugin` value on the server registration must have the same value (see [Registering a custom field on the server](#registering-a-custom-field-on-the-server)) | `String`                                                                    |
+| `type`                           | Existing Strapi data type the custom field will use<br/><br/>❗️ Relations, media, components, or dynamic zones cannot be used.                                                                                                          | `String`                                                                    |
+| `icon`<br/><br/>(_optional_)     | Icon for the custom field                                                                                                                                                                                                               | `React.ComponentType`                                                       |
+| `intlLabel`                      | Translation for the name                                                                                                                                                                                                                | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
+| `intlDescription`                | Translation for the description                                                                                                                                                                                                         | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
+| `components`                     | Components needed to display the custom field in the Content Manager (see [components](#components))                                                                                                                                    |
+| `options`<br/><br/>(_optional_)  | Options to be used by the Content-type Builder (see [options](#options))                                                                                                                                                                | `Object`                                                                    |
 
 </details>
 
@@ -206,39 +207,39 @@ In the following example, the `color-picker` plugin was created using the CLI ge
 <TabItem value="js" label="JavaScript">
 
 ```jsx title="/src/plugins/color-picker/admin/src/index.js"
-import ColorPickerIcon from "./components/ColorPicker/ColorPickerIcon";
+import ColorPickerIcon from './components/ColorPicker/ColorPickerIcon';
 
 export default {
-register(app) {
-  // ... app.addMenuLink() goes here
-  // ... app.registerPlugin() goes here
+  register(app) {
+    // ... app.addMenuLink() goes here
+    // ... app.registerPlugin() goes here
 
-  app.customFields.register({
-    name: "color",
-    pluginId: "color-picker", // the custom field is created by a color-picker plugin
-    type: "string", // the color will be stored as a string
-    intlLabel: {
-      id: "color-picker.color.label",
-      defaultMessage: "Color",
-    },
-    intlDescription: {
-      id: "color-picker.color.description",
-      defaultMessage: "Select any color",
-    },
-    icon: ColorPickerIcon, // don't forget to create/import your icon component
-    components: {
-      Input: async () =>
-        import('./components/Input').then((module) => ({
-          default: module.Input,
-        })),
-    },
-    options: {
-      // declare options here
-    },
-  });
-},
+    app.customFields.register({
+      name: 'color',
+      pluginId: 'color-picker', // the custom field is created by a color-picker plugin
+      type: 'string', // the color will be stored as a string
+      intlLabel: {
+        id: 'color-picker.color.label',
+        defaultMessage: 'Color',
+      },
+      intlDescription: {
+        id: 'color-picker.color.description',
+        defaultMessage: 'Select any color',
+      },
+      icon: ColorPickerIcon, // don't forget to create/import your icon component
+      components: {
+        Input: async () =>
+          import('./components/Input').then((module) => ({
+            default: module.Input,
+          })),
+      },
+      options: {
+        // declare options here
+      },
+    });
+  },
 
-// ... bootstrap() goes here
+  // ... bootstrap() goes here
 };
 ```
 
@@ -247,39 +248,39 @@ register(app) {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="/src/plugins/color-picker/admin/src/index.ts"
-import ColorPickerIcon from "./components/ColorPicker/ColorPickerIcon";
+import ColorPickerIcon from './components/ColorPicker/ColorPickerIcon';
 
 export default {
-register(app) {
-  // ... app.addMenuLink() goes here
-  // ... app.registerPlugin() goes here
+  register(app) {
+    // ... app.addMenuLink() goes here
+    // ... app.registerPlugin() goes here
 
-  app.customFields.register({
-    name: "color",
-    pluginId: "color-picker", // the custom field is created by a color-picker plugin
-    type: "string", // the color will be stored as a string
-    intlLabel: {
-      id: "color-picker.color.label",
-      defaultMessage: "Color",
-    },
-    intlDescription: {
-      id: "color-picker.color.description",
-      defaultMessage: "Select any color",
-    },
-    icon: ColorPickerIcon, // don't forget to create/import your icon component
-    components: {
-      Input: async () =>
-        import('./components/Input').then((module) => ({
-          default: module.Input,
-        })),
-    },
-    options: {
-      // declare options here
-    },
-  });
-},
+    app.customFields.register({
+      name: 'color',
+      pluginId: 'color-picker', // the custom field is created by a color-picker plugin
+      type: 'string', // the color will be stored as a string
+      intlLabel: {
+        id: 'color-picker.color.label',
+        defaultMessage: 'Color',
+      },
+      intlDescription: {
+        id: 'color-picker.color.description',
+        defaultMessage: 'Select any color',
+      },
+      icon: ColorPickerIcon, // don't forget to create/import your icon component
+      components: {
+        Input: async () =>
+          import('./components/Input').then((module) => ({
+            default: module.Input,
+          })),
+      },
+      options: {
+        // declare options here
+      },
+    });
+  },
 
-// ... bootstrap() goes here
+  // ... bootstrap() goes here
 };
 ```
 
@@ -299,18 +300,18 @@ In the following example, the `color-picker` plugin was created using the CLI ge
 
 ```jsx title="/src/plugins/color-picker/admin/src/index.js"
 export default {
-register(app) {
-  app.customFields.register({
-    // …
-    components: {
-      Input: async () =>
-        import('./components/Input').then((module) => ({
-          default: module.Input,
-        })),
-    },
-    // …
-  });
-},
+  register(app) {
+    app.customFields.register({
+      // …
+      components: {
+        Input: async () =>
+          import('./components/Input').then((module) => ({
+            default: module.Input,
+          })),
+      },
+      // …
+    });
+  },
 };
 ```
 
@@ -320,18 +321,18 @@ register(app) {
 
 ```jsx title="/src/plugins/color-picker/admin/src/index.js"
 export default {
-register(app) {
-  app.customFields.register({
-    // …
-    components: {
-      Input: async () =>
-        import('./components/Input').then((module) => ({
-          default: module.Input,
-        })),
-    },
-    // …
-  });
-},
+  register(app) {
+    app.customFields.register({
+      // …
+      components: {
+        Input: async () =>
+          import('./components/Input').then((module) => ({
+            default: module.Input,
+          })),
+      },
+      // …
+    });
+  },
 };
 ```
 
@@ -341,21 +342,21 @@ register(app) {
 <details>
 <summary>Props passed to the custom field <code>Input</code> component:</summary>
 
-| Prop             | Description                                                                                                                                                                                                                               | Type                                                                 |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `attribute`      | The attribute object with custom field's underlying Strapi type and options                                                                                                                                                               | `{ type: String, customField: String }`                              |
-| `description`    | The field description set in [configure the view](/cms/features/content-manager#edit-view-settings)                                                                                                  | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/>                 |
-| `placeholder`    | The field placeholder set in [configure the view](/cms/features/content-manager#edit-view-settings)                                                                                                  | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/>                 |
-| `hint`           | The field description set in [configure the view](/cms/features/content-manager#edit-view-settings) along with min/max [validation requirements](/cms/backend-customization/models#validations) | `String`                                                             |
-| `name`           | The field name set in the content-type builder                                                                                                                                                                                            | `String`                                                             |
-| `intlLabel`      | The field name set in the content-type builder or configure the view                                                                                                                                                                      | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/>                 |
-| `onChange`       | The handler for the input change event. The `name` argument references the field name. The `type` argument references the underlying Strapi type                                                                                          | `({ target: { name: String value: unknown type: String } }) => void` |
-| `contentTypeUID` | The content-type the field belongs to                                                                                                                                                                                                     | `String`                                                             |
-| `type`           | The custom field uid, for example `plugin::color-picker.color`                                                                                                                                                                            | `String`                                                             |
-| `value`          | The input value the underlying Strapi type expects                                                                                                                                                                                        | `unknown`                                                            |
-| `required`       | Whether or not the field is required                                                                                                                                                                                                      | `boolean`                                                            |
-| `error`          | Error received after validation                                                                                                                                                                                                           | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/>                 |
-| `disabled`       | Whether or not the input is disabled                                                                                                                                                                                                      | `boolean`                                                            |
+| Prop             | Description                                                                                                                                                                                     | Type                                                                        |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `attribute`      | The attribute object with custom field's underlying Strapi type and options                                                                                                                     | `{ type: String, customField: String }`                                     |
+| `description`    | The field description set in [configure the view](/cms/features/content-manager#edit-view-settings)                                                                                             | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
+| `placeholder`    | The field placeholder set in [configure the view](/cms/features/content-manager#edit-view-settings)                                                                                             | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
+| `hint`           | The field description set in [configure the view](/cms/features/content-manager#edit-view-settings) along with min/max [validation requirements](/cms/backend-customization/models#validations) | `String`                                                                    |
+| `name`           | The field name set in the content-type builder                                                                                                                                                  | `String`                                                                    |
+| `intlLabel`      | The field name set in the content-type builder or configure the view                                                                                                                            | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
+| `onChange`       | The handler for the input change event. The `name` argument references the field name. The `type` argument references the underlying Strapi type                                                | `({ target: { name: String value: unknown type: String } }) => void`        |
+| `contentTypeUID` | The content-type the field belongs to                                                                                                                                                           | `String`                                                                    |
+| `type`           | The custom field uid, for example `plugin::color-picker.color`                                                                                                                                  | `String`                                                                    |
+| `value`          | The input value the underlying Strapi type expects                                                                                                                                              | `unknown`                                                                   |
+| `required`       | Whether or not the field is required                                                                                                                                                            | `boolean`                                                                   |
+| `error`          | Error received after validation                                                                                                                                                                 | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="IntlObject"/> |
+| `disabled`       | Whether or not the input is disabled                                                                                                                                                            | `boolean`                                                                   |
 
 As of Strapi v4.13.0, fields in the Content Manager can be auto-focussed via the `URLSearchParam` `field`. It's recommended that your input component is wrapped in React's <ExternalLink to="https://react.dev/reference/react/forwardRef" text="`forwardRef`"/> method; you should pass the corresponding `ref` to the `input` element.
 
@@ -370,35 +371,27 @@ In the following example we're providing a custom text input that is controlled.
 <TabItem value="js" label="JavaScript">
 
 ```jsx title="/src/plugins/<plugin-name>/admin/src/components/Input.js"
-import * as React from "react";
+import * as React from 'react';
 
-import { useIntl } from "react-intl";
+import { useIntl } from 'react-intl';
 
 const Input = React.forwardRef((props, ref) => {
-const { attribute, disabled, intlLabel, name, onChange, required, value } =
-  props; // these are just some of the props passed by the content-manager
+  const { attribute, disabled, intlLabel, name, onChange, required, value } = props; // these are just some of the props passed by the content-manager
 
-const { formatMessage } = useIntl();
+  const { formatMessage } = useIntl();
 
-const handleChange = (e) => {
-  onChange({
-    target: { name, type: attribute.type, value: e.currentTarget.value },
-  });
-};
+  const handleChange = (e) => {
+    onChange({
+      target: { name, type: attribute.type, value: e.currentTarget.value },
+    });
+  };
 
-return (
-  <label>
-    {formatMessage(intlLabel)}
-    <input
-      ref={ref}
-      name={name}
-      disabled={disabled}
-      value={value}
-      required={required}
-      onChange={handleChange}
-    />
-  </label>
-);
+  return (
+    <label>
+      {formatMessage(intlLabel)}
+      <input ref={ref} name={name} disabled={disabled} value={value} required={required} onChange={handleChange} />
+    </label>
+  );
 });
 
 export default Input;
@@ -408,35 +401,27 @@ export default Input;
 <TabItem value="ts" label="TypeScript">
 
 ```tsx title="/src/plugins/<plugin-name>/admin/src/components/Input.ts"
-import * as React from "react";
+import * as React from 'react';
 
-import { useIntl } from "react-intl";
+import { useIntl } from 'react-intl';
 
 const Input = React.forwardRef((props, ref) => {
-const { attribute, disabled, intlLabel, name, onChange, required, value } =
-  props; // these are just some of the props passed by the content-manager
+  const { attribute, disabled, intlLabel, name, onChange, required, value } = props; // these are just some of the props passed by the content-manager
 
-const { formatMessage } = useIntl();
+  const { formatMessage } = useIntl();
 
-const handleChange = (e) => {
-  onChange({
-    target: { name, type: attribute.type, value: e.currentTarget.value },
-  });
-};
+  const handleChange = (e) => {
+    onChange({
+      target: { name, type: attribute.type, value: e.currentTarget.value },
+    });
+  };
 
-return (
-  <label>
-    {formatMessage(intlLabel)}
-    <input
-      ref={ref}
-      name={name}
-      disabled={disabled}
-      value={value}
-      required={required}
-      onChange={handleChange}
-    />
-  </label>
-);
+  return (
+    <label>
+      {formatMessage(intlLabel)}
+      <input ref={ref} name={name} disabled={disabled} value={value} required={required} onChange={handleChange} />
+    </label>
+  );
 });
 
 export default Input;
@@ -456,10 +441,10 @@ For a more detailed view of the props provided to the customFields and how they 
 <details>
 <summary>Parameters passed to the custom field <code>options</code> object:</summary>
 
-| Options parameter | Description                                                                                                                               | Type                           |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `base`            | Settings available in the _Base settings_ tab of the field in the Content-type Builder                                                    | `Object` or `Array of Objects` |
-| `advanced`        | Settings available in the _Advanced settings_ tab of the field in the Content-type Builder                                                | `Object` or `Array of Objects` |
+| Options parameter | Description                                                                                                                                                        | Type                           |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `base`            | Settings available in the _Base settings_ tab of the field in the Content-type Builder                                                                             | `Object` or `Array of Objects` |
+| `advanced`        | Settings available in the _Advanced settings_ tab of the field in the Content-type Builder                                                                         | `Object` or `Array of Objects` |
 | `validator`       | Validator function returning an object, used to sanitize input. Uses a <ExternalLink to="https://github.com/jquense/yup/tree/pre-v1" text="`yup` schema object"/>. | `Function`                     |
 
 Both `base` and `advanced` settings accept an object or an array of objects, each object being a settings section. Each settings section could include:
@@ -469,12 +454,12 @@ Both `base` and `advanced` settings accept an object or an array of objects, eac
 
 Each object in the `items` array can contain the following parameters:
 
-| Items parameter | Description                                                        | Type                                                 |
-| --------------- | ------------------------------------------------------------------ | ---------------------------------------------------- |
-| `name`          | Label of the input.<br/>Must use the `options.settingName` format. | `String`                                             |
-| `description`   | Description of the input to use in the Content-type Builder        | `String`                                             |
+| Items parameter | Description                                                        | Type                                                                          |
+| --------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| `name`          | Label of the input.<br/>Must use the `options.settingName` format. | `String`                                                                      |
+| `description`   | Description of the input to use in the Content-type Builder        | `String`                                                                      |
 | `intlLabel`     | Translation for the label of the input                             | <ExternalLink to="https://formatjs.io/docs/react-intl/" text="`IntlObject`"/> |
-| `type`          | Type of the input (e.g., `select`, `checkbox`)                     | `String`                                             |
+| `type`          | Type of the input (e.g., `select`, `checkbox`)                     | `String`                                                                      |
 
 </details>
 
@@ -489,81 +474,81 @@ In the following example, the `color-picker` plugin was created using the CLI ge
 // imports go here (ColorPickerIcon, pluginId, yup package…)
 
 export default {
-register(app) {
-  // ... app.addMenuLink() goes here
-  // ... app.registerPlugin() goes here
-  app.customFields.register({
-    // …
-    options: {
-      base: [
-        /*
+  register(app) {
+    // ... app.addMenuLink() goes here
+    // ... app.registerPlugin() goes here
+    app.customFields.register({
+      // …
+      options: {
+        base: [
+          /*
           Declare settings to be added to the "Base settings" section
           of the field in the Content-Type Builder
         */
-        {
-          sectionTitle: {
-            // Add a "Format" settings section
-            id: "color-picker.color.section.format",
-            defaultMessage: "Format",
-          },
-          items: [
-            // Add settings items to the section
-            {
-              /*
+          {
+            sectionTitle: {
+              // Add a "Format" settings section
+              id: 'color-picker.color.section.format',
+              defaultMessage: 'Format',
+            },
+            items: [
+              // Add settings items to the section
+              {
+                /*
                 Add a "Color format" dropdown
                 to choose between 2 different format options
                 for the color value: hexadecimal or RGBA
               */
-              intlLabel: {
-                id: "color-picker.color.format.label",
-                defaultMessage: "Color format",
+                intlLabel: {
+                  id: 'color-picker.color.format.label',
+                  defaultMessage: 'Color format',
+                },
+                name: 'options.format',
+                type: 'select',
+                value: 'hex', // option selected by default
+                options: [
+                  // List all available "Color format" options
+                  {
+                    key: 'hex',
+                    defaultValue: 'hex',
+                    value: 'hex',
+                    metadatas: {
+                      intlLabel: {
+                        id: 'color-picker.color.format.hex',
+                        defaultMessage: 'Hexadecimal',
+                      },
+                    },
+                  },
+                  {
+                    key: 'rgba',
+                    value: 'rgba',
+                    metadatas: {
+                      intlLabel: {
+                        id: 'color-picker.color.format.rgba',
+                        defaultMessage: 'RGBA',
+                      },
+                    },
+                  },
+                ],
               },
-              name: "options.format",
-              type: "select",
-              value: "hex", // option selected by default
-              options: [
-                // List all available "Color format" options
-                {
-                  key: "hex",
-                  defaultValue: "hex",
-                  value: "hex",
-                  metadatas: {
-                    intlLabel: {
-                      id: "color-picker.color.format.hex",
-                      defaultMessage: "Hexadecimal",
-                    },
-                  },
-                },
-                {
-                  key: "rgba",
-                  value: "rgba",
-                  metadatas: {
-                    intlLabel: {
-                      id: "color-picker.color.format.rgba",
-                      defaultMessage: "RGBA",
-                    },
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      advanced: [
-        /*
+            ],
+          },
+        ],
+        advanced: [
+          /*
           Declare settings to be added to the "Advanced settings" section
           of the field in the Content-Type Builder
         */
-      ],
-      validator: (args) => ({
-        format: yup.string().required({
-          id: "options.color-picker.format.error",
-          defaultMessage: "The color format is required",
+        ],
+        validator: (args) => ({
+          format: yup.string().required({
+            id: 'options.color-picker.format.error',
+            defaultMessage: 'The color format is required',
+          }),
         }),
-      }),
-    },
-  });
-},
+      },
+    });
+  },
 };
 ```
 
@@ -575,81 +560,81 @@ register(app) {
 // imports go here (ColorPickerIcon, pluginId, yup package…)
 
 export default {
-register(app) {
-  // ... app.addMenuLink() goes here
-  // ... app.registerPlugin() goes here
-  app.customFields.register({
-    // …
-    options: {
-      base: [
-        /*
+  register(app) {
+    // ... app.addMenuLink() goes here
+    // ... app.registerPlugin() goes here
+    app.customFields.register({
+      // …
+      options: {
+        base: [
+          /*
           Declare settings to be added to the "Base settings" section
           of the field in the Content-Type Builder
         */
-        {
-          sectionTitle: {
-            // Add a "Format" settings section
-            id: "color-picker.color.section.format",
-            defaultMessage: "Format",
-          },
-          items: [
-            // Add settings items to the section
-            {
-              /*
+          {
+            sectionTitle: {
+              // Add a "Format" settings section
+              id: 'color-picker.color.section.format',
+              defaultMessage: 'Format',
+            },
+            items: [
+              // Add settings items to the section
+              {
+                /*
                 Add a "Color format" dropdown
                 to choose between 2 different format options
                 for the color value: hexadecimal or RGBA
               */
-              intlLabel: {
-                id: "color-picker.color.format.label",
-                defaultMessage: "Color format",
+                intlLabel: {
+                  id: 'color-picker.color.format.label',
+                  defaultMessage: 'Color format',
+                },
+                name: 'options.format',
+                type: 'select',
+                value: 'hex', // option selected by default
+                options: [
+                  // List all available "Color format" options
+                  {
+                    key: 'hex',
+                    defaultValue: 'hex',
+                    value: 'hex',
+                    metadatas: {
+                      intlLabel: {
+                        id: 'color-picker.color.format.hex',
+                        defaultMessage: 'Hexadecimal',
+                      },
+                    },
+                  },
+                  {
+                    key: 'rgba',
+                    value: 'rgba',
+                    metadatas: {
+                      intlLabel: {
+                        id: 'color-picker.color.format.rgba',
+                        defaultMessage: 'RGBA',
+                      },
+                    },
+                  },
+                ],
               },
-              name: "options.format",
-              type: "select",
-              value: "hex", // option selected by default
-              options: [
-                // List all available "Color format" options
-                {
-                  key: "hex",
-                  defaultValue: "hex",
-                  value: "hex",
-                  metadatas: {
-                    intlLabel: {
-                      id: "color-picker.color.format.hex",
-                      defaultMessage: "Hexadecimal",
-                    },
-                  },
-                },
-                {
-                  key: "rgba",
-                  value: "rgba",
-                  metadatas: {
-                    intlLabel: {
-                      id: "color-picker.color.format.rgba",
-                      defaultMessage: "RGBA",
-                    },
-                  },
-                },
-              ],
-            },
-          ],
-        },
-      ],
-      advanced: [
-        /*
+            ],
+          },
+        ],
+        advanced: [
+          /*
           Declare settings to be added to the "Advanced settings" section
           of the field in the Content-Type Builder
         */
-      ],
-      validator: (args) => ({
-        format: yup.string().required({
-          id: "options.color-picker.format.error",
-          defaultMessage: "The color format is required",
+        ],
+        validator: (args) => ({
+          format: yup.string().required({
+            id: 'options.color-picker.format.error',
+            defaultMessage: 'The color format is required',
+          }),
         }),
-      }),
-    },
-  });
-},
+      },
+    });
+  },
 };
 ```
 
@@ -678,7 +663,7 @@ Each custom field type can have basic and advanced settings. The <ExternalLink t
 
 ### In the code
 
-Once created and used, custom fields are defined like any other attribute in the model's schema. 
+Once created and used, custom fields are defined like any other attribute in the model's schema.
 
 Custom fields are explicitly defined in the [attributes](/cms/backend-customization/models#model-attributes) of a model with `type: customField`.
 
@@ -686,28 +671,28 @@ As compared to how other types of models are defined, custom fields' attributes 
 
 - Custom field have a `customField` attribute. Its value acts as a unique identifier to indicate which registered custom field should be used, and follows one of these 2 formats:
 
-  | Format               |  Origin |
-  |----------------------|------------------|
-  | `plugin::plugin-name.field-name` | The custom field was created through a plugin |
-  | `global::field-name` | The custom field is specific to the current Strapi application and was created directly within the `register` [function](/cms/configurations/functions) |
+  | Format                           | Origin                                                                                                                                                  |
+  | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `plugin::plugin-name.field-name` | The custom field was created through a plugin                                                                                                           |
+  | `global::field-name`             | The custom field is specific to the current Strapi application and was created directly within the `register` [function](/cms/configurations/functions) |
 
 - Custom fields can have additional parameters depending on what has been defined when registering the custom field (see [server registration](#registering-a-custom-field-on-the-server) and [admin panel registration](#registering-a-custom-field-in-the-admin-panel)).
 
 **Example: A simple `color` custom field model definition:**
 
 ```json title="/src/api/[apiName]/[content-type-name]/content-types/schema.json"
-
 {
-// …
-"attributes": {
-  "color": { // name of the custom field defined in the Content-Type Builder
-    "type": "customField",
-    "customField": "plugin::color-picker.color",
-    "options": {
-      "format": "hex"
+  // …
+  "attributes": {
+    "color": {
+      // name of the custom field defined in the Content-Type Builder
+      "type": "customField",
+      "customField": "plugin::color-picker.color",
+      "options": {
+        "format": "hex"
+      }
     }
   }
-}
-// …
+  // …
 }
 ```

@@ -35,7 +35,7 @@ export const resolveEntityBlueprint = (entity: any): AbstractBlueprint => {
 
   let maxHp = entity.hp || entity.maxHp;
   if (!maxHp) {
-      maxHp = Math.max(1, estHpPerLevel * totalLevel);
+    maxHp = Math.max(1, estHpPerLevel * totalLevel);
   }
 
   return {

@@ -4,10 +4,10 @@ description: In Strapi 5, there is no `content-manager_rbacManager` anymore, and
 sidebar_label: content-manager_rbacManager removed
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content manager
- - RBAC
- - upgrade to Strapi 5
+  - breaking changes
+  - content manager
+  - RBAC
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -32,10 +32,10 @@ const cmPermissions useSelector(state => state['content-manager_rbacManager'])
 
 ```tsx
 const { allowedActions } = useRBAC({
-	main: [{ action: 'admin::something.main', subject: null }]
-})
+  main: [{ action: 'admin::something.main', subject: null }],
+});
 
-const canMain = allowedActions.canMain
+const canMain = allowedActions.canMain;
 ```
 
 **In Strapi 5**
@@ -43,11 +43,9 @@ const canMain = allowedActions.canMain
 `content-manager_rbacManager` is removed and the regular permissions system is used instead, which implies the `useRBAC` hook is used differently, as in the following generic example:
 
 ```tsx
-const { allowedActions } = useRBAC([
-  { action: 'admin::something.main', subject: null }
-])
+const { allowedActions } = useRBAC([{ action: 'admin::something.main', subject: null }]);
 
-const canMain = allowedActions.canMain
+const canMain = allowedActions.canMain;
 ```
 
 ## Migration
@@ -57,8 +55,9 @@ const canMain = allowedActions.canMain
 ### Notes
 
 <!-- TODO v5: update links when v5.contributor.strapi.io is hosted at contributor.strapi.io -->
-* A new RBAC API is available and users can utilise a middleware system to interact with calls (see <ExternalLink to="https://contributor.strapi.io/exports/classes/StrapiApp#addrbacmiddleware" text="contributors documentation"/>).
-* Additional information can be found in the Contributors Documentation, in the <ExternalLink to="https://contributor.strapi.io/docs/core/admin/permissions/frontend/fetching-permissions" text="Fetching permissions"/> and <ExternalLink to="https://contributor.strapi.io/docs/core/admin/features/authentication" text="Authentication"/> sections.
+
+- A new RBAC API is available and users can utilise a middleware system to interact with calls (see <ExternalLink to="https://contributor.strapi.io/exports/classes/StrapiApp#addrbacmiddleware" text="contributors documentation"/>).
+- Additional information can be found in the Contributors Documentation, in the <ExternalLink to="https://contributor.strapi.io/docs/core/admin/permissions/frontend/fetching-permissions" text="Fetching permissions"/> and <ExternalLink to="https://contributor.strapi.io/docs/core/admin/features/authentication" text="Authentication"/> sections.
 
 ### Manual migration
 

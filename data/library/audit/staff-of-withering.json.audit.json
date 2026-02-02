@@ -41,11 +41,7 @@
         },
         "attunement_requirement": {
           "attunes": true,
-          "classes": [
-            "Cleric",
-            "Druid",
-            "Warlock"
-          ]
+          "classes": ["Cleric", "Druid", "Warlock"]
         },
         "potential_ambiguity": "The description states, 'The staff can be wielded as a magic quarterstaff' and then details the enhanced damage. Standard D&D 5e convention implies that an item described as a 'magic quarterstaff' also grants a +1 bonus to attack and damage rolls unless specified otherwise. This is not explicitly stated, making the base weapon bonus ambiguous (is it a +1 staff, or does it only gain power via charges?). Based strictly on the text, it only functions as a magic quarterstaff (implying proficiency/attunement benefit) and gains the damage/debuff only on charge expenditure."
       },

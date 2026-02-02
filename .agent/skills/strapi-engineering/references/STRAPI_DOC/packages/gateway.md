@@ -26,8 +26,7 @@ import { generateText } from 'ai';
 
 const { text } = await generateText({
   model: gateway('xai/grok-3-beta'),
-  prompt:
-    'Tell me about the history of the San Francisco Mission-style burrito.',
+  prompt: 'Tell me about the history of the San Francisco Mission-style burrito.',
 });
 ```
 

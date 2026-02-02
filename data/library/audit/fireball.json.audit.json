@@ -29,10 +29,7 @@
         "save_required": true,
         "save_ability": "Dexterity",
         "save_effect": "Half damage on success",
-        "classes": [
-          "sorcerer",
-          "wizard"
-        ]
+        "classes": ["sorcerer", "wizard"]
       },
       "zod_errors": "NONE",
       "archivist_notes": "Mechanically sound and complete entry for Fireball. The material component notation is standard. No inconsistencies detected."

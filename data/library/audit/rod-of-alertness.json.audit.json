@@ -24,12 +24,7 @@
         "spells": {
           "type": "Casting",
           "action": "Action",
-          "spells_available": [
-            "detect evil and good",
-            "detect magic",
-            "detect poison and disease",
-            "see invisibility"
-          ]
+          "spells_available": ["detect evil and good", "detect magic", "detect poison and disease", "see invisibility"]
         },
         "protective_aura": {
           "type": "Area Effect / Action",

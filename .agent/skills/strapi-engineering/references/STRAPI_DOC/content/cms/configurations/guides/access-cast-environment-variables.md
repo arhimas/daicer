@@ -3,11 +3,11 @@ title: Access and cast env variables
 description: Learn how to cast environment variables in Strapi 5 with the env() utility.
 displayed_sidebar: cmsSidebar
 tags:
-- casting values
-- configuration
-- configuration guide
-- database credentials
-- environment 
+  - casting values
+  - configuration
+  - configuration guide
+  - database credentials
+  - environment
 ---
 
 # How to access and cast environment variables
@@ -39,7 +39,6 @@ In configuration files, a `env()` utility allows defining defaults and [casting 
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/database.js"
-
 module.exports = ({ env }) => ({
   connections: {
     default: {
@@ -56,7 +55,6 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```js title="./config/database.ts"
-
 export default ({ env }) => ({
   connections: {
     default: {
@@ -103,5 +101,5 @@ env.array('VAR', [1, 2, 3]);
 env.date('VAR', new Date());
 
 // Returns the env matching oneOf union types
-env.oneOf('UPLOAD_PROVIDER', ['local', 'aws'], 'local')
+env.oneOf('UPLOAD_PROVIDER', ['local', 'aws'], 'local');
 ```

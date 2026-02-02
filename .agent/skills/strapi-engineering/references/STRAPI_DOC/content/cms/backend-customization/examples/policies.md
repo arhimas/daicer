@@ -6,7 +6,7 @@ pagination_prev: cms/backend-customization/examples/services-and-controllers
 pagination_next: cms/backend-customization/examples/routes
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
 # Examples cookbook: Custom policies
 
@@ -61,7 +61,6 @@ Additional information can be found in the [Policies](/cms/backend-customization
 In the `/api` folder of the <ExternalLink to="https://github.com/strapi/foodadvisor" text="FoodAdvisor"/> project, create a new `src/api/review/policies/is-owner-review.js` file with the following code:
 
 ```jsx title="src/api/review/policies/is-owner-review.js"
-
 module.exports = async (policyContext, config, { strapi }) => {
   const { body } = policyContext.request;
   const { user } = policyContext.state;
@@ -74,16 +73,13 @@ module.exports = async (policyContext, config, { strapi }) => {
    * Queries the Restaurants collection type
    * using the Entity Service API
    * to retrieve information about the restaurant's owner.
-   */ 
-  const [restaurant] = await strapi.entityService.findMany(
-    'api::restaurant.restaurant',
-    {
-      filters: {
-        slug: body.restaurant,
-      },
-      populate: ['owner'],
-    }
-  );
+   */
+  const [restaurant] = await strapi.entityService.findMany('api::restaurant.restaurant', {
+    filters: {
+      slug: body.restaurant,
+    },
+    populate: ['owner'],
+  });
   if (!restaurant) {
     return false;
   }
@@ -91,7 +87,7 @@ module.exports = async (policyContext, config, { strapi }) => {
   /**
    * If the user submitting the request is the restaurant's owner,
    * we don't allow the review creation.
-   */ 
+   */
   if (user.id === restaurant.owner.id) {
     return false;
   }
@@ -152,16 +148,13 @@ module.exports = async (policyContext, config, { strapi }) => {
    * Queries the Restaurants collection type
    * using the Entity Service API
    * to retrieve information about the restaurant's owner.
-   */ 
-  const filteredRestaurants = await strapi.entityService.findMany(
-    'api::restaurant.restaurant',
-    {
-      filters: {
-        slug: body.restaurant,
-      },
-      populate: ['owner'],
-    }
-  );
+   */
+  const filteredRestaurants = await strapi.entityService.findMany('api::restaurant.restaurant', {
+    filters: {
+      slug: body.restaurant,
+    },
+    populate: ['owner'],
+  });
 
   const restaurant = filteredRestaurants[0];
 
@@ -172,14 +165,14 @@ module.exports = async (policyContext, config, { strapi }) => {
   /**
    * If the user submitting the request is the restaurant's owner,
    * we don't allow the review creation.
-   */ 
+   */
   if (user.id === restaurant.owner.id) {
     // highlight-start
     /**
      * Throws a custom policy error
      * instead of just returning false
      * (which would result into a generic Policy Error).
-     */ 
+     */
     throw new PolicyError('The owner of the restaurant cannot submit reviews', {
       errCode: 'RESTAURANT_OWNER_REVIEW', // can be useful for identifying different errors on the front end
     });
@@ -283,7 +276,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { getStrapiURL } from '../../../../../utils';
 // highlight-start
-/** 
+/**
  * A notification will be displayed on the front-end using React Hot Toast
  * (See https://github.com/timolins/react-hot-toast).
  * React Hot Toast should be added to your project's dependencies;
@@ -349,23 +342,9 @@ const NewReview = () => {
     <div className="my-6">
       <h1 className="font-bold text-2xl mb-3">Write your review</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
-        <Input
-          onChange={handleChange}
-          name="note"
-          type="number"
-          min={1}
-          max={5}
-          label="Stars"
-        />
-        <Textarea
-          name="content"
-          onChange={handleChange}
-          placeholder="What do you think about this restaurant?"
-        />
-        <Button
-          type="submit"
-          className="bg-primary text-white rounded-md self-start"
-        >
+        <Input onChange={handleChange} name="note" type="number" min={1} max={5} label="Stars" />
+        <Textarea name="content" onChange={handleChange} placeholder="What do you think about this restaurant?" />
+        <Button type="submit" className="bg-primary text-white rounded-md self-start">
           Send
         </Button>
       </form>

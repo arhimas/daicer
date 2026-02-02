@@ -46,21 +46,18 @@ LangGraph Platform provides different security defaults:
 A typical authentication setup involves three main components:
 
 1. **Authentication Provider** (Identity Provider/IdP)
-
    - A dedicated service that manages user identities and credentials
    - Handles user registration, login, password resets, etc.
    - Issues tokens (JWT, session tokens, etc.) after successful authentication
    - Examples: Auth0, Supabase Auth, Okta, or your own auth server
 
 2. **LangGraph Backend** (Resource Server)
-
    - Your LangGraph application that contains business logic and protected resources
    - Validates tokens with the auth provider
    - Enforces access control based on user identity and permissions
    - Doesn't store user credentials directly
 
 3. **Client Application** (Frontend)
-
    - Web app, mobile app, or API client
    - Collects time-sensitive user credentials and sends to auth provider
    - Receives tokens from auth provider
@@ -95,7 +92,7 @@ Authentication in LangGraph runs as middleware on every request. Your [`authenti
 3. Raise an [`HTTPException`](https://langchain-ai.github.io/langgraph/cloud/reference/sdk/js_ts_sdk_ref/#class-httpexception) or an error if invalid
 
 ```typescript
-import { Auth, HTTPException } from "@langchain/langgraph-sdk/auth";
+import { Auth, HTTPException } from '@langchain/langgraph-sdk/auth';
 
 // (1) Validate the credentials
 const isValidKey = (key: string) => {
@@ -103,25 +100,25 @@ const isValidKey = (key: string) => {
 };
 
 export const auth = new Auth().authenticate(async (request: Request) => {
-  const apiKey = request.headers.get("x-api-key");
+  const apiKey = request.headers.get('x-api-key');
 
   if (!apiKey || !isValidKey(apiKey)) {
     // (3) Raise an HTTPException
-    throw new HTTPException(401, { message: "Invalid API key" });
+    throw new HTTPException(401, { message: 'Invalid API key' });
   }
 
   // (2) Return user information containing the user's identity and user information if valid
   return {
     // required, unique user identifier
-    identity: "user-123",
+    identity: 'user-123',
     // required, list of permissions
     permissions: [],
     // optional, assumed `true` by default
     is_authenticated: true,
 
     // You can add more custom fields if you want to implement other auth patterns
-    role: "admin",
-    org_id: "org-123",
+    role: 'admin',
+    org_id: 'org-123',
   };
 });
 ```
@@ -148,20 +145,20 @@ After authentication, LangGraph calls your [`on()`](https://langchain-ai.github.
 If you want to just implement simple user-scoped access control, you can use a single [`on()`](https://langchain-ai.github.io/langgraph/cloud/reference/sdk/js_ts_sdk_ref/#on) handler for all resources and actions. If you want to have different control depending on the resource and action, you can use [resource-specific handlers](#resource-specific-handlers). See the [Supported Resources](#supported-resources) section for a full list of the resources that support access control.
 
 ```typescript
-import { Auth, HTTPException } from "@langchain/langgraph-sdk/auth";
+import { Auth, HTTPException } from '@langchain/langgraph-sdk/auth';
 
 export const auth = new Auth()
   .authenticate(async (request: Request) => ({
-    identity: "user-123",
+    identity: 'user-123',
     permissions: [],
   }))
-  .on("*", ({ value, user }) => {
+  .on('*', ({ value, user }) => {
     // Create filter to restrict access to just this user's resources
     const filters = { owner: user.identity };
 
     // If the operation supports metadata, add the user identity
     // as metadata to the resource.
-    if ("metadata" in value) {
+    if ('metadata' in value) {
       value.metadata ??= {};
       value.metadata.owner = user.identity;
     }
@@ -187,30 +184,30 @@ When a request is made, the most specific handler that matches that resource and
     For a full list of supported resources and actions, see the [Supported Resources](#supported-resources) section below.
 
 ```typescript
-import { Auth, HTTPException } from "@langchain/langgraph-sdk/auth";
+import { Auth, HTTPException } from '@langchain/langgraph-sdk/auth';
 
 export const auth = new Auth()
   .authenticate(async (request: Request) => ({
-    identity: "user-123",
-    permissions: ["threads:write", "threads:read"],
+    identity: 'user-123',
+    permissions: ['threads:write', 'threads:read'],
   }))
-  .on("*", ({ event, user }) => {
+  .on('*', ({ event, user }) => {
     console.log(`Request for ${event} by ${user.identity}`);
-    throw new HTTPException(403, { message: "Forbidden" });
+    throw new HTTPException(403, { message: 'Forbidden' });
   })
 
   // Matches the "threads" resource and all actions - create, read, update, delete, search
   // Since this is **more specific** than the generic `on("*")` handler, it will take precedence over the generic handler for all actions on the "threads" resource
-  .on("threads", ({ permissions, value, user }) => {
-    if (!permissions.includes("write")) {
+  .on('threads', ({ permissions, value, user }) => {
+    if (!permissions.includes('write')) {
       throw new HTTPException(403, {
-        message: "User lacks the required permissions.",
+        message: 'User lacks the required permissions.',
       });
     }
 
     // Not all events do include `metadata` property in `value`.
     // So we need to add this type guard.
-    if ("metadata" in value) {
+    if ('metadata' in value) {
       value.metadata ??= {};
       value.metadata.owner = user.identity;
     }
@@ -220,10 +217,10 @@ export const auth = new Auth()
 
   // Thread creation. This will match only on thread create actions.
   // Since this is **more specific** than both the generic `on("*")` handler and the `on("threads")` handler, it will take precedence for any "create" actions on the "threads" resources
-  .on("threads:create", ({ value, user, permissions }) => {
-    if (!permissions.includes("write")) {
+  .on('threads:create', ({ value, user, permissions }) => {
+    if (!permissions.includes('write')) {
       throw new HTTPException(403, {
-        message: "User lacks the required permissions.",
+        message: 'User lacks the required permissions.',
       });
     }
 
@@ -237,7 +234,7 @@ export const auth = new Auth()
   })
 
   // Reading a thread. Since this is also more specific than the generic `on("*")` handler, and the `on("threads")` handler,
-  .on("threads:read", ({ user }) => {
+  .on('threads:read', ({ user }) => {
     // Since we are reading (and not creating) a thread,
     // we don't need to set metadata. We just need to
     // return a filter to ensure users can only see their own threads.
@@ -246,7 +243,7 @@ export const auth = new Auth()
 
   // Run creation, streaming, updates, etc.
   // This takes precedence over the generic `on("*")` handler and the `on("threads")` handler
-  .on("threads:create_run", ({ value, user }) => {
+  .on('threads:create_run', ({ value, user }) => {
     value.metadata ??= {};
     value.metadata.owner = user.identity;
 
@@ -255,10 +252,10 @@ export const auth = new Auth()
 
   // Assistant creation. This will match only on assistant create actions.
   // Since this is **more specific** than both the generic `on("*")` handler and the `on("assistants")` handler, it will take precedence for any "create" actions on the "assistants" resources
-  .on("assistants:create", ({ value, user, permissions }) => {
-    if (!permissions.includes("assistants:create")) {
+  .on('assistants:create', ({ value, user, permissions }) => {
+    if (!permissions.includes('assistants:create')) {
       throw new HTTPException(403, {
-        message: "User lacks the required permissions.",
+        message: 'User lacks the required permissions.',
       });
     }
 
@@ -300,15 +297,15 @@ Here are some typical authorization patterns:
 This common pattern lets you scope all threads, assistants, crons, and runs to a single user. It's useful for common single-user use cases like regular chatbot-style apps.
 
 ```typescript
-import { Auth, HTTPException } from "@langchain/langgraph-sdk/auth";
+import { Auth, HTTPException } from '@langchain/langgraph-sdk/auth';
 
 export const auth = new Auth()
   .authenticate(async (request: Request) => ({
-    identity: "user-123",
-    permissions: ["threads:write", "threads:read"],
+    identity: 'user-123',
+    permissions: ['threads:write', 'threads:read'],
   }))
-  .on("*", ({ value, user }) => {
-    if ("metadata" in value) {
+  .on('*', ({ value, user }) => {
+    if ('metadata' in value) {
       value.metadata ??= {};
       value.metadata.owner = user.identity;
     }
@@ -321,31 +318,28 @@ export const auth = new Auth()
 This pattern lets you control access based on **permissions**. It's useful if you want certain roles to have broader or more restricted access to resources.
 
 ```typescript
-import { Auth, HTTPException } from "@langchain/langgraph-sdk/auth";
+import { Auth, HTTPException } from '@langchain/langgraph-sdk/auth';
 
 export const auth = new Auth()
   .authenticate(async (request: Request) => ({
-    identity: "user-123",
+    identity: 'user-123',
     // Define permissions in auth
-    permissions: ["threads:write", "threads:read"],
+    permissions: ['threads:write', 'threads:read'],
   }))
-  .on("threads:create", ({ value, user, permissions }) => {
-    if (!permissions.includes("threads:write")) {
-      throw new HTTPException(403, { message: "Unauthorized" });
+  .on('threads:create', ({ value, user, permissions }) => {
+    if (!permissions.includes('threads:write')) {
+      throw new HTTPException(403, { message: 'Unauthorized' });
     }
 
-    if ("metadata" in value) {
+    if ('metadata' in value) {
       value.metadata ??= {};
       value.metadata.owner = user.identity;
     }
     return { owner: user.identity };
   })
-  .on("threads:read", ({ user, permissions }) => {
-    if (
-      !permissions.includes("threads:read") &&
-      !permissions.includes("threads:write")
-    ) {
-      throw new HTTPException(403, { message: "Unauthorized" });
+  .on('threads:read', ({ user, permissions }) => {
+    if (!permissions.includes('threads:read') && !permissions.includes('threads:write')) {
+      throw new HTTPException(403, { message: 'Unauthorized' });
     }
 
     return { owner: user.identity };

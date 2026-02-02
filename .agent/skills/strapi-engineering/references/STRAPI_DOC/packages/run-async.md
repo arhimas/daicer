@@ -1,19 +1,16 @@
-Run Async
-=========
+# Run Async
 
 [![npm](https://badge.fury.io/js/run-async.svg)](http://badge.fury.io/js/run-async) [![tests](https://travis-ci.org/SBoudrias/run-async.svg?branch=master)](http://travis-ci.org/SBoudrias/run-async) [![dependencies](https://david-dm.org/SBoudrias/run-async.svg?theme=shields.io)](https://david-dm.org/SBoudrias/run-async)
 
 Utility method to run a function either synchronously or asynchronously using a series of common patterns. This is useful for library author accepting sync or async functions as parameter. `runAsync` will always run them as an async method, and normalize the multiple signature.
 
-Installation
-=========
+# Installation
 
 ```bash
 npm install --save run-async
 ```
 
-Usage
-=========
+# Usage
 
 Here's a simple example print the function results and three options a user can provide a function.
 
@@ -29,6 +26,7 @@ var printAfter = function (func) {
 ```
 
 #### Using `this.async`
+
 ```js
 printAfter(function () {
   var done = this.async();
@@ -40,6 +38,7 @@ printAfter(function () {
 ```
 
 #### Returning a promise
+
 ```js
 printAfter(function () {
   return new Promise(function (resolve, reject) {
@@ -49,6 +48,7 @@ printAfter(function () {
 ```
 
 #### Synchronous function
+
 ```js
 printAfter(function () {
   return 'done running sync function';
@@ -63,17 +63,19 @@ printAfter(function () {
 var runAsync = require('run-async');
 
 // IMPORTANT: The wrapped function must have a fixed number of parameters.
-runAsync.cb(function(a, b, cb) {
-  cb(null, a + b);
-}, function(err, result) {
-  console.log(result)
-})(1, 2)
+runAsync.cb(
+  function (a, b, cb) {
+    cb(null, a + b);
+  },
+  function (err, result) {
+    console.log(result);
+  }
+)(1, 2);
 ```
 
 If your version of node support Promises natively (node >= 0.12), `runAsync` will return a promise. Example: `runAsync(func)(arg1, arg2).then(cb)`
 
-Licence
-========
+# Licence
 
 Copyright (c) 2014 Simon Boudrias (twitter: @vaxilart)  
 Licensed under the MIT license.

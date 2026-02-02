@@ -5,13 +5,13 @@ displayed_sidebar: cmsSidebar
 sidebar_label: Document concept
 pagination_prev: cms/api/content-api
 tags:
-- API
-- concepts
-- Content API
-- Document Service API
-- Draft & Publish
-- Internationalization (i18n)
-- introduction
+  - API
+  - concepts
+  - Content API
+  - Document Service API
+  - Draft & Publish
+  - Internationalization (i18n)
+  - introduction
 ---
 
 <div className="document-concept-page custom-mermaid-layout">
@@ -87,16 +87,17 @@ The following diagrams represent all the possible variations of content dependin
 :::strapi APIs to query documents data
 To interact with documents or the data they represent:
 
-  - From the back-end server (for instance, from controllers, services, and the back-end part of plugins), use the [Document Service API](/cms/api/document-service).
-  - From the front-end part of your application, query your data using the [REST API](/cms/api/rest) or the [GraphQL API](/cms/api/graphql).
+- From the back-end server (for instance, from controllers, services, and the back-end part of plugins), use the [Document Service API](/cms/api/document-service).
+- From the front-end part of your application, query your data using the [REST API](/cms/api/rest) or the [GraphQL API](/cms/api/graphql).
 
 For additional information about the APIs, please refer to the [Content API introduction](/cms/api/content-api).
 :::
 
 :::info Default version in returned results
 An important difference between the back-end and front-end APIs is about the default version returned when no parameter is passed:
+
 - The Document Service API returns the draft version by default,
 - while REST and GraphQL APIs return the published version by default.
-:::
+  :::
 
 </div>

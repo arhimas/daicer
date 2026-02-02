@@ -59,12 +59,11 @@ npm install @ai-sdk/react
 import { useChat } from '@ai-sdk/react';
 
 export default function Page() {
-  const { messages, input, handleSubmit, handleInputChange, status } =
-    useChat();
+  const { messages, input, handleSubmit, handleInputChange, status } = useChat();
 
   return (
     <div>
-      {messages.map(message => (
+      {messages.map((message) => (
         <div key={message.id}>
           <strong>{`${message.role}: `}</strong>
           {message.parts.map((part, index) => {

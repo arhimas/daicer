@@ -6,13 +6,13 @@
 
 Strapi is two applications in one: The **Headless CMS** (API) and the **Admin Panel** (Dashboard). They do not share users.
 
-| Feature | System A: **Users & Permissions** | System B: **Admin RBAC** |
-| :--- | :--- | :--- |
-| **Audience** | End Users (Gamers, Customers, Frontend) | Content Editors, Developers, Admin Staff |
-| **Plugin** | `plugin::users-permissions` | `admin` (Core) |
-| **Table** | `up_users` | `admin_users` |
-| **Token** | JWT (Generated via `/api/auth/local`) | JWT (Generated via `/admin/login`) |
-| **Management** | Settings > Users & Permissions Plugin | Settings > Administration Panel > Roles |
+| Feature        | System A: **Users & Permissions**       | System B: **Admin RBAC**                 |
+| :------------- | :-------------------------------------- | :--------------------------------------- |
+| **Audience**   | End Users (Gamers, Customers, Frontend) | Content Editors, Developers, Admin Staff |
+| **Plugin**     | `plugin::users-permissions`             | `admin` (Core)                           |
+| **Table**      | `up_users`                              | `admin_users`                            |
+| **Token**      | JWT (Generated via `/api/auth/local`)   | JWT (Generated via `/admin/login`)       |
+| **Management** | Settings > Users & Permissions Plugin   | Settings > Administration Panel > Roles  |
 
 ---
 
@@ -21,6 +21,7 @@ Strapi is two applications in one: The **Headless CMS** (API) and the **Admin Pa
 When defining a route in a plugin or API, you **MUST** declare which system it belongs to.
 
 ### A. Admin Routes (`type: 'admin'`)
+
 These are routes called by the **Admin Panel React App**.
 
 ```typescript
@@ -30,7 +31,7 @@ export default {
   routes: [
     {
       method: 'GET',
-      path: '/stats', 
+      path: '/stats',
       handler: 'controller.getStats',
       config: {
         // The Policy that checks the Admin Token
@@ -42,6 +43,7 @@ export default {
 ```
 
 ### B. Content API Routes (`type: 'content-api'`)
+
 These are routes called by your **Game Client / Website**.
 
 ```typescript
@@ -51,7 +53,7 @@ export default {
   routes: [
     {
       method: 'GET',
-      path: '/my-game-data', 
+      path: '/my-game-data',
       handler: 'controller.getData',
       // No policy needed usually; managed via Admin UI (Settings > Users & Permissions)
     },
@@ -66,16 +68,17 @@ export default {
 A policy is a function that returns `true` (pass) or `false` (403 Forbidden).
 
 ### Usage Syntax
+
 `['global::policyName']` or `['plugin::plugin-name.policyName']`
 
 ### Common Built-in Policies
 
-| Policy | Target System | Description |
-| :--- | :--- | :--- |
-| `admin::isAuthenticatedAdmin` | **Admin Only** | Checks if request has a valid Admin JWT. |
-| `admin::hasPermissions` | **Admin Only** | Checks granular permissions (e.g., "Can Read Content Manager"). |
-| `plugin::users-permissions.isAuthenticated` | **End User** | Checks if request has a valid User JWT. |
-| `plugin::users-permissions.ratelimit` | **End User** | Basic rate limiting for API. |
+| Policy                                      | Target System  | Description                                                     |
+| :------------------------------------------ | :------------- | :-------------------------------------------------------------- |
+| `admin::isAuthenticatedAdmin`               | **Admin Only** | Checks if request has a valid Admin JWT.                        |
+| `admin::hasPermissions`                     | **Admin Only** | Checks granular permissions (e.g., "Can Read Content Manager"). |
+| `plugin::users-permissions.isAuthenticated` | **End User**   | Checks if request has a valid User JWT.                         |
+| `plugin::users-permissions.ratelimit`       | **End User**   | Basic rate limiting for API.                                    |
 
 ### Creating a Custom Policy
 
@@ -84,9 +87,9 @@ A policy is a function that returns `true` (pass) or `false` (403 Forbidden).
 ```typescript
 export default (policyContext, config, { strapi }) => {
   const user = policyContext.state.user;
-  
+
   // 1. Check if user exists (Authentication)
-  if (!user) return false; 
+  if (!user) return false;
 
   // 2. Check logic (Authorization)
   if (user.role.name === 'VIP') {
@@ -103,15 +106,16 @@ export default (policyContext, config, { strapi }) => {
 If you get a 403, run this checklist:
 
 1.  **Who is calling?**
-    *   Is it the Admin Panel? -> Check route has `type: 'admin'`.
-    *   Is it the Game Client? -> Check route has `type: 'content-api'`.
+    - Is it the Admin Panel? -> Check route has `type: 'admin'`.
+    - Is it the Game Client? -> Check route has `type: 'content-api'`.
 2.  **Is the Token correct?**
-    *   Do not try to use a Game User Token to access an Admin Route.
+    - Do not try to use a Game User Token to access an Admin Route.
 3.  **Is the Role Configured?**
-    *   **Admin**: Check Settings > Administration Panel > Roles > [Role] > Plugins.
-    *   **User**: Check Settings > Users & Permissions > Roles > [Public/Authenticated].
+    - **Admin**: Check Settings > Administration Panel > Roles > [Role] > Plugins.
+    - **User**: Check Settings > Users & Permissions > Roles > [Public/Authenticated].
 
 ## 📚 Official Reference
--   [Policies Documentation](https://docs.strapi.io/cms/backend-customization/policies)
--   [Users & Permissions Plugin](https://docs.strapi.io/cms/plugins/users-permissions)
--   [Admin Role Based Access Control (RBAC)](https://docs.strapi.io/cms/user-guide/settings/administration-panel/roles)
+
+- [Policies Documentation](https://docs.strapi.io/cms/backend-customization/policies)
+- [Users & Permissions Plugin](https://docs.strapi.io/cms/plugins/users-permissions)
+- [Admin Role Based Access Control (RBAC)](https://docs.strapi.io/cms/user-guide/settings/administration-panel/roles)

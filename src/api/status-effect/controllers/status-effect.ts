@@ -6,7 +6,7 @@
  * status-effect controller
  */
 
-import { factories } from '@strapi/strapi'
+import { factories } from '@strapi/strapi';
 
 /**
  * Status Effect Controller.

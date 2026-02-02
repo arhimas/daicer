@@ -37,6 +37,12 @@
     "description": {
       "type": "text"
     },
+    "category": {
+      "type": "enumeration",
+      "enum": ["Creature", "Item", "Structure", "Effect", "Terrain"],
+      "default": "Creature",
+      "required": true
+    },
     "blueprints": {
       "type": "relation",
       "relation": "manyToMany",

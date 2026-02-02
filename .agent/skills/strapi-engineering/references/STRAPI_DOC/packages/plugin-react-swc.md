@@ -14,8 +14,8 @@ npm i -D @vitejs/plugin-react-swc
 ## Usage
 
 ```ts
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   plugins: [react()],
@@ -43,7 +43,7 @@ Control where the JSX factory is imported from.
 `@default` "react"
 
 ```ts
-react({ jsxImportSource: "@emotion/react" });
+react({ jsxImportSource: '@emotion/react' });
 ```
 
 ### tsDecorators
@@ -61,7 +61,7 @@ react({ tsDecorators: true });
 Use SWC plugins. Enable SWC at build time.
 
 ```ts
-react({ plugins: [["@swc/plugin-styled-components", {}]] });
+react({ plugins: [['@swc/plugin-styled-components', {}]] });
 ```
 
 ### devTarget
@@ -73,7 +73,7 @@ For production target, see https://vitejs.dev/config/build-options.html#build-ta
 `@default` "es2020"
 
 ```ts
-react({ devTarget: "es2022" });
+react({ devTarget: 'es2022' });
 ```
 
 ### parserConfig
@@ -87,8 +87,8 @@ If you want to trigger fast refresh on compiled JS, use `jsx: true`. Exclusion o
 ```ts
 react({
   parserConfig(id) {
-    if (id.endsWith(".res")) return { syntax: "ecmascript", jsx: true };
-    if (id.endsWith(".ts")) return { syntax: "typescript", tsx: false };
+    if (id.endsWith('.res')) return { syntax: 'ecmascript', jsx: true };
+    if (id.endsWith('.ts')) return { syntax: 'typescript', tsx: false };
   },
 });
 ```

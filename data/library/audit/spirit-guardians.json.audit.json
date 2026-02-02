@@ -25,9 +25,7 @@
         "save_and_damage": "Wisdom save is appropriate for resisting spiritual influence. Damage application (start of turn or entry) is standard for persistent area spells. Half damage on success is standard.",
         "scaling": "Damage scaling (1d8 per slot level above 3rd) is mechanically sound and ensures the spell remains relevant."
       },
-      "suggestions": [
-        "None. The spell is well-designed and mechanically sound for its level."
-      ]
+      "suggestions": ["None. The spell is well-designed and mechanically sound for its level."]
     },
     "archival_status": "ACCEPTED"
   },

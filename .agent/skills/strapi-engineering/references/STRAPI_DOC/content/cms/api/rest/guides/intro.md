@@ -6,12 +6,11 @@ sidebar_label: Guides
 pagination_prev: cms/api/rest
 pagination_next: cms/api/client
 tags:
-- API
-- Content API
-- guides
-- REST API
-- REST API guides
-
+  - API
+  - Content API
+  - guides
+  - REST API
+  - REST API guides
 ---
 
 # REST API Guides
@@ -40,5 +39,3 @@ Additional tutorials and guides can be found in the following blog posts:
 <CustomDocCard emoji="➕" title="Using Fetch with Strapi's Content API" description="Explore how to use the fetch() method of the Fetch API to interact with Strapi's Content API." link="https://strapi.io/blog/mastering-api-requests-using-fetch-with-strapi-content-api" />
 
 <CustomDocCard emoji="➕" title="Requesting Strapi's REST API behind a Content Delivery Network (CDN)" description="Learn how to overcome network latency issues when requesting large numbers of media assets by leveraging the usage of a CDN with Strapi's REST API." link="https://strapi.io/blog/request-strapi-s-rest-api-behind-a-content-delivery-network-cdn" />
-
-

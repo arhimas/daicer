@@ -129,9 +129,9 @@
       "required": true
     },
     "voxels": {
-        "type": "customField",
-        "customField": "plugin::map-explorer.world-grid",
-        "required": false
+      "type": "customField",
+      "customField": "plugin::map-explorer.world-grid",
+      "required": false
     }
   }
 }

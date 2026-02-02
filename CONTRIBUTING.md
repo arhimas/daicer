@@ -5,10 +5,10 @@
 New to the project? Read these first:
 
 1.  **[Strapi 5 Engineering Mastery](docs/strapi-engineering/)**: The definitive guide to our backend architecture.
-    *   [Content Types](docs/strapi-engineering/01-content-types.md)
-    *   [Admin Customization](docs/strapi-engineering/02-admin-customization.md)
-    *   [Plugins & Extensions](docs/strapi-engineering/03-plugins-and-extensions.md)
-    *   [Roles & Policies](docs/strapi-engineering/05-roles-and-policies.md)
+    - [Content Types](docs/strapi-engineering/01-content-types.md)
+    - [Admin Customization](docs/strapi-engineering/02-admin-customization.md)
+    - [Plugins & Extensions](docs/strapi-engineering/03-plugins-and-extensions.md)
+    - [Roles & Policies](docs/strapi-engineering/05-roles-and-policies.md)
 2.  **[Agent Rules](.agent/rules/)**: The strict coding standards we follow.
 
 ## Testing

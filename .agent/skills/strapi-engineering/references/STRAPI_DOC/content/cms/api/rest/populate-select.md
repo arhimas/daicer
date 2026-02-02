@@ -5,14 +5,14 @@ sidebarDepth: 3
 sidebar_label: Populate & Select
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- Combining operators
-- find
-- populate
-- REST API
-- select
-- qs library
+  - API
+  - Content API
+  - Combining operators
+  - find
+  - populate
+  - REST API
+  - select
+  - qs library
 ---
 
 import QsIntroFull from '/docs/snippets/qs-intro-full.md'
@@ -42,10 +42,10 @@ Queries can accept a `fields` parameter to select only some fields. By default, 
 - number types: integer, biginteger, float, and decimal,
 - generic types: boolean, array, and JSON.
 
-| Use case              | Example parameter syntax              |
-|-----------------------|---------------------------------------|
-| Select a single field | `fields=name`                         |
-| Select multiple fields| `fields[0]=name&fields[1]=description`|
+| Use case               | Example parameter syntax               |
+| ---------------------- | -------------------------------------- |
+| Select a single field  | `fields=name`                          |
+| Select multiple fields | `fields[0]=name&fields[1]=description` |
 
 :::note
 Field selection does not work on relational, media, component, or dynamic zone fields. To populate these fields, use the [`populate` parameter](#population).
@@ -98,7 +98,7 @@ await request(`/api/users?${query}`);
         }
       ],
       "documentId": "lr5wju2og49bf820kj9kz8c3"
-    },
+    }
     // …
   ],
   "meta": {
@@ -140,16 +140,16 @@ The [REST API guides](/cms/api/rest/guides/intro) section includes more detailed
 
 The following table sums up possible populate use cases and their associated parameter syntaxes, and links to sections of the Understanding populate guide which includes more detailed explanations:
 
-| Use case  | Example parameter syntax | Detailed explanations to read |
-|-----------| ---------------|-----------------------|
-| Populate everything, 1 level deep, including media fields, relations, components, and dynamic zones | `populate=*`| [Populate all relations and fields, 1 level deep](/cms/api/rest/guides/understanding-populate#populate-all-relations-and-fields-1-level-deep) |
-| Populate one relation,<br/>1 level deep | `populate=a-relation-name`| [Populate 1 level deep for specific relations](/cms/api/rest/guides/understanding-populate#populate-1-level-deep-for-specific-relations) |
-| Populate several relations,<br/>1 level deep | `populate[0]=relation-name&populate[1]=another-relation-name&populate[2]=yet-another-relation-name`| [Populate 1 level deep for specific relations](/cms/api/rest/guides/understanding-populate#populate-1-level-deep-for-specific-relations) |
-| Populate some relations, several levels deep | `populate[root-relation-name][populate][0]=nested-relation-name`| [Populate several levels deep for specific relations](/cms/api/rest/guides/understanding-populate#populate-several-levels-deep-for-specific-relations) |
-| Populate a component | `populate[0]=component-name`| [Populate components](/cms/api/rest/guides/understanding-populate#populate-components) |
-| Populate a component and one of its nested components | `populate[0]=component-name&populate[1]=component-name.nested-component-name`| [Populate components](/cms/api/rest/guides/understanding-populate#populate-components) |
-| Populate a dynamic zone (only its first-level elements) | `populate[0]=dynamic-zone-name`| [Populate dynamic zones](/cms/api/rest/guides/understanding-populate#populate-dynamic-zones) |
-| Populate a dynamic zone and its nested elements and relations, using a precisely defined, detailed population strategy | `populate[dynamic-zone-name][on][component-category.component-name][populate][relation-name][populate][0]=field-name`| [Populate dynamic zones](/cms/api/rest/guides/understanding-populate#populate-dynamic-zones) |
+| Use case                                                                                                               | Example parameter syntax                                                                                              | Detailed explanations to read                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Populate everything, 1 level deep, including media fields, relations, components, and dynamic zones                    | `populate=*`                                                                                                          | [Populate all relations and fields, 1 level deep](/cms/api/rest/guides/understanding-populate#populate-all-relations-and-fields-1-level-deep)          |
+| Populate one relation,<br/>1 level deep                                                                                | `populate=a-relation-name`                                                                                            | [Populate 1 level deep for specific relations](/cms/api/rest/guides/understanding-populate#populate-1-level-deep-for-specific-relations)               |
+| Populate several relations,<br/>1 level deep                                                                           | `populate[0]=relation-name&populate[1]=another-relation-name&populate[2]=yet-another-relation-name`                   | [Populate 1 level deep for specific relations](/cms/api/rest/guides/understanding-populate#populate-1-level-deep-for-specific-relations)               |
+| Populate some relations, several levels deep                                                                           | `populate[root-relation-name][populate][0]=nested-relation-name`                                                      | [Populate several levels deep for specific relations](/cms/api/rest/guides/understanding-populate#populate-several-levels-deep-for-specific-relations) |
+| Populate a component                                                                                                   | `populate[0]=component-name`                                                                                          | [Populate components](/cms/api/rest/guides/understanding-populate#populate-components)                                                                 |
+| Populate a component and one of its nested components                                                                  | `populate[0]=component-name&populate[1]=component-name.nested-component-name`                                         | [Populate components](/cms/api/rest/guides/understanding-populate#populate-components)                                                                 |
+| Populate a dynamic zone (only its first-level elements)                                                                | `populate[0]=dynamic-zone-name`                                                                                       | [Populate dynamic zones](/cms/api/rest/guides/understanding-populate#populate-dynamic-zones)                                                           |
+| Populate a dynamic zone and its nested elements and relations, using a precisely defined, detailed population strategy | `populate[dynamic-zone-name][on][component-category.component-name][populate][relation-name][populate][0]=field-name` | [Populate dynamic zones](/cms/api/rest/guides/understanding-populate#populate-dynamic-zones)                                                           |
 
 :::tip
 The easiest way to build complex queries with multiple-level population is to use our [interactive query builder](/cms/api/rest/interactive-query-builder) tool.
@@ -226,7 +226,6 @@ await request(`/api/articles?${query}`);
 
 </Response>
 </ApiCall>
-
 
 #### Populate with filtering
 

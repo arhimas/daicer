@@ -1,17 +1,17 @@
 ---
 title: Middlewares
 tags:
-- backend customization
-- backend server
-- controllers
-- ctx
-- global middlewares
-- is-owner policy
-- middlewares
-- middlewares customization
-- REST API 
-- route middlewares
-- routes
+  - backend customization
+  - backend server
+  - controllers
+  - ctx
+  - global middlewares
+  - is-owner policy
+  - middlewares
+  - middlewares customization
+  - REST API
+  - route middlewares
+  - routes
 ---
 
 import MiddlewareTypes from '/docs/snippets/middleware-types.md'
@@ -45,8 +45,7 @@ Middlewares working with the REST API are functions like the following:
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/middlewares/my-middleware.js or ./src/api/[api-name]/middlewares/my-middleware.js"
-
-module.exports = (config, { strapi })=> {
+module.exports = (config, { strapi }) => {
   return (context, next) => {};
 };
 ```
@@ -56,8 +55,7 @@ module.exports = (config, { strapi })=> {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/middlewares/my-middleware.js or ./src/api/[api-name]/middlewares/my-middleware.ts"
-
-export default (config, { strapi })=> {
+export default (config, { strapi }) => {
   return (context, next) => {};
 };
 ```
@@ -73,11 +71,11 @@ API level and plugin middlewares can be added into the specific router that they
 module.exports = {
   routes: [
     {
-      method: "GET",
-      path: "/[collection-name]",
-      handler: "[controller].find",
+      method: 'GET',
+      path: '/[collection-name]',
+      handler: '[controller].find',
       config: {
-        middlewares: ["[middleware-name]"],
+        middlewares: ['[middleware-name]'],
         // See the usage section below for middleware naming conventions
       },
     },
@@ -109,7 +107,6 @@ module.exports = () => {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="/config/middlewares.ts"
-
 export default () => {
   return async (ctx, next) => {
     const start = Date.now();
@@ -149,7 +146,7 @@ To list all the registered middlewares, run `yarn strapi middlewares:list`.
 
 It is often required that the author of an entry is the only user allowed to edit or delete the entry. In previous versions of Strapi, this was known as an "is-owner policy". With Strapi v4, the recommended way to achieve this behavior is to use a middleware.
 
-Proper implementation largely depends on your project's needs and custom code, but the most basic implementation could be achieved with the following procedure: 
+Proper implementation largely depends on your project's needs and custom code, but the most basic implementation could be achieved with the following procedure:
 
 1. From your project's folder, create a middleware with the Strapi CLI generator, by running the `yarn strapi generate` (or `npm run strapi generate`) command in the terminal.
 2. Select `middleware` from the list, using keyboard arrows, and press Enter.
@@ -158,67 +155,63 @@ Proper implementation largely depends on your project's needs and custom code, b
 5. Select which API you want the middleware to apply.
 6. Replace the code in the `/src/api/[your-api-name]/middlewares/isOwner.js` file with the following, replacing `api::restaurant.restaurant` in line 22 with the identifier corresponding to the API you choose at step 5 (e.g., `api::blog-post.blog-post` if your API name is `blog-post`):
 
-  ```js showLineNumbers title="src/api/blog-post/middlewares/isOwner.js"
-    "use strict";
+```js showLineNumbers title="src/api/blog-post/middlewares/isOwner.js"
+'use strict';
+
+/**
+ * `isOwner` middleware
+ */
+
+module.exports = (config, { strapi }) => {
+  // Add your own logic here.
+  return async (ctx, next) => {
+    const user = ctx.state.user;
+    const entryId = ctx.params.id ? ctx.params.id : undefined;
+    let entry = {};
 
     /**
-     * `isOwner` middleware
+     * Gets all information about a given entry,
+     * populating every relations to ensure
+     * the response includes author-related information
      */
+    if (entryId) {
+      entry = await strapi.documents('api::restaurant.restaurant').findOne(entryId, { populate: '*' });
+    }
 
-    module.exports = (config, { strapi }) => {
-      // Add your own logic here.
-      return async (ctx, next) => {
-        const user = ctx.state.user;
-        const entryId = ctx.params.id ? ctx.params.id : undefined;
-        let entry = {};
-
-        /** 
-         * Gets all information about a given entry,
-         * populating every relations to ensure 
-         * the response includes author-related information
-         */
-        if (entryId) {
-          entry = await strapi.documents('api::restaurant.restaurant').findOne(
-            entryId,
-            { populate: "*" }
-          );
-        }
-
-        /**
-         * Compares user id and entry author id
-         * to decide whether the request can be fulfilled
-         * by going forward in the Strapi backend server
-         */
-        if (user.id !== entry.author.id) {
-          return ctx.unauthorized("This action is unauthorized.");
-        } else {
-          return next();
-        }
-      };
-    };
-  ```
+    /**
+     * Compares user id and entry author id
+     * to decide whether the request can be fulfilled
+     * by going forward in the Strapi backend server
+     */
+    if (user.id !== entry.author.id) {
+      return ctx.unauthorized('This action is unauthorized.');
+    } else {
+      return next();
+    }
+  };
+};
+```
 
 7. Ensure the middleware is configured to apply on some routes. In the `config` object found in the `src/api/[your-api–name]/routes/[your-content-type-name].js` file, define the action keys (`find`, `findOne`, `create`, `update`, `delete`, etc.) for which you would like the middleware to apply, and declare the `isOwner` middleware for these routes.<br /><br />For instance, if you wish to allow GET requests (mapping to the `find` and `findOne` actions) and POST requests (i.e., the `create` action) to any user for the `restaurant` content-type in the `restaurant` API, but would like to restrict PUT (i.e., `update` action) and DELETE requests only to the user who created the entry, you could use the following code in the `src/api/restaurant/routes/restaurant.js` file:
 
-  ```js title="src/api/restaurant/routes/restaurant.js"
+```js title="src/api/restaurant/routes/restaurant.js"
+/**
+ * restaurant router
+ */
 
-  /**
-   * restaurant router
-   */
-      
-  const { createCoreRouter } = require("@strapi/strapi").factories;
+const { createCoreRouter } = require('@strapi/strapi').factories;
 
-  module.exports = createCoreRouter("api::restaurant.restaurant", {
-    config: {
-      update: {
-        middlewares: ["api::restaurant.is-owner"],
-      },
-      delete: {
-        middlewares: ["api::restaurant.is-owner"],
-      },
+module.exports = createCoreRouter('api::restaurant.restaurant', {
+  config: {
+    update: {
+      middlewares: ['api::restaurant.is-owner'],
     },
-  });
-  ```
+    delete: {
+      middlewares: ['api::restaurant.is-owner'],
+    },
+  },
+});
+```
 
 :::info
 You can find more information about route middlewares in the [routes documentation](/cms/backend-customization/routes).

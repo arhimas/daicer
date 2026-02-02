@@ -24,9 +24,7 @@
         "mechanic_source_tag_present": true
       },
       "notes": "The item is well-defined. The 'source_type_rarity' field duplicates information but confirms the item's classification.",
-      "recommendations": [
-        "Ensure consistent parsing of source tags if external links are part of the schema."
-      ]
+      "recommendations": ["Ensure consistent parsing of source tags if external links are part of the schema."]
     }
   },
   "timestamp": "2026-01-17T07:22:55.820Z"

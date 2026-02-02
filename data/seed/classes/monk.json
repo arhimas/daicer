@@ -2,178 +2,114 @@
   "slug": "monk",
   "name": "Monk",
   "hit_die": 8,
-  "proficiency_choices": [
-    "Acrobatics",
-    "Athletics",
-    "History",
-    "Insight",
-    "Religion",
-    "Stealth"
-  ],
+  "proficiency_choices": ["Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"],
   "proficiencies": {
-    "armor": [
-      "None"
-    ],
-    "weapons": [
-      "Simple weapons",
-      "shortswords"
-    ],
-    "tools": [
-      "Choose one type of artisan's tools or one musical instrument"
-    ],
-    "saving_throws": [
-      "Strength",
-      "Dexterity"
-    ]
+    "armor": ["None"],
+    "weapons": ["Simple weapons", "shortswords"],
+    "tools": ["Choose one type of artisan's tools or one musical instrument"],
+    "saving_throws": ["Strength", "Dexterity"]
   },
   "equipment": [],
   "progression": [
     {
       "level": 1,
       "pb": 2,
-      "features": [
-        "Unarmored Defense",
-        "Martial Arts"
-      ]
+      "features": ["Unarmored Defense", "Martial Arts"]
     },
     {
       "level": 2,
       "pb": 2,
-      "features": [
-        "Ki",
-        "Unarmored Movement"
-      ]
+      "features": ["Ki", "Unarmored Movement"]
     },
     {
       "level": 3,
       "pb": 2,
-      "features": [
-        "Monastic Tradition",
-        "Deflect Missiles"
-      ]
+      "features": ["Monastic Tradition", "Deflect Missiles"]
     },
     {
       "level": 4,
       "pb": 2,
-      "features": [
-        "Ability Score Improvement",
-        "Slow Fall"
-      ]
+      "features": ["Ability Score Improvement", "Slow Fall"]
     },
     {
       "level": 5,
       "pb": 3,
-      "features": [
-        "Extra Attack",
-        "Stunning Strike"
-      ]
+      "features": ["Extra Attack", "Stunning Strike"]
     },
     {
       "level": 6,
       "pb": 3,
-      "features": [
-        "Ki-Empowered Strikes",
-        "Monastic Tradition feature"
-      ]
+      "features": ["Ki-Empowered Strikes", "Monastic Tradition feature"]
     },
     {
       "level": 7,
       "pb": 3,
-      "features": [
-        "Evasion",
-        "Stillness of Mind"
-      ]
+      "features": ["Evasion", "Stillness of Mind"]
     },
     {
       "level": 8,
       "pb": 3,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 9,
       "pb": 4,
-      "features": [
-        "Unarmored Movement"
-      ]
+      "features": ["Unarmored Movement"]
     },
     {
       "level": 10,
       "pb": 4,
-      "features": [
-        "Purity of Body"
-      ]
+      "features": ["Purity of Body"]
     },
     {
       "level": 11,
       "pb": 4,
-      "features": [
-        "Monastic Tradition feature"
-      ]
+      "features": ["Monastic Tradition feature"]
     },
     {
       "level": 12,
       "pb": 4,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 13,
       "pb": 5,
-      "features": [
-        "Tongue of the Sun and Moon"
-      ]
+      "features": ["Tongue of the Sun and Moon"]
     },
     {
       "level": 14,
       "pb": 5,
-      "features": [
-        "Diamond Soul"
-      ]
+      "features": ["Diamond Soul"]
     },
     {
       "level": 15,
       "pb": 5,
-      "features": [
-        "Timeless Body"
-      ]
+      "features": ["Timeless Body"]
     },
     {
       "level": 16,
       "pb": 5,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 17,
       "pb": 6,
-      "features": [
-        "Monastic Tradition feature"
-      ]
+      "features": ["Monastic Tradition feature"]
     },
     {
       "level": 18,
       "pb": 6,
-      "features": [
-        "Empty Body"
-      ]
+      "features": ["Empty Body"]
     },
     {
       "level": 19,
       "pb": 6,
-      "features": [
-        "Ability Score Improvement"
-      ]
+      "features": ["Ability Score Improvement"]
     },
     {
       "level": 20,
       "pb": 6,
-      "features": [
-        "Perfect Self"
-      ]
+      "features": ["Perfect Self"]
     }
   ]
 }

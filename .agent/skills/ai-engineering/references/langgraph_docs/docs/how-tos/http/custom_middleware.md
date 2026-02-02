@@ -27,12 +27,12 @@ npm install hono
 Once you have a LangGraph project, add the following app code:
 
 ```typescript
-import { Hono } from "hono";
+import { Hono } from 'hono';
 
 export const app = new Hono();
 
 app.use(async (c, next) => {
-  c.header("X-Custom-Header", "Hello World");
+  c.header('X-Custom-Header', 'Hello World');
   await next();
 });
 ```

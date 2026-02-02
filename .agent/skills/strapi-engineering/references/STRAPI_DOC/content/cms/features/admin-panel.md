@@ -3,10 +3,10 @@ title: Admin panel
 description: Learn to use the admin panel.
 toc_max_heading_level: 5
 tags:
-- admin panel
-- profile
-- light mode
-- dark mode
+  - admin panel
+  - profile
+  - light mode
+  - dark mode
 ---
 
 # Administration panel
@@ -29,11 +29,12 @@ sources={{
 You can [create your own widgets](/cms/admin-panel-customization/homepage) to customize the admin panel's homepage.
 
 You can also customize the layout (widget controls appear when you hover over a widget or between widgets):
+
 - **Resize**: Drag the divider in a two-widget row left or right.
 - **Reorder**: Drag the <Icon name="dots-six-vertical" classes="ph-bold" /> button to move a widget.
 - **Delete**: Click the <Icon name="trash"/> button.
 - **Restore**: Use the "Add widget" button at the top of the page to bring back a deleted widget.
-:::
+  :::
 
 ## Overview
 
@@ -47,7 +48,7 @@ There are a few factors that you should keep in mind when using the admin panel,
 - **Roles and Permissions** <br/> Some features and the content itself are ruled by a system of permissions that can be defined at a detailed level. Depending on your role and permissions, you may not be able to access all the features and options. Read the [RBAC feature documentation](/cms/features/rbac) for more information.
 
 - **Future flags** <br/> Some incoming Strapi features are not yet ready to be shipped to all users, but Strapi still offers community users the opportunity to provide early feedback. These experimental features require enabling the corresponding future flags. Look for the <FeatureFlagBadge /> badge in the docs and read the [Feature flags documentation](/cms/configurations/features#enabling-a-future-flag) for more information.
-:::
+  :::
 
 <Guideflow lightId="dkd2m1lsgr" darkId="dkd2mjlugr"/>
 
@@ -74,7 +75,7 @@ There are many more configuration and customization options available. See the f
 
 ### Modifying profile information (name, email, username)
 
-1. Go to the *Profile* section of your profile.
+1. Go to the _Profile_ section of your profile.
 2. Fill in the following options:
 
 | Profile & Experience | Instructions                                      |
@@ -88,7 +89,7 @@ There are many more configuration and customization options available. See the f
 
 ### Changing account password
 
-1. Go to the *Change password* section of your profile.
+1. Go to the _Change password_ section of your profile.
 2. Fill in the following options:
 
 | Password modification | Instructions                                |
@@ -105,7 +106,7 @@ You can click on the <Icon name="eye" /> icon for the passwords to be shown.
 
 ### Choosing interface language
 
-In the *Experience* section of your profile, select your preferred language using the *Interface language* dropdown.
+In the _Experience_ section of your profile, select your preferred language using the _Interface language_ dropdown.
 
 :::note
 Keep in mind that choosing an interface language only applies to your account on the admin panel. Other users of the same application's admin panel can use a different language.
@@ -113,7 +114,7 @@ Keep in mind that choosing an interface language only applies to your account on
 
 ### Choosing interface mode (light, dark)
 
-By default, the chosen interface mode is based on your browser's mode. You can however, in the *Experience* section of your profile, manually choose either the Light Mode or Dark Mode using the *Interface mode* dropdown.
+By default, the chosen interface mode is based on your browser's mode. You can however, in the _Experience_ section of your profile, manually choose either the Light Mode or Dark Mode using the _Interface mode_ dropdown.
 
 :::note
 Keep in mind that choosing an interface mode only applies to your account on the admin panel.
@@ -121,16 +122,16 @@ Keep in mind that choosing an interface mode only applies to your account on the
 
 ### Resetting guided tour
 
-In the *Guided tour* section of your profile, you can click the **Reset guided tour** button to reset the guided tour which is available in the homepage of the admin panel. It allows you to see again the guided tour of the admin panel if you closed it beforehand, and to follow again its various steps.
+In the _Guided tour_ section of your profile, you can click the **Reset guided tour** button to reset the guided tour which is available in the homepage of the admin panel. It allows you to see again the guided tour of the admin panel if you closed it beforehand, and to follow again its various steps.
 
 ### Customizing the logo
 
-**Path to configure the admin panel:** <Icon name="gear-six" /> *Settings > Global settings > Overview*
+**Path to configure the admin panel:** <Icon name="gear-six" /> _Settings > Global settings > Overview_
 
 The default Strapi logos, displayed in the main navigation of a Strapi application and the authentication pages, can be modified.
 
-1. Click on the upload area for *Menu logo* or *Auth logo*.
-2. Upload your chosen logo, either by browsing files, drag & dropping the file in the right area, or by using a URL. The logo shouldn't be more than 750x750px. 
+1. Click on the upload area for _Menu logo_ or _Auth logo_.
+2. Upload your chosen logo, either by browsing files, drag & dropping the file in the right area, or by using a URL. The logo shouldn't be more than 750x750px.
 3. Click on the **Upload logo** button in the upload window.
 4. Click on the **Save** button in the top right corner.
 
@@ -141,8 +142,8 @@ Both logos can also be customized programmatically via the Strapi application's 
 :::
 
 <ThemedImage
-  alt="Custom logo settings"
-  sources={{
+alt="Custom logo settings"
+sources={{
     light: '/img/assets/settings/settings_custom-logo.png',
     dark: '/img/assets/settings/settings_custom-logo_DARK.png',
   }}

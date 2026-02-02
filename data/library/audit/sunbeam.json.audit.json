@@ -26,9 +26,7 @@
         "concentration_maintenance": "The requirement for concentration for up to 1 minute fits spells that maintain an ongoing effect (the beam and the light source)."
       },
       "zod_errors": "NONE",
-      "recommendations": [
-        "No critical errors found. The spell is well-defined and balanced for its level."
-      ]
+      "recommendations": ["No critical errors found. The spell is well-defined and balanced for its level."]
     }
   },
   "timestamp": "2026-01-17T07:22:30.291Z"

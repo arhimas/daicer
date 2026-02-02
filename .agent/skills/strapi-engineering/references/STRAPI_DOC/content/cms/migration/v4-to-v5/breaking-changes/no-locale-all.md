@@ -4,12 +4,12 @@ description: In Strapi 5, it's no longer possible to get all localized versions 
 sidebar_label: No locale=all support
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - locale
- - Internationalization (i18n)
- - content API
- - REST API
- - upgrade to Strapi 5
+  - breaking changes
+  - locale
+  - Internationalization (i18n)
+  - content API
+  - REST API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

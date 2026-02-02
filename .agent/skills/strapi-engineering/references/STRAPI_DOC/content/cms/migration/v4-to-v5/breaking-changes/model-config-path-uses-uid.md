@@ -4,9 +4,9 @@ description: Modules like `api::myapi` and `plugin::upload` should no longer be 
 sidebar_label: Model config path uses uid
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - configuration
- - upgrade to Strapi 5
+  - breaking changes
+  - configuration
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -33,7 +33,7 @@ Models are added to the configuration using `.` notation as follows:
 
 ```jsx
 strapi.config.get('plugin.upload.somesetting');
-if ( strapi.config.has('plugin.upload.somesetting') ) {
+if (strapi.config.has('plugin.upload.somesetting')) {
   strapi.config.set('plugin.upload.somesetting', false);
 }
 ```
@@ -41,9 +41,10 @@ if ( strapi.config.has('plugin.upload.somesetting') ) {
 **In Strapi 5**
 
 Models are added to the configuration using `::` replacing `.` notation as follows:
+
 ```jsx
 strapi.config.get('plugin::upload.somesetting');
-if ( strapi.config.has('plugin::upload.somesetting') ) {
+if (strapi.config.has('plugin::upload.somesetting')) {
   strapi.config.set('plugin::upload.somesetting', false);
 }
 ```

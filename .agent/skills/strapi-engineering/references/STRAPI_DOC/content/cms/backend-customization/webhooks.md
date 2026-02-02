@@ -3,14 +3,14 @@ title: Webhooks
 displayed_sidebar: cmsSidebar
 description: Strapi webhooks are user-defined HTTP callbacks used by an application to notify other applications that an event occurred.
 tags:
-- backend customization
-- backend server
-- defaultHeaders
-- Headers
-- lifecycle hooks
-- payload
-- REST API 
-- webhooks
+  - backend customization
+  - backend server
+  - defaultHeaders
+  - Headers
+  - lifecycle hooks
+  - payload
+  - REST API
+  - webhooks
 ---
 
 # Webhooks
@@ -45,7 +45,7 @@ You can set webhook configurations inside the file `./config/server`.
 module.exports = {
   webhooks: {
     defaultHeaders: {
-      "Custom-Header": "my-custom-header",
+      'Custom-Header': 'my-custom-header',
     },
   },
 };
@@ -59,7 +59,7 @@ module.exports = {
 export default {
   webhooks: {
     defaultHeaders: {
-      "Custom-Header": "my-custom-header",
+      'Custom-Header': 'my-custom-header',
     },
   },
 };
@@ -73,7 +73,6 @@ export default {
 Most of the time, webhooks make requests to public URLs, therefore it is possible that someone may find that URL and send it wrong information.
 
 To prevent this from happening you can send a header with an authentication token. Using the Admin panel you would have to do it for every webhook.
-
 
 Another way is to define `defaultHeaders` to add to every webhook request.
 
@@ -90,7 +89,7 @@ You can configure these global headers by updating the file at `./config/server`
 module.exports = {
   webhooks: {
     defaultHeaders: {
-      Authorization: "Bearer my-very-secured-token",
+      Authorization: 'Bearer my-very-secured-token',
     },
   },
 };
@@ -104,7 +103,7 @@ module.exports = {
 export default {
   webhooks: {
     defaultHeaders: {
-      Authorization: "Bearer my-very-secured-token",
+      Authorization: 'Bearer my-very-secured-token',
     },
   },
 };
@@ -205,27 +204,27 @@ module.exports = (config, { strapi }) => {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="/src/middlewares/verify-webhook.ts"
-import crypto from "node:crypto"
+import crypto from 'node:crypto';
 
 export default (config: unknown, { strapi }: any) => {
   const secret = process.env.WEBHOOK_SECRET as string;
 
   return async (ctx: any, next: any) => {
-    const signature = ctx.get("X-Webhook-Signature") as string;
-    const timestamp = ctx.get("X-Webhook-Timestamp") as string;
-    if (!signature || !timestamp) return ctx.unauthorized("Missing signature");
+    const signature = ctx.get('X-Webhook-Signature') as string;
+    const timestamp = ctx.get('X-Webhook-Timestamp') as string;
+    if (!signature || !timestamp) return ctx.unauthorized('Missing signature');
 
     // Compute HMAC over raw body + timestamp
-    const raw: string = ctx.request.rawBody || (ctx.request.body && JSON.stringify(ctx.request.body)) || "";
-    const hmac = crypto.createHmac("sha256", secret);
+    const raw: string = ctx.request.rawBody || (ctx.request.body && JSON.stringify(ctx.request.body)) || '';
+    const hmac = crypto.createHmac('sha256', secret);
     hmac.update(`${timestamp}.${raw}`);
-    const expected = `sha256=${hmac.digest("hex")}`;
+    const expected = `sha256=${hmac.digest('hex')}`;
 
     // Constant-time compare + basic replay protection
     const ok = crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
     const skew = Math.abs(Date.now() - Number(timestamp));
     if (!ok || skew > 5 * 60 * 1000) {
-      return ctx.unauthorized("Invalid or expired signature");
+      return ctx.unauthorized('Invalid or expired signature');
     }
 
     await next();
@@ -237,10 +236,11 @@ export default (config: unknown, { strapi }: any) => {
 </Tabs>
 
 Here are a few additional external examples:
+
 - <ExternalLink to="https://docs.github.com/webhooks/using-webhooks/validating-webhook-deliveries" text="GitHub — Validating webhook deliveries" />
 - <ExternalLink to="https://stripe.com/docs/webhooks/signatures" text="Stripe — Verify webhook signatures" />
-<br />
-</details>
+  <br />
+  </details>
 
 <!--- ### Usage
 
@@ -290,18 +290,18 @@ You can delete a webhook by clicking on the `trash` icon.
 
 By default Strapi webhooks can be triggered by the following events:
 
-| Name              | Description                                           |
-| ----------------- | ----------------------------------------------------- |
-| [`entry.create`](#entrycreate)   | Triggered when a Content Type entry is created.       |
-| [`entry.update`](#entryupdate)    | Triggered when a Content Type entry is updated.       |
-| [`entry.delete`](#entrydelete)    | Triggered when a Content Type entry is deleted.       |
-| [`entry.publish`](#entrypublish)   | Triggered when a Content Type entry is published.\*   |
-| [`entry.unpublish`](#entryunpublish) | Triggered when a Content Type entry is unpublished.\* |
-| [`media.create`](#mediacreate)    | Triggered when a media is created.                    |
-| [`media.update`](#mediaupdate)    | Triggered when a media is updated.                    |
-| [`media.delete`](#mediadelete)    | Triggered when a media is deleted.                    |
+| Name                                                                     | Description                                                                                                                                                                                                     |
+| ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`entry.create`](#entrycreate)                                           | Triggered when a Content Type entry is created.                                                                                                                                                                 |
+| [`entry.update`](#entryupdate)                                           | Triggered when a Content Type entry is updated.                                                                                                                                                                 |
+| [`entry.delete`](#entrydelete)                                           | Triggered when a Content Type entry is deleted.                                                                                                                                                                 |
+| [`entry.publish`](#entrypublish)                                         | Triggered when a Content Type entry is published.\*                                                                                                                                                             |
+| [`entry.unpublish`](#entryunpublish)                                     | Triggered when a Content Type entry is unpublished.\*                                                                                                                                                           |
+| [`media.create`](#mediacreate)                                           | Triggered when a media is created.                                                                                                                                                                              |
+| [`media.update`](#mediaupdate)                                           | Triggered when a media is updated.                                                                                                                                                                              |
+| [`media.delete`](#mediadelete)                                           | Triggered when a media is deleted.                                                                                                                                                                              |
 | [`review-workflows.updateEntryStage`](#review-workflowsupdateentrystage) | Triggered when content is moved between review stages (see [review workflows](/cms/features/review-workflows#configuration)).<br />This event is only available with the <EnterpriseBadge /> edition of Strapi. |
-| [`releases.publish`](#releases-publish) | Triggered when a Release is published (see [Releases](/cms/features/releases)).<br />This event is only available with the <GrowthBadge /> or <EnterpriseBadge /> plan of Strapi CMS. |
+| [`releases.publish`](#releases-publish)                                  | Triggered when a Release is published (see [Releases](/cms/features/releases)).<br />This event is only available with the <GrowthBadge /> or <EnterpriseBadge /> plan of Strapi CMS.                           |
 
 \*only when `draftAndPublish` is enabled on this Content Type.
 
@@ -536,6 +536,7 @@ This event is triggered only when you delete a media through the media interface
 ```
 
 ### `review-workflows.updateEntryStage`
+
 <EnterpriseBadge/>
 
 This event is only available with the <EnterpriseBadge/> plan of Strapi.<br />The event is triggered when content is moved to a new review stage (see [Review Workflows](/cms/features/review-workflows#configuration)).
@@ -567,7 +568,8 @@ This event is only available with the <EnterpriseBadge/> plan of Strapi.<br />Th
 }
 ```
 
-### `releases.publish`  {#releases-publish}
+### `releases.publish` {#releases-publish}
+
 <GrowthBadge/><EnterpriseBadge/>
 
 The event is triggered when a [release](/cms/features/releases) is published.
@@ -575,7 +577,6 @@ The event is triggered when a [release](/cms/features/releases) is published.
 **Example payload**
 
 ```json
-
 {
   "event": "releases.publish",
   "createdAt": "2024-02-21T16:45:36.877Z",

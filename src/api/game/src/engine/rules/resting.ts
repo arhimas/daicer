@@ -22,7 +22,7 @@ export interface RestResult {
  * Performs a Short Rest.
  * Allows spending Hit Dice to heal.
  * Resets "short-rest" resources.
- * 
+ *
  * @param sheet - The entity sheet to mutate.
  * @param hitDiceToSpend - Number of hit dice to spend.
  * @returns RestResult describing changes.
@@ -73,12 +73,12 @@ export function shortRest(sheet: EntitySheet, hitDiceToSpend: number): RestResul
 
   // Reset Resources (Generic Pools)
   if (sheet.resources) {
-      sheet.resources.forEach((r) => {
-        if (r.refresh === 'short-rest') {
-          r.current = r.max;
-          recoveredList.push(r.name);
-        }
-      });
+    sheet.resources.forEach((r) => {
+      if (r.refresh === 'short-rest') {
+        r.current = r.max;
+        recoveredList.push(r.name);
+      }
+    });
   }
 
   // MVP: Skipping complex Warlock slot logic until strict Class definitions are available.

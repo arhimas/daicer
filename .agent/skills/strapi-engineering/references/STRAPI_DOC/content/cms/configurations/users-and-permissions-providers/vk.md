@@ -3,10 +3,10 @@ title: VK provider setup for Users & Permissions
 description: Learn how to setup the VK provider for the Users & Permissions feature.
 displayed_sidebar: cmsSidebar
 tags:
-- users and permissions
-- providers
-- configuration
-- customization
+  - users and permissions
+  - providers
+  - configuration
+  - customization
 ---
 
 import ConfigDone from '/docs/snippets/u-and-p-provider-config-done.md'
@@ -19,7 +19,7 @@ The present page explains how to setup the VK provider for the [Users & Permissi
 You have read the [Users & Permissions providers documentation](/cms/configurations/users-and-permissions-providers).
 :::
 
-## VK configuration 
+## VK configuration
 
 :::note
 VK accepts the `localhost` urls. <br/>

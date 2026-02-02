@@ -16,10 +16,7 @@
         "range": "Self",
         "duration": "Instantaneous",
         "teleport_distance": "30 feet",
-        "conditions": [
-          "Must be an unoccupied space",
-          "Must be a space the caster can see"
-        ],
+        "conditions": ["Must be an unoccupied space", "Must be a space the caster can see"],
         "resource_cost": "None beyond action economy and components (V)"
       },
       "potential_issues": "None detected. This is a staple, well-defined spell."

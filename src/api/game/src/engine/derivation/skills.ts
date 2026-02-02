@@ -24,7 +24,7 @@ export const SKILL_ABILITY_MAP: Record<string, AbilityScore> = {
 /**
  * Calculates Proficiency Bonus based on character total level.
  * Formula: ceil(1 + level / 4)
- * 
+ *
  * - Level 1-4: +2
  * - Level 5-8: +3
  * - Level 9-12: +4

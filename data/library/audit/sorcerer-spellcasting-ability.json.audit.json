@@ -19,10 +19,7 @@
       },
       "mechanics": {
         "core_ability": "Charisma.",
-        "modifiers_used": [
-          "Charisma modifier",
-          "Proficiency bonus"
-        ],
+        "modifiers_used": ["Charisma modifier", "Proficiency bonus"],
         "formulas_verified": [
           {
             "name": "Spell save DC",

@@ -18,9 +18,7 @@
         "material_component_use": "The material component (soft clay worked into the desired shape) is thematic and consumed/used in the shaping process, which is appropriate for a shaping spell."
       },
       "zod_errors_found": false,
-      "suggested_improvements": [
-        "No critical improvements needed. The spell is well-defined for its purpose."
-      ]
+      "suggested_improvements": ["No critical improvements needed. The spell is well-defined for its purpose."]
     }
   },
   "timestamp": "2026-01-17T07:22:30.203Z"

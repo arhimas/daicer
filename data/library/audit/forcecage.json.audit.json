@@ -41,11 +41,7 @@
           "Blocks ethereal travel (extends to the ethereal plane).",
           "Immune to *dispel magic*."
         ],
-        "class_compatibility": [
-          "bard",
-          "warlock",
-          "wizard"
-        ]
+        "class_compatibility": ["bard", "warlock", "wizard"]
       },
       "archival_notes": "The material component cost (1,500 gp) is significant and should be noted for tracking.",
       "zod_errors_found": "NONE"

@@ -48,12 +48,16 @@ const Widget = () => {
     return () => clearInterval(interval);
   }, [get]);
 
-  const _handleAction = async (queueName: string, action: 'pause' | 'resume' | 'retry' | 'clean', method: 'put' | 'post') => {
+  const _handleAction = async (
+    queueName: string,
+    action: 'pause' | 'resume' | 'retry' | 'clean',
+    method: 'put' | 'post'
+  ) => {
     try {
       const endpoint = `/queue-dashboard/${queueName}/${action}`;
       if (method === 'put') await put(endpoint);
       else await post(endpoint);
-      
+
       toggleNotification({
         type: 'success',
         message: `Action ${action} triggered`,
@@ -79,20 +83,32 @@ const Widget = () => {
       <Grid.Root gap={4}>
         {queues.map((q) => (
           <Grid.Item col={12} key={q.name}>
-             {/* 
+            {/* 
               Simplified List Item for Widget 
               Using Flex instead of Card to be more compact in the widget area
              */}
             <Box padding={4} hasRadius background="neutral100">
               <Flex justifyContent="space-between">
                 <Flex gap={2}>
-                   <Typography fontWeight="bold">{q.name}</Typography>
-                   {q.isPaused ? <Badge>Paused</Badge> : <Badge variant="success">Running</Badge>}
+                  <Typography fontWeight="bold">{q.name}</Typography>
+                  {q.isPaused ? <Badge>Paused</Badge> : <Badge variant="success">Running</Badge>}
                 </Flex>
                 <Flex gap={2}>
-                    <Box title="Active" paddingRight={2}><Typography variant="pi" textColor="primary600">{q.counts.active} A</Typography></Box>
-                    <Box title="Waiting" paddingRight={2}><Typography variant="pi" textColor="secondary600">{q.counts.waiting} W</Typography></Box>
-                    <Box title="Failed" paddingRight={2}><Typography variant="pi" textColor="danger600">{q.counts.failed} F</Typography></Box>
+                  <Box title="Active" paddingRight={2}>
+                    <Typography variant="pi" textColor="primary600">
+                      {q.counts.active} A
+                    </Typography>
+                  </Box>
+                  <Box title="Waiting" paddingRight={2}>
+                    <Typography variant="pi" textColor="secondary600">
+                      {q.counts.waiting} W
+                    </Typography>
+                  </Box>
+                  <Box title="Failed" paddingRight={2}>
+                    <Typography variant="pi" textColor="danger600">
+                      {q.counts.failed} F
+                    </Typography>
+                  </Box>
                 </Flex>
               </Flex>
             </Box>

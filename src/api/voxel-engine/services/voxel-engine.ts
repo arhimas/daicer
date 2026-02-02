@@ -25,7 +25,16 @@ export default () => ({
     worldId?: string,
     metadata?: Record<string, unknown>
   ) {
-    return ChunkManager.getInstance().editVoxel(chunkX, chunkY, voxelX, voxelY, voxelZ, newType, worldId, reason, metadata);
+    return ChunkManager.getInstance().editVoxel(
+      chunkX,
+      chunkY,
+      voxelX,
+      voxelY,
+      voxelZ,
+      newType,
+      worldId,
+      reason,
+      metadata
+    );
   },
 });
-

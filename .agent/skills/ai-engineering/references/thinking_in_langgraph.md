@@ -10,7 +10,7 @@ In this walkthrough, we'll guide you through the thought process of building a c
 
 Imagine that you need to build an AI agent that handles customer support emails. Your product team has given you these requirements:
 
-```txt  theme={null}
+```txt theme={null}
 The agent should:
 
 - Read incoming customer emails
@@ -35,7 +35,7 @@ To implement an agent in LangGraph, you will usually follow the same five steps.
 
 Start by identifying the distinct steps in your process. Each step will become a **node** (a function that does one specific thing). Then, sketch how these steps connect to each other.
 
-```mermaid  theme={null}
+```mermaid theme={null}
 flowchart TD
     A[START] --> B[Read Email]
     B --> C[Classify Intent]
@@ -59,13 +59,13 @@ The arrows in this diagram show possible paths, but the actual decision of which
 
 Now that we've identified the components in our workflow, let's understand what each node needs to do:
 
-* `Read Email`: Extract and parse the email content
-* `Classify Intent`: Use an LLM to categorize urgency and topic, then route to appropriate action
-* `Doc Search`: Query your knowledge base for relevant information
-* `Bug Track`: Create or update issue in tracking system
-* `Draft Reply`: Generate an appropriate response
-* `Human Review`: Escalate to human agent for approval or handling
-* `Send Reply`: Dispatch the email response
+- `Read Email`: Extract and parse the email content
+- `Classify Intent`: Use an LLM to categorize urgency and topic, then route to appropriate action
+- `Doc Search`: Query your knowledge base for relevant information
+- `Bug Track`: Create or update issue in tracking system
+- `Draft Reply`: Generate an appropriate response
+- `Human Review`: Escalate to human agent for approval or handling
+- `Send Reply`: Dispatch the email response
 
 <Tip>
   Notice that some nodes make decisions about where to go next (`Classify Intent`, `Draft Reply`, `Human Review`), while others always proceed to the same next step (`Read Email` always goes to `Classify Intent`, `Doc Search` always goes to `Draft Reply`).
@@ -179,11 +179,11 @@ Ask yourself these questions about each piece of data:
 
 For our email agent, we need to track:
 
-* The original email and sender info (can't reconstruct these later)
-* Classification results (needed by multiple later/downstream nodes)
-* Search results and customer data (expensive to re-fetch)
-* The draft response (needs to persist through review)
-* Execution metadata (for debugging and recovery)
+- The original email and sender info (can't reconstruct these later)
+- Classification results (needed by multiple later/downstream nodes)
+- Search results and customer data (expensive to re-fetch)
+- The draft response (needs to persist through review)
+- Execution metadata (for debugging and recovery)
 
 ### Keep state raw, format prompts on-demand
 
@@ -193,21 +193,21 @@ For our email agent, we need to track:
 
 This separation means:
 
-* Different nodes can format the same data differently for their needs
-* You can change prompt templates without modifying your state schema
-* Debugging is clearer – you see exactly what data each node received
-* Your agent can evolve without breaking existing state
+- Different nodes can format the same data differently for their needs
+- You can change prompt templates without modifying your state schema
+- Debugging is clearer – you see exactly what data each node received
+- Your agent can evolve without breaking existing state
 
 Let's define our state:
 
-```typescript  theme={null}
-import { StateSchema } from "@langchain/langgraph";
-import * as z from "zod";
+```typescript theme={null}
+import { StateSchema } from '@langchain/langgraph';
+import * as z from 'zod';
 
 // Define the structure for email classification
 const EmailClassificationSchema = z.object({
-  intent: z.enum(["question", "bug", "billing", "feature", "complex"]),
-  urgency: z.enum(["low", "medium", "high", "critical"]),
+  intent: z.enum(['question', 'bug', 'billing', 'feature', 'complex']),
+  urgency: z.enum(['low', 'medium', 'high', 'critical']),
   topic: z.string(),
   summary: z.string(),
 });
@@ -222,8 +222,8 @@ const EmailAgentState = new StateSchema({
   classification: EmailClassificationSchema.optional(),
 
   // Raw search/API results
-  searchResults: z.array(z.string()).optional(),  // List of raw document chunks
-  customerHistory: z.record(z.string(), z.any()).optional(),  // Raw customer data from CRM
+  searchResults: z.array(z.string()).optional(), // List of raw document chunks
+  customerHistory: z.record(z.string(), z.any()).optional(), // Raw customer data from CRM
 
   // Generated content
   responseText: z.string().optional(),
@@ -264,6 +264,7 @@ Different errors need different handling strategies:
       },
     );
     ```
+
   </Tab>
 
   <Tab title="LLM-recoverable" icon="brain">
@@ -288,6 +289,7 @@ Different errors need different handling strategies:
       }
     }
     ```
+
   </Tab>
 
   <Tab title="User-fixable" icon="user">
@@ -315,6 +317,7 @@ Different errors need different handling strategies:
       });
     }
     ```
+
   </Tab>
 
   <Tab title="Unexpected" icon="triangle-exclamation">
@@ -331,6 +334,7 @@ Different errors need different handling strategies:
       }
     }
     ```
+
   </Tab>
 </Tabs>
 
@@ -393,6 +397,7 @@ We'll implement each node as a simple function. Remember: nodes take state, do w
       });
     }
     ```
+
   </Accordion>
 
   <Accordion title="Search and tracking nodes" icon="database">
@@ -439,6 +444,7 @@ We'll implement each node as a simple function. Remember: nodes take state, do w
       });
     }
     ```
+
   </Accordion>
 
   <Accordion title="Response nodes" icon="pen-to-square">
@@ -531,6 +537,7 @@ We'll implement each node as a simple function. Remember: nodes take state, do w
       return {};
     }
     ```
+
   </Accordion>
 </AccordionGroup>
 
@@ -544,30 +551,31 @@ To enable [human-in-the-loop](/oss/javascript/langgraph/interrupts) with `interr
   ```typescript  theme={null}
   import { MemorySaver, RetryPolicy } from "@langchain/langgraph";
 
-  // Create the graph
-  const workflow = new StateGraph(EmailAgentState)
-    // Add nodes with appropriate error handling
-    .addNode("readEmail", readEmail)
-    .addNode("classifyIntent", classifyIntent)
-    // Add retry policy for nodes that might have transient failures
-    .addNode(
-      "searchDocumentation",
-      searchDocumentation,
-      { retryPolicy: { maxAttempts: 3 } },
-    )
-    .addNode("bugTracking", bugTracking)
-    .addNode("draftResponse", draftResponse)
-    .addNode("humanReview", humanReview)
-    .addNode("sendReply", sendReply)
-    // Add only the essential edges
-    .addEdge(START, "readEmail")
-    .addEdge("readEmail", "classifyIntent")
-    .addEdge("sendReply", END);
+// Create the graph
+const workflow = new StateGraph(EmailAgentState)
+// Add nodes with appropriate error handling
+.addNode("readEmail", readEmail)
+.addNode("classifyIntent", classifyIntent)
+// Add retry policy for nodes that might have transient failures
+.addNode(
+"searchDocumentation",
+searchDocumentation,
+{ retryPolicy: { maxAttempts: 3 } },
+)
+.addNode("bugTracking", bugTracking)
+.addNode("draftResponse", draftResponse)
+.addNode("humanReview", humanReview)
+.addNode("sendReply", sendReply)
+// Add only the essential edges
+.addEdge(START, "readEmail")
+.addEdge("readEmail", "classifyIntent")
+.addEdge("sendReply", END);
 
-  // Compile with checkpointer for persistence
-  const memory = new MemorySaver();
-  const app = workflow.compile({ checkpointer: memory });
-  ```
+// Compile with checkpointer for persistence
+const memory = new MemorySaver();
+const app = workflow.compile({ checkpointer: memory });
+
+````
 </Accordion>
 
 The graph structure is minimal because routing happens inside nodes through `Command` objects. Each node declares where it can go, making the flow explicit and traceable.
@@ -577,36 +585,37 @@ The graph structure is minimal because routing happens inside nodes through `Com
 Let's run our agent with an urgent billing issue that needs human review:
 
 <Accordion title="Testing the agent" icon="flask">
-  ```typescript  theme={null}
-  // Test with an urgent billing issue
-  const initialState: EmailAgentStateType = {
-    emailContent: "I was charged twice for my subscription! This is urgent!",
-    senderEmail: "customer@example.com",
-    emailId: "email_123"
-  };
+```typescript  theme={null}
+// Test with an urgent billing issue
+const initialState: EmailAgentStateType = {
+  emailContent: "I was charged twice for my subscription! This is urgent!",
+  senderEmail: "customer@example.com",
+  emailId: "email_123"
+};
 
-  // Run with a thread_id for persistence
-  const config = { configurable: { thread_id: "customer_123" } };
-  const result = await app.invoke(initialState, config);
-  // The graph will pause at human_review
-  console.log(`Draft ready for review: ${result.responseText?.substring(0, 100)}...`);
-  ```
+// Run with a thread_id for persistence
+const config = { configurable: { thread_id: "customer_123" } };
+const result = await app.invoke(initialState, config);
+// The graph will pause at human_review
+console.log(`Draft ready for review: ${result.responseText?.substring(0, 100)}...`);
+````
 
-  ```typescript  theme={null}
-  import { Command } from "@langchain/langgraph";
+```typescript theme={null}
+import { Command } from '@langchain/langgraph';
 
-  // When ready, provide human input to resume
-  const humanResponse = new Command({
-    resume: {
-      approved: true,
-      editedResponse: "We sincerely apologize for the double charge. I've initiated an immediate refund...",
-    }
-  });
+// When ready, provide human input to resume
+const humanResponse = new Command({
+  resume: {
+    approved: true,
+    editedResponse: "We sincerely apologize for the double charge. I've initiated an immediate refund...",
+  },
+});
 
-  // Resume execution
-  const finalResult = await app.invoke(humanResponse, config);
-  console.log("Email sent successfully!");
-  ```
+// Resume execution
+const finalResult = await app.invoke(humanResponse, config);
+console.log('Email sent successfully!');
+```
+
 </Accordion>
 
 The graph pauses when it hits `interrupt()`, saves everything to the checkpointer, and waits. It can resume days later, picking up exactly where it left off. The `thread_id` ensures all state for this conversation is preserved together.
@@ -650,29 +659,29 @@ Building this email agent has shown us the LangGraph way of thinking:
     This section explores the trade-offs in node granularity design. Most applications can skip this and use the patterns shown above.
   </Info>
 
-  You might wonder: why not combine `Read Email` and `Classify Intent` into one node?
+You might wonder: why not combine `Read Email` and `Classify Intent` into one node?
 
-  Or why separate Doc Search from Draft Reply?
+Or why separate Doc Search from Draft Reply?
 
-  The answer involves trade-offs between resilience and observability.
+The answer involves trade-offs between resilience and observability.
 
-  **The resilience consideration:** LangGraph's [durable execution](/oss/javascript/langgraph/durable-execution) creates checkpoints at node boundaries. When a workflow resumes after an interruption or failure, it starts from the beginning of the node where execution stopped. Smaller nodes mean more frequent checkpoints, which means less work to repeat if something goes wrong. If you combine multiple operations into one large node, a failure near the end means re-executing everything from the start of that node.
+**The resilience consideration:** LangGraph's [durable execution](/oss/javascript/langgraph/durable-execution) creates checkpoints at node boundaries. When a workflow resumes after an interruption or failure, it starts from the beginning of the node where execution stopped. Smaller nodes mean more frequent checkpoints, which means less work to repeat if something goes wrong. If you combine multiple operations into one large node, a failure near the end means re-executing everything from the start of that node.
 
-  Why we chose this breakdown for the email agent:
+Why we chose this breakdown for the email agent:
 
-  * **Isolation of external services:** Doc Search and Bug Track are separate nodes because they call external APIs. If the search service is slow or fails, we want to isolate that from the LLM calls. We can add retry policies to these specific nodes without affecting others.
+- **Isolation of external services:** Doc Search and Bug Track are separate nodes because they call external APIs. If the search service is slow or fails, we want to isolate that from the LLM calls. We can add retry policies to these specific nodes without affecting others.
 
-  * **Intermediate visibility:** Having `Classify Intent` as its own node lets us inspect what the LLM decided before taking action. This is valuable for debugging and monitoring—you can see exactly when and why the agent routes to human review.
+- **Intermediate visibility:** Having `Classify Intent` as its own node lets us inspect what the LLM decided before taking action. This is valuable for debugging and monitoring—you can see exactly when and why the agent routes to human review.
 
-  * **Different failure modes:** LLM calls, database lookups, and email sending have different retry strategies. Separate nodes let you configure these independently.
+- **Different failure modes:** LLM calls, database lookups, and email sending have different retry strategies. Separate nodes let you configure these independently.
 
-  * **Reusability and testing:** Smaller nodes are easier to test in isolation and reuse in other workflows.
+- **Reusability and testing:** Smaller nodes are easier to test in isolation and reuse in other workflows.
 
-  A different valid approach: You could combine `Read Email` and `Classify Intent` into a single node. You'd lose the ability to inspect the raw email before classification and would repeat both operations on any failure in that node. For most applications, the observability and debugging benefits of separate nodes are worth the trade-off.
+A different valid approach: You could combine `Read Email` and `Classify Intent` into a single node. You'd lose the ability to inspect the raw email before classification and would repeat both operations on any failure in that node. For most applications, the observability and debugging benefits of separate nodes are worth the trade-off.
 
-  Application-level concerns: The caching discussion in Step 2 (whether to cache search results) is an application-level decision, not a LangGraph framework feature. You implement caching within your node functions based on your specific requirements—LangGraph doesn't prescribe this.
+Application-level concerns: The caching discussion in Step 2 (whether to cache search results) is an application-level decision, not a LangGraph framework feature. You implement caching within your node functions based on your specific requirements—LangGraph doesn't prescribe this.
 
-  Performance considerations: More nodes doesn't mean slower execution. LangGraph writes checkpoints in the background by default ([async durability mode](/oss/javascript/langgraph/durable-execution#durability-modes)), so your graph continues running without waiting for checkpoints to complete. This means you get frequent checkpoints with minimal performance impact. You can adjust this behavior if needed—use `"exit"` mode to checkpoint only at completion, or `"sync"` mode to block execution until each checkpoint is written.
+Performance considerations: More nodes doesn't mean slower execution. LangGraph writes checkpoints in the background by default ([async durability mode](/oss/javascript/langgraph/durable-execution#durability-modes)), so your graph continues running without waiting for checkpoints to complete. This means you get frequent checkpoints with minimal performance impact. You can adjust this behavior if needed—use `"exit"` mode to checkpoint only at completion, or `"sync"` mode to block execution until each checkpoint is written.
 </Accordion>
 
 ### Where to go from here
@@ -705,7 +714,7 @@ This was an introduction to thinking about building agents with LangGraph. You c
   </Card>
 </CardGroup>
 
-***
+---
 
 <Callout icon="pen-to-square" iconType="regular">
   [Edit this page on GitHub](https://github.com/langchain-ai/docs/edit/main/src/oss/langgraph/thinking-in-langgraph.mdx) or [file an issue](https://github.com/langchain-ai/docs/issues/new/choose).

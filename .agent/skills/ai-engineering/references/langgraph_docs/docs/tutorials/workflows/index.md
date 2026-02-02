@@ -28,12 +28,12 @@ You can use [any chat model](https://js.langchain.com/docs/integrations/chat/) t
 Initialize an LLM
 
 ```ts
-import { ChatAnthropic } from "@langchain/anthropic";
+import { ChatAnthropic } from '@langchain/anthropic';
 
-process.env.ANTHROPIC_API_KEY = "<your_anthropic_key>";
+process.env.ANTHROPIC_API_KEY = '<your_anthropic_key>';
 
 const llm = new ChatAnthropic({
-  model: "claude-3-5-sonnet-latest",
+  model: 'claude-3-5-sonnet-latest',
 });
 ```
 
@@ -44,34 +44,32 @@ LLM have [augmentations](https://www.anthropic.com/research/building-effective-a
 ![augmented_llm.png](./img/augmented_llm.png)
 
 ```ts
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const searchQuerySchema = z.object({
-  searchQuery: z.string().describe("Query that is optimized web search."),
+  searchQuery: z.string().describe('Query that is optimized web search.'),
   justification: z.string("Why this query is relevant to the user's request."),
 });
 
 // Augment the LLM with schema for structured output
 const structuredLlm = llm.withStructuredOutput(searchQuerySchema, {
-  name: "searchQuery",
+  name: 'searchQuery',
 });
 
 // Invoke the augmented LLM
-const output = await structuredLlm.invoke(
-  "How does Calcium CT score relate to high cholesterol?"
-);
+const output = await structuredLlm.invoke('How does Calcium CT score relate to high cholesterol?');
 
 const multiply = tool(
   async ({ a, b }) => {
     return a * b;
   },
   {
-    name: "multiply",
-    description: "multiplies two numbers together",
+    name: 'multiply',
+    description: 'multiplies two numbers together',
     schema: z.object({
-      a: z.number("the first number"),
-      b: z.number("the second number"),
+      a: z.number('the first number'),
+      b: z.number('the second number'),
     }),
   }
 );
@@ -80,7 +78,7 @@ const multiply = tool(
 const llmWithTools = llm.bindTools([multiply]);
 
 // Invoke the LLM with input that triggers the tool call
-const message = await llmWithTools.invoke("What is 2 times 3?");
+const message = await llmWithTools.invoke('What is 2 times 3?');
 
 console.log(message.tool_calls);
 ```
@@ -1023,8 +1021,8 @@ Agents are typically implemented as an LLM performing actions (via tool-calling)
 ![agent.png](./img/agent.png)
 
 ```ts
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 // Define tools
 const multiply = tool(
@@ -1032,11 +1030,11 @@ const multiply = tool(
     return a * b;
   },
   {
-    name: "multiply",
-    description: "Multiply two numbers together",
+    name: 'multiply',
+    description: 'Multiply two numbers together',
     schema: z.object({
-      a: z.number().describe("first number"),
-      b: z.number().describe("second number"),
+      a: z.number().describe('first number'),
+      b: z.number().describe('second number'),
     }),
   }
 );
@@ -1046,11 +1044,11 @@ const add = tool(
     return a + b;
   },
   {
-    name: "add",
-    description: "Add two numbers together",
+    name: 'add',
+    description: 'Add two numbers together',
     schema: z.object({
-      a: z.number().describe("first number"),
-      b: z.number().describe("second number"),
+      a: z.number().describe('first number'),
+      b: z.number().describe('second number'),
     }),
   }
 );
@@ -1060,11 +1058,11 @@ const divide = tool(
     return a / b;
   },
   {
-    name: "divide",
-    description: "Divide two numbers",
+    name: 'divide',
+    description: 'Divide two numbers',
     schema: z.object({
-      a: z.number().describe("first number"),
-      b: z.number().describe("second number"),
+      a: z.number().describe('first number'),
+      b: z.number().describe('second number'),
     }),
   }
 );
@@ -1224,7 +1222,7 @@ LangGraph also provides a **pre-built method** for creating an agent as defined 
 https://langchain-ai.github.io/langgraphjs/how-tos/create-react-agent/
 
 ```ts
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
 
 // Pass in:
 // (1) an LLM instance
@@ -1238,8 +1236,8 @@ const prebuiltAgent = createReactAgent({
 const result = await prebuiltAgent.invoke({
   messages: [
     {
-      role: "user",
-      content: "Add 3 and 4.",
+      role: 'user',
+      content: 'Add 3 and 4.',
     },
   ],
 });

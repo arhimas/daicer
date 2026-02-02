@@ -18,7 +18,7 @@ The LangGraph Platform offers a few different deployment options described in th
 
 ## Why Use LangGraph Platform?
 
-LangGraph Platform is designed to make deploying agentic applications seamless and production-ready. 
+LangGraph Platform is designed to make deploying agentic applications seamless and production-ready.
 
 For simpler applications, deploying a LangGraph agent can be as straightforward as using your own server logic—for example, setting up a FastAPI endpoint and invoking LangGraph directly.
 

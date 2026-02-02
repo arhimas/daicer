@@ -2,16 +2,16 @@ import { Context } from 'koa';
 import { Queue } from 'bullmq';
 
 interface JobSerialized {
-    id: string | undefined;
-    name: string;
-    data: unknown;
-    timestamp: number;
-    failedReason: string;
-    stacktrace: string[] | null;
-    progress: number | object;
-    finishedOn: number | null;
-    processedOn: number | null;
-    returnvalue?: unknown;
+  id: string | undefined;
+  name: string;
+  data: unknown;
+  timestamp: number;
+  failedReason: string;
+  stacktrace: string[] | null;
+  progress: number | object;
+  finishedOn: number | null;
+  processedOn: number | null;
+  returnvalue?: unknown;
 }
 
 export interface DashboardContext extends Context {
@@ -45,7 +45,7 @@ const getQueueService = () => strapi.plugin('bullmq').service('queue');
 const getQueues = (): Queue[] => {
   const service = getQueueService();
   const queues: Queue[] = [];
-  const configuredQueues = strapi.plugin('queue-dashboard').config('queues') as string[] || [];
+  const configuredQueues = (strapi.plugin('queue-dashboard').config('queues') as string[]) || [];
 
   for (const name of configuredQueues) {
     const q = service.get(name);
@@ -75,27 +75,27 @@ export default {
           try {
             const counts = await q.getJobCounts();
             const isPaused = await q.isPaused();
-            
+
             const [active, waiting, failed, completed, delayed] = await Promise.all([
-                q.getActive(0, 10),
-                q.getWaiting(0, 10),
-                q.getFailed(0, 10),
-                q.getCompleted(0, 10), // Show last 10 successful
-                q.getDelayed(0, 10)
+              q.getActive(0, 10),
+              q.getWaiting(0, 10),
+              q.getFailed(0, 10),
+              q.getCompleted(0, 10), // Show last 10 successful
+              q.getDelayed(0, 10),
             ]);
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const mapJob = (j: any): JobSerialized => ({
-                id: j.id,
-                name: j.name,
-                data: j.data,
-                timestamp: j.timestamp,
-                failedReason: j.failedReason,
-                stacktrace: j.stacktrace,
-                progress: j.progress,
-                finishedOn: j.finishedOn,
-                processedOn: j.processedOn,
-                returnvalue: j.returnvalue
+              id: j.id,
+              name: j.name,
+              data: j.data,
+              timestamp: j.timestamp,
+              failedReason: j.failedReason,
+              stacktrace: j.stacktrace,
+              progress: j.progress,
+              finishedOn: j.finishedOn,
+              processedOn: j.processedOn,
+              returnvalue: j.returnvalue,
             });
 
             return {
@@ -107,8 +107,8 @@ export default {
                 waiting: waiting.map(mapJob),
                 failed: failed.map(mapJob),
                 completed: completed.map(mapJob), // Added
-                delayed: delayed.map(mapJob)
-              }
+                delayed: delayed.map(mapJob),
+              },
             };
           } catch (_qErr) {
             return {
@@ -180,7 +180,7 @@ export default {
    */
   async clean(ctx: DashboardContext) {
     const { queueName } = ctx.params;
-    const type = ((ctx.query.type as string) || 'failed');
+    const type = (ctx.query.type as string) || 'failed';
 
     try {
       const queues = getQueues();

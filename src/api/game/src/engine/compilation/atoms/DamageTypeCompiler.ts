@@ -1,6 +1,5 @@
 import { BaseCompiler, CompilationResult } from '../Compiler';
 
-
 /**
  * Validates 'api::damage-type' entities against the Engine's DamageType enum.
  * Philosophy: "If the Engine can't compute it, it doesn't exist."
@@ -26,16 +25,26 @@ export class DamageTypeCompiler extends BaseCompiler<Record<string, unknown>> {
 
     // Valid Enum Values
     const validTypes: string[] = [
-        'slashing', 'piercing', 'bludgeoning', 
-        'fire', 'cold', 'lightning', 'thunder', 
-        'poison', 'acid', 'psychic', 'necrotic', 
-        'radiant', 'force', 'precision'
+      'slashing',
+      'piercing',
+      'bludgeoning',
+      'fire',
+      'cold',
+      'lightning',
+      'thunder',
+      'poison',
+      'acid',
+      'psychic',
+      'necrotic',
+      'radiant',
+      'force',
+      'precision',
     ];
 
     if (!validTypes.includes(cleanSlug)) {
-        this.logError(result, `Invalid DamageType slug: '${slug}'. Engine only supports: ${validTypes.join(', ')}`);
+      this.logError(result, `Invalid DamageType slug: '${slug}'. Engine only supports: ${validTypes.join(', ')}`);
     } else {
-        this.logInfo(result, `Validated DamageType: ${cleanSlug}`);
+      this.logInfo(result, `Validated DamageType: ${cleanSlug}`);
     }
 
     return result;

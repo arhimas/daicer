@@ -13,10 +13,7 @@
         "core_effect": "Grants the character knowledge of a set number of cantrips at 1st level (three), which increases at higher levels.",
         "scaling": "Scaling is based on the character's overall class level, tracked via the 'Cantrips Known' column on the Cleric table.",
         "prerequisites": "Requires the character to be a Cleric.",
-        "interdependencies": [
-          "cleric spell list",
-          "Cleric table (specifically Cantrips Known column)"
-        ]
+        "interdependencies": ["cleric spell list", "Cleric table (specifically Cantrips Known column)"]
       },
       "suggested_edits": []
     }

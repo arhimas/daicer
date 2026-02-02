@@ -1,8 +1,6 @@
 # LangGraph Server
 
-!!! info "Prerequisites"
-    - [LangGraph Platform](./langgraph_platform.md)
-    - [LangGraph Glossary](low_level.md)
+!!! info "Prerequisites" - [LangGraph Platform](./langgraph_platform.md) - [LangGraph Glossary](low_level.md)
 
 ## Overview
 
@@ -12,18 +10,20 @@ LangGraph Server offers an API for creating and managing agent-based application
 
 The LangGraph Platform incorporates best practices for agent deployment, so you can focus on building your agent logic.
 
-* **Streaming endpoints**: Endpoints that expose [multiple different streaming modes](streaming.md). We've made these work even for long-running agents that may go minutes between consecutive stream events.
-* **Background runs**: The LangGraph Server supports launching assistants in the background with endpoints for polling the status of the assistant's run and webhooks to monitor run status effectively.
-- **Support for long runs**: Our blocking endpoints for running assistants send regular heartbeat signals, preventing unexpected connection closures when handling requests that take a long time to complete.
-* **Task queue**: We've added a task queue to make sure we don't drop any requests if they arrive in a bursty nature.
-* **Horizontally scalable infrastructure**: LangGraph Server is designed to be horizontally scalable, allowing you to scale up and down your usage as needed.
-* **Double texting support**: Many times users might interact with your graph in unintended ways. For instance, a user may send one message and before the graph has finished running send a second message. We call this ["double texting"](double_texting.md) and have added four different ways to handle this.
-* **Optimized checkpointer**: LangGraph Platform comes with a built-in [checkpointer](./persistence.md#checkpoints) optimized for LangGraph applications.
-* **Human-in-the-loop endpoints**: We've exposed all endpoints needed to support [human-in-the-loop](human_in_the_loop.md) features.
-* **Memory**: In addition to thread-level persistence (covered above by [checkpointers]l(./persistence.md#checkpoints)), LangGraph Platform also comes with a built-in [memory store](persistence.md#memory-store).
-* **Cron jobs**: Built-in support for scheduling tasks, enabling you to automate regular actions like data clean-up or batch processing within your applications.
-* **Webhooks**: Allows your application to send real-time notifications and data updates to external systems, making it easy to integrate with third-party services and trigger actions based on specific events.
-* **Monitoring**: LangGraph Server integrates seamlessly with the [LangSmith](https://docs.smith.langchain.com/) monitoring platform, providing real-time insights into your application's performance and health.
+- **Streaming endpoints**: Endpoints that expose [multiple different streaming modes](streaming.md). We've made these work even for long-running agents that may go minutes between consecutive stream events.
+- **Background runs**: The LangGraph Server supports launching assistants in the background with endpoints for polling the status of the assistant's run and webhooks to monitor run status effectively.
+
+* **Support for long runs**: Our blocking endpoints for running assistants send regular heartbeat signals, preventing unexpected connection closures when handling requests that take a long time to complete.
+
+- **Task queue**: We've added a task queue to make sure we don't drop any requests if they arrive in a bursty nature.
+- **Horizontally scalable infrastructure**: LangGraph Server is designed to be horizontally scalable, allowing you to scale up and down your usage as needed.
+- **Double texting support**: Many times users might interact with your graph in unintended ways. For instance, a user may send one message and before the graph has finished running send a second message. We call this ["double texting"](double_texting.md) and have added four different ways to handle this.
+- **Optimized checkpointer**: LangGraph Platform comes with a built-in [checkpointer](./persistence.md#checkpoints) optimized for LangGraph applications.
+- **Human-in-the-loop endpoints**: We've exposed all endpoints needed to support [human-in-the-loop](human_in_the_loop.md) features.
+- **Memory**: In addition to thread-level persistence (covered above by [checkpointers]l(./persistence.md#checkpoints)), LangGraph Platform also comes with a built-in [memory store](persistence.md#memory-store).
+- **Cron jobs**: Built-in support for scheduling tasks, enabling you to automate regular actions like data clean-up or batch processing within your applications.
+- **Webhooks**: Allows your application to send real-time notifications and data updates to external systems, making it easy to integrate with third-party services and trigger actions based on specific events.
+- **Monitoring**: LangGraph Server integrates seamlessly with the [LangSmith](https://docs.smith.langchain.com/) monitoring platform, providing real-time insights into your application's performance and health.
 
 ## What are you deploying?
 
@@ -31,7 +31,7 @@ When you deploy a LangGraph Server, you are deploying one or more [graphs](#grap
 
 ### Graphs
 
-When you deploy a graph with LangGraph Server, you are deploying a "blueprint" for an [Assistant](assistants.md). 
+When you deploy a graph with LangGraph Server, you are deploying a "blueprint" for an [Assistant](assistants.md).
 
 An [Assistant](assistants.md) is a graph paired with specific configuration settings. You can create multiple assistants per graph, each with unique settings to accommodate different use cases
 that can be served by the same graph.
@@ -73,7 +73,7 @@ An [Assistant](assistants.md) refers to a [graph](#graphs) plus specific [config
 
 You can think of an assistant as a saved configuration of an [agent](agentic_concepts.md).
 
-When building agents, it is fairly common to make rapid changes that *do not* alter the graph logic. For example, simply changing prompts or the LLM selection can have significant impacts on the behavior of the agents. Assistants offer an easy way to make and save these types of changes to agent configuration.
+When building agents, it is fairly common to make rapid changes that _do not_ alter the graph logic. For example, simply changing prompts or the LLM selection can have significant impacts on the behavior of the agents. Assistants offer an easy way to make and save these types of changes to agent configuration.
 
 ### Threads
 
@@ -101,7 +101,7 @@ Stores are useful for implementing [memory](./memory.md) in your LangGraph appli
 
 ### Cron Jobs
 
-There are many situations in which it is useful to run an assistant on a schedule. 
+There are many situations in which it is useful to run an assistant on a schedule.
 
 For example, say that you're building an assistant that runs daily and sends an email summary
 of the day's news. You could use a cron job to run the assistant every day at 8:00 PM.
@@ -125,6 +125,6 @@ See the corresponding [how-to guide](/langgraphjs/cloud/how-tos/webhooks.md) for
 
 ## Related
 
-* LangGraph [Application Structure](./application_structure.md) guide explains how to structure your LangGraph application for deployment.
-* [How-to guides for the LangGraph Platform](../how-tos/index.md).
-* The [LangGraph Cloud API Reference](/langgraphjs/cloud/reference/api/api_ref.html) provides detailed information on the API endpoints and data models.
+- LangGraph [Application Structure](./application_structure.md) guide explains how to structure your LangGraph application for deployment.
+- [How-to guides for the LangGraph Platform](../how-tos/index.md).
+- The [LangGraph Cloud API Reference](/langgraphjs/cloud/reference/api/api_ref.html) provides detailed information on the API endpoints and data models.

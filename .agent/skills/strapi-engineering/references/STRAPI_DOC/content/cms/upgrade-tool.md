@@ -5,12 +5,12 @@ displayed_sidebar: cmsSidebar
 pagination_next: cms/migration/v4-to-v5/breaking-changes
 sidebar_label: Upgrade tool reference
 tags:
-- major version
-- minor version
-- patch version
-- semantic versioning
-- upgrade tool
-- version types
+  - major version
+  - minor version
+  - patch version
+  - semantic versioning
+  - upgrade tool
+  - version types
 ---
 
 # Upgrade tool
@@ -23,14 +23,16 @@ The upgrade tool is a Strapi package and can be run from the CLI.
 
 ## Scope
 
-While the upgrade tool helps upgrade applications and plugins, it doesn't cover every aspect of it. 
+While the upgrade tool helps upgrade applications and plugins, it doesn't cover every aspect of it.
 
 :white_check_mark: The upgrade tool supports:
+
 - Updating the project's dependencies
 - Applying automatic code transformation to existing files
 - Installing or re-installing the correct dependencies for the project
 
 :x: The upgrade tool doesn't support:
+
 - Modifying the file tree by adding, removing or moving files and directories
 - Migrating the application's data. This is handled by Strapi database migrations
 
@@ -44,8 +46,8 @@ it is strongly recommended to review the modifications made before re-running th
 Strapi version numbers respect the <ExternalLink to="https://semver.org/" text="semantic versioning"/> conventions:
 
 <ThemedImage
-  alt="Version numbers explained"
-  sources={{
+alt="Version numbers explained"
+sources={{
     light: '/img/assets/update-migration/version-numbers.png',
     dark: '/img/assets/update-migration/version-numbers_DARK.png',
   }}
@@ -61,12 +63,12 @@ What the upgrade tool does depends on the latest existing version and the comman
 
 For instance, if the latest Strapi v4 version is v4.25.9:
 
-| My Strapi application is currently on… | If I run…                   | My Strapi application will be upgraded to …                                                |
-|----------------------------------------|-----------------------------|--------------------------------------------------------------------------------------------|
-| v4.25.1                                | `npx @strapi/upgrade patch` | v4.25.9<br/><br/>(because v4.25.9 is the latest patch version for the v4.25 minor version) |
-| v4.14.1                                | `npx @strapi/upgrade minor` | v4.25.9                                                                                    |
-| v4.14.1                                | `npx @strapi/upgrade major` | Nothing.<br/><br/>I first need to run `npx @strapi/upgrade minor` to upgrade to v4.25.9.   |
-| v4.25.9                                | `npx @strapi/upgrade major` | v5.0.0                                                                                     |
+| My Strapi application is currently on… | If I run…                    | My Strapi application will be upgraded to …                                                     |
+| -------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
+| v4.25.1                                | `npx @strapi/upgrade patch`  | v4.25.9<br/><br/>(because v4.25.9 is the latest patch version for the v4.25 minor version)      |
+| v4.14.1                                | `npx @strapi/upgrade minor`  | v4.25.9                                                                                         |
+| v4.14.1                                | `npx @strapi/upgrade major`  | Nothing.<br/><br/>I first need to run `npx @strapi/upgrade minor` to upgrade to v4.25.9.        |
+| v4.25.9                                | `npx @strapi/upgrade major`  | v5.0.0                                                                                          |
 | v4.14.1                                | `npx @strapi/upgrade latest` | v5.1.2 <br/><br/>A confirmation prompt appears to make sure the major version bump is intended. |
 
 ## Upgrade to a new version
@@ -152,20 +154,20 @@ npx @strapi/upgrade codemods run 5.0.0-strapi-codemod-uid
 
 The `npx @strapi/upgrade [major|minor|patch]` commands can accept the following options:
 
-| Option                                                                                  | Description                                                                     | Default  |
-| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------|----------|
-| [`-n, --dry`](#simulate-the-upgrade-without-updating-any-files-dry-run)                 | [Simulate](#simulate-the-upgrade-without-updating-any-files-dry-run) the upgrade without updating any files | false    |
-| [`-d, --debug`](#get-detailed-debugging-information)                                    | Get [more logs](#get-detailed-debugging-information) in debug mode              | false    |
-| [`-s, --silent`](#execute-the-upgrade-silently)                                         | [Don't log anything](#execute-the-upgrade-silently)                             | false    |
-| [`-p, --project-path <project-path>`](#select-a-path-for-the-strapi-application-folder) | [Path](#select-a-path-for-the-strapi-application-folder) to the Strapi project  | -        |
-| [`-y, --yes`](#answer-yes-to-every-prompt)                                              | Automatically [answer "yes"](#answer-yes-to-every-prompt) to every prompt       | false    |
+| Option                                                                                  | Description                                                                                                 | Default |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
+| [`-n, --dry`](#simulate-the-upgrade-without-updating-any-files-dry-run)                 | [Simulate](#simulate-the-upgrade-without-updating-any-files-dry-run) the upgrade without updating any files | false   |
+| [`-d, --debug`](#get-detailed-debugging-information)                                    | Get [more logs](#get-detailed-debugging-information) in debug mode                                          | false   |
+| [`-s, --silent`](#execute-the-upgrade-silently)                                         | [Don't log anything](#execute-the-upgrade-silently)                                                         | false   |
+| [`-p, --project-path <project-path>`](#select-a-path-for-the-strapi-application-folder) | [Path](#select-a-path-for-the-strapi-application-folder) to the Strapi project                              | -       |
+| [`-y, --yes`](#answer-yes-to-every-prompt)                                              | Automatically [answer "yes"](#answer-yes-to-every-prompt) to every prompt                                   | false   |
 
 The following options can be run either with the `npx @strapi/upgrade` command alone or with the `npx @strapi/upgrade [major|minor|patch]` commands:
 
-| Option                                                                   | Description                                                      |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| [`-V, --version`](#get-the-current-version)                              | Output the [version number](#get-the-current-version)            |
-| [`-h, --help`](#get-help)                                                | [Print](#get-help) command line options                          |
+| Option                                      | Description                                           |
+| ------------------------------------------- | ----------------------------------------------------- |
+| [`-V, --version`](#get-the-current-version) | Output the [version number](#get-the-current-version) |
+| [`-h, --help`](#get-help)                   | [Print](#get-help) command line options               |
 
 ### Simulate the upgrade without updating any files (dry run)
 

@@ -6,7 +6,10 @@ import type { Core } from '@strapi/strapi';
  * GENERATE TEXT REMOTE WORKER
  * Atomic worker to generate text from a prompt using Remote API (Gemini).
  */
-async function generateTextRemoteProcessor(job: { data: JobPayloads[QueueName.GENERATE_TEXT_REMOTE] }, strapi: Core.Strapi) {
+async function generateTextRemoteProcessor(
+  job: { data: JobPayloads[QueueName.GENERATE_TEXT_REMOTE] },
+  strapi: Core.Strapi
+) {
   const { prompt, targetUid, targetId, field } = job.data;
 
   strapi.log.info(`[GenerateTextRemote] Processing for ${targetUid}:${targetId} on field '${field}'`);

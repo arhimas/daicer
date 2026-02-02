@@ -31,10 +31,7 @@
           "result": "Cure one disease OR neutralize one poison.",
           "multi_use_clarification": "Can affect multiple conditions in one action, expending 5 HP for each."
         },
-        "limitations": [
-          "No effect on Undead.",
-          "No effect on Constructs."
-        ]
+        "limitations": ["No effect on Undead.", "No effect on Constructs."]
       },
       "potential_issues": [
         "The wording for curing multiple conditions ('You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.') implies that the action cost is still just *one* action to apply all the cleansing effects, provided there is enough HP in the pool. This should be confirmed, but generally, it's interpreted as one action that resolves multiple costs against the pool."

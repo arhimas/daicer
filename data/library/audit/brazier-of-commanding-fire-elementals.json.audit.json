@@ -10,15 +10,7 @@
       "consistency": {
         "name_matches_slug": true,
         "type_consistent_with_rarity": true,
-        "fields_present": [
-          "slug",
-          "name",
-          "type",
-          "rarity",
-          "requires_attunement",
-          "description",
-          "source_type_rarity"
-        ]
+        "fields_present": ["slug", "name", "type", "rarity", "requires_attunement", "description", "source_type_rarity"]
       },
       "quality": {
         "description_clarity": "Excellent. Clearly states the mechanical effect (casting *conjure elemental* for a fire elemental) and the limitation (once per dawn).",

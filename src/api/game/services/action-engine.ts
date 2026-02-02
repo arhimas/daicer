@@ -435,7 +435,7 @@ export default ({ strapi }) => ({
         // Side Effects: Drop Loot & Create Death Marker
         try {
           const inventoryService = strapi.service('api::game.inventory-service');
-          
+
           // Only drop loot if NOT a player
           if ((target as { type?: string }).type !== 'player') {
             await inventoryService.dropAll(targetId);

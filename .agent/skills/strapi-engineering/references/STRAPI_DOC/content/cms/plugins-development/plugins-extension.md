@@ -2,14 +2,14 @@
 title: Plugins extension
 displayed_sidebar: cmsSidebar
 tags:
-- bootstrap function
-- controllers
-- middlewares
-- policies
-- plugins
-- plugins development
-- register function 
-- services
+  - bootstrap function
+  - controllers
+  - middlewares
+  - policies
+  - plugins
+  - plugins development
+  - register function
+  - services
 ---
 
 # Plugins extension
@@ -21,10 +21,11 @@ Existing plugins can be overriden by placing code in `/src/extensions` or using 
 Strapi comes with plugins that can be installed from the [Marketplace](/cms/plugins/installing-plugins-via-marketplace#installing-marketplace-plugins-and-providers) or as npm packages. You can also create your own plugins (see [plugins development](/cms/plugins-development/developing-plugins)) or extend the existing ones.
 
 :::warning
-* Any plugin update could break this plugin's extensions.
-* New versions of Strapi will be released with migration guides when required, but these guides never cover plugin extensions. Consider forking a plugin if extensive customizations are required.
-* Currently, the admin panel part of a plugin can only be extended using <ExternalLink to="https://www.npmjs.com/package/patch-package" text="patch-package"/>, but please consider that doing so might break your plugin in future versions of Strapi.
-:::
+
+- Any plugin update could break this plugin's extensions.
+- New versions of Strapi will be released with migration guides when required, but these guides never cover plugin extensions. Consider forking a plugin if extensive customizations are required.
+- Currently, the admin panel part of a plugin can only be extended using <ExternalLink to="https://www.npmjs.com/package/patch-package" text="patch-package"/>, but please consider that doing so might break your plugin in future versions of Strapi.
+  :::
 
 Plugin extensions code is located in the `./src/extensions` folder (see [project structure](/cms/project-structure)). Some plugins automatically create files there, ready to be modified.
 
@@ -43,6 +44,7 @@ Plugin extensions code is located in the `./src/extensions` folder (see [project
   /another-plugin-to-extend
     strapi-server.js|ts
 ```
+
 </details>
 
 Plugins can be extended in 2 ways:
@@ -97,7 +99,6 @@ To extend a plugin's server interface using the `./src/extensions` folder:
 <summary>Example of backend extension</summary>
 
 ```js title="./src/extensions/some-plugin-to-extend/strapi-server.js|ts"
-
 module.exports = (plugin) => {
   plugin.controllers.controllerA.find = (ctx) => {};
 
@@ -112,6 +113,7 @@ module.exports = (plugin) => {
   return plugin;
 };
 ```
+
 </details>
 
 :::note
@@ -121,7 +123,6 @@ The `strapi-server.js|ts` file is also where you can override the image function
 <summary>Example of custom file-naming logic</summary>
 
 ```js title="./src/extensions/upload/strapi-server.js|ts"
-
 module.exports = (plugin) => {
   plugin.services.upload.image.generateFileName = (file) => {
     // Example: prefix a timestamp before the original name
@@ -130,8 +131,8 @@ module.exports = (plugin) => {
 
   return plugin;
 };
-
 ```
+
 </details>
 
 :::
@@ -144,21 +145,20 @@ To extend a plugin's interface within `./src/index.js|ts`, use the `bootstrap()`
 <summary>Example of extending a plugin's content-type within ./src/index.js|ts</summary>
 
 ```js title="./src/index.js|ts"
-
 module.exports = {
   register({ strapi }) {
-    const contentTypeName = strapi.contentType('plugin::my-plugin.content-type-name')  
+    const contentTypeName = strapi.contentType('plugin::my-plugin.content-type-name');
     contentTypeName.attributes = {
       // Spread previous defined attributes
       ...contentTypeName.attributes,
       // Add new, or override attributes
-      'toto': {
+      toto: {
         type: 'string',
-      }
-    }
+      },
+    };
   },
   bootstrap({ strapi }) {},
 };
 ```
-</details>
 
+</details>

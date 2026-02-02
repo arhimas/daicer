@@ -1,4 +1,1 @@
-export default [
-    '.', 
-    'src/plugins/*'
-];
+export default ['.', 'src/plugins/*'];

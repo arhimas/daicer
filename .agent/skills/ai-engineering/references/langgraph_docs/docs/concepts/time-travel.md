@@ -23,10 +23,10 @@ Replaying allows us to revisit and reproduce an agent's past actions. This can b
 To replay from the current state, simply pass `null` as the input along with a `threadConfig`:
 
 ```typescript
-const threadConfig = { configurable: { thread_id: "1" }, streamMode: "values" };
+const threadConfig = { configurable: { thread_id: '1' }, streamMode: 'values' };
 
 for await (const event of await graph.stream(null, threadConfig)) {
-    console.log(event);
+  console.log(event);
 }
 ```
 
@@ -36,17 +36,17 @@ To replay actions from a specific checkpoint, start by retrieving all checkpoint
 const allCheckpoints = [];
 
 for await (const state of graph.getStateHistory(threadConfig)) {
-    allCheckpoints.push(state);
+  allCheckpoints.push(state);
 }
 ```
 
 Each checkpoint has a unique ID. After identifying the desired checkpoint, for instance, `xyz`, include its ID in the configuration:
 
 ```typescript
-const threadConfig = { configurable: { thread_id: '1', checkpoint_id: 'xyz' }, streamMode: "values" };
+const threadConfig = { configurable: { thread_id: '1', checkpoint_id: 'xyz' }, streamMode: 'values' };
 
 for await (const event of await graph.stream(null, threadConfig)) {
-    console.log(event);
+  console.log(event);
 }
 ```
 
@@ -61,18 +61,18 @@ Forking allows you to revisit an agent's past actions and explore alternative pa
 To edit a specific checkpoint, such as `xyz`, provide its `checkpoint_id` when updating the graph's state:
 
 ```typescript
-const threadConfig = { configurable: { thread_id: "1", checkpoint_id: "xyz" } };
+const threadConfig = { configurable: { thread_id: '1', checkpoint_id: 'xyz' } };
 
-graph.updateState(threadConfig, { state: "updated state" });
+graph.updateState(threadConfig, { state: 'updated state' });
 ```
 
 This creates a new forked checkpoint, xyz-fork, from which you can continue running the graph:
 
 ```typescript
-const threadConfig = { configurable: { thread_id: '1', checkpoint_id: 'xyz-fork' }, streamMode: "values" };
+const threadConfig = { configurable: { thread_id: '1', checkpoint_id: 'xyz-fork' }, streamMode: 'values' };
 
 for await (const event of await graph.stream(null, threadConfig)) {
-    console.log(event);
+  console.log(event);
 }
 ```
 

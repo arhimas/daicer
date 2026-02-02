@@ -4,11 +4,11 @@ title: Filtering with the Query Engine API
 description: Use Strapi's Query Engine API to filter the results of your queries.
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- filters
-- logical operators
-- Query Engine API
+  - API
+  - Content API
+  - filters
+  - logical operators
+  - Query Engine API
 ---
 
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
@@ -102,7 +102,7 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 - as a logical operator (e.g. in `where: { $not: { // conditions… }}`)
 - or [as an attribute operator](#not-1) (e.g. in `where: { attribute-name: $not: { … } }`).
-:::
+  :::
 
 :::tip
 `$and`, `$or` and `$not` operators are nestable inside of another `$and`, `$or` or `$not` operator.
@@ -312,7 +312,6 @@ const entries = await strapi.db.query('api::article.article').findMany({
 });
 ```
 
-
 ### `$between`
 
 Attribute is between the 2 input values, boundaries included (e.g., `$between[1, 3]` will also return `1` and `3`).
@@ -328,7 +327,6 @@ const entries = await strapi.db.query('api::article.article').findMany({
   },
 });
 ```
-
 
 ### `$contains`
 

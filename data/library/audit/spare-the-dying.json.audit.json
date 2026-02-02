@@ -17,13 +17,8 @@
         "components": "V, S",
         "duration": "Instantaneous",
         "effect": "Stabilizes a living creature at 0 hit points.",
-        "limitations": [
-          "Requires touching the target.",
-          "Ineffective against undead and constructs."
-        ],
-        "class_availability": [
-          "Cleric"
-        ]
+        "limitations": ["Requires touching the target.", "Ineffective against undead and constructs."],
+        "class_availability": ["Cleric"]
       },
       "notes": "Mechanically sound for a standard 5th Edition D&D equivalent cantrip. Its primary function is preventing death from failed death saving throws."
     }

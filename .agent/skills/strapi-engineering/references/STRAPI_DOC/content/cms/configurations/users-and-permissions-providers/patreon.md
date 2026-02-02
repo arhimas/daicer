@@ -3,10 +3,10 @@ title: Patreon provider setup for Users & Permissions
 description: Learn how to setup the Patreon provider for the Users & Permissions feature.
 displayed_sidebar: cmsSidebar
 tags:
-- users and permissions
-- providers
-- configuration
-- customization
+  - users and permissions
+  - providers
+  - configuration
+  - customization
 ---
 
 import ConfigDone from '/docs/snippets/u-and-p-provider-config-done.md'
@@ -24,9 +24,11 @@ You have read the [Users & Permissions providers documentation](/cms/configurati
 :::note
 Patreon does not accept `localhost` urls. <br/>
 Use `ngrok` to serve the backend app.
+
 ```bash
 ngrok http 1337
 ```
+
 Don't forget to update the server url in the Strapi config file `./config/server.js` and the server URL in your frontend app (environment variable `REACT_APP_BACKEND_URL` if you use <ExternalLink to="https://github.com/strapi/strapi-examples/tree/master/examples/login-react" text="react login example app"/>) with the generated ngrok URL.
 :::
 
@@ -36,10 +38,10 @@ Don't forget to update the server url in the Strapi config file `./config/server
 4. Click on "Create Client"
 5. Enter the details of your organization and website.
 6. There is a drop-down for "App Category" but no explanation of what the different categories mean.
-"Community" seems to work fine.
+   "Community" seems to work fine.
 7. You can choose either version 1 or version 2 of the API - neither are actively developed.
-Version 2 is probably the best choice. See their
-<ExternalLink to="https://docs.patreon.com/#introduction" text="developer docs"/> for more detail.
+   Version 2 is probably the best choice. See their
+   <ExternalLink to="https://docs.patreon.com/#introduction" text="developer docs"/> for more detail.
 8. Under "Redirect URI's" enter `https://your-site.com/api/connect/patreon/callback`
 9. Save the client details and you will then see the Client ID and Client Secret.
 

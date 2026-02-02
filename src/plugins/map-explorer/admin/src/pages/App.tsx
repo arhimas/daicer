@@ -18,5 +18,3 @@ const App = () => {
 };
 
 export { App };
-
-

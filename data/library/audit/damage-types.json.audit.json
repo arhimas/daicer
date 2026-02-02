@@ -19,11 +19,7 @@
     ],
     "data_check": {
       "slug_format": "Lowercase, single word (standard practice)",
-      "keys_present": [
-        "slug",
-        "name",
-        "description"
-      ]
+      "keys_present": ["slug", "name", "description"]
     }
   },
   "timestamp": "2026-01-17T07:22:25.032Z"

@@ -35,7 +35,7 @@ export const BLOCK_COLORS: Record<BlockType, string> = {
   furnace: '#616161',
   door: '#795548',
   fence: '#8d6e63',
-  unknown: '#ff00ff'
+  unknown: '#ff00ff',
 };
 
 export const BLOCK_TYPES = Object.keys(BLOCK_COLORS) as BlockType[];

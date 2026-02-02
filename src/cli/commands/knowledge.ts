@@ -259,7 +259,7 @@ export async function runKnowledge(options: {
       console.log(chalk.yellow('\n  No relevant results found.\n'));
     }
   }
-  
+
   await stopStrapi();
   process.exit(0);
 }

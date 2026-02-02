@@ -4,10 +4,10 @@ description: Documents should be called by their documentId in Content API calls
 sidebar_label: documentId instead of id
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content API
- - Document Service API
- - upgrade to Strapi 5
+  - breaking changes
+  - content API
+  - Document Service API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -100,7 +100,7 @@ Documents are identified by their `documentId`:
 - This breaking change impacts routes and relations.
 - To ease the transition from v4 to Strapi 5, API calls to entries might still include an `id` field in their response, especially with the [Document Service API](/cms/api/document-service). But it's recommended that you start making an habit of using `documentId` instead of `id` as it will ease handling the transition to future Strapi versions.
 
-### Migration procedure 
+### Migration procedure
 
 A codemod will partly handle the change, but might probably add `__TODO__` items to your code since it's impossible for the codemod to automatically guess the new `documentId` of your content.
 

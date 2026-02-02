@@ -23,21 +23,21 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       if (attr.type === 'relation') {
         const target = attr.target;
         if (target) {
-            populate[key] = {
-                populate: this.getDeepPopulate(target, depth - 1, newVisited)
-            };
+          populate[key] = {
+            populate: this.getDeepPopulate(target, depth - 1, newVisited),
+          };
         }
       } else if (attr.type === 'component') {
-          const component = attr.component;
-          populate[key] = {
-              populate: this.getDeepPopulate(component, depth - 1, newVisited)
-          };
+        const component = attr.component;
+        populate[key] = {
+          populate: this.getDeepPopulate(component, depth - 1, newVisited),
+        };
       } else if (attr.type === 'dynamiczone') {
-          populate[key] = {
-              populate: '*' // Dynamic zones are tricky, usually wildcard is best, or we inspect components
-          };
+        populate[key] = {
+          populate: '*', // Dynamic zones are tricky, usually wildcard is best, or we inspect components
+        };
       } else if (attr.type === 'media') {
-          populate[key] = true;
+        populate[key] = true;
       }
     }
 
@@ -52,21 +52,21 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
    */
   async fetchDeepContext(uid: string, documentId: string, depth: number = 3) {
     try {
-        const populate = this.getDeepPopulate(uid, depth);
-        
+      const populate = this.getDeepPopulate(uid, depth);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const entity = await strapi.documents(uid as any).findOne({
+        documentId,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const entity = await strapi.documents(uid as any).findOne({
-            documentId,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            populate: populate as any
-        });
+        populate: populate as any,
+      });
 
-        if (!entity) return null;
+      if (!entity) return null;
 
-        return this.sanitizeDeep(entity);
+      return this.sanitizeDeep(entity);
     } catch (error) {
-        strapi.log.error(`ContextService: Deep fetch failed for ${uid}:${documentId}`, error);
-        throw error;
+      strapi.log.error(`ContextService: Deep fetch failed for ${uid}:${documentId}`, error);
+      throw error;
     }
   },
 
@@ -74,23 +74,34 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
    * recursively removes system fields and password fields
    */
   sanitizeDeep(data: unknown): unknown {
-      if (Array.isArray(data)) {
-          return data.map(item => this.sanitizeDeep(item));
-      }
-      
-      if (data && typeof data === 'object') {
-          const cleaned: Record<string, unknown> = {};
-          const systemFields = ['password', 'resetPasswordToken', 'confirmationToken', 'createdBy', 'updatedBy', 'publishedAt', 'createdAt', 'updatedAt', 'localizations', 'locale'];
-          
-          for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
-              if (systemFields.includes(key)) continue;
-              
-              // Remove nulls if desired, or keep them. keeping for now.
-              cleaned[key] = this.sanitizeDeep(value);
-          }
-          return cleaned;
-      }
+    if (Array.isArray(data)) {
+      return data.map((item) => this.sanitizeDeep(item));
+    }
 
-      return data;
-  }
+    if (data && typeof data === 'object') {
+      const cleaned: Record<string, unknown> = {};
+      const systemFields = [
+        'password',
+        'resetPasswordToken',
+        'confirmationToken',
+        'createdBy',
+        'updatedBy',
+        'publishedAt',
+        'createdAt',
+        'updatedAt',
+        'localizations',
+        'locale',
+      ];
+
+      for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
+        if (systemFields.includes(key)) continue;
+
+        // Remove nulls if desired, or keep them. keeping for now.
+        cleaned[key] = this.sanitizeDeep(value);
+      }
+      return cleaned;
+    }
+
+    return data;
+  },
 });

@@ -23,10 +23,7 @@
           "common_metal": "1 inch",
           "wood_or_dirt": "3 feet"
         },
-        "blocking_materials": [
-          "Thicker substances than listed limits",
-          "A thin sheet of lead"
-        ],
+        "blocking_materials": ["Thicker substances than listed limits", "A thin sheet of lead"],
         "recharge_mechanism": "Long rest for full reset; subsequent uses before a long rest trigger a penalty.",
         "penalty": {
           "trigger": "Using the ring again before taking a long rest",

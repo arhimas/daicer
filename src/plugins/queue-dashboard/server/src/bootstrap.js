@@ -1,6 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const bootstrap = ({ strapi: _strapi }) => {
-    // bootstrap phase
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+const bootstrap = () => {
+  // bootstrap phase
 };
 exports.default = bootstrap;

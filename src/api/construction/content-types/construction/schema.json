@@ -19,16 +19,7 @@
     },
     "category": {
       "type": "enumeration",
-      "enum": [
-        "village",
-        "castle",
-        "tower",
-        "dungeon",
-        "house",
-        "shop",
-        "temple",
-        "misc"
-      ],
+      "enum": ["village", "castle", "tower", "dungeon", "house", "shop", "temple", "misc"],
       "default": "misc"
     },
     "width": {
@@ -49,8 +40,8 @@
       "required": true
     },
     "previewImage": {
-        "type": "json",
-        "description": "Base64 or similar preview data"
+      "type": "json",
+      "description": "Base64 or similar preview data"
     }
   }
 }

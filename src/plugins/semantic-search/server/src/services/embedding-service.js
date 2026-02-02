@@ -27,7 +27,7 @@ module.exports = ({ strapi }) => ({
       env.allowLocalModels = true; // Use cached if available
 
       strapi.log.info(`🔌 [SemanticSearch] Initializing local Jina model (${this.modelName})...`);
-      
+
       this.pipelineInstance = await pipeline('feature-extraction', this.modelName, {
         dtype: 'q8',
         device: 'auto',
@@ -42,7 +42,7 @@ module.exports = ({ strapi }) => ({
 
   /**
    * Generates a Vector Embedding for the given text.
-   * @param {string} text 
+   * @param {string} text
    * @returns {Promise<number[]>} 1xn Vector
    */
   async generateEmbedding(text) {
@@ -61,7 +61,7 @@ module.exports = ({ strapi }) => ({
       // result.tolist() returns [ [ ... ] ] for single input
       const raw = result.tolist();
       if (Array.isArray(raw) && raw.length > 0) {
-         return raw[0];
+        return raw[0];
       }
       return [];
     } catch (e) {

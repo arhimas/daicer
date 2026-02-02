@@ -10,9 +10,7 @@
       "consistency": "Consistent with standard 5th Edition Cleric rules. The spellcasting ability is correctly identified as Wisdom.",
       "quality": "High quality. The description is clear, standard boilerplate text for class features, and correctly embeds the formulae for Spell Save DC and Spell Attack Modifier using a standard HTML table structure.",
       "mechanics": "Fundamental mechanic for the Cleric class. It establishes Wisdom as the primary attribute governing spell power, save DCs, and attack rolls for Cleric spells. The formulae provided are mechanically correct for standard 5e rulesets.",
-      "concerns": [
-        "None. This is a core, non-variant feature."
-      ]
+      "concerns": ["None. This is a core, non-variant feature."]
     }
   },
   "timestamp": "2026-01-17T07:23:15.713Z"

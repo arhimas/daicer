@@ -17,11 +17,7 @@
         "components": "V, S (Verbal, Somatic)",
         "duration": "Concentration, up to 1 minute",
         "effect": "Grants invisibility to the target (self or touched creature). Gear worn or carried is also turned invisible.",
-        "class_availability": [
-          "bard",
-          "sorcerer",
-          "wizard"
-        ],
+        "class_availability": ["bard", "sorcerer", "wizard"],
         "notes": "This spell is mechanically superior to the 2nd-level 'Invisibility' as it does not require the target to drop what they are carrying for it to also become invisible, and it is a higher level spell, suggesting a more robust or permanent effect (though both are concentration). The link to the 'invisible' condition is standard practice."
       },
       "zod_errors": "None"

@@ -3,10 +3,10 @@ title: No findPage() in Document Service API
 description: In Strapi 5, the Entity Service API is deprecated, and for the findPage() method you should use the Document Service API's findMany() method instead.
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - Document Service API
- - Content API
- - upgrade to Strapi 5
+  - breaking changes
+  - Document Service API
+  - Content API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -27,7 +27,7 @@ In Strapi 5, the [Document Service API](/cms/api/document-service) replaces the 
 
 **In Strapi v4**
 
-In Strapi v4 you could use the `findPage()` method from the Entity Service API, for instance as follows: 
+In Strapi v4 you could use the `findPage()` method from the Entity Service API, for instance as follows:
 
 ```jsx
 strapi.entityService.findPage('api::article.article', {
@@ -45,7 +45,7 @@ strapi.entityService.findPage('api::article.article', {
 In Strapi 5 the Entity Service API is deprecated and you should use the Document Service API instead. The [`findMany()` method](/cms/api/document-service/sort-pagination#pagination) can be used as follows:
 
 ```jsx
-strapi.documents("api::article.article").findMany({
+strapi.documents('api::article.article').findMany({
   limit: 10,
   start: 0,
 });

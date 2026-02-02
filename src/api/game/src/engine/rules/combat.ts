@@ -83,7 +83,7 @@ export function validateAttack(
 
 /**
  * Resolves a unified Attack Action using SRO (Source-Resolver-Output) Architecture.
- * 
+ *
  * Features:
  * - Checks Range (Validation Layer).
  * - Applies Conditions (Advantage/Disadvantage).

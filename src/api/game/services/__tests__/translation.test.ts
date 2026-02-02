@@ -32,10 +32,10 @@ describe('TranslationService', () => {
       // Wait, DICTIONARY keys are lowercase 'hello'. Values are 'Hello', 'Hola'.
       // If input is 'hello', text[0] is 'h'. Not uppercase.
       // Returns DICTIONARY value directly -> 'Hola'.
-      
+
       // If input is 'Hello', text[0] is 'H'. Uppercase.
       // Returns Capitalized('Hola') -> 'Hola'.
-      
+
       expect(service.translate('Hello', 'es')).toBe('Hola');
     });
 
@@ -50,12 +50,12 @@ describe('TranslationService', () => {
     it('should translate simple object values (keys preserved)', () => {
       const input = {
         greeting: 'Hello',
-        action: 'Attack'
+        action: 'Attack',
       };
-      
+
       const expected = {
         greeting: 'Hola',
-        action: 'Ataque'
+        action: 'Ataque',
       };
 
       const result = service.translateJson(input, 'es'); // translateKeys: false default
@@ -65,20 +65,20 @@ describe('TranslationService', () => {
     it('should translate keys when translateKeys is true', () => {
       const input = {
         greeting: 'Hello',
-        unknown: 'Value'
+        unknown: 'Value',
       };
-      
+
       // greeting -> Hola
       // unknown -> [ES] unknown
       // Values:
       // Hello -> Hola
       // Value -> [ES] Value
-      
+
       // (expected removed)
 
       // Wait, 'greeting' is NOT in dictionary.
       // So key 'greeting' -> '[ES] greeting'
-      
+
       const result = service.translateJson(input, 'es', { translateKeys: true });
       expect(result['[ES] greeting']).toBe('Hola');
       expect(result['[ES] unknown']).toBe('[ES] Value');
@@ -87,12 +87,9 @@ describe('TranslationService', () => {
     it('should handle nested objects and arrays', () => {
       const input = {
         level1: {
-          level2: [
-            { text: 'Hello' },
-            { text: 'World' }
-          ],
-          fixed: 123
-        }
+          level2: [{ text: 'Hello' }, { text: 'World' }],
+          fixed: 123,
+        },
       };
 
       // (expected removed)
@@ -100,12 +97,9 @@ describe('TranslationService', () => {
       // 'Hello' -> 'Olá' (pt), 'World' -> 'Mundo' (pt)
       const expectedPt = {
         level1: {
-          level2: [
-            { text: 'Olá' },
-            { text: 'Mundo' }
-          ],
-          fixed: 123
-        }
+          level2: [{ text: 'Olá' }, { text: 'Mundo' }],
+          fixed: 123,
+        },
       };
 
       const result = service.translateJson(input, 'pt');
@@ -117,7 +111,7 @@ describe('TranslationService', () => {
         str: 'Hello',
         num: 42,
         bool: true,
-        nil: null
+        nil: null,
       };
 
       const result = service.translateJson(input, 'es');

@@ -119,11 +119,11 @@ export class ChunkManager {
           // Apply Persistence Here
           try {
             const filters: Record<string, unknown> = {
-                chunkX: chunk.x,
-                chunkY: chunk.y,
+              chunkX: chunk.x,
+              chunkY: chunk.y,
             };
             if (worldId) {
-                filters.world = { documentId: worldId };
+              filters.world = { documentId: worldId };
             }
 
             const changes = (await strapi.documents('api::voxel-change.voxel-change').findMany({

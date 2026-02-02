@@ -25,15 +25,12 @@ export async function runStatus(options: { json?: boolean }) {
       ui.json({ status: 'online', url: rootUrl, latency: duration });
     } else {
       await ui.welcome('DAICER BACKEND', 'Status Check');
-      
-      await ui.panel(
-        `● ONLINE\nLatency: ${duration}ms\nURL: ${rootUrl}`,
-        { 
-            title: 'CONNECTION ESTABLISHED', 
-            color: 'green',
-            style: 'round'
-        }
-      );
+
+      await ui.panel(`● ONLINE\nLatency: ${duration}ms\nURL: ${rootUrl}`, {
+        title: 'CONNECTION ESTABLISHED',
+        color: 'green',
+        style: 'round',
+      });
     }
   } catch (err: unknown) {
     const error = err as Error & { code?: string; cause?: { code?: string } };
@@ -41,20 +38,17 @@ export async function runStatus(options: { json?: boolean }) {
 
     if (isRaw) {
       ui.json({
-          status: 'offline',
-          error: error.message,
-          hint: isConnRefused ? 'Server likely not running' : 'Unknown Error',
-        });
+        status: 'offline',
+        error: error.message,
+        hint: isConnRefused ? 'Server likely not running' : 'Unknown Error',
+      });
     } else {
-      await ui.panel(
-        `💀 OFFLINE\n\nError: ${error.message}\nAction: Run 'yarn develop' in backend`,
-        { 
-            title: 'CONNECTION FAILED', 
-            color: 'red', 
-            style: 'double' 
-        }
-      );
-    //   process.exit(1);
+      await ui.panel(`💀 OFFLINE\n\nError: ${error.message}\nAction: Run 'yarn develop' in backend`, {
+        title: 'CONNECTION FAILED',
+        color: 'red',
+        style: 'double',
+      });
+      //   process.exit(1);
     }
   }
 }

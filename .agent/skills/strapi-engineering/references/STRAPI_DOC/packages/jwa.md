@@ -7,29 +7,28 @@ implementation focusing (exclusively, at this point) on the algorithms necessary
 
 This library supports all of the required, recommended and optional cryptographic algorithms for JWS:
 
-alg Parameter Value | Digital Signature or MAC Algorithm
-----------------|----------------------------
-HS256 | HMAC using SHA-256 hash algorithm
-HS384 | HMAC using SHA-384 hash algorithm
-HS512 | HMAC using SHA-512 hash algorithm
-RS256 | RSASSA using SHA-256 hash algorithm
-RS384 | RSASSA using SHA-384 hash algorithm
-RS512 | RSASSA using SHA-512 hash algorithm
-PS256 | RSASSA-PSS using SHA-256 hash algorithm
-PS384 | RSASSA-PSS using SHA-384 hash algorithm
-PS512 | RSASSA-PSS using SHA-512 hash algorithm
-ES256 | ECDSA using P-256 curve and SHA-256 hash algorithm
-ES384 | ECDSA using P-384 curve and SHA-384 hash algorithm
-ES512 | ECDSA using P-521 curve and SHA-512 hash algorithm
-none | No digital signature or MAC value included
+| alg Parameter Value | Digital Signature or MAC Algorithm                 |
+| ------------------- | -------------------------------------------------- |
+| HS256               | HMAC using SHA-256 hash algorithm                  |
+| HS384               | HMAC using SHA-384 hash algorithm                  |
+| HS512               | HMAC using SHA-512 hash algorithm                  |
+| RS256               | RSASSA using SHA-256 hash algorithm                |
+| RS384               | RSASSA using SHA-384 hash algorithm                |
+| RS512               | RSASSA using SHA-512 hash algorithm                |
+| PS256               | RSASSA-PSS using SHA-256 hash algorithm            |
+| PS384               | RSASSA-PSS using SHA-384 hash algorithm            |
+| PS512               | RSASSA-PSS using SHA-512 hash algorithm            |
+| ES256               | ECDSA using P-256 curve and SHA-256 hash algorithm |
+| ES384               | ECDSA using P-384 curve and SHA-384 hash algorithm |
+| ES512               | ECDSA using P-521 curve and SHA-512 hash algorithm |
+| none                | No digital signature or MAC value included         |
 
-Please note that PS* only works on Node 6.12+ (excluding 7.x).
+Please note that PS\* only works on Node 6.12+ (excluding 7.x).
 
 # Requirements
 
 In order to run the tests, a recent version of OpenSSL is
-required. **The version that comes with OS X (OpenSSL 0.9.8r 8 Feb
-2011) is not recent enough**, as it does not fully support ECDSA
+required. **The version that comes with OS X (OpenSSL 0.9.8r 8 Feb 2011) is not recent enough**, as it does not fully support ECDSA
 keys. You'll need to use a version > 1.0.0; I tested with OpenSSL 1.0.1c 10 May 2012.
 
 # Testing
@@ -58,7 +57,6 @@ algorithm. Valid values for algorithm can be found in the table above
 (`'HS256'`, `'HS384'`, etc) and are case-insensitive. Passing an invalid
 algorithm value will throw a `TypeError`.
 
-
 ## jwa#sign(input, secretOrPrivateKey)
 
 Sign some input with either a secret for HMAC algorithms, or a private
@@ -79,9 +77,8 @@ the meantime, you can use
 [brianloveswords/base64url](https://github.com/brianloveswords/base64url)
 to decode the signature.
 
-As of nodejs *v0.11.8*, SPKAC support was introduce. If your nodeJs
+As of nodejs _v0.11.8_, SPKAC support was introduce. If your nodeJs
 version satisfies, then you can pass an object `{ key: '..', passphrase: '...' }`
-
 
 ## jwa#verify(input, signature, secretOrPublicKey)
 
@@ -93,10 +90,10 @@ For the HMAC algorithm, `secretOrPublicKey` should be a string or a
 buffer. For ECDSA and RSA, the value should be a string represented a
 PEM encoded **public** key.
 
-
 # Example
 
 HMAC
+
 ```js
 const jwa = require('jwa');
 
@@ -105,11 +102,12 @@ const input = 'super important stuff';
 const secret = 'shhhhhh';
 
 const signature = hmac.sign(input, secret);
-hmac.verify(input, signature, secret) // === true
-hmac.verify(input, signature, 'trickery!') // === false
+hmac.verify(input, signature, secret); // === true
+hmac.verify(input, signature, 'trickery!'); // === false
 ```
 
 With keys
+
 ```js
 const fs = require('fs');
 const jwa = require('jwa');
@@ -120,8 +118,9 @@ const ecdsa = jwa('ES512');
 const input = 'very important stuff';
 
 const signature = ecdsa.sign(input, privateKey);
-ecdsa.verify(input, signature, publicKey) // === true
+ecdsa.verify(input, signature, publicKey); // === true
 ```
+
 ## License
 
 MIT

@@ -4,13 +4,13 @@ title: Bulk Operations
 description: Use Strapi's Query Engine API to perform operations on multiple entries.
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- createMany()
-- count()
-- deleting content
-- Query Engine API
-- updateMany()
+  - API
+  - Content API
+  - createMany()
+  - count()
+  - deleting content
+  - Query Engine API
+  - updateMany()
 ---
 
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
@@ -38,20 +38,21 @@ Syntax: `createMany(parameters) => { count: number, ids: id[] }`
 | `data`    | Array of objects | Array of input data |
 
 :::caution
-* MySQL will only return an array of one id containing the last inserted id, not the entire list.
-* Prior to Strapi v4.9.0, `createMany()` only returns the `count`. 
-:::
+
+- MySQL will only return an array of one id containing the last inserted id, not the entire list.
+- Prior to Strapi v4.9.0, `createMany()` only returns the `count`.
+  :::
 
 ### Example
 
 ```js
-await strapi.db.query("api::blog.article").createMany({
+await strapi.db.query('api::blog.article').createMany({
   data: [
     {
-      title: "ABCD",
+      title: 'ABCD',
     },
     {
-      title: "EFGH",
+      title: 'EFGH',
     },
   ],
 });
@@ -67,15 +68,15 @@ Syntax: `updateMany(parameters) => { count: number }`
 
 ### Parameters
 
-| Parameter | Type                                                      | Description                                             |
-| --------- | --------------------------------------------------------- | ------------------------------------------------------- |
+| Parameter | Type                                                 | Description                                        |
+| --------- | ---------------------------------------------------- | -------------------------------------------------- |
 | `where`   | [`WhereParameter`](/cms/api/query-engine/filtering/) | [Filters](/cms/api/query-engine/filtering/) to use |
-| `data`    | Object                                                    | Input data                                              |
+| `data`    | Object                                               | Input data                                         |
 
 ### Example
 
 ```js
-await strapi.db.query("api::shop.article").updateMany({
+await strapi.db.query('api::shop.article').updateMany({
   where: {
     price: 20,
   },
@@ -95,17 +96,17 @@ Syntax: `deleteMany(parameters) => { count: number }`
 
 ### Parameters
 
-| Parameter | Type                                                      | Description                                             |
-| --------- | --------------------------------------------------------- | ------------------------------------------------------- |
+| Parameter | Type                                                 | Description                                        |
+| --------- | ---------------------------------------------------- | -------------------------------------------------- |
 | `where`   | [`WhereParameter`](/cms/api/query-engine/filtering/) | [Filters](/cms/api/query-engine/filtering/) to use |
 
 ### Example
 
 ```js
-await strapi.db.query("api::blog.article").deleteMany({
+await strapi.db.query('api::blog.article').deleteMany({
   where: {
     title: {
-      $startsWith: "v3",
+      $startsWith: 'v3',
     },
   },
 });
@@ -123,15 +124,15 @@ Syntax: `count(parameters) => number`
 
 #### Parameters
 
-| Parameter | Type                                                      | Description                                             |
-| --------- | --------------------------------------------------------- | ------------------------------------------------------- |
+| Parameter | Type                                                 | Description                                        |
+| --------- | ---------------------------------------------------- | -------------------------------------------------- |
 | `where`   | [`WhereParameter`](/cms/api/query-engine/filtering/) | [Filters](/cms/api/query-engine/filtering/) to use |
 
 ```js
-const count = await strapi.db.query("api::blog.article").count({
+const count = await strapi.db.query('api::blog.article').count({
   where: {
     title: {
-      $startsWith: "v3",
+      $startsWith: 'v3',
     },
   },
 });

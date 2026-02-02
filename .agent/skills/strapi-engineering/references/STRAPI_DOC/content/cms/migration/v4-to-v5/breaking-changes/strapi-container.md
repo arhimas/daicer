@@ -5,8 +5,8 @@ sidebar_label: Strapi subclass of Container
 displayed_sidebar: cmsSidebar
 unlisted: true
 tags:
- - breaking changes
- - upgrade to Strapi 5
+  - breaking changes
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

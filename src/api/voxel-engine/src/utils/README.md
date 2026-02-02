@@ -1,4 +1,3 @@
-
 # Voxel Engine Utils
 
 Core mathematical utilities and procedural generation algorithms for the Voxel Engine.

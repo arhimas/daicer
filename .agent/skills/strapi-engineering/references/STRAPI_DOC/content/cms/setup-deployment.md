@@ -1,16 +1,15 @@
 ---
 title: Setup and Deployment
 displayed_sidebar: cmsSidebar
-description: Strapi is meant to be installed on your local machine, then configured, and finally deployed to a remote environment. 
+description: Strapi is meant to be installed on your local machine, then configured, and finally deployed to a remote environment.
 pagination_prev: cms/intro
 pagination_next: cms/api/content-api
 tags:
-- introduction
-- concepts
-- installation 
-- configuration
-- deployment
-
+  - introduction
+  - concepts
+  - installation
+  - configuration
+  - deployment
 ---
 
 # Installation, Configuration, and Deployment

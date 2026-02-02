@@ -23,11 +23,7 @@
         "mechanics_clarity": "The core mechanic (sharing damage) is explicitly stated and balanced by the powerful defensive buff (+1 to AC/Saves and resistance to all damage)."
       },
       "mechanics": {
-        "buffs": [
-          "+1 bonus to AC",
-          "+1 bonus to saving throws",
-          "Resistance to all damage"
-        ],
+        "buffs": ["+1 bonus to AC", "+1 bonus to saving throws", "Resistance to all damage"],
         "cost_and_risk": "The primary risk is that the caster takes all damage the target receives. This represents a significant risk/reward trade-off for the powerful defense granted to the target.",
         "limitations": [
           "Range limit of 60 feet between caster and target.",

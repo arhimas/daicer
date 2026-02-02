@@ -3,8 +3,8 @@ title: Admin panel customization
 description: The administration panel of Strapi can be customized according to your needs, so you can make it reflect your identity.
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
+  - admin panel
+  - admin panel customization
 ---
 
 import HotReloading from '/docs/snippets/hot-reloading-admin-panel.md'
@@ -33,7 +33,7 @@ Before updating code to customize the admin panel:
 - Rename the default `app.example.tsx|js` file into `app.ts|js`.
 - Create a new `extensions` folder in `/src/admin/`.
 - If you want to see your changes applied live while developing, ensure the admin panel server is running (it's usually done with the `yarn develop` or `npm run develop` command if you have not changed the default [host, port, and path](/cms/configurations/admin-panel#admin-panel-server) of the admin panel).
-:::
+  :::
 
 Most basic admin panel customizations will be done in the `/src/admin/app` file, which includes a `config` object.
 
@@ -73,15 +73,15 @@ By default, Strapi projects already contain another `extensions` folder in `/src
 
 The `config` object of `/src/admin/app` accepts the following parameters:
 
-| Parameter                      | Type             | Description                                                                                                           |
-| ------------------------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `auth`                         | Object           | Accepts a `logo` key to replace the default Strapi logo on login screen                                     |
-| `head`                         | Object           | Accepts a `favicon` key to replace the default Strapi favicon                                             |
-| `locales`                      | Array of Strings | Defines availables locales |
+| Parameter                      | Type             | Description                                                                                |
+| ------------------------------ | ---------------- | ------------------------------------------------------------------------------------------ |
+| `auth`                         | Object           | Accepts a `logo` key to replace the default Strapi logo on login screen                    |
+| `head`                         | Object           | Accepts a `favicon` key to replace the default Strapi favicon                              |
+| `locales`                      | Array of Strings | Defines availables locales                                                                 |
 | `translations`                 | Object           | Extends the translations                                                                   |
-| `menu`                         | Object           | Accepts the `logo` key to change the logo in the main navigation                                            |
-| `theme.light` and `theme.dark` | Object           | Overwrite theme properties for light and dark modes                                               |
-| `tutorials`                    | Boolean          | Toggles displaying the video tutorials
+| `menu`                         | Object           | Accepts the `logo` key to change the logo in the main navigation                           |
+| `theme.light` and `theme.dark` | Object           | Overwrite theme properties for light and dark modes                                        |
+| `tutorials`                    | Boolean          | Toggles displaying the video tutorials                                                     |
 | `notifications`                | Object           | Accepts the `releases` key (Boolean) to toggle displaying notifications about new releases |
 
 Click on any of the following cards to get more details about a specific topic:
@@ -104,9 +104,9 @@ The following is an example of a basic customization of the admin panel:
 <TabItem value="js" label="JavaScript">
 
 ```jsx title="/src/admin/app.js"
-import AuthLogo from "./extensions/my-logo.png";
-import MenuLogo from "./extensions/logo.png";
-import favicon from "./extensions/favicon.png";
+import AuthLogo from './extensions/my-logo.png';
+import MenuLogo from './extensions/logo.png';
+import favicon from './extensions/favicon.png';
 
 export default {
   config: {
@@ -119,7 +119,7 @@ export default {
       favicon: favicon,
     },
     // Add a new locale, other than 'en'
-    locales: ["fr", "de"],
+    locales: ['fr', 'de'],
     // Replace the Strapi logo in the main navigation
     menu: {
       logo: MenuLogo,
@@ -129,12 +129,12 @@ export default {
       // overwrite light theme properties
       light: {
         colors: {
-          primary100: "#f6ecfc",
-          primary200: "#e0c1f4",
-          primary500: "#ac73e6",
-          primary600: "#9736e8",
-          primary700: "#8312d1",
-          danger700: "#b72b1a",
+          primary100: '#f6ecfc',
+          primary200: '#e0c1f4',
+          primary500: '#ac73e6',
+          primary600: '#9736e8',
+          primary700: '#8312d1',
+          danger700: '#b72b1a',
         },
       },
 
@@ -146,11 +146,11 @@ export default {
     // Extend the translations
     translations: {
       fr: {
-        "Auth.form.email.label": "test",
-        Users: "Utilisateurs",
-        City: "CITY (FRENCH)",
+        'Auth.form.email.label': 'test',
+        Users: 'Utilisateurs',
+        City: 'CITY (FRENCH)',
         // Customize the label of the Content Manager table.
-        Id: "ID french",
+        Id: 'ID french',
       },
     },
     // Disable video tutorials
@@ -183,7 +183,7 @@ export default {
     head: {
       // Try to change the origin favicon.png file in the
       // root of strapi project if this config don't work.
-      favicon: favicon, 
+      favicon: favicon,
     },
     // Add a new locale, other than 'en'
     locales: ["fr", "de"],
@@ -236,6 +236,6 @@ export default {
 
 :::strapi Detailed examples in the codebase
 
-* You can see the full translation keys, for instance to change the welcome message, [on GitHub](https://github.com/strapi/strapi/blob/develop/packages/core/admin/admin/src/translations).
-* Light and dark colors are also found [on GitHub](https://github.com/strapi/design-system/tree/main/packages/design-system/src/themes).
-:::
+- You can see the full translation keys, for instance to change the welcome message, [on GitHub](https://github.com/strapi/strapi/blob/develop/packages/core/admin/admin/src/translations).
+- Light and dark colors are also found [on GitHub](https://github.com/strapi/design-system/tree/main/packages/design-system/src/themes).
+  :::

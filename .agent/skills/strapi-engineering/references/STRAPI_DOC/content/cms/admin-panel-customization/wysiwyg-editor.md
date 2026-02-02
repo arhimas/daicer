@@ -4,9 +4,9 @@ description: Learn more about the various strategies available to customize the 
 displayed_sidebar: cmsSidebar
 sidebar_label: Rich text editor
 tags:
-- admin panel 
-- admin panel customization
-- WYSIWYG editor
+  - admin panel
+  - admin panel customization
+  - WYSIWYG editor
 ---
 
 # Change the default rich text editor

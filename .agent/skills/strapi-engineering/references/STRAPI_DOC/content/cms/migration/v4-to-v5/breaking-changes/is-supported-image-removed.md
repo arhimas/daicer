@@ -4,9 +4,9 @@ description: The `isSupportedImage` method is removed in Strapi 5. Users should 
 sidebar_label: isSupportedImage removed
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - upload plugin
- - upgrade to Strapi 5
+  - breaking changes
+  - upload plugin
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -37,7 +37,7 @@ The `isSupportedImage` method is supported, but deprecated.
 
 The `isSupportedImage` method is removed.
 
-Developers must use either `isImage` to check if a file is an image, or `isOptimizableImage` to check if the file is an image that can be optimized. 
+Developers must use either `isImage` to check if a file is an image, or `isOptimizableImage` to check if the file is an image that can be optimized.
 </SideBySideColumn>
 
 </SideBySideContainer>
@@ -45,4 +45,3 @@ Developers must use either `isImage` to check if a file is an image, or `isOptim
 ## Manual migration
 
 Replace occurences of the `isSupportedImage` method in your code by the appropriate method, `isImage` or `isOptimizableImage`, depending on your needs. Note that the behavior in Strapi v4 was equivalent to `isOptimizableImage`.
-

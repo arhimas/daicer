@@ -15,7 +15,10 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
   /**
    * Encapsulates room creation logic including Code generation and initial state.
    */
-  async createRoom(user: { id: number | string; documentId: string; username?: string }, payload: Partial<RoomCreationInput>) {
+  async createRoom(
+    user: { id: number | string; documentId: string; username?: string },
+    payload: Partial<RoomCreationInput>
+  ) {
     // Owner Player Object
     const ownerPlayer: RoomPlayer = {
       id: user.id || user.documentId,
@@ -70,17 +73,17 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
       // 3. Update with real code
       const updatedRoom = await strapi.entityService.update('api::room.room', newRoom.documentId || newRoom.id, {
         data: {
-            code: codeStr,
-            roomId: codeStr
+          code: codeStr,
+          roomId: codeStr,
         } as unknown as Record<string, unknown>,
       });
 
       return updatedRoom;
     } catch (error) {
-       strapi.log.error('Failed to generate permanent room code', error);
-       // Return room with temp code if generator fails? Or re-throw?
-       // Re-throwing ensures failure is visible.
-       throw new Error('Failed to configure room code');
+      strapi.log.error('Failed to generate permanent room code', error);
+      // Return room with temp code if generator fails? Or re-throw?
+      // Re-throwing ensures failure is visible.
+      throw new Error('Failed to configure room code');
     }
   },
 
@@ -104,7 +107,7 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
     const isAlreadyJoined = players.some((p: RoomPlayer) => p.userId == user.id || p.userId == user.documentId);
 
     if (isAlreadyJoined) {
-       return { room, message: 'Already joined', joined: false };
+      return { room, message: 'Already joined', joined: false };
     }
 
     const newPlayer: RoomPlayer = {
@@ -124,6 +127,5 @@ export default factories.createCoreService('api::room.room', ({ strapi }) => ({
     });
 
     return { room: updatedRoom, message: 'Joined successfully', joined: true };
-  }
+  },
 }));
-

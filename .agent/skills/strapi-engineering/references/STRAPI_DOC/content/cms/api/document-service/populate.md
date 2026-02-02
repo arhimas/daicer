@@ -4,14 +4,14 @@ description: Use Strapi's Document Service API to populate or select some fields
 displayed_sidebar: cmsSidebar
 sidebar_label: Populate
 tags:
-- Components
-- Content API
-- Document Service API
-- dynamic zones
-- populate
-- Populating with create()
-- Populating with publish()
-- Populating with update()
+  - Components
+  - Content API
+  - Document Service API
+  - dynamic zones
+  - populate
+  - Populating with create()
+  - Populating with publish()
+  - Populating with update()
 ---
 
 # Document Service API: Populating fields
@@ -40,8 +40,8 @@ To populate one-level deep for all relations, use the `*` wildcard in combinatio
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
-  populate: "*",
+const documents = await strapi.documents('api::article.article').findMany({
+  populate: '*',
 });
 ```
 
@@ -94,8 +94,8 @@ To populate specific relations one-level deep, pass the relation names in a `pop
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
-  populate: ["headerImage"],
+const documents = await strapi.documents('api::article.article').findMany({
+  populate: ['headerImage'],
 });
 ```
 
@@ -132,10 +132,10 @@ To populate specific relations several levels deep, use the object format with `
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
+const documents = await strapi.documents('api::article.article').findMany({
   populate: {
     categories: {
-      populate: ["articles"],
+      populate: ['articles'],
     },
   },
 });
@@ -186,8 +186,8 @@ Components are populated the same way as relations:
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
-  populate: ["testComp"],
+const documents = await strapi.documents('api::article.article').findMany({
+  populate: ['testComp'],
 });
 ```
 
@@ -222,13 +222,13 @@ Dynamic zones are highly dynamic content structures by essence. To populate a dy
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::article.article").findMany({
+const documents = await strapi.documents('api::article.article').findMany({
   populate: {
     testDZ: {
       on: {
-        "test.test-compo": {
-          fields: ["testString"],
-          populate: ["testNestedCompo"],
+        'test.test-compo': {
+          fields: ['testString'],
+          populate: ['testNestedCompo'],
         },
       },
     },
@@ -275,14 +275,14 @@ To populate while creating documents:
 <Request title="Example request">
 
 ```js
-strapi.documents("api::article.article").create({
+strapi.documents('api::article.article').create({
   data: {
-    title: "Test Article",
-    slug: "test-article",
-    body: "Test 1",
+    title: 'Test Article',
+    slug: 'test-article',
+    body: 'Test 1',
     headerImage: 2,
   },
-  populate: ["headerImage"],
+  populate: ['headerImage'],
 });
 ```
 
@@ -315,12 +315,12 @@ To populate while updating documents:
 <Request title="Example request">
 
 ```js
-strapi.documents("api::article.article").update({
-  documentId: "cjld2cjxh0000qzrmn831i7rn",
+strapi.documents('api::article.article').update({
+  documentId: 'cjld2cjxh0000qzrmn831i7rn',
   data: {
-    title: "Test Article Update",
+    title: 'Test Article Update',
   },
-  populate: ["headerImage"],
+  populate: ['headerImage'],
 });
 ```
 
@@ -353,9 +353,9 @@ To populate while publishing documents (same behavior with `unpublish()` and `di
 <Request title="Example request">
 
 ```js
-strapi.documents("api::article.article").publish({
-  documentId: "cjld2cjxh0000qzrmn831i7rn",
-  populate: ["headerImage"],
+strapi.documents('api::article.article').publish({
+  documentId: 'cjld2cjxh0000qzrmn831i7rn',
+  populate: ['headerImage'],
 });
 ```
 

@@ -78,7 +78,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     const turnNumber = lastEvent ? (lastEvent.turn_number || 0) + 1 : 1;
 
     const event = await strapi.documents('api::game-event.game-event').create({
-       
       data: {
         room: roomDocumentId,
         type,
@@ -86,7 +85,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         actorId,
         timestamp: Date.now().toString(), // Ensuring string if using newer schema convention
         turnNumber: turnNumber, // CamelCase
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any,
     });
 

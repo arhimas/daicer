@@ -5,11 +5,11 @@ displayed_sidebar: cmsSidebar
 pagination_prev: cms/plugins-development/developing-plugins
 pagination_next: cms/plugins-development/create-a-plugin
 tags:
-- admin panel API
-- introduction
-- plugin APIs
-- plugins development
-- server API
+  - admin panel API
+  - introduction
+  - plugin APIs
+  - plugins development
+  - server API
 ---
 
 # Developing Strapi plugins

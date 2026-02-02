@@ -4,9 +4,11 @@
 > In Strapi 5, the database structure is derived strictly from JSON schema files. You do not define models with TypeScript classes or decorators.
 
 ## 1. The Schema Definition
+
 Each Content Type lives in `src/api/[api-name]/content-types/[type-name]/schema.json`.
 
 ### Anatomy of a Schema
+
 ```json
 {
   "kind": "collectionType", // or "singleType"
@@ -27,16 +29,18 @@ Each Content Type lives in `src/api/[api-name]/content-types/[type-name]/schema.
       "required": true,
       "unique": true,
       "minLength": 3
-    },
+    }
     // ... relations and other fields
   }
 }
 ```
 
 ## 2. Programmatic Creation ("Code-as-Schema")
+
 Since Strapi prevents "Code-First" definition (like TypeORM), "Programmatic Creation" implies **Generating Schema Files via Scripts**.
 
 ### The "SOTA" Generator Pattern
+
 Instead of manually editing JSON, create a script intended to run during your build/setup phase.
 
 ```typescript
@@ -58,7 +62,7 @@ const defineSchema = (name: string, attributes: any) => ({
 
 const dragonSchema = defineSchema('Dragon', {
   name: { type: 'string', required: true },
-  powerLevel: { type: 'integer', default: 9000 }
+  powerLevel: { type: 'integer', default: 9000 },
 });
 
 const targetPath = path.join(__dirname, '../../src/api/dragon/content-types/dragon/schema.json');
@@ -66,13 +70,15 @@ fs.outputJsonSync(targetPath, dragonSchema, { spaces: 2 });
 ```
 
 ## 3. Relations & Logic
+
 Relations are defined in `attributes`.
 
--   **OneToOne**: `"relation": "oneToOne", "target": "api::target.target"`
--   **OneToMany**: `"relation": "oneToMany", "target": "api::target.target"`
--   **ManyToOne**: `"relation": "manyToOne", "target": "api::target.target"`
+- **OneToOne**: `"relation": "oneToOne", "target": "api::target.target"`
+- **OneToMany**: `"relation": "oneToMany", "target": "api::target.target"`
+- **ManyToOne**: `"relation": "manyToOne", "target": "api::target.target"`
 
 ### Lifecycle Hooks (`lifecycles.ts`)
+
 Alongside `schema.json`, use `lifecycles.ts` to enforce business logic.
 
 ```typescript
@@ -87,10 +93,11 @@ export default {
   afterCreate(event) {
     const { result } = event;
     // Trigger external notification
-  }
+  },
 };
 ```
 
 ## 📚 Official Reference
--   [Strapi 5 Models Documentation](https://docs.strapi.io/cms/backend-customization/models)
--   [Document Service API](https://docs.strapi.io/cms/api/document-service)
+
+- [Strapi 5 Models Documentation](https://docs.strapi.io/cms/backend-customization/models)
+- [Document Service API](https://docs.strapi.io/cms/api/document-service)

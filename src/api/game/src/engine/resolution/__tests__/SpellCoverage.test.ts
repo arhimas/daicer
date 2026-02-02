@@ -43,256 +43,256 @@ const targetEntity = {
 };
 
 // Enrichment Map to simulate "Polished" data
- 
+
 const SPELL_CONFIGS: Record<string, any> = {
   // ---------------- HEALS ----------------
   'cure-wounds': {
     range_config: { type: 'touch', distance: 5 },
     mechanics_config: { action_type: 'Heal' }, // Auto-hit/usage
-    damage_instances: [{ effect_type: 'Healing', dice_count: 1, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Healing', dice_count: 1, dice_value: 8 }],
   },
   'healing-word': {
     range_config: { type: 'ranged', distance: 60 },
     mechanics_config: { action_type: 'Heal' },
-    damage_instances: [{ effect_type: 'Healing', dice_count: 1, dice_value: 4 }]
+    damage_instances: [{ effect_type: 'Healing', dice_count: 1, dice_value: 4 }],
   },
-  'heal': {
+  heal: {
     range_config: { type: 'ranged', distance: 60 },
     mechanics_config: { action_type: 'Heal' },
-    damage_instances: [{ effect_type: 'Healing', flat_bonus: 70 }] 
+    damage_instances: [{ effect_type: 'Healing', flat_bonus: 70 }],
   },
   'mass-cure-wounds': {
     range_config: { type: 'ranged', distance: 60, aoe_shape: 'sphere', aoe_size: 30 },
     mechanics_config: { action_type: 'Heal' },
-    damage_instances: [{ effect_type: 'Healing', dice_count: 3, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Healing', dice_count: 3, dice_value: 8 }],
   },
   'prayer-of-healing': {
     range_config: { type: 'ranged', distance: 30 },
     mechanics_config: { action_type: 'Heal' },
-    damage_instances: [{ effect_type: 'Healing', dice_count: 2, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Healing', dice_count: 2, dice_value: 8 }],
   },
 
   // ---------------- DAMAGE ----------------
   'magic-missile': {
     range_config: { type: 'ranged', distance: 120 },
     mechanics_config: { action_type: 'Auto' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'force', dice_count: 1, dice_value: 4, flat_bonus: 1 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'force', dice_count: 1, dice_value: 4, flat_bonus: 1 }],
   },
   'scorching-ray': {
     range_config: { type: 'ranged', distance: 120 },
     mechanics_config: { action_type: 'Ranged Attack' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 2, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 2, dice_value: 6 }],
   },
   'guiding-bolt': {
     range_config: { type: 'ranged', distance: 120 },
     mechanics_config: { action_type: 'Ranged Attack' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 4, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 4, dice_value: 6 }],
   },
   'inflict-wounds': {
     range_config: { type: 'touch', distance: 5 },
     mechanics_config: { action_type: 'Melee Attack' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'necrotic', dice_count: 3, dice_value: 10 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'necrotic', dice_count: 3, dice_value: 10 }],
   },
   'finger-of-death': {
     range_config: { type: 'ranged', distance: 60 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'necrotic', dice_count: 7, dice_value: 8, flat_bonus: 30 }]
+    damage_instances: [
+      { effect_type: 'Damage', damage_type: 'necrotic', dice_count: 7, dice_value: 8, flat_bonus: 30 },
+    ],
   },
 
   // ---------------- AOE SPHERE ----------------
-  'fireball': {
+  fireball: {
     range_config: { type: 'ranged', distance: 150, aoe_shape: 'sphere', aoe_size: 20 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 8, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 8, dice_value: 6 }],
   },
-  'shatter': {
+  shatter: {
     range_config: { type: 'ranged', distance: 60, aoe_shape: 'sphere', aoe_size: 10 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'thunder', dice_count: 3, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'thunder', dice_count: 3, dice_value: 8 }],
   },
   'delayed-blast-fireball': {
     range_config: { type: 'ranged', distance: 150, aoe_shape: 'sphere', aoe_size: 20 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 12, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 12, dice_value: 6 }],
   },
   'circle-of-death': {
     range_config: { type: 'ranged', distance: 150, aoe_shape: 'sphere', aoe_size: 60 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'necrotic', dice_count: 8, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'necrotic', dice_count: 8, dice_value: 6 }],
   },
-  'sunburst': {
+  sunburst: {
     range_config: { type: 'ranged', distance: 150, aoe_shape: 'sphere', aoe_size: 60 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 12, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 12, dice_value: 6 }],
   },
 
   // ---------------- AOE CONE ----------------
   'burning-hands': {
     range_config: { type: 'self', distance: 0, aoe_shape: 'cone', aoe_size: 15 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 3, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 3, dice_value: 6 }],
   },
   'cone-of-cold': {
     range_config: { type: 'self', distance: 0, aoe_shape: 'cone', aoe_size: 60 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'cold', dice_count: 8, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'cold', dice_count: 8, dice_value: 8 }],
   },
   'prismatic-spray': {
     range_config: { type: 'self', distance: 0, aoe_shape: 'cone', aoe_size: 60 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 10, dice_value: 6 }] // Simplified for test
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 10, dice_value: 6 }], // Simplified for test
   },
-  'fear': {
+  fear: {
     range_config: { type: 'self', distance: 0, aoe_shape: 'cone', aoe_size: 30 },
     mechanics_config: { action_type: 'Wisdom Save', save_effect: 'none' }, // Condition only
-    damage_instances: []
+    damage_instances: [],
   },
 
   // ---------------- AOE CUBE ----------------
-  'thunderwave': {
+  thunderwave: {
     range_config: { type: 'self', distance: 0, aoe_shape: 'cube', aoe_size: 15 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'thunder', dice_count: 2, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'thunder', dice_count: 2, dice_value: 8 }],
   },
   'faerie-fire': {
     range_config: { type: 'ranged', distance: 60, aoe_shape: 'cube', aoe_size: 20 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'none' },
-    damage_instances: []
+    damage_instances: [],
   },
 
   // ---------------- AOE LINE ----------------
   'lightning-bolt': {
     range_config: { type: 'self', distance: 0, aoe_shape: 'line', aoe_size: 100 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'lightning', dice_count: 8, dice_value: 6 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'lightning', dice_count: 8, dice_value: 6 }],
   },
   'gust-of-wind': {
     range_config: { type: 'self', distance: 0, aoe_shape: 'line', aoe_size: 60 },
     mechanics_config: { action_type: 'Strength Save', save_effect: 'none' },
-    damage_instances: []
+    damage_instances: [],
   },
-  'sunbeam': {
+  sunbeam: {
     range_config: { type: 'self', distance: 0, aoe_shape: 'line', aoe_size: 60 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 6, dice_value: 8 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 6, dice_value: 8 }],
   },
 
   // ---------------- AOE CYLINDER ----------------
-  'moonbeam': {
+  moonbeam: {
     range_config: { type: 'ranged', distance: 120, aoe_shape: 'cylinder', aoe_size: 5, aoe_height: 40 },
     mechanics_config: { action_type: 'Constitution Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 2, dice_value: 10 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'radiant', dice_count: 2, dice_value: 10 }],
   },
   'flame-strike': {
     range_config: { type: 'ranged', distance: 60, aoe_shape: 'cylinder', aoe_size: 10, aoe_height: 40 },
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 4, dice_value: 6 }] // Simplified (split dmg)
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'fire', dice_count: 4, dice_value: 6 }], // Simplified (split dmg)
   },
   'call-lightning': {
     range_config: { type: 'ranged', distance: 120, aoe_shape: 'cylinder', aoe_size: 60, aoe_height: 10 }, // Range is to point, cloud is cylinder
     mechanics_config: { action_type: 'Dexterity Save', save_effect: 'half' },
-    damage_instances: [{ effect_type: 'Damage', damage_type: 'lightning', dice_count: 3, dice_value: 10 }]
+    damage_instances: [{ effect_type: 'Damage', damage_type: 'lightning', dice_count: 3, dice_value: 10 }],
   },
 
   // ---------------- UTILITY ----------------
   'detect-magic': {
     range_config: { type: 'self', distance: 0, aoe_shape: 'sphere', aoe_size: 30 },
     mechanics_config: { action_type: 'Utility' },
-    damage_instances: []
+    damage_instances: [],
   },
   'mage-armor': {
     range_config: { type: 'touch', distance: 5 },
     mechanics_config: { action_type: 'Utility' },
-    damage_instances: []
+    damage_instances: [],
   },
-  'shield': {
+  shield: {
     range_config: { type: 'self', distance: 0 },
     mechanics_config: { action_type: 'Reaction' },
-    damage_instances: []
+    damage_instances: [],
   },
-  'fly': {
+  fly: {
     range_config: { type: 'touch', distance: 5 },
     mechanics_config: { action_type: 'Utility' },
-    damage_instances: []
+    damage_instances: [],
   },
-  'invisibility': {
+  invisibility: {
     range_config: { type: 'touch', distance: 5 },
     mechanics_config: { action_type: 'Utility' },
-    damage_instances: []
+    damage_instances: [],
   },
 };
 
 describe('Spell Coverage Analysis (10% Sample)', () => {
-    
   test.each(FLAT_SPELL_LIST)('Should correctly hydrate and resolve %s', (slug) => {
     const filePath = path.join(process.cwd(), 'data/library/molecules/spells', `${slug}.json`);
-    
+
     if (!fs.existsSync(filePath)) {
-        throw new Error(`Spell file not found: ${filePath}`);
+      throw new Error(`Spell file not found: ${filePath}`);
     }
 
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const rawSpellData = JSON.parse(fileContent);
-    
+
     // ENRICH DATA
     const config = SPELL_CONFIGS[slug] || {};
     const spellData = {
-        ...rawSpellData,
-        ...config,
-        id: slug,
-        documentId: slug,
+      ...rawSpellData,
+      ...config,
+      id: slug,
+      documentId: slug,
     };
 
     // 1. Hydration
     const action = ActionHydrator.hydrateFromSpell(spellData, mockContext);
-    
+
     expect(action).toBeDefined();
     expect(action.id).toContain(spellData.slug); // Our ID generation usually includes doc ID, but checking basic integrity
     expect(action.sourceType).toBe('spell');
     expect(action.name).toBe(spellData.name);
 
     // 2. Structural Assertions based on config
-    
+
     // Check Range
     if (spellData.range.includes('Self')) {
-        expect(action.range.type).toBe('self');
+      expect(action.range.type).toBe('self');
     } else if (spellData.range.toLowerCase().includes('touch')) {
-        expect(action.range.type).toBe('touch');
+      expect(action.range.type).toBe('touch');
     } else {
-        expect(action.range.type).toBe('ranged');
+      expect(action.range.type).toBe('ranged');
     }
 
     // Check AOE
     if (spellData.range.includes('cone')) {
-        expect(action.aoe?.shape).toBe('cone');
+      expect(action.aoe?.shape).toBe('cone');
     } else if (spellData.range.includes('sphere') || spellData.range.includes('radius')) {
-         // Some "radius" spells are spheres, unless specified otherwise
-        expect(['sphere', 'cylinder']).toContain(action.aoe?.shape);
+      // Some "radius" spells are spheres, unless specified otherwise
+      expect(['sphere', 'cylinder']).toContain(action.aoe?.shape);
     } else if (spellData.range.includes('cube')) {
-        expect(action.aoe?.shape).toBe('cube');
+      expect(action.aoe?.shape).toBe('cube');
     } else if (spellData.range.includes('line')) {
-        expect(action.aoe?.shape).toBe('line');
+      expect(action.aoe?.shape).toBe('line');
     }
 
     // Check Effects
     if (spellData.damage_instances?.length > 0) {
-        expect(action.effects?.length).toBeGreaterThan(0);
-        const dmg = action.effects?.find(e => e.type === 'damage' || e.type === 'healing');
-        expect(dmg).toBeDefined();
-        if (dmg?.type === 'damage') {
-             expect(dmg.dice || dmg.flat).toBeTruthy();
-        }
+      expect(action.effects?.length).toBeGreaterThan(0);
+      const dmg = action.effects?.find((e) => e.type === 'damage' || e.type === 'healing');
+      expect(dmg).toBeDefined();
+      if (dmg?.type === 'damage') {
+        expect(dmg.dice || dmg.flat).toBeTruthy();
+      }
     }
 
     // 3. Resolution Simulation (Dry Run)
     // We only simulate if it has effects to resolve
     if (action.effects && action.effects.length > 0) {
-        const result = ActionDispatcher.resolve(sourceEntity, targetEntity, action);
-        
-        // Basic resolution integrity
-        expect(result).toBeDefined();
-        expect(result.log).toBeDefined();
+      const result = ActionDispatcher.resolve(sourceEntity, targetEntity, action);
+
+      // Basic resolution integrity
+      expect(result).toBeDefined();
+      expect(result.log).toBeDefined();
     }
   });
-
 });

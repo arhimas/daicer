@@ -3,11 +3,11 @@ title: Deployment
 displayed_sidebar: cmsSidebar
 description: Learn how to develop locally with Strapi and deploy Strapi with various hosting options.
 tags:
-- database deployment
-- deployment
-- project creation
-- hosting provider
-- hosting server
+  - database deployment
+  - deployment
+  - project creation
+  - hosting provider
+  - hosting server
 ---
 
 import DatabaseRequire from '/docs/snippets/database-require.md'
@@ -53,7 +53,7 @@ To provide the best possible environment for Strapi the following requirements a
   <HardwareRequire components={props.components} />
 
 - A supported database version:
-<DatabaseRequire components={props.components} />
+  <DatabaseRequire components={props.components} />
 
 :::strapi Database deployment
 Deploying databases along with Strapi is covered in the [databases guide](/cms/configurations/database#databases-installation).
@@ -72,7 +72,6 @@ Deploying databases along with Strapi is covered in the [databases guide](/cms/c
 We recommend using environment variables to configure your application based on the environment, for example:
 
 ```js title="/config/server.js"
-
 module.exports = ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
   port: env.int('PORT', 1337),
@@ -182,7 +181,6 @@ We highly recommend using <ExternalLink to="https://github.com/Unitech/pm2/" tex
 If you need a server.js file to be able to run `node server.js` instead of `npm run start` then create a `./server.js` file as follows:
 
 ```js title="path: ./server.js"
-
 const strapi = require('@strapi/strapi');
 strapi.createStrapi(/* {...} */).start();
 ```
@@ -204,9 +202,10 @@ If you want to host the administration on another server than the API, [please t
 ## Additional resources
 
 :::prerequisites
-* Your Strapi project is [created](/cms/installation) and its code is hosted on GitHub.
-* You have read the [general deployment guidelines](/cms/deployment#general-guidelines).
-:::
+
+- Your Strapi project is [created](/cms/installation) and its code is hosted on GitHub.
+- You have read the [general deployment guidelines](/cms/deployment#general-guidelines).
+  :::
 
 The <ExternalLink to="https://strapi.io/integrations" text="integrations page"/> of the Strapi website include information on how to integrate Strapi with many resources, including how to deploy Strapi on the following 3rd-party platforms:
 

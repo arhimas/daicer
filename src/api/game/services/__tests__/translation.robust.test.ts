@@ -38,7 +38,7 @@ describe('TranslationService Hardened Tests', () => {
   describe('translateJson (Deep Traversal & Edge Cases)', () => {
     it('should handle deep nesting (Depth > 5)', () => {
       const deep = {
-        l1: { l2: { l3: { l4: { l5: { val: 'Hello' } } } } }
+        l1: { l2: { l3: { l4: { l5: { val: 'Hello' } } } } },
       };
       const result = service.translateJson(deep, 'pt');
       expect(result.l1.l2.l3.l4.l5.val).toBe('Olá');
@@ -55,22 +55,22 @@ describe('TranslationService Hardened Tests', () => {
     });
 
     it('should handle circular references (if possible) or fail gracefully', () => {
-       // Our implementation uses simple recursion, so it would stack overflow on circular refs.
-       // However, we are dealing with JSON from API usually, which isn't circular.
-       // But let's verify if we want to support it?
-       // For "simple service", we might not need it, but good to know behavior.
-       // We won't test stack overflow here to avoid crashing test runner.
+      // Our implementation uses simple recursion, so it would stack overflow on circular refs.
+      // However, we are dealing with JSON from API usually, which isn't circular.
+      // But let's verify if we want to support it?
+      // For "simple service", we might not need it, but good to know behavior.
+      // We won't test stack overflow here to avoid crashing test runner.
     });
 
     it('should handle translateKeys: true with complex keys', () => {
-      const obj = { 'Hello World': 'Attack', 'SomeKey': 'Damage' };
-      // Keys: 
+      const obj = { 'Hello World': 'Attack', SomeKey: 'Damage' };
+      // Keys:
       // 'Hello World' -> Not in dict (multi-word). -> [ES] Hello World
       // 'SomeKey' -> [ES] SomeKey
       // Values:
       // 'Attack' -> 'Ataque'
       // 'Damage' -> 'Daño'
-      
+
       const result = service.translateJson(obj, 'es', { translateKeys: true });
       expect(result['[ES] Hello World']).toBe('Ataque');
       expect(result['[ES] SomeKey']).toBe('Daño');
@@ -84,7 +84,7 @@ describe('TranslationService Hardened Tests', () => {
       const payload = {};
       // @ts-expect-error - Testing malicious proto pollution
       payload['__proto__'] = { val: 'bad' };
-      
+
       const result = service.translateJson(payload, 'es');
       // Should not crash.
       expect(result).toBeDefined();

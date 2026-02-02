@@ -1,8 +1,6 @@
 # Cloud SaaS
 
-!!! info "Prerequisites"
-    - [LangGraph Platform](./langgraph_platform.md)
-    - [LangGraph Server](./langgraph_server.md)
+!!! info "Prerequisites" - [LangGraph Platform](./langgraph_platform.md) - [LangGraph Server](./langgraph_server.md)
 
 ## Overview
 

@@ -262,11 +262,7 @@ This single type is internationalized.
         }
       },
       "type": "dynamiczone",
-      "components": [
-        "page-blocks.product-carousel",
-        "page-blocks.hero-image",
-        "page-blocks.content-and-image"
-      ],
+      "components": ["page-blocks.product-carousel", "page-blocks.hero-image", "page-blocks.content-and-image"],
       "required": true,
       "min": 2
     },

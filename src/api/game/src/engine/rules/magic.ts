@@ -67,19 +67,20 @@ export function validateSpellCast(
   // 3. Range Check
   if (targetPos) {
     let maxDist = 5;
-    
+
     // Check structured range object first
     if (spellAction.range) {
-        if (spellAction.range.type === 'touch') maxDist = 7; // Reach + slack
-        else maxDist = spellAction.range.value || 30;
+      if (spellAction.range.type === 'touch')
+        maxDist = 7; // Reach + slack
+      else maxDist = spellAction.range.value || 30;
     } else if (spellAction.originalRange) {
-        // Fallback to parsing string
-        if (spellAction.originalRange.toLowerCase().includes('touch')) maxDist = 7;
-        else {
-            const matches = spellAction.originalRange.match(/\d+/);
-            if (matches) maxDist = parseInt(matches[0]);
-            else maxDist = 30; 
-        }
+      // Fallback to parsing string
+      if (spellAction.originalRange.toLowerCase().includes('touch')) maxDist = 7;
+      else {
+        const matches = spellAction.originalRange.match(/\d+/);
+        if (matches) maxDist = parseInt(matches[0]);
+        else maxDist = 30;
+      }
     }
 
     const dist = calculateDistance(casterPos, targetPos);
@@ -150,12 +151,12 @@ export function resolveSpell(sheet: EntitySheet, intent: ActionIntent): ResolveS
 
   // 3. Output
   const dc = sheet.spellbook?.spellSaveDc ?? 10;
-  const saveStat = spell.save?.attribute || 'dex'; 
+  const saveStat = spell.save?.attribute || 'dex';
 
   // AoE Check
   let isAoE = !!spell.aoe;
   if (!isAoE && spell.originalRange) {
-      isAoE = !!spell.originalRange.match(/cone|sphere|line|cylinder|radius/i);
+    isAoE = !!spell.originalRange.match(/cone|sphere|line|cylinder|radius/i);
   }
 
   return {

@@ -1,4 +1,3 @@
-
 import type { StrapiApp } from '@strapi/strapi/admin';
 import { Globe } from '@strapi/icons';
 
@@ -21,53 +20,59 @@ const TARGET_MODELS = [
   'api::equipment-category.equipment-category',
 ];
 
-const LocaleGeneratorBulkAction = ({ documents, model }: { documents: Array<{ documentId: string }>; model: string }) => {
-    if (!TARGET_MODELS.includes(model)) {
-        return null;
-    }
+const LocaleGeneratorBulkAction = ({
+  documents,
+  model,
+}: {
+  documents: Array<{ documentId: string }>;
+  model: string;
+}) => {
+  if (!TARGET_MODELS.includes(model)) {
+    return null;
+  }
 
-    return {
-        label: 'Generate Locales (PT/ES)',
-        icon: <Globe />,
-        variant: 'secondary',
-        onClick: async () => {
-             if (!window.confirm('Generate translations for selected items? (Overwrites existing PT/ES locales)')) {
-                 return;
-             }
-             
-             const documentIds = documents.map((doc) => doc.documentId);
+  return {
+    label: 'Generate Locales (PT/ES)',
+    icon: <Globe />,
+    variant: 'secondary',
+    onClick: async () => {
+      if (!window.confirm('Generate translations for selected items? (Overwrites existing PT/ES locales)')) {
+        return;
+      }
 
-             try {
-                 const token = sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken');
-                 const headers: Record<string, string> = {
-                     'Content-Type': 'application/json',
-                 };
-                 if (token) {
-                     headers['Authorization'] = `Bearer ${token}`;
-                 }
+      const documentIds = documents.map((doc) => doc.documentId);
 
-                 const response = await fetch('/api/game/generate-locales', {
-                     method: 'POST',
-                     headers,
-                     body: JSON.stringify({
-                         contentType: model,
-                         documentIds
-                     })
-                 });
-
-                 if (response.ok) {
-                     console.log('Locales generated successfully');
-                     window.location.reload(); // Refresh to see changes
-                 } else {
-                     console.error('Failed to generate locales');
-                     alert('Failed to generate locales. Check console.');
-                 }
-             } catch (e) {
-                 console.error('Error triggering locale generation', e);
-                 alert('Error ' + e);
-             }
+      try {
+        const token = sessionStorage.getItem('jwtToken') || localStorage.getItem('jwtToken');
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
         }
-    };
+
+        const response = await fetch('/api/game/generate-locales', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            contentType: model,
+            documentIds,
+          }),
+        });
+
+        if (response.ok) {
+          console.log('Locales generated successfully');
+          window.location.reload(); // Refresh to see changes
+        } else {
+          console.error('Failed to generate locales');
+          alert('Failed to generate locales. Check console.');
+        }
+      } catch (e) {
+        console.error('Error triggering locale generation', e);
+        alert('Error ' + e);
+      }
+    },
+  };
 };
 
 export default {
@@ -107,10 +112,10 @@ export default {
     // @ts-expect-error - content-manager plugin internal API
     const contentManager = app.getPlugin('content-manager');
     if (contentManager) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        contentManager.apis.addBulkAction((actions: any[]) => {
-            return [...actions, LocaleGeneratorBulkAction];
-        });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      contentManager.apis.addBulkAction((actions: any[]) => {
+        return [...actions, LocaleGeneratorBulkAction];
+      });
     }
   },
 };

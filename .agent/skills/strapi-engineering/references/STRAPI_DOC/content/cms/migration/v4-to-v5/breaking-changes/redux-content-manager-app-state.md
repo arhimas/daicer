@@ -4,10 +4,10 @@ description: In Strapi 5, the redux store for the Content Manager has been chang
 sidebar_label: ContentManagerAppState redux modified
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - Content Manager
- - redux
- - upgrade to Strapi 5
+  - breaking changes
+  - Content Manager
+  - redux
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

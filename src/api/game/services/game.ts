@@ -322,9 +322,7 @@ export default ({ strapi }) => ({
     // Accessing via service if I exported it (I didn't exports default object with methods).
     // I'll call the service method if I exposed it, or just re-implement simple snapshot here since it's just data mapping.
     // Actually, I put `createSnapshot` inside the export of `entity-lifecycle`. Using it now:
-    const snapshot = strapi
-      .service('api::game.entity-lifecycle')
-      .createSnapshot(roomWithSheets?.entity_sheets || []);
+    const snapshot = strapi.service('api::game.entity-lifecycle').createSnapshot(roomWithSheets?.entity_sheets || []);
 
     const turn0 = await strapi.documents('api::turn.turn').create({
       data: {

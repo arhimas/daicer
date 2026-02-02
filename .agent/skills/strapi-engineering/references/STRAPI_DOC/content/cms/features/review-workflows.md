@@ -3,13 +3,14 @@ title: Review Workflows
 description: Learn how to use the Review Workflows feature that enables the creation and management of workflows for your various content-types
 toc_max_heading_level: 5
 tags:
-- admin panel
-- features
-- Enterprise feature
-- review workflows
+  - admin panel
+  - features
+  - Enterprise feature
+  - review workflows
 ---
 
 # Review Workflows
+
 <EnterpriseBadge />
 
 <Tldr>
@@ -39,11 +40,11 @@ The default workflow is configured to have 4 stages: To do, In progress, Ready t
 
 1. Click on the **Create new workflow** button or on the edit button <Icon name="pencil-simple" /> of a workflow.
 2. In the workflow edit interface, configure the new workflow:
-    | Setting name   | Instructions                                                             |
-    | -------------- | ------------------------------------------------------------------------ |
-    | Workflow name  | Write a unique name for the workflow.                                    |
-    | Associated to  | (optional) Assign this workflow to one or more existing content-types.   |
-    | Stages         | Add review stages (see [Adding a new stage](#adding-a-new-stage)).       |
+   | Setting name | Instructions |
+   | -------------- | ------------------------------------------------------------------------ |
+   | Workflow name | Write a unique name for the workflow. |
+   | Associated to | (optional) Assign this workflow to one or more existing content-types. |
+   | Stages | Add review stages (see [Adding a new stage](#adding-a-new-stage)). |
 3. Click on the **Save** button. The new workflow will be displayed in the list view and for every content-type assigned.
 
 :::note
@@ -53,8 +54,8 @@ The maximum number of <ExternalLink to="https://strapi.io/pricing-cloud" text="w
 ### Editing a workflow
 
 <ThemedImage
-  alt="Workflow edit view"
-  sources={{
+alt="Workflow edit view"
+sources={{
     light: '/img/assets/review-workflows/edit-view-light.png',
     dark: '/img/assets/review-workflows/edit-view-dark.png',
   }}
@@ -63,9 +64,9 @@ The maximum number of <ExternalLink to="https://strapi.io/pricing-cloud" text="w
 #### Adding a new stage
 
 1. Click on the **Add new stage** button.
-2. Write the *Stage name*.
-3. Select a *Color*.
-4. Select *Roles* that can change the stage, if the entity is currently in that review stage.
+2. Write the _Stage name_.
+3. Select a _Color_.
+4. Select _Roles_ that can change the stage, if the entity is currently in that review stage.
 5. Click on the **Save** button.
 
 By default new stages are appended, but they can be reordered anytime using the <Icon name="dots-six-vertical" classes="ph-bold" /> button.
@@ -78,7 +79,7 @@ To set up roles for each stage, you can either click "Apply to all stages" to ap
 
 1. Click **Duplicate Stage** in the context menu of the stage.
 2. Change the name of the duplicated stage.
-2. Click on the **Save** button.
+3. Click on the **Save** button.
 
 #### Deleting a stage
 
@@ -104,12 +105,12 @@ It is not possible to delete the last workflow.
 As content is created and revised among your team, you can change the review stage of the content to any stage defined in the review workflow.
 
 1. Access the edit view of your content-type.
-2. In the *Review Workflows* box on the right side of the interface, click on the _Review stage_ drop-down list.
+2. In the _Review Workflows_ box on the right side of the interface, click on the _Review stage_ drop-down list.
 3. Choose the new review stage of your entry. It is automatically saved.
 
 <ThemedImage
-  alt="Review Stage dropdown"
-  sources={{
+alt="Review Stage dropdown"
+sources={{
     light: '/img/assets/content-manager/review-stage-dropdown.png',
     dark: '/img/assets/content-manager/review-stage-dropdown_DARK.png',
   }}
@@ -120,12 +121,12 @@ As content is created and revised among your team, you can change the review sta
 Entries of a review workflow content type can be assigned to any admin user in Strapi for review.
 
 1. Access the edit view of your content-type.
-2. In the *Review Workflows* box on the right side of the interface, click on the _Assignee_ drop-down list.
+2. In the _Review Workflows_ box on the right side of the interface, click on the _Assignee_ drop-down list.
 3. Choose the new assignee of your entry. It is automatically saved.
 
 <ThemedImage
-  alt="Review Stage dropdown"
-  sources={{
+alt="Review Stage dropdown"
+sources={{
     light: '/img/assets/content-manager/review-assignee-dropdown.png',
     dark: '/img/assets/content-manager/review-assignee-dropdown_DARK.png',
   }}

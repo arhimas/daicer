@@ -12,20 +12,9 @@
       "mechanics": {
         "type": "Ability Score Improvement (ASI)",
         "class_association": "Ranger",
-        "levels_gained": [
-          4,
-          8,
-          12,
-          16,
-          19
-        ],
-        "options": [
-          "Increase one ability score by 2.",
-          "Increase two ability scores by 1 each."
-        ],
-        "limitations": [
-          "Ability scores cannot exceed 20 via this feature."
-        ],
+        "levels_gained": [4, 8, 12, 16, 19],
+        "options": ["Increase one ability score by 2.", "Increase two ability scores by 1 each."],
+        "limitations": ["Ability scores cannot exceed 20 via this feature."],
         "mechanic_note": "This feature grants the standard ASI progression found on most core classes (Fighter, Rogue, Wizard, etc.)."
       },
       "suggested_changes": "None. The data is accurate and complete for archiving."

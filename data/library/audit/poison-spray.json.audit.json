@@ -23,12 +23,7 @@
           "11th_level": "3d12",
           "17th_level": "4d12"
         },
-        "class_availability": [
-          "druid",
-          "sorcerer",
-          "warlock",
-          "wizard"
-        ]
+        "class_availability": ["druid", "sorcerer", "warlock", "wizard"]
       },
       "zod_errors": "NONE"
     }

@@ -39,24 +39,24 @@ export class DevLogger {
         break;
     }
 
-    // JSON structure for pino-pretty to pick up if we want, 
+    // JSON structure for pino-pretty to pick up if we want,
     // but here we are wrapping Strapi's logger which might be configured for JSON.
     // If we want human readable logs directly in console without pino-pretty wrapping these specific lines,
     // we might double-encode.
     // However, since we configured config/logger.ts to be JSON, strapi.log.info will output JSON.
     // We should pass the object structure so it merges nicely.
-    
+
     return {
-       scope: this.scope,
-       icon
+      scope: this.scope,
+      icon,
     };
   }
 
   log(level: LogLevel, message: string, meta: Record<string, unknown> = {}) {
     this.strapi.log[level](message, {
-        ...meta,
-        scope: this.scope,
-    }); 
+      ...meta,
+      scope: this.scope,
+    });
   }
 
   info(message: string, meta?: Record<string, unknown>) {
@@ -68,11 +68,9 @@ export class DevLogger {
   }
 
   error(message: string, error?: unknown) {
-    this.strapi.log.error(message, { 
-        scope: this.scope, 
-        error: error instanceof Error ? 
-            { message: error.message, stack: error.stack } : 
-            error 
+    this.strapi.log.error(message, {
+      scope: this.scope,
+      error: error instanceof Error ? { message: error.message, stack: error.stack } : error,
     });
   }
 
@@ -91,23 +89,23 @@ export class DevLogger {
     return {
       end: () => {
         const duration = Date.now() - startTime;
-        this.info(`✅ Finished: ${jobName}`, { 
-            event: 'job_end', 
-            job: jobName, 
-            duration: `${duration}ms`,
-            durationMs: duration
+        this.info(`✅ Finished: ${jobName}`, {
+          event: 'job_end',
+          job: jobName,
+          duration: `${duration}ms`,
+          durationMs: duration,
         });
       },
       fail: (err: unknown) => {
         const duration = Date.now() - startTime;
-        this.error(`❌ Failed: ${jobName}`, { 
-            event: 'job_fail', 
-            job: jobName, 
-            duration: `${duration}ms`,
-            durationMs: duration,
-            error: err
+        this.error(`❌ Failed: ${jobName}`, {
+          event: 'job_fail',
+          job: jobName,
+          duration: `${duration}ms`,
+          durationMs: duration,
+          error: err,
         });
-      }
+      },
     };
   }
 }

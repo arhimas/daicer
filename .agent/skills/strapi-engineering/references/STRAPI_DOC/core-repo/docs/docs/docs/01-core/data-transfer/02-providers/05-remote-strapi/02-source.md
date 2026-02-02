@@ -20,8 +20,10 @@ interface ITransferTokenAuth {
   token: string;
 }
 
-export interface IRemoteStrapiDestinationProviderOptions
-  extends Pick<ILocalStrapiDestinationProviderOptions, 'restore' | 'strategy'> {
+export interface IRemoteStrapiDestinationProviderOptions extends Pick<
+  ILocalStrapiDestinationProviderOptions,
+  'restore' | 'strategy'
+> {
   url: URL;
   auth?: ITransferTokenAuth;
   retryMessageOptions?: {

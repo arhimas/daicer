@@ -24,9 +24,7 @@
         "primary_effect": "Sets Intelligence score to 19, unless it is already 19 or higher.",
         "source_data_integrity": "The source field seems to correctly reference the item type, rarity, and attunement requirement, aligning with standard presentation."
       },
-      "recommendations": [
-        "No significant issues found. Data is clean and mechanically consistent."
-      ]
+      "recommendations": ["No significant issues found. Data is clean and mechanically consistent."]
     }
   },
   "timestamp": "2026-01-17T07:23:00.175Z"

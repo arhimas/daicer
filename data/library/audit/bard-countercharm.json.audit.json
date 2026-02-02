@@ -18,17 +18,10 @@
       "mechanics": {
         "action_cost": "Action (to start).",
         "effect_type": "Buff (Advantage on Saves).",
-        "conditions_affected": [
-          "frightened",
-          "charmed"
-        ],
+        "conditions_affected": ["frightened", "charmed"],
         "range_and_area": "30 feet radius centered on the user.",
         "concentration_or_duration": "Duration is fixed to the end of the next turn, similar to a short-duration concentration effect but without the concentration requirement, making it durable unless specific end conditions are met.",
-        "interruption_conditions": [
-          "Incapacitated",
-          "Silenced",
-          "Voluntarily ended"
-        ]
+        "interruption_conditions": ["Incapacitated", "Silenced", "Voluntarily ended"]
       },
       "suggestions": [
         "No mandatory changes. The feature is mechanically sound and thematic.",

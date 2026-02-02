@@ -11,25 +11,30 @@ description: Definition and standards for Antigravity Agent Workflows
 All workflows must adhere to the following structure:
 
 ### 1. Frontmatter
+
 Must include a `description` field summarizing the workflow's purpose.
 
 ```markdown
 ---
-description: [Short action-oriented description, e.g., "Standard protocol for implementing new features"]
+description: [Short action-oriented description, e.g., 'Standard protocol for implementing new features']
 ---
 ```
 
 ### 2. Header
+
 A concise H1 title matching the filename or core action.
 
 ### 3. Description Section
-A brief paragraph explaining *what* this workflow achieves and *when* it should be triggered.
+
+A brief paragraph explaining _what_ this workflow achieves and _when_ it should be triggered.
 
 ### 4. Steps
+
 Numbered steps that guide the agent's execution.
-*   **Actionable**: Each step must be a clear instruction.
-*   **Explicit**: Do not assume prior context; state the tool or method to use.
-*   **Turbo Mode**: Use the `// turbo` annotation for `run_command` steps that can be safely auto-executed (e.g., mkdir, git checkout). Use `// turbo-all` at the top of the file if *all* commands are safe.
+
+- **Actionable**: Each step must be a clear instruction.
+- **Explicit**: Do not assume prior context; state the tool or method to use.
+- **Turbo Mode**: Use the `// turbo` annotation for `run_command` steps that can be safely auto-executed (e.g., mkdir, git checkout). Use `// turbo-all` at the top of the file if _all_ commands are safe.
 
 ## Standard Checkpoints
 
@@ -42,6 +47,6 @@ Every engineering workflow should include these phases where applicable:
 
 ## Style Guide
 
-*   **Tone**: Imperative, direct ("Run this...", "Create that...").
-*   **Filesystem**: Always use absolute paths or relative paths from the workspace root.
-*   **Tools**: Reference specific agent tools (e.g., "Use `codebase_search` to find...") when helpful.
+- **Tone**: Imperative, direct ("Run this...", "Create that...").
+- **Filesystem**: Always use absolute paths or relative paths from the workspace root.
+- **Tools**: Reference specific agent tools (e.g., "Use `codebase_search` to find...") when helpful.

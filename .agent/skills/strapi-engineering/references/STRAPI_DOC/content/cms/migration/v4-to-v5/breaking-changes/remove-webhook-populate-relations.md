@@ -4,9 +4,9 @@ description: In Strapi 5, webhooks have been refactored and the `webhook.populat
 sidebar_label: No webhooks.populateRelations configuration
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - webhooks
- - upgrade to Strapi 5
+  - breaking changes
+  - webhooks
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -35,7 +35,7 @@ You can see the count being used at the top of the relation in the Content Manag
 
 The actual relational values are fetched using another endpoint. This was made to enhance the performance of the Content Manager requests.
 
-To simplify webhook consumption, you can enable the  (see [server configuration](/cms/configurations/server#available-options)). When enabled, all relations values are populated and sent to the webhook consumers, resulting in performance decrease.
+To simplify webhook consumption, you can enable the (see [server configuration](/cms/configurations/server#available-options)). When enabled, all relations values are populated and sent to the webhook consumers, resulting in performance decrease.
 
 </SideBySideColumn>
 

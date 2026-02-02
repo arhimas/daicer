@@ -4,11 +4,11 @@ description: This document provides information about the filters available in t
 displayed_sidebar: cmsSidebar
 sidebar_label: Filters
 tags:
-- API
-- Content API
-- Document Service API
-- filters
-- logical operators
+  - API
+  - Content API
+  - Document Service API
+  - filters
+  - logical operators
 ---
 
 import DeepFilteringBlogLink from '/docs/snippets/deep-filtering-blog.md'
@@ -503,7 +503,7 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 - a logical operator (e.g. in `filters: { $not: { // conditions… }}`)
 - [an attribute operator](#not) (e.g. in `filters: { attribute-name: $not: { … } }`).
-:::
+  :::
 
 :::tip
 `$and`, `$or` and `$not` operators are nestable inside of another `$and`, `$or` or `$not` operator.

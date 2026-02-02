@@ -1,5 +1,3 @@
-
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface StrapiAdapter {
@@ -22,6 +20,8 @@ export interface LLMCoreConfig {
   contentTypes: {
     prompt: string;
     zone: string;
+    entity: string;
+    item: string;
     // Add others if needed
   };
 }

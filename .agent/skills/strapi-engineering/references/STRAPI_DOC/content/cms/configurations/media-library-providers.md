@@ -3,8 +3,8 @@ title: Media Library providers
 description: Learn how to configure 3rd-party providers for the Media Library feature, or create your own.
 displayed_sidebar: cmsSidebar
 tags:
-- media library
-- customization
+  - media library
+  - customization
 ---
 
 import MediaLibraryProvidersList from '/docs/snippets/media-library-providers-list.md';
@@ -60,7 +60,6 @@ The following is an example configuration for an AWS S3 Media Library provider:
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="/config/plugins.js"
-
 module.exports = ({ env }) => ({
   // ...
   upload: {
@@ -98,7 +97,6 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="/config/plugins.ts"
-
 export default ({ env }) => ({
   // ...
   upload: {
@@ -124,10 +122,11 @@ export default ({ env }) => ({
 </Tabs>
 
 :::note Notes
-* Strapi has a default [`security` middleware](/cms/configurations/middlewares#security) that has a very strict `contentSecurityPolicy` that limits loading images and media to `"'self'"` only, see the example configuration on the <ExternalLink to="https://www.npmjs.com/package/@strapi/provider-upload-aws-s3" text="provider page"/> or the [middleware documentation](/cms/configurations/middlewares#security) for more information.
-* When using a different provider per environment, specify the correct configuration in `/config/env/${yourEnvironment}/plugins.js|ts` (See [Environments](/cms/configurations/environment)).
-* Only one email provider will be active at a time. If the email provider setting isn't picked up by Strapi, verify the `plugins.js|ts` file is in the correct folder.
-* When testing the new email provider with those two email templates created during strapi setup, the _shipper email_ on the template defaults to `no-reply@strapi.io` and needs to be updated according to your email provider, otherwise it will fail the test (See [Configure templates locally](/cms/features/users-permissions#templating-emails)).
+
+- Strapi has a default [`security` middleware](/cms/configurations/middlewares#security) that has a very strict `contentSecurityPolicy` that limits loading images and media to `"'self'"` only, see the example configuration on the <ExternalLink to="https://www.npmjs.com/package/@strapi/provider-upload-aws-s3" text="provider page"/> or the [middleware documentation](/cms/configurations/middlewares#security) for more information.
+- When using a different provider per environment, specify the correct configuration in `/config/env/${yourEnvironment}/plugins.js|ts` (See [Environments](/cms/configurations/environment)).
+- Only one email provider will be active at a time. If the email provider setting isn't picked up by Strapi, verify the `plugins.js|ts` file is in the correct folder.
+- When testing the new email provider with those two email templates created during strapi setup, the _shipper email_ on the template defaults to `no-reply@strapi.io` and needs to be updated according to your email provider, otherwise it will fail the test (See [Configure templates locally](/cms/features/users-permissions#templating-emails)).
 
 :::
 
@@ -233,9 +232,9 @@ export default {
 
 In the send function you will have access to:
 
-* `providerOptions` that contains configurations written in `plugins.js|ts`
-* `settings` that contains configurations written in `plugins.js|ts`
-* `options` that contains options you send when you call the send function from the email plugin service
+- `providerOptions` that contains configurations written in `plugins.js|ts`
+- `settings` that contains configurations written in `plugins.js|ts`
+- `options` that contains options you send when you call the send function from the email plugin service
 
 You can review the <ExternalLink to="https://github.com/strapi/strapi/tree/main/packages/providers" text="Strapi-maintained providers"/> for example implementations.
 
@@ -312,7 +311,7 @@ module.exports = {
           Expires: 60, // URL expiration time in seconds
         };
 
-        const signedUrl = await s3.getSignedUrlPromise("getObject", params);
+        const signedUrl = await s3.getSignedUrlPromise('getObject', params);
         return { url: signedUrl };
       },
     };
@@ -351,7 +350,7 @@ export = {
           Expires: 60, // URL expiration time in seconds
         };
 
-        const signedUrl = await s3.getSignedUrlPromise("getObject", params);
+        const signedUrl = await s3.getSignedUrlPromise('getObject', params);
         return { url: signedUrl };
       },
     };

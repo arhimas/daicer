@@ -7,7 +7,9 @@ interface LifecycleEvent {
   model: { uid: string };
   action: string;
   params: { data?: Record<string, unknown> };
-  result?: { id?: number; documentId?: string; ids?: (number | string)[] } | Array<{ id?: number; documentId?: string }>;
+  result?:
+    | { id?: number; documentId?: string; ids?: (number | string)[] }
+    | Array<{ id?: number; documentId?: string }>;
 }
 
 export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
@@ -67,7 +69,7 @@ export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
     } else if (action === 'afterDelete') {
       if (result) {
         if (!Array.isArray(result) && (result.id || result.documentId)) {
-           queueJob(result.documentId || result.id, 'delete');
+          queueJob(result.documentId || result.id, 'delete');
         }
       }
     } else if (action === 'afterCreateMany') {
@@ -75,13 +77,13 @@ export const registerAutoEmbeddingSubscriber = (strapi: Core.Strapi) => {
         // createMany result is usually { count: n, ids: [] } but strictly typing it is hard.
         // We check for 'ids' property existence.
         if ('ids' in result && Array.isArray((result as { ids: unknown[] }).ids)) {
-           const resultWithIds = result as { ids: (string | number)[] };
-           resultWithIds.ids.forEach((id) => queueJob(id, 'upsert'));
+          const resultWithIds = result as { ids: (string | number)[] };
+          resultWithIds.ids.forEach((id) => queueJob(id, 'upsert'));
         } else if (Array.isArray(result)) {
-           // Fallback if result IS the array of created items
-            result.forEach((item) => {
-               if (item.id || item.documentId) queueJob(item.documentId || item.id, 'upsert');
-            });
+          // Fallback if result IS the array of created items
+          result.forEach((item) => {
+            if (item.id || item.documentId) queueJob(item.documentId || item.id, 'upsert');
+          });
         }
       }
     }

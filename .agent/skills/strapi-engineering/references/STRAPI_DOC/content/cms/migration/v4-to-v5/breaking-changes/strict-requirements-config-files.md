@@ -3,9 +3,9 @@ title: Strict requirements for configuration filenames
 description: Strapi 5 has strict requirements on the configuration filenames allowed to be loaded.
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - configuration
- - upgrade to Strapi 5
+  - breaking changes
+  - configuration
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -52,23 +52,23 @@ In Strapi 5 filenames for configuration files should comply to these requirement
 - There should be no case-insensitive duplicate filenames. If both `CUSTOM.js` and `custom.js` exist, only one will be loaded.
 - There should be no duplicate base filenames without extension. If both `custom.json` and `custom.js` exist, only one will be loaded.
 - The following filenames are restricted and not loaded:
-    - `uuid`
-    - `hosting`
-    - `license`
-    - `enforce`
-    - `disable`
-    - `enable`
-    - `plugin`
-    - `strapi`
-    - `middleware`
-    - `telemetry`
-    - `launchedAt`
-    - `serveAdminPanel`
-    - `autoReload`
-    - `environment`
-    - `packageJsonStrapi`
-    - `info`
-    - `autoReload`
+  - `uuid`
+  - `hosting`
+  - `license`
+  - `enforce`
+  - `disable`
+  - `enable`
+  - `plugin`
+  - `strapi`
+  - `middleware`
+  - `telemetry`
+  - `launchedAt`
+  - `serveAdminPanel`
+  - `autoReload`
+  - `environment`
+  - `packageJsonStrapi`
+  - `info`
+  - `autoReload`
 - It is advised to use only alphanumeric characters (`a-zA-Z0-9`).
 - All internal Strapi configurations (see the list of files in [configurations](/cms/configurations)) must conform to the known structure of those configuration files (i.e., no custom fields should be added to the existing files).
 

@@ -6,7 +6,7 @@
 
 nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
 
-nodemon does **not** require *any* additional changes to your code or method of development. nodemon is a replacement wrapper for `node`. To use `nodemon`, replace the word `node` on the command line when executing your script.
+nodemon does **not** require _any_ additional changes to your code or method of development. nodemon is a replacement wrapper for `node`. To use `nodemon`, replace the word `node` on the command line when executing your script.
 
 [![NPM version](https://badge.fury.io/js/nodemon.svg)](https://npmjs.org/package/nodemon)
 [![Backers on Open Collective](https://opencollective.com/nodemon/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/nodemon/sponsors/badge.svg)](#sponsors)
@@ -117,7 +117,7 @@ Specify the config in the same format as you would for a config file but under `
 
 Note that if you specify a `--config` file or provide a local `nodemon.json` any `package.json` config is ignored.
 
-*This section needs better documentation, but for now you can also see `nodemon --help config` ([also here](https://github.com/remy/nodemon/blob/master/doc/cli/config.txt))*.
+_This section needs better documentation, but for now you can also see `nodemon --help config` ([also here](https://github.com/remy/nodemon/blob/master/doc/cli/config.txt))_.
 
 ## Using nodemon as a module
 
@@ -205,7 +205,7 @@ nodemon --ignore 'lib/*.js'
 
 **Important** the ignore rules are patterns matched to the full absolute path, and this determines how many files are monitored. If using a wild card glob pattern, it needs to be used as `**` or omitted entirely. For example, `nodemon --ignore '**/test/**'` will work, whereas `--ignore '*/test/*'` will not.
 
-Note that by default, nodemon will ignore the `.git`, `node_modules`, `bower_components`, `.nyc_output`, `coverage` and `.sass-cache` directories and *add* your ignored patterns to the list. If you want to indeed watch a directory like `node_modules`, you need to [override the underlying default ignore rules](https://github.com/remy/nodemon/blob/master/faq.md#overriding-the-underlying-default-ignore-rules).
+Note that by default, nodemon will ignore the `.git`, `node_modules`, `bower_components`, `.nyc_output`, `coverage` and `.sass-cache` directories and _add_ your ignored patterns to the list. If you want to indeed watch a directory like `node_modules`, you need to [override the underlying default ignore rules](https://github.com/remy/nodemon/blob/master/faq.md#overriding-the-underlying-default-ignore-rules).
 
 ## Application isn't restarting
 
@@ -229,7 +229,7 @@ To add an extra throttle, or delay restarting, use the `--delay` command:
 nodemon --delay 10 server.js
 ```
 
-For more precision, milliseconds can be specified.  Either as a float:
+For more precision, milliseconds can be specified. Either as a float:
 
 ```bash
 nodemon --delay 2.5 server.js
@@ -241,7 +241,7 @@ Or using the time specifier (ms):
 nodemon --delay 2500ms server.js
 ```
 
-The delay figure is number of seconds (or milliseconds, if specified) to delay before restarting. So nodemon will only restart your app the given number of seconds after the *last* file change.
+The delay figure is number of seconds (or milliseconds, if specified) to delay before restarting. So nodemon will only restart your app the given number of seconds after the _last_ file change.
 
 If you are setting this value in `nodemon.json`, the value will always be interpreted in milliseconds. E.g., the following are equivalent:
 
@@ -264,10 +264,10 @@ nodemon --signal SIGHUP server.js
 Your application can handle the signal as follows.
 
 ```js
-process.on("SIGHUP", function () {
+process.on('SIGHUP', function () {
   reloadSomeConfiguration();
-  process.kill(process.pid, "SIGTERM");
-})
+  process.kill(process.pid, 'SIGTERM');
+});
 ```
 
 Please note that nodemon will send this signal to every process in the process tree.
@@ -276,13 +276,13 @@ If you are using `cluster`, then each workers (as well as the master) will recei
 
 ```js
 if (cluster.isMaster) {
-  process.on("SIGHUP", function () {
+  process.on('SIGHUP', function () {
     for (const worker of Object.values(cluster.workers)) {
-      worker.process.kill("SIGTERM");
+      worker.process.kill('SIGTERM');
     }
   });
 } else {
-  process.on("SIGHUP", function() {})
+  process.on('SIGHUP', function () {});
 }
 ```
 
@@ -301,7 +301,7 @@ process.on('SIGUSR2', function () {
 });
 ```
 
-Note that the `process.kill` is *only* called once your shutdown jobs are complete. Hat tip to [Benjie Gillam](http://www.benjiegillam.com/2011/08/node-js-clean-restart-and-faster-development-with-nodemon/) for writing this technique up.
+Note that the `process.kill` is _only_ called once your shutdown jobs are complete. Hat tip to [Benjie Gillam](http://www.benjiegillam.com/2011/08/node-js-clean-restart-and-faster-development-with-nodemon/) for writing this technique up.
 
 ## Triggering events when nodemon state changes
 

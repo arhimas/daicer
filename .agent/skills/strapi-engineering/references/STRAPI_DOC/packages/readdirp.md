@@ -12,27 +12,30 @@ jsr add jsr:@paulmillr/readdirp
 // 1) Streams example with for-await.
 import readdirp from 'readdirp';
 for await (const entry of readdirp('.')) {
-  const {path} = entry;
-  console.log(`${JSON.stringify({path})}`);
+  const { path } = entry;
+  console.log(`${JSON.stringify({ path })}`);
 }
 
 // 2) Streams example, non for-await.
 // Print out all JS files along with their size within the current folder & subfolders.
 import readdirp from 'readdirp';
-readdirp('.', {alwaysStat: true, fileFilter: (f) => f.basename.endsWith('.js')})
+readdirp('.', { alwaysStat: true, fileFilter: (f) => f.basename.endsWith('.js') })
   .on('data', (entry) => {
-    const {path, stats: {size}} = entry;
-    console.log(`${JSON.stringify({path, size})}`);
+    const {
+      path,
+      stats: { size },
+    } = entry;
+    console.log(`${JSON.stringify({ path, size })}`);
   })
   // Optionally call stream.destroy() in `warn()` in order to abort and cause 'close' to be emitted
-  .on('warn', error => console.error('non-fatal error', error))
-  .on('error', error => console.error('fatal error', error))
+  .on('warn', (error) => console.error('non-fatal error', error))
+  .on('error', (error) => console.error('fatal error', error))
   .on('end', () => console.log('done'));
 
 // 3) Promise example. More RAM and CPU than streams / for-await.
 import { readdirpPromise } from 'readdirp';
 const files = await readdirpPromise('.');
-console.log(files.map(file => file.path));
+console.log(files.map((file) => file.path));
 
 // Other options.
 import readdirp from 'readdirp';
@@ -41,7 +44,7 @@ readdirp('test', {
   directoryFilter: (d) => d.basename !== '.git',
   // directoryFilter: (di) => di.basename.length === 9
   type: 'files_directories',
-  depth: 1
+  depth: 1,
 });
 ```
 
@@ -68,7 +71,7 @@ First argument is awalys `root`, path in which to start reading and recursing in
 ### options
 
 - `fileFilter`: filter to include or exclude files
-    - **Function**: a function that takes an entry info as a parameter and returns true to include or false to exclude the entry
+  - **Function**: a function that takes an entry info as a parameter and returns true to include or false to exclude the entry
 - `directoryFilter`: filter to include/exclude directories found and to recurse into. Directories that do not pass a filter will not be recursed into.
 - `depth: 5`: depth at which to stop recursing even if more subdirectories are found
 - `type: 'files'`: determines if data events on the stream should be emitted for `'files'` (default), `'directories'`, `'files_directories'`, or `'all'`. Setting to `'all'` will also include entries for other types of file descriptors like character devices, unix sockets and named pipes.
@@ -88,8 +91,8 @@ Has the following properties:
 ## Changelog
 
 - 4.0 (Aug 25, 2024) rewritten in typescript, producing hybrid common.js / esm module.
-    - Remove glob support and all dependencies
-    - Make sure you're using `let {readdirp} = require('readdirp')` in common.js
+  - Remove glob support and all dependencies
+  - Make sure you're using `let {readdirp} = require('readdirp')` in common.js
 - 3.5 (Oct 13, 2020) disallows recursive directory-based symlinks.
   Before, it could have entered infinite loop.
 - 3.4 (Mar 19, 2020) adds support for directory-based symlinks.
@@ -98,20 +101,20 @@ Has the following properties:
 - 3.1 (Jul 7, 2019) brings `bigint` support to `stat` output on Windows. This is backwards-incompatible for some cases. Be careful. It you use it incorrectly, you'll see "TypeError: Cannot mix BigInt and other types, use explicit conversions".
 - 3.0 brings huge performance improvements and stream backpressure support.
 - Upgrading 2.x to 3.x:
-    - Signature changed from `readdirp(options)` to `readdirp(root, options)`
-    - Replaced callback API with promise API.
-    - Renamed `entryType` option to `type`
-    - Renamed `entryType: 'both'` to `'files_directories'`
-    - `EntryInfo`
-        - Renamed `stat` to `stats`
-            - Emitted only when `alwaysStat: true`
-            - `dirent` is emitted instead of `stats` by default with `alwaysStat: false`
-        - Renamed `name` to `basename`
-        - Removed `parentDir` and `fullParentDir` properties
+  - Signature changed from `readdirp(options)` to `readdirp(root, options)`
+  - Replaced callback API with promise API.
+  - Renamed `entryType` option to `type`
+  - Renamed `entryType: 'both'` to `'files_directories'`
+  - `EntryInfo`
+    - Renamed `stat` to `stats`
+      - Emitted only when `alwaysStat: true`
+      - `dirent` is emitted instead of `stats` by default with `alwaysStat: false`
+    - Renamed `name` to `basename`
+    - Removed `parentDir` and `fullParentDir` properties
 - Supported node.js versions:
-    - 4.x: node 14+
-    - 3.x: node 8+
-    - 2.x: node 0.6+
+  - 4.x: node 14+
+  - 3.x: node 8+
+  - 2.x: node 0.6+
 
 ## License
 

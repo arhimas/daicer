@@ -4,10 +4,10 @@ description: Strapi 5 uses react-router-dom v6. This impacts the links added to 
 sidebar_label: React Router DOM 6
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - react-router
- - dependencies
- - upgrade to Strapi 5
+  - breaking changes
+  - react-router
+  - dependencies
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

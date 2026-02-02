@@ -28,12 +28,8 @@
         "effect": "Heals up to 6 creatures within range for 2d8 + modifier HP.",
         "scaling_mechanism": "Additive dice increase (1d8 per slot level above 2nd)."
       },
-      "issues_identified": [
-        "None."
-      ],
-      "recommendations": [
-        "None. The data appears accurate and complete according to standard TTRPG spell schema."
-      ]
+      "issues_identified": ["None."],
+      "recommendations": ["None. The data appears accurate and complete according to standard TTRPG spell schema."]
     }
   },
   "timestamp": "2026-01-17T07:22:34.277Z"

@@ -27,6 +27,7 @@ A RFC being 'active' does not necessarily mean the feature will ultimately be me
 Furthermore, the fact that a given RFC has been accepted and is 'active' implies nothing about what priority is assigned to its implementation, nor whether anybody is currently working on it.
 
 ## Reviewing RFCs
+
 Each week the team will attempt to review some portion of then open RFC pull requests.
 
 **Strapi's RFC process owes its inspiration to the [React RFC process], [Yarn RFC process], [Rust RFC process], and [Ember RFC process]**

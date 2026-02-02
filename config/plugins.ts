@@ -37,22 +37,22 @@ export default ({ env }) => ({
     enabled: true,
     resolve: './src/plugins/map-explorer',
     config: {
-        redis: {
-            host: env('REDIS_HOST', '127.0.0.1'),
-            port: env.int('REDIS_PORT', 6379),
-            db: env.int('REDIS_DB', 0),
-            password: env('REDIS_PASSWORD', undefined),
-            maxRetriesPerRequest: null,
-        },
-        contentTypes: {
-          world: 'api::world.world',
-          construction: 'api::construction.construction',
-          prompt: 'api::prompt.prompt',
-          zone: 'api::entity-zone.entity-zone',
-          entity: 'api::entity.entity',
-          item: 'api::item.item'
-        }
-    }
+      redis: {
+        host: env('REDIS_HOST', '127.0.0.1'),
+        port: env.int('REDIS_PORT', 6379),
+        db: env.int('REDIS_DB', 0),
+        password: env('REDIS_PASSWORD', undefined),
+        maxRetriesPerRequest: null,
+      },
+      contentTypes: {
+        world: 'api::world.world',
+        construction: 'api::construction.construction',
+        prompt: 'api::prompt.prompt',
+        zone: 'api::entity-zone.entity-zone',
+        entity: 'api::entity.entity',
+        item: 'api::item.item',
+      },
+    },
   },
   redis: {
     enabled: true,

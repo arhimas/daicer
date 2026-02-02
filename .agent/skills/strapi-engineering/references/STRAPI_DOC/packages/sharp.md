@@ -69,8 +69,8 @@ const semiTransparentRedPng = await sharp({
     width: 48,
     height: 48,
     channels: 4,
-    background: { r: 255, g: 0, b: 0, alpha: 0.5 }
-  }
+    background: { r: 255, g: 0, b: 0, alpha: 0.5 },
+  },
 })
   .png()
   .toBuffer();
@@ -79,22 +79,19 @@ const semiTransparentRedPng = await sharp({
 ### Stream
 
 ```javascript
-const roundedCorners = Buffer.from(
-  '<svg><rect x="0" y="0" width="200" height="200" rx="50" ry="50"/></svg>'
-);
+const roundedCorners = Buffer.from('<svg><rect x="0" y="0" width="200" height="200" rx="50" ry="50"/></svg>');
 
-const roundedCornerResizer =
-  sharp()
-    .resize(200, 200)
-    .composite([{
+const roundedCornerResizer = sharp()
+  .resize(200, 200)
+  .composite([
+    {
       input: roundedCorners,
-      blend: 'dest-in'
-    }])
-    .png();
+      blend: 'dest-in',
+    },
+  ])
+  .png();
 
-readableStream
-  .pipe(roundedCornerResizer)
-  .pipe(writableStream);
+readableStream.pipe(roundedCornerResizer).pipe(writableStream);
 ```
 
 ## Contributing

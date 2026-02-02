@@ -15,9 +15,10 @@ import ESdeprecated from '/docs/snippets/entity-service-deprecated.md'
 
 :::prerequisites
 Before diving deeper into the Entity Service API documentation, it is recommended that you read the following introductions:
+
 - the [backend customization introduction](/cms/backend-customization),
 - and the [Content APIs introduction](/cms/api/content-api).
-:::
+  :::
 
 The Strapi backend provides an Entity Service API, built on top of the [Query Engine API](/cms/api/query-engine/). The Entity Service is the layer that handles Strapi's complex content structures like [components](/cms/backend-customization/models#components-json) and [dynamic zones](/cms/backend-customization/models#dynamic-zones), and uses the Query Engine API under the hood to execute database queries.
 

@@ -5,10 +5,10 @@ displayed_sidebar: cmsSidebar
 sidebar_label: Bundlers
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
-- webpack
-- Vite
+  - admin panel
+  - admin panel customization
+  - webpack
+  - Vite
 ---
 
 import FeedbackCallout from '/docs/snippets/backend-customization-feedback-cta.md'
@@ -35,14 +35,14 @@ To extend the usage of Vite, define a function that extends its configuration in
 <TabItem value="js" label="JavaScript">
 
 ```js title="/src/admin/vite.config.js"
-const { mergeConfig } = require("vite");
+const { mergeConfig } = require('vite');
 
 module.exports = (config) => {
   // Important: always return the modified config
   return mergeConfig(config, {
     resolve: {
       alias: {
-        "@": "/src",
+        '@': '/src',
       },
     },
   });
@@ -54,14 +54,14 @@ module.exports = (config) => {
 <TabItem value="ts" label="TypeScript">
 
 ```ts title="/src/admin/vite.config.ts"
-import { mergeConfig } from "vite";
+import { mergeConfig } from 'vite';
 
 export default (config) => {
   // Important: always return the modified config
   return mergeConfig(config, {
     resolve: {
       alias: {
-        "@": "/src",
+        '@': '/src',
       },
     },
   });

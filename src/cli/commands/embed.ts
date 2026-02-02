@@ -23,13 +23,13 @@ export const embedCommand = new Command('embed')
 export async function runEmbed(typeArg: string, options: { queue?: boolean; json?: boolean }) {
   const { default: chalk } = await import('chalk');
   // const { JuicyProgressBar } = await import('../../scripts/utils/progressBar'); // Assuming this exists or copy logic
-  
+
   if (!options.json) {
     console.log(chalk.bold(`\n🧠  Embedding: ${chalk.cyan(typeArg)}`));
   }
 
   const strapi = await getStrapi();
-  
+
   // Resolve Types
   const { EMBEDDABLE_MODELS } = await import('../../config/embedding');
   const models = typeArg === 'all' ? EMBEDDABLE_MODELS : [typeArg];
@@ -57,36 +57,42 @@ export async function runEmbed(typeArg: string, options: { queue?: boolean; json
     if (!options.json) console.log(`   Processing ${model} (${ids.length} entries)...`);
 
     if (options.queue) {
-       // Dispatch Jobs
-       for (const id of ids) {
-          await queueManager.add(QueueName.EMBEDDING, `embed-${model}-${id}`, {
-            entityId: id,
-            entityType: model,
-            action: 'upsert'
-          });
-       }
-       totalDispatched += ids.length;
+      // Dispatch Jobs
+      for (const id of ids) {
+        await queueManager.add(QueueName.EMBEDDING, `embed-${model}-${id}`, {
+          entityId: id,
+          entityType: model,
+          action: 'upsert',
+        });
+      }
+      totalDispatched += ids.length;
     } else {
-       // Direct
-       let idx = 0;
-       for (const id of ids) {
-         await entityKnowledgeService.syncEntity(model, id);
-         idx++;
-         if (!options.json && idx % 10 === 0) process.stdout.write('.');
-       }
-       totalProcessed += ids.length;
-       if (!options.json) process.stdout.write('\n');
+      // Direct
+      let idx = 0;
+      for (const id of ids) {
+        await entityKnowledgeService.syncEntity(model, id);
+        idx++;
+        if (!options.json && idx % 10 === 0) process.stdout.write('.');
+      }
+      totalProcessed += ids.length;
+      if (!options.json) process.stdout.write('\n');
     }
   }
 
   if (options.json) {
-    console.log(JSON.stringify({ 
-      success: true, 
-      mode: options.queue ? 'queue' : 'direct',
-      count: options.queue ? totalDispatched : totalProcessed 
-    }));
+    console.log(
+      JSON.stringify({
+        success: true,
+        mode: options.queue ? 'queue' : 'direct',
+        count: options.queue ? totalDispatched : totalProcessed,
+      })
+    );
   } else {
-    console.log(chalk.green(`\n✅ Operation Complete. ${options.queue ? 'Dispatched' : 'Processed'} ${options.queue ? totalDispatched : totalProcessed} items.`));
+    console.log(
+      chalk.green(
+        `\n✅ Operation Complete. ${options.queue ? 'Dispatched' : 'Processed'} ${options.queue ? totalDispatched : totalProcessed} items.`
+      )
+    );
   }
 
   await stopStrapi();

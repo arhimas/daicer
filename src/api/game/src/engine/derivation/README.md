@@ -1,4 +1,3 @@
-
 # Entity Derivation Engine
 
 The "Derivation" layer is responsible for calculating runtime statistics from raw Entity data. It implements the "Core Rules" math.

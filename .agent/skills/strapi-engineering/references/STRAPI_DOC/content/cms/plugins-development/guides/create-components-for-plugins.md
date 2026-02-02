@@ -4,12 +4,12 @@ description: Learn how to create and configure components for your Strapi plugin
 sidebar_label: Create components for plugins
 displayed_sidebar: cmsSidebar
 tags:
-- admin panel
-- components
-- content-type
-- guides
-- plugins
-- plugins development guides
+  - admin panel
+  - components
+  - content-type
+  - guides
+  - plugins
+  - plugins development guides
 ---
 
 # How to create components for Strapi plugins
@@ -22,9 +22,9 @@ To create components for your Strapi plugin, you'll need to follow a similar app
 
 You can create components for your plugins in 2 different ways: using the Content-Type Builder (recommended way) or manually.
 
-### Using the Content-Type Builder 
+### Using the Content-Type Builder
 
-The recommended way to create components for your plugin is through the Content-Type Builder in the admin panel. 
+The recommended way to create components for your plugin is through the Content-Type Builder in the admin panel.
 The [Content-Type Builder documentation](/cms/features/content-type-builder#new-component) provides more details on this process.
 
 ### Creating components manually

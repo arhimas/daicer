@@ -4,10 +4,10 @@ description: In Strapi 5, some env-only configuration options are handled by the
 displayed_sidebar: cmsSidebar
 sidebar_label: Env options moved to server configuration
 tags:
- - breaking changes
- - configuration
- - environment 
- - upgrade to Strapi 5
+  - breaking changes
+  - configuration
+  - environment
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -56,7 +56,7 @@ These configuration options have been moved to the [server configuration](/cms/c
 The following environment variable names in Strapi v4 should now be defined in the [`/config/server.js` configuration file](/cms/configurations/server):
 
 | Environment variable name in Strapi v4 | Server configuration option in Strapi 5 |
-|----------------------------------------|-----------------------------------------|
+| -------------------------------------- | --------------------------------------- |
 | `STRAPI_DISABLE_REMOTE_DATA_TRANSFER`  | `transfer.remote.enabled`               |
 | `STRAPI_HIDE_STARTUP_MESSAGE`          | `logger.startup.enabled`                |
 | `STRAPI_DISABLE_UPDATE_NOTIFICATION`   | `logger.updates.enabled`                |

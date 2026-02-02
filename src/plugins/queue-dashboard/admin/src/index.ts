@@ -45,8 +45,9 @@ export default {
 
   async registerTrads({ locales }: { locales: string[] }) {
     const importedTrads = await Promise.all(
-        locales.map((locale: string) => {
-          return import(`./translations/${locale}.json`)
+      locales.map((locale: string) => {
+        return (
+          import(`./translations/${locale}.json`)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then(({ default: data }: { default: any }) => {
               return {
@@ -59,10 +60,10 @@ export default {
                 data: {},
                 locale,
               };
-            });
-        })
-      );
+            })
+        );
+      })
+    );
     return importedTrads;
   },
 };
-

@@ -3,15 +3,14 @@ title: Lifecycle functions
 displayed_sidebar: cmsSidebar
 description: Strapi includes lifecycle functions (e.g. register, bootstrap and destroy) that control the flow of your application.
 tags:
-- additional configuration
-- asynchronous function
-- bootstrap function
-- configuration
-- destroy function
-- lifecycle function
-- register function
-- synchronous function
-
+  - additional configuration
+  - asynchronous function
+  - bootstrap function
+  - configuration
+  - destroy function
+  - lifecycle function
+  - register function
+  - synchronous function
 ---
 
 # Functions
@@ -59,7 +58,7 @@ module.exports = {
   },
   destroy({ strapi }) {
     strapi.log.info('Server shutdown started');
-  }
+  },
 };
 ```
 
@@ -77,7 +76,7 @@ export default {
   },
   destroy({ strapi }) {
     strapi.log.info('Server shutdown started');
-  }
+  },
 };
 ```
 
@@ -100,19 +99,17 @@ module.exports = {
     strapi.log.info('Async register finished after a short delay');
   },
   async bootstrap({ strapi }) {
-    const { results: articles } = await strapi
-      .documents('api::article.article')
-      .findMany({
-        filters: { publishedAt: { $notNull: true } },
-        fields: ['id'],
-      });
+    const { results: articles } = await strapi.documents('api::article.article').findMany({
+      filters: { publishedAt: { $notNull: true } },
+      fields: ['id'],
+    });
     strapi.log.info(`Indexed ${articles.length} published articles`);
   },
   async destroy({ strapi }) {
     await strapi.documents('api::temporary-cache.temporary-cache').deleteMany({
       filters: {},
     });
-  }
+  },
 };
 ```
 
@@ -127,19 +124,17 @@ export default {
     strapi.log.info('Async register finished after a short delay');
   },
   async bootstrap({ strapi }) {
-    const { results: articles } = await strapi
-      .documents('api::article.article')
-      .findMany({
-        filters: { publishedAt: { $notNull: true } },
-        fields: ['id'],
-      });
+    const { results: articles } = await strapi.documents('api::article.article').findMany({
+      filters: { publishedAt: { $notNull: true } },
+      fields: ['id'],
+    });
     strapi.log.info(`Indexed ${articles.length} published articles`);
   },
   async destroy({ strapi }) {
     await strapi.documents('api::temporary-cache.temporary-cache').deleteMany({
       filters: {},
     });
-  }
+  },
 };
 ```
 
@@ -195,7 +190,7 @@ module.exports = {
         })
         .catch(reject);
     });
-  }
+  },
 };
 ```
 
@@ -243,7 +238,7 @@ export default {
         })
         .catch(reject);
     });
-  }
+  },
 };
 ```
 

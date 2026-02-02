@@ -5,9 +5,9 @@ sidebar_label: Use strapiFactory in imports
 displayed_sidebar: cmsSidebar
 unlisted: true
 tags:
- - breaking changes
- - strapiFactory
- - upgrade to Strapi 5
+  - breaking changes
+  - strapiFactory
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -32,18 +32,18 @@ In Strapi 5, strapi factories import have been updated.
 
 Imports are done as follows:
 
-* using the application init function:
+- using the application init function:
 
   ```js
-  import strapi from '@strapi/strapi'; 
+  import strapi from '@strapi/strapi';
   // or
   const strapi = require('@strapi/strapi');
 
   strapi();
   ```
 
-* using the factories:
-  
+- using the factories:
+
   ```js
   import strapiDefault from '@strapi/strapi';
   // or
@@ -65,18 +65,18 @@ Imports are done as follows:
 
 Imports are done as follows:
 
-* using the application init function
+- using the application init function
 
   ```js
-  import { createStrapi } from '@strapi/strapi'; 
+  import { createStrapi } from '@strapi/strapi';
   const { createStrapi } = require('@strapi/strapi');
   const strapi = require('@strapi/strapi');
 
   strapi.createStrapi();
   ```
 
-* using the factories:
-  
+- using the factories:
+
   ```js
   // Using the factories
   import { factories } from '@strapi/strapi';

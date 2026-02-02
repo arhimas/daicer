@@ -15,7 +15,7 @@ export interface GameState {
 
 /**
  * Pure logic processor for a single turn in the Simulation.
- * 
+ *
  * DESIGN:
  * This class MUST remain pure (no Side Effects, no DB calls).
  * It takes State + Actions -> Returns New State.

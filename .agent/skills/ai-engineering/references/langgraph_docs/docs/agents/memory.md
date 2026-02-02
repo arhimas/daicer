@@ -32,53 +32,50 @@ Short-term memory enables agents to track multi-turn conversations. To use it, y
 
 ```ts
 // highlight-next-line
-import { MemorySaver } from "@langchain/langgraph-checkpoint";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { initChatModel } from "langchain/chat_models/universal";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { MemorySaver } from '@langchain/langgraph-checkpoint';
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { initChatModel } from 'langchain/chat_models/universal';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 // highlight-next-line
-const checkpointer = new MemorySaver();  // (1)!
+const checkpointer = new MemorySaver(); // (1)!
 
 const getWeather = tool(
   async (input: { city: string }) => {
     return `It's always sunny in ${input.city}!`;
   },
   {
-    name: "getWeather",
+    name: 'getWeather',
     schema: z.object({
-      city: z.string().describe("The city to get the weather for"),
+      city: z.string().describe('The city to get the weather for'),
     }),
-    description: "Get weather for a given city.",
+    description: 'Get weather for a given city.',
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [getWeather],
   // highlight-next-line
-  checkpointer  // (2)!
+  checkpointer, // (2)!
 });
 
 // Run the agent
 // highlight-next-line
-const config = { configurable: { thread_id: "1" } };  // (3)!
+const config = { configurable: { thread_id: '1' } }; // (3)!
 const sfResponse = await agent.invoke(
-  { messages: [ { role: "user", content: "what is the weather in sf" } ] },
-  config  // (4)!
+  { messages: [{ role: 'user', content: 'what is the weather in sf' }] },
+  config // (4)!
 );
-const nyResponse = await agent.invoke(
-  { messages: [ { role: "user", content: "what about new york?" } ] },
-  config
-);
+const nyResponse = await agent.invoke({ messages: [{ role: 'user', content: 'what about new york?' }] }, config);
 ```
 
 1. The `MemorySaver` is a checkpointer that stores the agent's state in memory. In a production setting, you would typically use a database or other persistent storage. Please review the [checkpointer documentation](https://langchain-ai.github.io/langgraphjs/reference/index.html) for more options. If you're deploying with **LangGraph Platform**, the platform will provide a production-ready checkpointer for you.
-2. The `checkpointer` is passed to the agent. This enables the agent to persist its state across invocations. Please note that 
+2. The `checkpointer` is passed to the agent. This enables the agent to persist its state across invocations. Please note that
 3. A unique `thread_id` is provided in the config. This ID is used to identify the conversation session. The value is controlled by the user and can be any string.
-4. The agent will continue the conversation using the same `thread_id`. This will allow the agent to infer that the user is asking specifically about the **weather** in New York. 
+4. The agent will continue the conversation using the same `thread_id`. This will allow the agent to infer that the user is asking specifically about the **weather** in New York.
 
 When the agent is invoked the second time with the same `thread_id`, the original message history from the first conversation is automatically included, allowing the agent to infer that the user is asking specifically about the **weather** in New York.
 
@@ -98,24 +95,25 @@ To use long-term memory, you need to:
 ### Reading
 
 ```ts title="A tool the agent can use to look up user information"
-import { initChatModel } from "langchain/chat_models/universal";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
+import { initChatModel } from 'langchain/chat_models/universal';
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
 // highlight-next-line
-import { InMemoryStore } from "@langchain/langgraph-checkpoint";
+import { InMemoryStore } from '@langchain/langgraph-checkpoint';
 // highlight-next-line
-import { getStore } from "@langchain/langgraph";
-import { LangGraphRunnableConfig } from "@langchain/langgraph";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { getStore } from '@langchain/langgraph';
+import { LangGraphRunnableConfig } from '@langchain/langgraph';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const store = new InMemoryStore(); // (1)!
 
-await store.put(  // (2)!
-  ["users"],  // (3)!
-  "user_123",  // (4)!
+await store.put(
+  // (2)!
+  ['users'], // (3)!
+  'user_123', // (4)!
   {
-    name: "John Smith",
-    language: "English",
+    name: 'John Smith',
+    language: 'English',
   } // (5)!
 );
 
@@ -125,25 +123,25 @@ const getUserInfo = tool(
     // Same as that provided to `createReactAgent`
     const store = config.store; // (6)!
     if (!store) {
-      throw new Error("store is required when compiling the graph");
+      throw new Error('store is required when compiling the graph');
     }
 
     const userId = config.configurable?.userId;
     if (!userId) {
-      throw new Error("userId is required in the config");
+      throw new Error('userId is required in the config');
     }
 
-    const userInfo = await store.get(["users"], userId); // (7)!
-    return userInfo ? JSON.stringify(userInfo.value) : "Unknown user";
+    const userInfo = await store.get(['users'], userId); // (7)!
+    return userInfo ? JSON.stringify(userInfo.value) : 'Unknown user';
   },
   {
-    name: "get_user_info",
-    description: "Look up user info.",
+    name: 'get_user_info',
+    description: 'Look up user info.',
     schema: z.object({}),
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [getUserInfo],
@@ -152,8 +150,8 @@ const agent = createReactAgent({
 
 // Run the agent
 const response = await agent.invoke(
-  { messages: [ { role: "user", content: "look up user information" } ] },
-  { configurable: { userId: "user_123" } }
+  { messages: [{ role: 'user', content: 'look up user information' }] },
+  { configurable: { userId: 'user_123' } }
 );
 ```
 
@@ -169,48 +167,50 @@ const response = await agent.invoke(
 ### Writing
 
 ```ts title="Example of a tool that updates user information"
-import { initChatModel } from "langchain/chat_models/universal";
-import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import { InMemoryStore } from "@langchain/langgraph-checkpoint";
-import { getStore } from "@langchain/langgraph";
-import { LangGraphRunnableConfig } from "@langchain/langgraph";
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
+import { initChatModel } from 'langchain/chat_models/universal';
+import { createReactAgent } from '@langchain/langgraph/prebuilt';
+import { InMemoryStore } from '@langchain/langgraph-checkpoint';
+import { getStore } from '@langchain/langgraph';
+import { LangGraphRunnableConfig } from '@langchain/langgraph';
+import { tool } from '@langchain/core/tools';
+import { z } from 'zod';
 
 const store = new InMemoryStore(); // (1)!
 
-interface UserInfo { // (2)!
+interface UserInfo {
+  // (2)!
   name: string;
 }
 
 // Save user info tool
-const saveUserInfo = tool(  // (3)!
+const saveUserInfo = tool(
+  // (3)!
   async (input: UserInfo, config: LangGraphRunnableConfig): Promise<string> => {
     // Same as that provided to `createReactAgent`
     // highlight-next-line
     const store = config.store; // (4)!
     if (!store) {
-      throw new Error("store is required when compiling the graph");
+      throw new Error('store is required when compiling the graph');
     }
 
     const userId = config.configurable?.userId;
     if (!userId) {
-      throw new Error("userId is required in the config");
+      throw new Error('userId is required in the config');
     }
 
-    await store.put(["users"], userId, input); // (5)!
-    return "Successfully saved user info.";
+    await store.put(['users'], userId, input); // (5)!
+    return 'Successfully saved user info.';
   },
   {
-    name: "save_user_info",
-    description: "Save user info.",
+    name: 'save_user_info',
+    description: 'Save user info.',
     schema: z.object({
       name: z.string(),
     }),
   }
 );
 
-const llm = await initChatModel("anthropic:claude-3-7-sonnet-latest");
+const llm = await initChatModel('anthropic:claude-3-7-sonnet-latest');
 const agent = createReactAgent({
   llm,
   tools: [saveUserInfo],
@@ -220,13 +220,13 @@ const agent = createReactAgent({
 
 // Run the agent
 await agent.invoke(
-  { messages: [ { role: "user", content: "My name is John Smith" } ] },
-  { configurable: { userId: "user_123" } } // (6)!
+  { messages: [{ role: 'user', content: 'My name is John Smith' }] },
+  { configurable: { userId: 'user_123' } } // (6)!
 );
 
 // You can access the store directly to get the value
-const userInfo = await store.get(["users"], "user_123")
-userInfo.value
+const userInfo = await store.get(['users'], 'user_123');
+userInfo.value;
 ```
 
 1. The `InMemoryStore` is a store that stores data in memory. In a production setting, you would typically use a database or other persistent storage. Please review the [store documentation](../reference/stores.md) for more options. If you're deploying with **LangGraph Platform**, the platform will provide a production-ready store for you.
@@ -238,4 +238,4 @@ userInfo.value
 
 ## Additional resources
 
-* [Memory in LangGraph](../concepts/memory.md)
+- [Memory in LangGraph](../concepts/memory.md)

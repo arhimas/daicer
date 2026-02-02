@@ -43,7 +43,7 @@ export default {
   Query: {
     restaurants: async (parent, args, ctx) => {
       const documents = await strapi.documents('api::restaurant.restaurant').findMany(args);
-      return documents.map(doc => ctx.request.graphql.resolve('Restaurant', doc));
+      return documents.map((doc) => ctx.request.graphql.resolve('Restaurant', doc));
     },
   },
 };

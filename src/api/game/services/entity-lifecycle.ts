@@ -192,13 +192,13 @@ export default ({ strapi }) => ({
         const races = await strapi.documents('api::race.race').findMany({
           filters: { name: entityData.race },
         });
-          if (races && races.length > 0) {
-            raceId = races[0].documentId;
-            const race = races[0] as unknown as StrapiRace;
-            if (race.speed) {
-              entityData._raceSpeed = race.speed;
-            }
+        if (races && races.length > 0) {
+          raceId = races[0].documentId;
+          const race = races[0] as unknown as StrapiRace;
+          if (race.speed) {
+            entityData._raceSpeed = race.speed;
           }
+        }
       }
 
       let classId = null;
@@ -260,7 +260,7 @@ export default ({ strapi }) => ({
       .map((entry) => ({ ...entry.item, name: entry.item.name }));
 
     const derived = EntityDeriver.derive({
-      stats: attributes, 
+      stats: attributes,
       attributes,
       proficiencyBonus: 2, // Default
       classes: createdEntity.classes?.map((c) => ({
@@ -369,8 +369,7 @@ export default ({ strapi }) => ({
       if (typeof cls === 'string') className = cls;
       else if (cls && typeof cls === 'object' && 'name' in cls)
         className = (cls as { name: string }).name || 'Unknown Class';
-    }
-    else if (typeof c.class === 'string') className = c.class;
+    } else if (typeof c.class === 'string') className = c.class;
     else if (c.class && typeof c.class === 'object' && 'name' in c.class)
       className = (c.class as { name: string }).name || 'Unknown Class';
 
@@ -465,7 +464,7 @@ Start with ### Through ${sheet.name}'s Eyes`;
                         : (cls as string) || 'Unknown';
                     })()
                   : c.characterClass || (c.class as string) || 'Unknown';
-              
+
               // Description from EntitySheet or Entity?
               const desc = (c as unknown as { description?: string }).description || 'A brave adventurer';
 

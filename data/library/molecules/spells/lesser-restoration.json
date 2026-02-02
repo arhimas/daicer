@@ -9,11 +9,5 @@
   "components": "V, S",
   "duration": "Instantaneous",
   "description": "You touch a creature and can end either one disease or one condition afflicting it. The condition can be [blinded](#blinded), [deafened](#deafened), [paralyzed](#paralyzed), or [poisoned](#poisoned).",
-  "classes": [
-    "bard",
-    "cleric",
-    "druid",
-    "paladin",
-    "ranger"
-  ]
+  "classes": ["bard", "cleric", "druid", "paladin", "ranger"]
 }

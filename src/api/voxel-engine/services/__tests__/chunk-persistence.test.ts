@@ -87,7 +87,17 @@ describe('ChunkManager Persistence', () => {
     // 2. Update Cache (only if cached)
     // We strictly want to test Persistence (Step 1).
 
-    await chunkManager.editVoxel(chunkX, chunkY, voxelX, voxelY, voxelZ, newType as any, 'testing', undefined, metadata);
+    await chunkManager.editVoxel(
+      chunkX,
+      chunkY,
+      voxelX,
+      voxelY,
+      voxelZ,
+      newType as any,
+      'testing',
+      undefined,
+      metadata
+    );
 
     expect(mockDbCreate).toHaveBeenCalledWith({
       data: expect.objectContaining({

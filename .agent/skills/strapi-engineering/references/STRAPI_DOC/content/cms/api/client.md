@@ -1,13 +1,13 @@
 ---
 title: Strapi Client
-description: The Strapi Client library simplifies interactions with your Strapi back end, providing a way to fetch, create, update, and delete content.  
+description: The Strapi Client library simplifies interactions with your Strapi back end, providing a way to fetch, create, update, and delete content.
 toc_max_heading_level: 4
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- documentId
-- Strapi Client
+  - API
+  - Content API
+  - documentId
+  - Strapi Client
 ---
 
 # Strapi Client
@@ -17,9 +17,10 @@ The Strapi Client library simplifies interactions with your Strapi back end, pro
 ## Getting Started
 
 :::prerequisites
+
 - A Strapi project has been created and is running. If you haven't set one up yet, follow the [Quick Start Guide](/cms/quick-start) to create one.
 - You know the URL of the Content API of your Strapi instance (e.g., `http://localhost:1337/api`).
-:::
+  :::
 
 ### Installation
 
@@ -28,23 +29,23 @@ To use the Strapi Client in your project, install it as a dependency using your 
   <Tabs groupId="yarn-npm">
   <TabItem value="yarn" label="Yarn">
 
-  ```bash
-  yarn add @strapi/client
-  ```
+```bash
+yarn add @strapi/client
+```
 
   </TabItem>
   <TabItem value="npm" label="NPM">
 
-  ```bash
-  npm install @strapi/client
-  ```
+```bash
+npm install @strapi/client
+```
 
   </TabItem>
   <TabItem value="pnpm" label="pnpm">
 
-  ```bash
-    pnpm add @strapi/client
-  ```
+```bash
+  pnpm add @strapi/client
+```
 
   </TabItem>
   </Tabs>
@@ -75,10 +76,11 @@ import { strapi } from '@strapi/client';
 
 const client = strapi({ baseURL: 'http://localhost:1337/api' });
 ```
+
 </TabItem>
 
 <TabItem value="browser" label="Browser (UMD)">
-If you're using the Strapi Client in a browser environment, you can include it using a `<script>` tag. 
+If you're using the Strapi Client in a browser environment, you can include it using a `<script>` tag.
 
 ```js title="./src/api/[apiName]/routes/[routerName].ts (e.g './src/api/restaurant/routes/restaurant.ts')"
 <script src="https://cdn.jsdelivr.net/npm/@strapi/client"></script>
@@ -113,13 +115,13 @@ If the token is invalid or missing, the client will throw an error during initia
 
 The Strapi Client provides the following key properties and methods for interacting with your Strapi back end:
 
-| Parameter | Description                                                                                  |
-| ----------| -------------------------------------------------------------------------------------------- |
-| `baseURL`  | The base API URL of your Strapi back end.        |
-| `fetch()`    | A utility method for making generic API requests similar to the native fetch API. |
-| `collection()`  | Manages collection-type resources (e.g., blog posts, products). |
-| `single()`  | Manages single-type resources (e.g., homepage settings, global configurations). |
-| `files()`  | Enables upload, retrieve and management of files directly to/from the Strapi Media Library. |
+| Parameter      | Description                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------- |
+| `baseURL`      | The base API URL of your Strapi back end.                                                   |
+| `fetch()`      | A utility method for making generic API requests similar to the native fetch API.           |
+| `collection()` | Manages collection-type resources (e.g., blog posts, products).                             |
+| `single()`     | Manages single-type resources (e.g., homepage settings, global configurations).             |
+| `files()`      | Enables upload, retrieve and management of files directly to/from the Strapi Media Library. |
 
 ### General purpose fetch
 
@@ -133,16 +135,16 @@ const result = await client.fetch('articles', { method: 'GET' });
 
 Collection types in Strapi are entities with multiple entries (e.g., a blog with many posts). The Strapi Client provides a `collection()` method to interact with these resources, with the following methods available:
 
-| Parameter | Description                                                                                  |
-| ----------| -------------------------------------------------------------------------------------------- |
-| `find(queryParams?)`  | Fetch multiple documents with optional filtering, sorting, or pagination.       |
-| `findOne(documentID, queryParams?)`    | Retrieve a single document by its unique ID.        |
-| `create(data, queryParams?)`  | Create a new document in the collection. |
-| `update(documentID, data, queryParams?)`  | Update an existing document. |
-| `delete(documentID, queryParams?)`  | Update an existing document. |
+| Parameter                                | Description                                                               |
+| ---------------------------------------- | ------------------------------------------------------------------------- |
+| `find(queryParams?)`                     | Fetch multiple documents with optional filtering, sorting, or pagination. |
+| `findOne(documentID, queryParams?)`      | Retrieve a single document by its unique ID.                              |
+| `create(data, queryParams?)`             | Create a new document in the collection.                                  |
+| `update(documentID, data, queryParams?)` | Update an existing document.                                              |
+| `delete(documentID, queryParams?)`       | Update an existing document.                                              |
 
 **Usage examples:**
-<Tabs groupId="js-ts"> 
+<Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
 
 ```js
@@ -173,13 +175,14 @@ await articles.delete('article-id');
 ### Working with single types
 
 Single types in Strapi represent unique content entries that exist only once (e.g., the homepage settings or site-wide configurations). The Strapi Client provides a `single()` method to interact with these resources, with the following methods available:
-| Parameter | Description                                                                                  |
+| Parameter | Description |
 | ----------| -------------------------------------------------------------------------------------------- |
-| `find(queryParams?)`  | Fetch the document.        |
-| `update(documentID, data, queryParams?)`  | Update the document. |
-| `delete(queryParams?)`  | Remove the document. |
+| `find(queryParams?)` | Fetch the document. |
+| `update(documentID, data, queryParams?)` | Update the document. |
+| `delete(queryParams?)` | Remove the document. |
 
 **Usage examples:**
+
 ```js
 const homepage = client.single('homepage');
 
@@ -190,10 +193,7 @@ const defaultHomepage = await homepage.find();
 const spanishHomepage = await homepage.find({ locale: 'es' });
 
 // Update the homepage draft content
-const updatedHomepage = await homepage.update(
-  { title: 'Updated Homepage Title' },
-  { status: 'draft' }
-);
+const updatedHomepage = await homepage.update({ title: 'Updated Homepage Title' }, { status: 'draft' });
 
 // Delete the homepage content
 await homepage.delete();
@@ -203,15 +203,15 @@ await homepage.delete();
 
 The Strapi Client provides access to the [Media Library](/cms/features/media-library) via the `files` property. This allows you to retrieve and manage file metadata without directly interacting with the REST API.
 
-The following methods are available for working with files. Click on the method name in the  table to jump to the corresponding section with more details and examples:
+The following methods are available for working with files. Click on the method name in the table to jump to the corresponding section with more details and examples:
 
-| Method | Description |
-|--------|-------------|
-| [`find(params?)`](#find) | Retrieves a list of file metadata based on optional query parameters |
-| [`findOne(fileId)`](#findone) | Retrieves the metadata for a single file by its ID |
-| [`update(fileId, fileInfo)`](#update) | Updates metadata for an existing file |
-| [`upload(file, options)`](#upload) | Uploads a file (Blob or Buffer) with an optional `options` object for metadata |
-| [`delete(fileId)`](#delete) | Deletes a file by its ID |
+| Method                                | Description                                                                    |
+| ------------------------------------- | ------------------------------------------------------------------------------ |
+| [`find(params?)`](#find)              | Retrieves a list of file metadata based on optional query parameters           |
+| [`findOne(fileId)`](#findone)         | Retrieves the metadata for a single file by its ID                             |
+| [`update(fileId, fileInfo)`](#update) | Updates metadata for an existing file                                          |
+| [`upload(file, options)`](#upload)    | Uploads a file (Blob or Buffer) with an optional `options` object for metadata |
+| [`delete(fileId)`](#delete)           | Deletes a file by its ID                                                       |
 
 #### `find`
 
@@ -256,7 +256,7 @@ const client = strapi({
 // Find file metadata by ID
 const file = await client.files.findOne(1);
 console.log(file.name);
-console.log(file.url); 
+console.log(file.url);
 console.log(file.mime); // The file MIME type
 ```
 
@@ -283,7 +283,7 @@ const updatedFile = await client.files.update(1, {
 
 #### `upload` <NewBadge /> {#upload}
 
-The Strapi Client provides media file upload functionality through the `FilesManager`, accessible through the  `strapi.client.files.upload()` method. The method allows you to upload media files (such as images, videos, or documents) to your Strapi backend.
+The Strapi Client provides media file upload functionality through the `FilesManager`, accessible through the `strapi.client.files.upload()` method. The method allows you to upload media files (such as images, videos, or documents) to your Strapi backend.
 
 The method supports uploading files as `Blob` (in browsers or Node.js) or as `Buffer` (in Node.js only). The method also supports attaching metadata to the uploaded file, such as `alternativeText` and `caption`.
 
@@ -438,12 +438,11 @@ console.log('Deleted file name:', deletedFile.name);
 
 The following errors might occur when sending queries through the Strapi Client:
 
-| Error | Description |
-|-------|-------------|
-| Permission Errors | If the authenticated user does not have permission to upload or manage files, a `FileForbiddenError` is thrown. |
-| HTTP Errors|If the server is unreachable, authentication fails, or there are network issues, an `HTTPError` is thrown. |
-| Missing Parameters|When uploading a `Buffer`, both `filename` and `mimetype` must be provided in the options object. If either is missing, an error is thrown. |
-
+| Error              | Description                                                                                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Permission Errors  | If the authenticated user does not have permission to upload or manage files, a `FileForbiddenError` is thrown.                             |
+| HTTP Errors        | If the server is unreachable, authentication fails, or there are network issues, an `HTTPError` is thrown.                                  |
+| Missing Parameters | When uploading a `Buffer`, both `filename` and `mimetype` must be provided in the options object. If either is missing, an error is thrown. |
 
 :::strapi Additional information
 More details about the Strapi Client may be found in the <ExternalLink to="https://github.com/strapi/client/blob/main/README.md" text="package's README"/>.

@@ -26,10 +26,7 @@
           "mechanism": "Damage increase per spell slot level above 6th",
           "rate": "+3d6 per slot level above 6th"
         },
-        "classes": [
-          "sorcerer",
-          "wizard"
-        ]
+        "classes": ["sorcerer", "wizard"]
       }
     },
     "zod_errors": "NONE"

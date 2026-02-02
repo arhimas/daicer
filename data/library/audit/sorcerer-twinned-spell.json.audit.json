@@ -23,10 +23,7 @@
           "cantrip": "1 sorcery point",
           "level_N_spell": "N sorcery points"
         },
-        "eligibility_criteria": [
-          "Spell must target only one creature.",
-          "Spell must not have a range of 'self'."
-        ],
+        "eligibility_criteria": ["Spell must target only one creature.", "Spell must not have a range of 'self'."],
         "clarification_note": "The exclusion rule for spells like _magic missile_ (which inherently allows choosing multiple targets) is crucial and well-stated. The feature ensures that the *spell itself*, at its current casting level, is restricted to a single target."
       }
     },

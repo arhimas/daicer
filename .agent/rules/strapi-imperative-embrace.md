@@ -32,12 +32,11 @@ Before writing ANY Controller, Service, Policy, or Content Type:
 
 > **When in doubt, READ THE DOCS.**
 
-
 ## 4. Plugin Isolation & Dependencies
 
 - **Rule**: Plugins are sovereign territories.
 - **Dependencies**:
-    - Each plugin (e.g., `src/plugins/my-plugin`) **MUST** have its own `package.json`.
-    - If a plugin imports a library (e.g., `axios`, `date-fns`), it **MUST** be listed in that plugin's `package.json`.
-    - **FORBIDDEN**: Relying on root repo hoisting (Phantom Dependencies).
+  - Each plugin (e.g., `src/plugins/my-plugin`) **MUST** have its own `package.json`.
+  - If a plugin imports a library (e.g., `axios`, `date-fns`), it **MUST** be listed in that plugin's `package.json`.
+  - **FORBIDDEN**: Relying on root repo hoisting (Phantom Dependencies).
 - **Verification**: Run `yarn why <package>` inside the plugin directory to prove ownership.

@@ -4,10 +4,11 @@ description: The Strapi Design System has been significantly updated in Strapi 5
 sidebar_label: Design System Updates
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - design system
- - upgrade to Strapi 5
+  - breaking changes
+  - design system
+  - upgrade to Strapi 5
 ---
+
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
 import MigrationIntro from '/docs/snippets/breaking-change-page-migration-intro.md'
 

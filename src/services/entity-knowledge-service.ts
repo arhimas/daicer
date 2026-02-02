@@ -43,11 +43,11 @@ export class EntityKnowledgeService {
       });
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const [found] = await strapi.documents(uid as any).findMany({
+      const [found] = (await strapi.documents(uid as any).findMany({
         filters: { id: entityId },
         populate: '*',
         limit: 1,
-      }) as unknown[]; // Safer intermediate cast
+      })) as unknown[]; // Safer intermediate cast
       entity = found;
     }
 
@@ -59,31 +59,31 @@ export class EntityKnowledgeService {
 
     // 2. Classify & Generate Content
     const typeName = uid.split('.')[1]; // 'class', 'spell', 'knowledge-snippet'
-    
+
     let embeddingText = '';
 
-       if (uid === 'api::knowledge-snippet.knowledge-snippet') {
-       // CODE SNIPPET HANDLING
-       // Raw content is key for RAG on code.
-       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-       const snippet = entity as any;
-       embeddingText = `Code Snippet: ${snippet.title}\n${snippet.content}`;
+    if (uid === 'api::knowledge-snippet.knowledge-snippet') {
+      // CODE SNIPPET HANDLING
+      // Raw content is key for RAG on code.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const snippet = entity as any;
+      embeddingText = `Code Snippet: ${snippet.title}\n${snippet.content}`;
     } else {
-       // GAME ENTITY HANDLING
-       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-       const typedEntity = entity as any;
-       const name = (typedEntity.name as string) || (typedEntity.title as string) || `Entity ${entityId}`;
-       // Standardize Tags
-       const tags = [typeName, 'Game Entity'];
-       
-       // Try to extract extra context for tags
-       if (typedEntity.level) tags.push(`Level ${typedEntity.level}`);
-       if (typedEntity.school && typedEntity.school.name) tags.push(typedEntity.school.name);
-       if (typedEntity.class && typedEntity.class.name) tags.push(typedEntity.class.name);
+      // GAME ENTITY HANDLING
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const typedEntity = entity as any;
+      const name = (typedEntity.name as string) || (typedEntity.title as string) || `Entity ${entityId}`;
+      // Standardize Tags
+      const tags = [typeName, 'Game Entity'];
 
-       const markdown = entityToMarkdown(typeName, name, entity as Record<string, unknown>);
-       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-       embeddingText = `${typeName}: ${name}\n${(entity as any).description || ''}\n${tags.join(', ')}\n${markdown}`;
+      // Try to extract extra context for tags
+      if (typedEntity.level) tags.push(`Level ${typedEntity.level}`);
+      if (typedEntity.school && typedEntity.school.name) tags.push(typedEntity.school.name);
+      if (typedEntity.class && typedEntity.class.name) tags.push(typedEntity.class.name);
+
+      const markdown = entityToMarkdown(typeName, name, entity as Record<string, unknown>);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      embeddingText = `${typeName}: ${name}\n${(entity as any).description || ''}\n${tags.join(', ')}\n${markdown}`;
     }
 
     // 2.5 Generate Embedding (Core Embeddings Mandate)

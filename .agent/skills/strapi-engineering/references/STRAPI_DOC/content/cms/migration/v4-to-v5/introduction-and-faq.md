@@ -5,7 +5,7 @@ sidebar_label: Introduction and FAQ
 pagination_prev: cms/upgrades
 pagination_next: cms/migration/v4-to-v5/step-by-step
 tags:
-- upgrade to Strapi 5
+  - upgrade to Strapi 5
 ---
 
 # Upgrading to Strapi 5: Introduction and FAQ

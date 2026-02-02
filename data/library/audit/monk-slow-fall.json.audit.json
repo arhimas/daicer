@@ -16,14 +16,7 @@
         "scaling": "The damage reduction scales with Monk Level (4th level grants 4 * 5 = 20 damage reduction).",
         "prerequisites": "Monk class, Level 4."
       },
-      "data_points_verified": [
-        "slug",
-        "name",
-        "class",
-        "level",
-        "description",
-        "is_subclass_feature"
-      ],
+      "data_points_verified": ["slug", "name", "class", "level", "description", "is_subclass_feature"],
       "archival_notes": "Feature correctly reflects the base Monk class ability 'Slow Fall'. No mechanical ambiguity detected."
     }
   },

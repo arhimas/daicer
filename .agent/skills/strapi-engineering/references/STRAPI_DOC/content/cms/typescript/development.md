@@ -3,10 +3,10 @@ title: TypeScript development
 description: Learn more about TypeScript usage with Strapi 5
 displayed_sidebar: cmsSidebar
 tags:
-- strapi() factory
-- strapi.compile() function
-- typescript
-- plugins development
+  - strapi() factory
+  - strapi.compile() function
+  - typescript
+  - plugins development
 ---
 
 # TypeScript development with Strapi
@@ -35,15 +35,15 @@ To experience TypeScript-based autocomplete while developing Strapi applications
 1. Open the `./src/index.ts` file from your code editor.
 2. Import the `Core` types from `@strapi/strapi` and declare the `strapi` argument as type `Core.Strapi` within the global `register` method:
 
-    ```typescript title="./src/index.ts"
-    import type { Core } from '@strapi/strapi';
+   ```typescript title="./src/index.ts"
+   import type { Core } from '@strapi/strapi';
 
-    export default {
-      register({ strapi }: { strapi: Core.Strapi }) {
-        // ...
-      },
-    };
-    ```
+   export default {
+     register({ strapi }: { strapi: Core.Strapi }) {
+       // ...
+     },
+   };
+   ```
 
 3. Within the body of the `register` method, start typing `strapi.` and use keyboard arrows to browse the available properties.
 
@@ -120,10 +120,9 @@ To start Strapi programmatically in a TypeScript project the Strapi instance req
 Strapi can be run programmatically by using the `strapi()` factory. Since the code of TypeScript projects is compiled in a specific directory, the parameter `distDir` should be passed to the factory to indicate where the compiled code should be read:
 
 ```js title="./server.js"
-
 const strapi = require('@strapi/strapi');
 const app = strapi.createStrapi({ distDir: './dist' });
-app.start(); 
+app.start();
 ```
 
 ### Use the `strapi.compile()` function
@@ -133,7 +132,7 @@ The `strapi.compile()` function should be mostly used for developing tools that 
 ```js
 const strapi = require('@strapi/strapi');
 
-strapi.compile().then(appContext => strapi(appContext).start());
+strapi.compile().then((appContext) => strapi(appContext).start());
 ```
 
 ## Develop a plugin using TypeScript

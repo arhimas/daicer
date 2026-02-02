@@ -1,4 +1,3 @@
-
 // Define shapes for our UI elements to ensure type safety even with lazy imports
 export interface UIHelpers {
   chalk: typeof import('chalk').default;
@@ -42,12 +41,12 @@ class UI {
    */
   async welcome(title = 'DAICER CLI', subtitle = 'The Agentic Lens') {
     const { boxen, gradient, chalk } = await this.getTools();
-    
+
     console.error(
       boxen(
-        gradient.passion.multiline(`  🎲  ${title}  🎲  `) + 
-        `\n${chalk.dim('─'.repeat(title.length + 8))}\n` +
-        `  ${chalk.cyan(subtitle)}  `, 
+        gradient.passion.multiline(`  🎲  ${title}  🎲  `) +
+          `\n${chalk.dim('─'.repeat(title.length + 8))}\n` +
+          `  ${chalk.cyan(subtitle)}  `,
         {
           padding: 1,
           borderStyle: 'double',
@@ -55,7 +54,7 @@ class UI {
           float: 'center',
           dimBorder: true,
           title: 'v0.1.0',
-          titleAlignment: 'right'
+          titleAlignment: 'right',
         }
       )
     );
@@ -72,7 +71,11 @@ class UI {
   /**
    * Print a key-value pair or small info snippet
    */
-  async kv(key: string, value: string | number, color: 'blue' | 'green' | 'yellow' | 'red' | 'cyan' | 'magenta' = 'blue') {
+  async kv(
+    key: string,
+    value: string | number,
+    color: 'blue' | 'green' | 'yellow' | 'red' | 'cyan' | 'magenta' = 'blue'
+  ) {
     const { chalk } = await this.getTools();
     console.error(`  ${chalk.dim('•')} ${chalk.bold(key)}: ${chalk[color](value)}`);
   }
@@ -80,7 +83,10 @@ class UI {
   /**
    * Display a "panel" of information (boxed content)
    */
-  async panel(content: string, options: { title?: string; color?: string; style?: 'classic' | 'round' | 'double' } = {}) {
+  async panel(
+    content: string,
+    options: { title?: string; color?: string; style?: 'classic' | 'round' | 'double' } = {}
+  ) {
     const { boxen, chalk } = await this.getTools();
     console.error(
       boxen(content, {
@@ -99,19 +105,22 @@ class UI {
    */
   async table(headers: string[], rows: (string | number)[][]) {
     const { table: Table, chalk } = await this.getTools();
-    
+
     const t = new Table({
-      head: headers.map(h => chalk.bold.cyan(h)),
-      style: { 
-        head: [], 
-        border: ['dim'] 
+      head: headers.map((h) => chalk.bold.cyan(h)),
+      style: {
+        head: [],
+        border: ['dim'],
       },
-      chars: { 
-        'mid': '', 'left-mid': '', 'mid-mid': '', 'right-mid': ''
-      }
+      chars: {
+        mid: '',
+        'left-mid': '',
+        'mid-mid': '',
+        'right-mid': '',
+      },
     });
 
-    rows.forEach(r => t.push(r));
+    rows.forEach((r) => t.push(r));
     console.error(t.toString());
   }
 
@@ -123,7 +132,7 @@ class UI {
     return ora({
       text,
       color: 'magenta',
-      spinner: 'dots'
+      spinner: 'dots',
     }).start();
   }
 
@@ -148,11 +157,11 @@ class UI {
     const { chalk } = await this.getTools();
     console.error(`${chalk.red.bold('❌ ERROR:')} ${msg}`);
     if (err) {
-        if (err instanceof Error) {
-            console.error(chalk.dim(err.stack || err.message));
-        } else {
-            console.error(chalk.dim(JSON.stringify(err)));
-        }
+      if (err instanceof Error) {
+        console.error(chalk.dim(err.stack || err.message));
+      } else {
+        console.error(chalk.dim(JSON.stringify(err)));
+      }
     }
   }
 

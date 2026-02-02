@@ -58,29 +58,29 @@ describe('generateToolGraphQL', () => {
   });
 
   it('should generate validation logic in resolvers (placeholder check)', async () => {
-     // Currently the resolver throws error as per code "Tool Execution via GraphQL requires..."
-     const mockTool = {
+    // Currently the resolver throws error as per code "Tool Execution via GraphQL requires..."
+    const mockTool = {
       name: 'failing_tool',
       description: 'A failing tool',
       schema: z.object({}),
     };
     mockGetTools.mockReturnValue([mockTool]);
     const { resolvers } = generateToolGraphQL(mockStrapi);
-    
+
     // Check if calling it throws
     await expect(async () => {
-        await resolvers.Mutation.failingTool({}, { roomId: '123', input: {} }, {});
+      await resolvers.Mutation.failingTool({}, { roomId: '123', input: {} }, {});
     }).rejects.toThrow('Tool Execution via GraphQL requires specific RoomID handling logic');
   });
 
   it('should handle complex Zod schemas gracefully in SDL', () => {
     const mockTool = {
-        name: 'complex_tool',
-        description: 'Complex',
-        schema: z.object({
-            tags: z.array(z.string()),
-            meta: z.object({ foo: z.string() })
-        })
+      name: 'complex_tool',
+      description: 'Complex',
+      schema: z.object({
+        tags: z.array(z.string()),
+        meta: z.object({ foo: z.string() }),
+      }),
     };
     mockGetTools.mockReturnValue([mockTool]);
 

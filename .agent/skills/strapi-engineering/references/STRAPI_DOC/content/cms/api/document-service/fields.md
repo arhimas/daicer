@@ -4,21 +4,21 @@ description: Use Strapi's Document Service API to select the fields to return wi
 sidebar_label: Fields
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- create()
-- deleting content
-- Document Service API
-- discardDraft()
-- findOne()
-- findMany()
-- findFirst()
-- publish()
-- fields
-- update()
-- unpublishing content
+  - API
+  - Content API
+  - create()
+  - deleting content
+  - Document Service API
+  - discardDraft()
+  - findOne()
+  - findMany()
+  - findFirst()
+  - publish()
+  - fields
+  - update()
+  - unpublishing content
 ---
- 
+
 import IdsInResponse from '/docs/snippets/id-in-responses.md'
 
 # Document Service API: Selecting fields
@@ -39,9 +39,9 @@ To select fields to return while [finding a specific document](/cms/api/document
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").findOne({
+const document = await strapi.documents('api::restaurant.restaurant').findOne({
   documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
-  fields: ["name", "description"],
+  fields: ['name', 'description'],
 });
 ```
 
@@ -68,8 +68,8 @@ To select fields to return while [finding the first document](/cms/api/document-
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").findFirst({
-  fields: ["name", "description"],
+const document = await strapi.documents('api::restaurant.restaurant').findFirst({
+  fields: ['name', 'description'],
 });
 ```
 
@@ -96,8 +96,8 @@ To select fields to return while [finding documents](/cms/api/document-service#f
 <Request title="Example request">
 
 ```js
-const documents = await strapi.documents("api::restaurant.restaurant").findMany({
-  fields: ["name", "description"],
+const documents = await strapi.documents('api::restaurant.restaurant').findMany({
+  fields: ['name', 'description'],
 });
 ```
 
@@ -108,12 +108,12 @@ const documents = await strapi.documents("api::restaurant.restaurant").findMany(
 ```js
 [
   {
-    documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-    name: "Biscotte Restaurant",
-    description: "Welcome to Biscotte restaurant! …"
-  }
+    documentId: 'a1b2c3d4e5f6g7h8i9j0klm',
+    name: 'Biscotte Restaurant',
+    description: 'Welcome to Biscotte restaurant! …',
+  },
   // ...
-]
+];
 ```
 
 </Response>
@@ -127,12 +127,12 @@ To select fields to return while [creating documents](/cms/api/document-service#
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").create({
+const document = await strapi.documents('api::restaurant.restaurant').create({
   data: {
-    name: "Restaurant B",
-    description: "Description for the restaurant",
+    name: 'Restaurant B',
+    description: 'Description for the restaurant',
   },
-  fields: ["name", "description"],
+  fields: ['name', 'description'],
 });
 ```
 
@@ -160,12 +160,12 @@ To select fields to return while [updating documents](/cms/api/document-service#
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").update({
-  documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
+const document = await strapi.documents('api::restaurant.restaurant').update({
+  documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
   data: {
-    name: "Restaurant C",
+    name: 'Restaurant C',
   },
-  fields: ["name"],
+  fields: ['name'],
 });
 ```
 
@@ -174,7 +174,7 @@ const document = await strapi.documents("api::restaurant.restaurant").update({
 <Response title="Example response">
 
 ```js
-{ 
+{
   documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
   name: 'Restaurant C'
 }
@@ -191,9 +191,9 @@ To select fields to return while [deleting documents](/cms/api/document-service#
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").delete({
-  documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
-  fields: ["name"],
+const document = await strapi.documents('api::restaurant.restaurant').delete({
+  documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
+  fields: ['name'],
 });
 ```
 
@@ -226,9 +226,9 @@ To select fields to return while [publishing documents](/cms/api/document-servic
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").publish({
-  documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
-  fields: ["name"],
+const document = await strapi.documents('api::restaurant.restaurant').publish({
+  documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
+  fields: ['name'],
 });
 ```
 
@@ -260,9 +260,9 @@ To select fields to return while [unpublishing documents](/cms/api/document-serv
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").unpublish({
-  documentId: "cjld2cjxh0000qzrmn831i7rn",
-  fields: ["name"],
+const document = await strapi.documents('api::restaurant.restaurant').unpublish({
+  documentId: 'cjld2cjxh0000qzrmn831i7rn',
+  fields: ['name'],
 });
 ```
 
@@ -294,9 +294,9 @@ To select fields to return while [discarding draft versions of documents](/cms/a
 <Request title="Example request">
 
 ```js
-const document = await strapi.documents("api::restaurant.restaurant").discardDraft({
-  documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
-  fields: ["name"],
+const document = await strapi.documents('api::restaurant.restaurant').discardDraft({
+  documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
+  fields: ['name'],
 });
 ```
 
@@ -306,9 +306,9 @@ const document = await strapi.documents("api::restaurant.restaurant").discardDra
 
 ```json
 {
-  documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
+  "documentId": "fmtr6d7ktzpgrijqaqgr6vxs",
   // All of the discarded draft entries are returned
-  entries: [
+  "entries": [
     {
       "name": "Restaurant B"
     }

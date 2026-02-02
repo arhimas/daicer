@@ -34,8 +34,8 @@ You’ll build a Docker image using the [LangGraph CLI](./langgraph_cli.md), whi
 
 For more information, please see:
 
-* [Self-Hosted conceptual guide](./self_hosted.md)
-* [Self-Hosted Deployment how-to guide](../how-tos/deploy-self-hosted.md)
+- [Self-Hosted conceptual guide](./self_hosted.md)
+- [Self-Hosted Deployment how-to guide](../how-tos/deploy-self-hosted.md)
 
 ## Self-Hosted Lite
 
@@ -49,11 +49,10 @@ With a Self-Hosted Lite deployment, you are responsible for managing the infrast
 
 You’ll build a Docker image using the [LangGraph CLI](./langgraph_cli.md), which can then be deployed on your own infrastructure.
 
-
 For more information, please see:
 
-* [Self-Hosted conceptual guide](./self_hosted.md)
-* [Self-Hosted Deployment how-to guide](https://langchain-ai.github.io/langgraphjs/how-tos/deploy-self-hosted/)
+- [Self-Hosted conceptual guide](./self_hosted.md)
+- [Self-Hosted Deployment how-to guide](https://langchain-ai.github.io/langgraphjs/how-tos/deploy-self-hosted/)
 
 ## Cloud SaaS
 
@@ -69,8 +68,8 @@ This deployment option provides an integration with GitHub, allowing you to depl
 
 For more information, please see:
 
-* [Cloud SaaS Conceptual Guide](./langgraph_cloud.md)
-* [How to deploy to Cloud SaaS](/langgraphjs/cloud/deployment/cloud.md)
+- [Cloud SaaS Conceptual Guide](./langgraph_cloud.md)
+- [How to deploy to Cloud SaaS](/langgraphjs/cloud/deployment/cloud.md)
 
 ## Bring Your Own Cloud
 
@@ -82,12 +81,12 @@ This combines the best of both worlds for Cloud and Self-Hosted. We manage the i
 
 For more information please see:
 
-* [Bring Your Own Cloud Conceptual Guide](./bring_your_own_cloud.md)
+- [Bring Your Own Cloud Conceptual Guide](./bring_your_own_cloud.md)
 
 ## Related
 
 For more information please see:
 
-* [LangGraph Platform Plans](./plans.md)
-* [LangGraph Platform Pricing](https://www.langchain.com/langgraph-platform-pricing)
-* [Deployment how-to guides](../how-tos/index.md#deployment)
+- [LangGraph Platform Plans](./plans.md)
+- [LangGraph Platform Pricing](https://www.langchain.com/langgraph-platform-pricing)
+- [Deployment how-to guides](../how-tos/index.md#deployment)

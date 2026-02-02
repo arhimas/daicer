@@ -4,9 +4,9 @@ description: In Strapi 5, sorting by id is no longer possible to sort by chronol
 sidebar_label: Sort chronologically with createdAt
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content API
- - upgrade to Strapi 5
+  - breaking changes
+  - content API
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

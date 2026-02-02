@@ -25,10 +25,7 @@
         "quantity": "Variable: 1d4 + 1 doses.",
         "application": "Versatile: Can be swallowed or applied to the skin.",
         "healing": "2d8 + 2 hit points (Moderate for an Uncommon item, which is appropriate).",
-        "secondary_effects": [
-          "Ceases to be poisoned.",
-          "Cured of any disease."
-        ],
+        "secondary_effects": ["Ceases to be poisoned.", "Cured of any disease."],
         "balance_assessment": "Mechanically sound for an Uncommon item. The dual healing and condition removal makes it slightly more potent than a standard healing potion, justifying the Uncommon rarity."
       },
       "zod_errors": "NONE"

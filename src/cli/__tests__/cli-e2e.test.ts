@@ -60,27 +60,29 @@ describe('CLI E2E (Standalone)', () => {
   function extractJSON(output: string): any {
     const startMarker = '__JSON_START__';
     const endMarker = '__JSON_END__';
-    
+
     const startIndex = output.indexOf(startMarker);
     const endIndex = output.indexOf(endMarker);
 
     if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
-        const jsonStr = output.substring(startIndex + startMarker.length, endIndex).trim();
-        try {
-            return JSON.parse(jsonStr);
-        } catch (e) {
-            throw new Error(`Failed to parse framed JSON: ${e.message}\nRaw: ${jsonStr.substring(0, 100)}...`);
-        }
+      const jsonStr = output.substring(startIndex + startMarker.length, endIndex).trim();
+      try {
+        return JSON.parse(jsonStr);
+      } catch (e) {
+        throw new Error(`Failed to parse framed JSON: ${e.message}\nRaw: ${jsonStr.substring(0, 100)}...`);
+      }
     }
 
     // Fallback: Try regex if markers are missing (legacy check)
     // But since we control the source, markers SHOULD be there.
     // If we receive output from a version without markers, we fail.
     // Output often contains logs, so "finding JSON" heuristically is flaky.
-    
+
     // Debug info
     // console.log('Raw Output:', output);
 
-    throw new Error(`Could not find JSON framing markers in output. Start: ${startIndex}, End: ${endIndex}, Length: ${output.length}. First 200 chars: ${output.substring(0, 200)}`);
+    throw new Error(
+      `Could not find JSON framing markers in output. Start: ${startIndex}, End: ${endIndex}, Length: ${output.length}. First 200 chars: ${output.substring(0, 200)}`
+    );
   }
 });

@@ -17,12 +17,7 @@
         "components": "S (Verbal component is missing, which is unusual for standard spells but possible for some subclasses or specific editions/settings, assuming the raw data is authoritative.)",
         "duration": "Concentration, up to 1 round",
         "effect_summary": "Grants advantage on the very next attack roll made against the target, provided the spell is still active. Since it's concentration up to 1 round, it effectively grants advantage on the first attack made on the caster's following turn.",
-        "class_availability": [
-          "bard",
-          "sorcerer",
-          "warlock",
-          "wizard"
-        ]
+        "class_availability": ["bard", "sorcerer", "warlock", "wizard"]
       },
       "notes": "The lack of a Verbal (V) component listed under 'components' warrants a check if this is intentional or an omission in the raw data, as most spells require V, S, or M. The effect is highly time-sensitive and concentration-based for a single advantage roll."
     }

@@ -1,8 +1,6 @@
 # How to interact with the deployment using RemoteGraph
 
-!!! info "Prerequisites"
-    - [LangGraph Platform](../concepts/langgraph_platform.md)
-    - [LangGraph Server](../concepts/langgraph_server.md)
+!!! info "Prerequisites" - [LangGraph Platform](../concepts/langgraph_platform.md) - [LangGraph Server](../concepts/langgraph_server.md)
 
 `RemoteGraph` is an interface that allows you to interact with your LangGraph Platform deployment as if it were a regular, locally-defined LangGraph graph (e.g. a `CompiledGraph`). This guide shows you how you can initialize a `RemoteGraph` and interact with it.
 
@@ -10,7 +8,7 @@
 
 When initializing a `RemoteGraph`, you must always specify:
 
-- `name`: the name of the graph you want to interact with. This is the same graph name you use in `langgraph.json` configuration file for your deployment. 
+- `name`: the name of the graph you want to interact with. This is the same graph name you use in `langgraph.json` configuration file for your deployment.
 - `api_key`: a valid LangSmith API key. Can be set as an environment variable (`LANGSMITH_API_KEY`) or passed directly via the `api_key` argument. The API key could also be provided via the `client` / `sync_client` arguments, if `LangGraphClient` / `SyncLangGraphClient` were initialized with `api_key` argument.
 
 Additionally, you have to provide one of the following:
@@ -22,7 +20,6 @@ Additionally, you have to provide one of the following:
 !!! Note
 
     If you pass both `client` or `sync_client` as well as `url` argument, they will take precedence over the `url` argument. If none of the `client` / `sync_client` / `url` arguments are provided, `RemoteGraph` will raise a `ValueError` at runtime.
-
 
 ### Using URL
 
@@ -191,7 +188,6 @@ By default, the graph runs (i.e. `.invoke()` or `.stream()` invocations) are sta
 !!! Note
 
     If you need to use a `checkpointer` with a graph that has a `RemoteGraph` subgraph node, make sure to use UUIDs as thread IDs.
-
 
 Since the `RemoteGraph` behaves the same way as a regular `CompiledGraph`, it can be also used as a subgraph in another graph. For example:
 

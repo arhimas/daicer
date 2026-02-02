@@ -21,9 +21,7 @@
         "condition": "The effect is active unless the character is Incapacitated. This is a standard and well-understood condition.",
         "interaction_notes": "This feature specifically negates one of the most common defensive debuffs (advantage on attacks), making it very powerful, especially in environments where flanking is common."
       },
-      "suggestions": [
-        "No mechanical changes suggested; the feature is well-balanced for its level."
-      ],
+      "suggestions": ["No mechanical changes suggested; the feature is well-balanced for its level."],
       "data_integrity": "All fields present and correctly formatted."
     }
   },

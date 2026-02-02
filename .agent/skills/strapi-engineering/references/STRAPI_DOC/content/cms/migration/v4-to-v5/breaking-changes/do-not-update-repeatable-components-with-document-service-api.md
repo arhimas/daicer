@@ -4,15 +4,15 @@ description: In Strapi 5, it's not recommended to update repeatable components w
 sidebar_label: defaultIndex removed
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - middlewares
- - upgrade to Strapi 5
+  - breaking changes
+  - middlewares
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
 import MigrationIntro from '/docs/snippets/breaking-change-page-migration-intro.md'
 
-#  Updating repeatable components with the Document Service API is not recommended
+# Updating repeatable components with the Document Service API is not recommended
 
 In Strapi 5, it's not recommended to update repeatable components with the API, due to some limitations of the new Document Service API.
 

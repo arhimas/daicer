@@ -28,9 +28,7 @@
             "result": "Treat as Dim Light"
           }
         ],
-        "limitations": [
-          "Cannot discern color in darkness (only shades of gray)."
-        ]
+        "limitations": ["Cannot discern color in darkness (only shades of gray)."]
       }
     },
     "archivist_notes": "The trait is well-defined and mechanically sound, adhering to established conventions for describing sensory advantages in roleplaying contexts. No anomalies detected."

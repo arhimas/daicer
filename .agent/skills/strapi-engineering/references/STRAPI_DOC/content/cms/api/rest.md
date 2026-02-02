@@ -1,15 +1,15 @@
---- 
+---
 title: REST API reference
 description: Interact with your Content-Types using the REST API endpoints Strapi generates for you.
 displayed_sidebar: cmsSidebar
 tags:
-- API
-- Content API
-- documentId
-- Documents
-- plural API ID
-- REST API
-- singular API ID
+  - API
+  - Content API
+  - documentId
+  - Documents
+  - plural API ID
+  - REST API
+  - singular API ID
 ---
 
 # REST API reference
@@ -62,20 +62,20 @@ sources={{
 
 <TabItem value="collection" label="Collection type">
 
-| Method   | URL                             | Description                           |
-| -------- | ------------------------------- | ------------------------------------- |
+| Method   | URL                             | Description                        |
+| -------- | ------------------------------- | ---------------------------------- |
 | `GET`    | `/api/:pluralApiId`             | [Get a list of document](#get-all) |
-| `POST`   | `/api/:pluralApiId`             | [Create a document](#create)   |
-| `GET`    | `/api/:pluralApiId/:documentId` | [Get a document](#get)         |
-| `PUT`    | `/api/:pluralApiId/:documentId` | [Update a document](#update)   |
-| `DELETE` | `/api/:pluralApiId/:documentId` | [Delete a document](#delete)   |
+| `POST`   | `/api/:pluralApiId`             | [Create a document](#create)       |
+| `GET`    | `/api/:pluralApiId/:documentId` | [Get a document](#get)             |
+| `PUT`    | `/api/:pluralApiId/:documentId` | [Update a document](#update)       |
+| `DELETE` | `/api/:pluralApiId/:documentId` | [Delete a document](#delete)       |
 
 </TabItem>
 
 <TabItem value="single" label="Single type">
 
-| Method   | URL                   | Description                                |
-| -------- | --------------------- | ------------------------------------------ |
+| Method   | URL                   | Description                         |
+| -------- | --------------------- | ----------------------------------- |
 | `GET`    | `/api/:singularApiId` | [Get a document](#get)              |
 | `PUT`    | `/api/:singularApiId` | [Update/Create a document](#update) |
 | `DELETE` | `/api/:singularApiId` | [Delete a document](#delete)        |
@@ -96,13 +96,13 @@ The following endpoint examples are taken from the <ExternalLink to="https://git
 
 `Restaurant` **Content type**
 
-| Method | URL                      | Description               |
-| ------ | ------------------------ | ------------------------- |
-| GET    | `/api/restaurants`       | Get a list of restaurants |
-| POST   | `/api/restaurants`       | Create a restaurant       |
-| GET    | `/api/restaurants/:documentId`   | Get a specific restaurant |
-| DELETE | `/api/restaurants/:documentId`   | Delete a restaurant       |
-| PUT    | `/api/restaurants/:documentId`   | Update a restaurant       |
+| Method | URL                            | Description               |
+| ------ | ------------------------------ | ------------------------- |
+| GET    | `/api/restaurants`             | Get a list of restaurants |
+| POST   | `/api/restaurants`             | Create a restaurant       |
+| GET    | `/api/restaurants/:documentId` | Get a specific restaurant |
+| DELETE | `/api/restaurants/:documentId` | Delete a restaurant       |
+| PUT    | `/api/restaurants/:documentId` | Update a restaurant       |
 
 </TabItem>
 
@@ -135,7 +135,7 @@ Strapi 5's Content API includes 2 major differences with Strapi v4:
 
 - The response format has been flattened, which means attributes are no longer nested in a `data.attributes` object and are directly accessible at the first level of the `data` object (e.g., a content-type's "title" attribute is accessed with `data.title`).
 - Strapi 5 now uses **documents** <DocumentDefinition/> and documents are accessed by their `documentId` (see [breaking change entry](/cms/migration/v4-to-v5/breaking-changes/use-document-id) for details)
-:::
+  :::
 
 Requests return a response as an object which usually includes the following keys:
 
@@ -267,7 +267,6 @@ In Strapi 5, a specific document is reached by its `documentId`.
   },
   "meta": {}
 }
-
 ```
 
 </Response>
@@ -291,10 +290,11 @@ While creating a document, you can define its relations and their order (see [Ma
 `POST http://localhost:1337/api/restaurants`
 
 ```json
-{ 
+{
   "data": {
     "Name": "Restaurant D",
-    "Description": [ // uses the "Rich text (blocks)" field type
+    "Description": [
+      // uses the "Rich text (blocks)" field type
       {
         "type": "paragraph",
         "children": [
@@ -349,9 +349,10 @@ Partially updates a document by `id` and returns its value.
 Send a `null` value to clear fields.
 
 :::note NOTES
-* Even with the [Internationalization (i18n) plugin](/cms/features/internationalization) installed, it's currently not possible to [update the locale of a document](/cms/api/rest/locale#rest-update).
-* While updating a document, you can define its relations and their order (see [Managing relations through the REST API](/cms/api/rest/relations) for more details).
-:::
+
+- Even with the [Internationalization (i18n) plugin](/cms/features/internationalization) installed, it's currently not possible to [update the locale of a document](/cms/api/rest/locale#rest-update).
+- While updating a document, you can define its relations and their order (see [Managing relations through the REST API](/cms/api/rest/relations) for more details).
+  :::
 
 <ApiCall>
 
@@ -360,10 +361,11 @@ Send a `null` value to clear fields.
 `PUT http://localhost:1337/api/restaurants/hgv1vny5cebq2l3czil1rpb3`
 
 ```json
-{ 
+{
   "data": {
     "Name": "BMK Paris Bamako", // we didn't change this field but still need to include it
-    "Description": [ // uses the "Rich text (blocks)" field type
+    "Description": [
+      // uses the "Rich text (blocks)" field type
       {
         "type": "paragraph",
         "children": [

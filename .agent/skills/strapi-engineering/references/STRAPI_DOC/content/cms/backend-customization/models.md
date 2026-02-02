@@ -3,15 +3,15 @@ title: Models
 description: Strapi models (i.e. content-types, components, and dynamic zones) define a representation of the content structure.
 toc_max_heading_level: 4
 tags:
-- admin panel
-- backend customization
-- backend server
-- content-type
-- Content-type Builder
-- models
-- model schema
-- lifecycle hooks
-- REST API 
+  - admin panel
+  - backend customization
+  - backend server
+  - content-type
+  - Content-type Builder
+  - models
+  - model schema
+  - lifecycle hooks
+  - REST API
 ---
 
 # Models
@@ -70,9 +70,9 @@ The `schema.json` file of a model consists of:
 
 General settings for the model can be configured with the following parameters:
 
-| Parameter                                          | Type   | Description                                                                                                            |
-| -------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `collectionName`                                  | String | Database table name in which the data should be stored                                                    |
+| Parameter                                                | Type   | Description                                                                                                                   |
+| -------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `collectionName`                                         | String | Database table name in which the data should be stored                                                                        |
 | `kind`<br /><br />_Optional,<br/>only for content-types_ | String | Defines if the content-type is:<ul><li>a collection type (`collectionType`)</li><li>or a single type (`singleType`)</li></ul> |
 
 ```json
@@ -80,7 +80,7 @@ General settings for the model can be configured with the following parameters:
 
 {
   "kind": "collectionType",
-  "collectionName": "Restaurants_v1",
+  "collectionName": "Restaurants_v1"
 }
 ```
 
@@ -90,12 +90,12 @@ The `info` key in the model's schema describes information used to display the m
 
 <!-- ? with the new design system, do we still use FontAwesome?  -->
 
-| Parameter            | Type   | Description                                                                                                                                 |
-| -------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `displayName`  | String | Default name to use in the admin panel                                                                                                      |
+| Parameter      | Type   | Description                                                                                                                                    |
+| -------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `displayName`  | String | Default name to use in the admin panel                                                                                                         |
 | `singularName` | String | Singular form of the content-type name.<br />Used to generate the API routes and databases/tables collection.<br /><br />Should be kebab-case. |
-| `pluralName`   | String | Plural form of the content-type name.<br />Used to generate the API routes and databases/tables collection.<br /><br />Should be kebab-case.    |
-| `description`  | String | Description of the model                                                                                                                   |
+| `pluralName`   | String | Plural form of the content-type name.<br />Used to generate the API routes and databases/tables collection.<br /><br />Should be kebab-case.   |
+| `description`  | String | Description of the model                                                                                                                       |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
 
@@ -124,31 +124,30 @@ Many types of attributes are available:
 
 The `type` parameter of an attribute should be one of the following values:
 
-| Type categories | Available types |
-|------|-------|
-| String types | <ul><li>`string`</li> <li>`text`</li> <li>`richtext`</li><li>`enumeration`</li> <li>`email`</li><li>`password`</li><li>[`uid`](#uid-type)</li></ul> |
-| Date types | <ul><li>`date`</li> <li>`time`</li> <li>`datetime`</li> <li>`timestamp`</li></ul> |
-| Number types | <ul><li>`integer`</li><li>`biginteger`</li><li>`float`</li> <li>`decimal`</li></ul> |
-| Other generic types |<ul><li>`boolean`</li><li>`json`</li></ul> |
-| Special types unique to Strapi |<ul><li>`media`</li><li>[`relation`](#relations)</li><li>[`customField`](#custom-fields)</li><li>[`component`](#components-json)</li><li>[`dynamiczone`](#dynamic-zones)</li></ul> |
-| Internationalization (i18n)-related types<br /><br />_Can only be used if the [i18n](/cms/features/internationalization) is enabled on the content-type_|<ul><li>`locale`</li><li>`localizations`</li></ul> |
+| Type categories                                                                                                                                          | Available types                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| String types                                                                                                                                             | <ul><li>`string`</li> <li>`text`</li> <li>`richtext`</li><li>`enumeration`</li> <li>`email`</li><li>`password`</li><li>[`uid`](#uid-type)</li></ul>                                |
+| Date types                                                                                                                                               | <ul><li>`date`</li> <li>`time`</li> <li>`datetime`</li> <li>`timestamp`</li></ul>                                                                                                  |
+| Number types                                                                                                                                             | <ul><li>`integer`</li><li>`biginteger`</li><li>`float`</li> <li>`decimal`</li></ul>                                                                                                |
+| Other generic types                                                                                                                                      | <ul><li>`boolean`</li><li>`json`</li></ul>                                                                                                                                         |
+| Special types unique to Strapi                                                                                                                           | <ul><li>`media`</li><li>[`relation`](#relations)</li><li>[`customField`](#custom-fields)</li><li>[`component`](#components-json)</li><li>[`dynamiczone`](#dynamic-zones)</li></ul> |
+| Internationalization (i18n)-related types<br /><br />_Can only be used if the [i18n](/cms/features/internationalization) is enabled on the content-type_ | <ul><li>`locale`</li><li>`localizations`</li></ul>                                                                                                                                 |
 
 #### Validations
 
 Basic validations can be applied to attributes using the following parameters:
 
-| Parameter | Type    | Description                                                                                               | Default |
-| -------------- | ------- | --------------------------------------------------------------------------------------------------------- | ------- |
-| `required`     | Boolean | If `true`, adds a required validator for this property                                                     | `false` |
-| `max`          | Integer | Checks if the value is greater than or equal to the given maximum                                        | -       |
-| `min`          | Integer | Checks if the value is less than or equal to the given minimum                                           | -       |
-| `minLength`    | Integer | Minimum number of characters for a field input value                                                      | -       |
-| `maxLength`    | Integer | Maximum number of characters for a field input value                                                      | -       |
+| Parameter      | Type    | Description                                                                                                           | Default |
+| -------------- | ------- | --------------------------------------------------------------------------------------------------------------------- | ------- |
+| `required`     | Boolean | If `true`, adds a required validator for this property                                                                | `false` |
+| `max`          | Integer | Checks if the value is greater than or equal to the given maximum                                                     | -       |
+| `min`          | Integer | Checks if the value is less than or equal to the given minimum                                                        | -       |
+| `minLength`    | Integer | Minimum number of characters for a field input value                                                                  | -       |
+| `maxLength`    | Integer | Maximum number of characters for a field input value                                                                  | -       |
 | `private`      | Boolean | If `true`, the attribute will be removed from the server response.<br/><br/>💡 This is useful to hide sensitive data. | `false` |
-| `configurable` | Boolean | If `false`, the attribute isn't configurable from the Content-type Builder plugin.                         | `true`  |
+| `configurable` | Boolean | If `false`, the attribute isn't configurable from the Content-type Builder plugin.                                    | `true`  |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
-
 {
   // ...
   "attributes": {
@@ -180,15 +179,15 @@ These settings should be reserved to an advanced usage, as they might break some
 
 Database validations and settings are custom options passed directly onto the `tableBuilder` Knex.js function during schema migrations. Database validations allow for an advanced degree of control for setting custom column settings. The following options are set in a `column: {}` object per attribute:
 
-| Parameter     | Type    | Description                                                                                   | Default |
-| ------------- | ------- | --------------------------------------------------------------------------------------------- | ------- |
-| `name`        | string  | Changes the name of the column in the database                                                | -       |
-| `defaultTo`   | string  | Sets the database `defaultTo`, typically used with `notNullable`                              | -       |
-| `notNullable` | boolean | Sets the database `notNullable`, ensures that columns cannot be null                          | `false` |
-| `unsigned`    | boolean | Only applies to number columns, removes the ability to go negative but doubles maximum length | `false` |
+| Parameter     | Type    | Description                                                                                                                                                   | Default |
+| ------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `name`        | string  | Changes the name of the column in the database                                                                                                                | -       |
+| `defaultTo`   | string  | Sets the database `defaultTo`, typically used with `notNullable`                                                                                              | -       |
+| `notNullable` | boolean | Sets the database `notNullable`, ensures that columns cannot be null                                                                                          | `false` |
+| `unsigned`    | boolean | Only applies to number columns, removes the ability to go negative but doubles maximum length                                                                 | `false` |
 | `unique`      | boolean | Enforces database-level uniqueness on published entries. Draft saves skip the check when Draft & Publish is enabled, so duplicates fail only at publish time. | `false` |
-| `type`        | string  | Changes the database type, if `type` has arguments, you should pass them in `args`            | -       |
-| `args`        | array   | Arguments passed into the Knex.js function that changes things like `type`                    | `[]`    |
+| `type`        | string  | Changes the database type, if `type` has arguments, you should pass them in `args`                                                                            | -       |
+| `args`        | array   | Arguments passed into the Knex.js function that changes things like `type`                                                                                    | `[]`    |
 
 :::caution Draft & Publish and `unique`
 When [Draft & Publish](/cms/features/draft-and-publish) is enabled, Strapi intentionally skips `unique` validations while an entry is saved as a draft. Duplicates therefore remain undetected until publication, at which point the database constraint triggers an error even though the UI previously displayed “Saved document” for the drafts.
@@ -198,10 +197,9 @@ To avoid unexpected publication failures:
 - disable Draft & Publish on content-types that must stay globally unique,
 - or add custom validation (e.g. lifecycle hooks or middleware) that checks for draft duplicates before saving,
 - or rely on automatically generated unique identifiers such as a `uid` field and document editorial conventions.
-:::
+  :::
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
-
 {
   // ...
   "attributes": {
@@ -230,7 +228,8 @@ To avoid unexpected publication failures:
         "defaultTo": 0,
         "type": "decimal", // using the native decimal type but allowing for custom precision
         "args": [
-          6,1 // using custom precision and scale
+          6,
+          1 // using custom precision and scale
         ]
       }
     }
@@ -252,11 +251,11 @@ Relations link content-types together. Strapi supports both single-entry relatio
 
 Relations are explicitly defined in the [attributes](#model-attributes) of a model with `type: 'relation'` and accept the following additional parameters:
 
-| Parameter                         | Description                                                                                                                                     |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `relation`                  | The type of relation among these values:<ul><li>`oneToOne`</li><li>`oneToMany`</li><li>`manyToOne`</li><li>`manyToMany`</li></ul>                   |
-| `target`                    | Accepts a string value as the name of the target content-type                                                                                   |
-| `mappedBy` and `inversedBy`<br /><br />_Optional_ | In bidirectional relations, the owning side declares the `inversedBy` key while the inversed side declares the `mappedBy` key |
+| Parameter                                         | Description                                                                                                                       |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `relation`                                        | The type of relation among these values:<ul><li>`oneToOne`</li><li>`oneToMany`</li><li>`manyToOne`</li><li>`manyToMany`</li></ul> |
+| `target`                                          | Accepts a string value as the name of the target content-type                                                                     |
+| `mappedBy` and `inversedBy`<br /><br />_Optional_ | In bidirectional relations, the owning side declares the `inversedBy` key while the inversed side declares the `mappedBy` key     |
 
 <Tabs>
 
@@ -269,61 +268,61 @@ They can be unidirectional or bidirectional. In unidirectional relationships, on
 <details>
 <summary>Unidirectional use case example:</summary>
 
-  - A blog article belongs to a category.
-  - Querying an article can retrieve its category,
-  - but querying a category won't retrieve the owned article.
+- A blog article belongs to a category.
+- Querying an article can retrieve its category,
+- but querying a category won't retrieve the owned article.
 
-  ```json title="./src/api/[api-name]/content-types/article/schema.json"
+```json title="./src/api/[api-name]/content-types/article/schema.json"
 
-    // …
-    attributes: {
-      category: {
-        type: 'relation',
-        relation: 'oneToOne',
-        target: 'category',
-      },
+  // …
+  attributes: {
+    category: {
+      type: 'relation',
+      relation: 'oneToOne',
+      target: 'category',
     },
-    // …
-  ```
+  },
+  // …
+```
 
 </details>
 
 <details>
 <summary>Bidirectional use case example:</summary>
 
-  - A blog article belongs to a category.
-  - Querying an article can retrieve its category,
-  - and querying a category also retrieves its owned article.
+- A blog article belongs to a category.
+- Querying an article can retrieve its category,
+- and querying a category also retrieves its owned article.
 
-  ```json title="./src/api/[api-name]/content-types/article/schema.json"
+```json title="./src/api/[api-name]/content-types/article/schema.json"
 
-    // …
-    attributes: {
-      category: {
-        type: 'relation',
-        relation: 'oneToOne',
-        target: 'category',
-        inversedBy: 'article',
-      },
+  // …
+  attributes: {
+    category: {
+      type: 'relation',
+      relation: 'oneToOne',
+      target: 'category',
+      inversedBy: 'article',
     },
-    // …
+  },
+  // …
 
-  ```
+```
 
-  ```json title="./src/api/[api-name]/content-types/category/schema.json"
+```json title="./src/api/[api-name]/content-types/category/schema.json"
 
-    // …
-    attributes: {
-      article: {
-        type: 'relation',
-        relation: 'oneToOne',
-        target: 'article',
-        mappedBy: 'category',
-      },
+  // …
+  attributes: {
+    article: {
+      type: 'relation',
+      relation: 'oneToOne',
+      target: 'article',
+      mappedBy: 'category',
     },
-    // …
+  },
+  // …
 
-  ```
+```
 
 </details>
 
@@ -384,56 +383,56 @@ They can be unidirectional or bidirectional. In unidirectional relationships, on
 <details>
 <summary>Unidirectional use case example:</summary>
 
-  A book can be written by many authors.
+A book can be written by many authors.
 
-  ```json title="./src/api/[api-name]/content-types/book/schema.json"
+```json title="./src/api/[api-name]/content-types/book/schema.json"
 
-    // …
-    attributes: {
-      author: {
-        type: 'relation',
-        relation: 'manyToOne',
-        target: 'author',
-      },
+  // …
+  attributes: {
+    author: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'author',
     },
-    // …
+  },
+  // …
 
-  ```
+```
 
 </details>
 
 <details>
 <summary>Bidirectional use case example:</summary>
 
-  An article belongs to only one category but a category has many articles.
+An article belongs to only one category but a category has many articles.
 
-  ```json title="./src/api/[api-name]/content-types/article/schema.json"
+```json title="./src/api/[api-name]/content-types/article/schema.json"
 
-    // …
-    attributes: {
-      author: {
-        type: 'relation',
-        relation: 'manyToOne',
-        target: 'category',
-        inversedBy: 'article',
-      },
+  // …
+  attributes: {
+    author: {
+      type: 'relation',
+      relation: 'manyToOne',
+      target: 'category',
+      inversedBy: 'article',
     },
-    // …
-  ```
+  },
+  // …
+```
 
-  ```json title="./src/api/[api-name]/content-types/category/schema.json"
+```json title="./src/api/[api-name]/content-types/category/schema.json"
 
-    // …
-    attributes: {
-      books: {
-        type: 'relation',
-        relation: 'oneToMany',
-        target: 'article',
-        mappedBy: 'category',
-      },
+  // …
+  attributes: {
+    books: {
+      type: 'relation',
+      relation: 'oneToMany',
+      target: 'article',
+      mappedBy: 'category',
     },
-    // …
-  ```
+  },
+  // …
+```
 
 </details>
 
@@ -451,17 +450,17 @@ Many-to-many relationships can be unidirectional or bidirectional. In unidirecti
 <details>
 <summary>Unidirectional use case example:</summary>
 
-  ```json
-    // …
-    attributes: {
-      categories: {
-        type: 'relation',
-        relation: 'manyToMany',
-        target: 'category',
-      },
+```json
+  // …
+  attributes: {
+    categories: {
+      type: 'relation',
+      relation: 'manyToMany',
+      target: 'category',
     },
-    // …
-  ```
+  },
+  // …
+```
 
 </details>
 
@@ -470,33 +469,33 @@ Many-to-many relationships can be unidirectional or bidirectional. In unidirecti
 
 An article can have many tags and a tag can be assigned to many articles.
 
-  ```json title="/src/api/[api-name]/content-types/article/schema.json"
+```json title="/src/api/[api-name]/content-types/article/schema.json"
 
-    // …
-    attributes: {
-      tags: {
-        type: 'relation',
-        relation: 'manyToMany',
-        target: 'tag',
-        inversedBy: 'articles',
-      },
+  // …
+  attributes: {
+    tags: {
+      type: 'relation',
+      relation: 'manyToMany',
+      target: 'tag',
+      inversedBy: 'articles',
     },
-    // …
-  ```
+  },
+  // …
+```
 
-  ```json title="./src/api/[api-name]/content-types/tag/schema.json"
+```json title="./src/api/[api-name]/content-types/tag/schema.json"
 
-    // …
-    attributes: {
-      articles: {
-        type: 'relation',
-        relation: 'manyToMany',
-        target: 'article',
-        mappedBy: 'tag',
-      },
+  // …
+  attributes: {
+    articles: {
+      type: 'relation',
+      relation: 'manyToMany',
+      target: 'article',
+      mappedBy: 'tag',
     },
-    // …
-  ```
+  },
+  // …
+```
 
 </details>
 
@@ -529,16 +528,16 @@ The `tableName` key defines the name of the join table. It has to be specified o
 Custom fields' attributes also show the following specificities:
 
 - a `customField` attribute whose value acts as a unique identifier to indicate which registered custom field should be used. Its value follows:
-   - either the `plugin::plugin-name.field-name` format if a plugin created the custom field 
-   - or the `global::field-name` format for a custom field specific to the current Strapi application
+  - either the `plugin::plugin-name.field-name` format if a plugin created the custom field
+  - or the `global::field-name` format for a custom field specific to the current Strapi application
 - and additional parameters depending on what has been defined when registering the custom field (see [custom fields documentation](/cms/features/custom-fields)).
 
 ```json title="./src/api/[apiName]/[content-type-name]/content-types/schema.json"
-
 {
   // …
   "attributes": {
-    "attributeName": { // attributeName would be replaced by the actual attribute name
+    "attributeName": {
+      // attributeName would be replaced by the actual attribute name
       "type": "customField",
       "customField": "plugin::color-picker.color",
       "options": {
@@ -554,13 +553,12 @@ Custom fields' attributes also show the following specificities:
 
 Component fields create a relation between a content-type and a component structure. Components are explicitly defined in the [attributes](#model-attributes) of a model with `type: 'component'` and accept the following additional parameters:
 
-| Parameter    | Type    | Description                                                                              |
-| ------------ | ------- | ---------------------------------------------------------------------------------------- |
-| `repeatable` | Boolean | Could be `true` or `false` depending on whether the component is repeatable or not       |
-| `component`  | String  | Define the corresponding component, following this format:<br/>`<category>.<componentName>`  |
+| Parameter    | Type    | Description                                                                                 |
+| ------------ | ------- | ------------------------------------------------------------------------------------------- |
+| `repeatable` | Boolean | Could be `true` or `false` depending on whether the component is repeatable or not          |
+| `component`  | String  | Define the corresponding component, following this format:<br/>`<category>.<componentName>` |
 
 ```json title="./src/api/[apiName]/restaurant/content-types/schema.json"
-
 {
   "attributes": {
     "openinghours": {
@@ -576,10 +574,9 @@ Component fields create a relation between a content-type and a component struct
 
 Dynamic zones create a flexible space in which to compose content, based on a mixed list of [components](#components-json).
 
-Dynamic zones are explicitly defined in the [attributes](#model-attributes)  of a model with `type: 'dynamiczone'`. They also accept a `components` array, where each component should be named following this format: `<category>.<componentName>`.
+Dynamic zones are explicitly defined in the [attributes](#model-attributes) of a model with `type: 'dynamiczone'`. They also accept a `components` array, where each component should be named following this format: `<category>.<componentName>`.
 
 ```json title="./src/api/[api-name]/content-types/article/schema.json"
-
 {
   "attributes": {
     "body": {
@@ -594,14 +591,13 @@ Dynamic zones are explicitly defined in the [attributes](#model-attributes)  of 
 
 The `options` key is used to define specific behaviors and accepts the following parameter:
 
-| Parameter           | Type             | Description                                                                                                                                                                                                                                                                                                        |
-|---------------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `privateAttributes` | Array of strings | Allows treating a set of attributes as private, even if they're not actually defined as attributes in the model. It could be used to remove them from API responses timestamps. <br /><br /> The `privateAttributes` defined in the model are merged with the `privateAttributes` defined in the global Strapi configuration. |
-| `draftAndPublish`   | Boolean          | Enables the draft and publish feature. <br /><br /> Default value: `true` (`false` if the content-type is created from the interactive CLI).                                                                                                                                                                                    |
-| `populateCreatorFields` | Boolean | Populates `createdBy` and `updatedBy` fields in responses returned by the REST API (see [guide](/cms/api/rest/guides/populate-creator-fields) for more details).<br/><br/>Default value: `false`. |
+| Parameter               | Type             | Description                                                                                                                                                                                                                                                                                                                   |
+| ----------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `privateAttributes`     | Array of strings | Allows treating a set of attributes as private, even if they're not actually defined as attributes in the model. It could be used to remove them from API responses timestamps. <br /><br /> The `privateAttributes` defined in the model are merged with the `privateAttributes` defined in the global Strapi configuration. |
+| `draftAndPublish`       | Boolean          | Enables the draft and publish feature. <br /><br /> Default value: `true` (`false` if the content-type is created from the interactive CLI).                                                                                                                                                                                  |
+| `populateCreatorFields` | Boolean          | Populates `createdBy` and `updatedBy` fields in responses returned by the REST API (see [guide](/cms/api/rest/guides/populate-creator-fields) for more details).<br/><br/>Default value: `false`.                                                                                                                             |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
-
 {
   "options": {
     "privateAttributes": ["id", "createdAt"],
@@ -614,14 +610,13 @@ The `options` key is used to define specific behaviors and accepts the following
 
 `pluginOptions` is an optional object allowing plugins to store configuration for a model or a specific attribute.
 
-| Key                       | Value                         | Description                                            |
-|---------------------------|-------------------------------|--------------------------------------------------------|
-| `i18n`                    | `localized: true`             | Enables localization.                                  |
-| `content-manager`         | `visible: false`              | Hides from Content Manager in the admin panel.         |
-| `content-type-builder`    | `visible: false`              | Hides from Content-type Builder in the admin panel.    |
+| Key                    | Value             | Description                                         |
+| ---------------------- | ----------------- | --------------------------------------------------- |
+| `i18n`                 | `localized: true` | Enables localization.                               |
+| `content-manager`      | `visible: false`  | Hides from Content Manager in the admin panel.      |
+| `content-type-builder` | `visible: false`  | Hides from Content-type Builder in the admin panel. |
 
 ```json title="./src/api/[api-name]/content-types/[content-type-name]/schema.json"
-
 {
   "attributes": {
     "name": {
@@ -646,7 +641,6 @@ The `options` key is used to define specific behaviors and accepts the following
     // …additional attributes
   }
 }
-
 ```
 
 ## Lifecycle hooks
@@ -690,13 +684,14 @@ The following lifecycle events are available:
 
 Lifecycle hooks are functions that take an `event` parameter, an object with the following keys:
 
-| Key      | Type              | Description                                                                                                                                                      |
-| -------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `action` | String            | Lifecycle event that has been triggered (see [list](#available-lifecycle-events))                                                                                |
-| `model`  | Array of strings (uid)            | An array of uids of the content-types whose events will be listened to.<br />If this argument is not supplied, events are listened on all content-types. |
-| `params` | Object            | Accepts the following parameters:<ul><li>`data`</li><li>`select`</li><li>`where`</li><li>`orderBy`</li><li>`limit`</li><li>`offset`</li><li>`populate`</li></ul> |
-| `result` | Object            | _Optional, only available with `afterXXX` events_<br /><br />Contains the result of the action.                                                                      |
-| `state`  | Object            | Query state, can be used to share state between `beforeXXX` and `afterXXX` events of a query.                                                               |
+| Key      | Type                   | Description                                                                                                                                                      |
+| -------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `action` | String                 | Lifecycle event that has been triggered (see [list](#available-lifecycle-events))                                                                                |
+| `model`  | Array of strings (uid) | An array of uids of the content-types whose events will be listened to.<br />If this argument is not supplied, events are listened on all content-types.         |
+| `params` | Object                 | Accepts the following parameters:<ul><li>`data`</li><li>`select`</li><li>`where`</li><li>`orderBy`</li><li>`limit`</li><li>`offset`</li><li>`populate`</li></ul> |
+| `result` | Object                 | _Optional, only available with `afterXXX` events_<br /><br />Contains the result of the action.                                                                  |
+| `state`  | Object                 | Query state, can be used to share state between `beforeXXX` and `afterXXX` events of a query.                                                                    |
+
 <!-- TODO: `state` has not been implemented yet, ask for more info once done -->
 
 ### Declarative and programmatic usage
@@ -710,7 +705,6 @@ Each event listener is called sequentially. They can be synchronous or asynchron
 <TabItem value="js" label="JavaScript">
 
 ```js title="./src/api/[api-name]/content-types/[content-type-name]/lifecycles.js"
-
 module.exports = {
   beforeCreate(event) {
     const { data, where, select, populate } = event.params;
@@ -732,7 +726,6 @@ module.exports = {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="./src/api/[api-name]/content-types/[content-type-name]/lifecycles.ts"
-
 export default {
   beforeCreate(event) {
     const { data, where, select, populate } = event.params;
@@ -757,7 +750,7 @@ Using the database layer API, it's also possible to register a subscriber and li
 ```js title="./src/index.js"
 module.exports = {
   async bootstrap({ strapi }) {
-// registering a subscriber
+    // registering a subscriber
     strapi.db.lifecycles.subscribe({
       models: [], // optional;
 
@@ -783,6 +776,6 @@ module.exports = {
         // do something
       }
     });
-  }
-}
+  },
+};
 ```

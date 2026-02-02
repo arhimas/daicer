@@ -24,9 +24,7 @@
         "concentration_check": "Required (up to 1 minute duration).",
         "notable_interactions": "Strong anti-shapechanger effect, forcing reversion and preventing transformation while within the light."
       },
-      "suggested_improvements": [
-        "None immediately apparent; this is a standard, well-defined spell format."
-      ]
+      "suggested_improvements": ["None immediately apparent; this is a standard, well-defined spell format."]
     },
     "validation": {
       "slug": "moonbeam",

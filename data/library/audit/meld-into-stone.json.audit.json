@@ -42,10 +42,7 @@
           "Partial destruction/shape change forces exit, dealing 6d6 bludgeoning damage and expelling the caster prone.",
           "Complete destruction forces exit, dealing 50 bludgeoning damage and expelling the caster prone."
         ],
-        "classes": [
-          "cleric",
-          "druid"
-        ]
+        "classes": ["cleric", "druid"]
       }
     }
   },

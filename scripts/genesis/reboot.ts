@@ -1,4 +1,3 @@
-
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -10,16 +9,16 @@ function log(msg: string) {
 }
 
 function wipeDirectory(dir: string, pattern: RegExp) {
-   if (!fs.existsSync(dir)) return;
-   const files = fs.readdirSync(dir);
-   let count = 0;
-   files.forEach(f => {
-      if (pattern.test(f)) {
-          fs.unlinkSync(path.join(dir, f));
-          count++;
-      }
-   });
-   log(`Wiped ${count} files from ${path.relative(process.cwd(), dir)}`);
+  if (!fs.existsSync(dir)) return;
+  const files = fs.readdirSync(dir);
+  let count = 0;
+  files.forEach((f) => {
+    if (pattern.test(f)) {
+      fs.unlinkSync(path.join(dir, f));
+      count++;
+    }
+  });
+  log(`Wiped ${count} files from ${path.relative(process.cwd(), dir)}`);
 }
 
 async function main() {
@@ -45,25 +44,28 @@ async function main() {
   // 3. Verify
   const classCount = fs.readdirSync(path.join(LIBRARY_ROOT, 'molecules/classes')).length;
   const featureCount = fs.readdirSync(path.join(LIBRARY_ROOT, 'atoms/features')).length;
-  
+
   log(`✅ Ingestion Complete.`);
   log(`   Classes: ${classCount}`);
   log(`   Features: ${featureCount}`);
-  
+
   // 4. Polish (Manifest check)
   const manifestPath = path.join(LIBRARY_ROOT, 'raw/srd-export.json');
   if (fs.existsSync(manifestPath)) {
-      const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-      log(`📝 Manifest ready with ${manifest.length} entries for Polishing.`);
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
+    log(`📝 Manifest ready with ${manifest.length} entries for Polishing.`);
   } else {
-      console.error('❌ Manifest not found.');
+    console.error('❌ Manifest not found.');
   }
 
   // 5. Canonical Pipeline (Audit -> Merge -> Seed)
   log('🧬 Running Canonical Pipeline...');
   console.log('🔄  \x1b[1m\x1b[36mRunning Seed Compiler (Building TS Seeds)...\x1b[0m');
   try {
-    execSync('yarn ts-node --transpile-only src/scripts/genesis/compile-seeds.ts', { stdio: 'inherit', cwd: process.cwd() });
+    execSync('yarn ts-node --transpile-only src/scripts/genesis/compile-seeds.ts', {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+    });
   } catch {
     console.error('❌ Seed Compilation failed.');
     process.exit(1);
@@ -71,7 +73,10 @@ async function main() {
 
   console.log('🌱  \x1b[1m\x1b[36mRunning Canonical Seed (Ingesting to Strapi)...\x1b[0m');
   try {
-    execSync('yarn ts-node --transpile-only src/scripts/genesis/canonical-seed.ts', { stdio: 'inherit', cwd: process.cwd() });
+    execSync('yarn ts-node --transpile-only src/scripts/genesis/canonical-seed.ts', {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+    });
   } catch {
     console.error('❌ Canonical Pipeline failed.');
     process.exit(1);

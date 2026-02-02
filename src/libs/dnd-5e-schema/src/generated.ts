@@ -2,13 +2,25 @@ import { z } from 'zod';
 
 export const ActionSchema = z.object({
   name: z.string(),
-  type: z.enum(["melee", "ranged", "spell", "utility"]).optional(),
+  type: z.enum(['melee', 'ranged', 'spell', 'utility']).optional(),
   toHit: z.number().int().optional(),
   reach: z.number().int().optional(),
   damage: z.array(z.lazy(() => DamageInstanceSchema)).optional(),
   save: z.lazy(() => SaveDcSchema).optional(),
   area: z.lazy(() => AreaEffectSchema).optional(),
-  duration: z.enum(["instantaneous", "concentration", "one_minute", "ten_minutes", "one_hour", "eight_hours", "twenty_four_hours", "until_dispelled", "special"]).optional(),
+  duration: z
+    .enum([
+      'instantaneous',
+      'concentration',
+      'one_minute',
+      'ten_minutes',
+      'one_hour',
+      'eight_hours',
+      'twenty_four_hours',
+      'until_dispelled',
+      'special',
+    ])
+    .optional(),
   description: z.string().optional(),
   action_definition: z.unknown().optional(),
   spell_definition: z.unknown().optional(),
@@ -26,14 +38,14 @@ export const AppearanceSchema = z.object({
 });
 
 export const AreaEffectSchema = z.object({
-  shape: z.enum(["line", "cone", "cube", "sphere", "circle", "cylinder"]),
+  shape: z.enum(['line', 'cone', 'cube', 'sphere', 'circle', 'cylinder']),
   size: z.number().int(),
   width: z.number().int().optional(),
 });
 
 export const CastingConfigSchema = z.object({
   time_value: z.number().int(),
-  time_unit: z.enum(["Action", "Bonus Action", "Reaction", "Minute", "Hour", "Day", "Round"]),
+  time_unit: z.enum(['Action', 'Bonus Action', 'Reaction', 'Minute', 'Hour', 'Day', 'Round']),
   reaction_trigger: z.string().optional(),
   is_ritual: z.boolean().optional(),
   is_concentration: z.boolean().optional(),
@@ -54,7 +66,7 @@ export const ClassProgressionSchema = z.object({
 });
 
 export const CompilationStateSchema = z.object({
-  status: z.enum(["Pending", "Valid", "Invalid", "Warning"]),
+  status: z.enum(['Pending', 'Valid', 'Invalid', 'Warning']),
   last_run: z.unknown().optional(),
   summary: z.string().optional(),
   hash: z.string().optional(),
@@ -62,7 +74,7 @@ export const CompilationStateSchema = z.object({
 
 export const ComputedActionSchema = z.object({
   name: z.string(),
-  type: z.enum(["melee", "ranged", "spell", "utility"]).optional(),
+  type: z.enum(['melee', 'ranged', 'spell', 'utility']).optional(),
   toHit: z.number().int().optional(),
   damageDice: z.string().optional(),
   damageBonus: z.number().int().optional(),
@@ -75,7 +87,24 @@ export const ComputedActionSchema = z.object({
 });
 
 export const ConditionInstanceSchema = z.object({
-  condition: z.enum(["Blinded", "Charmed", "Deafened", "Exhaustion", "Frightened", "Grappled", "Incapacitated", "Invisible", "Paralyzed", "Petrified", "Poisoned", "Prone", "Restrained", "Stunned", "Unconscious", "Special"]),
+  condition: z.enum([
+    'Blinded',
+    'Charmed',
+    'Deafened',
+    'Exhaustion',
+    'Frightened',
+    'Grappled',
+    'Incapacitated',
+    'Invisible',
+    'Paralyzed',
+    'Petrified',
+    'Poisoned',
+    'Prone',
+    'Restrained',
+    'Stunned',
+    'Unconscious',
+    'Special',
+  ]),
   description: z.string().optional(),
   chance: z.number().int().optional(),
   duration_rounds: z.number().int().optional(),
@@ -88,17 +117,49 @@ export const DamageDiceSchema = z.object({
 });
 
 export const DamageInstanceSchema = z.object({
-  effect_type: z.enum(["Damage", "Healing", "TempHP"]),
-  damage_type: z.enum(["Acid", "Bludgeoning", "Cold", "Fire", "Force", "Lightning", "Necrotic", "Piercing", "Poison", "Psychic", "Radiant", "Slashing", "Thunder"]).optional(),
+  effect_type: z.enum(['Damage', 'Healing', 'TempHP']),
+  damage_type: z
+    .enum([
+      'Acid',
+      'Bludgeoning',
+      'Cold',
+      'Fire',
+      'Force',
+      'Lightning',
+      'Necrotic',
+      'Piercing',
+      'Poison',
+      'Psychic',
+      'Radiant',
+      'Slashing',
+      'Thunder',
+    ])
+    .optional(),
   dice_count: z.number().int().optional(),
   dice_value: z.number().int().optional(),
   flat_bonus: z.number().int().optional(),
-  timing: z.enum(["Instant", "Start of Turn", "End of Turn", "One Time Trigger"]).optional(),
+  timing: z.enum(['Instant', 'Start of Turn', 'End of Turn', 'One Time Trigger']).optional(),
 });
 
 export const DamageModifierSchema = z.object({
-  damageType: z.enum(["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic", "piercing", "poison", "psychic", "radiant", "slashing", "thunder", "physical", "magical"]),
-  modifier: z.enum(["resistance", "immunity", "vulnerability"]),
+  damageType: z.enum([
+    'acid',
+    'bludgeoning',
+    'cold',
+    'fire',
+    'force',
+    'lightning',
+    'necrotic',
+    'piercing',
+    'poison',
+    'psychic',
+    'radiant',
+    'slashing',
+    'thunder',
+    'physical',
+    'magical',
+  ]),
+  modifier: z.enum(['resistance', 'immunity', 'vulnerability']),
 });
 
 export const DmStyleSchema = z.object({
@@ -111,9 +172,9 @@ export const DmStyleSchema = z.object({
 });
 
 export const DurationConfigSchema = z.object({
-  type: z.enum(["Instantaneous", "Concentration", "Time-Limited", "Until Dispelled", "Until Triggered", "Special"]),
+  type: z.enum(['Instantaneous', 'Concentration', 'Time-Limited', 'Until Dispelled', 'Until Triggered', 'Special']),
   value: z.number().int().optional(),
-  unit: z.enum(["Rounds", "Minutes", "Hours", "Days"]).optional(),
+  unit: z.enum(['Rounds', 'Minutes', 'Hours', 'Days']).optional(),
   concentration: z.boolean().optional(),
 });
 
@@ -133,21 +194,47 @@ export const EquipmentDataSchema = z.object({
 export const FeatureSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
-  source: z.enum(["race", "class", "monster", "feat", "item", "other"]).optional(),
+  source: z.enum(['race', 'class', 'monster', 'feat', 'item', 'other']).optional(),
   usage_max: z.number().int().optional(),
-  usage_per: z.enum(["short_rest", "long_rest", "day", "dawn", "dusk", "other"]).optional(),
+  usage_per: z.enum(['short_rest', 'long_rest', 'day', 'dawn', 'dusk', 'other']).optional(),
 });
 
 export const InventoryItemSchema = z.object({
   item: z.unknown().optional(),
   quantity: z.number().int().optional(),
-  slot: z.enum(["backpack", "main_hand", "off_hand", "armor", "head", "feet", "neck", "hands", "cloak", "ring_1", "ring_2", "accessory"]).optional(),
+  slot: z
+    .enum([
+      'backpack',
+      'main_hand',
+      'off_hand',
+      'armor',
+      'head',
+      'feet',
+      'neck',
+      'hands',
+      'cloak',
+      'ring_1',
+      'ring_2',
+      'accessory',
+    ])
+    .optional(),
   isEquipped: z.boolean().optional(),
 });
 
 export const MechanicsConfigSchema = z.object({
-  action_type: z.enum(["Melee Spell Attack", "Ranged Spell Attack", "Strength Save", "Dexterity Save", "Constitution Save", "Intelligence Save", "Wisdom Save", "Charisma Save", "Auto-Hit", "None"]),
-  save_effect: z.enum(["Negate", "Half", "None"]).optional(),
+  action_type: z.enum([
+    'Melee Spell Attack',
+    'Ranged Spell Attack',
+    'Strength Save',
+    'Dexterity Save',
+    'Constitution Save',
+    'Intelligence Save',
+    'Wisdom Save',
+    'Charisma Save',
+    'Auto-Hit',
+    'None',
+  ]),
+  save_effect: z.enum(['Negate', 'Half', 'None']).optional(),
 });
 
 export const PlayerSchema = z.object({
@@ -169,9 +256,9 @@ export const PositionSchema = z.object({
 });
 
 export const RangeConfigSchema = z.object({
-  type: z.enum(["Self", "Touch", "Ranged (Feet)", "Ranged (Miles)", "Sight", "Unlimited"]),
+  type: z.enum(['Self', 'Touch', 'Ranged (Feet)', 'Ranged (Miles)', 'Sight', 'Unlimited']),
   distance: z.number().int().optional(),
-  aoe_shape: z.enum(["Cone", "Cube", "Cylinder", "Line", "Sphere", "Hemisphere"]).optional(),
+  aoe_shape: z.enum(['Cone', 'Cube', 'Cylinder', 'Line', 'Sphere', 'Hemisphere']).optional(),
   aoe_size: z.number().int().optional(),
   aoe_height: z.number().int().optional(),
 });
@@ -180,25 +267,25 @@ export const ResourcePoolSchema = z.object({
   name: z.string(),
   current: z.number().int(),
   max: z.number().int(),
-  reset_on: z.enum(["short_rest", "long_rest", "never", "dawn"]).optional(),
+  reset_on: z.enum(['short_rest', 'long_rest', 'never', 'dawn']).optional(),
 });
 
 export const SaveBonusSchema = z.object({
-  stat: z.enum(["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]),
+  stat: z.enum(['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']),
   value: z.number().int(),
   proficient: z.boolean().optional(),
 });
 
 export const SaveDcSchema = z.object({
   dc: z.number().int(),
-  stat: z.enum(["str", "dex", "con", "int", "wis", "cha"]),
-  success_type: z.enum(["none", "half", "other"]).optional(),
+  stat: z.enum(['str', 'dex', 'con', 'int', 'wis', 'cha']),
+  success_type: z.enum(['none', 'half', 'other']).optional(),
 });
 
 export const ScalingConfigSchema = z.object({
   scales: z.boolean().optional(),
-  type: z.enum(["Dice", "Target", "Duration"]).optional(),
-  method: z.enum(["Per Slot Level", "Every 2 Slot Levels", "Specific Thresholds"]).optional(),
+  type: z.enum(['Dice', 'Target', 'Duration']).optional(),
+  method: z.enum(['Per Slot Level', 'Every 2 Slot Levels', 'Specific Thresholds']).optional(),
   dice_count: z.number().int().optional(),
   dice_value: z.number().int().optional(),
 });
@@ -220,7 +307,18 @@ export const SpellComponentsSchema = z.object({
 
 export const SpellDataSchema = z.object({
   level: z.number().int().optional(),
-  school: z.enum(["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"]).optional(),
+  school: z
+    .enum([
+      'Abjuration',
+      'Conjuration',
+      'Divination',
+      'Enchantment',
+      'Evocation',
+      'Illusion',
+      'Necromancy',
+      'Transmutation',
+    ])
+    .optional(),
   casting_config: z.lazy(() => CastingConfigSchema).optional(),
   range_config: z.lazy(() => RangeConfigSchema).optional(),
   duration_config: z.lazy(() => DurationConfigSchema).optional(),
@@ -231,7 +329,7 @@ export const SpellDataSchema = z.object({
 export const SpellbookSchema = z.object({
   knownSpells: z.unknown().optional(),
   preparedSpells: z.unknown().optional(),
-  spellcastingAbility: z.enum(["intelligence", "wisdom", "charisma"]).optional(),
+  spellcastingAbility: z.enum(['intelligence', 'wisdom', 'charisma']).optional(),
   spellSaveDc: z.number().int().optional(),
   spellAttackBonus: z.number().int().optional(),
 });

@@ -19,10 +19,7 @@
       },
       "mechanics_validation": {
         "feature_type": "Progression/Passive Benefit",
-        "mechanic_tags": [
-          "Ability Score Increase",
-          "Customization"
-        ],
+        "mechanic_tags": ["Ability Score Increase", "Customization"],
         "interaction_notes": "Standard ASI; interacts directly with ability score modifiers and caps. No complex interactions expected outside of standard rules."
       },
       "final_verdict": "The data is consistent, high quality, and mechanically sound, accurately reflecting the standard Ability Score Improvement feature granted to Bards at the specified levels."

@@ -33,10 +33,7 @@
           "Movement: The fog moves 10 feet away from the caster at the start of each of the caster's turns.",
           "Affects creatures regardless of breath or need to breathe."
         ],
-        "classes": [
-          "sorcerer",
-          "wizard"
-        ]
+        "classes": ["sorcerer", "wizard"]
       },
       "zod_errors": "NONE"
     }

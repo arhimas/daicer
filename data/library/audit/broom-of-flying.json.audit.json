@@ -30,9 +30,7 @@
             "effect": "Flying speed reduces to 30 feet"
           }
         ],
-        "other_functions": [
-          "Can be sent to a familiar destination within 1 mile (and returns if within 1 mile)."
-        ],
+        "other_functions": ["Can be sent to a familiar destination within 1 mile (and returns if within 1 mile)."],
         "notes": "The data accurately reflects common D&D 5e item statistics for a Broom of Flying."
       }
     },

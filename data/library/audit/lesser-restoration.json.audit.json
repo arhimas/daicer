@@ -17,13 +17,7 @@
         "components_listed": "V, S",
         "duration": "Instantaneous",
         "effect": "Ends one of the following conditions on a touched creature: Blinded, Deafened, Paralyzed, or Poisoned.",
-        "class_availability": [
-          "bard",
-          "cleric",
-          "druid",
-          "paladin",
-          "ranger"
-        ]
+        "class_availability": ["bard", "cleric", "druid", "paladin", "ranger"]
       },
       "zod_errors": "NONE",
       "recommendations": "No mechanical changes necessary. The data accurately reflects the spell's function. If this data is for a system that does not support in-line linking, the anchors (`#condition`) should be removed for pure mechanical parsing, but they are acceptable for display."

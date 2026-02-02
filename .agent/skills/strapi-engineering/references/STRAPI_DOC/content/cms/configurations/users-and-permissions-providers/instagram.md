@@ -3,10 +3,10 @@ title: Instagram provider setup for Users & Permissions
 description: Learn how to setup the Instagram provider for the Users & Permissions feature.
 displayed_sidebar: cmsSidebar
 tags:
-- users and permissions
-- providers
-- configuration
-- customization
+  - users and permissions
+  - providers
+  - configuration
+  - customization
 ---
 
 import ConfigDone from '/docs/snippets/u-and-p-provider-config-done.md'
@@ -24,9 +24,11 @@ You have read the [Users & Permissions providers documentation](/cms/configurati
 :::note
 Facebook doesn't accept `localhost` urls. <br/>
 Use `ngrok` to serve the backend app.
+
 ```
 ngrok http 1337
 ```
+
 Don't forget to update the server url in the backend config file `config/server.js` and the server url in your frontend app (environment variable `REACT_APP_BACKEND_URL` if you use <ExternalLink to="https://github.com/strapi/strapi-examples/tree/master/login-react" text="react login example app"/>) with the generated ngrok url.
 :::
 

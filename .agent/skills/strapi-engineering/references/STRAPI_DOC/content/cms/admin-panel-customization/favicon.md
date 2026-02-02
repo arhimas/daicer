@@ -5,8 +5,8 @@ displayed_sidebar: cmsSidebar
 sidebar_label: Favicon
 toc_max_heading_level: 4
 tags:
-- admin panel
-- admin panel customization
+  - admin panel
+  - admin panel customization
 ---
 
 # Favicon
@@ -15,8 +15,8 @@ Strapi's [admin panel](/cms/admin-panel-customization) displays its branding on 
 
 There are 2 approaches to replacing the favicon:
 
-* Replace the `favicon.png` file at the root of a Strapi project
-* Edit the [`strapi::favicon` middleware configuration](/cms/configurations/middlewares#favicon) with the following code:
+- Replace the `favicon.png` file at the root of a Strapi project
+- Edit the [`strapi::favicon` middleware configuration](/cms/configurations/middlewares#favicon) with the following code:
 
   ```js title="/config/middlewares.js"
   // …
@@ -34,4 +34,3 @@ Once done, rebuild, launch and revisit your Strapi app by running `yarn build &&
 :::caution
 Make sure that the cached favicon is cleared. It can be cached in your web browser and also with your domain management tool like Cloudflare's CDN.
 :::
-

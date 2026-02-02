@@ -1,4 +1,3 @@
-
 /**
  * A single log entry from the compilation process.
  */
@@ -24,7 +23,7 @@ export interface CompilationResult {
    */
   error?: string;
   timestamp: string;
-  
+
   compiled?: unknown; // The resulting optimized data blob
   hash?: string; // Fingerprint for change detection
 }
@@ -34,7 +33,7 @@ export interface ICompiler<T> {
    * Unique name of the compiler (e.g. "DamageTypeCompiler")
    */
   readonly name: string;
-  
+
   /**
    * The validation phase this compiler belongs to
    */

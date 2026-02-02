@@ -15,7 +15,7 @@ export default async function genesis(
   try {
     if (type === 'atoms' || type === 'all') {
       await loadAtoms(strapi);
-      // We don't have exact count from loadAtoms yet unless we return it, 
+      // We don't have exact count from loadAtoms yet unless we return it,
       // but let's assume success.
       processed += 10; // Dummy count for now
     }

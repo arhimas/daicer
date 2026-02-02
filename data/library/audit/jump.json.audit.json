@@ -23,9 +23,7 @@
         "range_utility": "Touch requires the caster to be adjacent to the target, balancing the utility of tripling jump distance.",
         "impact_assessment": "Tripling jump distance is a significant mobility buff, useful for bypassing obstacles or achieving advantageous battlefield positioning, but its reliance on jumping makes it niche."
       },
-      "suggested_improvements": [
-        "No critical errors found. The spell is mechanically sound as described."
-      ],
+      "suggested_improvements": ["No critical errors found. The spell is mechanically sound as described."],
       "archival_status": "Approved"
     }
   },

@@ -14,10 +14,7 @@
           "walk": 25
         },
         "size": "Medium",
-        "traits": [
-          "darkvision",
-          "dwarven-resilience"
-        ],
+        "traits": ["darkvision", "dwarven-resilience"],
         "notes": "Mechanically sound for a basic race profile. Speed is standard (25ft walk). Traits are relevant to the Dwarf archetype."
       }
     },

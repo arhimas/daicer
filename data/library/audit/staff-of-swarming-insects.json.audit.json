@@ -36,14 +36,7 @@
         ],
         "attunement": {
           "required": true,
-          "classes": [
-            "bard",
-            "cleric",
-            "druid",
-            "sorcerer",
-            "warlock",
-            "wizard"
-          ]
+          "classes": ["bard", "cleric", "druid", "sorcerer", "warlock", "wizard"]
         }
       },
       "notes": "The source data mentions the required classes for attunement which is beneficial context not always present in the core description block, ensuring completeness."

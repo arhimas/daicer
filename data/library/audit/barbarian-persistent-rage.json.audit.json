@@ -19,10 +19,7 @@
       "mechanics": {
         "core_effect": "Modifies the duration or ending conditions of the Barbarian's Rage.",
         "trigger": "Reaching 15th level.",
-        "conditions_for_ending": [
-          "Falling unconscious",
-          "Choosing to end it"
-        ],
+        "conditions_for_ending": ["Falling unconscious", "Choosing to end it"],
         "comparison_to_standard": "This feature replaces the standard rules where Rage ends after 1 minute, or if the Barbarian is no longer raging, falls unconscious, or chooses to end it early (even if the time limit hasn't expired)."
       },
       "suggestions": "None needed. The data accurately reflects the standard D&D 5e feature."

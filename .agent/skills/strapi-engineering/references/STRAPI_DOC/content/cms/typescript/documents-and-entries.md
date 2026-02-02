@@ -140,10 +140,7 @@ function validateArticle(article: Data.ContentType<'api::article.article'>) {
 #### Known components
 
 ```typescript
-function processUsageMetrics(
-  id: string,
-  metrics: Data.Component<'app.metrics'>
-) {
+function processUsageMetrics(id: string, metrics: Data.Component<'app.metrics'>) {
   telemetry.send(id, { clicks: metrics.clicks, views: metrics.views });
 }
 ```
@@ -175,10 +172,7 @@ In the following example, the `uid` type is inferred upon usage as `T` and used 
 ```typescript
 import type { UID } from '@strapi/strapi';
 
-function display<T extends UID.ContentType>(
-  uid: T,
-  document: Data.ContentType<T>
-) {
+function display<T extends UID.ContentType>(uid: T, document: Data.ContentType<T>) {
   switch (uid) {
     case 'api::article.article': {
       return document.title;

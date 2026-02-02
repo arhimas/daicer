@@ -4,14 +4,13 @@ sidebar_label: Plugins
 displayed_sidebar: cmsSidebar
 description: Strapi plugins have a single entry point file to define their configurations.
 tags:
-- additional configuration
-- configuration
-- GraphQL
-- GraphQL configuration
-- plugins
-- Upload configuration
-- Upload plugin
-
+  - additional configuration
+  - configuration
+  - GraphQL
+  - GraphQL configuration
+  - plugins
+  - Upload configuration
+  - Upload plugin
 ---
 
 # Plugins configuration
@@ -22,11 +21,11 @@ tags:
 
 Plugin configurations are stored in `/config/plugins.js|ts` (see [project structure](/cms/project-structure)). Each plugin can be configured with the following available parameters:
 
-| Parameter                  | Description                                                                                                                                                            | Type    |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `enabled`                  | Enable (`true`) or disable (`false`) an installed plugin                                                                                                               | Boolean |
-| `config`<br/><br/>_Optional_ | Used to override default plugin configuration ([defined in strapi-server.js](/cms/plugins-development/server-api#configuration)) | Object  |
-| `resolve`<br/> _Optional, only required for local plugins_             | Path to the plugin's folder                                                                                                                                            | String  |
+| Parameter                                                  | Description                                                                                                                      | Type    |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `enabled`                                                  | Enable (`true`) or disable (`false`) an installed plugin                                                                         | Boolean |
+| `config`<br/><br/>_Optional_                               | Used to override default plugin configuration ([defined in strapi-server.js](/cms/plugins-development/server-api#configuration)) | Object  |
+| `resolve`<br/> _Optional, only required for local plugins_ | Path to the plugin's folder                                                                                                      | String  |
 
 :::note
 Some features of Strapi are provided by plugins and the following plugins can also have specific configuration options: the [GraphQL](/cms/plugins/graphql#code-based-configuration) plugin, the [Upload](/cms/features/media-library#available-options) package which powers the Media Library, and [Users & Permissions](/cms/features/users-permissions#code-based-configuration).
@@ -39,7 +38,6 @@ Some features of Strapi are provided by plugins and the following plugins can al
 <TabItem value="javascript" label="JavaScript">
 
 ```js title="./config/plugins.js"
-
 module.exports = ({ env }) => ({
   // enable a plugin that doesn't require any configuration
   i18n: true,
@@ -66,7 +64,6 @@ module.exports = ({ env }) => ({
 <TabItem value="typescript" label="TypeScript">
 
 ```ts title="./config/plugins.ts"
-
 export default ({ env }) => ({
   // enable a plugin that doesn't require any configuration
   i18n: true,

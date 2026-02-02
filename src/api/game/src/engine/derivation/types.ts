@@ -9,7 +9,7 @@ export interface DerivationContext {
   proficiencyBonus: number;
   level: number;
   equipment: SerializedItem[];
-  
+
   // Entity Context used by derivation pipeline logic
   // Race can be simple string (name) or object with traits
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,14 +18,14 @@ export interface DerivationContext {
   spells?: SerializedSpell[];
   innateActions?: RuntimeAction[]; // or raw
   actions?: RuntimeAction[];
-  
+
   // Vitals
   hp?: number;
   maxHp?: number;
   ac?: number;
   hitDie?: string | number; // Allow number if already parsed or string "1d8"
   speed?: number | { walk: number; [key: string]: number };
-  
+
   // Classification
   isMonster?: boolean;
   type?: string;
@@ -35,12 +35,30 @@ export interface DerivationContext {
 }
 
 // Conflict resolution: Attributes is exported by attributes.ts, avoid re-exporting alias here
-// export type Attributes = EntityStats; 
+// export type Attributes = EntityStats;
 
 // Validation Context for Hydration Dry Runs in Compilers
 export const createValidationContext = (): DerivationContext => ({
-  stats: { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10, passivePerception: 10, initiativeBonus: 0 },
-  attributes: { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10, passivePerception: 10, initiativeBonus: 0 },
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    passivePerception: 10,
+    initiativeBonus: 0,
+  },
+  attributes: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    passivePerception: 10,
+    initiativeBonus: 0,
+  },
   proficiencyBonus: 2,
   spellcastingAbility: 'intelligence',
   level: 1,
@@ -101,13 +119,12 @@ export interface RuntimeAction {
     duration?: number;
     chance?: number;
   }>;
-  
+
   // Storage for original entity properties if needed for logic (like Finesse)
   properties?: string[];
-  
+
   // Spell/Feature Metadata
   concentration?: boolean;
   level?: number; // Convenience for spell level (mirrors cost.amount usually)
   originalRange?: string; // String representation for UI or legacy checks
 }
-

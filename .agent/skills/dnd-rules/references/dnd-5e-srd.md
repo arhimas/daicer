@@ -20,7 +20,7 @@ You've developed the skills necessary to hold your own in close-quarters grappli
 
 - You have advantage on attack rolls against a creature you are grappling.
 - You can use your action to try to pin a creature [grappled](#grappled) by you. To do so, make another grapple check.
-If you succeed, you and the creature are both [restrained](#restrained) until the grapple ends.
+  If you succeed, you and the creature are both [restrained](#restrained) until the grapple ends.
 
 ## Inspiration {#section-inspiration}
 
@@ -157,12 +157,15 @@ The Celtic, Egyptian, Greek, and Norse pantheons are fantasy interpretations of 
 </table>
 
 ## The Egyptian Pantheon {#section-the-egyptian-pantheon}
+
 (See original for full list)
 
 ## The Greek Pantheon {#section-the-greek-pantheon}
+
 (See original for full list)
 
 ## The Norse Pantheon {#section-the-norse-pantheon}
+
 (See original for full list)
 
 # Races {#chapter-races}
@@ -170,38 +173,50 @@ The Celtic, Egyptian, Greek, and Norse pantheons are fantasy interpretations of 
 ## Racial Traits {#section-racial-traits}
 
 ### Ability Score Increase
+
 Every race increases one or more of a character's ability scores.
 
 ### Age
+
 The age entry notes the age when a member of the race is considered an adult...
 
 ### Alignment
+
 Most races have tendencies toward certain alignments...
 
 ### Size
+
 Characters of most races are Medium...
 
 ### Speed
+
 Your speed determines how far you can move...
 
 ### Languages
+
 By virtue of your race, your character can speak, read, and write certain languages.
 
 ## Dragonborn {#section-dragonborn}
+
 ### Dragonborn Traits
+
 **_Ability Score Increase._** Strength +2, Charisma +1.
 **_Breath Weapon._** Use action to exhale destructive energy.
 **_Damage Resistance._** Associated with draconic ancestry.
 
 ## Dwarf {#section-dwarf}
+
 ### Dwarf Traits
+
 **_Ability Score Increase._** Constitution +2.
 **_Darkvision._** 60ft.
 **_Dwarven Resilience._** Advantage vs poison.
 **_Dwarven Combat Training._** Battleaxe, handaxe, light hammer, warhammer.
 
 ## Elf {#section-elf}
+
 ### Elf Traits
+
 **_Ability Score Increase._** Dexterity +2.
 **_Darkvision._** 60ft.
 **_Keen Senses._** Proficiency in Perception.
@@ -209,35 +224,47 @@ By virtue of your race, your character can speak, read, and write certain langua
 **_Trance._** Meditate 4 hours instead of sleep.
 
 ## Gnome {#section-gnome}
+
 ### Gnome Traits
+
 **_Ability Score Increase._** Intelligence +2.
 **_Gnome Cunning._** Advantage on Int, Wis, Cha saves vs magic.
 
 ## Half-Elf {#section-half-elf}
+
 ### Half-Elf Traits
+
 **_Ability Score Increase._** Charisma +2, +1 to two others.
 **_Fey Ancestry._** Advantage vs charm, immune to magic sleep.
 **_Skill Versatility._** Proficiency in two skills.
 
 ## Half-Orc {#section-half-orc}
+
 ### Half-Orc Traits
+
 **_Ability Score Increase._** Strength +2, Constitution +1.
 **_Relentless Endurance._** Drop to 1 HP instead of 0 (once/long rest).
 **_Savage Attacks._** Extra die on crit.
 
 ## Halfling {#section-halfling}
+
 ### Halfling Traits
+
 **_Ability Score Increase._** Dexterity +2.
 **_Lucky._** Reroll 1s on attack/ability/save.
 **_Brave._** Advantage vs frightened.
 **_Halfling Nimbleness._** Move through larger creatures' spaces.
 
 ## Human {#section-human}
+
 ### Human Traits
+
 **_Ability Score Increase._** All abilities +1.
 
 ## Tiefling {#section-tiefling}
+
 ### Tiefling Traits
+
 **_Ability Score Increase._** Intelligence +1, Charisma +2.
 **_Hellish Resistance._** Resistance to fire.
 **_Infernal Legacy._** Thaumaturgy, Hellish Rebuke (3rd), Darkness (5th).
@@ -245,24 +272,28 @@ By virtue of your race, your character can speak, read, and write certain langua
 # Classes {#chapter-classes}
 
 ## Barbarian {#section-barbarian}
+
 **Hit Die:** d12
 **Primary:** Strength
 **Saves:** Strength, Constitution
 **Features:** Rage, Unarmored Defense, Reckless Attack.
 
 ## Bard {#section-bard}
+
 **Hit Die:** d8
 **Primary:** Charisma
 **Saves:** Dexterity, Charisma
 **Features:** Spellcasting, Bardic Inspiration, Jack of All Trades.
 
 ## Cleric {#section-cleric}
+
 **Hit Die:** d8
 **Primary:** Wisdom
 **Saves:** Wisdom, Charisma
 **Features:** Spellcasting, Divine Domain, Channel Divinity, Destroy Undead.
 
 ## Druid {#section-druid}
+
 **Hit Die:** d8
 **Primary:** Wisdom
 **Saves:** Intelligence, Wisdom

@@ -27,10 +27,7 @@
         "components": "S, M (a lead-based ink worth at least 10 gp, which the spell consumes)",
         "duration": "10 days",
         "effect_summary": "Alters the appearance of written text on a surface so that only the caster and designated creatures see the true message, while others see gibberish or a false message. Dispelling removes both messages.",
-        "countermeasures": [
-          "Dispel Magic (removes both messages)",
-          "Truesight (allows reading of the hidden message)"
-        ]
+        "countermeasures": ["Dispel Magic (removes both messages)", "Truesight (allows reading of the hidden message)"]
       }
     },
     "zod_errors": "NONE"

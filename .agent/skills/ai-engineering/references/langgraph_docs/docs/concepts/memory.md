@@ -40,18 +40,15 @@ The most direct approach is to remove old messages from a list (similar to a [le
 The typical technique for deleting content from a list in LangGraph is to return an update from a node telling the system to delete some portion of the list. You get to define what this update looks like, but a common approach would be to let you return an object or dictionary specifying which values to retain.
 
 ```typescript
-import { Annotation } from "@langchain/langgraph";
+import { Annotation } from '@langchain/langgraph';
 
 const StateAnnotation = Annotation.Root({
   myList: Annotation<any[]>({
-    reducer: (
-      existing: string[],
-      updates: string[] | { type: string; from: number; to?: number }
-    ) => {
+    reducer: (existing: string[], updates: string[] | { type: string; from: number; to?: number }) => {
       if (Array.isArray(updates)) {
         // Normal case, add to the history
         return [...existing, ...updates];
-      } else if (typeof updates === "object" && updates.type === "keep") {
+      } else if (typeof updates === 'object' && updates.type === 'keep') {
         // You get to decide what this looks like.
         // For example, you could simplify and just accept a string "DELETE"
         // and clear the entire list.
@@ -70,7 +67,7 @@ function myNode(state: State) {
   return {
     // We return an update for the field "myList" saying to
     // keep only values from index -5 to the end (deleting the rest)
-    myList: { type: "keep", from: -5, to: undefined },
+    myList: { type: 'keep', from: -5, to: undefined },
   };
 }
 ```
@@ -80,21 +77,19 @@ LangGraph will call the "[reducer](low_level.md#reducers)" function any time an 
 Another common approach is to let you return a list of "remove" objects that specify the IDs of all messages to delete. If you're using the LangChain messages and the [`messagesStateReducer`](https://langchain-ai.github.io/langgraphjs/reference/functions/langgraph.messagesStateReducer.html) reducer (or [`MessagesAnnotation`](https://langchain-ai.github.io/langgraphjs/reference/variables/langgraph.MessagesAnnotation.html), which uses the same underlying functionality) in LangGraph, you can do this using a `RemoveMessage`.
 
 ```typescript
-import { RemoveMessage, AIMessage } from "@langchain/core/messages";
-import { MessagesAnnotation } from "@langchain/langgraph";
+import { RemoveMessage, AIMessage } from '@langchain/core/messages';
+import { MessagesAnnotation } from '@langchain/langgraph';
 
 type State = typeof MessagesAnnotation.State;
 
 function myNode1(state: State) {
   // Add an AI message to the `messages` list in the state
-  return { messages: [new AIMessage({ content: "Hi" })] };
+  return { messages: [new AIMessage({ content: 'Hi' })] };
 }
 
 function myNode2(state: State) {
   // Delete all but the last 2 messages from the `messages` list in the state
-  const deleteMessages = state.messages
-    .slice(0, -2)
-    .map((m) => new RemoveMessage({ id: m.id }));
+  const deleteMessages = state.messages.slice(0, -2).map((m) => new RemoveMessage({ id: m.id }));
   return { messages: deleteMessages };
 }
 ```
@@ -112,7 +107,7 @@ The problem with trimming or removing messages, as shown above, is that we may l
 Simple prompting and orchestration logic can be used to achieve this. As an example, in LangGraph we can extend the [`MessagesAnnotation`](https://langchain-ai.github.io/langgraphjs/reference/variables/langgraph.MessagesAnnotation.html) to include a `summary` key.
 
 ```typescript
-import { MessagesAnnotation, Annotation } from "@langchain/langgraph";
+import { MessagesAnnotation, Annotation } from '@langchain/langgraph';
 
 const MyGraphAnnotation = Annotation.Root({
   ...MessagesAnnotation.spec,
@@ -123,14 +118,14 @@ const MyGraphAnnotation = Annotation.Root({
 Then, we can generate a summary of the chat history, using any existing summary as context for the next summary. This `summarizeConversation` node can be called after some number of messages have accumulated in the `messages` state key.
 
 ```typescript
-import { ChatOpenAI } from "@langchain/openai";
-import { HumanMessage, RemoveMessage } from "@langchain/core/messages";
+import { ChatOpenAI } from '@langchain/openai';
+import { HumanMessage, RemoveMessage } from '@langchain/core/messages';
 
 type State = typeof MyGraphAnnotation.State;
 
 async function summarizeConversation(state: State) {
   // First, we get any existing summary
-  const summary = state.summary || "";
+  const summary = state.summary || '';
 
   // Create our summarization prompt
   let summaryMessage: string;
@@ -138,25 +133,20 @@ async function summarizeConversation(state: State) {
     // A summary already exists
     summaryMessage =
       `This is a summary of the conversation to date: ${summary}\n\n` +
-      "Extend the summary by taking into account the new messages above:";
+      'Extend the summary by taking into account the new messages above:';
   } else {
-    summaryMessage = "Create a summary of the conversation above:";
+    summaryMessage = 'Create a summary of the conversation above:';
   }
 
   // Add prompt to our history
-  const messages = [
-    ...state.messages,
-    new HumanMessage({ content: summaryMessage }),
-  ];
+  const messages = [...state.messages, new HumanMessage({ content: summaryMessage })];
 
   // Assuming you have a ChatOpenAI model instance
   const model = new ChatOpenAI();
   const response = await model.invoke(messages);
 
   // Delete all but the 2 most recent messages
-  const deleteMessages = state.messages
-    .slice(0, -2)
-    .map((m) => new RemoveMessage({ id: m.id }));
+  const deleteMessages = state.messages.slice(0, -2).map((m) => new RemoveMessage({ id: m.id }));
 
   return {
     summary: response.content,
@@ -174,26 +164,26 @@ Most LLMs have a maximum supported context window (denominated in tokens). A sim
 Below is an example.
 
 ```typescript
-import { trimMessages } from "@langchain/core/messages";
-import { ChatOpenAI } from "@langchain/openai";
+import { trimMessages } from '@langchain/core/messages';
+import { ChatOpenAI } from '@langchain/openai';
 
 trimMessages(messages, {
   // Keep the last <= n_count tokens of the messages.
-  strategy: "last",
+  strategy: 'last',
   // Remember to adjust based on your model
   // or else pass a custom token_encoder
-  tokenCounter: new ChatOpenAI({ modelName: "gpt-4" }),
+  tokenCounter: new ChatOpenAI({ modelName: 'gpt-4' }),
   // Remember to adjust based on the desired conversation
   // length
   maxTokens: 45,
   // Most chat models expect that chat history starts with either:
   // (1) a HumanMessage or
   // (2) a SystemMessage followed by a HumanMessage
-  startOn: "human",
+  startOn: 'human',
   // Most chat models expect that chat history ends with either:
   // (1) a HumanMessage or
   // (2) a ToolMessage
-  endOn: ["human", "tool"],
+  endOn: ['human', 'tool'],
   // Usually, we want to keep the SystemMessage
   // if it's present in the original history.
   // The SystemMessage has special instructions for the model.
@@ -208,25 +198,22 @@ Long-term memory in LangGraph allows systems to retain information across differ
 LangGraph stores long-term memories as JSON documents in a [store](persistence.md#memory-store) ([reference doc](https://langchain-ai.github.io/langgraphjs/reference/classes/checkpoint.BaseStore.html)). Each memory is organized under a custom `namespace` (similar to a folder) and a distinct `key` (like a filename). Namespaces often include user or org IDs or other labels that make it easier to organize information. This structure enables hierarchical organization of memories. Cross-namespace searching is then supported through content filters. See the example below for an example.
 
 ```typescript
-import { InMemoryStore } from "@langchain/langgraph";
+import { InMemoryStore } from '@langchain/langgraph';
 
 // InMemoryStore saves data to an in-memory dictionary. Use a DB-backed store in production use.
 const store = new InMemoryStore();
-const userId = "my-user";
-const applicationContext = "chitchat";
+const userId = 'my-user';
+const applicationContext = 'chitchat';
 const namespace = [userId, applicationContext];
-await store.put(namespace, "a-memory", {
-  rules: [
-    "User likes short, direct language",
-    "User only speaks English & TypeScript",
-  ],
-  "my-key": "my-value",
+await store.put(namespace, 'a-memory', {
+  rules: ['User likes short, direct language', 'User only speaks English & TypeScript'],
+  'my-key': 'my-value',
 });
 // get the "memory" by ID
-const item = await store.get(namespace, "a-memory");
+const item = await store.get(namespace, 'a-memory');
 // list "memories" within this namespace, filtering on content equivalence
 const items = await store.search(namespace, {
-  filter: { "my-key": "my-value" },
+  filter: { 'my-key': 'my-value' },
 });
 ```
 
@@ -313,14 +300,14 @@ One way to apply this is using "reflection" or "Meta-prompting" steps. Prompt th
 Meta-prompting uses past information to refine prompts. For instance, a [Tweet generator](https://www.youtube.com/watch?v=Vn8A3BxfplE) employs meta-prompting to enhance its paper summarization prompt for Twitter. You could implement this using LangGraph's memory store to save updated instructions in a shared namespace. In this case, we will namespace the memories as "agent_instructions" and key the memory based on the agent.
 
 ```typescript
-import { BaseStore } from "@langchain/langgraph/store";
-import { State } from "@langchain/langgraph";
-import { ChatOpenAI } from "@langchain/openai";
+import { BaseStore } from '@langchain/langgraph/store';
+import { State } from '@langchain/langgraph';
+import { ChatOpenAI } from '@langchain/openai';
 
 // Node that *uses* the instructions
 const callModel = async (state: State, store: BaseStore) => {
-  const namespace = ["agent_instructions"];
-  const instructions = await store.get(namespace, "agent_a");
+  const namespace = ['agent_instructions'];
+  const instructions = await store.get(namespace, 'agent_a');
   // Application logic
   const prompt = promptTemplate.format({
     instructions: instructions[0].value.instructions,
@@ -330,7 +317,7 @@ const callModel = async (state: State, store: BaseStore) => {
 
 // Node that updates instructions
 const updateInstructions = async (state: State, store: BaseStore) => {
-  const namespace = ["instructions"];
+  const namespace = ['instructions'];
   const currentInstructions = await store.search(namespace);
   // Memory logic
   const prompt = promptTemplate.format({
@@ -340,7 +327,7 @@ const updateInstructions = async (state: State, store: BaseStore) => {
   const llm = new ChatOpenAI();
   const output = await llm.invoke(prompt);
   const newInstructions = output.content; // Assuming the LLM returns the new instructions
-  await store.put(["agent_instructions"], "agent_a", {
+  await store.put(['agent_instructions'], 'agent_a', {
     instructions: newInstructions,
   });
   // ... rest of the logic

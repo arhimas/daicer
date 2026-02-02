@@ -1,859 +1,1009 @@
 import React, { useState, useEffect } from 'react';
-import { 
-    Box, 
-    Typography, 
-    Button, 
-    Flex, 
-    Textarea,
-    SingleSelect,
-    SingleSelectOption,
-    Grid
+import {
+  Box,
+  Typography,
+  Button,
+  Flex,
+  Textarea,
+  SingleSelect,
+  SingleSelectOption,
+  Grid,
 } from '@strapi/design-system';
 import { Pencil, PaintBrush, Eye, Magic, Code, Check, Pin } from '@strapi/icons';
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
 
-
 interface PixelForgeProps {
-    name: string;
-    value: string;
-    onChange: (e: { target: { name: string; value: string; type: string } }) => void;
+  name: string;
+  value: string;
+  onChange: (e: { target: { name: string; value: string; type: string } }) => void;
 }
 
 interface EntityZone {
-    id: number;
-    documentId: string;
-    name: string;
-    slug: string;
-    symbol: string;
-    color: string;
-    description?: string;
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  symbol: string;
+  color: string;
+  description?: string;
 }
 
 interface Blueprint {
-    id: number;
-    documentId: string;
-    name: string;
-    category: string;
-    description?: string;
-    grid: string[][];
-    zones?: Record<string, unknown>;
+  id: number;
+  documentId: string;
+  name: string;
+  category: string;
+  description?: string;
+  grid: string[][];
+  zones?: Record<string, unknown>;
 }
 
 interface Socket {
-    x: number;
-    y: number;
-    label?: string;
+  x: number;
+  y: number;
+  label?: string;
 }
 
 interface PixelForgeMetadata {
-    blueprint?: string[][];
-    loadedBlueprint?: string;
-    sockets?: Socket[];
-    [key: string]: unknown;
+  blueprint?: string[][];
+  loadedBlueprint?: string;
+  sockets?: Socket[];
+  [key: string]: unknown;
 }
 
 interface StrapiContext {
-    form?: {
-        values?: Record<string, unknown>;
-    };
-    model?: string | { uid: string };
-    contentType?: { uid: string };
+  form?: {
+    values?: Record<string, unknown>;
+  };
+  model?: string | { uid: string };
+  contentType?: { uid: string };
 }
 
 interface EntityData {
-    id?: number | string;
-    documentId?: string;
-    width?: number;
-    height?: number;
-    name?: string;
-    description?: string;
-    [key: string]: unknown;
+  id?: number | string;
+  documentId?: string;
+  width?: number;
+  height?: number;
+  name?: string;
+  description?: string;
+  [key: string]: unknown;
 }
 
 /**
  * **Pixel Forge II (SOTA Editor)**
- * 
+ *
  * A Dynamic Pixel Art Editor embedded directly into the Strapi Content Manager.
  * Supports Variable Resolutions (32x32 to 128x128) based on Entity Size.
  * Updated for Gemini 3 Compatibility and Data I/O.
- * 
+ *
  * @security Strict Types Enforced
  */
 export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
-    const { post, get } = useFetchClient();
-    const { form, model: currentModel, contentType } = useContentManagerContext() as unknown as StrapiContext; 
-    
-    // Resolve Model UID safe
-    const modelUid = (typeof currentModel === 'string' ? currentModel : currentModel?.uid) || contentType?.uid; 
-    
-    // Strict Access
-    const modifiedData = (form?.values || {}) as EntityData;
+  const { post, get } = useFetchClient();
+  const {
+    form,
+    model: currentModel,
+    contentType,
+  } = useContentManagerContext() as unknown as StrapiContext;
 
-    console.log('[PixelForge] Debug Context:', { 
-        hasForm: !!form, 
-        valuesKeys: Object.keys(modifiedData),
-        id: modifiedData.id,
-        docId: modifiedData.documentId,
-        model: modelUid
-    });
-    
-    // Dynamic Sizing (Tiles -> Pixels)
-    const widthTiles = modifiedData.width || 1;
-    const heightTiles = modifiedData.height || 1;
-    // Default to 32x32 if no explicit sizing (Standard Blueprint Size)
-    const gridWidth = modifiedData.width ? widthTiles * 32 : 32;
-    const gridHeight = modifiedData.height ? heightTiles * 32 : 32;
-    
-    // Data State
-    const [pixels, setPixels] = useState<string[][]>(Array(gridHeight).fill(Array(gridWidth).fill('transparent')));
-    const [metadata, setMetadata] = useState<PixelForgeMetadata>({});
-    
-    
-    // UI State
-    const [tool, setTool] = useState<'pencil' | 'eraser' | 'picker' | 'pin'>('pencil');
-    const [color, setColor] = useState('#FF0000');
-    const [isDrawing, setIsDrawing] = useState(false);
-    
-    // AI State
-    const [prompt, setPrompt] = useState("");
-    const [model, setModel] = useState("gemini-3-flash-preview"); // Default to Gemini 3 Flash
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [jobId, setJobId] = useState<string | null>(null);
-    const [jobStatus, setJobStatus] = useState<'queued'|'active'|'completed'|'failed'|null>(null);
-    
-    // UI Visuals
-    const [showBlueprint, setShowBlueprint] = useState(false);
-    const [blueprintOpacity, setBlueprintOpacity] = useState(0.5);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  // Resolve Model UID safe
+  const modelUid =
+    (typeof currentModel === 'string' ? currentModel : currentModel?.uid) || contentType?.uid;
 
-    // Data I/O State
-    const [isDataModalOpen, setIsDataModalOpen] = useState(false);
-    const [dataJson, setDataJson] = useState("");
+  // Strict Access
+  const modifiedData = (form?.values || {}) as EntityData;
 
-    // Initial Load & Resizing Logic
-    useEffect(() => {
-        if (value) {
-            try {
-                const parsed = typeof value === 'string' ? JSON.parse(value) : value;
-                let loadedPixels: string[][] = [];
+  console.log('[PixelForge] Debug Context:', {
+    hasForm: !!form,
+    valuesKeys: Object.keys(modifiedData),
+    id: modifiedData.id,
+    docId: modifiedData.documentId,
+    model: modelUid,
+  });
 
-                if (Array.isArray(parsed) && Array.isArray(parsed[0])) {
-                    loadedPixels = parsed;
-                } else if (parsed.pixels) {
-                    loadedPixels = parsed.pixels;
-                    if (parsed.prompt) setPrompt(parsed.prompt);
-                    if (parsed.metadata) {
-                        setMetadata(parsed.metadata);
-                    }
-                }
+  // Dynamic Sizing (Tiles -> Pixels)
+  const widthTiles = modifiedData.width || 1;
+  const heightTiles = modifiedData.height || 1;
+  // Default to 32x32 if no explicit sizing (Standard Blueprint Size)
+  const gridWidth = modifiedData.width ? widthTiles * 32 : 32;
+  const gridHeight = modifiedData.height ? heightTiles * 32 : 32;
 
-                // Resize Guard: If loaded pixels don't match grid size, pad or crop?
-                if (loadedPixels.length !== gridHeight || (loadedPixels[0] && loadedPixels[0].length !== gridWidth)) {
-                    console.warn(`PixelForge: Dimension mismatch. Loaded ${loadedPixels.length}x${loadedPixels[0]?.length}, Expected ${gridWidth}x${gridHeight}. Resizing...`);
-                    // Create new empty grid of correct size
-                    const newGrid = Array(gridHeight).fill(null).map(() => Array(gridWidth).fill('transparent'));
-                    // Copy what fits
-                    for(let y=0; y<Math.min(loadedPixels.length, gridHeight); y++) {
-                        for(let x=0; x<Math.min(loadedPixels[0].length, gridWidth); x++) {
-                            newGrid[y][x] = loadedPixels[y][x];
-                        }
-                    }
-                    setPixels(newGrid);
-                } else {
-                    setPixels(loadedPixels);
-                }
+  // Data State
+  const [pixels, setPixels] = useState<string[][]>(
+    Array(gridHeight).fill(Array(gridWidth).fill('transparent'))
+  );
+  const [metadata, setMetadata] = useState<PixelForgeMetadata>({});
 
-            } catch(e) {
-                console.error("PixelForge: Failed to parse value", e);
+  // UI State
+  const [tool, setTool] = useState<'pencil' | 'eraser' | 'picker' | 'pin'>('pencil');
+  const [color, setColor] = useState('#FF0000');
+  const [isDrawing, setIsDrawing] = useState(false);
+
+  // AI State
+  const [prompt, setPrompt] = useState('');
+  const [model, setModel] = useState('gemini-3-flash-preview'); // Default to Gemini 3 Flash
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [jobStatus, setJobStatus] = useState<'queued' | 'active' | 'completed' | 'failed' | null>(
+    null
+  );
+
+  // UI Visuals
+  const [showBlueprint, setShowBlueprint] = useState(false);
+  const [blueprintOpacity, setBlueprintOpacity] = useState(0.5);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Data I/O State
+  const [isDataModalOpen, setIsDataModalOpen] = useState(false);
+  const [dataJson, setDataJson] = useState('');
+
+  // Initial Load & Resizing Logic
+  useEffect(() => {
+    if (value) {
+      try {
+        const parsed = typeof value === 'string' ? JSON.parse(value) : value;
+        let loadedPixels: string[][] = [];
+
+        if (Array.isArray(parsed) && Array.isArray(parsed[0])) {
+          loadedPixels = parsed;
+        } else if (parsed.pixels) {
+          loadedPixels = parsed.pixels;
+          if (parsed.prompt) setPrompt(parsed.prompt);
+          if (parsed.metadata) {
+            setMetadata(parsed.metadata);
+          }
+        }
+
+        // Resize Guard: If loaded pixels don't match grid size, pad or crop?
+        if (
+          loadedPixels.length !== gridHeight ||
+          (loadedPixels[0] && loadedPixels[0].length !== gridWidth)
+        ) {
+          console.warn(
+            `PixelForge: Dimension mismatch. Loaded ${loadedPixels.length}x${loadedPixels[0]?.length}, Expected ${gridWidth}x${gridHeight}. Resizing...`
+          );
+          // Create new empty grid of correct size
+          const newGrid = Array(gridHeight)
+            .fill(null)
+            .map(() => Array(gridWidth).fill('transparent'));
+          // Copy what fits
+          for (let y = 0; y < Math.min(loadedPixels.length, gridHeight); y++) {
+            for (let x = 0; x < Math.min(loadedPixels[0].length, gridWidth); x++) {
+              newGrid[y][x] = loadedPixels[y][x];
             }
+          }
+          setPixels(newGrid);
         } else {
-            // Initialize empty grid if no value
-            setPixels(Array(gridHeight).fill(Array(gridWidth).fill('transparent')));
+          setPixels(loadedPixels);
         }
-    }, [value, gridWidth, gridHeight]);
+      } catch (e) {
+        console.error('PixelForge: Failed to parse value', e);
+      }
+    } else {
+      // Initialize empty grid if no value
+      setPixels(Array(gridHeight).fill(Array(gridWidth).fill('transparent')));
+    }
+  }, [value, gridWidth, gridHeight]);
 
-    // Polling System
-    useEffect(() => {
-        if (!jobId || jobStatus === 'completed' || jobStatus === 'failed') return;
-        
-        const poll = async () => {
-            try {
-                const { data } = await get(`/map-explorer/forge/status/${jobId}`);
-                setJobStatus(data.state);
-                
-                if (data.state === 'completed' && data.result) {
-                    if (data.result.pixelData) {
-                         setPixels(data.result.pixelData);
-                         // Store Blueprint Semantic Data if present
-                         if (data.result.blueprint) {
-                             const newMeta = { ...metadata, blueprint: data.result.blueprint };
-                             setMetadata(newMeta);
-                             propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt, newMeta);
-                             setShowBlueprint(true); // Auto-show
-                         } else {
-                             propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
-                         }
-                    }
-                    setIsGenerating(false);
-                    setJobId(null);
-                } else if (data.state === 'failed') {
-                    setIsGenerating(false);
-                    setJobId(null);
-                }
-            } catch (err) {
-                console.error("Poll Error", err);
-            }
-        };
+  // Polling System
+  useEffect(() => {
+    if (!jobId || jobStatus === 'completed' || jobStatus === 'failed') return;
 
-        const interval = setInterval(poll, 2000);
-        return () => clearInterval(interval);
-    }, [jobId, jobStatus]);
+    const poll = async () => {
+      try {
+        const { data } = await get(`/map-explorer/forge/status/${jobId}`);
+        setJobStatus(data.state);
 
-    // Auto-Context
-    useEffect(() => {
-        if (!prompt && modifiedData) {
-            const parts = [];
-            if (modifiedData.category && typeof modifiedData.category === 'string') parts.push(`[${modifiedData.category}]`);
-            if (modifiedData.name) parts.push(modifiedData.name);
-            if (modifiedData.description) parts.push(modifiedData.description);
-            if (parts.length > 0) setPrompt(parts.join(' - '));
-        }
-    }, [modifiedData, prompt]);
-
-    const handleGenerate = async () => {
-        if (!prompt) return;
-
-        // Dynamic Archetype Mapping
-        const category = modifiedData.category || 'Creature';
-        let type: 'Sprite' | 'Terrain' | 'Item' | 'Environment' | 'Blueprint' = 'Sprite';
-        let archetype = 'Humanoid';
-
-        if (modelUid === 'api::blueprint.blueprint') {
-             type = 'Blueprint';
-             archetype = 'Structure';
-        } else if (['Terrain', 'Environment', 'Landscape', 'Floor', 'Wall'].includes(category as string)) {
-            type = 'Terrain';
-            archetype = 'Landscape';
-        } else if (['Item', 'Equipment', 'Weapon', 'Armor'].includes(category as string)) {
-            type = 'Item';
-            archetype = 'Item';
-        }
-
-        setIsGenerating(true);
-        setJobStatus('queued');
-        try {
-             const { data } = await post('/map-explorer/forge/dispatch', {
-                 prompt, 
-                 type, 
-                 archetype, 
-                 size: 'Custom', 
-                 width: gridWidth,
-                 height: gridHeight,
-                 model,
-
-                 inputPixels: pixels,
-                 action: type === 'Blueprint' ? 'generate_blueprint' : 'generate_pixel',
-                 // SOTA Context Payload
-                 // 1. If we have an ID, we send it for Deep Fetch.
-                 // 2. ALWAYS send entityData (form values) as fallback/primary for Drafts.
-                 // NOTE: We spread modifiedData to ensure it is a plain serializable object.
-                 entityData: { ...modifiedData }, 
-                 entityContext: {
-                     uid: modelUid,
-                     // If new, this will be undefined, triggering the backend Fallback to entityData
-                     documentId: modifiedData?.documentId || modifiedData?.id 
-                 }
-             });
-             
-             if (data.jobId) setJobId(data.jobId);
-        } catch (_err) {
-            setIsGenerating(false);
-            setJobStatus('failed');
-        }
-    };
-
-    const propagateChange = (newPixels: string[][], newPrompt: string, newMetadata?: Record<string, unknown>) => {
-        onChange({
-            target: {
-                name,
-                value: JSON.stringify({
-                    pixels: newPixels,
-                    prompt: newPrompt,
-                    metadata: newMetadata || metadata
-                }),
-                type: 'json'
-            }
-        });
-    };
-
-    const handlePixelClick = (x: number, y: number) => {
-        if (!isDrawing && tool !== 'pin' && tool !== 'picker') return;
-
-        // Clone grid for mutation
-        const newPixels = pixels.map(row => [...row]);
-
-        // 1. PIN TOOL LOGIC
-        if (tool === 'pin') {
-            // Toggle Pin
-            const existingSocketIndex = metadata?.sockets?.findIndex(s => s.x === x && s.y === y);
-            const newSockets = metadata?.sockets ? [...metadata.sockets] : [];
-
-            if (existingSocketIndex !== undefined && existingSocketIndex >= 0) {
-                // Remove existing
-                newSockets.splice(existingSocketIndex, 1);
+        if (data.state === 'completed' && data.result) {
+          if (data.result.pixelData) {
+            setPixels(data.result.pixelData);
+            // Store Blueprint Semantic Data if present
+            if (data.result.blueprint) {
+              const newMeta = { ...metadata, blueprint: data.result.blueprint };
+              setMetadata(newMeta);
+              propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt, newMeta);
+              setShowBlueprint(true); // Auto-show
             } else {
-                // Add new - Prompt for Label
-                const label = window.prompt("Enter Socket Label (e.g., 'Center', 'Hand_R'):", "Point");
-                if (label) {
-                    newSockets.push({ x, y, label });
-                }
+              propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
             }
-            
-            const newMeta = { ...metadata, sockets: newSockets };
-            setMetadata(newMeta);
-            propagateChange(pixels, prompt, newMeta); // Propagate metadata change ONLY (pixels untouched)
-            return;
+          }
+          setIsGenerating(false);
+          setJobId(null);
+        } else if (data.state === 'failed') {
+          setIsGenerating(false);
+          setJobId(null);
         }
-
-        // 2. PICKER TOOL LOGIC
-        if (tool === 'picker') {
-            const pickedColor = newPixels[y][x];
-             if (pickedColor !== 'transparent') {
-                 setColor(pickedColor);
-                 setTool('pencil');
-             }
-             return;
-        }
-
-        // 3. PENCIL / ERASER LOGIC
-        if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
-            newPixels[y][x] = tool === 'eraser' ? 'transparent' : color;
-            setPixels(newPixels);
-            
-            // If Blueprint Mode, auto-update metadata.blueprint grid
-            const newMeta = { ...metadata };
-            if (modelUid === 'api::blueprint.blueprint') {
-                 // In BP mode, the visual grid IS the blueprint data
-                 newMeta.blueprint = newPixels;
-            }
-
-            propagateChange(newPixels, prompt, newMeta);
-        }
+      } catch (err) {
+        console.error('Poll Error', err);
+      }
     };
 
-    // Helper to avoid browser 'prompt' blocking if desired, but for now standard prompt is fine
-    const handleAutoCenter = () => {
-        const matrix = pixels;
-        const rows = matrix.length;
-        const cols = matrix[0].length;
-        
-        let minX = cols, maxX = -1, minY = rows, maxY = -1;
-        
-        // Scan
-        for(let y=0; y<rows; y++) {
-            for(let x=0; x<cols; x++) {
-                if(matrix[y][x] !== 'transparent') {
-                    if(x < minX) minX = x;
-                    if(x > maxX) maxX = x;
-                    if(y < minY) minY = y;
-                    if(y > maxY) maxY = y;
-                }
-            }
+    const interval = setInterval(poll, 2000);
+    return () => clearInterval(interval);
+  }, [jobId, jobStatus]);
+
+  // Auto-Context
+  useEffect(() => {
+    if (!prompt && modifiedData) {
+      const parts = [];
+      if (modifiedData.category && typeof modifiedData.category === 'string')
+        parts.push(`[${modifiedData.category}]`);
+      if (modifiedData.name) parts.push(modifiedData.name);
+      if (modifiedData.description) parts.push(modifiedData.description);
+      if (parts.length > 0) setPrompt(parts.join(' - '));
+    }
+  }, [modifiedData, prompt]);
+
+  const handleGenerate = async () => {
+    if (!prompt) return;
+
+    // Dynamic Archetype Mapping
+    const category = modifiedData.category || 'Creature';
+    let type: 'Sprite' | 'Terrain' | 'Item' | 'Environment' | 'Blueprint' = 'Sprite';
+    let archetype = 'Humanoid';
+
+    if (modelUid === 'api::blueprint.blueprint') {
+      type = 'Blueprint';
+      archetype = 'Structure';
+    } else if (
+      ['Terrain', 'Environment', 'Landscape', 'Floor', 'Wall'].includes(category as string)
+    ) {
+      type = 'Terrain';
+      archetype = 'Landscape';
+    } else if (['Item', 'Equipment', 'Weapon', 'Armor'].includes(category as string)) {
+      type = 'Item';
+      archetype = 'Item';
+    }
+
+    setIsGenerating(true);
+    setJobStatus('queued');
+    try {
+      const { data } = await post('/map-explorer/forge/dispatch', {
+        prompt,
+        type,
+        archetype,
+        size: 'Custom',
+        width: gridWidth,
+        height: gridHeight,
+        model,
+
+        inputPixels: pixels,
+        action: type === 'Blueprint' ? 'generate_blueprint' : 'generate_pixel',
+        // SOTA Context Payload
+        // 1. If we have an ID, we send it for Deep Fetch.
+        // 2. ALWAYS send entityData (form values) as fallback/primary for Drafts.
+        // NOTE: We spread modifiedData to ensure it is a plain serializable object.
+        entityData: { ...modifiedData },
+        entityContext: {
+          uid: modelUid,
+          // If new, this will be undefined, triggering the backend Fallback to entityData
+          documentId: modifiedData?.documentId || modifiedData?.id,
+        },
+      });
+
+      if (data.jobId) setJobId(data.jobId);
+    } catch (_err) {
+      setIsGenerating(false);
+      setJobStatus('failed');
+    }
+  };
+
+  const propagateChange = (
+    newPixels: string[][],
+    newPrompt: string,
+    newMetadata?: Record<string, unknown>
+  ) => {
+    onChange({
+      target: {
+        name,
+        value: JSON.stringify({
+          pixels: newPixels,
+          prompt: newPrompt,
+          metadata: newMetadata || metadata,
+        }),
+        type: 'json',
+      },
+    });
+  };
+
+  const handlePixelClick = (x: number, y: number) => {
+    if (!isDrawing && tool !== 'pin' && tool !== 'picker') return;
+
+    // Clone grid for mutation
+    const newPixels = pixels.map((row) => [...row]);
+
+    // 1. PIN TOOL LOGIC
+    if (tool === 'pin') {
+      // Toggle Pin
+      const existingSocketIndex = metadata?.sockets?.findIndex((s) => s.x === x && s.y === y);
+      const newSockets = metadata?.sockets ? [...metadata.sockets] : [];
+
+      if (existingSocketIndex !== undefined && existingSocketIndex >= 0) {
+        // Remove existing
+        newSockets.splice(existingSocketIndex, 1);
+      } else {
+        // Add new - Prompt for Label
+        const label = window.prompt("Enter Socket Label (e.g., 'Center', 'Hand_R'):", 'Point');
+        if (label) {
+          newSockets.push({ x, y, label });
         }
-        
-        if(maxX === -1) return; // Empty
-        
-        const width = maxX - minX + 1;
-        const height = maxY - minY + 1;
-        const centerX = minX + Math.floor(width/2);
-        const centerY = minY + Math.floor(height/2);
-        
-        const targetCenterX = Math.floor(cols/2);
-        const targetCenterY = Math.floor(rows/2);
-        
-        const deltaX = targetCenterX - centerX;
-        const deltaY = targetCenterY - centerY;
-        
-        if(deltaX === 0 && deltaY === 0) return;
-        
-        const newMatrix = Array(rows).fill(null).map(() => Array(cols).fill('transparent'));
-        
-        for(let y=0; y<rows; y++) {
-            for(let x=0; x<cols; x++) {
-                if(matrix[y][x] !== 'transparent') {
-                    const newX = x + deltaX;
-                    const newY = y + deltaY;
-                    if(newX >= 0 && newX < cols && newY >= 0 && newY < rows) {
-                        newMatrix[newY][newX] = matrix[y][x];
-                    }
-                }
-            }
+      }
+
+      const newMeta = { ...metadata, sockets: newSockets };
+      setMetadata(newMeta);
+      propagateChange(pixels, prompt, newMeta); // Propagate metadata change ONLY (pixels untouched)
+      return;
+    }
+
+    // 2. PICKER TOOL LOGIC
+    if (tool === 'picker') {
+      const pickedColor = newPixels[y][x];
+      if (pickedColor !== 'transparent') {
+        setColor(pickedColor);
+        setTool('pencil');
+      }
+      return;
+    }
+
+    // 3. PENCIL / ERASER LOGIC
+    if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+      newPixels[y][x] = tool === 'eraser' ? 'transparent' : color;
+      setPixels(newPixels);
+
+      // If Blueprint Mode, auto-update metadata.blueprint grid
+      const newMeta = { ...metadata };
+      if (modelUid === 'api::blueprint.blueprint') {
+        // In BP mode, the visual grid IS the blueprint data
+        newMeta.blueprint = newPixels;
+      }
+
+      propagateChange(newPixels, prompt, newMeta);
+    }
+  };
+
+  // Helper to avoid browser 'prompt' blocking if desired, but for now standard prompt is fine
+  const handleAutoCenter = () => {
+    const matrix = pixels;
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+
+    let minX = cols,
+      maxX = -1,
+      minY = rows,
+      maxY = -1;
+
+    // Scan
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (matrix[y][x] !== 'transparent') {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
         }
-        
-        setPixels(newMatrix);
-        propagateChange(newMatrix, prompt);
-    };
+      }
+    }
 
-    const handleOpenData = () => {
-        setDataJson(JSON.stringify({
-            pixels,
-            prompt,
-            metadata
-        }, null, 2));
-        setIsDataModalOpen(true);
-    };
+    if (maxX === -1) return; // Empty
 
-    // Blueprint State
-    const [blueprints, setBlueprints] = useState<Blueprint[]>([]);
-    const [selectedBlueprintId, setSelectedBlueprintId] = useState<string | number | null>(null);
+    const width = maxX - minX + 1;
+    const height = maxY - minY + 1;
+    const centerX = minX + Math.floor(width / 2);
+    const centerY = minY + Math.floor(height / 2);
 
-    // Entity Zones State
-    const [entityZones, setEntityZones] = useState<EntityZone[]>([]);
+    const targetCenterX = Math.floor(cols / 2);
+    const targetCenterY = Math.floor(rows / 2);
 
-    // Fetch Blueprints & Zones
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Fetch Blueprints
-                const bpRes = await get('/content-manager/collection-types/api::blueprint.blueprint?page=1&pageSize=100&sort=name:ASC&populate=zones');
-                if (bpRes.data.results) setBlueprints(bpRes.data.results);
+    const deltaX = targetCenterX - centerX;
+    const deltaY = targetCenterY - centerY;
 
-                // Fetch Entity Zones for Palette
-                const zoneRes = await get('/content-manager/collection-types/api::entity-zone.entity-zone?page=1&pageSize=100&sort=slug:ASC');
-                if (zoneRes.data.results) setEntityZones(zoneRes.data.results);
+    if (deltaX === 0 && deltaY === 0) return;
 
-            } catch (err) {
-                console.error("Failed to fetch data", err);
-            }
-        };
-        if (isModalOpen) fetchData();
-    }, [isModalOpen, get]);
+    const newMatrix = Array(rows)
+      .fill(null)
+      .map(() => Array(cols).fill('transparent'));
 
-    const handleLoadBlueprint = () => {
-        const bp = blueprints.find(b => b.id === selectedBlueprintId || b.documentId === selectedBlueprintId);
-        if (!bp || !bp.grid) return;
-
-        // Visual Blueprint Load - Direct Color Mapping
-        // The DB now stores actual HEX codes in the grid, so no conversion is needed.
-        const newPixels = Array(gridHeight).fill(null).map(() => Array(gridWidth).fill('transparent'));
-        
-        bp.grid.forEach((row: string[], y: number) => {
-            if (y >= gridHeight) return;
-            row.forEach((color: string, x: number) => {
-                // Determine if color is valid hex or transparent
-                // In new seed, it's real hex. Legacy might need fallback.
-                if (x < gridWidth) {
-                    newPixels[y][x] = color === '.' ? 'transparent' : color;
-                }
-            });
-        });
-
-        setPixels(newPixels);
-        setMetadata({ ...metadata, blueprint: bp.grid, loadedBlueprint: bp.name });
-        propagateChange(newPixels, prompt, { ...metadata, blueprint: bp.grid });
-        setPrompt(bp.description || `A ${bp.name}...`);
-    };
-
-    const handleImportData = () => {
-        try {
-            const parsed = JSON.parse(dataJson);
-            if(parsed.pixels) setPixels(parsed.pixels);
-            if(parsed.prompt) setPrompt(parsed.prompt);
-            if(parsed.metadata) setMetadata(parsed.metadata);
-            
-            propagateChange(
-                parsed.pixels || pixels, 
-                parsed.prompt || prompt, 
-                parsed.metadata || metadata
-            );
-            setIsDataModalOpen(false);
-        } catch(e) {
-            console.error("Invalid JSON", e);
-            alert("Invalid JSON data");
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        if (matrix[y][x] !== 'transparent') {
+          const newX = x + deltaX;
+          const newY = y + deltaY;
+          if (newX >= 0 && newX < cols && newY >= 0 && newY < rows) {
+            newMatrix[newY][newX] = matrix[y][x];
+          }
         }
-    };
+      }
+    }
 
-    return (
-        <Box>
-            {/* Inline Preview */}
-            <Flex gap={4} alignItems="center">
-                 <Box 
-                    background="neutral150" 
-                    borderColor="neutral200" 
-                    hasRadius 
-                    style={{ width: '64px', height: '64px', overflow: 'hidden', border: '1px solid #ddd' }}
-                 >
-                     <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
-                        width: '100%',
-                        height: '100%'
-                     }}>
-                        {pixels.map((row, y) => 
-                            row.map((pixelColor, x) => (
-                                <div 
-                                    key={`p-${x}-${y}`}
-                                    style={{ backgroundColor: pixelColor === 'transparent' ? ((x+y)%2===0 ? '#ccc' : '#fff') : pixelColor }} 
-                                />
-                            ))
-                        )}
-                     </div>
-                 </Box>
-                 <Button onClick={() => setIsModalOpen(true)} startIcon={<Pencil />} variant="secondary">
-                     Open Pixel Forge ({gridWidth}x{gridHeight})
-                 </Button>
-            </Flex>
+    setPixels(newMatrix);
+    propagateChange(newMatrix, prompt);
+  };
 
-            {/* SOTA Modal Editor */}
-            {isModalOpen && (
-                <Box position="fixed" top={0} left={0} right={0} bottom={0} zIndex={100} background="neutral100" style={{ inset: 0 }}>
-                    <Flex direction="column" height="100%" alignItems="stretch">
-                        
-                        {/* Header */}
-                        <Box background="neutral0" padding={4} shadow="filterShadow">
-                            <Flex justifyContent="space-between" alignItems="center">
-                                <Flex gap={2}>
-                                    <Magic />
-                                    <Typography variant="beta">
-                                        {modelUid === 'api::blueprint.blueprint' ? 'Blueprint Forge' : 'Pixel Forge'}
-                                    </Typography>
-                                    <Typography variant="pi" textColor="neutral600">
-                                        {widthTiles}x{heightTiles} Tiles ({gridWidth}x{gridHeight}px)
-                                    </Typography>
-                                </Flex>
-                                <Button variant="tertiary" onClick={() => setIsModalOpen(false)}>
-                                    Save & Close
-                                </Button>
-                            </Flex>
-                        </Box>
-
-                        {/* Top Toolbar (Tools & Color) */}
-                        <Box background="neutral0" padding={2} shadow="tableShadow" zIndex={2}>
-                            <Flex gap={2} justifyContent="center" wrap="wrap">
-                                 <Button size="S" variant={tool === 'pencil' ? 'default' : 'secondary'} onClick={() => setTool('pencil')}><Pencil /></Button>
-                                 <Button size="S" variant={tool === 'eraser' ? 'default' : 'secondary'} onClick={() => setTool('eraser')}><PaintBrush /></Button>  
-                                 <Button size="S" variant={tool === 'picker' ? 'default' : 'secondary'} onClick={() => setTool('picker')}><Eye /></Button>
-                                 <Button size="S" variant="secondary" onClick={handleAutoCenter} title="Auto-Center Content">center</Button>
-                                 
-                                 <Box width="1px" background="neutral200" height="24px" margin={2} />
-
-                                 {/* Dynamic Palette based on Mode */}
-                                    {modelUid === 'api::blueprint.blueprint' ? (
-                                    <>
-                                        {/* Blueprint Mode: ZONES ONLY */}
-                                        <Typography variant="sigma" textColor="neutral600">ZONE:</Typography>
-                                        
-                                        <SingleSelect 
-                                            size="S" 
-                                            placeholder="Select Zone..." 
-                                            value={color} 
-                                            onChange={(val: string) => { setColor(val); setTool('pencil'); }}
-                                            style={{ minWidth: '150px' }}
-                                        >
-                                            {entityZones.map((z: EntityZone) => (
-                                                <SingleSelectOption key={z.slug} value={z.color} startIcon={
-                                                    <div style={{ 
-                                                        width: '12px', 
-                                                        height: '12px', 
-                                                        borderRadius: '2px', 
-                                                        backgroundColor: z.color,
-                                                        border: '1px solid #ccc' 
-                                                    }} />
-                                                }>
-                                                    {z.name}
-                                                </SingleSelectOption>
-                                            ))}
-                                        </SingleSelect>
-                                        
-                                        <Box width="1px" background="neutral200" height="24px" margin={2} />
-                                        
-                                         {/* PIN TOOL (Blueprint Mode Only) */}
-                                         <Button 
-                                            size="S" 
-                                            variant={tool === 'pin' ? 'default' : 'secondary'} 
-                                            onClick={() => setTool('pin')}
-                                            title="Add Socket/Pin"
-                                            startIcon={<Pin />}
-                                         >
-                                            Pin
-                                         </Button>
-                                    </>
-                                 ) : (
-                                    <>
-                                        {/* Sprite Mode: Color Picker & Blueprint Overlay */}
-                                        <Box 
-                                            background="neutral0" 
-                                            borderColor="neutral200" 
-                                            hasRadius 
-                                            padding={1} 
-                                            style={{ border: '1px solid #dcdce4', display: 'flex', alignItems: 'center' }}
-                                         >
-                                            <input 
-                                                type="color" 
-                                                value={color} 
-                                                onChange={(e) => { setColor(e.target.value); setTool('pencil'); }}
-                                                style={{ width: '24px', height: '24px', border: 'none', background: 'none', cursor: 'pointer' }}
-                                            />
-                                         </Box>
-                                         
-                                         <Box width="1px" background="neutral200" height="24px" margin={2} />
-
-                                         {/* Blueprint Controls (Only in Sprite Mode) */}
-                                         <Flex gap={2}>
-                                            {blueprints.length > 0 && (
-                                                <SingleSelect 
-                                                    size="S" 
-                                                    placeholder="Load Blueprint..." 
-                                                    value={selectedBlueprintId} 
-                                                    onChange={setSelectedBlueprintId}
-                                                    style={{ maxWidth: '150px' }}
-                                                >
-                                                    {blueprints.map((bp) => (
-                                                        <SingleSelectOption key={bp.documentId || bp.id} value={bp.documentId || bp.id}>
-                                                            {bp.name}
-                                                        </SingleSelectOption>
-                                                    ))}
-                                                </SingleSelect>
-                                            )}
-                                            <Button size="S" variant="secondary" onClick={handleLoadBlueprint} disabled={!selectedBlueprintId}>
-                                                Load
-                                            </Button>
-                                         </Flex>
-
-                                         <Button 
-                                            size="S" 
-                                            variant={showBlueprint ? 'default' : 'secondary'} 
-                                            onClick={() => setShowBlueprint(!showBlueprint)}
-                                            disabled={!metadata?.blueprint}
-                                            title="Toggle Blueprint Layer"
-                                        >
-                                            {showBlueprint ? 'Hide BP' : 'Show BP'}
-                                        </Button>
-                                        
-                                        {showBlueprint && (
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                <Typography variant="pi">Opacity</Typography>
-                                                <input 
-                                                    type="range" 
-                                                    min="0" max="1" step="0.1" 
-                                                    value={blueprintOpacity} 
-                                                    onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
-                                                    style={{ width: '60px' }}
-                                                />
-                                            </div>
-                                        )}
-                                    </>
-                                 )}
-
-                                <Box width="1px" background="neutral200" height="24px" margin={2} />
-
-                                <Button 
-                                    size="S" 
-                                    variant="secondary" 
-                                    startIcon={<Code />}
-                                    onClick={handleOpenData}
-                                    title="Import/Export Data"
-                                >
-                                    Data
-                                </Button>
-                            </Flex>
-                        </Box>
-
-                        {/* Main Canvas Area (Scrollable, Centered, Dark BG) */}
-                        <Box 
-                            style={{ 
-                                flex: 1, 
-                                overflow: 'auto', 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                justifyContent: 'center',
-                                backgroundColor: '#212134' // Dark background for contrast
-                            }}
-                        >
-                             <Box 
-                                 background="neutral150" 
-                                 padding={0} // No padding, exact fit
-                                 shadow="tableShadow"
-                                 style={{ 
-                                     display: 'grid', 
-                                     gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
-                                     width: '90%', // Responsive width
-                                     maxWidth: '600px',
-                                     aspectRatio: `${gridWidth}/${gridHeight}`,
-                                     border: '1px solid #4a4a6a',
-                                     cursor: tool === 'picker' ? 'copy' : 'crosshair',
-                                     imageRendering: 'pixelated',
-                                     position: 'relative' // For absolute overlay
-                                 }}
-                                 onMouseLeave={() => setIsDrawing(false)}
-                                 onMouseUp={() => setIsDrawing(false)}
-                             >
-                                 {pixels.map((row, y) => 
-                                     row.map((pixelColor, x) => {
-                                         // Zone Metadata Resolution
-                                         const isBlueprintMode = modelUid === 'api::blueprint.blueprint';
-                                         
-                                         // In BP Mode, the Pixel Color IS the Zone Color.
-                                         // In Sprite Mode, the Zone comes from metadata.blueprint.
-                                         let zoneName = '';
-                                         
-                                         if (isBlueprintMode) {
-                                             const zone = entityZones.find(z => z.color === pixelColor);
-                                             if (zone) zoneName = zone.name;
-                                         } else {
-                                             const blueprintColor = metadata?.blueprint?.[y]?.[x];
-                                             const zone = entityZones.find(z => z.color === blueprintColor);
-                                             if (zone) zoneName = zone.name;
-                                         }
-                                         
-                                         // Visual Layering Logic
-                                         const displayColor = pixelColor === 'transparent' ? ( (x+y)%2===0 ? '#222' : '#2a2a2a') : pixelColor;
-                                         let overlayColor = 'transparent';
-                                         
-                                         if (!isBlueprintMode && showBlueprint && metadata?.blueprint?.[y]?.[x]) {
-                                             const bpColor = metadata.blueprint[y][x];
-                                             if (bpColor && bpColor !== '.') {
-                                                 overlayColor = bpColor;
-                                             }
-                                         }
-
-                                         // Socket/Pin Logic
-                                         const socket = metadata?.sockets?.find(s => s.x === x && s.y === y);
-                                         
-                                         return (
-                                             <div 
-                                                 key={`${x}-${y}`}
-                                                 title={socket ? `Socket: ${socket.label}` : (zoneName ? `Zone: ${zoneName} (${x},${y})` : `(${x},${y})`)}
-                                                 style={{ 
-                                                     backgroundColor: displayColor, 
-                                                     width: '100%', 
-                                                     height: '100%',
-                                                     position: 'relative',
-                                                     userSelect: 'none',
-                                                     boxShadow: socket ? 'inset 0 0 0 2px #fff, inset 0 0 0 4px #000' : 'none' // Visual Marker for Socket
-                                                 }}
-                                                 onMouseDown={() => { setIsDrawing(true); handlePixelClick(x, y); }}
-                                                 onMouseEnter={() => { if (isDrawing) handlePixelClick(x, y); }}
-                                             >
-                                                 {/* Blueprint Overlay Layer (Only in Sprite Mode) */}
-                                                 {overlayColor !== 'transparent' && (
-                                                     <div 
-                                                         style={{
-                                                             position: 'absolute',
-                                                             inset: 0,
-                                                             backgroundColor: overlayColor,
-                                                             opacity: blueprintOpacity,
-                                                             pointerEvents: 'none' // Click through to base pixel
-                                                         }}
-                                                     />
-                                                 )}
-                                             </div>
-                                         );
-                                     })
-                                 )}
-                             </Box>
-                        </Box>
-
-                        {/* Bottom Manifestation Control */}
-                        <Box background="neutral0" padding={4} shadow="filterShadow" style={{ borderTop: '1px solid #eaeaef' }}>
-                            <Grid.Root gap={4}>
-                                <Grid.Item col={8} s={12}>
-                                    <Textarea 
-                                        name="prompt"
-                                        placeholder="Describe the aesthetic to manifest..." 
-                                        value={prompt}
-                                        onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPrompt(e.target.value)}
-                                        style={{ height: '80px', resize: 'none' }}
-                                    />
-                                </Grid.Item>
-                                <Grid.Item col={12} s={12}>
-                                    <Flex gap={2} alignItems="center">
-                                         <SingleSelect 
-                                            placeholder="Load Blueprint..."
-                                            size="S"
-                                            value={selectedBlueprintId} 
-                                            onChange={setSelectedBlueprintId}
-                                        >
-                                            {blueprints.map((b: Blueprint) => (
-                                                <SingleSelectOption key={b.documentId || b.id} value={b.documentId || b.id}>
-                                                    {b.name} ({b.category})
-                                                </SingleSelectOption>
-                                            ))}
-                                        </SingleSelect>
-                                        <Button 
-                                            size="S" 
-                                            variant="secondary" 
-                                            onClick={handleLoadBlueprint}
-                                            disabled={!selectedBlueprintId}
-                                        >
-                                            Load
-                                        </Button>
-                                    </Flex>
-                                </Grid.Item>
-                                <Grid.Item col={4} s={12}>
-                                    <Flex direction="column" gap={2} height="100%" justifyContent="center">
-                                         <SingleSelect 
-                                            placeholder="Model"
-                                            size="S"
-                                            value={model} 
-                                            onChange={setModel}
-                                        >
-                                            <SingleSelectOption value="gemini-3-flash-preview">Gemini 3 Flash Preview</SingleSelectOption>
-                                            <SingleSelectOption value="gemini-3-pro-preview">Gemini 3 Pro Preview</SingleSelectOption>
-                                        </SingleSelect>
-                                        
-                                        <Flex gap={2}>
-                                            <Button 
-                                                onClick={handleGenerate} 
-                                                disabled={isGenerating || !prompt} 
-                                                fullWidth
-                                                startIcon={<Magic />}
-                                                loading={isGenerating}
-                                                size="S"
-                                            >
-                                                Generate
-                                            </Button>
-                                        </Flex>
-                                    </Flex>
-                                </Grid.Item>
-                            </Grid.Root>
-                        </Box>
-                        
-                        {/* Data I/O Modal Overlay */}
-                        {isDataModalOpen && (
-                            <Box 
-                                position="fixed" 
-                                top={0} left={0} right={0} bottom={0} 
-                                zIndex={200} 
-                                background="neutral100" 
-                                style={{ inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}
-                            >
-                                <Box background="neutral0" padding={6} hasRadius shadow="popupShadow" style={{ width: '600px', maxWidth: '90%' }}>
-                                    <Typography variant="beta">Data Import/Export</Typography>
-                                    <Box paddingTop={4} paddingBottom={4}>
-                                        <Typography variant="pi" textColor="neutral600" paddingBottom={2}>
-                                            Copy/Paste the JSON data below to share or save.
-                                        </Typography>
-                                        <Textarea 
-                                            style={{ height: '300px', fontFamily: 'monospace', fontSize: '12px' }}
-                                            value={dataJson}
-                                            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setDataJson(e.target.value)}
-                                        />
-                                    </Box>
-                                    <Flex gap={2} justifyContent="flex-end">
-                                        <Button variant="tertiary" onClick={() => setIsDataModalOpen(false)}>Cancel</Button>
-                                        <Button variant="success" startIcon={<Check />} onClick={handleImportData}>
-                                            Import
-                                        </Button>
-                                    </Flex>
-                                </Box>
-                            </Box>
-                        )}
-
-                    </Flex>
-                </Box>
-            )}
-        </Box>
+  const handleOpenData = () => {
+    setDataJson(
+      JSON.stringify(
+        {
+          pixels,
+          prompt,
+          metadata,
+        },
+        null,
+        2
+      )
     );
+    setIsDataModalOpen(true);
+  };
+
+  // Blueprint State
+  const [blueprints, setBlueprints] = useState<Blueprint[]>([]);
+  const [selectedBlueprintId, setSelectedBlueprintId] = useState<string | number | null>(null);
+
+  // Entity Zones State
+  const [entityZones, setEntityZones] = useState<EntityZone[]>([]);
+
+  // Fetch Blueprints & Zones
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch Blueprints
+        const bpRes = await get(
+          '/content-manager/collection-types/api::blueprint.blueprint?page=1&pageSize=100&sort=name:ASC&populate=zones'
+        );
+        if (bpRes.data.results) setBlueprints(bpRes.data.results);
+
+        // Fetch Entity Zones for Palette
+        const zoneRes = await get(
+          '/content-manager/collection-types/api::entity-zone.entity-zone?page=1&pageSize=100&sort=slug:ASC'
+        );
+        if (zoneRes.data.results) setEntityZones(zoneRes.data.results);
+      } catch (err) {
+        console.error('Failed to fetch data', err);
+      }
+    };
+    if (isModalOpen) fetchData();
+  }, [isModalOpen, get]);
+
+  const handleLoadBlueprint = () => {
+    const bp = blueprints.find(
+      (b) => b.id === selectedBlueprintId || b.documentId === selectedBlueprintId
+    );
+    if (!bp || !bp.grid) return;
+
+    // Visual Blueprint Load - Direct Color Mapping
+    // The DB now stores actual HEX codes in the grid, so no conversion is needed.
+    const newPixels = Array(gridHeight)
+      .fill(null)
+      .map(() => Array(gridWidth).fill('transparent'));
+
+    bp.grid.forEach((row: string[], y: number) => {
+      if (y >= gridHeight) return;
+      row.forEach((color: string, x: number) => {
+        // Determine if color is valid hex or transparent
+        // In new seed, it's real hex. Legacy might need fallback.
+        if (x < gridWidth) {
+          newPixels[y][x] = color === '.' ? 'transparent' : color;
+        }
+      });
+    });
+
+    setPixels(newPixels);
+    setMetadata({ ...metadata, blueprint: bp.grid, loadedBlueprint: bp.name });
+    propagateChange(newPixels, prompt, { ...metadata, blueprint: bp.grid });
+    setPrompt(bp.description || `A ${bp.name}...`);
+  };
+
+  const handleImportData = () => {
+    try {
+      const parsed = JSON.parse(dataJson);
+      if (parsed.pixels) setPixels(parsed.pixels);
+      if (parsed.prompt) setPrompt(parsed.prompt);
+      if (parsed.metadata) setMetadata(parsed.metadata);
+
+      propagateChange(
+        parsed.pixels || pixels,
+        parsed.prompt || prompt,
+        parsed.metadata || metadata
+      );
+      setIsDataModalOpen(false);
+    } catch (e) {
+      console.error('Invalid JSON', e);
+      alert('Invalid JSON data');
+    }
+  };
+
+  return (
+    <Box>
+      {/* Inline Preview */}
+      <Flex gap={4} alignItems="center">
+        <Box
+          background="neutral150"
+          borderColor="neutral200"
+          hasRadius
+          style={{ width: '64px', height: '64px', overflow: 'hidden', border: '1px solid #ddd' }}
+        >
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            {pixels.map((row, y) =>
+              row.map((pixelColor, x) => (
+                <div
+                  key={`p-${x}-${y}`}
+                  style={{
+                    backgroundColor:
+                      pixelColor === 'transparent'
+                        ? (x + y) % 2 === 0
+                          ? '#ccc'
+                          : '#fff'
+                        : pixelColor,
+                  }}
+                />
+              ))
+            )}
+          </div>
+        </Box>
+        <Button onClick={() => setIsModalOpen(true)} startIcon={<Pencil />} variant="secondary">
+          Open Pixel Forge ({gridWidth}x{gridHeight})
+        </Button>
+      </Flex>
+
+      {/* SOTA Modal Editor */}
+      {isModalOpen && (
+        <Box
+          position="fixed"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          zIndex={100}
+          background="neutral100"
+          style={{ inset: 0 }}
+        >
+          <Flex direction="column" height="100%" alignItems="stretch">
+            {/* Header */}
+            <Box background="neutral0" padding={4} shadow="filterShadow">
+              <Flex justifyContent="space-between" alignItems="center">
+                <Flex gap={2}>
+                  <Magic />
+                  <Typography variant="beta">
+                    {modelUid === 'api::blueprint.blueprint' ? 'Blueprint Forge' : 'Pixel Forge'}
+                  </Typography>
+                  <Typography variant="pi" textColor="neutral600">
+                    {widthTiles}x{heightTiles} Tiles ({gridWidth}x{gridHeight}px)
+                  </Typography>
+                </Flex>
+                <Button variant="tertiary" onClick={() => setIsModalOpen(false)}>
+                  Save & Close
+                </Button>
+              </Flex>
+            </Box>
+
+            {/* Top Toolbar (Tools & Color) */}
+            <Box background="neutral0" padding={2} shadow="tableShadow" zIndex={2}>
+              <Flex gap={2} justifyContent="center" wrap="wrap">
+                <Button
+                  size="S"
+                  variant={tool === 'pencil' ? 'default' : 'secondary'}
+                  onClick={() => setTool('pencil')}
+                >
+                  <Pencil />
+                </Button>
+                <Button
+                  size="S"
+                  variant={tool === 'eraser' ? 'default' : 'secondary'}
+                  onClick={() => setTool('eraser')}
+                >
+                  <PaintBrush />
+                </Button>
+                <Button
+                  size="S"
+                  variant={tool === 'picker' ? 'default' : 'secondary'}
+                  onClick={() => setTool('picker')}
+                >
+                  <Eye />
+                </Button>
+                <Button
+                  size="S"
+                  variant="secondary"
+                  onClick={handleAutoCenter}
+                  title="Auto-Center Content"
+                >
+                  center
+                </Button>
+
+                <Box width="1px" background="neutral200" height="24px" margin={2} />
+
+                {/* Dynamic Palette based on Mode */}
+                {modelUid === 'api::blueprint.blueprint' ? (
+                  <>
+                    {/* Blueprint Mode: ZONES ONLY */}
+                    <Typography variant="sigma" textColor="neutral600">
+                      ZONE:
+                    </Typography>
+
+                    <SingleSelect
+                      size="S"
+                      placeholder="Select Zone..."
+                      value={color}
+                      onChange={(val: string) => {
+                        setColor(val);
+                        setTool('pencil');
+                      }}
+                      style={{ minWidth: '150px' }}
+                    >
+                      {entityZones.map((z: EntityZone) => (
+                        <SingleSelectOption
+                          key={z.slug}
+                          value={z.color}
+                          startIcon={
+                            <div
+                              style={{
+                                width: '12px',
+                                height: '12px',
+                                borderRadius: '2px',
+                                backgroundColor: z.color,
+                                border: '1px solid #ccc',
+                              }}
+                            />
+                          }
+                        >
+                          {z.name}
+                        </SingleSelectOption>
+                      ))}
+                    </SingleSelect>
+
+                    <Box width="1px" background="neutral200" height="24px" margin={2} />
+
+                    {/* PIN TOOL (Blueprint Mode Only) */}
+                    <Button
+                      size="S"
+                      variant={tool === 'pin' ? 'default' : 'secondary'}
+                      onClick={() => setTool('pin')}
+                      title="Add Socket/Pin"
+                      startIcon={<Pin />}
+                    >
+                      Pin
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {/* Sprite Mode: Color Picker & Blueprint Overlay */}
+                    <Box
+                      background="neutral0"
+                      borderColor="neutral200"
+                      hasRadius
+                      padding={1}
+                      style={{ border: '1px solid #dcdce4', display: 'flex', alignItems: 'center' }}
+                    >
+                      <input
+                        type="color"
+                        value={color}
+                        onChange={(e) => {
+                          setColor(e.target.value);
+                          setTool('pencil');
+                        }}
+                        style={{
+                          width: '24px',
+                          height: '24px',
+                          border: 'none',
+                          background: 'none',
+                          cursor: 'pointer',
+                        }}
+                      />
+                    </Box>
+
+                    <Box width="1px" background="neutral200" height="24px" margin={2} />
+
+                    {/* Blueprint Controls (Only in Sprite Mode) */}
+                    <Flex gap={2}>
+                      {blueprints.length > 0 && (
+                        <SingleSelect
+                          size="S"
+                          placeholder="Load Blueprint..."
+                          value={selectedBlueprintId}
+                          onChange={setSelectedBlueprintId}
+                          style={{ maxWidth: '150px' }}
+                        >
+                          {blueprints.map((bp) => (
+                            <SingleSelectOption
+                              key={bp.documentId || bp.id}
+                              value={bp.documentId || bp.id}
+                            >
+                              {bp.name}
+                            </SingleSelectOption>
+                          ))}
+                        </SingleSelect>
+                      )}
+                      <Button
+                        size="S"
+                        variant="secondary"
+                        onClick={handleLoadBlueprint}
+                        disabled={!selectedBlueprintId}
+                      >
+                        Load
+                      </Button>
+                    </Flex>
+
+                    <Button
+                      size="S"
+                      variant={showBlueprint ? 'default' : 'secondary'}
+                      onClick={() => setShowBlueprint(!showBlueprint)}
+                      disabled={!metadata?.blueprint}
+                      title="Toggle Blueprint Layer"
+                    >
+                      {showBlueprint ? 'Hide BP' : 'Show BP'}
+                    </Button>
+
+                    {showBlueprint && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Typography variant="pi">Opacity</Typography>
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={blueprintOpacity}
+                          onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
+                          style={{ width: '60px' }}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+
+                <Box width="1px" background="neutral200" height="24px" margin={2} />
+
+                <Button
+                  size="S"
+                  variant="secondary"
+                  startIcon={<Code />}
+                  onClick={handleOpenData}
+                  title="Import/Export Data"
+                >
+                  Data
+                </Button>
+              </Flex>
+            </Box>
+
+            {/* Main Canvas Area (Scrollable, Centered, Dark BG) */}
+            <Box
+              style={{
+                flex: 1,
+                overflow: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#212134', // Dark background for contrast
+              }}
+            >
+              <Box
+                background="neutral150"
+                padding={0} // No padding, exact fit
+                shadow="tableShadow"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
+                  width: '90%', // Responsive width
+                  maxWidth: '600px',
+                  aspectRatio: `${gridWidth}/${gridHeight}`,
+                  border: '1px solid #4a4a6a',
+                  cursor: tool === 'picker' ? 'copy' : 'crosshair',
+                  imageRendering: 'pixelated',
+                  position: 'relative', // For absolute overlay
+                }}
+                onMouseLeave={() => setIsDrawing(false)}
+                onMouseUp={() => setIsDrawing(false)}
+              >
+                {pixels.map((row, y) =>
+                  row.map((pixelColor, x) => {
+                    // Zone Metadata Resolution
+                    const isBlueprintMode = modelUid === 'api::blueprint.blueprint';
+
+                    // In BP Mode, the Pixel Color IS the Zone Color.
+                    // In Sprite Mode, the Zone comes from metadata.blueprint.
+                    let zoneName = '';
+
+                    if (isBlueprintMode) {
+                      const zone = entityZones.find((z) => z.color === pixelColor);
+                      if (zone) zoneName = zone.name;
+                    } else {
+                      const blueprintColor = metadata?.blueprint?.[y]?.[x];
+                      const zone = entityZones.find((z) => z.color === blueprintColor);
+                      if (zone) zoneName = zone.name;
+                    }
+
+                    // Visual Layering Logic
+                    const displayColor =
+                      pixelColor === 'transparent'
+                        ? (x + y) % 2 === 0
+                          ? '#222'
+                          : '#2a2a2a'
+                        : pixelColor;
+                    let overlayColor = 'transparent';
+
+                    if (!isBlueprintMode && showBlueprint && metadata?.blueprint?.[y]?.[x]) {
+                      const bpColor = metadata.blueprint[y][x];
+                      if (bpColor && bpColor !== '.') {
+                        overlayColor = bpColor;
+                      }
+                    }
+
+                    // Socket/Pin Logic
+                    const socket = metadata?.sockets?.find((s) => s.x === x && s.y === y);
+
+                    return (
+                      <div
+                        key={`${x}-${y}`}
+                        title={
+                          socket
+                            ? `Socket: ${socket.label}`
+                            : zoneName
+                              ? `Zone: ${zoneName} (${x},${y})`
+                              : `(${x},${y})`
+                        }
+                        style={{
+                          backgroundColor: displayColor,
+                          width: '100%',
+                          height: '100%',
+                          position: 'relative',
+                          userSelect: 'none',
+                          boxShadow: socket ? 'inset 0 0 0 2px #fff, inset 0 0 0 4px #000' : 'none', // Visual Marker for Socket
+                        }}
+                        onMouseDown={() => {
+                          setIsDrawing(true);
+                          handlePixelClick(x, y);
+                        }}
+                        onMouseEnter={() => {
+                          if (isDrawing) handlePixelClick(x, y);
+                        }}
+                      >
+                        {/* Blueprint Overlay Layer (Only in Sprite Mode) */}
+                        {overlayColor !== 'transparent' && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              backgroundColor: overlayColor,
+                              opacity: blueprintOpacity,
+                              pointerEvents: 'none', // Click through to base pixel
+                            }}
+                          />
+                        )}
+                      </div>
+                    );
+                  })
+                )}
+              </Box>
+            </Box>
+
+            {/* Bottom Manifestation Control */}
+            <Box
+              background="neutral0"
+              padding={4}
+              shadow="filterShadow"
+              style={{ borderTop: '1px solid #eaeaef' }}
+            >
+              <Grid.Root gap={4}>
+                <Grid.Item col={8} s={12}>
+                  <Textarea
+                    name="prompt"
+                    placeholder="Describe the aesthetic to manifest..."
+                    value={prompt}
+                    onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+                      setPrompt(e.target.value)
+                    }
+                    style={{ height: '80px', resize: 'none' }}
+                  />
+                </Grid.Item>
+                <Grid.Item col={12} s={12}>
+                  <Flex gap={2} alignItems="center">
+                    <SingleSelect
+                      placeholder="Load Blueprint..."
+                      size="S"
+                      value={selectedBlueprintId}
+                      onChange={setSelectedBlueprintId}
+                    >
+                      {blueprints.map((b: Blueprint) => (
+                        <SingleSelectOption key={b.documentId || b.id} value={b.documentId || b.id}>
+                          {b.name} ({b.category})
+                        </SingleSelectOption>
+                      ))}
+                    </SingleSelect>
+                    <Button
+                      size="S"
+                      variant="secondary"
+                      onClick={handleLoadBlueprint}
+                      disabled={!selectedBlueprintId}
+                    >
+                      Load
+                    </Button>
+                  </Flex>
+                </Grid.Item>
+                <Grid.Item col={4} s={12}>
+                  <Flex direction="column" gap={2} height="100%" justifyContent="center">
+                    <SingleSelect placeholder="Model" size="S" value={model} onChange={setModel}>
+                      <SingleSelectOption value="gemini-3-flash-preview">
+                        Gemini 3 Flash Preview
+                      </SingleSelectOption>
+                      <SingleSelectOption value="gemini-3-pro-preview">
+                        Gemini 3 Pro Preview
+                      </SingleSelectOption>
+                    </SingleSelect>
+
+                    <Flex gap={2}>
+                      <Button
+                        onClick={handleGenerate}
+                        disabled={isGenerating || !prompt}
+                        fullWidth
+                        startIcon={<Magic />}
+                        loading={isGenerating}
+                        size="S"
+                      >
+                        Generate
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </Grid.Item>
+              </Grid.Root>
+            </Box>
+
+            {/* Data I/O Modal Overlay */}
+            {isDataModalOpen && (
+              <Box
+                position="fixed"
+                top={0}
+                left={0}
+                right={0}
+                bottom={0}
+                zIndex={200}
+                background="neutral100"
+                style={{
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(0,0,0,0.5)',
+                }}
+              >
+                <Box
+                  background="neutral0"
+                  padding={6}
+                  hasRadius
+                  shadow="popupShadow"
+                  style={{ width: '600px', maxWidth: '90%' }}
+                >
+                  <Typography variant="beta">Data Import/Export</Typography>
+                  <Box paddingTop={4} paddingBottom={4}>
+                    <Typography variant="pi" textColor="neutral600" paddingBottom={2}>
+                      Copy/Paste the JSON data below to share or save.
+                    </Typography>
+                    <Textarea
+                      style={{ height: '300px', fontFamily: 'monospace', fontSize: '12px' }}
+                      value={dataJson}
+                      onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+                        setDataJson(e.target.value)
+                      }
+                    />
+                  </Box>
+                  <Flex gap={2} justifyContent="flex-end">
+                    <Button variant="tertiary" onClick={() => setIsDataModalOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button variant="success" startIcon={<Check />} onClick={handleImportData}>
+                      Import
+                    </Button>
+                  </Flex>
+                </Box>
+              </Box>
+            )}
+          </Flex>
+        </Box>
+      )}
+    </Box>
+  );
 };

@@ -4,9 +4,9 @@ description: In Strapi 5, some admin panel hooks have been removed from the Redu
 sidebar_label: EditViewLayout and ListViewLayout refactored
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - content manager
- - upgrade to Strapi 5
+  - breaking changes
+  - content manager
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'

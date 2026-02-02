@@ -5,7 +5,7 @@ displayed_sidebar: cmsSidebar
 pagination_prev: cms/backend-customization/examples/routes
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
 # Examples cookbook: Custom global middlewares
 
@@ -25,7 +25,7 @@ Custom route middlewares could be used instead of policies to control access to 
 
 **💭 Context:**
 
-In essence, a middleware gets executed between a request arriving at the server and the controller function getting executed. So, for instance, a middleware is a good place to perform some analytics. 
+In essence, a middleware gets executed between a request arriving at the server and the controller function getting executed. So, for instance, a middleware is a good place to perform some analytics.
 
 <SideBySideContainer>
 
@@ -77,177 +77,163 @@ Additional information can be found in the [middlewares customization](/cms/back
   <details>
   <summary>Example utility functions that could be used to read, write and update a Google spreadsheet:</summary>
 
-  The following code allows reading, writing, and updating a Google spreadsheet given an API Key read from a JSON file and a spreadsheet ID retrieved from the URL:
+The following code allows reading, writing, and updating a Google spreadsheet given an API Key read from a JSON file and a spreadsheet ID retrieved from the URL:
 
-  ![Google Spreadsheet URL](/img/assets/backend-customization/tutorial-spreadsheet-url.png)
+![Google Spreadsheet URL](/img/assets/backend-customization/tutorial-spreadsheet-url.png)
 
-  Additional information can be found in the official <ExternalLink to="https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values?hl=es-419" text="Google Sheets API documentation"/>.
+Additional information can be found in the official <ExternalLink to="https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values?hl=es-419" text="Google Sheets API documentation"/>.
 
-  ```jsx title="src/api/restaurant/middlewares/utils.js"
+```jsx title="src/api/restaurant/middlewares/utils.js"
+const { google } = require('googleapis');
 
-  const { google } = require('googleapis');
+const createGoogleSheetClient = async ({ keyFile, sheetId, tabName, range }) => {
+  async function getGoogleSheetClient() {
+    const auth = new google.auth.GoogleAuth({
+      keyFile,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+    const authClient = await auth.getClient();
+    return google.sheets({
+      version: 'v4',
+      auth: authClient,
+    });
+  }
 
-  const createGoogleSheetClient = async ({
-    keyFile,
-    sheetId,
-    tabName,
-    range,
-  }) => {
-    async function getGoogleSheetClient() {
-      const auth = new google.auth.GoogleAuth({
-        keyFile,
-        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-      });
-      const authClient = await auth.getClient();
-      return google.sheets({
-        version: 'v4',
-        auth: authClient,
-      });
-    }
+  const googleSheetClient = await getGoogleSheetClient();
 
-    const googleSheetClient = await getGoogleSheetClient();
-
-    const writeGoogleSheet = async (data) => {
-      googleSheetClient.spreadsheets.values.append({
-        spreadsheetId: sheetId,
-        range: `${tabName}!${range}`,
-        valueInputOption: 'USER_ENTERED',
-        insertDataOption: 'INSERT_ROWS',
-        resource: {
-          majorDimension: 'ROWS',
-          values: data,
-        },
-      });
-    };
-
-    const updateoogleSheet = async (cell, data) => {
-      googleSheetClient.spreadsheets.values.update({
-        spreadsheetId: sheetId,
-        range: `${tabName}!${cell}`,
-        valueInputOption: 'USER_ENTERED',
-        resource: {
-          majorDimension: 'ROWS',
-          values: data,
-        },
-      });
-    };
-
-    const readGoogleSheet = async () => {
-      const res = await googleSheetClient.spreadsheets.values.get({
-        spreadsheetId: sheetId,
-        range: `${tabName}!${range}`,
-      });
-
-      return res.data.values;
-    };
-
-    return {
-      writeGoogleSheet,
-      updateoogleSheet,
-      readGoogleSheet,
-    };
+  const writeGoogleSheet = async (data) => {
+    googleSheetClient.spreadsheets.values.append({
+      spreadsheetId: sheetId,
+      range: `${tabName}!${range}`,
+      valueInputOption: 'USER_ENTERED',
+      insertDataOption: 'INSERT_ROWS',
+      resource: {
+        majorDimension: 'ROWS',
+        values: data,
+      },
+    });
   };
 
-  module.exports = {
-    createGoogleSheetClient,
+  const updateoogleSheet = async (cell, data) => {
+    googleSheetClient.spreadsheets.values.update({
+      spreadsheetId: sheetId,
+      range: `${tabName}!${cell}`,
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        majorDimension: 'ROWS',
+        values: data,
+      },
+    });
   };
-  ```
+
+  const readGoogleSheet = async () => {
+    const res = await googleSheetClient.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: `${tabName}!${range}`,
+    });
+
+    return res.data.values;
+  };
+
+  return {
+    writeGoogleSheet,
+    updateoogleSheet,
+    readGoogleSheet,
+  };
+};
+
+module.exports = {
+  createGoogleSheetClient,
+};
+```
 
   </details>
 
 2. In the `/api` folder of the FoodAdvisor project, create a custom `analytics` middleware with the following code:
 
-  ```jsx title="src/api/restaurant/middlewares/analytics.js"
+```jsx title="src/api/restaurant/middlewares/analytics.js"
+'use strict';
 
-  'use strict';
+const { createGoogleSheetClient } = require('./utils');
 
-  const { createGoogleSheetClient } = require('./utils');
+const serviceAccountKeyFile = './gs-keys.json';
+// Replace the sheetId value with the corresponding id found in your own URL
+const sheetId = '1P7Oeh84c18NlHp1Zy-5kXD8zgpoA1WmvYL62T4GWpfk';
+const tabName = 'Restaurants';
+const range = 'A2:C';
 
-  const serviceAccountKeyFile = './gs-keys.json';
-  // Replace the sheetId value with the corresponding id found in your own URL
-  const sheetId = '1P7Oeh84c18NlHp1Zy-5kXD8zgpoA1WmvYL62T4GWpfk';
-  const tabName = 'Restaurants';
-  const range = 'A2:C';
+const VIEWS_CELL = 'C';
 
-  const VIEWS_CELL = 'C';
+const transformGSheetToObject = (response) =>
+  response.reduce(
+    (acc, restaurant) => ({
+      ...acc,
+      [restaurant[0]]: {
+        id: restaurant[0],
+        name: restaurant[1],
+        views: restaurant[2],
+        cellNum: Object.keys(acc).length + 2, // + 2 because we need to consider the header and that the initial length is 0, so our first real row would be 2,
+      },
+    }),
+    {}
+  );
 
-  const transformGSheetToObject = (response) =>
-    response.reduce(
-      (acc, restaurant) => ({
-        ...acc,
-        [restaurant[0]]: {
-          id: restaurant[0],
-          name: restaurant[1],
-          views: restaurant[2],
-          cellNum: Object.keys(acc).length + 2 // + 2 because we need to consider the header and that the initial length is 0, so our first real row would be 2,
-        },
-      }),
-      {}
-    );
+module.exports = (config, { strapi }) => {
+  return async (context, next) => {
+    // Generating google sheet client
+    const { readGoogleSheet, updateoogleSheet, writeGoogleSheet } = await createGoogleSheetClient({
+      keyFile: serviceAccountKeyFile,
+      range,
+      sheetId,
+      tabName,
+    });
 
-  module.exports = (config, { strapi }) => {
-    return async (context, next) => {
-      // Generating google sheet client
-      const { readGoogleSheet, updateoogleSheet, writeGoogleSheet } =
-        await createGoogleSheetClient({
-          keyFile: serviceAccountKeyFile,
-          range,
-          sheetId,
-          tabName,
-        });
-      
-      // Get the restaurant ID from the params in the URL
-      const restaurantId = context.params.id;
-      const restaurant = await strapi.entityService.findOne(
-        'api::restaurant.restaurant',
-        restaurantId
+    // Get the restaurant ID from the params in the URL
+    const restaurantId = context.params.id;
+    const restaurant = await strapi.entityService.findOne('api::restaurant.restaurant', restaurantId);
+
+    // Read the spreadsheet to get the current data
+    const restaurantAnalytics = await readGoogleSheet();
+
+    /**
+     * The returned data comes in the shape [1, "Mint Lounge", 23],
+     * and we need to transform it into an object: {id: 1, name: "Mint Lounge", views: 23, cellNum: 2}
+     */
+    const requestedRestaurant = transformGSheetToObject(restaurantAnalytics)[restaurantId];
+
+    if (requestedRestaurant) {
+      await updateoogleSheet(
+        `${VIEWS_CELL}${requestedRestaurant.cellNum}:${VIEWS_CELL}${requestedRestaurant.cellNum}`,
+        [[Number(requestedRestaurant.views) + 1]]
       );
-
-      // Read the spreadsheet to get the current data
-      const restaurantAnalytics = await readGoogleSheet();
-      
-      /** 
-       * The returned data comes in the shape [1, "Mint Lounge", 23],
-       * and we need to transform it into an object: {id: 1, name: "Mint Lounge", views: 23, cellNum: 2}
+    } else {
+      /** If we don't have the restaurant in the spreadsheet already,
+       * we create it with 1 view.
        */
-      const requestedRestaurant =
-        transformGSheetToObject(restaurantAnalytics)[restaurantId];
+      const newRestaurant = [[restaurant.id, restaurant.name, 1]];
+      await writeGoogleSheet(newRestaurant);
+    }
 
-      if (requestedRestaurant) {
-        await updateoogleSheet(
-          `${VIEWS_CELL}${requestedRestaurant.cellNum}:${VIEWS_CELL}${requestedRestaurant.cellNum}`,
-          [[Number(requestedRestaurant.views) + 1]]
-        );
-      } else {
-        /** If we don't have the restaurant in the spreadsheet already, 
-         * we create it with 1 view.
-         */
-        const newRestaurant = [[restaurant.id, restaurant.name, 1]];
-        await writeGoogleSheet(newRestaurant);
-      }
-    
-      // Call next to continue with the flow and get to the controller
-      await next();
-    };
+    // Call next to continue with the flow and get to the controller
+    await next();
   };
-  ```
+};
+```
 
 3. Configure the routes for the "Restaurants" content-type to execute the custom `analytics` middleware whenever a restaurant page is queried. To do so, use the following code:
 
-  ```jsx title="src/api/restaurant/routes/restaurant.js"
+```jsx title="src/api/restaurant/routes/restaurant.js"
+'use strict';
 
-  'use strict';
+const { createCoreRouter } = require('@strapi/strapi').factories;
 
-  const { createCoreRouter } = require('@strapi/strapi').factories;
-
-  module.exports = createCoreRouter('api::restaurant.restaurant', {
-    config: {
-      findOne: {
-        auth: false,
-        policies: [],
-        middlewares: ['api::restaurant.analytics'],
-      },
+module.exports = createCoreRouter('api::restaurant.restaurant', {
+  config: {
+    findOne: {
+      auth: false,
+      policies: [],
+      middlewares: ['api::restaurant.analytics'],
     },
-  });
-  ```
-
+  },
+});
+```

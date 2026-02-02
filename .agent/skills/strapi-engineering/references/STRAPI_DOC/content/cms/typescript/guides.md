@@ -3,9 +3,9 @@ title: TypeScript Guides
 description: Learn how you can leverage TypeScript while developing your Strapi project.
 displayed_sidebar: cmsSidebar
 tags:
-- typescript
-- development
-- guides
+  - typescript
+  - development
+  - guides
 ---
 
 # TypeScript guides

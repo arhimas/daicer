@@ -137,7 +137,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         entropySnapshot: (room as unknown as { entropyState: Record<string, unknown> }).entropyState, // Capture entropy state
         sequenceId: sequenceId.toString(), // If schema has this field? TimeFrame schema check required.
         // If TimeFrame doesn't have sequenceId, we might lose it?
-        // Checking TimeFrame schema earlier: 
+        // Checking TimeFrame schema earlier:
         // 1532: entropySnapshot: JSON
         // 1534: gameState: JSON
         // 1539: timestamp: DateTime
@@ -150,7 +150,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         // I will Put sequenceId in metadata/gameState?
         // Or assumes 'turnNumber' is sufficient?
         // I will comment it out or put in gameState.
-        
+
         turnNumber: 0, // Default
         timestamp: new Date().toISOString(),
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

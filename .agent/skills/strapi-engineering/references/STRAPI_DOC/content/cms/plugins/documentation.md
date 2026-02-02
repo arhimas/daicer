@@ -4,14 +4,14 @@ displayed_sidebar: cmsSidebar
 description: By using Swagger UI, the API documentation plugin takes out most of your pain to generate your documentation.
 toc_max_heading_level: 5
 tags:
-- admin panel 
-- excludeFromGeneration function
-- OpenAPI specification
-- override service 
-- pluginOrigin 
-- plugins 
-- register function
-- Swagger UI
+  - admin panel
+  - excludeFromGeneration function
+  - OpenAPI specification
+  - override service
+  - pluginOrigin
+  - plugins
+  - register function
+  - Swagger UI
 ---
 
 # Documentation plugin
@@ -78,10 +78,10 @@ Most configuration options for the Documentation plugin are handled via your Str
 
 The Documentation plugin affects multiple parts of the admin panel. The following table lists all the additional options and settings that are added to a Strapi application once the plugin has been installed:
 
-| Section impacted    | Options and settings         |
-|------------------|-------------------------------------------------------------|
-| Documentation    | <ul>Addition of a new Documentation option in the main navigation <Icon name="info" /> which shows a panel with buttons to <Icon name="eye" /> open and <Icon name="arrow-clockwise" /> regenerate the documentation.</ul>        |
-| Settings     | <ul><li>Addition of a "Documentation plugin" setting section, which controls whether the documentation endpoint is private or not (see [restricting access](#restrict-access)).<br/> 👉 Path reminder: <Icon name="gear-six" /> *Settings > Documentation plugin* </li><br/>  <li> Activation of role based access control for accessing, updating, deleting, and regenerating the documentation. Administrators can authorize different access levels to different types of users in the *Plugins* tab and the *Settings* tab (see [Users & Permissions documentation](/cms/features/users-permissions)).<br/>👉 Path reminder: <Icon name="gear-six" /> *Settings > Administration Panel > Roles* </li></ul>| 
+| Section impacted | Options and settings                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Documentation    | <ul>Addition of a new Documentation option in the main navigation <Icon name="info" /> which shows a panel with buttons to <Icon name="eye" /> open and <Icon name="arrow-clockwise" /> regenerate the documentation.</ul>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Settings         | <ul><li>Addition of a "Documentation plugin" setting section, which controls whether the documentation endpoint is private or not (see [restricting access](#restrict-access)).<br/> 👉 Path reminder: <Icon name="gear-six" /> _Settings > Documentation plugin_ </li><br/> <li> Activation of role based access control for accessing, updating, deleting, and regenerating the documentation. Administrators can authorize different access levels to different types of users in the _Plugins_ tab and the _Settings_ tab (see [Users & Permissions documentation](/cms/features/users-permissions)).<br/>👉 Path reminder: <Icon name="gear-six" /> _Settings > Administration Panel > Roles_ </li></ul> |
 
 #### Restricting access to your API documentation {#restrict-access}
 
@@ -89,7 +89,7 @@ By default, your API documentation will be accessible by anyone.
 
 To restrict API documentation access, enable the **Restricted Access** option from the admin panel:
 
-1. Navigate to <Icon name="gear-six" /> *Settings* in the main navigation of the admin panel.
+1. Navigate to <Icon name="gear-six" /> _Settings_ in the main navigation of the admin panel.
 2. Choose **Documentation**.
 3. Toggle **Restricted Access** to `ON`.
 4. Define a password in the `password` input.
@@ -97,7 +97,7 @@ To restrict API documentation access, enable the **Restricted Access** option 
 
 ### Code-based configuration
 
-To configure the Documentation plugin, create a `settings.json` file in the `src/extensions/documentation/config` folder. In this file, you can specify all your environment variables, licenses, external documentation links, and all the entries listed in the <ExternalLink to="https://swagger.io/specification/" text="specification"/>. 
+To configure the Documentation plugin, create a `settings.json` file in the `src/extensions/documentation/config` folder. In this file, you can specify all your environment variables, licenses, external documentation links, and all the entries listed in the <ExternalLink to="https://swagger.io/specification/" text="specification"/>.
 
 The following is an example configuration:
 
@@ -189,27 +189,20 @@ To exclude certain APIs or plugins from being generated, use the `excludeFromGen
 For example, pluginA might create several new APIs while pluginB may only want to generate documentation for some of those APIs. In that case, pluginB could still benefit from the generated documentation it does need by excluding only what it does not need.
 :::
 
-*****
+---
 
 | Parameter | Type                       | Description                                              |
 | --------- | -------------------------- | -------------------------------------------------------- |
-| `api`       | String or Array of Strings | The name of the API/plugin, or list of names, to exclude |
+| `api`     | String or Array of Strings | The name of the API/plugin, or list of names, to exclude |
 
 ```js title="Application or plugin register lifecycle"
-
 module.exports = {
   register({ strapi }) {
-    strapi
-      .plugin("documentation")
-      .service("override")
-      .excludeFromGeneration("restaurant");
+    strapi.plugin('documentation').service('override').excludeFromGeneration('restaurant');
     // or several
-    strapi
-      .plugin("documentation")
-      .service("override")
-      .excludeFromGeneration(["address", "upload"]);
-  }
-}
+    strapi.plugin('documentation').service('override').excludeFromGeneration(['address', 'upload']);
+  },
+};
 ```
 
 ##### registerOverride() {#register-override}
@@ -220,10 +213,10 @@ The Documentation plugin exposes an API that allows you to replace what was gene
 
 To provide an override, use the `registerOverride` function found on the Documentation plugin’s `override` service in your application or plugin's [`register` lifecycle](/cms/plugins-development/admin-panel-api#register).
 
-| Parameter                     | Type                      | Description                                                                                                   |
-| ----------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `override`                     | Object                    | OpenAPI object including any of the following keys paths, tags, components. Accepts JavaScript, JSON, or yaml |
-| `options`                      | Object                    | Accepts `pluginOrigin` and `excludeFromGeneration`                                                               |
+| Parameter                       | Type                      | Description                                                                                                   |
+| ------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `override`                      | Object                    | OpenAPI object including any of the following keys paths, tags, components. Accepts JavaScript, JSON, or yaml |
+| `options`                       | Object                    | Accepts `pluginOrigin` and `excludeFromGeneration`                                                            |
 | `options.pluginOrigin`          | String                    | The plugin that is registering the override                                                                   |
 | `options.excludeFromGeneration` | String or Array of String | The name of the API/plugin, or list of names, to exclude                                                      |
 
@@ -238,7 +231,6 @@ If the override completely replaces what the documentation generates, you can sp
 If the override should only be applied to a specific version, the override must include a value for `info.version`. Otherwise, the override will run on all documentation versions.
 
 ```js title="Application or plugin register lifecycle"
-
 module.exports = {
   register({ strapi }) {
     if (strapi.plugin('documentation')) {
@@ -248,11 +240,11 @@ module.exports = {
         paths: {
           '/answer-to-everything': {
             get: {
-              responses: { 200: { description: "*" }}
-            }
-          }
-        }
-      }
+              responses: { 200: { description: '*' } },
+            },
+          },
+        },
+      };
 
       strapi
         .plugin('documentation')
@@ -265,7 +257,7 @@ module.exports = {
         });
     }
   },
-}
+};
 ```
 
 The overrides system is provided to try and simplify amending the generated documentation. It is the only way a plugin can add or modify the generated documentation.
@@ -274,20 +266,19 @@ The overrides system is provided to try and simplify amending the generated docu
 
 The Documentation plugin’s configuration also accepts a `mutateDocumentation` function on `info['x-strapi-config']`. This function receives a draft state of the generated documentation that be can be mutated. It should only be applied from an application and has the final say in the OpenAPI schema.
 
-| Parameter                   | Type   | Description                                                            |
-| --------------------------- | ------ | ---------------------------------------------------------------------- |
+| Parameter                     | Type   | Description                                                            |
+| ----------------------------- | ------ | ---------------------------------------------------------------------- |
 | `generatedDocumentationDraft` | Object | The generated documentation with applied overrides as a mutable object |
 
 ```js title="config/plugins.js"
-
 module.exports = {
   documentation: {
     config: {
-      "x-strapi-config": {
+      'x-strapi-config': {
         mutateDocumentation: (generatedDocumentationDraft) => {
           generatedDocumentationDraft.paths[
-            "/answer-to-everything" // must be an existing path
-          ].get.responses["200"].description = "*";
+            '/answer-to-everything' // must be an existing path
+          ].get.responses['200'].description = '*';
         },
       },
     },

@@ -27,7 +27,7 @@ A custom field needs to be registered in both the admin and server.
 
 ### Server
 
-For the server, Strapi needs to be aware of all custom fields to ensure that an attribute using a custom field is valid. To do this, we will expose a new `customFields` object with a `register` method on the `Strapi` instance. The custom field can then be added to Strapi during the server [register lifecycle](https://docs.strapi.io/developer-docs/latest/developer-resources/plugin-api-reference/server.html#register). 
+For the server, Strapi needs to be aware of all custom fields to ensure that an attribute using a custom field is valid. To do this, we will expose a new `customFields` object with a `register` method on the `Strapi` instance. The custom field can then be added to Strapi during the server [register lifecycle](https://docs.strapi.io/developer-docs/latest/developer-resources/plugin-api-reference/server.html#register).
 
 ```ts
 interface CustomFieldServerOptions {
@@ -142,7 +142,7 @@ register(app) {
   app.customFields.register({
     name: "color",
     pluginId: "color-picker",
-    type: "text", // store the color as a text in 
+    type: "text", // store the color as a text in
     intlLabel: {
       id: "color-picker.color.label",
       defaultMessage: "Color",
@@ -150,12 +150,12 @@ register(app) {
     intlDescription: {
       id: "color-picker.color.description",
       defaultMessage: "Select any color",
-    } 
+    }
     icon: ColorIcon,
     components: {
       Input: async () => import(/* webpackChunkName: "input-component" */ "./Input"),
       View: async () => import(/* webpackChunkName: "view-component" */ "./View"),
-    } 
+    }
     options: {
       base: [
         {

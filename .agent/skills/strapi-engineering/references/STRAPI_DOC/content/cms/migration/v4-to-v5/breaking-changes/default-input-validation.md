@@ -4,10 +4,10 @@ description: In Strapi 5, REST API input is validated by default in controllers,
 sidebar_label: Default input validation
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - controllers
- - validation
- - upgrade to Strapi 5
+  - breaking changes
+  - controllers
+  - validation
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -54,8 +54,7 @@ In v5, both query parameters and input data are validated.
 
 ### Notes
 
-* A `400 Bad Request` error will be thrown if the request has invalid values such as in in the following cases:
-
+- A `400 Bad Request` error will be thrown if the request has invalid values such as in in the following cases:
   - relations the user do not have permission to create
   - unrecognized values that are not present on a schema
   - attempt to writing non-writable fields and internal timestamps like `createdAt` and `createdBy` fields

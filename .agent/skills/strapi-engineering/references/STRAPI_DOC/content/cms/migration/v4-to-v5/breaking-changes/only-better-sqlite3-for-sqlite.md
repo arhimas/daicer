@@ -1,13 +1,13 @@
 ---
 title: Only the `better-sqlite3` package is supported for the SQLite client
 description: In Strapi 5, users can only use the `better-sqlite3` package for SQLite databases, and the `client` value for it must be set to `sqlite`.
-sidebar_label: Only better-sqlite3 for sqlite 
+sidebar_label: Only better-sqlite3 for sqlite
 displayed_sidebar: cmsSidebar
 tags:
- - breaking changes
- - database
- - PostgreSQL
- - upgrade to Strapi 5
+  - breaking changes
+  - database
+  - PostgreSQL
+  - upgrade to Strapi 5
 ---
 
 import Intro from '/docs/snippets/breaking-change-page-intro.md'
@@ -52,8 +52,8 @@ The database configuration `client` option for SQLite database only accepts `sql
 
 ### Notes
 
-* Strapi 5 uses the `better-sqlite3` package for SQLite databases under the hood and rewrites the `sqlite` option as `better-sqlite3` for Knex.
-* Additional information about database clients and configuration can be found in the [database configuration](/cms/configurations/database) documentation.
+- Strapi 5 uses the `better-sqlite3` package for SQLite databases under the hood and rewrites the `sqlite` option as `better-sqlite3` for Knex.
+- Additional information about database clients and configuration can be found in the [database configuration](/cms/configurations/database) documentation.
 
 ### Manual procedure
 

@@ -22,10 +22,7 @@
         "effect": "Grants the 'Invisible' condition.",
         "duration": "1 hour (60 minutes).",
         "scope": "Self, plus worn and carried equipment.",
-        "trigger_to_end_early": [
-          "Attacking",
-          "Casting a spell"
-        ],
+        "trigger_to_end_early": ["Attacking", "Casting a spell"],
         "attunement_required": false
       },
       "data_archivist_notes": "This record is well-formed and mechanically sound according to standard conventions for magic items granting invisibility. The mechanical parameters (duration, scope, termination conditions) are explicitly stated."

@@ -5,9 +5,9 @@ description: The Strapi Cloud documentation contains all technical documentation
 slug: /cloud/intro
 sidebar_position: 1
 tags:
-- introduction
-- deployment
-- Strapi Cloud
+  - introduction
+  - deployment
+  - Strapi Cloud
 pagination_next: cloud/getting-started/cloud-fundamentals
 ---
 
@@ -24,7 +24,7 @@ There are 2 Strapi documentations, one for each Strapi product:
 </SubtleCallout>
 -->
 
-The Strapi Cloud documentation contains all information related to the setup, deployment, update and customization of your Strapi Cloud account and applications. 
+The Strapi Cloud documentation contains all information related to the setup, deployment, update and customization of your Strapi Cloud account and applications.
 
 :::strapi What is Strapi Cloud?
 <ExternalLink to="https://strapi.io/cloud" text="Strapi Cloud"/> is a hosting platform that allows you to deploy your Strapi applications. It is a fully managed content platform <Annotation>**🤝 Why Strapi Cloud?**<br />Strapi Cloud enables you to increase your content velocity without having to compromise on customization needs and requirements. <br /> Development teams can rely on Strapi Cloud to abstract away the complexity of infrastructure management while keeping your development workflow and extending the core capabilities of Strapi. <br /> Content managers can use Strapi Cloud to autonomously manage all types of content and benefit from a complete set of content collaboration, security, and compliance features.</Annotation> built on top of Strapi, the open-source headless CMS.
@@ -32,11 +32,12 @@ The Strapi Cloud documentation contains all information related to the setup, de
 
 :::prerequisites
 The typical workflow, which is recommended by the Strapi team, is:
+
 1. Create your Strapi application locally (v4.8.2 or later).
 2. Optionally, extend the application with plugins or custom code.
 3. Version the application's codebase through your git provider (GitHub or GitLab).
 4. Deploy the application with Strapi Cloud.
-:::
+   :::
 
 The Strapi Cloud documentation is organised in topics in a order that should correspond to your journey with the product. The following cards, on which you can click, will redirect you to the main topics and steps.
 

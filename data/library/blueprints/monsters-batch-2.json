@@ -13,7 +13,12 @@
     "challenge_rating": 0.25,
     "xp": 50,
     "stats": {
-      "str": 10, "dex": 10, "con": 10, "int": 10, "wis": 14, "cha": 11
+      "str": 10,
+      "dex": 10,
+      "con": 10,
+      "int": 10,
+      "wis": 14,
+      "cha": 11
     },
     "actions": [
       {
@@ -21,12 +26,10 @@
         "type": "Melee Weapon Attack",
         "toHit": 2,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "bludgeoning", "amount": "1d4" } ]
+        "damage_instances": [{ "type": "bludgeoning", "amount": "1d4" }]
       }
     ],
-    "inventory": [
-       { "item": "club", "quantity": 1, "isEquipped": true }
-    ]
+    "inventory": [{ "item": "club", "quantity": 1, "isEquipped": true }]
   },
   {
     "slug": "guard",
@@ -42,7 +45,12 @@
     "challenge_rating": 0.125,
     "xp": 25,
     "stats": {
-      "str": 13, "dex": 12, "con": 12, "int": 10, "wis": 11, "cha": 10
+      "str": 13,
+      "dex": 12,
+      "con": 12,
+      "int": 10,
+      "wis": 11,
+      "cha": 10
     },
     "actions": [
       {
@@ -50,13 +58,13 @@
         "type": "Melee or Ranged Weapon Attack",
         "toHit": 3,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 1" } ]
+        "damage_instances": [{ "type": "piercing", "amount": "1d6 + 1" }]
       }
     ],
     "inventory": [
-        { "item": "spear", "quantity": 1, "isEquipped": true },
-        { "item": "chain-shirt", "quantity": 1, "isEquipped": true },
-        { "item": "shield", "quantity": 1, "isEquipped": true }
+      { "item": "spear", "quantity": 1, "isEquipped": true },
+      { "item": "chain-shirt", "quantity": 1, "isEquipped": true },
+      { "item": "shield", "quantity": 1, "isEquipped": true }
     ]
   },
   {
@@ -73,7 +81,12 @@
     "challenge_rating": 0.5,
     "xp": 100,
     "stats": {
-      "str": 11, "dex": 14, "con": 12, "int": 11, "wis": 13, "cha": 11
+      "str": 11,
+      "dex": 14,
+      "con": 12,
+      "int": 11,
+      "wis": 13,
+      "cha": 11
     },
     "actions": [
       {
@@ -81,20 +94,20 @@
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 2" } ]
+        "damage_instances": [{ "type": "piercing", "amount": "1d6 + 2" }]
       },
       {
         "name": "Longbow",
         "type": "Ranged Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Ranged (Feet)", "distance": 150 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d8 + 2" } ]
+        "damage_instances": [{ "type": "piercing", "amount": "1d8 + 2" }]
       }
     ],
     "inventory": [
-        { "item": "shortsword", "quantity": 1, "isEquipped": true },
-        { "item": "longbow", "quantity": 1, "isEquipped": true },
-        { "item": "leather-armor", "quantity": 1, "isEquipped": true }
+      { "item": "shortsword", "quantity": 1, "isEquipped": true },
+      { "item": "longbow", "quantity": 1, "isEquipped": true },
+      { "item": "leather-armor", "quantity": 1, "isEquipped": true }
     ]
   },
   {
@@ -111,24 +124,29 @@
     "challenge_rating": 0.25,
     "xp": 50,
     "stats": {
-      "str": 15, "dex": 14, "con": 12, "int": 1, "wis": 10, "cha": 3
+      "str": 15,
+      "dex": 14,
+      "con": 12,
+      "int": 1,
+      "wis": 10,
+      "cha": 3
     },
     "actions": [
-       {
+      {
         "name": "Constrict",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "bludgeoning", "amount": "1d8 + 2" } ],
-        "condition_instances": [ { "id": "grappled", "dc": 14, "save_type": "str" } ]
-       },
-       {
+        "damage_instances": [{ "type": "bludgeoning", "amount": "1d8 + 2" }],
+        "condition_instances": [{ "id": "grappled", "dc": 14, "save_type": "str" }]
+      },
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 2" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "1d6 + 2" }]
+      }
     ]
   },
   {
@@ -145,7 +163,12 @@
     "challenge_rating": 0.25,
     "xp": 50,
     "stats": {
-      "str": 5, "dex": 14, "con": 12, "int": 1, "wis": 7, "cha": 3
+      "str": 5,
+      "dex": 14,
+      "con": 12,
+      "int": 1,
+      "wis": 7,
+      "cha": 3
     },
     "actions": [
       {
@@ -153,7 +176,10 @@
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d4 + 2" }, { "type": "poison", "amount": "3d6" } ],
+        "damage_instances": [
+          { "type": "piercing", "amount": "1d4 + 2" },
+          { "type": "poison", "amount": "3d6" }
+        ],
         "save": { "type": "con", "dc": 11 }
       }
     ]
@@ -173,13 +199,16 @@
     "xp": 25,
     "stats": { "str": 4, "dex": 18, "con": 11, "int": 2, "wis": 12, "cha": 5 },
     "actions": [
-         {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 6,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1" }, { "type": "poison", "amount": "3d4" } ]
-       }
+        "damage_instances": [
+          { "type": "piercing", "amount": "1" },
+          { "type": "poison", "amount": "3d4" }
+        ]
+      }
     ]
   },
   {
@@ -197,14 +226,17 @@
     "xp": 50,
     "stats": { "str": 10, "dex": 18, "con": 13, "int": 2, "wis": 10, "cha": 3 },
     "actions": [
-         {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 6,
         "range_config": { "type": "Melee", "distance": 10 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d4 + 4" }, { "type": "poison", "amount": "3d6" } ],
+        "damage_instances": [
+          { "type": "piercing", "amount": "1d4 + 4" },
+          { "type": "poison", "amount": "3d6" }
+        ],
         "save": { "type": "con", "dc": 11 }
-       }
+      }
     ]
   },
   {
@@ -222,14 +254,14 @@
     "xp": 50,
     "stats": { "str": 12, "dex": 13, "con": 11, "int": 2, "wis": 10, "cha": 3 },
     "actions": [
-        {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 3,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 1" } ],
-        "condition_instances": [ { "id": "grappled", "dc": 11, "save_type": "str" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "1d6 + 1" }],
+        "condition_instances": [{ "id": "grappled", "dc": 11, "save_type": "str" }]
+      }
     ]
   },
   {
@@ -247,13 +279,13 @@
     "xp": 50,
     "stats": { "str": 15, "dex": 12, "con": 13, "int": 2, "wis": 10, "cha": 5 },
     "actions": [
-        {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d8 + 2" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "1d8 + 2" }]
+      }
     ]
   },
   {
@@ -271,13 +303,13 @@
     "xp": 50,
     "stats": { "str": 13, "dex": 15, "con": 12, "int": 8, "wis": 13, "cha": 10 },
     "actions": [
-         {
+      {
         "name": "Talons",
         "type": "Melee Weapon Attack",
         "toHit": 3,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 1" } ]
-       }
+        "damage_instances": [{ "type": "slashing", "amount": "2d6 + 1" }]
+      }
     ]
   },
   {
@@ -294,28 +326,28 @@
     "challenge_rating": 1,
     "xp": 200,
     "stats": { "str": 15, "dex": 10, "con": 15, "int": 6, "wis": 12, "cha": 7 },
-     "actions": [
-         {
+    "actions": [
+      {
         "name": "Multiattack",
         "type": "Multiattack",
         "toHit": 0,
         "range_config": { "type": "Self", "distance": 0 },
         "damage_instances": []
-       },
-        {
+      },
+      {
         "name": "Talon",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "slashing", "amount": "2d4 + 2" } ]
-       },
-       {
+        "damage_instances": [{ "type": "slashing", "amount": "2d4 + 2" }]
+      },
+      {
         "name": "Beak",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "2d4 + 2" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "2d4 + 2" }]
+      }
     ]
   },
   {
@@ -332,21 +364,21 @@
     "challenge_rating": 1,
     "xp": 200,
     "stats": { "str": 17, "dex": 15, "con": 13, "int": 3, "wis": 12, "cha": 8 },
-     "actions": [
-         {
+    "actions": [
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 5,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d8 + 3" } ]
-       },
-       {
+        "damage_instances": [{ "type": "piercing", "amount": "1d8 + 3" }]
+      },
+      {
         "name": "Claw",
         "type": "Melee Weapon Attack",
         "toHit": 5,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "slashing", "amount": "1d6 + 3" } ]
-       }
+        "damage_instances": [{ "type": "slashing", "amount": "1d6 + 3" }]
+      }
     ]
   },
   {
@@ -363,28 +395,28 @@
     "challenge_rating": 1,
     "xp": 200,
     "stats": { "str": 19, "dex": 10, "con": 16, "int": 2, "wis": 13, "cha": 7 },
-     "actions": [
-       {
+    "actions": [
+      {
         "name": "Multiattack",
         "type": "Multiattack",
         "toHit": 0,
         "range_config": { "type": "Self", "distance": 0 },
         "damage_instances": []
-       },
-         {
+      },
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 5,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d8 + 4" } ]
-       },
-       {
+        "damage_instances": [{ "type": "piercing", "amount": "1d8 + 4" }]
+      },
+      {
         "name": "Claws",
         "type": "Melee Weapon Attack",
         "toHit": 5,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "slashing", "amount": "2d6 + 4" } ]
-       }
+        "damage_instances": [{ "type": "slashing", "amount": "2d6 + 4" }]
+      }
     ]
   },
   {
@@ -401,15 +433,15 @@
     "challenge_rating": 1,
     "xp": 200,
     "stats": { "str": 17, "dex": 15, "con": 15, "int": 3, "wis": 12, "cha": 7 },
-     "actions": [
-         {
+    "actions": [
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 5,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "2d6 + 3" } ],
-        "condition_instances": [ { "id": "prone", "dc": 13, "save_type": "str" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "2d6 + 3" }],
+        "condition_instances": [{ "id": "prone", "dc": 13, "save_type": "str" }]
+      }
     ]
   },
   {
@@ -427,24 +459,24 @@
     "xp": 200,
     "stats": { "str": 10, "dex": 15, "con": 10, "int": 12, "wis": 14, "cha": 16 },
     "actions": [
-         {
+      {
         "name": "Shortsword",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 2" } ]
-       },
-       {
+        "damage_instances": [{ "type": "piercing", "amount": "1d6 + 2" }]
+      },
+      {
         "name": "Hand Crossbow",
         "type": "Ranged Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Ranged (Feet)", "distance": 30 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d6 + 2" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "1d6 + 2" }]
+      }
     ],
     "inventory": [
-        { "item": "shortsword", "quantity": 1, "isEquipped": true },
-        { "item": "hand-crossbow", "quantity": 1, "isEquipped": true }
+      { "item": "shortsword", "quantity": 1, "isEquipped": true },
+      { "item": "hand-crossbow", "quantity": 1, "isEquipped": true }
     ]
   },
   {
@@ -462,17 +494,20 @@
     "xp": 200,
     "stats": { "str": 6, "dex": 17, "con": 13, "int": 11, "wis": 12, "cha": 14 },
     "actions": [
-         {
+      {
         "name": "Sting",
         "type": "Melee Weapon Attack",
         "toHit": 5,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d4 + 3" }, { "type": "poison", "amount": "3d6" } ],
+        "damage_instances": [
+          { "type": "piercing", "amount": "1d4 + 3" },
+          { "type": "poison", "amount": "3d6" }
+        ],
         "save": { "type": "con", "dc": 11 }
-       }
+      }
     ]
   },
-   {
+  {
     "slug": "pseudodragon",
     "name": "Pseudodragon",
     "type": "Dragon",
@@ -487,21 +522,21 @@
     "xp": 50,
     "stats": { "str": 6, "dex": 15, "con": 13, "int": 10, "wis": 12, "cha": 10 },
     "actions": [
-         {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d4 + 2" } ]
-       },
-       {
+        "damage_instances": [{ "type": "piercing", "amount": "1d4 + 2" }]
+      },
+      {
         "name": "Sting",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d4 + 2" } ],
-        "condition_instances": [ { "id": "poisoned", "dc": 11, "save_type": "con" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "1d4 + 2" }],
+        "condition_instances": [{ "id": "poisoned", "dc": 11, "save_type": "con" }]
+      }
     ]
   },
   {
@@ -519,13 +554,13 @@
     "xp": 100,
     "stats": { "str": 7, "dex": 15, "con": 12, "int": 8, "wis": 11, "cha": 10 },
     "actions": [
-         {
+      {
         "name": "Touch",
         "type": "Melee Weapon Attack",
         "toHit": 4,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "fire", "amount": "2d6" } ]
-       }
+        "damage_instances": [{ "type": "fire", "amount": "2d6" }]
+      }
     ]
   },
   {
@@ -543,20 +578,20 @@
     "xp": 100,
     "stats": { "str": 13, "dex": 13, "con": 13, "int": 2, "wis": 13, "cha": 6 },
     "actions": [
-         {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 3,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d8 + 1" } ]
-       },
-       {
+        "damage_instances": [{ "type": "piercing", "amount": "1d8 + 1" }]
+      },
+      {
         "name": "Antennae",
         "type": "Melee Weapon Attack",
         "toHit": 3,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [] 
-       }
+        "damage_instances": []
+      }
     ]
   },
   {
@@ -574,14 +609,14 @@
     "xp": 100,
     "stats": { "str": 6, "dex": 12, "con": 12, "int": 2, "wis": 13, "cha": 5 },
     "actions": [
-        {
+      {
         "name": "Bite",
         "type": "Melee Weapon Attack",
         "toHit": 3,
         "range_config": { "type": "Melee", "distance": 5 },
-        "damage_instances": [ { "type": "piercing", "amount": "1d4 + 1" } ],
-        "condition_instances": [ { "id": "petrified", "dc": 11, "save_type": "con" } ]
-       }
+        "damage_instances": [{ "type": "piercing", "amount": "1d4 + 1" }],
+        "condition_instances": [{ "id": "petrified", "dc": 11, "save_type": "con" }]
+      }
     ]
   }
 ]
