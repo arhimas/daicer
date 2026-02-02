@@ -1,14 +1,8 @@
 import { Command } from 'commander';
 import { discoverContentTypes, readAllSchemas, SchemaDefinition, SchemaAttribute } from '../utils/schema';
+import { ui } from '../utils/ui';
 import fs from 'fs';
 import path from 'path';
-
-// Helper for dynamic imports avoids top-level await issues in some environments
-async function getInteractiveTools() {
-  const { default: chalk } = await import('chalk');
-  const { select } = await import('@inquirer/prompts');
-  return { chalk, select };
-}
 
 export const schemaCommand = new Command('schema')
   .description('Inspect Content Type Schemas')
@@ -28,7 +22,8 @@ export async function runSchema(options: {
   json?: boolean;
   save?: string;
 }) {
-  const { chalk, select } = await getInteractiveTools();
+  const { select } = await import('@inquirer/prompts');
+  const { chalk } = await ui.tools();
 
   try {
     let result: SchemaDefinition | Record<string, SchemaDefinition> | undefined;
@@ -41,11 +36,11 @@ export async function runSchema(options: {
     else {
       // Interactive Mode (Human)
       if (options.json) {
-        console.error(JSON.stringify({ error: '--type <uid> is required when using --json' }));
+        ui.json({ error: '--type <uid> is required when using --json' });
         process.exit(1);
       }
 
-      console.log(chalk.bold.hex('#FFD700')('\n🔮 Schema Explorer\n'));
+      await ui.header('Schema Explorer');
 
       const types = discoverContentTypes();
       const selectedUid = await select({
@@ -66,16 +61,15 @@ export async function runSchema(options: {
     if (mode === 'list') {
       const types = discoverContentTypes();
       if (options.json) {
-        console.log(JSON.stringify(types, null, 2));
+        ui.json(types);
         return;
       }
 
-      console.log(chalk.bold('\n📦 Available Content Types:\n'));
-      types.forEach((t) => {
-        console.log(`  • ${chalk.cyan(t.uid)}`);
-        console.log(`    ${chalk.dim(t.info.displayName)} - ${t.info.singularName}/${t.info.pluralName}`);
-      });
-      console.log('');
+      await ui.header('Available Content Types');
+      await ui.table(
+        ['UID', 'Display Name', 'Kind'],
+        types.map(t => [t.uid, t.info.displayName, `${t.info.singularName}`])
+      );
       return;
     }
 
@@ -83,21 +77,21 @@ export async function runSchema(options: {
       result = readAllSchemas();
     } else if (mode === 'single') {
       // Use Deep Read by default for single inspection
-      const { readSchemaDeep } = await import('../utils/schema'); // dynamic import or just standard import at top if possible
+      const { readSchemaDeep } = await import('../utils/schema'); 
       result = readSchemaDeep(options.type!, 2); // Depth 2 as requested
 
       if (!result) {
         if (options.json) {
-          console.error(JSON.stringify({ error: `Schema not found for UID: ${options.type}` }));
+          ui.json({ error: `Schema not found for UID: ${options.type}` });
         } else {
-          console.error(chalk.red(`\n❌ Schema not found for UID: ${options.type}\n`));
+          await ui.error(`Schema not found for UID: ${options.type}`);
         }
         throw new Error('Schema not found');
       }
 
       // Human pretty print for single schema
       if (!options.json && !options.save) {
-        printHumanSchema(result, chalk, 0); // Start depth 0
+        await printHumanSchema(result, 0); // Start depth 0
         return;
       }
     }
@@ -107,29 +101,30 @@ export async function runSchema(options: {
     if (options.save) {
       const savePath = path.resolve(process.cwd(), options.save);
       fs.writeFileSync(savePath, output);
-      if (!options.json) console.log(chalk.green(`\n✅ Saved schema output to ${savePath}\n`));
+      if (!options.json) await ui.success(`Saved schema output to ${savePath}`);
     } else {
       console.log(output);
     }
-  } catch (error) {
+  } catch (error: any) {
     if (options.json) {
       console.error(JSON.stringify({ error: error.message }));
       process.exit(1);
     } else {
-      console.error(chalk.red('\n❌ Error:'), error);
+      await ui.error('Error during schema inspection', error);
       throw error;
     }
   }
 }
 
-function printHumanSchema(schema: SchemaDefinition, _chalk: unknown, indentLevel = 0) {
-  const chalk = _chalk as typeof import('chalk').default;
+async function printHumanSchema(schema: SchemaDefinition, indentLevel = 0) {
+  const { chalk } = await ui.tools();
   const pad = ' '.repeat(indentLevel * 3);
 
   if (indentLevel === 0) {
-    console.log(chalk.bold(`\n📄 Schema: ${chalk.cyan(schema.info.displayName)}\n`));
-    console.log(`   ${chalk.dim(schema.info.description || 'No description')}`);
-    console.log(`   ${chalk.dim('Collection Name:')} ${schema.collectionName}\n`);
+    await ui.panel(
+        `${schema.info.description || 'No description'}\nCollection: ${schema.collectionName}`,
+        { title: schema.info.displayName, style: 'round', color: 'blue' }
+    );
     console.log(chalk.bold('   Attributes:'));
   } else {
     console.log(
@@ -154,11 +149,11 @@ function printHumanSchema(schema: SchemaDefinition, _chalk: unknown, indentLevel
     console.log(`${pad}   ${required} ${chalk.green(key.padEnd(20))} ${typeStr}`);
 
     if ((value as any).__targetSchema) {
-      printHumanSchema((value as any).__targetSchema, chalk, indentLevel + 1);
+      printHumanSchema((value as any).__targetSchema, indentLevel + 1);
     }
 
     if ((value as any).__schema) {
-      printHumanSchema((value as any).__schema, chalk, indentLevel + 1);
+      printHumanSchema((value as any).__schema, indentLevel + 1);
     }
   });
   if (indentLevel === 0) console.log('');

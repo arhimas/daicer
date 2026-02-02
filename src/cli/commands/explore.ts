@@ -2,6 +2,8 @@ import { Command } from 'commander';
 import fs from 'fs';
 import { getStrapi, stopStrapi } from '../utils/bootstrap';
 import { discoverContentTypes } from '../utils/schema';
+import { ui } from '../utils/ui';
+import { filterBuilder } from '../utils/filter-builder';
 
 // Types
 interface ExploreOptions {
@@ -13,6 +15,8 @@ interface ExploreOptions {
   json?: boolean;
   save?: string;
   filters?: string;
+  // Deep cardinality flag
+  all?: boolean; 
 }
 
 export const exploreCommand = new Command('explore')
@@ -30,29 +34,19 @@ export const exploreCommand = new Command('explore')
       await runExplore(options);
     } catch (error) {
       if (options.json) {
-        console.log(
-          JSON.stringify({
+        ui.json({
             meta: { success: false, error: error.message || String(error) },
             data: null,
-          })
-        );
+          });
       } else {
-        const { default: chalk } = await import('chalk');
-
-        console.error(chalk.red('\n❌ Error:'), (error as any).message || error);
+        await ui.error('Error during exploration', error);
       }
       throw error;
     }
   });
 
 export async function runExplore(options: ExploreOptions) {
-  // Lazy load UI libs
-  const { default: chalk } = await import('chalk');
-  const { default: ora } = await import('ora');
-  const { default: boxen } = await import('boxen');
-  const { default: gradient } = await import('gradient-string');
-  const { default: Table } = await import('cli-table3');
-  const { default: prettyjson } = await import('prettyjson');
+  // Lazy load prompts
   const { input, select } = await import('@inquirer/prompts');
 
   const isRaw = !!options.json;
@@ -60,7 +54,7 @@ export async function runExplore(options: ExploreOptions) {
   // --- HELPER: Spinner ---
   const withSpinner = async <T>(text: string, fn: () => Promise<T>): Promise<T> => {
     if (isRaw) return fn();
-    const spinner = ora(text).start();
+    const spinner = await ui.spinner(text);
     try {
       const res = await fn();
       spinner.stop();
@@ -79,17 +73,12 @@ export async function runExplore(options: ExploreOptions) {
     if (isRaw) throw new Error('Missing required argument: --type <uid> is required in JSON mode.');
 
     if (allTypes.length === 0) {
-      console.log(
-        boxen(chalk.yellow('⚠️  No Content Types found in src/api.\nAre you in the backend root?'), {
-          padding: 1,
-          borderColor: 'yellow',
-          borderStyle: 'classic',
-        })
-      );
+      await ui.warn('No Content Types found in src/api. Are you in the backend root?');
       return;
     }
 
-    console.log(gradient.atlas('\n  🌌  DAICER EXPLORER  🌌  \n'));
+    await ui.header('DAICER EXPLORER', '🌌');
+    const { chalk } = await ui.tools();
 
     selectedUid = await select({
       message: 'Select Content Type:',
@@ -132,13 +121,10 @@ export async function runExplore(options: ExploreOptions) {
   while (keepRunning) {
     if (!isRaw && !action) {
       // If no action flag, ask user
-      console.log(
-        boxen(
-          `${chalk.bold('Target:')} ${chalk.cyan(finalType.info.displayName)}\n` +
-            `${chalk.bold('UID:')}    ${chalk.dim(finalType.uid)}`,
-          { padding: { top: 0, bottom: 0, left: 1, right: 1 }, borderStyle: 'round', borderColor: 'blue' }
-        )
-      );
+        await ui.panel(
+            `${finalType.uid}`,
+            { title: finalType.info.displayName, style: 'round', color: 'blue' }
+        );
 
       currentAction = (await select({
         message: 'Choose an action:',
@@ -225,67 +211,57 @@ export async function runExplore(options: ExploreOptions) {
 
     if (isRaw) {
       // 🤖 LLM Strict Mode
-      console.log(
-        JSON.stringify(
-          {
-            meta: {
-              type: finalType.uid,
-              action: currentAction,
-              filters: currentFilters,
-              ...meta,
-            },
-            data: result,
-          },
-          null,
-          2
-        )
-      );
+      ui.json({
+        meta: {
+            type: finalType.uid,
+            action: currentAction,
+            filters: currentFilters,
+            ...meta,
+        },
+        data: result,
+      });
       keepRunning = false; // LLM is one-shot
     } else {
       // 🧑 Human Mode
+      
       if (currentAction === 'count') {
-        console.log(`\n${chalk.green('Total Entries:')} ${chalk.bold(result)}`);
+        // const { chalk } = await import('prettyjson') as any || {}; 
+        // chalk is not used here? Wait, we need it for coloring the result?
+        // Ah, ui.kv handles coloring. So we don't need chalk here.
+        await ui.kv('Total Entries', result as number, 'green');
         keepRunning = false;
       } else if (currentAction === 'findOne' || finalType.kind === 'singleType') {
-        console.log('\n' + prettyjson.render(result));
-        keepRunning = false;
+         // Use dynamic import for prettyjson to be safe
+         const { default: prettyjson } = await import('prettyjson');
+         console.log('\n' + prettyjson.render(result));
+         keepRunning = false;
       } else {
         // Table View for 'find'
 
         const data = Array.isArray(result) ? result : [result].filter(Boolean); // handle null
 
         if (data.length === 0) {
-          console.log(chalk.yellow('\n(No results found)'));
+           await ui.warn('(No results found)');
         } else {
           // Derive headers
           const firstKey = Object.keys(data[0] || {}).filter((k) => k !== 'id' && k !== 'documentId');
           const headers = ['documentId', 'id', ...firstKey.slice(0, 3)];
 
-          const table = new Table({
-            head: headers.map((h) => chalk.cyan(h)),
-            style: { head: [], border: [] },
-          });
-
-          data.forEach((row: any) => {
-            const values = headers.map((h) => {
-              const val = row[h];
-              if (typeof val === 'object') return chalk.dim('[Obj]');
-              return String(val).substring(0, 30);
-            });
-            table.push(values);
-          });
-
-          console.log('\n' + table.toString());
+          await ui.table(
+            headers,
+            data.map((row: any) => headers.map(h => {
+                const val = row[h];
+                if (typeof val === 'object') return '[Obj]';
+                return String(val).substring(0, 30);
+            }))
+          );
 
           // Pagination Info
           if (meta.pagination) {
             const p = meta.pagination as any;
-            console.log(
-              boxen(
-                `${chalk.dim('Page')} ${chalk.bold(p.page)} ${chalk.dim('of')} ${chalk.bold(p.pageCount)}  ` +
-                  `${chalk.dim('|')}  ${chalk.dim('Total:')} ${chalk.bold(p.total)}`,
-                { padding: { top: 0, bottom: 0, left: 1, right: 1 }, borderStyle: 'classic', borderColor: 'gray' }
-              )
+            await ui.panel(
+                `Page ${p.page} of ${p.pageCount} | Total: ${p.total}`,
+                { style: 'classic', color: 'gray' }
             );
           }
         }
@@ -300,6 +276,8 @@ export async function runExplore(options: ExploreOptions) {
           choices.push({ name: 'Previous Page ⬅️', value: 'prev' });
         }
         choices.push({ name: 'Modify Filters 🔎', value: 'filter' });
+        choices.push({ name: 'Interactive Filter Builder 🧙‍♂️', value: 'builder' });
+        choices.push({ name: 'Clear Filters 🧹', value: 'clear_filters' });
         choices.push({ name: 'Show Detail (findOne) 📄', value: 'detail' });
         choices.push({ name: 'Exit', value: 'exit' });
 
@@ -320,8 +298,20 @@ export async function runExplore(options: ExploreOptions) {
             currentFilters = JSON.parse(filterStr);
             currentPage = 1;
           } catch {
-            console.log(chalk.red('Invalid JSON'));
+             await ui.error('Invalid JSON');
           }
+        } else if (nextStep === 'builder') {
+            // Invoke the new Filter Builder
+            const newFilters = await filterBuilder.build(finalType.uid);
+            // Merge or replace? Let's replace for simplicity or strictly add to $and
+            // Currently filterBuilder returns a full filter object.
+            currentFilters = newFilters;
+            currentPage = 1;
+            await ui.success('Filters updated!');
+        } else if (nextStep === 'clear_filters') {
+            currentFilters = {};
+            currentPage = 1;
+            await ui.success('Filters cleared.');
         } else if (nextStep === 'detail') {
           const did = await input({ message: 'Enter Document ID:' });
           currentAction = 'findOne';
@@ -331,7 +321,7 @@ export async function runExplore(options: ExploreOptions) {
 
       if (options.save && !keepRunning) {
         fs.writeFileSync(options.save, JSON.stringify(result, null, 2));
-        console.log(chalk.green(`\n✅ Saved to ${options.save}`));
+        await ui.success(`Saved to ${options.save}`);
       }
     }
   }

@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { getStrapiUrl } from '../utils/client';
-// Dynamic imports moved inside action for performance/lazy-loading
+import { ui } from '../utils/ui';
 
 export const statusCommand = new Command('status')
   .description('Check the connection status of the Strapi Backend')
@@ -24,24 +24,15 @@ export async function runStatus(options: { json?: boolean }) {
     if (isRaw) {
       console.log(JSON.stringify({ status: 'online', url: rootUrl, latency: duration }));
     } else {
-      const { default: chalk } = await import('chalk');
-      const { default: boxen } = await import('boxen');
-      const { default: gradient } = await import('gradient-string');
-
-      console.log(
-        boxen(
-          gradient.pastel(`  🎲  DAICER BACKEND  🎲  `) +
-            `\n\n` +
-            `${chalk.green.bold('  ●  ONLINE')}   ${chalk.dim(duration + 'ms')}\n` +
-            `${chalk.dim('  🔗  ' + rootUrl)}`,
-          {
-            padding: 1,
-            margin: 1,
-            borderStyle: 'round',
-            borderColor: 'green',
-            float: 'center',
-          }
-        )
+      await ui.welcome('DAICER BACKEND', 'Status Check');
+      
+      await ui.panel(
+        `● ONLINE\nLatency: ${duration}ms\nURL: ${rootUrl}`,
+        { 
+            title: 'CONNECTION ESTABLISHED', 
+            color: 'green',
+            style: 'round'
+        }
       );
     }
   } catch (err: unknown) {
@@ -57,31 +48,15 @@ export async function runStatus(options: { json?: boolean }) {
         })
       );
     } else {
-      const { default: chalk } = await import('chalk');
-      const { default: boxen } = await import('boxen');
-
-      console.log(
-        boxen(
-          chalk.red.bold(`  💀  DAICER BACKEND OFFLINE  💀  `) +
-            `\n\n` +
-            `${chalk.yellow('  ⚠️  CONNECTION REFUSED')}\n` +
-            `${chalk.dim('  Action: Run ')}${chalk.cyan.bold('yarn develop')}${chalk.dim(' in backend')}`,
-          {
-            padding: 1,
-            margin: 1,
-            borderStyle: 'double',
-            borderColor: 'red',
-            float: 'center',
-          }
-        )
+      await ui.panel(
+        `💀 OFFLINE\n\nError: ${error.message}\nAction: Run 'yarn develop' in backend`,
+        { 
+            title: 'CONNECTION FAILED', 
+            color: 'red', 
+            style: 'double' 
+        }
       );
-      // Do not exit, just throw?
-      // Actually for status, maybe we just return?
-      // If we throw, the menu will catch it and show error.
-      // But status "offline" is technically a valid result for the check.
-      // Users might want to go back to menu.
-      // So we just return.
-      // process.exit(1);
+    //   process.exit(1);
     }
   }
 }

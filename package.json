@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "concurrently \"ts-node src/scripts/plugin-tools.ts watch\" \"mkdir -p logs && STRAPI_LOG_LEVEL=info NODE_OPTIONS='--max-old-space-size=8192' strapi develop | npx pino-pretty -c -t SYS:standard\" --names \"PLUGINS,STRAPI\" --prefix-colors \"magenta,blue\"",
     "start": "strapi start",
-    "build": "ts-node src/scripts/plugin-tools.ts build && NODE_OPTIONS='--max-old-space-size=8192' strapi build",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' ts-node src/scripts/plugin-tools.ts build && NODE_OPTIONS='--max-old-space-size=8192' strapi build",
     "strapi": "strapi",
     "deploy": "strapi deploy",
     "test": "vitest run",
