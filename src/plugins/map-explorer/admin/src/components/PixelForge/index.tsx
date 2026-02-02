@@ -27,6 +27,7 @@ interface EntityZone {
   symbol: string;
   color: string;
   description?: string;
+  category?: string;
 }
 
 interface Blueprint {
@@ -130,7 +131,8 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   );
 
   // UI Visuals
-  const [showBlueprint, setShowBlueprint] = useState(false);
+  // UI Visuals
+  const [viewMode, setViewMode] = useState<'sprite' | 'mix' | 'blueprint'>('sprite');
   const [blueprintOpacity, setBlueprintOpacity] = useState(0.5);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -203,7 +205,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
               const newMeta = { ...metadata, blueprint: data.result.blueprint };
               setMetadata(newMeta);
               propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt, newMeta);
-              setShowBlueprint(true); // Auto-show
+              setViewMode('mix'); // Auto-show
             } else {
               propagateChange(data.result.pixelData, data.result.enhancedPrompt || prompt);
             }
@@ -264,9 +266,10 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         type,
         archetype,
         size: 'Custom',
-        width: gridWidth,
-        height: gridHeight,
         model,
+
+        // Pass Blueprint DNA if available
+        blueprint: metadata?.blueprint,
 
         inputPixels: pixels,
         action: type === 'Blueprint' ? 'generate_blueprint' : 'generate_pixel',
@@ -472,24 +475,24 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
 
     // Visual Blueprint Load - Direct Color Mapping
     // The DB now stores actual HEX codes in the grid, so no conversion is needed.
-    const newPixels = Array(gridHeight)
-      .fill(null)
-      .map(() => Array(gridWidth).fill('transparent'));
 
-    bp.grid.forEach((row: string[], y: number) => {
-      if (y >= gridHeight) return;
-      row.forEach((color: string, x: number) => {
-        // Determine if color is valid hex or transparent
-        // In new seed, it's real hex. Legacy might need fallback.
-        if (x < gridWidth) {
-          newPixels[y][x] = color === '.' ? 'transparent' : color;
-        }
-      });
-    });
-
-    setPixels(newPixels);
+    // If we are in Sprite Mode, we DON'T overwrite pixels on load, we just load the DNA into metadata
+    // But currently the logic overwrites. Let's respect the user's intent:
+    // If they click Load, they likely want to base their sprite on this BP.
+    // However, if they just want the reference, they might not want to nuke their pixels.
+    // For now, to be safe, we will ONLY load it into metadata for the Overlay, 
+    // unless the canvas is empty or they explicitly confirm? 
+    // User Habit: Load BP -> See Guidelines -> Paint.
+    // So we should NOT draw the BP pixels onto the sprite canvas, but rather set them as the Overlay.
+    
+    // setPixels(newPixels); // <-- REMOVED: Don't overwrite sprite canvas with BP pixels
+    
     setMetadata({ ...metadata, blueprint: bp.grid, loadedBlueprint: bp.name });
-    propagateChange(newPixels, prompt, { ...metadata, blueprint: bp.grid });
+    propagateChange(pixels, prompt, { ...metadata, blueprint: bp.grid }); // Keep existing pixels
+    
+    // Auto-switch to Mix mode to show what happened
+    setViewMode('mix');
+    
     setPrompt(bp.description || `A ${bp.name}...`);
   };
 
@@ -571,7 +574,9 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                 <Flex gap={2}>
                   <Magic />
                   <Typography variant="beta">
-                    {modelUid === 'api::blueprint.blueprint' ? 'Blueprint Forge' : 'Pixel Forge'}
+                    {modelUid === 'api::blueprint.blueprint'
+                      ? `Blueprint Forge: ${modifiedData.category || 'Creature'}`
+                      : `Pixel Forge`}
                   </Typography>
                   <Typography variant="pi" textColor="neutral600">
                     {widthTiles}x{heightTiles} Tiles ({gridWidth}x{gridHeight}px)
@@ -636,25 +641,39 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                       }}
                       style={{ minWidth: '150px' }}
                     >
-                      {entityZones.map((z: EntityZone) => (
-                        <SingleSelectOption
-                          key={z.slug}
-                          value={z.color}
-                          startIcon={
-                            <div
-                              style={{
-                                width: '12px',
-                                height: '12px',
-                                borderRadius: '2px',
-                                backgroundColor: z.color,
-                                border: '1px solid #ccc',
-                              }}
-                            />
+                      {entityZones
+                        .filter((z) => {
+                          const targetCategory = modifiedData.category || 'Creature';
+                          // Loose matching to allow for case differences or 'Terrain' vs 'Structure' overlap if needed
+                          // But strictly: if target is 'Creature', show 'Creature'.
+                          // If target is 'Terrain', show 'Terrain' AND 'Structure' (walls are structure).
+                          if (
+                            ['Terrain', 'Structure'].includes(targetCategory as string) &&
+                            ['Terrain', 'Structure'].includes(z.category || '')
+                          ) {
+                            return true;
                           }
-                        >
-                          {z.name}
-                        </SingleSelectOption>
-                      ))}
+                          return z.category === targetCategory;
+                        })
+                        .map((z: EntityZone) => (
+                          <SingleSelectOption
+                            key={z.slug}
+                            value={z.color}
+                            startIcon={
+                              <div
+                                style={{
+                                  width: '12px',
+                                  height: '12px',
+                                  borderRadius: '2px',
+                                  backgroundColor: z.color,
+                                  border: '1px solid #ccc',
+                                }}
+                              />
+                            }
+                          >
+                            {z.name}
+                          </SingleSelectOption>
+                        ))}
                     </SingleSelect>
 
                     <Box width="1px" background="neutral200" height="24px" margin={2} />
@@ -729,30 +748,52 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                       </Button>
                     </Flex>
 
-                    <Button
-                      size="S"
-                      variant={showBlueprint ? 'default' : 'secondary'}
-                      onClick={() => setShowBlueprint(!showBlueprint)}
-                      disabled={!metadata?.blueprint}
-                      title="Toggle Blueprint Layer"
-                    >
-                      {showBlueprint ? 'Hide BP' : 'Show BP'}
-                    </Button>
+                    <Box width="1px" background="neutral200" height="24px" margin={2} />
 
-                    {showBlueprint && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Typography variant="pi">Opacity</Typography>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.1"
-                          value={blueprintOpacity}
-                          onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
-                          style={{ width: '60px' }}
-                        />
-                      </div>
-                    )}
+                    {/* View Mode Controls */}
+                    <Flex gap={2}>
+                      <Typography variant="pi" textColor="neutral600">
+                        View:
+                      </Typography>
+                      <Button
+                        size="S"
+                        variant={viewMode === 'sprite' ? 'default' : 'secondary'}
+                        onClick={() => setViewMode('sprite')}
+                      >
+                        Sprite
+                      </Button>
+                      <Button
+                        size="S"
+                        variant={viewMode === 'mix' ? 'default' : 'secondary'}
+                        onClick={() => setViewMode('mix')}
+                        disabled={!metadata?.blueprint}
+                      >
+                        Mix
+                      </Button>
+                      <Button
+                        size="S"
+                        variant={viewMode === 'blueprint' ? 'default' : 'secondary'}
+                        onClick={() => setViewMode('blueprint')}
+                        disabled={!metadata?.blueprint}
+                      >
+                        BP
+                      </Button>
+
+                      {viewMode === 'mix' && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={blueprintOpacity}
+                            onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
+                            style={{ width: '60px' }}
+                            title="Blueprint Opacity"
+                          />
+                        </div>
+                      )}
+                    </Flex>
                   </>
                 )}
 
@@ -818,19 +859,44 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                     }
 
                     // Visual Layering Logic
-                    const displayColor =
-                      pixelColor === 'transparent'
-                        ? (x + y) % 2 === 0
-                          ? '#222'
-                          : '#2a2a2a'
-                        : pixelColor;
-                    let overlayColor = 'transparent';
+                    // Visual Layering Logic
+                    // 1. Base Layer (Checkerboard)
+                    const baseColor = (x + y) % 2 === 0 ? '#222' : '#2a2a2a';
+                    
+                    // 2. Determine Layers
+                    const spriteColor = pixelColor === 'transparent' ? null : pixelColor;
+                    const bpPixel = metadata?.blueprint?.[y]?.[x];
+                    const bpColor = (bpPixel && bpPixel !== 'transparent' && bpPixel !== '.') ? bpPixel : null;
 
-                    if (!isBlueprintMode && showBlueprint && metadata?.blueprint?.[y]?.[x]) {
-                      const bpColor = metadata.blueprint[y][x];
-                      if (bpColor && bpColor !== '.') {
-                        overlayColor = bpColor;
-                      }
+                    // 3. Composite Final Color based on View Mode
+                    let finalColor = baseColor;
+                    let overlayStyle = {};
+
+                    if (isBlueprintMode) {
+                      // In BP Mode, pixelColor IS the zone color
+                      finalColor = spriteColor || baseColor;
+                    } else {
+                       if (viewMode === 'sprite') {
+                         finalColor = spriteColor || baseColor;
+                       } else if (viewMode === 'blueprint') {
+                         finalColor = bpColor || baseColor;
+                       } else if (viewMode === 'mix') {
+                         // Base is Sprite
+                         finalColor = spriteColor || baseColor;
+                         // Overlay is BP
+                         if (bpColor) {
+                           overlayStyle = {
+                             position: 'absolute',
+                             top: 0,
+                             left: 0,
+                             right: 0,
+                             bottom: 0,
+                             backgroundColor: bpColor,
+                             opacity: blueprintOpacity,
+                             pointerEvents: 'none' // Click through to sprite
+                           };
+                         }
+                       }
                     }
 
                     // Socket/Pin Logic
@@ -847,10 +913,10 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                               : `(${x},${y})`
                         }
                         style={{
-                          backgroundColor: displayColor,
+                          backgroundColor: finalColor,
                           width: '100%',
                           height: '100%',
-                          position: 'relative',
+                          position: 'relative', // For overlay child
                           userSelect: 'none',
                           boxShadow: socket ? 'inset 0 0 0 2px #fff, inset 0 0 0 4px #000' : 'none', // Visual Marker for Socket
                         }}
@@ -862,20 +928,14 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                           if (isDrawing) handlePixelClick(x, y);
                         }}
                       >
-                        {/* Blueprint Overlay Layer (Only in Sprite Mode) */}
-                        {overlayColor !== 'transparent' && (
-                          <div
-                            style={{
-                              position: 'absolute',
-                              inset: 0,
-                              backgroundColor: overlayColor,
-                              opacity: blueprintOpacity,
-                              pointerEvents: 'none', // Click through to base pixel
-                            }}
-                          />
-                        )}
+                       {/* Overlay for Mix Mode */}
+                       {viewMode === 'mix' && Object.keys(overlayStyle).length > 0 && (
+                          <div style={overlayStyle} />
+                       )}
+                       {/* Legacy Overlay Logic Removed in favor of Mix Mode, but keeping clean structure */}
                       </div>
                     );
+
                   })
                 )}
               </Box>

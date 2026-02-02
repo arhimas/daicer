@@ -429,7 +429,7 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
     description: Schema.Attribute.Text;
     grid: Schema.Attribute.JSON &
       Schema.Attribute.Required &
-      Schema.Attribute.CustomField<'plugin::map-explorer.sprite-grid'>;
+      Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     height: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -784,7 +784,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-generator'>;
+    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
@@ -1014,7 +1014,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-generator'>;
+    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Enumeration<['common', 'uncommon', 'rare', 'very_rare', 'legendary', 'artifact']> &
       Schema.Attribute.DefaultTo<'common'>;

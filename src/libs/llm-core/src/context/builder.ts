@@ -108,15 +108,21 @@ export class ContextBuilder {
         const zones = await this.adapter.db.query(uid).findMany();
 
         if (zones && zones.length > 0) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          interface ZoneEntity {
+            color: string;
+            slug: string;
+            name: string;
+            description?: string;
+          }
           const zoneList = zones
-            .map((z: any) => {
-              const color = z.color.toUpperCase();
-              const slug = z.slug.toLowerCase();
+            .map((z: unknown) => {
+              const zone = z as ZoneEntity;
+              const color = zone.color.toUpperCase();
+              const slug = zone.slug.toLowerCase();
               // Map Slug -> Color for blueprintToPixels logic
               dynamicZoneMap[slug] = color;
 
-              return `- ${z.name} [${color}]: ${z.description || ''}`;
+              return `- ${zone.name} [${color}]: ${zone.description || ''}`;
             })
             .join('\n');
           visionInstruction += `\n\nSEMANTIC ZONES (Color -> Meaning):\n${zoneList}`;

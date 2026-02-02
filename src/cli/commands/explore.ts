@@ -91,7 +91,37 @@ export async function runExplore(options: ExploreOptions) {
     });
   }
 
-  const selectedType = allTypes.find((t) => t.uid === selectedUid);
+  // --- Smart Resolution ---
+  let selectedType = allTypes.find((t) => t.uid === selectedUid);
+
+  if (!selectedType && selectedUid) {
+    // Try smart matching for shorthands (e.g. "monster" -> "api::monster.monster")
+    const candidates = allTypes.filter((t) => {
+      const parts = t.uid.split('::')[1]?.split('.') || [];
+      const apiName = parts[0];
+      const contentType = parts[1];
+      return (
+        t.uid === selectedUid ||
+        apiName === selectedUid ||
+        contentType === selectedUid ||
+        t.info.singularName === selectedUid ||
+        t.info.pluralName === selectedUid
+      );
+    });
+
+    if (candidates.length === 1) {
+      selectedType = candidates[0];
+      // Update selectedUid to the canonical one so downstream logic works
+      selectedUid = selectedType.uid;
+    } else if (candidates.length > 1) {
+       // Ambiguous, let's pick the first exact API match if possible
+       const exactApi = candidates.find(t => t.apiName === selectedUid);
+       if (exactApi) {
+         selectedType = exactApi;
+         selectedUid = selectedType.uid;
+       }
+    }
+  }
   // Fallback metadata for manual UIDs (plugins, etc)
   const finalType = selectedType || {
     uid: selectedUid!,

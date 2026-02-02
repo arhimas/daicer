@@ -662,10 +662,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   const LocationContextSchema = z.object({ x: z.number(), y: z.number() });
   register('get_location_context', 'Get location context', LocationContextSchema, async (roomId, payload, _u) => {
     const p = LocationContextSchema.parse(payload);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const room = await strapi
       .documents('api::room.room')
-      .findOne({ documentId: roomId, populate: ['dmSettings'] as any });
+      .findOne({ documentId: roomId, populate: ['dmSettings'] });
     if (!room) throw new Error('Room not found');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const r = room as any;

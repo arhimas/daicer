@@ -39,10 +39,11 @@ const HomePage = () => {
     } catch (e: unknown) {
       console.error(e);
       // Handle HTTP errors
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       
+      const err = e as { response?: { data?: { error?: { message?: string } } }; message?: string };
       setError(
-        (e as any).response?.data?.error?.message ||
-          (e as any).message ||
+        err.response?.data?.error?.message ||
+          err.message ||
           'Failed to fetch queue stats'
       );
     } finally {

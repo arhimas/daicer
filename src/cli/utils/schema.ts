@@ -245,12 +245,12 @@ function readComponentSchema(uid: string): SchemaDefinition | null {
  */
 
 export function buildDeepPopulate(uid: string, depth: number = 2, seen: Set<string> = new Set()): any {
-  if (depth <= 0) return true; // End of recursion
+  if (depth <= 0) return '*'; // End of recursion
   // If seen, return true to stop recursion but still populate this level?
   // Actually if we've seen this UID in this branch, we should probably stop.
   // Ideally we'd use 'true' (populate all 1 level deep) or just omit?
   // Let's return true to be safe.
-  if (seen.has(uid)) return true;
+  if (seen.has(uid)) return '*';
 
   // Read schema (deep read not needed, just readSchema to get attrs)
   const schema = readSchema(uid);
@@ -306,7 +306,8 @@ export function buildDeepPopulate(uid: string, depth: number = 2, seen: Set<stri
   });
 
   // If empty populate (no relations/components), return true or *
-  if (Object.keys(populate).length === 0) return true;
+  // Strapi 5 Document Service prefers '*' over true for root populate
+  if (Object.keys(populate).length === 0) return '*';
 
   return populate;
 }

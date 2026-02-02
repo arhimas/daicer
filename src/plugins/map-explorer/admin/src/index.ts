@@ -113,15 +113,15 @@ export default {
     });
 
     app.customFields.register({
-      name: 'sprite-grid',
+      name: 'pixel-forge',
       pluginId: PLUGIN_ID,
       type: 'json',
       intlLabel: {
-        id: 'map-explorer.sprite-grid.label',
+        id: 'map-explorer.pixel-forge.label',
         defaultMessage: 'Pixel Forge',
       },
       intlDescription: {
-        id: 'map-explorer.sprite-grid.description',
+        id: 'map-explorer.pixel-forge.description',
         defaultMessage: 'AI-Powered Pixel Art Editor (SOTA)',
       },
       icon: PluginIcon,
@@ -134,27 +134,7 @@ export default {
       options: {},
     });
 
-    app.customFields.register({
-      name: 'pixel-generator',
-      pluginId: PLUGIN_ID,
-      type: 'json', // Virtual, doesn't really store data, just UI
-      intlLabel: {
-        id: 'map-explorer.pixel-generator.label',
-        defaultMessage: 'Pixel Art Generator',
-      },
-      intlDescription: {
-        id: 'map-explorer.pixel-generator.description',
-        defaultMessage: 'Generate Pixel Art from Attributes',
-      },
-      icon: PluginIcon,
-      components: {
-        Input: async () =>
-          import('./components/PixelGenerator').then((module) => ({
-            default: module.default,
-          })),
-      },
-      options: {},
-    });
+
   },
 
   async registerTrads({ locales }: { locales: string[] }) {

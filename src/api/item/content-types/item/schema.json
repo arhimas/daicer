@@ -125,7 +125,7 @@
     },
     "pixel_generator": {
       "type": "customField",
-      "customField": "plugin::map-explorer.pixel-generator"
+      "customField": "plugin::map-explorer.pixel-forge"
     }
   }
 }
