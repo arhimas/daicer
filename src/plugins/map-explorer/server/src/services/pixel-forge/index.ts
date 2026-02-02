@@ -7,7 +7,10 @@ import { generateCreatureLayers, generatePart, composeLayers, synthesizeBlueprin
 import { generateItemGrid, synthesizeItemBlueprint } from './generators/item';
 import { GenerationConfig, PixelLayer } from './types';
 
-export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => ({
+export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
+    const getConfig = (key: string) => strapi.plugin('map-explorer').config('contentTypes')[key];
+
+    return {
 
     /**
      * Generates a Pixel Art Grid for a given Entity.
@@ -16,7 +19,8 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => ({
      * Smart Compositor Applied.
      */
     async generateEntity(entityId: string): Promise<string[][]> {
-        const entity = await strapi.db.query('api::entity.entity').findOne({
+        const uid = getConfig('entity');
+        const entity = await strapi.db.query(uid).findOne({
             where: { documentId: entityId },
             populate: ['race', 'appearance', 'equipment', 'inventory']
         });
@@ -56,7 +60,8 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => ({
                  // We can duplicate the fetch logic or refactor.
                  // Let's duplicate the fetch for now to keep it simple, or use strapi query directly.
                  
-                 const itemData = await strapi.db.query('api::item.item').findOne({
+                 const itemUid = getConfig('item');
+                 const itemData = await strapi.db.query(itemUid).findOne({
                     where: { documentId: item.documentId },
                     populate: ['equipment_data']
                  });
@@ -95,7 +100,8 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => ({
      * Generates a Pixel Art Grid for a given Item.
      */
     async generateItem(itemId: string): Promise<string[][]> {
-        const item = await strapi.db.query('api::item.item').findOne({
+        const uid = getConfig('item');
+        const item = await strapi.db.query(uid).findOne({
             where: { documentId: itemId },
             populate: ['equipment_data']
         });
@@ -134,6 +140,7 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => ({
         c.a = Math.floor(alpha * 255);
         return `rgba(${c.r}, ${c.g}, ${c.b}, ${alpha})`;
     }
-});
+    };
+};
 
 export default PixelForgeService;

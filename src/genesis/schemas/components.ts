@@ -36,9 +36,10 @@ export const MechanicsConfigSchema = z.object({
 }).strict();
 
 export const DurationConfigSchema = z.object({
-    type: z.enum(["Instantaneous", "Round", "Minute", "Hour", "Day", "Until Dispelled", "Special"]).default("Instantaneous"),
-    amount: z.number().int().optional(),
-    up_to: z.boolean().default(false) // e.g., "Up to 1 hour"
+    type: z.enum(["Instantaneous", "Concentration", "Time-Limited", "Until Dispelled", "Until Triggered", "Special"]).default("Instantaneous"),
+    value: z.number().int().optional(),
+    unit: z.enum(["Rounds", "Minutes", "Hours", "Days"]).optional(),
+    concentration: z.boolean().default(false)
 }).strict();
 
 // --- Instance Data ---

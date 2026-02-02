@@ -43,6 +43,14 @@ export default ({ env }) => ({
             db: env.int('REDIS_DB', 0),
             password: env('REDIS_PASSWORD', undefined),
             maxRetriesPerRequest: null,
+        },
+        contentTypes: {
+          world: 'api::world.world',
+          construction: 'api::construction.construction',
+          prompt: 'api::prompt.prompt',
+          zone: 'api::entity-zone.entity-zone',
+          entity: 'api::entity.entity',
+          item: 'api::item.item'
         }
     }
   },

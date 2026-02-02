@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_game_save_bonuses",
+  "info": {
+    "displayName": "Save Bonus",
+    "icon": "shield-alt",
+    "description": "Calculated saving throw modifier"
+  },
+  "options": {},
+  "attributes": {
+    "stat": {
+      "type": "enumeration",
+      "enum": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"],
+      "required": true
+    },
+    "value": {
+      "type": "integer",
+      "default": 0,
+      "required": true
+    },
+    "proficient": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

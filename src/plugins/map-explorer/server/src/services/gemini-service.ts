@@ -38,7 +38,10 @@ const TERMS = {
  * Powered by LangChain, Zod, ContextBuilder & Gemini 3
  * with Hardened Variable Injection
  */
-export default ({ strapi }) => ({
+export default ({ strapi }) => {
+  const getConfig = (key: string) => strapi.plugin('map-explorer').config('contentTypes')[key];
+
+  return {
   
   async getModel(modelId: string) {
       const apiKey = process.env.GEMINI_API_KEY;
@@ -54,7 +57,8 @@ export default ({ strapi }) => ({
 
   async getPromptTemplate<K extends PromptKey>(key: K): Promise<PromptTemplate> {
       try {
-          const entry = await strapi.db.query('api::prompt.prompt').findOne({ 
+          const uid = getConfig('prompt');
+          const entry = await strapi.db.query(uid).findOne({ 
               where: { key }
           });
           
@@ -248,7 +252,8 @@ export default ({ strapi }) => ({
 
       try {
           const model = await this.getModel(modelId);
-          const zones = await strapi.db.query('api::entity-zone.entity-zone').findMany();
+          const uid = getConfig('zone');
+          const zones = await strapi.db.query(uid).findMany();
           
           let zoneInstruction = "STRICT LEGEND (Symbol -> Meaning):\n- . : Empty Space\n";
           const allowedChars = ['.'];
@@ -468,4 +473,5 @@ export default ({ strapi }) => ({
           b: parseInt(result[3], 16)
       } : null;
   },
-});
+  };
+};

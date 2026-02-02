@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_game_duration_configs",
+  "info": {
+    "displayName": "Duration Config",
+    "icon": "hourglass-start",
+    "description": "Duration and Concentration rules"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["Instantaneous", "Concentration", "Time-Limited", "Until Dispelled", "Until Triggered", "Special"],
+      "default": "Instantaneous",
+      "required": true
+    },
+    "value": {
+      "type": "integer",
+      "description": "Numeric duration (if Time-Limited)"
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": ["Rounds", "Minutes", "Hours", "Days"]
+    },
+    "concentration": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

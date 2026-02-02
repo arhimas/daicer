@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_game_compilation_states",
+  "info": {
+    "displayName": "Compilation State",
+    "description": "Tracks the verification status of this Entity Blueprint."
+  },
+  "options": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "Valid",
+        "Invalid",
+        "Warning"
+      ],
+      "default": "Pending",
+      "required": true
+    },
+    "last_run": {
+      "type": "datetime"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "hash": {
+      "type": "string",
+      "private": true,
+      "description": "Hash of the entity data at time of compilation (for change detection)"
+    }
+  }
+}

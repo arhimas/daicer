@@ -133,7 +133,7 @@ async function runInteractiveMenu() {
             message: 'Run via Queue?',
             choices: [{ name: 'Yes', value: true }, { name: 'No (Foreground)', value: false }],
           });
-          await runGenesis(type, { queue });
+          await runGenesis('sync', { type: type as string, queue });
         } else if (action === 'compile') {
           await runCompile({ phase: 'Atom', queue: false }); // Shortcut for menu
         } else if (action === 'embed') {

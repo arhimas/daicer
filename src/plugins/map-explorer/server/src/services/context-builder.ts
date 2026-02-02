@@ -3,7 +3,7 @@ import type { Core } from '@strapi/strapi';
 import { SNIPPETS } from './snippets';
 
 export class ContextBuilder {
-  constructor(private strapi: Strapi) {}
+  constructor(private strapi: Core.Strapi) {}
 
   /**
    * Builds the Deep Context string by merging Database State with Frontend Draft State.
@@ -38,6 +38,7 @@ export class ContextBuilder {
         };
 
         // C. Introspect Schema
+        // @ts-expect-error - Decoupled UID: The plugin does not know the host's strict schema types
         const model = this.strapi.getModel(uid);
         
         // D. Build Context String
@@ -102,7 +103,8 @@ export class ContextBuilder {
     try {
         // We use the raw query here to avoid plugin service recursion if possible, 
         // OR we can simply rely on strapi.db
-        const zones = await this.strapi.db.query('api::entity-zone.entity-zone').findMany();
+        const uid = this.strapi.plugin('map-explorer').config('contentTypes')['zone'];
+        const zones = await this.strapi.db.query(uid).findMany();
         
         if (zones && zones.length > 0) {
              const zoneList = zones.map((z: any) => {

@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_game_mechanics_configs",
+  "info": {
+    "displayName": "Mechanics Config",
+    "icon": "cog",
+    "description": "Saving Throws and Attack Types"
+  },
+  "options": {},
+  "attributes": {
+    "action_type": {
+      "type": "enumeration",
+      "enum": [
+        "Melee Spell Attack",
+        "Ranged Spell Attack",
+        "Strength Save",
+        "Dexterity Save",
+        "Constitution Save",
+        "Intelligence Save",
+        "Wisdom Save",
+        "Charisma Save",
+        "Auto-Hit",
+        "None"
+      ],
+      "default": "None",
+      "required": true
+    },
+    "save_effect": {
+      "type": "enumeration",
+      "enum": ["Negate", "Half", "None"],
+      "description": "What happens on a successful save? (None = Full Effect, Negate = No Effect, Half = Half Damage)"
+    }
+  }
+}
