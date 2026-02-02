@@ -9,11 +9,15 @@ export type PromptKey =
   | 'pixel-forge-system'
   | 'blueprint-architect'
   | 'voxel-architect'
-  | 'genesis-architect';
+  | 'genesis-architect'
+  | 'enhance-terrain'
+  | 'enhance-item'
+  | 'enhance-character'
+;
 
-// Zod Schemas for Runtime Validation
 export const PromptSchemas = {
-    'system-identity': z.object({}),
+    'system-identity': z.object({
+    }),
     'gameplay-combat': z.object({
         combatantState: z.string(),
         action: z.string(),
@@ -22,8 +26,10 @@ export const PromptSchemas = {
         location: z.string(),
         players: z.string(),
     }),
-    'user-onboarding': z.object({}),
-    'system-safety-tools': z.object({}),
+    'user-onboarding': z.object({
+    }),
+    'system-safety-tools': z.object({
+    }),
     'pixel-forge-system': z.object({
         width: z.number(),
         height: z.number(),
@@ -31,13 +37,14 @@ export const PromptSchemas = {
         visionInstruction: z.string(),
         specificInstruction: z.string(),
         enhancedPrompt: z.string(),
+        asciiBlueprint: z.string().optional(),
     }),
     'blueprint-architect': z.object({
         prompt: z.string(),
         archetype: z.string(),
         width: z.number(),
         height: z.number(),
-        contextData: z.string(), // Must include Strict Legend
+        contextData: z.string(),
     }),
     'voxel-architect': z.object({
         prompt: z.string(),
@@ -50,12 +57,19 @@ export const PromptSchemas = {
         type: z.string(),
         contextData: z.string(),
     }),
+    'enhance-terrain': z.object({
+        rawPrompt: z.string(),
+    }),
+    'enhance-item': z.object({
+        rawPrompt: z.string(),
+    }),
+    'enhance-character': z.object({
+        rawPrompt: z.string(),
+    }),
 } as const;
 
-// Infer types from Zod schemas for Single Source of Truth
 export type PromptVariableMap = {
     [K in PromptKey]: z.infer<typeof PromptSchemas[K]>;
 };
 
-// Runtime Helper to validate keys
 export const VALID_PROMPT_KEYS = Object.keys(PromptSchemas) as PromptKey[];
