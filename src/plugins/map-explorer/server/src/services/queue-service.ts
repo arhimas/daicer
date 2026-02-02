@@ -4,7 +4,7 @@ import { EntityGeometry } from '../utils/EntityGeometry';
 // Stealth require to bypass Strapi Plugin Build CJS Interop issues
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const req = require as any;
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+ 
 const { Queue, Worker } = req('bullmq');
 
 const QUEUE_NAME = 'pixel-forge';
@@ -47,7 +47,7 @@ export default ({ strapi }) => {
         }
       }, { 
           connection,
-          concurrency: 3, 
+          concurrency: 1, // REDUCED TO 1: Prevent DB Connection exhaustion (Pool Max: 10)
           lockDuration: 600000, // 10 Minutes: Allow long generation times without stalling
           limiter: {
               max: 10,
@@ -55,7 +55,7 @@ export default ({ strapi }) => {
           } 
       });
 
-      strapi.log.info('Pixel Forge Queue Initialized (Concurrency: 3)');
+      strapi.log.info('Pixel Forge Queue Initialized (Concurrency: 1)');
     },
 
     async addJob(data: Record<string, unknown>) {
@@ -101,7 +101,7 @@ export default ({ strapi }) => {
         const counts = await queue.getJobCounts();
         const active = await queue.getJobs(['active'], 0, 10, true);
         const waiting = await queue.getJobs(['waiting'], 0, 10, true);
-        const failed = await queue.getJobs(['failed'], 0, 10, true);
+        const failed = await queue.getJobs(['failed'], 0, 100, true);
         const completed = await queue.getJobs(['completed'], 0, 10, true);
 
         return {
@@ -109,7 +109,7 @@ export default ({ strapi }) => {
             jobs: {
                 active: active.map(j => ({ id: j.id, data: j.data, progress: j.progress })),
                 waiting: waiting.map(j => ({ id: j.id, data: j.data })),
-                failed: failed.map(j => ({ id: j.id, data: j.data, failedReason: j.failedReason })),
+                failed: failed.map(j => ({ id: j.id, data: j.data, failedReason: j.failedReason, stacktrace: j.stacktrace })),
                 completed: completed.map(j => ({ id: j.id, data: j.data, returnvalue: j.returnvalue }))
             }
         };

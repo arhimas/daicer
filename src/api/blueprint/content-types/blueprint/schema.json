@@ -50,9 +50,10 @@
       "max": 128
     },
     "zones": {
-      "type": "json",
-      "required": true,
-      "description": "List of Zone Definitions { id, name, color }"
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::entity-zone.entity-zone",
+      "inversedBy": "blueprints"
     }
   }
 }

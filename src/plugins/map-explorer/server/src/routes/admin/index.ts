@@ -6,7 +6,7 @@ export default {
       path: '/config',
       handler: 'mapController.getWorldConfig',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -14,7 +14,7 @@ export default {
       path: '/config',
       handler: 'mapController.updateWorldConfig',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -22,7 +22,7 @@ export default {
       path: '/chunk',
       handler: 'mapController.getMapChunk',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -30,7 +30,7 @@ export default {
       path: '/voxel',
       handler: 'mapController.updateVoxel',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -38,7 +38,7 @@ export default {
       path: '/constructions',
       handler: 'mapController.getConstructions',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -46,7 +46,7 @@ export default {
       path: '/constructions',
       handler: 'mapController.saveConstruction',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -54,7 +54,7 @@ export default {
       path: '/generate-texture',
       handler: 'mapController.generateTexture',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -62,7 +62,7 @@ export default {
       path: '/timeline',
       handler: 'mapController.getTimeline',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -70,7 +70,7 @@ export default {
       path: '/replay',
       handler: 'mapController.replay',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -78,7 +78,7 @@ export default {
       path: '/generate-pixel-art',
       handler: 'mapController.generatePixelArt',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -86,7 +86,7 @@ export default {
       path: '/forge/dispatch',
       handler: 'forgeController.dispatch',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -94,7 +94,7 @@ export default {
       path: '/forge/status/:jobId',
       handler: 'forgeController.status',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -102,7 +102,7 @@ export default {
       path: '/forge/queue',
       handler: 'forgeController.list',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
     {
@@ -110,7 +110,7 @@ export default {
       path: '/preview',
       handler: 'voxelPreview.generate',
       config: {
-        policies: [],
+        policies: ['admin::isAuthenticatedAdmin'],
       },
     },
   ],

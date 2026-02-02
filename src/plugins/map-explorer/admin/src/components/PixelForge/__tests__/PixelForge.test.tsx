@@ -12,7 +12,7 @@ const mockModifiedData = { name: 'Test Entity', description: 'A test description
 vi.mock('@strapi/admin/strapi-admin', () => ({
   useFetchClient: () => ({
     post: mockPost,
-    get: mockGet,
+    get: mockGet.mockResolvedValue({ data: { results: [] } }),
   }),
 }));
 

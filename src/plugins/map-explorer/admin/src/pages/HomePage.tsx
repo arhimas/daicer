@@ -15,9 +15,10 @@ import {
     Tbody,
     Tr,
     Td,
-    Th
+    Th,
+    IconButton
 } from '@strapi/design-system';
-import { ArrowClockwise, Play, Check, Cross } from '@strapi/icons';
+import { ArrowClockwise, Play, Check, Cross, Duplicate } from '@strapi/icons';
 
 const HomePage = () => {
   const { get } = useFetchClient();
@@ -118,13 +119,14 @@ const HomePage = () => {
       {/* Active Jobs List */}
       <Box background="neutral0" shadow="filterShadow" padding={6} hasRadius>
           <Typography variant="beta" paddingBottom={4}>Active / Recent Jobs</Typography>
-          <Table colCount={4} rowCount={10}>
+          <Table colCount={5} rowCount={10}>
               <Thead>
                   <Tr>
                       <Th><Typography variant="sigma">ID</Typography></Th>
                       <Th><Typography variant="sigma">Prompt</Typography></Th>
                       <Th><Typography variant="sigma">Type</Typography></Th>
                       <Th><Typography variant="sigma">Status</Typography></Th>
+                      <Th><Typography variant="sigma">Actions</Typography></Th>
                   </Tr>
               </Thead>
               <Tbody>
@@ -136,6 +138,13 @@ const HomePage = () => {
                           <Td><Typography>{j.data.prompt || 'No Prompt'}</Typography></Td>
                           <Td><Badge>{j.data.type || 'Unknown'}</Badge></Td>
                           <Td><Badge active>Processing ({j.progress}%)</Badge></Td>
+                          <Td>
+                            <IconButton 
+                                label="Copy Job Payload" 
+                                icon={<Duplicate />} 
+                                onClick={() => navigator.clipboard.writeText(JSON.stringify(j.data, null, 2))}
+                            />
+                          </Td>
                       </Tr>
                   ))}
                    {/* Waiting */}
@@ -146,6 +155,13 @@ const HomePage = () => {
                           <Td><Typography>{j.data.prompt}</Typography></Td>
                           <Td><Badge>{j.data.type}</Badge></Td>
                           <Td><Badge>Queued</Badge></Td>
+                          <Td>
+                            <IconButton 
+                                label="Copy Job Payload" 
+                                icon={<Duplicate />} 
+                                onClick={() => navigator.clipboard.writeText(JSON.stringify(j.data, null, 2))}
+                            />
+                          </Td>
                       </Tr>
                   ))}
                    {/* Failed */}
@@ -156,6 +172,21 @@ const HomePage = () => {
                           <Td><Typography>{j.data.prompt}</Typography></Td>
                           <Td><Badge>{j.data.type}</Badge></Td>
                           <Td><Typography textColor="danger600">Failed: {j.failedReason}</Typography></Td>
+                          <Td>
+                            <IconButton 
+                                label="Copy Failed Job Data" 
+                                icon={<Duplicate />} 
+                                onClick={() => {
+                                    const debugInfo = {
+                                        id: j.id,
+                                        payload: j.data,
+                                        error: j.failedReason,
+                                        stack: j.stacktrace
+                                    };
+                                    navigator.clipboard.writeText(JSON.stringify(debugInfo, null, 2));
+                                }}
+                            />
+                          </Td>
                       </Tr>
                   ))}
               </Tbody>

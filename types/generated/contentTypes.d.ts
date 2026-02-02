@@ -454,7 +454,7 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<1>;
-    zones: Schema.Attribute.JSON & Schema.Attribute.Required;
+    zones: Schema.Attribute.Relation<'manyToMany', 'api::entity-zone.entity-zone'>;
   };
 }
 
@@ -695,6 +695,7 @@ export interface ApiEntityZoneEntityZone extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    blueprints: Schema.Attribute.Relation<'manyToMany', 'api::blueprint.blueprint'>;
     color: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -704,6 +705,12 @@ export interface ApiEntityZoneEntityZone extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    symbol: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1;
+      }> &
+      Schema.Attribute.DefaultTo<'#'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };

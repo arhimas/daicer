@@ -4,28 +4,13 @@ export default ({ strapi }) => ({
   async dispatch(ctx: Context) {
     const { prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action, entityData, entityContext } = ctx.request.body;
 
-    // Deep Context Injection (Backend Side)
-    let enrichedEntityData = entityData || {};
-    if (entityContext?.uid && entityContext?.documentId) {
-        try {
-            // Strapi 5 Documents API
-            const deepData = await strapi.documents(entityContext.uid).findOne({
-                documentId: entityContext.documentId,
-                populate: '*' // Fetch level-1 relations/components
-            });
-            if (deepData) {
-                enrichedEntityData = { ...enrichedEntityData, ...deepData };
-                strapi.log.info(`Pixel Forge: Deep Fetched ${entityContext.uid} (${entityContext.documentId}). Keys: ${Object.keys(deepData).join(',')}`);
-            }
-        } catch (e) {
-            strapi.log.warn("Pixel Forge: Failed to deep fetch context", e);
-        }
-    }
-
+    // Pass everything to the queue service. 
+    // The Gemini Service (Worker) will handle SOTA Context fetching and Schema Introspection.
     try {
         const job = await strapi.plugin('map-explorer').service('queueService').addJob({
             prompt, type, archetype, blueprint, model, inputPixels, size, width, height, action, 
-            entityData: enrichedEntityData
+            entityData,       // Raw form data (for Drafts)
+            entityContext     // UID/DocID (for Deep Fetch in Worker)
         });
         
         ctx.body = { jobId: job.id, status: 'queued' };

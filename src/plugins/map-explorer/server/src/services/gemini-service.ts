@@ -3,10 +3,11 @@ import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { z } from "zod";
 import { PNG } from "pngjs";
+import { PromptKey, PromptVariableMap } from './prompt-registry';
 
 // Types embedded for now to avoid complexity
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
-export type AssetType = 'Monster' | 'Item' | 'Race' | 'Environment' | 'Terrain' | 'Sprite';
+export type AssetType = 'Monster' | 'Item' | 'Race' | 'Environment' | 'Terrain' | 'Sprite' | 'Blueprint';
 export type Archetype = string; // Flexible
 
 export interface GenerationConfig {
@@ -22,6 +23,7 @@ export interface GenerationConfig {
 
   action?: string; 
   entityData?: Record<string, unknown>; 
+  entityContext?: { uid: string; documentId: string };
 }
 
 const TERMS = {
@@ -32,7 +34,7 @@ const TERMS = {
 /**
  * **Gemini Pixel Forge Service**
  * Powered by LangChain, Zod & Gemini 3
- * now with Dynamic Strapi Prompts!
+ * now with Dynamic Strapi Prompts (STRICT MODE)!
  */
 export default ({ strapi }) => ({
   
@@ -48,17 +50,18 @@ export default ({ strapi }) => ({
       });
   },
 
-  async getPromptTemplate(key: string): Promise<PromptTemplate> {
+  /**
+   * STRICT: Fetches prompt from DB. Throws if missing. No fallbacks.
+   */
+  async getPromptTemplate<K extends PromptKey>(key: K): Promise<PromptTemplate> {
       try {
           const entry = await strapi.db.query('api::prompt.prompt').findOne({ 
               where: { key }
           });
           
           if (!entry || !entry.text) {
-              strapi.log.warn(`Prompt key '${key}' not found in Strapi. Falling back to hardcoded default.`);
-              // Fallback logic could go here, or throw error.
-              // For robustness, throw error to force DB seed.
-              throw new Error(`Prompt '${key}' not found in Strapi.`);
+              strapi.log.error(`CRITICAL: Prompt '${key}' missing in DB.`);
+              throw new Error(`State of Art Enforcement: Prompt '${key}' MUST exist in Strapi DB. No fallbacks allowed.`);
           }
           
           return PromptTemplate.fromTemplate(entry.text);
@@ -68,21 +71,33 @@ export default ({ strapi }) => ({
       }
   },
 
+  async formatPrompt<K extends PromptKey>(key: K, variables: PromptVariableMap[K]): Promise<string> {
+      const template = await this.getPromptTemplate(key);
+      return await template.format(variables);
+  },
+
   async generatePixelData(config: GenerationConfig) {
+    // Dispatcher PatternOverride
+    if (config.type === 'Blueprint' || config.action === 'generate_blueprint') {
+        return this.generateBlueprint(config);
+    }
+    
+    if (config.action === 'generate_voxel') {
+        return this.generateVoxelStructure(config);
+    }
+
     const WIDTH = config.width || 32;
     const HEIGHT = config.height || 32;
     const modelId = config.model || 'gemini-3-flash-preview'; 
 
     const isTerrain = TERMS.TERRAIN.includes(config.archetype) || config.type === 'Terrain' || config.type === 'Environment';
     const isItem = TERMS.ITEM.includes(config.archetype) || config.type === 'Item';
-    
-    // 1. Fetch Enhancement Template
-    let enhanceKey = 'enhance-character';
-    if (isTerrain) enhanceKey = 'enhance-terrain';
-    else if (isItem) enhanceKey = 'enhance-item';
 
-    const enhanceTemplate = await this.getPromptTemplate(enhanceKey);
-    const enhancedPrompt = await enhanceTemplate.format({ rawPrompt: config.prompt });
+    strapi.log.info(`[GeminiService] Config Keys: ${Object.keys(config).join(', ')} | EntityContext: ${JSON.stringify(config.entityContext)}`);
+    
+    // 1. Enhancement Phase REMOVED (User Request)
+    // We now pass the raw prompt directly to the system.
+    const enhancedPrompt = config.prompt;
 
     // 2. Size & Framing Logic (Hardcoded for now as it's algorithmic, not purely text)
     const size = config.size || 'Medium';
@@ -129,14 +144,93 @@ export default ({ strapi }) => ({
         `;
     }
 
-    // 3. Vision Pipeline (Mandatory 2x Scaling)
-    const visionInstruction = "Analyze the visual blueprint provided. The colored zones indicate semantic meaning (see system instructions).";
-    
-    if (config.entityData) {
-        strapi.log.info(`Pixel Forge: Injecting Context Data (Keys: ${Object.keys(config.entityData).join(', ')})`);
-    }
-    const contextData = config.entityData ? `CONTEXTUAL DATA: ${JSON.stringify(config.entityData)}` : "";
 
+
+    // 3. SOTA Context Injection (Deep Fetch + Schema Introspection)
+    let contextDataString = "";
+    
+    if (config.entityContext?.uid && config.entityContext?.documentId) {
+        try {
+            const { uid, documentId } = config.entityContext;
+            
+            // A. Deep Fetch Entity (Database State)
+            const dbEntity = await strapi.plugin('map-explorer').service('contextService').fetchDeepContext(uid, documentId);
+
+            // B. Merge Frontend Data (Draft State)
+            // CRITICAL: The user might be editing the entity. Form data (entityData) must override Database data.
+            // This prevents "I am editing a Potion to be a Sword" resulting in a Potion generation because the DB wasn't saved yet.
+            const mergedEntity = { 
+                ...dbEntity, 
+                ...(config.entityContext.uid === uid ? config.entityData : {}) 
+            };
+
+            // C. Introspect Schema
+            const model = strapi.getModel(uid);
+            
+            // D. Build Context String
+            contextDataString = `ENTITY TYPE: ${model.info.displayName || uid}\n` + 
+                                `JSON DATA:\n${JSON.stringify(mergedEntity, null, 2)}`;
+            
+            strapi.log.info(`Pixel Forge: SOTA Deep Context Injected (Merged Draft) for ${uid}:${documentId}`);
+            
+            // [HARDENING] Conflict Resolution strategies:
+            if (config.prompt && config.prompt.length > 5) {
+                contextDataString += `\n\n[IMPORTANT OVERRIDE]: The user has provided a specific generation prompt: "${config.prompt}".\n` +
+                                     `If this prompt conflicts with the JSON DATA above, you MUST prioritize the PROMPT for visual appearance.`;
+            }
+
+        } catch (e) {
+            strapi.log.warn("Pixel Forge: Deep Context Fetch Failed/Skipped, using Shallow Data.", e);
+            contextDataString = formatShallowContext(config.entityData);
+        }
+    } else {
+        contextDataString = formatShallowContext(config.entityData);
+    }
+
+    // Helper to make Shallow Data look SOTA
+    function formatShallowContext(data: Record<string, unknown> | undefined) {
+        const context = [
+            "ENTITY CONTEXT (Draft/Shallow):",
+            `- Generated Type: ${config.type}`,
+            `- Archetype: ${config.archetype}`,
+            `- Target Size: ${config.size} (${config.width}x${config.height})`
+        ];
+        
+        if (data && Object.keys(data).length > 0) {
+            for (const [key, value] of Object.entries(data)) {
+                if (['password', 'confirmation', 'createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'publishedAt', 'localizations', 'locale'].includes(key)) continue;
+                const valStr = typeof value === 'object' ? JSON.stringify(value) : String(value);
+                context.push(`- ${key}: ${valStr}`);
+            }
+        } else {
+            context.push("- (No additional form data provided)");
+        }
+        return context.join('\n');
+    }
+
+    // 4. Vision Pipeline
+    let visionInstruction = "Analyze the visual blueprint provided. The colored zones indicate semantic meaning (see system instructions).";
+    let dynamicZoneMap: Record<string, string> | undefined;
+
+    // Dynamic Zone Context Injection
+    try {
+        const zones = await strapi.db.query('api::entity-zone.entity-zone').findMany();
+        if (zones && zones.length > 0) {
+             dynamicZoneMap = {}; // Initialize
+             const zoneList = zones.map((z: { name: string; slug: string; color: string; description?: string }) => {
+                 const color = z.color.toUpperCase();
+                 const slug = z.slug.toLowerCase();
+                 // Map Slug -> Color for blueprintToPixels
+                 if (dynamicZoneMap) dynamicZoneMap[slug] = color;
+                 
+                 return `- ${z.name} [${color}]: ${z.description || ''}`;
+             }).join('\n');
+             visionInstruction += `\n\nSEMANTIC ZONES (Color -> Meaning):\n${zoneList}`;
+        }
+    } catch(e) {
+        strapi.log.warn("Failed to load zones for prompt context", e);
+    }
+    
     // Render Vision Input (Blueprint or Input Pixels)
     let visionBuffer: Buffer;
     
@@ -145,7 +239,7 @@ export default ({ strapi }) => ({
         visionBuffer = this.pixelsToPng(config.inputPixels, 2); 
     } else if (config.blueprint) {
         // Blueprint Generation: Render blueprint structure 2x
-        const blueprintPixels = this.blueprintToPixels(config.blueprint);
+        const blueprintPixels = this.blueprintToPixels(config.blueprint, dynamicZoneMap);
         visionBuffer = this.pixelsToPng(blueprintPixels, 2);
     } else {
         // Pure Vision fallback (Transparent Canvas)
@@ -160,16 +254,14 @@ export default ({ strapi }) => ({
         }
     ];
 
-    // 3. Fetch Main System Template
-    const systemTemplate = await this.getPromptTemplate('pixel-forge-system');
-    const formattedSystemPrompt = await systemTemplate.format({
+    // 5. Fetch Main System Template (Strict Typed)
+    const formattedSystemPrompt = await this.formatPrompt('pixel-forge-system', {
         width: WIDTH,
         height: HEIGHT,
         specificInstruction,
-        enhancedPrompt,
-        // asciiBlueprint removed - Legacy Field
+        enhancedPrompt: enhancedPrompt,
         visionInstruction,
-        contextData
+        contextData: contextDataString // Injection of SOTA Context
     });
 
     try {
@@ -188,9 +280,16 @@ export default ({ strapi }) => ({
         
         const rawGrid = response.pixelData;
         const validatedData = this.validateAndRepairGrid(rawGrid, WIDTH, HEIGHT);
+        if (config.entityContext) {
+            strapi.log.info(`PixelForge Context Check: UID=${config.entityContext.uid}, DocID=${config.entityContext.documentId}`);
+        } else {
+            strapi.log.warn(`PixelForge Context MISSING: entityContext is undefined or null.`);
+        }
+
         const cleanData = this.postProcessPixelData(validatedData);
 
-        return { pixelData: cleanData, enhancedPrompt };
+        // Terminology Fix: Return 'effectivePrompt' instead of 'enhancedPrompt' to avoid user confusion
+        return { pixelData: cleanData, effectivePrompt: enhancedPrompt };
 
     } catch (error) {
        strapi.log.error("Gemini Forge LangChain Error", error);
@@ -202,22 +301,59 @@ export default ({ strapi }) => ({
       const width = config.width || 32;
       const height = config.height || 32;
       const modelId = config.model || 'gemini-3-pro-preview';
+      
+      // Sanitization: Strip "Humanoid_" and "[Creature]" prefixes to prevent hallucinating a wielder when we only want the item.
+      // Blueprints are atomic (e.g. just the Sword, not the Guy holding it).
+      const cleanPrompt = config.prompt
+        .replace(/Humanoid_/gi, '')
+        .replace(/\[Creature\] - /gi, '')
+        .replace(/_/g, ' ') // Replace underscores with spaces for better NLP
+        .trim();
+
       const contextData = config.entityData ? `CONTEXT: ${JSON.stringify(config.entityData)}` : "";
 
       try {
           const model = await this.getModel(modelId);
-          const template = await this.getPromptTemplate('blueprint-architect');
+          // Dynamic Zone Loading with Strict Symbols
+          const zones = await strapi.db.query('api::entity-zone.entity-zone').findMany();
           
-          const formattedPrompt = await template.format({
-              prompt: config.prompt,
-              archetype: config.archetype,
+          let zoneInstruction = "STRICT LEGEND (Symbol -> Meaning):\n- . : Empty Space\n";
+          const allowedChars = ['.'];
+          
+          const charToZone: Record<string, string> = { '.': 'none' };
+          const zoneToColor: Record<string, string> = { 'none': 'transparent' };
+          
+          // Legacy/Fallback mapping
+          const fallbackMap: Record<string, string> = { 'core': '#', 'head': 'O', 'weapon': 'X', 'hand_l': 'l', 'hand_r': 'r', 'legs': 'L', 'accessory': '+' };
+          
+          zones.forEach((z: { name: string; slug: string; color: string; description?: string; symbol: string }) => {
+             // Prefer DB Symbol, fallback to legacy, then First Char
+             const symbol = z.symbol || fallbackMap[z.slug] || z.slug[0].toUpperCase();
+             
+             if (!allowedChars.includes(symbol)) {
+                 allowedChars.push(symbol);
+                 zoneInstruction += `- ${symbol} : ${z.name}\n`;
+                 charToZone[symbol] = z.slug;
+                 zoneToColor[z.slug] = z.color;
+             }
+          });
+
+          // ... inside generateBlueprint ...
+          
+          /*
+             STRICT TYPING ENFORCEMENT:
+             We use this.formatPrompt which requires the variables to match PromptVariableMap['blueprint-architect']
+          */
+          const formattedPrompt = await this.formatPrompt('blueprint-architect', {
+              prompt: cleanPrompt,
+              archetype: config.archetype || 'entity',
               width,
               height,
-              contextData
+              contextData: `${contextData}\n\n${zoneInstruction}\nCRITICAL: You must ONLY use the symbols listed in the Legend above.`
           });
 
           const BlueprintSchema = z.object({
-              blueprint: z.array(z.string()).describe(`Array of ${height} strings, each length ${width}`)
+              blueprint: z.array(z.string()).describe(`Array of ${height} strings. Each string must be exactly ${width} characters long. ALLOWED CHARACTERS: [${allowedChars.join(', ')}]`)
           });
 
           const modelWithStructure = model.withStructuredOutput(BlueprintSchema);
@@ -227,21 +363,15 @@ export default ({ strapi }) => ({
           const grid = rows.map(r => r.split(''));
           const validatedGrid = this.validateAndRepairGrid(grid, width, height);
           
-          const charToZone: Record<string, string> = {
-              '#': 'core', 'O': 'head', 'X': 'weapon', 
-              'l': 'hand_l', 'r': 'hand_r', 'L': 'legs', 
-              '+': 'accessory', '.': 'none'
-          };
-          
-          const zoneToColor: Record<string, string> = {
-              'core': '#8B4513', 'head': '#FFD700', 'hand_l': '#FFA07A', 'hand_r': '#FFA07A',
-              'weapon': '#C0C0C0', 'legs': '#2F4F4F', 'accessory': '#EE82EE', 'none': 'transparent'
-          };
-          
           const visualGrid = validatedGrid.map(row => 
               row.map(char => {
-                  const zone = charToZone[char] || 'none';
-                  return zoneToColor[zone] || 'transparent';
+                  const slug = charToZone[char];
+                  // If implicit DB symbol matches, try to find color directly
+                  if (!slug && zones.find((z: { symbol: string }) => z.symbol === char)) {
+                      const z = zones.find((z: { symbol: string; color: string }) => z.symbol === char);
+                      return z?.color || 'transparent';
+                  }
+                  return slug ? (zoneToColor[slug] || 'transparent') : 'transparent';
               })
           );
 
@@ -262,9 +392,7 @@ export default ({ strapi }) => ({
 
       try {
           const model = await this.getModel(modelId);
-          const template = await this.getPromptTemplate('voxel-architect');
-
-          const formattedPrompt = await template.format({
+          const formattedPrompt = await this.formatPrompt('voxel-architect', {
               prompt: config.prompt,
               width, 
               depth,
@@ -318,7 +446,7 @@ export default ({ strapi }) => ({
   },
 
   // Helpers
-  blueprintToPixels(blueprint: ZoneType[][]): string[][] {
+  blueprintToPixels(blueprint: ZoneType[][], customMap?: Record<string, string>): string[][] {
       if (!blueprint) return [];
       
       const ZONE_COLORS: Record<string, string> = {
@@ -331,11 +459,15 @@ export default ({ strapi }) => ({
           'accessory': '#FF00FF',
           'none': 'transparent',
           '.': 'transparent',
-          '#': '#FFFFFF' 
+          '#': '#FFFFFF',
+          ...(customMap || {})
       };
 
       return blueprint.map(row => 
-          row.map(cell => ZONE_COLORS[cell] || ZONE_COLORS[cell.toLowerCase()] || 'transparent')
+          row.map(cell => {
+             const key = cell.toLowerCase();
+             return ZONE_COLORS[key] || ZONE_COLORS[cell] || 'transparent';
+          })
       );
   },
 

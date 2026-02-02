@@ -61,5 +61,59 @@ export const EntityGeometry = {
    */
   isValidSize(size: string): size is EntitySize {
     return Object.values(EntitySize).includes(size as EntitySize);
+  },
+
+  /**
+   * Run-Length Encoding (RLE) to minimize grid storage.
+   * Format: "count" + "x" + "color". 
+   * Special Case: "transparent" -> "T".
+   * Example: ["transparent", "transparent", "red"] -> ["2xT", "1xred"]
+   */
+  compressRow(row: string[]): string[] {
+      const compressed: string[] = [];
+      if (!row || row.length === 0) return compressed;
+
+      let currentColor = row[0];
+      let count = 0;
+
+      for (const color of row) {
+          if (color === currentColor) {
+              count++;
+          } else {
+              const code = currentColor === 'transparent' ? 'T' : currentColor;
+              compressed.push(`${count}x${code}`);
+              currentColor = color;
+              count = 1;
+          }
+      }
+      // Push last segment
+      const code = currentColor === 'transparent' ? 'T' : currentColor;
+      compressed.push(`${count}x${code}`);
+      
+      return compressed;
+  },
+
+  decompressRow(compressedRow: string[]): string[] {
+      const row: string[] = [];
+      for (const segment of compressedRow) {
+          const [countStr, ...colorParts] = segment.split('x');
+          const count = parseInt(countStr, 10);
+          let color = colorParts.join('x'); // Rejoin if color had 'x' (rare but safe)
+          
+          if (color === 'T') color = 'transparent';
+          
+          for (let i = 0; i < count; i++) {
+              row.push(color);
+          }
+      }
+      return row;
+  },
+
+  compressGrid(grid: string[][]): string[][] {
+      return grid.map(row => this.compressRow(row));
+  },
+
+  decompressGrid(grid: string[][]): string[][] {
+      return grid.map(row => this.decompressRow(row));
   }
 };

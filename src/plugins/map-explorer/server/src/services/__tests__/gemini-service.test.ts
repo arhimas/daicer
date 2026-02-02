@@ -59,7 +59,8 @@ describe.skip('GeminiService', () => {
       };
 
       // @ts-expect-error - Mock config
-      const result = await service.generatePixelData(config);
+       
+      const result: any = await service.generatePixelData(config);
       
       expect(mockChatGoogleGenerativeAI).toHaveBeenCalled();
       expect(mockWithStructuredOutput).toHaveBeenCalled();

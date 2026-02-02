@@ -24,6 +24,19 @@ describe('Action Engine Matrix (High-Volume Validation)', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         context = createTestContext();
+        
+        // Mock Global Strapi for ChunkManager
+        (global as any).strapi = {
+            db: {
+                query: () => ({
+                   create: vi.fn(),
+                   findMany: vi.fn().mockResolvedValue([]),
+                })
+            },
+            documents: () => ({
+                findMany: vi.fn().mockResolvedValue([])
+            })
+        };
     });
 
     afterEach(() => {
