@@ -4,8 +4,7 @@ import path from 'path';
 const PROMPTS_FILE = path.join(__dirname, '../prompts.json');
 const OUTPUT_FILE = path.join(__dirname, '../src/prompt-registry/index.ts');
 
-const toPascalCase = (str: string) => 
-  str.split(/[-_.]/).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
+
 
 const mapType = (type: string): string => {
   if (type === 'string') return 'z.string()';
@@ -18,6 +17,7 @@ const mapType = (type: string): string => {
 
 const generate = () => {
     const content = fs.readFileSync(PROMPTS_FILE, 'utf-8');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const prompts = JSON.parse(content);
 
     let output = `import { z } from 'zod';\n\n`;

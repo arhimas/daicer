@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "src/plugins/*"
+    "src/plugins/*",
+    "src/libs/*"
   ],
   "description": "A Strapi application",
   "scripts": {

@@ -42,7 +42,7 @@ describe('SOTA Coverage Suite (120+ Tests)', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         process.env.GEMINI_API_KEY = 'sota-key';
-        service = geminiServiceFactory({ strapi: mockStrapi });
+        service = geminiServiceFactory({ strapi: mockStrapi as any });
         // Fix: Template must have variables logic matching the Service calls
         // 'blueprint-architect' receives { prompt }, 'pixel-forge-system' does NOT.
         mockFindOne.mockImplementation(async (params) => {

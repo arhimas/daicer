@@ -1,4 +1,6 @@
-import { z } from 'zod';
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface StrapiAdapter {
   log: {

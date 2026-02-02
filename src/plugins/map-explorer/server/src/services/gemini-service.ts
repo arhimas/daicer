@@ -1,6 +1,5 @@
-import { Core } from '@strapi/strapi';
-import { GeminiService, StrapiAdapter, LLMCoreConfig } from '../../../../../libs/llm-core/src'; // Relative import for monorepo internal use until built
-// In a real published scenario, this would be '@daicer/llm-core'
+import type { Core } from '@strapi/strapi';
+import { GeminiService, StrapiAdapter, LLMCoreConfig } from '@daicer/llm-core';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => {
   
@@ -8,7 +7,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   const adapter: StrapiAdapter = {
     log: strapi.log,
     db: strapi.db,
-    getModel: (uid) => strapi.getModel(uid),
+    getModel: (uid) => strapi.getModel(uid as any),
     // Custom fetcher for Map Explorer's deep context
     fetchContext: async (uid, documentId) => {
         return await strapi

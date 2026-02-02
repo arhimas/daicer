@@ -37,7 +37,7 @@ exports.default = {
                         q.getCompleted(0, 10), // Show last 10 successful
                         q.getDelayed(0, 10)
                     ]);
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                     
                     const mapJob = (j) => ({
                         id: j.id,
                         name: j.name,
@@ -76,7 +76,7 @@ exports.default = {
             ctx.body = { queues: stats };
         }
         catch (err) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+             
             const message = err.message || String(err);
             ctx.body = { queues: [], error: message };
         }
@@ -134,7 +134,7 @@ exports.default = {
             if (!queue) {
                 throw new Error(`Queue ${queueName} not found`);
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+             
             await queue.clean(0, 1000, type);
             ctx.body = { queues: [], message: `Cleaned ${type} jobs from ${queueName}` };
         }

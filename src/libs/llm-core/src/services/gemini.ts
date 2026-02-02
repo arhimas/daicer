@@ -4,16 +4,23 @@ import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { z } from "zod";
 import { PNG } from "pngjs";
-import { PromptKey, PromptVariableMap, PromptSchemas } from './prompt-registry';
-import { ContextBuilder } from './context-builder';
+import { PromptKey, PromptVariableMap, PromptSchemas } from '../prompt-registry';
+import { ContextBuilder } from '../context/builder';
+import { StrapiAdapter, LLMCoreConfig } from '../types';
 
 // Types
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
 export type AssetType = 'Monster' | 'Item' | 'Race' | 'Environment' | 'Terrain' | 'Sprite' | 'Blueprint';
 export type Archetype = string;
 
+/**
+ * Configuration for Pixel and Blueprint Generation.
+ * Defines the physical and semantic properties of the entity to be manifested.
+ */
 export interface GenerationConfig {
+  /** The core instruction text. */
   prompt: string;
+
   type: AssetType;
   archetype: Archetype;
   blueprint: ZoneType[][];
@@ -38,11 +45,18 @@ const TERMS = {
  * Powered by LangChain, Zod, ContextBuilder & Gemini 3
  * with Hardened Variable Injection
  */
-export default ({ strapi }) => {
-  const getConfig = (key: string) => strapi.plugin('map-explorer').config('contentTypes')[key];
+export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
+  const { adapter, config } = init;
 
-  return {
-  
+  const getContentTypeUid = (key: string) => config.contentTypes?.[key];
+
+  const service = { // Helper to reference methods internally
+
+  /**
+   * Initializes the Google GenAI Chat Model via LangChain.
+   * @param modelId - The specific model identifier (e.g., 'gemini-3-pro-preview').
+   * @returns LangChain ChatGoogleGenerativeAI instance.
+   */
   async getModel(modelId: string) {
       const apiKey = process.env.GEMINI_API_KEY;
       if (!apiKey) throw new Error("GEMINI_API_KEY not configured");
@@ -55,27 +69,39 @@ export default ({ strapi }) => {
       });
   },
 
+  /**
+   * Retrieves the Prompt Template from the Single Source of Truth (DB).
+   * Enforces existence - no fallbacks allowed.
+   * @param key - The strictly typed execution key.
+   */
   async getPromptTemplate<K extends PromptKey>(key: K): Promise<PromptTemplate> {
       try {
-          const uid = getConfig('prompt');
-          const entry = await strapi.db.query(uid).findOne({ 
+          const uid = getContentTypeUid('prompt');
+          if (!uid) throw new Error("Prompt Content Type UID not configured in LLMCoreConfig");
+
+          const entry = await adapter.db.query(uid).findOne({ 
               where: { key }
           });
           
           if (!entry || !entry.text) {
-              strapi.log.error(`CRITICAL: Prompt '${key}' missing in DB.`);
+              adapter.log.error(`CRITICAL: Prompt '${key}' missing in DB.`);
               throw new Error(`State of Art Enforcement: Prompt '${key}' MUST exist in Strapi DB. No fallbacks allowed.`);
           }
           
           return PromptTemplate.fromTemplate(entry.text);
       } catch (e) {
-         strapi.log.error(`Failed to fetch prompt '${key}'`, e);
+         adapter.log.error(`Failed to fetch prompt '${key}'`, e);
          throw e;
       }
   },
 
   /**
-   * Hardened Format Prompt: Enforces Zod Schema Validation
+   * **Hardened Format Prompt**
+   * Enforces strict Zod Schema Validation against the `prompts.json` contract.
+   * 
+   * @param key - The prompt key (e.g., 'system-identity').
+   * @param variables - The variables object. MUST match the Zod schema for this key.
+   * @throws ZodError if variables do not match schema.
    */
   async formatPrompt<K extends PromptKey>(key: K, variables: PromptVariableMap[K]): Promise<string> {
       // 1. Runtime Validation
@@ -85,34 +111,33 @@ export default ({ strapi }) => {
       const validatedVariables = schema.parse(variables) as PromptVariableMap[K];
 
       // 2. Formatting
-      const template = await this.getPromptTemplate(key);
+      const template = await service.getPromptTemplate(key);
       return await template.format(validatedVariables);
   },
 
-  async generatePixelData(config: GenerationConfig) {
+  async generatePixelData(genConfig: GenerationConfig) {
     // Dispatcher
-    if (config.type === 'Blueprint' || config.action === 'generate_blueprint') {
-        return this.generateBlueprint(config);
+    if (genConfig.type === 'Blueprint' || genConfig.action === 'generate_blueprint') {
+        return service.generateBlueprint(genConfig);
     }
     
-    if (config.action === 'generate_voxel') {
-        return this.generateVoxelStructure(config);
+    if (genConfig.action === 'generate_voxel') {
+        return service.generateVoxelStructure(genConfig);
     }
 
-    const WIDTH = config.width || 32;
-    const HEIGHT = config.height || 32;
-    const modelId = config.model || 'gemini-3-flash-preview'; 
-    const contextBuilder = new ContextBuilder(strapi);
+    const WIDTH = genConfig.width || 32;
+    const HEIGHT = genConfig.height || 32;
+    const modelId = genConfig.model || 'gemini-3-flash-preview'; 
+    const contextBuilder = new ContextBuilder(adapter, config);
 
-    const isTerrain = TERMS.TERRAIN.includes(config.archetype) || config.type === 'Terrain' || config.type === 'Environment';
-    const isItem = TERMS.ITEM.includes(config.archetype) || config.type === 'Item';
+    const isTerrain = TERMS.TERRAIN.includes(genConfig.archetype) || genConfig.type === 'Terrain' || genConfig.type === 'Environment';
+    const isItem = TERMS.ITEM.includes(genConfig.archetype) || genConfig.type === 'Item';
 
     // 1. Enhancement Phase (Prompt Passthrough)
-    const enhancedPrompt = config.prompt;
+    const enhancedPrompt = genConfig.prompt;
 
     // 2. Size & Framing Logic 
-    // TODO: Move this to ContextBuilder.buildFramingInstruction in Phase 2
-    const size = config.size || 'Medium';
+    const size = genConfig.size || 'Medium';
     let framingInstruction = `FITTING: Fill the ${WIDTH}x${HEIGHT} grid comfortably.`;
     
     if (WIDTH > 32 || HEIGHT > 32) {
@@ -156,34 +181,34 @@ export default ({ strapi }) => {
         `;
     }
 
-    // 3. SOTA Context Injection (Usage of ContextBuilder)
+    // 3. SOTA Context Injection
     const contextDataString = await contextBuilder.buildEntityContext({
-        entityContext: config.entityContext,
-        entityData: config.entityData,
-        prompt: config.prompt,
-        type: config.type,
-        archetype: config.archetype,
+        entityContext: genConfig.entityContext,
+        entityData: genConfig.entityData,
+        prompt: genConfig.prompt,
+        type: genConfig.type,
+        archetype: genConfig.archetype,
         width: WIDTH,
         height: HEIGHT,
         size
     });
 
-    // 4. Vision Pipeline (Usage of ContextBuilder)
+    // 4. Vision Pipeline
     const { instruction: visionInstruction, zoneMap: dynamicZoneMap } = await contextBuilder.buildVisionContext();
     
-    // Render Vision Input (Blueprint or Input Pixels)
+    // Render Vision Input
     let visionBuffer: Buffer;
     
-    if (config.inputPixels && config.inputPixels.length > 0) {
-        visionBuffer = this.pixelsToPng(config.inputPixels, 2); 
-    } else if (config.blueprint) {
-        const blueprintPixels = this.blueprintToPixels(config.blueprint, dynamicZoneMap);
-        visionBuffer = this.pixelsToPng(blueprintPixels, 2);
+    if (genConfig.inputPixels && genConfig.inputPixels.length > 0) {
+        visionBuffer = service.pixelsToPng(genConfig.inputPixels, 2); 
+    } else if (genConfig.blueprint) {
+        const blueprintPixels = service.blueprintToPixels(genConfig.blueprint, dynamicZoneMap);
+        visionBuffer = service.pixelsToPng(blueprintPixels, 2);
     } else {
-        visionBuffer = this.pixelsToPng(Array(HEIGHT).fill(Array(WIDTH).fill('transparent')));
+        visionBuffer = service.pixelsToPng(Array(HEIGHT).fill(Array(WIDTH).fill('transparent')));
     }
 
-    const contentParts: { type: string; text?: string; image_url?: string }[] = [
+    const contentParts: { type: 'text' | 'image_url'; text?: string; image_url?: string }[] = [
         { type: "text", text: "Manifest this sprite based on the visual input structure." },
         { 
             type: "image_url", 
@@ -192,17 +217,18 @@ export default ({ strapi }) => {
     ];
 
     // 5. Fetch Main System Template with Hardened Validation
-    const formattedSystemPrompt = await this.formatPrompt('pixel-forge-system', {
+    const formattedSystemPrompt = await service.formatPrompt('pixel-forge-system', {
         width: WIDTH,
         height: HEIGHT,
         specificInstruction,
         enhancedPrompt: enhancedPrompt,
         visionInstruction,
-        contextData: contextDataString 
+        contextData: contextDataString,
+        asciiBlueprint: undefined // Optional in schema
     });
 
     try {
-        const model = await this.getModel(modelId);
+        const model = await service.getModel(modelId);
         
         const PixelGridSchema = z.object({
             pixelData: z.array(z.array(z.string())).describe(`A ${HEIGHT}x${WIDTH} grid of hex color strings or 'transparent'`)
@@ -216,44 +242,39 @@ export default ({ strapi }) => {
         ]);
         
         const rawGrid = response.pixelData;
-        const validatedData = this.validateAndRepairGrid(rawGrid, WIDTH, HEIGHT);
-        const cleanData = this.postProcessPixelData(validatedData);
+        const validatedData = service.validateAndRepairGrid(rawGrid, WIDTH, HEIGHT);
+        const cleanData = service.postProcessPixelData(validatedData);
 
         return { pixelData: cleanData, effectivePrompt: enhancedPrompt };
 
     } catch (error) {
-       strapi.log.error("Gemini Forge LangChain Error", error);
+       adapter.log.error("Gemini Forge LangChain Error", error);
        throw error;
     }
   },
 
-  async generateBlueprint(config: GenerationConfig) {
-      const width = config.width || 32;
-      const height = config.height || 32;
-      const modelId = config.model || 'gemini-3-pro-preview';
-      const contextBuilder = new ContextBuilder(strapi);
+  async generateBlueprint(genConfig: GenerationConfig) {
+      const width = genConfig.width || 32;
+      const height = genConfig.height || 32;
+      const modelId = genConfig.model || 'gemini-3-pro-preview';
+      // Unused in blueprint logic directly, but ready if needed
+      // const contextBuilder = new ContextBuilder(adapter, config);
       
-      const cleanPrompt = config.prompt
+      const cleanPrompt = genConfig.prompt
         .replace(/Humanoid_/gi, '')
         .replace(/\[Creature\] - /gi, '')
         .replace(/_/g, ' ') 
         .trim();
 
-      // Legacy Zone Logic - Refactored to match previous implementation
-      // We still need local knowledge of zones for symbol mapping *outside* of the prompt context in this specific function,
-      // because we need to map the output characters back to zones.
-      // However, we will use ContextBuilder for the *prompt context* string if applicable.
-      // Actually, Blueprint architecture seems to have its own complex 'zoneInstruction' logic that maps symbols.
-      // Let's preserve the logic but move string building to a helper or keep if specific.
-      // For now, I will keep the explicit logic here to minimize regression risk on Blueprint specifics,
-      // BUT I will use contextBuilder for the entity context.
-
-      const contextData = config.entityData ? `CONTEXT: ${JSON.stringify(config.entityData)}` : "";
+      const contextData = genConfig.entityData ? `CONTEXT: ${JSON.stringify(genConfig.entityData)}` : "";
 
       try {
-          const model = await this.getModel(modelId);
-          const uid = getConfig('zone');
-          const zones = await strapi.db.query(uid).findMany();
+          const model = await service.getModel(modelId);
+          const uid = getContentTypeUid('zone');
+          let zones = [];
+          if (uid) {
+               zones = await adapter.db.query(uid).findMany();
+          }
           
           let zoneInstruction = "STRICT LEGEND (Symbol -> Meaning):\n- . : Empty Space\n";
           const allowedChars = ['.'];
@@ -264,6 +285,7 @@ export default ({ strapi }) => {
           const fallbackMap: Record<string, string> = { 'core': '#', 'head': 'O', 'weapon': 'X', 'hand_l': 'l', 'hand_r': 'r', 'legs': 'L', 'accessory': '+' };
           
           if (zones) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             zones.forEach((z: any) => {
                 const symbol = z.symbol || fallbackMap[z.slug] || z.slug[0].toUpperCase();
                 
@@ -277,9 +299,9 @@ export default ({ strapi }) => {
           }
 
           // Strict Validation via PromptSchemas
-          const formattedPrompt = await this.formatPrompt('blueprint-architect', {
+          const formattedPrompt = await service.formatPrompt('blueprint-architect', {
               prompt: cleanPrompt,
-              archetype: config.archetype || 'entity',
+              archetype: genConfig.archetype || 'entity',
               width,
               height,
               contextData: `${contextData}\n\n${zoneInstruction}\nCRITICAL: You must ONLY use the symbols listed in the Legend above.`
@@ -294,7 +316,7 @@ export default ({ strapi }) => {
           
           const rows = response.blueprint;
           const grid = rows.map(r => r.split(''));
-          const validatedGrid = this.validateAndRepairGrid(grid, width, height);
+          const validatedGrid = service.validateAndRepairGrid(grid, width, height);
           
           const uniqueZones = new Set<string>();
           
@@ -328,22 +350,22 @@ export default ({ strapi }) => {
           };
 
       } catch (e) {
-          strapi.log.error("Blueprint Gen Error", e);
+          adapter.log.error("Blueprint Gen Error", e);
           throw e;
       }
   },
 
-  async generateVoxelStructure(config: GenerationConfig) {
-      const width = config.width || 16;
-      const height = config.width || 16;
+  async generateVoxelStructure(genConfig: GenerationConfig) {
+      const width = genConfig.width || 16;
+      const height = genConfig.width || 16;
       const depth = 7;
-      const modelId = config.model || 'gemini-3-flash-preview';
-      const contextData = config.entityData ? `CONTEXT: ${JSON.stringify(config.entityData)}` : "";
+      const modelId = genConfig.model || 'gemini-3-flash-preview';
+      const contextData = genConfig.entityData ? `CONTEXT: ${JSON.stringify(genConfig.entityData)}` : "";
 
       try {
-          const model = await this.getModel(modelId);
-          const formattedPrompt = await this.formatPrompt('voxel-architect', {
-              prompt: config.prompt,
+          const model = await service.getModel(modelId);
+          const formattedPrompt = await service.formatPrompt('voxel-architect', {
+              prompt: genConfig.prompt,
               width, 
               depth,
               contextData
@@ -364,27 +386,25 @@ export default ({ strapi }) => {
           return { voxelData: response.voxelData };
 
       } catch (e) {
-          strapi.log.error("Voxel Gen Error", e);
+          adapter.log.error("Voxel Gen Error", e);
           throw e;
       }
   },
 
-  async generateStructuredData<T>(config: { promptKey: PromptKey, variables: any, schema: z.ZodSchema<T>, modelId?: string }) {
+  async generateStructuredData<K extends PromptKey, T>(config: { promptKey: K, variables: PromptVariableMap[K], schema: z.ZodSchema<T>, modelId?: string }) {
       const modelId = config.modelId || 'gemini-3-pro-preview';
       try {
-          const model = await this.getModel(modelId);
+          const model = await service.getModel(modelId);
           
-          const formattedPrompt = await this.formatPrompt(config.promptKey, config.variables);
+          const formattedPrompt = await service.formatPrompt(config.promptKey, config.variables);
 
           const modelWithStructure = model.withStructuredOutput(config.schema);
           
-          // We wrap in a System/Human pattern or just prompt depending on complexity. 
-          // FormatPrompt usually returns the full text.
           const response = await modelWithStructure.invoke(formattedPrompt);
           
           return response;
       } catch (e) {
-          strapi.log.error(`Structured Gen Error (${config.promptKey})`, e);
+          adapter.log.error(`Structured Gen Error (${config.promptKey})`, e);
           throw e;
       }
   },
@@ -456,7 +476,7 @@ export default ({ strapi }) => {
               let r = 0, g = 0, b = 0, a = 0;
               
               if (color !== 'transparent' && color !== 'none') {
-                  const rgb = this.hexToRgb(color);
+                  const rgb = service.hexToRgb(color);
                   if (rgb) { r = rgb.r; g = rgb.g; b = rgb.b; a = 255; }
               }
               png.data[idx] = r; png.data[idx + 1] = g; png.data[idx + 2] = b; png.data[idx + 3] = a;
@@ -472,6 +492,9 @@ export default ({ strapi }) => {
           g: parseInt(result[2], 16),
           b: parseInt(result[3], 16)
       } : null;
-  },
+  }
+
   };
+
+  return service;
 };

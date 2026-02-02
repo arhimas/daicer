@@ -32,7 +32,7 @@ describe('GeminiService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     process.env.GEMINI_API_KEY = 'test-key';
-    service = geminiServiceFactory({ strapi: mockStrapi });
+    service = geminiServiceFactory({ strapi: mockStrapi as any });
     
     // Default Prompt Mock
     mockFindOne.mockResolvedValue({
@@ -58,9 +58,9 @@ describe('GeminiService', () => {
         height: 32
       };
 
-      // @ts-expect-error - Mock config
+
        
-      const result: any = await service.generatePixelData(config);
+      const result: any = await service.generatePixelData(config as any);
       
       expect(mockChatGoogleGenerativeAI).toHaveBeenCalled();
       expect(mockWithStructuredOutput).toHaveBeenCalled();
@@ -73,8 +73,8 @@ describe('GeminiService', () => {
     it('should throw error if API key missing', async () => {
       delete process.env.GEMINI_API_KEY;
       const config = { prompt: 'Test', type: 'Monster', archetype: 'Humanoid', blueprint: [] };
-      // @ts-expect-error - Mock config
-      await expect(service.generatePixelData(config)).rejects.toThrow('GEMINI_API_KEY not configured');
+
+      await expect(service.generatePixelData(config as any)).rejects.toThrow('GEMINI_API_KEY not configured');
     });
     
     it('should fail if Prompt Template is missing', async () => {
@@ -86,8 +86,8 @@ describe('GeminiService', () => {
             archetype: 'Humanoid',
             blueprint: []
         };
-        // @ts-expect-error - Mock config
-        await expect(service.generatePixelData(config)).rejects.toThrow();
+  
+        await expect(service.generatePixelData(config as any)).rejects.toThrow();
     });
   });
 
@@ -105,8 +105,8 @@ describe('GeminiService', () => {
             height: 32
          };
 
-         // @ts-expect-error - Mock config
-         await service.generatePixelData(config);
+   
+         await service.generatePixelData(config as any);
 
          expect(mockInvoke).toHaveBeenCalled();
          const args = mockInvoke.mock.calls[0];
@@ -161,8 +161,8 @@ describe('GeminiService', () => {
               height: 2
           };
 
-          // @ts-expect-error - Mock config
-          const result = await service.generateBlueprint(config);
+    
+          const result = await service.generateBlueprint(config as any);
 
           expect(result.zones).toBeDefined();
           expect(result.zones).toContain('weapon');

@@ -52,7 +52,7 @@ describe('GeminiService Verification (Strict & SOTA)', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         process.env.GEMINI_API_KEY = 'verification-key';
-        service = geminiServiceFactory({ strapi: mockStrapi });
+        service = geminiServiceFactory({ strapi: mockStrapi as any });
         
         // Default Prompt Templates - Use single braces for LangChain
         mockFindOne.mockResolvedValue({ key: 'test', text: 'Prompt: {contextData}' });
