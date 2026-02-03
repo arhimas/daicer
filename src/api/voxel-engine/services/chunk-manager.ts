@@ -4,7 +4,7 @@
  */
 import { Worker } from 'worker_threads';
 import path from 'path';
-import { Chunk, WorldConfig, BlockType } from '../../game/src/engine/types';
+import { Chunk, WorldConfig, BlockType } from '@daicer/engine/types';
 
 interface VoxelChangeRecord {
   chunkX: number;

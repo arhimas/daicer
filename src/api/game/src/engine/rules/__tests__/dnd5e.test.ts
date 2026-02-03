@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateModifier, calculateProficiencyBonus, createCharacterSnapshot } from '../dnd5e';
+import { calculateModifier, calculateProficiencyBonus, createCharacterSnapshot } from '@daicer/engine/rules/dnd5e';
 
 describe('DnD 5e Rules', () => {
   describe('calculateModifier', () => {

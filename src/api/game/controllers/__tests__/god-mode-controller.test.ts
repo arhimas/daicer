@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import godModeControllerFactory from '../god-mode';
+import godModeControllerFactory from '@/api/game/controllers/god-mode';
 
 // Mock Strapi Global
 // @ts-expect-error: Mock

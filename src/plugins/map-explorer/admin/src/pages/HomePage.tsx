@@ -53,7 +53,7 @@ const HomePage = () => {
   const { counts, jobs } = data;
 
   return (
-    <Box background="neutral100" padding={8}>
+    <Box background="neutral100" padding={8} aria-label="Pixel Forge Dashboard">
       <Flex justifyContent="space-between" paddingBottom={6}>
         <Typography variant="alpha">Pixel Forge Control Center</Typography>
         <Button onClick={fetchData} startIcon={<ArrowClockwise />} disabled={loading}>

@@ -2,8 +2,8 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { BlockType, Tile } from '../../../game/src/engine/types';
-import { Alea } from '../../src/utils/math';
+import { BlockType, Tile } from '@daicer/engine/types';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
 
 export class FloraGenerator {
   private static setBlock(

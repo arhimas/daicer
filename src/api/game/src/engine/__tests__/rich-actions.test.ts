@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { RuntimeAction, RuntimeEffect } from '../derivation/types';
+import { RuntimeAction, RuntimeEffect } from '@daicer/engine/derivation/types';
 
 interface MockEntitySheet {
   name: string;

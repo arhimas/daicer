@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { DevLogger } from '../dev-logger';
+import { DevLogger } from '@/utils/dev-logger';
 
 describe('DevLogger', () => {
   it('should call strapi log methods with scope', () => {

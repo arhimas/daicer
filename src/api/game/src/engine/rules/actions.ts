@@ -23,4 +23,4 @@ export {
   ReactionDefinitionSchema,
   ActionDefinitionSchema,
   type ActionDefinition,
-} from '../../../../../shared';
+} from '@daicer/shared';

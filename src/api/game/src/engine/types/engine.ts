@@ -1,4 +1,4 @@
-import { Room, Player, Entity, WorldSettings } from './index';
+import { Room, Player, Entity, WorldSettings } from '@daicer/engine/types';
 
 /**
  * The Runtime Game State.

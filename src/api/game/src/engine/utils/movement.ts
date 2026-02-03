@@ -1,4 +1,4 @@
-import { Speed } from '../types';
+import { Speed } from '@daicer/engine/types';
 
 /**
  * Defines the movement capabilities of an entity in the game world.

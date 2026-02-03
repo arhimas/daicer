@@ -1,0 +1,12 @@
+{
+  "total": 0,
+  "stack": {
+    "required": [
+      "typescript",
+      "react",
+      "@strapi/strapi",
+      "langchain"
+    ],
+    "forbidden": []
+  }
+}

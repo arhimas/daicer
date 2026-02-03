@@ -1,7 +1,7 @@
 import { Core } from '@strapi/strapi';
-import { QueueManager } from '../queues/queue-manager';
-import { QueueName } from '../queues/contract';
-import { EMBEDDABLE_MODELS } from '../config/embedding';
+import { QueueManager } from '@/queues/queue-manager';
+import { QueueName } from '@/queues/contract';
+import { EMBEDDABLE_MODELS } from '@/config/embedding';
 
 interface LifecycleEvent {
   model: { uid: string };

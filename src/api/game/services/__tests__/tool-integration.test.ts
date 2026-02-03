@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import toolExecutorFactory from '../tool-executor';
+import toolExecutorFactory from '@/api/game/services/tool-executor';
 
 // Mock Strapi
 const mockExecute = vi.fn();

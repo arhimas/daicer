@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { ActionDispatcher } from '../ActionDispatcher';
-import { Entity } from '../../types';
-import { RuntimeAction } from '../../derivation/types';
+import { ActionDispatcher } from '@daicer/engine/resolution/ActionDispatcher';
+import { Entity } from '@daicer/engine/types';
+import { RuntimeAction } from '@daicer/engine/derivation/types';
 
 describe('ActionDispatcher', () => {
   const mockSource: Entity = {
@@ -25,13 +25,12 @@ describe('ActionDispatcher', () => {
   } as unknown as Entity;
 
   it('should resolve a simple attack hit', () => {
-    
     const action: RuntimeAction = {
       name: 'Sword Swing',
       actionId: 'action-1',
       sourceId: 'source-1',
       type: 'attack',
-         
+
       attack: {
         bonus: 5,
         critRange: 20,
@@ -39,7 +38,7 @@ describe('ActionDispatcher', () => {
         type: 'melee',
       },
       effects: [
-         {
+        {
           type: 'damage',
           dice: '1d6',
           flat: 2,
@@ -50,7 +49,7 @@ describe('ActionDispatcher', () => {
 
     // Roll 15 + 5 = 20 >= 15 AC (Hit)
     // Math.random() * 20 -> 0.74 * 20 = 14.8 -> floor 14 + 1 = 15
-    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.74); 
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.74);
 
     const result = ActionDispatcher.resolve(mockSource, mockTarget, action);
 
@@ -66,7 +65,7 @@ describe('ActionDispatcher', () => {
     const action: RuntimeAction = {
       name: 'Weak Swing',
       attack: {
-        bonus: 0, 
+        bonus: 0,
         critRange: 20,
       },
       effects: [],
@@ -74,10 +73,10 @@ describe('ActionDispatcher', () => {
 
     // Roll 5 + 0 = 5 < 15 AC (Miss)
     // Math.random() * 20 -> 0.2 * 20 = 4 -> floor 4 + 1 = 5
-    const randomSpy =  vi.spyOn(Math, 'random').mockReturnValue(0.2);
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.2);
 
     const result = ActionDispatcher.resolve(mockSource, mockTarget, action);
-    
+
     expect(result.hit).toBe(false);
     expect(result.damageTotal).toBe(0);
 
@@ -95,14 +94,14 @@ describe('ActionDispatcher', () => {
         effect: 'half',
       },
       effects: [
-         {
+        {
           type: 'damage',
           dice: '1d6', // Add dice to test parsing
-           // Mock random 0.8 -> 4.8 -> 4 + 1 = 5
+          // Mock random 0.8 -> 4.8 -> 4 + 1 = 5
           flat: 5,
           subtype: 'poison',
         },
-      ]
+      ],
     } as unknown as RuntimeAction;
 
     // Force save pass: Roll 10 + 2 = 12 >= 10
@@ -111,19 +110,19 @@ describe('ActionDispatcher', () => {
     // 0.45 for d20 -> 10.
     // 0.45 for 1d6 -> 0.45 * 6 = 2.7 -> 2+1 = 3.
     // Total damage: 3 + 5 = 8. Half = 4.
-    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.45); 
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.45);
 
     const result = ActionDispatcher.resolve(mockSource, mockTarget, action);
 
     expect(result.hit).toBe(true);
     expect(result.savePassed).toBe(true);
-    expect(result.damageTotal).toBe(4); 
+    expect(result.damageTotal).toBe(4);
 
     randomSpy.mockRestore();
   });
 
   it('should apply conditions on failed save', () => {
-     const action: RuntimeAction = {
+    const action: RuntimeAction = {
       name: 'Stun Ray',
       attack: { bonus: 100 },
       save: {
@@ -132,16 +131,16 @@ describe('ActionDispatcher', () => {
         effect: 'negate',
       },
       effects: [
-         {
+        {
           type: 'apply_condition',
           subtype: 'stunned',
         },
-      ]
+      ],
     } as unknown as RuntimeAction;
 
     // Force save fail: Roll 1 + 0 = 1 < 20
     // Math.random() = 0.0
-    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.0); 
+    const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.0);
 
     const result = ActionDispatcher.resolve(mockSource, mockTarget, action);
 
@@ -150,9 +149,9 @@ describe('ActionDispatcher', () => {
 
     randomSpy.mockRestore();
   });
-  
+
   it('should handle critical hits logic with dice', () => {
-       const action: RuntimeAction = {
+    const action: RuntimeAction = {
       name: 'Crit Swing',
       attack: {
         bonus: 0,

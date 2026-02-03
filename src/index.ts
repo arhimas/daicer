@@ -1,5 +1,6 @@
 import type { Core } from '@strapi/strapi';
-import { registerGraphQLExtension } from './lifecycle/graphql';
+import 'module-alias/register';
+import { registerGraphQLExtension } from '@/lifecycle/graphql';
 // import { initSocket } from './lifecycle/socket/init';
 
 // Force reload for new API

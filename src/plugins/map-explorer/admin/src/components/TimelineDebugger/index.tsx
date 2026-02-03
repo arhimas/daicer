@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Box, Grid, Typography, Button } from '@strapi/design-system';
 import { Cross } from '@strapi/icons';
 import { useFetchClient } from '@strapi/strapi/admin';
-import { PLUGIN_ID } from '../../pluginId';
-import { Scrubber } from './Scrubber';
-import { EventList, TimelineEvent } from './EventList';
-import { StateInspector } from './StateInspector';
+import { PLUGIN_ID } from '@/plugins/map-explorer/admin/src/pluginId';
+import { Scrubber } from '@/plugins/map-explorer/admin/src/components/TimelineDebugger/Scrubber';
+import { EventList, TimelineEvent } from '@/plugins/map-explorer/admin/src/components/TimelineDebugger/EventList';
+import { StateInspector } from '@/plugins/map-explorer/admin/src/components/TimelineDebugger/StateInspector';
 
-import { ReplayGameState } from '../../types';
+import { ReplayGameState } from '@/plugins/map-explorer/admin/src/types';
 
 interface TimelineDebuggerProps {
   roomId: string;

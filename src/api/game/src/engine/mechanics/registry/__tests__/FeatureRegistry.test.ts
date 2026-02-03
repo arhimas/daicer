@@ -1,33 +1,33 @@
 import { describe, it, expect } from 'vitest';
-import { FeatureRegistry, FeatureHandler } from '../FeatureRegistry';
+import { FeatureRegistry, FeatureHandler } from '@daicer/engine/mechanics/registry/FeatureRegistry';
 
 describe('FeatureRegistry', () => {
-    // handlers is static private map. We rely on public API.
-    
-    it('should register and retrieve a handler', () => {
-        const handler: FeatureHandler = {
-            name: 'Test Feature',
-            canApply: () => true,
-        };
+  // handlers is static private map. We rely on public API.
 
-        FeatureRegistry.register(handler);
-        const retrieved = FeatureRegistry.get('Test Feature');
-        
-        expect(retrieved).toBe(handler);
-    });
+  it('should register and retrieve a handler', () => {
+    const handler: FeatureHandler = {
+      name: 'Test Feature',
+      canApply: () => true,
+    };
 
-    it('should be case insensitive', () => {
-        const handler: FeatureHandler = {
-            name: 'Sneak Attack',
-            canApply: () => true,
-        };
+    FeatureRegistry.register(handler);
+    const retrieved = FeatureRegistry.get('Test Feature');
 
-        FeatureRegistry.register(handler);
-        expect(FeatureRegistry.get('sneak attack')).toBe(handler);
-        expect(FeatureRegistry.get('SNEAK ATTACK')).toBe(handler);
-    });
+    expect(retrieved).toBe(handler);
+  });
 
-    it('should return undefined for unknown feature', () => {
-        expect(FeatureRegistry.get('Unknown')).toBeUndefined();
-    });
+  it('should be case insensitive', () => {
+    const handler: FeatureHandler = {
+      name: 'Sneak Attack',
+      canApply: () => true,
+    };
+
+    FeatureRegistry.register(handler);
+    expect(FeatureRegistry.get('sneak attack')).toBe(handler);
+    expect(FeatureRegistry.get('SNEAK ATTACK')).toBe(handler);
+  });
+
+  it('should return undefined for unknown feature', () => {
+    expect(FeatureRegistry.get('Unknown')).toBeUndefined();
+  });
 });

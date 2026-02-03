@@ -9,9 +9,9 @@
  */
 
 // import { factories } from '@strapi/strapi'; // Not needed for plain service
-import { Alea } from '../src/engine/voxel/utils/math';
-import { TerrainGenerator } from '../src/engine/voxel/terrain-generator';
-import { WorldConfig, ZLevel } from '../src/engine/types';
+import { Alea } from '@daicer/engine/voxel/utils/math';
+import { TerrainGenerator } from '@daicer/engine/voxel/terrain-generator';
+import { WorldConfig, ZLevel } from '@daicer/engine/types';
 
 // New Schemas
 import {
@@ -22,7 +22,7 @@ import {
   DropItemCommand,
   PickupItemCommand,
   ThrowItemCommand,
-} from '../schemas/commands';
+} from '@/api/game/schemas/commands';
 
 import {
   GameEvent,
@@ -32,9 +32,9 @@ import {
   EntityDeathEventSchema,
   TerrainModifiedEventSchema,
   ItemDroppedEventSchema,
-} from '../schemas/events';
+} from '@/api/game/schemas/events';
 
-import { findPath } from '../src/engine/rules/spatial';
+import { findPath } from '@daicer/engine/rules/spatial';
 
 import type { UID } from '@strapi/types';
 

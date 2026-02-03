@@ -1,5 +1,5 @@
 import { createStrapi } from '@strapi/strapi';
-import { GenesisSeeder } from '../../genesis/seeder';
+import { GenesisSeeder } from '@/genesis/seeder';
 import path from 'path';
 
 async function main() {

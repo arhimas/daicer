@@ -1,5 +1,5 @@
-import { WorkerManager } from '../worker-manager';
-import { QueueName, JobPayloads } from '../contract';
+import { WorkerManager } from '@/queues/worker-manager';
+import { QueueName, JobPayloads } from '@/queues/contract';
 import type { Core } from '@strapi/strapi';
 
 /**

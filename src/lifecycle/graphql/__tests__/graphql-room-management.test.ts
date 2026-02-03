@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getMutationResolvers } from '../mutation-resolvers';
+import { getMutationResolvers } from '@/lifecycle/graphql/mutation-resolvers';
 
 import type { Core } from '@strapi/strapi';
 type StrapiInterface = Core.Strapi;

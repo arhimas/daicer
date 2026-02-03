@@ -1,4 +1,4 @@
-import { ClassValidationData, ParseResult } from '../types';
+import { ClassValidationData, ParseResult } from '@scripts/genesis/srd-parser/types';
 import { FeatureParser } from './FeatureParser';
 
 export class ClassParser {

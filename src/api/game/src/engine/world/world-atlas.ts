@@ -1,5 +1,5 @@
-import { Alea, FastNoise } from '../voxel/utils/math';
-import { WorldConfig } from '../types';
+import { Alea, FastNoise } from '@daicer/engine/voxel/utils/math';
+import { WorldConfig } from '@daicer/engine/types';
 
 /**
  * Represents metadata about a generated world region (Voronoi cell).

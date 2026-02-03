@@ -1,5 +1,5 @@
-import { RuntimeAction, DerivationContext } from './types';
-import { calculateModifier } from './attributes';
+import { RuntimeAction, DerivationContext } from '@daicer/engine/derivation/types';
+import { calculateModifier } from '@daicer/engine/derivation/attributes';
 
 // Define DB Shapes (Stubbing them here to avoid any, ideally these come from Codegen/Strapi types)
 interface SerializedProperty {

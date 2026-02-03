@@ -105,6 +105,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Test Backend with Coverage
         run: yarn workspace @daicer/backend vitest run --coverage
+      - name: Verify Coverage Guard
+        run: yarn workspace @daicer/backend test:guard
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:

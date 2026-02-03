@@ -1,5 +1,5 @@
-import { Entity } from '../../types';
-import { DamageType } from './DamageType';
+import { Entity } from '@daicer/engine/types';
+import { DamageType } from '@daicer/engine/mechanics/damage/DamageType';
 
 /**
  * Represents a discrete packet of damage.

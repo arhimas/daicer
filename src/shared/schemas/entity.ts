@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { SpeedSchema } from './actor'; // Using local import since SpeedSchema is in shared/src/schemas/actor.ts
+import { SpeedSchema } from '@daicer/shared/schemas/actor'; // Using local import since SpeedSchema is in shared/src/schemas/actor.ts
 
 export const AttributeSchema = z.enum(['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']);
 

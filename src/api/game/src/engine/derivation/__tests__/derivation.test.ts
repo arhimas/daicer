@@ -1,5 +1,5 @@
-import { EntityDeriver } from '../index';
-import { DerivationContext } from '../types';
+import { EntityDeriver } from '@daicer/engine/derivation';
+import { DerivationContext } from '@daicer/engine/derivation/types';
 
 import { describe, it, expect } from 'vitest';
 

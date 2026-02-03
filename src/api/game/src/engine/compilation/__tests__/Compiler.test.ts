@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { BaseCompiler, CompilationResult } from '../Compiler';
+import { BaseCompiler, CompilationResult } from '@daicer/engine/compilation/Compiler';
 
 // Concrete implementation for testing abstract class
 class TestCompiler extends BaseCompiler<string> {
@@ -23,7 +23,7 @@ describe('BaseCompiler', () => {
   it('should initialize result with success and valid status', async () => {
     const compiler = new TestCompiler();
     const result = await compiler.compile('valid');
-    
+
     expect(result.success).toBe(true);
     expect(result.status).toBe('Valid');
     expect(result.logs[0]).toEqual({ level: 'info', message: 'Info message', data: undefined });

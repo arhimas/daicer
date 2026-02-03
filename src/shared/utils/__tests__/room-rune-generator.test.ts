@@ -1,4 +1,4 @@
-import { RoomRuneGenerator, generateRoomRune } from '../room-rune-generator';
+import { RoomRuneGenerator, generateRoomRune } from '@daicer/shared/utils/room-rune-generator';
 
 describe('Room Rune Generator', () => {
   const generator = new RoomRuneGenerator();

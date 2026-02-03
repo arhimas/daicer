@@ -7,7 +7,7 @@
 
 import { z } from 'zod';
 // Import the CommandSchema definition for strict validation of LLM outputs
-import { CommandSchema } from '../api/game/src/engine/schemas/commands';
+import { CommandSchema } from '@daicer/engine/schemas/commands';
 
 /**
  * DM Turn Response Schema.

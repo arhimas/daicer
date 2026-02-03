@@ -12,7 +12,7 @@ import {
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { useIntl } from 'react-intl';
 import { Trash, Drag, Pencil, Magic, Code, Check } from '@strapi/icons';
-import { Chunk } from '../../types';
+import { Chunk } from '@/plugins/map-explorer/admin/src/types';
 
 // Constants for Texture Mode
 const GRID_SIZE = 32;
@@ -76,7 +76,9 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
   // Blueprint State
   const [blueprints, setBlueprints] = useState<Blueprint[]>([]);
   const [selectedBlueprintId, setSelectedBlueprintId] = useState<string | number | null>(null);
-  const [metadata, setMetadata] = useState<{ blueprint?: string[][]; loadedBlueprint?: string }>({});
+  const [metadata, setMetadata] = useState<{ blueprint?: string[][]; loadedBlueprint?: string }>(
+    {}
+  );
   const [viewMode, setViewMode] = useState<'sprite' | 'mix' | 'blueprint'>('sprite');
   const [blueprintOpacity, setBlueprintOpacity] = useState(0.5);
 
@@ -292,16 +294,16 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
         if (!color || color === 'air') color = 'transparent';
 
         if (color !== 'transparent' && !color.startsWith('#') && !color.startsWith('rgb')) {
-           // Basic mapping...
-           if (color === 'stone') color = '#7d7d7d';
-           else if (color === 'dirt') color = '#5d4037';
-           else if (color === 'grass') color = '#4caf50';
-           else color = '#888888';
+          // Basic mapping...
+          if (color === 'stone') color = '#7d7d7d';
+          else if (color === 'dirt') color = '#5d4037';
+          else if (color === 'grass') color = '#4caf50';
+          else color = '#888888';
         }
 
         // Overlay Logic
         const bpPixel = metadata?.blueprint?.[y]?.[x];
-        const bpColor = (bpPixel && bpPixel !== 'transparent' && bpPixel !== '.') ? bpPixel : null;
+        const bpColor = bpPixel && bpPixel !== 'transparent' && bpPixel !== '.' ? bpPixel : null;
 
         let finalColor = 'transparent';
 
@@ -312,22 +314,22 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
           // SHOW ONLY SPRITE
           finalColor = color;
         } else if (viewMode === 'mix') {
-           // MIX: Draw Sprite, then Overlay
-           // 1. Draw Sprite First
-           if (color !== 'transparent') {
-             ctx.fillStyle = color;
-             ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-           }
-           
-           // 2. Draw Overlay?
-           if (bpColor) {
-             ctx.globalAlpha = blueprintOpacity;
-             ctx.fillStyle = bpColor;
-             ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-             ctx.globalAlpha = 1.0; // Reset
-             return; // Done
-           }
-           return; // No overlay, and sprite already drawn
+          // MIX: Draw Sprite, then Overlay
+          // 1. Draw Sprite First
+          if (color !== 'transparent') {
+            ctx.fillStyle = color;
+            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+          }
+
+          // 2. Draw Overlay?
+          if (bpColor) {
+            ctx.globalAlpha = blueprintOpacity;
+            ctx.fillStyle = bpColor;
+            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            ctx.globalAlpha = 1.0; // Reset
+            return; // Done
+          }
+          return; // No overlay, and sprite already drawn
         }
 
         if (finalColor !== 'transparent') {
@@ -636,7 +638,7 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
                   ))}
                 </SingleSelect>
               )}
-               <Button
+              <Button
                 variant="secondary"
                 onClick={handleLoadBlueprint}
                 disabled={!selectedBlueprintId}
@@ -644,30 +646,30 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
               >
                 Load
               </Button>
-              
-               <Box width="1px" background="neutral200" height="24px" margin={2} />
+
+              <Box width="1px" background="neutral200" height="24px" margin={2} />
 
               <SingleSelect
-                 value={viewMode}
-                 onChange={setViewMode}
-                 size="S"
-                 style={{ width: '100px' }}
+                value={viewMode}
+                onChange={setViewMode}
+                size="S"
+                style={{ width: '100px' }}
               >
-                 <SingleSelectOption value="sprite">Sprite</SingleSelectOption>
-                 <SingleSelectOption value="mix">Mix</SingleSelectOption>
-                 <SingleSelectOption value="blueprint">Blueprint</SingleSelectOption>
+                <SingleSelectOption value="sprite">Sprite</SingleSelectOption>
+                <SingleSelectOption value="mix">Mix</SingleSelectOption>
+                <SingleSelectOption value="blueprint">Blueprint</SingleSelectOption>
               </SingleSelect>
 
               {viewMode === 'mix' && (
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={blueprintOpacity}
-                    onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
-                    style={{ width: '60px' }}
-                  />
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={blueprintOpacity}
+                  onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
+                  style={{ width: '60px' }}
+                />
               )}
             </Flex>
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { z } from 'zod';
-import { generateToolGraphQL } from '../tool-generator';
+import { generateToolGraphQL } from '@/lifecycle/graphql/tool-generator';
 
 const mockGetTools = vi.fn();
 

@@ -2,8 +2,8 @@
  * LangChain configuration for Google Gemini
  */
 
-import { getFlashModel } from '../utils/llm/gemini';
-import type { GeminiConfig } from '../utils/llm/types';
+import { getFlashModel } from '@/utils/llm/gemini';
+import type { GeminiConfig } from '@/utils/llm/types';
 
 /**
  * Default model configuration

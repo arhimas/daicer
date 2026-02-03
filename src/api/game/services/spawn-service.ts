@@ -7,8 +7,8 @@
  * Handles instantiation of Characters and Monsters into the game world.
  */
 
-import { EntityDeriver, StatBlock } from '../src/engine';
-import { BlueprintSchema, SpawnPayloadSchema } from '../schemas/gateway-schemas';
+import { EntityDeriver, StatBlock } from '@/api/game/src/engine';
+import { BlueprintSchema, SpawnPayloadSchema } from '@/api/game/schemas/gateway-schemas';
 
 import { Core } from '@strapi/strapi';
 

@@ -2,9 +2,9 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Alea } from '../../src/utils/math';
-import { Tile, BiomeType, BlockType, ZLevel } from '../../../game/src/engine/types';
-import { CHUNK_SIZE } from './constants';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
+import { Tile, BiomeType, BlockType, ZLevel } from '@daicer/engine/types';
+import { CHUNK_SIZE } from '@/api/voxel-engine/services/utils/constants';
 
 export class TileHelper {
   static createTile(x: number, y: number, z: ZLevel, block: BlockType, biome: BiomeType, rng: Alea): Tile {

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { validateAttack, resolveAttack, CombatPositions } from '../combat';
-import { Entity, ActionType } from '../../types';
+import { validateAttack, resolveAttack, CombatPositions } from '@daicer/engine/rules/combat';
+import { Entity, ActionType } from '@daicer/engine/types';
 
 // Mock helpers
 const createEntity = (id: string, name: string, hp: number = 10, ac: number = 12): Entity => ({

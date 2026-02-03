@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { PixelForgeService } from '../pixel-forge';
+import { PixelForgeService } from '@/plugins/map-explorer/server/src/services/pixel-forge';
 
 // Mock Strapi
 const mockStrapi = {
@@ -40,7 +40,7 @@ describe('PixelForge Verification (Phase 5)', () => {
       });
       mockStrapi.db.query = vi.fn().mockReturnValue({ findOne: mockFindOne });
 
-      const grid = await service.generateEntity('medium_hero');
+      const grid = await service.generate('api::entity.entity', 'medium_hero');
 
       expect(grid.length).toBe(32);
       expect(grid[0].length).toBe(32);
@@ -58,7 +58,7 @@ describe('PixelForge Verification (Phase 5)', () => {
       });
       mockStrapi.db.query = vi.fn().mockReturnValue({ findOne: mockFindOne });
 
-      const grid = await service.generateEntity('large_ogre');
+      const grid = await service.generate('api::entity.entity', 'large_ogre');
 
       expect(grid.length).toBe(64);
       expect(grid[0].length).toBe(64);
@@ -88,7 +88,7 @@ describe('PixelForge Verification (Phase 5)', () => {
       });
       mockStrapi.db.query = queryFn;
 
-      const grid = await service.generateEntity('large_ogre_warrior');
+      const grid = await service.generate('api::entity.entity', 'large_ogre_warrior');
 
       expect(grid.length).toBe(64);
 

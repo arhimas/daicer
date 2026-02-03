@@ -1,4 +1,4 @@
-import { EntityFeature } from '../../api/game/src/engine/types';
+import { EntityFeature } from '@daicer/engine/types';
 
 interface ClassFeatureSource {
   name: string;

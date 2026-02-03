@@ -4,131 +4,107 @@ import { parseColor } from '../../utils/pixel-math';
 
 import { createEmptyGrid, fillBox, markBox } from './grid-utils';
 import {
-  generateCreatureLayers,
+  generateEntityLayers,
   generatePart,
   composeLayers,
-  synthesizeBlueprint,
-} from './generators/creature';
+  synthesizeEntityBlueprint,
+} from './generators/entity';
 import { generateItemGrid, synthesizeItemBlueprint } from './generators/item';
-import { GenerationConfig, PixelLayer } from './types';
+import { generateTerrainGrid } from './generators/terrain';
+
+import {
+  serializeEntity,
+  serializeItem,
+  serializeTerrain,
+  EntityContext,
+  ItemContext,
+  TerrainContext,
+} from './serializers';
 
 export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
   const getConfig = (key: string) => strapi.plugin('map-explorer').config('contentTypes')[key];
 
   return {
     /**
-     * Generates a Pixel Art Grid for a given Entity.
-     * Fetches deep relations: Race, Appearance, Equipment.
-     * Scaling Logic Applied.
-     * Smart Compositor Applied.
+     * UNIVERSAL GENERATOR
+     * The single entry point for all pixel generation.
+     * strictly typed via Serializers.
      */
-    async generateEntity(entityId: string): Promise<string[][]> {
-      const uid = getConfig('entity');
-      const entity = await strapi.db.query(uid).findOne({
-        where: { documentId: entityId },
-        populate: ['race', 'appearance', 'equipment', 'inventory'],
-      });
+    async generate(uid: string, documentId: string): Promise<string[][]> {
+      // 1. ROUTING & SERIALIZATION
+      // We detect the type of content and hydrate the specific Context
+      
+      // ENTITY
+      if (uid === getConfig('entity') || uid === 'api::entity.entity') {
+        const data = await strapi.db.query(uid).findOne({
+          where: { documentId },
+          populate: ['race', 'appearance', 'equipment', 'inventory'],
+        });
+        if (!data) throw new Error(`Entity not found: ${documentId}`);
+        
+        const ctx: EntityContext = serializeEntity(data);
+        const layers = generateEntityLayers(ctx);
+        let baseGrid = composeLayers(layers);
 
-      if (!entity) {
-        throw new Error(`Entity not found: ${entityId}`);
-      }
-
-      const config: GenerationConfig = {
-        race: entity.race?.slug || 'human',
-        gender: 'male',
-        skinTone: entity.appearance?.skin || '#dcb097',
-        size: entity.size || 'Medium',
-      };
-
-      // 1. Generate Base Body
-      const layers = generateCreatureLayers(config);
-      const baseGrid = composeLayers(layers);
-
-      // 2. Synthesize Blueprint
-      const baseBlueprint = synthesizeBlueprint(config);
-
-      const baseAsset: AssetStub = {
-        pixelData: baseGrid as string[][],
-        blueprint: baseBlueprint,
-        archetype: 'Humanoid',
-      };
-
-      // 3. Process Equipment
-      const equipmentAssets: AssetStub[] = [];
-      if (entity.equipment && entity.equipment.length > 0) {
-        for (const item of entity.equipment) {
-          // Reuse public generateItem logic but we need implementation here?
-          // Or calling this.generateItem?
-          // We can call the exposed method if we bind `this`, but safe to just rely on internal helpers.
-          // Actually, generateItem just calls generateItemGrid after fetch.
-          // We can duplicate the fetch logic or refactor.
-          // Let's duplicate the fetch for now to keep it simple, or use strapi query directly.
-
-          const itemUid = getConfig('item');
-          const itemData = await strapi.db.query(itemUid).findOne({
-            where: { documentId: item.documentId },
-            populate: ['equipment_data'],
-          });
-
-          if (itemData) {
-            const itemConfig: GenerationConfig = {
-              itemType: itemData.type,
-              subType: itemData.equipment_data?.properties?.[0]?.slug || 'generic',
-              size: itemData.size || 'Medium',
-            };
-            const itemGrid = generateItemGrid(itemConfig);
-            // Cast to string[][] because grid-utils returns (string|null)[][]
-            const itemGridStr = itemGrid as string[][];
-
-            const itemBlueprint = synthesizeItemBlueprint(itemGridStr, itemData.type);
-
-            equipmentAssets.push({
-              pixelData: itemGridStr,
-              blueprint: itemBlueprint,
-              archetype: itemData.type === 'weapon' ? 'Sword' : 'Accessory',
-            });
-          }
+        // Composite Equipment (Recursively)
+        // Note: EntityContext already contains serialized equipment (ItemContext[])
+        // We reuse the Item Generator for these
+        const equipmentAssets: AssetStub[] = [];
+        for (const itemCtx of ctx.equipment) {
+           const itemGrid = generateItemGrid(itemCtx);
+           // Items need their own blueprint logic? Or just visual?
+           // For compositeLoadout, we need AssetStub
+           const itemBlueprint = synthesizeItemBlueprint(itemGrid as string[][], itemCtx);
+           equipmentAssets.push({
+             pixelData: itemGrid as string[][],
+             blueprint: itemBlueprint,
+             archetype: itemCtx.type === 'weapon' ? 'Sword' : 'Accessory',
+           });
         }
+        
+        if (equipmentAssets.length > 0) {
+           const result = compositeLoadout({
+             pixelData: baseGrid as string[][],
+             blueprint: synthesizeEntityBlueprint(ctx),
+             archetype: ctx.archetype,
+           }, equipmentAssets);
+           baseGrid = result.grid;
+        }
+
+        return baseGrid as string[][];
       }
 
-      // 4. Smart Composite
-      if (equipmentAssets.length > 0) {
-        const result = compositeLoadout(baseAsset, equipmentAssets);
-        return result.grid;
+      // ITEM
+      if (uid === getConfig('item') || uid === 'api::item.item') {
+        const data = await strapi.db.query(uid).findOne({
+          where: { documentId },
+          populate: ['equipment_data'],
+        });
+        if (!data) throw new Error(`Item not found: ${documentId}`);
+
+        const ctx: ItemContext = serializeItem(data);
+        return generateItemGrid(ctx) as string[][];
       }
 
-      return baseGrid as string[][];
-    },
+      // TERRAIN
+      if (uid === getConfig('terrain') || uid === 'api::terrain.terrain') {
+        const data = await strapi.db.query(uid).findOne({
+           where: { documentId },
+           populate: ['noise_config'],
+        });
+        if (!data) throw new Error(`Terrain not found: ${documentId}`);
 
-    /**
-     * Generates a Pixel Art Grid for a given Item.
-     */
-    async generateItem(itemId: string): Promise<string[][]> {
-      const uid = getConfig('item');
-      const item = await strapi.db.query(uid).findOne({
-        where: { documentId: itemId },
-        populate: ['equipment_data'],
-      });
-
-      if (!item) {
-        throw new Error(`Item not found: ${itemId}`);
+        const ctx: TerrainContext = serializeTerrain(data);
+        return generateTerrainGrid(ctx) as string[][];
       }
 
-      const config: GenerationConfig = {
-        itemType: item.type,
-        subType: item.equipment_data?.properties?.[0]?.slug || 'generic',
-        size: item.size || 'Medium',
-      };
-
-      return generateItemGrid(config) as string[][];
+      throw new Error(`PixelForge: Unsupported UID ${uid}`);
     },
 
-    // Legacy/Exposed Methods
-    generateCreature(config: GenerationConfig): PixelLayer[] {
-      return generateCreatureLayers(config);
-    },
-
-    generateCreatureLayers,
+    // Legacy/Exposed Methods (Refactored to Safe Stubs)
+    
+    // Kept for internal utility usage if needed, but 'generate' is preferred.
+    generateEntityLayers,
     generatePart,
     compose: composeLayers,
     createEmptyGrid,

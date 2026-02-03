@@ -2,8 +2,8 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Chunk, WorldConfig, BlockType } from '../../game/src/engine/types';
-import { ChunkManager } from './chunk-manager';
+import { Chunk, WorldConfig, BlockType } from '@daicer/engine/types';
+import { ChunkManager } from '@/api/voxel-engine/services/chunk-manager';
 
 export default () => ({
   /**

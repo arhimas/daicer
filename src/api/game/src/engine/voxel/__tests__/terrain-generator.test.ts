@@ -1,5 +1,5 @@
-import { TerrainGenerator, createUnifiedTerrainGenerator } from '../terrain-generator';
-import { WorldConfig, BlockType, BiomeType } from '../../types';
+import { TerrainGenerator, createUnifiedTerrainGenerator } from '@daicer/engine/voxel/terrain-generator';
+import { WorldConfig, BlockType, BiomeType } from '@daicer/engine/types';
 
 describe('Terrain Generator', () => {
   const baseConfig: WorldConfig = {

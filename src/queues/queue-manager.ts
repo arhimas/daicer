@@ -1,4 +1,4 @@
-import { QueueName, JobPayloads, JobSchemas, QueueConfiguration } from './contract';
+import { QueueName, JobPayloads, JobSchemas, QueueConfiguration } from '@/queues/contract';
 import type { Core } from '@strapi/strapi';
 import { JobsOptions } from 'bullmq';
 

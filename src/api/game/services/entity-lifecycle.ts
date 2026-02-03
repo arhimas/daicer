@@ -2,11 +2,11 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { generateText } from '../../../utils/llm';
-import { getPrompt, formatPrompt } from '../../../utils/prompt';
-import { uploadBase64Image } from '../../../utils/upload';
-import { createCharacterSnapshot, formatDmInstruction, EntityDeriver } from '../src/engine';
-import type { WorldSettings, Player, EntitySheet, Language } from '../src/engine';
+import { generateText } from '@/utils/llm';
+import { getPrompt, formatPrompt } from '@/utils/prompt';
+import { uploadBase64Image } from '@/utils/upload';
+import { createCharacterSnapshot, formatDmInstruction, EntityDeriver } from '@/api/game/src/engine';
+import type { WorldSettings, Player, EntitySheet, Language } from '@/api/game/src/engine';
 
 // Helper to format DM style
 

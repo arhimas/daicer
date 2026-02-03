@@ -10,7 +10,7 @@ const ENTITY_ZONES = [
   { name: 'Hand (L)', slug: 'hand_l', color: '#00FF00', description: 'Left manipulator.', category: 'Creature' },
   { name: 'Hand (R)', slug: 'hand_r', color: '#00FF00', description: 'Right manipulator.', category: 'Creature' },
   { name: 'Accessory', slug: 'accessory', color: '#FF00FF', description: 'Attachments.', category: 'Creature' },
-  
+
   // Item Zones
   { name: 'Blade', slug: 'blade', color: '#C0C0C0', description: 'Sharp cutting surface.', category: 'Item' },
   { name: 'Hilt', slug: 'hilt', color: '#8B4513', description: 'Handle or geometric grip.', category: 'Item' },
@@ -20,7 +20,7 @@ const ENTITY_ZONES = [
   // Terrain/Structure Zones
   { name: 'Wall', slug: 'wall', color: '#808080', description: 'Impassable barrier.', category: 'Structure' },
   { name: 'Floor', slug: 'floor', color: '#2E8B57', description: 'Walkable surface.', category: 'Terrain' }, // Renamed Ground->Floor
-  
+
   // Special
   { name: 'None', slug: 'none', color: 'transparent', description: 'Empty space.', category: 'Effect' },
 ];
@@ -57,7 +57,7 @@ const CHAR_TO_COLOR = {
   [CHARS.LIMB_R]: '#00FF00',
   [CHARS.WEAPON]: '#FF0000',
   [CHARS.ACCESSORY]: '#FF00FF',
-  
+
   [CHARS.BLADE]: '#C0C0C0',
   [CHARS.HILT]: '#8B4513',
   [CHARS.CONTAINER]: '#ADD8E6',
@@ -274,7 +274,7 @@ async function seed() {
     // 1. SEED ZONES
     console.log('🌱 Seeding Entity Zones...');
     const zoneMap = {}; // name -> id (Wait, we need map by SLUG to link easily)
-    
+
     for (const zone of ENTITY_ZONES) {
       // Since we wiped, we can just create. But strict check is safer.
       const existing = await app.db.query('api::entity-zone.entity-zone').findOne({
@@ -297,7 +297,7 @@ async function seed() {
       // Static Examples
       {
         name: 'Slime Mass',
-        category: 'Creature', 
+        category: 'Creature',
         description: 'Amorphous blob.',
         layout: [
           '......##......',
@@ -363,25 +363,31 @@ async function seed() {
 
       // Handle Static Layout (string[]) vs Procedural Grid (string[][])
       if (bp.layout) {
-        hexGrid = bp.layout.map((row) => row.split('').map((char) => {
-          rawChars.push(char);
-          return CHAR_TO_COLOR[char] || 'transparent';
-        }));
+        hexGrid = bp.layout.map((row) =>
+          row.split('').map((char) => {
+            rawChars.push(char);
+            return CHAR_TO_COLOR[char] || 'transparent';
+          })
+        );
       } else if (bp.grid) {
-        hexGrid = bp.grid.map((row) => row.map((char) => {
-          rawChars.push(char);
-          return CHAR_TO_COLOR[char] || 'transparent';
-        }));
+        hexGrid = bp.grid.map((row) =>
+          row.map((char) => {
+            rawChars.push(char);
+            return CHAR_TO_COLOR[char] || 'transparent';
+          })
+        );
       }
 
       // Auto-Scan for Zones
       const presentZoneSlugs = new Set();
-      rawChars.forEach(char => {
-         const slug = CHAR_TO_ZONE_SLUG[char];
-         if (slug) presentZoneSlugs.add(slug);
+      rawChars.forEach((char) => {
+        const slug = CHAR_TO_ZONE_SLUG[char];
+        if (slug) presentZoneSlugs.add(slug);
       });
-      
-      const zoneIds = Array.from(presentZoneSlugs).map(slug => zoneMap[slug]).filter(Boolean);
+
+      const zoneIds = Array.from(presentZoneSlugs)
+        .map((slug) => zoneMap[slug])
+        .filter(Boolean);
 
       const payload = {
         name: bp.name,

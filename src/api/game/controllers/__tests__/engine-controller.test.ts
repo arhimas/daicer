@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import engineControllerFactory from '../engine';
+import engineControllerFactory from '@/api/game/controllers/engine';
 
 // Mock Global Strapi
 // @ts-expect-error: Mock

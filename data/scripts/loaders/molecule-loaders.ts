@@ -1,6 +1,6 @@
 import { BaseLoader } from './base-loader';
-import { ApiSpellSpell, ApiFeatureFeature } from '../../../types/generated/contentTypes';
-import { ApiSpellSpellSchema, ApiFeatureFeatureSchema } from '../../schemas/generated';
+import { ApiSpellSpell, ApiFeatureFeature } from '@types/generated/contentTypes';
+import { ApiSpellSpellSchema, ApiFeatureFeatureSchema } from '@data/schemas/generated';
 import { Core } from '@strapi/strapi';
 
 export class SpellLoader extends BaseLoader<ApiSpellSpell> {

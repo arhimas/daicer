@@ -2,12 +2,12 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { generateStructured } from '../../../utils/llm/structured';
-import { getPrompt } from '../../../utils/prompt';
+import { generateStructured } from '@/utils/llm/structured';
+import { getPrompt } from '@/utils/prompt';
 // import { formatDmInstruction } from '../src/engine';
 // import { getStrapiClient } from '../../../utils/strapi-client'; // Assuming utility location or use strapi global
 // import { EngineEntity } from './entity-adapter'; // Removed
-import type { Player, WorldSettings, Language, Entity } from '../src/engine';
+import type { Player, WorldSettings, Language, Entity } from '@/api/game/src/engine';
 // Local definition
 interface Message {
   sender: string;
@@ -58,10 +58,17 @@ export default ({ strapi }) => ({
     const languageName = languageMap[language] || 'English';
 
     // 1. Fetch Template
-    const systemPromptTemplate = await getPrompt('dm_system_instruction', language, ''); // Empty defaults to Builder's internal default if passed as undefined?
-    // Builder logic: if template string provided, it uses it. If '', it assumes it's a template of empty string.
-    // We should pass undefined if empty to trigger default.
-    const validTemplate = systemPromptTemplate || undefined;
+    // STRICT: No fallback allowed. Prompts must exist in DB.
+    const systemPromptTemplate = await getPrompt('dm_system_instruction', language, '');
+
+    if (!systemPromptTemplate) {
+      strapi.log.error(
+        `[NarrativeEngine] CRITICAL: Missing system prompt 'dm_system_instruction' for locale '${language}'`
+      );
+      throw new Error(`Missing required system prompt: dm_system_instruction (${language})`);
+    }
+
+    const validTemplate = systemPromptTemplate;
 
     // 2. Build Context
     const context = {

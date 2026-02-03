@@ -1,6 +1,6 @@
-import { BaseCompiler, CompilationResult } from '../Compiler';
-import { ActionHydrator } from '../../derivation/ActionHydrator';
-import { createValidationContext } from '../../derivation/types';
+import { BaseCompiler, CompilationResult } from '@daicer/engine/compilation/Compiler';
+import { ActionHydrator } from '@daicer/engine/derivation/ActionHydrator';
+import { createValidationContext } from '@daicer/engine/derivation/types';
 
 /**
  * Validates 'api::item.item' entities.

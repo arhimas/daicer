@@ -3,9 +3,9 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect } from 'vitest';
-import { FloraGenerator } from '../flora-generator';
-import { BlockType, Tile } from '../../../../game/src/engine/types';
-import { Alea } from '../../../src/utils/math';
+import { FloraGenerator } from '@/api/voxel-engine/services/generators/flora-generator';
+import { BlockType, Tile } from '@daicer/engine/types';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
 
 describe('FloraGenerator', () => {
   // Helper to create a basic chunk

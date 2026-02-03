@@ -1,7 +1,7 @@
 import type { Core } from '@strapi/strapi';
 import { z } from 'zod';
-import * as Vault from './vault';
-import * as Schemas from './schemas';
+import * as Vault from '@/genesis/vault';
+import * as Schemas from '@/genesis/schemas';
 
 // Mapping: Field Name -> Target UID
 const RELATION_MAP: Record<string, string> = {

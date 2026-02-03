@@ -1,4 +1,4 @@
-import { Action, MoveCommand } from '../types';
+import { Action, MoveCommand } from '@daicer/engine/types';
 
 export interface EntityState {
   id: string; // This is the generic ID (likely documentId from Strapi)

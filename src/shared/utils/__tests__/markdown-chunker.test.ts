@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { chunkMarkdown } from '../markdown-chunker';
+import { chunkMarkdown } from '@daicer/shared/utils/markdown-chunker';
 
 describe('markdown-chunker (Adaptive SOTA)', () => {
   it('should keep H1 intact if it fits in token limit', async () => {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CoordinatesSchema } from './common';
+import { CoordinatesSchema } from '@daicer/shared/schemas/common';
 
 export const MapMovePayloadSchema = z.object({
   entityId: z.union([z.string(), z.number()]),

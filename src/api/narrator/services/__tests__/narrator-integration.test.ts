@@ -3,10 +3,10 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import narratorFactory from '../narrator';
+import narratorFactory from '@/api/narrator/services/narrator';
 import type { Core } from '@strapi/strapi';
 type StrapiInterface = Core.Strapi;
-import { getRegistryTools } from '../tool-registry';
+import { getRegistryTools } from '@/api/narrator/services/tool-registry';
 
 // --- Mocks ---
 const mockStrapi = {

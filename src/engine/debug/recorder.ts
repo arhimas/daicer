@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { EngineCommand } from '../../api/game/schemas/commands';
-import { StateDiff } from '../../api/game/services/action-engine';
+import { EngineCommand } from '@/api/game/schemas/commands';
+import { StateDiff } from '@/api/game/services/action-engine';
 
 export interface RecordedScenarioStep {
   command: EngineCommand;

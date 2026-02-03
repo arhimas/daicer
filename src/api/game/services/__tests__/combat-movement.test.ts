@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createTestContext } from './utils/test-utils';
-import { findPath } from '../../src/engine/rules/spatial';
+import { createTestContext } from '@/api/game/services/__tests__/utils/test-utils';
+import { findPath } from '@daicer/engine/rules/spatial';
 
 // Mock Dependencies
 vi.mock('../../src/engine/rules/spatial', () => ({

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import forgeControllerFactory from '../forge-controller';
+import forgeControllerFactory from '@/plugins/map-explorer/server/src/controllers/forge-controller';
 
 describe('ForgeController', () => {
   let controller: ReturnType<typeof forgeControllerFactory>;

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import entitySheetLifecycles from '../content-types/entity-sheet/lifecycles';
+import entitySheetLifecycles from '@/api/entity-sheet/content-types/entity-sheet/lifecycles';
 
 // Mock dependencies
 const mockFindOne = vi.fn();

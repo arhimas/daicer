@@ -1,4 +1,4 @@
-import { formatStrapiError, logStrapiError } from '../error-handling';
+import { formatStrapiError, logStrapiError } from '@/utils/error-handling';
 
 describe('Error Handling Utils', () => {
   describe('formatStrapiError', () => {

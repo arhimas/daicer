@@ -3,9 +3,9 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { z } from 'zod';
 import { PNG } from 'pngjs';
-import { PromptKey, PromptVariableMap, PromptSchemas } from '../prompt-registry';
-import { ContextBuilder } from '../context/builder';
-import { StrapiAdapter, LLMCoreConfig } from '../types';
+import { PromptKey, PromptVariableMap, PromptSchemas } from '@/libs/llm-core/src/prompt-registry';
+import { ContextBuilder } from '@/libs/llm-core/src/context/builder';
+import { StrapiAdapter, LLMCoreConfig } from '@/libs/llm-core/src/types';
 
 // Types
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';

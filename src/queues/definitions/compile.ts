@@ -1,6 +1,6 @@
 import { Job } from 'bullmq';
-import { JobPayloads, JobResults, QueueName } from '../contract';
-import { CompilationOrchestrator } from '../../api/game/src/engine/compilation/CompilationOrchestrator';
+import { JobPayloads, JobResults, QueueName } from '@/queues/contract';
+import { CompilationOrchestrator } from '@daicer/engine/compilation/CompilationOrchestrator';
 
 export default async function compile(
   job: Job<JobPayloads[QueueName.COMPILE]>
@@ -34,5 +34,5 @@ export default async function compile(
 }
 
 // Register the worker
-import { WorkerManager } from '../worker-manager';
+import { WorkerManager } from '@/queues/worker-manager';
 WorkerManager.register(QueueName.COMPILE, compile);

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import roomLifecycles from '../content-types/room/lifecycles';
+import roomLifecycles from '@/api/room/content-types/room/lifecycles';
 
 // Mock Strapi
 const mockUpdate = vi.fn();

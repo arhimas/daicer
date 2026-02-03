@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { validateSpellCast, resolveSpell } from '../magic';
-import { ActionType } from '../../types';
+import { validateSpellCast, resolveSpell } from '@daicer/engine/rules/magic';
+import { ActionType } from '@daicer/engine/types';
 
 // Mock types since Magic module depends on EntitySheetSchema which is Zod.
 // We construct a valid object matching the interface

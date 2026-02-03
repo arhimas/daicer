@@ -1,6 +1,6 @@
 import { Command } from 'commander';
-import { discoverContentTypes, readAllSchemas, SchemaDefinition, SchemaAttribute } from '../utils/schema';
-import { ui } from '../utils/ui';
+import { discoverContentTypes, readAllSchemas, SchemaDefinition, SchemaAttribute } from '@/cli/utils/schema';
+import { ui } from '@/cli/utils/ui';
 import fs from 'fs';
 import path from 'path';
 

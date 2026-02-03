@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { deriveActions } from '../derivation/capabilities';
-import { DerivationContext } from '../derivation/types';
+import { deriveActions } from '@daicer/engine/derivation/capabilities';
+import { DerivationContext } from '@daicer/engine/derivation/types';
 
 describe('Action Hydration Logic', () => {
   it('should hydrate a Longsword into a standard melee action', () => {

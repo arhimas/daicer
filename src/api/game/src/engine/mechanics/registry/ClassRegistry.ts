@@ -1,4 +1,4 @@
-import { ClassDefinition } from './ClassDefinition';
+import { ClassDefinition } from '@daicer/engine/mechanics/registry/ClassDefinition';
 
 /**
  * Static registry for all playable classes.

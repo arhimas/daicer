@@ -1,6 +1,6 @@
-import { Alea, FastNoise } from './utils/math';
-import { Tile, BlockType, BiomeType, ZLevel, WorldConfig } from '../types';
-import { WorldAtlas } from '../world';
+import { Alea, FastNoise } from '@daicer/engine/voxel/utils/math';
+import { Tile, BlockType, BiomeType, ZLevel, WorldConfig } from '@daicer/engine/types';
+import { WorldAtlas } from '@daicer/engine/world';
 
 /**
  * Core procedural terrain generator for the voxel engine.

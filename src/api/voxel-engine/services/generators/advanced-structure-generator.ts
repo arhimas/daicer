@@ -2,9 +2,9 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Alea } from '../../src/utils/math';
-import { BlockType, StructureInfo, Tile, BiomeType } from '../../../game/src/engine/types';
-import { StructureRenderer } from './structure-renderer';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
+import { BlockType, StructureInfo, Tile, BiomeType } from '@daicer/engine/types';
+import { StructureRenderer } from '@/api/voxel-engine/services/generators/structure-renderer';
 
 interface BiomeMaterials {
   wall: BlockType;

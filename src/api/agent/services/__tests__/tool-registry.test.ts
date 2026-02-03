@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import ToolRegistryFunc from '../tool-registry';
+import ToolRegistryFunc from '@/api/agent/services/tool-registry';
 
 // Mock Strapi
 const mockDispatch = vi.fn();

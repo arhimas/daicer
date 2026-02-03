@@ -1,4 +1,4 @@
-import { Alea, FastNoise, calculateDistance } from '../math';
+import { Alea, FastNoise, calculateDistance } from '@/api/voxel-engine/src/utils/math';
 
 describe('Voxel Engine Math Utils', () => {
   describe('Alea PRNG', () => {

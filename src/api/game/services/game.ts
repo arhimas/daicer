@@ -7,10 +7,10 @@
  * Delegating logic to specialized services
  */
 
-import type { WorldSettings, Player, Creature, Message, Language, CharacterSheet } from '../src/engine';
+import type { WorldSettings, Player, Creature, Message, Language, CharacterSheet } from '@/api/game/src/engine';
 // import { getRuleContext } from '../../../utils/rag'; // TODO: precise path if implemented
 
-import type { Chunk } from '../src/engine';
+import type { Chunk } from '@/api/game/src/engine';
 
 export default ({ strapi }) => ({
   // --- Delegates ---

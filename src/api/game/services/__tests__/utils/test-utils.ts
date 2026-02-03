@@ -3,7 +3,7 @@
  * Provides a Stateful Mock Database to verify persistence and side-effects.
  */
 import { vi } from 'vitest';
-import actionEngineFactory from '../../action-engine';
+import actionEngineFactory from '@/api/game/services/action-engine';
 
 // Minimal Types for Mocking
 interface MockDoc {

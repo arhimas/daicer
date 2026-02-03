@@ -1,9 +1,9 @@
-import { getMutationResolvers } from './mutation-resolvers';
-import { typeDefs as staticTypeDefs } from './type-defs';
-import { generateToolGraphQL } from './tool-generator';
-import { ActionHydrator, SerializedItem } from '../../api/game/src/engine/derivation/ActionHydrator';
-import type { RuntimeAction, DerivationContext, EntityStats } from '../../api/game/src/engine/derivation/types';
-import { EntitySheetSchema } from '../../shared/schemas/entity';
+import { getMutationResolvers } from '@/lifecycle/graphql/mutation-resolvers';
+import { typeDefs as staticTypeDefs } from '@/lifecycle/graphql/type-defs';
+import { generateToolGraphQL } from '@/lifecycle/graphql/tool-generator';
+import { ActionHydrator, SerializedItem } from '@daicer/engine/derivation/ActionHydrator';
+import type { RuntimeAction, DerivationContext, EntityStats } from '@daicer/engine/derivation/types';
+import { EntitySheetSchema } from '@daicer/shared/schemas/entity';
 
 interface EquipmentData {
   damage_dice?: string;

@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import translationServiceFactory from '../translation';
+import translationServiceFactory from '@/api/game/services/translation';
 
 // Mock Strapi instance (not used in current implementation but required by signature)
 const mockStrapi = {} as any;

@@ -2,9 +2,9 @@
  * Manual Test Script for Background Queues.
  * Usage: yarn ts-node src/scripts/test-queue.ts
  */
-import { getStrapi } from '../cli/utils/bootstrap';
-import { QueueManager } from '../queues/queue-manager';
-import { QueueName } from '../queues/contract';
+import { getStrapi } from '@/cli/utils/bootstrap';
+import { QueueManager } from '@/queues/queue-manager';
+import { QueueName } from '@/queues/contract';
 
 async function main() {
   // 1. Boot Strapi (Headless)

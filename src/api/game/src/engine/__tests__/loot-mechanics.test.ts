@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import inventoryServiceFactory from '../../../services/inventory-service';
+import inventoryServiceFactory from '@/api/game/services/inventory-service';
 
 // Mock Strapi Factory System
 vi.mock('@strapi/strapi', () => ({

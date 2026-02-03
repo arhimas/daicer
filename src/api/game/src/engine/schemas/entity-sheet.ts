@@ -21,4 +21,5 @@ export {
   EntityProficiencySchema,
   EntityLanguageSchema,
   EntityTraitSchema,
-} from '../../../../../shared';
+  ActionType,
+} from '@daicer/shared';

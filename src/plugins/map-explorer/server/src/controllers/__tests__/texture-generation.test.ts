@@ -1,4 +1,4 @@
-import mapControllerFactory from '../map-controller';
+import mapControllerFactory from '@/plugins/map-explorer/server/src/controllers/map-controller';
 import { describe, test, expect, vi, beforeAll, beforeEach } from 'vitest';
 
 describe('Map Controller - Texture Generation', () => {

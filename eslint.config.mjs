@@ -33,6 +33,17 @@ export default tseslint.config(
       '@typescript-eslint/no-require-imports': 'warn',
       'no-empty': 'warn',
       'no-useless-catch': 'warn',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../*'],
+              message: 'Relative imports from parent directories are forbidden. Use absolute path aliases (e.g., @daicer/...) instead.',
+            },
+          ],
+        },
+      ],
     },
     languageOptions: {
       ecmaVersion: 2020,
@@ -57,6 +68,13 @@ export default tseslint.config(
     rules: {
       'no-console': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
+    // Plugin files - allow relative imports fixes
+    files: ['src/plugins/**'],
+    rules: {
+      'no-restricted-imports': 'off',
     },
   }
 );

@@ -1,4 +1,4 @@
-import { ActionDefinition } from './ActionDefinition';
+import { ActionDefinition } from '@/types/ActionDefinition';
 
 export interface EntitySheet {
   /** Strapi Document ID */

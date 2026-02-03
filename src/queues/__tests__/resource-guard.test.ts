@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { ResourceGuard, SystemOverloadError } from '../resource-guard';
+import { ResourceGuard, SystemOverloadError } from '@/queues/resource-guard';
 import os from 'os';
 
 describe('ResourceGuard', () => {

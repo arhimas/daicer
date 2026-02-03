@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import path from 'path';
 import { globSync } from 'glob';
@@ -11,21 +10,21 @@ const OUTPUT_CRITICAL = path.resolve(ROOT_DIR, 'critical_coverage.md');
 // Codegen & irrelevant exclusion patterns
 const EXCLUDES = [
   'src/types/generated',
-  'src/components', 
-  '.g.ts',          
+  'src/components',
+  '.g.ts',
   'vitest.config.ts',
   'vitest.coverage.config.ts',
-  'src/scripts',    
-  'src/admin',      
+  'src/scripts',
+  'src/admin',
   '__tests__',
   '.test.ts',
   '.spec.ts',
   '.d.ts',
-  'node_modules'
+  'node_modules',
 ];
 
 function isExcluded(filePath) {
-  return EXCLUDES.some(pattern => filePath.includes(pattern));
+  return EXCLUDES.some((pattern) => filePath.includes(pattern));
 }
 
 function generateDocs() {
@@ -39,14 +38,14 @@ function generateDocs() {
   }
 
   // 1. Find all source files manually
-  const allFiles = globSync('src/**/*.{ts,tsx}', { 
-    cwd: ROOT_DIR, 
-    ignore: ['**/node_modules/**', '**/dist/**', '**/coverage/**']
+  const allFiles = globSync('src/**/*.{ts,tsx}', {
+    cwd: ROOT_DIR,
+    ignore: ['**/node_modules/**', '**/dist/**', '**/coverage/**'],
   });
 
   const fileStats = [];
 
-  allFiles.forEach(relPath => {
+  allFiles.forEach((relPath) => {
     if (isExcluded(relPath)) return;
 
     const absPath = path.resolve(ROOT_DIR, relPath);
@@ -59,7 +58,7 @@ function generateDocs() {
         branches: cov.branches.pct,
         functions: cov.functions.pct,
         lines: cov.lines.pct,
-        status: 'covered'
+        status: 'covered',
       });
     } else {
       fileStats.push({
@@ -68,7 +67,7 @@ function generateDocs() {
         branches: 0,
         functions: 0,
         lines: 0,
-        status: 'missing'
+        status: 'missing',
       });
     }
   });
@@ -77,7 +76,7 @@ function generateDocs() {
   fileStats.sort((a, b) => a.statements - b.statements);
 
   const totalFiles = fileStats.length;
-  const coveredFiles = fileStats.filter(f => f.statements > 0).length;
+  const coveredFiles = fileStats.filter((f) => f.statements > 0).length;
   const globalCoverage = fileStats.reduce((acc, f) => acc + f.statements, 0) / totalFiles;
 
   // 1. Generate COVERA.md
@@ -87,7 +86,7 @@ function generateDocs() {
   coveraContent += `| File | Statements | Branches | Functions | Lines |\n`;
   coveraContent += `|------|------------|----------|-----------|-------|\n`;
 
-  fileStats.forEach(file => {
+  fileStats.forEach((file) => {
     coveraContent += `| \`${file.path}\` | ${file.statements}% | ${file.branches}% | ${file.functions}% | ${file.lines}% |\n`;
   });
 
@@ -106,23 +105,25 @@ Testing these files is critical to ensure system stability and prevent regressio
 
 `;
 
-  const criticalFiles = fileStats.filter(f => f.statements < 80);
-  
+  const criticalFiles = fileStats.filter((f) => f.statements < 80);
+
   // Group by directory
   const grouped = {};
-  criticalFiles.forEach(f => {
+  criticalFiles.forEach((f) => {
     const dir = path.dirname(f.path);
     if (!grouped[dir]) grouped[dir] = [];
     grouped[dir].push(f);
   });
 
-  Object.keys(grouped).sort().forEach(dir => {
-    criticalContent += `### 📂 ${dir}\n`;
-    grouped[dir].forEach(f => {
-      criticalContent += `- [ ] **${f.statements}%** - \`${path.basename(f.path)}\` <!-- ${f.path} -->\n`;
+  Object.keys(grouped)
+    .sort()
+    .forEach((dir) => {
+      criticalContent += `### 📂 ${dir}\n`;
+      grouped[dir].forEach((f) => {
+        criticalContent += `- [ ] **${f.statements}%** - \`${path.basename(f.path)}\` <!-- ${f.path} -->\n`;
+      });
+      criticalContent += `\n`;
     });
-    criticalContent += `\n`;
-  });
 
   fs.writeFileSync(OUTPUT_CRITICAL, criticalContent);
   console.log('✅ Generated critical_coverage.md');

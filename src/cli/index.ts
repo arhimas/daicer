@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { exploreCommand } from './commands/explore';
-import { statusCommand } from './commands/status';
-import { schemaCommand } from './commands/schema';
-import { knowledgeCommand } from './commands/knowledge';
-import { genesisCommand, runGenesis } from './commands/genesis';
-import { compileCommand, runCompile } from './commands/compile';
-import { embedCommand, runEmbed } from './commands/embed';
-import { logsCommand } from './commands/logs';
-import { ui } from './utils/ui';
+import { exploreCommand } from '@/cli/commands/explore';
+import { statusCommand } from '@/cli/commands/status';
+import { schemaCommand } from '@/cli/commands/schema';
+import { knowledgeCommand } from '@/cli/commands/knowledge';
+import { genesisCommand, runGenesis } from '@/cli/commands/genesis';
+import { compileCommand, runCompile } from '@/cli/commands/compile';
+import { embedCommand, runEmbed } from '@/cli/commands/embed';
+import { logsCommand } from '@/cli/commands/logs';
+import { ui } from '@/cli/utils/ui';
 
 const program = new Command();
 

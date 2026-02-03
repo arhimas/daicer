@@ -1,13 +1,13 @@
 import { BaseLoader } from './base-loader';
 import { Core } from '@strapi/strapi';
+ 
 import {
   ApiDamageTypeDamageType,
   ApiMagicSchoolMagicSchool,
   ApiWeaponPropertyWeaponProperty,
   ApiEquipmentCategoryEquipmentCategory,
-  ApiProficiencyProficiency,
   ApiLanguageLanguage,
-} from '../../../types/generated/contentTypes';
+} from '@types/generated/contentTypes';
 import {
   ApiDamageTypeDamageTypeSchema,
   ApiMagicSchoolMagicSchoolSchema,
@@ -15,7 +15,7 @@ import {
   ApiEquipmentCategoryEquipmentCategorySchema,
   ApiProficiencyProficiencySchema,
   ApiLanguageLanguageSchema,
-} from '../../schemas/generated';
+} from '@data/schemas/generated';
 
 export class DamageTypeLoader extends BaseLoader<ApiDamageTypeDamageType> {
   constructor(strapi: Core.Strapi, relativePath: string) {

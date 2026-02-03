@@ -1,11 +1,11 @@
 import type { Core } from '@strapi/strapi';
-import { ICompiler, CompilationResult } from './Compiler';
-import { DamageTypeCompiler } from './atoms/DamageTypeCompiler';
-import { ConditionCompiler } from './atoms/ConditionCompiler';
-import { SpellCompiler } from './molecules/SpellCompiler';
-import { FeatureCompiler } from './molecules/FeatureCompiler';
-import { EquipmentCompiler } from './compounds/EquipmentCompiler';
-import { EntityCompiler } from './blueprints/EntityCompiler';
+import { ICompiler, CompilationResult } from '@daicer/engine/compilation/Compiler';
+import { DamageTypeCompiler } from '@daicer/engine/compilation/atoms/DamageTypeCompiler';
+import { ConditionCompiler } from '@daicer/engine/compilation/atoms/ConditionCompiler';
+import { SpellCompiler } from '@daicer/engine/compilation/molecules/SpellCompiler';
+import { FeatureCompiler } from '@daicer/engine/compilation/molecules/FeatureCompiler';
+import { EquipmentCompiler } from '@daicer/engine/compilation/compounds/EquipmentCompiler';
+import { EntityCompiler } from '@daicer/engine/compilation/blueprints/EntityCompiler';
 
 declare const strapi: Core.Strapi;
 

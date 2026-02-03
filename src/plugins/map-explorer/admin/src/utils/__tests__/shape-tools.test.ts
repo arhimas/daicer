@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getShapePixels } from '../shape-tools';
+import { getShapePixels } from '@/plugins/map-explorer/admin/src/utils/shape-tools';
 
 describe('Shape Tools', () => {
   describe('getShapePixels', () => {

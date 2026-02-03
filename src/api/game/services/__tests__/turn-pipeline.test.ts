@@ -11,7 +11,7 @@ vi.mock('@strapi/strapi', () => ({
   },
 }));
 
-import turnPipelineFactory from '../turn-pipeline';
+import turnPipelineFactory from '@/api/game/services/turn-pipeline';
 
 describe('Turn Pipeline Service', () => {
   let turnPipeline: any;

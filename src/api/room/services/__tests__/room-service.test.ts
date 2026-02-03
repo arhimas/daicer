@@ -7,7 +7,7 @@ vi.mock('@strapi/strapi', () => ({
   },
 }));
 
-import roomServiceFactory from '../room';
+import roomServiceFactory from '@/api/room/services/room';
 
 // Mock Strapi Global
 // @ts-expect-error: Mock

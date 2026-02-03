@@ -1,6 +1,6 @@
-import { shortRest, longRest } from '../resting';
+import { shortRest, longRest } from '@daicer/engine/rules/resting';
 import { z } from 'zod';
-import { EntitySheetSchema } from '../schemas/entity-sheet';
+import { EntitySheetSchema } from '@daicer/engine/rules/schemas/entity-sheet';
 
 // Helper to create valid Zod-inferred sheet
 type EntitySheet = z.infer<typeof EntitySheetSchema>;

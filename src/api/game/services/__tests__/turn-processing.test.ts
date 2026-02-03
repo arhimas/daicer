@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import turnProcessingFactory from '../turn-processing';
+import turnProcessingFactory from '@/api/game/services/turn-processing';
 
 // Mock Strapi Global
 // @ts-expect-error: Mock

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { CompilationOrchestrator } from '../CompilationOrchestrator';
+import { CompilationOrchestrator } from '@daicer/engine/compilation/CompilationOrchestrator';
 
 // Mock Global Strapi
 const mockFindMany = vi.fn();
@@ -50,17 +50,21 @@ describe('CompilationOrchestrator', () => {
     it('should select correct compiler and update entity on success', async () => {
       const mockEntity = { id: 1, slug: 'fire' };
       // DamageTypeCompiler expects slug
-      
+
       await orchestrator.compileEntity('api::damage-type.damage-type', 1, mockEntity);
 
       // Should save result
-      expect(mockUpdate).toHaveBeenCalledWith('api::damage-type.damage-type', 1, expect.objectContaining({
-        data: expect.objectContaining({
-          compilation_state: expect.objectContaining({
-            version: '1.0.0'
-          })
+      expect(mockUpdate).toHaveBeenCalledWith(
+        'api::damage-type.damage-type',
+        1,
+        expect.objectContaining({
+          data: expect.objectContaining({
+            compilation_state: expect.objectContaining({
+              version: '1.0.0',
+            }),
+          }),
         })
-      }));
+      );
       expect(mockLogInfo).toHaveBeenCalledWith(expect.stringContaining('Valid'));
     });
 

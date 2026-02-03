@@ -1,4 +1,4 @@
-import { getPrompt, getPrompts, formatPrompt } from '../prompt';
+import { getPrompt, getPrompts, formatPrompt } from '@/utils/prompt';
 // import type { Language } from '../api/game/src/engine/types';
 
 // Mock Strapi global

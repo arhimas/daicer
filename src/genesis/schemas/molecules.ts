@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Slug, RichText, RelationMany } from './common';
+import { Slug, RichText, RelationMany } from '@/genesis/schemas/common';
 import {
   CastingConfigSchema,
   RangeConfigSchema,
@@ -8,7 +8,7 @@ import {
   DamageInstanceSchema,
   ConditionInstanceSchema,
   EquipmentDataSchema,
-} from './components';
+} from '@/genesis/schemas/components';
 
 export const SpellSchema = z
   .object({

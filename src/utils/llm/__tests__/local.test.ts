@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { localLLM } from '../local';
-import { LocalModel } from '../types';
+import { localLLM } from '@/utils/llm/local';
+import { LocalModel } from '@/utils/llm/types';
 
 // Mock @huggingface/transformers
 const mockPipeline = vi.fn();

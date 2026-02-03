@@ -1,6 +1,6 @@
 import { Command } from 'commander';
-import { getStrapi, stopStrapi } from '../utils/bootstrap';
-import { QueueName } from '../../queues/contract';
+import { getStrapi, stopStrapi } from '@/cli/utils/bootstrap';
+import { QueueName } from '@/queues/contract';
 
 export const embedCommand = new Command('embed')
   .description('Embedding Service: Vectorize Entities')

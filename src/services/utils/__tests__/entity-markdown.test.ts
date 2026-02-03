@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { entityToMarkdown } from '../entity-markdown';
+import { entityToMarkdown } from '@/services/utils/entity-markdown';
 
 describe('entityToMarkdown', () => {
   it('should generate a basic header and description', () => {

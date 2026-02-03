@@ -2,9 +2,9 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '../../game/src/engine/types';
-import { Alea, FastNoise } from '../src/utils/math';
-import { TileHelper } from './utils/tile-helper';
+import { BiomeType, BlockType, Tile, WorldConfig, ZLevel } from '@daicer/engine/types';
+import { Alea, FastNoise } from '@/api/voxel-engine/src/utils/math';
+import { TileHelper } from '@/api/voxel-engine/services/utils/tile-helper';
 
 export class BiomeService {
   private noiseElevation: FastNoise;

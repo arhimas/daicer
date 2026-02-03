@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import { generateRoomRune } from '../utils/room-rune-generator';
-import { SocketTurnProcessPayloadSchema } from '../events/contract';
+import { generateRoomRune } from '@daicer/shared/utils/room-rune-generator';
+import { SocketTurnProcessPayloadSchema } from '@daicer/shared/events/contract';
 
 describe('Shared Utilities & Schemas (33 Checks)', () => {
   describe('Room Rune Generator (10 Tests)', () => {

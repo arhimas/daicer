@@ -33,7 +33,7 @@ import {
   TimeFrameSchema,
   RoleSchema,
   AvatarPreviewImageSchema,
-} from '../schemas';
+} from '@daicer/engine/schemas';
 
 export type Attribute = z.infer<typeof AttributeSchema>;
 // Re-export enum for value usage if needed, though Zod handles validation.
@@ -70,7 +70,7 @@ import {
   EntityLanguageSchema,
   EntityTraitSchema,
   FeatureSchema,
-} from '../schemas';
+} from '@daicer/engine/schemas';
 
 export type EntityAction = z.infer<typeof EntityActionSchema>;
 export type EntitySpell = z.infer<typeof EntitySpellSchema>;
@@ -270,7 +270,7 @@ import {
   DropItemCommandSchema,
   PickupItemCommandSchema,
   ThrowItemCommandSchema,
-} from '../schemas';
+} from '@daicer/engine/schemas';
 
 export type Command = z.infer<typeof CommandSchema>;
 export type MoveCommand = z.infer<typeof MoveCommandSchema>;
@@ -290,13 +290,13 @@ export type ThrowItemCommand = z.infer<typeof ThrowItemCommandSchema>;
 export type Action = Command; // Alias for generic action usage
 
 export * from './engine';
-export * from '../rules/actions';
-export * from '../rules/dice';
-export * from '../rules/combat';
-export * from '../rules/magic';
-export * from '../rules/resting';
-export * from '../rules/leveling';
-export * from '../rules/conditions';
+export * from '@daicer/engine/rules/actions';
+export * from '@daicer/engine/rules/dice';
+export * from '@daicer/engine/rules/combat';
+export * from '@daicer/engine/rules/magic';
+export * from '@daicer/engine/rules/resting';
+export * from '@daicer/engine/rules/leveling';
+export * from '@daicer/engine/rules/conditions';
 
 // === Tracing ===
 

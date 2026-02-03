@@ -5,10 +5,10 @@
 
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { z } from 'zod';
-import type { Language } from '../../api/game/src/engine/types';
-import { extractErrorDetails, getGeminiModel } from './gemini';
-import { type TextGenConfig, GeminiModel } from './types';
-import { getPrompt, formatPrompt } from '../prompt';
+import type { Language } from '@daicer/engine/types';
+import { extractErrorDetails, getGeminiModel } from '@/utils/llm/gemini';
+import { type TextGenConfig, GeminiModel } from '@/utils/llm/types';
+import { getPrompt, formatPrompt } from '@/utils/prompt';
 
 /**
  * Language name mappings

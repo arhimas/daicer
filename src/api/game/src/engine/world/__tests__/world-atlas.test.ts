@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { WorldAtlas } from '../world-atlas';
-import { TerrainGenerator } from '../../voxel/terrain-generator';
-import { WorldConfig } from '../../types';
+import { WorldAtlas } from '@daicer/engine/world/world-atlas';
+import { TerrainGenerator } from '@daicer/engine/voxel/terrain-generator';
+import { WorldConfig } from '@daicer/engine/types';
 
 describe('WorldAtlas', () => {
   const config: WorldConfig = {

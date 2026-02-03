@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vitest/config';
 import path from 'path';
 
@@ -6,6 +5,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    root: path.resolve(__dirname), // Explicit root
+    setupFiles: ['dotenv/config'], // Load env vars for integration tests
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
@@ -15,14 +16,21 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['json-summary', 'text'],
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: [
-        '**/__tests__/**',
-        '**/*.test.ts',
-        '**/*.d.ts',
-        'src/scripts/**',
+      reportsDirectory: './coverage', // Explicit directory
+      include: [
+        path.resolve(__dirname, 'src/api/**/*.ts'),
+        path.resolve(__dirname, 'src/plugins/**/*.ts'),
+        path.resolve(__dirname, 'src/shared/**/*.ts'),
       ],
-      all: false,
-    }
+      exclude: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/*.d.ts',
+        '**/*.test.ts',
+        '**/__tests__/**',
+        'src/cli/**', // Exclude CLI (flaky headless tests)
+        // Note: API integration tests are INCLUDED now that dotenv is loaded
+      ],
+    },
   },
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generateRoomCode, decodeRoomCode, isValidRoomCode } from '../room-code';
+import { generateRoomCode, decodeRoomCode, isValidRoomCode } from '@/utils/room-code';
 
 describe('Room Code Utils', () => {
   describe('generateRoomCode', () => {

@@ -1,4 +1,4 @@
-import { hasLineOfSight, findPath, Point3D } from '../spatial';
+import { hasLineOfSight, findPath, Point3D } from '@daicer/engine/rules/spatial';
 
 describe('Spatial Engine', () => {
   describe('Bresenham Line of Sight (3D)', () => {

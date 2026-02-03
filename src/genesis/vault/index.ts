@@ -1,13 +1,13 @@
 // The Vault exports standard arrays of seed data.
 // These are populated by the 'genesis craft' command or manual entry.
 
-import { SeedTrait, SeedTag } from '../schemas/atoms';
-import { SeedSpell, SeedItem, SeedClass, SeedFeature } from '../schemas/molecules';
-import { SeedEntity } from '../schemas/composites';
-import { SeedPrompt } from '../schemas/prompts';
+import { SeedTrait, SeedTag } from '@/genesis/schemas/atoms';
+import { SeedSpell, SeedItem, SeedClass, SeedFeature } from '@/genesis/schemas/molecules';
+import { SeedEntity } from '@/genesis/schemas/composites';
+import { SeedPrompt } from '@/genesis/schemas/prompts';
 
-import { PROMPTS as InitialPrompts } from './prompts';
-import { SPELLS as SpellsData } from './spells';
+import { PROMPTS as InitialPrompts } from '@/genesis/vault/prompts';
+import { SPELLS as SpellsData } from '@/genesis/vault/spells';
 
 export const TAGS: SeedTag[] = [];
 export const TRAITS: SeedTrait[] = [];

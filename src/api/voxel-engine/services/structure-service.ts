@@ -2,10 +2,10 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Alea } from '../src/utils/math';
-import { BlockType, StructureInfo, Tile, WorldConfig } from '../../game/src/engine/types';
-import { TileHelper } from './utils/tile-helper';
-import { AdvancedStructureGenerator } from './generators/advanced-structure-generator';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
+import { BlockType, StructureInfo, Tile, WorldConfig } from '@daicer/engine/types';
+import { TileHelper } from '@/api/voxel-engine/services/utils/tile-helper';
+import { AdvancedStructureGenerator } from '@/api/voxel-engine/services/generators/advanced-structure-generator';
 
 export class StructureService {
   constructor(private config: WorldConfig) {}

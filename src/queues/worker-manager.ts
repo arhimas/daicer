@@ -1,8 +1,8 @@
-import { QueueName, QueueConfiguration } from './contract';
+import { QueueName, QueueConfiguration } from '@/queues/contract';
 import type { Core } from '@strapi/strapi';
 import { Worker, Job } from 'bullmq';
-import { DevLogger } from '../utils/dev-logger';
-import { ResourceGuard, SystemOverloadError } from './resource-guard';
+import { DevLogger } from '@/utils/dev-logger';
+import { ResourceGuard, SystemOverloadError } from '@/queues/resource-guard';
 
 // Registry of Worker Handlers
 const workerRegistry: Record<string, (job: Job, strapi: Core.Strapi) => Promise<unknown>> = {};

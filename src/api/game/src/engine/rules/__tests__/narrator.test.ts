@@ -1,5 +1,5 @@
-import { formatDmInstruction, DM_VERBOSITY_LEVELS } from '../narrator';
-import { DMStyle } from '../types';
+import { formatDmInstruction, DM_VERBOSITY_LEVELS } from '@daicer/engine/rules/narrator';
+import { DMStyle } from '@daicer/engine/rules/types';
 
 describe('Narrator Rules', () => {
   it('returns default string if no style provided', () => {

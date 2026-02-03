@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import ActionEngineFunc from '../action-engine';
-import { ChunkManager } from '../../../voxel-engine/services/chunk-manager';
+import ActionEngineFunc from '@/api/game/services/action-engine';
+import { ChunkManager } from '@/api/voxel-engine/services/chunk-manager';
 
 // Mock Config
 const { mockStrapi } = vi.hoisted(() => ({

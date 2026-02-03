@@ -3,9 +3,9 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import turnPipelineFactory, { TurnInput } from '../turn-pipeline';
-import { EngineCommand } from '../../schemas/commands';
-import { GameEvent } from '../../schemas/events';
+import turnPipelineFactory, { TurnInput } from '@/api/game/services/turn-pipeline';
+import { EngineCommand } from '@/api/game/schemas/commands';
+import { GameEvent } from '@/api/game/schemas/events';
 
 // --- Mock Setup ---
 

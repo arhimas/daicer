@@ -1,6 +1,6 @@
-import { resolveLevelUp, getLevelFromXP } from '../leveling';
-import { EntitySheet } from '../../types';
-import { RuleSet, ClassDefinition, ClassProgression } from '../../types/rules';
+import { resolveLevelUp, getLevelFromXP } from '@daicer/engine/rules/leveling';
+import { EntitySheet } from '@daicer/engine/types';
+import { RuleSet, ClassDefinition, ClassProgression } from '@daicer/engine/types/rules';
 import { describe, expect, test } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';

@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
-import localesControllerFactory from '../locales';
-import { QueueManager } from '../../../../queues/queue-manager';
-import { QueueName } from '../../../../queues/contract';
+import localesControllerFactory from '@/api/game/controllers/locales';
+import { QueueManager } from '@/queues/queue-manager';
+import { QueueName } from '@/queues/contract';
 
 // Mock QueueManager
 vi.mock('../../../../queues/queue-manager', () => ({

@@ -11,7 +11,8 @@ import type {
   ApiLanguageLanguage,
   ApiSpellSpell,
   ApiFeatureFeature,
-} from '../../../types/generated/contentTypes';
+} from '@types/generated/contentTypes';
+
 
 /**
  * Registry of all supported content types for strict typing

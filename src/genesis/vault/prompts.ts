@@ -1,4 +1,4 @@
-import { SeedPrompt } from '../schemas/prompts';
+import { SeedPrompt } from '@/genesis/schemas/prompts';
 
 export const PROMPTS: SeedPrompt[] = [
   {

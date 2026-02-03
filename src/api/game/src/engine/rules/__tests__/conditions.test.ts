@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { hasCondition, getConditionModifiers, ConditionType } from '../conditions';
+import { hasCondition, getConditionModifiers, ConditionType } from '@daicer/engine/rules/conditions';
 
 describe('Condition Rules', () => {
   describe('hasCondition', () => {

@@ -20,7 +20,11 @@
       "@daicer/engine/*": ["src/api/game/src/engine/*"],
       "@daicer/shared": ["src/shared/index.ts"],
       "@daicer/shared/*": ["src/shared/*"],
-      "@strapi/client": ["../node_modules/@strapi/client/dist/exports.d.ts"]
+      "@/*": ["src/*"],
+      "@strapi/client": ["../node_modules/@strapi/client/dist/exports.d.ts"],
+      "@scripts/*": ["scripts/*"],
+      "@data/*": ["data/*"],
+      "@types/*": ["types/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.json", "config/**/*.ts"],
@@ -40,5 +44,8 @@
     "script/",
     "**/*.spec.ts",
     "src/**/__tests__/"
-  ]
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

@@ -1,6 +1,6 @@
-import { Alea, FastNoise } from './utils/math';
-import { Tile, BlockType, BiomeType, ZLevel, WorldConfig } from '../../game/src/engine/types';
-import { WorldAtlas } from '../../game/src/engine/world';
+import { Alea, FastNoise } from '@/api/voxel-engine/src/utils/math';
+import { Tile, BlockType, BiomeType, ZLevel, WorldConfig } from '@daicer/engine/types';
+import { WorldAtlas } from '@daicer/engine/world';
 
 export class TerrainGenerator {
   private noiseElevation: FastNoise;

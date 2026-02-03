@@ -1,4 +1,5 @@
-import { ClassFeature } from '../types';
+// @ts-ignore
+import { ClassFeature } from '@scripts/genesis/srd-parser/types';
 
 export class FeatureParser {
   /**

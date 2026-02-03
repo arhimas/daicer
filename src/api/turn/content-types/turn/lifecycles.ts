@@ -1,4 +1,4 @@
-import { embeddingService } from '../../../../services/embedding-service';
+import { embeddingService } from '@/services/embedding-service';
 
 export default {
   async afterCreate(event) {

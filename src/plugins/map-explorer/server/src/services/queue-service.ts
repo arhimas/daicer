@@ -1,5 +1,5 @@
 import type { Queue as QueueType, Worker as WorkerType, JobType } from 'bullmq';
-import { EntityGeometry } from '../utils/EntityGeometry';
+import { getPixelDimensions } from '../utils/entity-geometry';
 
 // Stealth require removed in favor of standard import for better testing support
 // If build fails, verify if @strapi/plugin-bullmq or similar handles this differently.
@@ -176,8 +176,9 @@ export default ({ strapi }) => {
 
     // Private Helpers
     _injectDimensions(data: Record<string, unknown>) {
-      if (typeof data.size === 'string' && EntityGeometry.isValidSize(data.size)) {
-        const { width, height } = EntityGeometry.getPixelDimensions(data.size);
+      if (typeof data.size === 'string') {
+        const width = getPixelDimensions(data.size);
+        const height = width; // Square grids for now
         data.width = width;
         data.height = height;
       }

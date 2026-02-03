@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ActionDispatcher } from '../ActionDispatcher';
-import { ActionHydrator } from '../../derivation/ActionHydrator';
-import { DerivationContext } from '../../derivation/types';
+import { ActionDispatcher } from '@daicer/engine/resolution/ActionDispatcher';
+import { ActionHydrator } from '@daicer/engine/derivation/ActionHydrator';
+import { DerivationContext } from '@daicer/engine/derivation/types';
 
 const SPELLS_TO_TEST = {
   heals: ['cure-wounds', 'healing-word', 'heal', 'mass-cure-wounds', 'prayer-of-healing'],

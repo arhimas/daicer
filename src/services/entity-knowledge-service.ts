@@ -7,7 +7,7 @@ import type { Core } from '@strapi/strapi';
 
 declare let strapi: Core.Strapi;
 
-import { EMBEDDABLE_MODELS } from '../config/embedding';
+import { EMBEDDABLE_MODELS } from '@/config/embedding';
 
 const ENTITY_UIDS = EMBEDDABLE_MODELS;
 

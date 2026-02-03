@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createTestContext } from './utils/test-utils';
+import { createTestContext } from '@/api/game/services/__tests__/utils/test-utils';
 
 // Helper to calculate mock Math.random() value for a desired d20 roll
 // d20 = floor(random * 20) + 1

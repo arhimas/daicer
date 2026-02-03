@@ -1,4 +1,4 @@
-import { Alea, FastNoise } from '../math';
+import { Alea, FastNoise } from '@daicer/engine/voxel/utils/math';
 
 describe('Voxel Math Utils', () => {
   describe('Alea PRNG', () => {

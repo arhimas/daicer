@@ -2,11 +2,11 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Alea } from '../../src/utils/math';
-import { WorldConfig, Tile, BlockType, StructureInfo } from '../../../game/src/engine/types';
-import { StructureRenderer } from './structure-renderer';
-import { WorldAtlas } from '../../../game/src/engine/world/world-atlas'; // Import Atlas
-import { AdvancedStructureGenerator } from './advanced-structure-generator';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
+import { WorldConfig, Tile, BlockType, StructureInfo } from '@daicer/engine/types';
+import { StructureRenderer } from '@/api/voxel-engine/services/generators/structure-renderer';
+import { WorldAtlas } from '@daicer/engine/world/world-atlas'; // Import Atlas
+import { AdvancedStructureGenerator } from '@/api/voxel-engine/services/generators/advanced-structure-generator';
 
 export class CivilizationGenerator {
   private config: WorldConfig;

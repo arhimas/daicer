@@ -3,9 +3,9 @@
  * Keep documentation synchronized with code at all times.
  */
 import { Core } from '@strapi/strapi';
-import { BlockType, Tile, ZLevel } from '../../game/src/engine/types';
-import { FloraGenerator } from '../../voxel-engine/services/generators/flora-generator';
-import { Alea } from '../../voxel-engine/src/utils/math';
+import { BlockType, Tile, ZLevel } from '@daicer/engine/types';
+import { FloraGenerator } from '@/api/voxel-engine/services/generators/flora-generator';
+import { Alea } from '@/api/voxel-engine/src/utils/math';
 
 // Interface Definitions for Dependencies
 interface SpawnService {

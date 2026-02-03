@@ -1,6 +1,6 @@
 import { Job } from 'bullmq';
-import { JobPayloads, JobResults, QueueName } from '../contract';
-import { loadAtoms } from '../../scripts/genesis/atoms-loader';
+import { JobPayloads, JobResults, QueueName } from '@/queues/contract';
+import { loadAtoms } from '@/scripts/genesis/atoms-loader';
 
 import type { Core } from '@strapi/strapi';
 
@@ -40,5 +40,5 @@ export default async function genesis(
 }
 
 // Register the worker
-import { WorkerManager } from '../worker-manager';
+import { WorkerManager } from '@/queues/worker-manager';
 WorkerManager.register(QueueName.GENESIS, genesis);

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { uploadBase64Image } from '../upload';
+import { uploadBase64Image } from '@/utils/upload';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';

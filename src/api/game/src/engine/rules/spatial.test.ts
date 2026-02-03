@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { hasLineOfSight, findPath, CollisionCheck } from './spatial';
-import { Point3D } from '../voxel/utils/math';
+import { hasLineOfSight, findPath, CollisionCheck } from '@daicer/engine/rules/spatial';
+import { Point3D } from '@daicer/engine/voxel/utils/math';
 
 describe('Spatial Rules Engine', () => {
   describe('hasLineOfSight (Bresenham 3D)', () => {

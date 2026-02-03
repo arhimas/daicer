@@ -9,9 +9,9 @@
  * Routes requests to either Remote (Gemini) or Local (Gemma) queues.
  */
 
-import { QueueName } from '../../../queues/contract';
-import { QueueManager } from '../../../queues/queue-manager';
-import { LocalModel, LocalConfig, GeminiConfig } from '../../../utils/llm/types';
+import { QueueName } from '@/queues/contract';
+import { QueueManager } from '@/queues/queue-manager';
+import { LocalModel, LocalConfig, GeminiConfig } from '@/utils/llm/types';
 
 interface GenerationRequest {
   prompt: string;

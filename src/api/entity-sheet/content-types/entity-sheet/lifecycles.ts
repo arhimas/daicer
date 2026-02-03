@@ -1,10 +1,10 @@
 import { errors } from '@strapi/utils';
 const { ApplicationError } = errors;
 
-import { FeatureHydrator } from '../../../../services/mechanics/feature-hydrator';
-import { InventorySchema, type InventoryItem } from '../../../../types/Inventory';
-import { EntityDeriver, Equipment } from '../../../game/src/engine'; // Ensure Index exports Equipment or import from types
-import { EntityStats } from '../../../game/src/engine/derivation/types';
+import { FeatureHydrator } from '@/services/mechanics/feature-hydrator';
+import { InventorySchema, type InventoryItem } from '@/types/Inventory';
+import { EntityDeriver, Equipment } from '@/api/game/src/engine'; // Ensure Index exports Equipment or import from types
+import { EntityStats } from '@daicer/engine/derivation/types';
 
 import type { Core } from '@strapi/strapi';
 

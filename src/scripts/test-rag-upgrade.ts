@@ -1,8 +1,8 @@
 /**
  * Test RAG Upgrade Script
  */
-import { chunkMarkdown } from '../shared/utils/markdown-chunker';
-import { embeddingService } from '../services/embedding-service';
+import { chunkMarkdown } from '@daicer/shared/utils/markdown-chunker';
+import { embeddingService } from '@/services/embedding-service';
 import dotenv from 'dotenv';
 import path from 'path';
 

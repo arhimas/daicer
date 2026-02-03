@@ -1,5 +1,5 @@
-import { Entity, EntityAction } from '../../types';
-import { CombatContext, FeatureHandler, FeatureRegistry } from '../registry/FeatureRegistry';
+import { Entity, EntityAction } from '@daicer/engine/types';
+import { CombatContext, FeatureHandler, FeatureRegistry } from '@daicer/engine/mechanics/registry/FeatureRegistry';
 
 /**
  * Rogue Sneak Attack Implementation.

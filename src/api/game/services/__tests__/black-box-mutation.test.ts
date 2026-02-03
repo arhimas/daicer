@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import turnPipelineFactory from '../turn-pipeline';
+import turnPipelineFactory from '@/api/game/services/turn-pipeline';
 
 vi.mock('@strapi/strapi', () => ({
   factories: {

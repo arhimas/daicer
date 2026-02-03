@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { Slug, RichText, RelationMany, SizeEnum } from './common';
-import { StatsSchema } from './components';
+import { Slug, RichText, RelationMany, SizeEnum } from '@/genesis/schemas/common';
+import { StatsSchema } from '@/genesis/schemas/components';
 
 export const EntitySchema = z
   .object({

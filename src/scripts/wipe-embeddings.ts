@@ -1,5 +1,5 @@
-import { getStrapi } from '../cli/utils/bootstrap';
-import { EMBEDDABLE_MODELS } from '../config/embedding';
+import { getStrapi } from '@/cli/utils/bootstrap';
+import { EMBEDDABLE_MODELS } from '@/config/embedding';
 
 async function wipeEmbeddings() {
   console.log('🧹 Starting Knowledge Base Wipe (Embeddings only)...');

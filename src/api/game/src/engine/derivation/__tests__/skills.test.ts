@@ -1,22 +1,27 @@
 import { describe, it, expect, vi } from 'vitest';
-import { calculateProficiencyBonus, calculateSkillBonus } from '../skills';
-import * as AttributesModule from '../attributes';
+import { calculateProficiencyBonus, calculateSkillBonus } from '@daicer/engine/derivation/skills';
+import * as AttributesModule from '@daicer/engine/derivation/attributes';
 
 // Mock Attributes if needed, but the math is simple enough to integration test.
 // However, sticking to strict unit tests:
 vi.mock('../attributes', () => ({
   calculateModifier: vi.fn(),
-  SKILL_ABILITY_MAP: { perception: 'wisdom', stealth: 'dexterity' }
+  SKILL_ABILITY_MAP: { perception: 'wisdom', stealth: 'dexterity' },
 }));
 
 describe('Skills Derivation', () => {
   describe('calculateProficiencyBonus', () => {
     it.each([
-      [1, 2], [4, 2],
-      [5, 3], [8, 3],
-      [9, 4], [12, 4],
-      [13, 5], [16, 5],
-      [17, 6], [20, 6]
+      [1, 2],
+      [4, 2],
+      [5, 3],
+      [8, 3],
+      [9, 4],
+      [12, 4],
+      [13, 5],
+      [16, 5],
+      [17, 6],
+      [20, 6],
     ])('should return %i for level %i', (level, expected) => {
       expect(calculateProficiencyBonus(level)).toBe(expected);
     });
@@ -27,11 +32,20 @@ describe('Skills Derivation', () => {
   });
 
   describe('calculateSkillBonus', () => {
-    const mockStats = { strength: 10, dexterity: 10, wisdom: 10, intelligence: 10, charisma: 10, constitution: 10, passivePerception: 10, initiativeBonus: 0 };
+    const mockStats = {
+      strength: 10,
+      dexterity: 10,
+      wisdom: 10,
+      intelligence: 10,
+      charisma: 10,
+      constitution: 10,
+      passivePerception: 10,
+      initiativeBonus: 0,
+    };
 
     it('should calculate bonus correctly (Mod + PB * Multiplier)', () => {
       vi.mocked(AttributesModule.calculateModifier).mockReturnValue(3); // +3 mod
-      
+
       // Skill: Perception (Wisdom), Level 1 (PB 2), Proficient (x1)
       // Expect: 3 + (2 * 1) = 5
       const bonus = calculateSkillBonus('perception', 1, mockStats, 2);
@@ -39,8 +53,8 @@ describe('Skills Derivation', () => {
     });
 
     it('should handle expertise (x2)', () => {
-      vi.mocked(AttributesModule.calculateModifier).mockReturnValue(1); 
-      
+      vi.mocked(AttributesModule.calculateModifier).mockReturnValue(1);
+
       // Skill: Stealth (Dex), Level 5 (PB 3), Expertise (x2)
       // Expect: 1 + (3 * 2) = 7
       const bonus = calculateSkillBonus('stealth', 2, mockStats, 3);
@@ -49,7 +63,7 @@ describe('Skills Derivation', () => {
 
     it('should derive PB from level if missing', () => {
       vi.mocked(AttributesModule.calculateModifier).mockReturnValue(0);
-      
+
       // Level 5 -> PB 3. Proficient (1)
       // 0 + 3 = 3
       const bonus = calculateSkillBonus('perception', 1, mockStats, undefined, 5);

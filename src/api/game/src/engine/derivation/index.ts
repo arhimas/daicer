@@ -1,8 +1,8 @@
-import { calculateModifier } from './attributes';
-import { calculateAC, calculateHP } from './defenses';
-import { deriveSpeed, deriveActions } from './capabilities';
-import { calculateSkillBonus, calculateProficiencyBonus } from './skills';
-import { DerivationContext, EntityStats } from './types';
+import { calculateModifier } from '@daicer/engine/derivation/attributes';
+import { calculateAC, calculateHP } from '@daicer/engine/derivation/defenses';
+import { deriveSpeed, deriveActions } from '@daicer/engine/derivation/capabilities';
+import { calculateSkillBonus, calculateProficiencyBonus } from '@daicer/engine/derivation/skills';
+import { DerivationContext, EntityStats } from '@daicer/engine/derivation/types';
 
 export * from './attributes';
 export * from './defenses';

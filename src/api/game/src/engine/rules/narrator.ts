@@ -1,4 +1,4 @@
-import { DMStyle } from '../types';
+import { DMStyle } from '@daicer/engine/types';
 
 /**
  * Utilities for controlling the AI Dungeon Master's narrative style.

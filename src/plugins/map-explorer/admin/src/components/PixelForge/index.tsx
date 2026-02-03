@@ -311,7 +311,10 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   };
 
   const handlePixelClick = (x: number, y: number) => {
-    if (!isDrawing && tool !== 'pin' && tool !== 'picker') return;
+    // Allow Reference tools (Pin, Picker) OR Drawing tools (Pencil, Eraser)
+    // The previous guard `!isDrawing` prevented single clicks.
+    // We remove it to support click-to-draw.
+    // if (!isDrawing && tool !== 'pin' && tool !== 'picker') return;
 
     // Clone grid for mutation
     const newPixels = pixels.map((row) => [...row]);
@@ -480,19 +483,19 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     // But currently the logic overwrites. Let's respect the user's intent:
     // If they click Load, they likely want to base their sprite on this BP.
     // However, if they just want the reference, they might not want to nuke their pixels.
-    // For now, to be safe, we will ONLY load it into metadata for the Overlay, 
-    // unless the canvas is empty or they explicitly confirm? 
+    // For now, to be safe, we will ONLY load it into metadata for the Overlay,
+    // unless the canvas is empty or they explicitly confirm?
     // User Habit: Load BP -> See Guidelines -> Paint.
     // So we should NOT draw the BP pixels onto the sprite canvas, but rather set them as the Overlay.
-    
+
     // setPixels(newPixels); // <-- REMOVED: Don't overwrite sprite canvas with BP pixels
-    
+
     setMetadata({ ...metadata, blueprint: bp.grid, loadedBlueprint: bp.name });
     propagateChange(pixels, prompt, { ...metadata, blueprint: bp.grid }); // Keep existing pixels
-    
+
     // Auto-switch to Mix mode to show what happened
     setViewMode('mix');
-    
+
     setPrompt(bp.description || `A ${bp.name}...`);
   };
 
@@ -537,13 +540,15 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
               row.map((pixelColor, x) => (
                 <div
                   key={`p-${x}-${y}`}
+                  data-testid={`pixel-${x}-${y}`}
+                  onClick={() => handlePixelClick(x, y)}
                   style={{
                     backgroundColor:
                       pixelColor === 'transparent'
-                        ? (x + y) % 2 === 0
-                          ? '#ccc'
-                          : '#fff'
-                        : pixelColor,
+                            ? (x + y) % 2 === 0
+                              ? '#ccc'
+                              : '#fff'
+                            : pixelColor === ('#' + '000000') ? '#1a1a1a' : pixelColor,
                   }}
                 />
               ))
@@ -702,6 +707,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                       <input
                         type="color"
                         value={color}
+                        aria-label="Color Picker"
                         onChange={(e) => {
                           setColor(e.target.value);
                           setTool('pencil');
@@ -862,11 +868,12 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                     // Visual Layering Logic
                     // 1. Base Layer (Checkerboard)
                     const baseColor = (x + y) % 2 === 0 ? '#222' : '#2a2a2a';
-                    
+
                     // 2. Determine Layers
                     const spriteColor = pixelColor === 'transparent' ? null : pixelColor;
                     const bpPixel = metadata?.blueprint?.[y]?.[x];
-                    const bpColor = (bpPixel && bpPixel !== 'transparent' && bpPixel !== '.') ? bpPixel : null;
+                    const bpColor =
+                      bpPixel && bpPixel !== 'transparent' && bpPixel !== '.' ? bpPixel : null;
 
                     // 3. Composite Final Color based on View Mode
                     let finalColor = baseColor;
@@ -876,27 +883,27 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                       // In BP Mode, pixelColor IS the zone color
                       finalColor = spriteColor || baseColor;
                     } else {
-                       if (viewMode === 'sprite') {
-                         finalColor = spriteColor || baseColor;
-                       } else if (viewMode === 'blueprint') {
-                         finalColor = bpColor || baseColor;
-                       } else if (viewMode === 'mix') {
-                         // Base is Sprite
-                         finalColor = spriteColor || baseColor;
-                         // Overlay is BP
-                         if (bpColor) {
-                           overlayStyle = {
-                             position: 'absolute',
-                             top: 0,
-                             left: 0,
-                             right: 0,
-                             bottom: 0,
-                             backgroundColor: bpColor,
-                             opacity: blueprintOpacity,
-                             pointerEvents: 'none' // Click through to sprite
-                           };
-                         }
-                       }
+                      if (viewMode === 'sprite') {
+                        finalColor = spriteColor || baseColor;
+                      } else if (viewMode === 'blueprint') {
+                        finalColor = bpColor || baseColor;
+                      } else if (viewMode === 'mix') {
+                        // Base is Sprite
+                        finalColor = spriteColor || baseColor;
+                        // Overlay is BP
+                        if (bpColor) {
+                          overlayStyle = {
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: bpColor,
+                            opacity: blueprintOpacity,
+                            pointerEvents: 'none', // Click through to sprite
+                          };
+                        }
+                      }
                     }
 
                     // Socket/Pin Logic
@@ -928,14 +935,13 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                           if (isDrawing) handlePixelClick(x, y);
                         }}
                       >
-                       {/* Overlay for Mix Mode */}
-                       {viewMode === 'mix' && Object.keys(overlayStyle).length > 0 && (
+                        {/* Overlay for Mix Mode */}
+                        {viewMode === 'mix' && Object.keys(overlayStyle).length > 0 && (
                           <div style={overlayStyle} />
-                       )}
-                       {/* Legacy Overlay Logic Removed in favor of Mix Mode, but keeping clean structure */}
+                        )}
+                        {/* Legacy Overlay Logic Removed in favor of Mix Mode, but keeping clean structure */}
                       </div>
                     );
-
                   })
                 )}
               </Box>

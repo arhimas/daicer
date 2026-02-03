@@ -2,7 +2,7 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { BlockType } from '../../../game/src/engine/types';
+import { BlockType } from '@daicer/engine/types';
 
 export const CHUNK_SIZE = 32;
 export const TILE_SIZE = 32; // Pixels

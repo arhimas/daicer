@@ -1,6 +1,6 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { RenderEngine } from '../render-engine';
-import { Chunk, TerrainType } from '../../types';
+import { RenderEngine } from '@/plugins/map-explorer/admin/src/utils/render-engine';
+import { Chunk, TerrainType } from '@/plugins/map-explorer/admin/src/types';
 // import { TILE_SIZE } from '../../constants';
 
 // Mock Canvas Context

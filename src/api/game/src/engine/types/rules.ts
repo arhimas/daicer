@@ -1,4 +1,4 @@
-import { EntitySheet } from './index';
+import { EntitySheet } from '@daicer/engine/types';
 
 /**
  * Represents the Global Rule Configuration (from Strapi api::rule-set).

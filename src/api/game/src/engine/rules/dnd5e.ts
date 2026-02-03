@@ -1,4 +1,4 @@
-import { EntitySheet } from '../types';
+import { EntitySheet } from '@daicer/engine/types';
 
 /**
  * Core 5e Math Utilities.

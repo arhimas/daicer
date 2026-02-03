@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { resolveLevelUp, getLevelFromXP } from '../leveling';
-import { EntitySheet } from '../../types';
-import { RuleSet, ClassDefinition } from '../../types/rules';
+import { resolveLevelUp, getLevelFromXP } from '@daicer/engine/rules/leveling';
+import { EntitySheet } from '@daicer/engine/types';
+import { RuleSet, ClassDefinition } from '@daicer/engine/types/rules';
 
 describe('Leveling Rules', () => {
   const mockRules: RuleSet = {

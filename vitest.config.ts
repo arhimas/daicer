@@ -12,25 +12,19 @@ export default defineConfig({
       },
     },
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine'),
+      '@daicer/shared': path.resolve(__dirname, 'src/shared'),
+      '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src'),
+    },
+  },
   test: {
     globals: true,
     environment: 'node',
     testTimeout: 10000,
     hookTimeout: 10000,
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
-      '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
-      '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src/index.ts'),
-    },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src'),
-        '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
-        '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
-        '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src/index.ts'),
-      },
-    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'json-summary', 'lcov'],

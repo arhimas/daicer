@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { Core } from '@strapi/strapi';
-import { toCamelCase, capitalize } from '../../shared/utils/text-utils';
-import type { ToolDefinition } from '../../api/agent/services/tool-registry';
+import { toCamelCase, capitalize } from '@daicer/shared/utils/text-utils';
+import type { ToolDefinition } from '@/api/agent/services/tool-registry';
 
 /**
  * Dynamically generates GraphQL definitions for registered game tools.

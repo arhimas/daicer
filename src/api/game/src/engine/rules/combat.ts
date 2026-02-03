@@ -1,17 +1,17 @@
 export { ActionType } from './actions';
-import { ActionDefinition, ActionIntent, ActionType } from './actions';
-import { Entity, ExecutionTrace, ExecutionStep, EntityAction } from '../types';
-import { roll, DiceResult, parseDiceString } from './dice';
-import { calculateDistance } from '../utils/geometry';
-import { getConditionModifiers, hasCondition, ConditionType } from './conditions';
-import { calculateModifier } from './dnd5e';
+import { ActionDefinition, ActionIntent, ActionType } from '@daicer/engine/rules/actions';
+import { Entity, ExecutionTrace, ExecutionStep, EntityAction } from '@daicer/engine/types';
+import { roll, DiceResult, parseDiceString } from '@daicer/engine/rules/dice';
+import { calculateDistance } from '@daicer/engine/utils/geometry';
+import { getConditionModifiers, hasCondition, ConditionType } from '@daicer/engine/rules/conditions';
+import { calculateModifier } from '@daicer/engine/rules/dnd5e';
 
 // SOTA Imports
-import { DamageInstance } from '../mechanics/damage/DamageInstance';
-import { DamageType } from '../mechanics/damage/DamageType';
-import { FeatureRegistry, CombatContext } from '../mechanics/registry/FeatureRegistry';
-import '../mechanics/features/sneak-attack'; // Ensure registration
-import '../mechanics/features/rage'; // Ensure registration
+import { DamageInstance } from '@daicer/engine/mechanics/damage/DamageInstance';
+import { DamageType } from '@daicer/engine/mechanics/damage/DamageType';
+import { FeatureRegistry, CombatContext } from '@daicer/engine/mechanics/registry/FeatureRegistry';
+import '@daicer/engine/mechanics/features/sneak-attack'; // Ensure registration
+import '@daicer/engine/mechanics/features/rage'; // Ensure registration
 
 // ============================================================================
 // Types

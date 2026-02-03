@@ -22,14 +22,14 @@ import {
   DropItemCommand,
   PickupItemCommand,
   ThrowItemCommand,
-} from '../../game/src/engine/types'; // Unified types import
+} from '@daicer/engine/types'; // Unified types import
 // Use schemas from where they are defined. Ideally from shared or engine.
 // We will define specific schemas here or import if available.
-import { CastSpellIntentSchema } from '../../../shared';
+import { CastSpellIntentSchema } from '@/shared';
 import type { Core } from '@strapi/strapi';
-import { ActionResult } from '../../game/services/action-engine';
-import { WorldAtlas } from '../../game/src/engine/world';
-import { WorldConfig, DEFAULT_WORLD_CONFIG, Chunk, Creature } from '../../game/src/engine';
+import { ActionResult } from '@/api/game/services/action-engine';
+import { WorldAtlas } from '@daicer/engine/world';
+import { WorldConfig, DEFAULT_WORLD_CONFIG, Chunk, Creature } from '@/api/game/src/engine';
 
 // Define explicit Interfaces for Service interactions
 interface ActionEngineService {
@@ -662,10 +662,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
   const LocationContextSchema = z.object({ x: z.number(), y: z.number() });
   register('get_location_context', 'Get location context', LocationContextSchema, async (roomId, payload, _u) => {
     const p = LocationContextSchema.parse(payload);
-     
-    const room = await strapi
-      .documents('api::room.room')
-      .findOne({ documentId: roomId, populate: ['dmSettings'] });
+
+    const room = await strapi.documents('api::room.room').findOne({ documentId: roomId, populate: ['dmSettings'] });
     if (!room) throw new Error('Room not found');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const r = room as any;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Slug, RichText, RelationMany } from './common';
+import { Slug, RichText, RelationMany } from '@/genesis/schemas/common';
 
 export const TraitSchema = z
   .object({

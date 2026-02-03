@@ -1,6 +1,6 @@
-import { RuntimeAction } from './types';
-import { DerivationContext } from './types';
-import { ActionHydrator } from './ActionHydrator';
+import { RuntimeAction } from '@daicer/engine/derivation/types';
+import { DerivationContext } from '@daicer/engine/derivation/types';
+import { ActionHydrator } from '@daicer/engine/derivation/ActionHydrator';
 
 /**
  * Derives movement speeds based on Race, Armor penalties, and Attributes.

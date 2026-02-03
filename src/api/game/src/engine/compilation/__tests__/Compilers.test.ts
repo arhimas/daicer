@@ -1,8 +1,8 @@
-import { ConditionCompiler } from '../atoms/ConditionCompiler';
-import { DamageTypeCompiler } from '../atoms/DamageTypeCompiler';
-import { EntityCompiler } from '../blueprints/EntityCompiler';
-import { FeatureCompiler } from '../molecules/FeatureCompiler';
-import { CompilationResult } from '../../Compiler';
+import { ConditionCompiler } from '@daicer/engine/compilation/atoms/ConditionCompiler';
+import { DamageTypeCompiler } from '@daicer/engine/compilation/atoms/DamageTypeCompiler';
+import { EntityCompiler } from '@daicer/engine/compilation/blueprints/EntityCompiler';
+import { FeatureCompiler } from '@daicer/engine/compilation/molecules/FeatureCompiler';
+import { CompilationResult } from '@daicer/engine/Compiler';
 
 // Helper to extract error messages from logs
 const getErrors = (result: CompilationResult) => result.logs.filter((l) => l.level === 'error').map((l) => l.message);

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { EntityDeriver } from '../index';
-import { RuntimeAction, Attributes } from '../../derivation/types';
+import { EntityDeriver } from '@daicer/engine/derivation';
+import { RuntimeAction, Attributes } from '@daicer/engine/derivation/types';
 
 // Mock types for test construction
 interface PartialEntity {

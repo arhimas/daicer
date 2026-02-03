@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { getMutationResolvers } from '../mutation-resolvers';
-import { mockStrapi, resetMockStrapi } from './test-utils/mock-strapi';
+import { getMutationResolvers } from '@/lifecycle/graphql/mutation-resolvers';
+import { mockStrapi, resetMockStrapi } from '@/lifecycle/graphql/__tests__/test-utils/mock-strapi';
 
 describe('E2E: Player Flow', () => {
   let resolvers;

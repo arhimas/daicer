@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { DamageTypeCompiler } from '../DamageTypeCompiler';
+import { DamageTypeCompiler } from '@daicer/engine/compilation/atoms/DamageTypeCompiler';
 
 describe('DamageTypeCompiler', () => {
   const compiler = new DamageTypeCompiler();

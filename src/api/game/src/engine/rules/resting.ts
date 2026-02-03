@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { EntitySheetSchema } from '../schemas/entity-sheet';
+import { EntitySheetSchema } from '@daicer/engine/schemas/entity-sheet';
 /**
  * Resting Mechanics (Short & Long).
  * Handles Resource Recovery, HP Healing, and Hit Dice Logic.
  */
-import { rollDie } from './dice';
-import { calculateModifier } from './dnd5e';
+import { rollDie } from '@daicer/engine/rules/dice';
+import { calculateModifier } from '@daicer/engine/rules/dnd5e';
 
 type EntitySheet = z.infer<typeof EntitySheetSchema>;
 

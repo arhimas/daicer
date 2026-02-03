@@ -1,5 +1,5 @@
 import { select, input, confirm } from '@inquirer/prompts';
-import { ui } from './ui';
+import { ui } from '@/cli/utils/ui';
 
 export type FilterOp = '$eq' | '$ne' | '$contains' | '$gt' | '$lt' | '$in' | '$notIn';
 

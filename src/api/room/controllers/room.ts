@@ -3,9 +3,9 @@
  * Keep documentation synchronized with code at all times.
  */
 import { factories } from '@strapi/strapi';
-import { generateRoomCode } from '../../../utils/room-code';
+import { generateRoomCode } from '@/utils/room-code';
 import { v4 as uuidv4 } from 'uuid';
-import { RoomCreationInput, RoomPlayer } from '../types';
+import { RoomCreationInput, RoomPlayer } from '@/api/room/types';
 
 export default factories.createCoreController('api::room.room', ({ strapi }) => ({
   /**

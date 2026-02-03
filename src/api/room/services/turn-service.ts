@@ -10,9 +10,9 @@
  * 3. Updating Room History and State
  */
 
-import { generateStructured } from '../../../utils/llm/structured';
-import { DMTurnSchema } from '../../../schemas/dm-turn';
-import { TurnAction, TurnData, TurnActionType, TurnActionTypeSchema, RoomContext } from '../types';
+import { generateStructured } from '@/utils/llm/structured';
+import { DMTurnSchema } from '@/schemas/dm-turn';
+import { TurnAction, TurnData, TurnActionType, TurnActionTypeSchema, RoomContext } from '@/api/room/types';
 
 export default ({ strapi }) => ({
   /**

@@ -39,13 +39,9 @@ const HomePage = () => {
     } catch (e: unknown) {
       console.error(e);
       // Handle HTTP errors
-       
+
       const err = e as { response?: { data?: { error?: { message?: string } } }; message?: string };
-      setError(
-        err.response?.data?.error?.message ||
-          err.message ||
-          'Failed to fetch queue stats'
-      );
+      setError(err.response?.data?.error?.message || err.message || 'Failed to fetch queue stats');
     } finally {
       setLoading(false);
     }

@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { ConditionCompiler } from '../ConditionCompiler';
+import { ConditionCompiler } from '@daicer/engine/compilation/atoms/ConditionCompiler';
 // ConditionType removed as unused
 
-// Mock the conditions enum if needed, or rely on real one. 
+// Mock the conditions enum if needed, or rely on real one.
 // Assuming ConditionType has at least 'blinded' or similar standard 5e conditions.
 // We can check the actual enum if test fails, but standard D&D conditions are safe bets.
 
@@ -19,14 +19,14 @@ describe('ConditionCompiler', () => {
 
     // If 'blinded' is not in enum, this will fail and we fix it.
     // But logic-wise the test is correct.
-    expect(result.success).toBe(true); 
+    expect(result.success).toBe(true);
     expect(result.status).toBe('Valid');
   });
 
   it('should handle prefixed slugs', async () => {
     const validData = { slug: 'status-effect.invisible' };
     const result = await compiler.compile(validData);
-    
+
     // Assuming invisible is valid
     expect(result.success).toBe(true);
   });

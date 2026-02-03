@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { QueueManager } from '../queue-manager';
-import { QueueName } from '../contract';
+import { QueueManager } from '@/queues/queue-manager';
+import { QueueName } from '@/queues/contract';
 
 // Mock Strapi Global
 const mockFindFirst = vi.fn();

@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import ActionEngineFunc from '../action-engine';
+import ActionEngineFunc from '@/api/game/services/action-engine';
 
 // Mock Config & Constants
 const { mockStrapi } = vi.hoisted(() => ({

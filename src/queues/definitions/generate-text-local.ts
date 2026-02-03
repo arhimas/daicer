@@ -1,8 +1,8 @@
-import { WorkerManager } from '../worker-manager';
-import { QueueName, JobPayloads } from '../contract';
+import { WorkerManager } from '@/queues/worker-manager';
+import { QueueName, JobPayloads } from '@/queues/contract';
 import type { Core } from '@strapi/strapi';
-import { localLLM } from '../../utils/llm/local';
-import { LocalModel } from '../../utils/llm/types';
+import { localLLM } from '@/utils/llm/local';
+import { LocalModel } from '@/utils/llm/types';
 
 /**
  * GENERATE TEXT LOCAL WORKER

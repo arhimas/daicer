@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import vectorServiceFactory from '../vector-service';
+import vectorServiceFactory from '@/plugins/semantic-search/server/src/services/vector-service';
 
 // Mock Strapi
 const mockRaw = vi.fn();

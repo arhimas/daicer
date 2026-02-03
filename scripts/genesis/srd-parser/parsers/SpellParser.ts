@@ -1,4 +1,6 @@
-import { slugify } from '../types';
+// @ts-ignore
+import type { SpellData } from '@scripts/genesis/srd-parser/types';
+import { slugify } from '@scripts/genesis/srd-parser/types';
 
 export interface SpellData {
   slug: string;

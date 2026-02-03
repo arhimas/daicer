@@ -1,4 +1,4 @@
-import { EntityFeature } from '../../types';
+import { EntityFeature } from '@daicer/engine/types';
 
 /**
  * Defines the structure of a Character Class (Game System Level).

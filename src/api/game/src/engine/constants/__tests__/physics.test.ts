@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PHYSICS_CONSTANTS, DEFAULT_WORLD_CONFIG } from '../physics';
+import { PHYSICS_CONSTANTS, DEFAULT_WORLD_CONFIG } from '@daicer/engine/constants/physics';
 
 describe('Physics Constants', () => {
   it('should have standard physics values', () => {

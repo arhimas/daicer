@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect } from 'vitest';
-import { AdvancedStructureGenerator } from '../advanced-structure-generator';
-import { StructureInfo, Tile } from '../../../game/src/engine/types';
+import { AdvancedStructureGenerator } from '@/api/voxel-engine/services/generators/advanced-structure-generator';
+import { StructureInfo, Tile } from '@/api/voxel-engine/game/src/engine/types';
 
 describe('Advanced Generation Verification', () => {
   describe('Biomes', () => {

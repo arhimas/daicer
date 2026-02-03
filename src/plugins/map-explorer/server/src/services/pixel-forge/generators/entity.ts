@@ -1,13 +1,14 @@
-import { getPixelDimensions } from '../../../utils/entity-geometry';
 import { createEmptyGrid, fillBox, markBox } from '../grid-utils';
-import { BodyPartType, GenerationConfig, PixelLayer } from '../types';
-import { ZoneType } from '../../../utils/compositor';
+import { EntityContext } from '../serializers';
+import { PixelLayer } from '@/plugins/map-explorer/server/src/services/pixel-forge/types';
+import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';
 
-export const generatePart = (type: BodyPartType, config: GenerationConfig): (string | null)[][] => {
-  const size = config.size || 'Medium';
-  const gridSize = getPixelDimensions(size);
+type BodyPartType = 'head' | 'torso' | 'arm_left' | 'arm_right' | 'leg_left' | 'leg_right';
+
+export const generatePart = (type: BodyPartType, ctx: EntityContext): (string | null)[][] => {
+  const gridSize = ctx.width; // Already computed in Context
   const grid = createEmptyGrid(gridSize);
-  const color = config.skinTone || '#dcb097';
+  const color = ctx.skinTone;
 
   // Full Frame Drawing
   const px = (p: number) => Math.floor(gridSize * p);
@@ -15,12 +16,8 @@ export const generatePart = (type: BodyPartType, config: GenerationConfig): (str
   const sw = (p: number) => Math.max(1, Math.floor(gridSize * p));
   const sh = (p: number) => Math.max(1, Math.floor(gridSize * p));
 
-  const isSmall =
-    ['halfling', 'gnome', 'goblin'].includes(config.race || '') ||
-    ['Tiny', 'Small', 'Fine', 'Diminutive'].includes(size);
-  const isLarge =
-    ['orc', 'dragonborn'].includes(config.race || '') ||
-    ['Large', 'Huge', 'Gargantuan', 'Colossal'].includes(size);
+  const isSmall = ['Tiny', 'Small', 'Fine', 'Diminutive'].includes(ctx.size);
+  const isLarge = ['Large', 'Huge', 'Gargantuan', 'Colossal'].includes(ctx.size);
 
   let wModPct = 0;
   if (isSmall) wModPct = -0.05;
@@ -50,16 +47,16 @@ export const generatePart = (type: BodyPartType, config: GenerationConfig): (str
   return grid;
 };
 
-export const generateCreatureLayers = (config: GenerationConfig): PixelLayer[] => {
+export const generateEntityLayers = (ctx: EntityContext): PixelLayer[] => {
   const layers: PixelLayer[] = [];
 
   // 1. Generate Anatomy Parts
-  const torso = generatePart('torso', config);
-  const head = generatePart('head', config);
-  const lArm = generatePart('arm_left', config);
-  const rArm = generatePart('arm_right', config);
-  const lLeg = generatePart('leg_left', config);
-  const rLeg = generatePart('leg_right', config);
+  const torso = generatePart('torso', ctx);
+  const head = generatePart('head', ctx);
+  const lArm = generatePart('arm_left', ctx);
+  const rArm = generatePart('arm_right', ctx);
+  const lLeg = generatePart('leg_left', ctx);
+  const rLeg = generatePart('leg_right', ctx);
 
   // 2. Add to Layers (Z-Ordered)
   layers.push({ name: 'leg_left', pixels: lLeg, zIndex: 0 });
@@ -96,9 +93,8 @@ export const composeLayers = (layers: PixelLayer[]): (string | null)[][] => {
   return finalGrid;
 };
 
-export const synthesizeBlueprint = (config: GenerationConfig): ZoneType[][] => {
-  const size = config.size || 'Medium';
-  const gridSize = getPixelDimensions(size);
+export const synthesizeEntityBlueprint = (ctx: EntityContext): ZoneType[][] => {
+  const gridSize = ctx.width;
   const grid = createEmptyGrid(gridSize);
 
   const px = (p: number) => Math.floor(gridSize * p);

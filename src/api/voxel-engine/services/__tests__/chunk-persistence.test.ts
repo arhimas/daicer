@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ChunkManager } from '../chunk-manager';
-import { WorldConfig } from '../../../../game/src/engine/types';
+import { ChunkManager } from '@/api/voxel-engine/services/chunk-manager';
+import { WorldConfig } from '@/game/src/engine/types';
 
 // Mock Worker to avoid actual threading in unit tests
 let workerCallback: (msg: any) => void;

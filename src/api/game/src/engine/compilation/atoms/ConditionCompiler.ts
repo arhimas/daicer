@@ -1,5 +1,5 @@
-import { BaseCompiler, CompilationResult } from '../Compiler';
-import { ConditionType } from '../../rules/conditions';
+import { BaseCompiler, CompilationResult } from '@daicer/engine/compilation/Compiler';
+import { ConditionType } from '@daicer/engine/rules/conditions';
 
 /**
  * Validates 'api::status-effect' entities against the Engine's Condition rules.

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
-import { unifiedSearchService } from '../unified-search-service';
+import { unifiedSearchService } from '@/services/unified-search-service';
 
 // Mock Services
 const mockPluginSearch = vi.fn();

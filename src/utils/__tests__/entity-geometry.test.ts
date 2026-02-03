@@ -5,7 +5,7 @@ import {
   validateMatrixSize,
   PIXELS_PER_FOOT,
   SIZE_REGISTRY,
-} from '../entity-geometry';
+} from '@/utils/entity-geometry';
 
 describe('EntityGeometry', () => {
   describe('Constants', () => {

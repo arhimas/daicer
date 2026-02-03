@@ -7,7 +7,14 @@
 [![Backend CI](https://img.shields.io/github/actions/workflow/status/lguibr/daice/backend.yml?label=Backend_Build&logo=github&style=for-the-badge)](https://github.com/lguibr/daice/actions/workflows/backend.yml)
 [![codecov](https://codecov.io/gh/lguibr/daice/graph/badge.svg?token=CODECOV_TOKEN&flag=backend)](https://codecov.io/gh/lguibr/daice)
 [![Strapi](https://img.shields.io/badge/Back-Strapi_5-4945FF?logo=strapi&style=for-the-badge)](https://strapi.io/)
-[![TypeScript](https://img.shields.io/badge/Code-100%25_TS-3178C6?logo=typescript&style=for-the-badge)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/Code-100%25_TS-3178C6?logo=typescript&style=for-the-badge)
+<!-- COCOV_BADGES_START -->
+[![Cocov Unified](assets/badges/cocov-badge-unified.svg)](./coverage/index.html)
+<br>
+[![Lines](assets/badges/cocov-badge-lines.svg)](./coverage/index.html) [![Statements](assets/badges/cocov-badge-statements.svg)](./coverage/index.html) [![Functions](assets/badges/cocov-badge-functions.svg)](./coverage/index.html) [![Branches](assets/badges/cocov-badge-branches.svg)](./coverage/index.html)
+<br>
+[![Diff Lines](assets/badges/cocov-badge-diff-lines.svg)](./coverage/index.html) [![Diff Statements](assets/badges/cocov-badge-diff-statements.svg)](./coverage/index.html) [![Diff Functions](assets/badges/cocov-badge-diff-functions.svg)](./coverage/index.html) [![Diff Branches](assets/badges/cocov-badge-diff-branches.svg)](./coverage/index.html)
+<!-- COCOV_BADGES_END -->](https://www.typescriptlang.org/)
 
 > **"The Database IS the State."**
 

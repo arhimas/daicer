@@ -1,4 +1,4 @@
-import { BlockType } from './types';
+import { BlockType } from '@/plugins/map-explorer/admin/src/types';
 
 export const Z_MIN = -3;
 export const Z_MAX = 3;

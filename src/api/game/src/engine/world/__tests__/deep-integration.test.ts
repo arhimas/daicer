@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { StructureRef, WorldAtlas } from '../world-atlas';
-import { TerrainGenerator } from '../../voxel/terrain-generator';
-import { CivilizationGenerator } from '../../../../../voxel-engine/services/generators/civilization-generator';
-import { WorldConfig, BlockType } from '../../types';
+import { StructureRef, WorldAtlas } from '@daicer/engine/world/world-atlas';
+import { TerrainGenerator } from '@daicer/engine/voxel/terrain-generator';
+import { CivilizationGenerator } from '@/api/voxel-engine/services/generators/civilization-generator';
+import { WorldConfig, BlockType } from '@daicer/engine/types';
 
 describe('World Gen Deep Integration', () => {
   // Config tuned for 1ft scale

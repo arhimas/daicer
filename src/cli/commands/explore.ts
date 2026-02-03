@@ -1,9 +1,9 @@
 import { Command } from 'commander';
 import fs from 'fs';
-import { getStrapi, stopStrapi } from '../utils/bootstrap';
-import { discoverContentTypes } from '../utils/schema';
-import { ui } from '../utils/ui';
-import { filterBuilder } from '../utils/filter-builder';
+import { getStrapi, stopStrapi } from '@/cli/utils/bootstrap';
+import { discoverContentTypes } from '@/cli/utils/schema';
+import { ui } from '@/cli/utils/ui';
+import { filterBuilder } from '@/cli/utils/filter-builder';
 
 // Types
 interface ExploreOptions {
@@ -114,12 +114,12 @@ export async function runExplore(options: ExploreOptions) {
       // Update selectedUid to the canonical one so downstream logic works
       selectedUid = selectedType.uid;
     } else if (candidates.length > 1) {
-       // Ambiguous, let's pick the first exact API match if possible
-       const exactApi = candidates.find(t => t.apiName === selectedUid);
-       if (exactApi) {
-         selectedType = exactApi;
-         selectedUid = selectedType.uid;
-       }
+      // Ambiguous, let's pick the first exact API match if possible
+      const exactApi = candidates.find((t) => t.apiName === selectedUid);
+      if (exactApi) {
+        selectedType = exactApi;
+        selectedUid = selectedType.uid;
+      }
     }
   }
   // Fallback metadata for manual UIDs (plugins, etc)

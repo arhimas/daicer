@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import knowledgeLifecycles from '../content-types/knowledge-source/lifecycles';
-import { chunkMarkdown } from '../../../shared';
+import knowledgeLifecycles from '@/api/knowledge-source/content-types/knowledge-source/lifecycles';
+import { chunkMarkdown } from '@/shared';
 
 // Mock Dependencies
 const { mockGenerateEmbedding, mockDeleteMany, mockCreate } = vi.hoisted(() => ({

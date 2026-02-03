@@ -5,7 +5,7 @@
  *   yarn ts-node src/scripts/compile.ts --target=api::spell.spell --id=fireball
  */
 import type { Core } from '@strapi/strapi';
-import { CompilationOrchestrator } from '../api/game/src/engine/compilation/CompilationOrchestrator';
+import { CompilationOrchestrator } from '@daicer/engine/compilation/CompilationOrchestrator';
 
 // Bootstrap interface
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

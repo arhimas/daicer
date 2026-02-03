@@ -15,9 +15,9 @@
  */
 
 import { Core } from '@strapi/strapi';
-import { Command as EngineCommand } from '../src/engine/types';
-import { GameEvent } from '../schemas/events';
-import { ActionResult, StateDiff } from './action-engine';
+import { Command as EngineCommand } from '@daicer/engine/types';
+import { GameEvent } from '@/api/game/schemas/events';
+import { ActionResult, StateDiff } from '@/api/game/services/action-engine';
 
 export interface TurnInput {
   type: 'command' | 'text';

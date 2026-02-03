@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import gameServiceFactory from '../game';
+import gameServiceFactory from '@/api/game/services/game';
 // Using any for Strapi mocks is standard for unit testing services without full harness
- 
+
 const mockStrapi: any = {
   service: vi.fn(),
   documents: vi.fn(),
@@ -51,7 +51,7 @@ describe('Game Service', () => {
 
       // Should fetch chunk for 32,32 -> 1,1
       expect(mockGetChunk).toHaveBeenCalledWith(1, 1, settings);
-      
+
       // Should pass chunk to processTurn
       expect(mockProcessTurn).toHaveBeenCalledWith(
         'room-1',
@@ -70,56 +70,57 @@ describe('Game Service', () => {
 
     it('should handle chunk fetch failure gracefully', async () => {
       mockStrapi.service.mockImplementation((name: string) => {
-        if (name === 'api::voxel-engine.voxel-engine') return { getChunk: vi.fn().mockRejectedValue(new Error('Fail')) };
+        if (name === 'api::voxel-engine.voxel-engine')
+          return { getChunk: vi.fn().mockRejectedValue(new Error('Fail')) };
         if (name === 'api::game.turn-processing') return { processTurn: vi.fn() };
         return {};
       });
 
       await gameService.processTurn('room-1', 'desc', [], [], [], 'en', {});
-      
+
       expect(mockStrapi.log.warn).toHaveBeenCalled();
     });
   });
 
   describe('startGame', () => {
     it('should maintain strict logic: fail if room not found', async () => {
-       mockStrapi.documents.mockReturnValue({
-         findMany: vi.fn().mockResolvedValue([]),
-       });
+      mockStrapi.documents.mockReturnValue({
+        findMany: vi.fn().mockResolvedValue([]),
+      });
 
-       await expect(gameService.startGame('bad-id')).rejects.toThrow('Room not found');
+      await expect(gameService.startGame('bad-id')).rejects.toThrow('Room not found');
     });
 
     it('should fail if no players', async () => {
-       mockStrapi.documents.mockReturnValue({
-         findMany: vi.fn().mockResolvedValue([{ players: [] }]),
-       });
+      mockStrapi.documents.mockReturnValue({
+        findMany: vi.fn().mockResolvedValue([{ players: [] }]),
+      });
 
-       await expect(gameService.startGame('room-1')).rejects.toThrow('Cannot start game with no players');
+      await expect(gameService.startGame('room-1')).rejects.toThrow('Cannot start game with no players');
     });
-    
-    it('should fail if players not ready', async () => {
-       mockStrapi.documents.mockReturnValue({
-         findMany: vi.fn().mockResolvedValue([{ players: [{ name: 'Bob', isReady: false }] }]),
-       });
 
-       await expect(gameService.startGame('room-1')).rejects.toThrow('not ready: Bob');
+    it('should fail if players not ready', async () => {
+      mockStrapi.documents.mockReturnValue({
+        findMany: vi.fn().mockResolvedValue([{ players: [{ name: 'Bob', isReady: false }] }]),
+      });
+
+      await expect(gameService.startGame('room-1')).rejects.toThrow('not ready: Bob');
     });
 
     it('should successfully start game', async () => {
       const mockRoom = {
-         documentId: 'room-doc-1',
-         roomId: 'room-1',
-         players: [{ name: 'Alice', isReady: true, user: { documentId: 'u1' } }],
-         world: { description: 'World' },
-         entity_sheets: [],
+        documentId: 'room-doc-1',
+        roomId: 'room-1',
+        players: [{ name: 'Alice', isReady: true, user: { documentId: 'u1' } }],
+        world: { description: 'World' },
+        entity_sheets: [],
       };
 
       mockStrapi.documents.mockReturnValue({
-         findMany: vi.fn().mockResolvedValue([mockRoom]),
-         findOne: vi.fn().mockResolvedValue(mockRoom),
-         create: vi.fn().mockResolvedValue({ documentId: 'turn-1' }),
-         update: vi.fn().mockResolvedValue({}),
+        findMany: vi.fn().mockResolvedValue([mockRoom]),
+        findOne: vi.fn().mockResolvedValue(mockRoom),
+        create: vi.fn().mockResolvedValue({ documentId: 'turn-1' }),
+        update: vi.fn().mockResolvedValue({}),
       });
 
       mockStrapi.service.mockReturnValue({
@@ -132,21 +133,19 @@ describe('Game Service', () => {
 
       expect(result.success).toBe(true);
       expect(result.mainOpening).toBe('Opening Text');
-      
+
       // Verify Room Update
       expect(mockStrapi.documents).toHaveBeenCalled(); // Generic check, could be specific
     });
   });
 
-   describe('togglePlayerReady', () => {
+  describe('togglePlayerReady', () => {
     it('should update player ready status', async () => {
       const mockRoom = {
         documentId: 'doc-1',
-        players: [
-          { user: { documentId: 'u1' }, isReady: false }
-        ]
+        players: [{ user: { documentId: 'u1' }, isReady: false }],
       };
-      
+
       const mockUpdate = vi.fn();
       mockStrapi.documents.mockReturnValue({
         findMany: vi.fn().mockResolvedValue([mockRoom]),
@@ -155,12 +154,14 @@ describe('Game Service', () => {
 
       await gameService.togglePlayerReady('room-1', 'u1', true);
 
-      expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({
-        documentId: 'doc-1',
-        data: expect.objectContaining({
-           players: [{ user: { documentId: 'u1' }, isReady: true }]
+      expect(mockUpdate).toHaveBeenCalledWith(
+        expect.objectContaining({
+          documentId: 'doc-1',
+          data: expect.objectContaining({
+            players: [{ user: { documentId: 'u1' }, isReady: true }],
+          }),
         })
-      }));
+      );
     });
-   });
+  });
 });

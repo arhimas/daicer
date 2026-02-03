@@ -30,7 +30,8 @@ You can find the API reference for the SDKs here:
 The Python SDK provides both synchronous (`get_sync_client`) and asynchronous (`get_client`) clients for interacting with the LangGraph Server API.
 
 === "Async"
-```python
+
+````python
 from langgraph_sdk import get_client
 
     client = get_client(url=..., api_key=...)
@@ -51,3 +52,4 @@ from langgraph_sdk import get_client
 - [LangGraph CLI API Reference](/langgraphjs/cloud/reference/cli/)
 - [Python SDK Reference](/langgraphjs/cloud/reference/sdk/python_sdk_ref/)
 - [JS/TS SDK Reference](/langgraphjs/cloud/reference/sdk/js_ts_sdk_ref/)
+````

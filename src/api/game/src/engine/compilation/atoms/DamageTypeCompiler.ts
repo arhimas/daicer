@@ -1,4 +1,4 @@
-import { BaseCompiler, CompilationResult } from '../Compiler';
+import { BaseCompiler, CompilationResult } from '@daicer/engine/compilation/Compiler';
 
 /**
  * Validates 'api::damage-type' entities against the Engine's DamageType enum.

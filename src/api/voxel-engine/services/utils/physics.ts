@@ -2,11 +2,11 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Coordinates, BlockType, Chunk } from '../../../game/src/engine/types';
-import { CHUNK_SIZE } from './constants';
+import { Coordinates, BlockType, Chunk } from '@daicer/engine/types';
+import { CHUNK_SIZE } from '@/api/voxel-engine/services/utils/constants';
 // Re-shim PHYSICS_CONSTANTS if it was removed or use local constant
 const PHYSICS_CONSTANTS = { CHUNK_SIZE };
-import { WorldGenerator } from '../world-generator-logic';
+import { WorldGenerator } from '@/api/voxel-engine/services/world-generator-logic';
 
 export class PhysicsEngine {
   private generator: WorldGenerator;

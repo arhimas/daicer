@@ -3,7 +3,7 @@
  */
 
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { GeminiModel, GeminiConfig, DEFAULT_TEXT_CONFIG } from './types';
+import { GeminiModel, GeminiConfig, DEFAULT_TEXT_CONFIG } from '@/utils/llm/types';
 import { z } from 'zod';
 
 /**

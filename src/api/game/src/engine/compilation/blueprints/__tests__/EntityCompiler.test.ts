@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { EntityCompiler } from '../EntityCompiler';
+import { EntityCompiler } from '@daicer/engine/compilation/blueprints/EntityCompiler';
 
 describe('EntityCompiler', () => {
   const compiler = new EntityCompiler();
@@ -43,14 +43,12 @@ describe('EntityCompiler', () => {
       name: 'Hero',
       level: 1,
       stats: { strength: 10, dexterity: 10, constitution: 10, intelligence: 10, wisdom: 10, charisma: 10 },
-      actions: [
-        { slug: 'punch', type: undefined }
-      ]
+      actions: [{ slug: 'punch', type: undefined }],
     };
     const result = await compiler.compile(warningData);
 
     expect(result.success).toBe(true);
     expect(result.status).toBe('Warning');
-    expect(result.logs.some(l => l.level === 'warn' && l.message.includes('missing type'))).toBe(true);
+    expect(result.logs.some((l) => l.level === 'warn' && l.message.includes('missing type'))).toBe(true);
   });
 });

@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import biomeSpawnServiceFactory from '../biome-spawn-service';
-import { BiomeType } from '../../src/engine/types';
+import biomeSpawnServiceFactory from '@/api/game/services/biome-spawn-service';
+import { BiomeType } from '@daicer/engine/types';
 
 describe('BiomeSpawnService', () => {
   let strapi: any;

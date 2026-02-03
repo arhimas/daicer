@@ -1,6 +1,6 @@
-import { EntitySheet } from '../types';
-import { RuleSet, ClassDefinition } from '../types/rules';
-import { calculateModifier } from './dnd5e';
+import { EntitySheet } from '@daicer/engine/types';
+import { RuleSet, ClassDefinition } from '@daicer/engine/types/rules';
+import { calculateModifier } from '@daicer/engine/rules/dnd5e';
 
 /**
  * Pure Functional Reducer for Level Up.

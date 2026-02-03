@@ -1,6 +1,6 @@
 import { Command } from 'commander';
-import { getStrapiUrl } from '../utils/client';
-import { ui } from '../utils/ui';
+import { getStrapiUrl } from '@/cli/utils/client';
+import { ui } from '@/cli/utils/ui';
 
 export const statusCommand = new Command('status')
   .description('Check the connection status of the Strapi Backend')

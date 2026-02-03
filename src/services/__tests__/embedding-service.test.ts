@@ -1,4 +1,4 @@
-import { EmbeddingService } from '../embedding-service';
+import { EmbeddingService } from '@/services/embedding-service';
 import { pipeline } from '@huggingface/transformers';
 
 vi.mock('@huggingface/transformers', () => {

@@ -8,14 +8,14 @@ import {
   LongRestCommand,
   ModifyTerrainCommand,
   RollSaveCommand,
-} from '../types';
-import { GameState, ActionResult } from '../types/engine';
-import { ActionType } from '../rules/actions';
-import { Alea } from '../voxel/utils/math';
-import { resolveAttack } from '../rules/combat';
-import { findPath } from '../rules/spatial';
-import { TerrainGenerator } from '../voxel/terrain-generator';
-import { WorldConfig, ZLevel } from '../types';
+} from '@daicer/engine/types';
+import { GameState, ActionResult } from '@daicer/engine/types/engine';
+import { ActionType } from '@daicer/engine/rules/actions';
+import { Alea } from '@daicer/engine/voxel/utils/math';
+import { resolveAttack } from '@daicer/engine/rules/combat';
+import { findPath } from '@daicer/engine/rules/spatial';
+import { TerrainGenerator } from '@daicer/engine/voxel/terrain-generator';
+import { WorldConfig, ZLevel } from '@daicer/engine/types';
 
 /**
  * The Central Dispatcher for all Game Actions.

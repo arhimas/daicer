@@ -1,5 +1,5 @@
-import { StrapiAdapter, LLMCoreConfig } from '../types';
-import { SNIPPETS } from './snippets';
+import { StrapiAdapter, LLMCoreConfig } from '@/libs/llm-core/src/types';
+import { SNIPPETS } from '@/libs/llm-core/src/context/snippets';
 
 export class ContextBuilder {
   constructor(

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
-import { GameLoop } from '../game-loop';
-import { EntropySystem } from '../../entropy';
+import { GameLoop } from '@daicer/engine/core/game-loop';
+import { EntropySystem } from '@daicer/engine/entropy';
 
 describe('GameLoop', () => {
   it('should initialize with default values', () => {
@@ -33,7 +33,7 @@ describe('GameLoop', () => {
 
   it('should generate sequential IDs', () => {
     const gameLoop = new GameLoop(0, 100n);
-    
+
     expect(gameLoop.nextSequenceId()).toBe(101n);
     expect(gameLoop.nextSequenceId()).toBe(102n);
     expect(gameLoop.currentSequence).toBe(102n);

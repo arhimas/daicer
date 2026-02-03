@@ -1,4 +1,4 @@
-import { Entity, EntityAction } from '../../types';
+import { Entity, EntityAction } from '@daicer/engine/types';
 
 export interface CombatContext {
   hasAdvantage: boolean;

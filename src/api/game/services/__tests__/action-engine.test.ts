@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import actionEngineFactory from '../action-engine';
+import actionEngineFactory from '@/api/game/services/action-engine';
 
 // Mock Dependencies
 const { mockFindPath } = vi.hoisted(() => ({

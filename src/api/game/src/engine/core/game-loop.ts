@@ -1,4 +1,4 @@
-import { EntropySystem } from '../entropy';
+import { EntropySystem } from '@daicer/engine/entropy';
 
 /**
  * GameLoop

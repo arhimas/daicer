@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import entityDerivationFactory from '../entity-derivation';
+import entityDerivationFactory from '@/api/game/services/entity-derivation';
 
 // Mock Strapi
 // @ts-expect-error: Mock

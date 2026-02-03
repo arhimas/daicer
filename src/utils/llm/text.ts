@@ -3,11 +3,11 @@
  */
 
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
-import type { Language } from '../../api/game/src/engine/types';
-import { getFlashModel, extractErrorDetails } from './gemini';
-import { TextGenConfig } from './types';
+import type { Language } from '@daicer/engine/types';
+import { getFlashModel, extractErrorDetails } from '@/utils/llm/gemini';
+import { TextGenConfig } from '@/utils/llm/types';
 // import { streamManager } from './stream-manager'; // Removed
-import { getPrompt } from '../prompt';
+import { getPrompt } from '@/utils/prompt';
 
 const languageMap: Record<Language, string> = {
   en: 'English',

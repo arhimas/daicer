@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { MinEntitySchema } from './entity-min';
-import { EntitySheetSchema } from './entity-sheet';
-import { CommandSchema } from './commands';
-import { StructureInfoSchema } from './voxel';
+import { MinEntitySchema } from '@daicer/engine/schemas/entity-min';
+import { EntitySheetSchema } from '@daicer/engine/schemas/entity-sheet';
+import { CommandSchema } from '@daicer/engine/schemas/commands';
+import { StructureInfoSchema } from '@daicer/engine/schemas/voxel';
 
 export const ScaleLevelSchema = z.union([
   z.literal(0),

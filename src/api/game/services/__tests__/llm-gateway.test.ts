@@ -4,9 +4,9 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { llmGateway } from '../llm-gateway';
+import { llmGateway } from '@/api/game/services/llm-gateway';
 // import { QueueManager } from '../../../../queues/queue-manager';
-import { QueueName } from '../../../../queues/contract';
+import { QueueName } from '@/queues/contract';
 
 // Mock QueueManager
 const mockAdd = vi.fn();

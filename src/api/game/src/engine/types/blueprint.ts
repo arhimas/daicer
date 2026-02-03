@@ -1,4 +1,4 @@
-import { EntityStats, EntityAction, EntityFeature, InventoryItem, EntitySpell } from './index';
+import { EntityStats, EntityAction, EntityFeature, InventoryItem, EntitySpell } from '@daicer/engine/types';
 
 export interface AbstractBlueprint {
   // core identity

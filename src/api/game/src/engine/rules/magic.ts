@@ -1,8 +1,8 @@
-import { ActionIntent, ActionType } from './actions';
+import { ActionIntent, ActionType } from '@daicer/engine/rules/actions';
 import { z } from 'zod';
-import { EntitySheetSchema } from '../schemas/entity-sheet';
-import { calculateDistance, Point3D } from '../voxel/utils/math';
-import { RuntimeAction } from '../derivation/types';
+import { EntitySheetSchema } from '@daicer/engine/schemas/entity-sheet';
+import { calculateDistance, Point3D } from '@daicer/engine/voxel/utils/math';
+import { RuntimeAction } from '@daicer/engine/derivation/types';
 
 type EntitySheet = z.infer<typeof EntitySheetSchema>;
 

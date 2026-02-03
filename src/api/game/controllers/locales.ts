@@ -9,8 +9,8 @@
  * Handles manual triggering of locale generation for selected entities.
  * Designed to be called from the Strapi Admin Bulk Actions.
  */
-import { QueueManager } from '../../../queues/queue-manager';
-import { QueueName } from '../../../queues/contract';
+import { QueueManager } from '@/queues/queue-manager';
+import { QueueName } from '@/queues/contract';
 
 export default ({ strapi: _strapi }) => ({
   /**

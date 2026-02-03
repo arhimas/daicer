@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { Core } from '@strapi/strapi';
-import { EntityDeriver } from '../src/engine/derivation';
-import { Entity, EntityStats, EntityFeature, InventoryItem } from '../src/engine/types';
+import { EntityDeriver } from '@daicer/engine/derivation';
+import { Entity, EntityStats, EntityFeature, InventoryItem } from '@daicer/engine/types';
 
 const SKILLS = [
   'acrobatics',

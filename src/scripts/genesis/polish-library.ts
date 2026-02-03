@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { glob } from 'glob';
-import { llmService } from '../../services/llm-service';
+import { llmService } from '@/services/llm-service';
 
 // 1. Load Environment Variables
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });

@@ -1,5 +1,5 @@
-import { EntityStats } from '../types'; // Adjusted relative path to sibling directory (engine/types)
-import { SerializedItem, SerializedSpell } from './ActionHydrator';
+import { EntityStats } from '@daicer/engine/types'; // Adjusted relative path to sibling directory (engine/types)
+import { SerializedItem, SerializedSpell } from '@daicer/engine/derivation/ActionHydrator';
 
 export { EntityStats };
 

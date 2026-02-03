@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateModifier } from '../attributes';
+import { calculateModifier } from '@daicer/engine/derivation/attributes';
 
 describe('Attributes Logic', () => {
   it('should calculate modifiers correctly', () => {

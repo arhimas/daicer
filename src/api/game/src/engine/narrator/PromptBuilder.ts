@@ -1,5 +1,5 @@
-import { WorldSettings } from '../types';
-import { formatDmInstruction } from '../rules/narrator';
+import { WorldSettings } from '@daicer/engine/types';
+import { formatDmInstruction } from '@daicer/engine/rules/narrator';
 
 interface PromptContext {
   worldDescription: string;

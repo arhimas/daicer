@@ -1,4 +1,3 @@
-
 import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 
 // -----------------------------------------------------------------------------
@@ -60,22 +59,28 @@ const generateMatrix = (): Scenario[] => {
 
       for (const size of SIZES) {
         for (const action of ACTIONS) {
-            // Blueprints are separate
-            if (action === 'generate_blueprint' && type !== 'Structure' && type !== 'Terrain' && type !== 'Entity') continue; 
+          // Blueprints are separate
+          if (
+            action === 'generate_blueprint' &&
+            type !== 'Structure' &&
+            type !== 'Terrain' &&
+            type !== 'Entity'
+          )
+            continue;
 
-            for (const contextState of CONTEXTS) {
-                for (const injectionType of INJECTIONS) {
-                    scenarios.push({
-                        id: `S${idCounter++}`,
-                        type,
-                        archetype,
-                        size,
-                        action,
-                        contextState,
-                        injectionType
-                    });
-                }
+          for (const contextState of CONTEXTS) {
+            for (const injectionType of INJECTIONS) {
+              scenarios.push({
+                id: `S${idCounter++}`,
+                type,
+                archetype,
+                size,
+                action,
+                contextState,
+                injectionType,
+              });
             }
+          }
         }
       }
     }
@@ -100,25 +105,25 @@ describe(`Forge System Integration (${MATRIX.length} Scenarios)`, () => {
   const mockFindOne = vi.fn();
   const mockFindMany = vi.fn();
   const mockDocFindOne = vi.fn();
-  const mockFetchDeepContext = vi.fn().mockResolvedValue({ 
-      name: 'Mock Context Entity',
-      description: 'A rich context description.' 
+  const mockFetchDeepContext = vi.fn().mockResolvedValue({
+    name: 'Mock Context Entity',
+    description: 'A rich context description.',
   });
-  
+
   const mockStrapi = {
     log: { error: vi.fn(), info: vi.fn(), warn: vi.fn() },
     db: { query: () => ({ findOne: mockFindOne, findMany: mockFindMany }) },
     documents: () => ({ findOne: mockDocFindOne }),
     plugin: vi.fn().mockReturnValue({
       config: vi.fn().mockImplementation(() => ({
-          prompt: 'api::prompt.prompt',
-          entity: 'api::entity.entity',
-          item: 'api::item.item',
-          zone: 'api::entity-zone.entity-zone',
+        prompt: 'api::prompt.prompt',
+        entity: 'api::entity.entity',
+        item: 'api::item.item',
+        zone: 'api::entity-zone.entity-zone',
       })),
       service: vi.fn().mockReturnValue({
-          // Context Service Mock
-          fetchDeepContext: mockFetchDeepContext
+        // Context Service Mock
+        fetchDeepContext: mockFetchDeepContext,
       }),
     }),
   };
@@ -126,7 +131,7 @@ describe(`Forge System Integration (${MATRIX.length} Scenarios)`, () => {
   beforeEach(() => {
     vi.clearAllMocks();
     process.env.GEMINI_API_KEY = 'test-key'; // Valid key simulation
-    
+
     // Service Instantiation (REAL Factory Logic)
     service = geminiServiceFactory({ strapi: mockStrapi as any });
 
@@ -142,20 +147,21 @@ describe(`Forge System Integration (${MATRIX.length} Scenarios)`, () => {
   // ---------------------------------------------------------------------------
   // 3. EXECUTION LOOP
   // ---------------------------------------------------------------------------
-  it.each(MATRIX)('Forge System: $type | $archetype | $action | $injectionType', async (scenario) => {
-    
-    // A. Setup Input
-    const isBlueprint = scenario.action === 'generate_blueprint';
-    
-    // Fix: Setup Mock for Blueprint Gen (Requires Zones)
-    if (isBlueprint) {
-        mockFindMany.mockResolvedValue([
-            { slug: 'core', symbol: '#', color: '#FFFFFF', category: scenario.type },
-            { slug: 'border', symbol: 'B', color: '#000000', category: scenario.type }
-        ]);
-    }
+  it.each(MATRIX)(
+    'Forge System: $type | $archetype | $action | $injectionType',
+    async (scenario) => {
+      // A. Setup Input
+      const isBlueprint = scenario.action === 'generate_blueprint';
 
-    const inputPayload = {
+      // Fix: Setup Mock for Blueprint Gen (Requires Zones)
+      if (isBlueprint) {
+        mockFindMany.mockResolvedValue([
+          { slug: 'core', symbol: '#', color: '#FFFFFF', category: scenario.type },
+          { slug: 'border', symbol: 'B', color: '#000000', category: scenario.type },
+        ]);
+      }
+
+      const inputPayload = {
         prompt: scenario.injectionType === 'Variables' ? 'Make a {name}' : 'Make a thing',
         type: scenario.type,
         archetype: scenario.archetype,
@@ -164,75 +170,81 @@ describe(`Forge System Integration (${MATRIX.length} Scenarios)`, () => {
         height: 32,
         model: 'gemini-test',
         entityData: {
-            name: scenario.injectionType === 'Malicious' ? 'DROP TABLE' : 'Hero',
+          name: scenario.injectionType === 'Malicious' ? 'DROP TABLE' : 'Hero',
         },
-        entityContext: scenario.contextState === 'Existing (Has ID)' ? { uid: 'api::entity.entity', documentId: 'doc-123' } : undefined
-    };
+        entityContext:
+          scenario.contextState === 'Existing (Has ID)'
+            ? { uid: 'api::entity.entity', documentId: 'doc-123' }
+            : undefined,
+      };
 
-    mockInvoke.mockResolvedValue({ 
-        pixelData: [['#']], 
+      mockInvoke.mockResolvedValue({
+        pixelData: [['#']],
         blueprint: [['z']], // Minimal valid return
-        classification: 'valid' 
-    });
+        classification: 'valid',
+      });
 
-    // B. Execute
-    let result;
-    if (isBlueprint) {
+      // B. Execute
+      let result;
+      if (isBlueprint) {
         result = await service.generateBlueprint(inputPayload);
-    } else {
+      } else {
         result = await service.generatePixelData(inputPayload);
-    }
+      }
 
-    // C. Validation (Strict)
-    
-    // 1. Check Return Structure
-    expect(result).toBeDefined();
-    if (isBlueprint) {
+      // C. Validation (Strict)
+
+      // 1. Check Return Structure
+      expect(result).toBeDefined();
+      if (isBlueprint) {
         expect(result).toHaveProperty('blueprint');
-    } else {
+      } else {
         expect(result).toHaveProperty('pixelData');
-    }
+      }
 
-    // 2. Check Prompt Injection (The "Real Strict" Part)
-    // We inspect what was actually sent to the Mocked LLM
-    const calls = mockInvoke.mock.calls;
-    expect(calls.length).toBeGreaterThan(0);
-    const sentMessages = calls[0][0]; // [System, Human]
-    const systemPrompt = sentMessages[0].content;
+      // 2. Check Prompt Injection (The "Real Strict" Part)
+      // We inspect what was actually sent to the Mocked LLM
+      const calls = mockInvoke.mock.calls;
+      expect(calls.length).toBeGreaterThan(0);
+      const sentMessages = calls[0][0]; // [System, Human]
+      const systemPrompt = sentMessages[0].content;
 
-    // 2a. Context Injection Validation
-    if (scenario.contextState === 'Existing (Has ID)') {
+      // 2a. Context Injection Validation
+      if (scenario.contextState === 'Existing (Has ID)') {
         // Should have fetched deep context via contextService (mocked to return 'Mock Context Entity')
         // The service usually appends this to {contextData}
         if (systemPrompt && !systemPrompt.includes('Mock Context Entity')) {
-            console.warn(`[WARN] Context Injection Failed for SID:${scenario.id}. Core Logic might be skipping it.`);
-            // expect(systemPrompt).toContain('Mock Context Entity'); // TODO: Re-enable once llm-core logic is verified
+          console.warn(
+            `[WARN] Context Injection Failed for SID:${scenario.id}. Core Logic might be skipping it.`
+          );
+          // expect(systemPrompt).toContain('Mock Context Entity'); // TODO: Re-enable once llm-core logic is verified
         }
-    }
+      }
 
-    // 2b. Variable Injection Validation
-    if (scenario.injectionType === 'Variables') {
-        // If prompt was 'Make a {name}' and entityData.name was 'Hero', 
+      // 2b. Variable Injection Validation
+      if (scenario.injectionType === 'Variables') {
+        // If prompt was 'Make a {name}' and entityData.name was 'Hero',
         // the Service should have resolved it BEFORE sending to LLM.
         // CHECK: Does gemini-service/llm-core resolve prompt vars using entityData?
         // Assuming it does (Standard Daicer Pattern):
         if (inputPayload.prompt.includes('{name}')) {
-             // We can't easily check the *Human* message unless we spy on that specific part, 
-             // but usually context is in System.
-             // Let's assume the prompt registry interpolation happens.
+          // We can't easily check the *Human* message unless we spy on that specific part,
+          // but usually context is in System.
+          // Let's assume the prompt registry interpolation happens.
         }
-    }
-    
-    // 2c. Safety
-    if (scenario.injectionType === 'Malicious') {
+      }
+
+      // 2c. Safety
+      if (scenario.injectionType === 'Malicious') {
         // Ensure it didn't crash
         expect(result).toBeTruthy();
-    }
+      }
 
-    // 3. Framing Logic Verification
-    if (scenario.size === 'Gargantuan' && !isBlueprint) {
+      // 3. Framing Logic Verification
+      if (scenario.size === 'Gargantuan' && !isBlueprint) {
         // PixelForge logic usually adds formatting instructions for huge items
         // expect(systemPrompt).toContain('LARGE ENTITY'); // Optional, depends on exact Prompt logic
+      }
     }
-  });
+  );
 });

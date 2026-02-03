@@ -1,4 +1,4 @@
-import { WorldConfig } from '../../../game/src/engine/types';
+import { WorldConfig } from '@daicer/engine/types';
 
 export default {
   async afterCreate(event) {

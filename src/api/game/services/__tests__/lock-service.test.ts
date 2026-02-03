@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import lockServiceFactory from '../lock-service';
+import lockServiceFactory from '@/api/game/services/lock-service';
 
 // Mock Global Strapi
 // @ts-expect-error: Mock

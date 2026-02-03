@@ -1,5 +1,5 @@
-import { calculateModifier } from './attributes';
-import { DerivationContext } from './types';
+import { calculateModifier } from '@daicer/engine/derivation/attributes';
+import { DerivationContext } from '@daicer/engine/derivation/types';
 
 /**
  * Calculates Armor Class (AC) based on 5e rules.

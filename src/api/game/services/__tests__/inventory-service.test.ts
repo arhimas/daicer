@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import inventoryServiceFactory from '../inventory-service';
+import inventoryServiceFactory from '@/api/game/services/inventory-service';
 
 // Mock Strapi
 // @ts-expect-error: Mock

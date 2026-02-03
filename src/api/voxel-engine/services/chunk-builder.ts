@@ -2,11 +2,11 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { Chunk, WorldConfig } from '../../game/src/engine/types';
-import { TerrainGenerator } from '../src/terrain-generator';
-import { WorldAtlas } from '../../game/src/engine/world/world-atlas';
-import { CivilizationGenerator } from './generators/civilization-generator';
-import { FloraGenerator } from './generators/flora-generator';
+import { Chunk, WorldConfig } from '@daicer/engine/types';
+import { TerrainGenerator } from '@/api/voxel-engine/src/terrain-generator';
+import { WorldAtlas } from '@daicer/engine/world/world-atlas';
+import { CivilizationGenerator } from '@/api/voxel-engine/services/generators/civilization-generator';
+import { FloraGenerator } from '@/api/voxel-engine/services/generators/flora-generator';
 
 export class ChunkBuilder {
   private terrainGen: TerrainGenerator;

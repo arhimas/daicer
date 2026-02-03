@@ -2,7 +2,7 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { generateImageGemini } from '../../../utils/llm/image';
+import { generateImageGemini } from '@/utils/llm/image';
 
 /**
  * Helper to extract text from Strapi Rich Text or String

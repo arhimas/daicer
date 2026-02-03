@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { SpellCompiler } from '../SpellCompiler';
-import { ActionHydrator } from '../../../derivation/ActionHydrator';
+import { SpellCompiler } from '@daicer/engine/compilation/molecules/SpellCompiler';
+import { ActionHydrator } from '@daicer/engine/derivation/ActionHydrator';
 
 // Mock ActionHydrator
 vi.mock('../../../derivation/ActionHydrator', () => ({
@@ -22,20 +22,18 @@ describe('SpellCompiler', () => {
 
   it('should pass valid spell', async () => {
     const data = { slug: 'fireball', school: 'evocation', level: 3 };
-    
+
     // Mock hydration
-    vi.mocked(ActionHydrator.hydrateFromSpell).mockReturnValue({ 
-      name: 'Fireball', 
-      effects: [
-         { type: 'damage', dice: '8d6' } 
-      ] 
+    vi.mocked(ActionHydrator.hydrateFromSpell).mockReturnValue({
+      name: 'Fireball',
+      effects: [{ type: 'damage', dice: '8d6' }],
     } as any);
 
     const result = await compiler.compile(data);
 
     expect(result.success).toBe(true);
     expect(ActionHydrator.hydrateFromSpell).toHaveBeenCalled();
-    expect(result.logs.some(l => l.message.includes('Successfully Hydrated'))).toBe(true);
+    expect(result.logs.some((l) => l.message.includes('Successfully Hydrated'))).toBe(true);
   });
 
   it('should warn if hydration returns null', async () => {
@@ -52,12 +50,12 @@ describe('SpellCompiler', () => {
     const data = { slug: 'weird-spell', school: 'weird', level: 1 };
     vi.mocked(ActionHydrator.hydrateFromSpell).mockReturnValue({
       name: 'Weird',
-      effects: [ { type: 'damage' } ] // Missing dice/flat
+      effects: [{ type: 'damage' }], // Missing dice/flat
     } as any);
 
     const result = await compiler.compile(data);
 
     expect(result.status).toBe('Warning');
-    expect(result.logs.some(l => l.level === 'warn' && l.message.includes('has no dice'))).toBe(true);
+    expect(result.logs.some((l) => l.level === 'warn' && l.message.includes('has no dice'))).toBe(true);
   });
 });

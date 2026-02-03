@@ -4,9 +4,9 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Core } from '@strapi/strapi';
-import GameLedgerFactory from '../game-ledger';
-import HistoryServiceFactory from '../history-service';
-import { GameLoop } from '../../src/engine/core/game-loop';
+import GameLedgerFactory from '@/api/game/services/game-ledger';
+import HistoryServiceFactory from '@/api/game/services/history-service';
+import { GameLoop } from '@daicer/engine/core/game-loop';
 
 // Mock Documents Service
 const documentsService = {

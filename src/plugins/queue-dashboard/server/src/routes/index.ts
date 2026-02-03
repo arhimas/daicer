@@ -1,9 +1,9 @@
-import contentAPIRoutes from './content-api';
-import adminAPIRoutes from './admin';
+import contentAPIRoutes from '@/plugins/queue-dashboard/server/src/routes/content-api';
+import admin from './admin';
 
 const routes = {
   'content-api': contentAPIRoutes,
-  admin: adminAPIRoutes,
+  admin: admin,
 };
 
 export default routes;

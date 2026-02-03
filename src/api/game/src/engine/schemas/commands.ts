@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { CoordinatesSchema } from './voxel';
-import { AttributeSchema } from './entity-sheet';
+import { CoordinatesSchema } from '@daicer/engine/schemas/voxel';
+import { AttributeSchema } from '@daicer/engine/schemas/entity-sheet';
 
 // === Base Command Types ===
 

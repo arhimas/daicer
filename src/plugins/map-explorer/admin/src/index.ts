@@ -133,8 +133,6 @@ export default {
       },
       options: {},
     });
-
-
   },
 
   async registerTrads({ locales }: { locales: string[] }) {

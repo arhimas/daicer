@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import inventoryServiceFactory from '../inventory-service';
+import inventoryServiceFactory from '@/api/game/services/inventory-service';
 
 // Mock Strapi Factory System
 // Must be defined before imports that use it, but vi.mock is hoisted automatically.

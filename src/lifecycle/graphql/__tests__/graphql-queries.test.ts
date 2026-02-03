@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { registerGraphQLExtension } from '../resolvers';
+import { registerGraphQLExtension } from '@/lifecycle/graphql/resolvers';
 
 // Helper to extract resolvers from the extension registration
 const extractResolvers = (mockStrapi: unknown) => {

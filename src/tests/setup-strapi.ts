@@ -1,5 +1,5 @@
 import path from 'path';
-import { applyStrapiPatches } from './harness-patches';
+import { applyStrapiPatches } from '@/tests/harness-patches';
 import type { Core } from '@strapi/strapi'; // Type-only import is fine
 
 let instance: Core.Strapi | undefined;

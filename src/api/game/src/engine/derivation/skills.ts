@@ -1,4 +1,4 @@
-import { calculateModifier, Attributes, AbilityScore } from './attributes';
+import { calculateModifier, Attributes, AbilityScore } from '@daicer/engine/derivation/attributes';
 
 export const SKILL_ABILITY_MAP: Record<string, AbilityScore> = {
   acrobatics: 'dexterity',

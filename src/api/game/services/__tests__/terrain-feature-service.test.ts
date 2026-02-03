@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import terrainFeatureServiceFactory from '../terrain-feature-service';
+import terrainFeatureServiceFactory from '@/api/game/services/terrain-feature-service';
 
 describe('Terrain Feature Service', () => {
   let service: any; // Will be typed when service is typed

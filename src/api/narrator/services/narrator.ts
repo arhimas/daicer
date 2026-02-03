@@ -6,11 +6,11 @@
  * narrator service
  */
 
-import { getGeminiModel } from '../../../utils/llm/gemini';
-import { GeminiModel } from '../../../utils/llm/types';
+import { getGeminiModel } from '@/utils/llm/gemini';
+import { GeminiModel } from '@/utils/llm/types';
 import { HumanMessage } from '@langchain/core/messages';
-import { getRegistryTools } from './tool-registry';
-import { NarratorResponse } from './schemas';
+import { getRegistryTools } from '@/api/narrator/services/tool-registry';
+import { NarratorResponse } from '@/api/narrator/services/schemas';
 import { createAgent, todoListMiddleware, llmToolSelectorMiddleware } from 'langchain';
 import type { Core } from '@strapi/strapi';
 type StrapiInterface = Core.Strapi;
@@ -214,7 +214,8 @@ export default ({ strapi }: { strapi: StrapiInterface }) => ({
     try {
       const result = await agent.invoke({
         messages: [new HumanMessage(input)],
-      });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
 
       // Detect Tool Usage to trigger broadcast
       if (result.messages && Array.isArray(result.messages)) {

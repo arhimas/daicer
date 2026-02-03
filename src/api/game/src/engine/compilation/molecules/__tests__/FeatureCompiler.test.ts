@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { FeatureCompiler } from '../FeatureCompiler';
+import { FeatureCompiler } from '@daicer/engine/compilation/molecules/FeatureCompiler';
 
 describe('FeatureCompiler', () => {
   const compiler = new FeatureCompiler();
@@ -17,7 +17,7 @@ describe('FeatureCompiler', () => {
     expect(result.success).toBe(false);
     expect(result.error).toContain('Missing slug');
   });
-  
+
   it('should fail missing name', async () => {
     const result = await compiler.compile({ slug: 'nameless' });
     expect(result.success).toBe(false);

@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import spawnServiceFactory from '../spawn-service';
+import spawnServiceFactory from '@/api/game/services/spawn-service';
 
 // Mock Dependencies
 const mockFindOne = vi.fn();

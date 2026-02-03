@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { EquipmentCompiler } from '../EquipmentCompiler';
-import { ActionHydrator } from '../../../derivation/ActionHydrator';
+import { EquipmentCompiler } from '@daicer/engine/compilation/compounds/EquipmentCompiler';
+import { ActionHydrator } from '@daicer/engine/derivation/ActionHydrator';
 
 // Mock ActionHydrator
 vi.mock('../../../derivation/ActionHydrator', () => ({
@@ -29,11 +29,11 @@ describe('EquipmentCompiler', () => {
   });
 
   it('should attempt hydration for weapons', async () => {
-    const data = { 
-      slug: 'sword', 
-      name: 'Sword', 
-      type: 'equipment', 
-      equipment_category: { slug: 'martial-weapon' } 
+    const data = {
+      slug: 'sword',
+      name: 'Sword',
+      type: 'equipment',
+      equipment_category: { slug: 'martial-weapon' },
     };
 
     // Mock successful hydration
@@ -43,14 +43,14 @@ describe('EquipmentCompiler', () => {
 
     expect(result.success).toBe(true);
     expect(ActionHydrator.hydrateFromEquipment).toHaveBeenCalled();
-    expect(result.logs.some(l => l.message.includes('Hydrated 1 action'))).toBe(true);
+    expect(result.logs.some((l) => l.message.includes('Hydrated 1 action'))).toBe(true);
   });
 
   it('should log error if hydration fails', async () => {
-    const data = { 
-      slug: 'bad-sword', 
-      name: 'Bad Sword', 
-      equipment_category: { slug: 'martial-weapon' } 
+    const data = {
+      slug: 'bad-sword',
+      name: 'Bad Sword',
+      equipment_category: { slug: 'martial-weapon' },
     };
 
     // Mock throw

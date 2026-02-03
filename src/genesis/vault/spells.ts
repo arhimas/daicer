@@ -1,4 +1,4 @@
-import { SeedSpell } from '../schemas/molecules';
+import { SeedSpell } from '@/genesis/schemas/molecules';
 
 export const SPELLS: SeedSpell[] = [
   {

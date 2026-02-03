@@ -23,6 +23,7 @@ export const Scrubber = ({
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <button
           onClick={onPlayPause}
+          aria-label={isPlaying ? "Pause" : "Play"}
           style={{
             background: 'none',
             border: 'none',
@@ -47,6 +48,7 @@ export const Scrubber = ({
             min={min}
             max={max}
             value={current}
+            aria-label="Timeline Scrubber"
             onChange={(e) => onChange(Number(e.target.value))}
             style={{ width: '100%', cursor: 'pointer' }}
           />

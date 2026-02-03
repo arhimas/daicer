@@ -2,7 +2,7 @@
  * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
  * Keep documentation synchronized with code at all times.
  */
-import { createCharacterSnapshot } from '../src/engine';
+import { createCharacterSnapshot } from '@/api/game/src/engine';
 import { Core } from '@strapi/strapi';
 
 type JSONValue = string | number | boolean | null | { [key: string]: JSONValue } | JSONValue[];

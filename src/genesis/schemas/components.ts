@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { AbilityScoreEnum, RelationMany } from './common';
+import { AbilityScoreEnum, RelationMany } from '@/genesis/schemas/common';
 
 // --- Atomic Configs ---
 

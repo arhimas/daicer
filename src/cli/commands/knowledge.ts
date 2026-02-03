@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { getStrapi, stopStrapi } from '../utils/bootstrap';
+import { getStrapi, stopStrapi } from '@/cli/utils/bootstrap';
 
 export const knowledgeCommand = new Command('knowledge')
   .description('RAG Knowledge Base & Snippets')

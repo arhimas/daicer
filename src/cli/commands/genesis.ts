@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { getStrapi, stopStrapi } from '../utils/bootstrap';
+import { getStrapi, stopStrapi } from '@/cli/utils/bootstrap';
 
 export const genesisCommand = new Command('genesis')
   .description('Genesis Service: Seed and Hydrate Data')

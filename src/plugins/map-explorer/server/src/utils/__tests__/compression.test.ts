@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { EntityGeometry } from '../EntityGeometry';
+import { EntityGeometry } from '@/plugins/map-explorer/server/src/utils/EntityGeometry';
 
 describe('EntityGeometry Compression', () => {
   it('should compress a transparent row', () => {

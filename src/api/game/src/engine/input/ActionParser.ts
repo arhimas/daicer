@@ -1,4 +1,4 @@
-import { Command as EngineCommand, MoveCommand } from '../types';
+import { Command as EngineCommand, MoveCommand } from '@daicer/engine/types';
 
 /**
  * Parses raw text input into Engine Commands.

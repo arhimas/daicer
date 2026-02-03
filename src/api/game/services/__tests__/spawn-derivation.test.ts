@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect } from 'vitest';
-import { EntityDeriver } from '../../src/engine/derivation';
-import { DerivationContext } from '../../src/engine/derivation/types';
+import { EntityDeriver } from '@daicer/engine/derivation';
+import { DerivationContext } from '@daicer/engine/derivation/types';
 
 describe('EntityDeriver Action Derivation', () => {
   it('should derive melee attack from sword', () => {

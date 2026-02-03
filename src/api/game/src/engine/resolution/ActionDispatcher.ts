@@ -1,5 +1,5 @@
-import { RuntimeAction } from '../derivation/types';
-import { Entity } from '../types';
+import { RuntimeAction } from '@daicer/engine/derivation/types';
+import { Entity } from '@daicer/engine/types';
 
 export interface ResolutionResult {
   hit: boolean;

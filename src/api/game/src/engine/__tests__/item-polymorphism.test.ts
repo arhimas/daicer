@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Equipment, RuntimeAction } from '../derivation/types';
+import { Equipment, RuntimeAction } from '@daicer/engine/derivation/types';
 
 // Mock context to simulate engine derivation
 

@@ -3,8 +3,8 @@
  * Keep documentation synchronized with code at all times.
  */
 import { parentPort } from 'worker_threads';
-import { ChunkBuilder } from './chunk-builder';
-import { WorldConfig } from '../../game/src/engine/types';
+import { ChunkBuilder } from '@/api/voxel-engine/services/chunk-builder';
+import { WorldConfig } from '@daicer/engine/types';
 
 interface GenerationTask {
   id: string;

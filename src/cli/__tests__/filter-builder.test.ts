@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { FilterBuilder } from '../utils/filter-builder';
+import { FilterBuilder } from '@/cli/utils/filter-builder';
 
 // Access private method for testing logic without UI prompts
 // We can cast to any or export the logic separately.
