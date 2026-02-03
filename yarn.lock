@@ -6126,10 +6126,10 @@ co@^4.6.0:
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==
 
-cocov@^3.3.4:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/cocov/-/cocov-3.3.4.tgz#f14d1cd664cecc1ea673ce39ad82b675dd0bf253"
-  integrity sha512-EoWBvV64G7h2V0bYgqn6Zlig2t/WIHjlcHqL/z4fsa9pglcASf/JtyBcUQC+6m2PdLzelqn1CY7A1Ui8wrNWqw==
+cocov@^3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/cocov/-/cocov-3.3.5.tgz#7cd95c970bf77f3258815b4131beb8b9fd109740"
+  integrity sha512-4Jmw3cOQkXQYH6GGoJmFBnCrGpMPjagVWri5Uf0j5EwAJQyHZEbug2I3a875FjDDQab/WefMEEqjHFkyj/QzIw==
   dependencies:
     chalk "^5.3.0"
     cli-table3 "^0.6.3"

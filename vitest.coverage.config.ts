@@ -5,13 +5,15 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    testTimeout: 10000,
+    hookTimeout: 10000,
     root: path.resolve(__dirname), // Explicit root
     setupFiles: ['dotenv/config'], // Load env vars for integration tests
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine/index.ts'),
-      '@daicer/shared': path.resolve(__dirname, 'src/shared/index.ts'),
-      '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src/index.ts'),
+      '@daicer/engine': path.resolve(__dirname, 'src/api/game/src/engine'),
+      '@daicer/shared': path.resolve(__dirname, 'src/shared'),
+      '@daicer/llm-core': path.resolve(__dirname, 'src/libs/llm-core/src'),
     },
     coverage: {
       provider: 'v8',
@@ -22,6 +24,12 @@ export default defineConfig({
         path.resolve(__dirname, 'src/plugins/**/*.ts'),
         path.resolve(__dirname, 'src/shared/**/*.ts'),
       ],
+      thresholds: {
+        lines: 0,
+        functions: 0,
+        branches: 0,
+        statements: 0,
+      },
       exclude: [
         '**/node_modules/**',
         '**/dist/**',

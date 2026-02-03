@@ -1,4 +1,4 @@
-npm test
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-# Cocov Guard
-npx cocov "npm test" --dry-run
+yarn test:guard

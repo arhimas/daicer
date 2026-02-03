@@ -1,5 +1,6 @@
 {
-  "total": 0,
+  "total": 45,
+  "threshold": 0,
   "stack": {
     "required": [
       "typescript",
