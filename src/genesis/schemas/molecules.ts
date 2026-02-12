@@ -61,10 +61,13 @@ export const ItemSchema = z
       'wand',
       'potion',
     ]),
-    rarity: z.enum(['common', 'uncommon', 'rare', 'very_rare', 'legendary', 'artifact']).default('common'),
+    rarity: z
+      .enum(['common', 'uncommon', 'rare', 'very_rare', 'legendary', 'artifact', 'varies', 'unknown'])
+      .default('common'),
 
     value: z.number().int().default(0), // CP
     weight: z.number().default(0),
+    requires_attunement: z.boolean().default(false),
 
     description: RichText,
     lore: RichText.optional(),

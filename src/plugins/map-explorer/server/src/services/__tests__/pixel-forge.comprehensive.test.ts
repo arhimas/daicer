@@ -57,7 +57,9 @@ describe('PixelForgeService Comprehensive Suite (SOTA Generation)', () => {
 
     it('should throw error if entity not found', async () => {
       mockStrapi.db.query = vi.fn().mockReturnValue({ findOne: vi.fn().mockResolvedValue(null) });
-      await expect(service.generate('api::entity.entity', 'missing')).rejects.toThrow('Entity not found');
+      await expect(service.generate('api::entity.entity', 'missing')).rejects.toThrow(
+        'Entity not found'
+      );
     });
   });
 

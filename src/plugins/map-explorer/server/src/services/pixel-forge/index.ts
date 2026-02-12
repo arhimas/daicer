@@ -33,7 +33,7 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
     async generate(uid: string, documentId: string): Promise<string[][]> {
       // 1. ROUTING & SERIALIZATION
       // We detect the type of content and hydrate the specific Context
-      
+
       // ENTITY
       if (uid === getConfig('entity') || uid === 'api::entity.entity') {
         const data = await strapi.db.query(uid).findOne({
@@ -41,7 +41,7 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
           populate: ['race', 'appearance', 'equipment', 'inventory'],
         });
         if (!data) throw new Error(`Entity not found: ${documentId}`);
-        
+
         const ctx: EntityContext = serializeEntity(data);
         const layers = generateEntityLayers(ctx);
         let baseGrid = composeLayers(layers);
@@ -51,24 +51,27 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
         // We reuse the Item Generator for these
         const equipmentAssets: AssetStub[] = [];
         for (const itemCtx of ctx.equipment) {
-           const itemGrid = generateItemGrid(itemCtx);
-           // Items need their own blueprint logic? Or just visual?
-           // For compositeLoadout, we need AssetStub
-           const itemBlueprint = synthesizeItemBlueprint(itemGrid as string[][], itemCtx);
-           equipmentAssets.push({
-             pixelData: itemGrid as string[][],
-             blueprint: itemBlueprint,
-             archetype: itemCtx.type === 'weapon' ? 'Sword' : 'Accessory',
-           });
+          const itemGrid = generateItemGrid(itemCtx);
+          // Items need their own blueprint logic? Or just visual?
+          // For compositeLoadout, we need AssetStub
+          const itemBlueprint = synthesizeItemBlueprint(itemGrid as string[][], itemCtx);
+          equipmentAssets.push({
+            pixelData: itemGrid as string[][],
+            blueprint: itemBlueprint,
+            archetype: itemCtx.type === 'weapon' ? 'Sword' : 'Accessory',
+          });
         }
-        
+
         if (equipmentAssets.length > 0) {
-           const result = compositeLoadout({
-             pixelData: baseGrid as string[][],
-             blueprint: synthesizeEntityBlueprint(ctx),
-             archetype: ctx.archetype,
-           }, equipmentAssets);
-           baseGrid = result.grid;
+          const result = compositeLoadout(
+            {
+              pixelData: baseGrid as string[][],
+              blueprint: synthesizeEntityBlueprint(ctx),
+              archetype: ctx.archetype,
+            },
+            equipmentAssets
+          );
+          baseGrid = result.grid;
         }
 
         return baseGrid as string[][];
@@ -89,8 +92,8 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
       // TERRAIN
       if (uid === getConfig('terrain') || uid === 'api::terrain.terrain') {
         const data = await strapi.db.query(uid).findOne({
-           where: { documentId },
-           populate: ['noise_config'],
+          where: { documentId },
+          populate: ['noise_config'],
         });
         if (!data) throw new Error(`Terrain not found: ${documentId}`);
 
@@ -102,7 +105,7 @@ export const PixelForgeService = ({ strapi }: { strapi: Core.Strapi }) => {
     },
 
     // Legacy/Exposed Methods (Refactored to Safe Stubs)
-    
+
     // Kept for internal utility usage if needed, but 'generate' is preferred.
     generateEntityLayers,
     generatePart,

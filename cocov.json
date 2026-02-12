@@ -1,13 +1,11 @@
 {
-  "total": 45,
-  "threshold": 0,
-  "stack": {
-    "required": [
-      "typescript",
-      "react",
-      "@strapi/strapi",
-      "langchain"
-    ],
-    "forbidden": []
+  "thresholds": {
+    "lines": 60,
+    "functions": 55,
+    "statements": 60,
+    "branches": 45
+  },
+  "git": {
+    "enforceClean": true
   }
 }

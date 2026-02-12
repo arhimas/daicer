@@ -146,20 +146,20 @@ describe('PixelForge SOTA', () => {
   it.skip('should poll for results and update canvas', async () => {
     vi.useFakeTimers();
     mockPost.mockResolvedValue({ data: { jobId: 'job-123' } });
-    
+
     mockGet.mockImplementation((url) => {
-        if (url.includes('status/job-123')) {
-            return Promise.resolve({ 
-                data: { 
-                    state: 'completed', 
-                    result: { 
-                        pixelData: [['#FFF']], 
-                        enhancedPrompt: 'Enhanced Dragon' 
-                    } 
-                } 
-            });
-        }
-        return Promise.resolve({ data: { results: [] } });
+      if (url.includes('status/job-123')) {
+        return Promise.resolve({
+          data: {
+            state: 'completed',
+            result: {
+              pixelData: [['#FFF']],
+              enhancedPrompt: 'Enhanced Dragon',
+            },
+          },
+        });
+      }
+      return Promise.resolve({ data: { results: [] } });
     });
 
     const onChange = vi.fn();
@@ -173,60 +173,67 @@ describe('PixelForge SOTA', () => {
 
     // Fast-forward time to trigger poll (Interval is 2000ms)
     await React.act(async () => {
-        vi.advanceTimersByTime(2100); 
+      vi.advanceTimersByTime(2100);
     });
 
     await waitFor(() => {
-        expect(mockGet).toHaveBeenCalledWith('/map-explorer/forge/status/job-123');
-        expect(onChange).toHaveBeenCalled();
+      expect(mockGet).toHaveBeenCalledWith('/map-explorer/forge/status/job-123');
+      expect(onChange).toHaveBeenCalled();
     });
   });
 
   it('should handle Blueprint loading', async () => {
-      const mockBlueprints = [
-          { id: 1, name: 'Castle', grid: [['#000']], description: 'A castle', documentId: '1', category: 'Structure' }
-      ];
-      
-      mockGet.mockImplementation((url) => {
-          if (url.includes('api::blueprint.blueprint')) {
-             return Promise.resolve({ data: { results: mockBlueprints } });
-          }
-          return Promise.resolve({ data: { results: [] } });
-      });
+    const mockBlueprints = [
+      {
+        id: 1,
+        name: 'Castle',
+        grid: [['#000']],
+        description: 'A castle',
+        documentId: '1',
+        category: 'Structure',
+      },
+    ];
 
-      render(<PixelForge name="test" value="{}" onChange={vi.fn()} />);
-      openEditor();
+    mockGet.mockImplementation((url) => {
+      if (url.includes('api::blueprint.blueprint')) {
+        return Promise.resolve({ data: { results: mockBlueprints } });
+      }
+      return Promise.resolve({ data: { results: [] } });
+    });
 
-      await waitFor(() => expect(mockGet).toHaveBeenCalled());
+    render(<PixelForge name="test" value="{}" onChange={vi.fn()} />);
+    openEditor();
 
-      const select = screen.getAllByPlaceholderText('Load Blueprint...')[0];
-      fireEvent.change(select, { target: { value: '1' } });
+    await waitFor(() => expect(mockGet).toHaveBeenCalled());
 
-      const loadBtns = screen.getAllByText('Load');
-      fireEvent.click(loadBtns[0]);
+    const select = screen.getAllByPlaceholderText('Load Blueprint...')[0];
+    fireEvent.change(select, { target: { value: '1' } });
 
-      // Check if prompt updated (Proxy for success)
-      expect(screen.getByDisplayValue('A castle')).toBeDefined();
+    const loadBtns = screen.getAllByText('Load');
+    fireEvent.click(loadBtns[0]);
+
+    // Check if prompt updated (Proxy for success)
+    expect(screen.getByDisplayValue('A castle')).toBeDefined();
   });
 
   it('should draw on canvas', async () => {
-      const onChange = vi.fn();
-      // Start with empty value
-      render(<PixelForge name="test" value="" onChange={onChange} />);
-      openEditor();
+    const onChange = vi.fn();
+    // Start with empty value
+    render(<PixelForge name="test" value="" onChange={onChange} />);
+    openEditor();
 
-      // Ensure we are in Pencil mode (default)
-      // Click pixel at 0,0
-      const pixel = await screen.findByTestId('pixel-0-0');
-      fireEvent.click(pixel);
+    // Ensure we are in Pencil mode (default)
+    // Click pixel at 0,0
+    const pixel = await screen.findByTestId('pixel-0-0');
+    fireEvent.click(pixel);
 
-      // Should propagate change
-      expect(onChange).toHaveBeenCalled();
-      
-      // Verify the value passed contains the new pixel color (red by default)
-      const lastCall = onChange.mock.calls[0][0];
-      const parsed = JSON.parse(lastCall.target.value);
-      expect(parsed.pixels[0][0]).toBe('#FF0000');
+    // Should propagate change
+    expect(onChange).toHaveBeenCalled();
+
+    // Verify the value passed contains the new pixel color (red by default)
+    const lastCall = onChange.mock.calls[0][0];
+    const parsed = JSON.parse(lastCall.target.value);
+    expect(parsed.pixels[0][0]).toBe('#FF0000');
   });
 
   it.skip('should use picker tool', async () => {
@@ -234,7 +241,9 @@ describe('PixelForge SOTA', () => {
     // Start with a value that has a Red pixel at 0,0
     // We create a grid where 0,0 is Green (#00FF00)
     // Note: PixelForge expects JSON string of pixels 2D array
-    const grid = Array(32).fill(Array(32).fill('transparent')).map(row => [...row]);
+    const grid = Array(32)
+      .fill(Array(32).fill('transparent'))
+      .map((row) => [...row]);
     grid[0][0] = '#00FF00';
 
     render(<PixelForge name="test" value={JSON.stringify({ pixels: grid })} onChange={onChange} />);
@@ -256,14 +265,14 @@ describe('PixelForge SOTA', () => {
     expect(onChange).toHaveBeenCalled();
     const lastCall = onChange.mock.calls[0][0];
     const parsed = JSON.parse(lastCall.target.value);
-    
+
     // Debug info if checks fail
     if (parsed.pixels[0][1] !== '#00FF00') {
-        const pickedColor = parsed.pixels[0][1];
-        // We can't log because console is mocked, but we can fail with message
-        throw new Error(`Expected #00FF00 but got ${pickedColor}. Tool switch failed?`);
+      const pickedColor = parsed.pixels[0][1];
+      // We can't log because console is mocked, but we can fail with message
+      throw new Error(`Expected #00FF00 but got ${pickedColor}. Tool switch failed?`);
     }
-    
+
     expect(parsed.pixels[0][1]).toBe('#00FF00');
   });
 });

@@ -39,7 +39,8 @@ export default tseslint.config(
           patterns: [
             {
               group: ['../*'],
-              message: 'Relative imports from parent directories are forbidden. Use absolute path aliases (e.g., @daicer/...) instead.',
+              message:
+                'Relative imports from parent directories are forbidden. Use absolute path aliases (e.g., @daicer/...) instead.',
             },
           ],
         },

@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error -- module alias not resolved in parser context
 import type { SpellData } from '@scripts/genesis/srd-parser/types';
 import { slugify } from '@scripts/genesis/srd-parser/types';
 

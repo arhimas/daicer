@@ -23,7 +23,7 @@ export const Scrubber = ({
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <button
           onClick={onPlayPause}
-          aria-label={isPlaying ? "Pause" : "Play"}
+          aria-label={isPlaying ? 'Pause' : 'Play'}
           style={{
             background: 'none',
             border: 'none',

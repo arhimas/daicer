@@ -75,7 +75,26 @@ export class GenesisSeeder {
         }
         result[key] = docIds;
       }
-      // Handle single relations if needed
+
+      // Special handling for Class Progression (Component)
+      if (key === 'progression' && Array.isArray(data[key])) {
+        const progression = [];
+        for (const step of data[key]) {
+          const newStep = { ...step };
+          // Resolve features within progression
+          if (step.features && Array.isArray(step.features)) {
+            const featureIds = [];
+            for (const fSlug of step.features) {
+              const fid = await this.getDocumentId('api::feature.feature', fSlug);
+              if (fid) featureIds.push(fid);
+              else console.warn(`⚠️  Missing feature in progression: ${fSlug}`);
+            }
+            newStep.features = featureIds;
+          }
+          progression.push(newStep);
+        }
+        result[key] = progression;
+      }
     }
     return result;
   }
@@ -141,13 +160,32 @@ export class GenesisSeeder {
     console.log(`\nProcessing Tags (${Vault.TAGS.length})...`);
     for (const item of Vault.TAGS) await this.syncEntity('api::tag.tag', item, Schemas.TagSchema);
 
+    console.log(`\nProcessing Terrains (${Vault.TERRAINS.length})...`);
+    for (const item of Vault.TERRAINS) await this.syncEntity('api::terrain.terrain', item, Schemas.TerrainSchema);
+
     console.log(`\nProcessing Traits (${Vault.TRAITS.length})...`);
     for (const item of Vault.TRAITS) await this.syncEntity('api::trait.trait', item, Schemas.TraitSchema);
+
+    console.log(`\nProcessing Races (${Vault.RACES.length})...`);
+    for (const item of Vault.RACES) await this.syncEntity('api::race.race', item, Schemas.RaceSchema);
+
+    // 1.2 Sizes
+    if (Vault.SIZES && Vault.SIZES.length > 0) {
+      console.log(`\nProcessing Sizes (${Vault.SIZES.length})...`);
+      for (const item of Vault.SIZES) await this.syncEntity('api::size.size', item, Schemas.SizeSchema);
+    }
 
     // 1.5 Prompts
     if (Vault.PROMPTS && Vault.PROMPTS.length > 0) {
       console.log(`\nProcessing Prompts (${Vault.PROMPTS.length})...`);
       for (const item of Vault.PROMPTS) await this.syncEntity('api::prompt.prompt', item, Schemas.PromptSchema, 'key');
+    }
+
+    // 1.8 Proficiencies
+    if (Vault.PROFICIENCIES && Vault.PROFICIENCIES.length > 0) {
+      console.log(`\nProcessing Proficiencies (${Vault.PROFICIENCIES.length})...`);
+      for (const item of Vault.PROFICIENCIES)
+        await this.syncEntity('api::proficiency.proficiency', item, Schemas.ProficiencySchema);
     }
 
     // 2. Molecules

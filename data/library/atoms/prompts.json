@@ -28,5 +28,11 @@
     "category": "system",
     "text": "This campaign uses safety tools (X-Card, Lines & Veils). If a topic makes you uncomfortable, type 'X-Card' to skip the scene immediately with no questions asked.",
     "embedding": null
+  },
+  {
+    "key": "rule-size-definitions",
+    "category": "rules",
+    "text": "SIZE RULES DEFINITION:\n\n- TINY (approx 2.5 ft): Entity is very small. CONSTRAINT: Confine blueprint cells to the CENTER 40% of the grid. LEAVE WIDE PADDING around edges.\n- SMALL (approx 3-4 ft): Entity is small. CONSTRAINT: Confine blueprint cells to the CENTER 60% of the grid. LEAVE PADDING around edges.\n- MEDIUM (5 ft): Standard human-sized. CONSTRAINT: Fill the grid comfortably, leaving slight padding for aesthetics.\n- LARGE (10x10 ft): Entity is Large. CONSTRAINT: FILL the grid significantly. Push towards the edges.\n- HUGE/GARGANTUAN/COLOSSAL: Massive entity. CONSTRAINT: FILL THE GRID COMPLETELY. Minimal to NO padding.\n\nUse these constraints to frame your blueprint generation.",
+    "embedding": null
   }
 ]

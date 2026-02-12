@@ -1503,6 +1503,32 @@ export interface ApiRuleSetRuleSet extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiSizeSize extends Struct.CollectionTypeSchema {
+  collectionName: 'sizes';
+  info: {
+    description: 'Entity size definitions and generation rules';
+    displayName: 'Size';
+    pluralName: 'sizes';
+    singularName: 'size';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    instruction: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::size.size'> & Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSpellSpell extends Struct.CollectionTypeSchema {
   collectionName: 'spells';
   info: {
@@ -2472,6 +2498,7 @@ declare module '@strapi/strapi' {
       'api::race.race': ApiRaceRace;
       'api::room.room': ApiRoomRoom;
       'api::rule-set.rule-set': ApiRuleSetRuleSet;
+      'api::size.size': ApiSizeSize;
       'api::spell.spell': ApiSpellSpell;
       'api::status-effect.status-effect': ApiStatusEffectStatusEffect;
       'api::subclass.subclass': ApiSubclassSubclass;

@@ -1,6 +1,6 @@
 import { BaseLoader } from './base-loader';
 import { Core } from '@strapi/strapi';
- 
+
 import {
   ApiDamageTypeDamageType,
   ApiMagicSchoolMagicSchool,

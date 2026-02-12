@@ -545,10 +545,12 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                   style={{
                     backgroundColor:
                       pixelColor === 'transparent'
-                            ? (x + y) % 2 === 0
-                              ? '#ccc'
-                              : '#fff'
-                            : pixelColor === ('#' + '000000') ? '#1a1a1a' : pixelColor,
+                        ? (x + y) % 2 === 0
+                          ? '#ccc'
+                          : '#fff'
+                        : pixelColor === '#' + '000000'
+                          ? '#1a1a1a'
+                          : pixelColor,
                   }}
                 />
               ))

@@ -1,4 +1,3 @@
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import geminiServiceFactory from '@/plugins/map-explorer/server/src/services/gemini-service';
 import { GeminiService } from '@daicer/llm-core';
@@ -45,14 +44,14 @@ describe('Map Explorer - Gemini Service', () => {
     geminiServiceFactory({ strapi: mockStrapi });
 
     expect(GeminiService).toHaveBeenCalledTimes(1);
-    
+
     const callArgs = (GeminiService as any).mock.calls[0][0];
-    
+
     // Check Adapter
     expect(callArgs.adapter).toBeDefined();
     expect(callArgs.adapter.log).toBe(mockStrapi.log);
     expect(callArgs.adapter.db).toBe(mockStrapi.db);
-    
+
     // Check Config
     expect(callArgs.config).toBeDefined();
     expect(callArgs.config.contentTypes).toEqual(['api::test.test']);

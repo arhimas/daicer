@@ -13,7 +13,6 @@ import type {
   ApiFeatureFeature,
 } from '@types/generated/contentTypes';
 
-
 /**
  * Registry of all supported content types for strict typing
  */

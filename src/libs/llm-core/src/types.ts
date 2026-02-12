@@ -22,6 +22,7 @@ export interface LLMCoreConfig {
     zone: string;
     entity: string;
     item: string;
+    blueprint?: string;
     // Add others if needed
   };
 }

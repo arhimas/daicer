@@ -7,6 +7,7 @@ export default {
       zone: 'api::entity-zone.entity-zone',
       entity: 'api::entity.entity',
       item: 'api::item.item',
+      blueprint: 'api::blueprint.blueprint',
     },
   },
   validator() {},

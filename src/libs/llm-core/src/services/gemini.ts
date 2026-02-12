@@ -276,11 +276,17 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
       // Title Cleaning (User Request: "Clean Name")
       // e.g. "Humanoid_Large_axe" -> "Large Axe Fighter"
       // e.g. "[Weapon] - Great Sword" -> "Great Sword"
-      const rawName = genConfig.prompt
+      // Title Cleaning (User Request: "Clean Name")
+      // e.g. "Humanoid_Large_axe" -> "Large Axe Fighter"
+      // e.g. "[Weapon] - Great Sword" -> "Great Sword"
+      const cleanedName = genConfig.prompt
         .replace(/^\[.*?\]\s*-\s*/, '') // Remove [Category] - Prefix
         .replace(/_/g, ' ')
         .trim();
 
+      // ---------------------------------------------------------
+      // 0. PREPARATION
+      // ---------------------------------------------------------
       const archetypeMap: Record<string, string> = {
         Humanoid: 'Creature',
         Monster: 'Creature',
@@ -294,6 +300,38 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
 
       const targetCategory = archetypeMap[genConfig.archetype] || genConfig.type || 'Creature';
 
+      // ---------------------------------------------------------
+      // 1. DYNAMIC BLUEPRINT LIST (Source of Truth: api::blueprint)
+      // ---------------------------------------------------------
+      const blueprintUid = config.contentTypes.blueprint;
+      let genericBlueprintsList: string[] = ['humanoid', 'sword', 'shield'];
+
+      if (blueprintUid) {
+        try {
+          const dbBlueprints = await adapter.db.query(blueprintUid).findMany({
+            select: ['name'],
+            limit: 100,
+          });
+          if (dbBlueprints && dbBlueprints.length > 0) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            genericBlueprintsList = dbBlueprints.map((b: any) => b.name);
+          }
+        } catch (e) {
+          adapter.log.warn('Failed to fetch Blueprints for generic list', e);
+        }
+      }
+
+      const rawName = `
+      USER REQUEST: "${cleanedName}"
+      
+      MANDATE: You must generalize this request. 
+      The blueprint MUST be one of the following generic types found in our Database:
+      [${genericBlueprintsList.join(', ')}].
+
+      1. Identify the closest match from the list. 
+      2. Generate the blueprint for that GENERIC type (e.g. if 'Human Fighter', generate 'humanoid').
+      `;
+
       // Sanitization: Remove bulk data (grids/pixels) to prevent context poisoning
       let contextData = '';
       if (genConfig.entityData) {
@@ -304,38 +342,52 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
 
       try {
         const model = await service.getModel(modelId);
-        const uid = getContentTypeUid('zone');
-        let zones = [];
-        if (uid) {
-          // Filter Zones by Category to reduce noise
-          zones = await adapter.db.query(uid).findMany({
-            where: {
-              category: targetCategory,
-            },
-          });
+
+        // ---------------------------------------------------------
+        // 2. DYNAMIC ZONE CONFIGURATION (Source of Truth: api::entity-zone)
+        // ---------------------------------------------------------
+        const zoneUid = config.contentTypes.zone;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let validZones: any[] = [];
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const zoneColors: Record<string, string> = {}; // Kept for reference if needed, but we rely on validZones now
+
+        try {
+          if (zoneUid) {
+            validZones = await adapter.db.query(zoneUid).findMany({
+              select: ['id', 'slug', 'color', 'symbol', 'description', 'category', 'name'],
+              limit: 100,
+            });
+
+            if (validZones.length === 0) {
+              adapter.log.error('CRITICAL: No Entity Zones found in DB. Please run seed.');
+            }
+          }
+        } catch (e) {
+          adapter.log.error('Failed to fetch Entity Zones from DB', e);
         }
 
+        // Build Legend from Valid Zones
         let zoneInstruction = 'STRICT LEGEND (Symbol -> Meaning):\n- . : Empty Space\n';
         const allowedChars = ['.'];
-
         const charToZone: Record<string, string> = { '.': 'none' };
         const zoneToColor: Record<string, string> = { none: 'transparent' };
 
-        const fallbackMap: Record<string, string> = {
-          core: '#',
-          head: 'O',
-          weapon: 'X',
-          hand_l: 'l',
-          hand_r: 'r',
-          legs: 'L',
-          accessory: '+',
-        };
-
-        if (zones && zones.length > 0) {
+        // Add # (Solid) as default fallback just in case, but rely on DB zones primarily
+        if (validZones.length === 0) {
+          zoneInstruction += `- # : Solid Form\n`;
+          allowedChars.push('#');
+          charToZone['#'] = 'core';
+          zoneToColor['core'] = '#FFFFFF';
+        } else {
+          // Filter zones roughly by category
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          zones.forEach((z: any) => {
-            const symbol = z.symbol || fallbackMap[z.slug] || z.slug[0].toUpperCase();
+          const relevantZones = validZones.filter((z: any) => z.category === targetCategory || z.slug === 'custom');
+          const zonesToUse = relevantZones.length > 0 ? relevantZones : validZones;
 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          zonesToUse.forEach((z: any) => {
+            const symbol = z.symbol || '#';
             if (!allowedChars.includes(symbol)) {
               allowedChars.push(symbol);
               zoneInstruction += `- ${symbol} : ${z.name}\n`;
@@ -343,12 +395,49 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
               zoneToColor[z.slug] = z.color;
             }
           });
-        } else {
-          // Fallback if no specific zones found (e.g. during bootstrap)
-          zoneInstruction += `- # : Solid Form\n`;
-          allowedChars.push('#');
-          charToZone['#'] = 'core';
-          zoneToColor['core'] = '#FFFFFF';
+        }
+
+        // ---------------------------------------------------------
+        // 3. DYNAMIC SIZE RULES (Source of Truth: api::size.size)
+        // ---------------------------------------------------------
+        let sizeInstruction = '';
+        try {
+          const sizeUid = 'api::size.size'; // Or config.contentTypes.size if available
+          const targetSize = (genConfig.size || 'Medium').toLowerCase();
+
+          // Find specific size rule
+          const sizeEntity = await adapter.db.query(sizeUid).findOne({
+            where: { slug: targetSize },
+            select: ['instruction', 'name'],
+          });
+
+          if (sizeEntity && sizeEntity.instruction) {
+            sizeInstruction = `
+          ${sizeEntity.instruction}
+
+          TARGET SIZE: ${sizeEntity.name.toUpperCase()} (Confirmed from DB)
+          `;
+          } else {
+            // Fallback or warning?
+            // If the specific size isn't found, we might want to fetch 'Medium' as default?
+            // Or just warn.
+            adapter.log.warn(`Size definition for '${targetSize}' not found in DB.`);
+
+            // Attempt to fetch 'medium' as fallback if target wasn't found
+            const defaultSize = await adapter.db.query(sizeUid).findOne({
+              where: { slug: 'medium' },
+              select: ['instruction'],
+            });
+            if (defaultSize) {
+              sizeInstruction = `
+                ${defaultSize.instruction}
+                
+                NOTE: Requested size '${targetSize}' not found. Applied 'Medium' rules as fallback.
+                `;
+            }
+          }
+        } catch (e) {
+          adapter.log.warn('Failed to fetch Size Definition from DB', e);
         }
 
         // Strict Validation via PromptSchemas
@@ -357,7 +446,7 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
           archetype: genConfig.archetype || 'entity',
           width,
           height,
-          contextData: `${contextData}\n\n${zoneInstruction}\nCRITICAL: You must ONLY use the symbols listed in the Legend above.`,
+          contextData: `${contextData}\n\n${zoneInstruction}\n${sizeInstruction}\nCRITICAL: You must ONLY use the symbols listed in the Legend above.`,
         });
 
         const BlueprintSchema = z.object({
@@ -385,7 +474,7 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
             if (slug) {
               color = zoneToColor[slug] || 'transparent';
             } else {
-              const z = zones.find((z: { symbol: string }) => z.symbol === char);
+              const z = validZones.find((z: { symbol: string }) => z.symbol === char);
               if (z) {
                 slug = z.slug;
                 color = z.color;
@@ -504,9 +593,14 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
       return generated.map((row) => row.map((color) => color || 'transparent'));
     },
 
-    blueprintToPixels(blueprint: ZoneType[][], customMap?: Record<string, string>): string[][] {
+    blueprintToPixels(
+      blueprint: ZoneType[][],
+      customMap?: Record<string, string>,
+      injectedZones?: Record<string, string>
+    ): string[][] {
       if (!blueprint) return [];
 
+      // Combine defaults with optional injected zones (from DB) and custom map
       const ZONE_COLORS: Record<string, string> = {
         core: '#FFFFFF',
         head: '#FFFF00',
@@ -518,6 +612,7 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
         none: 'transparent',
         '.': 'transparent',
         '#': '#FFFFFF',
+        ...(injectedZones || {}),
         ...(customMap || {}),
       };
 

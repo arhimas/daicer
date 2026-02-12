@@ -42,21 +42,21 @@ export interface PixelLayer {
 }
 
 export const COLORS = {
-    SKIN: {
-        LIGHT: '#f5d0bd',
-        MEDIUM: '#dcb097',
-        DARK: '#8d5524',
-        ORC: '#6c8a5a',
-        DRAGON: '#a33e3e',
-    },
-    METAL: {
-        SILVER: '#c0c0c0',
-        GOLD: '#ffd700',
-        IRON: '#696969',
-    },
-    CLOTH: {
-        BROWN: '#8b4513',
-        RED: '#a52a2a',
-        BLUE: '#4682b4',
-    }
+  SKIN: {
+    LIGHT: '#f5d0bd',
+    MEDIUM: '#dcb097',
+    DARK: '#8d5524',
+    ORC: '#6c8a5a',
+    DRAGON: '#a33e3e',
+  },
+  METAL: {
+    SILVER: '#c0c0c0',
+    GOLD: '#ffd700',
+    IRON: '#696969',
+  },
+  CLOTH: {
+    BROWN: '#8b4513',
+    RED: '#a52a2a',
+    BLUE: '#4682b4',
+  },
 };
