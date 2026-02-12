@@ -40,10 +40,8 @@ export interface DashboardContext extends Context {
   };
 }
 
-const getQueueService = () => strapi.plugin('bullmq').service('queue');
-
-const getQueues = (): Queue[] => {
-  const service = getQueueService();
+const getQueues = (strapi: any): Queue[] => {
+  const service = strapi.plugin('bullmq').service('queue');
   const queues: Queue[] = [];
   const configuredQueues = (strapi.plugin('queue-dashboard').config('queues') as string[]) || [];
 
@@ -54,7 +52,7 @@ const getQueues = (): Queue[] => {
   return queues;
 };
 
-export default {
+export default ({ strapi }: { strapi: any }) => ({
   /**
    * Retrieves statistics for all registered BullMQ queues.
    * Includes counts, active jobs, and status.
@@ -64,7 +62,7 @@ export default {
    */
   async getStats(ctx: DashboardContext) {
     try {
-      const queues = getQueues();
+      const queues = getQueues(strapi);
 
       if (queues.length === 0) {
         return (ctx.body = { queues: [] });
@@ -114,7 +112,7 @@ export default {
             return {
               name: q.name,
               counts: { active: 0, completed: 0, failed: 0, waiting: 0, delayed: 0 },
-              isPaused: true,
+              isPaused: true, // Assume paused if error or unavailable
               jobs: { active: [], waiting: [], failed: [], completed: [], delayed: [] }, // Fallback
               error: 'Failed to query queue',
             };
@@ -137,7 +135,7 @@ export default {
   async pause(ctx: DashboardContext) {
     const { queueName } = ctx.params;
     try {
-      const queues = getQueues();
+      const queues = getQueues(strapi);
       const queue = queues.find((q) => q.name === queueName);
 
       if (!queue) {
@@ -159,7 +157,7 @@ export default {
   async resume(ctx: DashboardContext) {
     const { queueName } = ctx.params;
     try {
-      const queues = getQueues();
+      const queues = getQueues(strapi);
       const queue = queues.find((q) => q.name === queueName);
 
       if (!queue) {
@@ -183,7 +181,7 @@ export default {
     const type = (ctx.query.type as string) || 'failed';
 
     try {
-      const queues = getQueues();
+      const queues = getQueues(strapi);
       const queue = queues.find((q) => q.name === queueName);
 
       if (!queue) {
@@ -202,7 +200,7 @@ export default {
   async retry(ctx: DashboardContext) {
     const { queueName } = ctx.params;
     try {
-      const queues = getQueues();
+      const queues = getQueues(strapi);
       const queue = queues.find((q) => q.name === queueName);
 
       if (!queue) {
@@ -218,4 +216,4 @@ export default {
       ctx.badRequest(message);
     }
   },
-};
+});

@@ -1,67 +1,92 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import worldGenerationFactory from '../world-generation';
 
-// Mock utils
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import service from '../world-generation';
+
+// Mock LLM Utils
 vi.mock('@/utils/llm/structured', () => ({
-  generateStructured: vi.fn(),
+    generateStructured: vi.fn(),
 }));
-import { generateStructured } from '@/utils/llm/structured';
 
 vi.mock('@/utils/prompt', () => ({
-  getPrompt: vi.fn(),
-  formatPrompt: vi.fn((t) => t),
+    getPrompt: vi.fn((key, lang, def) => Promise.resolve(def)),
+    formatPrompt: vi.fn((p) => p),
 }));
-import { getPrompt } from '@/utils/prompt';
 
-describe('WorldGenerationService', () => {
-    let service: any;
-    let mockStrapi: any;
+import { generateStructured } from '@/utils/llm/structured';
+
+describe('WorldGeneration Service', () => {
+    let strapi: any;
+    let worldGenService: any;
 
     beforeEach(() => {
-        vi.clearAllMocks();
-        mockStrapi = {
-            log: { info: vi.fn() },
+        strapi = {
+            log: { info: vi.fn(), error: vi.fn() },
         };
-        service = worldGenerationFactory({ strapi: mockStrapi });
+        (generateStructured as any).mockReset();
+        worldGenService = service({ strapi });
     });
 
-    describe('generateWorld', () => {
-        it('should generate world description', async () => {
-             const settings = {
-                 playerCount: 4,
-                 adventureLength: 'Short',
-                 difficulty: 'Medium',
-                 theme: 'Dark Fantasy',
-                 setting: 'Urban',
-                 tone: 'Gritty',
-             };
+    it('should generate structured world description', async () => {
+        const mockData = {
+            title: 'Kingdom of Tests',
+            description: 'A land of high coverage.',
+            atmosphere: 'Tense and verified.',
+            keyLocations: [{ name: 'Test Valley', description: 'A quiet place.' }],
+            threats: ['Regressions', 'Lint Errors'],
+            hooks: ['Find the missing semi-colon.']
+        };
 
-             (getPrompt as any).mockResolvedValue('System Prompt');
-             
-             (generateStructured as any).mockResolvedValue({
-                 title: 'The Dark City',
-                 description: 'A gloomy place.',
-                 atmosphere: 'Foggy and damp.',
-                 keyLocations: [{ name: 'Tavern', description: 'Old' }],
-                 threats: ['Rats'],
-                 hooks: ['Find the cat'],
-             });
+        (generateStructured as any).mockResolvedValue(mockData);
 
-             const result = await service.generateWorld(settings);
+        const settings = {
+            playerCount: 4,
+            adventureLength: 'Short',
+            difficulty: 'Normal',
+            theme: 'Fantasy',
+            setting: 'Medieval',
+            tone: 'Dark'
+        };
 
-             expect(result).toContain('# The Dark City');
-             expect(result).toContain('A gloomy place.');
-             expect(result).toContain('**Tavern**: Old');
-             expect(result).toContain('- Rats');
-             expect(generateStructured).toHaveBeenCalledWith(
-                 expect.anything(), // Schema
-                 'System Prompt',
-                 expect.stringContaining('Generate a campaign world'),
-                 'en',
-                 expect.objectContaining({
-                     tags: expect.arrayContaining(['world-generation'])
-                 })
-             );
-        });
+        const result = await worldGenService.generateWorld(settings, 'en');
+
+        expect(generateStructured).toHaveBeenCalled();
+        expect(result).toContain('# Kingdom of Tests');
+        expect(result).toContain('A land of high coverage.');
+        expect(result).toContain('**Test Valley**: A quiet place.');
+    });
+
+    it('should handle optional dm style', async () => {
+         const mockData = {
+            title: 'Style World',
+            description: 'Stylish.',
+            atmosphere: 'Cool.',
+            keyLocations: [],
+            threats: [],
+            hooks: []
+        };
+        (generateStructured as any).mockResolvedValue(mockData);
+
+        const settings = {
+            playerCount: 1,
+            adventureLength: 'One Shot',
+            difficulty: 'Easy',
+            theme: 'SciFi',
+            setting: 'Space',
+            tone: 'Fun',
+            dmStyle: { verbosity: 5, detail: 5, engagement: 5, narrative: 5 }
+        };
+
+        await worldGenService.generateWorld(settings);
+        
+        // We verify that it runs without error even with complex settings object
+        expect(generateStructured).toHaveBeenCalledWith(
+            expect.anything(), 
+            expect.anything(), 
+            expect.anything(), 
+            expect.anything(), 
+            expect.objectContaining({
+                metadata: expect.objectContaining({ settings })
+            })
+        );
     });
 });

@@ -1,149 +1,191 @@
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import queueServiceFactory from '../queue-service';
+import service from '../queue-service';
 
-// Hoisted mocks to ensure they are available for the factory
-const mocks = vi.hoisted(() => ({
-    queue: {
-        add: vi.fn(),
-        getJobCounts: vi.fn(),
-        getJob: vi.fn(),
-        getJobs: vi.fn(),
-    },
-    worker: {
-        on: vi.fn(),
-        close: vi.fn(),
-    }
-}));
+// Hoist mocks
+const { MockQueue, MockWorker, mockQueueInstance, mockWorkerInstance, queueSpy, workerSpy } = vi.hoisted(() => {
+  const qInstance = {
+    add: vi.fn(),
+    getJob: vi.fn(),
+    getJobCounts: vi.fn(),
+    getJobs: vi.fn(),
+  };
+  const wInstance = {
+    on: vi.fn(),
+    close: vi.fn(),
+  };
 
-vi.mock('bullmq', () => {
-    return {
-        Queue: class {
-            constructor() {
-                return mocks.queue;
-            }
-        },
-        Worker: class {
-            constructor() {
-                return mocks.worker;
-            }
-        }
-    };
+  const queueSpy = vi.fn();
+  const workerSpy = vi.fn();
+
+  const MockQueue = class {
+      constructor(...args: any[]) { queueSpy(...args); return qInstance; }
+  };
+  const MockWorker = class {
+      constructor(...args: any[]) { workerSpy(...args); return wInstance; }
+  };
+
+  return {
+    MockQueue,
+    MockWorker,
+    mockQueueInstance: qInstance,
+    mockWorkerInstance: wInstance,
+    queueSpy,
+    workerSpy
+  };
 });
 
-// Mock Entity Geometry
-vi.mock('../utils/entity-geometry', () => ({
-    getPixelDimensions: vi.fn(() => 32),
+vi.mock('bullmq', () => ({
+  Queue: MockQueue,
+  Worker: MockWorker,
+}));
+
+// Mock utils - Fix path to ../../utils/entity-geometry
+vi.mock('../../utils/entity-geometry', () => ({
+    getPixelDimensions: vi.fn().mockReturnValue(64)
 }));
 
 describe('QueueService', () => {
-    let service: any;
-    let mockStrapi: any;
+  let strapi: any;
+  let queueService: any;
 
-    beforeEach(() => {
-        vi.clearAllMocks();
-        mockStrapi = {
-            config: {
-                get: vi.fn((path) => {
-                    if (path === 'plugin::map-explorer.redis') return { host: 'localhost' };
-                    if (path === 'plugin::map-explorer.queue') return { retentionSuccess: 50 };
-                    return null;
-                })
-            },
-            log: {
-                info: vi.fn(),
-                error: vi.fn(),
-            },
-            plugin: vi.fn().mockReturnValue({
-                service: vi.fn().mockReturnValue({
-                    generatePixelData: vi.fn(),
-                    generateVoxelStructure: vi.fn(),
-                    generateBlueprint: vi.fn(),
-                })
-            })
-        };
-        service = queueServiceFactory({ strapi: mockStrapi });
+  beforeEach(() => {
+    strapi = {
+      config: {
+        get: vi.fn((key) => {
+          if (key === 'plugin::map-explorer.redis') return { host: 'localhost' };
+          if (key === 'plugin::map-explorer.queue') return {};
+          return null;
+        }),
+      },
+      log: { info: vi.fn(), error: vi.fn() },
+      plugin: vi.fn().mockReturnValue({
+        service: vi.fn().mockReturnValue({
+            generatePixelData: vi.fn(),
+            generateVoxelStructure: vi.fn(),
+            generateBlueprint: vi.fn()
+        })
+      })
+    };
+    
+    // Reset mocks
+    mockQueueInstance.add.mockClear();
+    mockQueueInstance.getJob.mockClear();
+    mockQueueInstance.getJobCounts.mockClear();
+    mockQueueInstance.getJobs.mockClear();
+    queueSpy.mockClear();
+    workerSpy.mockClear();
+    
+    queueService = service({ strapi });
+  });
+
+  describe('initialize', () => {
+    it('should initialize queues and workers if redis config exists', async () => {
+      await queueService.initialize();
+      expect(strapi.config.get).toHaveBeenCalledWith('plugin::map-explorer.redis');
+      expect(queueSpy).toHaveBeenCalledTimes(2);
+      expect(workerSpy).toHaveBeenCalledTimes(2);
     });
 
-    describe('initialize', () => {
-        it('should create queues and workers', async () => {
-             await service.initialize();
-             expect(mockStrapi.config.get).toHaveBeenCalledWith('plugin::map-explorer.redis');
-             expect(mockStrapi.log.info).toHaveBeenCalledWith(expect.stringContaining('Initialized'));
-        });
+    it('should throw if redis config is missing', async () => {
+      strapi.config.get.mockReturnValue(null);
+      await expect(queueService.initialize()).rejects.toThrow('Pixel Forge Queue: Redis configuration is MANDATORY');
+    });
+  });
 
-        it('should throw if redis config missing', async () => {
-             mockStrapi.config.get.mockReturnValue(null);
-             await expect(service.initialize()).rejects.toThrow('Redis configuration is MANDATORY');
-        });
+  describe('addJob', () => {
+    beforeEach(async () => {
+        await queueService.initialize();
     });
 
-    describe('Job Management', () => {
-        beforeEach(async () => {
-             await service.initialize();
-             mocks.queue.add.mockResolvedValue({ id: '1' });
-        });
+    it('should add pixel job with dimensions', async () => {
+      const data = { size: 'medium' }; 
+      mockQueueInstance.add.mockResolvedValue({ id: 'job-1' });
 
-        it('should add pixel job', async () => {
-             await service.addPixelJob({ size: 'Medium' });
-             expect(mocks.queue.add).toHaveBeenCalledWith(
-                 'generate-sprite',
-                 expect.objectContaining({ width: 32, height: 32 }),
-                 expect.anything()
-             );
-        });
+      await queueService.addPixelJob(data);
 
-        it('should add blueprint job', async () => {
-            await service.addBlueprintJob({ size: 'Medium' });
-             expect(mocks.queue.add).toHaveBeenCalledWith(
-                 'generate-blueprint',
-                 expect.objectContaining({ width: 32 }),
-                 expect.anything()
-             );
-        });
-
-        it('should route legacy addJob to blueprint', async () => {
-             await service.addJob({ type: 'Blueprint', size: 'Medium' });
-             expect(mocks.queue.add).toHaveBeenCalledWith('generate-blueprint', expect.anything(), expect.anything());
-        });
-
-        it('should route legacy addJob to pixel', async () => {
-             await service.addJob({ type: 'Entity', size: 'Medium' });
-             expect(mocks.queue.add).toHaveBeenCalledWith('generate-sprite', expect.anything(), expect.anything());
-        });
+      expect(mockQueueInstance.add).toHaveBeenCalledWith(
+          'generate-sprite', 
+          expect.objectContaining({ 
+              size: 'medium',
+              width: 64,
+              height: 64 
+          }), 
+          expect.any(Object)
+      );
     });
 
-    describe('getJob', () => {
-        beforeEach(async () => { await service.initialize(); });
+    it('should add blueprint job', async () => {
+         const data = { type: 'Blueprint' };
+         mockQueueInstance.add.mockResolvedValue({ id: 'job-2' });
 
-        it('should find job in pixel queue', async () => {
-             mocks.queue.getJob.mockResolvedValueOnce({ id: '1', name: 'pixel' });
-             const job = await service.getJob('1');
-             expect(job).toEqual({ id: '1', name: 'pixel' });
-        });
+         await queueService.addBlueprintJob(data);
 
-        it('should fallback to blueprint queue', async () => {
-             mocks.queue.getJob
-                .mockResolvedValueOnce(null) // Pixel miss
-                .mockResolvedValueOnce({ id: '1', name: 'blueprint' }); // Blueprint hit
-             
-             const job = await service.getJob('1');
-             expect(job).toEqual({ id: '1', name: 'blueprint' });
-        });
+         expect(mockQueueInstance.add).toHaveBeenCalledWith(
+             'generate-blueprint',
+             expect.objectContaining({ type: 'Blueprint' }),
+             expect.any(Object)
+         );
     });
 
-    describe('getQueueSummary', () => {
-        beforeEach(async () => { await service.initialize(); });
-
-        it('should aggregate counts', async () => {
-             mocks.queue.getJobCounts.mockResolvedValue({ active: 1, completed: 2, failed: 0, waiting: 0 });
-             mocks.queue.getJobs.mockResolvedValue([]);
-
-             const summary = await service.getQueueSummary();
-             
-             // Queues are merged (pixel + blueprint)
-             // Pixel returns 1 active, Blueprint returns 1 active (mock returns same obj)
-             expect(summary.counts.total.active).toBe(2); 
-             expect(summary.counts.total.completed).toBe(4);
-        });
+    it('should route generic addJob to blueprint', async () => {
+        const spy = vi.spyOn(queueService, 'addBlueprintJob');
+        await queueService.addJob({ type: 'Blueprint' });
+        expect(spy).toHaveBeenCalled();
     });
+
+    it('should route generic addJob to pixel', async () => {
+        const spy = vi.spyOn(queueService, 'addPixelJob');
+        await queueService.addJob({ type: 'Sprite' });
+        expect(spy).toHaveBeenCalled();
+    });
+
+     it('should throw if queues not initialized', async () => {
+        // Reset service to uninitialized state
+        queueService = service({ strapi });
+        await expect(queueService.addPixelJob({})).rejects.toThrow('Pixel Queue not initialized');
+        await expect(queueService.addBlueprintJob({})).rejects.toThrow('Blueprint Queue not initialized');
+    });
+  });
+  
+  describe('getQueueSummary', () => {
+      beforeEach(async () => {
+          await queueService.initialize();
+      });
+
+      it('should return aggregated summary', async () => {
+          mockQueueInstance.getJobCounts.mockResolvedValue({ active: 1, completed: 1, failed: 0, waiting: 0 });
+          mockQueueInstance.getJobs.mockResolvedValue([{ id: '1', queueName: 'pixel', data: {}, returnvalue: {} }]);
+
+          const summary = await queueService.getQueueSummary();
+
+          expect(summary).toHaveProperty('counts');
+          expect(summary.counts.total.active).toBe(2); // 1 pixel + 1 blueprint
+          expect(summary.jobs.completed).toHaveLength(2); // 1 pixel + 1 blueprint
+      });
+
+      it('should return error if not initialized', async () => {
+          queueService = service({ strapi });
+          const summary = await queueService.getQueueSummary();
+          expect(summary).toHaveProperty('error');
+      });
+  });
+
+  describe('getJob', () => {
+      beforeEach(async () => {
+          await queueService.initialize();
+      });
+
+      it('should find job in pixel queue', async () => {
+          mockQueueInstance.getJob.mockResolvedValueOnce({ id: '1' });
+          const job = await queueService.getJob('1');
+          expect(job).toEqual({ id: '1' });
+      });
+
+       it('should check blueprint queue if not in pixel', async () => {
+          mockQueueInstance.getJob.mockResolvedValueOnce(null).mockResolvedValueOnce({ id: '2' });
+          const job = await queueService.getJob('2');
+          expect(job).toEqual({ id: '2' });
+      });
+  });
 });

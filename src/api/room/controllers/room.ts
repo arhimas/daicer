@@ -58,15 +58,15 @@ export default factories.createCoreController('api::room.room', ({ strapi }) => 
       },
     };
 
-    // 1. Create with temp code
-    // Strapi generated types are apparently missing key fields (code, players) in Input, failing typecheck.
-    // We use 'as any' here at the boundary to pass the correctly-shaped object.
-    const newRoom = await strapi.entityService.create('api::room.room', {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data: baseData as any,
-    });
-
     try {
+      // 1. Create with temp code
+      // Strapi generated types are apparently missing key fields (code, players) in Input, failing typecheck.
+      // We use 'as any' here at the boundary to pass the correctly-shaped object.
+      const newRoom = await strapi.entityService.create('api::room.room', {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: baseData as any,
+      });
+
       // 2. Derive real code from ID
       const seed = newRoom.id;
       let codeStr: string;

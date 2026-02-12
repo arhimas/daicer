@@ -1,116 +1,120 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import mapServiceFactory from '@/plugins/map-explorer/server/src/services/map-service';
+import service from '../map-service';
 
-describe('Map Explorer - Map Service', () => {
-  let mockStrapi: any;
-  let mockQueryHelpers: any;
-  let mockDocumentsHelpers: any;
+describe('MapService', () => {
+    let strapi: any;
+    let mapService: any;
+    let mockQuery: any;
+    let mockDocuments: any;
 
-  beforeEach(() => {
-    vi.clearAllMocks();
+    beforeEach(() => {
+        mockQuery = {
+            findOne: vi.fn(),
+        };
+        mockDocuments = {
+            create: vi.fn(),
+            update: vi.fn(),
+            findMany: vi.fn(),
+        };
 
-    mockQueryHelpers = {
-      findOne: vi.fn(),
-    };
+        strapi = {
+            plugin: vi.fn().mockReturnValue({
+                config: vi.fn().mockImplementation((key) => {
+                   if (key === 'contentTypes') {
+                       return { 
+                           world: 'api::world.world',
+                           construction: 'api::construction.construction'
+                       };
+                   }
+                   return {};
+                }),
+            }),
+            db: {
+                query: vi.fn().mockReturnValue(mockQuery),
+            },
+            documents: vi.fn().mockReturnValue(mockDocuments),
+        };
 
-    mockDocumentsHelpers = {
-      findMany: vi.fn(),
-      create: vi.fn(),
-      update: vi.fn(),
-    };
-
-    const mockPlugin = {
-      config: vi.fn((key) => {
-        if (key === 'contentTypes') {
-          return {
-            world: 'api::world.world',
-            construction: 'api::construction.construction',
-          };
-        }
-        return {};
-      }),
-    };
-
-    mockStrapi = {
-      log: { info: vi.fn(), error: vi.fn() },
-      plugin: vi.fn(() => mockPlugin),
-      db: {
-        query: vi.fn(() => mockQueryHelpers),
-      },
-      documents: vi.fn(() => mockDocumentsHelpers),
-    };
-  });
-
-  it('getWorldConfig should return defaults if no world exists', async () => {
-    mockQueryHelpers.findOne.mockResolvedValue(null);
-    const service = mapServiceFactory({ strapi: mockStrapi });
-
-    const config = await service.getWorldConfig();
-
-    expect(mockStrapi.db.query).toHaveBeenCalledWith('api::world.world');
-    expect(config).toEqual(
-      expect.objectContaining({
-        seed: 'daicer',
-        chunkSize: 16,
-      })
-    );
-  });
-
-  it('getWorldConfig should return existing world config', async () => {
-    const mockWorld = { seed: 'custom', chunkSize: 32 };
-    mockQueryHelpers.findOne.mockResolvedValue(mockWorld);
-    const service = mapServiceFactory({ strapi: mockStrapi });
-
-    const config = await service.getWorldConfig();
-
-    expect(config).toEqual(mockWorld);
-  });
-
-  it('updateWorldConfig should update if world exists', async () => {
-    const mockWorld = { documentId: 'doc-1' };
-    mockQueryHelpers.findOne.mockResolvedValue(mockWorld);
-    mockDocumentsHelpers.update.mockResolvedValue({ id: 1, ...mockWorld });
-
-    const service = mapServiceFactory({ strapi: mockStrapi });
-    await service.updateWorldConfig({ seed: 'new' });
-
-    expect(mockStrapi.documents).toHaveBeenCalledWith('api::world.world');
-    expect(mockDocumentsHelpers.update).toHaveBeenCalledWith({
-      documentId: 'doc-1',
-      data: { seed: 'new' },
+        mapService = service({ strapi });
     });
-  });
 
-  it('updateWorldConfig should create if world does not exist', async () => {
-    mockQueryHelpers.findOne.mockResolvedValue(null);
-    mockDocumentsHelpers.create.mockResolvedValue({ id: 1, seed: 'new' });
+    describe('getWorldConfig', () => {
+        it('should return existing world config', async () => {
+            const mockWorld = { documentId: 'doc-1', seed: 'test-seed' };
+            mockQuery.findOne.mockResolvedValue(mockWorld);
 
-    const service = mapServiceFactory({ strapi: mockStrapi });
-    await service.updateWorldConfig({ seed: 'new' });
+            const result = await mapService.getWorldConfig();
+            
+            expect(strapi.db.query).toHaveBeenCalledWith('api::world.world');
+            expect(result).toEqual(mockWorld);
+        });
 
-    expect(mockDocumentsHelpers.create).toHaveBeenCalledWith({
-      data: { seed: 'new' },
+        it('should return default config if no world exists', async () => {
+            mockQuery.findOne.mockResolvedValue(null);
+
+            const result = await mapService.getWorldConfig();
+            
+            expect(result).toEqual({
+                seed: 'daicer',
+                chunkSize: 16,
+                seaLevel: 0,
+                structureChance: 0.1,
+                roadDensity: 0.1,
+            });
+        });
     });
-  });
 
-  it('getConstructions should return list', async () => {
-    const mockList = [{ id: 1 }];
-    mockDocumentsHelpers.findMany.mockResolvedValue(mockList);
+    describe('updateWorldConfig', () => {
+        it('should update existing world', async () => {
+            const mockWorld = { documentId: 'doc-1' };
+            mockQuery.findOne.mockResolvedValue(mockWorld);
+            const updateData = { seed: 'new-seed' };
+            
+            mockDocuments.update.mockResolvedValue({ ...mockWorld, ...updateData });
 
-    const service = mapServiceFactory({ strapi: mockStrapi });
-    const list = await service.getConstructions();
+            await mapService.updateWorldConfig(updateData);
 
-    expect(mockStrapi.documents).toHaveBeenCalledWith('api::construction.construction');
-    expect(list).toEqual(mockList);
-  });
+            expect(mockDocuments.update).toHaveBeenCalledWith({
+                documentId: 'doc-1',
+                data: updateData
+            });
+        });
 
-  it('saveConstruction should create new record', async () => {
-    const data = { name: 'Tower' };
-    mockDocumentsHelpers.create.mockResolvedValue({ id: 1, ...data });
+        it('should create new world if none exists', async () => {
+            mockQuery.findOne.mockResolvedValue(null);
+            const createData = { seed: 'new-seed' };
+            
+            mockDocuments.create.mockResolvedValue({ documentId: 'new-doc', ...createData });
 
-    const service = mapServiceFactory({ strapi: mockStrapi });
-    await service.saveConstruction(data);
+            await mapService.updateWorldConfig(createData);
 
-    expect(mockDocumentsHelpers.create).toHaveBeenCalledWith({ data });
-  });
+            expect(mockDocuments.create).toHaveBeenCalledWith({
+                data: createData
+            });
+        });
+    });
+
+    describe('getConstructions', () => {
+        it('should fetch all constructions', async () => {
+            const mockConstructions = [{ id: 1 }, { id: 2 }];
+            mockDocuments.findMany.mockResolvedValue(mockConstructions);
+
+            const result = await mapService.getConstructions();
+
+            expect(strapi.documents).toHaveBeenCalledWith('api::construction.construction');
+            expect(result).toEqual(mockConstructions);
+        });
+    });
+
+    describe('saveConstruction', () => {
+        it('should create a construction', async () => {
+            const data = { name: 'Building' };
+            mockDocuments.create.mockResolvedValue({ id: 1, ...data });
+
+            await mapService.saveConstruction(data);
+
+            expect(strapi.documents).toHaveBeenCalledWith('api::construction.construction');
+            expect(mockDocuments.create).toHaveBeenCalledWith({ data });
+        });
+    });
 });

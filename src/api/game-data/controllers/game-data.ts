@@ -119,11 +119,12 @@ export default () => ({
 
     if (!template) {
       // Generic fallback for unmapped classes
+      const safeArchetype = archetype || 'Unknown';
       template = {
         ...(TEMPLATES.fighter as Record<string, unknown>),
         name: 'Novice Adventurer',
-        characterClass: archetype.charAt(0).toUpperCase() + archetype.slice(1),
-        backstory: `A novice ${archetype} starting their journey to find their destiny.`,
+        characterClass: safeArchetype.charAt(0).toUpperCase() + safeArchetype.slice(1),
+        backstory: `A novice ${safeArchetype} starting their journey to find their destiny.`,
         race: 'Human', // Default
       };
     }
