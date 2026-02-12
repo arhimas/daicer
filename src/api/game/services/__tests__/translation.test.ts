@@ -1,124 +1,164 @@
-/**
- * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
- * Keep documentation synchronized with code at all times.
- */
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import translationServiceFactory from '../translation';
 
-import { describe, it, expect } from 'vitest';
-import translationServiceFactory from '@/api/game/services/translation';
+// Mock Strapi global for contentTypes
+const mockStrapi = {
+    contentTypes: {
+        'api::test.test': {
+            attributes: {
+                title: { type: 'string' },
+                description: { type: 'text' },
+                content: { type: 'richtext' },
+                slug: { type: 'uid' }, // Should be skipped
+                tags: { type: 'json' }, // Should be skipped (default)
+                related: { type: 'relation' }, // Should be skipped
+                meta: { type: 'component', repeat: false, component: 'meta.seo' },
+                sections: { type: 'dynamiczone', components: ['section.hero'] },
+                gallery: { type: 'component', repeatable: true, component: 'media.image' }
+            }
+        },
+        'meta.seo': {
+            attributes: {
+                title: { type: 'string' },
+                keyword: { type: 'string' }
+            }
+        },
+        'section.hero': {
+            attributes: {
+                headline: { type: 'string' }
+            }
+        },
+        'media.image': {
+             attributes: {
+                 alt: { type: 'string' }
+             }
+        }
+    },
+    components: {
+        // Fallback or alias if needed, but service checks contentTypes first or both
+         'meta.seo': { attributes: { title: { type: 'string' } } },
+         'section.hero': { attributes: { headline: { type: 'string' } } },
+         'media.image': { attributes: { alt: { type: 'string' } } }
+    }
+};
 
-// Mock Strapi instance (not used in current implementation but required by signature)
-const mockStrapi = {} as any;
+global.strapi = mockStrapi as any;
 
 describe('TranslationService', () => {
-  const service = translationServiceFactory({ strapi: mockStrapi });
+    let service: any;
 
-  describe('translate', () => {
-    it('should translate known dictionary words correctly', () => {
-      expect(service.translate('Hello', 'es')).toBe('Hola');
-      expect(service.translate('world', 'pt')).toBe('Mundo');
-      expect(service.translate('Attack', 'es')).toBe('Ataque');
+    beforeEach(() => {
+        service = translationServiceFactory({ strapi: mockStrapi as any });
     });
 
-    it('should use fallback prefix for unknown words', () => {
-      expect(service.translate('UnknownTerm', 'es')).toBe('[ES] UnknownTerm');
-      expect(service.translate('Gemma', 'pt')).toBe('[PT] Gemma');
+    describe('translate', () => {
+        it('should translate known words', () => {
+            expect(service.translate('Hello', 'es')).toBe('Hola');
+            expect(service.translate('world', 'pt')).toBe('Mundo');
+        });
+
+        it('should preserve capitalization', () => {
+             expect(service.translate('Hello', 'es')).toBe('Hola');
+             expect(service.translate('hello', 'es')).toBe('Hola'); // Dictionary has it capitalized? No, let's check
+             // Dictionary: hello -> Hola
+             // Code: if (text[0] === text[0].toUpperCase()) -> Capitalize
+             expect(service.translate('Attack', 'pt')).toBe('Ataque'); 
+        });
+
+        it('should fallback key if unknown', () => {
+             expect(service.translate('Unknown', 'es')).toBe('[ES] Unknown');
+        });
+
+        it('should return non-strings as is', () => {
+             expect(service.translate(123 as any, 'es')).toBe(123);
+             expect(service.translate(null as any, 'es')).toBe(null);
+        });
     });
 
-    it('should preserve casing for dictionary matches', () => {
-      expect(service.translate('hello', 'es')).toBe('Hola'); // Dictionary has it capitalized or logic handles it?
-      // Our implementation logic:
-      // if (text[0] === text[0].toUpperCase()) -> Capitalize result
-      // "hello" -> 'h' is lowercase. DICTIONARY has 'hello': { en: 'Hello'... }
-      // Wait, DICTIONARY keys are lowercase 'hello'. Values are 'Hello', 'Hola'.
-      // If input is 'hello', text[0] is 'h'. Not uppercase.
-      // Returns DICTIONARY value directly -> 'Hola'.
+    describe('translateJson', () => {
+        it('should translate object values', () => {
+             const input = { key: 'Hello', sub: { val: 'World' } };
+             const result = service.translateJson(input, 'es');
+             expect(result).toEqual({ key: 'Hola', sub: { val: 'Mundo' } });
+        });
 
-      // If input is 'Hello', text[0] is 'H'. Uppercase.
-      // Returns Capitalized('Hola') -> 'Hola'.
+        it('should translate array', () => {
+             const input = ['Hello', 'World'];
+             const result = service.translateJson(input, 'pt');
+             expect(result).toEqual(['Olá', 'Mundo']);
+        });
 
-      expect(service.translate('Hello', 'es')).toBe('Hola');
+        it('should translate keys if requested', () => {
+             const input = { hello: 'world' };
+             // hello -> Hola (if dict matches key)
+             // The dict has "hello", so key "hello" -> "Hola"??
+             // Dictionary: hello: {es: 'Hola'}
+             const result = service.translateJson(input, 'es', { translateKeys: true });
+             expect(result).toEqual({ Hola: 'Mundo' }); 
+        });
+
+        it('should handle primtives', () => {
+             expect(service.translateJson(123, 'es')).toBe(123);
+             expect(service.translateJson('Hello', 'es')).toBe('Hola');
+        });
     });
 
-    it('should handle empty or non-string inputs gracefully', () => {
-      expect(service.translate('', 'es')).toBe('');
-      // @ts-expect-error - Testing runtime behavior
-      expect(service.translate(123, 'es')).toBe(123);
+    describe('translateEntity', () => {
+        it('should translate based on schema', () => {
+             const entity = {
+                 id: 1,
+                 title: 'Hello',
+                 description: 'World',
+                 slug: 'hello-world', // UID: Skip
+                 tags: { some: 'json' }, // JSON: Skip
+             };
+             const result = service.translateEntity(entity, 'api::test.test', 'es');
+             
+             expect(result).toEqual({
+                 id: 1,
+                 title: 'Hola',
+                 description: 'Mundo',
+                 slug: 'hello-world',
+                 tags: { some: 'json' }
+             });
+        });
+
+        it('should handle components', () => {
+             const entity = {
+                 meta: { title: 'Hello', keyword: 'seo' }
+             };
+             const result = service.translateEntity(entity, 'api::test.test', 'es');
+             expect(result.meta).toEqual({ title: 'Hola', keyword: '[ES] seo' });
+        });
+
+        it('should handle repeatable components', () => {
+             const entity = {
+                 gallery: [{ alt: 'Hello' }, { alt: 'World' }]
+             };
+             const result = service.translateEntity(entity, 'api::test.test', 'es');
+             expect(result.gallery).toHaveLength(2);
+             expect(result.gallery[0].alt).toBe('Hola');
+             expect(result.gallery[1].alt).toBe('Mundo');
+        });
+
+        it('should handle dynamic zones', () => {
+             const entity = {
+                 sections: [
+                     { __component: 'section.hero', headline: 'Hello' },
+                     { __component: 'unknown', text: 'Skip' }
+                 ]
+             };
+             const result = service.translateEntity(entity, 'api::test.test', 'es');
+             expect(result.sections[0].headline).toBe('Hola');
+             expect(result.sections[1].text).toBe('[ES] Skip');
+        });
+
+        it('should fallback if schema missing', () => {
+             const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+             const entity = { title: 'Hello' };
+             const result = service.translateEntity(entity, 'missing.schema', 'es');
+             expect(result).toEqual({ title: 'Hola' });
+             expect(consoleSpy).toHaveBeenCalled();
+        });
     });
-  });
-
-  describe('translateJson', () => {
-    it('should translate simple object values (keys preserved)', () => {
-      const input = {
-        greeting: 'Hello',
-        action: 'Attack',
-      };
-
-      const expected = {
-        greeting: 'Hola',
-        action: 'Ataque',
-      };
-
-      const result = service.translateJson(input, 'es'); // translateKeys: false default
-      expect(result).toEqual(expected);
-    });
-
-    it('should translate keys when translateKeys is true', () => {
-      const input = {
-        greeting: 'Hello',
-        unknown: 'Value',
-      };
-
-      // greeting -> Hola
-      // unknown -> [ES] unknown
-      // Values:
-      // Hello -> Hola
-      // Value -> [ES] Value
-
-      // (expected removed)
-
-      // Wait, 'greeting' is NOT in dictionary.
-      // So key 'greeting' -> '[ES] greeting'
-
-      const result = service.translateJson(input, 'es', { translateKeys: true });
-      expect(result['[ES] greeting']).toBe('Hola');
-      expect(result['[ES] unknown']).toBe('[ES] Value');
-    });
-
-    it('should handle nested objects and arrays', () => {
-      const input = {
-        level1: {
-          level2: [{ text: 'Hello' }, { text: 'World' }],
-          fixed: 123,
-        },
-      };
-
-      // (expected removed)
-
-      // 'Hello' -> 'Olá' (pt), 'World' -> 'Mundo' (pt)
-      const expectedPt = {
-        level1: {
-          level2: [{ text: 'Olá' }, { text: 'Mundo' }],
-          fixed: 123,
-        },
-      };
-
-      const result = service.translateJson(input, 'pt');
-      expect(result).toEqual(expectedPt);
-    });
-
-    it('should handle mixed types correctly', () => {
-      const input = {
-        str: 'Hello',
-        num: 42,
-        bool: true,
-        nil: null,
-      };
-
-      const result = service.translateJson(input, 'es');
-      expect(result.str).toBe('Hola');
-      expect(result.num).toBe(42);
-      expect(result.bool).toBe(true);
-      expect(result.nil).toBe(null);
-    });
-  });
 });

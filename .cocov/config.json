@@ -1,28 +1,28 @@
 {
   "total": {
     "lines": {
-      "total": 6120,
-      "covered": 3790,
+      "total": 6051,
+      "covered": 4747,
       "skipped": 0,
-      "pct": 61.92
+      "pct": 78.44
     },
     "statements": {
-      "total": 6857,
-      "covered": 4139,
+      "total": 6769,
+      "covered": 5180,
       "skipped": 0,
-      "pct": 60.36
+      "pct": 76.52
     },
     "functions": {
-      "total": 941,
-      "covered": 534,
+      "total": 935,
+      "covered": 655,
       "skipped": 0,
-      "pct": 56.74
+      "pct": 70.05
     },
     "branches": {
-      "total": 4512,
-      "covered": 2220,
+      "total": 4471,
+      "covered": 2888,
       "skipped": 0,
-      "pct": 49.2
+      "pct": 64.59
     },
     "branchesTrue": {
       "total": 0,
@@ -190,53 +190,53 @@
   "/Users/lg/lab/daicer/src/api/agent/services/tool-registry.ts": {
     "lines": {
       "total": 270,
-      "covered": 123,
+      "covered": 239,
       "skipped": 0,
-      "pct": 45.55
+      "pct": 88.51
     },
     "functions": {
       "total": 55,
-      "covered": 15,
+      "covered": 44,
       "skipped": 0,
-      "pct": 27.27
+      "pct": 80
     },
     "statements": {
       "total": 295,
-      "covered": 126,
+      "covered": 246,
       "skipped": 0,
-      "pct": 42.71
+      "pct": 83.38
     },
     "branches": {
       "total": 183,
-      "covered": 33,
+      "covered": 109,
       "skipped": 0,
-      "pct": 18.03
+      "pct": 59.56
     }
   },
   "/Users/lg/lab/daicer/src/api/assets/services/assets.ts": {
     "lines": {
       "total": 50,
-      "covered": 0,
+      "covered": 46,
       "skipped": 0,
-      "pct": 0
+      "pct": 92
     },
     "functions": {
       "total": 7,
-      "covered": 0,
+      "covered": 5,
       "skipped": 0,
-      "pct": 0
+      "pct": 71.42
     },
     "statements": {
       "total": 56,
-      "covered": 0,
+      "covered": 50,
       "skipped": 0,
-      "pct": 0
+      "pct": 89.28
     },
     "branches": {
       "total": 58,
-      "covered": 0,
+      "covered": 50,
       "skipped": 0,
-      "pct": 0
+      "pct": 86.2
     }
   },
   "/Users/lg/lab/daicer/src/api/class/controllers/class.ts": {
@@ -944,27 +944,27 @@
   "/Users/lg/lab/daicer/src/api/game-event/services/game-event.ts": {
     "lines": {
       "total": 67,
-      "covered": 0,
+      "covered": 66,
       "skipped": 0,
-      "pct": 0
+      "pct": 98.5
     },
     "functions": {
       "total": 8,
-      "covered": 0,
+      "covered": 8,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 68,
-      "covered": 0,
+      "covered": 66,
       "skipped": 0,
-      "pct": 0
+      "pct": 97.05
     },
     "branches": {
       "total": 43,
-      "covered": 0,
+      "covered": 37,
       "skipped": 0,
-      "pct": 0
+      "pct": 86.04
     }
   },
   "/Users/lg/lab/daicer/src/api/game/controllers/engine.ts": {
@@ -1230,27 +1230,27 @@
   "/Users/lg/lab/daicer/src/api/game/services/action-engine.ts": {
     "lines": {
       "total": 185,
-      "covered": 131,
+      "covered": 170,
       "skipped": 0,
-      "pct": 70.81
+      "pct": 91.89
     },
     "functions": {
       "total": 18,
-      "covered": 13,
+      "covered": 17,
       "skipped": 0,
-      "pct": 72.22
+      "pct": 94.44
     },
     "statements": {
       "total": 202,
-      "covered": 139,
+      "covered": 184,
       "skipped": 0,
-      "pct": 68.81
+      "pct": 91.08
     },
     "branches": {
       "total": 140,
-      "covered": 81,
+      "covered": 102,
       "skipped": 0,
-      "pct": 57.85
+      "pct": 72.85
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/biome-spawn-service.ts": {
@@ -1308,27 +1308,27 @@
   "/Users/lg/lab/daicer/src/api/game/services/entity-lifecycle.ts": {
     "lines": {
       "total": 128,
-      "covered": 0,
+      "covered": 102,
       "skipped": 0,
-      "pct": 0
+      "pct": 79.68
     },
     "functions": {
       "total": 12,
-      "covered": 0,
+      "covered": 8,
       "skipped": 0,
-      "pct": 0
+      "pct": 66.66
     },
     "statements": {
       "total": 139,
-      "covered": 0,
+      "covered": 106,
       "skipped": 0,
-      "pct": 0
+      "pct": 76.25
     },
     "branches": {
       "total": 201,
-      "covered": 0,
+      "covered": 128,
       "skipped": 0,
-      "pct": 0
+      "pct": 63.68
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/game-ledger.ts": {
@@ -1360,27 +1360,27 @@
   "/Users/lg/lab/daicer/src/api/game/services/game.ts": {
     "lines": {
       "total": 75,
-      "covered": 53,
+      "covered": 61,
       "skipped": 0,
-      "pct": 70.66
+      "pct": 81.33
     },
     "functions": {
       "total": 19,
-      "covered": 11,
+      "covered": 14,
       "skipped": 0,
-      "pct": 57.89
+      "pct": 73.68
     },
     "statements": {
       "total": 86,
-      "covered": 58,
+      "covered": 67,
       "skipped": 0,
-      "pct": 67.44
+      "pct": 77.9
     },
     "branches": {
       "total": 70,
-      "covered": 33,
+      "covered": 42,
       "skipped": 0,
-      "pct": 47.14
+      "pct": 60
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/history-service.ts": {
@@ -1620,53 +1620,53 @@
   "/Users/lg/lab/daicer/src/api/game/services/translation.ts": {
     "lines": {
       "total": 61,
-      "covered": 27,
+      "covered": 59,
       "skipped": 0,
-      "pct": 44.26
+      "pct": 96.72
     },
     "functions": {
       "total": 7,
-      "covered": 4,
+      "covered": 7,
       "skipped": 0,
-      "pct": 57.14
+      "pct": 100
     },
     "statements": {
       "total": 65,
-      "covered": 29,
+      "covered": 62,
       "skipped": 0,
-      "pct": 44.61
+      "pct": 95.38
     },
     "branches": {
       "total": 70,
-      "covered": 24,
+      "covered": 62,
       "skipped": 0,
-      "pct": 34.28
+      "pct": 88.57
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/turn-persistence.ts": {
     "lines": {
       "total": 27,
-      "covered": 0,
+      "covered": 26,
       "skipped": 0,
-      "pct": 0
+      "pct": 96.29
     },
     "functions": {
       "total": 6,
-      "covered": 0,
+      "covered": 6,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 28,
-      "covered": 0,
+      "covered": 27,
       "skipped": 0,
-      "pct": 0
+      "pct": 96.42
     },
     "branches": {
       "total": 21,
-      "covered": 0,
+      "covered": 15,
       "skipped": 0,
-      "pct": 0
+      "pct": 71.42
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/turn-pipeline.ts": {
@@ -1698,27 +1698,27 @@
   "/Users/lg/lab/daicer/src/api/game/services/turn-processing.ts": {
     "lines": {
       "total": 152,
-      "covered": 69,
+      "covered": 130,
       "skipped": 0,
-      "pct": 45.39
+      "pct": 85.52
     },
     "functions": {
       "total": 17,
-      "covered": 6,
+      "covered": 9,
       "skipped": 0,
-      "pct": 35.29
+      "pct": 52.94
     },
     "statements": {
       "total": 162,
-      "covered": 72,
+      "covered": 134,
       "skipped": 0,
-      "pct": 44.44
+      "pct": 82.71
     },
     "branches": {
       "total": 132,
-      "covered": 43,
+      "covered": 83,
       "skipped": 0,
-      "pct": 32.57
+      "pct": 62.87
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/visibility-service.ts": {
@@ -1750,27 +1750,27 @@
   "/Users/lg/lab/daicer/src/api/game/services/world-generation.ts": {
     "lines": {
       "total": 23,
-      "covered": 0,
+      "covered": 15,
       "skipped": 0,
-      "pct": 0
+      "pct": 65.21
     },
     "functions": {
       "total": 6,
-      "covered": 0,
+      "covered": 5,
       "skipped": 0,
-      "pct": 0
+      "pct": 83.33
     },
     "statements": {
       "total": 24,
-      "covered": 0,
+      "covered": 15,
       "skipped": 0,
-      "pct": 0
+      "pct": 62.5
     },
     "branches": {
       "total": 31,
-      "covered": 0,
+      "covered": 9,
       "skipped": 0,
-      "pct": 0
+      "pct": 29.03
     }
   },
   "/Users/lg/lab/daicer/src/api/game/services/blueprints/entity.ts": {
@@ -2322,27 +2322,27 @@
   "/Users/lg/lab/daicer/src/api/game/src/engine/engine/action-dispatcher.ts": {
     "lines": {
       "total": 101,
-      "covered": 43,
+      "covered": 89,
       "skipped": 0,
-      "pct": 42.57
+      "pct": 88.11
     },
     "functions": {
       "total": 19,
-      "covered": 8,
+      "covered": 15,
       "skipped": 0,
-      "pct": 42.1
+      "pct": 78.94
     },
     "statements": {
       "total": 111,
-      "covered": 48,
+      "covered": 96,
       "skipped": 0,
-      "pct": 43.24
+      "pct": 86.48
     },
     "branches": {
       "total": 78,
-      "covered": 24,
+      "covered": 52,
       "skipped": 0,
-      "pct": 30.76
+      "pct": 66.66
     }
   },
   "/Users/lg/lab/daicer/src/api/game/src/engine/entropy/index.ts": {
@@ -2660,27 +2660,27 @@
   "/Users/lg/lab/daicer/src/api/game/src/engine/rules/combat.ts": {
     "lines": {
       "total": 100,
-      "covered": 60,
+      "covered": 93,
       "skipped": 0,
-      "pct": 60
+      "pct": 93
     },
     "functions": {
       "total": 5,
-      "covered": 4,
+      "covered": 5,
       "skipped": 0,
-      "pct": 80
+      "pct": 100
     },
     "statements": {
       "total": 113,
-      "covered": 66,
+      "covered": 100,
       "skipped": 0,
-      "pct": 58.4
+      "pct": 88.49
     },
     "branches": {
       "total": 130,
-      "covered": 69,
+      "covered": 88,
       "skipped": 0,
-      "pct": 53.07
+      "pct": 67.69
     }
   },
   "/Users/lg/lab/daicer/src/api/game/src/engine/rules/conditions.ts": {
@@ -4272,9 +4272,9 @@
   "/Users/lg/lab/daicer/src/api/room/types.ts": {
     "lines": {
       "total": 4,
-      "covered": 0,
+      "covered": 4,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "functions": {
       "total": 0,
@@ -4284,9 +4284,9 @@
     },
     "statements": {
       "total": 4,
-      "covered": 0,
+      "covered": 4,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "branches": {
       "total": 0,
@@ -4454,27 +4454,27 @@
   "/Users/lg/lab/daicer/src/api/room/services/turn-service.ts": {
     "lines": {
       "total": 77,
-      "covered": 0,
+      "covered": 65,
       "skipped": 0,
-      "pct": 0
+      "pct": 84.41
     },
     "functions": {
       "total": 9,
-      "covered": 0,
+      "covered": 7,
       "skipped": 0,
-      "pct": 0
+      "pct": 77.77
     },
     "statements": {
       "total": 79,
-      "covered": 0,
+      "covered": 66,
       "skipped": 0,
-      "pct": 0
+      "pct": 83.54
     },
     "branches": {
       "total": 76,
-      "covered": 0,
+      "covered": 40,
       "skipped": 0,
-      "pct": 0
+      "pct": 52.63
     }
   },
   "/Users/lg/lab/daicer/src/api/spell/controllers/spell.ts": {
@@ -5026,27 +5026,27 @@
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/biome-service.ts": {
     "lines": {
       "total": 44,
-      "covered": 0,
+      "covered": 40,
       "skipped": 0,
-      "pct": 0
+      "pct": 90.9
     },
     "functions": {
       "total": 3,
-      "covered": 0,
+      "covered": 3,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 61,
-      "covered": 0,
+      "covered": 51,
       "skipped": 0,
-      "pct": 0
+      "pct": 83.6
     },
     "branches": {
       "total": 36,
-      "covered": 0,
+      "covered": 24,
       "skipped": 0,
-      "pct": 0
+      "pct": 66.66
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/chunk-builder.ts": {
@@ -5129,54 +5129,54 @@
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/road-service.ts": {
     "lines": {
-      "total": 38,
-      "covered": 0,
+      "total": 40,
+      "covered": 38,
       "skipped": 0,
-      "pct": 0
+      "pct": 95
     },
     "functions": {
       "total": 3,
-      "covered": 0,
+      "covered": 3,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
-      "total": 42,
-      "covered": 0,
+      "total": 44,
+      "covered": 41,
       "skipped": 0,
-      "pct": 0
+      "pct": 93.18
     },
     "branches": {
-      "total": 24,
-      "covered": 0,
+      "total": 26,
+      "covered": 19,
       "skipped": 0,
-      "pct": 0
+      "pct": 73.07
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/structure-service.ts": {
     "lines": {
-      "total": 102,
-      "covered": 0,
+      "total": 31,
+      "covered": 26,
       "skipped": 0,
-      "pct": 0
+      "pct": 83.87
     },
     "functions": {
-      "total": 10,
-      "covered": 0,
+      "total": 4,
+      "covered": 4,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
-      "total": 121,
-      "covered": 0,
+      "total": 31,
+      "covered": 26,
       "skipped": 0,
-      "pct": 0
+      "pct": 83.87
     },
     "branches": {
-      "total": 57,
-      "covered": 0,
+      "total": 14,
+      "covered": 11,
       "skipped": 0,
-      "pct": 0
+      "pct": 78.57
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/voxel-engine.ts": {
@@ -5260,35 +5260,35 @@
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/generators/civilization-generator.ts": {
     "lines": {
       "total": 115,
-      "covered": 59,
+      "covered": 114,
       "skipped": 0,
-      "pct": 51.3
+      "pct": 99.13
     },
     "functions": {
       "total": 10,
-      "covered": 6,
+      "covered": 10,
       "skipped": 0,
-      "pct": 60
+      "pct": 100
     },
     "statements": {
       "total": 139,
-      "covered": 67,
+      "covered": 136,
       "skipped": 0,
-      "pct": 48.2
+      "pct": 97.84
     },
     "branches": {
       "total": 68,
-      "covered": 42,
+      "covered": 63,
       "skipped": 0,
-      "pct": 61.76
+      "pct": 92.64
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/generators/flora-generator.ts": {
     "lines": {
       "total": 134,
-      "covered": 85,
+      "covered": 131,
       "skipped": 0,
-      "pct": 63.43
+      "pct": 97.76
     },
     "functions": {
       "total": 13,
@@ -5298,15 +5298,15 @@
     },
     "statements": {
       "total": 168,
-      "covered": 96,
+      "covered": 162,
       "skipped": 0,
-      "pct": 57.14
+      "pct": 96.42
     },
     "branches": {
       "total": 97,
-      "covered": 59,
+      "covered": 93,
       "skipped": 0,
-      "pct": 60.82
+      "pct": 95.87
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/generators/structure-renderer.ts": {
@@ -5390,27 +5390,27 @@
   "/Users/lg/lab/daicer/src/api/voxel-engine/services/utils/tile-helper.ts": {
     "lines": {
       "total": 11,
-      "covered": 0,
+      "covered": 8,
       "skipped": 0,
-      "pct": 0
+      "pct": 72.72
     },
     "functions": {
       "total": 2,
-      "covered": 0,
+      "covered": 2,
       "skipped": 0,
-      "pct": 0
+      "pct": 100
     },
     "statements": {
       "total": 11,
-      "covered": 0,
+      "covered": 8,
       "skipped": 0,
-      "pct": 0
+      "pct": 72.72
     },
     "branches": {
       "total": 8,
-      "covered": 0,
+      "covered": 7,
       "skipped": 0,
-      "pct": 0
+      "pct": 87.5
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/src/config.ts": {
@@ -5442,27 +5442,27 @@
   "/Users/lg/lab/daicer/src/api/voxel-engine/src/terrain-generator.ts": {
     "lines": {
       "total": 75,
-      "covered": 47,
+      "covered": 64,
       "skipped": 0,
-      "pct": 62.66
+      "pct": 85.33
     },
     "functions": {
       "total": 9,
-      "covered": 6,
+      "covered": 7,
       "skipped": 0,
-      "pct": 66.66
+      "pct": 77.77
     },
     "statements": {
       "total": 92,
-      "covered": 51,
+      "covered": 76,
       "skipped": 0,
-      "pct": 55.43
+      "pct": 82.6
     },
     "branches": {
       "total": 49,
-      "covered": 15,
+      "covered": 29,
       "skipped": 0,
-      "pct": 30.61
+      "pct": 59.18
     }
   },
   "/Users/lg/lab/daicer/src/api/voxel-engine/src/utils/math.ts": {
@@ -6170,27 +6170,27 @@
   "/Users/lg/lab/daicer/src/plugins/map-explorer/server/src/controllers/map-controller.ts": {
     "lines": {
       "total": 81,
-      "covered": 25,
+      "covered": 71,
       "skipped": 0,
-      "pct": 30.86
+      "pct": 87.65
     },
     "functions": {
       "total": 15,
-      "covered": 4,
+      "covered": 15,
       "skipped": 0,
-      "pct": 26.66
+      "pct": 100
     },
     "statements": {
       "total": 87,
-      "covered": 28,
+      "covered": 77,
       "skipped": 0,
-      "pct": 32.18
+      "pct": 88.5
     },
     "branches": {
       "total": 34,
-      "covered": 10,
+      "covered": 28,
       "skipped": 0,
-      "pct": 29.41
+      "pct": 82.35
     }
   },
   "/Users/lg/lab/daicer/src/plugins/map-explorer/server/src/controllers/voxel-preview.ts": {
@@ -6456,27 +6456,27 @@
   "/Users/lg/lab/daicer/src/plugins/map-explorer/server/src/services/queue-service.ts": {
     "lines": {
       "total": 63,
-      "covered": 22,
+      "covered": 44,
       "skipped": 0,
-      "pct": 34.92
+      "pct": 69.84
     },
     "functions": {
       "total": 17,
-      "covered": 6,
+      "covered": 10,
       "skipped": 0,
-      "pct": 35.29
+      "pct": 58.82
     },
     "statements": {
       "total": 67,
-      "covered": 23,
+      "covered": 44,
       "skipped": 0,
-      "pct": 34.32
+      "pct": 65.67
     },
     "branches": {
       "total": 34,
-      "covered": 11,
+      "covered": 21,
       "skipped": 0,
-      "pct": 32.35
+      "pct": 61.76
     }
   },
   "/Users/lg/lab/daicer/src/plugins/map-explorer/server/src/services/pixel-forge/grid-utils.ts": {
