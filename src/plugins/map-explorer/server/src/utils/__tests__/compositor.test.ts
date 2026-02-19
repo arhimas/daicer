@@ -5,7 +5,7 @@ import {
   compositeLoadout,
   AssetStub,
   ZoneType,
-} from '@/plugins/map-explorer/server/src/utils/compositor';
+} from "../compositor";
 
 // Helpers
 const createGrid = (size: number, fill: string | null = null): string[][] =>

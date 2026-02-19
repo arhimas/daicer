@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import visibilityServiceFactory from '../visibility-service';
+import visibilityServiceFactory from '@/api/game/services/visibility-service';
 
 describe('VisibilityService', () => {
     const mockStrapi = {} as any;

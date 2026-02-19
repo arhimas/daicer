@@ -1,9 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { llmGateway } from '../llm-gateway';
+import { llmGateway } from '@/api/game/services/llm-gateway';
 import { QueueManager } from '@/queues/queue-manager';
 import { QueueName } from '@/queues/contract';
 
 // Mock dependencies
+vi.mock('@/services/llm-service', () => ({
+    llmService: {
+        generate: vi.fn().mockResolvedValue('Mocked LLM Response')
+    }
+}));
+
 vi.mock('@/queues/queue-manager', () => ({
     QueueManager: {
         get: vi.fn().mockReturnValue({

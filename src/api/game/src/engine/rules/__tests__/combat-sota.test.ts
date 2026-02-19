@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { validateAttack, resolveAttack, resolveGrapple, CombatPositions } from '../combat';
+import { _validateAttack, resolveAttack, resolveGrapple, _CombatPositions } from '@/api/game/src/engine/rules/combat';
 import { Entity, ActionType } from '@daicer/engine/types';
-import { ConditionType } from '../../../rules/conditions';
-import { DamageType } from '../../../mechanics/damage/DamageType';
+import { _ConditionType } from '@/api/game/src/rules/conditions';
+import { _DamageType } from '@/api/game/src/mechanics/damage/DamageType';
 
 // Mocks
 const { mockRoll, mockParseDiceString, mockGetConditionModifiers, mockHasCondition, MockDamageInstance, mockFeatureRegistry } = vi.hoisted(() => {
@@ -17,7 +17,7 @@ const { mockRoll, mockParseDiceString, mockGetConditionModifiers, mockHasConditi
 
   const DamageInst = class {
     constructor(public amount: number, public type: string, public source: string) {}
-    resolveAgainst(target: any) {
+    resolveAgainst(_target: any) {
         return { finalAmount: this.amount, logic: [] }; 
     }
   };
@@ -88,7 +88,7 @@ describe('Combat Rules SOTA', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Default mocks
-    mockParseDiceString.mockImplementation((s) => ({ count: 1, sides: 6, bonus: 0 }));
+    mockParseDiceString.mockImplementation((_s) => ({ count: 1, sides: 6, bonus: 0 }));
     mockGetConditionModifiers.mockReturnValue({});
     mockHasCondition.mockReturnValue(false);
   });

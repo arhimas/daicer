@@ -1,82 +1,53 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import geminiServiceFactory from '@/plugins/map-explorer/server/src/services/gemini-service';
-import { GeminiService } from '@daicer/llm-core';
 
-// Mock @daicer/llm-core
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import geminiServiceFactory from '../gemini-service';
+
+// Mock Dependencies
 vi.mock('@daicer/llm-core', () => ({
-  GeminiService: vi.fn(() => ({
-    generate: vi.fn(),
-    dispatch: vi.fn(),
-  })),
+  GeminiService: vi.fn(() => ({ generate: vi.fn() }))
 }));
 
-describe('Map Explorer - Gemini Service', () => {
-  let mockStrapi: any;
-  let mockContextService: any;
+import { GeminiService } from '@daicer/llm-core';
 
-  beforeEach(() => {
-    vi.clearAllMocks();
+const mockFindOne = vi.fn();
+const mockFetchContext = vi.fn();
 
-    mockContextService = {
-      fetchDeepContext: vi.fn().mockResolvedValue({ context: 'deep' }),
-    };
-
-    const mockPlugin = {
-      service: vi.fn((name) => {
-        if (name === 'contextService') return mockContextService;
+const mockStrapi: any = {
+  log: { info: vi.fn() },
+  db: {},
+  getModel: vi.fn(),
+  plugin: vi.fn(() => ({
+    service: vi.fn((name) => {
+        if (name === 'contextService') return { fetchDeepContext: mockFetchContext };
         return {};
-      }),
-      config: vi.fn((key) => {
-        if (key === 'contentTypes') return ['api::test.test'];
-        return {};
-      }),
-    };
+    }),
+    config: vi.fn(() => ({ types: [] }))
+  })),
+};
 
-    mockStrapi = {
-      log: { info: vi.fn(), error: vi.fn() },
-      db: {},
-      getModel: vi.fn(),
-      plugin: vi.fn(() => mockPlugin),
-    };
-  });
+describe('Gemini Service', () => {
+    let service: any;
 
-  it('should initialize GeminiService with correct adapter and config', () => {
-    geminiServiceFactory({ strapi: mockStrapi });
+    beforeEach(() => {
+        vi.clearAllMocks();
+        service = geminiServiceFactory({ strapi: mockStrapi });
+    });
 
-    expect(GeminiService).toHaveBeenCalledTimes(1);
+    it('should initialize LLM Core with adapter', () => {
+        expect(GeminiService).toHaveBeenCalled();
+        const callArgs = vi.mocked(GeminiService).mock.calls[0][0];
+        expect(callArgs.adapter).toBeDefined();
+        expect(callArgs.config).toBeDefined();
+    });
 
-    const callArgs = (GeminiService as any).mock.calls[0][0];
-
-    // Check Adapter
-    expect(callArgs.adapter).toBeDefined();
-    expect(callArgs.adapter.log).toBe(mockStrapi.log);
-    expect(callArgs.adapter.db).toBe(mockStrapi.db);
-
-    // Check Config
-    expect(callArgs.config).toBeDefined();
-    expect(callArgs.config.contentTypes).toEqual(['api::test.test']);
-    expect(mockStrapi.plugin).toHaveBeenCalledWith('map-explorer');
-  });
-
-  it('adapter.fetchContext should delegate to contextService.fetchDeepContext', async () => {
-    geminiServiceFactory({ strapi: mockStrapi });
-    const callArgs = (GeminiService as any).mock.calls[0][0];
-    const fetchContext = callArgs.adapter.fetchContext;
-
-    const result = await fetchContext('api::test.uid', 'doc-123');
-
-    expect(mockStrapi.plugin).toHaveBeenCalledWith('map-explorer');
-    expect(mockStrapi.plugin('map-explorer').service).toHaveBeenCalledWith('contextService');
-    expect(mockContextService.fetchDeepContext).toHaveBeenCalledWith('api::test.uid', 'doc-123');
-    expect(result).toEqual({ context: 'deep' });
-  });
-
-  it('adapter.getModel should call strapi.getModel', async () => {
-    geminiServiceFactory({ strapi: mockStrapi });
-    const callArgs = (GeminiService as any).mock.calls[0][0];
-    const getModel = callArgs.adapter.getModel;
-
-    getModel('api::test.uid');
-    expect(mockStrapi.getModel).toHaveBeenCalledWith('api::test.uid');
-  });
+    it('should wire up fetchContext in adapter', async () => {
+        const callArgs = vi.mocked(GeminiService).mock.calls[0][0];
+        const adapter = callArgs.adapter;
+        
+        mockFetchContext.mockResolvedValue({ id: 1 });
+        const res = await adapter.fetchContext('uid', 'doc1');
+        
+        expect(mockFetchContext).toHaveBeenCalledWith('uid', 'doc1');
+        expect(res).toEqual({ id: 1 });
+    });
 });

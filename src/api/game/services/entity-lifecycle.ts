@@ -311,6 +311,8 @@ export default ({ strapi }) => ({
     strapi.log.info(`Created EntitySheet ${createdSheet.documentId} for Room ${roomId}`);
 
     // 5. Update Room Player Component
+    console.log('DEBUG: players', JSON.stringify(players, null, 2));
+    console.log('DEBUG: user', JSON.stringify(user, null, 2));
     const playerIndex = players.findIndex(
       (p: Player) => p.user?.documentId === user.documentId || p.user?.id === user.id
     );

@@ -1,5 +1,5 @@
 import { getPrompt, getPrompts, formatPrompt } from '@/utils/prompt';
-// import type { Language } from '../api/game/src/engine/types';
+// import type { Language } from '@/utils/api/game/src/engine/types';
 
 // Mock Strapi global
 const mockFindMany = vi.fn();

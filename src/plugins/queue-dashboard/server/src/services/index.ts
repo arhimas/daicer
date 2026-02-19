@@ -1,4 +1,4 @@
-import service from '@/plugins/queue-dashboard/server/src/services/service';
+import service from "./service";
 
 export default {
   service,

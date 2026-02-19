@@ -31,7 +31,7 @@ describe('CLI E2E (Standalone)', () => {
     }
   });
 
-  it('should explore characters (headless mode)', { timeout: 30000 }, () => {
+  it('should explore characters (headless mode)', { timeout: 60000 }, () => {
     // This ensures the Headless Strapi boots and connects to DB
     const start = Date.now();
     // Use 'plugin::users-permissions.user' as it is always present

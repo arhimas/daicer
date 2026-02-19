@@ -1,0 +1,48 @@
+{
+  "uid": "game.range-config",
+  "collectionName": "components_game_range_configs",
+  "info": {
+    "displayName": "Range Config",
+    "icon": "ruler-combined",
+    "description": "Distance and Area of Effect"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Self",
+        "Touch",
+        "Ranged (Feet)",
+        "Ranged (Miles)",
+        "Sight",
+        "Unlimited"
+      ],
+      "default": "Ranged (Feet)",
+      "required": true
+    },
+    "distance": {
+      "type": "integer",
+      "description": "Distance in feet (or miles if type matches)"
+    },
+    "aoe_shape": {
+      "type": "enumeration",
+      "enum": [
+        "Cone",
+        "Cube",
+        "Cylinder",
+        "Line",
+        "Sphere",
+        "Hemisphere"
+      ]
+    },
+    "aoe_size": {
+      "type": "integer",
+      "description": "Radius, Length, or Side length in feet"
+    },
+    "aoe_height": {
+      "type": "integer",
+      "description": "Height for Cylinder"
+    }
+  }
+}

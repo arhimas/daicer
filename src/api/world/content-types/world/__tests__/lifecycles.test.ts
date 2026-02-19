@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import lifecycle from '../lifecycles';
+import lifecycle from '@/api/world/content-types/world/lifecycles';
 
 // Mock Global Strapi
 const mockVoxelService = {
   getChunk: vi.fn(),
 };
 
-declare var strapi: any;
+declare let strapi: any;
 
 global.strapi = {
   service: vi.fn(() => mockVoxelService),

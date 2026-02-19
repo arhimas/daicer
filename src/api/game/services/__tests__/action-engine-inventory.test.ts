@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import actionEngineFactory from '../action-engine';
+import actionEngineFactory from '@/api/game/services/action-engine';
 
 describe('Action Engine: Inventory Commands', () => {
   let actionEngine: any;
@@ -16,7 +16,7 @@ describe('Action Engine: Inventory Commands', () => {
     };
 
     mockStrapi = {
-      documents: vi.fn((uid) => ({
+      documents: vi.fn((_uid) => ({
         findOne: vi.fn(async ({ documentId }) => {
           if (documentId === 'hero') {
             return {

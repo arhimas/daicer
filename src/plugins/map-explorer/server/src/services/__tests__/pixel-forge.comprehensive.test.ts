@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { PixelForgeService } from '@/plugins/map-explorer/server/src/services/pixel-forge';
-import { EntityContext } from '../pixel-forge/serializers';
+import { PixelForgeService } from "../pixel-forge";
+import { EntityContext } from "../pixel-forge/serializers";
 
 // Mock generic strapi structure
 const mockStrapi = {

@@ -1,167 +1,231 @@
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import gameServiceFactory from '@/api/game/services/game';
-// Using any for Strapi mocks is standard for unit testing services without full harness
+import gameServiceFactory from '../game';
+
+// Mock Strapi Services
+const mockWorldGen = { generateWorld: vi.fn() };
+const mockTurnProcessing = { processTurn: vi.fn(), submitAction: vi.fn(), executeDeterministicTurn: vi.fn() };
+const mockEntityLifecycle = { generateEntityOpening: vi.fn(), generateMainOpening: vi.fn(), addPlayerEntity: vi.fn(), createSnapshot: vi.fn() };
+const mockVoxelEngine = { getChunk: vi.fn() };
+
+const mockFindOne = vi.fn();
+const mockFindMany = vi.fn();
+const mockUpdate = vi.fn();
+const mockCreate = vi.fn();
+const mockLogInfo = vi.fn();
+const mockLogWarn = vi.fn();
+const mockLogError = vi.fn();
 
 const mockStrapi: any = {
-  service: vi.fn(),
-  documents: vi.fn(),
+  service: vi.fn((uid) => {
+    switch(uid) {
+        case 'api::game.world-generation': return mockWorldGen;
+        case 'api::game.turn-processing': return mockTurnProcessing;
+        case 'api::game.entity-lifecycle': return mockEntityLifecycle;
+        case 'api::voxel-engine.voxel-engine': return mockVoxelEngine;
+        default: return {};
+    }
+  }),
+  documents: vi.fn(() => ({
+    findOne: mockFindOne,
+    findMany: mockFindMany,
+    update: mockUpdate,
+    create: mockCreate,
+  })),
   log: {
-    warn: vi.fn(),
-    error: vi.fn(),
-  },
+      info: mockLogInfo,
+      warn: mockLogWarn,
+      error: mockLogError,
+  }
 };
 
 describe('Game Service', () => {
-  let gameService: ReturnType<typeof gameServiceFactory>;
+    let service: any;
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-    gameService = gameServiceFactory({ strapi: mockStrapi });
-  });
-
-  describe('generateWorld', () => {
-    it('should delegate to world-generation service', async () => {
-      const mockGenerate = vi.fn().mockResolvedValue('World Description');
-      mockStrapi.service.mockReturnValue({ generateWorld: mockGenerate });
-
-      const settings: any = { biome: 'forest' };
-      const result = await gameService.generateWorld(settings, 'en');
-
-      expect(mockStrapi.service).toHaveBeenCalledWith('api::game.world-generation');
-      expect(mockGenerate).toHaveBeenCalledWith(settings, 'en');
-      expect(result).toBe('World Description');
-    });
-  });
-
-  describe('processTurn', () => {
-    it('should fetch chunk and delegate to turn-processing service', async () => {
-      const mockGetChunk = vi.fn().mockResolvedValue({ id: 'chunk-1' });
-      const mockProcessTurn = vi.fn().mockResolvedValue({ success: true });
-
-      mockStrapi.service.mockImplementation((name: string) => {
-        if (name === 'api::voxel-engine.voxel-engine') return { getChunk: mockGetChunk };
-        if (name === 'api::game.turn-processing') return { processTurn: mockProcessTurn };
-        return {};
-      });
-
-      const players = [{ position: { x: 32, y: 32 } }] as any;
-      const settings = { size: 100 } as any;
-
-      await gameService.processTurn('room-1', 'desc', [], players, [], 'en', settings);
-
-      // Should fetch chunk for 32,32 -> 1,1
-      expect(mockGetChunk).toHaveBeenCalledWith(1, 1, settings);
-
-      // Should pass chunk to processTurn
-      expect(mockProcessTurn).toHaveBeenCalledWith(
-        'room-1',
-        'desc',
-        [],
-        players,
-        [],
-        'en',
-        settings,
-        undefined,
-        undefined,
-        undefined,
-        { id: 'chunk-1' }
-      );
+    beforeEach(() => {
+        vi.clearAllMocks();
+        service = gameServiceFactory({ strapi: mockStrapi });
     });
 
-    it('should handle chunk fetch failure gracefully', async () => {
-      mockStrapi.service.mockImplementation((name: string) => {
-        if (name === 'api::voxel-engine.voxel-engine')
-          return { getChunk: vi.fn().mockRejectedValue(new Error('Fail')) };
-        if (name === 'api::game.turn-processing') return { processTurn: vi.fn() };
-        return {};
-      });
+    describe('Delegation Methods', () => {
+        it('generateWorld delegates to world-generation', async () => {
+            await service.generateWorld({}, 'en');
+            expect(mockWorldGen.generateWorld).toHaveBeenCalled();
+        });
 
-      await gameService.processTurn('room-1', 'desc', [], [], [], 'en', {});
+        it('processTurn delegates to turn-processing', async () => {
+            await service.processTurn('r1', 'desc', [], [], []);
+            expect(mockTurnProcessing.processTurn).toHaveBeenCalled();
+        });
 
-      expect(mockStrapi.log.warn).toHaveBeenCalled();
-    });
-  });
+        it('processTurn fetches chunk if settings provided', async () => {
+             // Mock players to have position for chunk calc
+             const players = [{ position: { x: 32, y: 32 } }];
+             mockVoxelEngine.getChunk.mockResolvedValue('chunk-data');
+             await service.processTurn('r1', 'desc', [], players, [], 'en', { biome: 'plains' });
+             expect(mockVoxelEngine.getChunk).toHaveBeenCalledWith(1, 1, { biome: 'plains' });
+             expect(mockTurnProcessing.processTurn).toHaveBeenCalledWith(
+                 'r1', 'desc', [], players, 'en', { biome: 'plains' },
+                 undefined, undefined, undefined,
+                 'chunk-data'
+             );
+        });
 
-  describe('startGame', () => {
-    it('should maintain strict logic: fail if room not found', async () => {
-      mockStrapi.documents.mockReturnValue({
-        findMany: vi.fn().mockResolvedValue([]),
-      });
+         it('addPlayerEntity delegates to entity-lifecycle', async () => {
+            await service.addPlayerEntity('r1', {}, {});
+            expect(mockEntityLifecycle.addPlayerEntity).toHaveBeenCalled();
+        });
 
-      await expect(gameService.startGame('bad-id')).rejects.toThrow('Room not found');
-    });
-
-    it('should fail if no players', async () => {
-      mockStrapi.documents.mockReturnValue({
-        findMany: vi.fn().mockResolvedValue([{ players: [] }]),
-      });
-
-      await expect(gameService.startGame('room-1')).rejects.toThrow('Cannot start game with no players');
-    });
-
-    it('should fail if players not ready', async () => {
-      mockStrapi.documents.mockReturnValue({
-        findMany: vi.fn().mockResolvedValue([{ players: [{ name: 'Bob', isReady: false }] }]),
-      });
-
-      await expect(gameService.startGame('room-1')).rejects.toThrow('not ready: Bob');
+        it('submitAction delegates to turn-processing', async () => {
+            await service.submitAction('r1', 'cmd', {});
+            expect(mockTurnProcessing.submitAction).toHaveBeenCalled();
+        });
     });
 
-    it('should successfully start game', async () => {
-      const mockRoom = {
-        documentId: 'room-doc-1',
-        roomId: 'room-1',
-        players: [{ name: 'Alice', isReady: true, user: { documentId: 'u1' } }],
-        world: { description: 'World' },
-        entity_sheets: [],
-      };
+    describe('spawnCreature', () => {
+        it('should create a creature and update the room', async () => {
+            const roomData = { documentId: 'r1', creatures: [] };
+            mockFindOne.mockResolvedValue(roomData);
 
-      mockStrapi.documents.mockReturnValue({
-        findMany: vi.fn().mockResolvedValue([mockRoom]),
-        findOne: vi.fn().mockResolvedValue(mockRoom),
-        create: vi.fn().mockResolvedValue({ documentId: 'turn-1' }),
-        update: vi.fn().mockResolvedValue({}),
-      });
+            await service.spawnCreature('r1', { name: 'Goblin', hp: 5 });
 
-      mockStrapi.service.mockReturnValue({
-        generateMainOpening: vi.fn().mockResolvedValue('Opening Text'),
-        generateEntityOpening: vi.fn().mockResolvedValue('Private Text'),
-        createSnapshot: vi.fn().mockResolvedValue([]),
-      });
-
-      const result = await gameService.startGame('room-1');
-
-      expect(result.success).toBe(true);
-      expect(result.mainOpening).toBe('Opening Text');
-
-      // Verify Room Update
-      expect(mockStrapi.documents).toHaveBeenCalled(); // Generic check, could be specific
+            expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({
+                documentId: 'r1',
+                data: expect.objectContaining({
+                    creatures: expect.arrayContaining([
+                        expect.objectContaining({ name: 'Goblin', hp: 5 })
+                    ])
+                })
+            }));
+        });
     });
-  });
 
-  describe('togglePlayerReady', () => {
-    it('should update player ready status', async () => {
-      const mockRoom = {
-        documentId: 'doc-1',
-        players: [{ user: { documentId: 'u1' }, isReady: false }],
-      };
+    describe('togglePlayerReady', () => {
+         it('should update player ready status', async () => {
+            const roomData = { 
+                documentId: 'r1', 
+                players: [{ user: { documentId: 'u1' }, isReady: false }] 
+            };
+            mockFindMany.mockResolvedValue([roomData]);
 
-      const mockUpdate = vi.fn();
-      mockStrapi.documents.mockReturnValue({
-        findMany: vi.fn().mockResolvedValue([mockRoom]),
-        update: mockUpdate,
-      });
+            await service.togglePlayerReady('r1', 'u1', true);
 
-      await gameService.togglePlayerReady('room-1', 'u1', true);
+            expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({
+                documentId: 'r1',
+                data: expect.objectContaining({
+                    players: expect.arrayContaining([
+                        expect.objectContaining({ isReady: true })
+                    ])
+                })
+            }));
+        });
 
-      expect(mockUpdate).toHaveBeenCalledWith(
-        expect.objectContaining({
-          documentId: 'doc-1',
-          data: expect.objectContaining({
-            players: [{ user: { documentId: 'u1' }, isReady: true }],
-          }),
-        })
-      );
+        it('should throw if player not found', async () => {
+            mockFindMany.mockResolvedValue([{ documentId: 'r1', players: [] }]); // No players
+            await expect(service.togglePlayerReady('r1', 'u1', true)).rejects.toThrow('User is not a player');
+        });
     });
-  });
+
+    describe('startGame', () => {
+        const roomData = {
+            documentId: 'r1',
+            world: { description: 'World Desc' },
+            dmSettings: {},
+            players: [
+                { user: { documentId: 'u1' }, isReady: true, documentId: 'p1', characterSheet: { documentId: 'sheet1' } }
+            ],
+            entity_sheets: [{ documentId: 'sheet1', name: 'Hero' }]
+        };
+
+        it('should fail if players are not ready', async () => {
+            mockFindMany.mockResolvedValue([{ ...roomData, players: [{ isReady: false, name: 'Lazy' }] }]);
+            await expect(service.startGame('r1')).rejects.toThrow('The following players are not ready: Lazy');
+        });
+
+        it('should orchestration game start flow', async () => {
+            mockFindMany.mockResolvedValue([roomData]);
+            // Mock room reload with sheets for snapshot
+            mockFindOne.mockResolvedValue({ ...roomData, entity_sheets: [] }); 
+
+            mockEntityLifecycle.generateMainOpening.mockResolvedValue('Main Opening Text');
+            mockEntityLifecycle.generateEntityOpening.mockResolvedValue('Private Opening Text');
+            mockEntityLifecycle.createSnapshot.mockReturnValue([]);
+            mockCreate.mockImplementation((args) => ({ documentId: 'turn0' })); // for Turn and Message creation
+
+            const result = await service.startGame('r1');
+
+            expect(result.success).toBe(true);
+            expect(mockEntityLifecycle.generateMainOpening).toHaveBeenCalled();
+            expect(mockEntityLifecycle.generateEntityOpening).toHaveBeenCalled();
+            // Check Turn 0 Creation
+            expect(mockCreate).toHaveBeenCalledWith(expect.objectContaining({
+                data: expect.objectContaining({ turnNumber: 0, narrative: 'Game Start' })
+            }));
+            // Check Message Creation
+            expect(mockCreate).toHaveBeenCalledWith(expect.objectContaining({
+                 data: expect.objectContaining({ content: 'Main Opening Text' })
+            }));
+             // Check Private Message Creation
+             expect(mockCreate).toHaveBeenCalledWith(expect.objectContaining({
+                 data: expect.objectContaining({ content: 'Private Opening Text', recipient: 'u1' })
+            }));
+            // Check Room Active Status
+            expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({
+                data: expect.objectContaining({ isActive: true, phase: 'game' })
+            }));
+        });
+    });
+
+    describe('Hardening Edge Cases', () => {
+        it('processTurn: should proceed even if chunk fetch fails', async () => {
+             mockVoxelEngine.getChunk.mockRejectedValue(new Error('Chunk Error'));
+             // Should not throw
+             await service.processTurn('r1', 'desc', [], [{ position: {x:0,y:0} }], [], 'en', { biome: 'plains' });
+             expect(mockLogWarn).toHaveBeenCalledWith(expect.stringContaining('Failed to fetch chunk'), expect.anything());
+             expect(mockTurnProcessing.processTurn).toHaveBeenCalled();
+        });
+
+        it('startGame: should fail if room not found', async () => {
+             mockFindMany.mockResolvedValue([]);
+             await expect(service.startGame('invalid-room')).rejects.toThrow('Room not found');
+        });
+
+        it('startGame: should fail if no players in room', async () => {
+             mockFindMany.mockResolvedValue([{ documentId: 'r1', players: [] }]);
+             await expect(service.startGame('r1')).rejects.toThrow('Cannot start game with no players');
+        });
+
+        it('startGame: should skip private opening if character sheet invalid', async () => {
+             const roomData = {
+                 documentId: 'r1', players: [{ user: 'u1', isReady: true, characterSheet: null }],
+                 world: { description: 'W' }, dmSettings: {}
+             };
+             mockFindMany.mockResolvedValue([roomData]);
+             mockFindOne.mockResolvedValue(roomData);
+             mockCreate.mockResolvedValue({ documentId: 't1' });
+             mockEntityLifecycle.createSnapshot.mockReturnValue([]);
+             
+             await service.startGame('r1');
+             
+             // Should verify that generateEntityOpening was NOT called (or called 0 times)
+             expect(mockEntityLifecycle.generateEntityOpening).not.toHaveBeenCalled();
+        });
+        
+        it('spawnCreature: should throw if room not found', async () => {
+             mockFindOne.mockResolvedValue(null);
+             await expect(service.spawnCreature('invalid', {})).rejects.toThrow('Room not found');
+        });
+
+        it('spawnCreature: should use default HP if not provided', async () => {
+             mockFindOne.mockResolvedValue({ documentId: 'r1', creatures: [] });
+             await service.spawnCreature('r1', { name: 'Blob' });
+             expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({
+                 data: expect.objectContaining({
+                     creatures: expect.arrayContaining([
+                         expect.objectContaining({ name: 'Blob', hp: 10, maxHp: 10 })
+                     ])
+                 })
+             }));
+        });
+    });
 });

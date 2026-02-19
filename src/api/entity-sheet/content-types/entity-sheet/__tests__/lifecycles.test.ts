@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import lifecycles from '../lifecycles';
+import lifecycles from '@/api/entity-sheet/content-types/entity-sheet/lifecycles';
 
 // Validate exports from lifecycles if default
-const { beforeCreate, beforeUpdate, afterCreate, afterUpdate } = lifecycles;
+const { beforeCreate, beforeUpdate, afterCreate, _afterUpdate } = lifecycles;
 
 // Mock dependencies
 vi.mock('@/services/mechanics/feature-hydrator', () => ({
@@ -19,7 +19,7 @@ vi.mock('@/api/game/src/engine', () => ({
 }));
 
 describe('EntitySheet Lifecycles', () => {
-    let mockStart: any;
+    let _mockStart: any;
 
     beforeEach(() => {
         (global as any).strapi = {

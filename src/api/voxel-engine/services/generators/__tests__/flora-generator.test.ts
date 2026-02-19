@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { FloraGenerator } from '../flora-generator';
+import { FloraGenerator } from '@/api/voxel-engine/services/generators/flora-generator';
 import { BlockType } from '@daicer/engine/types';
 import { Alea } from '@/api/voxel-engine/src/utils/math';
 
@@ -13,7 +13,7 @@ const { mockNext } = vi.hoisted(() => {
 // Mock the module using the specific alias used in source
 vi.mock('@/api/voxel-engine/src/utils/math', () => ({
   Alea: class {
-    constructor(seed: string) {}
+    constructor(_seed: string) {}
     next() { return mockNext(); }
   }
 }));
@@ -26,9 +26,9 @@ describe('FloraGenerator', () => {
         mockNext.mockReturnValue(0.5); // Default
 
         // Create 16x16x32 chunk
-        tiles = Array.from({ length: 32 }, (_, z) => 
-            Array.from({ length: 16 }, (_, y) => 
-                Array.from({ length: 16 }, (_, x) => ({
+        tiles = Array.from({ length: 32 }, (_, _z) => 
+            Array.from({ length: 16 }, (_, _y) => 
+                Array.from({ length: 16 }, (_, _x) => ({
                     block: BlockType.AIR,
                     isWalkable: false,
                     isTransparent: true,

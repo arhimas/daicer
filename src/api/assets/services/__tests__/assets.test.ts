@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import assetsServiceFactory from '../assets';
+import assetsServiceFactory from '@/api/assets/services/assets';
 
 // Mock LLM Image Util
 vi.mock('@/utils/llm/image', () => ({

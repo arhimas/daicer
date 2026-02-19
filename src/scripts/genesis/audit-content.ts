@@ -18,8 +18,8 @@ if (!API_KEY) {
 
 const genAI = new GoogleGenerativeAI(API_KEY);
 // User requested 'gemini-flash-lite-latest', fallback to 1.5-flash
-const MODEL_NAME = 'gemini-flash-lite-latest';
-const FALLBACK_MODEL = 'gemini-1.5-flash';
+const MODEL_NAME = 'gemini-3-flash-preview';
+const FALLBACK_MODEL = 'gemini-3-pro-preview';
 const CONCURRENCY_LIMIT = 20;
 
 const LIBRARY_ROOT = path.join(process.cwd(), 'data/library');

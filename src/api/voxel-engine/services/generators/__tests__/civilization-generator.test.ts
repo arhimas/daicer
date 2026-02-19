@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { CivilizationGenerator } from '../civilization-generator';
-import { WorldConfig, BlockType } from '@daicer/engine/types';
+import { CivilizationGenerator } from '@/api/voxel-engine/services/generators/civilization-generator';
+import { WorldConfig, _BlockType } from '@daicer/engine/types';
 import { WorldAtlas } from '@daicer/engine/world/world-atlas';
 
 // Mocks

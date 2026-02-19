@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { TerrainGenerator } from '../terrain-generator';
+import { TerrainGenerator } from '@/api/voxel-engine/src/terrain-generator';
 import { BiomeType, BlockType } from '@daicer/engine/types';
 
 // Mocks
@@ -8,11 +8,11 @@ const mockNext = vi.fn();
 
 vi.mock('../utils/math', () => ({
   FastNoise: class {
-    constructor(seed: string) {}
+    constructor(_seed: string) {}
     fbm(...args: any[]) { return mockFbm(...args); }
   },
   Alea: class {
-    constructor(seed: string) {}
+    constructor(_seed: string) {}
     next() { return mockNext(); }
   }
 }));

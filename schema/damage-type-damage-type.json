@@ -1,0 +1,94 @@
+{
+  "uid": "api::damage-type.damage-type",
+  "kind": "collectionType",
+  "collectionName": "damage_types",
+  "info": {
+    "singularName": "damage-type",
+    "pluralName": "damage-types",
+    "displayName": "Damage Type",
+    "description": "Types of damage in the game"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "description": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "compilation_state": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.compilation-state",
+      "__schema": {
+        "uid": "game.compilation-state",
+        "collectionName": "components_game_compilation_states",
+        "info": {
+          "displayName": "Compilation State",
+          "description": "Tracks the verification status of this Entity Blueprint."
+        },
+        "options": {},
+        "attributes": {
+          "status": {
+            "type": "enumeration",
+            "enum": [
+              "Pending",
+              "Valid",
+              "Invalid",
+              "Warning"
+            ],
+            "default": "Pending",
+            "required": true
+          },
+          "last_run": {
+            "type": "datetime"
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "hash": {
+            "type": "string",
+            "private": true,
+            "description": "Hash of the entity data at time of compilation (for change detection)"
+          }
+        }
+      }
+    }
+  }
+}

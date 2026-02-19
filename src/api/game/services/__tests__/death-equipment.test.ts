@@ -61,11 +61,14 @@ describe('ActionEngine Equipment Persistence', () => {
     cm.editVoxel = mockChunkManagerEdit;
 
     actionEngine = ActionEngineFunc({ strapi: mockStrapi });
+
+    // Mock Math.random to ensure hits (d20 roll high)
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.99);
   });
 
   const ROOM_ID = 'room-1';
 
-  it.skip('should NOT drop inventory when a PLAYER dies', async () => {
+  it('should NOT drop inventory when a PLAYER dies', async () => {
     const actorId = 'killer-1';
     const targetId = 'player-1';
 
@@ -104,20 +107,20 @@ describe('ActionEngine Equipment Persistence', () => {
     await actionEngine.dispatch(ROOM_ID, [command]);
 
     // Verify: Event Emitted for Death
-    expect(mockCreateEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        data: expect.objectContaining({
+    const deathCall = mockCreateEvent.mock.calls.find(call => call[0].data.type === 'ENTITY_DEATH');
+    expect(deathCall).toBeDefined();
+    expect(deathCall![0]).toMatchObject({
+        data: {
           type: 'ENTITY_DEATH',
           actor: targetId,
-        }),
-      })
-    );
+        }
+    });
 
     // Verify: DropAll was NOT called
     expect(mockDropAll).not.toHaveBeenCalled();
   });
 
-  it.skip('SHOULD drop inventory when a MONSTER dies', async () => {
+  it('SHOULD drop inventory when a MONSTER dies', async () => {
     const actorId = 'killer-1';
     const targetId = 'monster-1';
 
@@ -156,14 +159,15 @@ describe('ActionEngine Equipment Persistence', () => {
     await actionEngine.dispatch(ROOM_ID, [command]);
 
     // Verify: Event Emitted for Death
-    expect(mockCreateEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        data: expect.objectContaining({
+    // We search for the specific call because other events (ATTACK_RESULT) are emitted first
+    const deathCall = mockCreateEvent.mock.calls.find(call => call[0].data.type === 'ENTITY_DEATH');
+    expect(deathCall).toBeDefined();
+    expect(deathCall![0]).toMatchObject({
+        data: {
           type: 'ENTITY_DEATH',
           actor: targetId,
-        }),
-      })
-    );
+        }
+    });
 
     // Verify: DropAll WAS called
     expect(mockDropAll).toHaveBeenCalledWith(targetId);

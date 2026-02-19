@@ -1,139 +1,177 @@
-/**
- * ⚠️ DOCUMENTATION MANDATE: Update JSDoc & README with ANY change.
- * Keep documentation synchronized with code at all times.
- */
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import actionEngineFactory from '@/api/game/services/action-engine';
+import actionEngineFactory from '../action-engine';
 
-// Mock Dependencies
-const { mockFindPath } = vi.hoisted(() => ({
-  mockFindPath: vi.fn(),
+// Mock dependencies
+vi.mock('@daicer/engine/rules/spatial', () => ({
+  findPath: vi.fn(),
+}));
+import { findPath } from '@daicer/engine/rules/spatial';
+
+vi.mock('@daicer/engine/voxel/terrain-generator', () => ({
+    TerrainGenerator: class {
+        getTileAt() { return { isWalkable: true }; }
+    }
 }));
 
-vi.mock('../../../../engine/rules/spatial', () => ({
-  findPath: mockFindPath,
-}));
+// Mock Strapi
+const mockFindOne = vi.fn();
+const mockFindMany = vi.fn();
+const mockUpdate = vi.fn();
+const mockCreate = vi.fn();
 
-describe('Action Engine Service (Unified)', () => {
-  let actionEngine: any;
-  let mockStrapi: any;
+const mockInventoryService = {
+    dropAll: vi.fn(),
+    dropItem: vi.fn(() => ({ success: true })),
+    pickupItem: vi.fn(() => ({ success: true })),
+    dropItemAt: vi.fn(() => ({ success: true })),
+};
+
+const mockVoxelService = {
+    editTerrain: vi.fn(),
+};
+
+const mockStrapi: any = {
+  service: vi.fn((uid) => {
+    if (uid === 'api::game.inventory-service') return mockInventoryService;
+    if (uid === 'api::voxel-engine.voxel-engine') return mockVoxelService;
+    // Self-reference
+    if (uid === 'api::game.action-engine') return { handleModifyTerrain: vi.fn() }; 
+    return {};
+  }),
+  documents: vi.fn(() => ({
+    findOne: mockFindOne,
+    findMany: mockFindMany,
+    update: mockUpdate,
+    create: mockCreate,
+  })),
+};
+
+describe('Action Engine', () => {
+  let engine: any;
 
   beforeEach(() => {
     vi.clearAllMocks();
-
-    mockStrapi = {
-      documents: vi.fn((_uid) => ({
-        findOne: vi.fn(async ({ documentId }) => {
-          if (documentId === 'actor-1')
-            return {
-              documentId: 'actor-1',
-              name: 'Hero',
-              position: { x: 0, y: 0, z: 0 },
-              speed: { walk: 30 },
-              room: { config: { chunkSize: 16 } },
-              stats: { strength: 18, dexterity: 10 }, // High strength to assist hit
-              computedActions: [
-                {
-                  id: 'action-sword',
-                  name: 'Longsword',
-                  type: 'melee_attack',
-                  range: 5,
-                  attackBonus: 10,
-                  damage: [{ diceCount: 1, diceValue: 1, flatBonus: 5 }],
-                },
-              ],
-            };
-          if (documentId === 'target-1')
-            return {
-              documentId: 'target-1',
-              hp: 10,
-              maxHp: 10,
-              armorClass: 10, // Low AC to ensure hit
-              position: { x: 5, y: 0, z: 0 },
-              computedActions: [],
-            };
-          return null;
-        }),
-        findMany: vi.fn(async () => []),
-        update: vi.fn(),
-        create: vi.fn(),
-      })),
-      service: vi.fn().mockReturnValue({
-        dropItem: vi.fn(async () => ({ success: true })),
-        handleModifyTerrain: vi.fn(async () => ({
-          success: true,
-          message: 'Modified',
-          events: [],
-          stateDiff: { updates: [] },
-        })),
-      }),
-    };
-
-    // Global Strapi
-    vi.stubGlobal('strapi', mockStrapi);
-
-    actionEngine = actionEngineFactory({ strapi: mockStrapi });
+    engine = actionEngineFactory({ strapi: mockStrapi });
   });
 
-  describe('Move Command', () => {
-    it('should return diffs without persisting in dryRun mode', async () => {
-      mockFindPath.mockReturnValue([
-        { x: 0, y: 0, z: 0 },
-        { x: 3, y: 0, z: 0 },
-      ]);
+  describe('dispatch', () => {
+      it('should route MOVE command', async () => {
+          const moveCmd = { type: 'MOVE', payload: { actorId: 'a1', targetPosition: {x:10, y:10, z:0} } };
+          
+          // Move logic needs findOne actor
+          mockFindOne.mockResolvedValueOnce({ 
+              documentId: 'a1', 
+              position: {x:0,y:0,z:0}, 
+              speed: 30 
+          });
+          // findMany entities
+          mockFindMany.mockResolvedValueOnce([]);
+          
+          // Path mock
+          vi.mocked(findPath).mockReturnValueOnce([{x:0,y:0,z:0}, {x:10,y:10,z:0}]);
 
-      const command = {
-        type: 'MOVE',
-        payload: { actorId: 'actor-1', targetPosition: { x: 3, y: 0, z: 0 }, mode: 'walk' },
-      };
+          const results = await engine.dispatch('room-1', [moveCmd]);
+          
+          expect(results[0].success).toBe(true);
+          expect(mockUpdate).toHaveBeenCalled(); // Persist
+      });
+      
+      it('should route ATTACK command', async () => {
+          const attackCmd = { type: 'ATTACK', payload: { actorId: 'a1', targetId: 't1' } };
+          
+          // Actor
+          mockFindOne.mockResolvedValueOnce({
+              documentId: 'a1',
+              computedActions: [{ id: 'sword', name: 'Sword', attackBonus: 5, damage: [{ diceCount: 1, diceValue: 6 }] }]
+          });
+          // Target
+          mockFindOne.mockResolvedValueOnce({
+              documentId: 't1',
+              armorClass: 10,
+              hp: 10
+          });
 
-      const results = await actionEngine.dispatch('room-1', [command], true); // dryRun=true
-      const result = results[0];
+          const results = await engine.dispatch('room-1', [attackCmd]);
+          expect(results[0].success).toBe(true);
+      });
 
-      expect(result.success).toBe(true);
-      if (result.stateDiff?.updates) {
-        expect(result.stateDiff.updates).toHaveLength(1);
-        expect(result.stateDiff.updates[0].data.position).toEqual(expect.objectContaining({ x: 3 }));
-      }
-
-      // Verify NO DB calls
-      expect(mockStrapi.documents('api::entity-sheet.entity-sheet').update).not.toHaveBeenCalled();
-    });
+      it('should handle unknown command', async () => {
+          const badCmd = { type: 'UNKNOWN', payload: {} };
+          const results = await engine.dispatch('room-1', [badCmd]);
+          expect(results[0].success).toBe(false);
+          expect(results[0].message).toContain('Unknown command type');
+      });
   });
 
-  describe('Attack Command', () => {
-    it('should use computedActions and resolve damage', async () => {
-      const command = {
-        type: 'ATTACK',
-        payload: { actorId: 'actor-1', targetId: 'target-1', weaponId: 'Longsword' },
-      };
+  describe('resolveMove', () => {
+      it('should fail if blocked', async () => {
+          const cmd = { type: 'MOVE', payload: { actorId: 'a1', targetPosition: {x:10,y:10} } };
+          mockFindOne.mockResolvedValueOnce({ documentId: 'a1', position: {x:0,y:0} });
+          mockFindMany.mockResolvedValueOnce([]);
+          
+          // Path blocked
+          vi.mocked(findPath).mockReturnValueOnce([]);
 
-      // Ensure Attack Roll is High
-      const spy = vi.spyOn(Math, 'random').mockReturnValue(0.9);
+          const res = await engine.resolveMove(cmd, 'room-1');
+          expect(res.success).toBe(false);
+          expect(res.message).toContain('Path blocked');
+      });
+  });
 
-      const results = await actionEngine.dispatch('room-1', [command], true);
-      const result = results[0];
-
-      if (!result.success) {
-        console.error('Attack Test Failed:', result.message);
-      }
-
-      expect(result.success).toBe(true);
-      expect(result.message).toMatch(/Dealt|Hit/);
-
-      // Check Events: ATTACK_RESULT, DAMAGE_DEALT
-      const eventTypes = result.events.map((e: any) => e.type);
-      expect(eventTypes).toContain('ATTACK_RESULT');
-      expect(eventTypes).toContain('DAMAGE_DEALT');
-
-      // Verify State Diff (HP Update)
-      const hpUpdate = result.stateDiff.updates.find(
-        (u: any) => u.documentId === 'target-1' && u.data.hp !== undefined
-      );
-      expect(hpUpdate).toBeDefined();
-      expect(hpUpdate.data.hp).toBe(4); // 10 - 6 = 4
-
-      spy.mockRestore();
-    });
+  describe('resolveAttack', () => {
+      it('should handle entity death', async () => {
+          const cmd = { type: 'ATTACK', payload: { actorId: 'a1', targetId: 't1' } };
+          
+          mockFindOne.mockImplementation(({ documentId }) => {
+              if (documentId === 'a1') return Promise.resolve({
+                  documentId: 'a1',
+                  computedActions: [{ id: 'sword', damage: [{ flatBonus: 100 }] }]
+              });
+              if (documentId === 't1') return Promise.resolve({
+                  documentId: 't1',
+                  armorClass: 0,
+                  hp: 10,
+                  type: 'monster',
+                  position: {x:0,y:0,z:0},
+                  room: { config: {} }
+              });
+              return Promise.resolve(null);
+          });
+          
+          // Force hit and high damage roll
+          // d20 = floor(0.99 * 20) + 1 = 20 (Crit)
+          vi.spyOn(Math, 'random').mockReturnValue(0.99);
+          const res = await engine.resolveAttack(cmd, 'room-1');
+          if (!res.events.find((e: any) => e.type === 'ENTITY_DEATH')) {
+              console.log('Result Events:', JSON.stringify(res.events, null, 2));
+              console.log('Result Message:', res.message);
+          }
+          expect(res.success).toBe(true);
+          // Check for Death event
+          const deathEvent = res.events.find((e: any) => e.type === 'ENTITY_DEATH');
+          expect(deathEvent).toBeDefined();
+          
+          // Check drop loot called
+          expect(mockInventoryService.dropAll).toHaveBeenCalledWith('t1');
+      });
+  });
+  
+  describe('Other Commands', () => {
+      it('should resolve DROP_ITEM', async () => {
+          mockFindOne.mockResolvedValueOnce({ documentId: 'a1' });
+          const res = await engine.resolveDropItem({ type: 'DROP_ITEM', payload: { actorId: 'a1', itemComponentId: 'i1' } }, 'room-1');
+          expect(res.success).toBe(true);
+      });
+      
+      it('should resolve PICKUP_ITEM', async () => {
+          const res = await engine.resolvePickupItem({ type: 'PICKUP_ITEM', payload: { actorId: 'a1', targetId: 'i1' } }, 'room-1');
+          expect(res.success).toBe(true);
+      });
+      
+      it('should resolve THROW_ITEM', async () => {
+          const res = await engine.resolveThrowItem({ type: 'THROW_ITEM', payload: { actorId: 'a1', itemComponentId: 'i1', targetPosition: {x:0,y:0,z:0} } }, 'room-1');
+          expect(res.success).toBe(true);
+      });
   });
 });

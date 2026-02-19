@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import gameDataControllerFactory from '../game-data';
+import { describe, it, expect, _vi, beforeEach } from 'vitest';
+import gameDataControllerFactory from '@/api/game-data/controllers/game-data';
 
 describe('Game Data Controller', () => {
   let ctx: any;

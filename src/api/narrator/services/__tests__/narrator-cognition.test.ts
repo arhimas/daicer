@@ -3,7 +3,7 @@
  * Keep documentation synchronized with code at all times.
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-// import narratorService from '../narrator';
+// import narratorService from '@/api/narrator/services/narrator';
 import { AIMessage, HumanMessage } from '@langchain/core/messages';
 import type { Core } from '@strapi/strapi';
 type StrapiInterface = Core.Strapi;

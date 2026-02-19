@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import service from '../spawn-service';
+import service from '@/api/game/services/spawn-service';
 import { EntityDeriver } from '@/api/game/src/engine';
 
 // Mock Dependencies

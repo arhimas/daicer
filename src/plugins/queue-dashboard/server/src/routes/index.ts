@@ -1,4 +1,4 @@
-import contentAPIRoutes from '@/plugins/queue-dashboard/server/src/routes/content-api';
+import contentAPIRoutes from "./content-api";
 import admin from './admin';
 
 const routes = {

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { PixelForgeService } from '@/plugins/map-explorer/server/src/services/pixel-forge';
+import { PixelForgeService } from "../pixel-forge";
 
 // Mock Strapi
 const mockStrapi = {

@@ -16,7 +16,9 @@ export async function runStatus(options: { json?: boolean }) {
 
   try {
     const start = Date.now();
-    await fetch(rootUrl, { method: 'HEAD', timeout: 2000 } as RequestInit & { timeout?: number }).catch((e) => {
+    // Use AbortSignal.timeout if available (Node 17.3+), else fallback
+    const signal = AbortSignal.timeout(2000);
+    await fetch(rootUrl, { method: 'HEAD', signal }).catch((e) => {
       throw e;
     });
     const duration = Date.now() - start;

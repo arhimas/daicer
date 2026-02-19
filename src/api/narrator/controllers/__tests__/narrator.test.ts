@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import narratorController from '../narrator';
+import narratorController from '@/api/narrator/controllers/narrator';
 
 describe('Narrator Controller', () => {
     let ctx: any;

@@ -117,7 +117,6 @@ describe('QueueManager Configuration', () => {
             retryDelay: 2000,
             removeOnComplete: false,
             removeOnFail: true,
-            removeOnFail: true,
             // timeout: 5000,
           },
         },
@@ -138,7 +137,6 @@ describe('QueueManager Configuration', () => {
         attempts: 5,
         backoff: { type: 'fixed', delay: 2000 },
         removeOnComplete: false,
-        removeOnFail: true,
         removeOnFail: true,
         // timeout: 5000,
       })

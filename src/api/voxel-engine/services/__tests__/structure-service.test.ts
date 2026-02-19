@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { StructureService } from '../structure-service';
-import { AdvancedStructureGenerator } from '../generators/advanced-structure-generator';
+import { StructureService } from '@/api/voxel-engine/services/structure-service';
+import { AdvancedStructureGenerator } from '@/api/voxel-engine/services/generators/advanced-structure-generator';
 import type { WorldConfig } from '@daicer/engine/types';
 
 // Mock AdvancedStructureGenerator
@@ -44,7 +44,7 @@ describe('StructureService', () => {
 
     it('should generate different structures for different coordinates', () => {
       const info1 = service.getRegionStructure(1, 1, 100);
-      const info2 = service.getRegionStructure(2, 2, 100);
+      const _info2 = service.getRegionStructure(2, 2, 100);
       // It's possible they are both 'none', but unlikely with 0.5 chance over many trials?
       // Actually with 0.5 chance, very possible.
       // Let's just check the method runs without error.

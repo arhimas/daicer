@@ -1,0 +1,90 @@
+{
+  "uid": "api::status-effect.status-effect",
+  "kind": "collectionType",
+  "collectionName": "status_effects",
+  "info": {
+    "singularName": "status-effect",
+    "pluralName": "status-effects",
+    "displayName": "Status Effect",
+    "description": "D&D 5e Conditions and Status Effects"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "embedding": {
+      "type": "json",
+      "private": true
+    },
+    "effects": {
+      "type": "json",
+      "description": "Structured mechanical effects (e.g. { 'attack_advantage': true })"
+    },
+    "compilation_state": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.compilation-state",
+      "__schema": {
+        "uid": "game.compilation-state",
+        "collectionName": "components_game_compilation_states",
+        "info": {
+          "displayName": "Compilation State",
+          "description": "Tracks the verification status of this Entity Blueprint."
+        },
+        "options": {},
+        "attributes": {
+          "status": {
+            "type": "enumeration",
+            "enum": [
+              "Pending",
+              "Valid",
+              "Invalid",
+              "Warning"
+            ],
+            "default": "Pending",
+            "required": true
+          },
+          "last_run": {
+            "type": "datetime"
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "hash": {
+            "type": "string",
+            "private": true,
+            "description": "Hash of the entity data at time of compilation (for change detection)"
+          }
+        }
+      }
+    }
+  }
+}

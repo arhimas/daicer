@@ -1,0 +1,36 @@
+{
+  "uid": "game.resource-pool",
+  "collectionName": "components_game_resource_pools",
+  "info": {
+    "displayName": "Resource Pool",
+    "icon": "battery-full",
+    "description": "Trackable resources (HP, Spell Slots, Ki Points)"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "current": {
+      "type": "integer",
+      "required": true,
+      "default": 0
+    },
+    "max": {
+      "type": "integer",
+      "required": true,
+      "default": 1
+    },
+    "reset_on": {
+      "type": "enumeration",
+      "enum": [
+        "short_rest",
+        "long_rest",
+        "never",
+        "dawn"
+      ],
+      "default": "long_rest"
+    }
+  }
+}

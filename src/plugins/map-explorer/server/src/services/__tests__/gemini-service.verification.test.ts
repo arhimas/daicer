@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
-// import geminiServiceFactory from '../gemini-service';
+// import geminiServiceFactory from "../gemini-service";
 
 // Mock LangChain
 const { mockInvoke, mockChatGoogleGenerativeAI } = vi.hoisted(() => {

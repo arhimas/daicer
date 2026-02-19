@@ -1,0 +1,3699 @@
+{
+  "uid": "api::game-event.game-event",
+  "kind": "collectionType",
+  "collectionName": "game_events",
+  "info": {
+    "singularName": "game-event",
+    "pluralName": "game-events",
+    "displayName": "Game Event",
+    "description": "Log of persistent game actions (Attack, Spell, Move)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "ATTACK",
+        "ATTACK_RESULT",
+        "SPELL_CAST",
+        "MOVE",
+        "ENTITY_MOVED",
+        "SKILL_CHECK",
+        "SKILL_CHECK_RESULT",
+        "INTERACT",
+        "OBJECT_INTERACTION",
+        "LONG_REST",
+        "LONG_REST_COMPLETED",
+        "SHORT_REST",
+        "DEATH_SAVE",
+        "ENTITY_DEATH",
+        "INITIATIVE",
+        "TURN_START",
+        "TURN_END",
+        "TERRAIN_MODIFIED",
+        "SPAWN_ENTITY",
+        "ENTROPY_CHANGE",
+        "ITEM_DROP",
+        "ITEM_PICKUP"
+      ],
+      "required": true
+    },
+    "actor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::entity-sheet.entity-sheet",
+      "__targetSchema": {
+        "uid": "api::entity-sheet.entity-sheet",
+        "kind": "collectionType",
+        "collectionName": "entity_sheets",
+        "info": {
+          "singularName": "entity-sheet",
+          "pluralName": "entity-sheets",
+          "displayName": "Entity Sheet",
+          "description": "Instance of an entity in a game room"
+        },
+        "options": {
+          "draftAndPublish": false
+        },
+        "pluginOptions": {},
+        "attributes": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "enumeration",
+            "enum": [
+              "player",
+              "monster",
+              "npc",
+              "loot"
+            ],
+            "default": "player"
+          },
+          "entity": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::entity.entity",
+            "__targetSchema": {
+              "uid": "api::entity.entity",
+              "kind": "collectionType",
+              "collectionName": "entities",
+              "info": {
+                "singularName": "entity",
+                "pluralName": "entities",
+                "displayName": "Entity",
+                "description": "Blueprint for World Entities (Creatures, Flora, Minerals)"
+              },
+              "options": {
+                "draftAndPublish": false
+              },
+              "pluginOptions": {
+                "i18n": {
+                  "localized": true
+                }
+              },
+              "attributes": {
+                "slug": {
+                  "type": "uid",
+                  "targetField": "name",
+                  "required": true
+                },
+                "embedding": {
+                  "type": "json",
+                  "private": true
+                },
+                "embeddingMetadata": {
+                  "type": "json",
+                  "private": true
+                },
+                "name": {
+                  "type": "string",
+                  "pluginOptions": {
+                    "i18n": {
+                      "localized": true
+                    }
+                  },
+                  "required": true
+                },
+                "description": {
+                  "type": "richtext",
+                  "pluginOptions": {
+                    "i18n": {
+                      "localized": true
+                    }
+                  }
+                },
+                "size": {
+                  "type": "enumeration",
+                  "enum": [
+                    "Fine",
+                    "Diminutive",
+                    "Tiny",
+                    "Small",
+                    "Medium",
+                    "Large",
+                    "Huge",
+                    "Gargantuan",
+                    "Colossal"
+                  ],
+                  "default": "Medium"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "alignment": {
+                  "type": "string"
+                },
+                "level": {
+                  "type": "integer",
+                  "default": 1,
+                  "min": 1
+                },
+                "ac": {
+                  "type": "integer"
+                },
+                "hp": {
+                  "type": "integer"
+                },
+                "hit_dice": {
+                  "type": "string"
+                },
+                "stats": {
+                  "type": "component",
+                  "repeatable": false,
+                  "component": "game.stats",
+                  "__schema": {
+                    "uid": "game.stats",
+                    "collectionName": "components_game_stats",
+                    "info": {
+                      "displayName": "Stats",
+                      "icon": "chart-bar",
+                      "description": ""
+                    },
+                    "options": {},
+                    "attributes": {
+                      "strength": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "dexterity": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "constitution": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "intelligence": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "wisdom": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "charisma": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "walkSpeed": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "flySpeed": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "swimSpeed": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "climbSpeed": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "burrowSpeed": {
+                        "type": "integer",
+                        "default": 0
+                      },
+                      "hover": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "saves": {
+                        "type": "json",
+                        "description": "Array of strings: ['str', 'dex']"
+                      },
+                      "skills": {
+                        "type": "json",
+                        "description": "Array of strings: ['perception', 'stealth']"
+                      },
+                      "passivePerception": {
+                        "type": "integer"
+                      },
+                      "darkvision": {
+                        "type": "integer"
+                      },
+                      "blindsight": {
+                        "type": "integer"
+                      },
+                      "truesight": {
+                        "type": "integer"
+                      },
+                      "tremorsense": {
+                        "type": "integer"
+                      },
+                      "languages": {
+                        "type": "relation",
+                        "relation": "oneToMany",
+                        "target": "api::language.language",
+                        "__targetSchema": {
+                          "uid": "api::language.language",
+                          "kind": "collectionType",
+                          "collectionName": "languages",
+                          "info": {
+                            "singularName": "language",
+                            "pluralName": "languages",
+                            "displayName": "Language",
+                            "description": "Languages spoken in the world"
+                          },
+                          "options": {
+                            "draftAndPublish": false
+                          },
+                          "pluginOptions": {
+                            "i18n": {
+                              "localized": true
+                            }
+                          },
+                          "attributes": {
+                            "slug": {
+                              "type": "uid",
+                              "targetField": "name",
+                              "required": true
+                            },
+                            "embedding": {
+                              "type": "json",
+                              "private": true
+                            },
+                            "name": {
+                              "type": "string",
+                              "pluginOptions": {
+                                "i18n": {
+                                  "localized": true
+                                }
+                              },
+                              "required": true
+                            },
+                            "is_rare": {
+                              "type": "boolean",
+                              "default": false
+                            },
+                            "note": {
+                              "type": "richtext",
+                              "pluginOptions": {
+                                "i18n": {
+                                  "localized": true
+                                }
+                              }
+                            },
+                            "image": {
+                              "type": "media",
+                              "multiple": false,
+                              "required": false,
+                              "allowedTypes": [
+                                "images"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "languages": {
+                  "type": "relation",
+                  "relation": "manyToMany",
+                  "target": "api::language.language",
+                  "__targetSchema": {
+                    "$ref": "api::language.language"
+                  }
+                },
+                "challenge_rating": {
+                  "type": "decimal"
+                },
+                "xp": {
+                  "type": "integer"
+                },
+                "features": {
+                  "type": "relation",
+                  "relation": "manyToMany",
+                  "target": "api::feature.feature",
+                  "__targetSchema": {
+                    "uid": "api::feature.feature",
+                    "kind": "collectionType",
+                    "collectionName": "features",
+                    "info": {
+                      "singularName": "feature",
+                      "pluralName": "features",
+                      "displayName": "Feature",
+                      "description": "D&D 5e Class Features"
+                    },
+                    "options": {
+                      "draftAndPublish": false
+                    },
+                    "pluginOptions": {
+                      "i18n": {
+                        "localized": true
+                      }
+                    },
+                    "attributes": {
+                      "slug": {
+                        "type": "uid",
+                        "targetField": "name",
+                        "required": true
+                      },
+                      "embedding": {
+                        "type": "json",
+                        "private": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "pluginOptions": {
+                          "i18n": {
+                            "localized": true
+                          }
+                        },
+                        "required": true
+                      },
+                      "description": {
+                        "type": "richtext",
+                        "pluginOptions": {
+                          "i18n": {
+                            "localized": true
+                          }
+                        }
+                      },
+                      "lore": {
+                        "type": "richtext",
+                        "pluginOptions": {
+                          "i18n": {
+                            "localized": true
+                          }
+                        }
+                      },
+                      "level": {
+                        "type": "integer"
+                      },
+                      "image": {
+                        "type": "media",
+                        "multiple": false,
+                        "required": false,
+                        "allowedTypes": [
+                          "images"
+                        ]
+                      },
+                      "compilation_state": {
+                        "type": "component",
+                        "repeatable": false,
+                        "component": "game.compilation-state",
+                        "__schema": {
+                          "uid": "game.compilation-state",
+                          "collectionName": "components_game_compilation_states",
+                          "info": {
+                            "displayName": "Compilation State",
+                            "description": "Tracks the verification status of this Entity Blueprint."
+                          },
+                          "options": {},
+                          "attributes": {
+                            "status": {
+                              "type": "enumeration",
+                              "enum": [
+                                "Pending",
+                                "Valid",
+                                "Invalid",
+                                "Warning"
+                              ],
+                              "default": "Pending",
+                              "required": true
+                            },
+                            "last_run": {
+                              "type": "datetime"
+                            },
+                            "summary": {
+                              "type": "string",
+                              "maxLength": 255
+                            },
+                            "hash": {
+                              "type": "string",
+                              "private": true,
+                              "description": "Hash of the entity data at time of compilation (for change detection)"
+                            }
+                          }
+                        }
+                      },
+                      "tags": {
+                        "type": "relation",
+                        "relation": "manyToMany",
+                        "target": "api::tag.tag",
+                        "inversedBy": "features",
+                        "__targetSchema": {
+                          "uid": "api::tag.tag",
+                          "kind": "collectionType",
+                          "collectionName": "tags",
+                          "info": {
+                            "singularName": "tag",
+                            "pluralName": "tags",
+                            "displayName": "Tag",
+                            "description": "Unified Tagging System for Entities, Terrains, and Knowledge"
+                          },
+                          "options": {
+                            "draftAndPublish": false
+                          },
+                          "pluginOptions": {},
+                          "attributes": {
+                            "name": {
+                              "type": "string",
+                              "required": true,
+                              "unique": true
+                            },
+                            "slug": {
+                              "type": "uid",
+                              "targetField": "name",
+                              "required": true
+                            },
+                            "type": {
+                              "type": "enumeration",
+                              "enum": [
+                                "custom",
+                                "mechanic",
+                                "lore",
+                                "visual",
+                                "meta",
+                                "terrain",
+                                "school",
+                                "language",
+                                "damage",
+                                "condition",
+                                "size",
+                                "alignment",
+                                "rarity"
+                              ],
+                              "default": "custom",
+                              "required": true
+                            },
+                            "color": {
+                              "type": "string",
+                              "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})|rgba\\(.*\\)|transparent$",
+                              "default": "#333333"
+                            },
+                            "description": {
+                              "type": "text"
+                            },
+                            "terrains": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::terrain.terrain",
+                              "mappedBy": "tags",
+                              "__targetSchema": {
+                                "uid": "api::terrain.terrain",
+                                "kind": "collectionType",
+                                "collectionName": "terrains",
+                                "info": {
+                                  "singularName": "terrain",
+                                  "pluralName": "terrains",
+                                  "displayName": "Terrain",
+                                  "description": "Voxel types and biome ground definitions"
+                                },
+                                "options": {
+                                  "draftAndPublish": false
+                                },
+                                "pluginOptions": {},
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true,
+                                    "unique": true
+                                  },
+                                  "slug": {
+                                    "type": "uid",
+                                    "targetField": "name",
+                                    "required": true
+                                  },
+                                  "isWalkable": {
+                                    "type": "boolean",
+                                    "default": true
+                                  },
+                                  "isTransparent": {
+                                    "type": "boolean",
+                                    "default": false
+                                  },
+                                  "isLiquid": {
+                                    "type": "boolean",
+                                    "default": false
+                                  },
+                                  "damagePerTick": {
+                                    "type": "integer",
+                                    "default": 0
+                                  },
+                                  "luminance": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "min": 0,
+                                    "max": 15
+                                  },
+                                  "moisture": {
+                                    "type": "decimal",
+                                    "default": 0.5,
+                                    "min": 0,
+                                    "max": 1
+                                  },
+                                  "temperature": {
+                                    "type": "decimal",
+                                    "default": 0.5,
+                                    "min": 0,
+                                    "max": 1
+                                  },
+                                  "tags": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::tag.tag",
+                                    "inversedBy": "terrains",
+                                    "__targetSchema": {
+                                      "$ref": "api::tag.tag"
+                                    }
+                                  },
+                                  "noise_config": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "world.noise-config",
+                                    "__schema": {
+                                      "uid": "world.noise-config",
+                                      "collectionName": "components_world_noise_configs",
+                                      "info": {
+                                        "displayName": "Noise Config",
+                                        "description": "Procedural generation noise settings for biomes"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "octaves": {
+                                          "type": "integer",
+                                          "default": 4,
+                                          "min": 1,
+                                          "max": 10,
+                                          "description": "Number of noise layers (Detail Level). Higher = more fine detail, but slower."
+                                        },
+                                        "persistence": {
+                                          "type": "decimal",
+                                          "default": 0.5,
+                                          "min": 0,
+                                          "max": 1,
+                                          "description": "How much each octave contributes (Roughness). Higher = rougher, more chaotic terrain."
+                                        },
+                                        "lacunarity": {
+                                          "type": "decimal",
+                                          "default": 2,
+                                          "min": 1,
+                                          "description": "Frequency multiplier per octave (Gap). Higher = smaller, more fragmented features."
+                                        },
+                                        "scale": {
+                                          "type": "decimal",
+                                          "default": 1,
+                                          "description": "Overall zoom level of the noise. Lower = zoomed in (large features), Higher = zoomed out."
+                                        },
+                                        "height_offset": {
+                                          "type": "decimal",
+                                          "default": 0,
+                                          "description": "Base elevation shift. Positive = raises terrain, Negative = lowers terrain."
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "texture": {
+                                    "type": "customField",
+                                    "customField": "plugin::map-explorer.texture-grid"
+                                  }
+                                }
+                              }
+                            },
+                            "knowledge_sources": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::knowledge-source.knowledge-source",
+                              "mappedBy": "tags",
+                              "__targetSchema": {
+                                "uid": "api::knowledge-source.knowledge-source",
+                                "kind": "collectionType",
+                                "collectionName": "knowledge_sources",
+                                "info": {
+                                  "singularName": "knowledge-source",
+                                  "pluralName": "knowledge-sources",
+                                  "displayName": "Knowledge Source",
+                                  "description": "A source of knowledge, usually a markdown file."
+                                },
+                                "options": {
+                                  "draftAndPublish": false
+                                },
+                                "pluginOptions": {},
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true,
+                                    "unique": true
+                                  },
+                                  "content": {
+                                    "type": "richtext",
+                                    "required": true
+                                  },
+                                  "tags": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::tag.tag",
+                                    "inversedBy": "knowledge_sources",
+                                    "__targetSchema": {
+                                      "$ref": "api::tag.tag"
+                                    }
+                                  },
+                                  "origin": {
+                                    "type": "enumeration",
+                                    "enum": [
+                                      "manual",
+                                      "entity"
+                                    ],
+                                    "default": "manual",
+                                    "required": true
+                                  },
+                                  "snippets": {
+                                    "type": "relation",
+                                    "relation": "oneToMany",
+                                    "target": "api::knowledge-snippet.knowledge-snippet",
+                                    "mappedBy": "source",
+                                    "__targetSchema": {
+                                      "uid": "api::knowledge-snippet.knowledge-snippet",
+                                      "kind": "collectionType",
+                                      "collectionName": "knowledge_snippets",
+                                      "info": {
+                                        "singularName": "knowledge-snippet",
+                                        "pluralName": "knowledge-snippets",
+                                        "displayName": "Knowledge Snippet",
+                                        "description": "A chunk of knowledge derived from a source."
+                                      },
+                                      "options": {
+                                        "draftAndPublish": false
+                                      },
+                                      "pluginOptions": {},
+                                      "attributes": {
+                                        "title": {
+                                          "type": "string",
+                                          "required": true
+                                        },
+                                        "content": {
+                                          "type": "richtext",
+                                          "required": true
+                                        },
+                                        "source": {
+                                          "type": "relation",
+                                          "relation": "manyToOne",
+                                          "target": "api::knowledge-source.knowledge-source",
+                                          "inversedBy": "snippets",
+                                          "onDelete": "CASCADE",
+                                          "__targetSchema": {
+                                            "$ref": "api::knowledge-source.knowledge-source"
+                                          }
+                                        },
+                                        "sourceType": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "source-code",
+                                            "game-entity",
+                                            "manual",
+                                            "schema"
+                                          ],
+                                          "required": true,
+                                          "default": "manual"
+                                        },
+                                        "embedding": {
+                                          "type": "json",
+                                          "private": true
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "embedding": {
+                                    "type": "json",
+                                    "private": true
+                                  },
+                                  "embeddingMetadata": {
+                                    "type": "json",
+                                    "private": true
+                                  }
+                                }
+                              }
+                            },
+                            "entities": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::entity.entity",
+                              "mappedBy": "tags",
+                              "__targetSchema": {
+                                "$ref": "api::entity.entity"
+                              }
+                            },
+                            "spells": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::spell.spell",
+                              "mappedBy": "tags",
+                              "__targetSchema": {
+                                "uid": "api::spell.spell",
+                                "kind": "collectionType",
+                                "collectionName": "spells",
+                                "info": {
+                                  "singularName": "spell",
+                                  "pluralName": "spells",
+                                  "displayName": "Spell",
+                                  "description": "D&D 5e Spells (Structured)"
+                                },
+                                "options": {
+                                  "draftAndPublish": false
+                                },
+                                "pluginOptions": {
+                                  "i18n": {
+                                    "localized": true
+                                  }
+                                },
+                                "attributes": {
+                                  "slug": {
+                                    "type": "uid",
+                                    "targetField": "name",
+                                    "required": true
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    },
+                                    "required": true
+                                  },
+                                  "level": {
+                                    "type": "integer",
+                                    "min": 0,
+                                    "max": 9
+                                  },
+                                  "school": {
+                                    "type": "enumeration",
+                                    "enum": [
+                                      "Abjuration",
+                                      "Conjuration",
+                                      "Divination",
+                                      "Enchantment",
+                                      "Evocation",
+                                      "Illusion",
+                                      "Necromancy",
+                                      "Transmutation"
+                                    ]
+                                  },
+                                  "casting_config": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.casting-config",
+                                    "__schema": {
+                                      "uid": "game.casting-config",
+                                      "collectionName": "components_game_casting_configs",
+                                      "info": {
+                                        "displayName": "Casting Config",
+                                        "icon": "hand-sparkles",
+                                        "description": "Rules for casting time and components"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "time_value": {
+                                          "type": "integer",
+                                          "default": 1,
+                                          "required": true
+                                        },
+                                        "time_unit": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Action",
+                                            "Bonus Action",
+                                            "Reaction",
+                                            "Minute",
+                                            "Hour",
+                                            "Day",
+                                            "Round"
+                                          ],
+                                          "default": "Action",
+                                          "required": true
+                                        },
+                                        "reaction_trigger": {
+                                          "type": "text",
+                                          "description": "If reaction, what triggers it?"
+                                        },
+                                        "is_ritual": {
+                                          "type": "boolean",
+                                          "default": false
+                                        },
+                                        "is_concentration": {
+                                          "type": "boolean",
+                                          "default": false,
+                                          "description": "Requires Concentration?"
+                                        },
+                                        "components": {
+                                          "type": "component",
+                                          "repeatable": false,
+                                          "component": "game.spell-components",
+                                          "__schema": {
+                                            "uid": "game.spell-components",
+                                            "collectionName": "components_game_spell_components",
+                                            "info": {
+                                              "displayName": "Spell Components",
+                                              "icon": "puzzle-piece",
+                                              "description": "V, S, M requirements"
+                                            },
+                                            "options": {},
+                                            "attributes": {
+                                              "verbal": {
+                                                "type": "boolean",
+                                                "default": false
+                                              },
+                                              "somatic": {
+                                                "type": "boolean",
+                                                "default": false
+                                              },
+                                              "material": {
+                                                "type": "boolean",
+                                                "default": false
+                                              },
+                                              "material_description": {
+                                                "type": "string"
+                                              },
+                                              "cost_gp": {
+                                                "type": "integer",
+                                                "default": 0
+                                              },
+                                              "consumed": {
+                                                "type": "boolean",
+                                                "default": false
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "range_config": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.range-config",
+                                    "__schema": {
+                                      "uid": "game.range-config",
+                                      "collectionName": "components_game_range_configs",
+                                      "info": {
+                                        "displayName": "Range Config",
+                                        "icon": "ruler-combined",
+                                        "description": "Distance and Area of Effect"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "type": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Self",
+                                            "Touch",
+                                            "Ranged (Feet)",
+                                            "Ranged (Miles)",
+                                            "Sight",
+                                            "Unlimited"
+                                          ],
+                                          "default": "Ranged (Feet)",
+                                          "required": true
+                                        },
+                                        "distance": {
+                                          "type": "integer",
+                                          "description": "Distance in feet (or miles if type matches)"
+                                        },
+                                        "aoe_shape": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Cone",
+                                            "Cube",
+                                            "Cylinder",
+                                            "Line",
+                                            "Sphere",
+                                            "Hemisphere"
+                                          ]
+                                        },
+                                        "aoe_size": {
+                                          "type": "integer",
+                                          "description": "Radius, Length, or Side length in feet"
+                                        },
+                                        "aoe_height": {
+                                          "type": "integer",
+                                          "description": "Height for Cylinder"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "duration_config": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.duration-config",
+                                    "__schema": {
+                                      "uid": "game.duration-config",
+                                      "collectionName": "components_game_duration_configs",
+                                      "info": {
+                                        "displayName": "Duration Config",
+                                        "icon": "hourglass-start",
+                                        "description": "Duration and Concentration rules"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "type": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Instantaneous",
+                                            "Concentration",
+                                            "Time-Limited",
+                                            "Until Dispelled",
+                                            "Until Triggered",
+                                            "Special"
+                                          ],
+                                          "default": "Instantaneous",
+                                          "required": true
+                                        },
+                                        "value": {
+                                          "type": "integer",
+                                          "description": "Numeric duration (if Time-Limited)"
+                                        },
+                                        "unit": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Rounds",
+                                            "Minutes",
+                                            "Hours",
+                                            "Days"
+                                          ]
+                                        },
+                                        "concentration": {
+                                          "type": "boolean",
+                                          "default": false
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "mechanics_config": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.mechanics-config",
+                                    "__schema": {
+                                      "uid": "game.mechanics-config",
+                                      "collectionName": "components_game_mechanics_configs",
+                                      "info": {
+                                        "displayName": "Mechanics Config",
+                                        "icon": "cog",
+                                        "description": "Saving Throws and Attack Types"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "action_type": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Melee Spell Attack",
+                                            "Ranged Spell Attack",
+                                            "Strength Save",
+                                            "Dexterity Save",
+                                            "Constitution Save",
+                                            "Intelligence Save",
+                                            "Wisdom Save",
+                                            "Charisma Save",
+                                            "Auto-Hit",
+                                            "None"
+                                          ],
+                                          "default": "None",
+                                          "required": true
+                                        },
+                                        "save_effect": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Negate",
+                                            "Half",
+                                            "None"
+                                          ],
+                                          "description": "What happens on a successful save? (None = Full Effect, Negate = No Effect, Half = Half Damage)"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "damage_instances": {
+                                    "type": "component",
+                                    "repeatable": true,
+                                    "component": "game.damage-instance",
+                                    "__schema": {
+                                      "uid": "game.damage-instance",
+                                      "collectionName": "components_game_damage_instances",
+                                      "info": {
+                                        "displayName": "Damage Instance",
+                                        "icon": "skull-crossbones",
+                                        "description": "Damage or Healing application"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "effect_type": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Damage",
+                                            "Healing",
+                                            "TempHP"
+                                          ],
+                                          "default": "Damage",
+                                          "required": true
+                                        },
+                                        "damage_type": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Acid",
+                                            "Bludgeoning",
+                                            "Cold",
+                                            "Fire",
+                                            "Force",
+                                            "Lightning",
+                                            "Necrotic",
+                                            "Piercing",
+                                            "Poison",
+                                            "Psychic",
+                                            "Radiant",
+                                            "Slashing",
+                                            "Thunder"
+                                          ]
+                                        },
+                                        "dice_count": {
+                                          "type": "integer",
+                                          "default": 1
+                                        },
+                                        "dice_value": {
+                                          "type": "integer",
+                                          "default": 6
+                                        },
+                                        "flat_bonus": {
+                                          "type": "integer",
+                                          "default": 0
+                                        },
+                                        "timing": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Instant",
+                                            "Start of Turn",
+                                            "End of Turn",
+                                            "One Time Trigger"
+                                          ],
+                                          "default": "Instant"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "condition_instances": {
+                                    "type": "component",
+                                    "repeatable": true,
+                                    "component": "game.condition-instance",
+                                    "__schema": {
+                                      "uid": "game.condition-instance",
+                                      "collectionName": "components_game_condition_instances",
+                                      "info": {
+                                        "displayName": "Condition Instance",
+                                        "icon": "dizzy",
+                                        "description": "Applying status effects"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "condition": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Blinded",
+                                            "Charmed",
+                                            "Deafened",
+                                            "Exhaustion",
+                                            "Frightened",
+                                            "Grappled",
+                                            "Incapacitated",
+                                            "Invisible",
+                                            "Paralyzed",
+                                            "Petrified",
+                                            "Poisoned",
+                                            "Prone",
+                                            "Restrained",
+                                            "Stunned",
+                                            "Unconscious",
+                                            "Special"
+                                          ],
+                                          "required": true
+                                        },
+                                        "description": {
+                                          "type": "string",
+                                          "description": "Details for 'Special' or extra context"
+                                        },
+                                        "chance": {
+                                          "type": "integer",
+                                          "default": 100,
+                                          "min": 1,
+                                          "max": 100
+                                        },
+                                        "duration_rounds": {
+                                          "type": "integer"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "scaling_config": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.scaling-config",
+                                    "__schema": {
+                                      "uid": "game.scaling-config",
+                                      "collectionName": "components_game_scaling_configs",
+                                      "info": {
+                                        "displayName": "Scaling Config",
+                                        "icon": "sort-amount-up",
+                                        "description": "Rules for Higher Level Casting"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "scales": {
+                                          "type": "boolean",
+                                          "default": false
+                                        },
+                                        "type": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Dice",
+                                            "Target",
+                                            "Duration"
+                                          ],
+                                          "default": "Dice"
+                                        },
+                                        "method": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Per Slot Level",
+                                            "Every 2 Slot Levels",
+                                            "Specific Thresholds"
+                                          ],
+                                          "default": "Per Slot Level"
+                                        },
+                                        "dice_count": {
+                                          "type": "integer",
+                                          "description": "Number of dice to add per interval"
+                                        },
+                                        "dice_value": {
+                                          "type": "integer",
+                                          "description": "Value of dice to add"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "description": {
+                                    "type": "richtext",
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    }
+                                  },
+                                  "lore": {
+                                    "type": "richtext",
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    }
+                                  },
+                                  "image": {
+                                    "type": "media",
+                                    "multiple": false,
+                                    "required": false,
+                                    "allowedTypes": [
+                                      "images"
+                                    ]
+                                  },
+                                  "embedding": {
+                                    "type": "json",
+                                    "private": true
+                                  },
+                                  "embeddingMetadata": {
+                                    "type": "json",
+                                    "private": true
+                                  },
+                                  "compilation_state": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.compilation-state",
+                                    "__schema": {
+                                      "$ref": "game.compilation-state"
+                                    }
+                                  },
+                                  "tags": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::tag.tag",
+                                    "inversedBy": "spells",
+                                    "__targetSchema": {
+                                      "$ref": "api::tag.tag"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "items": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::item.item",
+                              "mappedBy": "tags",
+                              "__targetSchema": {
+                                "uid": "api::item.item",
+                                "kind": "collectionType",
+                                "collectionName": "items",
+                                "info": {
+                                  "singularName": "item",
+                                  "pluralName": "items",
+                                  "displayName": "Item",
+                                  "description": "Unified item model (Equipment, Magic Items, Loot, Tools)"
+                                },
+                                "options": {
+                                  "draftAndPublish": false
+                                },
+                                "pluginOptions": {
+                                  "i18n": {
+                                    "localized": true
+                                  }
+                                },
+                                "attributes": {
+                                  "name": {
+                                    "type": "string",
+                                    "required": true,
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    }
+                                  },
+                                  "slug": {
+                                    "type": "uid",
+                                    "targetField": "name",
+                                    "required": true
+                                  },
+                                  "description": {
+                                    "type": "richtext",
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    }
+                                  },
+                                  "lore": {
+                                    "type": "richtext",
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    }
+                                  },
+                                  "type": {
+                                    "type": "enumeration",
+                                    "enum": [
+                                      "weapon",
+                                      "armor",
+                                      "consumable",
+                                      "tool",
+                                      "loot",
+                                      "spell_scroll",
+                                      "feature",
+                                      "container",
+                                      "wondrous_item",
+                                      "ring",
+                                      "rod",
+                                      "staff",
+                                      "wand",
+                                      "potion"
+                                    ],
+                                    "required": true,
+                                    "default": "loot"
+                                  },
+                                  "rarity": {
+                                    "type": "enumeration",
+                                    "enum": [
+                                      "common",
+                                      "uncommon",
+                                      "rare",
+                                      "very_rare",
+                                      "legendary",
+                                      "artifact"
+                                    ],
+                                    "default": "common"
+                                  },
+                                  "value": {
+                                    "type": "integer",
+                                    "default": 0
+                                  },
+                                  "weight": {
+                                    "type": "float",
+                                    "default": 0
+                                  },
+                                  "size": {
+                                    "type": "enumeration",
+                                    "enum": [
+                                      "Fine",
+                                      "Diminutive",
+                                      "Tiny",
+                                      "Small",
+                                      "Medium",
+                                      "Large",
+                                      "Huge",
+                                      "Gargantuan",
+                                      "Colossal"
+                                    ],
+                                    "default": "Medium"
+                                  },
+                                  "equipment_data": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.equipment-data",
+                                    "__schema": {
+                                      "uid": "game.equipment-data",
+                                      "collectionName": "components_game_equipment_data",
+                                      "info": {
+                                        "displayName": "Equipment Data",
+                                        "icon": "shield-alt",
+                                        "description": "Stats for weapons, armor, and gear"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "damage_dice": {
+                                          "type": "string"
+                                        },
+                                        "damage_type": {
+                                          "type": "relation",
+                                          "relation": "oneToOne",
+                                          "target": "api::damage-type.damage-type",
+                                          "__targetSchema": {
+                                            "uid": "api::damage-type.damage-type",
+                                            "kind": "collectionType",
+                                            "collectionName": "damage_types",
+                                            "info": {
+                                              "singularName": "damage-type",
+                                              "pluralName": "damage-types",
+                                              "displayName": "Damage Type",
+                                              "description": "Types of damage in the game"
+                                            },
+                                            "options": {
+                                              "draftAndPublish": false
+                                            },
+                                            "pluginOptions": {
+                                              "i18n": {
+                                                "localized": true
+                                              }
+                                            },
+                                            "attributes": {
+                                              "slug": {
+                                                "type": "uid",
+                                                "targetField": "name",
+                                                "required": true
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                },
+                                                "required": true
+                                              },
+                                              "embedding": {
+                                                "type": "json",
+                                                "private": true
+                                              },
+                                              "description": {
+                                                "type": "richtext",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                }
+                                              },
+                                              "image": {
+                                                "type": "media",
+                                                "multiple": false,
+                                                "required": false,
+                                                "allowedTypes": [
+                                                  "images"
+                                                ]
+                                              },
+                                              "compilation_state": {
+                                                "type": "component",
+                                                "repeatable": false,
+                                                "component": "game.compilation-state",
+                                                "__schema": {
+                                                  "$ref": "game.compilation-state"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "range_normal": {
+                                          "type": "integer"
+                                        },
+                                        "range_long": {
+                                          "type": "integer"
+                                        },
+                                        "properties": {
+                                          "type": "relation",
+                                          "relation": "manyToMany",
+                                          "target": "api::weapon-property.weapon-property",
+                                          "__targetSchema": {
+                                            "uid": "api::weapon-property.weapon-property",
+                                            "kind": "collectionType",
+                                            "collectionName": "weapon_properties",
+                                            "info": {
+                                              "singularName": "weapon-property",
+                                              "pluralName": "weapon-properties",
+                                              "displayName": "Weapon Property",
+                                              "description": "Properties affecting weapon usage"
+                                            },
+                                            "options": {
+                                              "draftAndPublish": false
+                                            },
+                                            "pluginOptions": {
+                                              "i18n": {
+                                                "localized": true
+                                              }
+                                            },
+                                            "attributes": {
+                                              "slug": {
+                                                "type": "uid",
+                                                "targetField": "name",
+                                                "required": true
+                                              },
+                                              "embedding": {
+                                                "type": "json",
+                                                "private": true
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                },
+                                                "required": true
+                                              },
+                                              "description": {
+                                                "type": "richtext",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                }
+                                              },
+                                              "image": {
+                                                "type": "media",
+                                                "multiple": false,
+                                                "required": false,
+                                                "allowedTypes": [
+                                                  "images"
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "armor_class_base": {
+                                          "type": "integer"
+                                        },
+                                        "armor_class_dex_bonus": {
+                                          "type": "boolean"
+                                        },
+                                        "str_minimum": {
+                                          "type": "integer"
+                                        },
+                                        "stealth_disadvantage": {
+                                          "type": "boolean"
+                                        },
+                                        "actions": {
+                                          "type": "relation",
+                                          "relation": "oneToMany",
+                                          "target": "api::action.action",
+                                          "__targetSchema": {
+                                            "uid": "api::action.action",
+                                            "kind": "collectionType",
+                                            "collectionName": "actions",
+                                            "info": {
+                                              "singularName": "action",
+                                              "pluralName": "actions",
+                                              "displayName": "Action",
+                                              "description": "Reusable Action Definitions (Rich Structure - Spell Parity)"
+                                            },
+                                            "options": {
+                                              "draftAndPublish": false
+                                            },
+                                            "pluginOptions": {},
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "required": true,
+                                                "unique": true
+                                              },
+                                              "slug": {
+                                                "type": "uid",
+                                                "targetField": "name"
+                                              },
+                                              "description": {
+                                                "type": "text"
+                                              },
+                                              "type": {
+                                                "type": "enumeration",
+                                                "enum": [
+                                                  "melee",
+                                                  "ranged",
+                                                  "spell",
+                                                  "utility",
+                                                  "ability"
+                                                ],
+                                                "default": "melee"
+                                              },
+                                              "range_config": {
+                                                "type": "component",
+                                                "repeatable": false,
+                                                "component": "game.range-config",
+                                                "__schema": {
+                                                  "$ref": "game.range-config"
+                                                }
+                                              },
+                                              "mechanics_config": {
+                                                "type": "component",
+                                                "repeatable": false,
+                                                "component": "game.mechanics-config",
+                                                "__schema": {
+                                                  "$ref": "game.mechanics-config"
+                                                }
+                                              },
+                                              "damage_instances": {
+                                                "type": "component",
+                                                "repeatable": true,
+                                                "component": "game.damage-instance",
+                                                "__schema": {
+                                                  "$ref": "game.damage-instance"
+                                                }
+                                              },
+                                              "condition_instances": {
+                                                "type": "component",
+                                                "repeatable": true,
+                                                "component": "game.condition-instance",
+                                                "__schema": {
+                                                  "$ref": "game.condition-instance"
+                                                }
+                                              },
+                                              "save": {
+                                                "type": "component",
+                                                "repeatable": false,
+                                                "component": "game.save-dc",
+                                                "__schema": {
+                                                  "uid": "game.save-dc",
+                                                  "collectionName": "components_game_save_dcs",
+                                                  "info": {
+                                                    "displayName": "Save DC",
+                                                    "icon": "shield-alt",
+                                                    "description": "Saving throw difficulty class"
+                                                  },
+                                                  "options": {},
+                                                  "attributes": {
+                                                    "dc": {
+                                                      "type": "integer",
+                                                      "required": true
+                                                    },
+                                                    "stat": {
+                                                      "type": "enumeration",
+                                                      "enum": [
+                                                        "str",
+                                                        "dex",
+                                                        "con",
+                                                        "int",
+                                                        "wis",
+                                                        "cha"
+                                                      ],
+                                                      "required": true
+                                                    },
+                                                    "success_type": {
+                                                      "type": "enumeration",
+                                                      "enum": [
+                                                        "none",
+                                                        "half",
+                                                        "other"
+                                                      ],
+                                                      "default": "none"
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "toHit": {
+                                                "type": "integer"
+                                              },
+                                              "embedding": {
+                                                "type": "json",
+                                                "private": true
+                                              },
+                                              "compilation_state": {
+                                                "type": "component",
+                                                "repeatable": false,
+                                                "component": "game.compilation-state",
+                                                "__schema": {
+                                                  "$ref": "game.compilation-state"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "spell_data": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.spell-data",
+                                    "__schema": {
+                                      "uid": "game.spell-data",
+                                      "collectionName": "components_game_spell_data",
+                                      "info": {
+                                        "displayName": "Spell Data",
+                                        "icon": "magic",
+                                        "description": "Spellcasting logic attached to items"
+                                      },
+                                      "options": {},
+                                      "attributes": {
+                                        "level": {
+                                          "type": "integer",
+                                          "min": 0,
+                                          "max": 9
+                                        },
+                                        "school": {
+                                          "type": "enumeration",
+                                          "enum": [
+                                            "Abjuration",
+                                            "Conjuration",
+                                            "Divination",
+                                            "Enchantment",
+                                            "Evocation",
+                                            "Illusion",
+                                            "Necromancy",
+                                            "Transmutation"
+                                          ]
+                                        },
+                                        "casting_config": {
+                                          "type": "component",
+                                          "repeatable": false,
+                                          "component": "game.casting-config",
+                                          "__schema": {
+                                            "$ref": "game.casting-config"
+                                          }
+                                        },
+                                        "range_config": {
+                                          "type": "component",
+                                          "repeatable": false,
+                                          "component": "game.range-config",
+                                          "__schema": {
+                                            "$ref": "game.range-config"
+                                          }
+                                        },
+                                        "duration_config": {
+                                          "type": "component",
+                                          "repeatable": false,
+                                          "component": "game.duration-config",
+                                          "__schema": {
+                                            "$ref": "game.duration-config"
+                                          }
+                                        },
+                                        "damage_instances": {
+                                          "type": "component",
+                                          "repeatable": true,
+                                          "component": "game.damage-instance",
+                                          "__schema": {
+                                            "$ref": "game.damage-instance"
+                                          }
+                                        },
+                                        "condition_instances": {
+                                          "type": "component",
+                                          "repeatable": true,
+                                          "component": "game.condition-instance",
+                                          "__schema": {
+                                            "$ref": "game.condition-instance"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "custom_data": {
+                                    "type": "json"
+                                  },
+                                  "embedding": {
+                                    "type": "json",
+                                    "private": true
+                                  },
+                                  "compilation_state": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.compilation-state",
+                                    "__schema": {
+                                      "$ref": "game.compilation-state"
+                                    }
+                                  },
+                                  "width": {
+                                    "type": "integer",
+                                    "default": 1,
+                                    "min": 1
+                                  },
+                                  "height": {
+                                    "type": "integer",
+                                    "default": 1,
+                                    "min": 1
+                                  },
+                                  "tags": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::tag.tag",
+                                    "inversedBy": "items",
+                                    "__targetSchema": {
+                                      "$ref": "api::tag.tag"
+                                    }
+                                  },
+                                  "pixel_generator": {
+                                    "type": "customField",
+                                    "customField": "plugin::map-explorer.pixel-forge"
+                                  }
+                                }
+                              }
+                            },
+                            "features": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::feature.feature",
+                              "mappedBy": "tags",
+                              "__targetSchema": {
+                                "$ref": "api::feature.feature"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "traits": {
+                  "type": "relation",
+                  "relation": "manyToMany",
+                  "target": "api::trait.trait",
+                  "__targetSchema": {
+                    "uid": "api::trait.trait",
+                    "kind": "collectionType",
+                    "collectionName": "traits",
+                    "info": {
+                      "singularName": "trait",
+                      "pluralName": "traits",
+                      "displayName": "Trait",
+                      "description": "D&D 5e Racial Traits"
+                    },
+                    "options": {
+                      "draftAndPublish": false
+                    },
+                    "pluginOptions": {
+                      "i18n": {
+                        "localized": true
+                      }
+                    },
+                    "attributes": {
+                      "slug": {
+                        "type": "uid",
+                        "targetField": "name",
+                        "required": true
+                      },
+                      "embedding": {
+                        "type": "json",
+                        "private": true
+                      },
+                      "name": {
+                        "type": "string",
+                        "pluginOptions": {
+                          "i18n": {
+                            "localized": true
+                          }
+                        },
+                        "required": true
+                      },
+                      "description": {
+                        "type": "richtext",
+                        "pluginOptions": {
+                          "i18n": {
+                            "localized": true
+                          }
+                        }
+                      },
+                      "races": {
+                        "type": "relation",
+                        "relation": "manyToMany",
+                        "target": "api::race.race",
+                        "inversedBy": "traits",
+                        "__targetSchema": {
+                          "uid": "api::race.race",
+                          "kind": "collectionType",
+                          "collectionName": "races",
+                          "info": {
+                            "singularName": "race",
+                            "pluralName": "races",
+                            "displayName": "Race",
+                            "description": "D&D 5e Races"
+                          },
+                          "options": {
+                            "draftAndPublish": false
+                          },
+                          "pluginOptions": {
+                            "i18n": {
+                              "localized": true
+                            }
+                          },
+                          "attributes": {
+                            "slug": {
+                              "type": "uid",
+                              "targetField": "name",
+                              "required": true
+                            },
+                            "embedding": {
+                              "type": "json",
+                              "private": true
+                            },
+                            "name": {
+                              "type": "string",
+                              "pluginOptions": {
+                                "i18n": {
+                                  "localized": true
+                                }
+                              },
+                              "required": true
+                            },
+                            "description": {
+                              "type": "richtext",
+                              "pluginOptions": {
+                                "i18n": {
+                                  "localized": true
+                                }
+                              }
+                            },
+                            "speed": {
+                              "type": "json"
+                            },
+                            "size": {
+                              "type": "enumeration",
+                              "enum": [
+                                "Tiny",
+                                "Small",
+                                "Medium",
+                                "Large"
+                              ]
+                            },
+                            "traits": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::trait.trait",
+                              "mappedBy": "races",
+                              "__targetSchema": {
+                                "$ref": "api::trait.trait"
+                              }
+                            },
+                            "proficiencies": {
+                              "type": "relation",
+                              "relation": "manyToMany",
+                              "target": "api::proficiency.proficiency",
+                              "inversedBy": "races",
+                              "__targetSchema": {
+                                "uid": "api::proficiency.proficiency",
+                                "kind": "collectionType",
+                                "collectionName": "proficiencies",
+                                "info": {
+                                  "singularName": "proficiency",
+                                  "pluralName": "proficiencies",
+                                  "displayName": "Proficiency",
+                                  "description": "Character proficiencies"
+                                },
+                                "options": {
+                                  "draftAndPublish": false
+                                },
+                                "pluginOptions": {
+                                  "i18n": {
+                                    "localized": true
+                                  }
+                                },
+                                "attributes": {
+                                  "slug": {
+                                    "type": "uid",
+                                    "targetField": "name",
+                                    "required": true
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "pluginOptions": {
+                                      "i18n": {
+                                        "localized": true
+                                      }
+                                    },
+                                    "required": true
+                                  },
+                                  "embedding": {
+                                    "type": "json",
+                                    "private": true
+                                  },
+                                  "type": {
+                                    "type": "enumeration",
+                                    "enum": [
+                                      "Armor",
+                                      "Weapons",
+                                      "Tools",
+                                      "Artisan's Tools",
+                                      "Gaming Sets",
+                                      "Musical Instruments",
+                                      "Vehicles",
+                                      "Other",
+                                      "Saving Throws",
+                                      "Skills"
+                                    ]
+                                  },
+                                  "classes": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::class.class",
+                                    "mappedBy": "proficiencies",
+                                    "__targetSchema": {
+                                      "uid": "api::class.class",
+                                      "kind": "collectionType",
+                                      "collectionName": "classes",
+                                      "info": {
+                                        "singularName": "class",
+                                        "pluralName": "classes",
+                                        "displayName": "Class",
+                                        "description": "D&D 5e Character Classes"
+                                      },
+                                      "options": {
+                                        "draftAndPublish": false
+                                      },
+                                      "pluginOptions": {
+                                        "i18n": {
+                                          "localized": true
+                                        }
+                                      },
+                                      "attributes": {
+                                        "slug": {
+                                          "type": "uid",
+                                          "targetField": "name",
+                                          "required": true
+                                        },
+                                        "name": {
+                                          "type": "string",
+                                          "pluginOptions": {
+                                            "i18n": {
+                                              "localized": true
+                                            }
+                                          },
+                                          "required": true
+                                        },
+                                        "embedding": {
+                                          "type": "json",
+                                          "private": true
+                                        },
+                                        "description": {
+                                          "type": "richtext",
+                                          "pluginOptions": {
+                                            "i18n": {
+                                              "localized": true
+                                            }
+                                          }
+                                        },
+                                        "lore": {
+                                          "type": "richtext",
+                                          "pluginOptions": {
+                                            "i18n": {
+                                              "localized": true
+                                            }
+                                          }
+                                        },
+                                        "hit_die": {
+                                          "type": "string"
+                                        },
+                                        "subclasses": {
+                                          "type": "relation",
+                                          "relation": "oneToMany",
+                                          "target": "api::subclass.subclass",
+                                          "mappedBy": "class",
+                                          "__targetSchema": {
+                                            "uid": "api::subclass.subclass",
+                                            "kind": "collectionType",
+                                            "collectionName": "subclasses",
+                                            "info": {
+                                              "singularName": "subclass",
+                                              "pluralName": "subclasses",
+                                              "displayName": "Subclass",
+                                              "description": "D&D 5e Class Subclasses"
+                                            },
+                                            "options": {
+                                              "draftAndPublish": false
+                                            },
+                                            "pluginOptions": {
+                                              "i18n": {
+                                                "localized": true
+                                              }
+                                            },
+                                            "attributes": {
+                                              "slug": {
+                                                "type": "uid",
+                                                "targetField": "name",
+                                                "required": true
+                                              },
+                                              "embedding": {
+                                                "type": "json",
+                                                "private": true
+                                              },
+                                              "name": {
+                                                "type": "string",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                },
+                                                "required": true
+                                              },
+                                              "description": {
+                                                "type": "richtext",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                }
+                                              },
+                                              "subclass_flavor": {
+                                                "type": "string",
+                                                "pluginOptions": {
+                                                  "i18n": {
+                                                    "localized": true
+                                                  }
+                                                }
+                                              },
+                                              "class": {
+                                                "type": "relation",
+                                                "relation": "manyToOne",
+                                                "target": "api::class.class",
+                                                "inversedBy": "subclasses",
+                                                "__targetSchema": {
+                                                  "$ref": "api::class.class"
+                                                }
+                                              },
+                                              "image": {
+                                                "type": "media",
+                                                "multiple": false,
+                                                "required": false,
+                                                "allowedTypes": [
+                                                  "images"
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "proficiencies": {
+                                          "type": "relation",
+                                          "relation": "manyToMany",
+                                          "target": "api::proficiency.proficiency",
+                                          "inversedBy": "classes",
+                                          "__targetSchema": {
+                                            "$ref": "api::proficiency.proficiency"
+                                          }
+                                        },
+                                        "features": {
+                                          "type": "component",
+                                          "repeatable": true,
+                                          "component": "game.feature",
+                                          "__schema": {
+                                            "uid": "game.feature",
+                                            "collectionName": "components_game_features",
+                                            "info": {
+                                              "displayName": "Feature",
+                                              "icon": "star",
+                                              "description": "Trait or Special Ability"
+                                            },
+                                            "options": {},
+                                            "attributes": {
+                                              "name": {
+                                                "type": "string",
+                                                "required": true
+                                              },
+                                              "description": {
+                                                "type": "text"
+                                              },
+                                              "source": {
+                                                "type": "enumeration",
+                                                "enum": [
+                                                  "race",
+                                                  "class",
+                                                  "monster",
+                                                  "feat",
+                                                  "item",
+                                                  "other"
+                                                ],
+                                                "default": "monster"
+                                              },
+                                              "usage_max": {
+                                                "type": "integer"
+                                              },
+                                              "usage_per": {
+                                                "type": "enumeration",
+                                                "enum": [
+                                                  "short_rest",
+                                                  "long_rest",
+                                                  "day",
+                                                  "dawn",
+                                                  "dusk",
+                                                  "other"
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "progression": {
+                                          "type": "component",
+                                          "repeatable": true,
+                                          "component": "game.class-progression",
+                                          "__schema": {
+                                            "uid": "game.class-progression",
+                                            "collectionName": "components_game_class_progressions",
+                                            "info": {
+                                              "displayName": "Class Progression",
+                                              "description": "Features and resources gained at a specific level"
+                                            },
+                                            "options": {},
+                                            "attributes": {
+                                              "level": {
+                                                "type": "integer",
+                                                "required": true,
+                                                "min": 1,
+                                                "max": 20
+                                              },
+                                              "features": {
+                                                "type": "relation",
+                                                "relation": "oneToMany",
+                                                "target": "api::feature.feature",
+                                                "__targetSchema": {
+                                                  "$ref": "api::feature.feature"
+                                                }
+                                              },
+                                              "spell_slots": {
+                                                "type": "json",
+                                                "required": false
+                                              },
+                                              "class_specifics": {
+                                                "type": "json",
+                                                "required": false
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "image": {
+                                          "type": "media",
+                                          "multiple": false,
+                                          "required": false,
+                                          "allowedTypes": [
+                                            "images"
+                                          ]
+                                        },
+                                        "compilation_state": {
+                                          "type": "component",
+                                          "repeatable": false,
+                                          "component": "game.compilation-state",
+                                          "__schema": {
+                                            "$ref": "game.compilation-state"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "races": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::race.race",
+                                    "mappedBy": "proficiencies",
+                                    "__targetSchema": {
+                                      "$ref": "api::race.race"
+                                    }
+                                  },
+                                  "traits": {
+                                    "type": "relation",
+                                    "relation": "manyToMany",
+                                    "target": "api::trait.trait",
+                                    "mappedBy": "proficiencies",
+                                    "__targetSchema": {
+                                      "$ref": "api::trait.trait"
+                                    }
+                                  },
+                                  "image": {
+                                    "type": "media",
+                                    "multiple": false,
+                                    "required": false,
+                                    "allowedTypes": [
+                                      "images"
+                                    ]
+                                  },
+                                  "compilation_state": {
+                                    "type": "component",
+                                    "repeatable": false,
+                                    "component": "game.compilation-state",
+                                    "__schema": {
+                                      "$ref": "game.compilation-state"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "image": {
+                              "type": "media",
+                              "multiple": false,
+                              "required": false,
+                              "allowedTypes": [
+                                "images"
+                              ]
+                            },
+                            "compilation_state": {
+                              "type": "component",
+                              "repeatable": false,
+                              "component": "game.compilation-state",
+                              "__schema": {
+                                "$ref": "game.compilation-state"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "proficiencies": {
+                        "type": "relation",
+                        "relation": "manyToMany",
+                        "target": "api::proficiency.proficiency",
+                        "inversedBy": "traits",
+                        "__targetSchema": {
+                          "$ref": "api::proficiency.proficiency"
+                        }
+                      },
+                      "image": {
+                        "type": "media",
+                        "multiple": false,
+                        "required": false,
+                        "allowedTypes": [
+                          "images"
+                        ]
+                      },
+                      "compilation_state": {
+                        "type": "component",
+                        "repeatable": false,
+                        "component": "game.compilation-state",
+                        "__schema": {
+                          "$ref": "game.compilation-state"
+                        }
+                      }
+                    }
+                  }
+                },
+                "proficiencies": {
+                  "type": "relation",
+                  "relation": "manyToMany",
+                  "target": "api::proficiency.proficiency",
+                  "__targetSchema": {
+                    "$ref": "api::proficiency.proficiency"
+                  }
+                },
+                "inventory": {
+                  "type": "component",
+                  "repeatable": true,
+                  "component": "game.inventory-item",
+                  "__schema": {
+                    "uid": "game.inventory-item",
+                    "collectionName": "components_game_inventory_items",
+                    "info": {
+                      "displayName": "Inventory Item",
+                      "description": "An item in an inventory or slot"
+                    },
+                    "options": {},
+                    "attributes": {
+                      "item": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::item.item",
+                        "__targetSchema": {
+                          "$ref": "api::item.item"
+                        }
+                      },
+                      "quantity": {
+                        "type": "integer",
+                        "default": 1,
+                        "min": 1
+                      },
+                      "slot": {
+                        "type": "enumeration",
+                        "enum": [
+                          "backpack",
+                          "main_hand",
+                          "off_hand",
+                          "armor",
+                          "head",
+                          "feet",
+                          "neck",
+                          "hands",
+                          "cloak",
+                          "ring_1",
+                          "ring_2",
+                          "accessory"
+                        ],
+                        "default": "backpack"
+                      },
+                      "isEquipped": {
+                        "type": "boolean",
+                        "default": false
+                      }
+                    }
+                  }
+                },
+                "actions": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::action.action",
+                  "__targetSchema": {
+                    "$ref": "api::action.action"
+                  }
+                },
+                "spells": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::spell.spell",
+                  "__targetSchema": {
+                    "$ref": "api::spell.spell"
+                  }
+                },
+                "appearance": {
+                  "type": "component",
+                  "repeatable": false,
+                  "component": "game.appearance",
+                  "__schema": {
+                    "uid": "game.appearance",
+                    "collectionName": "components_game_appearances",
+                    "info": {
+                      "displayName": "Appearance",
+                      "icon": "user",
+                      "description": "Physical appearance details"
+                    },
+                    "options": {},
+                    "attributes": {
+                      "age": {
+                        "type": "integer"
+                      },
+                      "height": {
+                        "type": "decimal"
+                      },
+                      "weight": {
+                        "type": "decimal"
+                      },
+                      "eyes": {
+                        "type": "string"
+                      },
+                      "skin": {
+                        "type": "string"
+                      },
+                      "hair": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "text"
+                      },
+                      "texture": {
+                        "type": "customField",
+                        "customField": "plugin::map-explorer.texture-grid"
+                      }
+                    }
+                  }
+                },
+                "background": {
+                  "type": "richtext"
+                },
+                "race": {
+                  "type": "relation",
+                  "relation": "manyToOne",
+                  "target": "api::race.race",
+                  "__targetSchema": {
+                    "$ref": "api::race.race"
+                  }
+                },
+                "classes": {
+                  "type": "component",
+                  "repeatable": true,
+                  "component": "game.character-class",
+                  "__schema": {
+                    "uid": "game.character-class",
+                    "collectionName": "components_game_character_classes",
+                    "info": {
+                      "displayName": "CharacterClass",
+                      "description": "Links a character to a class and level"
+                    },
+                    "options": {},
+                    "attributes": {
+                      "class": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::class.class",
+                        "__targetSchema": {
+                          "$ref": "api::class.class"
+                        }
+                      },
+                      "level": {
+                        "type": "integer",
+                        "required": true,
+                        "default": 1,
+                        "min": 1
+                      },
+                      "subclass": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::subclass.subclass",
+                        "__targetSchema": {
+                          "$ref": "api::subclass.subclass"
+                        }
+                      }
+                    }
+                  }
+                },
+                "resources": {
+                  "type": "component",
+                  "repeatable": true,
+                  "component": "game.resource-pool",
+                  "__schema": {
+                    "uid": "game.resource-pool",
+                    "collectionName": "components_game_resource_pools",
+                    "info": {
+                      "displayName": "Resource Pool",
+                      "icon": "battery-full",
+                      "description": "Trackable resources (HP, Spell Slots, Ki Points)"
+                    },
+                    "options": {},
+                    "attributes": {
+                      "name": {
+                        "type": "string",
+                        "required": true
+                      },
+                      "current": {
+                        "type": "integer",
+                        "required": true,
+                        "default": 0
+                      },
+                      "max": {
+                        "type": "integer",
+                        "required": true,
+                        "default": 1
+                      },
+                      "reset_on": {
+                        "type": "enumeration",
+                        "enum": [
+                          "short_rest",
+                          "long_rest",
+                          "never",
+                          "dawn"
+                        ],
+                        "default": "long_rest"
+                      }
+                    }
+                  }
+                },
+                "compilation_state": {
+                  "type": "component",
+                  "repeatable": false,
+                  "component": "game.compilation-state",
+                  "__schema": {
+                    "$ref": "game.compilation-state"
+                  }
+                },
+                "width": {
+                  "type": "integer",
+                  "default": 1,
+                  "min": 1
+                },
+                "height": {
+                  "type": "integer",
+                  "default": 1,
+                  "min": 1
+                },
+                "tags": {
+                  "type": "relation",
+                  "relation": "manyToMany",
+                  "target": "api::tag.tag",
+                  "inversedBy": "entities",
+                  "__targetSchema": {
+                    "$ref": "api::tag.tag"
+                  }
+                },
+                "pixel_generator": {
+                  "type": "customField",
+                  "customField": "plugin::map-explorer.pixel-forge"
+                }
+              }
+            }
+          },
+          "owner": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user",
+            "__targetSchema": {
+              "$ref": "plugin::users-permissions.user",
+              "_warning": "schema_not_found_or_external"
+            }
+          },
+          "room": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::room.room",
+            "inversedBy": "entity_sheets",
+            "__targetSchema": {
+              "uid": "api::room.room",
+              "kind": "collectionType",
+              "collectionName": "rooms",
+              "info": {
+                "singularName": "room",
+                "pluralName": "rooms",
+                "displayName": "Room",
+                "description": "Game room state"
+              },
+              "options": {
+                "draftAndPublish": false
+              },
+              "pluginOptions": {},
+              "attributes": {
+                "roomId": {
+                  "type": "uid",
+                  "unique": true
+                },
+                "owner": {
+                  "type": "relation",
+                  "relation": "manyToOne",
+                  "target": "plugin::users-permissions.user",
+                  "inversedBy": "rooms",
+                  "__targetSchema": {
+                    "$ref": "plugin::users-permissions.user",
+                    "_warning": "schema_not_found_or_external"
+                  }
+                },
+                "phase": {
+                  "type": "enumeration",
+                  "enum": [
+                    "lobby",
+                    "character_creation",
+                    "world_generation",
+                    "gameplay",
+                    "combat",
+                    "ending"
+                  ],
+                  "default": "lobby"
+                },
+                "players": {
+                  "type": "component",
+                  "repeatable": true,
+                  "component": "game.player",
+                  "__schema": {
+                    "uid": "game.player",
+                    "collectionName": "components_game_players",
+                    "info": {
+                      "displayName": "Player",
+                      "icon": "user",
+                      "description": "A player in a room"
+                    },
+                    "options": {},
+                    "attributes": {
+                      "user": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "plugin::users-permissions.user",
+                        "__targetSchema": {
+                          "$ref": "plugin::users-permissions.user",
+                          "_warning": "schema_not_found_or_external"
+                        }
+                      },
+                      "character": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::entity.entity",
+                        "__targetSchema": {
+                          "$ref": "api::entity.entity"
+                        }
+                      },
+                      "characterSheet": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::entity-sheet.entity-sheet",
+                        "__targetSchema": {
+                          "$ref": "api::entity-sheet.entity-sheet"
+                        }
+                      },
+                      "isReady": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "isOnline": {
+                        "type": "boolean",
+                        "default": true
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "joinedAt": {
+                        "type": "datetime"
+                      },
+                      "action": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "turnData": {
+                  "type": "json"
+                },
+                "exploredTiles": {
+                  "type": "json"
+                },
+                "exploredChunks": {
+                  "type": "json"
+                },
+                "entropyState": {
+                  "type": "json"
+                },
+                "isActive": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "isProcessing": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "code": {
+                  "type": "string",
+                  "unique": true
+                },
+                "entity_sheets": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::entity-sheet.entity-sheet",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "$ref": "api::entity-sheet.entity-sheet"
+                  }
+                },
+                "turns": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::turn.turn",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "uid": "api::turn.turn",
+                    "kind": "collectionType",
+                    "collectionName": "turns",
+                    "info": {
+                      "singularName": "turn",
+                      "pluralName": "turns",
+                      "displayName": "Turn",
+                      "description": "A discrete cycle of gameplay history"
+                    },
+                    "options": {
+                      "draftAndPublish": false
+                    },
+                    "pluginOptions": {},
+                    "attributes": {
+                      "turnNumber": {
+                        "type": "integer",
+                        "default": 0,
+                        "required": true
+                      },
+                      "room": {
+                        "type": "relation",
+                        "relation": "manyToOne",
+                        "target": "api::room.room",
+                        "inversedBy": "turns",
+                        "__targetSchema": {
+                          "$ref": "api::room.room"
+                        }
+                      },
+                      "messages": {
+                        "type": "relation",
+                        "relation": "oneToMany",
+                        "target": "api::message.message",
+                        "mappedBy": "turn",
+                        "__targetSchema": {
+                          "uid": "api::message.message",
+                          "kind": "collectionType",
+                          "collectionName": "messages",
+                          "info": {
+                            "singularName": "message",
+                            "pluralName": "messages",
+                            "displayName": "Message",
+                            "description": "Individual communication unit"
+                          },
+                          "options": {
+                            "draftAndPublish": false
+                          },
+                          "pluginOptions": {},
+                          "attributes": {
+                            "content": {
+                              "type": "richtext",
+                              "required": true
+                            },
+                            "senderName": {
+                              "type": "string"
+                            },
+                            "senderType": {
+                              "type": "enumeration",
+                              "enum": [
+                                "dm",
+                                "player",
+                                "system"
+                              ],
+                              "default": "system"
+                            },
+                            "room": {
+                              "type": "relation",
+                              "relation": "manyToOne",
+                              "target": "api::room.room",
+                              "inversedBy": "messages",
+                              "__targetSchema": {
+                                "$ref": "api::room.room"
+                              }
+                            },
+                            "turn": {
+                              "type": "relation",
+                              "relation": "manyToOne",
+                              "target": "api::turn.turn",
+                              "inversedBy": "messages",
+                              "__targetSchema": {
+                                "$ref": "api::turn.turn"
+                              }
+                            },
+                            "recipient": {
+                              "type": "relation",
+                              "relation": "manyToOne",
+                              "target": "plugin::users-permissions.user",
+                              "__targetSchema": {
+                                "$ref": "plugin::users-permissions.user",
+                                "_warning": "schema_not_found_or_external"
+                              }
+                            },
+                            "timestamp": {
+                              "type": "biginteger",
+                              "required": false
+                            },
+                            "images": {
+                              "type": "json"
+                            }
+                          }
+                        }
+                      },
+                      "narrative": {
+                        "type": "richtext"
+                      },
+                      "summary": {
+                        "type": "text"
+                      },
+                      "type": {
+                        "type": "enumeration",
+                        "enum": [
+                          "group",
+                          "combat",
+                          "exploration"
+                        ],
+                        "default": "group"
+                      },
+                      "status": {
+                        "type": "enumeration",
+                        "enum": [
+                          "waiting",
+                          "processing",
+                          "complete"
+                        ],
+                        "default": "waiting"
+                      },
+                      "actions": {
+                        "type": "json"
+                      },
+                      "metadata": {
+                        "type": "json"
+                      },
+                      "characterSnapshots": {
+                        "type": "json"
+                      },
+                      "contextImage": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "plugin::upload.file",
+                        "__targetSchema": {
+                          "$ref": "plugin::upload.file",
+                          "_warning": "schema_not_found_or_external"
+                        }
+                      }
+                    }
+                  }
+                },
+                "messages": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::message.message",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "$ref": "api::message.message"
+                  }
+                },
+                "events": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::game-event.game-event",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "$ref": "api::game-event.game-event"
+                  }
+                },
+                "timeFrames": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::time-frame.time-frame",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "uid": "api::time-frame.time-frame",
+                    "kind": "collectionType",
+                    "collectionName": "time_frames",
+                    "info": {
+                      "singularName": "time-frame",
+                      "pluralName": "time-frames",
+                      "displayName": "Time Frame",
+                      "description": "Snapshot of game state at a specific point in time"
+                    },
+                    "options": {
+                      "draftAndPublish": false
+                    },
+                    "pluginOptions": {},
+                    "attributes": {
+                      "turnNumber": {
+                        "type": "integer",
+                        "required": true
+                      },
+                      "timestamp": {
+                        "type": "datetime",
+                        "required": true
+                      },
+                      "room": {
+                        "type": "relation",
+                        "relation": "manyToOne",
+                        "target": "api::room.room",
+                        "inversedBy": "timeFrames",
+                        "__targetSchema": {
+                          "$ref": "api::room.room"
+                        }
+                      },
+                      "gameState": {
+                        "type": "json",
+                        "required": true
+                      },
+                      "entropySnapshot": {
+                        "type": "json"
+                      },
+                      "events": {
+                        "type": "relation",
+                        "relation": "manyToMany",
+                        "target": "api::game-event.game-event",
+                        "mappedBy": "timeFrames",
+                        "__targetSchema": {
+                          "$ref": "api::game-event.game-event"
+                        }
+                      }
+                    },
+                    "hash": {
+                      "type": "string",
+                      "index": true
+                    },
+                    "sequenceId": {
+                      "type": "biginteger",
+                      "index": true
+                    }
+                  }
+                },
+                "currentTimeFrame": {
+                  "type": "relation",
+                  "relation": "oneToOne",
+                  "target": "api::time-frame.time-frame",
+                  "__targetSchema": {
+                    "$ref": "api::time-frame.time-frame"
+                  }
+                },
+                "world": {
+                  "type": "relation",
+                  "relation": "oneToOne",
+                  "target": "api::world.world",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "uid": "api::world.world",
+                    "kind": "collectionType",
+                    "collectionName": "worlds",
+                    "info": {
+                      "singularName": "world",
+                      "pluralName": "worlds",
+                      "displayName": "World",
+                      "description": "World configuration and generated lore"
+                    },
+                    "options": {
+                      "draftAndPublish": false
+                    },
+                    "pluginOptions": {},
+                    "attributes": {
+                      "room": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::room.room",
+                        "inversedBy": "world",
+                        "__targetSchema": {
+                          "$ref": "api::room.room"
+                        }
+                      },
+                      "voxelChanges": {
+                        "type": "relation",
+                        "relation": "oneToMany",
+                        "target": "api::voxel-change.voxel-change",
+                        "mappedBy": "world",
+                        "__targetSchema": {
+                          "uid": "api::voxel-change.voxel-change",
+                          "kind": "collectionType",
+                          "collectionName": "voxel_changes",
+                          "info": {
+                            "singularName": "voxel-change",
+                            "pluralName": "voxel-changes",
+                            "displayName": "Voxel Change",
+                            "description": "Persistent delta storage for terrain modifications"
+                          },
+                          "options": {
+                            "draftAndPublish": false
+                          },
+                          "pluginOptions": {},
+                          "attributes": {
+                            "world": {
+                              "type": "relation",
+                              "relation": "manyToOne",
+                              "target": "api::world.world",
+                              "inversedBy": "voxelChanges",
+                              "__targetSchema": {
+                                "$ref": "api::world.world"
+                              }
+                            },
+                            "chunkX": {
+                              "type": "integer",
+                              "required": true
+                            },
+                            "chunkY": {
+                              "type": "integer",
+                              "required": true
+                            },
+                            "voxelX": {
+                              "type": "integer",
+                              "required": true
+                            },
+                            "voxelY": {
+                              "type": "integer",
+                              "required": true
+                            },
+                            "voxelZ": {
+                              "type": "integer",
+                              "required": true
+                            },
+                            "newType": {
+                              "type": "string",
+                              "required": true
+                            },
+                            "previousType": {
+                              "type": "string"
+                            },
+                            "reason": {
+                              "type": "string"
+                            },
+                            "metadata": {
+                              "type": "json"
+                            },
+                            "timestamp": {
+                              "type": "biginteger",
+                              "required": true
+                            }
+                          }
+                        }
+                      },
+                      "name": {
+                        "type": "string",
+                        "default": "New World"
+                      },
+                      "description": {
+                        "type": "richtext"
+                      },
+                      "history": {
+                        "type": "richtext"
+                      },
+                      "worldBackground": {
+                        "type": "richtext"
+                      },
+                      "seed": {
+                        "type": "string"
+                      },
+                      "language": {
+                        "type": "string",
+                        "default": "en-US"
+                      },
+                      "chunkSize": {
+                        "type": "integer",
+                        "default": 32
+                      },
+                      "detail": {
+                        "type": "integer",
+                        "default": 4
+                      },
+                      "fogRadius": {
+                        "type": "integer",
+                        "default": 10
+                      },
+                      "globalScale": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0.02
+                      },
+                      "seaLevel": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0
+                      },
+                      "elevationScale": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0.5
+                      },
+                      "roughness": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0.5
+                      },
+                      "moistureScale": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0.015
+                      },
+                      "temperatureOffset": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0
+                      },
+                      "roadDensity": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0.1
+                      },
+                      "structureChance": {
+                        "type": "float",
+                        "required": true,
+                        "default": 0.1
+                      },
+                      "structureSpacing": {
+                        "type": "integer",
+                        "required": true,
+                        "default": 3
+                      },
+                      "structureSizeAvg": {
+                        "type": "integer",
+                        "required": true,
+                        "default": 10
+                      },
+                      "worldSize": {
+                        "type": "enumeration",
+                        "enum": [
+                          "intimate",
+                          "small",
+                          "medium",
+                          "large",
+                          "vast",
+                          "epic"
+                        ],
+                        "default": "small",
+                        "required": true
+                      },
+                      "worldType": {
+                        "type": "string",
+                        "default": "terra",
+                        "required": true
+                      },
+                      "adventureLength": {
+                        "type": "enumeration",
+                        "enum": [
+                          "flash",
+                          "short",
+                          "medium",
+                          "long",
+                          "epic",
+                          "legendary"
+                        ],
+                        "default": "short",
+                        "required": true
+                      },
+                      "startingRadius": {
+                        "type": "integer",
+                        "default": 4,
+                        "required": true
+                      },
+                      "voxels": {
+                        "type": "customField",
+                        "customField": "plugin::map-explorer.world-grid",
+                        "required": false
+                      }
+                    }
+                  }
+                },
+                "dmSettings": {
+                  "type": "relation",
+                  "relation": "oneToOne",
+                  "target": "api::dm-setting.dm-setting",
+                  "mappedBy": "room",
+                  "__targetSchema": {
+                    "uid": "api::dm-setting.dm-setting",
+                    "kind": "collectionType",
+                    "collectionName": "dm_settings",
+                    "info": {
+                      "singularName": "dm-setting",
+                      "pluralName": "dm-settings",
+                      "displayName": "DM Setting",
+                      "description": "Narrative and Game Style settings for the DM AI"
+                    },
+                    "options": {
+                      "draftAndPublish": false
+                    },
+                    "pluginOptions": {},
+                    "attributes": {
+                      "dmStyle": {
+                        "type": "component",
+                        "repeatable": false,
+                        "component": "game.dm-style",
+                        "__schema": {
+                          "uid": "game.dm-style",
+                          "collectionName": "components_game_dm_styles",
+                          "info": {
+                            "displayName": "DM Style",
+                            "icon": "dungeon"
+                          },
+                          "options": {},
+                          "attributes": {
+                            "verbosity": {
+                              "type": "integer",
+                              "default": 1
+                            },
+                            "detail": {
+                              "type": "integer",
+                              "default": 1
+                            },
+                            "engagement": {
+                              "type": "integer",
+                              "default": 1
+                            },
+                            "narrative": {
+                              "type": "integer",
+                              "default": 1
+                            },
+                            "specialMode": {
+                              "type": "string"
+                            },
+                            "customDirectives": {
+                              "type": "text"
+                            }
+                          }
+                        }
+                      },
+                      "dmSystemPrompt": {
+                        "type": "text"
+                      },
+                      "difficulty": {
+                        "type": "enumeration",
+                        "enum": [
+                          "storyteller",
+                          "easy",
+                          "medium",
+                          "challenging",
+                          "gritty",
+                          "deadly"
+                        ],
+                        "default": "easy"
+                      },
+                      "adventureLength": {
+                        "type": "enumeration",
+                        "enum": [
+                          "flash",
+                          "short",
+                          "medium",
+                          "long",
+                          "epic",
+                          "legendary"
+                        ],
+                        "default": "short"
+                      },
+                      "theme": {
+                        "type": "string"
+                      },
+                      "setting": {
+                        "type": "string"
+                      },
+                      "tone": {
+                        "type": "string"
+                      },
+                      "playerCount": {
+                        "type": "integer",
+                        "default": 4
+                      },
+                      "startingLevel": {
+                        "type": "integer",
+                        "default": 1
+                      },
+                      "attributePointBudget": {
+                        "type": "integer",
+                        "default": 27
+                      },
+                      "room": {
+                        "type": "relation",
+                        "relation": "oneToOne",
+                        "target": "api::room.room",
+                        "inversedBy": "dmSettings",
+                        "__targetSchema": {
+                          "$ref": "api::room.room"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "currentHp": {
+            "type": "integer"
+          },
+          "maxHp": {
+            "type": "integer"
+          },
+          "ac": {
+            "type": "integer",
+            "default": 10
+          },
+          "level": {
+            "type": "integer",
+            "default": 1
+          },
+          "experience": {
+            "type": "integer",
+            "default": 0
+          },
+          "stats": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.stats",
+            "__schema": {
+              "$ref": "game.stats"
+            }
+          },
+          "race": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::race.race",
+            "__targetSchema": {
+              "$ref": "api::race.race"
+            }
+          },
+          "class": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::class.class",
+            "__targetSchema": {
+              "$ref": "api::class.class"
+            }
+          },
+          "appearance": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.appearance",
+            "__schema": {
+              "$ref": "game.appearance"
+            }
+          },
+          "backstory": {
+            "type": "text"
+          },
+          "inventory": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.inventory-item",
+            "__schema": {
+              "$ref": "game.inventory-item"
+            }
+          },
+          "position": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.position",
+            "__schema": {
+              "uid": "game.position",
+              "collectionName": "components_game_positions",
+              "info": {
+                "displayName": "Position",
+                "icon": "map",
+                "description": "Grid coordinates"
+              },
+              "options": {},
+              "attributes": {
+                "x": {
+                  "type": "integer",
+                  "default": 0
+                },
+                "y": {
+                  "type": "integer",
+                  "default": 0
+                },
+                "z": {
+                  "type": "integer",
+                  "default": 0
+                },
+                "mapId": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "actions": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::action.action",
+            "__targetSchema": {
+              "$ref": "api::action.action"
+            }
+          },
+          "spellbook": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.spellbook",
+            "__schema": {
+              "uid": "game.spellbook",
+              "collectionName": "components_game_spellbooks",
+              "info": {
+                "displayName": "Spellbook",
+                "icon": "book"
+              },
+              "options": {},
+              "attributes": {
+                "knownSpells": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::spell.spell",
+                  "__targetSchema": {
+                    "$ref": "api::spell.spell"
+                  }
+                },
+                "preparedSpells": {
+                  "type": "relation",
+                  "relation": "oneToMany",
+                  "target": "api::spell.spell",
+                  "__targetSchema": {
+                    "$ref": "api::spell.spell"
+                  }
+                },
+                "spellcastingAbility": {
+                  "type": "enumeration",
+                  "enum": [
+                    "intelligence",
+                    "wisdom",
+                    "charisma"
+                  ]
+                },
+                "spellSaveDc": {
+                  "type": "integer"
+                },
+                "spellAttackBonus": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "proficiencies": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::proficiency.proficiency",
+            "__targetSchema": {
+              "$ref": "api::proficiency.proficiency"
+            }
+          },
+          "languages": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::language.language",
+            "__targetSchema": {
+              "$ref": "api::language.language"
+            }
+          },
+          "traits": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::trait.trait",
+            "__targetSchema": {
+              "$ref": "api::trait.trait"
+            }
+          },
+          "features": {
+            "type": "relation",
+            "relation": "manyToMany",
+            "target": "api::feature.feature",
+            "__targetSchema": {
+              "$ref": "api::feature.feature"
+            }
+          },
+          "conditions": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.condition-instance",
+            "__schema": {
+              "$ref": "game.condition-instance"
+            }
+          },
+          "resources": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.resource-pool",
+            "__schema": {
+              "$ref": "game.resource-pool"
+            }
+          },
+          "active_effects": {
+            "type": "json"
+          },
+          "tempHp": {
+            "type": "integer",
+            "default": 0
+          },
+          "initiativeBonus": {
+            "type": "integer",
+            "default": 0
+          },
+          "passivePerception": {
+            "type": "integer",
+            "default": 10
+          },
+          "computedWeight": {
+            "type": "float",
+            "default": 0
+          },
+          "computedSkills": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.skill-bonus",
+            "__schema": {
+              "uid": "game.skill-bonus",
+              "collectionName": "components_game_skill_bonuses",
+              "info": {
+                "displayName": "Skill Bonus",
+                "icon": "book",
+                "description": "Calculated skill modifier"
+              },
+              "options": {},
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "value": {
+                  "type": "integer",
+                  "default": 0,
+                  "required": true
+                },
+                "proficient": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            }
+          },
+          "computedSaves": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.save-bonus",
+            "__schema": {
+              "uid": "game.save-bonus",
+              "collectionName": "components_game_save_bonuses",
+              "info": {
+                "displayName": "Save Bonus",
+                "icon": "shield-alt",
+                "description": "Calculated saving throw modifier"
+              },
+              "options": {},
+              "attributes": {
+                "stat": {
+                  "type": "enumeration",
+                  "enum": [
+                    "strength",
+                    "dexterity",
+                    "constitution",
+                    "intelligence",
+                    "wisdom",
+                    "charisma"
+                  ],
+                  "required": true
+                },
+                "value": {
+                  "type": "integer",
+                  "default": 0,
+                  "required": true
+                },
+                "proficient": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            }
+          },
+          "defenses": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.damage-modifier",
+            "__schema": {
+              "uid": "game.damage-modifier",
+              "collectionName": "components_game_damage_modifiers",
+              "info": {
+                "displayName": "Damage Modifier",
+                "icon": "heart-broken",
+                "description": "Resistance, Immunity, or Vulnerability"
+              },
+              "options": {},
+              "attributes": {
+                "damageType": {
+                  "type": "enumeration",
+                  "enum": [
+                    "acid",
+                    "bludgeoning",
+                    "cold",
+                    "fire",
+                    "force",
+                    "lightning",
+                    "necrotic",
+                    "piercing",
+                    "poison",
+                    "psychic",
+                    "radiant",
+                    "slashing",
+                    "thunder",
+                    "physical",
+                    "magical"
+                  ],
+                  "required": true
+                },
+                "modifier": {
+                  "type": "enumeration",
+                  "enum": [
+                    "resistance",
+                    "immunity",
+                    "vulnerability"
+                  ],
+                  "required": true
+                }
+              }
+            }
+          },
+          "computedActions": {
+            "type": "component",
+            "repeatable": true,
+            "component": "game.computed-action",
+            "__schema": {
+              "uid": "game.computed-action",
+              "collectionName": "components_game_computed_actions",
+              "info": {
+                "displayName": "Computed Action",
+                "icon": "fist-raised",
+                "description": "A fully resolved action ready for the engine"
+              },
+              "options": {},
+              "attributes": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                },
+                "type": {
+                  "type": "enumeration",
+                  "enum": [
+                    "melee",
+                    "ranged",
+                    "spell",
+                    "utility"
+                  ]
+                },
+                "toHit": {
+                  "type": "integer"
+                },
+                "damageDice": {
+                  "type": "string"
+                },
+                "damageBonus": {
+                  "type": "integer"
+                },
+                "damageType": {
+                  "type": "string"
+                },
+                "saveAbility": {
+                  "type": "string"
+                },
+                "saveDc": {
+                  "type": "integer"
+                },
+                "range": {
+                  "type": "integer"
+                },
+                "description": {
+                  "type": "text"
+                },
+                "resourceCost": {
+                  "type": "json"
+                }
+              }
+            }
+          },
+          "compilation_state": {
+            "type": "component",
+            "repeatable": false,
+            "component": "game.compilation-state",
+            "__schema": {
+              "$ref": "game.compilation-state"
+            }
+          }
+        }
+      }
+    },
+    "room": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::room.room",
+      "__targetSchema": {
+        "$ref": "api::room.room"
+      }
+    },
+    "payload": {
+      "type": "json",
+      "required": true
+    },
+    "timestamp": {
+      "type": "biginteger",
+      "required": true
+    },
+    "turn_number": {
+      "type": "integer"
+    }
+  }
+}

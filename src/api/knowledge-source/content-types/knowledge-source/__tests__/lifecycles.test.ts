@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import lifecycles from '../lifecycles';
+import lifecycles from '@/api/knowledge-source/content-types/knowledge-source/lifecycles';
 
 const mockDb = {
   query: vi.fn(() => ({

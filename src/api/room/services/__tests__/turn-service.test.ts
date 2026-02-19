@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import turnServiceFactory from '../turn-service';
+import turnServiceFactory from '@/api/room/services/turn-service';
 
 // Mock LLM
 const mockGenerateStructured = vi.fn();

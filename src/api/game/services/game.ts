@@ -8,7 +8,7 @@
  */
 
 import type { WorldSettings, Player, Creature, Message, Language, CharacterSheet } from '@/api/game/src/engine';
-// import { getRuleContext } from '../../../utils/rag'; // TODO: precise path if implemented
+// import { getRuleContext } from '@/utils/rag'; // TODO: precise path if implemented
 
 import type { Chunk } from '@/api/game/src/engine';
 
@@ -76,7 +76,6 @@ export default ({ strapi }) => ({
       worldDescription,
       messages,
       players,
-      creatures,
       language,
       settings,
       worldConditions,
@@ -265,8 +264,8 @@ export default ({ strapi }) => ({
       // Better: Use `p.characterSheet` ID if available on player component.
       // We need to populate 'players.characterSheet' in startGame then.
 
-      const pAny = p as unknown as { characterSheet: string | { documentId: string } };
-      const pSheetId = typeof pAny.characterSheet === 'object' ? pAny.characterSheet.documentId : pAny.characterSheet;
+      const pAny = p as unknown as { characterSheet: string | { documentId: string } | null };
+      const pSheetId = (typeof pAny.characterSheet === 'object' && pAny.characterSheet) ? pAny.characterSheet.documentId : pAny.characterSheet;
       if (!pSheetId) return null; // Skip if no sheet
 
       // We need the full sheet data for generation

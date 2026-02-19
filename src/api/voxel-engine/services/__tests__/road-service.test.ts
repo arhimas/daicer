@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { RoadService } from '../road-service';
+import { RoadService } from '@/api/voxel-engine/services/road-service';
 import { BlockType, StructureInfo } from '@daicer/engine/types';
 
 describe('RoadService', () => {
@@ -81,7 +81,7 @@ describe('RoadService', () => {
         // center of target (20+2, 10+2) = (22, 12)
         
         // Check tile at 3, 12, 17
-        const roadTile = tiles[3][12][17]; // y=12, x=17
+        const _roadTile = tiles[3][12][17]; // y=12, x=17
         // Wait, rasterizeRoad uses (tiles, cx, cy, wx, wy, z, type) via TileHelper
         // TileHelper.setBlock(tiles, cx, cy, wx, wy, 0, BlockType.FLOOR_STONE);
         // wx=17, wy=12. 

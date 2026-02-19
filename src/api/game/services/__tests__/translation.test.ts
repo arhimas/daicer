@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import translationServiceFactory from '../translation';
+import translationServiceFactory from '@/api/game/services/translation';
 
 // Mock Strapi global for contentTypes
 const mockStrapi = {

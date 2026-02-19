@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import controller from '../engine';
+import controller from '@/api/game/controllers/engine';
 
 describe('Engine Controller', () => {
     let mockServices: any;

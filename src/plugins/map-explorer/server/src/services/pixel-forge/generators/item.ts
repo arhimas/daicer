@@ -1,6 +1,6 @@
-import { createEmptyGrid, fillBox, markBox } from '../grid-utils';
-import { ItemContext } from '../serializers'; // Universal Contract
-import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';
+import { createEmptyGrid, fillBox, markBox } from "../grid-utils";
+import { ItemContext } from "../serializers"; // Universal Contract
+import { ZoneType } from "../../../utils/compositor";
 
 export const generateItemGrid = (ctx: ItemContext): (string | null)[][] => {
   const gridSize = ctx.width;

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import mapControllerFactory from '../map-controller';
+import mapControllerFactory from "../map-controller";
+import type { Core } from '@strapi/strapi';
 
 // Mocks
 const mockVoxelEngine = {
@@ -57,7 +58,7 @@ describe('MapController', () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
-        controller = mapControllerFactory({ strapi: mockStrapi });
+        controller = mapControllerFactory({ strapi: mockStrapi as unknown as Core.Strapi });
     });
 
     describe('getMapChunk', () => {

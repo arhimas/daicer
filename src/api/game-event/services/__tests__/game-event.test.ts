@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import gameEventFactory from '../game-event';
+import gameEventFactory from '@/api/game-event/services/game-event';
 
 // Mock Dependencies
 const mockIsWalkable = vi.fn();

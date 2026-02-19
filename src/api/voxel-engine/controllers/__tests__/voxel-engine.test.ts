@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import voxelEngineControllerFactory from '../voxel-engine';
+import voxelEngineControllerFactory from '@/api/voxel-engine/controllers/voxel-engine';
 
 describe('VoxelEngine Controller', () => {
     let strapi: any;

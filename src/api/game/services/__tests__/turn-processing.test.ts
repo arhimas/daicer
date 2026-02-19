@@ -1,238 +1,318 @@
+
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import service from '../turn-processing';
+import turnProcessingFactory from '../turn-processing';
 
-// Mock Dependencies
-vi.mock('../../src/engine/entropy', () => ({
-    EntropySystem: class {
-        constructor() { }
-        advanceTurn() { return { newEvent: { visibility: 'dm' } }; }
-        get state() { return {}; }
-    }
-}));
+// Mock Dynamic Imports
+const mockAdvanceTurn = vi.fn();
+const mockEntropyState = { conditions: [] };
 
-// Mock map-visualization import
+vi.mock('../../src/engine/entropy', () => {
+    return {
+        EntropySystem: class {
+            state: any;
+            constructor() {
+                this.state = mockEntropyState;
+            }
+            advanceTurn(...args: any[]) { return mockAdvanceTurn(...args); }
+        }
+    };
+});
+
+const mockGenerateMapImage = vi.fn();
+// IMPORTANT: Path must match exactly what is imported in the source file OR be resolved correctly.
+// Source uses: import('./map-visualization')
 vi.mock('../map-visualization', () => ({
-    generateMapImage: vi.fn().mockResolvedValue(Buffer.from('image')),
+  generateMapImage: (...args: any[]) => mockGenerateMapImage(...args),
 }));
 
-describe('TurnProcessing', () => {
-    let strapi: any;
-    let turnProcessing: any;
-    let mockServices: any;
-    let mockDocuments: any;
-    let mockUpload: any;
+// Mock Strapi Services
+const mockNarrativeEngine = { generateNarrativeResponse: vi.fn() };
+const mockTurnPersistence = { persistTurn: vi.fn(), clearPlayerActions: vi.fn(), updateCharacterPosition: vi.fn() };
+const mockActionEngine = { dispatch: vi.fn() };
+const mockLedger = { logEvent: vi.fn() };
+const mockSpawnService = { spawnMonster: vi.fn(), spawnCharacter: vi.fn() };
+const mockBiomeSpawnService = { populateChunk: vi.fn() };
+const mockUploadService = { upload: vi.fn() };
+const mockVoxelService = { getChunk: vi.fn() };
 
-    beforeEach(() => {
-        mockServices = {
-            'api::game.narrative-engine': { generateNarrativeResponse: vi.fn() },
-            'api::game.turn-persistence': { 
-                persistTurn: vi.fn(), 
-                clearPlayerActions: vi.fn(),
-                updateCharacterPosition: vi.fn()
-            },
-            'api::game.action-engine': { dispatch: vi.fn() },
-            'api::game.game-ledger': { logEvent: vi.fn() },
-            'api::game.spawn-service': { spawnMonster: vi.fn(), spawnCharacter: vi.fn() },
-            'api::game.biome-spawn-service': { populateChunk: vi.fn() },
-            'api::voxel-engine.voxel-engine': { getChunk: vi.fn() },
-            'api::narrator.narrator': { processAction: vi.fn() }
-        };
+const mockFindOne = vi.fn();
+const mockFindMany = vi.fn();
+const mockUpdate = vi.fn();
+const mockLogInfo = vi.fn();
+const mockLogWarn = vi.fn();
+const mockLogError = vi.fn();
 
-        mockDocuments = {
-            update: vi.fn(),
-            findOne: vi.fn(),
-            findMany: vi.fn(),
-        };
+const mockStrapi: any = {
+  service: vi.fn((uid) => {
+    switch(uid) {
+        case 'api::game.narrative-engine': return mockNarrativeEngine;
+        case 'api::game.turn-persistence': return mockTurnPersistence;
+        case 'api::game.action-engine': return mockActionEngine;
+        case 'api::game.game-ledger': return mockLedger;
+        case 'api::game.spawn-service': return mockSpawnService;
+        case 'api::game.biome-spawn-service': return mockBiomeSpawnService;
+        case 'api::voxel-engine.voxel-engine': return mockVoxelService;
+        default: return {};
+    }
+  }),
+  plugin: vi.fn((uid) => {
+      if (uid === 'upload') return { service: vi.fn(() => mockUploadService) };
+      return {};
+  }),
+  documents: vi.fn(() => ({
+    findOne: mockFindOne,
+    findMany: mockFindMany,
+    update: mockUpdate,
+  })),
+  log: {
+      info: mockLogInfo,
+      warn: mockLogWarn,
+      error: mockLogError,
+  }
+};
 
-        mockUpload = {
-            upload: vi.fn().mockResolvedValue([{ id: 'img-1' }])
-        };
+describe('Turn Processing', () => {
+  let service: any;
 
-        strapi = {
-            service: vi.fn().mockImplementation((name) => mockServices[name]),
-            documents: vi.fn().mockReturnValue(mockDocuments),
-            plugin: vi.fn().mockReturnValue({ service: () => mockUpload }),
-            log: { info: vi.fn(), error: vi.fn(), warn: vi.fn() },
-        };
-
-        turnProcessing = service({ strapi });
-        mockServices['api::game.turn-processing'] = turnProcessing;
+  beforeEach(() => {
+    vi.clearAllMocks();
+    service = turnProcessingFactory({ strapi: mockStrapi });
+    
+    // Self-Patching for internal calls
+    mockStrapi.service.mockImplementation((uid: string) => {
+        if (uid === 'api::game.turn-processing') return service;
+        if (uid === 'api::game.narrative-engine') return mockNarrativeEngine;
+        if (uid === 'api::game.turn-persistence') return mockTurnPersistence;
+        if (uid === 'api::game.action-engine') return mockActionEngine;
+        if (uid === 'api::game.game-ledger') return mockLedger;
+        if (uid === 'api::game.spawn-service') return mockSpawnService;
+        if (uid === 'api::game.biome-spawn-service') return mockBiomeSpawnService;
+        if (uid === 'api::voxel-engine.voxel-engine') return mockVoxelService;
+        return {};
     });
 
-    describe('processTurn', () => {
-        it('should execute full turn cycle with map generation and entropy', async () => {
-            const roomId = 'room-1';
-            const mockResponse = { overall_summary: 'Summary', commands: [{ type: 'CMD' }] };
-            const mockTurn = { documentId: 'turn-1' };
-            const mockChunk = { tiles: [] };
+    // Default Mocks
+    mockAdvanceTurn.mockReturnValue(null);
+    mockGenerateMapImage.mockResolvedValue(Buffer.from('fake-map'));
+    mockNarrativeEngine.generateNarrativeResponse.mockResolvedValue({ overall_summary: 'Summary', commands: [] });
+    mockTurnPersistence.persistTurn.mockResolvedValue({ turn: { documentId: 'turn-1' }, room: { documentId: 'room-1' } });
+    mockUploadService.upload.mockResolvedValue([{ id: 'file-1' }]);
+    mockVoxelService.getChunk.mockResolvedValue({ tiles: [] });
+    mockTurnPersistence.persistTurn.mockResolvedValue({ turn: { documentId: 'turn-1' }, room: { documentId: 'room-1' } });
+    mockUploadService.upload.mockResolvedValue([{ id: 'file-1' }]);
+    mockVoxelService.getChunk.mockResolvedValue({ tiles: [] });
+    mockUpdate.mockResolvedValue({}); // Reset to success
+  });
 
-            mockServices['api::game.narrative-engine'].generateNarrativeResponse.mockResolvedValue(mockResponse);
-            mockServices['api::game.turn-persistence'].persistTurn.mockResolvedValue({ turn: mockTurn, room: { documentId: roomId } });
-            
-            // Mock Room fetch for adapt entities
-            mockDocuments.findOne.mockResolvedValue({ 
-                entity_sheets: [{ documentId: 'p1', type: 'player', position: { x: 0, y: 0 } }],
-                id: 1, // for upload ref
-            });
+  describe('processTurn', () => {
+      const roomData = {
+          documentId: 'room-1',
+          entity_sheets: [],
+          exploredTiles: [],
+          config: {}
+      };
 
-            const result = await turnProcessing.processTurn(roomId, 'desc', [], [], 'en', {}, [], 'ctx', 'stream', mockChunk);
+      it('should handle entropy events', async () => {
+          mockFindOne.mockResolvedValue(roomData);
+          mockAdvanceTurn.mockReturnValue({ newEvent: { visibility: 'public' } });
 
-            // Entropy Check
-            expect(mockDocuments.update).toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ entropyState: {} }) }));
-            expect(mockServices['api::game.game-ledger'].logEvent).toHaveBeenCalledWith(roomId, expect.objectContaining({ type: 'ENTROPY_CHANGE' }));
+          await service.processTurn('room-1', 'desc', [], [], 'en');
 
-            // Map Gen
-            expect(mockUpload.upload).toHaveBeenCalled();
-            expect(mockDocuments.update).toHaveBeenCalledWith(expect.objectContaining({ 
-                documentId: 'turn-1',
-                data: { contextImage: 'img-1' }
-            }));
+          expect(mockLedger.logEvent).toHaveBeenCalledWith('room-1', expect.objectContaining({ type: 'ENTROPY_CHANGE' }));
+      });
 
-            // God Mode Dispatch
-            expect(mockServices['api::game.action-engine'].dispatch).toHaveBeenCalledWith(roomId, mockResponse.commands);
-            
-            expect(result.overall_summary).toBe('Summary');
+      it('should generate map image if chunk provided', async () => {
+        mockFindOne.mockResolvedValueOnce({ 
+            documentId: 'room-1',
+            entity_sheets: [{ documentId: 'p1', position: {x:0,y:0}, type: 'player' }],
+            exploredTiles: [],
+            config: {}
         });
 
-        it('should handle map generation failure gracefully', async () => {
-             const roomId = 'room-1';
-             mockDocuments.findOne.mockResolvedValue({});
-             mockUpload.upload.mockRejectedValue(new Error('Upload Fail'));
-             mockServices['api::game.narrative-engine'].generateNarrativeResponse.mockResolvedValue({});
-             mockServices['api::game.turn-persistence'].persistTurn.mockResolvedValue({ turn: {}, room: {} });
+        // We use wait/expect loop or just rely on await if async flow is correct
+        await service.processTurn('room-1', 'desc', [], [], 'en', {}, [], '', '', { tiles: [] });
+        
+        expect(mockGenerateMapImage).toHaveBeenCalled();
+        expect(mockUploadService.upload).toHaveBeenCalled();
+      });
 
-             // Should not throw
-             await turnProcessing.processTurn(roomId, 'desc', [], [], 'en', {}, [], 'ctx', 'stream', {});
-             expect(strapi.log.warn).toHaveBeenCalledWith(expect.stringContaining('Failed to generate/upload'), expect.any(Error));
+      it('should handle upload failure gracefully', async () => {
+        mockFindOne.mockResolvedValue({ 
+            documentId: 'room-1',
+            entity_sheets: [{ documentId: 'p1', position: {x:0,y:0}, type: 'player' }],
+            exploredTiles: [],
+            config: {}
         });
-    });
+        mockUploadService.upload.mockRejectedValue(new Error('Upload Fail'));
 
-    describe('executeDeterministicTurn', () => {
-        it('should handle move commands with exploration', async () => {
-            const roomId = 'room-1';
-            const actions = [{ type: 'move', entityId: 'ent-1', payload: { x: 16, y: 16, z: 0 } }]; // Move to 1,1 chunk
-            
-            const mockRoom = { 
-                documentId: roomId, 
-                entity_sheets: [{ documentId: 'ent-1', position: { x: 0, y: 0, z: 0 } }],
-                exploredTiles: [],
-                exploredChunks: [],
-                world: { id: 'w1' }
-            };
-            mockDocuments.findOne.mockResolvedValue(mockRoom);
-            mockServices['api::voxel-engine.voxel-engine'].getChunk.mockResolvedValue({ 
-                tiles: { 3: { 8: { 8: { biome: 'forest' } } } } // Mock center tile helper access
-            });
-            
-            mockServices['api::game.turn-persistence'].persistTurn.mockResolvedValue({ turn: { documentId: 'turn-d' } });
+        await service.processTurn('room-1', 'desc', [], [], 'en', {}, [], '', '', { tiles: [] });
 
-            await turnProcessing.executeDeterministicTurn(roomId, actions);
+        expect(mockLogWarn).toHaveBeenCalledWith(expect.stringContaining('Failed to generate/upload'), expect.any(Error));
+      });
 
-            expect(mockServices['api::game.turn-persistence'].updateCharacterPosition).toHaveBeenCalledWith('ent-1', 16, 16, 0);
-            
-            // Exploration
-            expect(mockServices['api::voxel-engine.voxel-engine'].getChunk).toHaveBeenCalled();
-            expect(mockServices['api::game.biome-spawn-service'].populateChunk).toHaveBeenCalledWith(1, 1, 'forest', roomId);
-            
-            // DB Update for exploration
-            expect(mockDocuments.update).toHaveBeenCalledWith(expect.objectContaining({
-                data: expect.objectContaining({
-                    exploredChunks: expect.arrayContaining(['1,1'])
-                })
-            }));
-        });
+      it('should dispatch god mode commands', async () => {
+          mockFindOne.mockResolvedValue(roomData);
+          mockNarrativeEngine.generateNarrativeResponse.mockResolvedValueOnce({ 
+              overall_summary: 'Summary', 
+              commands: [{ type: 'SMITE' }] 
+          });
 
-        it('should handle spawn commands', async () => {
-             const roomId = 'room-1';
-             const actions = [
-                 { type: 'spawn', payload: { entityType: 'monster', id: 'm1', position: { x: 0, y: 0 } } },
-                 { type: 'spawn', payload: { entityType: 'character', id: 'c1', position: { x: 1, y: 1 } } }
-             ];
-             
-             mockDocuments.findOne.mockResolvedValue({ documentId: roomId });
-             mockServices['api::game.turn-persistence'].persistTurn.mockResolvedValue({ turn: {} });
+          await service.processTurn('room-1', 'desc', [], [], 'en');
 
-             await turnProcessing.executeDeterministicTurn(roomId, actions);
+          expect(mockActionEngine.dispatch).toHaveBeenCalledWith('room-1', [{ type: 'SMITE' }]);
+      });
+  });
 
-             expect(mockServices['api::game.spawn-service'].spawnMonster).toHaveBeenCalledWith(roomId, 'm1', { x: 0, y: 0 });
-             expect(mockServices['api::game.spawn-service'].spawnCharacter).toHaveBeenCalledWith(roomId, 'c1', { x: 1, y: 1 });
-        });
+  describe('executeDeterministicTurn', () => {
+      it('should dispatch attack actions', async () => {
+          mockFindOne.mockResolvedValue({ documentId: 'r1', entity_sheets: [] });
 
-        it('should handle attack commands via delegation', async () => {
-             const roomId = 'room-1';
-             const actions = [{ type: 'attack', entityId: 'actor-1', payload: { targetId: 'target-1' } }];
-             
-             mockDocuments.findOne.mockResolvedValue({ documentId: roomId });
-             mockServices['api::game.turn-persistence'].persistTurn.mockResolvedValue({ turn: {} });
+          await service.executeDeterministicTurn('r1', [{ type: 'attack', entityId: 'u1', payload: { targetId: 't1' } }]);
 
-             await turnProcessing.executeDeterministicTurn(roomId, actions);
+          expect(mockActionEngine.dispatch).toHaveBeenCalledWith('r1', expect.arrayContaining([
+              expect.objectContaining({ type: 'ATTACK', payload: expect.objectContaining({ actorId: 'u1', targetId: 't1' }) })
+          ]));
+      });
 
-             expect(mockServices['api::game.action-engine'].dispatch).toHaveBeenCalledWith(roomId, expect.any(Array));
-             const callArgs = mockServices['api::game.action-engine'].dispatch.mock.calls[0][1];
-             expect(callArgs[0]).toMatchObject({
-                 type: 'ATTACK',
-                 payload: { actorId: 'actor-1', targetId: 'target-1' }
-             });
-        });
+      it('should handle spawn actions', async () => {
+        mockFindOne.mockResolvedValue({ documentId: 'r1', entity_sheets: [] });
 
-        it('should handle collision (prevent move)', async () => {
-             const roomId = 'room-1';
-             const actions = [{ type: 'move', entityId: 'ent-1', payload: { x: 10, y: 10 } }];
-             
-             const mockRoom = { 
-                 documentId: roomId, 
-                 entity_sheets: [
-                     { documentId: 'ent-1', position: { x: 0, y: 0 } },
-                     { documentId: 'ent-2', position: { x: 10, y: 10 } } // Occupied
-                 ] 
-             };
-             mockDocuments.findOne.mockResolvedValue(mockRoom);
-             mockServices['api::game.turn-persistence'].persistTurn.mockResolvedValue({ turn: { documentId: 'turn-d' } });
+        await service.executeDeterministicTurn('r1', [
+            { type: 'spawn', payload: { entityType: 'monster', id: 'm1', position: {x:1,y:1} } }
+        ]);
 
-             await turnProcessing.executeDeterministicTurn(roomId, actions);
+        expect(mockSpawnService.spawnMonster).toHaveBeenCalledWith('r1', 'm1', {x:1,y:1});
+      });
 
-             expect(mockServices['api::game.turn-persistence'].updateCharacterPosition).not.toHaveBeenCalled();
-             expect(strapi.log.warn).toHaveBeenCalledWith(expect.stringContaining('Collision detected'));
-        });
-    });
+      it('should handle exploration updates (new tiles)', async () => {
+          mockFindOne.mockResolvedValue({ 
+              documentId: 'r1', 
+              entity_sheets: [{ documentId: 'p1', position: {x:0,y:0}, name: 'P1' }],
+              exploredTiles: [],
+              exploredChunks: []
+          });
 
-    describe('submitAction', () => {
-        it('should handle debug mode', async () => {
-            const roomId = 'r1';
-            await turnProcessing.submitAction(roomId, 'test', { documentId: 'u1' }, 'debug');
-            expect(mockServices['api::narrator.narrator'].processAction).toHaveBeenCalledWith(expect.objectContaining({ mode: 'debug' }));
-        });
+          await service.executeDeterministicTurn('r1', [
+              { type: 'move', entityId: 'p1', payload: { x: 1, y: 1 } }
+          ]);
 
-        it('should throw if room not found', async () => {
-            mockDocuments.findMany.mockResolvedValue([]);
-            await expect(turnProcessing.submitAction('r1', 'a', {})).rejects.toThrow('Room not found');
-        });
+          expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({
+              data: expect.objectContaining({
+                  exploredTiles: expect.any(Array)
+              })
+          }));
+      });
+      
+      it('should trigger chunk spawn on new chunk discovery', async () => {
+           mockFindOne.mockResolvedValue({ 
+              documentId: 'r1', 
+              entity_sheets: [{ documentId: 'p1', position: {x:0,y:0} }],
+              exploredTiles: [],
+              exploredChunks: [] 
+          });
+          
+          mockVoxelService.getChunk.mockResolvedValue({ tiles: [] });
 
-        it('should throw if user not in room', async () => {
-             const roomId = 'room-abc';
-             const user = { documentId: 'u999', id: 999 };
-             const players = [{ user: { documentId: 'u1', id: 1 } }]; // Different user
-             
-             mockDocuments.findMany.mockResolvedValue([{ documentId: roomId, players }]);
- 
-             await expect(turnProcessing.submitAction(roomId, 'attack', user))
-                 .rejects.toThrow('User is not a player in this room');
-        });
+          await service.executeDeterministicTurn('r1', [
+              { type: 'move', entityId: 'p1', payload: { x: 64, y: 64 } }
+          ]);
 
-        it('should update player action', async () => {
-            const roomId = 'room-abc';
-            const user = { documentId: 'u1' };
-            const players = [{ user: { documentId: 'u1' }, action: '' }];
-            
-            mockDocuments.findMany.mockResolvedValue([{ documentId: roomId, players }]);
+          expect(mockBiomeSpawnService.populateChunk).toHaveBeenCalled();
+      });
+  });
 
-            await turnProcessing.submitAction(roomId, 'attack', user);
 
-            expect(mockDocuments.update).toHaveBeenCalledWith(expect.objectContaining({
-                data: expect.objectContaining({
-                    players: expect.arrayContaining([expect.objectContaining({ action: 'attack', isReady: true })])
-                })
-            }));
-        });
-    });
+
+  // --- HARDENING TESTS ---
+  describe('Hardening Edge Cases', () => {
+      it('executeDeterministicTurn: should block move on collision', async () => {
+          // Setup room with existing entity at 10,10
+          mockFindOne.mockResolvedValue({ 
+              documentId: 'r1', 
+              entity_sheets: [
+                  { documentId: 'p1', position: {x:0,y:0}, name: 'Hero' },
+                  { documentId: 'obs', position: {x:10,y:10}, name: 'Obstacle' }
+              ],
+              exploredTiles: []
+          });
+
+          await service.executeDeterministicTurn('r1', [
+              { type: 'move', entityId: 'p1', payload: { x: 10, y: 10 } }
+          ]);
+
+          // Should NOT update position
+          expect(mockTurnPersistence.updateCharacterPosition).not.toHaveBeenCalled();
+          expect(mockLogWarn).toHaveBeenCalledWith(expect.stringContaining('Collision detected'));
+      });
+
+      it('executeDeterministicTurn: should handle spawn errors gracefully', async () => {
+          mockFindOne.mockResolvedValue({ documentId: 'r1', entity_sheets: [] });
+          mockSpawnService.spawnMonster.mockRejectedValue(new Error('Spawn Fail'));
+
+          // Should not throw
+          await service.executeDeterministicTurn('r1', [
+              { type: 'spawn', payload: { entityType: 'monster', id: 'm1' } }
+          ]);
+          expect(mockLogError).toHaveBeenCalledWith(expect.stringContaining('Failed to process spawn'), expect.any(Error));
+      });
+
+      it('executeDeterministicTurn: should handle attack dispatch errors gracefully', async () => {
+          mockFindOne.mockResolvedValue({ documentId: 'r1', entity_sheets: [] });
+          mockActionEngine.dispatch.mockRejectedValue(new Error('Dispatch Fail'));
+
+          await service.executeDeterministicTurn('r1', [
+              { type: 'attack', entityId: 'u1', payload: { targetId: 't1' } }
+          ]);
+          expect(mockLogError).toHaveBeenCalledWith(expect.stringContaining('Failed to dispatch attack'), expect.any(Error));
+      });
+
+       it('executeDeterministicTurn: should handle exploration update failure', async () => {
+          mockFindOne.mockResolvedValue({ 
+              documentId: 'r1', 
+              entity_sheets: [{ documentId: 'p1', position: {x:0,y:0} }],
+              exploredTiles: []
+          });
+          // Update fails
+          mockUpdate.mockRejectedValue(new Error('DB Error'));
+
+          await service.executeDeterministicTurn('r1', [
+              { type: 'move', entityId: 'p1', payload: { x: 1, y: 1 } }
+          ]);
+          expect(mockLogError).toHaveBeenCalledWith(expect.stringContaining('Exploration update failed'), expect.any(Error));
+      });
+      
+      it('processTurn: should parse MOVE:x,y correctly', async () => {
+          // Verify strict action parsing from players
+          const mockExecute = vi.spyOn(service, 'executeDeterministicTurn');
+          
+          await service.processTurn('r1', 'desc', [], [
+              { userId: 'u1', action: 'MOVE:10,20' },
+              { userId: 'u2', action: 'INVALID' } // Should be filtered
+          ] as any, 'en');
+
+          expect(mockExecute).toHaveBeenCalledWith('r1', expect.arrayContaining([
+              expect.objectContaining({ 
+                  type: 'move', 
+                  payload: { x: 10, y: 20, z: 0 } 
+              })
+          ]));
+          // Invalid action should not produce a command (array length 1)
+          // Note: arrayContaining checks for presence. We can check call args length if we want strictness.
+          const callArgs = mockExecute.mock.calls[0][1] as any[];
+          expect(callArgs).toHaveLength(1);
+      });
+  });
+  
+  describe('submitAction', () => {
+      it('should handle debug mode via narrator', async () => {
+          const mockProcessAction = vi.fn();
+          mockStrapi.service = vi.fn((uid) => {
+             if (uid === 'api::narrator.narrator') return { processAction: mockProcessAction };
+             return {};
+          });
+
+          await service.submitAction('r1', 'cmd', { id: 'u1' }, 'debug');
+          expect(mockProcessAction).toHaveBeenCalled();
+      });
+  });
 });

@@ -40,9 +40,11 @@ export interface DashboardContext extends Context {
   };
 }
 
-const getQueues = (strapi: any): Queue[] => {
+// Export for testing
+export const getQueues = (strapi: any): Queue[] => {
   const service = strapi.plugin('bullmq').service('queue');
   const queues: Queue[] = [];
+   
   const configuredQueues = (strapi.plugin('queue-dashboard').config('queues') as string[]) || [];
 
   for (const name of configuredQueues) {
@@ -52,7 +54,9 @@ const getQueues = (strapi: any): Queue[] => {
   return queues;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default ({ strapi }: { strapi: any }) => ({
+  getQueues, // Expose helper
   /**
    * Retrieves statistics for all registered BullMQ queues.
    * Includes counts, active jobs, and status.

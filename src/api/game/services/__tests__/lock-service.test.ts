@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import service from '../lock-service';
+import service from '@/api/game/services/lock-service';
 
 describe('Lock Service', () => {
     let lockService: any;

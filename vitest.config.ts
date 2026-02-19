@@ -26,7 +26,7 @@ export default defineConfig({
     testTimeout: 10000,
     hookTimeout: 10000,
     coverage: {
-      reporter: ['text', 'json', 'html', 'json-summary', 'lcov'],
+      reporter: ['text', 'json'],
       exclude: [
         'coverage/**',
         'dist/**',

@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getSmartAnchor } from '../smart-anchors';
-import { AssetStub } from '../types';
+import { getSmartAnchor } from "../smart-anchors";
+import { AssetStub } from "../types";
 
 // Mock visual analysis
 vi.mock('../visual-analysis', () => ({
   getVisualBounds: vi.fn(),
   getZoneCentroid: vi.fn(),
 }));
-import { getVisualBounds, getZoneCentroid } from '../visual-analysis';
+import { getVisualBounds, getZoneCentroid } from "../visual-analysis";
 
 describe('Smart Anchors Utils', () => {
     let mockAsset: AssetStub;

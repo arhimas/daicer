@@ -17,10 +17,10 @@ import {
 // import { useIntl } from 'react-intl';
 import { Pencil, Drag, Monitor } from '@strapi/icons';
 import { ArrowClockwise } from '@strapi/icons';
-import { Chunk, TerrainType } from '../../types';
-// import { TILE_SIZE, BLOCK_TYPES } from '../../constants';
-// import { getShapePixels } from '../../utils/shape-tools'; // Unused?
-import { RenderEngine } from '../../utils/render-engine';
+import { Chunk, TerrainType } from "../../types";
+// import { TILE_SIZE, BLOCK_TYPES } from "../../constants";
+// import { getShapePixels } from "../../utils/shape-tools"; // Unused?
+import { RenderEngine } from "../../utils/render-engine";
 
 interface WorldVoxelInputProps {
   name: string;

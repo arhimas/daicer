@@ -1,0 +1,147 @@
+{
+  "uid": "game.stats",
+  "collectionName": "components_game_stats",
+  "info": {
+    "displayName": "Stats",
+    "icon": "chart-bar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "strength": {
+      "type": "integer",
+      "default": 10
+    },
+    "dexterity": {
+      "type": "integer",
+      "default": 10
+    },
+    "constitution": {
+      "type": "integer",
+      "default": 10
+    },
+    "intelligence": {
+      "type": "integer",
+      "default": 10
+    },
+    "wisdom": {
+      "type": "integer",
+      "default": 10
+    },
+    "charisma": {
+      "type": "integer",
+      "default": 10
+    },
+    "walkSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "flySpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "swimSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "climbSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "burrowSpeed": {
+      "type": "integer",
+      "default": 0
+    },
+    "hover": {
+      "type": "boolean",
+      "default": false
+    },
+    "saves": {
+      "type": "json",
+      "description": "Array of strings: ['str', 'dex']"
+    },
+    "skills": {
+      "type": "json",
+      "description": "Array of strings: ['perception', 'stealth']"
+    },
+    "passivePerception": {
+      "type": "integer"
+    },
+    "darkvision": {
+      "type": "integer"
+    },
+    "blindsight": {
+      "type": "integer"
+    },
+    "truesight": {
+      "type": "integer"
+    },
+    "tremorsense": {
+      "type": "integer"
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language",
+      "__targetSchema": {
+        "uid": "api::language.language",
+        "kind": "collectionType",
+        "collectionName": "languages",
+        "info": {
+          "singularName": "language",
+          "pluralName": "languages",
+          "displayName": "Language",
+          "description": "Languages spoken in the world"
+        },
+        "options": {
+          "draftAndPublish": false
+        },
+        "pluginOptions": {
+          "i18n": {
+            "localized": true
+          }
+        },
+        "attributes": {
+          "slug": {
+            "type": "uid",
+            "targetField": "name",
+            "required": true
+          },
+          "embedding": {
+            "type": "json",
+            "private": true
+          },
+          "name": {
+            "type": "string",
+            "pluginOptions": {
+              "i18n": {
+                "localized": true
+              }
+            },
+            "required": true
+          },
+          "is_rare": {
+            "type": "boolean",
+            "default": false
+          },
+          "note": {
+            "type": "richtext",
+            "pluginOptions": {
+              "i18n": {
+                "localized": true
+              }
+            }
+          },
+          "image": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+              "images"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

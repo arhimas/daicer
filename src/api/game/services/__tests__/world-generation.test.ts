@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import service from '../world-generation';
+import service from '@/api/game/services/world-generation';
 
 // Mock LLM Utils
 vi.mock('@/utils/llm/structured', () => ({
@@ -88,5 +88,96 @@ describe('WorldGeneration Service', () => {
                 metadata: expect.objectContaining({ settings })
             })
         );
+    });
+    it('should format prompt if it contains {{theme}} placeholder', async () => {
+        const mockTemplate = "World with {{theme}} and {{dmStyleSummary}}";
+        // Mock getPrompt to return a template
+        const { getPrompt } = await import('@/utils/prompt');
+        (getPrompt as any).mockResolvedValue(mockTemplate);
+
+        const mockData = {
+            title: 'Template World',
+            description: 'Generated from template.',
+            atmosphere: 'Templated.',
+            keyLocations: [],
+            threats: [],
+            hooks: []
+        };
+        (generateStructured as any).mockResolvedValue(mockData);
+
+        const settings = {
+            playerCount: 3,
+            adventureLength: 'Long',
+            difficulty: 'Hard',
+            theme: 'Horror',
+            setting: 'Castle',
+            tone: 'Scary',
+            dmStyle: { verbosity: 0, detail: 0, engagement: 0, narrative: 0 } // index 0 maps
+        };
+
+        const { formatPrompt } = await import('@/utils/prompt');
+        
+        await worldGenService.generateWorld(settings);
+
+        expect(formatPrompt).toHaveBeenCalledWith(
+            mockTemplate,
+            expect.objectContaining({
+                theme: 'Horror',
+                dmStyleSummary: expect.stringContaining('Whisper'), // Verbosity 0
+            })
+        );
+    });
+
+    it('should handle optional DM style fields (specialMode, customDirectives)', async () => {
+         const mockTemplate = "Style: {{dmStyleSummary}} {{theme}}";
+         const { getPrompt } = await import('@/utils/prompt');
+         (getPrompt as any).mockResolvedValue(mockTemplate);
+         (generateStructured as any).mockResolvedValue({ title: 'T', description: 'D', atmosphere: 'A', keyLocations: [], threats: [], hooks: [] });
+
+         const settings = {
+             playerCount: 1,
+             adventureLength: 'L',
+             difficulty: 'D',
+             theme: 'T',
+             setting: 'S',
+             tone: 'T',
+             dmStyle: { 
+                 verbosity: 1, detail: 1, engagement: 1, narrative: 1,
+                 specialMode: 'Improv',
+                 customDirectives: 'Be vague'
+             }
+         };
+
+         const { formatPrompt } = await import('@/utils/prompt');
+         await worldGenService.generateWorld(settings);
+
+         expect(formatPrompt).toHaveBeenCalledWith(
+             expect.anything(),
+             expect.objectContaining({
+                 dmStyleSummary: expect.stringContaining('Performance Mode: Improv')
+             })
+         );
+    });
+    
+    it('should handle missing DM style gracefully', async () => {
+         const mockTemplate = "Style: {{dmStyleSummary}} {{theme}}";
+         const { getPrompt } = await import('@/utils/prompt');
+         (getPrompt as any).mockResolvedValue(mockTemplate);
+         (generateStructured as any).mockResolvedValue({ title: 'T', description: 'D', atmosphere: 'A', keyLocations: [], threats: [], hooks: [] });
+         
+         const settings = {
+             playerCount: 1, adventureLength: 'L', difficulty: 'D', theme: 'T', setting: 'S', tone: 'T',
+             dmStyle: undefined
+         };
+         
+         const { formatPrompt } = await import('@/utils/prompt');
+         await worldGenService.generateWorld(settings);
+         
+         expect(formatPrompt).toHaveBeenCalledWith(
+             expect.anything(),
+             expect.objectContaining({
+                 dmStyleSummary: 'Standard DM Style'
+             })
+         );
     });
 });

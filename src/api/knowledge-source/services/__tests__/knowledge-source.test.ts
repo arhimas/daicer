@@ -7,7 +7,7 @@ vi.mock('@strapi/strapi', () => ({
     }
 }));
 
-import knowledgeSourceServiceFactory from '../knowledge-source';
+import knowledgeSourceServiceFactory from '@/api/knowledge-source/services/knowledge-source';
 
 // Mock dependencies
 vi.mock('@/shared', () => ({

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import agentControllerFactory from '../agent';
+import agentControllerFactory from '@/api/agent/controllers/agent';
 
 describe('Agent Controller', () => {
   let ctx: any;

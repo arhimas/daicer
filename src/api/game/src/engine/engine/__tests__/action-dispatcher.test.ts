@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ActionDispatcher } from '../action-dispatcher';
-import { GameState } from '../../../types/engine';
-import { ActionType } from '../../../rules/actions';
+import { GameState } from '../../types/engine';
+import { ActionType } from '../../rules/actions';
 
 // Mocks
 const { mockResolveAttack, mockFindPath, mockGetTileAt, MockTerrainGenerator } = vi.hoisted(() => {
@@ -307,6 +307,69 @@ describe('ActionDispatcher', () => {
       } as any);
       expect(result.success).toBe(true);
       expect(result.events[0].type).toBe('TERRAIN_MODIFIED');
+    });
+
+    // --- HARDENING TESTS ---
+    describe('Hardening Edge Cases', () => {
+        it('handleMove: should fail if start equals end (0 distance)', () => {
+            mockFindPath.mockReturnValue([{ x: 0, y: 0, z: 0 }]); // Path is just start node
+            const result = dispatcher.dispatch(mockState, {
+                type: 'MOVE', id: '1', timestamp: 0,
+                payload: { actorId: 'hero', targetPosition: { x: 0, y: 0, z: 0 } }
+            });
+            expect(result.success).toBe(false);
+            expect(result.message).toContain('No movement possible');
+        });
+
+        it('handleAttack: should default to first action if weaponId missing', () => {
+            mockResolveAttack.mockReturnValue({
+                damageTotal: 0, hit: true, verdict: 'Hit', attackRoll: { total: 10 }, isCritical: false, trace: []
+            });
+            const result = dispatcher.dispatch(mockState, {
+                type: 'ATTACK', id: '1', timestamp: 0,
+                payload: { actorId: 'hero', targetId: 'orc' } // Missing weaponId
+            });
+            expect(result.success).toBe(true);
+            // Should use 'sword' from mockState defaults
+            expect(mockResolveAttack).toHaveBeenCalledWith(
+                expect.anything(), expect.anything(), 
+                expect.objectContaining({ actionId: 'sword' }), 
+                expect.anything()
+            );
+        });
+
+        it('handleAttack: should handle resolver errors gracefully', () => {
+            mockResolveAttack.mockImplementation(() => { throw new Error('Resolver Boom'); });
+            const result = dispatcher.dispatch(mockState, {
+                type: 'ATTACK', id: '1', timestamp: 0,
+                payload: { actorId: 'hero', targetId: 'orc', weaponId: 'sword' }
+            });
+            expect(result.success).toBe(false);
+            expect(result.message).toBe('Resolver Boom');
+        });
+
+        it('handleSkillCheck: should handle Flat Check (no attribute)', () => {
+            const result = dispatcher.dispatch(mockState, {
+                type: 'SKILL_CHECK', id: '1', timestamp: 0,
+                payload: { actorId: 'hero', difficultyClass: 10 } // No attribute
+            });
+            expect(result.events[0].payload.statName).toBe('Flat Check');
+            expect(result.events[0].payload.modifier).toBe(0);
+        });
+
+        it('handleSkillCheck: should prioritize Advantage over Disadvantage if logic dictates (or cancel out)', () => {
+             // Logic in code: if (adv && !dis) ... else if (dis && !adv) ...
+             // So if both are true, it does normal roll (neither if block).
+             const result = dispatcher.dispatch(mockState, {
+                type: 'SKILL_CHECK', id: '1', timestamp: 0,
+                payload: { actorId: 'hero', advantage: true, disadvantage: true }
+             });
+             // Should not be marked as advantage or disadvantage in payload (or mixed?)
+             // Code sends payload straight through.
+             expect(result.events[0].payload.advantage).toBe(true);
+             expect(result.events[0].payload.disadvantage).toBe(true);
+             // Final roll is just roll1 (no max/min)
+        });
     });
   });
 });

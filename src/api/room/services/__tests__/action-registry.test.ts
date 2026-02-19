@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import service from '../action-registry';
+import service from '@/api/room/services/action-registry';
 
 describe('Action Registry', () => {
     let actionRegistry: any;

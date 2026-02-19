@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import agentServiceFactory from '../agent';
+import agentServiceFactory from '@/api/agent/services/agent';
 
 describe('Agent Service', () => {
     let service: any;

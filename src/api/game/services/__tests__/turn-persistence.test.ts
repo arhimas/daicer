@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import turnPersistenceFactory from '../turn-persistence';
+import turnPersistenceFactory from '@/api/game/services/turn-persistence';
 
 // Mock engine
 vi.mock('@/api/game/src/engine', () => ({

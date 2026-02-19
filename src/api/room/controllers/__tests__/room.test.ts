@@ -40,11 +40,11 @@ vi.mock('@strapi/strapi', () => ({
 global.strapi = mockStrapi as any;
 
 // 4. Import Controller
-import roomController from '../room';
+import roomController from '@/api/room/controllers/room';
 
 describe('Room Controller', () => {
   let ctx: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const controller = roomController as any;
 
   beforeEach(() => {

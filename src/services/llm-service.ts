@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
 // User specified model for 2026 context
-const FALLBACK_MODELS = ['gemini-3-flash-preview', 'gemini-2.0-flash-exp', 'gemini-1.5-flash'];
+const FALLBACK_MODELS = ['gemini-3-flash-preview', 'gemini-3-pro-preview'];
 
 /**
  * Service wrapper for interacting with Large Language Models (specifically Google's Gemini).

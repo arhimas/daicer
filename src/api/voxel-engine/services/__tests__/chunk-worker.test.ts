@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, _afterEach } from 'vitest';
 
 // 1. Hoist Mocks
 const { mockParentPort, mockChunkBuilder } = vi.hoisted(() => {

@@ -1,15 +1,23 @@
 import { describe, it, expect } from 'vitest';
-import { generateTerrainGrid, synthesizeTerrainBlueprint } from '../terrain';
-import { TerrainContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers';
+import { generateTerrainGrid, synthesizeTerrainBlueprint } from "../terrain";
+import { TerrainContext } from "../../serializers";
 
 describe('Terrain Generator', () => {
     describe('generateTerrainGrid', () => {
         it('should generate grid with correct dimensions', () => {
             const ctx: TerrainContext = {
+                uid: 'test',
+                documentId: 'test',
+                name: 'test',
+                size: 'Medium',
                 width: 10,
+                height: 10,
+                kind: 'terrain',
                 isLiquid: false,
+                isWalkable: true,
+                luminance: 0,
                 isTransparent: true,
-                noiseConfig: { seed: 123, scale: 10 }
+                noiseConfig: { seed: 123, scale: 10, algorithm: 'simplex', octaves: 1, persistence: 0.5 }
             };
             const grid = generateTerrainGrid(ctx);
             expect(grid.length).toBe(10);
@@ -18,10 +26,18 @@ describe('Terrain Generator', () => {
 
         it('should use liquid colors when isLiquid is true', () => {
             const ctx: TerrainContext = {
+                uid: 'test',
+                documentId: 'test',
+                name: 'test',
+                size: 'Medium',
                 width: 10,
+                height: 10,
+                kind: 'terrain',
                 isLiquid: true, // Water colors
+                isWalkable: true,
+                luminance: 0,
                 isTransparent: true,
-                noiseConfig: { seed: 123, scale: 2 } // Small scale for noise
+                noiseConfig: { seed: 123, scale: 2, algorithm: 'simplex', octaves: 1, persistence: 0.5 } // Small scale for noise
             };
             const grid = generateTerrainGrid(ctx);
             // Flatten and check for liquid colors #4682b4 or #5f9ea0
@@ -32,10 +48,18 @@ describe('Terrain Generator', () => {
 
         it('should fill gaps if not transparent', () => {
              const ctx: TerrainContext = {
+                uid: 'test',
+                documentId: 'test',
+                name: 'test',
+                size: 'Medium',
                 width: 5,
+                height: 5,
+                kind: 'terrain',
                 isLiquid: false,
+                isWalkable: true,
+                luminance: 0,
                 isTransparent: false, // Solid bedrock
-                noiseConfig: { seed: 123, scale: 100 } // High scale -> constant noise
+                noiseConfig: { seed: 123, scale: 100, algorithm: 'simplex', octaves: 1, persistence: 0.5 } // High scale -> constant noise
             };
             const grid = generateTerrainGrid(ctx);
             const flat = grid.flat();
@@ -52,7 +76,19 @@ describe('Terrain Generator', () => {
                 ['#fff', null],
                 [null, '#fff']
             ];
-            const ctx: TerrainContext = { width: 2, isLiquid: false, isTransparent: true };
+            const ctx: TerrainContext = {
+                uid: 'test',
+                documentId: 'test',
+                name: 'test',
+                size: 'Medium',
+                width: 2,
+                height: 2,
+                kind: 'terrain',
+                isLiquid: false,
+                isWalkable: true,
+                luminance: 0,
+                isTransparent: true
+            };
             
             const zones = synthesizeTerrainBlueprint(pixels, ctx);
             
@@ -64,7 +100,19 @@ describe('Terrain Generator', () => {
 
         it('should map liquid to hazard zones', () => {
              const pixels = [['#fff']];
-             const ctx: TerrainContext = { width: 1, isLiquid: true, isTransparent: true };
+             const ctx: TerrainContext = {
+                uid: 'test',
+                documentId: 'test',
+                name: 'test',
+                size: 'Medium',
+                width: 1,
+                height: 1,
+                kind: 'terrain',
+                isLiquid: true,
+                isWalkable: true,
+                luminance: 0,
+                isTransparent: true
+            };
              
              const zones = synthesizeTerrainBlueprint(pixels, ctx);
              expect(zones[0][0]).toBe('hazard');

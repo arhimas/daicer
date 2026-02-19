@@ -1,5 +1,5 @@
-import controller from '@/plugins/queue-dashboard/server/src/controllers/controller';
-import dashboard from '@/plugins/queue-dashboard/server/src/controllers/dashboard-controller';
+import controller from "./controller";
+import dashboard from "./dashboard-controller";
 
 export default {
   controller,

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import actionEngineFactory from '../action-engine';
+import actionEngineFactory from '@/api/game/services/action-engine';
 
 describe('Action Engine: Legacy Wrappers', () => {
     let actionEngine: any;
@@ -9,7 +9,7 @@ describe('Action Engine: Legacy Wrappers', () => {
         vi.clearAllMocks();
 
         mockStrapi = {
-            documents: vi.fn((uid) => ({
+            documents: vi.fn((_uid) => ({
                 findOne: vi.fn(async ({ documentId }) => {
                     if (documentId === 'legacy-actor') {
                         return {

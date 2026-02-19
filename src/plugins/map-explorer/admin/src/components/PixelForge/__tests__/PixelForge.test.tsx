@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { PixelForge } from '@/plugins/map-explorer/admin/src/components/PixelForge';
+import { PixelForge } from "..";
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 // --- Mocks ---

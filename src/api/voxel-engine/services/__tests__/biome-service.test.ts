@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { BiomeService } from '../biome-service';
+import { BiomeService } from '@/api/voxel-engine/services/biome-service';
 import { BiomeType, BlockType, WorldConfig } from '@daicer/engine/types';
-import { TileHelper } from '../utils/tile-helper';
+import { TileHelper } from '@/api/voxel-engine/services/utils/tile-helper';
 
 // Mocks
 const mockFbm = vi.fn();
@@ -9,11 +9,11 @@ const mockNext = vi.fn();
 
 vi.mock('@/api/voxel-engine/src/utils/math', () => ({
   FastNoise: class {
-    constructor(seed: string) {}
+    constructor(_seed: string) {}
     fbm(...args: any[]) { return mockFbm(...args); }
   },
   Alea: class {
-    constructor(seed: string) {}
+    constructor(_seed: string) {}
     next() { return mockNext(); }
   }
 }));

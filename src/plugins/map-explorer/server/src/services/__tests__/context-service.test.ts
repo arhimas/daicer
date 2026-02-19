@@ -1,110 +1,90 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import service from '../context-service';
 
-describe('ContextService', () => {
-    let strapi: any;
-    let contextService: any;
-    let mockDocuments: any;
-    let mockGetModel: any;
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import contextServiceFactory from '../context-service';
+
+const mockFindOne = vi.fn();
+const mockGetModel = vi.fn();
+
+const mockStrapi: any = {
+  documents: vi.fn(() => ({
+    findOne: mockFindOne
+  })),
+  getModel: mockGetModel,
+  log: { error: vi.fn() }
+};
+
+describe('Context Service', () => {
+    let service: any;
 
     beforeEach(() => {
-        mockDocuments = {
-            findOne: vi.fn(),
-        };
-
-        mockGetModel = vi.fn();
-
-        strapi = {
-            getModel: mockGetModel,
-            documents: vi.fn().mockReturnValue(mockDocuments),
-            log: { error: vi.fn() },
-        };
-
-        contextService = service({ strapi });
+        vi.clearAllMocks();
+        service = contextServiceFactory({ strapi: mockStrapi });
     });
 
     describe('getDeepPopulate', () => {
-        it('should return wildcard at depth 0', () => {
-             const result = contextService.getDeepPopulate('api::test.test', 0);
-             expect(result).toBe('*');
+        it('should stop recursion at depth 0', () => {
+            const res = service.getDeepPopulate('uid', 0);
+            expect(res).toBe('*');
         });
 
-        it('should handle relations and components recursively', () => {
-             mockGetModel.mockImplementation((uid) => {
-                 if (uid === 'api::parent.parent') {
-                     return {
-                         attributes: {
-                             child: { type: 'relation', target: 'api::child.child' },
-                             comp: { type: 'component', component: 'comp.example' },
-                             simple: { type: 'string' }
-                         }
-                     };
-                 }
-                 if (uid === 'api::child.child') {
-                     return { attributes: {} }; // leaf
-                 }
-                 if (uid === 'comp.example') {
-                      return { attributes: {} }; // leaf
-                 }
-                 return { attributes: {} };
-             });
-
-             const result = contextService.getDeepPopulate('api::parent.parent', 2);
-             
-             expect(result).toHaveProperty('child');
-             expect(result.child).toHaveProperty('populate');
-             expect(result).toHaveProperty('comp');
-             expect(result.comp).toHaveProperty('populate');
-             expect(result).not.toHaveProperty('simple');
+        it('should handle circular dependencies', () => {
+            const visited = new Set(['uid']);
+            const res = service.getDeepPopulate('uid', 3, visited);
+            expect(res).toBe('*');
         });
 
-        it('should stop recursion on cycles', () => {
-             mockGetModel.mockImplementation((uid) => {
-                 return {
-                     attributes: {
-                         self: { type: 'relation', target: 'api::recursive.recursive' }
-                     }
-                 };
+        it('should populate relations and components', () => {
+             mockGetModel.mockReturnValue({
+                 attributes: {
+                     rel: { type: 'relation', target: 'other-uid' },
+                     comp: { type: 'component', component: 'comp-uid' },
+                     simple: { type: 'string' }
+                 }
              });
-
-             const result = contextService.getDeepPopulate('api::recursive.recursive', 5);
+             // Recursive call mocks
+             // First call
+             const res = service.getDeepPopulate('uid', 2);
              
-             // First level populates
-             expect(result).toHaveProperty('self');
-             // Second level sees cycle and returns '*'
-             expect(result.self.populate).toBe('*');
+             expect(res).toHaveProperty('rel');
+             expect(res).toHaveProperty('comp');
+             expect(res).not.toHaveProperty('simple');
+        });
+        
+         it('should return wildcard if no relations', () => {
+             mockGetModel.mockReturnValue({ attributes: { name: { type: 'string' } } });
+             const res = service.getDeepPopulate('uid', 2);
+             expect(res).toBe('*');
         });
     });
 
     describe('fetchDeepContext', () => {
-        it('should fetch and sanitize entity', async () => {
-             const mockEntity = {
-                 id: 1,
-                 password: 'secret',
-                 name: 'Test',
-                 nested: { createdBy: 'admin', value: 10 }
-             };
-             mockDocuments.findOne.mockResolvedValue(mockEntity);
-             // Mock minimal model to avoid getDeepPopulate crash
-             mockGetModel.mockReturnValue({ attributes: {} });
-
-             const result = await contextService.fetchDeepContext('api::test.test', 'doc-1');
-             
-             expect(result).toEqual({
-                 id: 1,
-                 name: 'Test',
-                 nested: { value: 10 }
-             });
-             expect(result).not.toHaveProperty('password');
-             expect((result as any).nested).not.toHaveProperty('createdBy');
+        it('should fetch and sanitize', async () => {
+            mockGetModel.mockReturnValue({ attributes: {} }); // Mock for populate generation
+            mockFindOne.mockResolvedValueOnce({ 
+                id: 1, 
+                password: 'secret', 
+                child: { createdBy: 'admin', name: 'child' } 
+            });
+            
+            const res = await service.fetchDeepContext('uid', 'doc1');
+            
+            expect(res.password).toBeUndefined();
+            expect(res.child.createdBy).toBeUndefined();
+            expect(res.child.name).toBe('child');
         });
 
         it('should return null if not found', async () => {
-             mockDocuments.findOne.mockResolvedValue(null);
-             mockGetModel.mockReturnValue({ attributes: {} });
+            mockGetModel.mockReturnValue({ attributes: {} }); 
+            mockFindOne.mockResolvedValueOnce(null);
+            const res = await service.fetchDeepContext('uid', 'doc1');
+            expect(res).toBeNull();
+        });
 
-             const result = await contextService.fetchDeepContext('api::test.test', 'doc-1');
-             expect(result).toBeNull();
+        it('should handle errors', async () => {
+             mockGetModel.mockImplementation(() => { throw new Error('Model error'); });
+             await expect(service.fetchDeepContext('uid', 'doc1'))
+                .rejects.toThrow('Model error');
+             expect(mockStrapi.log.error).toHaveBeenCalled();
         });
     });
 });

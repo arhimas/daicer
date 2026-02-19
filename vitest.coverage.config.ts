@@ -17,18 +17,19 @@ export default defineConfig({
     },
     coverage: {
       provider: 'v8',
-      reporter: ['json-summary', 'text'],
+      reporter: ['json', 'text'],
       reportsDirectory: './coverage', // Explicit directory
-      include: [
-        path.resolve(__dirname, 'src/api/**/*.ts'),
-        path.resolve(__dirname, 'src/plugins/**/*.ts'),
-        path.resolve(__dirname, 'src/shared/**/*.ts'),
+       include: [
+        'src/api/**/*.{ts,js}',
+        'src/plugins/**/server/src/**/*.{ts,js}',
+        'src/shared/**/*.{ts,js}',
+        'src/features/**/*.{ts,js}',
       ],
       thresholds: {
-        lines: 0,
-        functions: 0,
-        branches: 0,
-        statements: 0,
+        lines: 85,
+        functions: 85,
+        branches: 85,
+        statements: 85,
       },
       exclude: [
         '**/node_modules/**',
@@ -36,8 +37,15 @@ export default defineConfig({
         '**/*.d.ts',
         '**/*.test.ts',
         '**/__tests__/**',
-        'src/cli/**', // Exclude CLI (flaky headless tests)
-        // Note: API integration tests are INCLUDED now that dotenv is loaded
+        'src/**/scripts/**', // Exclude scripts
+        'src/plugins/**/admin/**', // Exclude Admin UI
+        'src/admin/**', // Exclude root Admin UI
+        '**/*/routes/**', // Exclude Strapi Routes (Config)
+        '**/*/policies/**', // Exclude Strapi Policies (Config)
+        '**/*/middlewares/**', // Exclude Strapi Middlewares (Config)
+        '**/*/content-types/**', // Exclude Strapi Schemas (JSON/Config)
+        'src/api/**/index.ts', // Exclude API entry points (barrel/register)
+        'src/plugins/**/server/index.ts', // Exclude Plugin entry points (register/bootstrap)
       ],
     },
   },

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import gameServiceFactory from '../game';
+import gameServiceFactory from '@/api/game/services/game';
 
 // Mocks
 const mockWorldGenService = {

@@ -21,10 +21,10 @@ import {
   Code,
   Check,
 } from '@strapi/icons';
-import { Chunk, TerrainType } from '../../types';
-import { TILE_SIZE, BLOCK_TYPES } from '../../constants';
-import { getShapePixels } from '../../utils/shape-tools';
-import { RenderEngine } from '../../utils/render-engine';
+import { Chunk, TerrainType } from "../../types";
+import { TILE_SIZE, BLOCK_TYPES } from "../../constants";
+import { getShapePixels } from "../../utils/shape-tools";
+import { RenderEngine } from "../../utils/render-engine";
 
 interface VoxelInputProps {
   name: string;

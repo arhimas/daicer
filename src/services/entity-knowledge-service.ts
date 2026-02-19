@@ -11,7 +11,7 @@ import { EMBEDDABLE_MODELS } from '@/config/embedding';
 
 const ENTITY_UIDS = EMBEDDABLE_MODELS;
 
-// import { entityToMarkdown } from '../utils/entity-markdown'; // Commented out until utils restored
+// import { entityToMarkdown } from '@/utils/entity-markdown'; // Commented out until utils restored
 const entityToMarkdown = (type: string, name: string, data: unknown) => JSON.stringify(data, null, 2); // Stub fallback
 
 /**
