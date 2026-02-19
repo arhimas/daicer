@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "backgrounds",
+  "info": {
+    "singularName": "background",
+    "pluralName": "backgrounds",
+    "displayName": "Background",
+    "description": "Character Backgrounds"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "feature": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.feature"
+    },
+    "proficiencies": {
+      "type": "component",
+      "repeatable": true,
+      "component": "game.proficiency"
+    },
+    "equipment": {
+        "type": "component",
+        "repeatable": true,
+        "component": "game.inventory-item"
+    },
+    "compilation_state": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.compilation-state"
+    }
+  }
+}

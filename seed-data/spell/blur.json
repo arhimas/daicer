@@ -1,0 +1,48 @@
+{
+  "slug": "blur",
+  "name": "Blur",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "somatic": false,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Attackers have disadvantage on attack rolls against you unless they have blindsight or truesight."
+    }
+  ],
+  "damage_instances": [],
+  "description": "Your body becomes blurred, shifting and wavering to all who can see you. For the duration, any creature has disadvantage on attack rolls against you. An attacker is immune to this effect if it doesn't rely on sight, as with blindsight, or can see through illusions, as with truesight.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Self"
+  },
+  "school": "Illusion",
+  "tags": [
+    "sorcerer",
+    "wizard",
+    "lore",
+    "land"
+  ]
+}

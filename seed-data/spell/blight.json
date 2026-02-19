@@ -1,0 +1,56 @@
+{
+  "slug": "blight",
+  "name": "Blight",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Plants have disadvantage on the saving throw and take maximum damage. Nonmagical plants that are not creatures wither and die automatically."
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Necrotic",
+      "dice_count": 8,
+      "dice_value": 8,
+      "timing": "Instant"
+    }
+  ],
+  "description": "Necromantic energy washes over a creature of your choice that you can see within range, draining moisture and vitality from it. The target must make a constitution saving throw. The target takes 8d8 necrotic damage on a failed save, or half as much damage on a successful one. The spell has no effect on undead or constructs. If you target a plant creature or a magical plant, it makes the saving throw with disadvantage, and the spell deals maximum damage to it. If you target a nonmagical plant that isn't a creature, such as a tree or shrub, it doesn't make a saving throw; it simply withers and dies. Higher Level: When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d8 for each slot level above 4th.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 4,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 8,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "Necromancy"
+}

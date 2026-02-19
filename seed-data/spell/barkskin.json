@@ -1,0 +1,45 @@
+{
+  "slug": "barkskin",
+  "name": "Barkskin",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A handful of oak bark.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [],
+  "description": "You touch a willing creature. Until the spell ends, the target's skin has a rough, bark-like appearance, and the target's AC can't be less than 16, regardless of what kind of armor it is wearing.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Hours",
+    "value": 1
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "scaling_config": {
+    "scales": false
+  },
+  "school": "Transmutation",
+  "tags": [
+    "druid",
+    "ranger"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_game_proficiencies",
+  "info": {
+    "displayName": "Proficiency",
+    "icon": "book-reader",
+    "description": "Skill, Tool, or Language Proficiency"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["Skill", "Tool", "Language", "Armor", "Weapon", "Saving Throw"],
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "proficiency": {
+        "type": "relation",
+        "relation": "oneToOne",
+        "target": "api::proficiency.proficiency"
+    },
+    "value": {
+        "type": "integer",
+        "default": 0
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "roguish-archetype-feature",
+  "name": "Roguish Archetype feature",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Standard rogue class feature improvement at level 13."
+  },
+  "description": "At 13th level, you gain a feature granted by your Roguish Archetype choice.",
+  "level": 13,
+  "tags": [
+    "rogue"
+  ]
+}

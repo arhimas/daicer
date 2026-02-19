@@ -1,0 +1,23 @@
+{
+  "name": "Club",
+  "slug": "club",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A simple, heavy wooden stick used as a weapon.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "properties": [
+      "light",
+      "monk"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 1,
+  "weight": 2
+}

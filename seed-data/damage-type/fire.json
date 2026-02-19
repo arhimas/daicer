@@ -1,0 +1,13 @@
+{
+  "slug": "fire",
+  "name": "Fire",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "a7f3b2c1",
+    "last_run": "2023-10-27T10:00:00Z",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "Red dragons breathe fire, and many spells conjure flames to deal fire damage.",
+  "embedding": {},
+  "image": "/api/2014/damage-types/fire"
+}

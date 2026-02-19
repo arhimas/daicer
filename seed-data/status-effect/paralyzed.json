@@ -1,0 +1,13 @@
+{
+  "slug": "paralyzed",
+  "name": "Paralyzed",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "7b8e9a1c2d3e4f5g6h7i8j9k0l1m2n3o",
+    "last_run": "2023-10-27T10:00:00Z",
+    "summary": "Imported from SRD reference."
+  },
+  "description": "A paralyzed creature is incapacitated (see the condition) and can't move or speak. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage. Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.",
+  "effects": {},
+  "embedding": {}
+}

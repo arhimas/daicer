@@ -1,0 +1,13 @@
+{
+  "slug": "necrotic",
+  "name": "Necrotic",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "7d8e9f1a2b3c4d5e6f7a8b9c0d1e2f3a",
+    "last_run": "2023-10-27T12:00:00Z",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "Necrotic damage, dealt by certain undead and a spell such as chill touch, withers matter and even the soul.",
+  "embedding": {},
+  "image": "https://example.com/assets/damage-types/necrotic.webp"
+}

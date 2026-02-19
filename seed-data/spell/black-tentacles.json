@@ -1,0 +1,56 @@
+{
+  "slug": "black-tentacles",
+  "name": "Black Tentacles",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A piece of tentacle from a giant octopus or a giant squid",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Restrained",
+      "description": "A creature that fails its saving throw is restrained by the tentacles until the spell ends."
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Bludgeoning",
+      "dice_count": 3,
+      "dice_value": 6,
+      "timing": "Start of Turn"
+    }
+  ],
+  "description": "Squirming, ebony tentacles fill a 20-foot square on ground that you can see within range. For the duration, these tentacles turn the ground in the area into difficult terrain. When a creature enters the affected area for the first time on a turn or starts its turn there, the creature must succeed on a Dexterity saving throw or take 3d6 bludgeoning damage and be restrained by the tentacles until the spell ends. A creature that starts its turn in the area and is already restrained by the tentacles takes 3d6 bludgeoning damage. A creature restrained by the tentacles can use its action to make a Strength or Dexterity check (its choice) against your spell save DC. On a success, it frees itself.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 4,
+  "mechanics_config": {
+    "action_type": "Dexterity Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 90
+  },
+  "scaling_config": {
+    "scales": false
+  },
+  "school": "Conjuration"
+}

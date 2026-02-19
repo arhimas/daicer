@@ -1,0 +1,16 @@
+{
+  "slug": "persistent-rage",
+  "name": "Persistent Rage",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "Beginning at 15th level, your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it.",
+  "embedding": {},
+  "level": 15,
+  "lore": "Your inner fury has reached a state of perpetual momentum, a self-sustaining storm of adrenaline and instinct that ignores the usual lulls of combat.",
+  "tags": [
+    "barbarian",
+    "class-feature"
+  ]
+}

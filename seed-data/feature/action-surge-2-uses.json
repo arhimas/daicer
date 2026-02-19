@@ -1,0 +1,18 @@
+{
+  "slug": "action-surge-2-uses",
+  "name": "Action Surge (2 uses)",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Converted from 5e SRD reference data for the Fighter class feature at level 17."
+  },
+  "description": "Starting at 17th level, you can use your Action Surge feature twice before you must finish a short or long rest, but you can still use it only once on the same turn. On your turn, you can take one additional action on top of your regular action and a possible bonus action.",
+  "embedding": {},
+  "image": "",
+  "level": 17,
+  "lore": "The ultimate expression of martial discipline allows a fighter to act with a speed that defies the natural flow of combat.",
+  "tags": [
+    "fighter",
+    "class-feature",
+    "combat"
+  ]
+}

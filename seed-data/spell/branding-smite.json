@@ -1,0 +1,57 @@
+{
+  "slug": "branding-smite",
+  "name": "Branding Smite",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Bonus Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "somatic": false,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "The target becomes visible if it's invisible, sheds dim light in a 5-foot radius, and can't become invisible until the spell ends."
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Radiant",
+      "dice_count": 2,
+      "dice_value": 6,
+      "timing": "One Time Trigger"
+    }
+  ],
+  "description": "The next time you hit a creature with a weapon attack before this spell ends, the weapon gleams with astral radiance as you strike. The attack deals an extra 2d6 radiant damage to the target, which becomes visible if it's invisible, and the target sheds dim light in a 5-foot radius and can't become invisible until the spell ends. At Higher Levels: When you cast this spell using a spell slot of 3rd level or higher, the extra damage increases by 1d6 for each slot level above 2nd.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Self"
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 6,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "Evocation"
+}

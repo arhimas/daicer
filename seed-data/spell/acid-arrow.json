@@ -1,0 +1,57 @@
+{
+  "slug": "acid-arrow",
+  "name": "Acid Arrow",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": true,
+      "material_description": "Powdered rhubarb leaf and an adder's stomach.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Acid",
+      "dice_count": 4,
+      "dice_value": 4,
+      "timing": "Instant"
+    },
+    {
+      "effect_type": "Damage",
+      "damage_type": "Acid",
+      "dice_count": 2,
+      "dice_value": 4,
+      "timing": "End of Turn"
+    }
+  ],
+  "description": "A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn. When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd.",
+  "duration_config": {
+    "type": "Instantaneous",
+    "concentration": false
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "Ranged Spell Attack"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 90
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 4,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "Evocation"
+}

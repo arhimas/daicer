@@ -1,0 +1,63 @@
+{
+  "slug": "acolyte",
+  "name": "Acolyte",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "You have spent your life in the service of a temple to a specific god or pantheon of gods. You act as an intermediary between the realm of the holy and the mortal world, performing sacred rites and offering sacrifices in order to conduct worshipers into the presence of the divine.",
+  "equipment": [
+    {
+      "isEquipped": true,
+      "item": [
+        "clothes-common"
+      ],
+      "quantity": 1,
+      "slot": "armor"
+    },
+    {
+      "isEquipped": false,
+      "item": [
+        "pouch"
+      ],
+      "quantity": 1,
+      "slot": "backpack"
+    },
+    {
+      "isEquipped": false,
+      "item": [
+        "holy-symbol"
+      ],
+      "quantity": 1,
+      "slot": "neck"
+    }
+  ],
+  "feature": {
+    "name": "Shelter of the Faithful",
+    "description": "As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle. You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple.",
+    "source": "other"
+  },
+  "proficiencies": [
+    {
+      "type": "Skill",
+      "name": "Insight",
+      "proficiency": [
+        "skill-insight"
+      ]
+    },
+    {
+      "type": "Skill",
+      "name": "Religion",
+      "proficiency": [
+        "skill-religion"
+      ]
+    },
+    {
+      "type": "Language",
+      "name": "Language Choice 1"
+    },
+    {
+      "type": "Language",
+      "name": "Language Choice 2"
+    }
+  ]
+}

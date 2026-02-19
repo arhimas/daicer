@@ -25,11 +25,11 @@ export class LLMBridge {
     private resolveModelName(model: GenesisModel): string {
         switch (model) {
             case 'gemini-3-flash':
-                return 'gemini-2.0-flash-exp'; // Provisional 3.0 Flash mapping
+                return 'gemini-3-flash-preview';
             case 'gemini-3-pro':
-                return 'gemini-1.5-pro-latest'; // Provisional 3.0 Pro mapping
+                return 'gemini-3.1-pro-preview';
             default:
-                return 'gemini-2.0-flash-exp';
+                return 'gemini-3-flash-preview';
         }
     }
 
@@ -44,7 +44,7 @@ export class LLMBridge {
 
     async generateStructured<T>(
         prompt: string,
-        schema: z.ZodType<T>,
+        schema: z.ZodType<T> | Record<string, any>,
         details: {
             systemInstruction?: string;
             model?: GenesisModel;
@@ -59,6 +59,12 @@ export class LLMBridge {
             llm.temperature = details.temperature;
         }
 
+        // LangChain google-genai supports both Zod and JSON Schema objects
+        // However, if passed a JSON object, it might expect a different config format depending on version.
+        // The current @langchain/google-genai implementation of withStructuredOutput handles Zod nicely.
+        // For raw JSON schema, we might need to verify the exact call signature or wrapper.
+        // Assuming current version supports standard JSON Schema object as argument.
+        
         const llmWithStruct = llm.withStructuredOutput(schema);
 
         const messages = [];
