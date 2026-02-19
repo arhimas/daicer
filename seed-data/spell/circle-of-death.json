@@ -1,0 +1,48 @@
+{
+  "slug": "circle-of-death",
+  "name": "Circle of Death",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 500,
+      "material": true,
+      "material_description": "The powder of a crushed black pearl worth at least 500 gp.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Necrotic",
+      "dice_count": 8,
+      "dice_value": 6,
+      "timing": "Instant"
+    }
+  ],
+  "description": "A sphere of negative energy ripples out in a 60-foot radius sphere from a point within range. Each creature in that area must make a constitution saving throw. A target takes 8d6 necrotic damage on a failed save, or half as much damage on a successful one. When you cast this spell using a spell slot of 7th level or higher, the damage increases by 2d6 for each slot level above 6th.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 6,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 150
+  },
+  "scaling_config": {
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "Necromancy"
+}
