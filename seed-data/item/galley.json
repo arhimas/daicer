@@ -1,0 +1,12 @@
+{
+  "name": "Galley",
+  "slug": "galley",
+  "type": "tool",
+  "description": "A galley is a large waterborne vehicle propelled by oars and sails, primarily used for naval warfare and trade. It has a travel speed of 4 miles per hour.",
+  "rarity": "common",
+  "tags": [
+    "mounts-and-vehicles",
+    "waterborne-vehicles"
+  ],
+  "value": 30000
+}

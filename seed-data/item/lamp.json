@@ -1,0 +1,12 @@
+{
+  "name": "Lamp",
+  "slug": "lamp",
+  "type": "tool",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A lamp casts bright light in a 15-foot radius and dim light for an additional 30 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil.",
+  "value": 5,
+  "weight": 1,
+  "width": 1
+}

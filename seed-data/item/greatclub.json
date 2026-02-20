@@ -1,0 +1,21 @@
+{
+  "name": "Greatclub",
+  "slug": "greatclub",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "equipment_data": {
+    "damage_dice": "1d8",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "properties": [
+      "two-handed"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 20,
+  "weight": 10
+}

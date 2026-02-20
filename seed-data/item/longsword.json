@@ -1,0 +1,19 @@
+{
+  "name": "Longsword",
+  "slug": "longsword",
+  "type": "weapon",
+  "description": "A longsword is a versatile martial melee weapon. It deals 1d8 slashing damage when used with one hand, or 1d10 slashing damage when used with two hands to make a melee attack.",
+  "equipment_data": {
+    "damage_dice": "1d8",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "versatile"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 15,
+  "weight": 3
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Priest's Pack",
+  "slug": "priests-pack",
+  "type": "container",
+  "description": "Includes a backpack, a blanket, 10 candles, a tinderbox, 2 days of rations, a waterskin, an alms box, 2 blocks of incense, a censer, and vestments.",
+  "value": 19,
+  "weight": 25
+}

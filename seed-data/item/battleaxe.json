@@ -1,0 +1,24 @@
+{
+  "name": "Battleaxe",
+  "slug": "battleaxe",
+  "type": "weapon",
+  "description": "A martial melee weapon that deals 1d8 slashing damage. It has the versatile property, allowing it to be used with two hands to deal 1d10 slashing damage.",
+  "equipment_data": {
+    "damage_dice": "1d8",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "versatile"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "tags": [
+    "martial-weapon",
+    "melee-weapon"
+  ],
+  "value": 10,
+  "weight": 4
+}

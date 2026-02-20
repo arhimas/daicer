@@ -1,0 +1,9 @@
+{
+  "name": "Block of incense",
+  "slug": "block-of-incense",
+  "type": "loot",
+  "description": "A block of incense, typically found in a priest's pack.",
+  "rarity": "common",
+  "value": 0,
+  "weight": 0
+}

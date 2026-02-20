@@ -1,0 +1,15 @@
+{
+  "name": "Splint Armor",
+  "slug": "splint-armor",
+  "type": "armor",
+  "description": "This armor is made of narrow vertical strips of metal riveted to a backing of leather that is worn over cloth padding. Flexible chain mail protects the joints.",
+  "equipment_data": {
+    "armor_class_base": 17,
+    "armor_class_dex_bonus": false,
+    "stealth_disadvantage": true,
+    "str_minimum": 15
+  },
+  "rarity": "common",
+  "value": 200,
+  "weight": 60
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Cart",
+  "slug": "cart",
+  "type": "tool",
+  "description": "A two-wheeled vehicle drawn by a single beast of burden.",
+  "equipment_data": {
+    "actions": [],
+    "damage_type": [],
+    "properties": []
+  },
+  "rarity": "common",
+  "size": "Large",
+  "tags": [
+    "mounts-and-vehicles",
+    "tack-harness-and-drawn-vehicles"
+  ],
+  "value": 15,
+  "weight": 200
+}

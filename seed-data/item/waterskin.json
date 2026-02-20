@@ -1,0 +1,8 @@
+{
+  "name": "Waterskin",
+  "slug": "waterskin",
+  "type": "container",
+  "description": "A waterskin can hold up to 4 pints of liquid.",
+  "rarity": "common",
+  "weight": 5
+}

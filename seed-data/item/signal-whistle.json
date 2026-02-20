@@ -1,0 +1,9 @@
+{
+  "name": "Signal whistle",
+  "slug": "signal-whistle",
+  "type": "tool",
+  "description": "A small whistle used for signaling over distances. It produces a high-pitched sound that can be heard much farther than a human shout.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 0
+}

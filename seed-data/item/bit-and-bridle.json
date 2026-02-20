@@ -1,0 +1,9 @@
+{
+  "name": "Bit and bridle",
+  "slug": "bit-and-bridle",
+  "type": "tool",
+  "description": "A bit and bridle include the headstall, bit, and reins used to control a mount.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 1
+}

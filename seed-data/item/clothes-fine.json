@@ -1,0 +1,12 @@
+{
+  "name": "Clothes, fine",
+  "slug": "clothes-fine",
+  "type": "loot",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "This set of clothes is designed specifically to be worn in court or for a formal gala. It includes expensive fabrics and jewelry.",
+  "rarity": "common",
+  "value": 15,
+  "weight": 6
+}

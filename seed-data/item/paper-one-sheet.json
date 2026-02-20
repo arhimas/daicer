@@ -1,0 +1,10 @@
+{
+  "name": "Paper (one sheet)",
+  "slug": "paper-one-sheet",
+  "type": "loot",
+  "description": "A single sheet of paper, typically used for writing or drawing.",
+  "rarity": "common",
+  "value": 20,
+  "weight": 0,
+  "width": 811
+}

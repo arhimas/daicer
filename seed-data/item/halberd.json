@@ -1,0 +1,21 @@
+{
+  "name": "Halberd",
+  "slug": "halberd",
+  "type": "weapon",
+  "description": "A martial melee weapon consisting of an axe blade topped with a spike mounted on a long shaft.",
+  "equipment_data": {
+    "damage_dice": "1d10",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "heavy",
+      "reach",
+      "two-handed"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 20,
+  "weight": 6
+}

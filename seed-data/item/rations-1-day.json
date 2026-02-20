@@ -1,0 +1,9 @@
+{
+  "name": "Rations (1 day)",
+  "slug": "rations-1-day",
+  "type": "consumable",
+  "description": "Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 2
+}

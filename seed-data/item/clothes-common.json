@@ -1,0 +1,10 @@
+{
+  "name": "Clothes, common",
+  "slug": "clothes-common",
+  "type": "loot",
+  "description": "This set of clothes consists of a cloth tunic, belt, breeches, and shoes. It is the standard attire for commoners and peasants.",
+  "rarity": "common",
+  "size": "Medium",
+  "value": 5,
+  "weight": 3
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Quarterstaff",
+  "slug": "quarterstaff",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A quarterstaff is a simple melee weapon. It is versatile, meaning it can be used with one or two hands. When used with two hands, it deals 1d8 bludgeoning damage.",
+  "equipment_data": {
+    "damage_dice": "1d6",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "properties": [
+      "versatile",
+      "monk"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 20,
+  "weight": 4
+}

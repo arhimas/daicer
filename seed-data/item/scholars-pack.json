@@ -1,0 +1,15 @@
+{
+  "name": "Scholar's Pack",
+  "slug": "scholars-pack",
+  "type": "container",
+  "description": "Includes a backpack, a book, a bottle of ink, an ink pen, 10 sheets of parchment, a little bag of sand, and a small knife.",
+  "equipment_data": {
+    "actions": [],
+    "properties": []
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 40,
+  "weight": 11,
+  "width": 10
+}

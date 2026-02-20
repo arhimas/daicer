@@ -1,0 +1,9 @@
+{
+  "name": "Grappling hook",
+  "slug": "grappling-hook",
+  "type": "tool",
+  "description": "A metal hook with multiple prongs used for climbing, typically attached to the end of a length of rope.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 4
+}

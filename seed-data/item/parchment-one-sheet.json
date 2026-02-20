@@ -1,0 +1,9 @@
+{
+  "name": "Parchment (one sheet)",
+  "slug": "parchment-one-sheet",
+  "type": "loot",
+  "description": "A single sheet of parchment.",
+  "rarity": "common",
+  "value": 10,
+  "weight": 0
+}

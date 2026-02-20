@@ -1,0 +1,15 @@
+{
+  "name": "Barding: Scale mail",
+  "slug": "barding-scale-mail",
+  "type": "armor",
+  "description": "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much.",
+  "equipment_data": {
+    "armor_class_base": 14,
+    "armor_class_dex_bonus": true,
+    "stealth_disadvantage": true,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 200,
+  "weight": 90
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Saddle, Pack",
+  "slug": "saddle-pack",
+  "type": "container",
+  "description": "A pack saddle is designed to carry gear and supplies on a mount, rather than a rider.",
+  "rarity": "common",
+  "tags": [
+    "mounts-and-vehicles",
+    "tack-harness-and-drawn-vehicles"
+  ],
+  "value": 5,
+  "weight": 15
+}

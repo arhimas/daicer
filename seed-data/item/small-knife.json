@@ -1,0 +1,9 @@
+{
+  "name": "Small knife",
+  "slug": "small-knife",
+  "type": "tool",
+  "description": "A small knife, typically found in a scholar's pack.",
+  "rarity": "common",
+  "value": 0,
+  "weight": 0
+}

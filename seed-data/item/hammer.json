@@ -1,0 +1,10 @@
+{
+  "name": "Hammer",
+  "slug": "hammer",
+  "type": "tool",
+  "description": "A standard hammer, typically used for driving pitons or other general utility tasks. It is considered part of standard adventuring gear.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 3,
+  "width": 1e+100
+}

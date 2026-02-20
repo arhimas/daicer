@@ -1,0 +1,12 @@
+{
+  "name": "Shovel",
+  "slug": "shovel",
+  "type": "tool",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A standard tool used for digging through dirt, sand, or gravel. It consists of a broad metal blade attached to a wooden handle.",
+  "value": 2,
+  "weight": 5,
+  "width": 1000
+}

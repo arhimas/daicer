@@ -1,0 +1,10 @@
+{
+  "name": "Sack",
+  "slug": "sack",
+  "type": "container",
+  "description": "A sack can hold up to 1 cubic foot or 30 pounds of gear.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 0.5,
+  "width": 12
+}

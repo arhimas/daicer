@@ -1,0 +1,8 @@
+{
+  "name": "Warship",
+  "slug": "warship",
+  "type": "loot",
+  "description": "A large waterborne vehicle designed for naval warfare. Vehicle Category: Waterborne Vehicles. Speed: 2.5 mph.",
+  "value": 25000,
+  "weight": 0
+}

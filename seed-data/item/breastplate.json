@@ -1,0 +1,15 @@
+{
+  "name": "Breastplate",
+  "slug": "breastplate",
+  "type": "armor",
+  "description": "This armor consists of a fitted metal chest piece worn with supple leather. Although it leaves the legs and arms relatively unprotected, this armor provides good protection for the wearer's vital organs while leaving the wearer relatively unencumbered.",
+  "equipment_data": {
+    "armor_class_base": 14,
+    "armor_class_dex_bonus": true,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 400,
+  "weight": 20
+}

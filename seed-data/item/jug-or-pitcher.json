@@ -1,0 +1,9 @@
+{
+  "name": "Jug or pitcher",
+  "slug": "jug-or-pitcher",
+  "type": "container",
+  "description": "A standard ceramic or metal vessel used to hold and pour liquids.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 4
+}

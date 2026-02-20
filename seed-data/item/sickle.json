@@ -1,0 +1,19 @@
+{
+  "name": "Sickle",
+  "slug": "sickle",
+  "type": "weapon",
+  "description": "A sickle is a simple melee weapon with a curved blade, often used for harvesting crops but effective in close-quarters combat.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "slashing"
+    ],
+    "range_normal": 5,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 1,
+  "weight": 2
+}

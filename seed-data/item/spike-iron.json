@@ -1,0 +1,9 @@
+{
+  "name": "Spike, iron",
+  "slug": "spike-iron",
+  "type": "loot",
+  "description": "A heavy iron spike used for wedging doors open or closed, or as a piton for climbing.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 5
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Sling bullet",
+  "slug": "sling-bullet",
+  "type": "loot",
+  "description": "A collection of small, rounded stones or lead pellets used as ammunition for slings. This entry represents a pouch of 20 bullets.",
+  "rarity": "common",
+  "tags": [
+    "ammunition",
+    "adventuring-gear"
+  ],
+  "value": 4,
+  "weight": 1.5
+}

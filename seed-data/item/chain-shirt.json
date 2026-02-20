@@ -1,0 +1,15 @@
+{
+  "name": "Chain Shirt",
+  "slug": "chain-shirt",
+  "type": "armor",
+  "description": "Made of interlocking metal rings, a chain shirt is worn between layers of clothing or leather. This armor offers modest protection to the wearer's upper body and allows the sound of the rings rubbing against one another to be muffled by outer layers.",
+  "equipment_data": {
+    "armor_class_base": 13,
+    "armor_class_dex_bonus": true,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 50,
+  "weight": 20
+}

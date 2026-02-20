@@ -1,0 +1,18 @@
+{
+  "name": "Saddle, Riding",
+  "slug": "saddle-riding",
+  "type": "tool",
+  "description": "A standard saddle designed to provide a secure seat for a rider on a mount.",
+  "equipment_data": {
+    "actions": [],
+    "damage_type": [],
+    "properties": []
+  },
+  "rarity": "common",
+  "tags": [
+    "mounts-and-vehicles",
+    "tack-harness-and-drawn-vehicles"
+  ],
+  "value": 10,
+  "weight": 25
+}

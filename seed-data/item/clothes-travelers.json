@@ -1,0 +1,11 @@
+{
+  "name": "Clothes, traveler's",
+  "slug": "clothes-travelers",
+  "type": "loot",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "This set of clothes includes boots, a wool skirt or breeches, a belt, a shirt (often with a vest or jacket), and an ample hooded cloak.",
+  "value": 2,
+  "weight": 4
+}

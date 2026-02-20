@@ -1,0 +1,9 @@
+{
+  "name": "Little bag of sand",
+  "slug": "little-bag-of-sand",
+  "type": "loot",
+  "description": "A small bag of sand, typically found in a scholar's pack.",
+  "rarity": "common",
+  "value": 0,
+  "weight": 0
+}

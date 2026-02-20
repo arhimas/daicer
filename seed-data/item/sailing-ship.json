@@ -1,0 +1,8 @@
+{
+  "name": "Sailing ship",
+  "slug": "sailing-ship",
+  "type": "loot",
+  "description": "A waterborne vehicle with a speed of 2 mph.",
+  "value": 10000,
+  "weight": 0
+}

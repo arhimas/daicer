@@ -1,0 +1,19 @@
+{
+  "name": "Carriage",
+  "slug": "carriage",
+  "type": "loot",
+  "description": "A carriage is a four-wheeled vehicle drawn by horses or other mounts. It typically provides a comfortable way for passengers to travel over long distances, often featuring an enclosed cabin.",
+  "equipment_data": {
+    "actions": [],
+    "damage_type": [],
+    "properties": []
+  },
+  "rarity": "common",
+  "size": "Large",
+  "tags": [
+    "mounts-and-vehicles",
+    "tack-harness-and-drawn-vehicles"
+  ],
+  "value": 100,
+  "weight": 600
+}

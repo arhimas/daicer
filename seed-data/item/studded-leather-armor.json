@@ -1,0 +1,16 @@
+{
+  "name": "Studded Leather Armor",
+  "slug": "studded-leather-armor",
+  "type": "armor",
+  "description": "Made from tough but flexible leather, studded leather is reinforced with close-set rivets or spikes.",
+  "equipment_data": {
+    "armor_class_base": 12,
+    "armor_class_dex_bonus": true,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 45,
+  "weight": 13
+}

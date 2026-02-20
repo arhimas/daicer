@@ -1,0 +1,9 @@
+{
+  "name": "Spellbook",
+  "slug": "spellbook",
+  "type": "tool",
+  "description": "Essential for wizards, a spellbook is a leather-bound tome with 100 blank vellum pages suitable for recording spells.",
+  "rarity": "common",
+  "value": 50,
+  "weight": 3
+}

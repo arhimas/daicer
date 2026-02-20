@@ -1,0 +1,23 @@
+{
+  "name": "Crossbow, light",
+  "slug": "crossbow-light",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "equipment_data": {
+    "damage_dice": "1d8",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "ammunition",
+      "loading",
+      "two-handed"
+    ],
+    "range_long": 320,
+    "range_normal": 80
+  },
+  "value": 25,
+  "weight": 5
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Lance",
+  "slug": "lance",
+  "type": "weapon",
+  "description": "You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted.",
+  "equipment_data": {
+    "damage_dice": "1d12",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "reach",
+      "special"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 10,
+  "weight": 6
+}

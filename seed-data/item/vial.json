@@ -1,0 +1,11 @@
+{
+  "name": "Vial",
+  "slug": "vial",
+  "type": "container",
+  "description": "A small glass or ceramic container that can hold up to 4 ounces of liquid.",
+  "rarity": "common",
+  "size": "Tiny",
+  "value": 1,
+  "weight": 0,
+  "width": 1
+}

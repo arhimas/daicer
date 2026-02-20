@@ -1,0 +1,9 @@
+{
+  "name": "Chest",
+  "slug": "chest",
+  "type": "container",
+  "description": "A sturdy wooden chest used for storing and transporting items.",
+  "value": 5,
+  "weight": 25,
+  "width": 120
+}

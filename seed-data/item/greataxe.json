@@ -1,0 +1,20 @@
+{
+  "name": "Greataxe",
+  "slug": "greataxe",
+  "type": "weapon",
+  "description": "A heavy martial melee weapon with a large blade, capable of delivering devastating slashing blows.",
+  "equipment_data": {
+    "damage_dice": "1d12",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "heavy",
+      "two-handed"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 30,
+  "weight": 7
+}

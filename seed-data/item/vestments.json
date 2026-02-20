@@ -1,0 +1,10 @@
+{
+  "name": "Vestments",
+  "slug": "vestments",
+  "type": "loot",
+  "description": "Religious clothing, typically found in a priest's pack.",
+  "rarity": "common",
+  "value": 0,
+  "weight": 0,
+  "width": 1
+}

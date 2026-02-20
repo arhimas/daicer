@@ -1,0 +1,8 @@
+{
+  "name": "Mule",
+  "slug": "mule",
+  "type": "loot",
+  "description": "A mule is a mount and vehicle categorized under Mounts and Other Animals. It has a speed of 40 ft/round and a carrying capacity of 420 lb.",
+  "value": 8,
+  "weight": 0
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Barrel",
+  "slug": "barrel",
+  "type": "container",
+  "description": "A barrel can hold 40 gallons of liquid or 4 cubic feet of solid material.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 70
+}

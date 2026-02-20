@@ -1,0 +1,9 @@
+{
+  "name": "Flask or tankard",
+  "slug": "flask-or-tankard",
+  "type": "container",
+  "description": "A flask or tankard can hold 1 pint of liquid.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 1
+}

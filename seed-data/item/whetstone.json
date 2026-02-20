@@ -1,0 +1,9 @@
+{
+  "name": "Whetstone",
+  "slug": "whetstone",
+  "type": "loot",
+  "description": "A small, abrasive stone used for sharpening the edges of bladed weapons.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 1
+}

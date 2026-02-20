@@ -1,0 +1,9 @@
+{
+  "name": "Antitoxin (vial)",
+  "slug": "antitoxin-vial",
+  "type": "consumable",
+  "description": "A creature that drinks this vial of liquid gains advantage on saving throws against poison for 1 hour. It confers no benefit to undead or constructs.",
+  "rarity": "common",
+  "value": 50,
+  "weight": 0
+}

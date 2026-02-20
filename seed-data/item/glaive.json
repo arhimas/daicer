@@ -1,0 +1,22 @@
+{
+  "name": "Glaive",
+  "slug": "glaive",
+  "type": "weapon",
+  "description": "A martial melee weapon consisting of a single-edged blade on the end of a pole.",
+  "equipment_data": {
+    "damage_dice": "1d10",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "heavy",
+      "reach",
+      "two-handed"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 20,
+  "weight": 6
+}

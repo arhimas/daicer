@@ -1,0 +1,8 @@
+{
+  "name": "Pony",
+  "slug": "pony",
+  "type": "loot",
+  "description": "Vehicle Category: Mounts and Other Animals. Speed: 40 ft/round. Capacity: 225 lb.",
+  "value": 30,
+  "weight": 0
+}

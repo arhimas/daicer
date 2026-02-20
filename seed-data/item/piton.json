@@ -1,0 +1,9 @@
+{
+  "name": "Piton",
+  "slug": "piton",
+  "type": "loot",
+  "description": "A metal spike that can be driven into a crack or crevice in rock to provide an anchor point for a rope.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 0.25
+}

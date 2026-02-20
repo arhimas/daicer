@@ -1,0 +1,9 @@
+{
+  "name": "Bell",
+  "slug": "bell",
+  "type": "tool",
+  "description": "A small metal bell used for signaling or alarms.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 0
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Whip",
+  "slug": "whip",
+  "type": "weapon",
+  "description": "A martial melee weapon consisting of a long, flexible lash.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "finesse",
+      "reach"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 2,
+  "weight": 3
+}

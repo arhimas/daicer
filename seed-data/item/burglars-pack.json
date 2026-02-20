@@ -1,0 +1,8 @@
+{
+  "name": "Burglar's Pack",
+  "slug": "burglars-pack",
+  "type": "container",
+  "description": "Includes a backpack, a bag of 1,000 ball bearings, 10 feet of string, a bell, 5 candles, a crowbar, a hammer, 10 pitons, a hooded lantern, 2 flasks of oil, 5 days of rations, a tinderbox, a waterskin, and 50 feet of hempen rope.",
+  "rarity": "common",
+  "value": 16
+}

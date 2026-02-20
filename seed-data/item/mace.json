@@ -1,0 +1,21 @@
+{
+  "name": "Mace",
+  "slug": "mace",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A simple melee weapon with a heavy head of stone or metal, designed to deliver powerful bludgeoning blows.",
+  "equipment_data": {
+    "damage_dice": "1d6",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "range_normal": 5,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 5,
+  "weight": 4
+}

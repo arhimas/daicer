@@ -1,0 +1,9 @@
+{
+  "name": "Perfume (vial)",
+  "slug": "perfume-vial",
+  "type": "loot",
+  "description": "A small vial of perfume used to provide a pleasant scent.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 0
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Warhorse",
+  "slug": "warhorse",
+  "type": "loot",
+  "description": "A powerful horse trained for combat. Speed: 60 ft. Capacity: 540 lb.",
+  "rarity": "common",
+  "size": "Large",
+  "tags": [
+    "mount",
+    "mounts-and-vehicles"
+  ],
+  "value": 400
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Shortsword",
+  "slug": "shortsword",
+  "type": "weapon",
+  "description": "A martial melee weapon that is common among soldiers and adventurers alike.",
+  "equipment_data": {
+    "damage_dice": "1d6",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "finesse",
+      "light",
+      "monk"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 10,
+  "weight": 2
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Spear",
+  "slug": "spear",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A simple melee weapon. Versatile (1d8). A spear can be used to make a melee attack with one or two hands, or it can be thrown.",
+  "equipment_data": {
+    "damage_dice": "1d6",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "thrown",
+      "versatile",
+      "monk"
+    ],
+    "range_normal": 20,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 1,
+  "weight": 3
+}

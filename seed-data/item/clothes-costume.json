@@ -1,0 +1,11 @@
+{
+  "name": "Clothes, costume",
+  "slug": "clothes-costume",
+  "type": "loot",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A set of clothes for a specific character or role, often used by entertainers or for disguises.",
+  "value": 5,
+  "weight": 4
+}

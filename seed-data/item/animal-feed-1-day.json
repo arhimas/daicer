@@ -1,0 +1,9 @@
+{
+  "name": "Animal Feed (1 day)",
+  "slug": "animal-feed-1-day",
+  "type": "loot",
+  "description": "A day's worth of feed for a mount or other animal, typically consisting of grain or hay.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 10
+}

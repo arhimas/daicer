@@ -1,0 +1,9 @@
+{
+  "name": "Soap",
+  "slug": "soap",
+  "type": "loot",
+  "description": "A standard bar of soap used for hygiene and cleaning.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 0
+}

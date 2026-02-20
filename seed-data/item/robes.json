@@ -1,0 +1,9 @@
+{
+  "name": "Robes",
+  "slug": "robes",
+  "type": "loot",
+  "description": "A set of common robes.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 4
+}

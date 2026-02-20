@@ -1,0 +1,11 @@
+{
+  "name": "Saddle, Exotic",
+  "slug": "saddle-exotic",
+  "type": "tool",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "An exotic saddle is required for riding any aquatic or flying mount.",
+  "value": 60,
+  "weight": 50
+}

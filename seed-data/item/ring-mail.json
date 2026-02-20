@@ -1,0 +1,16 @@
+{
+  "name": "Ring Mail",
+  "slug": "ring-mail",
+  "type": "armor",
+  "description": "Ring mail is leather armor with heavy rings sewn into it. The rings help reinforce the armor against blows from swords and axes. Ring mail is inferior to chain mail, and it's usually worn only by those who can't afford better armor.",
+  "equipment_data": {
+    "armor_class_base": 14,
+    "armor_class_dex_bonus": false,
+    "stealth_disadvantage": true,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 30,
+  "weight": 40
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Dart",
+  "slug": "dart",
+  "type": "weapon",
+  "description": "A small, pointed missile intended to be thrown by hand.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "finesse",
+      "thrown"
+    ],
+    "range_normal": 20,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 5,
+  "weight": 0.25
+}

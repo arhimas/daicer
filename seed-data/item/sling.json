@@ -1,0 +1,18 @@
+{
+  "name": "Sling",
+  "slug": "sling",
+  "type": "weapon",
+  "description": "A simple weapon that launches stones or lead bullets. It is favored for its portability and ease of finding ammunition.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "range_normal": 30,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 10,
+  "weight": 0
+}

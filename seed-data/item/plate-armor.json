@@ -1,0 +1,16 @@
+{
+  "name": "Plate Armor",
+  "slug": "plate-armor",
+  "type": "armor",
+  "description": "Plate consists of shaped, interlocking metal plates to cover the entire body. A suit of plate includes gauntlets, heavy leather boots, a visored helmet, and thick layers of padding underneath the armor. Buckles and straps distribute the weight over the body.",
+  "equipment_data": {
+    "armor_class_base": 18,
+    "armor_class_dex_bonus": false,
+    "stealth_disadvantage": true,
+    "str_minimum": 15
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 1500,
+  "weight": 65
+}

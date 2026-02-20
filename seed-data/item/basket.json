@@ -1,0 +1,15 @@
+{
+  "name": "Basket",
+  "slug": "basket",
+  "type": "container",
+  "description": "A standard basket used for carrying goods, typically woven from wicker or similar materials.",
+  "equipment_data": {},
+  "rarity": "common",
+  "size": "Medium",
+  "tags": [
+    "adventuring-gear",
+    "standard-gear"
+  ],
+  "value": 4,
+  "weight": 2
+}

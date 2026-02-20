@@ -77,24 +77,24 @@ export class LLMBridge {
         let delay = 2000;
 
         while (retries > 0) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s hard timeout
+
             try {
-                // Add a strict 45-second timeout to prevent the API from hanging indefinitely
-                const timeoutPromise = new Promise((_, reject) => 
-                    setTimeout(() => reject(new Error('API Request timed out after 45 seconds')), 45000)
-                );
-                
-                const response = await Promise.race([
-                    llmWithStruct.invoke(messages),
-                    timeoutPromise
-                ]);
-                
+                const response = await llmWithStruct.invoke(messages, { signal: controller.signal });
+                clearTimeout(timeoutId);
                 return response as T;
             } catch (error: any) {
+                clearTimeout(timeoutId);
                 retries--;
+                const errorMsg = error.name === 'AbortError' || error.message.includes('abort') 
+                    ? 'API Request timed out after 60 seconds' 
+                    : error.message;
+
                 if (retries === 0) {
-                    throw new Error(`LLM Generation Failed [${selectedModel}]: ${error.message}`);
+                    throw new Error(`LLM Generation Failed [${selectedModel}]: ${errorMsg}`);
                 }
-                console.warn(`⚠️ API Error (${error.message}). Retrying in ${delay / 1000}s... (${retries} attempts left)`);
+                console.warn(`⚠️ API Error (${errorMsg}). Retrying in ${delay / 1000}s... (${retries} attempts left)`);
                 await new Promise(res => setTimeout(res, delay));
                 delay *= 2; // Exponential backoff
             }

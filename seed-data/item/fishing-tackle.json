@@ -1,0 +1,9 @@
+{
+  "name": "Fishing tackle",
+  "slug": "fishing-tackle",
+  "type": "tool",
+  "description": "This kit includes a wooden rod, silken line, corkwood bobbers, steel hooks, lead sinkers, velvet lures, and narrow netting.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 4
+}

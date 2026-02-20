@@ -1,0 +1,21 @@
+{
+  "name": "Blowgun",
+  "slug": "blowgun",
+  "type": "weapon",
+  "description": "A martial ranged weapon used to propel small needles or darts.",
+  "equipment_data": {
+    "damage_dice": "1",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "ammunition",
+      "loading"
+    ],
+    "range_long": 100,
+    "range_normal": 25
+  },
+  "rarity": "common",
+  "value": 10,
+  "weight": 1
+}

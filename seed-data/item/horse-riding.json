@@ -1,0 +1,8 @@
+{
+  "name": "Horse, Riding",
+  "slug": "horse-riding",
+  "type": "loot",
+  "description": "A riding horse is a standard mount used for travel. Vehicle Category: Mounts and Other Animals. Speed: 60 ft/round. Capacity: 480 lb.",
+  "value": 75,
+  "weight": 0
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Hide Armor",
+  "slug": "hide-armor",
+  "type": "armor",
+  "description": "This crude armor consists of thick furs and pelts. It is commonly worn by barbarian tribes, evil humanoids, and other folk who lack access to the tools and materials needed to create better armor.",
+  "equipment_data": {
+    "armor_class_base": 12,
+    "armor_class_dex_bonus": true,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "tags": [
+    "medium-armor"
+  ],
+  "value": 10,
+  "weight": 12
+}

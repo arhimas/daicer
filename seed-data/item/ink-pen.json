@@ -1,0 +1,10 @@
+{
+  "name": "Ink pen",
+  "slug": "ink-pen",
+  "type": "tool",
+  "description": "A quill or nibbed pen used for writing with ink.",
+  "rarity": "common",
+  "size": "Tiny",
+  "value": 2,
+  "weight": 0
+}

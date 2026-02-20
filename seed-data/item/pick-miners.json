@@ -1,0 +1,10 @@
+{
+  "name": "Pick, miner's",
+  "slug": "pick-miners",
+  "type": "tool",
+  "description": "A miner's pick is a heavy tool used for breaking through stone and hard earth in mining operations.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 10,
+  "width": 1200
+}

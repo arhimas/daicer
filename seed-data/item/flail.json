@@ -1,0 +1,19 @@
+{
+  "name": "Flail",
+  "slug": "flail",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "equipment_data": {
+    "damage_dice": "1d8",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "range_normal": 5,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "value": 10,
+  "weight": 2
+}

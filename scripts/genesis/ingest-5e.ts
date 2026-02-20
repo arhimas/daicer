@@ -229,18 +229,33 @@ program
                 const request = itemMapper.map(item);
                 const jsonSchema = await schemaBuilder.build(request.uid);
                 
-                const result = await bridge.generateStructured(
-                    request.prompt,
-                    jsonSchema,
-                    { model: 'gemini-3-flash' }
-                );
+                // PRUNE: Remove massive components that don't apply to basic items to prevent LLM timeouts
+                if (request.uid === 'api::item.item') {
+                    delete jsonSchema.properties.spell_data;
+                    delete jsonSchema.properties.compilation_state;
+                    delete jsonSchema.properties.embedding;
+                    delete jsonSchema.properties.custom_data;
+                    delete jsonSchema.properties.pixel_generator;
+                    delete jsonSchema.properties.width;
+                    delete jsonSchema.properties.height;
+                }
+                
+                try {
+                    const result = await bridge.generateStructured(
+                        request.prompt,
+                        jsonSchema,
+                        { model: 'gemini-3-flash' }
+                    );
 
-                const validation = await dryRun.validate(result, request.uid);
-                if (validation.valid) {
-                    console.log(`✅ Success: ${item.name}`);
-                    await saveEntity('item', item.index, result);
-                } else {
-                    console.error(`❌ Validation Failed: ${item.name}`, validation.errors);
+                    const validation = await dryRun.validate(result, request.uid);
+                    if (validation.valid) {
+                        console.log(`✅ Success: ${item.name}`);
+                        await saveEntity('item', item.index, result);
+                    } else {
+                        console.error(`❌ Validation Failed: ${item.name}`, validation.errors);
+                    }
+                } catch (e: any) {
+                    console.error(`❌ Generation Failed for ${item.name}: ${e.message}\nSkipping to next item...`);
                 }
                 count++;
             }

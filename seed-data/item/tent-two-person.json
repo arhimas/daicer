@@ -1,0 +1,9 @@
+{
+  "name": "Tent, two-person",
+  "slug": "tent-two-person",
+  "type": "tool",
+  "description": "A simple and portable canvas shelter, a tent sleeps two.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 20
+}

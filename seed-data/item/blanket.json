@@ -1,0 +1,9 @@
+{
+  "name": "Blanket",
+  "slug": "blanket",
+  "type": "loot",
+  "description": "A thick, warm blanket used for sleeping and keeping warm during travel.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 3
+}

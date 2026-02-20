@@ -1,0 +1,9 @@
+{
+  "name": "Case, crossbow bolt",
+  "slug": "case-crossbow-bolt",
+  "type": "container",
+  "description": "This wooden case can hold up to twenty crossbow bolts.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 1
+}

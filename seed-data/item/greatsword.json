@@ -1,0 +1,20 @@
+{
+  "name": "Greatsword",
+  "slug": "greatsword",
+  "type": "weapon",
+  "description": "A massive two-handed sword capable of delivering devastating strikes. Requires great strength and coordination to wield effectively.",
+  "equipment_data": {
+    "damage_dice": "2d6",
+    "damage_type": [
+      "slashing"
+    ],
+    "properties": [
+      "heavy",
+      "two-handed"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 50,
+  "weight": 6
+}

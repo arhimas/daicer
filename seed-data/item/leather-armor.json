@@ -1,0 +1,16 @@
+{
+  "name": "Leather Armor",
+  "slug": "leather-armor",
+  "type": "armor",
+  "description": "The breastplate and shoulder protectors of this armor are made of leather that has been stiffened by being boiled in oil. The rest of the armor is made of softer and more flexible materials.",
+  "equipment_data": {
+    "armor_class_base": 11,
+    "armor_class_dex_bonus": true,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "size": "Medium",
+  "value": 10,
+  "weight": 10
+}

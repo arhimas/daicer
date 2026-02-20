@@ -1,0 +1,9 @@
+{
+  "name": "Mirror, steel",
+  "slug": "mirror-steel",
+  "type": "loot",
+  "description": "A small, polished steel mirror used for grooming or seeing around corners.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 0.5
+}

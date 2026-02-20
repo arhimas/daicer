@@ -1,0 +1,9 @@
+{
+  "name": "Sealing wax",
+  "slug": "sealing-wax",
+  "type": "loot",
+  "description": "A stick of wax used to seal letters or documents with a signet ring.",
+  "rarity": "common",
+  "value": 50,
+  "weight": 0
+}

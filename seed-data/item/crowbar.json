@@ -1,0 +1,12 @@
+{
+  "name": "Crowbar",
+  "slug": "crowbar",
+  "type": "tool",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 5
+}

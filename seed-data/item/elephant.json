@@ -1,0 +1,15 @@
+{
+  "name": "Elephant",
+  "slug": "elephant",
+  "type": "loot",
+  "description": "A massive mount or beast of burden. Vehicle Category: Mounts and Other Animals. Speed: 40 ft/round. Capacity: 1,320 lb.",
+  "lore": "Elephants are massive, intelligent creatures often used as powerful mounts or beasts of burden in war and industry.",
+  "rarity": "common",
+  "size": "Huge",
+  "tags": [
+    "mount",
+    "vehicle"
+  ],
+  "value": 200,
+  "weight": 0
+}

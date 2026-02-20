@@ -1,0 +1,11 @@
+{
+  "name": "Chariot",
+  "slug": "chariot",
+  "type": "loot",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "Vehicle Category: Tack, Harness, and Drawn Vehicles. A chariot is a light, open, two-wheeled carriage, often used in ancient warfare and racing.",
+  "value": 250,
+  "weight": 100
+}

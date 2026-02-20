@@ -1,0 +1,21 @@
+{
+  "name": "Light hammer",
+  "slug": "light-hammer",
+  "type": "weapon",
+  "description": "A small, balanced hammer suitable for fighting in close quarters or throwing at a distance.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "bludgeoning"
+    ],
+    "properties": [
+      "light",
+      "thrown",
+      "monk"
+    ],
+    "range_normal": 20,
+    "str_minimum": 0
+  },
+  "value": 2,
+  "weight": 2
+}

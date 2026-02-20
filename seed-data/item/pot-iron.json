@@ -1,0 +1,10 @@
+{
+  "name": "Pot, iron",
+  "slug": "pot-iron",
+  "type": "tool",
+  "description": "An iron pot, typically used for cooking over a campfire or holding up to 1 gallon of liquid.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 10,
+  "width": 12
+}

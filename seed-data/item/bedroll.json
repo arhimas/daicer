@@ -1,0 +1,9 @@
+{
+  "name": "Bedroll",
+  "slug": "bedroll",
+  "type": "loot",
+  "description": "A bedroll consists of a warm blanket and a waterproof layer, providing a basic level of comfort and protection from the elements while sleeping outdoors.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 7
+}

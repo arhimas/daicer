@@ -1,0 +1,14 @@
+{
+  "name": "Saddlebags",
+  "slug": "saddlebags",
+  "type": "container",
+  "description": "A pair of bags draped over the back of a mount, used for carrying gear and supplies.",
+  "equipment_data": {
+    "actions": [],
+    "damage_type": [],
+    "properties": []
+  },
+  "rarity": "common",
+  "value": 4,
+  "weight": 8
+}

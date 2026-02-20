@@ -1,0 +1,9 @@
+{
+  "name": "Chalk (1 piece)",
+  "slug": "chalk-1-piece",
+  "type": "loot",
+  "description": "A single piece of chalk, typically used by adventurers to mark their path or write on surfaces.",
+  "rarity": "common",
+  "value": 1,
+  "weight": 0
+}

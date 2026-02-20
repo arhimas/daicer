@@ -1,0 +1,14 @@
+{
+  "name": "Blowgun needle",
+  "slug": "blowgun-needle",
+  "type": "loot",
+  "description": "A bundle of 50 small, sharp needles used as ammunition for a blowgun.",
+  "equipment_data": {
+    "properties": [
+      "ammunition"
+    ]
+  },
+  "rarity": "common",
+  "value": 1,
+  "weight": 1
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Longship",
+  "slug": "longship",
+  "type": "tool",
+  "description": "A longship is a waterborne vehicle with a speed of 3 miles per hour (mph).",
+  "equipment_data": {},
+  "rarity": "common",
+  "size": "Gargantuan",
+  "value": 10000
+}

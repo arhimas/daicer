@@ -1,0 +1,21 @@
+{
+  "name": "Pike",
+  "slug": "pike",
+  "type": "weapon",
+  "description": "A martial melee weapon consisting of a long wooden shaft with a pointed metal head.",
+  "equipment_data": {
+    "damage_dice": "1d10",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "heavy",
+      "reach",
+      "two-handed"
+    ],
+    "range_normal": 5
+  },
+  "rarity": "common",
+  "value": 5,
+  "weight": 18
+}

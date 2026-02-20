@@ -1,0 +1,10 @@
+{
+  "name": "Horse, draft",
+  "slug": "horse-draft",
+  "type": "loot",
+  "description": "Vehicle Category: Mounts and Other Animals. Speed: 40 ft. Capacity: 540 lb.",
+  "rarity": "common",
+  "size": "Large",
+  "value": 50,
+  "weight": 0
+}

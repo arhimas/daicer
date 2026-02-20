@@ -1,0 +1,10 @@
+{
+  "name": "Mastiff",
+  "slug": "mastiff",
+  "type": "loot",
+  "description": "A Mastiff is a Large, loyal dog used as a mount for Small creatures or as a guard animal. It belongs to the Mounts and Other Animals category.\n\n**Speed:** 40 ft/round\n**Capacity:** 195 lb.",
+  "rarity": "common",
+  "size": "Medium",
+  "value": 25,
+  "weight": 0
+}

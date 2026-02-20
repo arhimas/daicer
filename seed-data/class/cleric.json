@@ -1,0 +1,21 @@
+{
+  "slug": "cleric",
+  "name": "Cleric",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Mapped from SRD reference data."
+  },
+  "description": "A priestly champion who wields divine magic in service of a higher power.",
+  "hit_die": "d8",
+  "proficiencies": [
+    "light-armor",
+    "medium-armor",
+    "shields",
+    "simple-weapons",
+    "saving-throw-wis",
+    "saving-throw-cha"
+  ],
+  "subclasses": [
+    "life"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Camel",
+  "slug": "camel",
+  "type": "loot",
+  "description": "Vehicle Category: Mounts and Other Animals. Speed: 50 ft/round. Carrying Capacity: 480 lb.",
+  "rarity": "common",
+  "size": "Large",
+  "tags": [
+    "mounts-and-vehicles"
+  ],
+  "value": 50
+}

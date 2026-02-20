@@ -1,0 +1,9 @@
+{
+  "name": "Signet ring",
+  "slug": "signet-ring",
+  "type": "loot",
+  "description": "Each signet ring is an item of jewelry used to seal wax on official documents or letters, often bearing a distinctive family crest or personal symbol.",
+  "rarity": "common",
+  "value": 5,
+  "weight": 0
+}

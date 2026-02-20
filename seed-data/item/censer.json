@@ -1,0 +1,10 @@
+{
+  "name": "Censer",
+  "slug": "censer",
+  "type": "tool",
+  "description": "A censer, typically found in a priest's pack.",
+  "rarity": "common",
+  "value": 0,
+  "weight": 0,
+  "width": 1000
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Abacus",
+  "slug": "abacus",
+  "type": "loot",
+  "description": "A standard tool used for performing mathematical calculations.",
+  "rarity": "common",
+  "value": 2,
+  "weight": 2,
+  "width": 1
+}
