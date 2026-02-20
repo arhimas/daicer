@@ -1,0 +1,27 @@
+{
+  "name": "Dagger",
+  "slug": "dagger",
+  "type": "weapon",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A dagger is a simple melee weapon, easy to conceal and effective in close quarters. It features the finesse, light, and thrown properties.",
+  "equipment_data": {
+    "damage_dice": "1d4",
+    "damage_type": [
+      "piercing"
+    ],
+    "properties": [
+      "finesse",
+      "light",
+      "thrown",
+      "monk"
+    ],
+    "range_normal": 20,
+    "stealth_disadvantage": false,
+    "str_minimum": 0
+  },
+  "rarity": "common",
+  "value": 2,
+  "weight": 1
+}

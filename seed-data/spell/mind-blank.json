@@ -1,0 +1,46 @@
+{
+  "slug": "mind-blank",
+  "name": "Mind Blank",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell successfully mapped from reference data."
+  },
+  "condition_instances": [
+    {
+      "condition": "Charmed",
+      "description": "The target is immune to the charmed condition for the duration."
+    }
+  ],
+  "damage_instances": [],
+  "description": "Until the spell ends, one willing creature you touch is immune to psychic damage, any effect that would sense its emotions or read its thoughts, divination spells, and the charmed condition. The spell even foils wish spells and spells or effects of similar power used to affect the target's mind or to gain information about the target.",
+  "duration_config": {
+    "type": "Time-Limited",
+    "concentration": false,
+    "unit": "Hours",
+    "value": 24
+  },
+  "level": 8,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "Abjuration",
+  "tags": [
+    "bard",
+    "wizard"
+  ]
+}

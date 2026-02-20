@@ -1,0 +1,38 @@
+{
+  "slug": "power-word-kill",
+  "name": "Power Word Kill",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": false,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "You utter a word of power that can compel one creature you can see within range to die instantly. If the creature you choose has 100 hit points or fewer, it dies. Otherwise, the spell has no effect.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 9,
+  "mechanics_config": {
+    "action_type": "Auto-Hit"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60
+  },
+  "school": "Enchantment",
+  "tags": [
+    "bard",
+    "sorcerer",
+    "warlock",
+    "wizard"
+  ]
+}

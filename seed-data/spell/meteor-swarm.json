@@ -1,0 +1,52 @@
+{
+  "slug": "meteor-swarm",
+  "name": "Meteor Swarm",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Fire",
+      "dice_count": 20,
+      "dice_value": 6,
+      "timing": "Instant"
+    },
+    {
+      "effect_type": "Damage",
+      "damage_type": "Bludgeoning",
+      "dice_count": 20,
+      "dice_value": 6,
+      "timing": "Instant"
+    }
+  ],
+  "description": "Blazing orbs of fire plummet to the ground at four different points you can see within range. Each creature in a 40-foot-radius sphere centered on each point you choose must make a dexterity saving throw. The sphere spreads around corners. A creature takes 20d6 fire damage and 20d6 bludgeoning damage on a failed save, or half as much damage on a successful one. A creature in the area of more than one fiery burst is affected only once. The spell damages objects in the area and ignites flammable objects that aren't being worn or carried.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 9,
+  "mechanics_config": {
+    "action_type": "Dexterity Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Ranged (Miles)",
+    "aoe_shape": "Sphere",
+    "aoe_size": 40,
+    "distance": 1
+  },
+  "school": "Evocation"
+}

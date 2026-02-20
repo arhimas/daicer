@@ -1,0 +1,39 @@
+{
+  "slug": "true-strike",
+  "name": "True Strike",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "material_description": "",
+      "somatic": true,
+      "verbal": false
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [],
+  "description": "You extend your hand and point a finger at a target in range. Your magic grants you a brief insight into the target's defenses. On your next turn, you gain advantage on your first attack roll against the target, provided that this spell hasn't ended.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Rounds",
+    "value": 1
+  },
+  "level": 0,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "school": "Divination"
+}

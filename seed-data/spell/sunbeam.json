@@ -1,0 +1,62 @@
+{
+  "slug": "sunbeam",
+  "name": "Sunbeam",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A magnifying glass.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Blinded",
+      "chance": 100,
+      "description": "Blinded until the end of your next turn on a failed save.",
+      "duration_rounds": 1
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Radiant",
+      "dice_count": 6,
+      "dice_value": 8,
+      "timing": "Instant"
+    }
+  ],
+  "description": "A beam of brilliant light flashes out from your hand in a 5-foot-wide, 60-foot-long line. Each creature in the line must make a constitution saving throw. On a failed save, a creature takes 6d8 radiant damage and is blinded until your next turn. On a successful save, it takes half as much damage and isn't blinded by this spell. Undead and oozes have disadvantage on this saving throw.\n\nYou can create a new line of radiance as your action on any turn until the spell ends.\n\nFor the duration, a mote of brilliant radiance shines in your hand. It sheds bright light in a 30-foot radius and dim light for an additional 30 feet. This light is sunlight.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 6,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Self",
+    "aoe_shape": "Line",
+    "aoe_size": 60,
+    "distance": 60
+  },
+  "school": "Evocation",
+  "tags": [
+    "druid",
+    "sorcerer",
+    "wizard"
+  ]
+}

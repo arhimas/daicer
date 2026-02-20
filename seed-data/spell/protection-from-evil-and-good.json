@@ -1,0 +1,46 @@
+{
+  "slug": "protection-from-evil-and-good",
+  "name": "Protection from Evil and Good",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": true,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "Holy water or powdered silver and iron, which the spell consumes.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Charmed",
+      "description": "The target can't be charmed by aberrations, celestials, elementals, fey, fiends, and undead. If already charmed, the target has advantage on any new saving throw against the effect."
+    },
+    {
+      "condition": "Frightened",
+      "description": "The target can't be frightened by aberrations, celestials, elementals, fey, fiends, and undead. If already frightened, the target has advantage on any new saving throw against the effect."
+    }
+  ],
+  "description": "Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead. The protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 10
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "Abjuration"
+}

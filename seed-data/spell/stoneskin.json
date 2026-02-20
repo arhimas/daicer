@@ -1,0 +1,41 @@
+{
+  "slug": "stoneskin",
+  "name": "Stoneskin",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": true,
+      "cost_gp": 100,
+      "material": true,
+      "material_description": "Diamond dust worth 100 gp, which the spell consumes.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [],
+  "description": "This spell turns the flesh of a willing creature you touch as hard as stone. Until the spell ends, the target has resistance to nonmagical bludgeoning, piercing, and slashing damage.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Hours",
+    "value": 1
+  },
+  "level": 4,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "scaling_config": {
+    "scales": false
+  },
+  "school": "Abjuration"
+}

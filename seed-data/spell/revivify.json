@@ -1,0 +1,40 @@
+{
+  "slug": "revivify",
+  "name": "Revivify",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": true,
+      "cost_gp": 300,
+      "material": true,
+      "material_description": "Diamonds worth 300gp, which the spell consumes.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Healing",
+      "flat_bonus": 1,
+      "timing": "Instant"
+    }
+  ],
+  "description": "You touch a creature that has died within the last minute. That creature returns to life with 1 hit point. This spell can't return to life a creature that has died of old age, nor can it restore any missing body parts.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 3,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "Conjuration"
+}
