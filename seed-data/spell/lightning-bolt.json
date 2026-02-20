@@ -1,0 +1,54 @@
+{
+  "slug": "lightning-bolt",
+  "name": "Lightning Bolt",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A bit of fur and a rod of amber, crystal, or glass.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "lightning",
+      "dice_count": 8,
+      "dice_value": 6,
+      "timing": "Instant"
+    }
+  ],
+  "description": "A stroke of lightning forming a line 100 feet long and 5 feet wide blasts out from you in a direction you choose. Each creature in the line must make a dexterity saving throw. A creature takes 8d6 lightning damage on a failed save, or half as much damage on a successful one. The lightning ignites flammable objects in the area that aren't being worn or carried. Higher Level: When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.",
+  "duration_config": {
+    "type": "Instantaneous",
+    "concentration": false
+  },
+  "level": 3,
+  "mechanics_config": {
+    "action_type": "Dexterity Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Self",
+    "aoe_shape": "Line",
+    "aoe_size": 100,
+    "distance": 0
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 6,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "evocation"
+}

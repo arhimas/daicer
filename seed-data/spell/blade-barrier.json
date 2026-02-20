@@ -19,7 +19,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Slashing",
+      "damage_type": "slashing",
       "dice_count": 6,
       "dice_value": 10,
       "timing": "Start of Turn"
@@ -41,5 +41,5 @@
     "type": "Ranged (Feet)",
     "distance": 90
   },
-  "school": "Evocation"
+  "school": "evocation"
 }

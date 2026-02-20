@@ -27,7 +27,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Bludgeoning",
+      "damage_type": "bludgeoning",
       "dice_count": 3,
       "dice_value": 6,
       "timing": "Start of Turn"
@@ -52,5 +52,5 @@
   "scaling_config": {
     "scales": false
   },
-  "school": "Conjuration"
+  "school": "conjuration"
 }

@@ -19,7 +19,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Lightning",
+      "damage_type": "lightning",
       "dice_count": 3,
       "dice_value": 10,
       "timing": "Instant"
@@ -50,5 +50,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Conjuration"
+  "school": "conjuration"
 }

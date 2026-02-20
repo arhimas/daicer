@@ -1,0 +1,73 @@
+{
+  "slug": "insect-plague",
+  "name": "Insect Plague",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A few grains of sugar, some kernels of grain, and a smear of fat.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "The area of the spell is difficult terrain and lightly obscured."
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "piercing",
+      "dice_count": 4,
+      "dice_value": 10,
+      "timing": "Instant"
+    },
+    {
+      "effect_type": "Damage",
+      "damage_type": "piercing",
+      "dice_count": 4,
+      "dice_value": 10,
+      "timing": "End of Turn"
+    }
+  ],
+  "description": "Swarming, biting locusts fill a 20-foot-radius sphere centered on a point you choose within range. The sphere spreads around corners. The sphere remains for the duration, and its area is lightly obscured. The sphere's area is difficult terrain. When the area appears, each creature in it must make a constitution saving throw. A creature takes 4d10 piercing damage on a failed save, or half as much damage on a successful one. A creature must also make this saving throw when it enters the spell's area for the first time on a turn or ends its turn there. Higher Level: When you cast this spell using a spell slot of 6th level or higher, the damage increases by 1d10 for each slot level above 5th.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 10
+  },
+  "level": 5,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 300
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 10,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "conjuration",
+  "tags": [
+    "cleric",
+    "druid",
+    "sorcerer",
+    "land"
+  ]
+}

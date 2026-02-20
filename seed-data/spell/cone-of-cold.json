@@ -21,7 +21,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Cold",
+      "damage_type": "cold",
       "dice_count": 8,
       "dice_value": 8,
       "timing": "Instant"
@@ -46,5 +46,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Evocation"
+  "school": "evocation"
 }

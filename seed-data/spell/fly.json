@@ -1,0 +1,48 @@
+{
+  "slug": "fly",
+  "name": "Fly",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A wing feather from any bird.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Successfully imported from reference data."
+  },
+  "description": "You touch a willing creature. The target gains a flying speed of 60 feet for the duration. When the spell ends, the target falls if it is still aloft, unless it can stop the fall.\n\n**At Higher Levels.** When you cast this spell using a spell slot of 4th level or higher, you can target one additional creature for each slot level above 3rd.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 10
+  },
+  "level": 3,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "scaling_config": {
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Target"
+  },
+  "school": "transmutation",
+  "tags": [
+    "sorcerer",
+    "warlock",
+    "wizard",
+    "lore"
+  ]
+}

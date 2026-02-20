@@ -1,0 +1,59 @@
+{
+  "slug": "feeblemind",
+  "name": "Feeblemind",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A handful of clay, crystal, glass, or mineral spheres.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell successfully mapped from reference data."
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Intelligence and Charisma scores become 1. The creature can't cast spells, activate magic items, understand language, or communicate in any intelligible way.",
+      "duration_rounds": 432000
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "psychic",
+      "dice_count": 4,
+      "dice_value": 6,
+      "timing": "Instant"
+    }
+  ],
+  "description": "You blast the mind of a creature that you can see within range, attempting to shatter its intellect and personality. The target takes 4d6 psychic damage and must make an intelligence saving throw.\n\nOn a failed save, the creature's Intelligence and Charisma scores become 1. The creature can't cast spells, activate magic items, understand language, or communicate in any intelligible way. The creature can, however, identify its friends, follow them, and even protect them.\n\nAt the end of every 30 days, the creature can repeat its saving throw against this spell. If it succeeds on its saving throw, the spell ends.\n\nThe spell can also be ended by greater restoration, heal, or wish.",
+  "duration_config": {
+    "type": "Instantaneous",
+    "concentration": false
+  },
+  "level": 8,
+  "mechanics_config": {
+    "action_type": "Intelligence Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 150
+  },
+  "school": "enchantment",
+  "tags": [
+    "bard",
+    "druid",
+    "warlock",
+    "wizard"
+  ]
+}

@@ -2,7 +2,7 @@
   "slug": "arcane-sword",
   "name": "Arcane Sword",
   "level": 7,
-  "school": "Evocation",
+  "school": "evocation",
   "tags": [
     "bard",
     "wizard"

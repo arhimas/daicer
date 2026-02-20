@@ -1,0 +1,11 @@
+{
+  "slug": "earthquake",
+  "name": "Earthquake",
+  "level": 8,
+  "school": "evocation",
+  "tags": [
+    "Cleric",
+    "Druid",
+    "Sorcerer"
+  ]
+}

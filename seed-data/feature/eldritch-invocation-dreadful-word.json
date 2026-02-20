@@ -1,0 +1,14 @@
+{
+  "slug": "eldritch-invocation-dreadful-word",
+  "name": "Eldritch Invocation: Dreadful Word",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "You can cast confusion once using a warlock spell slot. You can't do so again until you finish a long rest.",
+  "level": 7,
+  "tags": [
+    "warlock",
+    "eldritch-invocation"
+  ]
+}

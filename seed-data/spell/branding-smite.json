@@ -26,7 +26,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Radiant",
+      "damage_type": "radiant",
       "dice_count": 2,
       "dice_value": 6,
       "timing": "One Time Trigger"
@@ -53,5 +53,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Evocation"
+  "school": "evocation"
 }

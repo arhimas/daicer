@@ -1,0 +1,47 @@
+{
+  "slug": "hideous-laughter",
+  "name": "Hideous Laughter",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "Tiny tarts and a feather that is waved in the air.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Prone"
+    },
+    {
+      "condition": "Incapacitated"
+    }
+  ],
+  "damage_instances": [],
+  "description": "A creature of your choice that you can see within range perceives everything as hilariously funny and falls into fits of laughter if this spell affects it. The target must succeed on a wisdom saving throw or fall prone, becoming incapacitated and unable to stand up for the duration. A creature with an Intelligence score of 4 or less isn't affected. At the end of each of its turns, and each time it takes damage, the target can make another wisdom saving throw. The target had advantage on the saving throw if it's triggered by damage. On a success, the spell ends.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "Wisdom Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "school": "enchantment"
+}

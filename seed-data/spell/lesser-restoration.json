@@ -1,0 +1,31 @@
+{
+  "slug": "lesser-restoration",
+  "name": "Lesser Restoration",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "abjuration"
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "finger-of-death",
+  "name": "Finger of Death",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "necrotic",
+      "dice_count": 7,
+      "dice_value": 8,
+      "flat_bonus": 30,
+      "timing": "Instant"
+    }
+  ],
+  "description": "You send negative energy coursing through a creature that you can see within range, causing it searing pain. The target must make a constitution saving throw. It takes 7d8 + 30 necrotic damage on a failed save, or half as much damage on a successful one. A humanoid killed by this spell rises at the start of your next turn as a zombie that is permanently under your command, following your verbal orders to the best of its ability.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 7,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Half"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60
+  },
+  "school": "necromancy"
+}

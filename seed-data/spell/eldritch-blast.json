@@ -1,0 +1,50 @@
+{
+  "slug": "eldritch-blast",
+  "name": "Eldritch Blast",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Eldritch Blast successfully compiled."
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "force",
+      "dice_count": 1,
+      "dice_value": 10,
+      "timing": "Instant"
+    }
+  ],
+  "description": "A beam of crackling energy streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 force damage. The spell creates more than one beam when you reach higher levels: two beams at 5th level, three beams at 11th level, and four beams at 17th level. You can direct the beams at the same target or at different ones. Make a separate attack roll for each beam.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 0,
+  "mechanics_config": {
+    "action_type": "Ranged Spell Attack"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 120
+  },
+  "scaling_config": {
+    "scales": true,
+    "type": "Target"
+  },
+  "school": "evocation",
+  "tags": [
+    "warlock"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "grease",
+  "name": "Grease",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A bit of pork rind or butter.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Prone",
+      "chance": 100,
+      "description": "A creature that enters the area or ends its turn there must succeed on a dexterity saving throw or fall prone."
+    }
+  ],
+  "description": "Slick grease covers the ground in a 10-foot square centered on a point within range and turns it into difficult terrain for the duration. When the grease appears, each creature standing in its area must succeed on a dexterity saving throw or fall prone. A creature that enters the area or ends its turn there must also succeed on a dexterity saving throw or fall prone.",
+  "duration_config": {
+    "type": "Time-Limited",
+    "concentration": false,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "Dexterity Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60
+  },
+  "school": "conjuration"
+}

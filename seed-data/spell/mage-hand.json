@@ -1,0 +1,34 @@
+{
+  "slug": "mage-hand",
+  "name": "Mage Hand",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\n\nYou can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\n\nThe hand can't attack, activate magic items, or carry more than 10 pounds.",
+  "duration_config": {
+    "type": "Time-Limited",
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 0,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "school": "conjuration"
+}

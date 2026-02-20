@@ -1,0 +1,51 @@
+{
+  "slug": "false-life",
+  "name": "False Life",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A small amount of alcohol or distilled spirits.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [
+    {
+      "effect_type": "TempHP",
+      "dice_count": 1,
+      "dice_value": 4,
+      "flat_bonus": 4,
+      "timing": "Instant"
+    }
+  ],
+  "description": "Bolstering yourself with a necromantic facsimile of life, you gain 1d4 + 4 temporary hit points for the duration. **At Higher Levels.** When you cast this spell using a spell slot of 2nd level or higher, you gain 5 additional temporary hit points for each slot level above 1st.",
+  "duration_config": {
+    "type": "Time-Limited",
+    "concentration": false,
+    "unit": "Hours",
+    "value": 1
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Self"
+  },
+  "scaling_config": {
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "necromancy"
+}

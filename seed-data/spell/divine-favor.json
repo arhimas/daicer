@@ -1,0 +1,43 @@
+{
+  "slug": "divine-favor",
+  "name": "Divine Favor",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Bonus Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "radiant",
+      "dice_count": 1,
+      "dice_value": 4,
+      "timing": "Instant"
+    }
+  ],
+  "description": "Your prayer empowers you with divine radiance. Until the spell ends, your weapon attacks deal an extra 1d4 radiant damage on a hit.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Self"
+  },
+  "school": "evocation"
+}

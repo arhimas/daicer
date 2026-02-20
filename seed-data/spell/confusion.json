@@ -1,0 +1,51 @@
+{
+  "slug": "confusion",
+  "name": "Confusion",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "Three walnut shells.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Affected target can't take reactions and must roll a d10 at the start of each of its turns to determine its behavior."
+    }
+  ],
+  "description": "This spell assaults and twists creatures' minds, spawning delusions and provoking uncontrolled action. Each creature in a 10-foot-radius sphere centered on a point you choose within range must succeed on a Wisdom saving throw when you cast this spell or be affected by it.\n\nAn affected target can't take reactions and must roll a d10 at the start of each of its turns to determine its behavior for that turn.\n\n| d10 | Behavior |\n|---|---|\n| 1 | The creature uses all its movement to move in a random direction. To determine the direction, roll a d8 and assign a direction to each die face. The creature doesn't take an action this turn. |\n| 2-6 | The creature doesn't move or take actions this turn. |\n| 7-8 | The creature uses its action to make a melee attack against a randomly determined creature within its reach. If there is no creature within its reach, the creature does nothing this turn. |\n| 9-10 | The creature can act and move normally. |\n\nAt the end of each of its turns, an affected target can make a Wisdom saving throw. If it succeeds, this effect ends for that target.\n\nAt Higher Levels: When you cast this spell using a spell slot of 5th level or higher, the radius of the sphere increases by 5 feet for each slot level above 4th.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 4,
+  "mechanics_config": {
+    "action_type": "Wisdom Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "aoe_shape": "Sphere",
+    "aoe_size": 10,
+    "distance": 90
+  },
+  "scaling_config": {
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Target"
+  },
+  "school": "enchantment"
+}

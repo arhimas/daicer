@@ -45,7 +45,7 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Abjuration",
+  "school": "abjuration",
   "tags": [
     "cleric",
     "paladin",

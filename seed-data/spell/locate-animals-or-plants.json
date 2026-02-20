@@ -1,0 +1,38 @@
+{
+  "slug": "locate-animals-or-plants",
+  "name": "Locate Animals or Plants",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A bit of fur from a bloodhound.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": true
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "Describe or name a specific kind of beast or plant. Concentrating on the voice of nature in your surroundings, you learn the direction and distance to the closest creature or plant of that kind within 5 miles, if any are present.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Self"
+  },
+  "school": "divination",
+  "tags": [
+    "Bard",
+    "Druid",
+    "Ranger"
+  ]
+}

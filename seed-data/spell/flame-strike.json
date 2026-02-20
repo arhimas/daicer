@@ -1,0 +1,11 @@
+{
+  "slug": "flame-strike",
+  "name": "Flame Strike",
+  "level": 5,
+  "school": "evocation",
+  "tags": [
+    "cleric",
+    "devotion",
+    "fiend"
+  ]
+}

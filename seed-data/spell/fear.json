@@ -1,0 +1,52 @@
+{
+  "slug": "fear",
+  "name": "Fear",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A white feather or the heart of a hen.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Frightened",
+      "description": "While frightened by this spell, a creature must take the Dash action and move away from you by the safest available route on each of its turns, unless there is nowhere to move. If the creature ends its turn in a location where it doesn't have line of sight to you, the creature can make a wisdom saving throw. On a successful save, the spell ends for that creature."
+    }
+  ],
+  "damage_instances": [],
+  "description": "You project a phantasmal image of a creature's worst fears. Each creature in a 30-foot cone must succeed on a wisdom saving throw or drop whatever it is holding and become frightened for the duration. While frightened by this spell, a creature must take the Dash action and move away from you by the safest available route on each of its turns, unless there is nowhere to move. If the creature ends its turn in a location where it doesn't have line of sight to you, the creature can make a wisdom saving throw. On a successful save, the spell ends for that creature.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 3,
+  "mechanics_config": {
+    "action_type": "Wisdom Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Self",
+    "aoe_shape": "Cone",
+    "aoe_size": 30
+  },
+  "school": "illusion",
+  "tags": [
+    "Bard",
+    "Sorcerer",
+    "Warlock",
+    "Wizard"
+  ]
+}

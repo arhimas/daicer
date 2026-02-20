@@ -2,12 +2,8 @@
   "slug": "acid",
   "name": "Acid",
   "compilation_state": {
-    "status": "Valid",
-    "hash": "4a8c2f1b",
-    "last_run": "2023-10-27T12:00:00Z",
-    "summary": "Compiled from standard reference document."
+    "status": "Valid"
   },
   "description": "The corrosive spray of a black dragon's breath and the dissolving enzymes secreted by a black pudding deal acid damage.",
-  "embedding": {},
-  "image": "https://www.example.com/assets/damage/acid.png"
+  "embedding": {}
 }

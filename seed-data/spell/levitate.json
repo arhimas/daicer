@@ -1,0 +1,47 @@
+{
+  "slug": "levitate",
+  "name": "Levitate",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "Either a small leather loop or a piece of golden wire bent into a cup shape with a long shank on one end.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [],
+  "description": "One creature or object of your choice that you can see within range rises vertically, up to 20 feet, and remains suspended there for the duration. The spell can levitate a target that weighs up to 500 pounds. An unwilling creature that succeeds on a constitution saving throw is unaffected.\n\nThe target can move only by pushing or pulling against a fixed object or surface within reach (such as a wall or a ceiling), which allows it to move as if it were climbing. You can change the target's altitude by up to 20 feet in either direction on your turn. If you are the target, you can move up or down as part of your move. Otherwise, you can use your action to move the target, which must remain within the spell's range.\n\nWhen the spell ends, the target floats gently to the ground if it is still aloft.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 10
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60
+  },
+  "scaling_config": {
+    "scales": false
+  },
+  "school": "transmutation",
+  "tags": [
+    "sorcerer",
+    "wizard"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "slug": "heal",
+  "name": "Heal",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell accurately mapped from reference data."
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Healing",
+      "flat_bonus": 70,
+      "timing": "Instant"
+    }
+  ],
+  "description": "Choose a creature that you can see within range. A surge of positive energy washes through the creature, causing it to regain 70 hit points. This spell also ends blindness, deafness, and any diseases affecting the target. This spell has no effect on constructs or undead.\n\n**At Higher Levels.** When you cast this spell using a spell slot of 7th level or higher, the amount of healing increases by 10 for each slot level above 6th.",
+  "duration_config": {
+    "type": "Instantaneous",
+    "concentration": false
+  },
+  "level": 6,
+  "mechanics_config": {
+    "action_type": "Auto-Hit"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60
+  },
+  "scaling_config": {
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "evocation"
+}

@@ -40,7 +40,7 @@
     "aoe_shape": "Sphere",
     "aoe_size": 10
   },
-  "school": "Abjuration",
+  "school": "abjuration",
   "tags": [
     "druid"
   ]

@@ -1,0 +1,47 @@
+{
+  "slug": "heroism",
+  "name": "Heroism",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell successfully mapped from reference data."
+  },
+  "condition_instances": [
+    {
+      "condition": "Frightened",
+      "description": "The target is immune to being frightened for the duration."
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "TempHP",
+      "timing": "Start of Turn"
+    }
+  ],
+  "description": "A willing creature you touch is imbued with bravery. Until the spell ends, the creature is immune to being frightened and gains temporary hit points equal to your spellcasting ability modifier at the start of each of its turns. When the spell ends, the target loses any remaining temporary hit points from this spell.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "enchantment"
+}

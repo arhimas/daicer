@@ -1,0 +1,48 @@
+{
+  "slug": "cure-wounds",
+  "name": "Cure Wounds",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell successfully mapped from reference data."
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Healing",
+      "dice_count": 1,
+      "dice_value": 8,
+      "timing": "Instant"
+    }
+  ],
+  "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\n\nAt Higher Levels: When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.",
+  "duration_config": {
+    "type": "Instantaneous",
+    "concentration": false
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 8,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "evocation"
+}

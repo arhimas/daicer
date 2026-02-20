@@ -26,7 +26,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Necrotic",
+      "damage_type": "necrotic",
       "dice_count": 8,
       "dice_value": 8,
       "timing": "Instant"
@@ -52,5 +52,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Necromancy"
+  "school": "necromancy"
 }

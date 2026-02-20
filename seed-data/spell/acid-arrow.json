@@ -20,14 +20,14 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Acid",
+      "damage_type": "acid",
       "dice_count": 4,
       "dice_value": 4,
       "timing": "Instant"
     },
     {
       "effect_type": "Damage",
-      "damage_type": "Acid",
+      "damage_type": "acid",
       "dice_count": 2,
       "dice_value": 4,
       "timing": "End of Turn"
@@ -53,5 +53,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Evocation"
+  "school": "evocation"
 }

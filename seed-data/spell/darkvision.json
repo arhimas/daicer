@@ -1,0 +1,36 @@
+{
+  "slug": "darkvision",
+  "name": "Darkvision",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "Either a pinch of dried carrot or an agate.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "You touch a willing creature to grant it the ability to see in the dark. For the duration, that creature has darkvision out to a range of 60 feet.",
+  "duration_config": {
+    "type": "Time-Limited",
+    "concentration": false,
+    "unit": "Hours",
+    "value": 8
+  },
+  "level": 2,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "transmutation"
+}

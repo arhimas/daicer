@@ -1,0 +1,35 @@
+{
+  "slug": "create-food-and-water",
+  "name": "Create Food and Water",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "material_description": "",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell data successfully mapped from reference."
+  },
+  "description": "You create 45 pounds of food and 30 gallons of water on the ground or in containers within range, enough to sustain up to fifteen humanoids or five steeds for 24 hours. The food is bland but nourishing, and spoils if uneaten after 24 hours. The water is clean and doesn't go bad.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 3,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "school": "conjuration"
+}

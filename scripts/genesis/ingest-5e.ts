@@ -50,6 +50,7 @@ program
                 for (const dt of damageTypes) {
                      if (count >= limit) break; // Re-use limit or separate
                      console.log(`Generating Damage Type: ${dt.name}`);
+                     if (await entityExists("damage-type", dt.index)) { console.log(`⏩ Skipping ${dt.name}`); count++; continue; }
                      const request = damageTypeMapper.map(dt);
                      console.log(`Building schema for ${dt.name}...`);
                      const jsonSchema = await schemaBuilder.build(request.uid);
@@ -71,6 +72,7 @@ program
                 for (const cond of conditions) {
                      if (count >= limit) break;
                      console.log(`Generating Condition: ${cond.name}`);
+                     if (await entityExists("status-effect", cond.index)) { console.log(`⏩ Skipping ${cond.name}`); count++; continue; }
                      const request = conditionMapper.map(cond);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -89,6 +91,7 @@ program
                 for (const sch of schools) {
                      if (count >= limit) break;
                      console.log(`Generating Magic School: ${sch.name}`);
+                     if (await entityExists("magic-school", sch.index)) { console.log(`⏩ Skipping ${sch.name}`); count++; continue; }
                      const request = magicSchoolMapper.map(sch);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -107,6 +110,7 @@ program
                 for (const bg of backgrounds) {
                      if (count >= limit) break;
                      console.log(`Generating Background: ${bg.name}`);
+                     if (await entityExists("background", bg.index)) { console.log(`⏩ Skipping ${bg.name}`); count++; continue; }
                      const request = backgroundMapper.map(bg);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -127,6 +131,7 @@ program
                 for (const wp of weaponProperties) {
                      if (count >= limit) break;
                      console.log(`Generating Weapon Property: ${wp.name}`);
+                     if (await entityExists("weapon-property", wp.index)) { console.log(`⏩ Skipping ${wp.name}`); count++; continue; }
                      const request = weaponPropertyMapper.map(wp);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -148,6 +153,7 @@ program
                 for (const trait of traits) {
                      if (count >= limit) break;
                      console.log(`Generating Trait: ${trait.name}`);
+                     if (await entityExists("trait", trait.index)) { console.log(`⏩ Skipping ${trait.name}`); count++; continue; }
                      const request = traitMapper.map(trait);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -167,6 +173,7 @@ program
                 for (const feat of features) {
                      if (count >= limit) break;
                      console.log(`Generating Feature: ${feat.name}`);
+                     if (await entityExists("feature", feat.index)) { console.log(`⏩ Skipping ${feat.name}`); count++; continue; }
                      const request = featureMapper.map(feat);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -186,6 +193,7 @@ program
                 if (count >= limit) break;
                 console.log(`\nGenerating Spell: ${spell.name} (${count + 1}/${limit})`);
                 
+                if (await entityExists("spell", spell.index)) { console.log(`⏩ Skipping ${spell.name}`); count++; continue; }
                 const request = spellMapper.map(spell);
                 // Get Schema
                 const jsonSchema = await schemaBuilder.build(request.uid);
@@ -217,6 +225,7 @@ program
                 if (count >= limit) break;
                 console.log(`\nGenerating Item: ${item.name} (${count + 1}/${limit})`);
                 
+                if (await entityExists("item", item.index)) { console.log(`⏩ Skipping ${item.name}`); count++; continue; }
                 const request = itemMapper.map(item);
                 const jsonSchema = await schemaBuilder.build(request.uid);
                 
@@ -246,6 +255,7 @@ program
                 for (const cls of classes) {
                     if (count >= limit) break;
                     console.log(`\nGenerating Class: ${cls.name}`);
+                    if (await entityExists("class", cls.index)) { console.log(`⏩ Skipping ${cls.name}`); count++; continue; }
                     const request = classMapper.map(cls);
                     const jsonSchema = await schemaBuilder.build(request.uid);
                     const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -273,6 +283,7 @@ program
                 for (const race of racesToIngest) {
                      if (count >= limit) break;
                      console.log(`\nGenerating Race: ${race.name}`);
+                     if (await entityExists("race", race.index)) { console.log(`⏩ Skipping ${race.name}`); count++; continue; }
                      const request = raceMapper.map(race);
                      const jsonSchema = await schemaBuilder.build(request.uid);
                      const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
@@ -330,6 +341,16 @@ program
             process.exit(1);
         }
     });
+
+async function entityExists(type: string, index: string): Promise<boolean> {
+    const filename = path.join(process.cwd(), 'seed-data', type, `${index}.json`);
+    try {
+        await fs.access(filename);
+        return true;
+    } catch {
+        return false;
+    }
+}
 
 async function saveEntity(type: string, index: string, data: any) {
     const dir = path.join(process.cwd(), 'seed-data', type);

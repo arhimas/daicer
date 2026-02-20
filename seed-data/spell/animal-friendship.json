@@ -42,7 +42,7 @@
     "type": "Ranged (Feet)",
     "distance": 30
   },
-  "school": "Enchantment",
+  "school": "enchantment",
   "tags": [
     "bard",
     "druid",

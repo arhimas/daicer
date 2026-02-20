@@ -1,0 +1,19 @@
+{
+  "slug": "dark-ones-blessing",
+  "name": "Dark One's Blessing",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "7d8e9f0a2b1c",
+    "last_run": "2023-10-27T12:00:00Z",
+    "summary": "Successfully generated from reference data."
+  },
+  "description": "Starting at 1st level, when you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to your Charisma modifier + your warlock level (minimum of 1).",
+  "embedding": {},
+  "image": "",
+  "level": 1,
+  "lore": "The Fiend grants you a measure of its dark power when you slay an enemy, rewarding your service with a surge of unholy vitality.",
+  "tags": [
+    "warlock",
+    "fiend"
+  ]
+}

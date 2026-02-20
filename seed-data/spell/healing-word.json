@@ -1,0 +1,47 @@
+{
+  "slug": "healing-word",
+  "name": "Healing Word",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Bonus Action",
+    "components": {
+      "consumed": false,
+      "material": false,
+      "somatic": false,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Healing",
+      "dice_count": 1,
+      "dice_value": 4,
+      "timing": "Instant"
+    }
+  ],
+  "description": "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\n\n**At Higher Levels.** When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d4 for each slot level above 1st.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "Auto-Hit"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60
+  },
+  "scaling_config": {
+    "dice_count": 1,
+    "dice_value": 4,
+    "method": "Per Slot Level",
+    "scales": true,
+    "type": "Dice"
+  },
+  "school": "evocation"
+}

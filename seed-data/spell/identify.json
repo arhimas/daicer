@@ -1,0 +1,40 @@
+{
+  "slug": "identify",
+  "name": "Identify",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Minute",
+    "components": {
+      "consumed": false,
+      "cost_gp": 100,
+      "material": true,
+      "material_description": "A pearl worth at least 100gp and an owl feather.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": true
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [],
+  "description": "You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires attunement to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it.\n\nIf you instead touch a creature throughout the casting, you learn what spells, if any, are currently affecting it.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 1,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "divination",
+  "tags": [
+    "bard",
+    "wizard",
+    "lore"
+  ]
+}

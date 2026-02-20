@@ -73,12 +73,33 @@ export class LLMBridge {
         }
         messages.push(new HumanMessage(prompt));
 
-        try {
-            const response = await llmWithStruct.invoke(messages);
-            return response as T;
-        } catch (error: any) {
-            throw new Error(`LLM Generation Failed [${selectedModel}]: ${error.message}`);
+        let retries = 5;
+        let delay = 2000;
+
+        while (retries > 0) {
+            try {
+                // Add a strict 45-second timeout to prevent the API from hanging indefinitely
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('API Request timed out after 45 seconds')), 45000)
+                );
+                
+                const response = await Promise.race([
+                    llmWithStruct.invoke(messages),
+                    timeoutPromise
+                ]);
+                
+                return response as T;
+            } catch (error: any) {
+                retries--;
+                if (retries === 0) {
+                    throw new Error(`LLM Generation Failed [${selectedModel}]: ${error.message}`);
+                }
+                console.warn(`⚠️ API Error (${error.message}). Retrying in ${delay / 1000}s... (${retries} attempts left)`);
+                await new Promise(res => setTimeout(res, delay));
+                delay *= 2; // Exponential backoff
+            }
         }
+        throw new Error('Unreachable state in LLMBridge retry loop');
     }
 
     async generateText(

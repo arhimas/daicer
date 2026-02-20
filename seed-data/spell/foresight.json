@@ -1,0 +1,44 @@
+{
+  "slug": "foresight",
+  "name": "Foresight",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Minute",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A hummingbird feather.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [],
+  "damage_instances": [],
+  "description": "You touch a willing creature and bestow a limited ability to see into the immediate future. For the duration, the target can't be surprised and has advantage on attack rolls, ability checks, and saving throws. Additionally, other creatures have disadvantage on attack rolls against the target for the duration.\n\nThis spell immediately ends if you cast it again before its duration ends.",
+  "duration_config": {
+    "type": "Time-Limited",
+    "concentration": false,
+    "unit": "Hours",
+    "value": 8
+  },
+  "level": 9,
+  "mechanics_config": {
+    "action_type": "Auto-Hit"
+  },
+  "range_config": {
+    "type": "Touch"
+  },
+  "school": "divination",
+  "tags": [
+    "bard",
+    "druid",
+    "warlock",
+    "wizard"
+  ]
+}

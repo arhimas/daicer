@@ -1,0 +1,43 @@
+{
+  "slug": "irresistible-dance",
+  "name": "Irresistible Dance",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": false,
+      "somatic": false,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "The target begins a comic dance in place. It must use all its movement to dance without leaving its space and has disadvantage on dexterity saving throws and attack rolls. Other creatures have advantage on attack rolls against it."
+    }
+  ],
+  "description": "Choose one creature that you can see within range. The target begins a comic dance in place: shuffling, tapping its feet, and capering for the duration. Creatures that can't be charmed are immune to this spell. A dancing creature must use all its movement to dance without leaving its space and has disadvantage on dexterity saving throws and attack rolls. While the target is affected by this spell, other creatures have advantage on attack rolls against it. As an action, a dancing creature makes a wisdom saving throw to regain control of itself. On a successful save, the spell ends.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 6,
+  "mechanics_config": {
+    "action_type": "Auto-Hit",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "school": "enchantment"
+}

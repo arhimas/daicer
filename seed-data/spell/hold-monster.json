@@ -1,0 +1,49 @@
+{
+  "slug": "hold-monster",
+  "name": "Hold Monster",
+  "casting_config": {
+    "time_value": 1,
+    "time_unit": "Action",
+    "components": {
+      "consumed": false,
+      "cost_gp": 0,
+      "material": true,
+      "material_description": "A small piece of iron.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": true,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Spell successfully parsed from reference data."
+  },
+  "condition_instances": [
+    {
+      "condition": "Paralyzed",
+      "description": "The target must make a saving throw of Wisdom or be paralyzed for the duration of the spell."
+    }
+  ],
+  "description": "Choose a creature you can see and reach. The target must make a saving throw of Wisdom or be paralyzed for the duration of the spell. This spell has no effect against the undead. At the end of each round, the target can make a new saving throw of Wisdom. If successful, the spell ends for the creature.\n\n### At Higher Levels\nWhen you cast this spell using a level 6 or higher location, you can target an additional creature for each level of location beyond the fifth. The creatures must be within 30 feet of each other when you target them.",
+  "duration_config": {
+    "type": "Concentration",
+    "concentration": true,
+    "unit": "Minutes",
+    "value": 1
+  },
+  "level": 5,
+  "mechanics_config": {
+    "action_type": "Wisdom Save",
+    "save_effect": "Negate"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 90
+  },
+  "scaling_config": {
+    "scales": true,
+    "type": "Target"
+  },
+  "school": "enchantment"
+}

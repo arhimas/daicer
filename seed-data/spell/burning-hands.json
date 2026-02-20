@@ -16,7 +16,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Fire",
+      "damage_type": "fire",
       "dice_count": 3,
       "dice_value": 6,
       "timing": "Instant"
@@ -40,7 +40,7 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Evocation",
+  "school": "evocation",
   "tags": [
     "Sorcerer",
     "Wizard"

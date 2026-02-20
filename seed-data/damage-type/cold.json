@@ -2,12 +2,8 @@
   "slug": "cold",
   "name": "Cold",
   "compilation_state": {
-    "status": "Valid",
-    "hash": "d6f8e2a1",
-    "last_run": "2023-10-27T12:00:00Z",
-    "summary": "Successfully mapped from 5e SRD."
+    "status": "Valid"
   },
   "description": "The infernal chill radiating from an ice devil's spear and the frigid blast of a white dragon's breath deal cold damage.",
-  "embedding": {},
-  "image": "https://example.com/damage-types/cold.png"
+  "embedding": {}
 }

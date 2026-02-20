@@ -1,0 +1,52 @@
+{
+  "slug": "heroes-feast",
+  "name": "Heroes' Feast",
+  "casting_config": {
+    "time_value": 10,
+    "time_unit": "Minute",
+    "components": {
+      "consumed": true,
+      "cost_gp": 1000,
+      "material": true,
+      "material_description": "A gem-encrusted bowl worth at least 1,000gp, which the spell consumes.",
+      "somatic": true,
+      "verbal": true
+    },
+    "is_concentration": false,
+    "is_ritual": false
+  },
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "condition_instances": [
+    {
+      "condition": "Poisoned",
+      "description": "The creature is cured of poison and becomes immune to poison for 24 hours."
+    },
+    {
+      "condition": "Frightened",
+      "description": "The creature becomes immune to being frightened for 24 hours."
+    }
+  ],
+  "damage_instances": [
+    {
+      "effect_type": "Healing",
+      "dice_count": 2,
+      "dice_value": 10,
+      "timing": "Instant"
+    }
+  ],
+  "description": "You bring forth a great feast, including magnificent food and drink. The feast takes 1 hour to consume and disappears at the end of that time, and the beneficial effects don't set in until this hour is over. Up to twelve other creatures can partake of the feast.\n\nA creature that partakes of the feast gains several benefits. The creature is cured of all diseases and poison, becomes immune to poison and being frightened, and makes all wisdom saving throws with advantage. Its hit point maximum also increases by 2d10, and it gains the same number of hit points. These benefits last for 24 hours.",
+  "duration_config": {
+    "type": "Instantaneous"
+  },
+  "level": 6,
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "school": "conjuration"
+}
