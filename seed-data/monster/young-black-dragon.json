@@ -1,0 +1,25 @@
+{
+  "slug": "young-black-dragon",
+  "name": "Young Black Dragon",
+  "size": "Large",
+  "type": "dragon",
+  "alignment": "chaotic evil",
+  "armor_class": 18,
+  "hit_points": 127,
+  "hit_dice": "15d10+45",
+  "speed": "40 ft., fly 80 ft., swim 40 ft.",
+  "stats": "{\"strength\":19,\"dexterity\":14,\"constitution\":17,\"intelligence\":12,\"wisdom\":11,\"charisma\":15}",
+  "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":5},{\"name\":\"Saving Throw: CON\",\"value\":6},{\"name\":\"Saving Throw: WIS\",\"value\":3},{\"name\":\"Saving Throw: CHA\",\"value\":5},{\"name\":\"Skill: Perception\",\"value\":6},{\"name\":\"Skill: Stealth\",\"value\":5}]",
+  "damage_vulnerabilities": [],
+  "damage_resistances": [],
+  "damage_immunities": [
+    "acid"
+  ],
+  "condition_immunities": [],
+  "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 16",
+  "languages": "Common, Draconic",
+  "challenge_rating": 7,
+  "xp": 2900,
+  "special_abilities": "[{\"name\":\"Amphibious\",\"desc\":\"The dragon can breathe air and water.\"}]",
+  "actions": "[{\"name\":\"Multiattack\",\"desc\":\"The dragon makes three attacks: one with its bite and two with its claws.\"},{\"name\":\"Bite\",\"desc\":\"Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 15 (2d10 + 4) piercing damage plus 4 (1d8) acid damage.\",\"attack_bonus\":7,\"damage\":[{\"type\":\"piercing\",\"dice\":\"2d10+4\"},{\"type\":\"acid\",\"dice\":\"1d8\"}]},{\"name\":\"Claw\",\"desc\":\"Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage.\",\"attack_bonus\":7,\"damage\":[{\"type\":\"slashing\",\"dice\":\"2d6+4\"}]},{\"name\":\"Acid Breath\",\"desc\":\"The dragon exhales acid in a 30-foot line that is 5 feet wide. Each creature in that line must make a DC 14 Dexterity saving throw, taking 49 (11d8) acid damage on a failed save, or half as much damage on a successful one.\",\"damage\":[{\"type\":\"acid\",\"dice\":\"11d8\"}],\"dc\":{\"type\":\"dex\",\"value\":14},\"usage\":{\"type\":\"recharge\",\"min_value\":5}}]"
+}

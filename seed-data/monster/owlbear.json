@@ -1,0 +1,18 @@
+{
+  "name": "Owlbear",
+  "slug": "owlbear",
+  "size": "Large",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "armor_class": 13,
+  "hit_points": 59,
+  "hit_dice": "7d10+21",
+  "speed": "40 ft.",
+  "stats": "{\"strength\":20,\"dexterity\":12,\"constitution\":17,\"intelligence\":3,\"wisdom\":12,\"charisma\":7}",
+  "proficiencies": "[{\"name\":\"Perception\",\"value\":3}]",
+  "senses": "[\"darkvision 60 ft.\",\"passive Perception 13\"]",
+  "languages": "",
+  "challenge_rating": 3,
+  "special_abilities": "[{\"name\":\"Keen Sight and Smell\",\"description\":\"The owlbear has advantage on Wisdom (Perception) checks that rely on sight or smell.\"}]",
+  "actions": "[{\"name\":\"Multiattack\",\"description\":\"The owlbear makes two attacks: one with its beak and one with its claws.\"},{\"name\":\"Beak\",\"description\":\"Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 10 (1d10 + 5) piercing damage.\"},{\"name\":\"Claws\",\"description\":\"Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) slashing damage.\"}]"
+}

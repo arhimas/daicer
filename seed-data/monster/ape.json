@@ -1,0 +1,31 @@
+{
+  "slug": "ape",
+  "name": "Ape",
+  "size": "Medium",
+  "type": "beast",
+  "alignment": "unaligned",
+  "stats": [
+    16,
+    14,
+    14,
+    6,
+    12,
+    7
+  ],
+  "armor_class": 12,
+  "hit_points": 19,
+  "hit_dice": "3d8",
+  "speed": "30 ft., climb 30 ft.",
+  "proficiencies": [
+    "Athletics +5",
+    "Perception +3"
+  ],
+  "senses": "passive Perception 13",
+  "languages": "None",
+  "challenge_rating": 0.5,
+  "actions": [
+    "Multiattack: The ape makes two fist attacks.",
+    "Fist: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage.",
+    "Rock: Ranged Weapon Attack: +5 to hit, range 25/50 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage."
+  ]
+}

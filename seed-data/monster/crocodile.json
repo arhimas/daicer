@@ -1,0 +1,18 @@
+{
+  "slug": "crocodile",
+  "name": "Crocodile",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "armor_class": 12,
+  "hit_points": 19,
+  "hit_dice": "3d10",
+  "speed": "walk 20 ft., swim 20 ft.",
+  "stats": "strength 15, dexterity 10, constitution 13, intelligence 2, wisdom 10, charisma 5",
+  "proficiencies": "Stealth +2",
+  "senses": "passive Perception 10",
+  "languages": "",
+  "challenge_rating": 0.5,
+  "special_abilities": "Hold Breath: The crocodile can hold its breath for 15 minutes.",
+  "actions": "Bite: Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 7 (1d10 + 2) piercing damage, and the target is grappled (escape DC 12). Until this grapple ends, the target is restrained, and the crocodile can't bite another target"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "blink-dog",
+  "name": "Blink Dog",
+  "size": "Medium",
+  "type": "fey",
+  "alignment": "lawful good",
+  "armor_class": 13,
+  "hit_points": 22,
+  "hit_dice": "4d8+4",
+  "speed": "40 ft.",
+  "stats": "{\"strength\":12,\"dexterity\":17,\"constitution\":12,\"intelligence\":10,\"wisdom\":13,\"charisma\":11}",
+  "proficiencies": "[{\"name\":\"Perception\",\"value\":3},{\"name\":\"Stealth\",\"value\":5}]",
+  "languages": "Blink Dog, understands Sylvan but can't speak it",
+  "challenge_rating": 0.25,
+  "traits": "[{\"name\":\"Keen Hearing and Smell\",\"description\":\"The dog has advantage on Wisdom (Perception) checks that rely on hearing or smell.\"}]",
+  "actions": "[{\"name\":\"Bite\",\"description\":\"Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) piercing damage.\"},{\"name\":\"Teleport\",\"description\":\"The dog magically teleports, along with any equipment it is wearing or carrying, up to 40 ft. to an unoccupied space it can see. Before or after teleporting, the dog can make one bite attack.\",\"usage\":\"Recharge 4-6\"}]"
+}

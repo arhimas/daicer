@@ -321,30 +321,33 @@ program
                 const monsterMapper = new (require('../../src/features/genesis-core/mappers/monster-mapper').MonsterMapper)();
 
                 count = 0;
-                const blueprints: any[] = [];
 
                 for (const monster of monsters) {
                     if (count >= limit) break;
                     console.log(`\nGenerating Monster: ${monster.name}`);
+                    
+                    // Add idempotency check!
+                    if (await entityExists("monster", monster.index)) { 
+                        console.log(`⏩ Skipping ${monster.name}`); 
+                        count++; 
+                        continue; 
+                    }
+                    
                     const request = monsterMapper.map(monster);
                     
                     // Use custom blueprint schema
                     const jsonSchema = await schemaBuilder.build(monsterMapper.getSchemaIdentifier ? monsterMapper.getSchemaIdentifier() : request.uid);
                     
-                    const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
-                    
-                    // Skip DryRun for blueprints as they don't match Strapi Schema directly yet
-                    console.log(`✅ Generated Blueprint: ${monster.name}`);
-                    blueprints.push(result);
+                    try {
+                        const result = await bridge.generateStructured(request.prompt, jsonSchema, { model: 'gemini-3-flash' });
+                        
+                        // Save individually exactly like spells and items
+                        await saveEntity('monster', monster.index, result);
+                        console.log(`✅ Success: ${monster.name}`);
+                    } catch (e: any) {
+                        console.error(`❌ Generation Failed for ${monster.name}: ${e.message}\nSkipping to next monster...`);
+                    }
                     count++;
-                }
-
-                // Save Batch
-                if (blueprints.length > 0) {
-                    const batchPath = path.resolve(process.cwd(), 'data/library/blueprints');
-                    await fs.mkdir(batchPath, { recursive: true });
-                    await fs.writeFile(path.join(batchPath, 'monsters-batch-gen.json'), JSON.stringify(blueprints, null, 2));
-                    console.log(`\n💾 Saved ${blueprints.length} monster blueprints to data/library/blueprints/monsters-batch-gen.json`);
                 }
 
             } catch (e: any) { console.log('Skipping monsters', e.message); }

@@ -1,0 +1,37 @@
+{
+  "name": "Grick",
+  "slug": "grick",
+  "size": "Medium",
+  "type": "monstrosity",
+  "alignment": "neutral",
+  "armor_class": 14,
+  "armor_desc": "natural armor",
+  "hit_points": 27,
+  "hit_dice": "6d8",
+  "speed": "walk 30 ft., climb 30 ft.",
+  "stats": "14, 14, 11, 3, 14, 5",
+  "strength": 14,
+  "dexterity": 14,
+  "constitution": 11,
+  "intelligence": 3,
+  "wisdom": 14,
+  "charisma": 5,
+  "proficiencies": [],
+  "damage_vulnerabilities": "",
+  "damage_resistances": "bludgeoning, piercing, and slashing from nonmagical weapons",
+  "damage_immunities": "",
+  "condition_immunities": "",
+  "senses": "darkvision 60 ft., passive perception 12",
+  "languages": "",
+  "challenge_rating": "2",
+  "special_abilities": "Stone Camouflage: The grick has advantage on Dexterity (Stealth) checks made to hide in rocky terrain.",
+  "actions": "Multiattack: The grick makes one attack with its tentacles. If that attack hits, the grick can make one beak attack against the same target. Tentacles: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 9 (2d6 + 2) slashing damage. Beak: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.",
+  "special_abilities_list_v2": [
+    "Stone Camouflage: The grick has advantage on Dexterity (Stealth) checks made to hide in rocky terrain."
+  ],
+  "actions_list_v2": [
+    "Multiattack: The grick makes one attack with its tentacles. If that attack hits, the grick can make one beak attack against the same target.",
+    "Tentacles: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 9 (2d6 + 2) slashing damage.",
+    "Beak: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+  ]
+}

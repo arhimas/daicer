@@ -1,0 +1,20 @@
+{
+  "slug": "cultist",
+  "name": "Cultist",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any non-good alignment",
+  "armor_class": 12,
+  "hit_points": 9,
+  "hit_dice": "2d8",
+  "speed": "30 ft.",
+  "stats": "{\"strength\":11,\"dexterity\":12,\"constitution\":10,\"intelligence\":10,\"wisdom\":11,\"charisma\":10}",
+  "proficiencies": "[{\"name\":\"Deception\",\"value\":2},{\"name\":\"Religion\",\"value\":2}]",
+  "senses": "passive Perception 10",
+  "languages": "any one language (usually Common)",
+  "challenge_rating": 0.125,
+  "xp": 25,
+  "special_abilities": "[{\"name\":\"Dark Devotion\",\"desc\":\"The cultist has advantage on saving throws against being charmed or frightened.\"}]",
+  "actions": "[{\"name\":\"Scimitar\",\"desc\":\"Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 4 (1d6 + 1) slashing damage.\"}]"
+}
