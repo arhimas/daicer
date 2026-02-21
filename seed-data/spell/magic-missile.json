@@ -20,7 +20,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Force",
+      "damage_type": "force",
       "dice_count": 1,
       "dice_value": 4,
       "flat_bonus": 1,
@@ -43,7 +43,7 @@
     "scales": true,
     "type": "Target"
   },
-  "school": "Evocation",
+  "school": "evocation",
   "tags": [
     "sorcerer",
     "wizard"

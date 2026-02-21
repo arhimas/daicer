@@ -32,7 +32,7 @@
   "range_config": {
     "type": "Touch"
   },
-  "school": "Divination",
+  "school": "divination",
   "tags": [
     "bard",
     "cleric",

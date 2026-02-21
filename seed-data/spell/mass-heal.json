@@ -38,7 +38,7 @@
     "type": "Ranged (Feet)",
     "distance": 60
   },
-  "school": "Conjuration",
+  "school": "conjuration",
   "tags": [
     "cleric"
   ]

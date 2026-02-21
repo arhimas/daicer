@@ -34,7 +34,7 @@
     "type": "Ranged (Feet)",
     "distance": 300
   },
-  "school": "Conjuration",
+  "school": "conjuration",
   "tags": [
     "bard",
     "wizard"

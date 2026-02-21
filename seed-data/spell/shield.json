@@ -35,7 +35,7 @@
   "range_config": {
     "type": "Self"
   },
-  "school": "Abjuration",
+  "school": "abjuration",
   "tags": [
     "sorcerer",
     "wizard",

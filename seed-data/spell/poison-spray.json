@@ -22,7 +22,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Poison",
+      "damage_type": "poison",
       "dice_count": 1,
       "dice_value": 12,
       "timing": "Instant"
@@ -48,6 +48,6 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Conjuration",
+  "school": "conjuration",
   "tags": []
 }

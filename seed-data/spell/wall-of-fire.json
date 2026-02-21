@@ -21,14 +21,14 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Fire",
+      "damage_type": "fire",
       "dice_count": 5,
       "dice_value": 8,
       "timing": "Instant"
     },
     {
       "effect_type": "Damage",
-      "damage_type": "Fire",
+      "damage_type": "fire",
       "dice_count": 5,
       "dice_value": 8,
       "timing": "End of Turn"

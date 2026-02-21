@@ -27,35 +27,35 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Thunder",
+      "damage_type": "thunder",
       "dice_count": 2,
       "dice_value": 6,
       "timing": "Instant"
     },
     {
       "effect_type": "Damage",
-      "damage_type": "Acid",
+      "damage_type": "acid",
       "dice_count": 1,
       "dice_value": 6,
       "timing": "One Time Trigger"
     },
     {
       "effect_type": "Damage",
-      "damage_type": "Lightning",
+      "damage_type": "lightning",
       "dice_count": 10,
       "dice_value": 6,
       "timing": "One Time Trigger"
     },
     {
       "effect_type": "Damage",
-      "damage_type": "Bludgeoning",
+      "damage_type": "bludgeoning",
       "dice_count": 2,
       "dice_value": 6,
       "timing": "One Time Trigger"
     },
     {
       "effect_type": "Damage",
-      "damage_type": "Cold",
+      "damage_type": "cold",
       "dice_count": 1,
       "dice_value": 6,
       "timing": "Start of Turn"
@@ -78,7 +78,7 @@
     "aoe_shape": "Sphere",
     "aoe_size": 360
   },
-  "school": "Conjuration",
+  "school": "conjuration",
   "tags": [
     "druid"
   ]

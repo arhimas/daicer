@@ -19,7 +19,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Fire",
+      "damage_type": "fire",
       "dice_count": 1,
       "dice_value": 8,
       "timing": "Instant"
@@ -47,5 +47,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Conjuration"
+  "school": "conjuration"
 }

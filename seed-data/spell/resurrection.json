@@ -37,7 +37,7 @@
   "range_config": {
     "type": "Touch"
   },
-  "school": "Necromancy",
+  "school": "necromancy",
   "tags": [
     "bard",
     "cleric"

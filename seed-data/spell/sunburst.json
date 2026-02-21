@@ -29,7 +29,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Radiant",
+      "damage_type": "radiant",
       "dice_count": 12,
       "dice_value": 6,
       "timing": "Instant"
@@ -51,5 +51,5 @@
     "aoe_size": 60,
     "distance": 150
   },
-  "school": "Evocation"
+  "school": "evocation"
 }

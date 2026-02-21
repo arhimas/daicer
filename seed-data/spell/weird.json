@@ -26,7 +26,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Psychic",
+      "damage_type": "psychic",
       "dice_count": 4,
       "dice_value": 10,
       "timing": "Start of Turn"
@@ -50,5 +50,5 @@
     "aoe_size": 30,
     "distance": 120
   },
-  "school": "Illusion"
+  "school": "illusion"
 }

@@ -21,7 +21,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Bludgeoning",
+      "damage_type": "bludgeoning",
       "dice_count": 3,
       "dice_value": 8,
       "timing": "Instant"
@@ -43,7 +43,7 @@
     "type": "Ranged (Feet)",
     "distance": 120
   },
-  "school": "Evocation",
+  "school": "evocation",
   "tags": [
     "druid",
     "ranger",

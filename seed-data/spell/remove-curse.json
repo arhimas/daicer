@@ -30,7 +30,7 @@
   "range_config": {
     "type": "Touch"
   },
-  "school": "Abjuration",
+  "school": "abjuration",
   "tags": [
     "cleric",
     "paladin",

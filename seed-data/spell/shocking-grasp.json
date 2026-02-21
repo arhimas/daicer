@@ -25,7 +25,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Lightning",
+      "damage_type": "lightning",
       "dice_count": 1,
       "dice_value": 8,
       "timing": "Instant"
@@ -49,5 +49,5 @@
     "scales": true,
     "type": "Dice"
   },
-  "school": "Evocation"
+  "school": "evocation"
 }

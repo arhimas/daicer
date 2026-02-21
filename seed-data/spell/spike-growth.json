@@ -21,7 +21,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Piercing",
+      "damage_type": "piercing",
       "dice_count": 2,
       "dice_value": 4,
       "timing": "One Time Trigger"
@@ -42,5 +42,5 @@
     "type": "Ranged (Feet)",
     "distance": 150
   },
-  "school": "Transmutation"
+  "school": "transmutation"
 }

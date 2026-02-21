@@ -46,7 +46,7 @@
   "damage_instances": [
     {
       "effect_type": "Damage",
-      "damage_type": "Necrotic",
+      "damage_type": "necrotic",
       "dice_count": 10,
       "dice_value": 10,
       "timing": "One Time Trigger"
@@ -65,5 +65,5 @@
     "aoe_shape": "Sphere",
     "aoe_size": 60
   },
-  "school": "Abjuration"
+  "school": "abjuration"
 }

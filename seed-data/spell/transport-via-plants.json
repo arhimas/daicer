@@ -32,7 +32,7 @@
     "type": "Ranged (Feet)",
     "distance": 10
   },
-  "school": "Conjuration",
+  "school": "conjuration",
   "tags": [
     "druid"
   ]

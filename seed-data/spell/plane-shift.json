@@ -30,7 +30,7 @@
   "range_config": {
     "type": "Touch"
   },
-  "school": "Conjuration",
+  "school": "conjuration",
   "tags": [
     "cleric",
     "druid",
