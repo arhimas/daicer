@@ -1,0 +1,22 @@
+{
+  "name": "Forbiddance",
+  "description": "The vampire can't enter a residence without an invitation from one of the occupants.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Can't enter a residence without an invitation",
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "vampire-bat-forbiddance"
+}

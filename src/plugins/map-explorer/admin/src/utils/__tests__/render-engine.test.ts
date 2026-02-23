@@ -1,6 +1,6 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import { RenderEngine } from "../render-engine";
-import { Chunk } from "../../types";
+import { RenderEngine } from '@/plugins/map-explorer/admin/src/utils/render-engine';
+import { Chunk } from '@/plugins/map-explorer/admin/src/types';
 
 // Mock Canvas Context
 const mockCtx = {

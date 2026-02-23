@@ -1,0 +1,38 @@
+{
+  "slug": "commoner",
+  "name": "Commoner",
+  "description": "### Actions\n[{\"name\":\"Club\",\"desc\":\"Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage.\",\"attack_bonus\":2,\"damage\":[{\"damage_type\":\"bludgeoning\",\"damage_dice\":\"1d4\"}]}]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "any alignment",
+  "level": 1,
+  "ac": 10,
+  "hp": 4,
+  "hit_dice": "1d8",
+  "challenge_rating": 0,
+  "xp": 10,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "commoner-club"
+  ]
+}

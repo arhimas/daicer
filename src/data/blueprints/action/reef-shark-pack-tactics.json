@@ -1,0 +1,15 @@
+{
+  "name": "Pack Tactics",
+  "description": "The shark has advantage on an attack roll against a creature if at least one of the shark's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "reef-shark-pack-tactics"
+}

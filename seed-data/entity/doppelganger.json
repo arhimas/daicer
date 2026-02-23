@@ -1,0 +1,43 @@
+{
+  "slug": "doppelganger",
+  "name": "Doppelganger",
+  "description": "### Special Abilities\n[{\"name\": \"Shapechanger\", \"desc\": \"The doppelganger can use its action to polymorph into a Small or Medium humanoid it has seen, or back into its true form. Its statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.\"}, {\"name\": \"Ambusher\", \"desc\": \"In the first round of combat, the doppelganger has advantage on attack rolls against any creature it has surprised.\"}, {\"name\": \"Surprise Attack\", \"desc\": \"If the doppelganger surprises a creature and hits it with an attack during the first round of combat, the target takes an extra 10 (3d6) damage from the attack.\"}]\n\n### Actions\n[{\"name\": \"Multiattack\", \"desc\": \"The doppelganger makes two melee attacks.\"}, {\"name\": \"Slam\", \"desc\": \"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) bludgeoning damage.\"}, {\"name\": \"Read Thoughts\", \"desc\": \"The doppelganger magically reads the surface thoughts of one creature within 60 ft. of it. The effect can penetrate barriers, but 3 ft. of wood or dirt, 2 ft. of stone, 2 inches of metal, or a thin sheet of lead blocks it. While the target is in range, the doppelganger can continue reading its thoughts, as long as the doppelganger's concentration isn't broken (as if concentrating on a spell). While reading the target's mind, the doppelganger has advantage on Wisdom (Insight) and Charisma (Deception, Intimidation, and Persuasion) checks against the target.\"}]",
+  "size": "Medium",
+  "type": "monstrosity",
+  "alignment": "unaligned",
+  "level": 3,
+  "ac": 14,
+  "hp": 52,
+  "hit_dice": "8d8+16",
+  "challenge_rating": 3,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 11,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "doppelganger-ambusher",
+    "doppelganger-multiattack",
+    "doppelganger-read-thoughts",
+    "doppelganger-shapechanger",
+    "doppelganger-slam",
+    "doppelganger-surprise-attack"
+  ]
+}

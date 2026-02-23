@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { DryRunService } from '../dry-run';
-import { SchemaLoader } from '../schema-loader';
+import { DryRunService } from '@/features/genesis-core/dry-run';
+import { SchemaLoader } from '@/features/genesis-core/schema-loader';
 
 // Mock SchemaLoader
 const mockLoadSchema = vi.fn();

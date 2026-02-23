@@ -1,0 +1,44 @@
+{
+  "slug": "red-dragon-wyrmling",
+  "name": "Red Dragon Wyrmling",
+  "description": "### Actions\n[{\"name\":\"Bite\",\"description\":\"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 9 (1d10 + 4) piercing damage plus 3 (1d6) fire damage.\",\"attack_bonus\":6,\"damage\":\"1d10+4 + 1d6\"},{\"name\":\"Fire Breath\",\"description\":\"The dragon exhales fire in a 15-foot cone. Each creature in that area must make a DC 13 Dexterity saving throw, taking 24 (7d6) fire damage on a failed save, or half as much damage on a successful one.\",\"damage\":\"7d6\",\"recharge\":\"5-6\"}]",
+  "size": "Medium",
+  "type": "dragon",
+  "alignment": "chaotic evil",
+  "level": 4,
+  "ac": 17,
+  "hp": 75,
+  "hit_dice": "10d8+30",
+  "challenge_rating": 4,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
+    "skills": [],
+    "passivePerception": 14,
+    "darkvision": 60,
+    "blindsight": 10,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "red-dragon-wyrmling-bite",
+    "red-dragon-wyrmling-fire-breath"
+  ]
+}

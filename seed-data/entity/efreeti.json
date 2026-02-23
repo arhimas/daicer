@@ -1,0 +1,57 @@
+{
+  "slug": "efreeti",
+  "name": "Efreeti",
+  "description": "### Special Abilities\n[{\"name\":\"Elemental Demise\",\"desc\":\"If the efreeti dies, its body disintegrates in a flash of fire and puff of smoke, leaving behind only equipment the djinni was wearing or carrying.\"},{\"name\":\"Innate Spellcasting\",\"desc\":\"The efreeti's innate spell casting ability is Charisma (spell save DC 15, +7 to hit with spell attacks). It can innately cast the following spells, requiring no material components: At will: detect magic; 3/day: enlarge/reduce, tongues; 1/day each: conjure elemental (fire elemental only), gaseous form, invisibility, major image, plane shift, wall of fire\"}]\n\n### Actions\n[{\"name\":\"Multiattack\",\"desc\":\"The efreeti makes two scimitar attacks or uses its Hurl Flame twice.\"},{\"name\":\"Scimitar\",\"desc\":\"Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage plus 7 (2d6) fire damage.\"},{\"name\":\"Hurl Flame\",\"desc\":\"Ranged Spell Attack: +7 to hit, range 120 ft., one target. Hit: 17 (5d6) fire damage.\"}]",
+  "size": "Large",
+  "type": "elemental",
+  "alignment": "lawful evil",
+  "level": 11,
+  "ac": 17,
+  "hp": 200,
+  "hit_dice": "16d10+112",
+  "challenge_rating": 11,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [
+      "int",
+      "wis",
+      "cha"
+    ],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "efreeti-elemental-demise",
+    "efreeti-hurl-flame",
+    "efreeti-innate-spellcasting",
+    "efreeti-multiattack",
+    "efreeti-scimitar"
+  ],
+  "spells": [
+    "conjure-elemental",
+    "detect-magic",
+    "enlarge-reduce",
+    "gaseous-form",
+    "invisibility",
+    "major-image",
+    "plane-shift",
+    "tongues",
+    "wall-of-fire"
+  ]
+}

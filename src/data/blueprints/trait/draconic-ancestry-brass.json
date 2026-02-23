@@ -1,0 +1,15 @@
+{
+  "slug": "draconic-ancestry-brass",
+  "name": "Draconic Ancestry (Brass)",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Imported from reference data."
+  },
+  "description": "You have draconic ancestry. Your breath weapon and damage resistance are determined by the dragon type. For a Brass dragon, your damage type is Fire and your breath weapon is a 5 by 30 ft. line (Dex. save).",
+  "embedding": {},
+  "image": "",
+  "proficiencies": [],
+  "races": [
+    "dragonborn"
+  ]
+}

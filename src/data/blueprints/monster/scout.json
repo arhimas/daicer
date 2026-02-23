@@ -1,0 +1,19 @@
+{
+  "name": "Scout",
+  "slug": "scout",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "armor_class": 13,
+  "hit_points": 16,
+  "hit_dice": "3d8",
+  "speed": "30 ft.",
+  "stats": "{\"strength\":11,\"dexterity\":14,\"constitution\":12,\"intelligence\":11,\"wisdom\":13,\"charisma\":11}",
+  "proficiencies": "[{\"name\":\"Nature\",\"value\":4},{\"name\":\"Perception\",\"value\":5},{\"name\":\"Stealth\",\"value\":6},{\"name\":\"Survival\",\"value\":5}]",
+  "senses": "passive Perception 15",
+  "languages": "any one language (usually Common)",
+  "challenge_rating": 0.5,
+  "special_abilities": "[{\"name\":\"Keen Hearing and Sight\",\"desc\":\"The scout has advantage on Wisdom (Perception) checks that rely on hearing or sight.\"}]",
+  "actions": "[{\"name\":\"Multiattack\",\"desc\":\"The scout makes two melee attacks or two ranged attacks.\"},{\"name\":\"Shortsword\",\"desc\":\"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.\",\"attack_bonus\":4,\"damage_dice\":\"1d6+2\"},{\"name\":\"Longbow\",\"desc\":\"Ranged Weapon Attack: +4 to hit, range 150/600 ft., one target. Hit: 6 (1d8 + 2) piercing damage.\",\"attack_bonus\":4,\"damage_dice\":\"1d8+2\"}]"
+}

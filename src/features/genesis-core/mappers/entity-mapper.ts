@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 
 export interface GenerationRequest {
     uid: string; // Strapi UID (e.g., 'api::spell.spell')

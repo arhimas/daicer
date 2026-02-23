@@ -1,0 +1,13 @@
+{
+  "slug": "fast-movement",
+  "name": "Fast Movement",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Successfully imported from reference data."
+  },
+  "description": "Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor.",
+  "level": 5,
+  "tags": [
+    "barbarian"
+  ]
+}

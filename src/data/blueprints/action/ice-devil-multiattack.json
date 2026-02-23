@@ -1,0 +1,15 @@
+{
+  "name": "Multiattack",
+  "description": "The devil makes three attacks: one with its bite, one with its claws, and one with its tail.",
+  "type": "utility",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "ice-devil-multiattack"
+}

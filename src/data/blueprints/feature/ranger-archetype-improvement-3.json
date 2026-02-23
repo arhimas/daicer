@@ -1,0 +1,20 @@
+{
+  "slug": "ranger-archetype-feature",
+  "name": "Ranger Archetype feature",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "8f3e2a1b",
+    "last_run": "2023-10-27",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "At 15th level, you gain a feature granted by your Ranger Archetype choice. Your choice of archetype grants you features at 3rd level and again at 7th, 11th, and 15th level.",
+  "embedding": {},
+  "image": "https://example.com/assets/ranger-archetype.webp",
+  "level": 15,
+  "lore": "The path a ranger walks is defined by their specialization, honing their survival instincts into a unique style of combat and exploration.",
+  "tags": [
+    "ranger",
+    "class-feature",
+    "archetype"
+  ]
+}

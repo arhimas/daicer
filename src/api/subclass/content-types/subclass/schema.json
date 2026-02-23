@@ -12,7 +12,6 @@
   },
   "pluginOptions": {
     "i18n": {
-      "localized": true
     }
   },
   "attributes": {
@@ -29,7 +28,6 @@
       "type": "string",
       "pluginOptions": {
         "i18n": {
-          "localized": true
         }
       },
       "required": true
@@ -38,7 +36,6 @@
       "type": "richtext",
       "pluginOptions": {
         "i18n": {
-          "localized": true
         }
       }
     },
@@ -46,7 +43,6 @@
       "type": "string",
       "pluginOptions": {
         "i18n": {
-          "localized": true
         }
       }
     },

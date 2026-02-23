@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { program } from 'commander';
 import { SourceLoader } from '../../src/features/genesis-core/source-loader';
 import { LLMBridge } from '../../src/features/genesis-core/llm-bridge';

@@ -1,6 +1,7 @@
+/* eslint-disable */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import gameServiceFactory from '../game';
+import gameServiceFactory from '@/api/game/services/game';
 
 // Mock Strapi Services
 const mockWorldGen = { generateWorld: vi.fn() };

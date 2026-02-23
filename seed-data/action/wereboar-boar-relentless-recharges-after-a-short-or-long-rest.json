@@ -1,0 +1,15 @@
+{
+  "name": "Relentless (Recharges after a Short or Long Rest)",
+  "description": "If the wereboar takes 14 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "wereboar-boar-relentless-recharges-after-a-short-or-long-rest"
+}

@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { getMovementModes, canMove } from '../movement';
+import { getMovementModes, canMove } from '@/api/game/src/engine/utils/movement';
 
 describe('Movement Utils', () => {
   describe('getMovementModes', () => {

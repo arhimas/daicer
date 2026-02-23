@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import biomeSpawnServiceFactory from '../biome-spawn-service';
+import biomeSpawnServiceFactory from '@/api/game/services/biome-spawn-service';
 import { BiomeType } from '@daicer/engine/types';
 
 vi.mock('@/api/voxel-engine/services/utils/constants', () => ({

@@ -1,0 +1,15 @@
+{
+  "name": "Keen Hearing and Smell",
+  "description": "The werewolf has advantage on Wisdom (Perception) checks that rely on hearing or smell.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "werewolf-human-keen-hearing-and-smell"
+}

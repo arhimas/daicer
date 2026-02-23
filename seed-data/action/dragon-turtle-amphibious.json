@@ -1,0 +1,6 @@
+{
+  "name": "Amphibious",
+  "description": "The dragon turtle can breathe air and water.",
+  "type": "ability",
+  "slug": "dragon-turtle-amphibious"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Lightning Breath",
+  "description": "The dragon exhales lightning in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 16 Dexterity saving throw, taking 55 (10d10) lightning damage on a failed save, or half as much damage on a successful one.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60,
+    "aoe_shape": "Line",
+    "aoe_size": 5
+  },
+  "mechanics_config": {
+    "action_type": "Dexterity Save",
+    "save_effect": "Half"
+  },
+  "save": {
+    "dc": 16,
+    "attribute": "DEX"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Lightning",
+      "dice_count": 10,
+      "dice_value": 10,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": null,
+  "slug": "young-blue-dragon-lightning-breath"
+}

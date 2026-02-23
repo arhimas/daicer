@@ -1,0 +1,37 @@
+{
+  "name": "Longsword",
+  "description": "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 21 (3d8 + 8) slashing damage plus 13 (3d8) lightning damage. If the balor scores a critical hit, it rolls damage dice three times, instead of twice.",
+  "type": "melee",
+  "toHit": 14,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 10,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Slashing",
+      "dice_count": 3,
+      "dice_value": 8,
+      "flat_bonus": 8,
+      "timing": "Instant"
+    },
+    {
+      "effect_type": "Damage",
+      "damage_type": "Lightning",
+      "dice_count": 3,
+      "dice_value": 8,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": null,
+  "slug": "balor-longsword"
+}

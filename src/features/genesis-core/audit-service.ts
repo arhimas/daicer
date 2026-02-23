@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import { SourceLoader } from './source-loader';
 

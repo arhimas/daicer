@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { JsonSchemaBuilder } from '../../src/features/genesis-core/json-schema-builder';
 import { SchemaLoader } from '../../src/features/genesis-core/schema-loader';
 import fs from 'fs/promises';

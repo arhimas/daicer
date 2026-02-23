@@ -1,6 +1,7 @@
+ 
 
 import { z } from 'zod';
-import { APIReferenceSchema, DCMethodSchema, DamageSchema } from './common-schemas';
+import { APIReferenceSchema, DCMethodSchema, } from './common-schemas';
 
 export const MonsterSchema = z.object({
     index: z.string(),

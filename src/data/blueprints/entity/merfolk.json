@@ -1,0 +1,39 @@
+{
+  "slug": "merfolk",
+  "name": "Merfolk",
+  "description": "### Special Abilities\n[{\"name\":\"Amphibious\",\"desc\":\"The merfolk can breathe air and water.\"}]\n\n### Actions\n[{\"name\":\"Spear\",\"desc\":\"Melee or Ranged Weapon Attack: +2 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 3 (1d6) piercing damage, or 4 (1d8) piercing damage if used with two hands to make a melee attack.\",\"attack_bonus\":2}]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "neutral",
+  "level": 1,
+  "ac": 11,
+  "hp": 11,
+  "hit_dice": "2d8",
+  "challenge_rating": 0.125,
+  "xp": 25,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 10,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 12,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "merfolk-amphibious",
+    "merfolk-spear"
+  ]
+}

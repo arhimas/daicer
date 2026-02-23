@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import contextServiceFactory from '../context-service';
+import contextServiceFactory from '@/plugins/map-explorer/server/src/services/context-service';
 
 const mockFindOne = vi.fn();
 const mockGetModel = vi.fn();

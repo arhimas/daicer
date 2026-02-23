@@ -1,0 +1,40 @@
+{
+  "slug": "giant-boar",
+  "name": "Giant Boar",
+  "description": "### Special Abilities\n[{\"name\":\"Charge\",\"desc\":\"If the boar moves at least 20 ft. straight toward a target and then hits it with a tusk attack on the same turn, the target takes an extra 7 (2d6) slashing damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.\"},{\"name\":\"Relentless\",\"desc\":\"If the boar takes 10 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead.\",\"usage\":\"recharge after short or long rest\"}]\n\n### Actions\n[{\"name\":\"Tusk\",\"desc\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage.\"}]",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 2,
+  "ac": 12,
+  "hp": 42,
+  "hit_dice": "5d10+15",
+  "challenge_rating": 2,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 8,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "giant-boar-charge",
+    "giant-boar-relentless",
+    "giant-boar-tusk"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "camel",
+  "name": "Camel",
+  "description": "### Actions\n[{\"name\":\"Bite\",\"desc\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage.\",\"attack_bonus\":5,\"damage\":[{\"damage_type\":\"bludgeoning\",\"damage_dice\":\"1d4\"}]}]",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 9,
+  "hp": 15,
+  "hit_dice": "2d10",
+  "challenge_rating": 0.125,
+  "xp": 25,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 50,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "camel-bite"
+  ]
+}

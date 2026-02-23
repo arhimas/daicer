@@ -1,0 +1,13 @@
+{
+  "name": "Minor Illusion",
+  "description": "minor illusion",
+  "type": "spell",
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30
+  },
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "slug": "rakshasa-minor-illusion"
+}

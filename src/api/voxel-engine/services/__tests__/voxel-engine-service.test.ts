@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import voxelEngineFactory from '../voxel-engine';
+import voxelEngineFactory from '@/api/voxel-engine/services/voxel-engine';
 
 // Mock ChunkManager singleton
 const mockChunkManager = {

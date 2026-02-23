@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
-import { serializeEntity, serializeItem, serializeTerrain } from '../serializers/index'; // Relative path check
+import { serializeEntity, serializeItem, serializeTerrain } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers/index'; // Relative path check
 
 // Mock dependencies
 vi.mock('../../../utils/entity-geometry', () => ({

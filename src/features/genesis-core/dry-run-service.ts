@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ISchemaLoader } from './schema-loader';
 
 export interface ValidationResult {

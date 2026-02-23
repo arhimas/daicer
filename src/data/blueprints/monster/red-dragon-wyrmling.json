@@ -1,0 +1,18 @@
+{
+  "slug": "red-dragon-wyrmling",
+  "name": "Red Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "alignment": "chaotic evil",
+  "armor_class": 17,
+  "hit_points": 75,
+  "hit_dice": "10d8+30",
+  "speed": "30 ft., fly 60 ft., climb 30 ft.",
+  "stats": "{\"strength\":19,\"dexterity\":10,\"constitution\":17,\"intelligence\":12,\"wisdom\":11,\"charisma\":15}",
+  "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":2},{\"name\":\"Saving Throw: CON\",\"value\":5},{\"name\":\"Saving Throw: WIS\",\"value\":2},{\"name\":\"Saving Throw: CHA\",\"value\":4},{\"name\":\"Skill: Perception\",\"value\":4},{\"name\":\"Skill: Stealth\",\"value\":2}]",
+  "damage_immunities": "[\"fire\"]",
+  "senses": "blindsight 10 ft., darkvision 60 ft., passive Perception 14",
+  "languages": "Draconic",
+  "challenge_rating": 4,
+  "actions": "[{\"name\":\"Bite\",\"description\":\"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 9 (1d10 + 4) piercing damage plus 3 (1d6) fire damage.\",\"attack_bonus\":6,\"damage\":\"1d10+4 + 1d6\"},{\"name\":\"Fire Breath\",\"description\":\"The dragon exhales fire in a 15-foot cone. Each creature in that area must make a DC 13 Dexterity saving throw, taking 24 (7d6) fire damage on a failed save, or half as much damage on a successful one.\",\"damage\":\"7d6\",\"recharge\":\"5-6\"}]"
+}

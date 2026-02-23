@@ -1,0 +1,36 @@
+{
+  "name": "Paralyzing Touch",
+  "description": "Melee Spell Attack: +12 to hit, reach 5 ft., one creature. Hit: 10 (3d6) cold damage. The target must succeed on a DC 18 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+  "type": "spell",
+  "toHit": 12,
+  "range_config": {
+    "type": "Touch",
+    "distance": 5
+  },
+  "mechanics_config": {
+    "action_type": "Melee Spell Attack",
+    "save_effect": "Negate"
+  },
+  "save": {
+    "dc": 18,
+    "attribute": "CON"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Cold",
+      "dice_count": 3,
+      "dice_value": 6,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Paralyzed",
+      "chance": 100,
+      "duration_rounds": 10
+    }
+  ],
+  "slug": "lich-paralyzing-touch"
+}

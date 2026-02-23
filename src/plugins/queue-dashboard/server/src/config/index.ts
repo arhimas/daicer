@@ -1,4 +1,4 @@
-import { QueueName } from "../constants";
+import { QueueName } from '@/plugins/queue-dashboard/server/src/constants';
 
 export default {
   default: {

@@ -1,0 +1,50 @@
+{
+  "slug": "green-hag",
+  "name": "Green Hag",
+  "description": "### Special Abilities\n[\"Amphibious: The hag can breathe air and water.\",\"Innate Spellcasting: The hag's innate spellcasting ability is Charisma (spell save DC 12). She can innately cast the following spells, requiring no material components: At will: dancing lights, minor illusion, vicious mockery\",\"Mimicry: The hag can mimic animal sounds and humanoid voices. A creature that hears the sounds can tell they are imitations with a successful DC 14 Wisdom (Insight) check.\"]\n\n### Actions\n[\"Claws: Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage.\",\"Illusory Appearance: The hag covers herself and anything she is wearing or carrying with a magical illusion that makes her look like another creature of her general size and humanoid shape. The illusion ends if the hag takes a bonus action to end it or if she dies. The changes wrought by this effect fail to hold up to physical inspection. For example, the hag could appear to have smooth skin, but someone touching her would feel her rough flesh. Otherwise, a creature must take an action to visually inspect the illusion and succeed on a DC 20 Intelligence (Investigation) check to discern that the hag is disguised.\",\"Invisible Passage: The hag magically turns invisible until she attacks or casts a spell, or until her concentration ends (as if concentrating on a spell). While invisible, she leaves no physical evidence of her passage, so she can be tracked only by magic. Any equipment she wears or carries is invisible with her.\"]",
+  "size": "Medium",
+  "type": "fey",
+  "alignment": "neutral evil",
+  "level": 3,
+  "ac": 17,
+  "hp": 82,
+  "hit_dice": "11d8+33",
+  "challenge_rating": 3,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [
+      "arcana",
+      "deception",
+      "perception",
+      "stealth"
+    ],
+    "passivePerception": 14,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "green-hag-amphibious",
+    "green-hag-claws",
+    "green-hag-dancing-lights",
+    "green-hag-illusory-appearance",
+    "green-hag-invisible-passage",
+    "green-hag-mimicry",
+    "green-hag-minor-illusion",
+    "green-hag-vicious-mockery"
+  ]
+}

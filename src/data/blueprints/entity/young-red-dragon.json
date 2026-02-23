@@ -1,0 +1,46 @@
+{
+  "slug": "young-red-dragon",
+  "name": "Young Red Dragon",
+  "description": "### Actions\n[{\"name\": \"Multiattack\", \"desc\": \"The dragon makes three attacks: one with its bite and two with its claws.\"}, {\"name\": \"Bite\", \"desc\": \"Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage plus 3 (1d6) fire damage.\", \"attack_bonus\": 10, \"damage\": [{\"damage_type\": \"piercing\", \"damage_dice\": \"2d10+6\"}, {\"damage_type\": \"fire\", \"damage_dice\": \"1d6\"}]}, {\"name\": \"Claw\", \"desc\": \"Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage.\", \"attack_bonus\": 10, \"damage\": [{\"damage_type\": \"slashing\", \"damage_dice\": \"2d6+6\"}]}, {\"name\": \"Fire Breath\", \"desc\": \"The dragon exhales fire in a 30-foot cone. Each creature in that area must make a DC 17 Dexterity saving throw, taking 56 (16d6) fire damage on a failed save, or half as much damage on a successful one.\", \"dc\": {\"dc_type\": \"dex\", \"dc_value\": 17, \"success_type\": \"half\"}, \"damage\": [{\"damage_type\": \"fire\", \"damage_dice\": \"16d6\"}], \"usage\": {\"type\": \"recharge on roll\", \"dice\": \"1d6\", \"min_value\": 5}}]",
+  "size": "Large",
+  "type": "dragon",
+  "alignment": "chaotic evil",
+  "level": 10,
+  "ac": 18,
+  "hp": 178,
+  "hit_dice": "17d10",
+  "challenge_rating": 10,
+  "xp": 5900,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
+    "skills": [],
+    "passivePerception": 18,
+    "darkvision": 120,
+    "blindsight": 30,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "young-red-dragon-bite",
+    "young-red-dragon-claw",
+    "young-red-dragon-fire-breath",
+    "young-red-dragon-multiattack"
+  ]
+}

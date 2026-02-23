@@ -1,0 +1,18 @@
+{
+  "slug": "defensive-tactics",
+  "name": "Defensive Tactics",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "a4d5e6f7g8h9i0j1",
+    "last_run": "2023-10-27T10:00:00Z",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "At 7th level, you gain one of the following features of your choice: Escape the Horde (Opportunity attacks against you are made with disadvantage), Multiattack Defense (When a creature hits you with an attack, you gain a +4 bonus to AC against all subsequent attacks made by that creature for the rest of the turn), or Steel Will (You have advantage on saving throws against being frightened).",
+  "level": 7,
+  "lore": "The Hunter learns to anticipate the strikes of their prey, turning a simple skirmish into a masterclass of avoidance and resilience.",
+  "tags": [
+    "ranger",
+    "hunter",
+    "combat-feature"
+  ]
+}

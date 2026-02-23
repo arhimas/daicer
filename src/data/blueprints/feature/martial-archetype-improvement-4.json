@@ -1,0 +1,13 @@
+{
+  "slug": "martial-archetype-feature",
+  "name": "Martial Archetype feature",
+  "compilation_state": {
+    "status": "Valid",
+    "summary": "Successfully mapped from reference data."
+  },
+  "description": "At 18th level, you gain a feature granted by your Martial Archetype choice.",
+  "level": 18,
+  "tags": [
+    "fighter"
+  ]
+}

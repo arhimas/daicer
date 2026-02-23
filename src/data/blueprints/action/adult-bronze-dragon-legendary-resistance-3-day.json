@@ -1,0 +1,9 @@
+{
+  "name": "Legendary Resistance (3/Day)",
+  "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+  "type": "ability",
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "slug": "adult-bronze-dragon-legendary-resistance-3-day"
+}

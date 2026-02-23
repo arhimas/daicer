@@ -1,0 +1,32 @@
+{
+  "name": "Swallow",
+  "description": "The toad makes one bite attack against a Medium or smaller target it is grappling. If the attack hits, the target is swallowed, and the grapple ends. The swallowed target is blinded and restrained, it has total cover against attacks and other effects outside the toad, and it takes 10 (3d6) acid damage at the start of each of the toad's turns. The toad can have only one target swallowed at a time. If the toad dies, a swallowed creature is no longer restrained by it and can escape from the corpse using 5 feet of movement, exiting prone.",
+  "type": "melee",
+  "range_config": {
+    "type": "Touch"
+  },
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Acid",
+      "dice_count": 3,
+      "dice_value": 6,
+      "flat_bonus": 0,
+      "timing": "Start of Turn"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Blinded",
+      "chance": 100
+    },
+    {
+      "condition": "Restrained",
+      "chance": 100
+    }
+  ],
+  "slug": "giant-toad-swallow"
+}

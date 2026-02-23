@@ -1,0 +1,36 @@
+{
+  "name": "Fling",
+  "description": "One Large or smaller object held or creature grappled by the kraken is thrown up to 60 feet in a random direction and knocked prone. If a thrown target strikes a solid surface, the target takes 3 (1d6) bludgeoning damage for every 10 feet it was thrown.",
+  "type": "utility",
+  "toHit": null,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Bludgeoning",
+      "dice_count": 1,
+      "dice_value": 6,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Prone",
+      "description": null,
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "kraken-fling"
+}

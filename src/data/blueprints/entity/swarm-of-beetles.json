@@ -1,0 +1,39 @@
+{
+  "slug": "swarm-of-beetles",
+  "name": "Swarm of Beetles",
+  "description": "### Special Abilities\n[{\"name\":\"Swarm\",\"desc\":\"The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny insect. The swarm can't regain hit points or gain temporary hit points.\"}]\n\n### Actions\n[{\"name\":\"Bites\",\"desc\":\"Melee Weapon Attack: +3 to hit, reach 0 ft., one target in the swarm's space. Hit: 10 (4d4) piercing damage, or 5 (2d4) piercing damage if the swarm has half of its hit points or fewer.\"}]",
+  "size": "Medium",
+  "type": "swarm of Tiny beasts",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 12,
+  "hp": 22,
+  "hit_dice": "5d8",
+  "challenge_rating": 0.5,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 20,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 8,
+    "darkvision": 0,
+    "blindsight": 10,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "swarm-of-beetles-bites",
+    "swarm-of-beetles-swarm"
+  ]
+}

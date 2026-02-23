@@ -1,0 +1,39 @@
+{
+  "slug": "giant-constrictor-snake",
+  "name": "Giant Constrictor Snake",
+  "description": "### Actions\n[{\"name\": \"Bite\", \"desc\": \"Melee Weapon Attack: +6 to hit, reach 10 ft., one creature. Hit: 11 (2d6 + 4) piercing damage.\", \"attack_bonus\": 6, \"damage_dice\": \"2d6+4\"}, {\"name\": \"Constrict\", \"desc\": \"Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 13 (2d8 + 4) bludgeoning damage, and the target is grappled (escape DC 16). Until this grapple ends, the creature is restrained, and the snake can't constrict another target.\", \"attack_bonus\": 6, \"damage_dice\": \"2d8+4\"}]",
+  "size": "Huge",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 2,
+  "ac": 12,
+  "hp": 60,
+  "hit_dice": "8d12",
+  "challenge_rating": 2,
+  "xp": 450,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 12,
+    "darkvision": 0,
+    "blindsight": 10,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "giant-constrictor-snake-bite",
+    "giant-constrictor-snake-constrict"
+  ]
+}

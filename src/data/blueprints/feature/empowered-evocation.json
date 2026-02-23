@@ -1,0 +1,18 @@
+{
+  "slug": "empowered-evocation",
+  "name": "Empowered Evocation",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "8f2e9c1b",
+    "last_run": "2023-10-27",
+    "summary": "Successfully mapped from reference."
+  },
+  "description": "Beginning at 10th level, you can add your Intelligence modifier to one damage roll of any wizard evocation spell you cast.",
+  "embedding": {},
+  "level": 10,
+  "lore": "Your mastery of evocation allows you to infuse your spells with greater power through sheer force of intellect.",
+  "tags": [
+    "wizard",
+    "evocation"
+  ]
+}

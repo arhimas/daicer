@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { PromptBuilder } from '../prompt-builder';
-import { JsonSchemaBuilder } from '../json-schema-builder';
+import { PromptBuilder } from '@/features/genesis-core/prompt-builder';
+import { JsonSchemaBuilder } from '@/features/genesis-core/json-schema-builder';
 
 const mockBuild = vi.fn();
 const mockSchemaBuilder = {

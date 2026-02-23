@@ -1,0 +1,20 @@
+{
+  "slug": "divine-domain-feature",
+  "name": "Divine Domain feature",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "7d9e2f1a8c5b",
+    "last_run": "2023-10-27T10:00:00Z",
+    "summary": "Successfully mapped Cleric level 8 domain feature."
+  },
+  "description": "At 8th level, you gain a feature granted by your Divine Domain. Your domain grants you domain spells and other features when you choose it at 1st level. It also grants you additional ways to use Channel Divinity when you gain that feature at 2nd level, and additional benefits at 6th, 8th, and 17th levels.",
+  "embedding": {},
+  "image": "https://www.example.com/assets/cleric-domain.png",
+  "level": 8,
+  "lore": "The specific nature of your deity's influence shapes your growth, granting you specialized powers that reflect their divine portfolio.",
+  "tags": [
+    "cleric",
+    "class-feature",
+    "divine-domain"
+  ]
+}

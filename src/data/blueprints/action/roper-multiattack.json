@@ -1,0 +1,9 @@
+{
+  "name": "Multiattack",
+  "description": "The roper makes four attacks with its tendrils, uses Reel, and makes one attack with its bite.",
+  "type": "utility",
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "slug": "roper-multiattack"
+}

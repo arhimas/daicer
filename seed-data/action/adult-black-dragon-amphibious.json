@@ -1,0 +1,9 @@
+{
+  "name": "Amphibious",
+  "description": "The dragon can breathe air and water.",
+  "type": "ability",
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "slug": "adult-black-dragon-amphibious"
+}

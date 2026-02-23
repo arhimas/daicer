@@ -1,0 +1,12 @@
+{
+  "slug": "giant-scorpion",
+  "name": "Giant Scorpion",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "armor_class": 15,
+  "hit_points": 52,
+  "hit_dice": "7d10+14",
+  "speed": "40 ft.",
+  "stats": "strength"
+}

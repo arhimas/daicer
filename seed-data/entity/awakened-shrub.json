@@ -1,0 +1,38 @@
+{
+  "slug": "awakened-shrub",
+  "name": "Awakened Shrub",
+  "description": "### Actions\n[{\"name\":\"Rake\",\"description\":\"Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) slashing damage.\",\"attack_bonus\":1,\"damage\":\"1d4-1\"}]",
+  "size": "Small",
+  "type": "plant",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 10,
+  "hp": 10,
+  "hit_dice": "3d6",
+  "challenge_rating": 0,
+  "xp": 10,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 20,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "awakened-shrub-rake"
+  ]
+}

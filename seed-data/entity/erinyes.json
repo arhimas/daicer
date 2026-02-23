@@ -1,0 +1,47 @@
+{
+  "slug": "erinyes",
+  "name": "Erinyes",
+  "description": "### Special Abilities\nHellish Weapons: The erinyes's weapon attacks are magical and deal an extra 13 (3d8) poison damage on a hit (included in the attacks). Magic Resistance: The erinyes has advantage on saving throws against spells and other magical effects.\n\n### Actions\nMultiattack: The erinyes makes three attacks. Longsword: Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) slashing damage, or 9 (1d10 + 4) slashing damage if used with two hands, plus 13 (3d8) poison damage. Longbow: Ranged Weapon Attack: +7 to hit, range 150/600 ft., one target. Hit: 7 (1d8 + 3) piercing damage plus 13 (3d8) poison damage, and the target must succeed on a DC 14 Constitution saving throw or be poisoned. The poison lasts until it is removed by the lesser restoration spell or similar magic.",
+  "size": "Medium",
+  "type": "fiend",
+  "alignment": "lawful evil",
+  "level": 12,
+  "ac": 18,
+  "hp": 153,
+  "hit_dice": "18d8",
+  "challenge_rating": 12,
+  "xp": 0,
+  "stats": {
+    "strength": 18,
+    "dexterity": 16,
+    "constitution": 18,
+    "intelligence": 14,
+    "wisdom": 14,
+    "charisma": 18,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
+    "skills": [],
+    "passivePerception": 12,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 120,
+    "tremorsense": 0
+  },
+  "actions": [
+    "erinyes-hellish-weapons",
+    "erinyes-longbow",
+    "erinyes-longsword",
+    "erinyes-magic-resistance",
+    "erinyes-multiattack"
+  ]
+}

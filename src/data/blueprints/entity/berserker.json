@@ -1,0 +1,39 @@
+{
+  "slug": "berserker",
+  "name": "Berserker",
+  "description": "### Special Abilities\n[\"{\\\"name\\\": \\\"Reckless\\\", \\\"desc\\\": \\\"At the start of its turn, the berserker can gain advantage on all melee weapon attack rolls during that turn, but attack rolls against it have advantage until the start of its next turn.\\\"}\"]\n\n### Actions\n[\"{\\\"name\\\": \\\"Greataxe\\\", \\\"desc\\\": \\\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 9 (1d12 + 3) slashing damage.\\\", \\\"attack_bonus\\\": 5, \\\"damage_dice\\\": \\\"1d12+3\\\"}\"]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "any chaotic alignment",
+  "level": 2,
+  "ac": 13,
+  "hp": 67,
+  "hit_dice": "9d8",
+  "challenge_rating": 2,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "berserker-greataxe",
+    "berserker-reckless"
+  ]
+}

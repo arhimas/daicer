@@ -1,0 +1,48 @@
+{
+  "slug": "nalfeshnee",
+  "name": "Nalfeshnee",
+  "description": "### Special Abilities\n[{\"name\":\"Magic Resistance\",\"desc\":\"The nalfeshnee has advantage on saving throws against spells and other magical effects.\"}]\n\n### Actions\n[{\"name\":\"Multiattack\",\"desc\":\"The nalfeshnee uses Horror Nimbus if it can. It then makes three attacks: one with its bite and two with its claws.\"},{\"name\":\"Bite\",\"desc\":\"Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 32 (5d10 + 5) piercing damage.\",\"attack_bonus\":10,\"damage_dice\":\"5d10+5\",\"damage_type\":\"piercing\"},{\"name\":\"Claw\",\"desc\":\"Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 15 (3d6 + 5) slashing damage.\",\"attack_bonus\":10,\"damage_dice\":\"3d6+5\",\"damage_type\":\"slashing\"},{\"name\":\"Horror Nimbus\",\"desc\":\"The nalfeshnee magically emits scintillating, multicolored light. Each creature within 15 feet of the nalfeshnee that can see the light must succeed on a DC 15 Wisdom saving throw or be frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the nalfeshnee's Horror Nimbus for the next 24 hours.\",\"dc_type\":\"wis\",\"dc_value\":15,\"usage\":\"recharge 5-6\"},{\"name\":\"Teleport\",\"desc\":\"The nalfeshnee magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see.\"}]",
+  "size": "Large",
+  "type": "fiend",
+  "alignment": "chaotic evil",
+  "level": 13,
+  "ac": 18,
+  "hp": 184,
+  "hit_dice": "16d10+96",
+  "challenge_rating": 13,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 20,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [
+      "con",
+      "int",
+      "wis",
+      "cha"
+    ],
+    "skills": [],
+    "passivePerception": 11,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 120,
+    "tremorsense": 0
+  },
+  "actions": [
+    "nalfeshnee-bite",
+    "nalfeshnee-claw",
+    "nalfeshnee-horror-nimbus",
+    "nalfeshnee-magic-resistance",
+    "nalfeshnee-multiattack",
+    "nalfeshnee-teleport"
+  ]
+}

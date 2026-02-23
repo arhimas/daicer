@@ -1,0 +1,30 @@
+{
+  "name": "Frightful Presence",
+  "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 120,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "Wisdom Save",
+    "save_effect": "None"
+  },
+  "save": {
+    "dc": 16,
+    "attribute": "WIS"
+  },
+  "damage_instances": null,
+  "condition_instances": [
+    {
+      "condition": "Frightened",
+      "description": null,
+      "chance": 100,
+      "duration_rounds": 10
+    }
+  ],
+  "slug": "ancient-white-dragon-frightful-presence"
+}

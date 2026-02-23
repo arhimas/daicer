@@ -18,8 +18,8 @@ vi.mock('../../../../services/unified-search-service', () => ({
     }
 }));
 
-import knowledgeSnippetController from '../knowledge-snippet';
-import { unifiedSearchService } from '../../../../services/unified-search-service';
+import knowledgeSnippetController from '@/api/knowledge-snippet/controllers/knowledge-snippet';
+import { unifiedSearchService } from '@/services/unified-search-service';
 
 describe('KnowledgeSnippet Controller', () => {
   let controller: any;

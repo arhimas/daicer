@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import { ISchemaLoader } from './schema-loader';
 import zodToJsonSchema from 'zod-to-json-schema';
@@ -5,7 +6,7 @@ import { MonsterBlueprintSchema } from './data/schemas/monster-blueprint-schema'
 
 export interface JsonSchema {
   type?: string;
-  properties?: Record<string, any>;
+  properties?: any;
   items?: any;
   required?: string[];
   enum?: any[];

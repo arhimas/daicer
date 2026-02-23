@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import searchControllerFactory from '../search-controller';
+import searchControllerFactory from '@/plugins/semantic-search/server/src/controllers/search-controller';
 
 const mockSearch = vi.fn();
 

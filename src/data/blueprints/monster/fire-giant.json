@@ -1,0 +1,18 @@
+{
+  "slug": "fire-giant",
+  "name": "Fire Giant",
+  "size": "Huge",
+  "type": "giant",
+  "alignment": "lawful evil",
+  "armor_class": 18,
+  "hit_points": 162,
+  "hit_dice": "13d12",
+  "speed": "30 ft.",
+  "stats": "{\"strength\":25,\"dexterity\":9,\"constitution\":23,\"intelligence\":10,\"wisdom\":14,\"charisma\":13}",
+  "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":3},{\"name\":\"Saving Throw: CON\",\"value\":10},{\"name\":\"Saving Throw: CHA\",\"value\":5},{\"name\":\"Skill: Athletics\",\"value\":11},{\"name\":\"Skill: Perception\",\"value\":6}]",
+  "damage_immunities": "[\"fire\"]",
+  "senses": "passive Perception 16",
+  "languages": "Giant",
+  "challenge_rating": 9,
+  "actions": "[{\"name\":\"Multiattack\",\"description\":\"The giant makes two greatsword attacks.\"},{\"name\":\"Greatsword\",\"description\":\"Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 28 (6d6 + 7) slashing damage.\",\"attack_bonus\":11,\"damage_dice\":\"6d6+7\"},{\"name\":\"Rock\",\"description\":\"Ranged Weapon Attack: +11 to hit, range 60/240 ft., one target. Hit: 29 (4d10 + 7) bludgeoning damage.\",\"attack_bonus\":11,\"damage_dice\":\"4d10+7\"}]"
+}

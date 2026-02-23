@@ -1,0 +1,36 @@
+{
+  "name": "Nightmare Haunting",
+  "description": "While on the Ethereal Plane, the hag magically touches a sleeping humanoid on the Material Plane. A protection from evil and good spell cast on the target prevents this contact, as does a magic circle. As long as the contact persists, the target has dreadful visions. If these visions last for at least 1 hour, the target gains no benefit from its rest, and its hit point maximum is reduced by 5 (1d10). If this effect reduces the target's hit point maximum to 0, the target dies, and if the target was evil, its soul is trapped in the hag's soul bag. The reduction to the target's hit point maximum lasts until removed by the greater restoration spell or similar magic.",
+  "type": "spell",
+  "toHit": null,
+  "range_config": {
+    "type": "Unlimited",
+    "distance": null,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": null,
+      "dice_count": 1,
+      "dice_value": 10,
+      "flat_bonus": 0,
+      "timing": "One Time Trigger"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Target has dreadful visions and gains no benefit from its rest.",
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "night-hag-nightmare-haunting"
+}

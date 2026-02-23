@@ -1,0 +1,32 @@
+{
+  "name": "Lightning Breath",
+  "description": "The dragon exhales lightning in a 120-foot line that is 10 feet wide. Each creature in that line must make a DC 23 Dexterity saving throw, taking 88 (16d10) lightning damage on a failed save, or half as much damage on a successful one.",
+  "type": "ranged",
+  "toHit": null,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 120,
+    "aoe_shape": "Line",
+    "aoe_size": 120
+  },
+  "mechanics_config": {
+    "action_type": "Dexterity Save",
+    "save_effect": "Half"
+  },
+  "save": {
+    "dc": 23,
+    "attribute": "DEX"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Lightning",
+      "dice_count": 16,
+      "dice_value": 10,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": null,
+  "slug": "ancient-blue-dragon-lightning-breath"
+}

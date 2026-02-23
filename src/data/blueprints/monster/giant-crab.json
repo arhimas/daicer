@@ -1,0 +1,20 @@
+{
+  "slug": "giant-crab",
+  "name": "Giant Crab",
+  "size": "Medium",
+  "type": "beast",
+  "alignment": "unaligned",
+  "armor_class": 15,
+  "armor_type": "natural armor",
+  "hit_points": 13,
+  "hit_dice": "3d8",
+  "speed": "30 ft., swim 30 ft.",
+  "stats": "{\"strength\":13,\"dexterity\":15,\"constitution\":11,\"intelligence\":1,\"wisdom\":9,\"charisma\":3}",
+  "proficiencies": "[{\"name\":\"Skill: Stealth\",\"value\":4}]",
+  "senses": "blindsight 30 ft., passive Perception 9",
+  "languages": "",
+  "challenge_rating": "1/8",
+  "xp": 25,
+  "special_abilities": "[{\"name\":\"Amphibious\",\"desc\":\"The crab can breathe air and water.\"}]",
+  "actions": "[{\"name\":\"Claw\",\"desc\":\"Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) bludgeoning damage, and the target is grappled (escape DC 11). The crab has two claws, each of which can grapple only one target.\",\"attack_bonus\":3,\"damage\":[{\"damage_type\":\"bludgeoning\",\"damage_dice\":\"1d6+1\"}]}]"
+}

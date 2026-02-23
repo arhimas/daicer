@@ -1,0 +1,6 @@
+{
+  "name": "Amphibious",
+  "description": "The toad can breathe air and water",
+  "type": "ability",
+  "slug": "giant-toad-amphibious"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Pounce",
+  "description": "If the weretiger moves at least 15 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 14 Strength saving throw or be knocked prone. If the target is prone, the weretiger can make one bite attack against it as a bonus action.",
+  "type": "ability",
+  "mechanics_config": {
+    "action_type": "Strength Save",
+    "save_effect": "None"
+  },
+  "save": {
+    "dc": 14,
+    "attribute": "STR"
+  },
+  "condition_instances": [
+    {
+      "condition": "Prone",
+      "chance": 100
+    }
+  ],
+  "slug": "weretiger-tiger-pounce"
+}

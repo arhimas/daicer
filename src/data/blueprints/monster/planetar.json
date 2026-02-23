@@ -1,0 +1,29 @@
+{
+  "slug": "planetar",
+  "name": "Planetar",
+  "size": "Large",
+  "type": "celestial",
+  "alignment": "lawful good",
+  "armor_class": 19,
+  "hit_points": 200,
+  "hit_dice": "16d10+112",
+  "speed": "40 ft., fly 120 ft.",
+  "stats": "{\"str\":24,\"dex\":20,\"con\":24,\"int\":19,\"wis\":22,\"cha\":25}",
+  "proficiencies": "[{\"name\":\"Saving Throw: CON\",\"value\":12},{\"name\":\"Saving Throw: WIS\",\"value\":11},{\"name\":\"Saving Throw: CHA\",\"value\":12},{\"name\":\"Skill: Perception\",\"value\":11}]",
+  "damage_vulnerabilities": [],
+  "damage_resistances": [
+    "radiant",
+    "bludgeoning, piercing, and slashing from nonmagical weapons"
+  ],
+  "damage_immunities": [],
+  "condition_immunities": [
+    "charmed",
+    "exhaustion",
+    "frightened"
+  ],
+  "senses": "truesight 120 ft., passive perception 21",
+  "languages": "all, telepathy 120 ft.",
+  "challenge_rating": 16,
+  "special_abilities": "[{\"name\":\"Angelic Weapons\",\"desc\":\"The planetar's weapon attacks are magical. When the planetar hits with any weapon, the weapon deals an extra 5d8 radiant damage (included in the attack).\"},{\"name\":\"Divine Awareness\",\"desc\":\"The planetar knows if it hears a lie.\"},{\"name\":\"Innate Spellcasting\",\"desc\":\"The planetar's spellcasting ability is Charisma (spell save DC 20). The planetar can innately cast the following spells, requiring no material components: At will: detect evil and good, invisibility (self only); 3/day each: blade barrier, dispel evil and good, flame strike, raise dead; 1/day each: commune, control weather, insect plague\"},{\"name\":\"Magic Resistance\",\"desc\":\"The planetar has advantage on saving throws against spells and other magical effects.\"}]",
+  "actions": "[{\"name\":\"Multiattack\",\"desc\":\"The planetar makes two melee attacks.\"},{\"name\":\"Greatsword\",\"desc\":\"Melee Weapon Attack: +12 to hit, reach 5 ft., one target. Hit: 21 (4d6 + 7) slashing damage plus 22 (5d8) radiant damage.\"},{\"name\":\"Healing Touch\",\"desc\":\"The planetar touches another creature. The target magically regains 30 (6d8 + 3) hit points and is freed from any curse, disease, poison, blindness, or deafness.\"}]"
+}

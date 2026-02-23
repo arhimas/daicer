@@ -1,5 +1,5 @@
 import { EntityMapper, GenerationRequest } from './entity-mapper';
-import { SourceRef } from '../source-types';
+import { SourceRef } from '@/features/genesis-core/source-types';
 
 export class FeatureMapper extends EntityMapper<SourceRef> {
     getUid(): string {

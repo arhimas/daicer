@@ -1,0 +1,51 @@
+{
+  "slug": "cult-fanatic",
+  "name": "Cult Fanatic",
+  "description": "### Special Abilities\n[{\"name\":\"Dark Devotion\",\"desc\":\"The fanatic has advantage on saving throws against being charmed or frightened.\"},{\"name\":\"Spellcasting\",\"desc\":\"The fanatic is a 4th-level spellcaster. Its spell casting ability is Wisdom (spell save DC 11, +3 to hit with spell attacks). The fanatic has the following cleric spells prepared: Cantrips (at will): light, sacred flame, thaumaturgy; 1st level (4 slots): command, inflict wounds, shield of faith; 2nd level (3 slots): hold person, spiritual weapon\"}]\n\n### Actions\n[{\"name\":\"Multiattack\",\"desc\":\"The fanatic makes two melee attacks.\"},{\"name\":\"Dagger\",\"desc\":\"Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 4 (1d4 + 2) piercing damage.\"}]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "any non-good alignment",
+  "level": 2,
+  "ac": 13,
+  "hp": 22,
+  "hit_dice": "6d8",
+  "challenge_rating": 2,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 11,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "cult-fanatic-dagger",
+    "cult-fanatic-dark-devotion",
+    "cult-fanatic-multiattack",
+    "cult-fanatic-spellcasting"
+  ],
+  "spells": [
+    "command",
+    "hold-person",
+    "inflict-wounds",
+    "light",
+    "sacred-flame",
+    "shield-of-faith",
+    "spiritual-weapon",
+    "thaumaturgy"
+  ]
+}

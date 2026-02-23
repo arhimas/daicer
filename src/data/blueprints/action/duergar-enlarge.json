@@ -1,0 +1,27 @@
+{
+  "name": "Enlarge",
+  "description": "For 1 minute, the duergar magically increases in size, along with anything it is wearing or carrying. While enlarged, the duergar is Large, doubles its damage dice on Strength-based weapon attacks (included in the attacks), and makes Strength checks and Strength saving throws with advantage. If the duergar lacks the room to become Large, it attains the maximum size possible in the space available.",
+  "type": "utility",
+  "toHit": null,
+  "range_config": {
+    "type": "Self",
+    "distance": null,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Enlarged, gains advantage on Strength checks and Strength saving throws, doubles damage dice on Strength-based weapon attacks.",
+      "chance": 100,
+      "duration_rounds": 10
+    }
+  ],
+  "slug": "duergar-enlarge"
+}

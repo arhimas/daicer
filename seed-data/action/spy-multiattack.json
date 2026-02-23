@@ -1,0 +1,15 @@
+{
+  "name": "Multiattack",
+  "description": "The spy makes two melee attacks.",
+  "type": "utility",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "spy-multiattack"
+}

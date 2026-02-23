@@ -1,0 +1,41 @@
+{
+  "slug": "swarm-of-quippers",
+  "name": "Swarm of Quippers",
+  "description": "### Special Abilities\n[{\"name\": \"Blood Frenzy\", \"desc\": \"The swarm has advantage on melee attack rolls against any creature that doesn't have all its hit points.\"}, {\"name\": \"Swarm\", \"desc\": \"The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny quipper. The swarm can't regain hit points or gain temporary hit points.\"}, {\"name\": \"Water Breathing\", \"desc\": \"The swarm can breathe only underwater.\"}]\n\n### Actions\n[{\"name\": \"Bites\", \"desc\": \"Melee Weapon Attack: +5 to hit, reach 0 ft., one creature in the swarm's space. Hit: 14 (4d6) piercing damage, or 7 (2d6) piercing damage if the swarm has half of its hit points or fewer.\", \"attack_bonus\": 5, \"damage\": [{\"damage_type\": \"piercing\", \"damage_dice\": \"4d6\"}]}]",
+  "size": "Medium",
+  "type": "swarm of Tiny beasts",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 13,
+  "hp": 28,
+  "hit_dice": "8d8-8",
+  "challenge_rating": 1,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 8,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "swarm-of-quippers-bites",
+    "swarm-of-quippers-blood-frenzy",
+    "swarm-of-quippers-swarm",
+    "swarm-of-quippers-water-breathing"
+  ]
+}

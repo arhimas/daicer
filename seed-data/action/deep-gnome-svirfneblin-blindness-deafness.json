@@ -1,0 +1,31 @@
+{
+  "name": "Blindness/Deafness",
+  "description": "The gnome can innately cast blindness/deafness 1/day, requiring no material components. Spell save DC 11.",
+  "type": "spell",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Negate"
+  },
+  "save": {
+    "dc": 11,
+    "attribute": "CON"
+  },
+  "damage_instances": null,
+  "condition_instances": [
+    {
+      "condition": "Blinded",
+      "description": null,
+      "chance": 100,
+      "duration_rounds": null
+    },
+    {
+      "condition": "Deafened",
+      "description": null,
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "deep-gnome-svirfneblin-blindness-deafness"
+}

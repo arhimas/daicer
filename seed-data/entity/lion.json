@@ -1,0 +1,39 @@
+{
+  "slug": "lion",
+  "name": "Lion",
+  "description": "### Actions\n[{\"name\":\"Bite\",\"desc\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) piercing damage.\",\"attack_bonus\":5,\"damage_dice\":\"1d8+3\",\"damage_type\":\"piercing\"},{\"name\":\"Claw\",\"desc\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) slashing damage.\",\"attack_bonus\":5,\"damage_dice\":\"1d6+3\",\"damage_type\":\"slashing\"}]",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 12,
+  "hp": 26,
+  "hit_dice": "4d10",
+  "challenge_rating": 1,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 50,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 13,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "lion-bite",
+    "lion-claw"
+  ]
+}

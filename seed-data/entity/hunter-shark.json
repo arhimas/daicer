@@ -1,0 +1,40 @@
+{
+  "slug": "hunter-shark",
+  "name": "Hunter Shark",
+  "description": "### Special Abilities\n[{\"name\": \"Blood Frenzy\", \"desc\": \"The shark has advantage on melee attack rolls against any creature that doesn't have all its hit points.\"}, {\"name\": \"Water Breathing\", \"desc\": \"The shark can breathe only underwater.\"}]\n\n### Actions\n[{\"name\": \"Bite\", \"desc\": \"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) piercing damage.\"}]",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 2,
+  "ac": 12,
+  "hp": 45,
+  "hit_dice": "6d10+12",
+  "challenge_rating": 2,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "hunter-shark-bite",
+    "hunter-shark-blood-frenzy",
+    "hunter-shark-water-breathing"
+  ]
+}

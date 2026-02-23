@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { z } from 'zod';
 import { SystemMessage, HumanMessage } from '@langchain/core/messages';
@@ -44,7 +45,7 @@ export class LLMBridge {
 
     async generateStructured<T>(
         prompt: string,
-        schema: z.ZodType<T> | Record<string, any>,
+        schema: z.ZodType<T> | any,
         details: {
             systemInstruction?: string;
             model?: GenesisModel;

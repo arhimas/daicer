@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import spawnServiceFactory from '../spawn-service';
+import spawnServiceFactory from '@/api/game/services/spawn-service';
 
 // Mock Dependencies
 vi.mock('@/api/game/src/engine', () => ({

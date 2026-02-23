@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { generateTerrainGrid, synthesizeTerrainBlueprint } from "../terrain";
-import { TerrainContext } from "../../serializers";
+import { generateTerrainGrid, synthesizeTerrainBlueprint } from '@/plugins/map-explorer/server/src/services/pixel-forge/generators/terrain';
+import { TerrainContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers';
 
 describe('Terrain Generator', () => {
     describe('generateTerrainGrid', () => {

@@ -1,5 +1,5 @@
 import { EntityMapper, GenerationRequest } from './entity-mapper';
-import { SourceItem } from '../source-types';
+import { SourceItem } from '@/features/genesis-core/source-types';
 
 export class ItemMapper extends EntityMapper<SourceItem> {
     getUid(): string {

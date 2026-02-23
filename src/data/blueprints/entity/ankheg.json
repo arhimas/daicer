@@ -1,0 +1,37 @@
+{
+  "slug": "ankheg",
+  "name": "Ankheg",
+  "size": "Medium",
+  "type": "unknown",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 10,
+  "hp": 10,
+  "challenge_rating": 0,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 0,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "ankheg-acid-spray",
+    "ankheg-bite"
+  ]
+}

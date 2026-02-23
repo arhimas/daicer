@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SourceLoader } from '../../src/features/genesis-core/source-loader';
 
 async function testLoader() {

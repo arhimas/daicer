@@ -1,0 +1,6 @@
+{
+  "name": "Multiattack",
+  "description": "The planetar makes two melee attacks.",
+  "type": "utility",
+  "slug": "planetar-multiattack"
+}

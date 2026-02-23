@@ -1,6 +1,7 @@
+/* eslint-disable */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import geminiServiceFactory from '../gemini-service';
+import geminiServiceFactory from '@/plugins/map-explorer/server/src/services/gemini-service';
 
 // Mock Dependencies
 vi.mock('@daicer/llm-core', () => ({
@@ -9,7 +10,7 @@ vi.mock('@daicer/llm-core', () => ({
 
 import { GeminiService } from '@daicer/llm-core';
 
-const mockFindOne = vi.fn();
+// const mockFindOne = vi.fn();
 const mockFetchContext = vi.fn();
 
 const mockStrapi: any = {

@@ -1,0 +1,43 @@
+{
+  "slug": "vrock",
+  "name": "Vrock",
+  "description": "### Special Abilities\n[{\"name\":\"Magic Resistance\",\"description\":\"The vrock has advantage on saving throws against spells and other magical effects.\"}]\n\n### Actions\n[{\"name\":\"Multiattack\",\"description\":\"The vrock makes two attacks: one with its beak and one with its talons.\"},{\"name\":\"Beak\",\"description\":\"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) piercing damage.\"},{\"name\":\"Talons\",\"description\":\"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 14 (2d10 + 3) slashing damage.\"},{\"name\":\"Spores\",\"description\":\"A 15-foot-radius cloud of toxic spores extends out from the vrock. The spores spread around corners. Each creature in that area must succeed on a DC 14 Constitution saving throw or become poisoned. While poisoned in this way, a target takes 5 (1d10) poison damage at the start of each of its turns. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Emptying a vial of holy water on the target also ends the effect on it.\"},{\"name\":\"Stunning Screech\",\"description\":\"The vrock emits a horrific screech. Each creature within 20 feet of it that can hear it and that isn't a demon must succeed on a DC 14 Constitution saving throw or be stunned until the end of the vrock's next turn.\"}]",
+  "size": "Large",
+  "type": "fiend",
+  "alignment": "chaotic evil",
+  "level": 6,
+  "ac": 15,
+  "hp": 104,
+  "hit_dice": "11d10+44",
+  "challenge_rating": 6,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 11,
+    "darkvision": 120,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "vrock-beak",
+    "vrock-magic-resistance",
+    "vrock-multiattack",
+    "vrock-spores",
+    "vrock-stunning-screech",
+    "vrock-talons"
+  ]
+}

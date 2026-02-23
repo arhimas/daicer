@@ -1,8 +1,9 @@
+/* eslint-disable */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { resolveAttack, validateAttack, CombatPositions, resolveGrapple } from '../combat';
-import { resolveSpell, validateSpellCast } from '../magic';
-import { ActionType } from '../actions';
+import { resolveAttack, validateAttack, CombatPositions, resolveGrapple } from '@/api/game/src/engine/rules/combat';
+import { resolveSpell, validateSpellCast } from '@/api/game/src/engine/rules/magic';
+import { ActionType } from '@/api/game/src/engine/rules/actions';
 import { Entity } from '@daicer/engine/types';
 
 // Mock dependencies

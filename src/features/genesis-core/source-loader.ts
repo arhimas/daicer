@@ -1,3 +1,4 @@
+ 
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -65,21 +66,21 @@ export class SourceLoader {
         return this.loadJson<SourceItem[]>('5e-SRD-Equipment.json');
     }
 
-    async loadAlignments(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Alignments.json'); }
-    async loadBackgrounds(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Backgrounds.json'); }
-    async loadConditions(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Conditions.json'); }
-    async loadDamageTypes(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Damage-Types.json'); }
-    async loadEquipmentCategories(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Equipment-Categories.json'); }
-    async loadFeats(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Feats.json'); }
-    async loadLanguages(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Languages.json'); }
-    async loadLevels(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Levels.json'); }
-    async loadProficiencies(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Proficiencies.json'); }
-    async loadRules(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Rules.json'); }
-    async loadRuleSections(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Rule-Sections.json'); }
-    async loadSkills(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Skills.json'); }
-    async loadSubclasses(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Subclasses.json'); }
-    async loadSubraces(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Subraces.json'); }
-    async loadWeaponProperties(): Promise<any[]> { return this.loadJson<any[]>('5e-SRD-Weapon-Properties.json'); }
+    async loadAlignments(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Alignments.json'); }
+    async loadBackgrounds(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Backgrounds.json'); }
+    async loadConditions(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Conditions.json'); }
+    async loadDamageTypes(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Damage-Types.json'); }
+    async loadEquipmentCategories(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Equipment-Categories.json'); }
+    async loadFeats(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Feats.json'); }
+    async loadLanguages(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Languages.json'); }
+    async loadLevels(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Levels.json'); }
+    async loadProficiencies(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Proficiencies.json'); }
+    async loadRules(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Rules.json'); }
+    async loadRuleSections(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Rule-Sections.json'); }
+    async loadSkills(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Skills.json'); }
+    async loadSubclasses(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Subclasses.json'); }
+    async loadSubraces(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Subraces.json'); }
+    async loadWeaponProperties(): Promise<Record<string, unknown>[]> { return this.loadJson<Record<string, unknown>[]>('5e-SRD-Weapon-Properties.json'); }
 
     private async loadWithSchema<T>(filename: string, schema: z.ZodType<T>): Promise<T> {
         const filePath = path.join(this.basePath, filename);

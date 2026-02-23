@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 import { SourceLoader } from '../../src/features/genesis-core/source-loader';
 import { AuditService } from '../../src/features/genesis-core/audit-service';

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { SpellMapper } from '../spell-mapper';
-import { SourceSpell } from '../../source-types';
+import { SpellMapper } from '@/features/genesis-core/mappers/spell-mapper';
+import { SourceSpell } from '@/features/genesis-core/source-types';
 
 describe('SpellMapper', () => {
     const mapper = new SpellMapper();

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import controller from "../forge-controller";
+import controller from '@/plugins/map-explorer/server/src/controllers/forge-controller';
 
 describe('ForgeController', () => {
     let strapi: any;

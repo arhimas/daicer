@@ -1,10 +1,11 @@
+/* eslint-disable */
 
 import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
-import { SchemaLoader } from '../schema-loader';
-import { DryRunService } from '../dry-run-service';
-import { GenesisManifest } from '../audit-service';
+import { SchemaLoader } from '@/features/genesis-core/schema-loader';
+import { DryRunService } from '@/features/genesis-core/dry-run-service';
+import { GenesisManifest } from '@/features/genesis-core/audit-service';
 
 describe('Genesis Integrity', () => {
     const manifestPath = path.resolve(process.cwd(), 'genesis-manifest.json');

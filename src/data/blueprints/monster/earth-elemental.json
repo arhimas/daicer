@@ -1,0 +1,54 @@
+{
+  "slug": "earth-elemental",
+  "name": "Earth Elemental",
+  "size": "Large",
+  "type": "elemental",
+  "alignment": "neutral",
+  "armor_class": 17,
+  "armor_desc": "natural armor",
+  "hit_points": 126,
+  "hit_dice": "12d10+60",
+  "speed": "30 ft., burrow 30 ft.",
+  "stats": [
+    20,
+    8,
+    20,
+    5,
+    10,
+    5
+  ],
+  "proficiencies": [],
+  "damage_vulnerabilities": [
+    "thunder"
+  ],
+  "damage_resistances": [
+    "bludgeoning, piercing, and slashing from nonmagical weapons"
+  ],
+  "damage_immunities": [
+    "poison"
+  ],
+  "condition_immunities": [
+    "exhaustion",
+    "paralyzed",
+    "petrified",
+    "poisoned",
+    "unconscious"
+  ],
+  "senses": [
+    "darkvision 60 ft.",
+    "tremorsense 60 ft.",
+    "passive perception 10"
+  ],
+  "languages": [
+    "Terran"
+  ],
+  "challenge_rating": "5",
+  "special_abilities": [
+    "Earth Glide: The elemental can burrow through nonmagical, unworked earth and stone. While doing so, the elemental doesn't disturb the material it moves through.",
+    "Siege Monster: The elemental deals double damage to objects and structures."
+  ],
+  "actions": [
+    "Multiattack: The elemental makes two slam attacks.",
+    "Slam: Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 14 (2d8 + 5) bludgeoning damage."
+  ]
+}

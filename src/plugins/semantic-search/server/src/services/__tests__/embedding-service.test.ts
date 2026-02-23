@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import embeddingServiceFactory from '../embedding-service';
+import embeddingServiceFactory from '@/plugins/semantic-search/server/src/services/embedding-service';
 
 // Mock Transformers
 const mockPipeline = vi.fn();

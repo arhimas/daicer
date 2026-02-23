@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import turnProcessingFactory from '../turn-processing';
+import turnProcessingFactory from '@/api/game/services/turn-processing';
 
 // Mock Dynamic Imports
 const mockAdvanceTurn = vi.fn();

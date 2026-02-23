@@ -1,0 +1,39 @@
+{
+  "slug": "skeleton",
+  "name": "Skeleton",
+  "description": "### Actions\n[{\"name\":\"Shortsword\",\"desc\":\"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.\"},{\"name\":\"Shortbow\",\"desc\":\"Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage.\"}]",
+  "size": "Medium",
+  "type": "undead",
+  "alignment": "lawful evil",
+  "level": 1,
+  "ac": 13,
+  "hp": 13,
+  "hit_dice": "2d8+4",
+  "challenge_rating": 0.25,
+  "xp": 50,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 9,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "skeleton-shortbow",
+    "skeleton-shortsword"
+  ]
+}

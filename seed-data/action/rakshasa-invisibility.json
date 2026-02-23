@@ -1,0 +1,12 @@
+{
+  "name": "Invisibility",
+  "description": "invisibility",
+  "type": "spell",
+  "range_config": {
+    "type": "Touch"
+  },
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "slug": "rakshasa-invisibility"
+}

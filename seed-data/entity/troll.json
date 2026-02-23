@@ -1,0 +1,42 @@
+{
+  "slug": "troll",
+  "name": "Troll",
+  "description": "### Special Abilities\n[\"{\\\"name\\\":\\\"Keen Smell\\\",\\\"desc\\\":\\\"The troll has advantage on Wisdom (Perception) checks that rely on smell.\\\"}\",\"{\\\"name\\\":\\\"Regeneration\\\",\\\"desc\\\":\\\"The troll regains 10 hit points at the start of its turn. If the troll takes acid or fire damage, this trait doesn't function at the start of the troll's next turn. The troll dies only if it starts its turn with 0 hit points and doesn't regenerate.\\\"}\"]\n\n### Actions\n[\"{\\\"name\\\":\\\"Multiattack\\\",\\\"desc\\\":\\\"The troll makes three attacks: one with its bite and two with its claws.\\\"}\",\"{\\\"name\\\":\\\"Bite\\\",\\\"desc\\\":\\\"Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) piercing damage.\\\"}\",\"{\\\"name\\\":\\\"Claw\\\",\\\"desc\\\":\\\"Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage.\\\"}\"]",
+  "size": "Large",
+  "type": "giant",
+  "alignment": "chaotic evil",
+  "level": 5,
+  "ac": 15,
+  "hp": 84,
+  "hit_dice": "8d10+40",
+  "challenge_rating": 5,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 12,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "troll-bite",
+    "troll-claw",
+    "troll-keen-smell",
+    "troll-multiattack",
+    "troll-regeneration"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "slug": "tribal-warrior",
+  "name": "Tribal Warrior",
+  "description": "### Special Abilities\n[{\"name\":\"Pack Tactics\",\"description\":\"The warrior has advantage on an attack roll against a creature if at least one of the warrior's allies is within 5 ft. of the creature and the ally isn't incapacitated.\"}]\n\n### Actions\n[{\"name\":\"Spear\",\"description\":\"Melee or Ranged Weapon Attack: +3 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d6 + 1) piercing damage, or 5 (1d8 + 1) piercing damage if used with two hands to make a melee attack.\"}]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "any alignment",
+  "level": 1,
+  "ac": 12,
+  "hp": 11,
+  "hit_dice": "2d8",
+  "challenge_rating": 0.125,
+  "xp": 25,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "tribal-warrior-pack-tactics",
+    "tribal-warrior-spear-melee",
+    "tribal-warrior-spear-ranged"
+  ]
+}

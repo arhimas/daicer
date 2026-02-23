@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import inventoryServiceFactory from '../inventory-service';
+import inventoryServiceFactory from '@/api/game/services/inventory-service';
 
 const mockFindOne = vi.fn();
 const mockUpdate = vi.fn();

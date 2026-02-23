@@ -1,0 +1,12 @@
+{
+  "name": "Disguise Self",
+  "description": "disguise self",
+  "type": "spell",
+  "range_config": {
+    "type": "Self"
+  },
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "slug": "rakshasa-disguise-self"
+}

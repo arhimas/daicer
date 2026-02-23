@@ -1,0 +1,17 @@
+{
+  "name": "Ancient Black Dragon",
+  "slug": "ancient-black-dragon",
+  "size": "Gargantuan",
+  "type": "dragon",
+  "alignment": "chaotic evil",
+  "armor_class": 22,
+  "hit_points": 367,
+  "hit_dice": "21d20",
+  "speed": "walk 40 ft., fly 80 ft., swim 40 ft.",
+  "stats": "strength",
+  "dexterity": 14,
+  "constitution": 25,
+  "intelligence": 16,
+  "wisdom": 15,
+  "charisma": 19
+}

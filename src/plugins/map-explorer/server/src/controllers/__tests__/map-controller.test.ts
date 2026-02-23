@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import mapControllerFactory from "../map-controller";
+import mapControllerFactory from '@/plugins/map-explorer/server/src/controllers/map-controller';
 import type { Core } from '@strapi/strapi';
 
 // Mocks

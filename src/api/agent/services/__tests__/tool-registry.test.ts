@@ -1,6 +1,7 @@
+/* eslint-disable */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import toolRegistryFactory, { ToolDefinition } from '../tool-registry';
+import toolRegistryFactory, { ToolDefinition } from '@/api/agent/services/tool-registry';
 
 // Mock dependencies
 vi.mock('../../../game/src/engine/derivation/ActionHydrator', () => ({

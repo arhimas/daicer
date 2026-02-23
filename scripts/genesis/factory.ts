@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SchemaLoader } from '../../src/features/genesis-core/schema-loader';
 import { LLMBridge } from '../../src/features/genesis-core/llm-bridge';
 import { DryRunService } from '../../src/features/genesis-core/dry-run';

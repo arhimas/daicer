@@ -1,0 +1,16 @@
+{
+  "slug": "eldritch-invocation-ascendant-step",
+  "name": "Eldritch Invocation: Ascendant Step",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "7d49e1f5a5c6b7e8",
+    "last_run": "2023-10-27T10:00:00Z",
+    "summary": "Successfully generated from reference data."
+  },
+  "description": "You can cast levitate on yourself at will, without expending a spell slot or material components.",
+  "level": 9,
+  "tags": [
+    "warlock",
+    "eldritch-invocation"
+  ]
+}

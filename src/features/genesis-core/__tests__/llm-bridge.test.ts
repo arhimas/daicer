@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { LLMBridge } from '../llm-bridge';
+import { LLMBridge } from '@/features/genesis-core/llm-bridge';
 import { z } from 'zod';
 
 // Mock @langchain/google-genai

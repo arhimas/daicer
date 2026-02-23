@@ -1,0 +1,41 @@
+{
+  "slug": "giant-rat",
+  "name": "Giant Rat",
+  "description": "### Special Abilities\n[{\"name\":\"Keen Smell\",\"desc\":\"The rat has advantage on Wisdom (Perception) checks that rely on smell.\"},{\"name\":\"Pack Tactics\",\"desc\":\"The rat has advantage on an attack roll against a creature if at least one of the rat's allies is within 5 ft. of the creature and the ally isn't incapacitated.\"}]\n\n### Actions\n[{\"name\":\"Bite\",\"desc\":\"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) piercing damage.\",\"attack_bonus\":4,\"damage\":[{\"damage_type\":{\"index\":\"piercing\",\"name\":\"Piercing\",\"url\":\"/api/2014/damage-types/piercing\"},\"damage_dice\":\"1d4+2\"}]}]",
+  "size": "Small",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 12,
+  "hp": 7,
+  "hit_dice": "2d6",
+  "challenge_rating": 0.125,
+  "xp": 25,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "giant-rat-bite",
+    "giant-rat-diseased-bite",
+    "giant-rat-keen-smell",
+    "giant-rat-pack-tactics"
+  ]
+}

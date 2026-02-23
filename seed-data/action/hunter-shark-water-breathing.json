@@ -1,0 +1,6 @@
+{
+  "name": "Water Breathing",
+  "description": "The shark can breathe only underwater.",
+  "type": "ability",
+  "slug": "hunter-shark-water-breathing"
+}

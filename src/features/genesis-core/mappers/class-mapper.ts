@@ -1,6 +1,6 @@
 
 import { EntityMapper, GenerationRequest } from './entity-mapper';
-import { SourceClass } from '../source-types';
+import { SourceClass } from '@/features/genesis-core/source-types';
 
 export class ClassMapper extends EntityMapper<SourceClass> {
     getUid(): string {

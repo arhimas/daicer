@@ -73,8 +73,10 @@ export default {
       await bootstrapPermissions(strapi);
 
       // 3. Global Entity Knowledge Subscriber
-      const { registerAutoEmbeddingSubscriber } = await import('./subscribers/auto-embed');
-      registerAutoEmbeddingSubscriber(strapi);
+      if (process.env.SEEDING !== 'true') {
+        const { registerAutoEmbeddingSubscriber } = await import('./subscribers/auto-embed');
+        registerAutoEmbeddingSubscriber(strapi);
+      }
 
       // 4. Seeding Queue Configuration (if missing)
       try {
@@ -109,7 +111,7 @@ export default {
 
       // 5. Background Queue Initialization
       // Only initialize if REDIS_HOST is defined or explicitly enabled, to avoid crashes in local dev scripts
-      if (process.env.REDIS_HOST || process.env.ENABLE_QUEUES === 'true') {
+      if (process.env.SEEDING !== 'true' && (process.env.REDIS_HOST || process.env.ENABLE_QUEUES === 'true')) {
         try {
           const { QueueManager } = await import('./queues/queue-manager');
           const { WorkerManager } = await import('./queues/worker-manager');
@@ -132,7 +134,7 @@ export default {
           strapi.log.warn('[Bootstrap] Queue initialization skipped (Redis missing or config error).', error);
         }
       } else {
-        strapi.log.info('[Bootstrap] Queues skipped (REDIS_HOST not set).');
+        strapi.log.info('[Bootstrap] Queues bypassed (SEEDING=true or REDIS_HOST not set).');
       }
     } catch (error) {
       strapi.log.error('Bootstrap failed:', error);

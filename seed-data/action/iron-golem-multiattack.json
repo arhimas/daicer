@@ -1,0 +1,6 @@
+{
+  "name": "Multiattack",
+  "description": "The golem makes two melee attacks.",
+  "type": "utility",
+  "slug": "iron-golem-multiattack"
+}

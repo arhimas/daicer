@@ -1,5 +1,5 @@
 import { EntityMapper, GenerationRequest } from './entity-mapper';
-import { SourceSpell } from '../source-types';
+import { SourceSpell } from '@/features/genesis-core/source-types';
 
 export class SpellMapper extends EntityMapper<SourceSpell> {
     getUid(): string {

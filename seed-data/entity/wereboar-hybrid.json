@@ -1,0 +1,43 @@
+{
+  "slug": "wereboar-hybrid",
+  "name": "Wereboar, Hybrid Form",
+  "description": "### Special Abilities\nShapechanger: The wereboar can use its action to polymorph into a boar-humanoid hybrid or into a boar, or back into its true form, which is humanoid. Its statistics, other than its AC, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.; Charge (Boar or Hybrid Form Only): If the wereboar moves at least 15 feet straight toward a target and then hits it with its tusks on the same turn, the target takes an extra 7 (2d6) slashing damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.; Relentless: If the wereboar takes 14 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead. (Recharges after a Short or Long Rest)\n\n### Actions\nMultiattack: The wereboar makes two attacks, only one of which can be with its tusks.; Maul: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) bludgeoning damage.; Tusks: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage. If the target is a humanoid, it must succeed on a DC 12 Constitution saving throw or be cursed with wereboar lycanthropy.",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "neutral evil",
+  "level": 4,
+  "ac": 11,
+  "hp": 78,
+  "hit_dice": "12d8+24",
+  "challenge_rating": 4,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 12,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "wereboar-hybrid-charge",
+    "wereboar-hybrid-maul",
+    "wereboar-hybrid-multiattack",
+    "wereboar-hybrid-relentless",
+    "wereboar-hybrid-shapechanger",
+    "wereboar-hybrid-tusks"
+  ]
+}

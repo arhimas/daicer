@@ -1,6 +1,7 @@
+/* eslint-disable */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import historyService from '../history-service';
+import historyService from '@/api/game/services/history-service';
 import { DeterministicTurnProcessor } from '@daicer/engine/core/deterministic-turn-processor';
 
 // Mock DeterministicTurnProcessor

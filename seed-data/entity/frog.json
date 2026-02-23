@@ -1,0 +1,39 @@
+{
+  "slug": "frog",
+  "name": "Frog",
+  "description": "### Special Abilities\nAmphibious: The frog can breathe air and water; Standing Leap: The frog's long jump is up to 10 ft. and its high jump is up to 5 ft., with or without a running start.\n\n### Actions\n[]",
+  "size": "Tiny",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 11,
+  "hp": 1,
+  "hit_dice": "1d4-1",
+  "challenge_rating": 0,
+  "xp": 0,
+  "stats": {
+    "strength": 1,
+    "dexterity": 13,
+    "constitution": 8,
+    "intelligence": 1,
+    "wisdom": 8,
+    "charisma": 3,
+    "walkSpeed": 20,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 11,
+    "darkvision": 30,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "frog-amphibious",
+    "frog-standing-leap"
+  ]
+}

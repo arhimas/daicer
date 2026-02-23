@@ -1,4 +1,4 @@
-import { getPixelDimensions } from "../../../utils/entity-geometry";
+import { getPixelDimensions } from '@/plugins/map-explorer/server/src/utils/entity-geometry';
 
 // ---------------------------------------------------------------------------
 // CONTEXT INTERFACES (The Serializable Contract)

@@ -1,0 +1,43 @@
+{
+  "name": "Touch",
+  "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) fire damage. If the target is a creature or a flammable object, it ignites. Until a creature takes an action to douse the fire, the target takes 5 (1d10) fire damage at the start of each of its turns.",
+  "type": "melee",
+  "toHit": 6,
+  "range_config": {
+    "type": "Touch",
+    "distance": 5,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Fire",
+      "dice_count": 2,
+      "dice_value": 6,
+      "flat_bonus": 3,
+      "timing": "Instant"
+    },
+    {
+      "effect_type": "Damage",
+      "damage_type": "Fire",
+      "dice_count": 1,
+      "dice_value": 10,
+      "flat_bonus": 0,
+      "timing": "Start of Turn"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "Ignites, taking 1d10 fire damage at the start of each of its turns until doused.",
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "fire-elemental-touch"
+}

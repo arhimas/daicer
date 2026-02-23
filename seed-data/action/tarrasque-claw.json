@@ -1,0 +1,24 @@
+{
+  "name": "Claw",
+  "description": "Melee Weapon Attack: +19 to hit, reach 15 ft., one target. Hit: 28 (4d8 + 10) slashing damage.",
+  "type": "melee",
+  "toHit": 19,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 15
+  },
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Slashing",
+      "dice_count": 4,
+      "dice_value": 8,
+      "flat_bonus": 10,
+      "timing": "Instant"
+    }
+  ],
+  "slug": "tarrasque-claw"
+}

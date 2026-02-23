@@ -1,0 +1,38 @@
+{
+  "slug": "scorpion",
+  "name": "Scorpion",
+  "description": "### Actions\n[{\"name\":\"Sting\",\"desc\":\"Melee Weapon Attack: +2 to hit, reach 5 ft., one creature. Hit: 1 piercing damage, and the target must make a DC 9 Constitution saving throw, taking 4 (1d8) poison damage on a failed save, or half as much damage on a successful one.\"}]",
+  "size": "Tiny",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 11,
+  "hp": 1,
+  "hit_dice": "1d4",
+  "challenge_rating": 0,
+  "xp": 10,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 10,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 9,
+    "darkvision": 0,
+    "blindsight": 10,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "scorpion-sting"
+  ]
+}

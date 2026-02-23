@@ -1,0 +1,20 @@
+{
+  "name": "Change Shape",
+  "description": "The hag magically polymorphs into a Small or Medium female humanoid, or back into her true form. Her statistics are the same in each form. Any equipment she is wearing or carrying isn't transformed. She reverts to her true form if she dies.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": {
+    "type": "Self",
+    "distance": null,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "night-hag-change-shape"
+}

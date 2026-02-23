@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 
 import { EntityMapper, GenerationRequest } from './entity-mapper';
 

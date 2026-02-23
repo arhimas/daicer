@@ -1,0 +1,30 @@
+{
+  "name": "Blinding Gaze",
+  "description": "The solar targets one creature it can see within 30 ft. of it. If the target can see it, the target must succeed on a DC 15 Constitution saving throw or be blinded until magic such as the lesser restoration spell removes the blindness.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 30,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Negate"
+  },
+  "save": {
+    "dc": 15,
+    "attribute": "CON"
+  },
+  "damage_instances": null,
+  "condition_instances": [
+    {
+      "condition": "Blinded",
+      "description": "Blinded until magic such as the lesser restoration spell removes the blindness.",
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "solar-blinding-gaze"
+}

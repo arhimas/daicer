@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { JsonSchemaBuilder } from '../json-schema-builder';
-import { SchemaLoader } from '../schema-loader';
+import { JsonSchemaBuilder } from '@/features/genesis-core/json-schema-builder';
+import { SchemaLoader } from '@/features/genesis-core/schema-loader';
 
 const mockLoadSchema = vi.fn();
 

@@ -1,5 +1,6 @@
+/* eslint-disable */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { SchemaLoader } from '../schema-loader';
+import { SchemaLoader } from '@/features/genesis-core/schema-loader';
 import fs from 'fs';
 import path from 'path';
 

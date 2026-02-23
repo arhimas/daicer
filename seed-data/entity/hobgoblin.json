@@ -1,0 +1,40 @@
+{
+  "slug": "hobgoblin",
+  "name": "Hobgoblin",
+  "description": "### Special Abilities\n[{\"name\": \"Martial Advantage\", \"desc\": \"Once per turn, the hobgoblin can deal an extra 7 (2d6) damage to a creature it hits with a weapon attack if that creature is within 5 ft. of an ally of the hobgoblin that isn't incapacitated.\"}]\n\n### Actions\n[{\"name\": \"Longsword\", \"desc\": \"Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8 + 1) slashing damage, or 6 (1d10 + 1) slashing damage if used with two hands.\"}, {\"name\": \"Longbow\", \"desc\": \"Ranged Weapon Attack: +3 to hit, range 150/600 ft., one target. Hit: 5 (1d8 + 1) piercing damage.\"}]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "lawful evil",
+  "level": 1,
+  "ac": 18,
+  "hp": 11,
+  "hit_dice": "2d8",
+  "challenge_rating": 0.5,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 60,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "hobgoblin-longbow",
+    "hobgoblin-longsword",
+    "hobgoblin-martial-advantage"
+  ]
+}

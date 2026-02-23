@@ -1,6 +1,6 @@
 
 import { EntityMapper, GenerationRequest } from './entity-mapper';
-import { SourceRace } from '../source-types';
+import { SourceRace } from '@/features/genesis-core/source-types';
 
 export class RaceMapper extends EntityMapper<SourceRace> {
     getUid(): string {

@@ -1,0 +1,12 @@
+{
+  "name": "Nimble Escape",
+  "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": null,
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "goblin-nimble-escape"
+}

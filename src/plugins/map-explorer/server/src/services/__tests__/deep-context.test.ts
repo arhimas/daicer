@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import contextServiceFactory from "../context-service";
+import contextServiceFactory from '@/plugins/map-explorer/server/src/services/context-service';
 
 // Mock Strapi Global
 const mockFindOne = vi.fn();

@@ -1,0 +1,12 @@
+{
+  "name": "Water Breathing",
+  "description": "The octopus can breathe only underwater.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": null,
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "octopus-water-breathing"
+}

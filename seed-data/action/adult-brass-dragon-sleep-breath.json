@@ -1,0 +1,26 @@
+{
+  "name": "Sleep Breath",
+  "description": "The dragon exhales sleep gas in a 60-foot cone. Each creature in that area must succeed on a DC 18 Constitution saving throw or fall unconscious for 10 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it. (Recharge 5-6)",
+  "type": "ability",
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 60,
+    "aoe_shape": "Cone"
+  },
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Negate"
+  },
+  "save": {
+    "dc": 18,
+    "attribute": "CON"
+  },
+  "condition_instances": [
+    {
+      "condition": "Unconscious",
+      "chance": 100,
+      "duration_rounds": 100
+    }
+  ],
+  "slug": "adult-brass-dragon-sleep-breath"
+}

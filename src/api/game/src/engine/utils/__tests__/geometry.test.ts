@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { calculateDistance, isPointInRadius, isPointInCone } from '../geometry';
+import { calculateDistance, isPointInRadius, isPointInCone } from '@/api/game/src/engine/utils/geometry';
 
 describe('Geometry Utils', () => {
   describe('calculateDistance', () => {

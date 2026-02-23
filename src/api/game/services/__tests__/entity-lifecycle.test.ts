@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import entityLifecycleFactory from '../entity-lifecycle';
+import entityLifecycleFactory from '@/api/game/services/entity-lifecycle';
 
 // Mock External Utils
 const mockGenerateText = vi.fn();

@@ -1,0 +1,39 @@
+{
+  "slug": "drow",
+  "name": "Drow",
+  "description": "### Actions\n[{\"name\":\"Shortsword\",\"desc\":\"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.\"},{\"name\":\"Hand Crossbow\",\"desc\":\"Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake.\"}]",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "neutral evil",
+  "level": 1,
+  "ac": 15,
+  "hp": 13,
+  "hit_dice": "3d8",
+  "challenge_rating": 0.25,
+  "xp": 50,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 12,
+    "darkvision": 120,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "drow-hand-crossbow",
+    "drow-shortsword"
+  ]
+}

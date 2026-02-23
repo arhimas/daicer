@@ -1,0 +1,39 @@
+{
+  "slug": "swarm-of-poisonous-snakes",
+  "name": "Swarm of Poisonous Snakes",
+  "description": "### Special Abilities\n[\"The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny snake. The swarm can't regain hit points or gain temporary hit points.\"]\n\n### Actions\n[\"Melee Weapon Attack: +6 to hit, reach 0 ft., one creature in the swarm's space. Hit: 7 (2d6) piercing damage, or 3 (1d6) piercing damage if the swarm has half of its hit points or fewer. The target must make a DC 10 Constitution saving throw, taking 14 (4d6) poison damage on a failed save, or half as much damage on a successful one.\"]",
+  "size": "Medium",
+  "type": "swarm of Tiny beasts",
+  "alignment": "unaligned",
+  "level": 2,
+  "ac": 14,
+  "hp": 36,
+  "hit_dice": "8d8",
+  "challenge_rating": 2,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 30,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 0,
+    "blindsight": 10,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "swarm-of-poisonous-snakes-bites",
+    "swarm-of-poisonous-snakes-swarm"
+  ]
+}

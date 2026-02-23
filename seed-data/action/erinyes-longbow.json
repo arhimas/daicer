@@ -1,0 +1,43 @@
+{
+  "name": "Longbow",
+  "description": "Ranged Weapon Attack: +7 to hit, range 150/600 ft., one target. Hit: 7 (1d8 + 3) piercing damage plus 13 (3d8) poison damage, and the target must succeed on a DC 14 Constitution saving throw or be poisoned. The poison lasts until it is removed by the lesser restoration spell or similar magic.",
+  "type": "ranged",
+  "toHit": 7,
+  "range_config": {
+    "type": "Ranged (Feet)",
+    "distance": 150
+  },
+  "mechanics_config": {
+    "action_type": "None"
+  },
+  "save": {
+    "dc": 14,
+    "attribute": "CON"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Piercing",
+      "dice_count": 1,
+      "dice_value": 8,
+      "flat_bonus": 3,
+      "timing": "Instant"
+    },
+    {
+      "effect_type": "Damage",
+      "damage_type": "Poison",
+      "dice_count": 3,
+      "dice_value": 8,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Poisoned",
+      "description": "The poison lasts until it is removed by the lesser restoration spell or similar magic.",
+      "chance": 100
+    }
+  ],
+  "slug": "erinyes-longbow"
+}

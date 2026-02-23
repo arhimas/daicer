@@ -1,0 +1,43 @@
+{
+  "slug": "werebear-hybrid",
+  "name": "Werebear, Hybrid Form",
+  "description": "### Special Abilities\nShapechanger: The werebear can use its action to polymorph into a Large bear-humanoid hybrid or into a Large bear, or back into its true form, which is humanoid. Its statistics, other than its size and AC, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.; Keen Smell: The werebear has advantage on Wisdom (Perception) checks that rely on smell.\n\n### Actions\nMultiattack: In bear form, the werebear makes two claw attacks. In humanoid form, it makes two greataxe attacks. In hybrid form, it can attack like a bear or a humanoid.; Bite: Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 15 (2d10 + 4) piercing damage. If the target is a humanoid, it must succeed on a DC 14 Constitution saving throw or be cursed with werebear lycanthropy.; Claw: Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage.; Greataxe: Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 10 (1d12 + 4) slashing damage.",
+  "size": "Medium",
+  "type": "humanoid",
+  "alignment": "neutral good",
+  "level": 5,
+  "ac": 11,
+  "hp": 135,
+  "hit_dice": "18d8+54",
+  "challenge_rating": 5,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 40,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 17,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "werebear-hybrid-bite",
+    "werebear-hybrid-claw",
+    "werebear-hybrid-greataxe",
+    "werebear-hybrid-keen-smell",
+    "werebear-hybrid-multiattack",
+    "werebear-hybrid-shapechanger"
+  ]
+}

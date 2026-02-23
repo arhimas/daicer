@@ -1,0 +1,88 @@
+{
+  "slug": "noble",
+  "name": "Noble",
+  "compilation_state": {
+    "status": "Valid",
+    "hash": "8f2e9a1b3c4d5e6f",
+    "last_run": "2023-10-27T10:00:00Z",
+    "summary": "Successfully compiled Noble background from Player's Handbook."
+  },
+  "description": "You understand wealth, power, and privilege. You carry a noble title, and your family owns land, collects taxes, and wields significant political influence. You might be a pampered aristocrat unfamiliar with work or discomfort, a former merchant who just bought a title, or a disinherited scion with nothing left but your name. Your family might be a small but respected house, or you could be a scion of a powerful dynasty. Your work with your family or your own personal influence has given you the skills to navigate the complexities of high society.",
+  "equipment": [
+    {
+      "isEquipped": true,
+      "item": [
+        "fine-clothes"
+      ],
+      "quantity": 1,
+      "slot": "armor"
+    },
+    {
+      "isEquipped": true,
+      "item": [
+        "signet-ring"
+      ],
+      "quantity": 1,
+      "slot": "ring_1"
+    },
+    {
+      "isEquipped": false,
+      "item": [
+        "scroll-of-pedigree"
+      ],
+      "quantity": 1,
+      "slot": "backpack"
+    },
+    {
+      "isEquipped": false,
+      "item": [
+        "purse"
+      ],
+      "quantity": 1,
+      "slot": "backpack"
+    },
+    {
+      "isEquipped": false,
+      "item": [
+        "gold-piece"
+      ],
+      "quantity": 25,
+      "slot": "backpack"
+    }
+  ],
+  "feature": {
+    "name": "Position of Privilege",
+    "description": "Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to.",
+    "source": "other"
+  },
+  "proficiencies": [
+    {
+      "type": "Skill",
+      "name": "History",
+      "proficiency": [
+        "skill-history"
+      ]
+    },
+    {
+      "type": "Skill",
+      "name": "Persuasion",
+      "proficiency": [
+        "skill-persuasion"
+      ]
+    },
+    {
+      "type": "Tool",
+      "name": "Gaming Set",
+      "proficiency": [
+        "tool-gaming-set-any"
+      ]
+    },
+    {
+      "type": "Language",
+      "name": "One Language of Choice",
+      "proficiency": [
+        "language-any"
+      ]
+    }
+  ]
+}

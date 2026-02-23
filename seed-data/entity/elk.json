@@ -1,0 +1,40 @@
+{
+  "slug": "elk",
+  "name": "Elk",
+  "description": "### Special Abilities\n[{\"name\":\"Charge\",\"desc\":\"If the elk moves at least 20 ft. straight toward a target and then hits it with a ram attack on the same turn, the target takes an extra 7 (2d6) damage. If the target is a creature, it must succeed on a DC 13 Strength saving throw or be knocked prone.\"}]\n\n### Actions\n[{\"name\":\"Ram\",\"desc\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage.\"},{\"name\":\"Hooves\",\"desc\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one prone creature. Hit: 8 (2d4 + 3) bludgeoning damage.\"}]",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 10,
+  "hp": 13,
+  "hit_dice": "2d10+2",
+  "challenge_rating": 0.25,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 50,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 10,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "elk-charge",
+    "elk-hooves",
+    "elk-ram"
+  ]
+}

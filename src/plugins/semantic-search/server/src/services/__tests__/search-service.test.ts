@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import searchServiceFactory from '../search-service';
+import searchServiceFactory from '@/plugins/semantic-search/server/src/services/search-service';
 
 // Mocks
 const mockGenerateEmbedding = vi.fn();

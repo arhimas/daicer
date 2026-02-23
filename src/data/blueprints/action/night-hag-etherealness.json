@@ -1,0 +1,20 @@
+{
+  "name": "Etherealness",
+  "description": "The hag magically enters the Ethereal Plane from the Material Plane, or vice versa. To do so, the hag must have a heartstone in her possession.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": {
+    "type": "Self",
+    "distance": null,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": null,
+  "slug": "night-hag-etherealness"
+}

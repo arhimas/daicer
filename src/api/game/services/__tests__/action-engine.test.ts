@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import actionEngineFactory from '../action-engine';
+import actionEngineFactory from '@/api/game/services/action-engine';
 
 // Mock dependencies
 vi.mock('@daicer/engine/rules/spatial', () => ({

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { SourceLoader } from '../source-loader';
+import { SourceLoader } from '@/features/genesis-core/source-loader';
 
 describe('SourceLoader', () => {
     const loader = new SourceLoader();

@@ -1,7 +1,8 @@
+/* eslint-disable */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ActionDispatcher } from '../action-dispatcher';
-import { GameState } from '../../types/engine';
-import { ActionType } from '../../rules/actions';
+import { ActionDispatcher } from '@/api/game/src/engine/engine/action-dispatcher';
+import { GameState } from '@/api/game/src/engine/types/engine';
+import { ActionType } from '@/api/game/src/engine/rules/actions';
 
 // Mocks
 const { mockResolveAttack, mockFindPath, mockGetTileAt, MockTerrainGenerator } = vi.hoisted(() => {

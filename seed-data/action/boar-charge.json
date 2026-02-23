@@ -1,0 +1,34 @@
+{
+  "name": "Charge",
+  "description": "If the boar moves at least 20 ft. straight toward a target and then hits it with a tusk attack on the same turn, the target takes an extra 3 (1d6) slashing damage. If the target is a creature, it must succeed on a DC 11 Strength saving throw or be knocked prone.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "Strength Save",
+    "save_effect": null
+  },
+  "save": {
+    "dc": 11,
+    "attribute": "STR"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Slashing",
+      "dice_count": 1,
+      "dice_value": 6,
+      "flat_bonus": 0,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Prone",
+      "description": null,
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "boar-charge"
+}

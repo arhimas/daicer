@@ -1,5 +1,5 @@
+ 
 
-import { z } from 'zod';
 import { SourceSpell } from './data/schemas/spell-schema';
 import { SourceMagicItem } from './data/schemas/magic-item-schema';
 import { SourceMagicSchool } from './data/schemas/magic-school-schema';
@@ -42,12 +42,12 @@ export interface SourceItem {
     index: string;
     name: string;
     desc?: string[];
-    cost?: any;
-    damage?: any;
-    range?: any;
-    properties?: any[];
+    cost?: Record<string, unknown>;
+    damage?: Record<string, unknown>;
+    range?: Record<string, unknown>;
+    properties?: Record<string, unknown>[];
     weapon_category?: string;
     armor_category?: string;
-    equipment_category?: any;
+    equipment_category?: Record<string, unknown>;
     weight?: number;
 }

@@ -24,7 +24,7 @@ vi.mock('@strapi/strapi', () => ({
   }
 }));
 
-import timeFrameService from '../time-frame';
+import timeFrameService from '@/api/time-frame/services/time-frame';
 
 describe('TimeFrame Service', () => {
   let service: any;

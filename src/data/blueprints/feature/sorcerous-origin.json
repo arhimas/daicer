@@ -1,0 +1,12 @@
+{
+  "slug": "sorcerous-origin",
+  "name": "Sorcerous Origin",
+  "compilation_state": {
+    "status": "Valid"
+  },
+  "description": "Choose a sorcerous origin, which describes the source of your innate magical power, such as Draconic Bloodline. Your choice grants you features when you choose it at 1st level and again at 6th, 14th, and 18th level.",
+  "level": 1,
+  "tags": [
+    "sorcerer"
+  ]
+}

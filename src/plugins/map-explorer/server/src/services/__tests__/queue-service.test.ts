@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import queueServiceFactory from '../queue-service';
+import queueServiceFactory from '@/plugins/map-explorer/server/src/services/queue-service';
 // import { Queue, Worker } from 'bullmq'; // Unused
 
 

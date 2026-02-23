@@ -1,0 +1,39 @@
+{
+  "name": "Draining Kiss",
+  "description": "The fiend kisses a creature charmed by it or a willing creature. The target must make a DC 15 Constitution saving throw against this magic, taking 32 (5d10 + 5) psychic damage on a failed save, or half as much damage on a successful one. The target's hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0.",
+  "type": "spell",
+  "toHit": null,
+  "range_config": {
+    "type": "Touch",
+    "distance": null,
+    "aoe_shape": null,
+    "aoe_size": null
+  },
+  "mechanics_config": {
+    "action_type": "Constitution Save",
+    "save_effect": "Half"
+  },
+  "save": {
+    "dc": 15,
+    "attribute": "CON"
+  },
+  "damage_instances": [
+    {
+      "effect_type": "Damage",
+      "damage_type": "Psychic",
+      "dice_count": 5,
+      "dice_value": 10,
+      "flat_bonus": 5,
+      "timing": "Instant"
+    }
+  ],
+  "condition_instances": [
+    {
+      "condition": "Special",
+      "description": "The target's hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0.",
+      "chance": 100,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "succubus-incubus-draining-kiss"
+}

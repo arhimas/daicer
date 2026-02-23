@@ -1,0 +1,40 @@
+{
+  "slug": "violet-fungus",
+  "name": "Violet Fungus",
+  "description": "### Special Abilities\n[{\"name\":\"False Appearance\",\"desc\":\"While the violet fungus remains motionless, it is indistinguishable from an ordinary fungus.\"}]\n\n### Actions\n[{\"name\":\"Multiattack\",\"desc\":\"The fungus makes 1d4 Rotting Touch attacks.\"},{\"name\":\"Rotting Touch\",\"desc\":\"Melee Weapon Attack: +2 to hit, reach 10 ft., one creature. Hit: 4 (1d8) necrotic damage.\",\"attack_bonus\":2,\"damage\":[{\"damage_type\":\"necrotic\",\"damage_dice\":\"1d8\"}]}]",
+  "size": "Medium",
+  "type": "plant",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 5,
+  "hp": 18,
+  "hit_dice": "4d8",
+  "challenge_rating": 0.25,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 5,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "violet-fungus-false-appearance",
+    "violet-fungus-multiattack",
+    "violet-fungus-rotting-touch"
+  ]
+}

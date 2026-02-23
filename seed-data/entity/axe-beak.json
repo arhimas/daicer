@@ -1,0 +1,38 @@
+{
+  "slug": "axe-beak",
+  "name": "Axe Beak",
+  "description": "### Actions\n[{\"name\":\"Beak\",\"description\":\"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) slashing damage.\",\"attack_bonus\":4,\"damage_dice\":\"1d8+2\"}]",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 11,
+  "hp": 19,
+  "hit_dice": "3d10+3",
+  "challenge_rating": 0.25,
+  "xp": 50,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 50,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 0,
+    "darkvision": 0,
+    "blindsight": 0,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "axe-beak-beak"
+  ]
+}

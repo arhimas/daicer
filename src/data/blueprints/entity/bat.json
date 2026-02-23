@@ -1,0 +1,40 @@
+{
+  "slug": "bat",
+  "name": "Bat",
+  "description": "### Special Abilities\n[{\"name\":\"Echolocation\",\"description\":\"The bat can't use its blindsight while deafened.\"},{\"name\":\"Keen Hearing\",\"description\":\"The bat has advantage on Wisdom (Perception) checks that rely on hearing.\"}]\n\n### Actions\n[{\"name\":\"Bite\",\"description\":\"Melee Weapon Attack: +0 to hit, reach 5 ft., one creature. Hit: 1 piercing damage.\"}]",
+  "size": "Tiny",
+  "type": "beast",
+  "alignment": "unaligned",
+  "level": 1,
+  "ac": 12,
+  "hp": 1,
+  "hit_dice": "1d4",
+  "challenge_rating": 0,
+  "xp": 0,
+  "stats": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "walkSpeed": 5,
+    "flySpeed": 0,
+    "swimSpeed": 0,
+    "climbSpeed": 0,
+    "burrowSpeed": 0,
+    "hover": false,
+    "saves": [],
+    "skills": [],
+    "passivePerception": 11,
+    "darkvision": 0,
+    "blindsight": 60,
+    "truesight": 0,
+    "tremorsense": 0
+  },
+  "actions": [
+    "bat-bite",
+    "bat-echolocation",
+    "bat-keen-hearing"
+  ]
+}

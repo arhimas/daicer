@@ -1,0 +1,22 @@
+{
+  "slug": "giant-eagle",
+  "name": "Giant Eagle",
+  "size": "Large",
+  "type": "beast",
+  "alignment": "neutral good",
+  "armor_class": 13,
+  "hit_points": 26,
+  "hit_dice": "4d10",
+  "speed": "walk: 10 ft., fly: 80 ft.",
+  "stats": "strength: 16, dexterity: 17, constitution: 13, intelligence: 8, wisdom: 14, charisma: 10",
+  "proficiencies": "Skill: Perception (4)",
+  "damage_vulnerabilities": [],
+  "damage_resistances": [],
+  "damage_immunities": [],
+  "condition_immunities": [],
+  "senses": "passive_perception: 14",
+  "languages": "Giant Eagle, understands Common and Auran but can't speak",
+  "challenge_rating": 1,
+  "special_abilities": "Keen Sight: The eagle has advantage on Wisdom (Perception) checks that rely on sight.",
+  "actions": "Multiattack: The eagle makes two attacks: one with its beak and one with its talons. Beak: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) piercing damage. Talons: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage."
+}

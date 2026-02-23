@@ -1,6 +1,7 @@
+ 
 
 import { z } from 'zod';
-import { APIReferenceSchema } from './common-schemas';
+import { } from './common-schemas';
 
 // Schema matching what monster-loader.ts expects
 export const MonsterBlueprintSchema = z.object({

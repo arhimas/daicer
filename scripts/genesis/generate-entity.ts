@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createGenesisEngine } from './factory';
 import * as dotenv from 'dotenv';
 

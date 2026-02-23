@@ -1,0 +1,22 @@
+{
+  "name": "Steadfast",
+  "description": "The devil can't be frightened while it can see an allied creature within 30 feet of it.",
+  "type": "ability",
+  "toHit": null,
+  "range_config": null,
+  "mechanics_config": {
+    "action_type": "None",
+    "save_effect": null
+  },
+  "save": null,
+  "damage_instances": null,
+  "condition_instances": [
+    {
+      "condition": "Frightened",
+      "description": "The devil can't be frightened while it can see an allied creature within 30 feet of it.",
+      "chance": 0,
+      "duration_rounds": null
+    }
+  ],
+  "slug": "bearded-devil-steadfast"
+}
