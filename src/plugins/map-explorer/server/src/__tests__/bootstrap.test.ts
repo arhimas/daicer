@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import bootstrap from '@/plugins/map-explorer/server/src/bootstrap';
+import bootstrap from '../bootstrap';
 import fs from 'fs';
 
 // Mock fs

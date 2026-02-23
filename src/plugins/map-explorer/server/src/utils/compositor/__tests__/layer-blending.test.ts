@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { compositeLoadout } from '@/plugins/map-explorer/server/src/utils/compositor/layer-blending';
-import { AssetStub } from '@/plugins/map-explorer/server/src/utils/compositor/types';
-import { getSmartAnchor } from '@/plugins/map-explorer/server/src/utils/compositor/smart-anchors';
+import { compositeLoadout } from '../layer-blending';
+import { AssetStub } from '../types';
+import { getSmartAnchor } from '../smart-anchors';
 
 // Mock dependencies
 vi.mock('../smart-anchors', () => ({

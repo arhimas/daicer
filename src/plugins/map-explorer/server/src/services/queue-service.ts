@@ -1,5 +1,5 @@
 import type { Queue as QueueType, Worker as WorkerType, JobType } from 'bullmq';
-import { getPixelDimensions } from '@/plugins/map-explorer/server/src/utils/entity-geometry';
+import { getPixelDimensions } from '../utils/entity-geometry';
 
 // Stealth require removed in favor of standard import for better testing support
 // If build fails, verify if @strapi/plugin-bullmq or similar handles this differently.

@@ -1,6 +1,6 @@
 import { AssetStub, Archetype, Point } from './types';
 import { getSmartAnchor } from './smart-anchors';
-import { blendPixels } from '@/plugins/map-explorer/server/src/utils/pixel-math';
+import { blendPixels } from '../pixel-math';
 
 export const compositeLoadout = (
   baseAsset: AssetStub,

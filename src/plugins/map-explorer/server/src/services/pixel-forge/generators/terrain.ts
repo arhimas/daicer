@@ -1,6 +1,6 @@
-import { createEmptyGrid } from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
-import { TerrainContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers';
-import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';
+import { createEmptyGrid } from '../grid-utils';
+import { TerrainContext } from '../serializers';
+import { ZoneType } from '../../../utils/compositor';
 
 // Placeholder for a real noise library using the legacy 'pixel-math' or a new utility
 // For now, we simulate noise to satisfy the requirement "everything shining".

@@ -12,7 +12,7 @@ import {
 import { useFetchClient } from '@strapi/admin/strapi-admin';
 import { useIntl } from 'react-intl';
 import { Trash, Drag, Pencil, Magic, Code, Check } from '@strapi/icons';
-import { Chunk } from '@/plugins/map-explorer/admin/src/types';
+import { Chunk } from '../../types';
 
 // Constants for Texture Mode
 const GRID_SIZE = 32;

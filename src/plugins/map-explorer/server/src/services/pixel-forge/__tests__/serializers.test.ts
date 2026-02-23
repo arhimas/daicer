@@ -3,7 +3,7 @@ import {
   serializeEntity,
   serializeItem,
   serializeTerrain,
-} from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers/index'; // Relative path check
+} from '../serializers/index'; // Relative path check
 
 // Mock dependencies
 vi.mock('../../../utils/entity-geometry', () => ({

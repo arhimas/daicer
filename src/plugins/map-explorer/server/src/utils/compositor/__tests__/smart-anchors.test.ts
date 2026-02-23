@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getSmartAnchor } from '@/plugins/map-explorer/server/src/utils/compositor/smart-anchors';
-import { AssetStub } from '@/plugins/map-explorer/server/src/utils/compositor/types';
+import { getSmartAnchor } from '../smart-anchors';
+import { AssetStub } from '../types';
 
 // Mock visual analysis
 vi.mock('../visual-analysis', () => ({
@@ -10,7 +10,7 @@ vi.mock('../visual-analysis', () => ({
 import {
   getVisualBounds,
   getZoneCentroid,
-} from '@/plugins/map-explorer/server/src/utils/compositor/visual-analysis';
+} from '../visual-analysis';
 
 describe('Smart Anchors Utils', () => {
   let mockAsset: AssetStub;

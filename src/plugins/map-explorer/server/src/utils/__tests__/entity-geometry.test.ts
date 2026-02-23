@@ -4,7 +4,7 @@ import {
   getCellFootprint,
   validateMatrixSize,
   PIXELS_PER_FOOT,
-} from '@/plugins/map-explorer/server/src/utils/entity-geometry';
+} from '../entity-geometry';
 
 describe('EntityGeometry', () => {
   describe('getPixelDimensions', () => {

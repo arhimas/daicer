@@ -1,4 +1,4 @@
-import { PLUGIN_ID } from '@/plugins/map-explorer/admin/src/pluginId';
+import { PLUGIN_ID } from '../pluginId';
 
 /**
  * Generates a localized translation key for the plugin.

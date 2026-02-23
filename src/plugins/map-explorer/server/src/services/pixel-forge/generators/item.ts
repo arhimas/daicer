@@ -2,9 +2,9 @@ import {
   createEmptyGrid,
   fillBox,
   markBox,
-} from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
-import { ItemContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers'; // Universal Contract
-import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';
+} from '../grid-utils';
+import { ItemContext } from '../serializers'; // Universal Contract
+import { ZoneType } from '../../../utils/compositor';
 
 export const generateItemGrid = (ctx: ItemContext): (string | null)[][] => {
   const gridSize = ctx.width;

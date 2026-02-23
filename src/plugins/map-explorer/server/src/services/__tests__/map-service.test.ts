@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import mapServiceFactory from '@/plugins/map-explorer/server/src/services/map-service';
+import mapServiceFactory from '../map-service';
 
 const mockFindOne = vi.fn();
 const mockUpdate = vi.fn();

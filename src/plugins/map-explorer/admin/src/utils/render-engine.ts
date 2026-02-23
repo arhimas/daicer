@@ -1,5 +1,5 @@
-import { Chunk, Tile, TerrainType } from '@/plugins/map-explorer/admin/src/types';
-import { TILE_SIZE } from '@/plugins/map-explorer/admin/src/constants';
+import { Chunk, Tile, TerrainType } from '../types';
+import { TILE_SIZE } from '../constants';
 
 // Sensible defaults so we don't rely on a 'color' field
 const SENSIBLE_COLORS: Record<string, string> = {

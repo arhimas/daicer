@@ -1,6 +1,6 @@
 import type { Core } from '@strapi/strapi';
-import { compositeLoadout, AssetStub } from '@/plugins/map-explorer/server/src/utils/compositor';
-import { parseColor } from '@/plugins/map-explorer/server/src/utils/pixel-math';
+import { compositeLoadout, AssetStub } from '../../utils/compositor';
+import { parseColor } from '../../utils/pixel-math';
 
 import { createEmptyGrid, fillBox, markBox } from './grid-utils';
 import {

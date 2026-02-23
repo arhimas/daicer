@@ -2,10 +2,10 @@ import {
   createEmptyGrid,
   fillBox,
   markBox,
-} from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
-import { EntityContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers';
-import { PixelLayer } from '@/plugins/map-explorer/server/src/services/pixel-forge/types';
-import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';
+} from '../grid-utils';
+import { EntityContext } from '../serializers';
+import { PixelLayer } from '../types';
+import { ZoneType } from '../../../utils/compositor';
 
 type BodyPartType = 'head' | 'torso' | 'arm_left' | 'arm_right' | 'leg_left' | 'leg_right';
 

@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import geminiServiceFactory from '@/plugins/map-explorer/server/src/services/gemini-service';
+import geminiServiceFactory from '../gemini-service';
 
 // Mock Dependencies
 vi.mock('@daicer/llm-core', () => ({
