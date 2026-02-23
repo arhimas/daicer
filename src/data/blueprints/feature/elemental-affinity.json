@@ -9,8 +9,5 @@
   "embedding": {},
   "level": 6,
   "lore": "As your power matures, the elemental essence of your draconic bloodline begins to permeate your magic, making your spells more potent and your body more resilient to that same energy.",
-  "tags": [
-    "sorcerer",
-    "draconic-bloodline"
-  ]
+  "tags": ["sorcerer", "draconic-bloodline"]
 }

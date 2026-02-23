@@ -3,8 +3,5 @@
   "name": "Arcane Sword",
   "level": 7,
   "school": "Evocation",
-  "tags": [
-    "bard",
-    "wizard"
-  ]
+  "tags": ["bard", "wizard"]
 }

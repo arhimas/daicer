@@ -19,10 +19,7 @@
   "proficiencies": "stats",
   "value": 9,
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "necrotic",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
+  "damage_resistances": ["necrotic", "bludgeoning, piercing, and slashing from nonmagical weapons"],
   "damage_immunities": [],
   "condition_immunities": [],
   "senses": "darkvision",

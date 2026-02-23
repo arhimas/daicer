@@ -6,7 +6,5 @@
   },
   "description": "At 6th level, you gain a feature granted by your Primal Path choice. Your choice of path grants you features at 3rd level and again at 6th, 10th, and 14th levels.",
   "level": 6,
-  "tags": [
-    "barbarian"
-  ]
+  "tags": ["barbarian"]
 }

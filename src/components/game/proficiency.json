@@ -17,13 +17,13 @@
       "required": true
     },
     "proficiency": {
-        "type": "relation",
-        "relation": "oneToOne",
-        "target": "api::proficiency.proficiency"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::proficiency.proficiency"
     },
     "value": {
-        "type": "integer",
-        "default": 0
+      "type": "integer",
+      "default": 0
     }
   }
 }

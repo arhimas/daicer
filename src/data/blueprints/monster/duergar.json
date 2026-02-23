@@ -13,9 +13,7 @@
     "stats": "{\"strength\": 14, \"dexterity\": 11, \"constitution\": 14, \"intelligence\": 11, \"wisdom\": 10, \"charisma\": 9}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "poison"
-    ],
+    "damage_resistances": ["poison"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "{\"darkvision\": \"120 ft.\", \"passive_perception\": 10}",

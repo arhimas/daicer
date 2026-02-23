@@ -10,9 +10,5 @@
   "image": "",
   "level": 18,
   "lore": "The air thickens with the weight of ancient majesty as the sorcerer taps into their primal heritage, projecting the overwhelming charisma or terror of a true dragon.",
-  "tags": [
-    "sorcerer",
-    "draconic-bloodline",
-    "class-feature"
-  ]
+  "tags": ["sorcerer", "draconic-bloodline", "class-feature"]
 }

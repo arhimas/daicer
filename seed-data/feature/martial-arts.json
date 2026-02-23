@@ -10,8 +10,5 @@
   "image": "",
   "level": 1,
   "lore": "Monks of various traditions practice specialized forms of combat, turning their bodies and simple tools into deadly weapons.",
-  "tags": [
-    "monk",
-    "class-feature"
-  ]
+  "tags": ["monk", "class-feature"]
 }

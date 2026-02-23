@@ -12,8 +12,5 @@
   "image": "",
   "level": 11,
   "lore": "Consistency is the hallmark of a true professional. For the master rogue, the chance of a clumsy mistake in their area of expertise is virtually non-existent.",
-  "tags": [
-    "rogue",
-    "class-feature"
-  ]
+  "tags": ["rogue", "class-feature"]
 }

@@ -8,49 +8,37 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "item:dagger"
-      ],
+      "item": ["item:dagger"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item:map-of-city"
-      ],
+      "item": ["item:map-of-city"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item:pet-mouse"
-      ],
+      "item": ["item:pet-mouse"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item:token-of-parents"
-      ],
+      "item": ["item:token-of-parents"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "item:common-clothes"
-      ],
+      "item": ["item:common-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item:pouch"
-      ],
+      "item": ["item:pouch"],
       "quantity": 1,
       "slot": "backpack"
     }
@@ -64,30 +52,22 @@
     {
       "type": "Skill",
       "name": "Sleight of Hand",
-      "proficiency": [
-        "skill:sleight-of-hand"
-      ]
+      "proficiency": ["skill:sleight-of-hand"]
     },
     {
       "type": "Skill",
       "name": "Stealth",
-      "proficiency": [
-        "skill:stealth"
-      ]
+      "proficiency": ["skill:stealth"]
     },
     {
       "type": "Tool",
       "name": "Disguise kit",
-      "proficiency": [
-        "tool:disguise-kit"
-      ]
+      "proficiency": ["tool:disguise-kit"]
     },
     {
       "type": "Tool",
       "name": "Thieves' tools",
-      "proficiency": [
-        "tool:thieves-tools"
-      ]
+      "proficiency": ["tool:thieves-tools"]
     }
   ]
 }

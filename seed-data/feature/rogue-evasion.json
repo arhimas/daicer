@@ -12,9 +12,5 @@
   "image": "https://api.open5e.com/static/img/features/evasion.png",
   "level": 7,
   "lore": "The rogue moves like smoke through a storm, untouched by the fury that consumes others.",
-  "tags": [
-    "rogue",
-    "class-feature",
-    "defense"
-  ]
+  "tags": ["rogue", "class-feature", "defense"]
 }

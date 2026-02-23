@@ -32,10 +32,5 @@
     "status": "Valid",
     "summary": "Successfully mapped from reference data."
   },
-  "tags": [
-    "cleric",
-    "druid",
-    "ranger",
-    "lore"
-  ]
+  "tags": ["cleric", "druid", "ranger", "lore"]
 }

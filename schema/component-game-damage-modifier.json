@@ -31,11 +31,7 @@
     },
     "modifier": {
       "type": "enumeration",
-      "enum": [
-        "resistance",
-        "immunity",
-        "vulnerability"
-      ],
+      "enum": ["resistance", "immunity", "vulnerability"],
       "required": true
     }
   }

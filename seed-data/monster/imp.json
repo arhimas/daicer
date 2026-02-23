@@ -12,17 +12,9 @@
   "stats": "{\"strength\":6,\"dexterity\":17,\"constitution\":13,\"intelligence\":11,\"wisdom\":12,\"charisma\":14}",
   "proficiencies": "[{\"name\":\"Deception\",\"value\":4},{\"name\":\"Insight\",\"value\":3},{\"name\":\"Persuasion\",\"value\":4},{\"name\":\"Stealth\",\"value\":5}]",
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold",
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 120 ft., passive perception 11",
   "languages": "Infernal, Common",
   "challenge_rating": 1,

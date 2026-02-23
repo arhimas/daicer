@@ -12,9 +12,5 @@
   "image": "",
   "level": 5,
   "lore": "A druid's bond with their chosen environment grants them specialized knowledge and magical prowess unique to that terrain.",
-  "tags": [
-    "druid",
-    "land",
-    "subclass-feature"
-  ]
+  "tags": ["druid", "land", "subclass-feature"]
 }

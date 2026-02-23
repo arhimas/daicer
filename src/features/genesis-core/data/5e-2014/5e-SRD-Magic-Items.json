@@ -285,10 +285,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Armor (light, medium, or heavy), rare",
-      "You have a +1 bonus to AC while wearing this armor."
-    ],
+    "desc": ["Armor (light, medium, or heavy), rare", "You have a +1 bonus to AC while wearing this armor."],
     "image": "/api/images/magic-items/armor.png",
     "url": "/api/2014/magic-items/armor-1"
   },
@@ -305,10 +302,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Armor (light, medium, or heavy), very rare",
-      "You have a +2 bonus to AC while wearing this armor."
-    ],
+    "desc": ["Armor (light, medium, or heavy), very rare", "You have a +2 bonus to AC while wearing this armor."],
     "image": "/api/images/magic-items/armor-2.png",
     "url": "/api/2014/magic-items/armor-2"
   },
@@ -325,10 +319,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Armor (light, medium, or heavy), legendary",
-      "You have a +3 bonus to AC while wearing this armor."
-    ],
+    "desc": ["Armor (light, medium, or heavy), legendary", "You have a +3 bonus to AC while wearing this armor."],
     "image": "/api/images/magic-items/armor-3.png",
     "url": "/api/2014/magic-items/armor-3"
   },
@@ -5639,10 +5630,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to acid damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to acid damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-acid"
   },
   {
@@ -5658,10 +5646,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to cold damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to cold damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-cold"
   },
   {
@@ -5677,10 +5662,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to fire damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to fire damage for 1 hour."],
     "image": "/api/2014/magic-items/potion-of-resistance-fire.png",
     "url": "/api/2014/magic-items/potion-of-resistance-fire"
   },
@@ -5697,10 +5679,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to force damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to force damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-force"
   },
   {
@@ -5716,10 +5695,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to lightning damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to lightning damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-lightning"
   },
   {
@@ -5735,10 +5711,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to necrotic damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to necrotic damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-necrotic"
   },
   {
@@ -5754,10 +5727,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to poison damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to poison damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-poison"
   },
   {
@@ -5773,10 +5743,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to psychic damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to psychic damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-psychic"
   },
   {
@@ -5792,10 +5759,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to radiant damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to radiant damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-radiant"
   },
   {
@@ -5811,10 +5775,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Potion, uncommon",
-      "When you drink this potion, you gain resistance to thunder damage for 1 hour."
-    ],
+    "desc": ["Potion, uncommon", "When you drink this potion, you gain resistance to thunder damage for 1 hour."],
     "url": "/api/2014/magic-items/potion-of-resistance-thunder"
   },
   {
@@ -6329,10 +6290,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Ring, rare (requires attunement)",
-      "You have resistance to acid damage while wearing this pearl ring."
-    ],
+    "desc": ["Ring, rare (requires attunement)", "You have resistance to acid damage while wearing this pearl ring."],
     "url": "/api/2014/magic-items/ring-of-resistance-acid"
   },
   {
@@ -6367,10 +6325,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Ring, rare (requires attunement)",
-      "You have resistance to fire damage while wearing this garnet ring."
-    ],
+    "desc": ["Ring, rare (requires attunement)", "You have resistance to fire damage while wearing this garnet ring."],
     "url": "/api/2014/magic-items/ring-of-resistance-fire"
   },
   {
@@ -6424,10 +6379,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Ring, rare (requires attunement)",
-      "You have resistance to necrotic damage while wearing this jet ring."
-    ],
+    "desc": ["Ring, rare (requires attunement)", "You have resistance to necrotic damage while wearing this jet ring."],
     "url": "/api/2014/magic-items/ring-of-resistance-necrotic"
   },
   {
@@ -6462,10 +6414,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Ring, rare (requires attunement)",
-      "You have resistance to psychic damage while wearing this jade ring."
-    ],
+    "desc": ["Ring, rare (requires attunement)", "You have resistance to psychic damage while wearing this jade ring."],
     "url": "/api/2014/magic-items/ring-of-resistance-psychic"
   },
   {
@@ -6590,10 +6539,7 @@
     },
     "variants": [],
     "variant": false,
-    "desc": [
-      "Ring, uncommon",
-      "You have a swimming speed of 40 feet while wearing this ring."
-    ],
+    "desc": ["Ring, uncommon", "You have a swimming speed of 40 feet while wearing this ring."],
     "url": "/api/2014/magic-items/ring-of-swimming"
   },
   {
@@ -8437,10 +8383,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Weapon (any), uncommon",
-      "You have a +1 bonus to attack and damage rolls made with this magic weapon."
-    ],
+    "desc": ["Weapon (any), uncommon", "You have a +1 bonus to attack and damage rolls made with this magic weapon."],
     "url": "/api/2014/magic-items/weapon-1"
   },
   {
@@ -8456,10 +8399,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Weapon (any), rare",
-      "You have a +2 bonus to attack and damage rolls made with this magic weapon."
-    ],
+    "desc": ["Weapon (any), rare", "You have a +2 bonus to attack and damage rolls made with this magic weapon."],
     "url": "/api/2014/magic-items/weapon-2"
   },
   {
@@ -8475,10 +8415,7 @@
     },
     "variants": [],
     "variant": true,
-    "desc": [
-      "Weapon (any), very rare",
-      "You have a +3 bonus to attack and damage rolls made with this magic weapon."
-    ],
+    "desc": ["Weapon (any), very rare", "You have a +3 bonus to attack and damage rolls made with this magic weapon."],
     "url": "/api/2014/magic-items/weapon-3"
   },
   {

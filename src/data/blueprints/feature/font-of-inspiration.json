@@ -7,7 +7,5 @@
   "description": "Beginning when you reach 5th level, you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest.",
   "embedding": {},
   "level": 5,
-  "tags": [
-    "bard"
-  ]
+  "tags": ["bard"]
 }

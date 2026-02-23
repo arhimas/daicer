@@ -11,8 +11,5 @@
   "embedding": {},
   "level": 3,
   "lore": "If you serve the Fiend, your weapon could be an axe made of black metal and adorned with decorative flames.",
-  "tags": [
-    "warlock",
-    "pact-boon"
-  ]
+  "tags": ["warlock", "pact-boon"]
 }

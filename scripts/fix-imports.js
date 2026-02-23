@@ -4,7 +4,7 @@ const path = require('path');
 function walk(dir) {
   let results = [];
   const list = fs.readdirSync(dir);
-  list.forEach(file => {
+  list.forEach((file) => {
     file = path.join(dir, file);
     const stat = fs.statSync(file);
     if (stat && stat.isDirectory()) {
@@ -22,7 +22,7 @@ function walk(dir) {
 
 const allTsFiles = walk('src');
 
-allTsFiles.forEach(file => {
+allTsFiles.forEach((file) => {
   let content = fs.readFileSync(file, 'utf8');
   let changed = false;
 
@@ -36,17 +36,17 @@ allTsFiles.forEach(file => {
     const resolvedPath = path.resolve(fileDir, upDirs + restOfPath);
     // Relative to src
     const srcPath = path.resolve('src');
-    
+
     // Check if it's inside `src`
     if (resolvedPath.startsWith(srcPath)) {
       let relativeToSrc = resolvedPath.substring(srcPath.length + 1); // e.g. 'features/genesis-core/llm-bridge'
       changed = true;
       return `from '@/${relativeToSrc}'`;
     }
-    
+
     return match; // return original if not pointing inside src
   });
-  
+
   if (changed) {
     fs.writeFileSync(file, content);
   }

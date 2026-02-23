@@ -18,11 +18,7 @@
     "thunder",
     "bludgeoning, piercing, and slashing from nonmagical weapons"
   ],
-  "damage_immunities": [
-    "cold",
-    "necrotic",
-    "poison"
-  ],
+  "damage_immunities": ["cold", "necrotic", "poison"],
   "condition_immunities": [
     "charmed",
     "exhaustion",

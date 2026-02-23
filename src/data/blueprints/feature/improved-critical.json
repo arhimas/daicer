@@ -12,9 +12,5 @@
   "image": "",
   "level": 3,
   "lore": "The Champion focuses on the raw physical power perfected to a deadly degree, allowing them to find openings in armor and hide that others would miss.",
-  "tags": [
-    "fighter",
-    "champion",
-    "martial"
-  ]
+  "tags": ["fighter", "champion", "martial"]
 }

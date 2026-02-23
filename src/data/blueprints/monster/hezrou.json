@@ -9,31 +9,11 @@
   "hit_points": 136,
   "hit_dice": "13d10+65",
   "speed": "30 ft.",
-  "stats": [
-    "strength: 19",
-    "dexterity: 17",
-    "constitution: 20",
-    "intelligence: 5",
-    "wisdom: 12",
-    "charisma: 13"
-  ],
-  "proficiencies": [
-    "Saving Throw: STR 7",
-    "Saving Throw: CON 8",
-    "Saving Throw: WIS 4"
-  ],
-  "damage_resistances": [
-    "cold",
-    "fire",
-    "lightning",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "stats": ["strength: 19", "dexterity: 17", "constitution: 20", "intelligence: 5", "wisdom: 12", "charisma: 13"],
+  "proficiencies": ["Saving Throw: STR 7", "Saving Throw: CON 8", "Saving Throw: WIS 4"],
+  "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 120 ft., passive perception 11",
   "languages": "Abyssal, telepathy 120 ft.",
   "challenge_rating": "8",

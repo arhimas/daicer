@@ -24,12 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "con",
-      "wis",
-      "cha"
-    ],
+    "saves": ["dex", "con", "wis", "cha"],
     "skills": [],
     "passivePerception": 21,
     "darkvision": 120,
@@ -49,7 +44,5 @@
     "adult-brass-dragon-tail-attack",
     "adult-brass-dragon-tail"
   ],
-  "legendary_actions": [
-    "adult-brass-dragon-wing-attack-costs-2-actions"
-  ]
+  "legendary_actions": ["adult-brass-dragon-wing-attack-costs-2-actions"]
 }

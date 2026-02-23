@@ -2551,9 +2551,7 @@
       "unit": "cp"
     },
     "weight": 0,
-    "desc": [
-      "For 1 hour, a candle sheds bright light in a 5-foot radius and dim light for an additional 5 feet."
-    ],
+    "desc": ["For 1 hour, a candle sheds bright light in a 5-foot radius and dim light for an additional 5 feet."],
     "url": "/api/2014/equipment/candle"
   },
   {
@@ -2618,9 +2616,7 @@
       "unit": "gp"
     },
     "weight": 10,
-    "desc": [
-      "A chain has 10 hit points. It can be burst with a successful DC 20 Strength check."
-    ],
+    "desc": ["A chain has 10 hit points. It can be burst with a successful DC 20 Strength check."],
     "url": "/api/2014/equipment/chain-10-feet"
   },
   {
@@ -2784,9 +2780,7 @@
       "unit": "gp"
     },
     "weight": 5,
-    "desc": [
-      "Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied."
-    ],
+    "desc": ["Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied."],
     "url": "/api/2014/equipment/crowbar"
   },
   {
@@ -3843,9 +3837,7 @@
       "unit": "gp"
     },
     "weight": 10,
-    "desc": [
-      "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check."
-    ],
+    "desc": ["Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check."],
     "url": "/api/2014/equipment/rope-hempen-50-feet"
   },
   {
@@ -3866,9 +3858,7 @@
       "unit": "gp"
     },
     "weight": 5,
-    "desc": [
-      "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check."
-    ],
+    "desc": ["Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check."],
     "url": "/api/2014/equipment/rope-silk-50-feet"
   },
   {
@@ -4096,9 +4086,7 @@
       "unit": "gp"
     },
     "weight": 1,
-    "desc": [
-      "Objects viewed through a spyglass are magnified to twice their size."
-    ],
+    "desc": ["Objects viewed through a spyglass are magnified to twice their size."],
     "url": "/api/2014/equipment/spyglass"
   },
   {
@@ -4119,9 +4107,7 @@
       "unit": "cp"
     },
     "weight": 0,
-    "desc": [
-      "A 10-foot length of string, typically found in a burglar's pack."
-    ],
+    "desc": ["A 10-foot length of string, typically found in a burglar's pack."],
     "url": "/api/2014/equipment/string-10-feet"
   },
   {
@@ -6041,9 +6027,7 @@
       "unit": "gp"
     },
     "weight": 50,
-    "desc": [
-      "An exotic saddle is required for riding any aquatic or flying mount."
-    ],
+    "desc": ["An exotic saddle is required for riding any aquatic or flying mount."],
     "url": "/api/2014/equipment/saddle-exotic"
   },
   {

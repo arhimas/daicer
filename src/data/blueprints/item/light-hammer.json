@@ -11,11 +11,7 @@
     "damage_dice": "1d4",
     "damage_type": "bludgeoning",
     "range_normal": 20,
-    "properties": [
-      "light",
-      "thrown",
-      "monk"
-    ],
+    "properties": ["light", "thrown", "monk"],
     "str_minimum": 0
   }
 }

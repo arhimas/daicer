@@ -3,13 +3,5 @@
   "name": "Locate Object",
   "level": 2,
   "school": "Divination",
-  "tags": [
-    "bard",
-    "cleric",
-    "druid",
-    "paladin",
-    "ranger",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["bard", "cleric", "druid", "paladin", "ranger", "wizard", "lore"]
 }

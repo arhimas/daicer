@@ -3,8 +3,5 @@
   "name": "Telekinesis",
   "level": 5,
   "school": "Transmutation",
-  "tags": [
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["sorcerer", "wizard"]
 }

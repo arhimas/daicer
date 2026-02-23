@@ -12,8 +12,5 @@
   "image": "https://media.dndbeyond.com/features/bard-expertise.png",
   "level": 10,
   "lore": "A bard's mastery of their chosen crafts reflects their dedication to the performing and practical arts alike.",
-  "tags": [
-    "bard",
-    "class-feature"
-  ]
+  "tags": ["bard", "class-feature"]
 }

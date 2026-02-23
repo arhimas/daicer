@@ -30,11 +30,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "gladiator-brave",
-    "gladiator-brute",
-    "gladiator-multiattack",
-    "gladiator-shield-bash",
-    "gladiator-spear"
-  ]
+  "actions": ["gladiator-brave", "gladiator-brute", "gladiator-multiattack", "gladiator-shield-bash", "gladiator-spear"]
 }

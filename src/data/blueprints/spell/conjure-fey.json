@@ -38,8 +38,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "druid",
-    "warlock"
-  ]
+  "tags": ["druid", "warlock"]
 }

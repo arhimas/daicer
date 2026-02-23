@@ -12,9 +12,5 @@
   "image": "https://www.dndbeyond.com/attachments/2/707/bard.png",
   "level": 1,
   "lore": "The music of the cosmos is a tapestry of sound and silence, and the bard is its most dedicated weaver.",
-  "tags": [
-    "bard",
-    "spellcasting",
-    "class-feature"
-  ]
+  "tags": ["bard", "spellcasting", "class-feature"]
 }

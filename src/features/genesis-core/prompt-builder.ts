@@ -1,12 +1,12 @@
 import { JsonSchemaBuilder, JsonSchema } from './json-schema-builder';
 
 export class PromptBuilder {
-    constructor(private schemaBuilder: JsonSchemaBuilder) {}
+  constructor(private schemaBuilder: JsonSchemaBuilder) {}
 
-    async buildPrompt(uid: string): Promise<{ systemPrompt: string; jsonSchema: JsonSchema }> {
-        const jsonSchema = await this.schemaBuilder.build(uid);
-        
-        const systemPrompt = `
+  async buildPrompt(uid: string): Promise<{ systemPrompt: string; jsonSchema: JsonSchema }> {
+    const jsonSchema = await this.schemaBuilder.build(uid);
+
+    const systemPrompt = `
 You are the Genesis Engine.
 Your goal is to generate a valid JSON object for the Content Type: "${uid}".
 
@@ -18,6 +18,6 @@ Your goal is to generate a valid JSON object for the Content Type: "${uid}".
 5. Use the "$defs" for recursive components as defined in the schema.
 `;
 
-        return { systemPrompt, jsonSchema };
-    }
+    return { systemPrompt, jsonSchema };
+  }
 }

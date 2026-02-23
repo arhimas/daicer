@@ -1,4 +1,3 @@
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // 1. Hoist Mocks
@@ -15,7 +14,7 @@ const { mockStrapi, mockEntityService, mockRoomService, mockTurnService } = vi.h
     addAction: vi.fn(),
     processTurn: vi.fn(),
   };
-  
+
   const mockStrapi = {
     entityService: mockEntityService,
     service: vi.fn((uid: string) => {
@@ -44,7 +43,7 @@ import roomController from '@/api/room/controllers/room';
 
 describe('Room Controller', () => {
   let ctx: any;
-   
+
   const controller = roomController as any;
 
   beforeEach(() => {
@@ -62,7 +61,7 @@ describe('Room Controller', () => {
   describe('create', () => {
     it('should create a room successfully', async () => {
       ctx.request.body = { settings: { mode: 'survival' } };
-      
+
       const newRoom = { id: 123, documentId: 'doc-123' };
       mockEntityService.create.mockResolvedValue(newRoom);
       mockEntityService.update.mockResolvedValue({ ...newRoom, code: '123' });
@@ -79,13 +78,13 @@ describe('Room Controller', () => {
       await roomController.create(ctx);
       expect(ctx.unauthorized).toHaveBeenCalledWith(expect.stringContaining('must be logged in'));
     });
-    
+
     it('should handle error during generation', async () => {
-        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-        mockEntityService.create.mockRejectedValue(new Error('DB Error'));
-        await controller.create(ctx);
-        expect(ctx.badRequest).toHaveBeenCalledWith('Failed to generate room code');
-        consoleSpy.mockRestore();
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      mockEntityService.create.mockRejectedValue(new Error('DB Error'));
+      await controller.create(ctx);
+      expect(ctx.badRequest).toHaveBeenCalledWith('Failed to generate room code');
+      consoleSpy.mockRestore();
     });
   });
 
@@ -109,19 +108,19 @@ describe('Room Controller', () => {
     it('should return not found if room missing', async () => {
       ctx.params.id = 'missing';
       mockRoomService.joinRoom.mockRejectedValue(new Error('Room not found'));
-      
+
       await roomController.join(ctx);
-      
+
       expect(ctx.notFound).toHaveBeenCalledWith('Room not found');
     });
 
     it('should return bad request on other errors', async () => {
-        ctx.params.id = 'error';
-        mockRoomService.joinRoom.mockRejectedValue(new Error('Full room'));
-        
-        await controller.join(ctx);
-        
-        expect(ctx.badRequest).toHaveBeenCalledWith('Full room');
+      ctx.params.id = 'error';
+      mockRoomService.joinRoom.mockRejectedValue(new Error('Full room'));
+
+      await controller.join(ctx);
+
+      expect(ctx.badRequest).toHaveBeenCalledWith('Full room');
     });
   });
 
@@ -144,9 +143,9 @@ describe('Room Controller', () => {
     });
 
     it('should return unauthorized if no user', async () => {
-        ctx.state.user = null;
-        await controller.submitAction(ctx); // Should fail before checking body
-        expect(ctx.unauthorized).toHaveBeenCalled();
+      ctx.state.user = null;
+      await controller.submitAction(ctx); // Should fail before checking body
+      expect(ctx.unauthorized).toHaveBeenCalled();
     });
   });
 
@@ -162,15 +161,15 @@ describe('Room Controller', () => {
     });
 
     it('should return unauthorized if no user', async () => {
-        ctx.state.user = null;
-        await roomController.triggerTurn(ctx);
-        expect(ctx.unauthorized).toHaveBeenCalled();
+      ctx.state.user = null;
+      await roomController.triggerTurn(ctx);
+      expect(ctx.unauthorized).toHaveBeenCalled();
     });
 
     it('should handle errors', async () => {
-        mockTurnService.processTurn.mockRejectedValue(new Error('Processing Failed'));
-        await roomController.triggerTurn(ctx);
-        expect(ctx.badRequest).toHaveBeenCalledWith('Processing Failed');
+      mockTurnService.processTurn.mockRejectedValue(new Error('Processing Failed'));
+      await roomController.triggerTurn(ctx);
+      expect(ctx.badRequest).toHaveBeenCalledWith('Processing Failed');
     });
   });
 });

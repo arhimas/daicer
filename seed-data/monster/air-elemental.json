@@ -11,14 +11,8 @@
   "stats": "{\"strength\":14,\"dexterity\":20,\"constitution\":14,\"intelligence\":6,\"wisdom\":10,\"charisma\":6}",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "lightning",
-    "thunder",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "damage_immunities": [
-    "poison"
-  ],
+  "damage_resistances": ["lightning", "thunder", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "damage_immunities": ["poison"],
   "condition_immunities": [
     "exhaustion",
     "grappled",

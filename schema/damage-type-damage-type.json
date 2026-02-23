@@ -47,9 +47,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "compilation_state": {
       "type": "component",
@@ -66,12 +64,7 @@
         "attributes": {
           "status": {
             "type": "enumeration",
-            "enum": [
-              "Pending",
-              "Valid",
-              "Invalid",
-              "Warning"
-            ],
+            "enum": ["Pending", "Valid", "Invalid", "Warning"],
             "default": "Pending",
             "required": true
           },

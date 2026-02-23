@@ -29,9 +29,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "druid",
-    "ranger",
-    "land"
-  ]
+  "tags": ["druid", "ranger", "land"]
 }

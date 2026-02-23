@@ -21,11 +21,11 @@ export class JsonSchemaBuilder {
   async build(uid: string): Promise<any> {
     // Handle Custom Schema Identifiers
     if (uid === 'monster-blueprint') {
-        const schema = zodToJsonSchema(MonsterBlueprintSchema as any, { target: 'jsonSchema7' });
-        // zodToJsonSchema returns { $schema: ..., definitions: ..., ... }
-        // We typically just want the schema part or need to handle definitions
-        // Gemini 3 handles definitions well if structured correctly.
-        return schema;
+      const schema = zodToJsonSchema(MonsterBlueprintSchema as any, { target: 'jsonSchema7' });
+      // zodToJsonSchema returns { $schema: ..., definitions: ..., ... }
+      // We typically just want the schema part or need to handle definitions
+      // Gemini 3 handles definitions well if structured correctly.
+      return schema;
     }
 
     const rootSchema = await this.loader.loadSchema(uid);
@@ -33,18 +33,18 @@ export class JsonSchemaBuilder {
 
     // ... existing logic ...
     const properties = await this.processAttributes(rootSchema.attributes, 0);
-    
+
     const required = Object.entries(rootSchema.attributes || {})
-       // @ts-ignore
-       .filter(([_, attr]: [string, any]) => attr.required === true)
-       // @ts-ignore
-       .map(([key, _]) => key);
+      // @ts-ignore
+      .filter(([_, attr]: [string, any]) => attr.required === true)
+      // @ts-ignore
+      .map(([key, _]) => key);
 
     return {
       type: 'object',
       properties,
       required: required.length > 0 ? required : undefined,
-      description: rootSchema.info?.description || rootSchema.info?.displayName
+      description: rootSchema.info?.description || rootSchema.info?.displayName,
     };
   }
 
@@ -54,7 +54,7 @@ export class JsonSchemaBuilder {
     const MAX_DEPTH = 5;
 
     if (depth > MAX_DEPTH) {
-        return {}; // Stop recursion
+      return {}; // Stop recursion
     }
 
     if (!attributes) return {};
@@ -95,21 +95,21 @@ export class JsonSchemaBuilder {
           propSchema = await this.handleDynamicZone(attr, depth);
           break;
         case 'relation':
-           propSchema = { type: 'array', items: { type: 'string', description: 'Target Entity UID' } };
-           break;
+          propSchema = { type: 'array', items: { type: 'string', description: 'Target Entity UID' } };
+          break;
         case 'media':
-           propSchema = { type: 'string', description: 'Media URL' };
-           break;
+          propSchema = { type: 'string', description: 'Media URL' };
+          break;
         case 'customField':
-            // Simple fallback for custom fields
-           propSchema = { type: 'string' };
-           break; 
+          // Simple fallback for custom fields
+          propSchema = { type: 'string' };
+          break;
         default:
           propSchema = { type: 'string' };
       }
 
       if (propSchema) {
-         props[key] = propSchema;
+        props[key] = propSchema;
       }
     }
 
@@ -118,74 +118,73 @@ export class JsonSchemaBuilder {
 
   private async handleComponent(attr: any, depth: number): Promise<JsonSchema> {
     const componentUid = attr.component;
-    
+
     // Inlining
     try {
-        const compSchema = await this.loader.loadSchema(componentUid);
-        if (!compSchema) return { type: 'object' };
+      const compSchema = await this.loader.loadSchema(componentUid);
+      if (!compSchema) return { type: 'object' };
 
-        const compProps = await this.processAttributes(compSchema.attributes, depth + 1);
-        const required = Object.entries(compSchema.attributes || {})
-            // @ts-ignore
-            .filter(([_, a]: [string, any]) => a.required === true)
-            // @ts-ignore
-            .map(([k, _]) => k);
+      const compProps = await this.processAttributes(compSchema.attributes, depth + 1);
+      const required = Object.entries(compSchema.attributes || {})
+        // @ts-ignore
+        .filter(([_, a]: [string, any]) => a.required === true)
+        // @ts-ignore
+        .map(([k, _]) => k);
 
-        const inlineSchema: JsonSchema = {
-            type: 'object',
-            properties: compProps,
-            required: required.length > 0 ? required : undefined,
-            description: compSchema.info?.displayName
-        };
+      const inlineSchema: JsonSchema = {
+        type: 'object',
+        properties: compProps,
+        required: required.length > 0 ? required : undefined,
+        description: compSchema.info?.displayName,
+      };
 
-        if (attr.repeatable) {
-            return { type: 'array', items: inlineSchema };
-        }
-        return inlineSchema;
-
+      if (attr.repeatable) {
+        return { type: 'array', items: inlineSchema };
+      }
+      return inlineSchema;
     } catch (e) {
-        console.warn(`Failed to load component schema ${componentUid}:`, e);
-        return { type: 'object' };
+      console.warn(`Failed to load component schema ${componentUid}:`, e);
+      return { type: 'object' };
     }
   }
 
   private async handleDynamicZone(attr: any, depth: number): Promise<JsonSchema> {
-     const componentUids = attr.components || [];
-     const options: any[] = [];
+    const componentUids = attr.components || [];
+    const options: any[] = [];
 
-     for (const uid of componentUids) {
-         try {
-            const compSchema = await this.loader.loadSchema(uid);
-            if (!compSchema) continue;
+    for (const uid of componentUids) {
+      try {
+        const compSchema = await this.loader.loadSchema(uid);
+        if (!compSchema) continue;
 
-            const compProps = await this.processAttributes(compSchema.attributes, depth + 1);
-            
-            // Add __component
-            compProps['__component'] = { type: 'string', enum: [uid] };
-            
-            const required = Object.entries(compSchema.attributes || {})
-                // @ts-ignore
-                .filter(([_, a]: [string, any]) => a.required === true)
-                // @ts-ignore
-                .map(([k, _]) => k);
-            required.push('__component');
+        const compProps = await this.processAttributes(compSchema.attributes, depth + 1);
 
-            options.push({
-                type: 'object',
-                properties: compProps,
-                required,
-                description: compSchema.info?.displayName
-            });
-         } catch (e) {
-             console.warn(`Failed to load DZ component ${uid}`, e);
-         }
-     }
+        // Add __component
+        compProps['__component'] = { type: 'string', enum: [uid] };
 
-     return {
-         type: 'array',
-         items: {
-             anyOf: options
-         }
-     };
+        const required = Object.entries(compSchema.attributes || {})
+          // @ts-ignore
+          .filter(([_, a]: [string, any]) => a.required === true)
+          // @ts-ignore
+          .map(([k, _]) => k);
+        required.push('__component');
+
+        options.push({
+          type: 'object',
+          properties: compProps,
+          required,
+          description: compSchema.info?.displayName,
+        });
+      } catch (e) {
+        console.warn(`Failed to load DZ component ${uid}`, e);
+      }
+    }
+
+    return {
+      type: 'array',
+      items: {
+        anyOf: options,
+      },
+    };
   }
 }

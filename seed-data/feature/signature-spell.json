@@ -12,9 +12,5 @@
   "image": "",
   "level": 20,
   "lore": "The culmination of a wizard's lifelong study, allowing them to weave complex magic as easily as a commoner draws breath.",
-  "tags": [
-    "wizard",
-    "class-feature",
-    "high-level"
-  ]
+  "tags": ["wizard", "class-feature", "high-level"]
 }

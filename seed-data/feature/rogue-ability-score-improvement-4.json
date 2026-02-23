@@ -12,8 +12,5 @@
   "image": "",
   "level": 12,
   "lore": "As you gain experience, your natural talents and physical capabilities reach new heights of perfection.",
-  "tags": [
-    "rogue",
-    "class-feature"
-  ]
+  "tags": ["rogue", "class-feature"]
 }

@@ -6,13 +6,13 @@ const mockIsWalkable = vi.fn();
 const mockGetChunk = vi.fn();
 
 vi.mock('@/api/voxel-engine/services/world-generator-logic', () => ({
-  WorldGenerator: vi.fn(function() {
+  WorldGenerator: vi.fn(function () {
     return { getChunk: mockGetChunk };
   }),
 }));
 
 vi.mock('@/api/voxel-engine/services/utils/physics', () => ({
-  PhysicsEngine: vi.fn(function() {
+  PhysicsEngine: vi.fn(function () {
     return { isWalkable: mockIsWalkable };
   }),
 }));
@@ -48,17 +48,18 @@ describe('Game Event Service', () => {
     it('should create event with incremented turn number', async () => {
       const mockRoom = { documentId: 'doc-123' };
       const mockLastEvent = { turn_number: 5 };
-      
+
       const findManyRoomMock = vi.fn().mockResolvedValue([mockRoom]);
       const findManyEventMock = vi.fn().mockResolvedValue([mockLastEvent]);
       const createEventMock = vi.fn().mockResolvedValue({ id: 99 });
 
       strapi.documents.mockImplementation((uid: string) => {
         if (uid === 'api::room.room') return { findMany: findManyRoomMock };
-        if (uid === 'api::game-event.game-event') return { 
+        if (uid === 'api::game-event.game-event')
+          return {
             findMany: findManyEventMock,
-            create: createEventMock 
-        };
+            create: createEventMock,
+          };
         return {};
       });
 
@@ -71,17 +72,18 @@ describe('Game Event Service', () => {
 
     it('should start at turn 1 if no events', async () => {
       const mockRoom = { documentId: 'doc-123' };
-      
+
       const findManyRoomMock = vi.fn().mockResolvedValue([mockRoom]);
       const findManyEventMock = vi.fn().mockResolvedValue([]);
       const createEventMock = vi.fn().mockResolvedValue({ id: 99 });
 
       strapi.documents.mockImplementation((uid: string) => {
         if (uid === 'api::room.room') return { findMany: findManyRoomMock };
-        if (uid === 'api::game-event.game-event') return { 
+        if (uid === 'api::game-event.game-event')
+          return {
             findMany: findManyEventMock,
-            create: createEventMock 
-        };
+            create: createEventMock,
+          };
         return {};
       });
 
@@ -94,130 +96,126 @@ describe('Game Event Service', () => {
 
   describe('validateMove', () => {
     it('should return valid:false for invalid schema', async () => {
-        const result = await service.validateMove('doc-1', { x: 'bad' } as any, { x: 1, y: 1, z: 0 });
-        expect(result.valid).toBe(false);
-        expect(result.reason).toBe('Invalid coordinates');
+      const result = await service.validateMove('doc-1', { x: 'bad' } as any, { x: 1, y: 1, z: 0 });
+      expect(result.valid).toBe(false);
+      expect(result.reason).toBe('Invalid coordinates');
     });
 
     it('should return valid:false if blocked by entity', async () => {
-        const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
-        const mockEvents = [
-            { type: 'SPAWN_ENTITY', payload: { entityId: 'mob-1', position: { x: 10, y: 10, z: 0 } } }
-        ];
+      const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
+      const mockEvents = [{ type: 'SPAWN_ENTITY', payload: { entityId: 'mob-1', position: { x: 10, y: 10, z: 0 } } }];
 
-        const findOneRoomMock = vi.fn().mockResolvedValue(mockRoomWithWorld);
-        const findManyEventMock = vi.fn().mockResolvedValue(mockEvents);
+      const findOneRoomMock = vi.fn().mockResolvedValue(mockRoomWithWorld);
+      const findManyEventMock = vi.fn().mockResolvedValue(mockEvents);
 
-        strapi.documents.mockImplementation((uid: string) => {
-            if (uid === 'api::room.room') return { findOne: findOneRoomMock };
-            if (uid === 'api::game-event.game-event') return { findMany: findManyEventMock };
-            return {};
-        });
-        
-        mockIsWalkable.mockResolvedValue(true);
+      strapi.documents.mockImplementation((uid: string) => {
+        if (uid === 'api::room.room') return { findOne: findOneRoomMock };
+        if (uid === 'api::game-event.game-event') return { findMany: findManyEventMock };
+        return {};
+      });
 
-        const result = await service.validateMove('doc-1', { x: 0, y: 0, z: 0 }, { x: 10, y: 10, z: 0 });
-        
-        expect(result.valid).toBe(false);
-        expect(result.reason).toBe('Destination occupied');
+      mockIsWalkable.mockResolvedValue(true);
+
+      const result = await service.validateMove('doc-1', { x: 0, y: 0, z: 0 }, { x: 10, y: 10, z: 0 });
+
+      expect(result.valid).toBe(false);
+      expect(result.reason).toBe('Destination occupied');
     });
 
     it('should return valid:true if physics says yes and no collision', async () => {
-        const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
-        strapi.documents.mockImplementation((uid: string) => {
-             if (uid === 'api::room.room') return { findOne: vi.fn().mockResolvedValue(mockRoomWithWorld) };
-             if (uid === 'api::game-event.game-event') return { findMany: vi.fn().mockResolvedValue([]) };
-             return {};
-        });
-        
-        mockIsWalkable.mockResolvedValue(true);
+      const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
+      strapi.documents.mockImplementation((uid: string) => {
+        if (uid === 'api::room.room') return { findOne: vi.fn().mockResolvedValue(mockRoomWithWorld) };
+        if (uid === 'api::game-event.game-event') return { findMany: vi.fn().mockResolvedValue([]) };
+        return {};
+      });
 
-        const result = await service.validateMove('doc-1', { x: 0, y: 0, z: 0 }, { x: 5, y: 5, z: 0 });
-        
-        expect(result.valid).toBe(true);
+      mockIsWalkable.mockResolvedValue(true);
+
+      const result = await service.validateMove('doc-1', { x: 0, y: 0, z: 0 }, { x: 5, y: 5, z: 0 });
+
+      expect(result.valid).toBe(true);
     });
-    
-     it('should return valid:false if physics says no', async () => {
-        const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
-        strapi.documents.mockImplementation((uid: string) => {
-             if (uid === 'api::room.room') return { findOne: vi.fn().mockResolvedValue(mockRoomWithWorld) };
-             if (uid === 'api::game-event.game-event') return { findMany: vi.fn().mockResolvedValue([]) };
-             return {};
-        });
-        
-        mockIsWalkable.mockResolvedValue(false);
 
-        const result = await service.validateMove('doc-1', { x: 0, y: 0, z: 0 }, { x: 5, y: 5, z: 0 });
-        
-        expect(result.valid).toBe(false);
-        expect(result.reason).toBe('Blocked by terrain');
+    it('should return valid:false if physics says no', async () => {
+      const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
+      strapi.documents.mockImplementation((uid: string) => {
+        if (uid === 'api::room.room') return { findOne: vi.fn().mockResolvedValue(mockRoomWithWorld) };
+        if (uid === 'api::game-event.game-event') return { findMany: vi.fn().mockResolvedValue([]) };
+        return {};
+      });
+
+      mockIsWalkable.mockResolvedValue(false);
+
+      const result = await service.validateMove('doc-1', { x: 0, y: 0, z: 0 }, { x: 5, y: 5, z: 0 });
+
+      expect(result.valid).toBe(false);
+      expect(result.reason).toBe('Blocked by terrain');
     });
   });
 
   describe('getGameState', () => {
     it('should reconstruct state from events', async () => {
-       const mockEvents = [
-            { type: 'SPAWN_ENTITY', payload: { entityId: 'mob-1', position: { x: 10, y: 10, z: 0 } } },
-            { type: 'MOVE', payload: { entityId: 'mob-1', from: {x:10,y:10,z:0}, to: { x: 11, y: 10, z: 0 } } },
-            { type: 'UNKNOWN', payload: {} },
-            { type: 'MOVE', payload: { bad: 'data' } },
-        ];
+      const mockEvents = [
+        { type: 'SPAWN_ENTITY', payload: { entityId: 'mob-1', position: { x: 10, y: 10, z: 0 } } },
+        { type: 'MOVE', payload: { entityId: 'mob-1', from: { x: 10, y: 10, z: 0 }, to: { x: 11, y: 10, z: 0 } } },
+        { type: 'UNKNOWN', payload: {} },
+        { type: 'MOVE', payload: { bad: 'data' } },
+      ];
 
-        const mockRoom = {
-            documentId: 'doc-1',
-            entity_sheets: [
-                { documentId: 'hero-1', position: { x: 0, y: 0, z: 0 } }
-            ]
-        };
+      const mockRoom = {
+        documentId: 'doc-1',
+        entity_sheets: [{ documentId: 'hero-1', position: { x: 0, y: 0, z: 0 } }],
+      };
 
-        strapi.documents.mockImplementation((uid: string) => {
-            if (uid === 'api::room.room') return { findOne: vi.fn().mockResolvedValue(mockRoom) };
-            if (uid === 'api::game-event.game-event') return { findMany: vi.fn().mockResolvedValue(mockEvents) };
-            return {};
-        });
+      strapi.documents.mockImplementation((uid: string) => {
+        if (uid === 'api::room.room') return { findOne: vi.fn().mockResolvedValue(mockRoom) };
+        if (uid === 'api::game-event.game-event') return { findMany: vi.fn().mockResolvedValue(mockEvents) };
+        return {};
+      });
 
-        const state = await service.getGameState('doc-1');
+      const state = await service.getGameState('doc-1');
 
-        expect(state.entities['hero-1']).toEqual({ x: 0, y: 0, z: 0 });
-        expect(state.entities['mob-1']).toEqual({ x: 11, y: 10, z: 0 });
+      expect(state.entities['hero-1']).toEqual({ x: 0, y: 0, z: 0 });
+      expect(state.entities['mob-1']).toEqual({ x: 11, y: 10, z: 0 });
     });
   });
 
   describe('inspectTerrain', () => {
-      it('should return terrain info', async () => {
-        const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
-        
-        strapi.documents.mockReturnValue({
-             findOne: vi.fn().mockResolvedValue(mockRoomWithWorld),
-        });
+    it('should return terrain info', async () => {
+      const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
 
-        mockGetChunk.mockResolvedValue({
-            tiles: {
-                0: { 
-                    5: { 
-                        5: { 
-                            biome: 'forest',
-                            block: 'grass'
-                        }
-                    }
-                }
-            }
-        });
-
-        const info = await service.inspectTerrain('doc-1', 5, 5, 1);
-        expect(info).toBe('Terrain: forest (grass)');
+      strapi.documents.mockReturnValue({
+        findOne: vi.fn().mockResolvedValue(mockRoomWithWorld),
       });
 
-      it('should return void if no tile', async () => {
-         const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
-         strapi.documents.mockReturnValue({
-             findOne: vi.fn().mockResolvedValue(mockRoomWithWorld),
-        });
-
-        mockGetChunk.mockResolvedValue(null);
-
-        const info = await service.inspectTerrain('doc-1', 99, 99, 1);
-        expect(info).toBe('Void at 99,99');
+      mockGetChunk.mockResolvedValue({
+        tiles: {
+          0: {
+            5: {
+              5: {
+                biome: 'forest',
+                block: 'grass',
+              },
+            },
+          },
+        },
       });
+
+      const info = await service.inspectTerrain('doc-1', 5, 5, 1);
+      expect(info).toBe('Terrain: forest (grass)');
+    });
+
+    it('should return void if no tile', async () => {
+      const mockRoomWithWorld = { documentId: 'doc-1', world: { seed: 'abc' } };
+      strapi.documents.mockReturnValue({
+        findOne: vi.fn().mockResolvedValue(mockRoomWithWorld),
+      });
+
+      mockGetChunk.mockResolvedValue(null);
+
+      const info = await service.inspectTerrain('doc-1', 99, 99, 1);
+      expect(info).toBe('Void at 99,99');
+    });
   });
 });

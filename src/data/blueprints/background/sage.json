@@ -11,49 +11,37 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "item-ink-bottle-black"
-      ],
+      "item": ["item-ink-bottle-black"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item-quill"
-      ],
+      "item": ["item-quill"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item-small-knife"
-      ],
+      "item": ["item-small-knife"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item-letter-from-dead-colleague"
-      ],
+      "item": ["item-letter-from-dead-colleague"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "item-clothes-common"
-      ],
+      "item": ["item-clothes-common"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "item-pouch"
-      ],
+      "item": ["item-pouch"],
       "quantity": 1,
       "slot": "backpack"
     }
@@ -67,16 +55,12 @@
     {
       "type": "Skill",
       "name": "Arcana",
-      "proficiency": [
-        "skill-arcana"
-      ]
+      "proficiency": ["skill-arcana"]
     },
     {
       "type": "Skill",
       "name": "History",
-      "proficiency": [
-        "skill-history"
-      ]
+      "proficiency": ["skill-history"]
     },
     {
       "type": "Language",

@@ -24,12 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "con",
-      "wis",
-      "cha"
-    ],
+    "saves": ["dex", "con", "wis", "cha"],
     "skills": [],
     "passivePerception": 14,
     "darkvision": 60,
@@ -37,8 +32,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "red-dragon-wyrmling-bite",
-    "red-dragon-wyrmling-fire-breath"
-  ]
+  "actions": ["red-dragon-wyrmling-bite", "red-dragon-wyrmling-fire-breath"]
 }

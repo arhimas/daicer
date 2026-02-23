@@ -9,14 +9,7 @@
   "hit_points": 97,
   "hit_dice": "13d8+39",
   "speed": "20 ft.",
-  "stats": [
-    18,
-    10,
-    17,
-    11,
-    18,
-    16
-  ],
+  "stats": [18, 10, 17, 11, 18, 16],
   "proficiencies": [
     "Saving Throw: CON +8",
     "Saving Throw: INT +5",
@@ -25,29 +18,12 @@
     "Skill: History +5",
     "Skill: Religion +5"
   ],
-  "damage_vulnerabilities": [
-    "fire"
-  ],
+  "damage_vulnerabilities": ["fire"],
   "damage_resistances": [],
-  "damage_immunities": [
-    "necrotic",
-    "poison",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "condition_immunities": [
-    "charmed",
-    "exhaustion",
-    "frightened",
-    "paralyzed",
-    "poisoned"
-  ],
-  "senses": [
-    "darkvision 60 ft.",
-    "passive perception 14"
-  ],
-  "languages": [
-    "the languages it knew in life"
-  ],
+  "damage_immunities": ["necrotic", "poison", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "poisoned"],
+  "senses": ["darkvision 60 ft.", "passive perception 14"],
+  "languages": ["the languages it knew in life"],
   "challenge_rating": "15",
   "special_abilities": [
     "Magic Resistance: The mummy lord has advantage on saving throws against spells and other magical effects.",

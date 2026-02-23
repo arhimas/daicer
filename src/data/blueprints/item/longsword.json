@@ -12,8 +12,6 @@
     "versatile_dice": "1d10",
     "damage_type": "slashing",
     "range_normal": 5,
-    "properties": [
-      "versatile"
-    ]
+    "properties": ["versatile"]
   }
 }

@@ -12,13 +12,8 @@
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 60 ft., passive perception 10",
   "languages": "Aquan, Ignan",
   "challenge_rating": 0.25,

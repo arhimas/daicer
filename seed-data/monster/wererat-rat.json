@@ -14,14 +14,9 @@
   "proficiencies": "[{\"name\":\"Perception\",\"value\":2},{\"name\":\"Stealth\",\"value\":4}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
+  "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
   "condition_immunities": [],
-  "senses": [
-    "darkvision 60 ft.",
-    "passive perception 12"
-  ],
+  "senses": ["darkvision 60 ft.", "passive perception 12"],
   "languages": [],
   "challenge_rating": 2,
   "xp": 450,

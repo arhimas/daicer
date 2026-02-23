@@ -10,9 +10,5 @@
   "image": "",
   "level": 17,
   "lore": "The ultimate expression of martial discipline allows a fighter to act with a speed that defies the natural flow of combat.",
-  "tags": [
-    "fighter",
-    "class-feature",
-    "combat"
-  ]
+  "tags": ["fighter", "class-feature", "combat"]
 }

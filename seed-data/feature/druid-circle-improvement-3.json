@@ -12,8 +12,5 @@
   "image": "",
   "level": 14,
   "lore": "The ancient circles of druids gather in secret groves to share wisdom, each circle preserving distinct traditions and powers that define a druid's path.",
-  "tags": [
-    "druid",
-    "class-feature"
-  ]
+  "tags": ["druid", "class-feature"]
 }

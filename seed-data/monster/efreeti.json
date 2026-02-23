@@ -12,14 +12,10 @@
   "proficiencies": "[{\"name\":\"Saving Throw: INT\",\"value\":7},{\"name\":\"Saving Throw: WIS\",\"value\":6},{\"name\":\"Saving Throw: CHA\",\"value\":7}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
   "senses": "{\"darkvision\":\"120 ft.\",\"passive_perception\":12}",
-  "languages": [
-    "Ignan"
-  ],
+  "languages": ["Ignan"],
   "challenge_rating": 11,
   "special_abilities": "[{\"name\":\"Elemental Demise\",\"desc\":\"If the efreeti dies, its body disintegrates in a flash of fire and puff of smoke, leaving behind only equipment the djinni was wearing or carrying.\"},{\"name\":\"Innate Spellcasting\",\"desc\":\"The efreeti's innate spell casting ability is Charisma (spell save DC 15, +7 to hit with spell attacks). It can innately cast the following spells, requiring no material components: At will: detect magic; 3/day: enlarge/reduce, tongues; 1/day each: conjure elemental (fire elemental only), gaseous form, invisibility, major image, plane shift, wall of fire\"}]",
   "actions": "[{\"name\":\"Multiattack\",\"desc\":\"The efreeti makes two scimitar attacks or uses its Hurl Flame twice.\"},{\"name\":\"Scimitar\",\"desc\":\"Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage plus 7 (2d6) fire damage.\"},{\"name\":\"Hurl Flame\",\"desc\":\"Ranged Spell Attack: +7 to hit, range 120 ft., one target. Hit: 17 (5d6) fire damage.\"}]"

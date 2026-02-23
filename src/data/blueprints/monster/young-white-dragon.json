@@ -17,17 +17,12 @@
     "{\"name\":\"Skill: Perception\",\"value\":6}",
     "{\"name\":\"Skill: Stealth\",\"value\":3}"
   ],
-  "damage_immunities": [
-    "cold"
-  ],
+  "damage_immunities": ["cold"],
   "damage_resistances": [],
   "damage_vulnerabilities": [],
   "condition_immunities": [],
   "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 16",
-  "languages": [
-    "Common",
-    "Draconic"
-  ],
+  "languages": ["Common", "Draconic"],
   "challenge_rating": 6,
   "special_abilities": [
     "{\"name\":\"Ice Walk\",\"desc\":\"The dragon can move across and climb icy surfaces without needing to make an ability check. Additionally, difficult terrain composed of ice or snow doesn't cost it extra moment.\"}"

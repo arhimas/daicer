@@ -7,8 +7,5 @@
   },
   "description": "Prerequisite: eldritch blast cantrip. When you cast eldritch blast, its range is 300 feet.",
   "level": 2,
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

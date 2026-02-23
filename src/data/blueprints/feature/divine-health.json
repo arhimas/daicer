@@ -7,7 +7,5 @@
   },
   "description": "By 3rd level, the divine magic flowing through you makes you immune to disease.",
   "level": 3,
-  "tags": [
-    "paladin"
-  ]
+  "tags": ["paladin"]
 }

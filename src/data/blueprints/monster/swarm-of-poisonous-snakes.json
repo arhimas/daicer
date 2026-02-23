@@ -8,21 +8,10 @@
   "hit_points": 36,
   "hit_dice": "8d8",
   "speed": "walk 30 ft., swim 30 ft.",
-  "stats": [
-    8,
-    18,
-    11,
-    1,
-    10,
-    3
-  ],
+  "stats": [8, 18, 11, 1, 10, 3],
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning",
-    "piercing",
-    "slashing"
-  ],
+  "damage_resistances": ["bludgeoning", "piercing", "slashing"],
   "damage_immunities": [],
   "condition_immunities": [
     "charmed",

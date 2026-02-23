@@ -12,9 +12,5 @@
   "image": "",
   "level": 3,
   "lore": "The Hunter subclass of the Ranger focuses on specializing against specific types of threats, whether they be singular behemoths or swarming masses.",
-  "tags": [
-    "ranger",
-    "hunter",
-    "class-feature"
-  ]
+  "tags": ["ranger", "hunter", "class-feature"]
 }

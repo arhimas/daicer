@@ -10,8 +10,5 @@
   "description": "You can cast false life on yourself at will as a 1st-level spell, without expending a spell slot or material components.",
   "level": 2,
   "lore": "By weaving the dark energies of your patron into your own flesh, you can manifest a spectral layer of protection that wards off death's cold touch.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

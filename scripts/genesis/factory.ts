@@ -7,17 +7,17 @@ import { JsonSchemaBuilder } from '../../src/features/genesis-core/json-schema-b
 
 // Factory to create the engine stack
 export function createGenesisEngine() {
-    // Configure paths relative to CWD (project root usually)
-    const loader = new SchemaLoader('./schema');
-    const jsonBuilder = new JsonSchemaBuilder(loader);
-    const prompts = new PromptBuilder(jsonBuilder);
-    const bridge = new LLMBridge();
-    const dryRun = new DryRunService(loader);
+  // Configure paths relative to CWD (project root usually)
+  const loader = new SchemaLoader('./schema');
+  const jsonBuilder = new JsonSchemaBuilder(loader);
+  const prompts = new PromptBuilder(jsonBuilder);
+  const bridge = new LLMBridge();
+  const dryRun = new DryRunService(loader);
 
-    return {
-        loader,
-        prompts,
-        bridge,
-        dryRun
-    };
+  return {
+    loader,
+    prompts,
+    bridge,
+    dryRun,
+  };
 }

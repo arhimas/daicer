@@ -14,13 +14,14 @@ const filesToDisable = [
   'src/features/genesis-core/data/schemas/monster-blueprint-schema.ts',
   'src/features/genesis-core/data/schemas/monster-schema.ts',
   'src/features/genesis-core/mappers/action-mapper.ts',
-  'src/plugins/map-explorer/server/src/services/__tests__/gemini-service.test.ts'
+  'src/plugins/map-explorer/server/src/services/__tests__/gemini-service.test.ts',
 ];
 
-filesToDisable.forEach(file => {
+filesToDisable.forEach((file) => {
   if (fs.existsSync(file)) {
     let content = fs.readFileSync(file, 'utf8');
-    const header = "/* eslint-disable @typescript-eslint/no-explicit-any */\n/* eslint-disable @typescript-eslint/ban-ts-comment */\n/* eslint-disable @typescript-eslint/no-unused-vars */\n";
+    const header =
+      '/* eslint-disable @typescript-eslint/no-explicit-any */\n/* eslint-disable @typescript-eslint/ban-ts-comment */\n/* eslint-disable @typescript-eslint/no-unused-vars */\n';
     if (!content.startsWith('/* eslint-disable')) {
       fs.writeFileSync(file, header + content);
     }

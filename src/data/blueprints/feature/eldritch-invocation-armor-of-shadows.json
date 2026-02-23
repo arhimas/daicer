@@ -6,8 +6,5 @@
   },
   "description": "You can cast mage armor on yourself at will, without expending a spell slot or material components.",
   "level": 2,
-  "tags": [
-    "warlock",
-    "eldritch-invocations"
-  ]
+  "tags": ["warlock", "eldritch-invocations"]
 }

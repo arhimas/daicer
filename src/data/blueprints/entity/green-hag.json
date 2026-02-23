@@ -25,12 +25,7 @@
     "burrowSpeed": 0,
     "hover": false,
     "saves": [],
-    "skills": [
-      "arcana",
-      "deception",
-      "perception",
-      "stealth"
-    ],
+    "skills": ["arcana", "deception", "perception", "stealth"],
     "passivePerception": 14,
     "darkvision": 60,
     "blindsight": 0,

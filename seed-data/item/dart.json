@@ -11,10 +11,7 @@
     "damage_dice": "1d4",
     "damage_type": "piercing",
     "range_normal": 20,
-    "properties": [
-      "finesse",
-      "thrown"
-    ],
+    "properties": ["finesse", "thrown"],
     "str_minimum": 0
   }
 }

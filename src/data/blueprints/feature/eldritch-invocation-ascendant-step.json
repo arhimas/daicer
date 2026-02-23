@@ -9,8 +9,5 @@
   },
   "description": "You can cast levitate on yourself at will, without expending a spell slot or material components.",
   "level": 9,
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

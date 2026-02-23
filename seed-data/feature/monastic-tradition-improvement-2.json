@@ -6,7 +6,5 @@
   },
   "description": "At 11th level, you gain a feature granted by your Monastic Tradition.",
   "level": 11,
-  "tags": [
-    "monk"
-  ]
+  "tags": ["monk"]
 }

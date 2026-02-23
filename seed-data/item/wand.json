@@ -10,8 +10,5 @@
   "equipment_data": {
     "properties": []
   },
-  "tags": [
-    "arcane-foci",
-    "adventuring-gear"
-  ]
+  "tags": ["arcane-foci", "adventuring-gear"]
 }

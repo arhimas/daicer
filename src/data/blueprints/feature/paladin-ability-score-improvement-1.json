@@ -12,7 +12,5 @@
   "image": "",
   "level": 4,
   "lore": "The path of the paladin requires constant refinement of mind, body, and spirit.",
-  "tags": [
-    "paladin"
-  ]
+  "tags": ["paladin"]
 }

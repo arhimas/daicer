@@ -7,13 +7,6 @@
   },
   "description": "You have proficiency with the longsword, shortsword, shortbow, and longbow.",
   "embedding": {},
-  "proficiencies": [
-    "longswords",
-    "shortswords",
-    "shortbows",
-    "longbows"
-  ],
-  "races": [
-    "high-elf"
-  ]
+  "proficiencies": ["longswords", "shortswords", "shortbows", "longbows"],
+  "races": ["high-elf"]
 }

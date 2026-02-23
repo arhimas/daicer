@@ -47,24 +47,9 @@
     "hit_points": 195,
     "hit_dice": "17d12+85",
     "speed": "40 ft., fly 80 ft., swim 40 ft.",
-    "stats": [
-      23,
-      14,
-      21,
-      14,
-      13,
-      17
-    ],
-    "saving_throws": [
-      "dexterity: 7",
-      "constitution: 10",
-      "wisdom: 6",
-      "charisma: 8"
-    ],
-    "skills": [
-      "perception: 11",
-      "stealth: 7"
-    ],
+    "stats": [23, 14, 21, 14, 13, 17],
+    "saving_throws": ["dexterity: 7", "constitution: 10", "wisdom: 6", "charisma: 8"],
+    "skills": ["perception: 11", "stealth: 7"],
     "damage_immunities": "acid",
     "condition_immunities": "",
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 21",
@@ -102,9 +87,7 @@
     "proficiencies": "[{\"name\": \"Saving Throw: DEX\", \"value\": 5}, {\"name\": \"Saving Throw: CON\", \"value\": 11}, {\"name\": \"Saving Throw: WIS\", \"value\": 7}, {\"name\": \"Saving Throw: CHA\", \"value\": 9}, {\"name\": \"Skill: Perception\", \"value\": 12}, {\"name\": \"Skill: Stealth\", \"value\": 5}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
     "languages": "Common, Draconic",
@@ -149,9 +132,7 @@
     "speed": "40 ft., fly 80 ft., swim 40 ft.",
     "stats": "{\"strength\": 25, \"dexterity\": 10, \"constitution\": 23, \"intelligence\": 16, \"wisdom\": 15, \"charisma\": 19}",
     "proficiencies": "[{\"name\": \"Saving Throw: DEX\", \"value\": 5}, {\"name\": \"Saving Throw: CON\", \"value\": 11}, {\"name\": \"Saving Throw: WIS\", \"value\": 7}, {\"name\": \"Saving Throw: CHA\", \"value\": 9}, {\"name\": \"Skill: Insight\", \"value\": 7}, {\"name\": \"Skill: Perception\", \"value\": 12}, {\"name\": \"Skill: Stealth\", \"value\": 5}]",
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
     "languages": "Common, Draconic",
     "challenge_rating": 15,
@@ -175,9 +156,7 @@
     "skills": "{\"deception\": 8, \"perception\": 12, \"stealth\": 6}",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid"
-    ],
+    "damage_immunities": ["acid"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
     "languages": "Common, Draconic",
@@ -209,14 +188,7 @@
     "hit_points": 256,
     "hit_dice": "19d12+133",
     "speed": "40 ft., fly 80 ft., swim 40 ft.",
-    "stats": [
-      27,
-      14,
-      25,
-      16,
-      15,
-      24
-    ],
+    "stats": [27, 14, 25, 16, 15, 24],
     "proficiencies": [
       "Saving Throw: DEX +8",
       "Saving Throw: CON +13",
@@ -229,9 +201,7 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 24",
     "languages": "Common, Draconic",
@@ -271,34 +241,13 @@
     "intelligence": 18,
     "wisdom": 15,
     "charisma": 17,
-    "proficiencies": [
-      "name",
-      "name",
-      "name",
-      "name",
-      "name",
-      "name",
-      "name",
-      "name",
-      "name",
-      "Saving Throw: DEX",
-      6
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "proficiencies": ["name", "name", "name", "name", "name", "name", "name", "name", "name", "Saving Throw: DEX", 6],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
     "languages": "Common, Draconic",
     "challenge_rating": 15,
-    "special_abilities": [
-      "name",
-      "name",
-      "Amphibious",
-      "The dragon can breathe air and water."
-    ],
+    "special_abilities": ["name", "name", "Amphibious", "The dragon can breathe air and water."],
     "actions": [
       "name",
       "name",
@@ -309,13 +258,7 @@
       "Multiattack",
       "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
     ],
-    "legendary_actions": [
-      "name",
-      "name",
-      "name",
-      "Detect",
-      "The dragon makes a Wisdom (Perception) check."
-    ]
+    "legendary_actions": ["name", "name", "name", "Detect", "The dragon makes a Wisdom (Perception) check."]
   },
   {
     "slug": "adult-red-dragon",
@@ -391,14 +334,8 @@
     "stats": "{\"strength\": 14, \"dexterity\": 20, \"constitution\": 14, \"intelligence\": 6, \"wisdom\": 10, \"charisma\": 6}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "lightning",
-      "thunder",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
+    "damage_resistances": ["lightning", "thunder", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["poison"],
     "condition_immunities": [
       "exhaustion",
       "grappled",
@@ -465,9 +402,7 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 27",
     "languages": "Common, Draconic",
@@ -498,14 +433,7 @@
     "armor_class": 20,
     "hit_points": 297,
     "hit_dice": "17d20+119",
-    "stats": [
-      27,
-      10,
-      25,
-      16,
-      15,
-      19
-    ],
+    "stats": [27, 10, 25, 16, 15, 19],
     "speed": "walk 40 ft., fly 80 ft., burrow 40 ft.",
     "proficiencies": [
       "Saving Throw: DEX +6",
@@ -519,9 +447,7 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 24",
     "languages": "Common, Draconic",
@@ -554,19 +480,8 @@
     "hit_points": 444,
     "hit_dice": "24d20",
     "hit_points_roll": "24d20+192",
-    "speed": [
-      "walk 40 ft.",
-      "fly 80 ft.",
-      "swim 40 ft."
-    ],
-    "stats": [
-      29,
-      10,
-      27,
-      18,
-      17,
-      21
-    ],
+    "speed": ["walk 40 ft.", "fly 80 ft.", "swim 40 ft."],
+    "stats": [29, 10, 27, 18, 17, 21],
     "proficiencies": [
       "Saving Throw: DEX +7",
       "Saving Throw: CON +15",
@@ -578,15 +493,9 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "condition_immunities": [],
-    "senses": [
-      "blindsight 60 ft.",
-      "darkvision 120 ft.",
-      "passive perception 27"
-    ],
+    "senses": ["blindsight 60 ft.", "darkvision 120 ft.", "passive perception 27"],
     "languages": "Common, Draconic",
     "challenge_rating": 22,
     "special_abilities": [
@@ -623,9 +532,7 @@
     "proficiencies": "[{\"name\": \"Saving Throw: DEX\", \"value\": 8}, {\"name\": \"Saving Throw: CON\", \"value\": 14}, {\"name\": \"Saving Throw: WIS\", \"value\": 10}, {\"name\": \"Saving Throw: CHA\", \"value\": 11}, {\"name\": \"Skill: Deception\", \"value\": 11}, {\"name\": \"Skill: Perception\", \"value\": 17}, {\"name\": \"Skill: Stealth\", \"value\": 8}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid"
-    ],
+    "damage_immunities": ["acid"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 27",
     "languages": "Common, Draconic",
@@ -646,9 +553,7 @@
     "speed": "40 ft., fly 80 ft., swim 40 ft.",
     "stats": "{\"strength\":30,\"dexterity\":14,\"constitution\":29,\"intelligence\":18,\"wisdom\":17,\"charisma\":28}",
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":9},{\"name\":\"Saving Throw: CON\",\"value\":16},{\"name\":\"Saving Throw: WIS\",\"value\":10},{\"name\":\"Saving Throw: CHA\",\"value\":16},{\"name\":\"Skill: Insight\",\"value\":10},{\"name\":\"Skill: Perception\",\"value\":17},{\"name\":\"Skill: Persuasion\",\"value\":16},{\"name\":\"Skill: Stealth\",\"value\":9}]",
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "damage_resistances": [],
     "damage_vulnerabilities": [],
     "condition_immunities": [],
@@ -693,9 +598,7 @@
     "stats": 1,
     "speed": 2,
     "proficiencies": 3,
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "senses": 4,
     "languages": "Common, Draconic",
     "challenge_rating": 24,
@@ -718,9 +621,7 @@
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":7},{\"name\":\"Saving Throw: CON\",\"value\":16},{\"name\":\"Saving Throw: WIS\",\"value\":9},{\"name\":\"Saving Throw: CHA\",\"value\":13},{\"name\":\"Skill: Arcana\",\"value\":11},{\"name\":\"Skill: History\",\"value\":11},{\"name\":\"Skill: Perception\",\"value\":16},{\"name\":\"Skill: Stealth\",\"value\":7}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "cold"
-    ],
+    "damage_immunities": ["cold"],
     "condition_immunities": [],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 26",
     "languages": "Common, Draconic",
@@ -741,9 +642,7 @@
     "speed": "40 ft., fly 80 ft., swim 40 ft., burrow 40 ft.",
     "stats": "{\"strength\":26,\"dexterity\":10,\"constitution\":26,\"intelligence\":10,\"wisdom\":13,\"charisma\":14}",
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":6},{\"name\":\"Saving Throw: CON\",\"value\":14},{\"name\":\"Saving Throw: WIS\",\"value\":7},{\"name\":\"Saving Throw: CHA\",\"value\":8},{\"name\":\"Skill: Perception\",\"value\":13},{\"name\":\"Skill: Stealth\",\"value\":6}]",
-    "damage_immunities": [
-      "cold"
-    ],
+    "damage_immunities": ["cold"],
     "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 23",
     "languages": "Common, Draconic",
     "challenge_rating": 20,
@@ -863,14 +762,7 @@
     "hit_points": 78,
     "hit_dice": "12d8",
     "speed": "30 ft.",
-    "stats": [
-      11,
-      16,
-      14,
-      13,
-      11,
-      10
-    ],
+    "stats": [11, 16, 14, 13, 11, 10],
     "proficiencies": [
       "Saving Throw: DEX +6",
       "Saving Throw: INT +4",
@@ -880,9 +772,7 @@
       "Skill: Stealth +9"
     ],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "poison"
-    ],
+    "damage_resistances": ["poison"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "passive Perception 13",
@@ -917,12 +807,8 @@
     "wisdom": 10,
     "charisma": 6,
     "proficiencies": [],
-    "damage_vulnerabilities": [
-      "fire"
-    ],
-    "damage_resistances": [
-      "piercing"
-    ],
+    "damage_vulnerabilities": ["fire"],
+    "damage_resistances": ["piercing"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "passive perception 10",
@@ -931,9 +817,7 @@
     "special_abilities": [
       "False Appearance: While the shrub remains motionless, it is indistinguishable from a normal shrub."
     ],
-    "actions": [
-      "Rake: Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) slashing damage."
-    ]
+    "actions": ["Rake: Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) slashing damage."]
   },
   {
     "name": "Awakened Tree",
@@ -947,13 +831,8 @@
     "speed": "20 ft.",
     "stats": "{\"strength\":19,\"dexterity\":6,\"constitution\":15,\"intelligence\":10,\"wisdom\":10,\"charisma\":7}",
     "proficiencies": [],
-    "damage_vulnerabilities": [
-      "fire"
-    ],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing"
-    ],
+    "damage_vulnerabilities": ["fire"],
+    "damage_resistances": ["bludgeoning", "piercing"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "passive perception 10",
@@ -995,18 +874,11 @@
     "hit_dice": "6d8",
     "speed": "30 ft.",
     "stats": "{\"strength\": 17, \"dexterity\": 12, \"constitution\": 15, \"intelligence\": 12, \"wisdom\": 13, \"charisma\": 10}",
-    "proficiencies": [
-      "{\"name\": \"Saving Throw: CON\", \"value\": 4}"
-    ],
+    "proficiencies": ["{\"name\": \"Saving Throw: CON\", \"value\": 4}"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "{\"passive_perception\": 11}",
     "languages": "Ignan",
     "challenge_rating": 2,
@@ -1074,18 +946,9 @@
     "stats": "{\"strength\":26,\"dexterity\":15,\"constitution\":22,\"intelligence\":20,\"wisdom\":16,\"charisma\":22}",
     "proficiencies": "[{\"name\":\"Saving Throw: STR\",\"value\":14},{\"name\":\"Saving Throw: CON\",\"value\":12},{\"name\":\"Saving Throw: WIS\",\"value\":9},{\"name\":\"Saving Throw: CHA\",\"value\":12}]",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "lightning",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "{\"truesight\":\"120 ft.\",\"passive_perception\":13}",
     "languages": "Abyssal, telepathy 120 ft.",
     "challenge_rating": 19,
@@ -1168,17 +1031,9 @@
     "stats": "{\"strength\":16,\"dexterity\":17,\"constitution\":18,\"intelligence\":12,\"wisdom\":14,\"charisma\":14}",
     "proficiencies": "[{\"name\":\"Saving Throw: STR\",\"value\":6},{\"name\":\"Saving Throw: CON\",\"value\":7},{\"name\":\"Saving Throw: WIS\",\"value\":5},{\"name\":\"Saving Throw: CHA\",\"value\":5},{\"name\":\"Skill: Deception\",\"value\":5},{\"name\":\"Skill: Insight\",\"value\":5},{\"name\":\"Skill: Perception\",\"value\":8}]",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 120 ft., passive perception 18",
     "languages": "Infernal, telepathy 120 ft.",
     "challenge_rating": 5,
@@ -1271,31 +1126,10 @@
     "hit_points": 168,
     "hit_dice": "16d12+64",
     "speed": "50 ft., climb 40 ft.",
-    "stats": [
-      "strength",
-      23,
-      "dexterity",
-      16,
-      "constitution",
-      18,
-      "intelligence",
-      7,
-      "wisdom",
-      14,
-      "charisma",
-      12
-    ],
-    "proficiencies": [
-      "Perception: 6",
-      "Stealth: 7"
-    ],
-    "damage_immunities": [
-      "lightning"
-    ],
-    "senses": [
-      "darkvision 90 ft.",
-      "passive perception 16"
-    ],
+    "stats": ["strength", 23, "dexterity", 16, "constitution", 18, "intelligence", 7, "wisdom", 14, "charisma", 12],
+    "proficiencies": ["Perception: 6", "Stealth: 7"],
+    "damage_immunities": ["lightning"],
+    "senses": ["darkvision 90 ft.", "passive perception 16"],
     "languages": "Draconic",
     "challenge_rating": 11,
     "xp": 7200,
@@ -1362,14 +1196,7 @@
     "hit_dice": "6d8",
     "hit_points_roll": "6d8+6",
     "speed": "30 ft., fly 60 ft., swim 30 ft.",
-    "stats": [
-      15,
-      14,
-      13,
-      10,
-      11,
-      13
-    ],
+    "stats": [15, 14, 13, 10, 11, 13],
     "proficiencies": [
       "Saving Throw: DEX +4",
       "Saving Throw: CON +3",
@@ -1380,17 +1207,13 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid"
-    ],
+    "damage_immunities": ["acid"],
     "condition_immunities": [],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
     "languages": "Draconic",
     "challenge_rating": 2,
     "xp": 450,
-    "special_abilities": [
-      "Amphibious: The dragon can breathe air and water."
-    ],
+    "special_abilities": ["Amphibious: The dragon can breathe air and water."],
     "actions": [
       "Bite: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage plus 2 (1d4) acid damage.",
       "Acid Breath (Recharge 5-6): The dragon exhales acid in a 15-foot line that is 5 feet wide. Each creature in that line must make a DC 11 Dexterity saving throw, taking 22 (5d8) acid damage on a failed save, or half as much damage on a successful one."
@@ -1406,38 +1229,14 @@
     "armor_class": 7,
     "hit_points": 85,
     "hit_dice": "10d10+30",
-    "speed": [
-      "walk 20 ft.",
-      "climb 20 ft."
-    ],
-    "stats": [
-      16,
-      5,
-      16,
-      1,
-      6,
-      1
-    ],
+    "speed": ["walk 20 ft.", "climb 20 ft."],
+    "stats": [16, 5, 16, 1, 6, 1],
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid",
-      "cold",
-      "lightning",
-      "slashing"
-    ],
-    "condition_immunities": [
-      "blinded",
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "prone"
-    ],
-    "senses": [
-      "blindsight 60 ft. (blind beyond this radius)",
-      "passive perception 8"
-    ],
+    "damage_immunities": ["acid", "cold", "lightning", "slashing"],
+    "condition_immunities": ["blinded", "charmed", "exhaustion", "frightened", "prone"],
+    "senses": ["blindsight 60 ft. (blind beyond this radius)", "passive perception 8"],
     "languages": [],
     "challenge_rating": 4,
     "special_abilities": [
@@ -1546,14 +1345,7 @@
     "hit_points": 142,
     "hit_dice": "15d10+60",
     "speed": "40 ft., fly 40 ft.",
-    "stats": [
-      18,
-      16,
-      18,
-      13,
-      14,
-      16
-    ],
+    "stats": [18, 16, 18, 13, 14, 16],
     "proficiencies": [
       "Saving Throw: INT +5",
       "Saving Throw: WIS +6",
@@ -1562,17 +1354,9 @@
       "Skill: Insight +6"
     ],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 120 ft., passive Perception 12",
     "languages": "Infernal, telepathy 120 ft.",
     "challenge_rating": 9,
@@ -1596,14 +1380,7 @@
     "hit_points": 16,
     "hit_dice": "3d8",
     "speed": "walk 30 ft., fly 60 ft., burrow 15 ft.",
-    "stats": [
-      15,
-      10,
-      13,
-      10,
-      11,
-      13
-    ],
+    "stats": [15, 10, 13, 10, 11, 13],
     "proficiencies": [
       "Saving Throw: DEX +2",
       "Saving Throw: CON +3",
@@ -1612,18 +1389,10 @@
       "Skill: Perception +4",
       "Skill: Stealth +2"
     ],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
-    "senses": [
-      "blindsight 10 ft.",
-      "darkvision 60 ft.",
-      "passive perception 14"
-    ],
-    "languages": [
-      "Draconic"
-    ],
+    "senses": ["blindsight 10 ft.", "darkvision 60 ft.", "passive perception 14"],
+    "languages": ["Draconic"],
     "challenge_rating": 1,
     "actions": [
       "Bite: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage.",
@@ -1645,9 +1414,7 @@
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":2},{\"name\":\"Saving Throw: CON\",\"value\":4},{\"name\":\"Saving Throw: WIS\",\"value\":2},{\"name\":\"Saving Throw: CHA\",\"value\":4},{\"name\":\"Skill: Perception\",\"value\":4},{\"name\":\"Skill: Stealth\",\"value\":2}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "condition_immunities": [],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
     "languages": "Draconic",
@@ -1768,19 +1535,8 @@
     "hit_points": 45,
     "hit_dice": "6d10+12",
     "speed": "50 ft.",
-    "stats": [
-      18,
-      14,
-      14,
-      9,
-      13,
-      11
-    ],
-    "proficiencies": [
-      "Skill: Athletics +6",
-      "Skill: Perception +3",
-      "Skill: Survival +3"
-    ],
+    "stats": [18, 14, 14, 9, 13, 11],
+    "proficiencies": ["Skill: Athletics +6", "Skill: Perception +3", "Skill: Survival +3"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
@@ -1809,31 +1565,12 @@
     "hit_points": 85,
     "hit_dice": "10d8+40",
     "speed": "walk 30 ft.",
-    "stats": [
-      18,
-      15,
-      18,
-      11,
-      12,
-      14
-    ],
-    "proficiencies": [
-      "Saving Throw: CON +7",
-      "Saving Throw: WIS +4",
-      "Saving Throw: CHA +5"
-    ],
+    "stats": [18, 15, 18, 11, 12, 14],
+    "proficiencies": ["Saving Throw: CON +7", "Saving Throw: WIS +4", "Saving Throw: CHA +5"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 120 ft., passive perception 11",
     "languages": "Infernal, telepathy 120 ft.",
     "challenge_rating": 8,
@@ -1880,17 +1617,11 @@
     "hit_dice": "11d10+33",
     "speed": "30 ft., swim 30 ft.",
     "stats": "{\"strength\": 19, \"dexterity\": 10, \"constitution\": 16, \"intelligence\": 5, \"wisdom\": 11, \"charisma\": 5}",
-    "proficiencies": [
-      "{\"name\": \"Skill: Perception\", \"value\": 4}"
-    ],
+    "proficiencies": ["{\"name\": \"Skill: Perception\", \"value\": 4}"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 60 ft., passive perception 14",
     "languages": "understands Deep Speech but can't speak",
     "challenge_rating": "4",
@@ -1924,14 +1655,7 @@
       "psychic",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
     ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "petrified",
-      "poisoned"
-    ],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
     "senses": "darkvision 60 ft., passive perception 9",
     "languages": "understands the languages of its creator but can't speak",
     "challenge_rating": 9,
@@ -1949,21 +1673,9 @@
     "hit_points": 78,
     "hit_dice": "12d10+12",
     "speed": "walk 10 ft., fly 40 ft.",
-    "stats": [
-      17,
-      15,
-      12,
-      13,
-      12,
-      14
-    ],
-    "proficiencies": [
-      "Stealth: 5"
-    ],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive Perception 11"
-    ],
+    "stats": [17, 15, 12, 13, 12, 14],
+    "proficiencies": ["Stealth: 5"],
+    "senses": ["darkvision 60 ft.", "passive Perception 11"],
     "languages": "Deep Speech, Undercommon",
     "special_abilities": [
       "Damage Transfer: While attached to a creature, the cloaker takes only half the damage dealt to it (rounded down). and that creature takes the other half.",
@@ -1988,14 +1700,7 @@
     "hit_points": 200,
     "hit_dice": "16d12+96",
     "speed": "40 ft.",
-    "stats": [
-      27,
-      10,
-      22,
-      12,
-      16,
-      16
-    ],
+    "stats": [27, 10, 22, 12, 16, 16],
     "proficiencies": [
       "Saving Throw: CON +10",
       "Saving Throw: WIS +7",
@@ -2095,9 +1800,7 @@
     "skills": "{\"perception\":4,\"stealth\":3}",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid"
-    ],
+    "damage_immunities": ["acid"],
     "condition_immunities": [],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
     "languages": "Draconic",
@@ -2114,27 +1817,11 @@
     "hit_points": 97,
     "hit_dice": "13d8+39",
     "speed": "30 ft., fly 90 ft.",
-    "stats": [
-      16,
-      20,
-      17,
-      18,
-      20,
-      18
-    ],
-    "proficiencies": [
-      "Saving Throw: CON +5",
-      "Saving Throw: WIS +7",
-      "Saving Throw: CHA +6"
-    ],
+    "stats": [16, 20, 17, 18, 20, 18],
+    "proficiencies": ["Saving Throw: CON +5", "Saving Throw: WIS +7", "Saving Throw: CHA +6"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "radiant"
-    ],
-    "damage_immunities": [
-      "psychic",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
+    "damage_resistances": ["radiant"],
+    "damage_immunities": ["psychic", "bludgeoning, piercing, and slashing from nonmagical weapons"],
     "condition_immunities": [],
     "senses": "truesight 120 ft., passive Perception 15",
     "languages": "all, telepathy 120 ft.",
@@ -2197,19 +1884,8 @@
     "hit_points": 22,
     "hit_dice": "6d8",
     "speed": "30 ft.",
-    "stats": [
-      11,
-      14,
-      12,
-      10,
-      13,
-      14
-    ],
-    "proficiencies": [
-      "Skill: Deception +4",
-      "Skill: Persuasion +4",
-      "Skill: Religion +2"
-    ],
+    "stats": [11, 14, 12, 10, 13, 14],
+    "proficiencies": ["Skill: Deception +4", "Skill: Persuasion +4", "Skill: Religion +2"],
     "senses": "passive Perception 11",
     "languages": "any one language (usually Common)",
     "challenge_rating": "2",
@@ -2304,19 +1980,8 @@
     "hit_points": 16,
     "hit_dice": "3d6+6",
     "speed": "20 ft.",
-    "stats": [
-      15,
-      14,
-      14,
-      12,
-      10,
-      9
-    ],
-    "proficiencies": [
-      "Investigation: 3",
-      "Perception: 2",
-      "Stealth: 4"
-    ],
+    "stats": [15, 14, 14, 12, 10, 9],
+    "proficiencies": ["Investigation: 3", "Perception: 2", "Stealth: 4"],
     "senses": "darkvision 120 ft., passive perception 12",
     "languages": "Gnomish, Terran, Undercommon",
     "challenge_rating": 0.5,
@@ -2359,31 +2024,12 @@
     "hit_points": 136,
     "hit_dice": "16d8+64",
     "speed": "walk 30 ft., fly 90 ft.",
-    "stats": [
-      18,
-      18,
-      18,
-      17,
-      20,
-      20
-    ],
-    "proficiencies": [
-      "Saving Throw: WIS +9",
-      "Saving Throw: CHA +9",
-      "Skill: Insight +9",
-      "Skill: Perception +9"
-    ],
+    "stats": [18, 18, 18, 17, 20, 20],
+    "proficiencies": ["Saving Throw: WIS +9", "Saving Throw: CHA +9", "Skill: Insight +9", "Skill: Perception +9"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "radiant",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
+    "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical weapons"],
     "damage_immunities": [],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened"
-    ],
+    "condition_immunities": ["charmed", "exhaustion", "frightened"],
     "senses": "darkvision 120 ft., passive perception 19",
     "languages": "all, telepathy 120 ft.",
     "challenge_rating": 10,
@@ -2433,15 +2079,10 @@
     "proficiencies": "Saving Throw: DEX: 6, Saving Throw: WIS: 7, Saving Throw: CHA: 9",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "lightning",
-      "thunder"
-    ],
+    "damage_immunities": ["lightning", "thunder"],
     "condition_immunities": [],
     "senses": "darkvision: 120 ft., passive_perception: 13",
-    "languages": [
-      "Auran"
-    ],
+    "languages": ["Auran"],
     "challenge_rating": 11,
     "special_abilities": "Elemental Demise: If the djinni dies, its body disintegrates into a warm breeze, leaving behind only equipment the djinni was wearing or carrying. Innate Spellcasting: The djinni's innate spellcasting ability is Charisma (spell save DC 17, +9 to hit with spell attacks). It can innately cast the following spells, requiring no material components: At will: detect evil and good, detect magic, thunderwave. 3/day each: create food and water (can create wine instead of water), tongues, wind walk. 1/day each: conjure elemental (air elemental only), creation, gaseous form, invisibility, major image, plane shift.",
     "actions": "Multiattack: The djinni makes three scimitar attacks. Scimitar: Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) slashing damage plus 3 (1d6) lightning or thunder damage (djinni's choice). Create Whirlwind: A 5-foot-radius, 30-foot-tall cylinder of swirling air magically forms on a point the djinni can see within 120 feet of it. The whirlwind lasts as long as the djinni maintains concentration (as if concentrating on a spell). Any creature but the djinni that enters the whirlwind must succeed on a DC 18 Strength saving throw or be restrained by it. The djinni can move the whirlwind up to 60 feet as an action, and creatures restrained by the whirlwind move with it. The whirlwind ends if the djinni loses sight of it. A creature can use its action to free a creature restrained by the whirlwind, including itself, by succeeding on a DC 18 Strength check. If the check succeeds, the creature is no longer restrained and moves to the nearest space outside the whirlwind."
@@ -2494,9 +2135,7 @@
     "stats": "strength 25, dexterity 10, constitution 20, intelligence 10, wisdom 12, charisma 12",
     "proficiencies": "Saving Throw: DEX +6, Saving Throw: CON +11, Saving Throw: WIS +7",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "fire"
-    ],
+    "damage_resistances": ["fire"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "darkvision 120 ft., passive perception 11",
@@ -2521,17 +2160,9 @@
       "stats": "{\"strength\": 11, \"dexterity\": 11, \"constitution\": 12, \"intelligence\": 5, \"wisdom\": 8, \"charisma\": 3}",
       "proficiencies": [],
       "damage_vulnerabilities": [],
-      "damage_resistances": [
-        "cold",
-        "fire",
-        "lightning"
-      ],
-      "damage_immunities": [
-        "poison"
-      ],
-      "condition_immunities": [
-        "poisoned"
-      ],
+      "damage_resistances": ["cold", "fire", "lightning"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
       "senses": "darkvision 60 ft., passive perception 9",
       "languages": "Abyssal, telepathy 60 ft. (works only with creatures that understand Abyssal)",
       "challenge_rating": 0.25,
@@ -2551,10 +2182,7 @@
     "hit_dice": "13d10+52",
     "speed": "30 ft., climb 30 ft.",
     "stats": "{\"strength\": 16, \"dexterity\": 16, \"constitution\": 18, \"intelligence\": 13, \"wisdom\": 14, \"charisma\": 12}",
-    "proficiencies": [
-      "{\"name\": \"Perception\", \"value\": 5}",
-      "{\"name\": \"Stealth\", \"value\": 9}"
-    ],
+    "proficiencies": ["{\"name\": \"Perception\", \"value\": 5}", "{\"name\": \"Stealth\", \"value\": 9}"],
     "senses": "darkvision 120 ft., passive perception 15",
     "languages": "Elvish, Undercommon",
     "challenge_rating": 6,
@@ -2583,18 +2211,8 @@
     "hit_points": 13,
     "hit_dice": "3d8",
     "speed": "30 ft.",
-    "stats": [
-      10,
-      14,
-      10,
-      11,
-      11,
-      12
-    ],
-    "proficiencies": [
-      "perception",
-      "stealth"
-    ],
+    "stats": [10, 14, 10, 11, 11, 12],
+    "proficiencies": ["perception", "stealth"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
@@ -2671,9 +2289,7 @@
     "stats": "{\"str\":14,\"dex\":11,\"con\":14,\"int\":11,\"wis\":10,\"cha\":9}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "poison"
-    ],
+    "damage_resistances": ["poison"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "darkvision 120 ft., passive perception 10",
@@ -2693,20 +2309,11 @@
     "hit_dice": "5d6",
     "speed": "30 ft., fly 30 ft.",
     "stats": "5, 14, 10, 9, 11, 10",
-    "proficiencies": [
-      "Perception +2",
-      "Stealth +4"
-    ],
-    "damage_vulnerabilities": [
-      "fire"
-    ],
+    "proficiencies": ["Perception +2", "Stealth +4"],
+    "damage_vulnerabilities": ["fire"],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 60 ft., passive Perception 12",
     "languages": "Auran, Terran",
     "challenge_rating": 0.5,
@@ -2749,22 +2356,10 @@
     "speed": "30 ft., burrow 30 ft.",
     "stats": "{\"strength\":20,\"dexterity\":8,\"constitution\":20,\"intelligence\":5,\"wisdom\":10,\"charisma\":5}",
     "proficiencies": [],
-    "damage_vulnerabilities": [
-      "thunder"
-    ],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "exhaustion",
-      "paralyzed",
-      "petrified",
-      "poisoned",
-      "unconscious"
-    ],
+    "damage_vulnerabilities": ["thunder"],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["exhaustion", "paralyzed", "petrified", "poisoned", "unconscious"],
     "senses": "darkvision 60 ft., tremorsense 60 ft., passive perception 10",
     "languages": "Terran",
     "challenge_rating": 5,
@@ -2781,24 +2376,11 @@
     "hit_points": 200,
     "hit_dice": "16d10+112",
     "speed": "walk 40 ft., fly 60 ft.",
-    "stats": [
-      22,
-      12,
-      24,
-      16,
-      15,
-      16
-    ],
-    "proficiencies": [
-      "Saving Throw: INT 7",
-      "Saving Throw: WIS 6",
-      "Saving Throw: CHA 7"
-    ],
+    "stats": [22, 12, 24, 16, 15, 16],
+    "proficiencies": ["Saving Throw: INT 7", "Saving Throw: WIS 6", "Saving Throw: CHA 7"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "darkvision 120 ft., passive perception 12",
     "languages": "Ignan",
@@ -2946,13 +2528,8 @@
     "stats": "{\"strength\": 10, \"dexterity\": 17, \"constitution\": 16, \"intelligence\": 6, \"wisdom\": 10, \"charisma\": 7}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["fire", "poison"],
     "condition_immunities": [
       "exhaustion",
       "grappled",
@@ -2983,9 +2560,7 @@
     "proficiencies": "Saving Throw: DEX: 3, Saving Throw: CON: 10, Saving Throw: CHA: 5, Skill: Athletics: 11, Skill: Perception: 6",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "passive perception 16",
     "languages": "Giant",
@@ -3002,14 +2577,7 @@
     "hit_points": 93,
     "hit_dice": "11d8",
     "speed": "30 ft.",
-    "stats": [
-      19,
-      9,
-      18,
-      6,
-      10,
-      5
-    ],
+    "stats": [19, 9, 18, 6, 10, 5],
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
@@ -3018,14 +2586,7 @@
       "poison",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
     ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "petrified",
-      "poisoned"
-    ],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "understands the languages of its creator but can't speak",
     "challenge_rating": 5,
@@ -3135,17 +2696,9 @@
     "stats": "{\"strength\":15,\"dexterity\":11,\"constitution\":16,\"intelligence\":6,\"wisdom\":11,\"charisma\":7}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "exhaustion",
-      "petrified",
-      "poisoned"
-    ],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["exhaustion", "petrified", "poisoned"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "Terran",
     "challenge_rating": 2,
@@ -3168,14 +2721,7 @@
       "damage_vulnerabilities": [],
       "damage_resistances": [],
       "damage_immunities": [],
-      "condition_immunities": [
-        "blinded",
-        "charmed",
-        "deafened",
-        "exhaustion",
-        "frightened",
-        "prone"
-      ],
+      "condition_immunities": ["blinded", "charmed", "deafened", "exhaustion", "frightened", "prone"],
       "senses": "blindsight 60 ft. (blind beyond this radius), passive Perception 8",
       "languages": "",
       "challenge_rating": 2,
@@ -3196,17 +2742,9 @@
     "stats": "{\"strength\":16,\"dexterity\":17,\"constitution\":10,\"intelligence\":11,\"wisdom\":10,\"charisma\":8}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "necrotic"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned",
-      "charmed",
-      "exhaustion"
-    ],
+    "damage_resistances": ["necrotic"],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned", "charmed", "exhaustion"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "Common",
     "challenge_rating": 2,
@@ -3234,11 +2772,7 @@
       "thunder",
       "bludgeoning, piercing, and slashing from nonmagical weapons"
     ],
-    "damage_immunities": [
-      "cold",
-      "necrotic",
-      "poison"
-    ],
+    "damage_immunities": ["cold", "necrotic", "poison"],
     "condition_immunities": [
       "charmed",
       "exhaustion",
@@ -3270,14 +2804,8 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned",
-      "charmed",
-      "exhaustion"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned", "charmed", "exhaustion"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "Common",
     "challenge_rating": "1",
@@ -3888,9 +3416,7 @@
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
-    "condition_immunities": [
-      "prone"
-    ],
+    "condition_immunities": ["prone"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "none",
     "challenge_rating": 2,
@@ -3910,18 +3436,9 @@
     "speed": "40 ft.",
     "stats": "{\"strength\":20,\"dexterity\":15,\"constitution\":21,\"intelligence\":19,\"wisdom\":17,\"charisma\":16}",
     "proficiencies": "[{\"name\":\"Saving Throw: STR\",\"value\":9},{\"name\":\"Saving Throw: CON\",\"value\":9},{\"name\":\"Saving Throw: WIS\",\"value\":7},{\"name\":\"Saving Throw: CHA\",\"value\":7}]",
-    "damage_resistances": [
-      "cold",
-      "fire",
-      "lightning",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "truesight 120 ft., passive perception 13",
     "languages": "Abyssal, telepathy 120 ft.",
     "challenge_rating": 9,
@@ -4055,23 +3572,12 @@
     "hit_points": 114,
     "hit_dice": "12d10+48",
     "speed": "40 ft.",
-    "stats": [
-      20,
-      11,
-      18,
-      2,
-      12,
-      7
-    ],
-    "proficiencies": [
-      "Skill: Perception +4"
-    ],
+    "stats": [20, 11, 18, 2, 12, 7],
+    "proficiencies": ["Skill: Perception +4"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
-    "condition_immunities": [
-      "petrified"
-    ],
+    "condition_immunities": ["petrified"],
     "senses": "darkvision 60 ft., passive perception 14",
     "languages": "",
     "challenge_rating": "5",
@@ -4097,20 +3603,9 @@
     "stats": "{\"strength\": 12, \"dexterity\": 6, \"constitution\": 16, \"intelligence\": 1, \"wisdom\": 6, \"charisma\": 2}",
     "proficiencies": "[{\"name\": \"Stealth\", \"value\": 2}]",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "acid",
-      "cold",
-      "fire"
-    ],
+    "damage_resistances": ["acid", "cold", "fire"],
     "damage_immunities": [],
-    "condition_immunities": [
-      "blinded",
-      "charmed",
-      "deafened",
-      "exhaustion",
-      "frightened",
-      "prone"
-    ],
+    "condition_immunities": ["blinded", "charmed", "deafened", "exhaustion", "frightened", "prone"],
     "senses": "blindsight 60 ft. (blind beyond this radius), passive Perception 8",
     "languages": "",
     "challenge_rating": 0.5,
@@ -4138,19 +3633,13 @@
     ],
     "damageVulnerabilities": [],
     "damageResistances": [],
-    "damageImmunities": [
-      "poison"
-    ],
-    "conditionImmunities": [
-      "poisoned"
-    ],
+    "damageImmunities": ["poison"],
+    "conditionImmunities": ["poisoned"],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
     "languages": "Draconic",
     "challengeRating": 2,
     "xp": 450,
-    "specialAbilities": [
-      "Amphibious: The dragon can breathe air and water."
-    ],
+    "specialAbilities": ["Amphibious: The dragon can breathe air and water."],
     "actions": [
       "Bite: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage plus 3 (1d6) poison damage.",
       "Poison Breath: The dragon exhales poisonous gas in a 15-foot cone. Each creature in that area must make a DC 11 Constitution saving throw, taking 21 (6d6) poison damage on a failed save, or half as much damage on a successful one."
@@ -4188,9 +3677,7 @@
     "stats": "{\"strength\":14,\"dexterity\":14,\"constitution\":11,\"intelligence\":3,\"wisdom\":14,\"charisma\":5}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "darkvision 60 ft., passive Perception 12",
@@ -4234,13 +3721,9 @@
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
-    "condition_immunities": [
-      "blinded"
-    ],
+    "condition_immunities": ["blinded"],
     "senses": "blindsight 30 ft. or 10 ft. while deafened (blind beyond this radius), passive Perception 13",
-    "languages": [
-      "Undercommon"
-    ],
+    "languages": ["Undercommon"],
     "challenge_rating": 0.25,
     "special_abilities": "Blind Senses: The grimlock can't use its blindsight while deafened and unable to smell.\nKeen Hearing and Smell: The grimlock has advantage on Wisdom (Perception) checks that rely on hearing or smell.\nStone Camouflage: The grimlock has advantage on Dexterity (Stealth) checks made to hide in rocky terrain.",
     "actions": "Spiked Bone Club: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) bludgeoning damage plus 2 (1d4) piercing damage."
@@ -4281,21 +3764,10 @@
     "wisdom": 19,
     "charisma": 18,
     "proficiencies": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive perception 14"
-    ],
-    "languages": [
-      "Celestial",
-      "Common"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["charmed", "poisoned"],
+    "senses": ["darkvision 60 ft.", "passive perception 14"],
+    "languages": ["Celestial", "Common"],
     "challenge_rating": 10,
     "special_abilities": [],
     "actions": []
@@ -4337,20 +3809,11 @@
     "stats": "{\"strength\":16,\"dexterity\":13,\"constitution\":14,\"intelligence\":10,\"wisdom\":11,\"charisma\":10}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "fire"
-    ],
+    "damage_resistances": ["fire"],
     "damage_immunities": [],
     "condition_immunities": [],
-    "senses": [
-      "blindsight 10 ft.",
-      "darkvision 60 ft.",
-      "passive perception 12"
-    ],
-    "languages": [
-      "Common",
-      "Draconic"
-    ],
+    "senses": ["blindsight 10 ft.", "darkvision 60 ft.", "passive perception 12"],
+    "languages": ["Common", "Draconic"],
     "challenge_rating": 5,
     "xp": 1800,
     "actions": "[{\"name\":\"Multiattack\",\"description\":\"The veteran makes two longsword attacks. If it has a shortsword drawn, it can also make a shortsword attack.\"},{\"name\":\"Longsword\",\"description\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) slashing damage, or 8 (1d10 + 3) slashing damage if used with two hands.\"},{\"name\":\"Shortsword\",\"description\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) piercing damage.\"},{\"name\":\"Heavy Crossbow\",\"description\":\"Ranged Weapon Attack: +3 to hit, range 100/400 ft., one target. Hit: 6 (1d10 + 1) piercing damage.\"},{\"name\":\"Fire Breath (Recharge 5-6)\",\"description\":\"The veteran exhales fire in a 15-foot cone. Each creature in that area must make a DC 15 Dexterity saving throw, taking 24 (7d6) fire damage on a failed save, or half as much damage on a successful one.\"}]"
@@ -4431,19 +3894,8 @@
     "hit_points": 136,
     "hit_dice": "13d10+65",
     "speed": "30 ft.",
-    "stats": [
-      19,
-      17,
-      20,
-      5,
-      12,
-      13
-    ],
-    "proficiencies": [
-      "Saving Throw: STR +7",
-      "Saving Throw: CON +8",
-      "Saving Throw: WIS +4"
-    ],
+    "stats": [19, 17, 20, 5, 12, 13],
+    "proficiencies": ["Saving Throw: STR +7", "Saving Throw: CON +8", "Saving Throw: WIS +4"],
     "damage_vulnerabilities": "",
     "damage_resistances": "cold, fire, lightning, bludgeoning, piercing, and slashing from nonmagical weapons",
     "damage_immunities": "poison",
@@ -4540,13 +3992,8 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["charmed", "poisoned"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "understands the languages of its creator but can't speak",
     "challenge_rating": "0",
@@ -4588,29 +4035,15 @@
     "hit_points": 45,
     "hit_dice": "6d10",
     "speed": "swim 40 ft.",
-    "stats": [
-      18,
-      13,
-      15,
-      1,
-      10,
-      4
-    ],
-    "proficiencies": [
-      "perception"
-    ],
-    "senses": [
-      "darkvision 30 ft.",
-      "passive Perception 12"
-    ],
+    "stats": [18, 13, 15, 1, 10, 4],
+    "proficiencies": ["perception"],
+    "senses": ["darkvision 30 ft.", "passive Perception 12"],
     "challenge_rating": "2",
     "traits": [
       "Blood Frenzy. The shark has advantage on melee attack rolls against any creature that doesn't have all its hit points.",
       "Water Breathing. The shark can breathe only underwater."
     ],
-    "actions": [
-      "Bite. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) piercing damage."
-    ]
+    "actions": ["Bite. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) piercing damage."]
   },
   {
     "name": "Hydra",
@@ -4661,36 +4094,13 @@
     "hit_points": 180,
     "hit_dice": "19d10+76",
     "speed": "40 ft.",
-    "stats": [
-      5,
-      14,
-      18,
-      18,
-      15,
-      18
-    ],
-    "proficiencies": [
-      "Saving Throw: DEX +7",
-      "Saving Throw: CON +9",
-      "Saving Throw: WIS +7",
-      "Saving Throw: CHA +9"
-    ],
+    "stats": [5, 14, 18, 18, 15, 18],
+    "proficiencies": ["Saving Throw: DEX +7", "Saving Throw: CON +9", "Saving Throw: WIS +7", "Saving Throw: CHA +9"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
-    "senses": [
-      "blindsight 60 ft.",
-      "darkvision 120 ft.",
-      "passive perception 12"
-    ],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
+    "senses": ["blindsight 60 ft.", "darkvision 120 ft.", "passive perception 12"],
     "languages": "Infernal, telepathy 120 ft.",
     "challenge_rating": 14,
     "special_abilities": [
@@ -4717,18 +4127,10 @@
     "speed": "walk 30 ft., fly 30 ft.",
     "stats": "{\"strength\":7,\"dexterity\":13,\"constitution\":10,\"intelligence\":9,\"wisdom\":11,\"charisma\":12}",
     "proficiencies": "Perception +2, Stealth +3",
-    "damage_vulnerabilities": [
-      "bludgeoning",
-      "fire"
-    ],
+    "damage_vulnerabilities": ["bludgeoning", "fire"],
     "damage_resistances": [],
-    "damage_immunities": [
-      "cold",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["cold", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 60 ft., passive perception 12",
     "languages": "Aquan, Auran",
     "challenge_rating": 0.5,
@@ -4749,17 +4151,9 @@
     "stats": "{\"strength\":6,\"dexterity\":17,\"constitution\":13,\"intelligence\":11,\"wisdom\":12,\"charisma\":14}",
     "skills": "{\"deception\":4,\"insight\":3,\"persuasion\":4,\"stealth\":5}",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 120 ft., passive perception 11",
     "languages": "Infernal, Common",
     "challenge_rating": "1",
@@ -4807,18 +4201,8 @@
       "psychic",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
     ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "petrified",
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 120 ft.",
-      "passive perception 10"
-    ],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+    "senses": ["darkvision 120 ft.", "passive perception 10"],
     "languages": "understands the languages of its creator but can't speak",
     "challenge_rating": 16,
     "special_abilities": "[{\"name\":\"Fire Absorption\",\"description\":\"Whenever the golem is subjected to fire damage, it takes no damage and instead regains a number of hit points equal to the fire damage dealt.\"},{\"name\":\"Immutable Form\",\"description\":\"The golem is immune to any spell or effect that would alter its form.\"},{\"name\":\"Magic Resistance\",\"description\":\"The golem has advantage on saving throws against spells and other magical effects.\"},{\"name\":\"Magic Weapons\",\"description\":\"The golem's weapon attacks are magical.\"}]",
@@ -4830,26 +4214,13 @@
     "size": "Small",
     "type": "beast",
     "alignment": "unaligned",
-    "armor_class": [
-      "12 (Natural Armor)"
-    ],
+    "armor_class": ["12 (Natural Armor)"],
     "hit_points": 3,
     "hit_dice": "1d6",
     "speed": "40 ft.",
-    "stats": [
-      8,
-      15,
-      11,
-      3,
-      12,
-      6
-    ],
-    "proficiencies": [
-      "Perception +3"
-    ],
-    "senses": [
-      "Passive Perception 13"
-    ],
+    "stats": [8, 15, 11, 3, 12, 6],
+    "proficiencies": ["Perception +3"],
+    "senses": ["Passive Perception 13"],
     "languages": [],
     "challenge_rating": "0",
     "xp": 10,
@@ -4857,9 +4228,7 @@
       "Keen Hearing and Smell: The jackal has advantage on Wisdom (Perception) checks that rely on hearing or smell.",
       "Pack Tactics: The jackal has advantage on an attack roll against a creature if at least one of the jackal's allies is within 5 ft. of the creature and the ally isn't incapacitated."
     ],
-    "actions": [
-      "Bite: Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) piercing damage."
-    ]
+    "actions": ["Bite: Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) piercing damage."]
   },
   {
     "slug": "killer-whale",
@@ -4941,14 +4310,8 @@
     "proficiencies": "[{\"name\":\"Saving Throw: STR\",\"value\":17},{\"name\":\"Saving Throw: DEX\",\"value\":7},{\"name\":\"Saving Throw: CON\",\"value\":14},{\"name\":\"Saving Throw: INT\",\"value\":13},{\"name\":\"Saving Throw: WIS\",\"value\":11}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "lightning",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "condition_immunities": [
-      "frightened",
-      "paralyzed"
-    ],
+    "damage_immunities": ["lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "condition_immunities": ["frightened", "paralyzed"],
     "senses": "truesight 120 ft., passive perception 14",
     "languages": "understands Abyssal, Celestial, Infernal, and Primordial but can't speak, telepathy 120 ft.",
     "challenge_rating": 23,
@@ -4989,18 +4352,9 @@
     "stats": "{\"strength\": 10, \"dexterity\": 5, \"constitution\": 11, \"intelligence\": 1, \"wisdom\": 11, \"charisma\": 3}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "frightened",
-      "poisoned"
-    ],
+    "damage_resistances": ["cold"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["charmed", "frightened", "poisoned"],
     "senses": "darkvision 120 ft., passive Perception 10",
     "languages": "understands infernal but can't speak",
     "challenge_rating": "0",
@@ -5030,30 +4384,11 @@
       "{\"name\":\"Skill: Perception\",\"value\":9}"
     ],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "lightning",
-      "necrotic"
-    ],
-    "damage_immunities": [
-      "poison",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "poisoned"
-    ],
-    "senses": [
-      "truesight 120 ft.",
-      "passive perception 19"
-    ],
-    "languages": [
-      "Common",
-      "up to five other languages"
-    ],
+    "damage_resistances": ["cold", "lightning", "necrotic"],
+    "damage_immunities": ["poison", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "poisoned"],
+    "senses": ["truesight 120 ft.", "passive perception 19"],
+    "languages": ["Common", "up to five other languages"],
     "challenge_rating": 21,
     "special_abilities": [
       "{\"name\":\"Legendary Resistance\",\"description\":\"If the lich fails a saving throw, it can choose to succeed instead.\"}",
@@ -5160,22 +4495,12 @@
     "speed": "30 ft., fly 30 ft.",
     "stats": "8, 12, 12, 7, 10, 10",
     "proficiencies": "Stealth +3",
-    "damage_vulnerabilities": [
-      "cold"
-    ],
+    "damage_vulnerabilities": ["cold"],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 60 ft., passive Perception 10",
-    "languages": [
-      "Ignan",
-      "Terran"
-    ],
+    "languages": ["Ignan", "Terran"],
     "challenge_rating": 0.5,
     "special_abilities": "Death Burst (When the mephit dies, it explodes in a burst of lava. Each creature within 5 ft. of it must make a DC 11 Dexterity saving throw, taking 7 (2d6) fire damage on a failed save, or half as much damage on a successful one.), False Appearance (While the mephit remains motionless, it is indistinguishable from an ordinary mound of magma.), Innate Spellcasting (The mephit can innately cast heat metal (spell save DC 10), requiring no material components. Its innate spellcasting ability is Charisma.)",
     "actions": "Claws (Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 3 (1d4 + 1) slashing damage plus 2 (1d4) fire damage.), Fire Breath (Recharge 6: The mephit exhales a 15-foot cone of fire. Each creature in that area must make a DC 11 Dexterity saving throw, taking 7 (2d6) fire damage on a failed save, or half as much damage on a successful one.)"
@@ -5193,12 +4518,8 @@
     "stats": "{\"strength\":7,\"dexterity\":15,\"constitution\":12,\"intelligence\":8,\"wisdom\":11,\"charisma\":10}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "Ignan",
@@ -5259,33 +4580,12 @@
     "hit_points": 189,
     "hit_dice": "18d10+90",
     "speed": "40 ft.",
-    "stats": [
-      18,
-      20,
-      20,
-      18,
-      16,
-      20
-    ],
-    "proficiencies": [
-      "Saving Throw: STR +9",
-      "Saving Throw: CON +10",
-      "Saving Throw: WIS +8",
-      "Saving Throw: CHA +10"
-    ],
+    "stats": [18, 20, 20, 18, 16, 20],
+    "proficiencies": ["Saving Throw: STR +9", "Saving Throw: CON +10", "Saving Throw: WIS +8", "Saving Throw: CHA +10"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "fire",
-      "lightning",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "truesight 120 ft., passive perception 13",
     "languages": "Abyssal, telepathy 120 ft.",
     "challenge_rating": 16,
@@ -5436,24 +4736,12 @@
     "speed": "40 ft.",
     "stats": "{\"strength\":18,\"dexterity\":11,\"constitution\":15,\"intelligence\":6,\"wisdom\":8,\"charisma\":5}",
     "proficiencies": [],
-    "damage_vulnerabilities": [
-      "bludgeoning"
-    ],
+    "damage_vulnerabilities": ["bludgeoning"],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "exhaustion",
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive Perception 9"
-    ],
-    "languages": [
-      "understands Abyssal but can't speak"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["exhaustion", "poisoned"],
+    "senses": ["darkvision 60 ft.", "passive Perception 9"],
+    "languages": ["understands Abyssal but can't speak"],
     "challenge_rating": "2",
     "special_abilities": "[{\"name\":\"Charge\",\"description\":\"If the skeleton moves at least 10 feet straight toward a target and then hits it with a gore attack on the same turn, the target takes an extra 9 (2d8) piercing damage. If the target is a creature, it must succeed on a DC 14 Strength saving throw or be pushed up to 10 feet away and knocked prone.\"}]",
     "actions": "[{\"name\":\"Greataxe\",\"description\":\"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 17 (2d12 + 4) slashing damage.\"},{\"name\":\"Gore\",\"description\":\"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) piercing damage.\"}]"
@@ -5489,30 +4777,12 @@
     "speed": "20 ft.",
     "stats": "{\"strength\": 16, \"dexterity\": 8, \"constitution\": 15, \"intelligence\": 6, \"wisdom\": 10, \"charisma\": 12}",
     "proficiencies": "[{\"name\": \"Saving Throw: WIS\", \"value\": 2}]",
-    "damage_vulnerabilities": [
-      "fire"
-    ],
-    "damage_resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "necrotic",
-      "poison"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive perception 10"
-    ],
-    "languages": [
-      "the languages it knew in life"
-    ],
+    "damage_vulnerabilities": ["fire"],
+    "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["necrotic", "poison"],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "poisoned"],
+    "senses": ["darkvision 60 ft.", "passive perception 10"],
+    "languages": ["the languages it knew in life"],
     "challenge_rating": "3",
     "actions": "[{\"name\": \"Multiattack\", \"desc\": \"The mummy can use its Dreadful Glare and makes one attack with its rotting fist.\"}, {\"name\": \"Rotting Fist\", \"desc\": \"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) bludgeoning damage plus 10 (3d6) necrotic damage. If the target is a creature, it must succeed on a DC 12 Constitution saving throw or be cursed with mummy rot. The cursed target can't regain hit points, and its hit point maximum decreases by 10 (3d6) for every 24 hours that elapse. If the curse reduces the target's hit point maximum to 0, the target dies, and its body turns to dust. The curse lasts until removed by the remove curse spell or other magic.\"}, {\"name\": \"Dreadful Glare\", \"desc\": \"The mummy targets one creature it can see within 60 ft. of it. If the target can see the mummy, it must succeed on a DC 11 Wisdom saving throw against this magic or become frightened until the end of the mummy's next turn. If the target fails the saving throw by 5 or more, it is also paralyzed for the same duration. A target that succeeds on the saving throw is immune to the Dreadful Glare of all mummies (but not mummy lords) for the next 24 hours.\"}]"
   },
@@ -5526,14 +4796,7 @@
     "hit_points": 97,
     "hit_dice": "13d8",
     "speed": "20 ft.",
-    "stats": [
-      18,
-      10,
-      17,
-      11,
-      18,
-      16
-    ],
+    "stats": [18, 10, 17, 11, 18, 16],
     "proficiencies": [
       "Saving Throw: CON +8",
       "Saving Throw: INT +5",
@@ -5542,22 +4805,10 @@
       "Skill: History +5",
       "Skill: Religion +5"
     ],
-    "damage_vulnerabilities": [
-      "fire"
-    ],
+    "damage_vulnerabilities": ["fire"],
     "damage_resistances": [],
-    "damage_immunities": [
-      "necrotic",
-      "poison",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "poisoned"
-    ],
+    "damage_immunities": ["necrotic", "poison", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "poisoned"],
     "senses": "darkvision 60 ft., passive perception 14",
     "languages": "the languages it knew in life",
     "challenge_rating": 15,
@@ -5589,20 +4840,8 @@
     "hit_points": 184,
     "hit_dice": "16d10+96",
     "speed": "walk 20 ft., fly 30 ft.",
-    "stats": [
-      21,
-      10,
-      22,
-      19,
-      12,
-      15
-    ],
-    "proficiencies": [
-      "Saving Throw: CON +11",
-      "Saving Throw: INT +9",
-      "Saving Throw: WIS +6",
-      "Saving Throw: CHA +7"
-    ],
+    "stats": [21, 10, 22, 19, 12, 15],
+    "proficiencies": ["Saving Throw: CON +11", "Saving Throw: INT +9", "Saving Throw: WIS +6", "Saving Throw: CHA +7"],
     "damage_resistances": "cold, fire, lightning; bludgeoning, piercing, and slashing from nonmagical weapons",
     "damage_immunities": "poison",
     "condition_immunities": "poisoned",
@@ -5659,9 +4898,7 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "passive Perception 11",
     "languages": "understands Abyssal, Common, and Infernal but can't speak",
@@ -5702,20 +4939,9 @@
     "stats": "{\"strength\":15,\"dexterity\":6,\"constitution\":14,\"intelligence\":2,\"wisdom\":6,\"charisma\":1}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "acid"
-    ],
-    "damage_immunities": [
-      "lightning",
-      "slashing"
-    ],
-    "condition_immunities": [
-      "blinded",
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "prone"
-    ],
+    "damage_resistances": ["acid"],
+    "damage_immunities": ["lightning", "slashing"],
+    "condition_immunities": ["blinded", "charmed", "exhaustion", "frightened", "prone"],
     "senses": "blindsight 60 ft. (blind beyond this radius), passive Perception 8",
     "languages": "",
     "challenge_rating": 2,
@@ -5784,12 +5010,8 @@
     "proficiencies": "[{\"name\":\"Saving Throw: WIS\",\"value\":0}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 60 ft., passive perception 8",
     "languages": "understands Common and Giant but can't speak",
     "challenge_rating": 2,
@@ -5983,23 +5205,11 @@
     "hit_dice": "24d10",
     "speed": "walk 30 ft., fly 60 ft.",
     "stats": "strength 26, dexterity 14, constitution 24, intelligence 22, wisdom 18, charisma 24",
-    "proficiencies": [
-      "Saving Throw: DEX +8",
-      "Saving Throw: CON +13",
-      "Saving Throw: WIS +10"
-    ],
+    "proficiencies": ["Saving Throw: DEX +8", "Saving Throw: CON +13", "Saving Throw: WIS +10"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "truesight 120 ft., passive perception 14",
     "languages": "Infernal, telepathy 120 ft.",
     "challenge_rating": 20,
@@ -6030,16 +5240,9 @@
     "stats": "strength: 24, dexterity: 20, constitution: 24, intelligence: 19, wisdom: 22, charisma: 25",
     "proficiencies": "Saving Throw: CON +12, Saving Throw: WIS +11, Saving Throw: CHA +12, Skill: Perception +11",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "radiant",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
+    "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical weapons"],
     "damage_immunities": [],
-    "condition_immunities": [
-      "Charmed",
-      "Exhaustion",
-      "Frightened"
-    ],
+    "condition_immunities": ["Charmed", "Exhaustion", "Frightened"],
     "senses": "truesight 120 ft., passive Perception 21",
     "languages": "all, telepathy 120 ft.",
     "challenge_rating": 16,
@@ -6161,18 +5364,8 @@
     "hit_points": 7,
     "hit_dice": "2d4+2",
     "speed": "15 ft., fly 60 ft.",
-    "stats": [
-      6,
-      15,
-      13,
-      10,
-      12,
-      10
-    ],
-    "proficiencies": [
-      "Perception +3",
-      "Stealth +4"
-    ],
+    "stats": [6, 15, 13, 10, 12, 10],
+    "proficiencies": ["Perception +3", "Stealth +4"],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive Perception 13",
     "languages": "understands Common and Draconic but can't speak",
     "challenge_rating": "1/4",
@@ -6218,26 +5411,11 @@
     "stats": "{\"strength\":5,\"dexterity\":17,\"constitution\":10,\"intelligence\":7,\"wisdom\":10,\"charisma\":10}",
     "proficiencies": "[{\"name\":\"Stealth\",\"value\":5}]",
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "cold",
-      "fire",
-      "lightning",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 120 ft.",
-      "passive perception 10"
-    ],
-    "languages": [
-      "Abyssal",
-      "Common"
-    ],
+    "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
+    "senses": ["darkvision 120 ft.", "passive perception 10"],
+    "languages": ["Abyssal", "Common"],
     "challenge_rating": "1",
     "special_abilities": "[{\"name\":\"Shapechanger\",\"desc\":\"The quasit can use its action to polymorph into a beast form that resembles a bat (speed 10 ft. fly 40 ft.), a centipede (40 ft., climb 40 ft.), or a toad (40 ft., swim 40 ft.), or back into its true form . Its statistics are the same in each form, except for the speed changes noted. Any equipment it is wearing or carrying isn't transformed . It reverts to its true form if it dies.\"},{\"name\":\"Magic Resistance\",\"desc\":\"The quasit has advantage on saving throws against spells and other magical effects.\"}]",
     "actions": "[{\"name\":\"Claw (Bite in Beast Form)\",\"desc\":\"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) piercing damage, and the target must succeed on a DC 10 Constitution saving throw or take 5 (2d4) poison damage and become poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\"},{\"name\":\"Scare\",\"desc\":\"One creature of the quasit's choice within 20 ft. of it must succeed on a DC 10 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, with disadvantage if the quasit is within line of sight, ending the effect on itself on a success.\"},{\"name\":\"Invisibility\",\"desc\":\"The quasit magically turns invisible until it attacks or uses Scare, or until its concentration ends (as if concentrating on a spell). Any equipment the quasit wears or carries is invisible with it.\"}]"
@@ -6299,10 +5477,7 @@
     "speed": "20 ft.",
     "stats": "{\"strength\":2,\"dexterity\":11,\"constitution\":9,\"intelligence\":2,\"wisdom\":10,\"charisma\":4}",
     "proficiencies": [],
-    "senses": [
-      "darkvision 30 ft.",
-      "passive perception 10"
-    ],
+    "senses": ["darkvision 30 ft.", "passive perception 10"],
     "languages": "",
     "challenge_rating": "0",
     "special_abilities": "[{\"name\":\"Keen Smell\",\"description\":\"The rat has advantage on Wisdom (Perception) checks that rely on smell.\"}]",
@@ -6381,16 +5556,9 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "cold",
-      "fire"
-    ],
+    "damage_immunities": ["cold", "fire"],
     "condition_immunities": [],
-    "senses": [
-      "darkvision 60 ft.",
-      "tremorsense 60 ft.",
-      "passive perception 10"
-    ],
+    "senses": ["darkvision 60 ft.", "tremorsense 60 ft.", "passive perception 10"],
     "languages": [],
     "challenge_rating": "11",
     "special_abilities": "[{\"name\": \"Heated Body\", \"description\": \"A creature that touches the remorhaz or hits it with a melee attack while within 5 feet of it takes 10 (3d6) fire damage.\"}]",
@@ -6426,9 +5594,7 @@
     "speed": "60 ft.",
     "stats": "{\"strength\":16,\"dexterity\":10,\"constitution\":12,\"intelligence\":2,\"wisdom\":11,\"charisma\":7}",
     "proficiencies": [],
-    "senses": [
-      "passive perception 10"
-    ],
+    "senses": ["passive perception 10"],
     "languages": [],
     "challenge_rating": "1/4",
     "actions": "[{\"name\":\"Hooves\",\"description\":\"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 8 (2d4 + 3) bludgeoning damage.\"}]"
@@ -6483,18 +5649,8 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison",
-      "psychic"
-    ],
-    "condition_immunities": [
-      "blinded",
-      "charmed",
-      "frightened",
-      "paralyzed",
-      "petrified",
-      "poisoned"
-    ],
+    "damage_immunities": ["poison", "psychic"],
+    "condition_immunities": ["blinded", "charmed", "frightened", "paralyzed", "petrified", "poisoned"],
     "senses": "blindsight 60 ft. (blind beyond this radius), passive perception 6",
     "languages": "",
     "challenge_rating": 2,
@@ -6537,21 +5693,9 @@
     "hit_points": 52,
     "hit_dice": "7d10+14",
     "speed": "40 ft.",
-    "stats": [
-      18,
-      14,
-      15,
-      3,
-      12,
-      8
-    ],
-    "skills": [
-      "perception: 3",
-      "stealth: 6"
-    ],
-    "senses": [
-      "passive Perception 13"
-    ],
+    "stats": [18, 14, 15, 3, 12, 8],
+    "skills": ["perception: 3", "stealth: 6"],
+    "senses": ["passive Perception 13"],
     "languages": [],
     "special_abilities": [
       "Keen Smell: The tiger has advantage on Wisdom (Perception) checks that rely on smell.",
@@ -6595,20 +5739,12 @@
     "speed": "30 ft.",
     "stats": "{\"strength\": 18, \"dexterity\": 14, \"constitution\": 15, \"intelligence\": 11, \"wisdom\": 10, \"charisma\": 12}",
     "proficiencies": [],
-    "vulnerabilities": [
-      "cold"
-    ],
-    "resistances": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "immunities": [
-      "fire"
-    ],
+    "vulnerabilities": ["cold"],
+    "resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "immunities": ["fire"],
     "condition_immunities": [],
     "senses": "{\"darkvision\": \"60 ft.\", \"passive_perception\": 10}",
-    "languages": [
-      "Ignan"
-    ],
+    "languages": ["Ignan"],
     "challenge_rating": 5,
     "special_abilities": [
       "{\"name\": \"Heated Body\", \"desc\": \"A creature that touches the salamander or hits it with a melee attack while within 5 ft. of it takes 7 (2d6) fire damage.\"}",
@@ -6673,32 +5809,13 @@
     "intelligence": 11,
     "wisdom": 13,
     "charisma": 11,
-    "proficiencies": [
-      "name",
-      "value",
-      "name",
-      "value",
-      "name",
-      "value",
-      "name",
-      "value"
-    ],
+    "proficiencies": ["name", "value", "name", "value", "name", "value", "name", "value"],
     "senses": "passive Perception 15",
     "languages": "any one language (usually Common)",
     "challenge_rating": 0.5,
     "xp": 100,
-    "special_abilities": [
-      "name",
-      "desc"
-    ],
-    "actions": [
-      "name",
-      "desc",
-      "name",
-      "desc",
-      "name",
-      "desc"
-    ]
+    "special_abilities": ["name", "desc"],
+    "actions": ["name", "desc", "name", "desc", "name", "desc"]
   },
   {
     "slug": "sea-hag",
@@ -6710,14 +5827,7 @@
     "hit_points": 52,
     "hit_dice": "7d8+21",
     "speed": "30 ft., swim 40 ft.",
-    "stats": [
-      16,
-      13,
-      16,
-      12,
-      12,
-      13
-    ],
+    "stats": [16, 13, 16, 12, 12, 13],
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
@@ -6770,20 +5880,9 @@
     "hit_points": 16,
     "hit_dice": "3d8+3",
     "speed": "40 ft.",
-    "stats": [
-      6,
-      14,
-      13,
-      6,
-      10,
-      8
-    ],
-    "proficiencies": [
-      "Stealth +4"
-    ],
-    "damage_vulnerabilities": [
-      "radiant"
-    ],
+    "stats": [6, 14, 13, 6, 10, 8],
+    "proficiencies": ["Stealth +4"],
+    "damage_vulnerabilities": ["radiant"],
     "damage_resistances": [
       "acid",
       "cold",
@@ -6792,10 +5891,7 @@
       "thunder",
       "bludgeoning, piercing, and slashing from nonmagical weapons"
     ],
-    "damage_immunities": [
-      "necrotic",
-      "poison"
-    ],
+    "damage_immunities": ["necrotic", "poison"],
     "condition_immunities": [
       "exhaustion",
       "frightened",
@@ -6806,10 +5902,7 @@
       "prone",
       "restrained"
     ],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive perception 10"
-    ],
+    "senses": ["darkvision 60 ft.", "passive perception 10"],
     "languages": [],
     "challenge_rating": "1/2",
     "special_abilities": [
@@ -6884,10 +5977,7 @@
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
-    "condition_immunities": [
-      "blinded",
-      "frightened"
-    ],
+    "condition_immunities": ["blinded", "frightened"],
     "senses": "blindsight 30 ft. (blind beyond this radius), passive Perception 6",
     "languages": [],
     "challenge_rating": "0",
@@ -6909,9 +5999,7 @@
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":2},{\"name\":\"Saving Throw: CON\",\"value\":5},{\"name\":\"Saving Throw: WIS\",\"value\":2},{\"name\":\"Saving Throw: CHA\",\"value\":4},{\"name\":\"Skill: Perception\",\"value\":4},{\"name\":\"Skill: Stealth\",\"value\":2}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "cold"
-    ],
+    "damage_immunities": ["cold"],
     "condition_immunities": [],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
     "languages": "Draconic",
@@ -6929,17 +6017,10 @@
     "hit_dice": "2d8",
     "speed": "30 ft.",
     "stats": "{\"strength\":10,\"dexterity\":14,\"constitution\":15,\"intelligence\":6,\"wisdom\":8,\"charisma\":5}",
-    "vulnerabilities": [
-      "bludgeoning"
-    ],
+    "vulnerabilities": ["bludgeoning"],
     "resistances": [],
-    "immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned",
-      "exhaustion"
-    ],
+    "immunities": ["poison"],
+    "condition_immunities": ["poisoned", "exhaustion"],
     "senses": "darkvision 60 ft., passive perception 9",
     "languages": "understands all languages it spoke in life but can't speak",
     "challenge_rating": 0.25,
@@ -6962,20 +6043,9 @@
       "Saving Throw: CHA +17",
       "Skill: Perception +14"
     ],
-    "damage_resistances": [
-      "radiant",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "necrotic",
-      "poison"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "poisoned"
-    ],
+    "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["necrotic", "poison"],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "poisoned"],
     "senses": "truesight 120 ft., passive perception 24",
     "languages": "all, telepathy 120 ft.",
     "challenge_rating": 21,
@@ -7019,10 +6089,7 @@
       "thunder",
       "bludgeoning, piercing, and slashing from nonmagical weapons"
     ],
-    "damage_immunities": [
-      "necrotic",
-      "poison"
-    ],
+    "damage_immunities": ["necrotic", "poison"],
     "condition_immunities": [
       "charmed",
       "exhaustion",
@@ -7034,13 +6101,8 @@
       "restrained",
       "unconscious"
     ],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive perception 10"
-    ],
-    "languages": [
-      "understands all languages it knew in life but can't speak"
-    ],
+    "senses": ["darkvision 60 ft.", "passive perception 10"],
+    "languages": ["understands all languages it knew in life but can't speak"],
     "challenge_rating": "1",
     "special_abilities": "Incorporeal Movement: The specter can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object. | Sunlight Sensitivity: While in sunlight, the specter has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight.",
     "actions": "Life Drain: Melee Spell Attack: +4 to hit, reach 5 ft., one creature. Hit: 10 (3d6) necrotic damage. The target must succeed on a DC 10 Constitution saving throw or its hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the creature finishes a long rest. The target dies if this effect reduces its hit point maximum to 0."
@@ -7055,17 +6117,8 @@
     "hit_points": 1,
     "hit_dice": "1d4",
     "speed": "walk 20 ft., climb 20 ft.",
-    "stats": [
-      2,
-      14,
-      8,
-      1,
-      10,
-      2
-    ],
-    "proficiencies": [
-      "Skill: Stealth +4"
-    ],
+    "stats": [2, 14, 8, 1, 10, 2],
+    "proficiencies": ["Skill: Stealth +4"],
     "senses": "darkvision 30 ft., passive Perception 12",
     "languages": "",
     "challenge_rating": "0",
@@ -7155,13 +6208,8 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire",
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["fire", "poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "darkvision 60 ft., passive perception 10",
     "languages": "Aquan, Ignan",
     "challenge_rating": 0.25,
@@ -7228,18 +6276,8 @@
       "psychic",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
     ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "petrified",
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 120 ft.",
-      "passive perception 10"
-    ],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+    "senses": ["darkvision 120 ft.", "passive perception 10"],
     "languages": "understands the languages of its creator but can't speak",
     "challenge_rating": 10,
     "special_abilities": [
@@ -7288,33 +6326,14 @@
       "name",
       "value"
     ],
-    "damage_resistances": [
-      "cold"
-    ],
-    "damage_immunities": [
-      "lightning",
-      "thunder"
-    ],
+    "damage_resistances": ["cold"],
+    "damage_immunities": ["lightning", "thunder"],
     "condition_immunities": [],
     "senses": "passive_perception",
     "languages": "Common, Giant",
     "challenge_rating": 13,
-    "special_abilities": [
-      "name",
-      "desc",
-      "name",
-      "desc"
-    ],
-    "actions": [
-      "name",
-      "desc",
-      "name",
-      "desc",
-      "name",
-      "desc",
-      "name",
-      "desc"
-    ]
+    "special_abilities": ["name", "desc", "name", "desc"],
+    "actions": ["name", "desc", "name", "desc", "name", "desc", "name", "desc"]
   },
   [
     {
@@ -7358,11 +6377,7 @@
     "stats": "{\"strength\":5,\"dexterity\":15,\"constitution\":10,\"intelligence\":2,\"wisdom\":12,\"charisma\":4}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "charmed",
@@ -7405,14 +6420,8 @@
     "senses": "blindsight 10 ft., passive perception 8",
     "languages": "",
     "challenge_rating": "1/2",
-    "special_abilities": [
-      "name",
-      "desc"
-    ],
-    "actions": [
-      "name",
-      "desc"
-    ],
+    "special_abilities": ["name", "desc"],
+    "actions": ["name", "desc"],
     "url": "/api/2014/monsters/swarm-of-beetles"
   },
   {
@@ -7456,11 +6465,7 @@
     "stats": "{\"strength\":3,\"dexterity\":13,\"constitution\":10,\"intelligence\":1,\"wisdom\":7,\"charisma\":1}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "Charmed",
@@ -7491,11 +6496,7 @@
     "stats": "{\"strength\":8,\"dexterity\":18,\"constitution\":11,\"intelligence\":1,\"wisdom\":10,\"charisma\":3}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "charmed",
@@ -7527,11 +6528,7 @@
     "stats": "{\"strength\":13,\"dexterity\":16,\"constitution\":9,\"intelligence\":1,\"wisdom\":7,\"charisma\":2}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "charmed",
@@ -7560,21 +6557,10 @@
     "hit_points": 24,
     "hit_dice": "7d8-7",
     "speed": "30 ft.",
-    "stats": [
-      9,
-      11,
-      9,
-      2,
-      10,
-      3
-    ],
+    "stats": [9, 11, 9, 2, 10, 3],
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "charmed",
@@ -7607,21 +6593,10 @@
     "hit_points": 24,
     "hit_dice": "7d8-7",
     "speed": "10 ft., fly 50 ft.",
-    "stats": [
-      6,
-      14,
-      8,
-      3,
-      12,
-      6
-    ],
+    "stats": [6, 14, 8, 3, 12, 6],
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "charmed",
@@ -7633,9 +6608,7 @@
       "restrained",
       "stunned"
     ],
-    "senses": [
-      "passive Perception 15"
-    ],
+    "senses": ["passive Perception 15"],
     "languages": [],
     "challenge_rating": "1/4",
     "special_abilities": [
@@ -7681,11 +6654,7 @@
     "stats": "{\"strength\":3,\"dexterity\":13,\"constitution\":10,\"intelligence\":1,\"wisdom\":7,\"charisma\":1}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing",
-      "slashing"
-    ],
+    "damage_resistances": ["bludgeoning", "piercing", "slashing"],
     "damage_immunities": [],
     "condition_immunities": [
       "charmed",
@@ -7718,17 +6687,8 @@
     "proficiencies": "[{\"name\":\"Saving Throw: INT\",\"value\":5},{\"name\":\"Saving Throw: WIS\",\"value\":9},{\"name\":\"Saving Throw: CHA\",\"value\":9}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire",
-      "poison",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "frightened",
-      "paralyzed",
-      "poisoned"
-    ],
+    "damage_immunities": ["fire", "poison", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "condition_immunities": ["charmed", "frightened", "paralyzed", "poisoned"],
     "senses": "blindsight 120 ft., passive Perception 10",
     "languages": "",
     "challenge_rating": 30,
@@ -7795,27 +6755,13 @@
     "hit_points": 138,
     "hit_dice": "12d12+60",
     "speed": "30 ft.",
-    "stats": [
-      23,
-      8,
-      21,
-      12,
-      16,
-      12
-    ],
+    "stats": [23, 8, 21, 12, 16, 12],
     "proficiencies": [],
-    "damage_vulnerabilities": [
-      "fire"
-    ],
-    "damage_resistances": [
-      "bludgeoning",
-      "piercing"
-    ],
+    "damage_vulnerabilities": ["fire"],
+    "damage_resistances": ["bludgeoning", "piercing"],
     "damage_immunities": [],
     "condition_immunities": [],
-    "senses": [
-      "passive perception 13"
-    ],
+    "senses": ["passive perception 13"],
     "languages": "Common, Druidic, Elvish, Sylvan",
     "challenge_rating": 9,
     "special_abilities": [
@@ -7923,14 +6869,8 @@
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "paralyzed",
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["charmed", "paralyzed", "poisoned"],
     "senses": "{\"darkvision\":\"60 ft.\",\"passive_perception\":13}",
     "languages": "Celestial, Elvish, Sylvan, telepathy 60 ft.",
     "challenge_rating": 5,
@@ -7951,14 +6891,7 @@
       "hit_points": 144,
       "hit_dice": "17d8+68",
       "speed": "30 ft.",
-      "stats": [
-        18,
-        18,
-        18,
-        17,
-        15,
-        18
-      ],
+      "stats": [18, 18, 18, 17, 15, 18],
       "proficiencies": [
         "Saving Throw: DEX (9)",
         "Saving Throw: WIS (7)",
@@ -7967,10 +6900,7 @@
         "Skill: Stealth (9)"
       ],
       "damage_vulnerabilities": [],
-      "damage_resistances": [
-        "necrotic",
-        "bludgeoning, piercing, and slashing from nonmagical weapons"
-      ],
+      "damage_resistances": ["necrotic", "bludgeoning, piercing, and slashing from nonmagical weapons"],
       "damage_immunities": [],
       "condition_immunities": [],
       "senses": "darkvision 120 ft., passive perception 17",
@@ -8009,14 +6939,7 @@
     "hit_points": 144,
     "hit_dice": "17d8",
     "speed": "walk 5 ft., fly 30 ft.",
-    "stats": [
-      18,
-      18,
-      18,
-      17,
-      15,
-      18
-    ],
+    "stats": [18, 18, 18, 17, 15, 18],
     "proficiencies": [
       "Saving Throw: DEX +9",
       "Saving Throw: WIS +7",
@@ -8062,14 +6985,7 @@
     "hit_points": 144,
     "hit_dice": "17d8+68",
     "speed": "fly 20 ft.",
-    "stats": [
-      18,
-      18,
-      18,
-      17,
-      15,
-      18
-    ],
+    "stats": [18, 18, 18, 17, 15, 18],
     "proficiencies": [
       "Saving Throw: DEX: 9",
       "Saving Throw: WIS: 7",
@@ -8078,19 +6994,11 @@
       "Skill: Stealth: 9"
     ],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "necrotic",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
+    "damage_resistances": ["necrotic", "bludgeoning, piercing, and slashing from nonmagical weapons"],
     "damage_immunities": [],
     "condition_immunities": [],
-    "senses": [
-      "darkvision 120 ft.",
-      "passive perception 17"
-    ],
-    "languages": [
-      "the languages it knew in life"
-    ],
+    "senses": ["darkvision 120 ft.", "passive perception 17"],
+    "languages": ["the languages it knew in life"],
     "challenge_rating": "13",
     "special_abilities": [
       "Shapechanger: If the vampire isn't in sun light or running water, it can use its action to polymorph into a Tiny bat or a Medium cloud of mist, or back into its true form. While in bat form, the vampire can't speak, its walking speed is 5 feet, and it has a flying speed of 30 feet. Its statistics, other than its size and speed, are unchanged. Anything it is wearing transforms with it, but nothing it is carrying does. It reverts to its true form if it dies. While in mist form, the vampire can't take any actions, speak, or manipulate objects. It is weightless, has a flying speed of 20 feet, can hover, and can enter a hostile creature's space and stop there. In addition, if air can pass through a space, the mist can do so without squeezing, and it can't pass through water. It has advantage on Strength, Dexterity, and Constitution saving throws, and it is immune to all nonmagical damage, except the damage it takes from sunlight.",
@@ -8173,10 +7081,7 @@
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
-    "condition_immunities": [
-      "blinded",
-      "frightened"
-    ],
+    "condition_immunities": ["blinded", "frightened"],
     "senses": "{\"blindsight\":\"30 ft. (blind beyond this radius)\",\"passive_perception\":6}",
     "languages": "",
     "challenge_rating": 0.25,
@@ -8263,17 +7168,10 @@
     "speed": "60 ft.",
     "stats": "stats: {strength: 18, dexterity: 12, constitution: 15, intelligence: 2, wisdom: 8, charisma: 5}",
     "proficiencies": [],
-    "damage_vulnerabilities": [
-      "bludgeoning"
-    ],
+    "damage_vulnerabilities": ["bludgeoning"],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "exhaustion",
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["exhaustion", "poisoned"],
     "senses": "darkvision 60 ft., passive perception 9",
     "languages": "",
     "challenge_rating": 0.5,
@@ -8293,13 +7191,8 @@
     "stats": "{\"strength\": 18, \"dexterity\": 14, \"constitution\": 18, \"intelligence\": 5, \"wisdom\": 10, \"charisma\": 8}",
     "proficiencies": [],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "acid",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "damage_immunities": [
-      "poison"
-    ],
+    "damage_resistances": ["acid", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "damage_immunities": ["poison"],
     "condition_immunities": [
       "Exhaustion",
       "Grappled",
@@ -8333,27 +7226,15 @@
     "hit_points": 1,
     "hit_dice": "1d4",
     "speed": "30 ft.",
-    "stats": [
-      3,
-      16,
-      8,
-      2,
-      12,
-      3
-    ],
-    "proficiencies": [
-      "Skill: Perception +3",
-      "Skill: Stealth +5"
-    ],
+    "stats": [3, 16, 8, 2, 12, 3],
+    "proficiencies": ["Skill: Perception +3", "Skill: Stealth +5"],
     "senses": "passive Perception 13",
     "languages": "None",
     "challenge_rating": "0",
     "special_abilities": [
       "Keen Hearing and Smell: The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell."
     ],
-    "actions": [
-      "Bite: Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 1 piercing damage."
-    ]
+    "actions": ["Bite: Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 1 piercing damage."]
   },
   {
     "name": "Werebear, Bear Form",
@@ -8393,9 +7274,7 @@
     "proficiencies": "[{\"name\":\"Perception\",\"value\":7}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
     "senses": "passive Perception 17",
     "languages": "Common",
@@ -8435,29 +7314,14 @@
     "armor_class": 11,
     "hit_points": 78,
     "hit_dice": "12d8+24",
-    "speed": [
-      "walk 40 ft."
-    ],
-    "stats": [
-      17,
-      10,
-      15,
-      10,
-      11,
-      8
-    ],
-    "proficiencies": [
-      "Perception +2"
-    ],
+    "speed": ["walk 40 ft."],
+    "stats": [17, 10, 15, 10, 11, 8],
+    "proficiencies": ["Perception +2"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
-    "senses": [
-      "passive Perception 12"
-    ],
+    "senses": ["passive Perception 12"],
     "languages": "",
     "challenge_rating": 4,
     "special_abilities": [
@@ -8484,9 +7348,7 @@
     "proficiencies": "[{\"name\": \"Skill: Perception\", \"value\": 2}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
     "senses": "{\"passive_perception\": 12}",
     "languages": "Common (can't speak in boar form)",
@@ -8506,32 +7368,15 @@
     "armor_desc": "natural armor",
     "hit_points": 78,
     "hit_dice": "12d8+24",
-    "speed": [
-      "walk 30 ft."
-    ],
-    "stats": [
-      17,
-      10,
-      15,
-      10,
-      11,
-      8
-    ],
-    "proficiencies": [
-      "Perception +2"
-    ],
+    "speed": ["walk 30 ft."],
+    "stats": [17, 10, 15, 10, 11, 8],
+    "proficiencies": ["Perception +2"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
-    "senses": [
-      "passive Perception 12"
-    ],
-    "languages": [
-      "Common"
-    ],
+    "senses": ["passive Perception 12"],
+    "languages": ["Common"],
     "challenge_rating": 4,
     "special_abilities": [
       "Shapechanger: The wereboar can use its action to polymorph into a boar-humanoid hybrid or into a boar, or back into its true form, which is humanoid. Its statistics, other than its AC, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.",
@@ -8596,36 +7441,13 @@
     "hit_points": 33,
     "hit_dice": "6d8",
     "speed": "30 ft.",
-    "stats": [
-      "strength",
-      10,
-      "dexterity",
-      15,
-      "constitution",
-      12,
-      "intelligence",
-      11,
-      "wisdom",
-      10,
-      "charisma",
-      8
-    ],
-    "proficiencies": [
-      "Perception",
-      2,
-      "Stealth",
-      4
-    ],
+    "stats": ["strength", 10, "dexterity", 15, "constitution", 12, "intelligence", 11, "wisdom", 10, "charisma", 8],
+    "proficiencies": ["Perception", 2, "Stealth", 4],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive perception 12"
-    ],
+    "senses": ["darkvision 60 ft.", "passive perception 12"],
     "languages": [],
     "challenge_rating": 2,
     "traits": [
@@ -8655,9 +7477,7 @@
     "proficiencies": "[{\"name\":\"Perception\",\"value\":5},{\"name\":\"Stealth\",\"value\":4}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
     "senses": "{\"darkvision\":\"60 ft.\",\"passive_perception\":15}",
     "languages": "Common",
@@ -8677,31 +7497,14 @@
     "hit_points": 120,
     "hit_dice": "16d8",
     "speed": "30 ft.",
-    "stats": [
-      17,
-      15,
-      16,
-      10,
-      13,
-      11
-    ],
-    "proficiencies": [
-      "Perception +5",
-      "Stealth +4"
-    ],
+    "stats": [17, 15, 16, 10, 13, 11],
+    "proficiencies": ["Perception +5", "Stealth +4"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
-    "senses": [
-      "darkvision 60 ft.",
-      "passive perception 15"
-    ],
-    "languages": [
-      "Common"
-    ],
+    "senses": ["darkvision 60 ft.", "passive perception 15"],
+    "languages": ["Common"],
     "challenge_rating": "4",
     "special_abilities": [
       "Shapechanger: The weretiger can use its action to polymorph into a tiger-humanoid hybrid or into a tiger, or back into its true form, which is humanoid. Its statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.",
@@ -8753,9 +7556,7 @@
     "proficiencies": "[{\"name\":\"Skill: Perception\",\"value\":4}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
     "senses": "{\"passive_perception\":14}",
     "languages": "Common",
@@ -8778,9 +7579,7 @@
     "proficiencies": "[{\"name\":\"Perception\",\"value\":4}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
     "senses": "passive Perception 14",
     "languages": "Common",
@@ -8804,9 +7603,7 @@
     "proficiencies": "[{\"name\":\"Skill: Perception\",\"value\":4}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-    ],
+    "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
     "condition_immunities": [],
     "senses": "passive Perception 14",
     "languages": "",
@@ -8827,14 +7624,7 @@
     "hit_points": 32,
     "hit_dice": "5d8+10",
     "speed": "30 ft., fly 60 ft., swim 30 ft., burrow 15 ft.",
-    "stats": [
-      14,
-      10,
-      14,
-      5,
-      10,
-      11
-    ],
+    "stats": [14, 10, 14, 5, 10, 11],
     "proficiencies": [
       "Saving Throw: DEX +2",
       "Saving Throw: CON +4",
@@ -8845,9 +7635,7 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "cold"
-    ],
+    "damage_immunities": ["cold"],
     "condition_immunities": [],
     "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
     "languages": "Draconic",
@@ -8874,13 +7662,8 @@
       "necrotic",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
     ],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "exhaustion",
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["exhaustion", "poisoned"],
     "senses": "{\"darkvision\":\"60 ft.\",\"passive_perception\":13}",
     "languages": "the languages it knew in life",
     "challenge_rating": 3,
@@ -8908,19 +7691,8 @@
       "thunder",
       "bludgeoning, piercing, and slashing from nonmagical weapons"
     ],
-    "damage_immunities": [
-      "lightning",
-      "poison"
-    ],
-    "condition_immunities": [
-      "exhaustion",
-      "grappled",
-      "paralyzed",
-      "poisoned",
-      "prone",
-      "restrained",
-      "unconscious"
-    ],
+    "damage_immunities": ["lightning", "poison"],
+    "condition_immunities": ["exhaustion", "grappled", "paralyzed", "poisoned", "prone", "restrained", "unconscious"],
     "senses": "darkvision 120 ft., passive Perception 12",
     "languages": "the languages it knew in life",
     "challenge_rating": 2,
@@ -8946,18 +7718,8 @@
     "hit_points": 75,
     "hit_dice": "10d10+20",
     "speed": "50 ft.",
-    "stats": [
-      18,
-      13,
-      14,
-      7,
-      12,
-      8
-    ],
-    "skills": [
-      "perception: 5",
-      "stealth: 3"
-    ],
+    "stats": [18, 13, 14, 7, 12, 8],
+    "skills": ["perception: 5", "stealth: 3"],
     "damage_vulnerabilities": "",
     "damage_resistances": "",
     "damage_immunities": "cold",
@@ -8986,18 +7748,8 @@
     "hit_dice": "2d8",
     "hit_points_roll": "2d8+2",
     "speed": "40 ft.",
-    "stats": [
-      12,
-      15,
-      12,
-      3,
-      12,
-      6
-    ],
-    "proficiencies": [
-      "Perception +3",
-      "Stealth +4"
-    ],
+    "stats": [12, 15, 12, 3, 12, 6],
+    "proficiencies": ["Perception +3", "Stealth +4"],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
     "damage_immunities": [],
@@ -9048,14 +7800,7 @@
     "hit_points": 67,
     "hit_dice": "9d8+27",
     "speed": "0 ft., fly 60 ft. (hover)",
-    "stats": [
-      6,
-      16,
-      16,
-      12,
-      14,
-      15
-    ],
+    "stats": [6, 16, 16, 12, 14, 15],
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [
@@ -9066,10 +7811,7 @@
       "thunder",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
     ],
-    "damage_immunities": [
-      "necrotic",
-      "poison"
-    ],
+    "damage_immunities": ["necrotic", "poison"],
     "condition_immunities": [
       "charmed",
       "exhaustion",
@@ -9127,32 +7869,14 @@
     "hit_points": 73,
     "hit_dice": "7d8+42",
     "speed": "walk 20 ft., burrow 20 ft.",
-    "stats": [
-      17,
-      10,
-      22,
-      11,
-      10,
-      11
-    ],
-    "proficiencies": [
-      "Perception +6",
-      "Stealth +3"
-    ],
+    "stats": [17, 10, 22, 11, 10, 11],
+    "proficiencies": ["Perception +6", "Stealth +3"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "piercing and slashing from nonmagical weapons that aren't adamantine"
-    ],
+    "damage_resistances": ["piercing and slashing from nonmagical weapons that aren't adamantine"],
     "damage_immunities": [],
     "condition_immunities": [],
-    "senses": [
-      "darkvision 60 ft.",
-      "tremorsense 60 ft.",
-      "passive perception 16"
-    ],
-    "languages": [
-      "Terran"
-    ],
+    "senses": ["darkvision 60 ft.", "tremorsense 60 ft.", "passive perception 16"],
+    "languages": ["Terran"],
     "challenge_rating": "5",
     "special_abilities": [
       "Earth Glide: The xorn can burrow through nonmagical, unworked earth and stone. While doing so, the xorn doesn't disturb the material it moves through.",
@@ -9180,9 +7904,7 @@
     "proficiencies": "{\"saving_throw_dex\":5,\"saving_throw_con\":6,\"saving_throw_wis\":3,\"saving_throw_cha\":5,\"skill_perception\":6,\"skill_stealth\":5}",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid"
-    ],
+    "damage_immunities": ["acid"],
     "condition_immunities": [],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 16",
     "languages": "Common, Draconic",
@@ -9210,14 +7932,9 @@
       "{\"name\": \"Skill: Perception\", \"value\": 9}",
       "{\"name\": \"Skill: Stealth\", \"value\": 4}"
     ],
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 19",
-    "languages": [
-      "Common",
-      "Draconic"
-    ],
+    "languages": ["Common", "Draconic"],
     "challenge_rating": 9,
     "actions": [
       "{\"name\": \"Multiattack\", \"description\": \"The dragon makes three attacks: one with its bite and two with its claws.\"}",
@@ -9240,9 +7957,7 @@
     "proficiencies": "[{\"name\": \"Saving Throw: DEX\", \"value\": 3}, {\"name\": \"Saving Throw: CON\", \"value\": 6}, {\"name\": \"Saving Throw: WIS\", \"value\": 3}, {\"name\": \"Saving Throw: CHA\", \"value\": 5}, {\"name\": \"Skill: Perception\", \"value\": 6}, {\"name\": \"Skill: Persuasion\", \"value\": 5}, {\"name\": \"Skill: Stealth\", \"value\": 3}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "condition_immunities": [],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 16",
     "languages": "Common, Draconic",
@@ -9259,14 +7974,7 @@
     "hit_points": 142,
     "hit_dice": "15d10+60",
     "speed": "40 ft., fly 80 ft., swim 40 ft.",
-    "stats": [
-      21,
-      10,
-      19,
-      14,
-      13,
-      17
-    ],
+    "stats": [21, 10, 19, 14, 13, 17],
     "proficiencies": [
       "Saving Throw: DEX +3",
       "Saving Throw: CON +7",
@@ -9276,23 +7984,12 @@
       "Skill: Perception +7",
       "Skill: Stealth +3"
     ],
-    "damage_immunities": [
-      "lightning"
-    ],
+    "damage_immunities": ["lightning"],
     "condition_immunities": [],
-    "senses": [
-      "blindsight 30 ft.",
-      "darkvision 120 ft.",
-      "passive perception 17"
-    ],
-    "languages": [
-      "Common",
-      "Draconic"
-    ],
+    "senses": ["blindsight 30 ft.", "darkvision 120 ft.", "passive perception 17"],
+    "languages": ["Common", "Draconic"],
     "challenge_rating": 8,
-    "special_abilities": [
-      "Amphibious: The dragon can breathe air and water."
-    ],
+    "special_abilities": ["Amphibious: The dragon can breathe air and water."],
     "actions": [
       "Multiattack: The dragon makes three attacks: one with its bite and two with its claws.",
       "Bite: Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 16 (2d10 + 5) piercing damage.",
@@ -9314,9 +8011,7 @@
     "proficiencies": "Saving Throw: DEX +4, Saving Throw: CON +6, Saving Throw: WIS +4, Saving Throw: CHA +5, Skill: Deception +5, Skill: Perception +7, Skill: Stealth +4",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "acid"
-    ],
+    "damage_immunities": ["acid"],
     "condition_immunities": [],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 17",
     "languages": "Common, Draconic",
@@ -9349,9 +8044,7 @@
     "senses": "blindsight 30 ft., darkvision 120 ft., passive Perception 19",
     "languages": "Common, Draconic",
     "challenge_rating": 10,
-    "special_abilities": [
-      "{\"name\": \"Amphibious\", \"description\": \"The dragon can breathe air and water.\"}"
-    ],
+    "special_abilities": ["{\"name\": \"Amphibious\", \"description\": \"The dragon can breathe air and water.\"}"],
     "actions": [
       "{\"name\": \"Multiattack\", \"description\": \"The dragon makes three attacks: one with its bite and two with its claws.\"}",
       "{\"name\": \"Bite\", \"description\": \"Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage.\"}",
@@ -9370,14 +8063,7 @@
     "hit_points": 136,
     "hit_dice": "16d10+48",
     "speed": "40 ft., fly 80 ft., swim 40 ft.",
-    "stats": [
-      19,
-      12,
-      17,
-      16,
-      13,
-      15
-    ],
+    "stats": [19, 12, 17, 16, 13, 15],
     "proficiencies": [
       "Saving Throw: DEX +4",
       "Saving Throw: CON +6",
@@ -9389,18 +8075,12 @@
     ],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "poison"
-    ],
-    "condition_immunities": [
-      "poisoned"
-    ],
+    "damage_immunities": ["poison"],
+    "condition_immunities": ["poisoned"],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 17",
     "languages": "Common, Draconic",
     "challenge_rating": "8",
-    "special_abilities": [
-      "Amphibious: The dragon can breathe air and water."
-    ],
+    "special_abilities": ["Amphibious: The dragon can breathe air and water."],
     "actions": [
       "Multiattack: The dragon makes three attacks: one with its bite and two with its claws.",
       "Bite: Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 15 (2d10 + 4) piercing damage plus 7 (2d6) poison damage.",
@@ -9420,9 +8100,7 @@
     "speed": "walk 40 ft., fly 80 ft., climb 40 ft.",
     "stats": "{\"strength\":23,\"dexterity\":10,\"constitution\":21,\"intelligence\":14,\"wisdom\":11,\"charisma\":19}",
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":4},{\"name\":\"Saving Throw: CON\",\"value\":9},{\"name\":\"Saving Throw: WIS\",\"value\":4},{\"name\":\"Saving Throw: CHA\",\"value\":8},{\"name\":\"Skill: Perception\",\"value\":8},{\"name\":\"Skill: Stealth\",\"value\":4}]",
-    "damage_immunities": [
-      "fire"
-    ],
+    "damage_immunities": ["fire"],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 18",
     "languages": "Common, Draconic",
     "challenge_rating": 10,
@@ -9438,22 +8116,8 @@
     "hit_points": 168,
     "hit_dice": "16d10+80",
     "speed": "walk 40 ft., fly 80 ft.",
-    "stats": [
-      6,
-      0,
-      5,
-      2,
-      0,
-      4
-    ],
-    "abilities": [
-      23,
-      10,
-      21,
-      14,
-      11,
-      19
-    ],
+    "stats": [6, 0, 5, 2, 0, 4],
+    "abilities": [23, 10, 21, 14, 11, 19],
     "proficiencies": [
       "Saving Throw: DEX +4",
       "Saving Throw: CON +9",
@@ -9464,9 +8128,7 @@
       "Skill: Perception +8",
       "Skill: Stealth +4"
     ],
-    "damage_immunities": [
-      "cold"
-    ],
+    "damage_immunities": ["cold"],
     "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 18",
     "languages": "Common, Draconic",
     "challenge_rating": 9,
@@ -9494,9 +8156,7 @@
     "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":3},{\"name\":\"Saving Throw: CON\",\"value\":7},{\"name\":\"Saving Throw: WIS\",\"value\":3},{\"name\":\"Saving Throw: CHA\",\"value\":4},{\"name\":\"Skill: Perception\",\"value\":6},{\"name\":\"Skill: Stealth\",\"value\":3}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "cold"
-    ],
+    "damage_immunities": ["cold"],
     "condition_immunities": [],
     "senses": "{\"blindsight\":\"30 ft.\",\"darkvision\":\"120 ft.\",\"passive_perception\":16}",
     "languages": "Common, Draconic",

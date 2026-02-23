@@ -50,11 +50,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "cleric",
-    "paladin",
-    "sorcerer",
-    "warlock",
-    "wizard"
-  ]
+  "tags": ["cleric", "paladin", "sorcerer", "warlock", "wizard"]
 }

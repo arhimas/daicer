@@ -7,8 +7,5 @@
   "value": 5,
   "weight": 3,
   "size": "Medium",
-  "tags": [
-    "adventuring-gear",
-    "kits"
-  ]
+  "tags": ["adventuring-gear", "kits"]
 }

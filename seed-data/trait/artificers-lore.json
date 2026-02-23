@@ -7,7 +7,5 @@
   },
   "description": "Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply.",
   "proficiencies": [],
-  "races": [
-    "rock-gnome"
-  ]
+  "races": ["rock-gnome"]
 }

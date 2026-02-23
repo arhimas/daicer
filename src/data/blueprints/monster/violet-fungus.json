@@ -13,10 +13,7 @@
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],
-  "condition_immunities": [
-    "blinded",
-    "frightened"
-  ],
+  "condition_immunities": ["blinded", "frightened"],
   "senses": "{\"blindsight\":\"30 ft. (blind beyond this radius)\",\"passive_perception\":6}",
   "languages": "",
   "challenge_rating": 0.25,

@@ -35,8 +35,5 @@
     "status": "Valid",
     "summary": "Spell generated from reference data."
   },
-  "tags": [
-    "bard",
-    "wizard"
-  ]
+  "tags": ["bard", "wizard"]
 }

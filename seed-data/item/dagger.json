@@ -11,12 +11,7 @@
     "damage_dice": "1d4",
     "damage_type": "piercing",
     "range_normal": 20,
-    "properties": [
-      "finesse",
-      "light",
-      "thrown",
-      "monk"
-    ],
+    "properties": ["finesse", "light", "thrown", "monk"],
     "str_minimum": 0,
     "stealth_disadvantage": false
   },

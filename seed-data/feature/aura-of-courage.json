@@ -12,7 +12,5 @@
   "image": "https://www.dndbeyond.com/sources/phb/paladin#AuraofCourage",
   "level": 10,
   "lore": "The divine light within you radiates outward, steeling the hearts of those who stand by your side and ensuring that fear finds no purchase in the souls of your allies.",
-  "tags": [
-    "paladin"
-  ]
+  "tags": ["paladin"]
 }

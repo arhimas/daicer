@@ -8,28 +8,12 @@
   "hit_points": 17,
   "hit_dice": "5d6",
   "speed": "30 ft., fly 30 ft.",
-  "stats": [
-    5,
-    14,
-    10,
-    9,
-    11,
-    10
-  ],
-  "proficiencies": [
-    "Perception (+2)",
-    "Stealth (+4)"
-  ],
-  "damage_vulnerabilities": [
-    "fire"
-  ],
+  "stats": [5, 14, 10, 9, 11, 10],
+  "proficiencies": ["Perception (+2)", "Stealth (+4)"],
+  "damage_vulnerabilities": ["fire"],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 60 ft., passive perception 12",
   "languages": "Auran, Terran",
   "challenge_rating": 0.5,

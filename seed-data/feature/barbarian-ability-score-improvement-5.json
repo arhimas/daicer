@@ -12,8 +12,5 @@
   "image": "",
   "level": 19,
   "lore": "As you reach the pinnacle of your physical prowess, your innate abilities reach heights few can imagine.",
-  "tags": [
-    "barbarian",
-    "class-feature"
-  ]
+  "tags": ["barbarian", "class-feature"]
 }

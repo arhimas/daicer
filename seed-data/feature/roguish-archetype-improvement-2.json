@@ -7,7 +7,5 @@
   },
   "description": "At 13th level, you gain a feature granted by your Roguish Archetype choice.",
   "level": 13,
-  "tags": [
-    "rogue"
-  ]
+  "tags": ["rogue"]
 }

@@ -10,8 +10,5 @@
   "image": "",
   "level": 1,
   "lore": "The lingering essence of a dragon's vitality manifests as physical protection and a hardier constitution.",
-  "tags": [
-    "sorcerer",
-    "draconic-bloodline"
-  ]
+  "tags": ["sorcerer", "draconic-bloodline"]
 }

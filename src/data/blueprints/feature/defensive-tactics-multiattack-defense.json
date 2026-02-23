@@ -10,9 +10,5 @@
   "image": "",
   "level": 7,
   "lore": "Hunters who face monstrous foes with multiple limbs or weapons learn to brace themselves after an initial blow, turning the enemy's momentum into a defensive advantage.",
-  "tags": [
-    "ranger",
-    "hunter",
-    "defensive-tactics"
-  ]
+  "tags": ["ranger", "hunter", "defensive-tactics"]
 }

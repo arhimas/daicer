@@ -4,26 +4,26 @@ import { JsonSchemaBuilder } from '@/features/genesis-core/json-schema-builder';
 
 const mockBuild = vi.fn();
 const mockSchemaBuilder = {
-    build: mockBuild
+  build: mockBuild,
 } as unknown as JsonSchemaBuilder;
 
 describe('PromptBuilder', () => {
-    let builder: PromptBuilder;
+  let builder: PromptBuilder;
 
-    beforeEach(() => {
-        builder = new PromptBuilder(mockSchemaBuilder);
-        vi.clearAllMocks();
-    });
+  beforeEach(() => {
+    builder = new PromptBuilder(mockSchemaBuilder);
+    vi.clearAllMocks();
+  });
 
-    it('should build prompt and return schema', async () => {
-        const mockSchema = { type: 'object', properties: { test: { type: 'string' } } };
-        mockBuild.mockResolvedValue(mockSchema);
+  it('should build prompt and return schema', async () => {
+    const mockSchema = { type: 'object', properties: { test: { type: 'string' } } };
+    mockBuild.mockResolvedValue(mockSchema);
 
-        const result = await builder.buildPrompt('api::test.test');
+    const result = await builder.buildPrompt('api::test.test');
 
-        expect(result.jsonSchema).toEqual(mockSchema);
-        expect(result.systemPrompt).toContain('You are the Genesis Engine');
-        expect(result.systemPrompt).toContain('"api::test.test"');
-        expect(mockBuild).toHaveBeenCalledWith('api::test.test');
-    });
+    expect(result.jsonSchema).toEqual(mockSchema);
+    expect(result.systemPrompt).toContain('You are the Genesis Engine');
+    expect(result.systemPrompt).toContain('"api::test.test"');
+    expect(mockBuild).toHaveBeenCalledWith('api::test.test');
+  });
 });

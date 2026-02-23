@@ -12,12 +12,8 @@
   "proficiencies": "[{\"name\":\"Saving Throw: WIS\",\"value\":0}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "{\"darkvision\":\"60 ft.\",\"passive_perception\":8}",
   "languages": "understands Common and Giant but can't speak",
   "challenge_rating": 2,

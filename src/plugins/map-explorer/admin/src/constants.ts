@@ -1,4 +1,4 @@
-import { BlockType } from "./types";
+import { BlockType } from './types';
 
 export const Z_MIN = -3;
 export const Z_MAX = 3;

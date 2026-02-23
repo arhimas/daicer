@@ -12,9 +12,5 @@
   "image": "",
   "level": 17,
   "lore": "Your connection to the divine has grown so powerful that the mere sight of your holy symbol can reduce powerful undead to ash.",
-  "tags": [
-    "cleric",
-    "class-feature",
-    "undead"
-  ]
+  "tags": ["cleric", "class-feature", "undead"]
 }

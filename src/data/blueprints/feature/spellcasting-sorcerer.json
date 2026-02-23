@@ -12,9 +12,5 @@
   "image": "https://example.com/images/sorcerer-magic.png",
   "level": 1,
   "lore": "The magic within you is a gift, a curse, or a birthright, flowing through your veins like blood.",
-  "tags": [
-    "sorcerer",
-    "spellcasting",
-    "class-feature"
-  ]
+  "tags": ["sorcerer", "spellcasting", "class-feature"]
 }

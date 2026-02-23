@@ -8,14 +8,7 @@
   "hit_points": 385,
   "hit_dice": "22d20+154",
   "speed": "40 ft., fly 80 ft., swim 40 ft.",
-  "stats": [
-    27,
-    12,
-    25,
-    20,
-    17,
-    19
-  ],
+  "stats": [27, 12, 25, 20, 17, 19],
   "proficiencies": [
     "Saving Throw: DEX +8",
     "Saving Throw: CON +14",
@@ -29,21 +22,10 @@
   ],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
-  "senses": [
-    "blindsight 60 ft.",
-    "darkvision 120 ft.",
-    "passive perception 27"
-  ],
-  "languages": [
-    "Common",
-    "Draconic"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
+  "senses": ["blindsight 60 ft.", "darkvision 120 ft.", "passive perception 27"],
+  "languages": ["Common", "Draconic"],
   "challenge_rating": 22,
   "special_abilities": [
     "Amphibious: The dragon can breathe air and water.",

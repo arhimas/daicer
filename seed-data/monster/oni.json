@@ -9,14 +9,7 @@
     "hit_points": 110,
     "hit_dice": "13d10",
     "speed": "walk 30 ft., fly 30 ft.",
-    "stats": [
-      19,
-      11,
-      16,
-      14,
-      12,
-      15
-    ],
+    "stats": [19, 11, 16, 14, 12, 15],
     "proficiencies": [
       "Saving Throw: DEX +3",
       "Saving Throw: CON +6",

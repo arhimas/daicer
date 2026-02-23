@@ -6,126 +6,125 @@ import { SystemMessage, HumanMessage } from '@langchain/core/messages';
 export type GenesisModel = 'gemini-3-flash' | 'gemini-3-pro';
 
 export interface LLMBridgeConfig {
-    apiKey?: string;
-    temperature?: number;
+  apiKey?: string;
+  temperature?: number;
 }
 
 export class LLMBridge {
-    private apiKey: string;
-    private temperature: number;
+  private apiKey: string;
+  private temperature: number;
 
-    constructor(config?: LLMBridgeConfig) {
-        this.apiKey = config?.apiKey || process.env.GEMINI_API_KEY || '';
-        this.temperature = config?.temperature ?? 0.7;
+  constructor(config?: LLMBridgeConfig) {
+    this.apiKey = config?.apiKey || process.env.GEMINI_API_KEY || '';
+    this.temperature = config?.temperature ?? 0.7;
 
-        if (!this.apiKey) {
-            console.warn('WARN: GEMINI_API_KEY is not set. LLM calls will fail.');
-        }
+    if (!this.apiKey) {
+      console.warn('WARN: GEMINI_API_KEY is not set. LLM calls will fail.');
+    }
+  }
+
+  private resolveModelName(model: GenesisModel): string {
+    switch (model) {
+      case 'gemini-3-flash':
+        return 'gemini-3-flash-preview';
+      case 'gemini-3-pro':
+        return 'gemini-3.1-pro-preview';
+      default:
+        return 'gemini-3-flash-preview';
+    }
+  }
+
+  private getModel(modelName: GenesisModel) {
+    return new ChatGoogleGenerativeAI({
+      model: this.resolveModelName(modelName),
+      apiKey: this.apiKey,
+      temperature: this.temperature,
+      maxRetries: 3,
+    });
+  }
+
+  async generateStructured<T>(
+    prompt: string,
+    schema: z.ZodType<T> | any,
+    details: {
+      systemInstruction?: string;
+      model?: GenesisModel;
+      temperature?: number;
+    } = {}
+  ): Promise<T> {
+    const selectedModel = details.model || 'gemini-3-flash';
+    const llm = this.getModel(selectedModel);
+
+    // Override temperature if specified
+    if (details.temperature !== undefined) {
+      llm.temperature = details.temperature;
     }
 
-    private resolveModelName(model: GenesisModel): string {
-        switch (model) {
-            case 'gemini-3-flash':
-                return 'gemini-3-flash-preview';
-            case 'gemini-3-pro':
-                return 'gemini-3.1-pro-preview';
-            default:
-                return 'gemini-3-flash-preview';
-        }
+    // LangChain google-genai supports both Zod and JSON Schema objects
+    // However, if passed a JSON object, it might expect a different config format depending on version.
+    // The current @langchain/google-genai implementation of withStructuredOutput handles Zod nicely.
+    // For raw JSON schema, we might need to verify the exact call signature or wrapper.
+    // Assuming current version supports standard JSON Schema object as argument.
+
+    const llmWithStruct = llm.withStructuredOutput(schema);
+
+    const messages = [];
+    if (details.systemInstruction) {
+      messages.push(new SystemMessage(details.systemInstruction));
     }
+    messages.push(new HumanMessage(prompt));
 
-    private getModel(modelName: GenesisModel) {
-        return new ChatGoogleGenerativeAI({
-            model: this.resolveModelName(modelName),
-            apiKey: this.apiKey,
-            temperature: this.temperature,
-            maxRetries: 3,
-        });
+    let retries = 5;
+    let delay = 2000;
+
+    while (retries > 0) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s hard timeout
+
+      try {
+        const response = await llmWithStruct.invoke(messages, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        return response as T;
+      } catch (error: any) {
+        clearTimeout(timeoutId);
+        retries--;
+        const errorMsg =
+          error.name === 'AbortError' || error.message.includes('abort')
+            ? 'API Request timed out after 60 seconds'
+            : error.message;
+
+        if (retries === 0) {
+          throw new Error(`LLM Generation Failed [${selectedModel}]: ${errorMsg}`);
+        }
+        console.warn(`⚠️ API Error (${errorMsg}). Retrying in ${delay / 1000}s... (${retries} attempts left)`);
+        await new Promise((res) => setTimeout(res, delay));
+        delay *= 2; // Exponential backoff
+      }
     }
+    throw new Error('Unreachable state in LLMBridge retry loop');
+  }
 
-    async generateStructured<T>(
-        prompt: string,
-        schema: z.ZodType<T> | any,
-        details: {
-            systemInstruction?: string;
-            model?: GenesisModel;
-            temperature?: number;
-        } = {}
-    ): Promise<T> {
-        const selectedModel = details.model || 'gemini-3-flash';
-        const llm = this.getModel(selectedModel);
-        
-        // Override temperature if specified
-        if (details.temperature !== undefined) {
-            llm.temperature = details.temperature;
-        }
+  async generateText(
+    prompt: string,
+    details: {
+      systemInstruction?: string;
+      model?: GenesisModel;
+    } = {}
+  ): Promise<string> {
+    const selectedModel = details.model || 'gemini-3-flash';
+    const llm = this.getModel(selectedModel);
 
-        // LangChain google-genai supports both Zod and JSON Schema objects
-        // However, if passed a JSON object, it might expect a different config format depending on version.
-        // The current @langchain/google-genai implementation of withStructuredOutput handles Zod nicely.
-        // For raw JSON schema, we might need to verify the exact call signature or wrapper.
-        // Assuming current version supports standard JSON Schema object as argument.
-        
-        const llmWithStruct = llm.withStructuredOutput(schema);
-
-        const messages = [];
-        if (details.systemInstruction) {
-            messages.push(new SystemMessage(details.systemInstruction));
-        }
-        messages.push(new HumanMessage(prompt));
-
-        let retries = 5;
-        let delay = 2000;
-
-        while (retries > 0) {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s hard timeout
-
-            try {
-                const response = await llmWithStruct.invoke(messages, { signal: controller.signal });
-                clearTimeout(timeoutId);
-                return response as T;
-            } catch (error: any) {
-                clearTimeout(timeoutId);
-                retries--;
-                const errorMsg = error.name === 'AbortError' || error.message.includes('abort') 
-                    ? 'API Request timed out after 60 seconds' 
-                    : error.message;
-
-                if (retries === 0) {
-                    throw new Error(`LLM Generation Failed [${selectedModel}]: ${errorMsg}`);
-                }
-                console.warn(`⚠️ API Error (${errorMsg}). Retrying in ${delay / 1000}s... (${retries} attempts left)`);
-                await new Promise(res => setTimeout(res, delay));
-                delay *= 2; // Exponential backoff
-            }
-        }
-        throw new Error('Unreachable state in LLMBridge retry loop');
+    const messages = [];
+    if (details.systemInstruction) {
+      messages.push(new SystemMessage(details.systemInstruction));
     }
+    messages.push(new HumanMessage(prompt));
 
-    async generateText(
-        prompt: string,
-        details: { 
-            systemInstruction?: string;
-            model?: GenesisModel 
-        } = {}
-    ): Promise<string> {
-        const selectedModel = details.model || 'gemini-3-flash';
-        const llm = this.getModel(selectedModel);
-
-        const messages = [];
-        if (details.systemInstruction) {
-            messages.push(new SystemMessage(details.systemInstruction));
-        }
-        messages.push(new HumanMessage(prompt));
-
-        try {
-            const response = await llm.invoke(messages);
-            return typeof response.content === 'string' 
-                ? response.content 
-                : JSON.stringify(response.content);
-        } catch (error: any) {
-            throw new Error(`LLM Text Generation Failed [${selectedModel}]: ${error.message}`);
-        }
+    try {
+      const response = await llm.invoke(messages);
+      return typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
+    } catch (error: any) {
+      throw new Error(`LLM Text Generation Failed [${selectedModel}]: ${error.message}`);
     }
+  }
 }

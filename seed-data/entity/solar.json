@@ -24,11 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "int",
-      "wis",
-      "cha"
-    ],
+    "saves": ["int", "wis", "cha"],
     "skills": [],
     "passivePerception": 24,
     "darkvision": 0,
@@ -45,11 +41,7 @@
     "solar-multiattack",
     "solar-slaying-longbow"
   ],
-  "legendary_actions": [
-    "solar-blinding-gaze",
-    "solar-searing-burst",
-    "solar-teleport"
-  ],
+  "legendary_actions": ["solar-blinding-gaze", "solar-searing-burst", "solar-teleport"],
   "spells": [
     "blade-barrier",
     "commune",

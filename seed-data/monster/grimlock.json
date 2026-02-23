@@ -14,9 +14,7 @@
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],
-  "condition_immunities": [
-    "blinded"
-  ],
+  "condition_immunities": ["blinded"],
   "senses": "{\"blindsight\": \"30 ft. or 10 ft. while deafened (blind beyond this radius)\", \"passive_perception\": 13}",
   "languages": "Undercommon",
   "challenge_rating": 0.25,

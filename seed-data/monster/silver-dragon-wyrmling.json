@@ -8,14 +8,7 @@
   "hit_points": 45,
   "hit_dice": "6d8",
   "speed": "walk 30 ft., fly 60 ft.",
-  "stats": [
-    19,
-    10,
-    17,
-    12,
-    11,
-    15
-  ],
+  "stats": [19, 10, 17, 12, 11, 15],
   "proficiencies": [
     "Saving Throw: DEX +2",
     "Saving Throw: CON +5",
@@ -24,9 +17,7 @@
     "Skill: Perception +4",
     "Skill: Stealth +2"
   ],
-  "damage_immunities": [
-    "cold"
-  ],
+  "damage_immunities": ["cold"],
   "condition_immunities": [],
   "senses": "blindsight 10 ft., darkvision 60 ft., passive Perception 14",
   "languages": "Draconic",

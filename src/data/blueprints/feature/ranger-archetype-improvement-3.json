@@ -12,9 +12,5 @@
   "image": "https://example.com/assets/ranger-archetype.webp",
   "level": 15,
   "lore": "The path a ranger walks is defined by their specialization, honing their survival instincts into a unique style of combat and exploration.",
-  "tags": [
-    "ranger",
-    "class-feature",
-    "archetype"
-  ]
+  "tags": ["ranger", "class-feature", "archetype"]
 }

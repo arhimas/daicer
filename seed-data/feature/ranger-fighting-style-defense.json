@@ -6,8 +6,5 @@
   },
   "description": "While you are wearing armor, you gain a +1 bonus to AC.",
   "level": 2,
-  "tags": [
-    "ranger",
-    "fighting-style"
-  ]
+  "tags": ["ranger", "fighting-style"]
 }

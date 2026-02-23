@@ -10,9 +10,5 @@
   "image": "",
   "level": 14,
   "lore": "The warlock briefly banishes a foe to the nightmare realms of the Lower Planes, inflicting psychic trauma through horrific visions.",
-  "tags": [
-    "warlock",
-    "fiend",
-    "class-feature"
-  ]
+  "tags": ["warlock", "fiend", "class-feature"]
 }

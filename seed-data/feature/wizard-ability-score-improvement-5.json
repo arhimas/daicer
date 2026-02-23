@@ -12,7 +12,5 @@
   "image": "",
   "level": 19,
   "lore": "As a wizard grows in power, their constant mental exercises and experiences in the field sharpen their natural capabilities or bolster their physical hardiness.",
-  "tags": [
-    "wizard"
-  ]
+  "tags": ["wizard"]
 }

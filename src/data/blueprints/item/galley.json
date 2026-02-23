@@ -7,8 +7,5 @@
   "value": 30000,
   "weight": 0,
   "size": "Medium",
-  "tags": [
-    "mounts-and-vehicles",
-    "waterborne-vehicles"
-  ]
+  "tags": ["mounts-and-vehicles", "waterborne-vehicles"]
 }

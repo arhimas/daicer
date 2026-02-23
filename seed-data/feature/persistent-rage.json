@@ -9,8 +9,5 @@
   "embedding": {},
   "level": 15,
   "lore": "Your inner fury has reached a state of perpetual momentum, a self-sustaining storm of adrenaline and instinct that ignores the usual lulls of combat.",
-  "tags": [
-    "barbarian",
-    "class-feature"
-  ]
+  "tags": ["barbarian", "class-feature"]
 }

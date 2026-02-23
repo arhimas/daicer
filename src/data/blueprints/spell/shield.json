@@ -36,9 +36,5 @@
     "status": "Valid",
     "summary": "Shield spell successfully mapped from reference data."
   },
-  "tags": [
-    "sorcerer",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["sorcerer", "wizard", "lore"]
 }

@@ -11,41 +11,31 @@
   "equipment": [
     {
       "isEquipped": true,
-      "item": [
-        "fine-clothes"
-      ],
+      "item": ["fine-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": true,
-      "item": [
-        "signet-ring"
-      ],
+      "item": ["signet-ring"],
       "quantity": 1,
       "slot": "ring_1"
     },
     {
       "isEquipped": false,
-      "item": [
-        "scroll-of-pedigree"
-      ],
+      "item": ["scroll-of-pedigree"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "purse"
-      ],
+      "item": ["purse"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 25,
       "slot": "backpack"
     }
@@ -59,30 +49,22 @@
     {
       "type": "Skill",
       "name": "History",
-      "proficiency": [
-        "skill-history"
-      ]
+      "proficiency": ["skill-history"]
     },
     {
       "type": "Skill",
       "name": "Persuasion",
-      "proficiency": [
-        "skill-persuasion"
-      ]
+      "proficiency": ["skill-persuasion"]
     },
     {
       "type": "Tool",
       "name": "Gaming Set",
-      "proficiency": [
-        "tool-gaming-set-any"
-      ]
+      "proficiency": ["tool-gaming-set-any"]
     },
     {
       "type": "Language",
       "name": "One Language of Choice",
-      "proficiency": [
-        "language-any"
-      ]
+      "proficiency": ["language-any"]
     }
   ]
 }

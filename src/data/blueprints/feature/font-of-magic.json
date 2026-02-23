@@ -12,8 +12,5 @@
   "image": "https://example.com/images/font-of-magic.png",
   "level": 2,
   "lore": "The magic within a sorcerer is not just a tool, but a living part of their being, a reservoir of raw power that can be shaped to the user's will.",
-  "tags": [
-    "sorcerer",
-    "class-feature"
-  ]
+  "tags": ["sorcerer", "class-feature"]
 }

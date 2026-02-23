@@ -12,17 +12,9 @@
   "stats": "{\"strength\":18,\"dexterity\":8,\"constitution\":16,\"intelligence\":5,\"wisdom\":10,\"charisma\":5}",
   "proficiencies": "[{\"name\":\"Stealth\",\"value\":2}]",
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold",
-    "fire"
-  ],
-  "damage_immunities": [
-    "lightning"
-  ],
-  "condition_immunities": [
-    "blinded",
-    "exhaustion"
-  ],
+  "damage_resistances": ["cold", "fire"],
+  "damage_immunities": ["lightning"],
+  "condition_immunities": ["blinded", "exhaustion"],
   "senses": "blindsight 60 ft. (blind beyond this radius), passive Perception 10",
   "languages": "",
   "challenge_rating": 5,

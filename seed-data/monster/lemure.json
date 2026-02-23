@@ -12,18 +12,9 @@
   "stats": "strength: 10, dexterity: 5, constitution: 11, intelligence: 1, wisdom: 11, charisma: 3",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold"
-  ],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "charmed",
-    "frightened",
-    "poisoned"
-  ],
+  "damage_resistances": ["cold"],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["charmed", "frightened", "poisoned"],
   "senses": "darkvision 120 ft., passive perception 10",
   "languages": "understands infernal but can't speak",
   "challenge_rating": 0,

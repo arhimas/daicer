@@ -10,8 +10,5 @@
   "image": "",
   "level": 2,
   "lore": "The warlock's eyes adapt to the deepest gloom, piercing even the unnatural shadows cast by otherworldly forces.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

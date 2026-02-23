@@ -23,13 +23,7 @@
     },
     "category": {
       "type": "enumeration",
-      "enum": [
-        "Creature",
-        "Item",
-        "Structure",
-        "Effect",
-        "Terrain"
-      ],
+      "enum": ["Creature", "Item", "Structure", "Effect", "Terrain"],
       "default": "Creature"
     },
     "grid": {
@@ -97,13 +91,7 @@
           },
           "category": {
             "type": "enumeration",
-            "enum": [
-              "Creature",
-              "Item",
-              "Structure",
-              "Effect",
-              "Terrain"
-            ],
+            "enum": ["Creature", "Item", "Structure", "Effect", "Terrain"],
             "default": "Creature",
             "required": true
           },

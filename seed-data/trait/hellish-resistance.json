@@ -7,7 +7,5 @@
   },
   "description": "You have resistance to fire damage.",
   "proficiencies": [],
-  "races": [
-    "tiefling"
-  ]
+  "races": ["tiefling"]
 }

@@ -24,12 +24,7 @@
     },
     "reset_on": {
       "type": "enumeration",
-      "enum": [
-        "short_rest",
-        "long_rest",
-        "never",
-        "dawn"
-      ],
+      "enum": ["short_rest", "long_rest", "never", "dawn"],
       "default": "long_rest"
     }
   }

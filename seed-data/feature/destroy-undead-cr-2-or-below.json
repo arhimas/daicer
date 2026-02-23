@@ -7,8 +7,5 @@
   "description": "Starting at 5th level, when an undead fails its saving throw against your Turn Undead feature, the creature is instantly destroyed if its challenge rating is at or below a certain threshold. At 11th level, you destroy undead creatures with a challenge rating of 2 or lower.",
   "level": 11,
   "lore": "The divine radiance channeled through your holy symbol becomes so intense that lesser undead are obliterated instantly upon contact.",
-  "tags": [
-    "cleric",
-    "class-feature"
-  ]
+  "tags": ["cleric", "class-feature"]
 }

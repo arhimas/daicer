@@ -30,9 +30,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "bulette-bite",
-    "bulette-deadly-leap",
-    "bulette-standing-leap"
-  ]
+  "actions": ["bulette-bite", "bulette-deadly-leap", "bulette-standing-leap"]
 }

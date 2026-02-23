@@ -21,9 +21,7 @@
   "damage_resistances": [],
   "damage_immunities": [],
   "condition_immunities": [],
-  "senses": [
-    "passive Perception 10"
-  ],
+  "senses": ["passive Perception 10"],
   "languages": [],
   "challenge_rating": "5",
   "special_abilities": "name",

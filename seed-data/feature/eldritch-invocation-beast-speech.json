@@ -7,8 +7,5 @@
   },
   "description": "You can cast speak with animals at will, without expending a spell slot.",
   "level": 2,
-  "tags": [
-    "warlock",
-    "eldritch-invocations"
-  ]
+  "tags": ["warlock", "eldritch-invocations"]
 }

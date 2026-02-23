@@ -45,7 +45,5 @@
     "status": "Valid",
     "summary": "Sequester spell data mapped from reference."
   },
-  "tags": [
-    "wizard"
-  ]
+  "tags": ["wizard"]
 }

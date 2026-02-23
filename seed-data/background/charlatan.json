@@ -11,41 +11,31 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "fine-clothes"
-      ],
+      "item": ["fine-clothes"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "disguise-kit"
-      ],
+      "item": ["disguise-kit"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "weighted-dice"
-      ],
+      "item": ["weighted-dice"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 15,
       "slot": "backpack"
     }
@@ -59,30 +49,22 @@
     {
       "type": "Skill",
       "name": "Deception",
-      "proficiency": [
-        "skill-deception"
-      ]
+      "proficiency": ["skill-deception"]
     },
     {
       "type": "Skill",
       "name": "Sleight of Hand",
-      "proficiency": [
-        "skill-sleight-of-hand"
-      ]
+      "proficiency": ["skill-sleight-of-hand"]
     },
     {
       "type": "Tool",
       "name": "Disguise kit",
-      "proficiency": [
-        "tool-disguise-kit"
-      ]
+      "proficiency": ["tool-disguise-kit"]
     },
     {
       "type": "Tool",
       "name": "Forgery kit",
-      "proficiency": [
-        "tool-forgery-kit"
-      ]
+      "proficiency": ["tool-forgery-kit"]
     }
   ]
 }

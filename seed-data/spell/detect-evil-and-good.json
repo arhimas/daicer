@@ -3,9 +3,5 @@
   "name": "Detect Evil and Good",
   "level": 1,
   "school": "Divination",
-  "tags": [
-    "cleric",
-    "paladin",
-    "lore"
-  ]
+  "tags": ["cleric", "paladin", "lore"]
 }

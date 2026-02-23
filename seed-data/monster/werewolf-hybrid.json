@@ -14,9 +14,7 @@
   "proficiencies": "[{\"name\": \"Skill: Perception\", \"value\": 4}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
+  "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
   "condition_immunities": [],
   "senses": "{\"passive_perception\": 14}",
   "languages": "Common",

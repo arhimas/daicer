@@ -7,7 +7,5 @@
   "value": 10,
   "weight": 3,
   "size": "Medium",
-  "tags": [
-    "artisans-tools"
-  ]
+  "tags": ["artisans-tools"]
 }

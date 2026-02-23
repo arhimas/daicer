@@ -9,28 +9,16 @@
     "hit_points": 73,
     "hit_dice": "7d8+42",
     "speed": "20 ft., burrow 20 ft.",
-    "stats": [
-      17,
-      10,
-      22,
-      11,
-      10,
-      11
-    ],
+    "stats": [17, 10, 22, 11, 10, 11],
     "strength": 17,
     "dexterity": 10,
     "constitution": 22,
     "intelligence": 11,
     "wisdom": 10,
     "charisma": 11,
-    "proficiencies": [
-      "Perception +6",
-      "Stealth +3"
-    ],
+    "proficiencies": ["Perception +6", "Stealth +3"],
     "damage_vulnerabilities": [],
-    "damage_resistances": [
-      "piercing and slashing from nonmagical weapons that aren't adamantine"
-    ],
+    "damage_resistances": ["piercing and slashing from nonmagical weapons that aren't adamantine"],
     "damage_immunities": [],
     "condition_immunities": [],
     "senses": "darkvision 60 ft., tremorsense 60 ft., passive Perception 16",

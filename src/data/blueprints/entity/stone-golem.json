@@ -30,9 +30,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "stone-golem-multiattack",
-    "stone-golem-slam",
-    "stone-golem-slow"
-  ]
+  "actions": ["stone-golem-multiattack", "stone-golem-slam", "stone-golem-slow"]
 }

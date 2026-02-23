@@ -3,8 +3,5 @@
   "name": "Enthrall",
   "level": 2,
   "school": "Enchantment",
-  "tags": [
-    "bard",
-    "warlock"
-  ]
+  "tags": ["bard", "warlock"]
 }

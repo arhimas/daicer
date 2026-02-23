@@ -3,11 +3,5 @@
   "name": "Hallucinatory Terrain",
   "level": 4,
   "school": "Illusion",
-  "tags": [
-    "bard",
-    "druid",
-    "warlock",
-    "wizard",
-    "land"
-  ]
+  "tags": ["bard", "druid", "warlock", "wizard", "land"]
 }

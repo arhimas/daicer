@@ -40,8 +40,5 @@
     "status": "Valid",
     "summary": "Spell successfully mapped from reference data."
   },
-  "tags": [
-    "bard",
-    "wizard"
-  ]
+  "tags": ["bard", "wizard"]
 }

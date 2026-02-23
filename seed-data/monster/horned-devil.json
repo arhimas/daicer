@@ -10,35 +10,12 @@
   "hit_points": 178,
   "hit_dice": "17d10",
   "hit_points_roll": "17d10+85",
-  "speed": [
-    "walk 20 ft.",
-    "fly 60 ft."
-  ],
-  "stats": [
-    22,
-    17,
-    21,
-    12,
-    16,
-    17
-  ],
-  "proficiencies": [
-    "Saving Throw: STR 10",
-    "Saving Throw: DEX 7",
-    "Saving Throw: WIS 7",
-    "Saving Throw: CHA 7"
-  ],
-  "damage_resistances": [
-    "cold",
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "speed": ["walk 20 ft.", "fly 60 ft."],
+  "stats": [22, 17, 21, 12, 16, 17],
+  "proficiencies": ["Saving Throw: STR 10", "Saving Throw: DEX 7", "Saving Throw: WIS 7", "Saving Throw: CHA 7"],
+  "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 120 ft., passive perception 13",
   "languages": "Infernal, telepathy 120 ft.",
   "challenge_rating": 11,

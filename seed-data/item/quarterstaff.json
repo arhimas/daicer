@@ -12,10 +12,7 @@
     "versatile_dice": "1d8",
     "damage_type": "bludgeoning",
     "range_normal": 5,
-    "properties": [
-      "versatile",
-      "monk"
-    ]
+    "properties": ["versatile", "monk"]
   },
   "compilation_state": {
     "status": "Valid"

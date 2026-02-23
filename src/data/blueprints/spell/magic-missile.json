@@ -46,8 +46,5 @@
     "status": "Valid",
     "summary": "Magic Missile spell data compiled from reference."
   },
-  "tags": [
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["sorcerer", "wizard"]
 }

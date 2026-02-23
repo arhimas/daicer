@@ -11,10 +11,7 @@
     "damage_dice": "1d4",
     "damage_type": "bludgeoning",
     "range_normal": 5,
-    "properties": [
-      "light",
-      "monk"
-    ]
+    "properties": ["light", "monk"]
   },
   "compilation_state": {
     "status": "Valid"

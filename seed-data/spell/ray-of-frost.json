@@ -3,9 +3,5 @@
   "name": "Ray of Frost",
   "level": 0,
   "school": "Evocation",
-  "tags": [
-    "sorcerer",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["sorcerer", "wizard", "lore"]
 }

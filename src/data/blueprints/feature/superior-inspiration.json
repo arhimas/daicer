@@ -12,7 +12,5 @@
   "image": "",
   "level": 20,
   "lore": "The bard's wellspring of creativity is inexhaustible; even when exhausted, the thrill of conflict rekindles their artistic fire.",
-  "tags": [
-    "bard"
-  ]
+  "tags": ["bard"]
 }

@@ -30,7 +30,7 @@ describe('StructureService', () => {
       // But Alea is deterministic based on seed.
       // We can inspect the implementation to find a coordinate that fails, or trust the logic.
       // Or we can just confirm it returns a valid structure info object.
-      
+
       const info = service.getRegionStructure(0, 0, 100);
       expect(info).toBeDefined();
       expect(info.worldX).toBeGreaterThanOrEqual(0);
@@ -61,12 +61,12 @@ describe('StructureService', () => {
         size: 20,
         seed: 'abc',
       };
-      
+
       // Chunk at 0,0 size 16.
       // Intersects: 0 < 10+20 && 0+16 > 10 ...
       // 10+20 = 30 > 0. 16 > 10. True.
       // Y same.
-      
+
       const tiles: any = []; // Mock tiles
       service.renderStructure(struct, tiles, 0, 0);
 
@@ -81,7 +81,7 @@ describe('StructureService', () => {
         size: 20,
         seed: 'abc',
       };
-      
+
       const tiles: any = [];
       service.renderStructure(struct, tiles, 0, 0);
 

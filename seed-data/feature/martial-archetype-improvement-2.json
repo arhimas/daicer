@@ -12,8 +12,5 @@
   "image": "",
   "level": 10,
   "lore": "Fighters often specialize in specific disciplines, honing their skills to a razor's edge through rigorous training and combat experience.",
-  "tags": [
-    "fighter",
-    "class-feature"
-  ]
+  "tags": ["fighter", "class-feature"]
 }

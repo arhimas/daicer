@@ -10,17 +10,10 @@
   "speed": "40 ft.",
   "stats": "{\"strength\":18,\"dexterity\":11,\"constitution\":15,\"intelligence\":6,\"wisdom\":8,\"charisma\":5}",
   "proficiencies": [],
-  "vulnerabilities": [
-    "bludgeoning"
-  ],
+  "vulnerabilities": ["bludgeoning"],
   "resistances": [],
-  "immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "exhaustion",
-    "poisoned"
-  ],
+  "immunities": ["poison"],
+  "condition_immunities": ["exhaustion", "poisoned"],
   "senses": "darkvision 60 ft., passive Perception 9",
   "languages": "understands Abyssal but can't speak",
   "challenge_rating": 2,

@@ -9,14 +9,7 @@
     "hit_points": 178,
     "hit_dice": "17d10+85",
     "speed": "30 ft.",
-    "stats": [
-      22,
-      9,
-      20,
-      3,
-      11,
-      1
-    ],
+    "stats": [22, 9, 20, 3, 11, 1],
     "proficiencies": [],
     "damage_vulnerabilities": [],
     "damage_resistances": [],
@@ -25,18 +18,8 @@
       "psychic",
       "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
     ],
-    "condition_immunities": [
-      "charmed",
-      "exhaustion",
-      "frightened",
-      "paralyzed",
-      "petrified",
-      "poisoned"
-    ],
-    "senses": [
-      "darkvision 120 ft.",
-      "passive perception 10"
-    ],
+    "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+    "senses": ["darkvision 120 ft.", "passive perception 10"],
     "languages": "understands the languages of its creator but can't speak",
     "challenge_rating": 10,
     "xp": 5900,

@@ -9,8 +9,5 @@
   "embedding": {},
   "level": 1,
   "lore": "The beings that serve as patrons for warlocks are mighty inhabitants of other planes of existence—not gods, but almost godlike in their power.",
-  "tags": [
-    "warlock",
-    "class-feature"
-  ]
+  "tags": ["warlock", "class-feature"]
 }

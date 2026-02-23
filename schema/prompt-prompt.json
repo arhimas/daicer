@@ -32,11 +32,7 @@
     },
     "category": {
       "type": "enumeration",
-      "enum": [
-        "system",
-        "user",
-        "gameplay"
-      ],
+      "enum": ["system", "user", "gameplay"],
       "default": "system"
     },
     "embedding": {

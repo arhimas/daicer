@@ -12,9 +12,5 @@
   "image": "",
   "level": 12,
   "lore": "The warlock's pact weapon becomes a conduit for necrotic energy, draining the life essence of those it strikes to empower the wielder's blow.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation",
-    "pact-of-the-blade"
-  ]
+  "tags": ["warlock", "eldritch-invocation", "pact-of-the-blade"]
 }

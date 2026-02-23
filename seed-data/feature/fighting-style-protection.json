@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "The shield is more than a wall for oneself; it is a mobile bulwark for one's companions in the heat of battle.",
-  "tags": [
-    "paladin",
-    "fighting-style"
-  ]
+  "tags": ["paladin", "fighting-style"]
 }

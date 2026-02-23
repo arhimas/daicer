@@ -11,8 +11,5 @@
   "embedding": {},
   "level": 1,
   "lore": "The blood of a golden dragon flows through your veins, marking your soul with the essence of fire and the wisdom of the most noble wyrms.",
-  "tags": [
-    "sorcerer",
-    "draconic-bloodline"
-  ]
+  "tags": ["sorcerer", "draconic-bloodline"]
 }

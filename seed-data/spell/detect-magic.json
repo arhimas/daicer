@@ -33,13 +33,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "bard",
-    "cleric",
-    "druid",
-    "paladin",
-    "ranger",
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["bard", "cleric", "druid", "paladin", "ranger", "sorcerer", "wizard"]
 }

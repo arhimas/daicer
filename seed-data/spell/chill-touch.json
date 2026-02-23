@@ -3,10 +3,5 @@
   "name": "Chill Touch",
   "level": 0,
   "school": "Necromancy",
-  "tags": [
-    "sorcerer",
-    "warlock",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["sorcerer", "warlock", "wizard", "lore"]
 }

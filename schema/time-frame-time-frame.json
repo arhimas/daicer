@@ -57,14 +57,7 @@
           },
           "phase": {
             "type": "enumeration",
-            "enum": [
-              "lobby",
-              "character_creation",
-              "world_generation",
-              "gameplay",
-              "combat",
-              "ending"
-            ],
+            "enum": ["lobby", "character_creation", "world_generation", "gameplay", "combat", "ending"],
             "default": "lobby"
           },
           "players": {
@@ -320,9 +313,7 @@
                                     "type": "media",
                                     "multiple": false,
                                     "required": false,
-                                    "allowedTypes": [
-                                      "images"
-                                    ]
+                                    "allowedTypes": ["images"]
                                   }
                                 }
                               }
@@ -408,9 +399,7 @@
                               "type": "media",
                               "multiple": false,
                               "required": false,
-                              "allowedTypes": [
-                                "images"
-                              ]
+                              "allowedTypes": ["images"]
                             },
                             "compilation_state": {
                               "type": "component",
@@ -427,12 +416,7 @@
                                 "attributes": {
                                   "status": {
                                     "type": "enumeration",
-                                    "enum": [
-                                      "Pending",
-                                      "Valid",
-                                      "Invalid",
-                                      "Warning"
-                                    ],
+                                    "enum": ["Pending", "Valid", "Invalid", "Warning"],
                                     "default": "Pending",
                                     "required": true
                                   },
@@ -675,10 +659,7 @@
                                         },
                                         "origin": {
                                           "type": "enumeration",
-                                          "enum": [
-                                            "manual",
-                                            "entity"
-                                          ],
+                                          "enum": ["manual", "entity"],
                                           "default": "manual",
                                           "required": true
                                         },
@@ -722,12 +703,7 @@
                                               },
                                               "sourceType": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "source-code",
-                                                  "game-entity",
-                                                  "manual",
-                                                  "schema"
-                                                ],
+                                                "enum": ["source-code", "game-entity", "manual", "schema"],
                                                 "required": true,
                                                 "default": "manual"
                                               },
@@ -936,14 +912,7 @@
                                               },
                                               "aoe_shape": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "Cone",
-                                                  "Cube",
-                                                  "Cylinder",
-                                                  "Line",
-                                                  "Sphere",
-                                                  "Hemisphere"
-                                                ]
+                                                "enum": ["Cone", "Cube", "Cylinder", "Line", "Sphere", "Hemisphere"]
                                               },
                                               "aoe_size": {
                                                 "type": "integer",
@@ -989,12 +958,7 @@
                                               },
                                               "unit": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "Rounds",
-                                                  "Minutes",
-                                                  "Hours",
-                                                  "Days"
-                                                ]
+                                                "enum": ["Rounds", "Minutes", "Hours", "Days"]
                                               },
                                               "concentration": {
                                                 "type": "boolean",
@@ -1036,11 +1000,7 @@
                                               },
                                               "save_effect": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "Negate",
-                                                  "Half",
-                                                  "None"
-                                                ],
+                                                "enum": ["Negate", "Half", "None"],
                                                 "description": "What happens on a successful save? (None = Full Effect, Negate = No Effect, Half = Half Damage)"
                                               }
                                             }
@@ -1062,11 +1022,7 @@
                                             "attributes": {
                                               "effect_type": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "Damage",
-                                                  "Healing",
-                                                  "TempHP"
-                                                ],
+                                                "enum": ["Damage", "Healing", "TempHP"],
                                                 "default": "Damage",
                                                 "required": true
                                               },
@@ -1102,12 +1058,7 @@
                                               },
                                               "timing": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "Instant",
-                                                  "Start of Turn",
-                                                  "End of Turn",
-                                                  "One Time Trigger"
-                                                ],
+                                                "enum": ["Instant", "Start of Turn", "End of Turn", "One Time Trigger"],
                                                 "default": "Instant"
                                               }
                                             }
@@ -1185,11 +1136,7 @@
                                               },
                                               "type": {
                                                 "type": "enumeration",
-                                                "enum": [
-                                                  "Dice",
-                                                  "Target",
-                                                  "Duration"
-                                                ],
+                                                "enum": ["Dice", "Target", "Duration"],
                                                 "default": "Dice"
                                               },
                                               "method": {
@@ -1232,9 +1179,7 @@
                                           "type": "media",
                                           "multiple": false,
                                           "required": false,
-                                          "allowedTypes": [
-                                            "images"
-                                          ]
+                                          "allowedTypes": ["images"]
                                         },
                                         "embedding": {
                                           "type": "json",
@@ -1341,14 +1286,7 @@
                                         },
                                         "rarity": {
                                           "type": "enumeration",
-                                          "enum": [
-                                            "common",
-                                            "uncommon",
-                                            "rare",
-                                            "very_rare",
-                                            "legendary",
-                                            "artifact"
-                                          ],
+                                          "enum": ["common", "uncommon", "rare", "very_rare", "legendary", "artifact"],
                                           "default": "common"
                                         },
                                         "value": {
@@ -1444,9 +1382,7 @@
                                                       "type": "media",
                                                       "multiple": false,
                                                       "required": false,
-                                                      "allowedTypes": [
-                                                        "images"
-                                                      ]
+                                                      "allowedTypes": ["images"]
                                                     },
                                                     "compilation_state": {
                                                       "type": "component",
@@ -1518,9 +1454,7 @@
                                                       "type": "media",
                                                       "multiple": false,
                                                       "required": false,
-                                                      "allowedTypes": [
-                                                        "images"
-                                                      ]
+                                                      "allowedTypes": ["images"]
                                                     }
                                                   }
                                                 }
@@ -1570,13 +1504,7 @@
                                                     },
                                                     "type": {
                                                       "type": "enumeration",
-                                                      "enum": [
-                                                        "melee",
-                                                        "ranged",
-                                                        "spell",
-                                                        "utility",
-                                                        "ability"
-                                                      ],
+                                                      "enum": ["melee", "ranged", "spell", "utility", "ability"],
                                                       "default": "melee"
                                                     },
                                                     "range_config": {
@@ -1631,23 +1559,12 @@
                                                           },
                                                           "stat": {
                                                             "type": "enumeration",
-                                                            "enum": [
-                                                              "str",
-                                                              "dex",
-                                                              "con",
-                                                              "int",
-                                                              "wis",
-                                                              "cha"
-                                                            ],
+                                                            "enum": ["str", "dex", "con", "int", "wis", "cha"],
                                                             "required": true
                                                           },
                                                           "success_type": {
                                                             "type": "enumeration",
-                                                            "enum": [
-                                                              "none",
-                                                              "half",
-                                                              "other"
-                                                            ],
+                                                            "enum": ["none", "half", "other"],
                                                             "default": "none"
                                                           }
                                                         }
@@ -1909,12 +1826,7 @@
                                   },
                                   "size": {
                                     "type": "enumeration",
-                                    "enum": [
-                                      "Tiny",
-                                      "Small",
-                                      "Medium",
-                                      "Large"
-                                    ]
+                                    "enum": ["Tiny", "Small", "Medium", "Large"]
                                   },
                                   "traits": {
                                     "type": "relation",
@@ -2114,9 +2026,7 @@
                                                       "type": "media",
                                                       "multiple": false,
                                                       "required": false,
-                                                      "allowedTypes": [
-                                                        "images"
-                                                      ]
+                                                      "allowedTypes": ["images"]
                                                     }
                                                   }
                                                 }
@@ -2153,14 +2063,7 @@
                                                     },
                                                     "source": {
                                                       "type": "enumeration",
-                                                      "enum": [
-                                                        "race",
-                                                        "class",
-                                                        "monster",
-                                                        "feat",
-                                                        "item",
-                                                        "other"
-                                                      ],
+                                                      "enum": ["race", "class", "monster", "feat", "item", "other"],
                                                       "default": "monster"
                                                     },
                                                     "usage_max": {
@@ -2222,9 +2125,7 @@
                                                 "type": "media",
                                                 "multiple": false,
                                                 "required": false,
-                                                "allowedTypes": [
-                                                  "images"
-                                                ]
+                                                "allowedTypes": ["images"]
                                               },
                                               "compilation_state": {
                                                 "type": "component",
@@ -2259,9 +2160,7 @@
                                           "type": "media",
                                           "multiple": false,
                                           "required": false,
-                                          "allowedTypes": [
-                                            "images"
-                                          ]
+                                          "allowedTypes": ["images"]
                                         },
                                         "compilation_state": {
                                           "type": "component",
@@ -2278,9 +2177,7 @@
                                     "type": "media",
                                     "multiple": false,
                                     "required": false,
-                                    "allowedTypes": [
-                                      "images"
-                                    ]
+                                    "allowedTypes": ["images"]
                                   },
                                   "compilation_state": {
                                     "type": "component",
@@ -2306,9 +2203,7 @@
                               "type": "media",
                               "multiple": false,
                               "required": false,
-                              "allowedTypes": [
-                                "images"
-                              ]
+                              "allowedTypes": ["images"]
                             },
                             "compilation_state": {
                               "type": "component",
@@ -2517,12 +2412,7 @@
                             },
                             "reset_on": {
                               "type": "enumeration",
-                              "enum": [
-                                "short_rest",
-                                "long_rest",
-                                "never",
-                                "dawn"
-                              ],
+                              "enum": ["short_rest", "long_rest", "never", "dawn"],
                               "default": "long_rest"
                             }
                           }
@@ -2586,12 +2476,7 @@
                       },
                       "type": {
                         "type": "enumeration",
-                        "enum": [
-                          "player",
-                          "monster",
-                          "npc",
-                          "loot"
-                        ],
+                        "enum": ["player", "monster", "npc", "loot"],
                         "default": "player"
                       },
                       "entity": {
@@ -2752,11 +2637,7 @@
                             },
                             "spellcastingAbility": {
                               "type": "enumeration",
-                              "enum": [
-                                "intelligence",
-                                "wisdom",
-                                "charisma"
-                              ]
+                              "enum": ["intelligence", "wisdom", "charisma"]
                             },
                             "spellSaveDc": {
                               "type": "integer"
@@ -2880,14 +2761,7 @@
                           "attributes": {
                             "stat": {
                               "type": "enumeration",
-                              "enum": [
-                                "strength",
-                                "dexterity",
-                                "constitution",
-                                "intelligence",
-                                "wisdom",
-                                "charisma"
-                              ],
+                              "enum": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"],
                               "required": true
                             },
                             "value": {
@@ -2939,11 +2813,7 @@
                             },
                             "modifier": {
                               "type": "enumeration",
-                              "enum": [
-                                "resistance",
-                                "immunity",
-                                "vulnerability"
-                              ],
+                              "enum": ["resistance", "immunity", "vulnerability"],
                               "required": true
                             }
                           }
@@ -2969,12 +2839,7 @@
                             },
                             "type": {
                               "type": "enumeration",
-                              "enum": [
-                                "melee",
-                                "ranged",
-                                "spell",
-                                "utility"
-                              ]
+                              "enum": ["melee", "ranged", "spell", "utility"]
                             },
                             "toHit": {
                               "type": "integer"
@@ -3133,11 +2998,7 @@
                       },
                       "senderType": {
                         "type": "enumeration",
-                        "enum": [
-                          "dm",
-                          "player",
-                          "system"
-                        ],
+                        "enum": ["dm", "player", "system"],
                         "default": "system"
                       },
                       "room": {
@@ -3185,20 +3046,12 @@
                 },
                 "type": {
                   "type": "enumeration",
-                  "enum": [
-                    "group",
-                    "combat",
-                    "exploration"
-                  ],
+                  "enum": ["group", "combat", "exploration"],
                   "default": "group"
                 },
                 "status": {
                   "type": "enumeration",
-                  "enum": [
-                    "waiting",
-                    "processing",
-                    "complete"
-                  ],
+                  "enum": ["waiting", "processing", "complete"],
                   "default": "waiting"
                 },
                 "actions": {
@@ -3508,14 +3361,7 @@
                 },
                 "worldSize": {
                   "type": "enumeration",
-                  "enum": [
-                    "intimate",
-                    "small",
-                    "medium",
-                    "large",
-                    "vast",
-                    "epic"
-                  ],
+                  "enum": ["intimate", "small", "medium", "large", "vast", "epic"],
                   "default": "small",
                   "required": true
                 },
@@ -3526,14 +3372,7 @@
                 },
                 "adventureLength": {
                   "type": "enumeration",
-                  "enum": [
-                    "flash",
-                    "short",
-                    "medium",
-                    "long",
-                    "epic",
-                    "legendary"
-                  ],
+                  "enum": ["flash", "short", "medium", "long", "epic", "legendary"],
                   "default": "short",
                   "required": true
                 },
@@ -3613,26 +3452,12 @@
                 },
                 "difficulty": {
                   "type": "enumeration",
-                  "enum": [
-                    "storyteller",
-                    "easy",
-                    "medium",
-                    "challenging",
-                    "gritty",
-                    "deadly"
-                  ],
+                  "enum": ["storyteller", "easy", "medium", "challenging", "gritty", "deadly"],
                   "default": "easy"
                 },
                 "adventureLength": {
                   "type": "enumeration",
-                  "enum": [
-                    "flash",
-                    "short",
-                    "medium",
-                    "long",
-                    "epic",
-                    "legendary"
-                  ],
+                  "enum": ["flash", "short", "medium", "long", "epic", "legendary"],
                   "default": "short"
                 },
                 "theme": {

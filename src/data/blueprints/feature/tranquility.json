@@ -12,9 +12,5 @@
   "image": "https://media.dndbeyond.com/features/monk-tranquility.webp",
   "level": 11,
   "lore": "You have achieved a state of inner peace so profound that it radiates outward, making it difficult for others to strike you.",
-  "tags": [
-    "monk",
-    "open-hand",
-    "way-of-the-open-hand"
-  ]
+  "tags": ["monk", "open-hand", "way-of-the-open-hand"]
 }

@@ -8,8 +8,5 @@
   "description": "Starting at 5th level, when an undead fails its saving throw against your Turn Undead feature, the creature is instantly destroyed if its challenge rating is at or below a certain threshold. At 14th level, any undead of CR 3 or lower that fails its save against Turn Undead is destroyed.",
   "level": 14,
   "lore": "The radiance of your faith becomes a searing tide, capable of unmaking the most stubborn of the restless dead.",
-  "tags": [
-    "cleric",
-    "class-feature"
-  ]
+  "tags": ["cleric", "class-feature"]
 }

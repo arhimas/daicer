@@ -57,11 +57,5 @@
     "status": "Valid",
     "summary": "Spell successfully converted from reference data."
   },
-  "tags": [
-    "bard",
-    "cleric",
-    "druid",
-    "paladin",
-    "wizard"
-  ]
+  "tags": ["bard", "cleric", "druid", "paladin", "wizard"]
 }

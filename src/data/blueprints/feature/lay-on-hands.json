@@ -10,7 +10,5 @@
   "image": "",
   "level": 1,
   "lore": "The paladin's hands serve as a conduit for divine grace, capable of mending the broken and purging the impure.",
-  "tags": [
-    "paladin"
-  ]
+  "tags": ["paladin"]
 }

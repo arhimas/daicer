@@ -12,18 +12,9 @@
   "stats": "strength: 26, dexterity: 15, constitution: 22, intelligence: 20, wisdom: 16, charisma: 22",
   "proficiencies": "Saving Throw: STR +14, Saving Throw: CON +12, Saving Throw: WIS +9, Saving Throw: CHA +12",
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold",
-    "lightning",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_resistances": ["cold", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "truesight 120 ft., passive Perception 13",
   "languages": "Abyssal, telepathy 120 ft.",
   "challenge_rating": 19,

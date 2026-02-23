@@ -12,7 +12,5 @@
   "image": "",
   "level": 14,
   "lore": "The Primal Path defines how a barbarian channels their inner fury.",
-  "tags": [
-    "barbarian"
-  ]
+  "tags": ["barbarian"]
 }

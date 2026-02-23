@@ -18,15 +18,15 @@ export class SchemaLoader implements ISchemaLoader {
     // Convert UID to filename format: api::spell.spell -> spell-spell.json
     // plugin::users-permissions.user -> plugin-users-permissions-user.json
     // game.action -> component-game-action.json
-    
+
     let filename = '';
     if (uid.startsWith('api::')) {
       filename = uid.replace('api::', '').replace(/\./g, '-') + '.json';
     } else if (uid.startsWith('plugin::')) {
       filename = uid.replace('plugin::', 'plugin-').replace(/\./g, '-') + '.json';
     } else {
-       // Assume component
-       filename = 'component-' + uid.replace(/\./g, '-') + '.json';
+      // Assume component
+      filename = 'component-' + uid.replace(/\./g, '-') + '.json';
     }
 
     const filePath = path.join(this.schemaDir, filename);
@@ -44,17 +44,17 @@ export class SchemaLoader implements ISchemaLoader {
   }
 
   async listSchemas(filter?: string): Promise<string[]> {
-      if (!fs.existsSync(this.schemaDir)) {
-          return [];
-      }
-      
-      const files = await fs.promises.readdir(this.schemaDir);
-      let schemas = files.filter(f => f.endsWith('.json') && !f.startsWith('_'));
-      
-      if (filter) {
-          schemas = schemas.filter(f => f.includes(filter));
-      }
-      
-      return schemas;
+    if (!fs.existsSync(this.schemaDir)) {
+      return [];
+    }
+
+    const files = await fs.promises.readdir(this.schemaDir);
+    let schemas = files.filter((f) => f.endsWith('.json') && !f.startsWith('_'));
+
+    if (filter) {
+      schemas = schemas.filter((f) => f.includes(filter));
+    }
+
+    return schemas;
   }
 }

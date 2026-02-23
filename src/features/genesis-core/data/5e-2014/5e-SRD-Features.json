@@ -140,9 +140,7 @@
     "name": "Fast Movement",
     "level": 5,
     "prerequisites": [],
-    "desc": [
-      "Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor."
-    ],
+    "desc": ["Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor."],
     "url": "/api/2014/features/fast-movement"
   },
   {
@@ -527,9 +525,7 @@
     "name": "Bonus Proficiencies",
     "level": 3,
     "prerequisites": [],
-    "desc": [
-      "When you join the College of Lore at 3rd level, you gain proficiency with three skills of your choice."
-    ],
+    "desc": ["When you join the College of Lore at 3rd level, you gain proficiency with three skills of your choice."],
     "url": "/api/2014/features/bonus-proficiencies"
   },
   {
@@ -1295,9 +1291,7 @@
     "name": "Bonus Proficiency",
     "level": 1,
     "prerequisites": [],
-    "desc": [
-      "When you choose this domain at 1st level, you gain proficiency with heavy armor."
-    ],
+    "desc": ["When you choose this domain at 1st level, you gain proficiency with heavy armor."],
     "url": "/api/2014/features/bonus-proficiency"
   },
   {
@@ -1767,9 +1761,7 @@
     "name": "Divine Intervention Improvement",
     "level": 20,
     "prerequisites": [],
-    "desc": [
-      "At 20th level, your call for intervention succeeds automatically, no roll required."
-    ],
+    "desc": ["At 20th level, your call for intervention succeeds automatically, no roll required."],
     "url": "/api/2014/features/divine-intervention-improvement"
   },
   {
@@ -1782,9 +1774,7 @@
     "name": "Spellcasting: Druid",
     "level": 1,
     "prerequisites": [],
-    "desc": [
-      "Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will."
-    ],
+    "desc": ["Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will."],
     "reference": "/api/2014/classes/druid/spellcasting",
     "url": "/api/2014/features/spellcasting-druid"
   },
@@ -2118,9 +2108,7 @@
     "name": "Bonus Cantrip",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "When you choose this circle at 2nd level, you learn one additional druid cantrip of your choice."
-    ],
+    "desc": ["When you choose this circle at 2nd level, you learn one additional druid cantrip of your choice."],
     "url": "/api/2014/features/bonus-cantrip"
   },
   {
@@ -2589,9 +2577,7 @@
     "name": "Fighting Style: Archery",
     "level": 1,
     "prerequisites": [],
-    "desc": [
-      "You gain a +2 bonus to attack rolls you make with ranged weapons."
-    ],
+    "desc": ["You gain a +2 bonus to attack rolls you make with ranged weapons."],
     "parent": {
       "index": "fighter-fighting-style",
       "name": "Fighting Style",
@@ -2888,9 +2874,7 @@
     "name": "Additional Fighting Style",
     "level": 10,
     "prerequisites": [],
-    "desc": [
-      "At 10th level, you can choose a second option from the Fighting Style class feature."
-    ],
+    "desc": ["At 10th level, you can choose a second option from the Fighting Style class feature."],
     "feature_specific": {
       "subfeature_options": {
         "choose": 1,
@@ -3042,9 +3026,7 @@
     "name": "Superior Critical",
     "level": 15,
     "prerequisites": [],
-    "desc": [
-      "Starting at 15th level, your weapon attacks score a critical hit on a roll of 18-20."
-    ],
+    "desc": ["Starting at 15th level, your weapon attacks score a critical hit on a roll of 18-20."],
     "url": "/api/2014/features/superior-critical"
   },
   {
@@ -3252,9 +3234,7 @@
     "name": "Patient Defense",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can spend 1 ki point to take the Dodge action as a bonus action on your turn."
-    ],
+    "desc": ["You can spend 1 ki point to take the Dodge action as a bonus action on your turn."],
     "url": "/api/2014/features/patient-defense"
   },
   {
@@ -3523,9 +3503,7 @@
     "name": "Purity of Body",
     "level": 10,
     "prerequisites": [],
-    "desc": [
-      "At 10th level, your mastery of the ki flowing through you makes you immune to disease and poison."
-    ],
+    "desc": ["At 10th level, your mastery of the ki flowing through you makes you immune to disease and poison."],
     "url": "/api/2014/features/purity-of-body"
   },
   {
@@ -3716,9 +3694,7 @@
     "name": "Perfect Self",
     "level": 20,
     "prerequisites": [],
-    "desc": [
-      "At 20th level, when you roll for initiative and have no ki points remaining, you regain 4 ki points."
-    ],
+    "desc": ["At 20th level, when you roll for initiative and have no ki points remaining, you regain 4 ki points."],
     "url": "/api/2014/features/perfect-self"
   },
   {
@@ -3932,9 +3908,7 @@
     "name": "Divine Health",
     "level": 3,
     "prerequisites": [],
-    "desc": [
-      "By 3rd level, the divine magic flowing through you makes you immune to disease."
-    ],
+    "desc": ["By 3rd level, the divine magic flowing through you makes you immune to disease."],
     "url": "/api/2014/features/divine-health"
   },
   {
@@ -4219,9 +4193,7 @@
     "name": "Purity of Spirit",
     "level": 15,
     "prerequisites": [],
-    "desc": [
-      "Beginning at 15th level, you are always under the effects of a protection from evil and good spell."
-    ],
+    "desc": ["Beginning at 15th level, you are always under the effects of a protection from evil and good spell."],
     "url": "/api/2014/features/purity-of-spirit"
   },
   {
@@ -4330,18 +4302,18 @@
         "from": {
           "option_set_type": "options_array",
           "options": [
-            "aberrations", 
-            "beasts", 
-            "celestials", 
-            "constructs", 
-            "dragons", 
-            "elementals", 
-            "fey", 
-            "fiends", 
-            "giants", 
-            "monstrosities", 
-            "oozes", 
-            "plants", 
+            "aberrations",
+            "beasts",
+            "celestials",
+            "constructs",
+            "dragons",
+            "elementals",
+            "fey",
+            "fiends",
+            "giants",
+            "monstrosities",
+            "oozes",
+            "plants",
             "undead",
             "humanoids"
           ]
@@ -4378,15 +4350,7 @@
         "type": "string",
         "from": {
           "option_set_type": "options_array",
-          "options": [
-            "arctic", 
-            "coast", 
-            "desert", 
-            "forest", 
-            "grassland", 
-            "mountain", 
-            "swamp"
-          ]
+          "options": ["arctic", "coast", "desert", "forest", "grassland", "mountain", "swamp"]
         }
       }
     },
@@ -4460,9 +4424,7 @@
     "name": "Fighting Style: Archery",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You gain a +2 bonus to attack rolls you make with ranged weapons."
-    ],
+    "desc": ["You gain a +2 bonus to attack rolls you make with ranged weapons."],
     "parent": {
       "index": "ranger-fighting-style",
       "name": "Fighting Style",
@@ -4762,18 +4724,18 @@
         "from": {
           "option_set_type": "options_array",
           "options": [
-            "aberrations", 
-            "beasts", 
-            "celestials", 
-            "constructs", 
-            "dragons", 
-            "elementals", 
-            "fey", 
-            "fiends", 
-            "giants", 
-            "monstrosities", 
-            "oozes", 
-            "plants", 
+            "aberrations",
+            "beasts",
+            "celestials",
+            "constructs",
+            "dragons",
+            "elementals",
+            "fey",
+            "fiends",
+            "giants",
+            "monstrosities",
+            "oozes",
+            "plants",
             "undead",
             "humanoids"
           ]
@@ -4810,15 +4772,7 @@
         "type": "string",
         "from": {
           "option_set_type": "options_array",
-          "options": [
-            "arctic", 
-            "coast", 
-            "desert", 
-            "forest", 
-            "grassland", 
-            "mountain", 
-            "swamp"
-          ]
+          "options": ["arctic", "coast", "desert", "forest", "grassland", "mountain", "swamp"]
         }
       }
     },
@@ -5027,15 +4981,7 @@
         "type": "string",
         "from": {
           "option_set_type": "options_array",
-          "options": [
-            "arctic", 
-            "coast", 
-            "desert", 
-            "forest", 
-            "grassland", 
-            "mountain", 
-            "swamp"
-          ]
+          "options": ["arctic", "coast", "desert", "forest", "grassland", "mountain", "swamp"]
         }
       }
     },
@@ -5087,11 +5033,7 @@
     "name": "Multiattack",
     "level": 11,
     "prerequisites": [],
-    "desc": [
-      "At 11th level, you gain one of the following features of your choice.",
-      "Volley",
-      "Whirlwind Attack"
-    ],
+    "desc": ["At 11th level, you gain one of the following features of your choice.", "Volley", "Whirlwind Attack"],
     "feature_specific": {
       "subfeature_options": {
         "choose": 1,
@@ -5211,18 +5153,18 @@
         "from": {
           "option_set_type": "options_array",
           "options": [
-            "aberrations", 
-            "beasts", 
-            "celestials", 
-            "constructs", 
-            "dragons", 
-            "elementals", 
-            "fey", 
-            "fiends", 
-            "giants", 
-            "monstrosities", 
-            "oozes", 
-            "plants", 
+            "aberrations",
+            "beasts",
+            "celestials",
+            "constructs",
+            "dragons",
+            "elementals",
+            "fey",
+            "fiends",
+            "giants",
+            "monstrosities",
+            "oozes",
+            "plants",
             "undead",
             "humanoids"
           ]
@@ -6290,9 +6232,7 @@
     "name": "Slippery Mind",
     "level": 15,
     "prerequisites": [],
-    "desc": [
-      "By 15th level, you have acquired greater mental strength. You gain proficiency in Wisdom saving throws."
-    ],
+    "desc": ["By 15th level, you have acquired greater mental strength. You gain proficiency in Wisdom saving throws."],
     "url": "/api/2014/features/slippery-mind"
   },
   {
@@ -7490,9 +7430,7 @@
     "name": "Sorcerous Restoration",
     "level": 20,
     "prerequisites": [],
-    "desc": [
-      "At 20th level, you regain 4 expended sorcery points whenever you finish a short rest."
-    ],
+    "desc": ["At 20th level, you regain 4 expended sorcery points whenever you finish a short rest."],
     "url": "/api/2014/features/sorcerous-restoration"
   },
   {
@@ -7540,9 +7478,7 @@
     "name": "Pact Magic",
     "level": 1,
     "prerequisites": [],
-    "desc": [
-      "Your arcane research and the magic bestowed on you by your patron have given you facility with spells."
-    ],
+    "desc": ["Your arcane research and the magic bestowed on you by your patron have given you facility with spells."],
     "reference": "/api/2014/classes/warlock/spellcasting",
     "url": "/api/2014/features/pact-magic"
   },
@@ -7742,9 +7678,7 @@
         "spell": "/api/2014/spells/eldritch-blast"
       }
     ],
-    "desc": [
-      "When you cast eldritch blast, add your Charisma modifier to the damage it deals on a hit."
-    ],
+    "desc": ["When you cast eldritch blast, add your Charisma modifier to the damage it deals on a hit."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -7762,9 +7696,7 @@
     "name": "Eldritch Invocation: Armor of Shadows",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can cast mage armor on yourself at will, without expending a spell slot or material components."
-    ],
+    "desc": ["You can cast mage armor on yourself at will, without expending a spell slot or material components."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -7782,9 +7714,7 @@
     "name": "Eldritch Invocation: Beast Speech",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can cast speak with animals at will, without expending a spell slot."
-    ],
+    "desc": ["You can cast speak with animals at will, without expending a spell slot."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -7846,9 +7776,7 @@
     "name": "Eldritch Invocation: Devil's Sight",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can see normally in darkness, both magical and nonmagical, to a distance of 120 feet."
-    ],
+    "desc": ["You can see normally in darkness, both magical and nonmagical, to a distance of 120 feet."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -7866,9 +7794,7 @@
     "name": "Eldritch Invocation: Eldritch Sight",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can cast detect magic at will, without expending a spell slot."
-    ],
+    "desc": ["You can cast detect magic at will, without expending a spell slot."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -7967,9 +7893,7 @@
     "name": "Eldritch Invocation: Mask of Many Faces",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can cast disguise self at will, without expending a spell slot."
-    ],
+    "desc": ["You can cast disguise self at will, without expending a spell slot."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -7987,9 +7911,7 @@
     "name": "Eldritch Invocation: Misty Visions",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can cast silent image at will, without expending a spell slot or material components."
-    ],
+    "desc": ["You can cast silent image at will, without expending a spell slot or material components."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8032,9 +7954,7 @@
     "name": "Eldritch Invocation: Thief of Five Fates",
     "level": 2,
     "prerequisites": [],
-    "desc": [
-      "You can cast bane once using a warlock spell slot. You can't do so again until you finish a long rest."
-    ],
+    "desc": ["You can cast bane once using a warlock spell slot. You can't do so again until you finish a long rest."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8083,9 +8003,7 @@
         "level": 5
       }
     ],
-    "desc": [
-      "You can cast slow once using a warlock spell slot. You can't do so again until you finish a long rest."
-    ],
+    "desc": ["You can cast slow once using a warlock spell slot. You can't do so again until you finish a long rest."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8277,9 +8195,7 @@
         "level": 9
       }
     ],
-    "desc": [
-      "You can cast levitate on yourself at will, without expending a spell slot or material components."
-    ],
+    "desc": ["You can cast levitate on yourself at will, without expending a spell slot or material components."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8327,9 +8243,7 @@
         "level": 9
       }
     ],
-    "desc": [
-      "You can cast jump on yourself at will, without expending a spell slot or material components."
-    ],
+    "desc": ["You can cast jump on yourself at will, without expending a spell slot or material components."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8352,9 +8266,7 @@
         "level": 9
       }
     ],
-    "desc": [
-      "You can cast speak with dead at will, without expending a spell slot."
-    ],
+    "desc": ["You can cast speak with dead at will, without expending a spell slot."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8465,9 +8377,7 @@
         "level": 15
       }
     ],
-    "desc": [
-      "You can cast alter self at will, without expending a spell slot."
-    ],
+    "desc": ["You can cast alter self at will, without expending a spell slot."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",
@@ -8490,9 +8400,7 @@
         "level": 15
       }
     ],
-    "desc": [
-      "You can cast arcane eye at will, without expending a spell slot."
-    ],
+    "desc": ["You can cast arcane eye at will, without expending a spell slot."],
     "parent": {
       "index": "eldritch-invocations",
       "name": "Eldritch Invocations",

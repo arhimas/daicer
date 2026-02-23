@@ -38,7 +38,5 @@
     "dust-mephit-death-burst",
     "dust-mephit-innate-spellcasting"
   ],
-  "spells": [
-    "sleep"
-  ]
+  "spells": ["sleep"]
 }

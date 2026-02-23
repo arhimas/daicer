@@ -6,8 +6,5 @@
   },
   "description": "When you choose this domain at 1st level, you gain proficiency with heavy armor.",
   "level": 1,
-  "tags": [
-    "cleric",
-    "life-domain"
-  ]
+  "tags": ["cleric", "life-domain"]
 }

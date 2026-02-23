@@ -11,9 +11,5 @@
   "embedding": {},
   "level": 3,
   "lore": "The bigger they are, the harder they fall—and the more openings they leave for a seasoned hunter to exploit.",
-  "tags": [
-    "ranger",
-    "hunter",
-    "combat"
-  ]
+  "tags": ["ranger", "hunter", "combat"]
 }

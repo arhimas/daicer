@@ -56,7 +56,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "cleric"
-  ]
+  "tags": ["cleric"]
 }

@@ -12,7 +12,5 @@
   "image": "",
   "level": 18,
   "lore": "The cleric's connection to their deity strengthens, allowing them to channel divine energy more frequently.",
-  "tags": [
-    "cleric"
-  ]
+  "tags": ["cleric"]
 }

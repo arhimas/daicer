@@ -9,23 +9,11 @@
   "hit_dice": "16d8+64",
   "speed": "walk 30 ft., fly 90 ft.",
   "stats": "18, 18, 18, 17, 20, 20",
-  "proficiencies": [
-    "Saving Throw: WIS +9",
-    "Saving Throw: CHA +9",
-    "Skill: Insight +9",
-    "Skill: Perception +9"
-  ],
+  "proficiencies": ["Saving Throw: WIS +9", "Saving Throw: CHA +9", "Skill: Insight +9", "Skill: Perception +9"],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "radiant",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
+  "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical weapons"],
   "damage_immunities": [],
-  "condition_immunities": [
-    "charmed",
-    "exhaustion",
-    "frightened"
-  ],
+  "condition_immunities": ["charmed", "exhaustion", "frightened"],
   "senses": "darkvision 120 ft., passive Perception 19",
   "languages": "all, telepathy 120 ft.",
   "challenge_rating": 10,

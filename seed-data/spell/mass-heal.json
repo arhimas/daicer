@@ -41,7 +41,5 @@
     "status": "Valid",
     "summary": "9th level healing spell with a 700 HP pool."
   },
-  "tags": [
-    "cleric"
-  ]
+  "tags": ["cleric"]
 }

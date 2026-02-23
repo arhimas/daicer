@@ -1,4 +1,3 @@
-
 import { describe, it, expect } from 'vitest';
 import { calculateDistance, isPointInRadius, isPointInCone } from '@/api/game/src/engine/utils/geometry';
 
@@ -64,7 +63,7 @@ describe('Geometry Utils', () => {
     });
 
     it('should return false for point behind', () => {
-        expect(isPointInCone(origin, direction, { x: 0, y: -2, z: 0 }, range, angle)).toBe(false);
+      expect(isPointInCone(origin, direction, { x: 0, y: -2, z: 0 }, range, angle)).toBe(false);
     });
   });
 });

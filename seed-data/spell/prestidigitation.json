@@ -3,10 +3,5 @@
   "name": "Prestidigitation",
   "level": 0,
   "school": "Transmutation",
-  "tags": [
-    "bard",
-    "sorcerer",
-    "warlock",
-    "wizard"
-  ]
+  "tags": ["bard", "sorcerer", "warlock", "wizard"]
 }

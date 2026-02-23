@@ -11,11 +11,7 @@
   "stats": "{\"strength\": 13, \"dexterity\": 16, \"constitution\": 9, \"intelligence\": 1, \"wisdom\": 7, \"charisma\": 2}",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning",
-    "piercing",
-    "slashing"
-  ],
+  "damage_resistances": ["bludgeoning", "piercing", "slashing"],
   "damage_immunities": [],
   "condition_immunities": [
     "charmed",
@@ -27,10 +23,7 @@
     "restrained",
     "stunned"
   ],
-  "senses": [
-    "darkvision 60 ft.",
-    "passive perception 8"
-  ],
+  "senses": ["darkvision 60 ft.", "passive perception 8"],
   "languages": "",
   "challenge_rating": "1",
   "special_abilities": "[{\"name\": \"Blood Frenzy\", \"desc\": \"The swarm has advantage on melee attack rolls against any creature that doesn't have all its hit points.\"}, {\"name\": \"Swarm\", \"desc\": \"The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny quipper. The swarm can't regain hit points or gain temporary hit points.\"}, {\"name\": \"Water Breathing\", \"desc\": \"The swarm can breathe only underwater.\"}]",

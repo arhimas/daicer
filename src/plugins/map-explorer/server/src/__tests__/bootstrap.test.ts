@@ -1,4 +1,3 @@
-
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import bootstrap from '@/plugins/map-explorer/server/src/bootstrap';
 import fs from 'fs';
@@ -8,7 +7,7 @@ vi.mock('fs');
 vi.mock('path', () => ({
   default: {
     join: (...args: string[]) => args.join('/'),
-  }
+  },
 }));
 
 describe('Map Explorer Bootstrap', () => {
@@ -50,26 +49,26 @@ describe('Map Explorer Bootstrap', () => {
   it('should seed prompts if missing', async () => {
     (fs.existsSync as any).mockReturnValue(true);
     (fs.readFileSync as any).mockReturnValue(JSON.stringify([{ key: 'sys_p1', text: 'Prompt 1' }]));
-    
+
     // Mock findOne -> null (missing)
     mockStrapi.db.query().findOne.mockResolvedValue(null);
 
     await bootstrap({ strapi: mockStrapi });
-    
+
     expect(mockStrapi.db.query().create).toHaveBeenCalledWith({
-      data: expect.objectContaining({ key: 'sys_p1', text: 'Prompt 1' })
+      data: expect.objectContaining({ key: 'sys_p1', text: 'Prompt 1' }),
     });
   });
 
   it('should skip existing prompts', async () => {
     (fs.existsSync as any).mockReturnValue(true);
     (fs.readFileSync as any).mockReturnValue(JSON.stringify([{ key: 'sys_p1', text: 'Prompt 1' }]));
-    
+
     // Mock findOne -> exists
     mockStrapi.db.query().findOne.mockResolvedValue({ id: 1 });
 
     await bootstrap({ strapi: mockStrapi });
-    
+
     expect(mockStrapi.db.query().create).not.toHaveBeenCalled();
     expect(mockStrapi.log.debug).toHaveBeenCalledWith(expect.stringContaining('exists'));
   });
@@ -80,7 +79,7 @@ describe('Map Explorer Bootstrap', () => {
     });
 
     await bootstrap({ strapi: mockStrapi });
-    
+
     expect(mockStrapi.log.error).toHaveBeenCalledWith('Failed to seed prompts', expect.any(Error));
   });
 });

@@ -24,10 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "con",
-      "wis"
-    ],
+    "saves": ["con", "wis"],
     "skills": [],
     "passivePerception": 9,
     "darkvision": 0,
@@ -35,10 +32,5 @@
     "truesight": 0,
     "tremorsense": 60
   },
-  "actions": [
-    "purple-worm-bite",
-    "purple-worm-multiattack",
-    "purple-worm-tail-stinger",
-    "purple-worm-tunneler"
-  ]
+  "actions": ["purple-worm-bite", "purple-worm-multiattack", "purple-worm-tail-stinger", "purple-worm-tunneler"]
 }

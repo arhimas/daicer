@@ -1,4 +1,8 @@
-import { createEmptyGrid, fillBox, markBox } from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
+import {
+  createEmptyGrid,
+  fillBox,
+  markBox,
+} from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
 import { ItemContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers'; // Universal Contract
 import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';
 

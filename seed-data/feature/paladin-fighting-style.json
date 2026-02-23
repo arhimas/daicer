@@ -10,8 +10,5 @@
   "image": "",
   "level": 2,
   "lore": "The martial discipline of a paladin is a physical manifestation of their divine commitment.",
-  "tags": [
-    "paladin",
-    "class-feature"
-  ]
+  "tags": ["paladin", "class-feature"]
 }

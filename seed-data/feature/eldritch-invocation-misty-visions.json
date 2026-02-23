@@ -12,9 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "The warlock's patron grants the ability to weave figments from the very air, creating illusions that deceive the eye without a sound.",
-  "tags": [
-    "warlock",
-    "invocation",
-    "illusion"
-  ]
+  "tags": ["warlock", "invocation", "illusion"]
 }

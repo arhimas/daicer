@@ -14,14 +14,8 @@
   "proficiencies": "{\"saving-throw-str\":17,\"saving-throw-dex\":7,\"saving-throw-con\":14,\"saving-throw-int\":13,\"saving-throw-wis\":11}",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "lightning",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "condition_immunities": [
-    "frightened",
-    "paralyzed"
-  ],
+  "damage_immunities": ["lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "condition_immunities": ["frightened", "paralyzed"],
   "senses": "truesight 120 ft., passive perception 14",
   "languages": "understands Abyssal, Celestial, Infernal, and Primordial but can't speak, telepathy 120 ft.",
   "challenge_rating": 23,

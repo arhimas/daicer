@@ -12,8 +12,5 @@
   "image": "",
   "level": 16,
   "lore": "A rogue's survival depends on their ability to adapt and refine their natural capabilities.",
-  "tags": [
-    "rogue",
-    "class-feature"
-  ]
+  "tags": ["rogue", "class-feature"]
 }

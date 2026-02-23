@@ -12,9 +12,5 @@
   "image": "",
   "level": 8,
   "lore": "The cleric's faith manifests as a physical force, imbuing their martial prowess with the holy light of their deity.",
-  "tags": [
-    "cleric",
-    "life-domain",
-    "combat"
-  ]
+  "tags": ["cleric", "life-domain", "combat"]
 }

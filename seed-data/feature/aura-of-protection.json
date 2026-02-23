@@ -12,9 +12,5 @@
   "image": "",
   "level": 6,
   "lore": "The paladin's presence is a beacon of divine safety, shielding allies from harm through pure force of will.",
-  "tags": [
-    "paladin",
-    "aura",
-    "defense"
-  ]
+  "tags": ["paladin", "aura", "defense"]
 }

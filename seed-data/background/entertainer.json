@@ -11,33 +11,25 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "musical-instrument-any"
-      ],
+      "item": ["musical-instrument-any"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "favor-of-an-admirer"
-      ],
+      "item": ["favor-of-an-admirer"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "costume"
-      ],
+      "item": ["costume"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 15,
       "slot": "backpack"
     }
@@ -51,30 +43,22 @@
     {
       "type": "Skill",
       "name": "Acrobatics",
-      "proficiency": [
-        "skill-acrobatics"
-      ]
+      "proficiency": ["skill-acrobatics"]
     },
     {
       "type": "Skill",
       "name": "Performance",
-      "proficiency": [
-        "skill-performance"
-      ]
+      "proficiency": ["skill-performance"]
     },
     {
       "type": "Tool",
       "name": "Disguise kit",
-      "proficiency": [
-        "tool-disguise-kit"
-      ]
+      "proficiency": ["tool-disguise-kit"]
     },
     {
       "type": "Tool",
       "name": "Musical instrument",
-      "proficiency": [
-        "tool-musical-instrument-any"
-      ]
+      "proficiency": ["tool-musical-instrument-any"]
     }
   ]
 }

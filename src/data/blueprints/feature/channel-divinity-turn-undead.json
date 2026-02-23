@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "A cleric's faith is a beacon that burns the very essence of the unliving, forcing the darkness to flee before the divine light.",
-  "tags": [
-    "cleric",
-    "channel-divinity"
-  ]
+  "tags": ["cleric", "channel-divinity"]
 }

@@ -12,9 +12,5 @@
   "image": "",
   "level": 14,
   "lore": "Your mastery of lore and artistic discipline allows you to push past your limits, tapping into a wellspring of inspiration to succeed where others falter.",
-  "tags": [
-    "bard",
-    "lore",
-    "class-feature"
-  ]
+  "tags": ["bard", "lore", "class-feature"]
 }

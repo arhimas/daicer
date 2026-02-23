@@ -12,12 +12,8 @@
   "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":6},{\"name\":\"Saving Throw: CON\",\"value\":10},{\"name\":\"Saving Throw: WIS\",\"value\":7},{\"name\":\"Saving Throw: CHA\",\"value\":8},{\"name\":\"Skill: Deception\",\"value\":8},{\"name\":\"Skill: Insight\",\"value\":7},{\"name\":\"Skill: Perception\",\"value\":12},{\"name\":\"Skill: Persuasion\",\"value\":8},{\"name\":\"Skill: Stealth\",\"value\":6}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
   "languages": "Common, Draconic",
   "challenge_rating": 15,

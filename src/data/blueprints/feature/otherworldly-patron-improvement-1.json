@@ -7,7 +7,5 @@
   },
   "description": "At 6th level, you gain a feature granted by your Otherworldly Patron. Your choice of patron (such as the Archfey, the Fiend, or the Great Old One) determines the specific feature you receive at this level.",
   "level": 6,
-  "tags": [
-    "warlock"
-  ]
+  "tags": ["warlock"]
 }

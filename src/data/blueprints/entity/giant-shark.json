@@ -32,9 +32,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "giant-shark-bite",
-    "giant-shark-blood-frenzy",
-    "giant-shark-water-breathing"
-  ]
+  "actions": ["giant-shark-bite", "giant-shark-blood-frenzy", "giant-shark-water-breathing"]
 }

@@ -45,12 +45,5 @@
     "oni-regeneration",
     "oni-sleep"
   ],
-  "spells": [
-    "charm-person",
-    "cone-of-cold",
-    "darkness",
-    "gaseous-form",
-    "invisibility",
-    "sleep"
-  ]
+  "spells": ["charm-person", "cone-of-cold", "darkness", "gaseous-form", "invisibility", "sleep"]
 }

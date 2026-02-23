@@ -24,21 +24,13 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "wis",
-      "cha"
-    ],
-    "skills": [
-      "perception"
-    ],
+    "saves": ["dex", "wis", "cha"],
+    "skills": ["perception"],
     "passivePerception": 16,
     "darkvision": 0,
     "blindsight": 0,
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "pegasus-hooves"
-  ]
+  "actions": ["pegasus-hooves"]
 }

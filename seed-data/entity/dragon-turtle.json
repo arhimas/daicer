@@ -24,11 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "con",
-      "wis"
-    ],
+    "saves": ["dex", "con", "wis"],
     "skills": [],
     "passivePerception": 11,
     "darkvision": 120,

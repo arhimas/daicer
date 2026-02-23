@@ -24,11 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "wis",
-      "cha"
-    ],
+    "saves": ["dex", "wis", "cha"],
     "skills": [],
     "passivePerception": 17,
     "darkvision": 120,
@@ -50,7 +46,5 @@
     "vampire-vampire-unarmed-strike",
     "vampire-vampire-vampire-weaknesses"
   ],
-  "legendary_actions": [
-    "vampire-vampire-bite-costs-2-actions"
-  ]
+  "legendary_actions": ["vampire-vampire-bite-costs-2-actions"]
 }

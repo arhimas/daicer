@@ -11,21 +11,9 @@
   "stats": "{\"strength\":3,\"dexterity\":13,\"constitution\":10,\"intelligence\":1,\"wisdom\":7,\"charisma\":1}",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning",
-    "piercing",
-    "slashing"
-  ],
+  "damage_resistances": ["bludgeoning", "piercing", "slashing"],
   "damage_immunities": [],
-  "condition_immunities": [
-    "charmed",
-    "frightened",
-    "paralyzed",
-    "petrified",
-    "prone",
-    "restrained",
-    "stunned"
-  ],
+  "condition_immunities": ["charmed", "frightened", "paralyzed", "petrified", "prone", "restrained", "stunned"],
   "senses": "blindsight 10 ft., passive Perception 8",
   "languages": "",
   "challenge_rating": 0.5,

@@ -8,33 +8,13 @@
   "hit_points": 33,
   "hit_dice": "6d10",
   "speed": "10 ft.",
-  "stats": [
-    17,
-    14,
-    10,
-    1,
-    3,
-    1
-  ],
+  "stats": [17, 14, 10, 1, 3, 1],
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison",
-    "psychic"
-  ],
-  "condition_immunities": [
-    "blinded",
-    "charmed",
-    "frightened",
-    "paralyzed",
-    "petrified",
-    "poisoned"
-  ],
-  "senses": [
-    "blindsight 60 ft. (blind beyond this radius)",
-    "passive perception 6"
-  ],
+  "damage_immunities": ["poison", "psychic"],
+  "condition_immunities": ["blinded", "charmed", "frightened", "paralyzed", "petrified", "poisoned"],
+  "senses": ["blindsight 60 ft. (blind beyond this radius)", "passive perception 6"],
   "languages": [],
   "challenge_rating": "2",
   "special_abilities": [

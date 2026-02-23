@@ -32,8 +32,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "homunculus-bite",
-    "homunculus-telepathic-bond"
-  ]
+  "actions": ["homunculus-bite", "homunculus-telepathic-bond"]
 }

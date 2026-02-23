@@ -12,9 +12,5 @@
   "image": "https://www.dndbeyond.com/assets/invocations/voice-of-the-chain-master.png",
   "level": 2,
   "lore": "A warlock's bond with their familiar transcends the physical, allowing their very essence to speak through the small creature.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation",
-    "pact-of-the-chain"
-  ]
+  "tags": ["warlock", "eldritch-invocation", "pact-of-the-chain"]
 }

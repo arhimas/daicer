@@ -39,7 +39,5 @@
     "magma-mephit-fire-breath",
     "magma-mephit-innate-spellcasting"
   ],
-  "spells": [
-    "heat-metal"
-  ]
+  "spells": ["heat-metal"]
 }

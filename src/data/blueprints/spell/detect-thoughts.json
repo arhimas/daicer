@@ -36,9 +36,5 @@
     "status": "Valid",
     "summary": "Spell compiled from SRD reference data."
   },
-  "tags": [
-    "bard",
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["bard", "sorcerer", "wizard"]
 }

@@ -50,9 +50,5 @@
     "status": "Valid",
     "summary": "Successfully mapped from reference data."
   },
-  "tags": [
-    "bard",
-    "cleric",
-    "debuff"
-  ]
+  "tags": ["bard", "cleric", "debuff"]
 }

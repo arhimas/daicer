@@ -12,9 +12,5 @@
   "image": "https://example.com/images/repelling-blast.webp",
   "level": 2,
   "lore": "By weaving kinetic force into the crackling beams of their patron's power, a warlock can physically shove enemies backward with every hit.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation",
-    "eldritch-blast-modifier"
-  ]
+  "tags": ["warlock", "eldritch-invocation", "eldritch-blast-modifier"]
 }

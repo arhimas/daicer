@@ -5,24 +5,12 @@
   "type": "humanoid",
   "subtype": "any race",
   "alignment": "any alignment",
-  "armor_class": [
-    "10 (dex)"
-  ],
+  "armor_class": ["10 (dex)"],
   "hit_points": 9,
   "hit_dice": "2d8",
   "speed": "30 ft.",
-  "stats": [
-    10,
-    10,
-    10,
-    10,
-    14,
-    11
-  ],
-  "proficiencies": [
-    "Medicine: +4",
-    "Religion: +2"
-  ],
+  "stats": [10, 10, 10, 10, 14, 11],
+  "proficiencies": ["Medicine: +4", "Religion: +2"],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],
@@ -34,7 +22,5 @@
   "special_abilities": [
     "Spellcasting: The acolyte is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The acolyte has following cleric spells prepared: Cantrips (at will): light, sacred flame, thaumaturgy; 1st level (3 slots): bless, cure wounds, sanctuary"
   ],
-  "actions": [
-    "Club: Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."
-  ]
+  "actions": ["Club: Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."]
 }

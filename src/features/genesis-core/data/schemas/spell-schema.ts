@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 import { APIReferenceSchema, DamageSchema, DCMethodSchema } from './common-schemas';
 

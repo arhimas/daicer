@@ -12,9 +12,5 @@
   "image": "https://media-waterdeep.cursecdn.com/avatars/features/divine-intervention.png",
   "level": 10,
   "lore": "A direct plea to the heavens, calling upon the divine power of one's patron deity to manifest in the mortal realm.",
-  "tags": [
-    "cleric",
-    "class-feature",
-    "divine"
-  ]
+  "tags": ["cleric", "class-feature", "divine"]
 }

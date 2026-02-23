@@ -13,9 +13,7 @@
   "proficiencies": "Saving Throw: DEX +2, Saving Throw: CON +4, Saving Throw: WIS +2, Saving Throw: CHA +4, Skill: Perception +4, Skill: Stealth +2",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "lightning"
-  ],
+  "damage_immunities": ["lightning"],
   "condition_immunities": [],
   "senses": "blindsight 10 ft., darkvision 60 ft., passive perception 14",
   "languages": "Draconic",

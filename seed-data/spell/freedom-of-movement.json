@@ -3,12 +3,5 @@
   "name": "Freedom of Movement",
   "level": 4,
   "school": "Abjuration",
-  "tags": [
-    "bard",
-    "cleric",
-    "druid",
-    "ranger",
-    "land",
-    "devotion"
-  ]
+  "tags": ["bard", "cleric", "druid", "ranger", "land", "devotion"]
 }

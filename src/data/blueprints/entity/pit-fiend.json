@@ -24,11 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "con",
-      "wis"
-    ],
+    "saves": ["dex", "con", "wis"],
     "skills": [],
     "passivePerception": 14,
     "darkvision": 0,
@@ -47,10 +43,5 @@
     "pit-fiend-multiattack",
     "pit-fiend-tail"
   ],
-  "spells": [
-    "detect-magic",
-    "fireball",
-    "hold-monster",
-    "wall-of-fire"
-  ]
+  "spells": ["detect-magic", "fireball", "hold-monster", "wall-of-fire"]
 }

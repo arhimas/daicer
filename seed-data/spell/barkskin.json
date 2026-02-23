@@ -40,8 +40,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "druid",
-    "ranger"
-  ]
+  "tags": ["druid", "ranger"]
 }

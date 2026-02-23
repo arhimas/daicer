@@ -34,9 +34,5 @@
     "status": "Valid",
     "summary": "Spell data compiled successfully from reference."
   },
-  "tags": [
-    "bard",
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["bard", "sorcerer", "wizard"]
 }

@@ -12,9 +12,6 @@
     "damage_type": "piercing",
     "range_normal": 25,
     "range_long": 100,
-    "properties": [
-      "ammunition",
-      "loading"
-    ]
+    "properties": ["ammunition", "loading"]
   }
 }

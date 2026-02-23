@@ -39,8 +39,5 @@
     "status": "Valid",
     "summary": "Resurrection spell data successfully mapped from reference."
   },
-  "tags": [
-    "bard",
-    "cleric"
-  ]
+  "tags": ["bard", "cleric"]
 }

@@ -2,12 +2,12 @@ import { EntityMapper, GenerationRequest } from './entity-mapper';
 import { SourceRef } from '@/features/genesis-core/source-types';
 
 export class TraitMapper extends EntityMapper<SourceRef> {
-    getUid(): string {
-        return 'api::trait.trait'; // Assuming this is the UID for traits
-    }
+  getUid(): string {
+    return 'api::trait.trait'; // Assuming this is the UID for traits
+  }
 
-    map(trait: SourceRef): GenerationRequest {
-        const prompt = `
+  map(trait: SourceRef): GenerationRequest {
+    const prompt = `
 Generate a D&D 5e Racial Trait based on the following reference.
 Ensure the output matches the provided JSON Schema strictly.
 
@@ -22,11 +22,11 @@ Instructions:
 3. Ensure 'slug' is kebab-case of the name.
 `;
 
-        return {
-            uid: this.getUid(),
-            prompt: prompt.trim(),
-            referenceId: trait.index,
-            name: trait.name
-        };
-    }
+    return {
+      uid: this.getUid(),
+      prompt: prompt.trim(),
+      referenceId: trait.index,
+      name: trait.name,
+    };
+  }
 }

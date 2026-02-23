@@ -10,9 +10,7 @@
   "hit_points_roll": "1d4-1",
   "speed": "10 ft., fly 50 ft.",
   "stats": "strength: 2, dexterity: 14, constitution: 8, intelligence: 2, wisdom: 12, charisma: 6",
-  "proficiencies": [
-    "skill-perception: 3"
-  ],
+  "proficiencies": ["skill-perception: 3"],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],
@@ -24,7 +22,5 @@
   "special_abilities": [
     "Mimicry: The raven can mimic simple sounds it has heard, such as a person whispering, a baby crying, or an animal chittering. A creature that hears the sounds can tell they are imitations with a successful DC 10 Wisdom (Insight) check."
   ],
-  "actions": [
-    "Beak: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
-  ]
+  "actions": ["Beak: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1 piercing damage."]
 }

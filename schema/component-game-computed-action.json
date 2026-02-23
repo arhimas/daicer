@@ -14,12 +14,7 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "melee",
-        "ranged",
-        "spell",
-        "utility"
-      ]
+      "enum": ["melee", "ranged", "spell", "utility"]
     },
     "toHit": {
       "type": "integer"

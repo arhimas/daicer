@@ -32,9 +32,5 @@
     "truesight": 0,
     "tremorsense": 60
   },
-  "actions": [
-    "remorhaz-bite",
-    "remorhaz-heated-body",
-    "remorhaz-swallow"
-  ]
+  "actions": ["remorhaz-bite", "remorhaz-heated-body", "remorhaz-swallow"]
 }

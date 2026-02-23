@@ -14,9 +14,7 @@
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],
-  "condition_immunities": [
-    "charmed"
-  ],
+  "condition_immunities": ["charmed"],
   "senses": "darkvision 60 ft., passive perception 11",
   "languages": "Common",
   "challenge_rating": 3,

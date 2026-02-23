@@ -7,7 +7,5 @@
   },
   "description": "At 14th level, you gain a feature granted by your Arcane Tradition.",
   "level": 14,
-  "tags": [
-    "wizard"
-  ]
+  "tags": ["wizard"]
 }

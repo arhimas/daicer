@@ -46,9 +46,5 @@
     "drider-sunlight-sensitivity",
     "drider-web-walker"
   ],
-  "spells": [
-    "dancing-lights",
-    "darkness",
-    "faerie-fire"
-  ]
+  "spells": ["dancing-lights", "darkness", "faerie-fire"]
 }

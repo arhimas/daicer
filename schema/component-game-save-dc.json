@@ -14,23 +14,12 @@
     },
     "stat": {
       "type": "enumeration",
-      "enum": [
-        "str",
-        "dex",
-        "con",
-        "int",
-        "wis",
-        "cha"
-      ],
+      "enum": ["str", "dex", "con", "int", "wis", "cha"],
       "required": true
     },
     "success_type": {
       "type": "enumeration",
-      "enum": [
-        "none",
-        "half",
-        "other"
-      ],
+      "enum": ["none", "half", "other"],
       "default": "none"
     }
   }

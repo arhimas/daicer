@@ -11,10 +11,7 @@
     "damage_type": "piercing",
     "range_normal": 80,
     "range_long": 320,
-    "properties": [
-      "ammunition",
-      "two-handed"
-    ]
+    "properties": ["ammunition", "two-handed"]
   },
   "compilation_state": {
     "status": "Valid"

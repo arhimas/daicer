@@ -12,9 +12,5 @@
   "image": "https://www.example.com/assets/bardic-inspiration.png",
   "level": 10,
   "lore": "The rhythm of your soul resonates with the heartbeat of the world, lifting the spirits of your allies.",
-  "tags": [
-    "bard",
-    "class-feature",
-    "buff"
-  ]
+  "tags": ["bard", "class-feature", "buff"]
 }

@@ -3,8 +3,5 @@
   "name": "Prismatic Spray",
   "level": 7,
   "school": "Evocation",
-  "tags": [
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["sorcerer", "wizard"]
 }

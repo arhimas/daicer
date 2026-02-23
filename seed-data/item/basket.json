@@ -8,8 +8,5 @@
   "weight": 2,
   "size": "Medium",
   "equipment_data": {},
-  "tags": [
-    "adventuring-gear",
-    "standard-gear"
-  ]
+  "tags": ["adventuring-gear", "standard-gear"]
 }

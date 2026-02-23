@@ -3,10 +3,5 @@
   "name": "Slow",
   "level": 3,
   "school": "Transmutation",
-  "tags": [
-    "Sorcerer",
-    "Wizard",
-    "Lore",
-    "Land"
-  ]
+  "tags": ["Sorcerer", "Wizard", "Lore", "Land"]
 }

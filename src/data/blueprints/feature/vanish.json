@@ -10,8 +10,5 @@
   "description": "Starting at 14th level, you can use the Hide action as a bonus action on your turn. Also, you can't be tracked by nonmagical means, unless you choose to leave a trail.",
   "level": 14,
   "lore": "The ranger becomes a ghost of the wild, slipping into the shadows with effortless grace and leaving no footprint behind.",
-  "tags": [
-    "ranger",
-    "class-feature"
-  ]
+  "tags": ["ranger", "class-feature"]
 }

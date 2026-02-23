@@ -3,11 +3,5 @@
   "name": "Zone of Truth",
   "level": 2,
   "school": "Enchantment",
-  "tags": [
-    "bard",
-    "cleric",
-    "paladin",
-    "lore",
-    "devotion"
-  ]
+  "tags": ["bard", "cleric", "paladin", "lore", "devotion"]
 }

@@ -12,8 +12,5 @@
   "image": "",
   "level": 6,
   "lore": "By channeling your internal reserves of ki, you imbue your physical strikes with spiritual essence, allowing your blows to strike true against foes that are normally impervious to mundane harm.",
-  "tags": [
-    "monk",
-    "class-feature"
-  ]
+  "tags": ["monk", "class-feature"]
 }

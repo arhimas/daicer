@@ -12,9 +12,5 @@
   "image": "https://example.com/assets/monk-step-of-the-wind.png",
   "level": 2,
   "lore": "A monk's agility is not merely physical, but a flow of ki that lightens the body and quickens the spirit, allowing them to move like a leaf on the breeze.",
-  "tags": [
-    "monk",
-    "ki",
-    "mobility"
-  ]
+  "tags": ["monk", "ki", "mobility"]
 }

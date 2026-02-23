@@ -8,8 +8,5 @@
   "description": "You can cast alter self at will, without expending a spell slot.",
   "level": 15,
   "lore": "A warlock who masters this invocation learns to treat their physical form as a mere suggestion, shifting flesh and bone as easily as one changes a garment.",
-  "tags": [
-    "warlock",
-    "invocation"
-  ]
+  "tags": ["warlock", "invocation"]
 }

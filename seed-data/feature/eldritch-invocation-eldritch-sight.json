@@ -7,8 +7,5 @@
   "description": "You can cast detect magic at will, without expending a spell slot.",
   "level": 2,
   "lore": "Your eyes are opened to the invisible flows of magic that permeate the world, allowing you to perceive the subtle auras of the arcane with a mere thought.",
-  "tags": [
-    "warlock",
-    "eldritch-invocations"
-  ]
+  "tags": ["warlock", "eldritch-invocations"]
 }

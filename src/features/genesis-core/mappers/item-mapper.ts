@@ -2,12 +2,12 @@ import { EntityMapper, GenerationRequest } from './entity-mapper';
 import { SourceItem } from '@/features/genesis-core/source-types';
 
 export class ItemMapper extends EntityMapper<SourceItem> {
-    getUid(): string {
-        return 'api::item.item'; // Assuming UID for items/equipment
-    }
+  getUid(): string {
+    return 'api::item.item'; // Assuming UID for items/equipment
+  }
 
-    map(item: SourceItem): GenerationRequest {
-        const prompt = `
+  map(item: SourceItem): GenerationRequest {
+    const prompt = `
 Generate a D&D 5e Item (Equipment) based on the following reference.
 Ensure the output matches the provided JSON Schema strictly.
 
@@ -23,11 +23,11 @@ Instructions:
 6. Ensure 'slug' is kebab-case of the name.
 `;
 
-        return {
-            uid: this.getUid(),
-            prompt: prompt.trim(),
-            referenceId: item.index,
-            name: item.name
-        };
-    }
+    return {
+      uid: this.getUid(),
+      prompt: prompt.trim(),
+      referenceId: item.index,
+      name: item.name,
+    };
+  }
 }

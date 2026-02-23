@@ -39,10 +39,5 @@
     "status": "Valid",
     "summary": "Successfully imported from reference data."
   },
-  "tags": [
-    "sorcerer",
-    "warlock",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["sorcerer", "warlock", "wizard", "lore"]
 }

@@ -6,8 +6,5 @@
   },
   "description": "Opportunity attacks against you are made with disadvantage.",
   "level": 7,
-  "tags": [
-    "ranger",
-    "hunter"
-  ]
+  "tags": ["ranger", "hunter"]
 }

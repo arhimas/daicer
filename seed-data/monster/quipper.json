@@ -8,14 +8,7 @@
   "hit_points": 1,
   "hit_dice": "1d4",
   "speed": "swim 40 ft.",
-  "stats": [
-    2,
-    16,
-    9,
-    1,
-    7,
-    2
-  ],
+  "stats": [2, 16, 9, 1, 7, 2],
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
@@ -28,7 +21,5 @@
     "Blood Frenzy: The quipper has advantage on melee attack rolls against any creature that doesn't have all its hit points.",
     "Water Breathing: The quipper can breathe only underwater."
   ],
-  "actions": [
-    "Bite: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
-  ]
+  "actions": ["Bite: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 1 piercing damage."]
 }

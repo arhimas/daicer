@@ -8,38 +8,17 @@
   "hit_points": 341,
   "hit_dice": "22d20",
   "hit_points_roll": "22d20+110",
-  "speed": [
-    "walk 20 ft.",
-    "swim 40 ft."
-  ],
-  "stats": [
-    25,
-    10,
-    20,
-    10,
-    12,
-    12
-  ],
-  "proficiencies": [
-    "Saving Throw: DEX +6",
-    "Saving Throw: CON +11",
-    "Saving Throw: WIS +7"
-  ],
+  "speed": ["walk 20 ft.", "swim 40 ft."],
+  "stats": [25, 10, 20, 10, 12, 12],
+  "proficiencies": ["Saving Throw: DEX +6", "Saving Throw: CON +11", "Saving Throw: WIS +7"],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "fire"
-  ],
+  "damage_resistances": ["fire"],
   "damage_immunities": [],
   "condition_immunities": [],
-  "senses": [
-    "darkvision 120 ft.",
-    "passive perception 11"
-  ],
+  "senses": ["darkvision 120 ft.", "passive perception 11"],
   "languages": "Aquan, Draconic",
   "challenge_rating": "17",
-  "special_abilities": [
-    "Amphibious: The dragon turtle can breathe air and water."
-  ],
+  "special_abilities": ["Amphibious: The dragon turtle can breathe air and water."],
   "actions": [
     "Multiattack: The dragon turtle makes three attacks: one with its bite and two with its claws. It can make one tail attack in place of its two claw attacks.",
     "Bite: Melee Weapon Attack: +13 to hit, reach 15 ft., one target. Hit: 26 (3d12 + 7) piercing damage.",

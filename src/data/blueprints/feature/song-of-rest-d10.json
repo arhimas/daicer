@@ -12,8 +12,5 @@
   "image": "https://www.example.com/assets/bard-feature.png",
   "level": 13,
   "lore": "A melody that mends the spirit as much as the flesh, carrying the weary through the longest of nights.",
-  "tags": [
-    "bard",
-    "class-feature"
-  ]
+  "tags": ["bard", "class-feature"]
 }

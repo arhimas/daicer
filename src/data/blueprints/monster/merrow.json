@@ -8,21 +8,12 @@
   "hit_points": 45,
   "hit_dice": "6d10+12",
   "speed": "walk 10 ft., swim 40 ft.",
-  "stats": [
-    18,
-    10,
-    15,
-    8,
-    10,
-    9
-  ],
+  "stats": [18, 10, 15, 8, 10, 9],
   "proficiencies": [],
   "senses": "darkvision 60 ft., passive Perception 10",
   "languages": "Abyssal, Aquan",
   "challenge_rating": 2,
-  "special_abilities": [
-    "Amphibious: The merrow can breathe air and water."
-  ],
+  "special_abilities": ["Amphibious: The merrow can breathe air and water."],
   "actions": [
     "Multiattack: The merrow makes two attacks: one with its bite and one with its claws or harpoon.",
     "Bite: Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) piercing damage.",

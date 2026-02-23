@@ -67,10 +67,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "cleric",
-    "druid",
-    "sorcerer",
-    "land"
-  ]
+  "tags": ["cleric", "druid", "sorcerer", "land"]
 }

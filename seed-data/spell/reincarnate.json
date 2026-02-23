@@ -3,7 +3,5 @@
   "name": "Reincarnate",
   "level": 5,
   "school": "Transmutation",
-  "tags": [
-    "druid"
-  ]
+  "tags": ["druid"]
 }

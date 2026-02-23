@@ -10,8 +10,5 @@
   "equipment_data": {
     "properties": []
   },
-  "tags": [
-    "adventuring-gear",
-    "equipment-packs"
-  ]
+  "tags": ["adventuring-gear", "equipment-packs"]
 }

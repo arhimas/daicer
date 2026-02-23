@@ -25,18 +25,12 @@
     "burrowSpeed": 0,
     "hover": false,
     "saves": [],
-    "skills": [
-      "perception"
-    ],
+    "skills": ["perception"],
     "passivePerception": 14,
     "darkvision": 0,
     "blindsight": 0,
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "tyrannosaurus-rex-bite",
-    "tyrannosaurus-rex-multiattack",
-    "tyrannosaurus-rex-tail"
-  ]
+  "actions": ["tyrannosaurus-rex-bite", "tyrannosaurus-rex-multiattack", "tyrannosaurus-rex-tail"]
 }

@@ -12,8 +12,5 @@
   "image": "",
   "level": 18,
   "lore": "Your physical prowess is so great that your raw strength becomes the baseline for any feat of power.",
-  "tags": [
-    "barbarian",
-    "class-feature"
-  ]
+  "tags": ["barbarian", "class-feature"]
 }

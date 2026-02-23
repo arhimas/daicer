@@ -17,8 +17,5 @@
     "str_minimum": 0,
     "stealth_disadvantage": false
   },
-  "tags": [
-    "arcane-foci",
-    "adventuring-gear"
-  ]
+  "tags": ["arcane-foci", "adventuring-gear"]
 }

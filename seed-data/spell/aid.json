@@ -49,9 +49,5 @@
     "status": "Valid",
     "summary": "Successfully mapped Aid spell from reference data."
   },
-  "tags": [
-    "cleric",
-    "paladin",
-    "buff"
-  ]
+  "tags": ["cleric", "paladin", "buff"]
 }

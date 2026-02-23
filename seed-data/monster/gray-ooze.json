@@ -7,40 +7,14 @@
   "armor_class": 8,
   "hit_points": 22,
   "hit_dice": "3d8+9",
-  "speed": [
-    "walk 10 ft.",
-    "climb 10 ft."
-  ],
-  "stats": [
-    12,
-    6,
-    16,
-    1,
-    6,
-    2
-  ],
-  "proficiencies": [
-    "Stealth: 2"
-  ],
+  "speed": ["walk 10 ft.", "climb 10 ft."],
+  "stats": [12, 6, 16, 1, 6, 2],
+  "proficiencies": ["Stealth: 2"],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "acid",
-    "cold",
-    "fire"
-  ],
+  "damage_resistances": ["acid", "cold", "fire"],
   "damage_immunities": [],
-  "condition_immunities": [
-    "blinded",
-    "charmed",
-    "deafened",
-    "exhaustion",
-    "frightened",
-    "prone"
-  ],
-  "senses": [
-    "blindsight 60 ft. (blind beyond this radius)",
-    "passive perception 8"
-  ],
+  "condition_immunities": ["blinded", "charmed", "deafened", "exhaustion", "frightened", "prone"],
+  "senses": ["blindsight 60 ft. (blind beyond this radius)", "passive perception 8"],
   "languages": [],
   "challenge_rating": 0.5,
   "special_abilities": [

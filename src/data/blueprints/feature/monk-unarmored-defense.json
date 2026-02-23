@@ -12,8 +12,5 @@
   "image": "",
   "level": 1,
   "lore": "A monk's protection comes not from steel, but from the fluid motion of their body and the clarity of their mind.",
-  "tags": [
-    "monk",
-    "defense"
-  ]
+  "tags": ["monk", "defense"]
 }

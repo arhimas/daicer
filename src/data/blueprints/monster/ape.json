@@ -4,22 +4,12 @@
   "size": "Medium",
   "type": "beast",
   "alignment": "unaligned",
-  "stats": [
-    16,
-    14,
-    14,
-    6,
-    12,
-    7
-  ],
+  "stats": [16, 14, 14, 6, 12, 7],
   "armor_class": 12,
   "hit_points": 19,
   "hit_dice": "3d8",
   "speed": "30 ft., climb 30 ft.",
-  "proficiencies": [
-    "Athletics +5",
-    "Perception +3"
-  ],
+  "proficiencies": ["Athletics +5", "Perception +3"],
   "senses": "passive Perception 13",
   "languages": "None",
   "challenge_rating": 0.5,

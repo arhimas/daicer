@@ -8,25 +8,12 @@
   "hit_points": 67,
   "hit_dice": "9d10",
   "speed": "50 ft.",
-  "stats": [
-    18,
-    14,
-    15,
-    11,
-    17,
-    16
-  ],
+  "stats": [18, 14, 15, 11, 17, 16],
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "charmed",
-    "paralyzed",
-    "poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["charmed", "paralyzed", "poisoned"],
   "senses": "darkvision 60 ft., passive perception 13",
   "languages": "Celestial, Elvish, Sylvan, telepathy 60 ft.",
   "challenge_rating": 5,

@@ -10,14 +10,7 @@
   "attributes": {
     "shape": {
       "type": "enumeration",
-      "enum": [
-        "line",
-        "cone",
-        "cube",
-        "sphere",
-        "circle",
-        "cylinder"
-      ],
+      "enum": ["line", "cone", "cube", "sphere", "circle", "cylinder"],
       "required": true
     },
     "size": {

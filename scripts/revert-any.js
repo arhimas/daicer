@@ -7,10 +7,10 @@ const files = [
   'src/features/genesis-core/mappers/action-mapper.ts',
   'src/features/genesis-core/mappers/item-mapper.ts',
   'src/features/genesis-core/mappers/primitive-mappers.ts',
-  'src/features/genesis-core/schema-loader.ts'
+  'src/features/genesis-core/schema-loader.ts',
 ];
 
-files.forEach(file => {
+files.forEach((file) => {
   if (fs.existsSync(file)) {
     let content = fs.readFileSync(file, 'utf8');
     content = content.replace(/: unknown\[\]/g, ': any[]');

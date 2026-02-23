@@ -11,17 +11,10 @@
   "speed": "60 ft.",
   "stats": "{\"strength\":18,\"dexterity\":12,\"constitution\":15,\"intelligence\":2,\"wisdom\":8,\"charisma\":5}",
   "proficiencies": [],
-  "damage_vulnerabilities": [
-    "bludgeoning"
-  ],
+  "damage_vulnerabilities": ["bludgeoning"],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "exhaustion",
-    "poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["exhaustion", "poisoned"],
   "senses": "{\"darkvision\":\"60 ft.\",\"passive_perception\":9}",
   "languages": "",
   "challenge_rating": 0.5,

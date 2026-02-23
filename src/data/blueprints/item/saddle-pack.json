@@ -7,8 +7,5 @@
   "value": 5,
   "weight": 15,
   "size": "Medium",
-  "tags": [
-    "mounts-and-vehicles",
-    "tack-harness-and-drawn-vehicles"
-  ]
+  "tags": ["mounts-and-vehicles", "tack-harness-and-drawn-vehicles"]
 }

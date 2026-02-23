@@ -1,14 +1,13 @@
-
 import { EntityMapper, GenerationRequest } from './entity-mapper';
 import { SourceClass } from '@/features/genesis-core/source-types';
 
 export class ClassMapper extends EntityMapper<SourceClass> {
-    getUid(): string {
-        return 'api::class.class';
-    }
+  getUid(): string {
+    return 'api::class.class';
+  }
 
-    map(cls: SourceClass): GenerationRequest {
-        const prompt = `
+  map(cls: SourceClass): GenerationRequest {
+    const prompt = `
 Generate a D&D 5e Class based on the following reference data.
 Ensure the output matches the provided JSON Schema strictly.
 
@@ -23,11 +22,11 @@ Instructions:
 5. Ensure 'slug' is kebab-case of the name.
 `;
 
-        return {
-            uid: this.getUid(),
-            prompt: prompt.trim(),
-            referenceId: cls.index,
-            name: cls.name
-        };
-    }
+    return {
+      uid: this.getUid(),
+      prompt: prompt.trim(),
+      referenceId: cls.index,
+      name: cls.name,
+    };
+  }
 }

@@ -52,10 +52,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "sorcerer",
-    "wizard",
-    "lore",
-    "land"
-  ]
+  "tags": ["sorcerer", "wizard", "lore", "land"]
 }

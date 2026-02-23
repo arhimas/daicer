@@ -17,19 +17,8 @@
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "acid",
-    "cold",
-    "lightning",
-    "slashing"
-  ],
-  "condition_immunities": [
-    "blinded",
-    "charmed",
-    "exhaustion",
-    "frightened",
-    "prone"
-  ],
+  "damage_immunities": ["acid", "cold", "lightning", "slashing"],
+  "condition_immunities": ["blinded", "charmed", "exhaustion", "frightened", "prone"],
   "senses": "blindsight 60 ft. (blind beyond this radius), passive Perception 8",
   "languages": "",
   "challenge_rating": "4",

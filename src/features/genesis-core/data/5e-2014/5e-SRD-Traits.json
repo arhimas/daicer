@@ -52,9 +52,7 @@
     ],
     "subraces": [],
     "name": "Dwarven Resilience",
-    "desc": [
-      "You have advantage on saving throws against poison, and you have resistance against poison damage."
-    ],
+    "desc": ["You have advantage on saving throws against poison, and you have resistance against poison damage."],
     "proficiencies": [],
     "url": "/api/2014/traits/dwarven-resilience"
   },
@@ -69,9 +67,7 @@
     ],
     "subraces": [],
     "name": "Dwarven Combat Training",
-    "desc": [
-      "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer."
-    ],
+    "desc": ["You have proficiency with the battleaxe, handaxe, light hammer, and warhammer."],
     "proficiencies": [
       {
         "index": "battleaxes",
@@ -174,9 +170,7 @@
       }
     ],
     "name": "Dwarven Toughness",
-    "desc": [
-      "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."
-    ],
+    "desc": ["Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."],
     "proficiencies": [],
     "url": "/api/2014/traits/dwarven-toughness"
   },
@@ -217,9 +211,7 @@
     ],
     "subraces": [],
     "name": "Fey Ancestry",
-    "desc": [
-      "You have advantage on saving throws against being charmed, and magic cannot put you to sleep."
-    ],
+    "desc": ["You have advantage on saving throws against being charmed, and magic cannot put you to sleep."],
     "proficiencies": [],
     "url": "/api/2014/traits/fey-ancestry"
   },
@@ -251,9 +243,7 @@
       }
     ],
     "name": "Elf Weapon Training",
-    "desc": [
-      "You have proficiency with the longsword, shortsword, shortbow, and longbow."
-    ],
+    "desc": ["You have proficiency with the longsword, shortsword, shortbow, and longbow."],
     "proficiencies": [
       {
         "index": "longswords",
@@ -429,9 +419,7 @@
       }
     ],
     "name": "Extra Language",
-    "desc": [
-      "You can speak, read, and write one extra language of your choice."
-    ],
+    "desc": ["You can speak, read, and write one extra language of your choice."],
     "proficiencies": [],
     "language_options": {
       "choose": 1,
@@ -599,9 +587,7 @@
     ],
     "subraces": [],
     "name": "Halfling Nimbleness",
-    "desc": [
-      "You can move through the space of any creature that is of a size larger than yours."
-    ],
+    "desc": ["You can move through the space of any creature that is of a size larger than yours."],
     "proficiencies": [],
     "url": "/api/2014/traits/halfling-nimbleness"
   },
@@ -1400,9 +1386,7 @@
     ],
     "subraces": [],
     "name": "Damage Resistance",
-    "desc": [
-      "You have resistance to the damage type associated with your draconic ancestry."
-    ],
+    "desc": ["You have resistance to the damage type associated with your draconic ancestry."],
     "proficiencies": [],
     "url": "/api/2014/traits/damage-resistance"
   },
@@ -1417,9 +1401,7 @@
     ],
     "subraces": [],
     "name": "Gnome Cunning",
-    "desc": [
-      "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
-    ],
+    "desc": ["You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."],
     "proficiencies": [],
     "url": "/api/2014/traits/gnome-cunning"
   },

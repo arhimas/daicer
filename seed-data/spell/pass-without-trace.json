@@ -3,8 +3,5 @@
   "name": "Pass Without Trace",
   "level": 2,
   "school": "Abjuration",
-  "tags": [
-    "druid",
-    "ranger"
-  ]
+  "tags": ["druid", "ranger"]
 }

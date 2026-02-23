@@ -13,10 +13,6 @@
   "senses": "darkvision: 30 ft., passive_perception: 11",
   "languages": "",
   "challenge_rating": 0,
-  "special_abilities": [
-    "Keen Smell: The badger has advantage on Wisdom (Perception) checks that rely on smell."
-  ],
-  "actions": [
-    "Bite: Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
-  ]
+  "special_abilities": ["Keen Smell: The badger has advantage on Wisdom (Perception) checks that rely on smell."],
+  "actions": ["Bite: Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 1 piercing damage."]
 }

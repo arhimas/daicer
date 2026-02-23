@@ -12,9 +12,5 @@
   "image": "https://example.com/images/barbarian-capstone.png",
   "level": 20,
   "lore": "You have reached the pinnacle of physical perfection, your very essence infused with the raw, untamed energy of the natural world.",
-  "tags": [
-    "barbarian",
-    "class-feature",
-    "capstone"
-  ]
+  "tags": ["barbarian", "class-feature", "capstone"]
 }

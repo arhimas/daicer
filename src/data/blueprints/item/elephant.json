@@ -8,8 +8,5 @@
   "value": 200,
   "weight": 0,
   "size": "Huge",
-  "tags": [
-    "mount",
-    "vehicle"
-  ]
+  "tags": ["mount", "vehicle"]
 }

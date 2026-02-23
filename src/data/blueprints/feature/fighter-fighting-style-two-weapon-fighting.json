@@ -12,8 +12,5 @@
   "image": "",
   "level": 1,
   "lore": "Mastery of dual-wielding allows a warrior to strike with lethal precision using both hands, ensuring that a secondary strike is just as potent as the first.",
-  "tags": [
-    "fighter",
-    "fighting-style"
-  ]
+  "tags": ["fighter", "fighting-style"]
 }

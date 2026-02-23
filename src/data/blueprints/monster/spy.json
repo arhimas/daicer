@@ -9,14 +9,7 @@
   "hit_points": 27,
   "hit_dice": "6d8",
   "speed": "30 ft.",
-  "stats": [
-    10,
-    15,
-    10,
-    12,
-    14,
-    16
-  ],
+  "stats": [10, 15, 10, 12, 14, 16],
   "proficiencies": [
     "Skill: Deception +5",
     "Skill: Insight +4",

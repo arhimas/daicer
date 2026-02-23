@@ -17,14 +17,7 @@
     },
     "source": {
       "type": "enumeration",
-      "enum": [
-        "race",
-        "class",
-        "monster",
-        "feat",
-        "item",
-        "other"
-      ],
+      "enum": ["race", "class", "monster", "feat", "item", "other"],
       "default": "monster"
     },
     "usage_max": {
@@ -32,14 +25,7 @@
     },
     "usage_per": {
       "type": "enumeration",
-      "enum": [
-        "short_rest",
-        "long_rest",
-        "day",
-        "dawn",
-        "dusk",
-        "other"
-      ]
+      "enum": ["short_rest", "long_rest", "day", "dawn", "dusk", "other"]
     }
   }
 }

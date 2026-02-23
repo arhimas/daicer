@@ -10,9 +10,7 @@
   {
     "index": "bludgeoning",
     "name": "Bludgeoning",
-    "desc": [
-      "Blunt force attacks, falling, constriction, and the like deal bludgeoning damage."
-    ],
+    "desc": ["Blunt force attacks, falling, constriction, and the like deal bludgeoning damage."],
     "url": "/api/2014/damage-types/bludgeoning"
   },
   {
@@ -26,9 +24,7 @@
   {
     "index": "fire",
     "name": "Fire",
-    "desc": [
-      "Red dragons breathe fire, and many spells conjure flames to deal fire damage."
-    ],
+    "desc": ["Red dragons breathe fire, and many spells conjure flames to deal fire damage."],
     "url": "/api/2014/damage-types/fire"
   },
   {
@@ -42,9 +38,7 @@
   {
     "index": "lightning",
     "name": "Lightning",
-    "desc": [
-      "A lightning bolt spell and a blue dragon's breath deal lightning damage."
-    ],
+    "desc": ["A lightning bolt spell and a blue dragon's breath deal lightning damage."],
     "url": "/api/2014/damage-types/lightning"
   },
   {
@@ -58,17 +52,13 @@
   {
     "index": "piercing",
     "name": "Piercing",
-    "desc": [
-      "Puncturing and impaling attacks, including spears and monsters' bites, deal piercing damage."
-    ],
+    "desc": ["Puncturing and impaling attacks, including spears and monsters' bites, deal piercing damage."],
     "url": "/api/2014/damage-types/piercing"
   },
   {
     "index": "poison",
     "name": "Poison",
-    "desc": [
-      "Venomous stings and the toxic gas of a green dragon's breath deal poison damage."
-    ],
+    "desc": ["Venomous stings and the toxic gas of a green dragon's breath deal poison damage."],
     "url": "/api/2014/damage-types/poison"
   },
   {
@@ -94,9 +84,7 @@
   {
     "index": "thunder",
     "name": "Thunder",
-    "desc": [
-      "A concussive burst of sound, such as the effect of the thunderwave spell, deals thunder damage."
-    ],
+    "desc": ["A concussive burst of sound, such as the effect of the thunderwave spell, deals thunder damage."],
     "url": "/api/2014/damage-types/thunder"
   }
 ]

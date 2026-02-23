@@ -10,11 +10,7 @@
   "attributes": {
     "effect_type": {
       "type": "enumeration",
-      "enum": [
-        "Damage",
-        "Healing",
-        "TempHP"
-      ],
+      "enum": ["Damage", "Healing", "TempHP"],
       "default": "Damage",
       "required": true
     },
@@ -50,12 +46,7 @@
     },
     "timing": {
       "type": "enumeration",
-      "enum": [
-        "Instant",
-        "Start of Turn",
-        "End of Turn",
-        "One Time Trigger"
-      ],
+      "enum": ["Instant", "Start of Turn", "End of Turn", "One Time Trigger"],
       "default": "Instant"
     }
   }

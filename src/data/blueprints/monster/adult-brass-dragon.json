@@ -21,9 +21,7 @@
   ],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
   "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 21",
   "languages": "Common, Draconic",

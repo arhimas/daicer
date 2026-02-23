@@ -85,7 +85,5 @@
     "status": "Valid",
     "summary": "Mapped Storm of Vengeance from reference data."
   },
-  "tags": [
-    "druid"
-  ]
+  "tags": ["druid"]
 }

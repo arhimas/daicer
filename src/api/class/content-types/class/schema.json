@@ -11,8 +11,7 @@
     "draftAndPublish": false
   },
   "pluginOptions": {
-    "i18n": {
-    }
+    "i18n": {}
   },
   "attributes": {
     "slug": {
@@ -23,8 +22,7 @@
     "name": {
       "type": "string",
       "pluginOptions": {
-        "i18n": {
-        }
+        "i18n": {}
       },
       "required": true
     },
@@ -35,15 +33,13 @@
     "description": {
       "type": "richtext",
       "pluginOptions": {
-        "i18n": {
-        }
+        "i18n": {}
       }
     },
     "lore": {
       "type": "richtext",
       "pluginOptions": {
-        "i18n": {
-        }
+        "i18n": {}
       }
     },
     "hit_die": {

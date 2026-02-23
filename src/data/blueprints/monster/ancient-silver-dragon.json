@@ -14,9 +14,7 @@
   "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":7},{\"name\":\"Saving Throw: CON\",\"value\":16},{\"name\":\"Saving Throw: WIS\",\"value\":9},{\"name\":\"Saving Throw: CHA\",\"value\":13},{\"name\":\"Skill: Arcana\",\"value\":11},{\"name\":\"Skill: History\",\"value\":11},{\"name\":\"Skill: Perception\",\"value\":16},{\"name\":\"Skill: Stealth\",\"value\":7}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "cold"
-  ],
+  "damage_immunities": ["cold"],
   "condition_immunities": [],
   "senses": "{\"blindsight\":\"60 ft.\",\"darkvision\":\"120 ft.\",\"passive_perception\":26}",
   "languages": "Common, Draconic",

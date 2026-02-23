@@ -12,7 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "A sudden burst of adrenaline and sheer willpower allows a fighter to strike again before their opponent can even blink.",
-  "tags": [
-    "fighter"
-  ]
+  "tags": ["fighter"]
 }

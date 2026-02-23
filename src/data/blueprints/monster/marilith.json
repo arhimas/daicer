@@ -13,18 +13,9 @@
   "stats": "{\"strength\":18,\"dexterity\":20,\"constitution\":20,\"intelligence\":18,\"wisdom\":16,\"charisma\":20}",
   "proficiencies": "[{\"name\":\"Saving Throw: STR\",\"value\":9},{\"name\":\"Saving Throw: CON\",\"value\":10},{\"name\":\"Saving Throw: WIS\",\"value\":8},{\"name\":\"Saving Throw: CHA\",\"value\":10}]",
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold",
-    "fire",
-    "lightning",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "truesight 120 ft., passive perception 13",
   "languages": "Abyssal, telepathy 120 ft.",
   "challenge_rating": 16,

@@ -10,14 +10,7 @@
   "attributes": {
     "stat": {
       "type": "enumeration",
-      "enum": [
-        "strength",
-        "dexterity",
-        "constitution",
-        "intelligence",
-        "wisdom",
-        "charisma"
-      ],
+      "enum": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"],
       "required": true
     },
     "value": {

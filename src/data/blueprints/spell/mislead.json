@@ -50,8 +50,5 @@
     "status": "Valid",
     "summary": "Successfully mapped Mislead from reference data."
   },
-  "tags": [
-    "bard",
-    "wizard"
-  ]
+  "tags": ["bard", "wizard"]
 }

@@ -12,7 +12,5 @@
   "image": "",
   "level": 10,
   "lore": "The monk's internal energy purges all impurities, rendering the physical form untouchable by mundane ailments and toxins.",
-  "tags": [
-    "monk"
-  ]
+  "tags": ["monk"]
 }

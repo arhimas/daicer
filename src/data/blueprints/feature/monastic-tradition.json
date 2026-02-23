@@ -12,9 +12,5 @@
   "image": "",
   "level": 3,
   "lore": "The traditions of the monasteries are as varied as the lands they inhabit, ranging from the pursuit of physical perfection to the mastery of elemental forces.",
-  "tags": [
-    "monk",
-    "class-feature",
-    "subclass-selection"
-  ]
+  "tags": ["monk", "class-feature", "subclass-selection"]
 }

@@ -9,23 +9,11 @@
   "hit_points": 33,
   "hit_dice": "6d8+6",
   "speed": "30 ft.",
-  "stats": [
-    10,
-    15,
-    12,
-    11,
-    10,
-    8
-  ],
-  "proficiencies": [
-    "Skill: Perception +2",
-    "Skill: Stealth +4"
-  ],
+  "stats": [10, 15, 12, 11, 10, 8],
+  "proficiencies": ["Skill: Perception +2", "Skill: Stealth +4"],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
+  "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
   "condition_immunities": [],
   "senses": "passive Perception 12",
   "languages": "Common",

@@ -32,8 +32,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "cultist-dark-devotion",
-    "cultist-scimitar"
-  ]
+  "actions": ["cultist-dark-devotion", "cultist-scimitar"]
 }

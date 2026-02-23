@@ -4,9 +4,7 @@
   "description": "A scholarly magic-user capable of manipulating the structures of reality.",
   "lore": "Wizards are defined by their use of spells. They are masters of the arcane, using their intelligence to weave magic into reality.",
   "hit_die": "d6",
-  "subclasses": [
-    "evocation"
-  ],
+  "subclasses": ["evocation"],
   "proficiencies": [
     "daggers",
     "darts",
@@ -40,10 +38,7 @@
     {
       "level": 1,
       "class_specifics": {},
-      "features": [
-        "spellcasting",
-        "arcane-recovery"
-      ],
+      "features": ["spellcasting", "arcane-recovery"],
       "spell_slots": {}
     }
   ],

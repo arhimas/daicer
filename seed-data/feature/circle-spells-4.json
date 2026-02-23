@@ -11,9 +11,5 @@
   "embedding": {},
   "level": 9,
   "lore": "The land itself speaks through the druid, offering secrets of the ancient world.",
-  "tags": [
-    "druid",
-    "land",
-    "subclass-feature"
-  ]
+  "tags": ["druid", "land", "subclass-feature"]
 }

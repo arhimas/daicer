@@ -11,15 +11,9 @@
   "speed": "30 ft.",
   "stats": "{\"strength\": 18, \"dexterity\": 14, \"constitution\": 15, \"intelligence\": 11, \"wisdom\": 10, \"charisma\": 12}",
   "proficiencies": [],
-  "damage_vulnerabilities": [
-    "cold"
-  ],
-  "damage_resistances": [
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_vulnerabilities": ["cold"],
+  "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
   "senses": "{\"darkvision\": \"60 ft.\", \"passive_perception\": 10}",
   "languages": "Ignan",

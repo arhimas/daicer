@@ -12,9 +12,5 @@
   "image": "https://example.com/assets/purity_of_spirit.webp",
   "level": 15,
   "lore": "Your soul has become a bastion of divine light, naturally warding off the influence of extraplanar entities.",
-  "tags": [
-    "paladin",
-    "devotion",
-    "class-feature"
-  ]
+  "tags": ["paladin", "devotion", "class-feature"]
 }

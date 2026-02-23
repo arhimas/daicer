@@ -6,7 +6,5 @@
   },
   "description": "While you are wearing armor, you gain a +1 bonus to AC.",
   "level": 1,
-  "tags": [
-    "fighter"
-  ]
+  "tags": ["fighter"]
 }

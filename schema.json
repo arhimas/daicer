@@ -34,14 +34,7 @@
     },
     "rarity": {
       "type": "string",
-      "enum": [
-        "common",
-        "uncommon",
-        "rare",
-        "very_rare",
-        "legendary",
-        "artifact"
-      ]
+      "enum": ["common", "uncommon", "rare", "very_rare", "legendary", "artifact"]
     },
     "value": {
       "type": "integer"
@@ -51,17 +44,7 @@
     },
     "size": {
       "type": "string",
-      "enum": [
-        "Fine",
-        "Diminutive",
-        "Tiny",
-        "Small",
-        "Medium",
-        "Large",
-        "Huge",
-        "Gargantuan",
-        "Colossal"
-      ]
+      "enum": ["Fine", "Diminutive", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan", "Colossal"]
     },
     "equipment_data": {
       "type": "object",
@@ -138,15 +121,7 @@
             },
             "time_unit": {
               "type": "string",
-              "enum": [
-                "Action",
-                "Bonus Action",
-                "Reaction",
-                "Minute",
-                "Hour",
-                "Day",
-                "Round"
-              ]
+              "enum": ["Action", "Bonus Action", "Reaction", "Minute", "Hour", "Day", "Round"]
             },
             "reaction_trigger": {
               "type": "string"
@@ -182,10 +157,7 @@
               "description": "Spell Components"
             }
           },
-          "required": [
-            "time_value",
-            "time_unit"
-          ],
+          "required": ["time_value", "time_unit"],
           "description": "Casting Config"
         },
         "range_config": {
@@ -193,28 +165,14 @@
           "properties": {
             "type": {
               "type": "string",
-              "enum": [
-                "Self",
-                "Touch",
-                "Ranged (Feet)",
-                "Ranged (Miles)",
-                "Sight",
-                "Unlimited"
-              ]
+              "enum": ["Self", "Touch", "Ranged (Feet)", "Ranged (Miles)", "Sight", "Unlimited"]
             },
             "distance": {
               "type": "integer"
             },
             "aoe_shape": {
               "type": "string",
-              "enum": [
-                "Cone",
-                "Cube",
-                "Cylinder",
-                "Line",
-                "Sphere",
-                "Hemisphere"
-              ]
+              "enum": ["Cone", "Cube", "Cylinder", "Line", "Sphere", "Hemisphere"]
             },
             "aoe_size": {
               "type": "integer"
@@ -223,9 +181,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "type"
-          ],
+          "required": ["type"],
           "description": "Range Config"
         },
         "duration_config": {
@@ -247,20 +203,13 @@
             },
             "unit": {
               "type": "string",
-              "enum": [
-                "Rounds",
-                "Minutes",
-                "Hours",
-                "Days"
-              ]
+              "enum": ["Rounds", "Minutes", "Hours", "Days"]
             },
             "concentration": {
               "type": "boolean"
             }
           },
-          "required": [
-            "type"
-          ],
+          "required": ["type"],
           "description": "Duration Config"
         },
         "damage_instances": {
@@ -270,11 +219,7 @@
             "properties": {
               "effect_type": {
                 "type": "string",
-                "enum": [
-                  "Damage",
-                  "Healing",
-                  "TempHP"
-                ]
+                "enum": ["Damage", "Healing", "TempHP"]
               },
               "damage_type": {
                 "type": "string",
@@ -305,17 +250,10 @@
               },
               "timing": {
                 "type": "string",
-                "enum": [
-                  "Instant",
-                  "Start of Turn",
-                  "End of Turn",
-                  "One Time Trigger"
-                ]
+                "enum": ["Instant", "Start of Turn", "End of Turn", "One Time Trigger"]
               }
             },
-            "required": [
-              "effect_type"
-            ],
+            "required": ["effect_type"],
             "description": "Damage Instance"
           }
         },
@@ -355,9 +293,7 @@
                 "type": "integer"
               }
             },
-            "required": [
-              "condition"
-            ],
+            "required": ["condition"],
             "description": "Condition Instance"
           }
         }
@@ -375,12 +311,7 @@
       "properties": {
         "status": {
           "type": "string",
-          "enum": [
-            "Pending",
-            "Valid",
-            "Invalid",
-            "Warning"
-          ]
+          "enum": ["Pending", "Valid", "Invalid", "Warning"]
         },
         "last_run": {
           "type": "string"
@@ -392,9 +323,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "status"
-      ],
+      "required": ["status"],
       "description": "Compilation State"
     },
     "width": {
@@ -414,10 +343,6 @@
       "type": "string"
     }
   },
-  "required": [
-    "name",
-    "slug",
-    "type"
-  ],
+  "required": ["name", "slug", "type"],
   "description": "Unified item model (Equipment, Magic Items, Loot, Tools)"
 }

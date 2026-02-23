@@ -39,9 +39,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "bard",
-    "druid",
-    "ranger"
-  ]
+  "tags": ["bard", "druid", "ranger"]
 }

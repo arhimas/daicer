@@ -10,9 +10,5 @@
   "description": "At 6th level, you gain the ability to heal yourself. As an action, you can regain hit points equal to three times your monk level. You must finish a long rest before you can use this feature again.",
   "level": 6,
   "lore": "By channeling ki into the physical form, a practitioner of the Open Hand can knit together wounds and soothe internal injuries through sheer force of will.",
-  "tags": [
-    "monk",
-    "way-of-the-open-hand",
-    "healing"
-  ]
+  "tags": ["monk", "way-of-the-open-hand", "healing"]
 }

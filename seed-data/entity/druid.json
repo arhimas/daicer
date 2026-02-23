@@ -32,10 +32,7 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "druid-quarterstaff",
-    "druid-spellcasting"
-  ],
+  "actions": ["druid-quarterstaff", "druid-spellcasting"],
   "spells": [
     "animal-messenger",
     "barkskin",

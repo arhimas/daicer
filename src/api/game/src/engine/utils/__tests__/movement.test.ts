@@ -1,4 +1,3 @@
-
 import { describe, it, expect } from 'vitest';
 import { getMovementModes, canMove } from '@/api/game/src/engine/utils/movement';
 
@@ -21,12 +20,12 @@ describe('Movement Utils', () => {
         swim: undefined,
         climb: undefined,
         burrow: undefined,
-        hover: true
+        hover: true,
       });
     });
 
     it('should default missing walk to 0 in object', () => {
-        expect(getMovementModes({ fly: 10 } as any)).toMatchObject({ walk: 0, fly: 10 });
+      expect(getMovementModes({ fly: 10 } as any)).toMatchObject({ walk: 0, fly: 10 });
     });
   });
 

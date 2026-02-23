@@ -12,8 +12,5 @@
   "image": "",
   "level": 3,
   "lore": "A sorcerer's innate power allows them to stretch the very fabric of the weave, allowing their spells to strike from unexpected distances.",
-  "tags": [
-    "sorcerer",
-    "metamagic"
-  ]
+  "tags": ["sorcerer", "metamagic"]
 }

@@ -11,9 +11,7 @@
   "speed": "walk 40 ft., fly 80 ft., swim 40 ft.",
   "stats": "{\"strength\":23,\"dexterity\":14,\"constitution\":21,\"intelligence\":16,\"wisdom\":13,\"charisma\":20}",
   "proficiencies": "{\"saving_throw_dex\":6,\"saving_throw_con\":9,\"saving_throw_wis\":5,\"saving_throw_cha\":9,\"skill_insight\":5,\"skill_perception\":9,\"skill_persuasion\":9,\"skill_stealth\":6}",
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_immunities": ["fire"],
   "senses": "blindsight 30 ft., darkvision 120 ft., passive perception 19",
   "languages": "Common, Draconic",
   "challenge_rating": 10,

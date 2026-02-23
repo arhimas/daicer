@@ -45,9 +45,7 @@
     "unicorn-shimmering-shield",
     "unicorn-teleport"
   ],
-  "legendary_actions": [
-    "unicorn-hooves-legendary-action"
-  ],
+  "legendary_actions": ["unicorn-hooves-legendary-action"],
   "spells": [
     "calm-emotions",
     "detect-evil-and-good",

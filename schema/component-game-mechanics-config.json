@@ -27,11 +27,7 @@
     },
     "save_effect": {
       "type": "enumeration",
-      "enum": [
-        "Negate",
-        "Half",
-        "None"
-      ],
+      "enum": ["Negate", "Half", "None"],
       "description": "What happens on a successful save? (None = Full Effect, Negate = No Effect, Half = Half Damage)"
     }
   }

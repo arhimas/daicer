@@ -5,35 +5,35 @@ import { DCMethodSchema } from '@/features/genesis-core/data/schemas/common-sche
 
 // Define SourceAction based on SourceMonster action structure
 export interface SourceAction {
-    name: string;
-    desc: string;
-    attack_bonus?: number;
-    damage?: Array<{
-        damage_type?: { name: string; url: string };
-        damage_dice?: string;
-    }>;
-    dc?: {
-        dc_type: { name: string; url: string };
-        dc_success: string;
-    };
-    usage?: any;
+  name: string;
+  desc: string;
+  attack_bonus?: number;
+  damage?: Array<{
+    damage_type?: { name: string; url: string };
+    damage_dice?: string;
+  }>;
+  dc?: {
+    dc_type: { name: string; url: string };
+    dc_success: string;
+  };
+  usage?: any;
 }
 
 export class ActionMapper extends EntityMapper<SourceAction> {
-    private monsterName: string;
+  private monsterName: string;
 
-    constructor(monsterName: string) {
-        super();
-        this.monsterName = monsterName;
-    }
+  constructor(monsterName: string) {
+    super();
+    this.monsterName = monsterName;
+  }
 
-    getUid(): string {
-        return 'api::action.action';
-    }
+  getUid(): string {
+    return 'api::action.action';
+  }
 
-    map(action: SourceAction): GenerationRequest {
-        const slug = `monster-${this.slugify(this.monsterName)}-${this.slugify(action.name)}`;
-        const prompt = `
+  map(action: SourceAction): GenerationRequest {
+    const slug = `monster-${this.slugify(this.monsterName)}-${this.slugify(action.name)}`;
+    const prompt = `
 Generate a D&D 5e Action based on the following reference data for "${this.monsterName}".
 Ensure the output matches the provided JSON Schema strictly.
 
@@ -49,15 +49,18 @@ Instructions:
 6. Set 'slug' to "${slug}".
 `;
 
-        return {
-            uid: this.getUid(),
-            prompt: prompt.trim(),
-            referenceId: slug, // Actions don't have global indices, use slug
-            name: `${this.monsterName}: ${action.name}`
-        };
-    }
+    return {
+      uid: this.getUid(),
+      prompt: prompt.trim(),
+      referenceId: slug, // Actions don't have global indices, use slug
+      name: `${this.monsterName}: ${action.name}`,
+    };
+  }
 
-    private slugify(text: string): string {
-        return text.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '');
-    }
+  private slugify(text: string): string {
+    return text
+      .toLowerCase()
+      .replace(/[^\w]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
 }

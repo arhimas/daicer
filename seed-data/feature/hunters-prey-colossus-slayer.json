@@ -9,9 +9,5 @@
   },
   "description": "Your tenacity can wear down the most potent foes. When you hit a creature with a weapon attack, the creature takes an extra 1d8 damage if it's below its hit point maximum. You can deal this extra damage only once per turn.",
   "level": 3,
-  "tags": [
-    "ranger",
-    "hunter",
-    "hunters-prey"
-  ]
+  "tags": ["ranger", "hunter", "hunters-prey"]
 }

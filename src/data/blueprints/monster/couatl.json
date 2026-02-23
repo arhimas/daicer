@@ -8,36 +8,14 @@
   "hit_points": 97,
   "hit_dice": "13d8",
   "hit_points_roll": "13d8+39",
-  "speed": [
-    "walk 30 ft.",
-    "fly 90 ft."
-  ],
-  "stats": [
-    16,
-    20,
-    17,
-    18,
-    20,
-    18
-  ],
-  "proficiencies": [
-    "Saving Throw: CON +5",
-    "Saving Throw: WIS +7",
-    "Saving Throw: CHA +6"
-  ],
+  "speed": ["walk 30 ft.", "fly 90 ft."],
+  "stats": [16, 20, 17, 18, 20, 18],
+  "proficiencies": ["Saving Throw: CON +5", "Saving Throw: WIS +7", "Saving Throw: CHA +6"],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "radiant"
-  ],
-  "damage_immunities": [
-    "psychic",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
+  "damage_resistances": ["radiant"],
+  "damage_immunities": ["psychic", "bludgeoning, piercing, and slashing from nonmagical weapons"],
   "condition_immunities": [],
-  "senses": [
-    "truesight 120 ft.",
-    "passive perception 15"
-  ],
+  "senses": ["truesight 120 ft.", "passive perception 15"],
   "languages": "all, telepathy 120 ft.",
   "challenge_rating": 4,
   "special_abilities": [

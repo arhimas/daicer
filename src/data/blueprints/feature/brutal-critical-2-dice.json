@@ -10,7 +10,5 @@
   "image": "https://example.com/images/brutal-critical.png",
   "level": 13,
   "lore": "The barbarian's strikes become devastatingly powerful, crushing bone and rending flesh beyond measure when luck favors their swing.",
-  "tags": [
-    "barbarian"
-  ]
+  "tags": ["barbarian"]
 }

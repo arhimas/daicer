@@ -8,14 +8,7 @@
   "hit_points": 199,
   "hit_dice": "19d10+95",
   "speed": "walk 40 ft., fly 60 ft.",
-  "stats": [
-    22,
-    10,
-    20,
-    16,
-    18,
-    23
-  ],
+  "stats": [22, 10, 20, 16, 18, 23],
   "proficiencies": [
     "Saving Throw: DEX (6)",
     "Saving Throw: CON (11)",
@@ -25,14 +18,8 @@
     "Skill: Perception (10)",
     "Skill: Religion (15)"
   ],
-  "damage_immunities": [
-    "psychic",
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "condition_immunities": [
-    "charmed",
-    "frightened"
-  ],
+  "damage_immunities": ["psychic", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "condition_immunities": ["charmed", "frightened"],
   "senses": "truesight 120 ft., passive perception 20",
   "languages": "Common, Sphinx",
   "challenge_rating": 17,

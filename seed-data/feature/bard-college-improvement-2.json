@@ -12,8 +12,5 @@
   "image": "",
   "level": 14,
   "lore": "Bards who reach the pinnacle of their college's teachings are masters of their chosen discipline, blending magic and artistry in ways that few others can comprehend.",
-  "tags": [
-    "bard",
-    "class-feature"
-  ]
+  "tags": ["bard", "class-feature"]
 }

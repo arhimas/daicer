@@ -31,11 +31,5 @@
     "status": "Valid",
     "summary": "Spell compiled from reference data."
   },
-  "tags": [
-    "cleric",
-    "paladin",
-    "warlock",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["cleric", "paladin", "warlock", "wizard", "lore"]
 }

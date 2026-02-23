@@ -12,9 +12,5 @@
   "image": "https://www.dndbeyond.com/content/skills/wizardry.jpg",
   "level": 1,
   "lore": "The wizard's path is one of study and experimentation, where every spell is a formula for bending reality to one's will.",
-  "tags": [
-    "wizard",
-    "spellcasting",
-    "class-feature"
-  ]
+  "tags": ["wizard", "spellcasting", "class-feature"]
 }

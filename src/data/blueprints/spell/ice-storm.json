@@ -57,10 +57,5 @@
     "status": "Valid",
     "summary": "Ice Storm spell compiled from reference data."
   },
-  "tags": [
-    "druid",
-    "sorcerer",
-    "wizard",
-    "land"
-  ]
+  "tags": ["druid", "sorcerer", "wizard", "land"]
 }

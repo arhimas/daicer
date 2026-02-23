@@ -88,14 +88,14 @@ export class RoadService {
             const currentBlock = tiles[3][ly][lx].block;
 
             if (currentBlock === BlockType.WATER) {
-               // Bridge over water
-               TileHelper.setBlock(tiles, cx, cy, wx, wy, 0, BlockType.FLOOR_WOOD);
+              // Bridge over water
+              TileHelper.setBlock(tiles, cx, cy, wx, wy, 0, BlockType.FLOOR_WOOD);
             } else if (currentBlock !== BlockType.FLOOR_WOOD) {
-               // Standard road (don't overwrite existing bridges)
-               TileHelper.setBlock(tiles, cx, cy, wx, wy, 0, BlockType.FLOOR_STONE);
-               // Clear vegetation above
-               TileHelper.setBlock(tiles, cx, cy, wx, wy, 1, BlockType.AIR);
-               TileHelper.setBlock(tiles, cx, cy, wx, wy, 2, BlockType.AIR);
+              // Standard road (don't overwrite existing bridges)
+              TileHelper.setBlock(tiles, cx, cy, wx, wy, 0, BlockType.FLOOR_STONE);
+              // Clear vegetation above
+              TileHelper.setBlock(tiles, cx, cy, wx, wy, 1, BlockType.AIR);
+              TileHelper.setBlock(tiles, cx, cy, wx, wy, 2, BlockType.AIR);
             }
           }
         }

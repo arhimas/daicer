@@ -10,9 +10,5 @@
   "image": "https://www.dndbeyond.com/attachments/thumbnails/0/0/ranger.png",
   "level": 10,
   "lore": "The ranger blends into the environment, becoming part of the landscape itself through mastercraft camouflage.",
-  "tags": [
-    "ranger",
-    "stealth",
-    "utility"
-  ]
+  "tags": ["ranger", "stealth", "utility"]
 }

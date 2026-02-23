@@ -13,12 +13,8 @@
   "proficiencies": "[{\"name\":\"Perception\",\"value\":4}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 60 ft., passive perception 14",
   "languages": "understands Deep Speech but can't speak",
   "challenge_rating": 4,

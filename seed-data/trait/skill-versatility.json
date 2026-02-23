@@ -7,7 +7,5 @@
   },
   "description": "You gain proficiency in two skills of your choice.",
   "proficiencies": [],
-  "races": [
-    "half-elf"
-  ]
+  "races": ["half-elf"]
 }

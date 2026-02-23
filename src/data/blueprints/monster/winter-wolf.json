@@ -8,29 +8,11 @@
   "hit_points": 75,
   "hit_dice": "10d10+20",
   "speed": "50 ft.",
-  "stats": [
-    18,
-    13,
-    14,
-    7,
-    12,
-    8
-  ],
-  "proficiencies": [
-    "Perception +5",
-    "Stealth +3"
-  ],
-  "damage_immunities": [
-    "cold"
-  ],
-  "senses": [
-    "passive Perception 15"
-  ],
-  "languages": [
-    "Common",
-    "Giant",
-    "Winter Wolf"
-  ],
+  "stats": [18, 13, 14, 7, 12, 8],
+  "proficiencies": ["Perception +5", "Stealth +3"],
+  "damage_immunities": ["cold"],
+  "senses": ["passive Perception 15"],
+  "languages": ["Common", "Giant", "Winter Wolf"],
   "challenge_rating": 3,
   "traits": [
     "Keen Hearing and Smell: The wolf has advantage on Wisdom (Perception) checks that rely on hearing or smell.",

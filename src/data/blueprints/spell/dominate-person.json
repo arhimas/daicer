@@ -46,9 +46,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "Bard",
-    "Sorcerer",
-    "Wizard"
-  ]
+  "tags": ["Bard", "Sorcerer", "Wizard"]
 }

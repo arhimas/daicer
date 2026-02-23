@@ -7,7 +7,5 @@
   },
   "description": "At 15th level, you gain a feature granted by your Martial Archetype.",
   "level": 15,
-  "tags": [
-    "fighter"
-  ]
+  "tags": ["fighter"]
 }

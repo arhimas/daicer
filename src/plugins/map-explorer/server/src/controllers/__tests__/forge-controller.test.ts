@@ -2,116 +2,120 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import controller from '@/plugins/map-explorer/server/src/controllers/forge-controller';
 
 describe('ForgeController', () => {
-    let strapi: any;
-    let forgeController: any;
-    let mockQueueService: any;
-    let mockContext: any;
+  let strapi: any;
+  let forgeController: any;
+  let mockQueueService: any;
+  let mockContext: any;
 
-    beforeEach(() => {
-        mockQueueService = {
-            addBlueprintJob: vi.fn(),
-            addPixelJob: vi.fn(),
-            getJob: vi.fn(),
-            getQueueSummary: vi.fn(),
-        };
+  beforeEach(() => {
+    mockQueueService = {
+      addBlueprintJob: vi.fn(),
+      addPixelJob: vi.fn(),
+      getJob: vi.fn(),
+      getQueueSummary: vi.fn(),
+    };
 
-        strapi = {
-            plugin: vi.fn().mockReturnValue({
-                service: vi.fn().mockImplementation((name) => {
-                    if (name === 'queueService') return mockQueueService;
-                    return null;
-                })
-            })
-        };
+    strapi = {
+      plugin: vi.fn().mockReturnValue({
+        service: vi.fn().mockImplementation((name) => {
+          if (name === 'queueService') return mockQueueService;
+          return null;
+        }),
+      }),
+    };
 
-        forgeController = controller({ strapi });
-        
-        mockContext = {
-            request: { body: {} },
-            params: {},
-            body: null,
-            throw: vi.fn(),
-            notFound: vi.fn(),
-        };
+    forgeController = controller({ strapi });
+
+    mockContext = {
+      request: { body: {} },
+      params: {},
+      body: null,
+      throw: vi.fn(),
+      notFound: vi.fn(),
+    };
+  });
+
+  describe('dispatch', () => {
+    it('should dispatch blueprint job', async () => {
+      mockContext.request.body = { type: 'Blueprint', prompt: 'test' };
+      mockQueueService.addBlueprintJob.mockResolvedValue({ id: 'job-1' });
+
+      await forgeController.dispatch(mockContext);
+
+      expect(mockQueueService.addBlueprintJob).toHaveBeenCalledWith(
+        expect.objectContaining({
+          prompt: 'test',
+          type: 'Blueprint',
+        })
+      );
+      expect(mockContext.body).toEqual({ jobId: 'job-1', status: 'queued' });
     });
 
-    describe('dispatch', () => {
-        it('should dispatch blueprint job', async () => {
-            mockContext.request.body = { type: 'Blueprint', prompt: 'test' };
-            mockQueueService.addBlueprintJob.mockResolvedValue({ id: 'job-1' });
+    it('should dispatch pixel job', async () => {
+      mockContext.request.body = { type: 'Pixel', inputPixels: [] };
+      mockQueueService.addPixelJob.mockResolvedValue({ id: 'job-2' });
 
-            await forgeController.dispatch(mockContext);
-            
-            expect(mockQueueService.addBlueprintJob).toHaveBeenCalledWith(expect.objectContaining({
-                prompt: 'test',
-                type: 'Blueprint'
-            }));
-            expect(mockContext.body).toEqual({ jobId: 'job-1', status: 'queued' });
-        });
+      await forgeController.dispatch(mockContext);
 
-        it('should dispatch pixel job', async () => {
-            mockContext.request.body = { type: 'Pixel', inputPixels: [] };
-            mockQueueService.addPixelJob.mockResolvedValue({ id: 'job-2' });
-
-            await forgeController.dispatch(mockContext);
-
-            expect(mockQueueService.addPixelJob).toHaveBeenCalledWith(expect.objectContaining({
-                type: 'Pixel'
-            }));
-            expect(mockContext.body).toEqual({ jobId: 'job-2', status: 'queued' });
-        });
-
-        it('should handle errors', async () => {
-             mockContext.request.body = { type: 'Blueprint' };
-             mockQueueService.addBlueprintJob.mockRejectedValue(new Error('Queue Error'));
-             
-             await forgeController.dispatch(mockContext);
-             
-             expect(mockContext.throw).toHaveBeenCalledWith(500, expect.any(Error));
-        });
+      expect(mockQueueService.addPixelJob).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'Pixel',
+        })
+      );
+      expect(mockContext.body).toEqual({ jobId: 'job-2', status: 'queued' });
     });
 
-    describe('status', () => {
-        it('should return job status', async () => {
-            mockContext.params = { jobId: 'job-1' };
-            const mockJob = {
-                id: 'job-1',
-                getState: vi.fn().mockResolvedValue('completed'),
-                returnvalue: { result: 'data' },
-                progress: 100
-            };
-            mockQueueService.getJob.mockResolvedValue(mockJob);
+    it('should handle errors', async () => {
+      mockContext.request.body = { type: 'Blueprint' };
+      mockQueueService.addBlueprintJob.mockRejectedValue(new Error('Queue Error'));
 
-            await forgeController.status(mockContext);
-            
-            expect(mockQueueService.getJob).toHaveBeenCalledWith('job-1');
-            expect(mockContext.body).toEqual({
-                id: 'job-1',
-                state: 'completed',
-                result: { result: 'data' },
-                progress: 100
-            });
-        });
+      await forgeController.dispatch(mockContext);
 
-        it('should return 404 if job not found', async () => {
-            mockContext.params = { jobId: 'invalid' };
-            mockQueueService.getJob.mockResolvedValue(null);
+      expect(mockContext.throw).toHaveBeenCalledWith(500, expect.any(Error));
+    });
+  });
 
-            await forgeController.status(mockContext);
+  describe('status', () => {
+    it('should return job status', async () => {
+      mockContext.params = { jobId: 'job-1' };
+      const mockJob = {
+        id: 'job-1',
+        getState: vi.fn().mockResolvedValue('completed'),
+        returnvalue: { result: 'data' },
+        progress: 100,
+      };
+      mockQueueService.getJob.mockResolvedValue(mockJob);
 
-            expect(mockContext.notFound).toHaveBeenCalledWith('Job not found');
-        });
+      await forgeController.status(mockContext);
+
+      expect(mockQueueService.getJob).toHaveBeenCalledWith('job-1');
+      expect(mockContext.body).toEqual({
+        id: 'job-1',
+        state: 'completed',
+        result: { result: 'data' },
+        progress: 100,
+      });
     });
 
-    describe('list', () => {
-        it('should return queue summary', async () => {
-            const summary = { active: 1, waiting: 0 };
-            mockQueueService.getQueueSummary.mockResolvedValue(summary);
+    it('should return 404 if job not found', async () => {
+      mockContext.params = { jobId: 'invalid' };
+      mockQueueService.getJob.mockResolvedValue(null);
 
-            await forgeController.list(mockContext);
-            
-            expect(mockQueueService.getQueueSummary).toHaveBeenCalled();
-            expect(mockContext.body).toEqual(summary);
-        });
+      await forgeController.status(mockContext);
+
+      expect(mockContext.notFound).toHaveBeenCalledWith('Job not found');
     });
+  });
+
+  describe('list', () => {
+    it('should return queue summary', async () => {
+      const summary = { active: 1, waiting: 0 };
+      mockQueueService.getQueueSummary.mockResolvedValue(summary);
+
+      await forgeController.list(mockContext);
+
+      expect(mockQueueService.getQueueSummary).toHaveBeenCalled();
+      expect(mockContext.body).toEqual(summary);
+    });
+  });
 });

@@ -11,9 +11,5 @@
   "embedding": {},
   "level": 18,
   "lore": "To a master ranger, the rustle of leaves and the shift in air pressure are as clear as a silhouette against the sun.",
-  "tags": [
-    "ranger",
-    "utility",
-    "combat"
-  ]
+  "tags": ["ranger", "utility", "combat"]
 }

@@ -11,57 +11,43 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "holy-symbol"
-      ],
+      "item": ["holy-symbol"],
       "quantity": 1,
       "slot": "accessory"
     },
     {
       "isEquipped": false,
-      "item": [
-        "prayer-book"
-      ],
+      "item": ["prayer-book"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "incense"
-      ],
+      "item": ["incense"],
       "quantity": 5,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "vestments"
-      ],
+      "item": ["vestments"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "common-clothes"
-      ],
+      "item": ["common-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 15,
       "slot": "backpack"
     }
@@ -75,16 +61,12 @@
     {
       "type": "Skill",
       "name": "Insight",
-      "proficiency": [
-        "skill-insight"
-      ]
+      "proficiency": ["skill-insight"]
     },
     {
       "type": "Skill",
       "name": "Religion",
-      "proficiency": [
-        "skill-religion"
-      ]
+      "proficiency": ["skill-religion"]
     },
     {
       "type": "Language",

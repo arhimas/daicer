@@ -10,10 +10,6 @@
   "description": "You gain proficiency in the Intimidation skill.",
   "embedding": {},
   "image": "",
-  "proficiencies": [
-    "skill-intimidation"
-  ],
-  "races": [
-    "half-orc"
-  ]
+  "proficiencies": ["skill-intimidation"],
+  "races": ["half-orc"]
 }

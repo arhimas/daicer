@@ -45,7 +45,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "wizard"
-  ]
+  "tags": ["wizard"]
 }

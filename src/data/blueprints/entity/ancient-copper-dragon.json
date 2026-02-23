@@ -24,17 +24,8 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "dex",
-      "con",
-      "wis",
-      "cha"
-    ],
-    "skills": [
-      "deception",
-      "perception",
-      "stealth"
-    ],
+    "saves": ["dex", "con", "wis", "cha"],
+    "skills": ["deception", "perception", "stealth"],
     "passivePerception": 27,
     "darkvision": 120,
     "blindsight": 60,

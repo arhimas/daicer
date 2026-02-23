@@ -10,10 +10,6 @@
   "description": "You have proficiency in the Perception skill.",
   "embedding": {},
   "image": "",
-  "proficiencies": [
-    "skill-perception"
-  ],
-  "races": [
-    "elf"
-  ]
+  "proficiencies": ["skill-perception"],
+  "races": ["elf"]
 }

@@ -19,7 +19,7 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['json', 'text'],
       reportsDirectory: './coverage', // Explicit directory
-       include: [
+      include: [
         'src/api/**/*.{ts,js}',
         'src/plugins/**/server/src/**/*.{ts,js}',
         'src/shared/**/*.{ts,js}',

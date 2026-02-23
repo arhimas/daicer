@@ -7,10 +7,7 @@
   "value": 20,
   "weight": 3,
   "size": "Medium",
-  "tags": [
-    "arcane-foci",
-    "adventuring-gear"
-  ],
+  "tags": ["arcane-foci", "adventuring-gear"],
   "compilation_state": {
     "status": "Valid"
   }

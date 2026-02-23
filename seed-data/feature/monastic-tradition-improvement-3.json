@@ -12,9 +12,5 @@
   "image": "https://media.dndbeyond.com/art/monk-tradition.png",
   "level": 17,
   "lore": "The ultimate mastery of your chosen path is finally within reach, unlocking the most advanced techniques of your monastic order.",
-  "tags": [
-    "monk",
-    "class-feature",
-    "monastic-tradition"
-  ]
+  "tags": ["monk", "class-feature", "monastic-tradition"]
 }

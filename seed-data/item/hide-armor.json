@@ -13,7 +13,5 @@
     "str_minimum": 0,
     "stealth_disadvantage": false
   },
-  "tags": [
-    "medium-armor"
-  ]
+  "tags": ["medium-armor"]
 }

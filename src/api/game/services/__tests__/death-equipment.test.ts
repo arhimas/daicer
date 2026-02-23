@@ -107,13 +107,13 @@ describe('ActionEngine Equipment Persistence', () => {
     await actionEngine.dispatch(ROOM_ID, [command]);
 
     // Verify: Event Emitted for Death
-    const deathCall = mockCreateEvent.mock.calls.find(call => call[0].data.type === 'ENTITY_DEATH');
+    const deathCall = mockCreateEvent.mock.calls.find((call) => call[0].data.type === 'ENTITY_DEATH');
     expect(deathCall).toBeDefined();
     expect(deathCall![0]).toMatchObject({
-        data: {
-          type: 'ENTITY_DEATH',
-          actor: targetId,
-        }
+      data: {
+        type: 'ENTITY_DEATH',
+        actor: targetId,
+      },
     });
 
     // Verify: DropAll was NOT called
@@ -160,13 +160,13 @@ describe('ActionEngine Equipment Persistence', () => {
 
     // Verify: Event Emitted for Death
     // We search for the specific call because other events (ATTACK_RESULT) are emitted first
-    const deathCall = mockCreateEvent.mock.calls.find(call => call[0].data.type === 'ENTITY_DEATH');
+    const deathCall = mockCreateEvent.mock.calls.find((call) => call[0].data.type === 'ENTITY_DEATH');
     expect(deathCall).toBeDefined();
     expect(deathCall![0]).toMatchObject({
-        data: {
-          type: 'ENTITY_DEATH',
-          actor: targetId,
-        }
+      data: {
+        type: 'ENTITY_DEATH',
+        actor: targetId,
+      },
     });
 
     // Verify: DropAll WAS called

@@ -1,11 +1,12 @@
 const fs = require('fs');
 
 // Fix restricted imports
-const mappers = fs.readdirSync('src/features/genesis-core/mappers')
-  .filter(f => f.endsWith('.ts'))
-  .map(f => 'src/features/genesis-core/mappers/' + f);
+const mappers = fs
+  .readdirSync('src/features/genesis-core/mappers')
+  .filter((f) => f.endsWith('.ts'))
+  .map((f) => 'src/features/genesis-core/mappers/' + f);
 
-mappers.forEach(f => {
+mappers.forEach((f) => {
   let cnt = fs.readFileSync(f, 'utf8');
   cnt = cnt.replace(/from '\.\.\/source-types'/g, "from '@/features/genesis-core/source-types'");
   cnt = cnt.replace(/: any/g, ': Record<string, unknown>');

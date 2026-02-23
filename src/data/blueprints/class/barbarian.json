@@ -3,9 +3,7 @@
   "name": "Barbarian",
   "description": "A fierce warrior of primitive background who can enter a battle rage.",
   "hit_die": "d12",
-  "subclasses": [
-    "berserker"
-  ],
+  "subclasses": ["berserker"],
   "proficiencies": [
     "light-armor",
     "medium-armor",

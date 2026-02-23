@@ -8,30 +8,13 @@
   "hit_points": 84,
   "hit_dice": "8d10+40",
   "speed": "15 ft.",
-  "stats": [
-    14,
-    3,
-    20,
-    1,
-    6,
-    1
-  ],
+  "stats": [14, 3, 20, 1, 6, 1],
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],
-  "condition_immunities": [
-    "blinded",
-    "charmed",
-    "deafened",
-    "exhaustion",
-    "frightened",
-    "prone"
-  ],
-  "senses": [
-    "blindsight 60 ft. (blind beyond this radius)",
-    "passive perception 8"
-  ],
+  "condition_immunities": ["blinded", "charmed", "deafened", "exhaustion", "frightened", "prone"],
+  "senses": ["blindsight 60 ft. (blind beyond this radius)", "passive perception 8"],
   "languages": [],
   "challenge_rating": "2",
   "special_abilities": [

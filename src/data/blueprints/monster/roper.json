@@ -7,26 +7,10 @@
   "armor_class": 20,
   "hit_points": 93,
   "hit_dice": "11d10+33",
-  "speed": [
-    "walk 10 ft.",
-    "climb 10 ft."
-  ],
-  "stats": [
-    18,
-    8,
-    17,
-    7,
-    16,
-    6
-  ],
-  "proficiencies": [
-    "Perception +6",
-    "Stealth +5"
-  ],
-  "senses": [
-    "darkvision 60 ft.",
-    "passive Perception 16"
-  ],
+  "speed": ["walk 10 ft.", "climb 10 ft."],
+  "stats": [18, 8, 17, 7, 16, 6],
+  "proficiencies": ["Perception +6", "Stealth +5"],
+  "senses": ["darkvision 60 ft.", "passive Perception 16"],
   "languages": [],
   "challenge_rating": "5",
   "special_abilities": [

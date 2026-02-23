@@ -12,8 +12,5 @@
   "image": "",
   "level": 3,
   "lore": "True mastery of magic comes not from the volume of one's voice or the breadth of one's gestures, but from the purity of the inner spark. Subtle Spell allows a sorcerer to manifest their will as silently and still as a shadow.",
-  "tags": [
-    "sorcerer",
-    "metamagic"
-  ]
+  "tags": ["sorcerer", "metamagic"]
 }

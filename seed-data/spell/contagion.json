@@ -48,8 +48,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "cleric",
-    "druid"
-  ]
+  "tags": ["cleric", "druid"]
 }

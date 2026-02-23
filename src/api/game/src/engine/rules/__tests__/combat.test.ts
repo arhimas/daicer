@@ -57,7 +57,7 @@ vi.mock('@daicer/engine/mechanics/registry/FeatureRegistry', () => ({
   FeatureRegistry: {
     get: vi.fn(),
     register: vi.fn(),
-  }
+  },
 }));
 import { FeatureRegistry } from '@daicer/engine/mechanics/registry/FeatureRegistry';
 
@@ -65,83 +65,91 @@ describe('Combat Rules', () => {
   // ... existing tests ...
 
   describe('Hardening Edge Cases', () => {
-      const attacker = createEntity('p1', 'Attacker');
-      const target = createEntity('t1', 'Target');
+    const attacker = createEntity('p1', 'Attacker');
+    const target = createEntity('t1', 'Target');
 
-      it('validateAttack: should fail if intent type is not Attack', () => {
-          const res = validateAttack(attacker, target, { type: 'MOVE' } as any, { attacker: {x:0,y:0,z:0}, target: {x:0,y:0,z:0} });
-          expect(res.valid).toBe(false);
-          expect(res.reason).toBe('Not an attack');
+    it('validateAttack: should fail if intent type is not Attack', () => {
+      const res = validateAttack(attacker, target, { type: 'MOVE' } as any, {
+        attacker: { x: 0, y: 0, z: 0 },
+        target: { x: 0, y: 0, z: 0 },
       });
+      expect(res.valid).toBe(false);
+      expect(res.reason).toBe('Not an attack');
+    });
 
-      it('validateAttack: should fail if action not found', () => {
-          const res = validateAttack(attacker, target, { type: ActionType.Attack, actionId: 'missing' }, { attacker: {x:0,y:0,z:0}, target: {x:0,y:0,z:0} });
-          expect(res.valid).toBe(false);
-          expect(res.reason).toBe('Action not found');
-      });
+    it('validateAttack: should fail if action not found', () => {
+      const res = validateAttack(
+        attacker,
+        target,
+        { type: ActionType.Attack, actionId: 'missing' },
+        { attacker: { x: 0, y: 0, z: 0 }, target: { x: 0, y: 0, z: 0 } }
+      );
+      expect(res.valid).toBe(false);
+      expect(res.reason).toBe('Action not found');
+    });
 
-      it('resolveAttack: should throw if intent invalid', () => {
-          expect(() => resolveAttack(attacker, target, { type: 'MOVE' } as any))
-            .toThrow('Invalid intent type');
-      });
+    it('resolveAttack: should throw if intent invalid', () => {
+      expect(() => resolveAttack(attacker, target, { type: 'MOVE' } as any)).toThrow('Invalid intent type');
+    });
 
-      it('resolveAttack: should throw if action invalid', () => {
-          expect(() => resolveAttack(attacker, target, { type: ActionType.Attack, actionId: 'missing' }))
-            .toThrow('not a valid attack definition');
-      });
+    it('resolveAttack: should throw if action invalid', () => {
+      expect(() => resolveAttack(attacker, target, { type: ActionType.Attack, actionId: 'missing' })).toThrow(
+        'not a valid attack definition'
+      );
+    });
 
-      it('resolveAttack: should apply Prone advantage for melee', () => {
-          const proneTarget = createEntity('t_prone', 'Prone Target');
-          proneTarget.conditions = [{ 
-              slug: 'prone', 
-              name: 'Prone', 
-              effects: [] // Condition logic mocked via getConditionModifiers usually, but combat.ts calls helper.
-              // We rely on getConditionModifiers logic? No, combat.ts calls `hasCondition(target, ConditionType.Prone)`.
-              // So we just need the slug to match ConditionType.Prone ('prone').
-          }];
-          
-          // Melee vs Prone -> Advantage
-          // Roll sequence: 2 (miss) vs 18 (hit). Should pick 18.
-          let i = 0;
-          const seq = [0.1, 0.9]; 
-          const result = resolveAttack(
-              attacker, 
-              proneTarget, 
-              { type: ActionType.Attack, actionId: 'sword' }, 
-              () => seq[i++]
-          );
-          
-          expect(result.hit).toBe(true);
-          // Dice 19 + 5 = 24
-          expect(result.attackRoll.total).toBe(24);
-      });
+    it('resolveAttack: should apply Prone advantage for melee', () => {
+      const proneTarget = createEntity('t_prone', 'Prone Target');
+      proneTarget.conditions = [
+        {
+          slug: 'prone',
+          name: 'Prone',
+          effects: [], // Condition logic mocked via getConditionModifiers usually, but combat.ts calls helper.
+          // We rely on getConditionModifiers logic? No, combat.ts calls `hasCondition(target, ConditionType.Prone)`.
+          // So we just need the slug to match ConditionType.Prone ('prone').
+        },
+      ];
 
-      it('resolveAttack: should apply Feature damage bonus', () => {
-          // Mock FeatureRegistry
-          const mockHandler = {
-              canApply: () => true,
-              applyDamageBonus: () => ({ amount: 10, type: 'fire', dice: '0' })
-          };
-          (FeatureRegistry.get as any).mockReturnValue(mockHandler);
+      // Melee vs Prone -> Advantage
+      // Roll sequence: 2 (miss) vs 18 (hit). Should pick 18.
+      let i = 0;
+      const seq = [0.1, 0.9];
+      const result = resolveAttack(
+        attacker,
+        proneTarget,
+        { type: ActionType.Attack, actionId: 'sword' },
+        () => seq[i++]
+      );
 
-          const featAttacker = createEntity('p_feat', 'FeatUser');
-          featAttacker.features = [{ name: 'Sneak Attack', type: 'passive' }]; // Name triggers registry lookup
+      expect(result.hit).toBe(true);
+      // Dice 19 + 5 = 24
+      expect(result.attackRoll.total).toBe(24);
+    });
 
-          // Hit
-          const result = resolveAttack(
-              featAttacker, 
-              target, 
-              { type: ActionType.Attack, actionId: 'sword' }, 
-              () => 0.5 // Hit
-          );
+    it('resolveAttack: should apply Feature damage bonus', () => {
+      // Mock FeatureRegistry
+      const mockHandler = {
+        canApply: () => true,
+        applyDamageBonus: () => ({ amount: 10, type: 'fire', dice: '0' }),
+      };
+      (FeatureRegistry.get as any).mockReturnValue(mockHandler);
 
-          expect(result.damageTotal).toBeGreaterThan(10); 
-          expect(result.damageDetails).toEqual(
-              expect.arrayContaining([
-                  expect.objectContaining({ type: 'fire', total: 10 })
-              ])
-          );
-      });
+      const featAttacker = createEntity('p_feat', 'FeatUser');
+      featAttacker.features = [{ name: 'Sneak Attack', type: 'passive' }]; // Name triggers registry lookup
+
+      // Hit
+      const result = resolveAttack(
+        featAttacker,
+        target,
+        { type: ActionType.Attack, actionId: 'sword' },
+        () => 0.5 // Hit
+      );
+
+      expect(result.damageTotal).toBeGreaterThan(10);
+      expect(result.damageDetails).toEqual(
+        expect.arrayContaining([expect.objectContaining({ type: 'fire', total: 10 })])
+      );
+    });
   });
 
   describe('validateAttack', () => {

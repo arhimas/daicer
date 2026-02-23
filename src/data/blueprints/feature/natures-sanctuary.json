@@ -12,9 +12,5 @@
   "image": "",
   "level": 14,
   "lore": "The druid becomes a beacon of the wild, respected by the very flora and fauna they protect.",
-  "tags": [
-    "druid",
-    "land",
-    "class-feature"
-  ]
+  "tags": ["druid", "land", "class-feature"]
 }

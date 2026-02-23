@@ -17,12 +17,8 @@
   "charisma": 10,
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning, piercing, and slashing from nonmagical weapons"
-  ],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons"],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
   "senses": "darkvision 60 ft., passive Perception 10",
   "languages": "Ignan",

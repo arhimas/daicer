@@ -44,9 +44,5 @@
     "status": "Valid",
     "summary": "Mapped from reference data."
   },
-  "tags": [
-    "bard",
-    "druid",
-    "ranger"
-  ]
+  "tags": ["bard", "druid", "ranger"]
 }

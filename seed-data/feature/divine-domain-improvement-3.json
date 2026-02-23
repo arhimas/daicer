@@ -12,9 +12,5 @@
   "image": "https://www.example.com/assets/cleric-domain.png",
   "level": 8,
   "lore": "The specific nature of your deity's influence shapes your growth, granting you specialized powers that reflect their divine portfolio.",
-  "tags": [
-    "cleric",
-    "class-feature",
-    "divine-domain"
-  ]
+  "tags": ["cleric", "class-feature", "divine-domain"]
 }

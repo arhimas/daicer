@@ -985,15 +985,11 @@
         },
         {
           "name": "Ritual Casting",
-          "desc": [
-            "You can cast any bard spell you know as a ritual if that spell has the ritual tag."
-          ]
+          "desc": ["You can cast any bard spell you know as a ritual if that spell has the ritual tag."]
         },
         {
           "name": "Spellcasting Focus",
-          "desc": [
-            "You can use a musical instrument (see Equipment) as a spellcasting focus for your bard spells."
-          ]
+          "desc": ["You can use a musical instrument (see Equipment) as a spellcasting focus for your bard spells."]
         }
       ]
     },
@@ -1363,9 +1359,7 @@
         },
         {
           "name": "Spellcasting Focus",
-          "desc": [
-            "You can use a holy symbol (see Equipment) as a spellcasting focus for your cleric spells."
-          ]
+          "desc": ["You can use a holy symbol (see Equipment) as a spellcasting focus for your cleric spells."]
         }
       ]
     },
@@ -2921,9 +2915,7 @@
         },
         {
           "name": "Spellcasting Focus",
-          "desc": [
-            "You can use a holy symbol as a spellcasting focus for your paladin spells."
-          ]
+          "desc": ["You can use a holy symbol as a spellcasting focus for your paladin spells."]
         }
       ]
     },
@@ -4064,9 +4056,7 @@
         },
         {
           "name": "Spellcasting Focus",
-          "desc": [
-            "You can use an arcane focus as a spellcasting focus for your sorcerer spells."
-          ]
+          "desc": ["You can use an arcane focus as a spellcasting focus for your sorcerer spells."]
         }
       ]
     },
@@ -4396,9 +4386,7 @@
         },
         {
           "name": "Spellcasting Focus",
-          "desc": [
-            "You can use an arcane focus as a spellcasting focus for your warlock spells."
-          ]
+          "desc": ["You can use an arcane focus as a spellcasting focus for your warlock spells."]
         }
       ]
     },
@@ -4687,9 +4675,7 @@
         },
         {
           "name": "Spellcasting Focus",
-          "desc": [
-            "You can use an arcane focus as a spellcasting focus for your wizard spells."
-          ]
+          "desc": ["You can use an arcane focus as a spellcasting focus for your wizard spells."]
         }
       ]
     },

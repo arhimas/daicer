@@ -10,9 +10,7 @@
   "speed": "40 ft.",
   "stats": "{\"strength\":6,\"dexterity\":14,\"constitution\":13,\"intelligence\":6,\"wisdom\":10,\"charisma\":8}",
   "proficiencies": "[{\"name\":\"Stealth\",\"value\":4}]",
-  "damage_vulnerabilities": [
-    "radiant"
-  ],
+  "damage_vulnerabilities": ["radiant"],
   "damage_resistances": [
     "acid",
     "cold",
@@ -21,10 +19,7 @@
     "thunder",
     "bludgeoning, piercing, and slashing from nonmagical weapons"
   ],
-  "damage_immunities": [
-    "necrotic",
-    "poison"
-  ],
+  "damage_immunities": ["necrotic", "poison"],
   "condition_immunities": [
     "exhaustion",
     "frightened",
@@ -35,10 +30,7 @@
     "prone",
     "restrained"
   ],
-  "senses": [
-    "darkvision 60 ft.",
-    "passive perception 10"
-  ],
+  "senses": ["darkvision 60 ft.", "passive perception 10"],
   "languages": [],
   "challenge_rating": 0.5,
   "special_abilities": "[{\"name\":\"Amorphous\",\"description\":\"The shadow can move through a space as narrow as 1 inch wide without squeezing.\"},{\"name\":\"Shadow Stealth\",\"description\":\"While in dim light or darkness, the shadow can take the Hide action as a bonus action. Its stealth bonus is also improved to +6.\"},{\"name\":\"Sunlight Weakness\",\"description\":\"While in sunlight, the shadow has disadvantage on attack rolls, ability checks, and saving throws.\"}]",

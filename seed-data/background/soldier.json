@@ -8,41 +8,31 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "insignia-of-rank"
-      ],
+      "item": ["insignia-of-rank"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "trophy-from-fallen-enemy"
-      ],
+      "item": ["trophy-from-fallen-enemy"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gaming-set"
-      ],
+      "item": ["gaming-set"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "common-clothes"
-      ],
+      "item": ["common-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     }
@@ -56,30 +46,22 @@
     {
       "type": "Skill",
       "name": "Athletics",
-      "proficiency": [
-        "skill-athletics"
-      ]
+      "proficiency": ["skill-athletics"]
     },
     {
       "type": "Skill",
       "name": "Intimidation",
-      "proficiency": [
-        "skill-intimidation"
-      ]
+      "proficiency": ["skill-intimidation"]
     },
     {
       "type": "Tool",
       "name": "Gaming Set",
-      "proficiency": [
-        "tool-gaming-set"
-      ]
+      "proficiency": ["tool-gaming-set"]
     },
     {
       "type": "Tool",
       "name": "Vehicles (Land)",
-      "proficiency": [
-        "tool-vehicles-land"
-      ]
+      "proficiency": ["tool-vehicles-land"]
     }
   ]
 }

@@ -11,8 +11,5 @@
   "embedding": {},
   "level": 10,
   "lore": "Your mastery of evocation allows you to infuse your spells with greater power through sheer force of intellect.",
-  "tags": [
-    "wizard",
-    "evocation"
-  ]
+  "tags": ["wizard", "evocation"]
 }

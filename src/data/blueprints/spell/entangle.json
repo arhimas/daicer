@@ -3,7 +3,5 @@
   "name": "Entangle",
   "level": 1,
   "school": "Conjuration",
-  "tags": [
-    "druid"
-  ]
+  "tags": ["druid"]
 }

@@ -7,7 +7,5 @@
   },
   "description": "At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. You gain one of the following features of your choice: Pact of the Chain, Pact of the Blade, or Pact of the Tome.",
   "level": 3,
-  "tags": [
-    "warlock"
-  ]
+  "tags": ["warlock"]
 }

@@ -11,8 +11,5 @@
   "embedding": {},
   "level": 2,
   "lore": "A duelist focuses on the precision of a single blade, ensuring every strike counts.",
-  "tags": [
-    "paladin",
-    "fighting-style"
-  ]
+  "tags": ["paladin", "fighting-style"]
 }

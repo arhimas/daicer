@@ -9,9 +9,5 @@
   },
   "description": "At 7th level, you gain a feature granted by your Ranger Archetype choice.",
   "level": 7,
-  "tags": [
-    "ranger",
-    "class-feature",
-    "subclass-feature"
-  ]
+  "tags": ["ranger", "class-feature", "subclass-feature"]
 }

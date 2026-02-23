@@ -2,12 +2,12 @@ import { EntityMapper, GenerationRequest } from './entity-mapper';
 import { SourceSpell } from '@/features/genesis-core/source-types';
 
 export class SpellMapper extends EntityMapper<SourceSpell> {
-    getUid(): string {
-        return 'api::spell.spell';
-    }
+  getUid(): string {
+    return 'api::spell.spell';
+  }
 
-    map(spell: SourceSpell): GenerationRequest {
-        const prompt = `
+  map(spell: SourceSpell): GenerationRequest {
+    const prompt = `
 Generate a D&D 5e Spell based on the following reference data.
 Ensure the output matches the provided JSON Schema strictly.
 
@@ -22,11 +22,11 @@ Instructions:
 5. Ensure 'slug' is kebab-case of the name.
 `;
 
-        return {
-            uid: this.getUid(),
-            prompt: prompt.trim(),
-            referenceId: spell.index,
-            name: spell.name
-        };
-    }
+    return {
+      uid: this.getUid(),
+      prompt: prompt.trim(),
+      referenceId: spell.index,
+      name: spell.name,
+    };
+  }
 }

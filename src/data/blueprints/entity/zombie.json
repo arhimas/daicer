@@ -24,9 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "wis"
-    ],
+    "saves": ["wis"],
     "skills": [],
     "passivePerception": 8,
     "darkvision": 60,
@@ -34,8 +32,5 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": [
-    "zombie-slam",
-    "zombie-undead-fortitude"
-  ]
+  "actions": ["zombie-slam", "zombie-undead-fortitude"]
 }

@@ -9,14 +9,7 @@
   "hit_points": 256,
   "hit_dice": "19d12+133",
   "speed": "40 ft., fly 80 ft., swim 40 ft.",
-  "stats": [
-    27,
-    14,
-    25,
-    16,
-    15,
-    24
-  ],
+  "stats": [27, 14, 25, 16, 15, 24],
   "proficiencies": [
     "Saving Throw: DEX +8",
     "Saving Throw: CON +13",
@@ -29,9 +22,7 @@
   ],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
   "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 24",
   "languages": "Common, Draconic",

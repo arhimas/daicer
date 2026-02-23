@@ -15,17 +15,8 @@
     "proficiencies": "[{\"name\":\"Saving Throw: INT\",\"value\":5},{\"name\":\"Saving Throw: WIS\",\"value\":9},{\"name\":\"Saving Throw: CHA\",\"value\":9}]",
     "damage_vulnerabilities": [],
     "damage_resistances": [],
-    "damage_immunities": [
-      "fire",
-      "poison",
-      "bludgeoning, piercing, and slashing from nonmagical weapons"
-    ],
-    "condition_immunities": [
-      "charmed",
-      "frightened",
-      "paralyzed",
-      "poisoned"
-    ],
+    "damage_immunities": ["fire", "poison", "bludgeoning, piercing, and slashing from nonmagical weapons"],
+    "condition_immunities": ["charmed", "frightened", "paralyzed", "poisoned"],
     "senses": "blindsight 120 ft., passive perception 10",
     "languages": "",
     "challenge_rating": 30,

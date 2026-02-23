@@ -9,7 +9,5 @@
   "image": "",
   "level": 2,
   "lore": "A bard's education is never truly finished, picking up bits and pieces of knowledge from every corner of the world.",
-  "tags": [
-    "bard"
-  ]
+  "tags": ["bard"]
 }

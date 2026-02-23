@@ -11,9 +11,6 @@
     "damage_dice": "1d12",
     "damage_type": "piercing",
     "range_normal": 5,
-    "properties": [
-      "reach",
-      "special"
-    ]
+    "properties": ["reach", "special"]
   }
 }

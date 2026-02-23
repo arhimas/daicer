@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "Through discipline and the mastery of ki, a monk can unleash a torrent of strikes in the blink of an eye.",
-  "tags": [
-    "monk",
-    "class-feature"
-  ]
+  "tags": ["monk", "class-feature"]
 }

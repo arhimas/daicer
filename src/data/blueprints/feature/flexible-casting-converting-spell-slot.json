@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "The innate magic within a sorcerer is a fluid resource, capable of being broken down from its structured forms back into raw potential.",
-  "tags": [
-    "sorcerer",
-    "class-feature"
-  ]
+  "tags": ["sorcerer", "class-feature"]
 }

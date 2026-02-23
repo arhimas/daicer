@@ -9,18 +9,11 @@
   "hit_dice": "6d8",
   "speed": "30 ft.",
   "stats": "17, 12, 15, 12, 13, 10",
-  "proficiencies": [
-    "Saving Throw: CON +4"
-  ],
+  "proficiencies": ["Saving Throw: CON +4"],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "passive Perception 11",
   "languages": "Ignan",
   "challenge_rating": 2,

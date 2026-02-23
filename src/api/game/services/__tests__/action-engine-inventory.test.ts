@@ -92,8 +92,8 @@ describe('Action Engine: Inventory Commands', () => {
     it('should fail if pickup fails', async () => {
       mockInventoryService.pickupItem.mockResolvedValue({ success: false });
       const command = {
-          type: 'PICKUP_ITEM',
-           payload: { actorId: 'hero', targetId: 'item-ent-1' },
+        type: 'PICKUP_ITEM',
+        payload: { actorId: 'hero', targetId: 'item-ent-1' },
       };
       const results = await actionEngine.dispatch('room-1', [command]);
       expect(results[0].success).toBe(false);
@@ -101,33 +101,33 @@ describe('Action Engine: Inventory Commands', () => {
   });
 
   describe('THROW_ITEM', () => {
-      it('should resolve THROW_ITEM successfully', async () => {
-          mockInventoryService.dropItemAt.mockResolvedValue({ success: true });
-          
-          const targetPos = { x: 15, y: 15, z: 0 };
-          const command = {
-              type: 'THROW_ITEM',
-              payload: { actorId: 'hero', itemComponentId: 'bomb', targetPosition: targetPos },
-          };
-          
-          const results = await actionEngine.dispatch('room-1', [command]);
-          const result = results[0];
-          
-          expect(result.success).toBe(true);
-          expect(mockInventoryService.dropItemAt).toHaveBeenCalledWith('hero', 'bomb', targetPos);
-          expect(result.events[0].type).toBe('ITEM_DROPPED'); // Thrown uses ItemDropped for now
-          expect(result.events[0].payload.position).toEqual(targetPos);
-      });
+    it('should resolve THROW_ITEM successfully', async () => {
+      mockInventoryService.dropItemAt.mockResolvedValue({ success: true });
 
-      it('should fail if throw fails', async () => {
-          mockInventoryService.dropItemAt.mockResolvedValue({ success: false });
-           const command = {
-              type: 'THROW_ITEM',
-              payload: { actorId: 'hero', itemComponentId: 'bomb', targetPosition: {x:0, y:0, z:0} },
-          };
-          
-          const results = await actionEngine.dispatch('room-1', [command]);
-          expect(results[0].success).toBe(false);
-      });
+      const targetPos = { x: 15, y: 15, z: 0 };
+      const command = {
+        type: 'THROW_ITEM',
+        payload: { actorId: 'hero', itemComponentId: 'bomb', targetPosition: targetPos },
+      };
+
+      const results = await actionEngine.dispatch('room-1', [command]);
+      const result = results[0];
+
+      expect(result.success).toBe(true);
+      expect(mockInventoryService.dropItemAt).toHaveBeenCalledWith('hero', 'bomb', targetPos);
+      expect(result.events[0].type).toBe('ITEM_DROPPED'); // Thrown uses ItemDropped for now
+      expect(result.events[0].payload.position).toEqual(targetPos);
+    });
+
+    it('should fail if throw fails', async () => {
+      mockInventoryService.dropItemAt.mockResolvedValue({ success: false });
+      const command = {
+        type: 'THROW_ITEM',
+        payload: { actorId: 'hero', itemComponentId: 'bomb', targetPosition: { x: 0, y: 0, z: 0 } },
+      };
+
+      const results = await actionEngine.dispatch('room-1', [command]);
+      expect(results[0].success).toBe(false);
+    });
   });
 });

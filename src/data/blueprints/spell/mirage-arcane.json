@@ -3,9 +3,5 @@
   "name": "Mirage Arcane",
   "level": 7,
   "school": "Illusion",
-  "tags": [
-    "bard",
-    "druid",
-    "wizard"
-  ]
+  "tags": ["bard", "druid", "wizard"]
 }

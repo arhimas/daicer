@@ -12,9 +12,5 @@
   "image": "https://www.example.com/assets/druid-feature.png",
   "level": 18,
   "lore": "The druid's connection to the primal forces of the world becomes so profound that time itself loses its grip on their physical form, echoing the longevity of the ancient forests.",
-  "tags": [
-    "druid",
-    "class-feature",
-    "longevity"
-  ]
+  "tags": ["druid", "class-feature", "longevity"]
 }

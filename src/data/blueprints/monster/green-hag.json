@@ -8,20 +8,8 @@
   "hit_points": 82,
   "hit_dice": "11d8+33",
   "speed": "30 ft.",
-  "stats": [
-    "strength: 18",
-    "dexterity: 12",
-    "constitution: 16",
-    "intelligence: 13",
-    "wisdom: 14",
-    "charisma: 14"
-  ],
-  "proficiencies": [
-    "Skill: Arcana +3",
-    "Skill: Deception +4",
-    "Skill: Perception +4",
-    "Skill: Stealth +3"
-  ],
+  "stats": ["strength: 18", "dexterity: 12", "constitution: 16", "intelligence: 13", "wisdom: 14", "charisma: 14"],
+  "proficiencies": ["Skill: Arcana +3", "Skill: Deception +4", "Skill: Perception +4", "Skill: Stealth +3"],
   "senses": "darkvision 60 ft., passive perception 14",
   "languages": "Common, Draconic, Sylvan",
   "challenge_rating": 3,

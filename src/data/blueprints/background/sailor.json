@@ -9,49 +9,37 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "club"
-      ],
+      "item": ["club"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "silk-rope-50ft"
-      ],
+      "item": ["silk-rope-50ft"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "lucky-charm"
-      ],
+      "item": ["lucky-charm"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "common-clothes"
-      ],
+      "item": ["common-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 10,
       "slot": "backpack"
     }

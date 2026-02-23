@@ -3,9 +3,5 @@
   "name": "Enlarge/Reduce",
   "level": 2,
   "school": "Transmutation",
-  "tags": [
-    "sorcerer",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["sorcerer", "wizard", "lore"]
 }

@@ -15,15 +15,7 @@
     },
     "time_unit": {
       "type": "enumeration",
-      "enum": [
-        "Action",
-        "Bonus Action",
-        "Reaction",
-        "Minute",
-        "Hour",
-        "Day",
-        "Round"
-      ],
+      "enum": ["Action", "Bonus Action", "Reaction", "Minute", "Hour", "Day", "Round"],
       "default": "Action",
       "required": true
     },

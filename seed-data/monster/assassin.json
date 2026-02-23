@@ -18,9 +18,7 @@
     "{\"name\": \"Skill: Perception\", \"value\": 3}",
     "{\"name\": \"Skill: Stealth\", \"value\": 9}"
   ],
-  "damage_resistances": [
-    "poison"
-  ],
+  "damage_resistances": ["poison"],
   "damage_vulnerabilities": [],
   "damage_immunities": [],
   "condition_immunities": [],

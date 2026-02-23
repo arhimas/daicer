@@ -31,11 +31,5 @@
     "status": "Valid",
     "summary": "Successfully mapped from reference data."
   },
-  "tags": [
-    "sorcerer",
-    "warlock",
-    "wizard",
-    "lore",
-    "land"
-  ]
+  "tags": ["sorcerer", "warlock", "wizard", "lore", "land"]
 }

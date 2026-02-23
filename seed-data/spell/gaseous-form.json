@@ -3,11 +3,5 @@
   "name": "Gaseous Form",
   "level": 3,
   "school": "Transmutation",
-  "tags": [
-    "sorcerer",
-    "warlock",
-    "wizard",
-    "lore",
-    "land"
-  ]
+  "tags": ["sorcerer", "warlock", "wizard", "lore", "land"]
 }

@@ -31,9 +31,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "cleric",
-    "paladin",
-    "life"
-  ]
+  "tags": ["cleric", "paladin", "life"]
 }

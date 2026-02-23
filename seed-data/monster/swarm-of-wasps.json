@@ -11,11 +11,7 @@
   "stats": "{\"STR\":3,\"DEX\":13,\"CON\":10,\"INT\":1,\"WIS\":7,\"CHA\":1}",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning",
-    "piercing",
-    "slashing"
-  ],
+  "damage_resistances": ["bludgeoning", "piercing", "slashing"],
   "damage_immunities": [],
   "condition_immunities": [
     "charmed",

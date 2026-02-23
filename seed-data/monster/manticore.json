@@ -8,14 +8,7 @@
   "hit_points": 68,
   "hit_dice": "8d10+24",
   "speed": "30 ft., fly 50 ft.",
-  "stats": [
-    17,
-    16,
-    17,
-    7,
-    12,
-    8
-  ],
+  "stats": [17, 16, 17, 7, 12, 8],
   "proficiencies": [],
   "senses": "darkvision 60 ft., passive perception 11",
   "languages": "",

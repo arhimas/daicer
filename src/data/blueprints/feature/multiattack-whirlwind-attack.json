@@ -12,9 +12,5 @@
   "image": "https://www.example.com/assets/whirlwind.webp",
   "level": 11,
   "lore": "The Hunter becomes a cyclone of steel, striking every foe within reach in a single fluid motion.",
-  "tags": [
-    "ranger",
-    "hunter",
-    "multiattack"
-  ]
+  "tags": ["ranger", "hunter", "multiattack"]
 }

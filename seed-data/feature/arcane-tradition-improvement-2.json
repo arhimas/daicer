@@ -7,7 +7,5 @@
   },
   "description": "At 10th level, you gain a feature granted by your Arcane Tradition. When you reach 2nd level, you choose an arcane tradition, shaping your practice of magic through one of eight schools. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.",
   "level": 10,
-  "tags": [
-    "wizard"
-  ]
+  "tags": ["wizard"]
 }

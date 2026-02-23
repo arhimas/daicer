@@ -9,18 +9,8 @@
   "hit_points": 2,
   "hit_dice": "1d4",
   "speed": "walk 10 ft., fly 40 ft.",
-  "stats": [
-    3,
-    18,
-    10,
-    14,
-    13,
-    11
-  ],
-  "proficiencies": [
-    "Perception +3",
-    "Stealth +8"
-  ],
+  "stats": [3, 18, 10, 14, 13, 11],
+  "proficiencies": ["Perception +3", "Stealth +8"],
   "senses": "passive Perception 13",
   "languages": "Common, Elvish, Sylvan",
   "challenge_rating": "1/4",

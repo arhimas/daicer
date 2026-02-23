@@ -1,14 +1,13 @@
-
 import { EntityMapper, GenerationRequest } from './entity-mapper';
 import { SourceRace } from '@/features/genesis-core/source-types';
 
 export class RaceMapper extends EntityMapper<SourceRace> {
-    getUid(): string {
-        return 'api::race.race';
-    }
+  getUid(): string {
+    return 'api::race.race';
+  }
 
-    map(race: SourceRace): GenerationRequest {
-        const prompt = `
+  map(race: SourceRace): GenerationRequest {
+    const prompt = `
 Generate a D&D 5e Race based on the following reference data.
 Ensure the output matches the provided JSON Schema strictly.
 
@@ -22,11 +21,11 @@ Instructions:
 4. Ensure 'slug' is kebab-case of the name.
 `;
 
-        return {
-            uid: this.getUid(),
-            prompt: prompt.trim(),
-            referenceId: race.index,
-            name: race.name
-        };
-    }
+    return {
+      uid: this.getUid(),
+      prompt: prompt.trim(),
+      referenceId: race.index,
+      name: race.name,
+    };
+  }
 }

@@ -1,4 +1,8 @@
-import { createEmptyGrid, fillBox, markBox } from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
+import {
+  createEmptyGrid,
+  fillBox,
+  markBox,
+} from '@/plugins/map-explorer/server/src/services/pixel-forge/grid-utils';
 import { EntityContext } from '@/plugins/map-explorer/server/src/services/pixel-forge/serializers';
 import { PixelLayer } from '@/plugins/map-explorer/server/src/services/pixel-forge/types';
 import { ZoneType } from '@/plugins/map-explorer/server/src/utils/compositor';

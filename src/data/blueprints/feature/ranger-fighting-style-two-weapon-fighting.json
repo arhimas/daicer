@@ -7,8 +7,5 @@
   },
   "description": "When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.",
   "level": 2,
-  "tags": [
-    "ranger",
-    "fighting-style"
-  ]
+  "tags": ["ranger", "fighting-style"]
 }

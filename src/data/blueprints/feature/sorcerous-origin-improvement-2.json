@@ -6,7 +6,5 @@
   },
   "description": "At 14th level, you gain a feature granted by your Sorcerous Origin. Your choice of origin grants you features at 1st level and again at 6th, 14th, and 18th level.",
   "level": 14,
-  "tags": [
-    "sorcerer"
-  ]
+  "tags": ["sorcerer"]
 }

@@ -10,8 +10,5 @@
   "image": "",
   "level": 1,
   "lore": "Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will.",
-  "tags": [
-    "druid",
-    "spellcasting"
-  ]
+  "tags": ["druid", "spellcasting"]
 }

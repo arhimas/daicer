@@ -6,9 +6,5 @@
   },
   "description": "You can attack with your pact weapon twice, instead of once, whenever you take the Attack action on your turn.",
   "level": 5,
-  "tags": [
-    "warlock",
-    "eldritch-invocation",
-    "pact-of-the-blade"
-  ]
+  "tags": ["warlock", "eldritch-invocation", "pact-of-the-blade"]
 }

@@ -11,33 +11,25 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "artisan-tools"
-      ],
+      "item": ["artisan-tools"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "letter-of-introduction"
-      ],
+      "item": ["letter-of-introduction"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "travelers-clothes"
-      ],
+      "item": ["travelers-clothes"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     }
@@ -51,33 +43,25 @@
     {
       "type": "Skill",
       "name": "Insight",
-      "proficiency": [
-        "skill-insight"
-      ],
+      "proficiency": ["skill-insight"],
       "value": 2
     },
     {
       "type": "Skill",
       "name": "Persuasion",
-      "proficiency": [
-        "skill-persuasion"
-      ],
+      "proficiency": ["skill-persuasion"],
       "value": 2
     },
     {
       "type": "Tool",
       "name": "Artisan's tools",
-      "proficiency": [
-        "artisan-tools"
-      ],
+      "proficiency": ["artisan-tools"],
       "value": 2
     },
     {
       "type": "Language",
       "name": "One language of your choice",
-      "proficiency": [
-        "language-any"
-      ],
+      "proficiency": ["language-any"],
       "value": 1
     }
   ]

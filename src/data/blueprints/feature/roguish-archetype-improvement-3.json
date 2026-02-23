@@ -6,7 +6,5 @@
   },
   "description": "At 17th level, you gain a feature granted by your Roguish Archetype.",
   "level": 17,
-  "tags": [
-    "rogue"
-  ]
+  "tags": ["rogue"]
 }

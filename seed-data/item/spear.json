@@ -12,11 +12,7 @@
     "versatile_dice": "1d8",
     "damage_type": "piercing",
     "range_normal": 20,
-    "properties": [
-      "thrown",
-      "versatile",
-      "monk"
-    ],
+    "properties": ["thrown", "versatile", "monk"],
     "str_minimum": 0,
     "stealth_disadvantage": false
   },

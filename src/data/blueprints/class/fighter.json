@@ -4,9 +4,7 @@
   "description": "A master of martial combat, skilled with a variety of weapons and armor.",
   "lore": "Fighters learn the basics of all combat styles. Every fighter can swing an axe, fence with a rapier, wield a longsword or a greatsword, use a bow, and even trap foes in a net with some degree of skill. Likewise, a fighter is adept with shields and every form of armor.",
   "hit_die": "d10",
-  "subclasses": [
-    "champion"
-  ],
+  "subclasses": ["champion"],
   "proficiencies": [
     "all-armor",
     "shields",
@@ -33,10 +31,7 @@
     {
       "level": 1,
       "class_specifics": {},
-      "features": [
-        "fighting-style",
-        "second-wind"
-      ],
+      "features": ["fighting-style", "second-wind"],
       "spell_slots": {}
     }
   ],

@@ -12,9 +12,7 @@
   "proficiencies": "[{\"name\":\"Saving Throw: DEX\",\"value\":5},{\"name\":\"Saving Throw: CON\",\"value\":11},{\"name\":\"Saving Throw: WIS\",\"value\":7},{\"name\":\"Saving Throw: CHA\",\"value\":9},{\"name\":\"Skill: Perception\",\"value\":12},{\"name\":\"Skill: Stealth\",\"value\":5}]",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "lightning"
-  ],
+  "damage_immunities": ["lightning"],
   "condition_immunities": [],
   "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
   "languages": "Common, Draconic",

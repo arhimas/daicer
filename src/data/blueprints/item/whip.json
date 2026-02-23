@@ -11,9 +11,6 @@
     "damage_dice": "1d4",
     "damage_type": "slashing",
     "range_normal": 5,
-    "properties": [
-      "finesse",
-      "reach"
-    ]
+    "properties": ["finesse", "reach"]
   }
 }

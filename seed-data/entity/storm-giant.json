@@ -40,12 +40,5 @@
     "storm-giant-multiattack",
     "storm-giant-rock"
   ],
-  "spells": [
-    "control-weather",
-    "detect-magic",
-    "feather-fall",
-    "levitate",
-    "light",
-    "water-breathing"
-  ]
+  "spells": ["control-weather", "detect-magic", "feather-fall", "levitate", "light", "water-breathing"]
 }

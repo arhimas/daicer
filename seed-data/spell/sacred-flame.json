@@ -49,8 +49,5 @@
     "status": "Valid",
     "summary": "Sacred Flame cantrip successfully mapped from reference data."
   },
-  "tags": [
-    "cleric",
-    "lore"
-  ]
+  "tags": ["cleric", "lore"]
 }

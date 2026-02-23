@@ -9,8 +9,5 @@
   "embedding": {},
   "image": "",
   "proficiencies": [],
-  "races": [
-    "elf",
-    "half-elf"
-  ]
+  "races": ["elf", "half-elf"]
 }

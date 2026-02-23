@@ -12,9 +12,7 @@
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
   "senses": "passive Perception 11",
   "languages": "understands Abyssal, Common, and Infernal but can't speak",

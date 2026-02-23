@@ -10,12 +10,8 @@
   "speed": "20 ft.",
   "stats": "{\"str\":3,\"dex\":8,\"con\":11,\"int\":10,\"wis\":10,\"cha\":6}",
   "proficiencies": [],
-  "vulnerabilities": [
-    "fire"
-  ],
-  "resistances": [
-    "piercing"
-  ],
+  "vulnerabilities": ["fire"],
+  "resistances": ["piercing"],
   "immunities": [],
   "condition_immunities": [],
   "senses": "passive Perception 10",

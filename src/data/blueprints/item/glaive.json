@@ -11,10 +11,6 @@
     "damage_dice": "1d10",
     "damage_type": "slashing",
     "range_normal": 5,
-    "properties": [
-      "heavy",
-      "reach",
-      "two-handed"
-    ]
+    "properties": ["heavy", "reach", "two-handed"]
   }
 }

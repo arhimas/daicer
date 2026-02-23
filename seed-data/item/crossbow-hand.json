@@ -11,11 +11,7 @@
     "damage_type": "piercing",
     "range_normal": 30,
     "range_long": 120,
-    "properties": [
-      "ammunition",
-      "light",
-      "loading"
-    ]
+    "properties": ["ammunition", "light", "loading"]
   },
   "compilation_state": {
     "status": "Valid"

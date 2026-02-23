@@ -6,13 +6,6 @@
     "summary": "Successfully imported from reference data."
   },
   "description": "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer.",
-  "proficiencies": [
-    "battleaxes",
-    "handaxes",
-    "light-hammers",
-    "warhammers"
-  ],
-  "races": [
-    "dwarf"
-  ]
+  "proficiencies": ["battleaxes", "handaxes", "light-hammers", "warhammers"],
+  "races": ["dwarf"]
 }

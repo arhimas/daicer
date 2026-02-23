@@ -33,7 +33,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "druid"
-  ]
+  "tags": ["druid"]
 }

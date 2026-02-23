@@ -37,7 +37,5 @@
     "status": "Valid",
     "summary": "Successfully mapped from reference data."
   },
-  "tags": [
-    "wizard"
-  ]
+  "tags": ["wizard"]
 }

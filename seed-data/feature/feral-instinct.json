@@ -12,7 +12,5 @@
   "image": "",
   "level": 7,
   "lore": "Your primal senses sharpen to a razor edge, allowing you to react to danger before your conscious mind even registers it.",
-  "tags": [
-    "barbarian"
-  ]
+  "tags": ["barbarian"]
 }

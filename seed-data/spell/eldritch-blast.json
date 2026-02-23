@@ -47,7 +47,5 @@
     "status": "Valid",
     "summary": "Eldritch Blast successfully compiled."
   },
-  "tags": [
-    "warlock"
-  ]
+  "tags": ["warlock"]
 }

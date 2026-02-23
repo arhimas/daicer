@@ -12,14 +12,8 @@
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned",
-    "charmed",
-    "exhaustion"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned", "charmed", "exhaustion"],
   "senses": "{\"darkvision\":\"60 ft.\",\"passive_perception\":10}",
   "languages": "Common",
   "challenge_rating": 1,

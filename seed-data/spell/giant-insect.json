@@ -33,7 +33,5 @@
     "status": "Valid",
     "summary": "Spell generated from reference data."
   },
-  "tags": [
-    "druid"
-  ]
+  "tags": ["druid"]
 }

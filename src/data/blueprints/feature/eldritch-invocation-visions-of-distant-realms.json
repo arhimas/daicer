@@ -6,8 +6,5 @@
   },
   "description": "You can cast arcane eye at will, without expending a spell slot.",
   "level": 15,
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

@@ -11,10 +11,7 @@
     "damage_dice": "1d6",
     "damage_type": "piercing",
     "range_normal": 20,
-    "properties": [
-      "thrown",
-      "versatile"
-    ],
+    "properties": ["thrown", "versatile"],
     "str_minimum": 0,
     "stealth_disadvantage": false
   }

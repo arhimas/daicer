@@ -12,8 +12,5 @@
   "image": "",
   "level": 11,
   "lore": "As a ranger's experience grows, their specialization deepens, allowing them to master the unique techniques of their chosen path.",
-  "tags": [
-    "ranger",
-    "class-feature"
-  ]
+  "tags": ["ranger", "class-feature"]
 }

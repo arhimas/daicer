@@ -10,9 +10,7 @@
   "speed": "walk 40 ft., fly 80 ft., swim 40 ft.",
   "stats": "strength: 23, dexterity: 14, constitution: 21, intelligence: 14, wisdom: 13, charisma: 17",
   "proficiencies": "Saving Throw: DEX +7, Saving Throw: CON +10, Saving Throw: WIS +6, Saving Throw: CHA +8, Skill: Perception +11, Skill: Stealth +7",
-  "damage_immunities": [
-    "acid"
-  ],
+  "damage_immunities": ["acid"],
   "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 21",
   "languages": "Common, Draconic",
   "challenge_rating": 14,

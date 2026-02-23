@@ -8,17 +8,8 @@
   "hit_points": 136,
   "hit_dice": "13d12+52",
   "speed": "50 ft.",
-  "stats": [
-    25,
-    10,
-    19,
-    2,
-    12,
-    9
-  ],
-  "proficiencies": [
-    "Skill: Perception +4"
-  ],
+  "stats": [25, 10, 19, 2, 12, 9],
+  "proficiencies": ["Skill: Perception +4"],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
   "damage_immunities": [],

@@ -11,9 +11,6 @@
     "damage_dice": "2d6",
     "damage_type": "bludgeoning",
     "range_normal": 5,
-    "properties": [
-      "heavy",
-      "two-handed"
-    ]
+    "properties": ["heavy", "two-handed"]
   }
 }

@@ -11,17 +11,10 @@
   "speed": "30 ft.",
   "stats": "{\"strength\":10,\"dexterity\":14,\"constitution\":15,\"intelligence\":6,\"wisdom\":8,\"charisma\":5}",
   "proficiencies": [],
-  "damage_vulnerabilities": [
-    "bludgeoning"
-  ],
+  "damage_vulnerabilities": ["bludgeoning"],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned",
-    "exhaustion"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned", "exhaustion"],
   "senses": "darkvision 60 ft., passive perception 9",
   "languages": "understands all languages it spoke in life but can't speak",
   "challenge_rating": 0.25,

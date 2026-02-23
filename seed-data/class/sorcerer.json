@@ -4,9 +4,7 @@
   "description": "An innate spellcaster who draws on a biological or lineage-based source of magic.",
   "lore": "Sorcerers carry a magical birthright conferred upon them by an exotic bloodline, some otherworldly influence, or exposure to unknown cosmic forces. One can't study sorcery as one learns a language, any more than one can learn to live a legendary life. No one chooses sorcery; the power chooses the sorcerer.",
   "hit_die": "d6",
-  "subclasses": [
-    "draconic"
-  ],
+  "subclasses": ["draconic"],
   "proficiencies": [
     "daggers",
     "darts",
@@ -50,26 +48,19 @@
     {
       "level": 1,
       "class_specifics": {},
-      "features": [
-        "spellcasting",
-        "sorcerous-origin"
-      ],
+      "features": ["spellcasting", "sorcerous-origin"],
       "spell_slots": {}
     },
     {
       "level": 2,
       "class_specifics": {},
-      "features": [
-        "font-of-magic"
-      ],
+      "features": ["font-of-magic"],
       "spell_slots": {}
     },
     {
       "level": 3,
       "class_specifics": {},
-      "features": [
-        "metamagic"
-      ],
+      "features": ["metamagic"],
       "spell_slots": {}
     }
   ],

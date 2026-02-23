@@ -11,49 +11,14 @@
   "speed": "50 ft.",
   "statsSource": "manual",
   "statsSubtype": "beast",
-  "statsAttributes": [
-    "strength",
-    "dexterity",
-    "constitution",
-    "intelligence",
-    "wisdom",
-    "charisma"
-  ],
-  "statsLabels": [
-    "Str",
-    "Dex",
-    "Con",
-    "Int",
-    "Wis",
-    "Cha"
-  ],
-  "statsValues": [
-    11,
-    16,
-    11,
-    2,
-    14,
-    5
-  ],
-  "statsArray": [
-    11,
-    16,
-    11,
-    2,
-    14,
-    5
-  ],
+  "statsAttributes": ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"],
+  "statsLabels": ["Str", "Dex", "Con", "Int", "Wis", "Cha"],
+  "statsValues": [11, 16, 11, 2, 14, 5],
+  "statsArray": [11, 16, 11, 2, 14, 5],
   "statsLevel": 0,
   "statsTier": 0,
   "statsRank": 0,
-  "statsMod": [
-    0,
-    3,
-    0,
-    -4,
-    2,
-    -3
-  ],
+  "statsMod": [0, 3, 0, -4, 2, -3],
   "statsTotal": 54,
   "statsAvg": 9,
   "statsMin": 2,
@@ -75,30 +40,9 @@
   "statsQuartile3": 14,
   "statsInterQuartileRange": 9,
   "statsOutliers": [],
-  "statsZScores": [
-    0.41,
-    1.03,
-    0.41,
-    -1.44,
-    1.03,
-    -1.44
-  ],
-  "statsPercentiles": [
-    0.5,
-    0.83,
-    0.5,
-    0.17,
-    0.83,
-    0.17
-  ],
-  "statsProbabilities": [
-    0.17,
-    0.17,
-    0.17,
-    0.17,
-    0.17,
-    0.17
-  ],
+  "statsZScores": [0.41, 1.03, 0.41, -1.44, 1.03, -1.44],
+  "statsPercentiles": [0.5, 0.83, 0.5, 0.17, 0.83, 0.17],
+  "statsProbabilities": [0.17, 0.17, 0.17, 0.17, 0.17, 0.17],
   "statsEntropy": 2.58,
   "statsInformation": 2.58,
   "statsRedundancy": 0,
@@ -159,14 +103,8 @@
   "statsSourceReferenceDescription": "Deer",
   "statsSourceReferenceSummary": "Deer",
   "statsSourceReferenceNote": "Deer",
-  "statsSourceReferenceTags": [
-    "beast",
-    "medium",
-    "unaligned"
-  ],
-  "statsSourceReferenceCategories": [
-    "beast"
-  ],
+  "statsSourceReferenceTags": ["beast", "medium", "unaligned"],
+  "statsSourceReferenceCategories": ["beast"],
   "statsSourceReferenceSubcategories": [],
   "statsSourceReferenceAttributes": [],
   "statsSourceReferenceFeatures": [],
@@ -174,9 +112,7 @@
   "statsSourceReferenceSkills": [],
   "statsSourceReferenceTools": [],
   "statsSourceReferenceLanguages": [],
-  "statsSourceReferenceSenses": [
-    "passive perception 12"
-  ],
+  "statsSourceReferenceSenses": ["passive perception 12"],
   "statsSourceReferenceConditionImmunities": [],
   "statsSourceReferenceDamageImmunities": [],
   "statsSourceReferenceDamageResistances": [],

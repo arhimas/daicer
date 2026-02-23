@@ -37,9 +37,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "druid",
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["druid", "sorcerer", "wizard"]
 }

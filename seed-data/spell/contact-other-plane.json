@@ -50,8 +50,5 @@
     "status": "Valid",
     "summary": "Successfully parsed from reference data."
   },
-  "tags": [
-    "warlock",
-    "wizard"
-  ]
+  "tags": ["warlock", "wizard"]
 }

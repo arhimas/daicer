@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "Divine magic comes from the paladin's commitment to their oath, channeled through prayer and focus.",
-  "tags": [
-    "paladin",
-    "spellcasting"
-  ]
+  "tags": ["paladin", "spellcasting"]
 }

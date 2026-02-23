@@ -9,10 +9,7 @@
   "hit_dice": "3d8",
   "speed": "50 ft., climb 40 ft.",
   "stats": "{\"strength\": 14, \"dexterity\": 15, \"constitution\": 10, \"intelligence\": 3, \"wisdom\": 14, \"charisma\": 7}",
-  "proficiencies": [
-    "{\"name\": \"Perception\", \"value\": 4}",
-    "{\"name\": \"Stealth\", \"value\": 6}"
-  ],
+  "proficiencies": ["{\"name\": \"Perception\", \"value\": 4}", "{\"name\": \"Stealth\", \"value\": 6}"],
   "senses": "passive Perception 14",
   "languages": "",
   "challenge_rating": "1/4",

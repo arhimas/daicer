@@ -12,9 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "The evoker learns to weave strands of magic around allies, shielding them from the raw fury of their destructive spells.",
-  "tags": [
-    "wizard",
-    "evocation",
-    "class-feature"
-  ]
+  "tags": ["wizard", "evocation", "class-feature"]
 }

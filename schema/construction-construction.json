@@ -20,16 +20,7 @@
     },
     "category": {
       "type": "enumeration",
-      "enum": [
-        "village",
-        "castle",
-        "tower",
-        "dungeon",
-        "house",
-        "shop",
-        "temple",
-        "misc"
-      ],
+      "enum": ["village", "castle", "tower", "dungeon", "house", "shop", "temple", "misc"],
       "default": "misc"
     },
     "width": {

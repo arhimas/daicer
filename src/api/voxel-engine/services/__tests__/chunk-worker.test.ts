@@ -18,7 +18,9 @@ vi.mock('worker_threads', () => ({
 }));
 
 vi.mock('@/api/voxel-engine/services/chunk-builder', () => ({
-  ChunkBuilder: vi.fn(function() { return mockChunkBuilder; }),
+  ChunkBuilder: vi.fn(function () {
+    return mockChunkBuilder;
+  }),
 }));
 
 // 3. Import Worker (requires dynamic import or require to ensure mocks are applied)

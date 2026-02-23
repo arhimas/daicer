@@ -59,12 +59,7 @@ describe('Agent Controller', () => {
     await controller.executeTool(ctx);
 
     expect(mockStrapi.service).toHaveBeenCalledWith('api::agent.agent');
-    expect(mockAgentService.executeTool).toHaveBeenCalledWith(
-      '123',
-      'my-tool',
-      { foo: 'bar' },
-      ctx.state.user
-    );
+    expect(mockAgentService.executeTool).toHaveBeenCalledWith('123', 'my-tool', { foo: 'bar' }, ctx.state.user);
     expect(ctx.send).toHaveBeenCalledWith({ success: true, result: 'done' });
   });
 

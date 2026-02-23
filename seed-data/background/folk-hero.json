@@ -8,41 +8,31 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "artisan-tools"
-      ],
+      "item": ["artisan-tools"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "shovel"
-      ],
+      "item": ["shovel"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "iron-pot"
-      ],
+      "item": ["iron-pot"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "common-clothes"
-      ],
+      "item": ["common-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     }
@@ -56,30 +46,22 @@
     {
       "type": "Skill",
       "name": "Animal Handling",
-      "proficiency": [
-        "skill-animal-handling"
-      ]
+      "proficiency": ["skill-animal-handling"]
     },
     {
       "type": "Skill",
       "name": "Survival",
-      "proficiency": [
-        "skill-survival"
-      ]
+      "proficiency": ["skill-survival"]
     },
     {
       "type": "Tool",
       "name": "Artisan's Tools",
-      "proficiency": [
-        "artisan-tools"
-      ]
+      "proficiency": ["artisan-tools"]
     },
     {
       "type": "Tool",
       "name": "Vehicles (Land)",
-      "proficiency": [
-        "vehicles-land"
-      ]
+      "proficiency": ["vehicles-land"]
     }
   ]
 }

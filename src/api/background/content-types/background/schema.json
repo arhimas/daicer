@@ -49,9 +49,9 @@
       "component": "game.proficiency"
     },
     "equipment": {
-        "type": "component",
-        "repeatable": true,
-        "component": "game.inventory-item"
+      "type": "component",
+      "repeatable": true,
+      "component": "game.inventory-item"
     },
     "compilation_state": {
       "type": "component",

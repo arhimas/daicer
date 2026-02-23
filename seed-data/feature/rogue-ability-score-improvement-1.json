@@ -12,9 +12,5 @@
   "image": "https://example.com/assets/rogue-asi.png",
   "level": 4,
   "lore": "Constant practice and the trials of adventure have sharpened your natural talents to their peak.",
-  "tags": [
-    "rogue",
-    "class-feature",
-    "ability-score-improvement"
-  ]
+  "tags": ["rogue", "class-feature", "ability-score-improvement"]
 }

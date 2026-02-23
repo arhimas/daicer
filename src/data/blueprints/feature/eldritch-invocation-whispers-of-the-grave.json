@@ -9,8 +9,5 @@
   "image": "",
   "level": 9,
   "lore": "The secrets of the departed are yours to command, as the veil between life and death thins at your touch.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

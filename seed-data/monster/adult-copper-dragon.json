@@ -8,39 +8,21 @@
   "hit_points": 184,
   "hit_dice": "16d12+80",
   "speed": "40 ft., fly 80 ft., climb 40 ft.",
-  "stats": [
-    6,
-    1,
-    5,
-    4,
-    2,
-    3
-  ],
+  "stats": [6, 1, 5, 4, 2, 3],
   "strength": 23,
   "dexterity": 12,
   "constitution": 21,
   "intelligence": 18,
   "wisdom": 15,
   "charisma": 17,
-  "saving_throws": [
-    6,
-    10,
-    7,
-    8
-  ],
-  "skills": [
-    8,
-    12,
-    6
-  ],
+  "saving_throws": [6, 10, 7, 8],
+  "skills": [8, 12, 6],
   "damage_immunities": "acid",
   "condition_immunities": "",
   "senses": "blindsight 60 ft., darkvision 120 ft., passive Perception 22",
   "languages": "Common, Draconic",
   "challenge_rating": "14",
-  "traits": [
-    "Legendary Resistance (3/Day). If the dragon fails a saving throw, it can choose to succeed instead."
-  ],
+  "traits": ["Legendary Resistance (3/Day). If the dragon fails a saving throw, it can choose to succeed instead."],
   "actions": [
     "Multiattack. The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
     "Bite. Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage.",

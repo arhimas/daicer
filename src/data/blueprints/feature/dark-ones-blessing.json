@@ -12,8 +12,5 @@
   "image": "",
   "level": 1,
   "lore": "The Fiend grants you a measure of its dark power when you slay an enemy, rewarding your service with a surge of unholy vitality.",
-  "tags": [
-    "warlock",
-    "fiend"
-  ]
+  "tags": ["warlock", "fiend"]
 }

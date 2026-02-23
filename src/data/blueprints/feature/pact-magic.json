@@ -7,7 +7,5 @@
   },
   "description": "Your arcane research and the magic bestowed on you by your patron have given you facility with spells. You know two cantrips of your choice from the warlock spell list. The Warlock table shows how many spell slots you have to cast your warlock spells of 1st through 5th level. All of your spell slots are the same level. To cast one of your warlock spells of 1st level or higher, you must expend a spell slot. You regain all expended spell slots when you finish a short or long rest. Charisma is your spellcasting ability for your warlock spells, since your power derives from the strength of your will.",
   "level": 1,
-  "tags": [
-    "warlock"
-  ]
+  "tags": ["warlock"]
 }

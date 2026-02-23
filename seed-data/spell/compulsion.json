@@ -45,7 +45,5 @@
     "status": "Valid",
     "summary": "Spell compiled from reference data."
   },
-  "tags": [
-    "bard"
-  ]
+  "tags": ["bard"]
 }

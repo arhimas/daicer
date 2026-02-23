@@ -12,9 +12,5 @@
   "image": "",
   "level": 10,
   "lore": "The connection between the mortal soul and the patron deepens, allowing the warlock to channel even greater fragments of their benefactor's power.",
-  "tags": [
-    "warlock",
-    "class-feature",
-    "subclass-feature"
-  ]
+  "tags": ["warlock", "class-feature", "subclass-feature"]
 }

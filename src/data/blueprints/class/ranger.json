@@ -4,9 +4,7 @@
   "description": "A warrior who uses martial prowess and nature magic to combat threats on the edges of civilization, the ranger is a master of the wilderness.",
   "lore": "Rangers are masters of the wild, acting as scouts, trackers, and protectors of the borderlands. They often work alone or in small groups to hunt down threats that others cannot even find.",
   "hit_die": "d10",
-  "subclasses": [
-    "hunter"
-  ],
+  "subclasses": ["hunter"],
   "proficiencies": [
     "light-armor",
     "medium-armor",
@@ -39,24 +37,15 @@
   "progression": [
     {
       "level": 1,
-      "features": [
-        "favored-enemy",
-        "natural-explorer"
-      ]
+      "features": ["favored-enemy", "natural-explorer"]
     },
     {
       "level": 2,
-      "features": [
-        "fighting-style",
-        "spellcasting"
-      ]
+      "features": ["fighting-style", "spellcasting"]
     },
     {
       "level": 3,
-      "features": [
-        "ranger-archetype",
-        "primeval-awareness"
-      ]
+      "features": ["ranger-archetype", "primeval-awareness"]
     }
   ],
   "compilation_state": {

@@ -12,17 +12,9 @@
   "stats": "{\"strength\": 26, \"dexterity\": 14, \"constitution\": 24, \"intelligence\": 22, \"wisdom\": 18, \"charisma\": 24}",
   "proficiencies": "[{\"name\": \"Saving Throw: DEX\", \"value\": 8}, {\"name\": \"Saving Throw: CON\", \"value\": 13}, {\"name\": \"Saving Throw: WIS\", \"value\": 10}]",
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold",
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "truesight 120 ft., passive perception 14",
   "languages": "Infernal, telepathy 120 ft.",
   "challenge_rating": 20,

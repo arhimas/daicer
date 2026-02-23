@@ -22,10 +22,7 @@
   "proficiencies-dex": 6,
   "proficiencies-wis": 7,
   "proficiencies-cha": 9,
-  "damage_immunities": [
-    "lightning",
-    "thunder"
-  ],
+  "damage_immunities": ["lightning", "thunder"],
   "senses house": "darkvision 120 ft., passive_perception 13",
   "senses-darkvision": "120 ft.",
   "senses-passive_perception": 13,

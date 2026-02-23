@@ -3,7 +3,5 @@
   "name": "Spare the Dying",
   "level": 0,
   "school": "Necromancy",
-  "tags": [
-    "cleric"
-  ]
+  "tags": ["cleric"]
 }

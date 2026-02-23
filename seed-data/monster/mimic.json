@@ -13,12 +13,8 @@
   "proficiencies": "Stealth: 5",
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "acid"
-  ],
-  "condition_immunities": [
-    "prone"
-  ],
+  "damage_immunities": ["acid"],
+  "condition_immunities": ["prone"],
   "senses": "darkvision 60 ft., passive Perception 11",
   "languages": [],
   "challenge_rating": 2,

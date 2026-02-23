@@ -62,24 +62,24 @@ describe('EntityGeometry', () => {
     it('should return false if dimensions do not match size', () => {
       const matrix = [
         [1, 1],
-        [1, 1]
+        [1, 1],
       ]; // 2x2
       // Medium is 5 * 32 = 160.  2 != 160.
       expect(validateMatrixSize(matrix, 'Medium')).toBe(false);
     });
-    
+
     it('should return true if dimensions match', () => {
-        // Mock a large matrix? 
-        // Tiny = 1 * 32 = 32.
-        const size = 32;
-        const matrix = Array(size).fill(Array(size).fill(0));
-        expect(validateMatrixSize(matrix, 'Tiny')).toBe(true);
+      // Mock a large matrix?
+      // Tiny = 1 * 32 = 32.
+      const size = 32;
+      const matrix = Array(size).fill(Array(size).fill(0));
+      expect(validateMatrixSize(matrix, 'Tiny')).toBe(true);
     });
 
     it('should fail if width does not match height (ragged or wrong shape)', () => {
-         const size = 32;
-         const matrix = Array(size).fill(Array(10).fill(0)); // Height 32, Width 10
-         expect(validateMatrixSize(matrix, 'Tiny')).toBe(false);
+      const size = 32;
+      const matrix = Array(size).fill(Array(10).fill(0)); // Height 32, Width 10
+      expect(validateMatrixSize(matrix, 'Tiny')).toBe(false);
     });
   });
 });

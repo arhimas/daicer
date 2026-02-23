@@ -12,9 +12,5 @@
   "image": "https://www.dndbeyond.com/content/skills/ranger-feature.png",
   "level": 10,
   "lore": "A master of the wild, the ranger moves through the most treacherous landscapes as if they were paved roads, reading the secrets of the earth and the movements of those who traverse it.",
-  "tags": [
-    "ranger",
-    "exploration",
-    "utility"
-  ]
+  "tags": ["ranger", "exploration", "utility"]
 }

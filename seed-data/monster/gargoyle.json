@@ -12,17 +12,9 @@
   "stats": "{\"strength\":15,\"dexterity\":11,\"constitution\":16,\"intelligence\":6,\"wisdom\":11,\"charisma\":7}",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"
-  ],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "exhaustion",
-    "petrified",
-    "poisoned"
-  ],
+  "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical weapons that aren't adamantine"],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["exhaustion", "petrified", "poisoned"],
   "senses": "darkvision 60 ft., passive perception 10",
   "languages": "Terran",
   "challenge_rating": 2,

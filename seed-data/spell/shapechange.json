@@ -3,8 +3,5 @@
   "name": "Shapechange",
   "level": 9,
   "school": "Transmutation",
-  "tags": [
-    "druid",
-    "wizard"
-  ]
+  "tags": ["druid", "wizard"]
 }

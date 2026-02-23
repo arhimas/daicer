@@ -49,10 +49,5 @@
     "status": "Valid",
     "summary": "Scorching Ray successfully mapped from reference data."
   },
-  "tags": [
-    "sorcerer",
-    "wizard",
-    "lore",
-    "fiend"
-  ]
+  "tags": ["sorcerer", "wizard", "lore", "fiend"]
 }

@@ -3,9 +3,5 @@
   "name": "Flame Strike",
   "level": 5,
   "school": "Evocation",
-  "tags": [
-    "cleric",
-    "devotion",
-    "fiend"
-  ]
+  "tags": ["cleric", "devotion", "fiend"]
 }

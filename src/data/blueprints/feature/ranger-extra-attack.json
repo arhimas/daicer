@@ -12,8 +12,5 @@
   "image": "",
   "level": 5,
   "lore": "A master of the hunt learns to strike with blinding speed, landing multiple blows before an enemy can react.",
-  "tags": [
-    "ranger",
-    "combat-feature"
-  ]
+  "tags": ["ranger", "combat-feature"]
 }

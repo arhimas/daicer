@@ -12,13 +12,8 @@
   "proficiencies": [],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "Charmed",
-    "Poisoned"
-  ],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["Charmed", "Poisoned"],
   "senses": "darkvision 60 ft., passive perception 10",
   "languages": "understands the languages of its creator but can't speak",
   "challenge_rating": "0",

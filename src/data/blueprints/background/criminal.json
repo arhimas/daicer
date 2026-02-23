@@ -8,33 +8,25 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "crowbar"
-      ],
+      "item": ["crowbar"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "clothes-common-dark"
-      ],
+      "item": ["clothes-common-dark"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 15,
       "slot": "backpack"
     }
@@ -48,30 +40,22 @@
     {
       "type": "Skill",
       "name": "Deception",
-      "proficiency": [
-        "skill-deception"
-      ]
+      "proficiency": ["skill-deception"]
     },
     {
       "type": "Skill",
       "name": "Stealth",
-      "proficiency": [
-        "skill-stealth"
-      ]
+      "proficiency": ["skill-stealth"]
     },
     {
       "type": "Tool",
       "name": "Thieves' tools",
-      "proficiency": [
-        "thieves-tools"
-      ]
+      "proficiency": ["thieves-tools"]
     },
     {
       "type": "Tool",
       "name": "Gaming set",
-      "proficiency": [
-        "dice-set"
-      ]
+      "proficiency": ["dice-set"]
     }
   ]
 }

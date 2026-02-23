@@ -32,9 +32,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "bard",
-    "wizard",
-    "lore"
-  ]
+  "tags": ["bard", "wizard", "lore"]
 }

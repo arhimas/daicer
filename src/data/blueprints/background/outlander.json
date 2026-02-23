@@ -8,41 +8,31 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "staff"
-      ],
+      "item": ["staff"],
       "quantity": 1,
       "slot": "main_hand"
     },
     {
       "isEquipped": false,
-      "item": [
-        "hunting-trap"
-      ],
+      "item": ["hunting-trap"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "animal-trophy"
-      ],
+      "item": ["animal-trophy"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "travelers-clothes"
-      ],
+      "item": ["travelers-clothes"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "pouch"
-      ],
+      "item": ["pouch"],
       "quantity": 1,
       "slot": "backpack"
     }
@@ -56,30 +46,22 @@
     {
       "type": "Skill",
       "name": "Athletics",
-      "proficiency": [
-        "skill-athletics"
-      ]
+      "proficiency": ["skill-athletics"]
     },
     {
       "type": "Skill",
       "name": "Survival",
-      "proficiency": [
-        "skill-survival"
-      ]
+      "proficiency": ["skill-survival"]
     },
     {
       "type": "Tool",
       "name": "Musical Instrument",
-      "proficiency": [
-        "tool-musical-instrument"
-      ]
+      "proficiency": ["tool-musical-instrument"]
     },
     {
       "type": "Language",
       "name": "Language",
-      "proficiency": [
-        "lang-any"
-      ]
+      "proficiency": ["lang-any"]
     }
   ]
 }

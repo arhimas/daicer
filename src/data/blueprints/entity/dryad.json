@@ -40,12 +40,5 @@
     "dryad-speak-with-beasts-and-plants",
     "dryad-tree-stride"
   ],
-  "spells": [
-    "barkskin",
-    "druidcraft",
-    "entangle",
-    "goodberry",
-    "pass-without-trace",
-    "shillelagh"
-  ]
+  "spells": ["barkskin", "druidcraft", "entangle", "goodberry", "pass-without-trace", "shillelagh"]
 }

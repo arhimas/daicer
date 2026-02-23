@@ -8,14 +8,7 @@
   "hit_points": 212,
   "hit_dice": "17d12+102",
   "speed": "40 ft., fly 80 ft., swim 40 ft.",
-  "stats": [
-    25,
-    10,
-    23,
-    16,
-    15,
-    19
-  ],
+  "stats": [25, 10, 23, 16, 15, 19],
   "proficiencies": [
     "Saving Throw: DEX +5",
     "Saving Throw: CON +11",
@@ -25,9 +18,7 @@
     "Skill: Perception +12",
     "Skill: Stealth +5"
   ],
-  "damage_immunities": [
-    "lightning"
-  ],
+  "damage_immunities": ["lightning"],
   "senses": "blindsight 60 ft., darkvision 120 ft., passive perception 22",
   "languages": "Common, Draconic",
   "challenge_rating": 15,

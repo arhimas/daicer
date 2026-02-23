@@ -3,9 +3,5 @@
   "name": "Teleport",
   "level": 7,
   "school": "Conjuration",
-  "tags": [
-    "bard",
-    "sorcerer",
-    "wizard"
-  ]
+  "tags": ["bard", "sorcerer", "wizard"]
 }

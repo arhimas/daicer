@@ -8,18 +8,8 @@
   "hit_points": 1,
   "hit_dice": "1d4",
   "speed": "30 ft.",
-  "stats": [
-    3,
-    16,
-    8,
-    2,
-    12,
-    3
-  ],
-  "proficiencies": [
-    "perception: 3",
-    "stealth: 5"
-  ],
+  "stats": [3, 16, 8, 2, 12, 3],
+  "proficiencies": ["perception: 3", "stealth: 5"],
   "senses": "passive Perception 13",
   "languages": "",
   "challenge_rating": "0",
@@ -27,7 +17,5 @@
   "special_abilities": [
     "Keen Hearing and Smell: The weasel has advantage on Wisdom (Perception) checks that rely on hearing or smell."
   ],
-  "actions": [
-    "Bite: Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 1 piercing damage."
-  ]
+  "actions": ["Bite: Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 1 piercing damage."]
 }

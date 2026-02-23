@@ -7,8 +7,5 @@
   "description": "Starting at 10th level, you can choose one damage type when you finish a short or long rest. You gain resistance to that damage type until you choose a different one with this feature. Damage from magical weapons or silver weapons ignores this resistance.",
   "level": 10,
   "lore": "Your patron grants you a measure of the resilience common to the denizens of the Lower Planes, allowing your body to adapt to the specific threats you face.",
-  "tags": [
-    "warlock",
-    "fiend"
-  ]
+  "tags": ["warlock", "fiend"]
 }

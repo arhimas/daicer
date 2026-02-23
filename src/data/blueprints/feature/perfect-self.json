@@ -12,9 +12,5 @@
   "image": "https://example.com/images/perfect-self.webp",
   "level": 20,
   "lore": "The monk has reached a state of spiritual enlightenment where their inner energy flows effortlessly even in the heat of battle.",
-  "tags": [
-    "monk",
-    "class-feature",
-    "ki"
-  ]
+  "tags": ["monk", "class-feature", "ki"]
 }

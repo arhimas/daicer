@@ -10,9 +10,5 @@
   "image": "https://example.com/images/druidic-feature.png",
   "level": 1,
   "lore": "The secret tongue of nature's guardians, whispered among the leaves and etched into the bark of ancient trees.",
-  "tags": [
-    "druid",
-    "language",
-    "class-feature"
-  ]
+  "tags": ["druid", "language", "class-feature"]
 }

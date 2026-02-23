@@ -32,7 +32,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "Druid"
-  ]
+  "tags": ["Druid"]
 }

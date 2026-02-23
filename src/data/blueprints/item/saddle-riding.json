@@ -10,8 +10,5 @@
   "equipment_data": {
     "properties": []
   },
-  "tags": [
-    "mounts-and-vehicles",
-    "tack-harness-and-drawn-vehicles"
-  ]
+  "tags": ["mounts-and-vehicles", "tack-harness-and-drawn-vehicles"]
 }

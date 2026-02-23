@@ -12,8 +12,5 @@
   "image": "",
   "level": 5,
   "lore": "The divine light you channel has grown so intense that it no longer merely repels the weak dead; it consumes them entirely, leaving only ash behind.",
-  "tags": [
-    "cleric",
-    "class-feature"
-  ]
+  "tags": ["cleric", "class-feature"]
 }

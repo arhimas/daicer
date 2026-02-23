@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "Your patron grants you the power to manipulate the strands of destiny, allowing you to curse those who would stand in your way.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

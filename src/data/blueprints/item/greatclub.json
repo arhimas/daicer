@@ -10,9 +10,7 @@
     "damage_dice": "1d8",
     "damage_type": "bludgeoning",
     "range_normal": 5,
-    "properties": [
-      "two-handed"
-    ]
+    "properties": ["two-handed"]
   },
   "compilation_state": {
     "status": "Valid"

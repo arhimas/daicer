@@ -6,8 +6,5 @@
   },
   "description": "At 10th level, you can choose a second option from the Fighting Style class feature.",
   "level": 10,
-  "tags": [
-    "fighter",
-    "champion"
-  ]
+  "tags": ["fighter", "champion"]
 }

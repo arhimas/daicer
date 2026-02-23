@@ -6,12 +6,6 @@
     "summary": "Successfully imported from SRD reference."
   },
   "description": "You gain proficiency with the artisan's tools of your choice: smith's tools, brewer's supplies, or mason's tools.",
-  "proficiencies": [
-    "smiths-tools",
-    "brewers-supplies",
-    "masons-tools"
-  ],
-  "races": [
-    "dwarf"
-  ]
+  "proficiencies": ["smiths-tools", "brewers-supplies", "masons-tools"],
+  "races": ["dwarf"]
 }

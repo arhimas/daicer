@@ -265,7 +265,10 @@ export default ({ strapi }) => ({
       // We need to populate 'players.characterSheet' in startGame then.
 
       const pAny = p as unknown as { characterSheet: string | { documentId: string } | null };
-      const pSheetId = (typeof pAny.characterSheet === 'object' && pAny.characterSheet) ? pAny.characterSheet.documentId : pAny.characterSheet;
+      const pSheetId =
+        typeof pAny.characterSheet === 'object' && pAny.characterSheet
+          ? pAny.characterSheet.documentId
+          : pAny.characterSheet;
       if (!pSheetId) return null; // Skip if no sheet
 
       // We need the full sheet data for generation

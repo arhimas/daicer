@@ -8,14 +8,7 @@
   "hit_points": 256,
   "hit_dice": "19d12+133",
   "speed": "walk 40 ft., fly 80 ft., climb 40 ft.",
-  "stats": [
-    27,
-    10,
-    25,
-    16,
-    13,
-    21
-  ],
+  "stats": [27, 10, 25, 16, 13, 21],
   "proficiencies": [
     "Saving Throw: DEX +6",
     "Saving Throw: CON +13",
@@ -26,19 +19,10 @@
   ],
   "damage_vulnerabilities": [],
   "damage_resistances": [],
-  "damage_immunities": [
-    "fire"
-  ],
+  "damage_immunities": ["fire"],
   "condition_immunities": [],
-  "senses": [
-    "blindsight 60 ft.",
-    "darkvision 120 ft.",
-    "passive perception 23"
-  ],
-  "languages": [
-    "Common",
-    "Draconic"
-  ],
+  "senses": ["blindsight 60 ft.", "darkvision 120 ft.", "passive perception 23"],
+  "languages": ["Common", "Draconic"],
   "challenge_rating": 17,
   "special_abilities": [
     "Legendary Resistance (3/Day): If the dragon fails a saving throw, it can choose to succeed instead."

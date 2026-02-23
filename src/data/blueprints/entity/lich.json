@@ -24,11 +24,7 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "con",
-      "int",
-      "wis"
-    ],
+    "saves": ["con", "int", "wis"],
     "skills": [],
     "passivePerception": 19,
     "darkvision": 0,
@@ -36,10 +32,5 @@
     "truesight": 120,
     "tremorsense": 0
   },
-  "legendary_actions": [
-    "lich-cantrip",
-    "lich-disrupt-life",
-    "lich-frightening-gaze",
-    "lich-paralyzing-touch"
-  ]
+  "legendary_actions": ["lich-cantrip", "lich-disrupt-life", "lich-frightening-gaze", "lich-paralyzing-touch"]
 }

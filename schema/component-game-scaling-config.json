@@ -14,20 +14,12 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "Dice",
-        "Target",
-        "Duration"
-      ],
+      "enum": ["Dice", "Target", "Duration"],
       "default": "Dice"
     },
     "method": {
       "type": "enumeration",
-      "enum": [
-        "Per Slot Level",
-        "Every 2 Slot Levels",
-        "Specific Thresholds"
-      ],
+      "enum": ["Per Slot Level", "Every 2 Slot Levels", "Specific Thresholds"],
       "default": "Per Slot Level"
     },
     "dice_count": {

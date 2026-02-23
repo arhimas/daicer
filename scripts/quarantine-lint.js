@@ -2,8 +2,8 @@ const fs = require('fs');
 
 if (fs.existsSync('lint.json')) {
   const data = JSON.parse(fs.readFileSync('lint.json', 'utf8'));
-  
-  data.forEach(result => {
+
+  data.forEach((result) => {
     // If there's an error or warning in this file
     if (result.errorCount > 0 || result.warningCount > 0) {
       const file = result.filePath;

@@ -11,11 +11,7 @@
   "stats": "{\"strength\":3,\"dexterity\":13,\"constitution\":10,\"intelligence\":1,\"wisdom\":7,\"charisma\":1}",
   "proficiencies": [],
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "bludgeoning",
-    "piercing",
-    "slashing"
-  ],
+  "damage_resistances": ["bludgeoning", "piercing", "slashing"],
   "damage_immunities": [],
   "condition_immunities": [
     "Charmed",

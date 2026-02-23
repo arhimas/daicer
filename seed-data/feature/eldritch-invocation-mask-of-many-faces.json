@@ -12,8 +12,5 @@
   "image": "",
   "level": 2,
   "lore": "Through dark pacts and forbidden knowledge, the warlock gains the ability to weave shadows and light into a seamless disguise, stepping into new skins as easily as one changes a cloak.",
-  "tags": [
-    "warlock",
-    "eldritch-invocation"
-  ]
+  "tags": ["warlock", "eldritch-invocation"]
 }

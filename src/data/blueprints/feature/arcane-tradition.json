@@ -7,9 +7,5 @@
   },
   "description": "When you reach 2nd level, you choose an arcane tradition, shaping your practice of magic through one of eight schools, such as Evocation. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.",
   "level": 2,
-  "tags": [
-    "wizard",
-    "class-feature",
-    "subclass-selection"
-  ]
+  "tags": ["wizard", "class-feature", "subclass-selection"]
 }

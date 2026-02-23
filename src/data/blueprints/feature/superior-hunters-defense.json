@@ -11,9 +11,5 @@
   "embedding": {},
   "level": 15,
   "lore": "The ultimate test of a hunter is the ability to survive the most lethal counterattacks.",
-  "tags": [
-    "ranger",
-    "hunter",
-    "subclass-feature"
-  ]
+  "tags": ["ranger", "hunter", "subclass-feature"]
 }

@@ -6,20 +6,20 @@ import path from 'path';
 
 // Mock fs.promises
 vi.mock('fs', async () => {
-    return {
-        default: {
-            existsSync: vi.fn(),
-            promises: {
-                readFile: vi.fn(),
-                readdir: vi.fn(),
-            }
-        },
-        existsSync: vi.fn(),
-        promises: {
-            readFile: vi.fn(),
-            readdir: vi.fn(),
-        }
-    };
+  return {
+    default: {
+      existsSync: vi.fn(),
+      promises: {
+        readFile: vi.fn(),
+        readdir: vi.fn(),
+      },
+    },
+    existsSync: vi.fn(),
+    promises: {
+      readFile: vi.fn(),
+      readdir: vi.fn(),
+    },
+  };
 });
 
 describe('SchemaLoader', () => {
@@ -32,12 +32,12 @@ describe('SchemaLoader', () => {
   });
 
   describe('constructor', () => {
-      it('should use default path if not provided', () => {
-          const defaultLoader = new SchemaLoader();
-          // We can't easily check private property, but we can verify behavior 
-          // assumes process.cwd() joined with 'schema'
-          expect(defaultLoader).toBeDefined();
-      });
+    it('should use default path if not provided', () => {
+      const defaultLoader = new SchemaLoader();
+      // We can't easily check private property, but we can verify behavior
+      // assumes process.cwd() joined with 'schema'
+      expect(defaultLoader).toBeDefined();
+    });
   });
 
   describe('loadSchema', () => {
@@ -100,36 +100,33 @@ describe('SchemaLoader', () => {
   });
 
   describe('listSchemas', () => {
-      it('should list all json schemas', async () => {
-          vi.mocked(fs.existsSync).mockReturnValue(true);
-          vi.mocked(fs.promises.readdir).mockResolvedValue([
-              'spell-spell.json',
-              'component-test.json',
-              '_meta.json',
-              'readme.md'
-          ] as any);
+    it('should list all json schemas', async () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.promises.readdir).mockResolvedValue([
+        'spell-spell.json',
+        'component-test.json',
+        '_meta.json',
+        'readme.md',
+      ] as any);
 
-          const result = await loader.listSchemas();
-          expect(result).toEqual(['spell-spell.json', 'component-test.json']);
-          expect(result).not.toContain('_meta.json');
-          expect(result).not.toContain('readme.md');
-      });
+      const result = await loader.listSchemas();
+      expect(result).toEqual(['spell-spell.json', 'component-test.json']);
+      expect(result).not.toContain('_meta.json');
+      expect(result).not.toContain('readme.md');
+    });
 
-      it('should return empty list if dir does not exist', async () => {
-          vi.mocked(fs.existsSync).mockReturnValue(false);
-          const result = await loader.listSchemas();
-          expect(result).toEqual([]);
-      });
+    it('should return empty list if dir does not exist', async () => {
+      vi.mocked(fs.existsSync).mockReturnValue(false);
+      const result = await loader.listSchemas();
+      expect(result).toEqual([]);
+    });
 
-      it('should filter schemas if filter is provided', async () => {
-          vi.mocked(fs.existsSync).mockReturnValue(true);
-           vi.mocked(fs.promises.readdir).mockResolvedValue([
-              'spell-spell.json',
-              'component-test.json'
-          ] as any);
+    it('should filter schemas if filter is provided', async () => {
+      vi.mocked(fs.existsSync).mockReturnValue(true);
+      vi.mocked(fs.promises.readdir).mockResolvedValue(['spell-spell.json', 'component-test.json'] as any);
 
-          const result = await loader.listSchemas('spell');
-          expect(result).toEqual(['spell-spell.json']);
-      });
+      const result = await loader.listSchemas('spell');
+      expect(result).toEqual(['spell-spell.json']);
+    });
   });
 });

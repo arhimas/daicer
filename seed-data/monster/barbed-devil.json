@@ -12,17 +12,9 @@
   "stats": "{\"strength\":16,\"dexterity\":17,\"constitution\":18,\"intelligence\":12,\"wisdom\":14,\"charisma\":14}",
   "proficiencies": "[{\"name\":\"Saving Throw: STR\",\"value\":6},{\"name\":\"Saving Throw: CON\",\"value\":7},{\"name\":\"Saving Throw: WIS\",\"value\":5},{\"name\":\"Saving Throw: CHA\",\"value\":5},{\"name\":\"Skill: Deception\",\"value\":5},{\"name\":\"Skill: Insight\",\"value\":5},{\"name\":\"Skill: Perception\",\"value\":8}]",
   "damage_vulnerabilities": [],
-  "damage_resistances": [
-    "cold",
-    "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"
-  ],
-  "damage_immunities": [
-    "fire",
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical weapons that aren't silvered"],
+  "damage_immunities": ["fire", "poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 120 ft., passive perception 18",
   "languages": "Infernal, telepathy 120 ft.",
   "challenge_rating": 5,

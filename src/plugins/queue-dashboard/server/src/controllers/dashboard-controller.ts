@@ -42,10 +42,10 @@ export interface DashboardContext extends Context {
 }
 
 // Export for testing
-export const getQueues = (strapi: unknown): Queue[] => {
+export const getQueues = (strapi: any): Queue[] => {
   const service = strapi.plugin('bullmq').service('queue');
   const queues: Queue[] = [];
-   
+
   const configuredQueues = (strapi.plugin('queue-dashboard').config('queues') as string[]) || [];
 
   for (const name of configuredQueues) {
@@ -55,8 +55,7 @@ export const getQueues = (strapi: unknown): Queue[] => {
   return queues;
 };
 
- 
-export default ({ strapi }: { strapi: unknown }) => ({
+export default ({ strapi }: { strapi: any }) => ({
   getQueues, // Expose helper
   /**
    * Retrieves statistics for all registered BullMQ queues.
@@ -87,8 +86,7 @@ export default ({ strapi }: { strapi: unknown }) => ({
               q.getDelayed(0, 10),
             ]);
 
-             
-            const mapJob = (j: unknown): JobSerialized => ({
+            const mapJob = (j: any): JobSerialized => ({
               id: j.id,
               name: j.name,
               data: j.data,
@@ -127,7 +125,6 @@ export default ({ strapi }: { strapi: unknown }) => ({
 
       ctx.body = { queues: stats };
     } catch (err: unknown) {
-       
       const message = (err as any).message || String(err);
       ctx.body = { queues: [], error: message };
     }
@@ -193,7 +190,6 @@ export default ({ strapi }: { strapi: unknown }) => ({
         throw new Error(`Queue ${queueName} not found`);
       }
 
-       
       await queue.clean(0, 1000, type as any);
       ctx.body = { queues: [], message: `Cleaned ${type} jobs from ${queueName}` };
     } catch (err) {

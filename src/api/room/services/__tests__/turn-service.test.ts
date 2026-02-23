@@ -60,16 +60,20 @@ describe('Turn Service', () => {
 
       await service.addAction('room-1', 'p1', { type: 'attack', intent: 'Hit it' });
 
-      expect(strapi.entityService.update).toHaveBeenCalledWith('api::room.room', 'room-1', expect.objectContaining({
-        data: expect.objectContaining({
-          turnData: expect.objectContaining({
-            phase: 'idle',
-            actions: expect.arrayContaining([
-              expect.objectContaining({ playerId: 'p1', type: 'action', intent: 'Hit it' }),
-            ]),
+      expect(strapi.entityService.update).toHaveBeenCalledWith(
+        'api::room.room',
+        'room-1',
+        expect.objectContaining({
+          data: expect.objectContaining({
+            turnData: expect.objectContaining({
+              phase: 'idle',
+              actions: expect.arrayContaining([
+                expect.objectContaining({ playerId: 'p1', type: 'action', intent: 'Hit it' }),
+              ]),
+            }),
           }),
-        }),
-      }));
+        })
+      );
     });
   });
 
@@ -127,10 +131,12 @@ describe('Turn Service', () => {
         narrative: 'Oops.',
         tool_calls: [{ tool: 'roll_dice', args: ['bad'] }],
       });
-      mockActionRegistry.rollDice.mockImplementation(() => { throw new Error('Bad Dice'); });
+      mockActionRegistry.rollDice.mockImplementation(() => {
+        throw new Error('Bad Dice');
+      });
 
       const result = await service.processTurn('room-1');
-      
+
       expect(result.historyEntry.log).toContain('[Error] Tool roll_dice failed: Bad Dice');
     });
   });

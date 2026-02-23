@@ -4,15 +4,8 @@
   "description": "A wielder of magic that is derived from a bargain with an extraplanar entity.",
   "lore": "Warlocks are seekers after the knowledge that lies hidden in the fabric of the multiverse. Through pacts made with mysterious beings of supernatural power, warlocks unlock magical effects both subtle and spectacular.",
   "hit_die": "d8",
-  "subclasses": [
-    "fiend"
-  ],
-  "proficiencies": [
-    "light-armor",
-    "simple-weapons",
-    "saving-throw-wis",
-    "saving-throw-cha"
-  ],
+  "subclasses": ["fiend"],
+  "proficiencies": ["light-armor", "simple-weapons", "saving-throw-wis", "saving-throw-cha"],
   "features": [
     {
       "name": "Otherworldly Patron",
@@ -34,18 +27,13 @@
     {
       "level": 1,
       "class_specifics": {},
-      "features": [
-        "otherworldly-patron",
-        "pact-magic"
-      ],
+      "features": ["otherworldly-patron", "pact-magic"],
       "spell_slots": {}
     },
     {
       "level": 2,
       "class_specifics": {},
-      "features": [
-        "eldritch-invocations"
-      ],
+      "features": ["eldritch-invocations"],
       "spell_slots": {}
     }
   ],

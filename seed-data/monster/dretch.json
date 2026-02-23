@@ -12,17 +12,9 @@
   "speed": "20 ft.",
   "stats": "{\"strength\": 11, \"dexterity\": 11, \"constitution\": 12, \"intelligence\": 5, \"wisdom\": 8, \"charisma\": 3}",
   "proficiencies": [],
-  "damage_resistances": [
-    "cold",
-    "fire",
-    "lightning"
-  ],
-  "damage_immunities": [
-    "poison"
-  ],
-  "condition_immunities": [
-    "poisoned"
-  ],
+  "damage_resistances": ["cold", "fire", "lightning"],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["poisoned"],
   "senses": "darkvision 60 ft., passive perception 9",
   "languages": "Abyssal, telepathy 60 ft. (works only with creatures that understand Abyssal)",
   "challenge_rating": 0.25,

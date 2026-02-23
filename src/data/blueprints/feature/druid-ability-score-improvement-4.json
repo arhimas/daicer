@@ -12,8 +12,5 @@
   "image": "https://www.dndbeyond.com/content/12.2.0/compendium/images/druid.png",
   "level": 16,
   "lore": "A druid's connection to the natural world grants them wisdom beyond mortal years, and their physical form adapts to the harsh environments they protect.",
-  "tags": [
-    "druid",
-    "ability-score-improvement"
-  ]
+  "tags": ["druid", "ability-score-improvement"]
 }

@@ -24,14 +24,8 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": [
-      "wis",
-      "cha"
-    ],
-    "skills": [
-      "insight",
-      "perception"
-    ],
+    "saves": ["wis", "cha"],
+    "skills": ["insight", "perception"],
     "passivePerception": 19,
     "darkvision": 120,
     "blindsight": 0,
@@ -47,9 +41,5 @@
     "deva-magic-resistance",
     "deva-multiattack"
   ],
-  "spells": [
-    "commune",
-    "detect-evil-and-good",
-    "raise-dead"
-  ]
+  "spells": ["commune", "detect-evil-and-good", "raise-dead"]
 }

@@ -11,41 +11,31 @@
   "equipment": [
     {
       "isEquipped": false,
-      "item": [
-        "scroll-case"
-      ],
+      "item": ["scroll-case"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "winter-blanket"
-      ],
+      "item": ["winter-blanket"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": true,
-      "item": [
-        "common-clothes"
-      ],
+      "item": ["common-clothes"],
       "quantity": 1,
       "slot": "armor"
     },
     {
       "isEquipped": false,
-      "item": [
-        "herbalism-kit"
-      ],
+      "item": ["herbalism-kit"],
       "quantity": 1,
       "slot": "backpack"
     },
     {
       "isEquipped": false,
-      "item": [
-        "gold-piece"
-      ],
+      "item": ["gold-piece"],
       "quantity": 5,
       "slot": "backpack"
     }

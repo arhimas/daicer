@@ -36,10 +36,5 @@
   "compilation_state": {
     "status": "Valid"
   },
-  "tags": [
-    "cleric",
-    "druid",
-    "paladin",
-    "ranger"
-  ]
+  "tags": ["cleric", "druid", "paladin", "ranger"]
 }

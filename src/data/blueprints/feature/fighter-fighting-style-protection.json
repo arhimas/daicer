@@ -12,10 +12,5 @@
   "image": "https://www.example.com/assets/features/protection.png",
   "level": 1,
   "lore": "A master of the shield knows that their protection extends beyond their own person, acting as a mobile bulwark for those standing beside them in the heat of battle.",
-  "tags": [
-    "fighter",
-    "fighting-style",
-    "reaction",
-    "defensive"
-  ]
+  "tags": ["fighter", "fighting-style", "reaction", "defensive"]
 }
