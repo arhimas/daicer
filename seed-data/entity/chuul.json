@@ -32,5 +32,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["chuul-amphibious", "chuul-multiattack", "chuul-pincer", "chuul-sense-magic", "chuul-tentacles"]
+  "actions": [
+    "chuul-amphibious",
+    "chuul-multiattack",
+    "chuul-pincer",
+    "chuul-sense-magic",
+    "chuul-tentacles"
+  ]
 }

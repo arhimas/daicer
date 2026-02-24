@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["panther-bite", "panther-claw", "panther-keen-smell", "panther-pounce"]
+  "actions": [
+    "panther-bite",
+    "panther-claw",
+    "panther-keen-smell",
+    "panther-pounce"
+  ]
 }

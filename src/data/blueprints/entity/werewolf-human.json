@@ -30,10 +30,17 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "spear",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "werewolf-human-keen-hearing-and-smell",
     "werewolf-human-multiattack",
-    "werewolf-human-shapechanger",
-    "werewolf-human-spear"
+    "werewolf-human-shapechanger"
   ]
 }

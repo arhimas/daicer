@@ -397,7 +397,7 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::action.action'> & Schema.Attribute.Private;
     mechanics_config: Schema.Attribute.Component<'game.mechanics-config', false>;
-    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     range_config: Schema.Attribute.Component<'game.range-config', false>;
     save: Schema.Attribute.Component<'game.save-dc', false>;
@@ -405,6 +405,51 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
     toHit: Schema.Attribute.Integer;
     type: Schema.Attribute.Enumeration<['melee', 'ranged', 'spell', 'utility', 'ability']> &
       Schema.Attribute.DefaultTo<'melee'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBackgroundBackground extends Struct.CollectionTypeSchema {
+  collectionName: 'backgrounds';
+  info: {
+    description: 'Character Backgrounds';
+    displayName: 'Background';
+    pluralName: 'backgrounds';
+    singularName: 'background';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    equipment: Schema.Attribute.Component<'game.inventory-item', true>;
+    feature: Schema.Attribute.Component<'game.feature', false>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::background.background'>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    proficiencies: Schema.Attribute.Component<'game.proficiency', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -470,9 +515,7 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   pluginOptions: {
-    i18n: {
-      localized: true;
-    };
+    i18n: {};
   };
   attributes: {
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
@@ -480,28 +523,22 @@ export interface ApiClassClass extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     features: Schema.Attribute.Component<'game.feature', true>;
     hit_die: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::class.class'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::class.class'> & Schema.Attribute.Private;
     lore: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     progression: Schema.Attribute.Component<'game.class-progression', true>;
@@ -1367,9 +1404,7 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   pluginOptions: {
-    i18n: {
-      localized: true;
-    };
+    i18n: {};
   };
   attributes: {
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
@@ -1377,20 +1412,16 @@ export interface ApiRaceRace extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::race.race'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::race.race'> & Schema.Attribute.Private;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
@@ -1655,9 +1686,7 @@ export interface ApiSubclassSubclass extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   pluginOptions: {
-    i18n: {
-      localized: true;
-    };
+    i18n: {};
   };
   attributes: {
     class: Schema.Attribute.Relation<'manyToOne', 'api::class.class'>;
@@ -1665,28 +1694,22 @@ export interface ApiSubclassSubclass extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
     image: Schema.Attribute.Media<'images'>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::subclass.subclass'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::subclass.subclass'> & Schema.Attribute.Private;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     subclass_flavor: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
+        i18n: {};
       }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -2475,6 +2498,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
+      'api::background.background': ApiBackgroundBackground;
       'api::blueprint.blueprint': ApiBlueprintBlueprint;
       'api::class.class': ApiClassClass;
       'api::construction.construction': ApiConstructionConstruction;

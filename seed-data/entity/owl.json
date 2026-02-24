@@ -25,12 +25,19 @@
     "burrowSpeed": 0,
     "hover": false,
     "saves": [],
-    "skills": ["perception", "stealth"],
+    "skills": [
+      "perception",
+      "stealth"
+    ],
     "passivePerception": 13,
     "darkvision": 120,
     "blindsight": 0,
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["owl-flyby", "owl-keen-hearing-and-sight", "owl-talons"]
+  "actions": [
+    "owl-flyby",
+    "owl-keen-hearing-and-sight",
+    "owl-talons"
+  ]
 }

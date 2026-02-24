@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["gray-ooze-amorphous", "gray-ooze-corrode-metal", "gray-ooze-false-appearance", "gray-ooze-pseudopod"]
+  "actions": [
+    "gray-ooze-amorphous",
+    "gray-ooze-corrode-metal",
+    "gray-ooze-false-appearance",
+    "gray-ooze-pseudopod"
+  ]
 }

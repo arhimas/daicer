@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["spider-bite", "spider-spider-climb", "spider-web-sense", "spider-web-walker"]
+  "actions": [
+    "spider-bite",
+    "spider-spider-climb",
+    "spider-web-sense",
+    "spider-web-walker"
+  ]
 }

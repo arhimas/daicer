@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["swarm-of-insects-bites", "swarm-of-insects-swarm"]
+  "actions": [
+    "swarm-of-insects-bites",
+    "swarm-of-insects-swarm"
+  ]
 }

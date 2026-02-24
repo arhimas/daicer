@@ -24,7 +24,11 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["int", "wis", "cha"],
+    "saves": [
+      "int",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 0,
     "darkvision": 0,
@@ -32,12 +36,19 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "scimitar",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "efreeti-elemental-demise",
     "efreeti-hurl-flame",
     "efreeti-innate-spellcasting",
-    "efreeti-multiattack",
-    "efreeti-scimitar"
+    "efreeti-multiattack"
   ],
   "spells": [
     "conjure-elemental",

@@ -32,5 +32,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["behir-bite", "behir-constrict", "behir-lightning-breath", "behir-multiattack", "behir-swallow"]
+  "actions": [
+    "behir-bite",
+    "behir-constrict",
+    "behir-lightning-breath",
+    "behir-multiattack",
+    "behir-swallow"
+  ]
 }

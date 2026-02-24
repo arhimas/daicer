@@ -32,12 +32,19 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "horn",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "unicorn-charge",
     "unicorn-heal-self",
     "unicorn-healing-touch",
     "unicorn-hooves",
-    "unicorn-horn",
     "unicorn-innate-spellcasting",
     "unicorn-magic-resistance",
     "unicorn-magic-weapons",
@@ -45,7 +52,9 @@
     "unicorn-shimmering-shield",
     "unicorn-teleport"
   ],
-  "legendary_actions": ["unicorn-hooves-legendary-action"],
+  "legendary_actions": [
+    "unicorn-hooves-legendary-action"
+  ],
   "spells": [
     "calm-emotions",
     "detect-evil-and-good",

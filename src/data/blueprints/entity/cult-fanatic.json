@@ -32,8 +32,15 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "dagger",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
-    "cult-fanatic-dagger",
     "cult-fanatic-dark-devotion",
     "cult-fanatic-multiattack",
     "cult-fanatic-spellcasting"

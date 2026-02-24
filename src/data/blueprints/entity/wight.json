@@ -32,5 +32,23 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["wight-life-drain", "wight-longbow", "wight-longsword", "wight-multiattack", "wight-sunlight-sensitivity"]
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "wight-life-drain",
+    "wight-multiattack",
+    "wight-sunlight-sensitivity"
+  ]
 }

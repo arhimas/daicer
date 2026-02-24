@@ -30,5 +30,7 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-centipede-bite"]
+  "actions": [
+    "giant-centipede-bite"
+  ]
 }

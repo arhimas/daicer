@@ -32,13 +32,20 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "spear",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "sahuagin-bite",
     "sahuagin-blood-frenzy",
     "sahuagin-claws",
     "sahuagin-limited-amphibiousness",
     "sahuagin-multiattack",
-    "sahuagin-shark-telepathy",
-    "sahuagin-spear"
+    "sahuagin-shark-telepathy"
   ]
 }

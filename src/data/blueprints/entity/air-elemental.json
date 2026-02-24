@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["air-elemental-air-form", "air-elemental-multiattack", "air-elemental-slam", "air-elemental-whirlwind"]
+  "actions": [
+    "air-elemental-air-form",
+    "air-elemental-multiattack",
+    "air-elemental-slam",
+    "air-elemental-whirlwind"
+  ]
 }

@@ -32,11 +32,18 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "spear",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "salamander-heated-body",
     "salamander-heated-weapons",
     "salamander-multiattack",
-    "salamander-spear",
     "salamander-tail"
   ]
 }

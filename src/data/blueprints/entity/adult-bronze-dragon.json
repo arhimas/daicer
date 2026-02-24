@@ -24,8 +24,17 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["dex", "con", "wis", "cha"],
-    "skills": ["insight", "perception", "stealth"],
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "insight",
+      "perception",
+      "stealth"
+    ],
     "passivePerception": 22,
     "darkvision": 120,
     "blindsight": 60,
@@ -45,5 +54,7 @@
     "adult-bronze-dragon-tail-attack",
     "adult-bronze-dragon-tail"
   ],
-  "legendary_actions": ["adult-bronze-dragon-wing-attack-costs-2-actions"]
+  "legendary_actions": [
+    "adult-bronze-dragon-wing-attack-costs-2-actions"
+  ]
 }

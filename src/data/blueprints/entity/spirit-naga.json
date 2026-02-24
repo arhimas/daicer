@@ -24,7 +24,12 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["dex", "con", "wis", "cha"],
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 12,
     "darkvision": 60,
@@ -32,7 +37,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["spirit-naga-bite", "spirit-naga-rejuvenation", "spirit-naga-spellcasting"],
+  "actions": [
+    "spirit-naga-bite",
+    "spirit-naga-rejuvenation",
+    "spirit-naga-spellcasting"
+  ],
   "spells": [
     "blight",
     "charm-person",

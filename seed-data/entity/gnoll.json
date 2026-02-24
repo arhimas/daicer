@@ -32,5 +32,22 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["gnoll-bite", "gnoll-longbow", "gnoll-rampage", "gnoll-spear"]
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "spear",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "gnoll-bite",
+    "gnoll-rampage"
+  ]
 }

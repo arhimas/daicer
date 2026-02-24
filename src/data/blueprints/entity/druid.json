@@ -32,7 +32,17 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["druid-quarterstaff", "druid-spellcasting"],
+  "inventory": [
+    {
+      "item": "quarterstaff",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "druid-spellcasting"
+  ],
   "spells": [
     "animal-messenger",
     "barkskin",

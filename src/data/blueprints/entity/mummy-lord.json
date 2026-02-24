@@ -24,8 +24,16 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "int", "wis", "cha"],
-    "skills": ["history", "religion"],
+    "saves": [
+      "con",
+      "int",
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "history",
+      "religion"
+    ],
     "passivePerception": 14,
     "darkvision": 60,
     "blindsight": 0,

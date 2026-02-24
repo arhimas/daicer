@@ -32,5 +32,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["merrow-amphibious", "merrow-bite", "merrow-claws", "merrow-harpoon", "merrow-multiattack"]
+  "actions": [
+    "merrow-amphibious",
+    "merrow-bite",
+    "merrow-claws",
+    "merrow-harpoon",
+    "merrow-multiattack"
+  ]
 }

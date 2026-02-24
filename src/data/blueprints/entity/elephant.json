@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["elephant-gore", "elephant-stomp"]
+  "actions": [
+    "elephant-gore",
+    "elephant-stomp"
+  ]
 }

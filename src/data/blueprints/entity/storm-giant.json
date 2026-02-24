@@ -32,13 +32,27 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "greatsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "storm-giant-amphibious",
-    "storm-giant-greatsword",
     "storm-giant-innate-spellcasting",
     "storm-giant-lightning-strike",
     "storm-giant-multiattack",
     "storm-giant-rock"
   ],
-  "spells": ["control-weather", "detect-magic", "feather-fall", "levitate", "light", "water-breathing"]
+  "spells": [
+    "control-weather",
+    "detect-magic",
+    "feather-fall",
+    "levitate",
+    "light",
+    "water-breathing"
+  ]
 }

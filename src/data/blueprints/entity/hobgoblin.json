@@ -32,5 +32,21 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["hobgoblin-longbow", "hobgoblin-longsword", "hobgoblin-martial-advantage"]
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "hobgoblin-martial-advantage"
+  ]
 }

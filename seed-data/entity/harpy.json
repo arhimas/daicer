@@ -32,5 +32,17 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["harpy-claws", "harpy-club", "harpy-luring-song", "harpy-multiattack"]
+  "inventory": [
+    {
+      "item": "club",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "harpy-claws",
+    "harpy-luring-song",
+    "harpy-multiattack"
+  ]
 }

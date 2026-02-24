@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["ghast-bite", "ghast-claws", "ghast-stench", "ghast-turn-defiance"]
+  "actions": [
+    "ghast-bite",
+    "ghast-claws",
+    "ghast-stench",
+    "ghast-turn-defiance"
+  ]
 }

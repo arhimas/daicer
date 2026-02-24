@@ -32,11 +32,18 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "wererat-human-hand-crossbow",
     "wererat-human-keen-smell",
     "wererat-human-multiattack",
-    "wererat-human-shapechanger",
-    "wererat-human-shortsword"
+    "wererat-human-shapechanger"
   ]
 }

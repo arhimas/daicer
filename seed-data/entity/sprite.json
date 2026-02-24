@@ -32,5 +32,22 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["sprite-heart-sight", "sprite-invisibility", "sprite-longsword", "sprite-shortbow"]
+  "inventory": [
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "shortbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "sprite-heart-sight",
+    "sprite-invisibility"
+  ]
 }

@@ -24,7 +24,12 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "int", "wis", "cha"],
+    "saves": [
+      "con",
+      "int",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 11,
     "darkvision": 0,

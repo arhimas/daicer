@@ -32,8 +32,15 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "greataxe",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
-    "werebear-human-greataxe",
     "werebear-human-keen-smell",
     "werebear-human-multiattack",
     "werebear-human-shapechanger"

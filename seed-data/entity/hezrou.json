@@ -24,7 +24,11 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["str", "con", "wis"],
+    "saves": [
+      "str",
+      "con",
+      "wis"
+    ],
     "skills": [],
     "passivePerception": 11,
     "darkvision": 120,
@@ -32,5 +36,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["hezrou-bite", "hezrou-claws", "hezrou-magic-resistance", "hezrou-multiattack", "hezrou-stench"]
+  "actions": [
+    "hezrou-bite",
+    "hezrou-claws",
+    "hezrou-magic-resistance",
+    "hezrou-multiattack",
+    "hezrou-stench"
+  ]
 }

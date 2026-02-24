@@ -32,5 +32,7 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["awakened-shrub-rake"]
+  "actions": [
+    "awakened-shrub-rake"
+  ]
 }

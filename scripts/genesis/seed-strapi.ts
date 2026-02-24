@@ -46,71 +46,55 @@ const SEED_ORDER = [
  * Any string value found under these keys will be dynamically replaced
  * with its corresponding Strapi 5 documentId from the MemoryMap.
  */
-const RELATION_KEYS = new Set([
-  'damage_type',
-  'properties',
-  'school',
-  'actions',
-  'legendary_actions',
-  'spells',
-  'traits',
-  'features',
-  'items',
-  'item',
-  'proficiencies',
-  'proficiency',
-  'skills',
-  'saving_throws',
-  'equipment',
-  'tags',
-  'tag',
-  'languages',
-  'language',
-  'blueprints',
-  'race',
-  'actor',
-  'room',
-  'source',
-  'snippets',
-  'turn',
-  'recipient',
-  'classes',
-  'races',
-  'owner',
-  'entity_sheets',
-  'turns',
-  'messages',
-  'events',
-  'timeFrames',
-  'currentTimeFrame',
-  'world',
-  'dmSettings',
-  'class',
-  'subclass',
-  'terrains',
-  'knowledge_sources',
-  'knowledge_source',
-  'entities',
-  'voxelChanges',
-  'spell',
-  'action',
-  'feature',
-  'trait',
-]);
+const RELATION_TARGET_UIDS: Record<string, string> = {
+  damage_type: 'api::damage-type.damage-type',
+  properties: 'api::weapon-property.weapon-property',
+  school: 'api::magic-school.magic-school',
+  actions: 'api::action.action',
+  legendary_actions: 'api::action.action',
+  action: 'api::action.action',
+  spells: 'api::spell.spell',
+  spell: 'api::spell.spell',
+  traits: 'api::trait.trait',
+  trait: 'api::trait.trait',
+  features: 'api::feature.feature',
+  feature: 'api::feature.feature',
+  items: 'api::item.item',
+  item: 'api::item.item',
+  proficiencies: 'api::proficiency.proficiency',
+  proficiency: 'api::proficiency.proficiency',
+  skills: 'api::proficiency.proficiency',
+  saving_throws: 'api::proficiency.proficiency',
+  equipment: 'api::item.item',
+  tags: 'api::tag.tag',
+  tag: 'api::tag.tag',
+  languages: 'api::language.language',
+  language: 'api::language.language',
+  race: 'api::race.race',
+  races: 'api::race.race',
+  class: 'api::class.class',
+  classes: 'api::class.class',
+  subclass: 'api::subclass.subclass',
+  subclasses: 'api::subclass.subclass',
+  terrains: 'api::terrain.terrain',
+  knowledge_sources: 'api::knowledge-source.knowledge-source',
+  knowledge_source: 'api::knowledge-source.knowledge-source',
+  entities: 'api::entity.entity',
+};
 
-// Memory Map to hold slug -> documentId
+// Memory Map to hold slug -> documentId AND UID:slug -> documentId
 const MemoryMap: Record<string, string> = {};
 
 /**
- * Recursively scans an object and replaces strings under RELATION_KEYS
+ * Recursively scans an object and replaces strings under mapped payload keys
  * with their corresponding documentId from the MemoryMap.
  * Also totally strips 'null' fields, empty objects, and 'id' keys
  * to prevent Strapi Yup Validation and unique constraint crashes.
  */
-function resolveRelationsAndCleanNulls(obj: any): any {
+function resolveRelationsAndCleanNulls(obj: any, localizedUids: Set<string>): any {
   if (Array.isArray(obj)) {
     // Filter out nulls from arrays just in case, then map
-    const mapped = obj.filter((item) => item !== null).map((item) => resolveRelationsAndCleanNulls(item));
+    const mapped = obj.filter((item) => item !== null).map((item) => resolveRelationsAndCleanNulls(item, localizedUids));
     return mapped; // arrays of primitives or clean objects
   } else if (obj !== null && typeof obj === 'object') {
     const newObj: any = {};
@@ -124,25 +108,34 @@ function resolveRelationsAndCleanNulls(obj: any): any {
 
       let cleanedValue = value;
 
-      if (RELATION_KEYS.has(key)) {
+      if (key in RELATION_TARGET_UIDS || typeof value === 'string') {
+        // Only process string keys conditionally if mapped, else proceed to object traversal.
+        // Wait, if it's NOT in RELATION_TARGET_UIDS, it will skip below block if array/string.
+      }
+
+      if (key in RELATION_TARGET_UIDS) {
         if (Array.isArray(value)) {
           cleanedValue = value
             .map((slug: any) => {
               if (typeof slug === 'string') {
-                const id = MemoryMap[slug];
-                return id ? { documentId: id, locale: 'en' } : undefined;
+                const targetUid = RELATION_TARGET_UIDS[key];
+                const id = MemoryMap[`${targetUid}:${slug}`];
+                const isLoc = localizedUids.has(targetUid);
+                return id ? (isLoc ? { documentId: id, locale: 'en' } : { documentId: id }) : undefined;
               }
               // If it's an object, it's likely a nested component not a direct relation string.
               // We should clean it recursively.
-              return resolveRelationsAndCleanNulls(slug);
+              return resolveRelationsAndCleanNulls(slug, localizedUids);
             })
             .filter((item: any) => item !== undefined); // Drop unresolved dependencies
         } else if (typeof value === 'string') {
-          const id = MemoryMap[value];
-          cleanedValue = id ? { documentId: id, locale: 'en' } : undefined;
+          const targetUid = RELATION_TARGET_UIDS[key];
+          const id = MemoryMap[`${targetUid}:${value}`];
+          const isLoc = localizedUids.has(targetUid);
+          cleanedValue = id ? (isLoc ? { documentId: id, locale: 'en' } : { documentId: id }) : undefined;
         }
       } else if (typeof value === 'object') {
-        cleanedValue = resolveRelationsAndCleanNulls(value);
+        cleanedValue = resolveRelationsAndCleanNulls(value, localizedUids);
       }
 
       // 3. Strip totally empty objects post-clean, which break "required" field validators
@@ -160,6 +153,9 @@ function resolveRelationsAndCleanNulls(obj: any): any {
       if (key === 'condition_instances' && Array.isArray(cleanedValue)) {
         cleanedValue = cleanedValue.filter((c: any) => c && typeof c.chance === 'number' && c.chance >= 1);
         if ((cleanedValue as any[]).length === 0) continue;
+      }
+      if (key === 'last_run' && cleanedValue === '') {
+        continue; // Prevent ISO timestamp validation crash
       }
       if (
         (key === 'material' || key === 'material_description' || key === 'condition' || key === 'description') &&
@@ -202,6 +198,14 @@ async function runSeeder() {
   await strapi.load();
   console.log('✅ Strapi Context Loaded.');
 
+  const localizedUids = new Set<string>();
+  for (const step of SEED_ORDER) {
+    const model = strapi.getModel(step.uid as any);
+    if ((model?.pluginOptions as any)?.i18n?.localized === true) {
+      localizedUids.add(step.uid);
+    }
+  }
+
   let insertedCount = 0;
   let skippedCount = 0;
   let failedCount = 0;
@@ -228,7 +232,7 @@ async function runSeeder() {
       let data = JSON.parse(raw);
 
       // Critical Safety: Resolve explicit relational slugs to Strapi Document IDs
-      data = resolveRelationsAndCleanNulls(data);
+      data = resolveRelationsAndCleanNulls(data, localizedUids);
 
       // Critical Safety 2: Sanitize Unuploaded Media String Fields
       // Raw url strings from scraping crash strapi.documents media relations
@@ -250,23 +254,26 @@ async function runSeeder() {
 
         console.log(`   -> [${data.slug}] Querying existing document...`);
         // Check Idempotency via Document Service
-        const existing = await strapi.documents(step.uid as any).findFirst({
+        const existingDocs = await strapi.documents(step.uid as any).findMany({
           filters: findFilters,
         });
 
-        if (existing) {
-          console.log(`   -> [${data.slug}] Already exists (ID: ${existing.documentId}). Hard Re-creating...`);
+        if (existingDocs && existingDocs.length > 0) {
+          console.log(`   -> [${data.slug}] Already exists (${existingDocs.length} matching). Hard Re-creating...`);
 
           try {
             // Nuke the corrupted locale-locked row from postgres immediately
-            await strapi.documents(step.uid as any).delete({ documentId: existing.documentId });
+            for (const doc of existingDocs) {
+              await strapi.documents(step.uid as any).delete({ documentId: doc.documentId });
+            }
 
-            // Recreate freshly fully sanitized with proper EN locale
+            // Recreate freshly fully sanitized with proper locale
             const createParams: any = { data };
             if (supportsDraftAndPublish) createParams.status = 'published';
             if (supportsI18n) createParams.locale = 'en';
 
             const inserted = await strapi.documents(step.uid as any).create(createParams);
+            MemoryMap[`${step.uid}:${data.slug}`] = inserted.documentId;
             MemoryMap[data.slug] = inserted.documentId;
             skippedCount++; // count as updated/skipped
           } catch (updateErr: any) {
@@ -287,6 +294,7 @@ async function runSeeder() {
           try {
             const inserted = await strapi.documents(step.uid as any).create(createParams);
             console.log(`   -> [${data.slug}] Created successfully (ID: ${inserted.documentId}).`);
+            MemoryMap[`${step.uid}:${data.slug}`] = inserted.documentId;
             MemoryMap[data.slug] = inserted.documentId;
             insertedCount++;
           } catch (innerErr: any) {

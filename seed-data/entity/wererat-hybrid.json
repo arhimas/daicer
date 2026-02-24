@@ -25,19 +25,29 @@
     "burrowSpeed": 0,
     "hover": false,
     "saves": [],
-    "skills": ["perception", "stealth"],
+    "skills": [
+      "perception",
+      "stealth"
+    ],
     "passivePerception": 12,
     "darkvision": 0,
     "blindsight": 0,
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "wererat-hybrid-bite",
     "wererat-hybrid-hand-crossbow",
     "wererat-hybrid-keen-smell",
     "wererat-hybrid-multiattack",
-    "wererat-hybrid-shapechanger",
-    "wererat-hybrid-shortsword"
+    "wererat-hybrid-shapechanger"
   ]
 }

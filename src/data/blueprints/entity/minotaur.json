@@ -32,10 +32,17 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "greataxe",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "minotaur-charge",
     "minotaur-gore",
-    "minotaur-greataxe",
     "minotaur-labyrinthine-recall",
     "minotaur-reckless",
     "minotaur-skeleton-charge",

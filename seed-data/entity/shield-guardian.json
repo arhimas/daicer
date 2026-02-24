@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["shield-guardian-fist", "shield-guardian-multiattack"]
+  "actions": [
+    "shield-guardian-fist",
+    "shield-guardian-multiattack"
+  ]
 }

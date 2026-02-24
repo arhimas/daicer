@@ -24,7 +24,12 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["str", "con", "wis", "cha"],
+    "saves": [
+      "str",
+      "con",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 13,
     "darkvision": 0,
@@ -32,14 +37,26 @@
     "truesight": 120,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "whip",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "balor-death-throes",
     "balor-fire-aura",
-    "balor-longsword",
     "balor-magic-resistance",
     "balor-magic-weapons",
     "balor-multiattack",
-    "balor-teleport",
-    "balor-whip"
+    "balor-teleport"
   ]
 }

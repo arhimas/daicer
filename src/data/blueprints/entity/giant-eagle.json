@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-eagle-beak", "giant-eagle-keen-sight", "giant-eagle-multiattack", "giant-eagle-talons"]
+  "actions": [
+    "giant-eagle-beak",
+    "giant-eagle-keen-sight",
+    "giant-eagle-multiattack",
+    "giant-eagle-talons"
+  ]
 }

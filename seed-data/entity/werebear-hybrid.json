@@ -32,10 +32,17 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "greataxe",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "werebear-hybrid-bite",
     "werebear-hybrid-claw",
-    "werebear-hybrid-greataxe",
     "werebear-hybrid-keen-smell",
     "werebear-hybrid-multiattack",
     "werebear-hybrid-shapechanger"

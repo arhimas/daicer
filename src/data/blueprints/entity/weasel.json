@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["weasel-bite", "weasel-keen-hearing-and-smell"]
+  "actions": [
+    "weasel-bite",
+    "weasel-keen-hearing-and-smell"
+  ]
 }

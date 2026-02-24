@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-badger-bite", "giant-badger-claws", "giant-badger-keen-smell", "giant-badger-multiattack"]
+  "actions": [
+    "giant-badger-bite",
+    "giant-badger-claws",
+    "giant-badger-keen-smell",
+    "giant-badger-multiattack"
+  ]
 }

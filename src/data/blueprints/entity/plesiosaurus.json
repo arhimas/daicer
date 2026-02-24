@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["plesiosaurus-bite", "plesiosaurus-hold-breath"]
+  "actions": [
+    "plesiosaurus-bite",
+    "plesiosaurus-hold-breath"
+  ]
 }

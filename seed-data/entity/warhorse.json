@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["warhorse-hooves", "warhorse-skeleton-hooves", "warhorse-trampling-charge"]
+  "actions": [
+    "warhorse-hooves",
+    "warhorse-skeleton-hooves",
+    "warhorse-trampling-charge"
+  ]
 }

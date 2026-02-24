@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["polar-bear-bite", "polar-bear-claws", "polar-bear-keen-smell", "polar-bear-multiattack"]
+  "actions": [
+    "polar-bear-bite",
+    "polar-bear-claws",
+    "polar-bear-keen-smell",
+    "polar-bear-multiattack"
+  ]
 }

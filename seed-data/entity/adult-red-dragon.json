@@ -24,8 +24,16 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["dex", "con", "wis", "cha"],
-    "skills": ["perception", "stealth"],
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "perception",
+      "stealth"
+    ],
     "passivePerception": 23,
     "darkvision": 120,
     "blindsight": 60,
@@ -43,5 +51,7 @@
     "adult-red-dragon-tail-attack",
     "adult-red-dragon-tail"
   ],
-  "legendary_actions": ["adult-red-dragon-wing-attack-costs-2-actions"]
+  "legendary_actions": [
+    "adult-red-dragon-wing-attack-costs-2-actions"
+  ]
 }

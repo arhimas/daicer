@@ -38,7 +38,12 @@
     "gynosphinx-multiattack",
     "gynosphinx-spellcasting"
   ],
-  "legendary_actions": ["gynosphinx-cast-a-spell", "gynosphinx-claw-attack", "gynosphinx-claw", "gynosphinx-teleport"],
+  "legendary_actions": [
+    "gynosphinx-cast-a-spell",
+    "gynosphinx-claw-attack",
+    "gynosphinx-claw",
+    "gynosphinx-teleport"
+  ],
   "spells": [
     "banishment",
     "darkness",

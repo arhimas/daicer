@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["crab-amphibious", "crab-claw"]
+  "actions": [
+    "crab-amphibious",
+    "crab-claw"
+  ]
 }

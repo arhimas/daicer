@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["shadow-amorphous", "shadow-shadow-stealth", "shadow-strength-drain", "shadow-sunlight-weakness"]
+  "actions": [
+    "shadow-amorphous",
+    "shadow-shadow-stealth",
+    "shadow-strength-drain",
+    "shadow-sunlight-weakness"
+  ]
 }

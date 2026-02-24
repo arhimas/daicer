@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["darkmantle-crush", "darkmantle-darkness-aura", "darkmantle-echolocation", "darkmantle-false-appearance"]
+  "actions": [
+    "darkmantle-crush",
+    "darkmantle-darkness-aura",
+    "darkmantle-echolocation",
+    "darkmantle-false-appearance"
+  ]
 }

@@ -24,7 +24,11 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "wis", "cha"],
+    "saves": [
+      "con",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 0,
     "darkvision": 0,
@@ -32,5 +36,16 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["frost-giant-greataxe", "frost-giant-multiattack", "frost-giant-rock"]
+  "inventory": [
+    {
+      "item": "greataxe",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "frost-giant-multiattack",
+    "frost-giant-rock"
+  ]
 }

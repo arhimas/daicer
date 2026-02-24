@@ -30,12 +30,24 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "javelin",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "war-pick",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "duergar-duergar-resilience",
     "duergar-enlarge",
     "duergar-invisibility",
-    "duergar-javelin",
-    "duergar-sunlight-sensitivity",
-    "duergar-war-pick"
+    "duergar-sunlight-sensitivity"
   ]
 }

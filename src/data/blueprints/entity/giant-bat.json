@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-bat-bite", "giant-bat-echolocation", "giant-bat-keen-hearing"]
+  "actions": [
+    "giant-bat-bite",
+    "giant-bat-echolocation",
+    "giant-bat-keen-hearing"
+  ]
 }

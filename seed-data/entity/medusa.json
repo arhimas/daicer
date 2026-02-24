@@ -32,11 +32,23 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
-    "medusa-longbow",
     "medusa-multiattack",
     "medusa-petrifying-gaze",
-    "medusa-shortsword",
     "medusa-snake-hair"
   ]
 }

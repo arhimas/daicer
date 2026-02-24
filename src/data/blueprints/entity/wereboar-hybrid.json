@@ -32,9 +32,16 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "maul",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "wereboar-hybrid-charge",
-    "wereboar-hybrid-maul",
     "wereboar-hybrid-multiattack",
     "wereboar-hybrid-relentless",
     "wereboar-hybrid-shapechanger",

@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["hippogriff-beak", "hippogriff-claws", "hippogriff-keen-sight", "hippogriff-multiattack"]
+  "actions": [
+    "hippogriff-beak",
+    "hippogriff-claws",
+    "hippogriff-keen-sight",
+    "hippogriff-multiattack"
+  ]
 }

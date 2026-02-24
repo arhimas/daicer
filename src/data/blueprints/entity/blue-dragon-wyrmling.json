@@ -24,13 +24,24 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["dex", "con", "wis", "cha"],
-    "skills": ["perception", "stealth"],
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "perception",
+      "stealth"
+    ],
     "passivePerception": 14,
     "darkvision": 60,
     "blindsight": 10,
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["blue-dragon-wyrmling-bite", "blue-dragon-wyrmling-lightning-breath"]
+  "actions": [
+    "blue-dragon-wyrmling-bite",
+    "blue-dragon-wyrmling-lightning-breath"
+  ]
 }

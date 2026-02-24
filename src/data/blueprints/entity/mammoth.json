@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["mammoth-gore", "mammoth-stomp", "mammoth-trampling-charge"]
+  "actions": [
+    "mammoth-gore",
+    "mammoth-stomp",
+    "mammoth-trampling-charge"
+  ]
 }

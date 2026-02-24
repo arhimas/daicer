@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["reef-shark-bite", "reef-shark-pack-tactics", "reef-shark-water-breathing"]
+  "actions": [
+    "reef-shark-bite",
+    "reef-shark-pack-tactics",
+    "reef-shark-water-breathing"
+  ]
 }

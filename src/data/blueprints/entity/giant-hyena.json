@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-hyena-bite", "giant-hyena-rampage"]
+  "actions": [
+    "giant-hyena-bite",
+    "giant-hyena-rampage"
+  ]
 }

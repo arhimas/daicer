@@ -32,5 +32,16 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["hill-giant-greatclub", "hill-giant-multiattack", "hill-giant-rock"]
+  "inventory": [
+    {
+      "item": "greatclub",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "hill-giant-multiattack",
+    "hill-giant-rock"
+  ]
 }

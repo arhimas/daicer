@@ -24,7 +24,11 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["int", "wis", "cha"],
+    "saves": [
+      "int",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 24,
     "darkvision": 0,
@@ -32,16 +36,27 @@
     "truesight": 120,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "greatsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "solar-divine-awareness",
     "solar-flying-sword",
-    "solar-greatsword",
     "solar-healing-touch",
     "solar-innate-spellcasting",
     "solar-multiattack",
     "solar-slaying-longbow"
   ],
-  "legendary_actions": ["solar-blinding-gaze", "solar-searing-burst", "solar-teleport"],
+  "legendary_actions": [
+    "solar-blinding-gaze",
+    "solar-searing-burst",
+    "solar-teleport"
+  ],
   "spells": [
     "blade-barrier",
     "commune",

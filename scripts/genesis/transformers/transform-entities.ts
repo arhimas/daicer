@@ -26,6 +26,14 @@ const StatsComponentSchema = z.object({
   tremorsense: z.number().optional(),
 });
 
+// Strict Strapi Component Schema: game.inventory-item
+const InventoryItemSchema = z.object({
+  item: z.string(),
+  quantity: z.number().default(1),
+  slot: z.string().default('main_hand'),
+  isEquipped: z.boolean().default(true),
+});
+
 // Strict Strapi Content-Type Schema: api::entity.entity
 const EntitySchema = z.object({
   slug: z.string(),
@@ -43,6 +51,7 @@ const EntitySchema = z.object({
   challenge_rating: z.number().optional(),
   xp: z.number().optional(),
   stats: StatsComponentSchema,
+  inventory: z.array(InventoryItemSchema).optional(),
   actions: z.array(z.string()).optional(), // Relation array of UID slugs
   legendary_actions: z.array(z.string()).optional(), // Relation array of UID slugs
   spells: z.array(z.string()).optional(), // Relation array of UID slugs
@@ -112,6 +121,22 @@ async function transformEntities() {
     console.warn('⚠️ No extracted actions found. Run extract-actions python script first.');
   }
 
+  // Load all available standard items for inventory mapping
+  let availableItems: { slug: string; name: string }[] = [];
+  try {
+    const itemsDir = path.join(process.cwd(), 'seed-data', 'item');
+    const itemFiles = await fs.readdir(itemsDir);
+    for (const file of itemFiles) {
+      if (file.endsWith('.json')) {
+        const itemData = JSON.parse(await fs.readFile(path.join(itemsDir, file), 'utf-8'));
+        availableItems.push({ slug: file.replace('.json', ''), name: itemData.name.toLowerCase() });
+      }
+    }
+    console.log(`📦 Loaded ${availableItems.length} items for generic weapon interception.`);
+  } catch (e) {
+    console.warn('⚠️ No extracted items found for inventory mapping.');
+  }
+
   let successCount = 0;
   let failCount = 0;
 
@@ -149,6 +174,39 @@ async function transformEntities() {
           rawData.legendary_actions.toLowerCase().includes(a.replace(`${fallbackSlug}-`, '').replace(/-/g, ' ')))
     );
     const standardRefs = monsterActions.filter((a) => !legendaryRefs.includes(a));
+
+    const finalStandardRefs: string[] = [];
+    const inventory: any[] = [];
+
+    // Parse actions to intercept generic weapons
+    for (const a of standardRefs) {
+      try {
+        const actionPath = path.join(actionsDir, `${a}.json`);
+        const actionData = JSON.parse(await fs.readFile(actionPath, 'utf-8'));
+        
+        const actionNameLower = actionData.name.toLowerCase();
+        const matchedItem = availableItems.find(item => item.name === actionNameLower);
+        
+        // Exclude 'spell' types from being matched as items (e.g. if a spell happens to share a name with an item)
+        if (matchedItem && actionData.type !== 'spell') {
+          console.log(`🗡️  Converting generic action [${actionData.name}] to Inventory Item for [${fallbackName}]`);
+          inventory.push({
+            item: matchedItem.slug,
+            quantity: 1,
+            slot: 'main_hand',
+            isEquipped: true
+          });
+          
+          // Clean up the redundant action file to prevent DB bloat
+          await fs.unlink(actionPath).catch(() => {});
+        } else {
+          finalStandardRefs.push(a);
+        }
+      } catch (e) {
+        // If file read fails, keep the ref just in case
+        finalStandardRefs.push(a);
+      }
+    }
 
     // Build stats component
     const stats = {
@@ -233,7 +291,8 @@ async function transformEntities() {
       challenge_rating: parsedCR,
       xp: typeof rawData.xp === 'number' ? rawData.xp : parseInt(rawData.xp) || 0,
       stats: stats,
-      actions: standardRefs.length > 0 ? standardRefs : undefined,
+      inventory: inventory.length > 0 ? inventory : undefined,
+      actions: finalStandardRefs.length > 0 ? finalStandardRefs : undefined,
       legendary_actions: legendaryRefs.length > 0 ? legendaryRefs : undefined,
       spells: existingSpells,
     };

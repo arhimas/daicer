@@ -32,13 +32,27 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "club",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
-    "dryad-club",
     "dryad-fey-charm",
     "dryad-innate-spellcasting",
     "dryad-magic-resistance",
     "dryad-speak-with-beasts-and-plants",
     "dryad-tree-stride"
   ],
-  "spells": ["barkskin", "druidcraft", "entangle", "goodberry", "pass-without-trace", "shillelagh"]
+  "spells": [
+    "barkskin",
+    "druidcraft",
+    "entangle",
+    "goodberry",
+    "pass-without-trace",
+    "shillelagh"
+  ]
 }

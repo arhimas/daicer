@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "documentId": "dvw8dbwetnsb5s4259xky5mb",
+    "name": "Monk",
+    "slug": "monk",
+    "type": "mechanic",
+    "color": "#000000",
+    "description": "Test monk tag",
+    "createdAt": "2026-02-23T17:45:07.714Z",
+    "updatedAt": "2026-02-23T17:45:07.714Z",
+    "publishedAt": "2026-02-23T17:45:07.709Z",
+    "locale": null,
+    "terrains": [],
+    "knowledge_sources": [],
+    "entities": [],
+    "spells": [],
+    "items": [],
+    "features": [],
+    "createdBy": null,
+    "updatedBy": null,
+    "localizations": []
+  }
+]

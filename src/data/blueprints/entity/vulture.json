@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["vulture-beak", "vulture-keen-sight-and-smell", "vulture-pack-tactics"]
+  "actions": [
+    "vulture-beak",
+    "vulture-keen-sight-and-smell",
+    "vulture-pack-tactics"
+  ]
 }

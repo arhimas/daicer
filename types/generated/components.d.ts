@@ -469,6 +469,22 @@ export interface GamePosition extends Struct.ComponentSchema {
   };
 }
 
+export interface GameProficiency extends Struct.ComponentSchema {
+  collectionName: 'components_game_proficiencies';
+  info: {
+    description: 'Skill, Tool, or Language Proficiency';
+    displayName: 'Proficiency';
+    icon: 'book-reader';
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    proficiency: Schema.Attribute.Relation<'oneToOne', 'api::proficiency.proficiency'>;
+    type: Schema.Attribute.Enumeration<['Skill', 'Tool', 'Language', 'Armor', 'Weapon', 'Saving Throw']> &
+      Schema.Attribute.Required;
+    value: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+  };
+}
+
 export interface GameRangeConfig extends Struct.ComponentSchema {
   collectionName: 'components_game_range_configs';
   info: {
@@ -801,6 +817,7 @@ declare module '@strapi/strapi' {
       'game.mechanics-config': GameMechanicsConfig;
       'game.player': GamePlayer;
       'game.position': GamePosition;
+      'game.proficiency': GameProficiency;
       'game.range-config': GameRangeConfig;
       'game.resource-pool': GameResourcePool;
       'game.save-bonus': GameSaveBonus;

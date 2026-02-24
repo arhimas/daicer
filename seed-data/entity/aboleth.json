@@ -24,8 +24,15 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "int", "wis"],
-    "skills": ["history", "perception"],
+    "saves": [
+      "con",
+      "int",
+      "wis"
+    ],
+    "skills": [
+      "history",
+      "perception"
+    ],
     "passivePerception": 20,
     "darkvision": 120,
     "blindsight": 0,
@@ -40,5 +47,10 @@
     "aboleth-probing-telepathy",
     "aboleth-tentacle"
   ],
-  "legendary_actions": ["aboleth-detect", "aboleth-psychic-drain", "aboleth-tail-swipe", "aboleth-tail"]
+  "legendary_actions": [
+    "aboleth-detect",
+    "aboleth-psychic-drain",
+    "aboleth-tail-swipe",
+    "aboleth-tail"
+  ]
 }

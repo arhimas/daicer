@@ -32,5 +32,23 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["centaur-charge", "centaur-hooves", "centaur-longbow", "centaur-multiattack", "centaur-pike"]
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "pike",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "centaur-charge",
+    "centaur-hooves",
+    "centaur-multiattack"
+  ]
 }

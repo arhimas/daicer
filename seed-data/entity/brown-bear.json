@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["brown-bear-bite", "brown-bear-claws", "brown-bear-keen-smell", "brown-bear-multiattack"]
+  "actions": [
+    "brown-bear-bite",
+    "brown-bear-claws",
+    "brown-bear-keen-smell",
+    "brown-bear-multiattack"
+  ]
 }

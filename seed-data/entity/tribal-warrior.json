@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["tribal-warrior-pack-tactics", "tribal-warrior-spear-melee", "tribal-warrior-spear-ranged"]
+  "actions": [
+    "tribal-warrior-pack-tactics",
+    "tribal-warrior-spear-melee",
+    "tribal-warrior-spear-ranged"
+  ]
 }

@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["hawk-keen-sight", "hawk-talons"]
+  "actions": [
+    "hawk-keen-sight",
+    "hawk-talons"
+  ]
 }

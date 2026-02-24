@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["tiger-bite", "tiger-claw", "tiger-keen-smell", "tiger-pounce"]
+  "actions": [
+    "tiger-bite",
+    "tiger-claw",
+    "tiger-keen-smell",
+    "tiger-pounce"
+  ]
 }

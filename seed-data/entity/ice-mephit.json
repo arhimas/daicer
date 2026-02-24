@@ -39,5 +39,7 @@
     "ice-mephit-frost-breath",
     "ice-mephit-innate-spellcasting"
   ],
-  "spells": ["fog-cloud"]
+  "spells": [
+    "fog-cloud"
+  ]
 }

@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["basilisk-bite", "basilisk-petrifying-gaze"]
+  "actions": [
+    "basilisk-bite",
+    "basilisk-petrifying-gaze"
+  ]
 }

@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["cat-claws", "cat-keen-smell"]
+  "actions": [
+    "cat-claws",
+    "cat-keen-smell"
+  ]
 }

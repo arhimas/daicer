@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["gorgon-gore", "gorgon-hooves", "gorgon-petrifying-breath", "gorgon-trampling-charge"]
+  "actions": [
+    "gorgon-gore",
+    "gorgon-hooves",
+    "gorgon-petrifying-breath",
+    "gorgon-trampling-charge"
+  ]
 }

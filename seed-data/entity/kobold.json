@@ -32,5 +32,22 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["kobold-dagger", "kobold-pack-tactics", "kobold-sling", "kobold-sunlight-sensitivity"]
+  "inventory": [
+    {
+      "item": "dagger",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "sling",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "kobold-pack-tactics",
+    "kobold-sunlight-sensitivity"
+  ]
 }

@@ -24,7 +24,10 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "wis"],
+    "saves": [
+      "con",
+      "wis"
+    ],
     "skills": [],
     "passivePerception": 10,
     "darkvision": 0,
@@ -32,5 +35,18 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["knight-brave", "knight-greatsword", "knight-heavy-crossbow", "knight-leadership", "knight-multiattack"]
+  "inventory": [
+    {
+      "item": "greatsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "knight-brave",
+    "knight-heavy-crossbow",
+    "knight-leadership",
+    "knight-multiattack"
+  ]
 }

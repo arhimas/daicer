@@ -32,5 +32,23 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["ettin-battleaxe", "ettin-morningstar", "ettin-multiattack", "ettin-two-heads", "ettin-wakeful"]
+  "inventory": [
+    {
+      "item": "battleaxe",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "morningstar",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "ettin-multiattack",
+    "ettin-two-heads",
+    "ettin-wakeful"
+  ]
 }

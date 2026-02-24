@@ -32,6 +32,20 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "drider-bite",
     "drider-dancing-lights",
@@ -39,12 +53,14 @@
     "drider-faerie-fire",
     "drider-fey-ancestry",
     "drider-innate-spellcasting",
-    "drider-longbow",
-    "drider-longsword",
     "drider-multiattack",
     "drider-spider-climb",
     "drider-sunlight-sensitivity",
     "drider-web-walker"
   ],
-  "spells": ["dancing-lights", "darkness", "faerie-fire"]
+  "spells": [
+    "dancing-lights",
+    "darkness",
+    "faerie-fire"
+  ]
 }

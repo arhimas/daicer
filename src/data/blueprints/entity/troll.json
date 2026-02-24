@@ -32,5 +32,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["troll-bite", "troll-claw", "troll-keen-smell", "troll-multiattack", "troll-regeneration"]
+  "actions": [
+    "troll-bite",
+    "troll-claw",
+    "troll-keen-smell",
+    "troll-multiattack",
+    "troll-regeneration"
+  ]
 }

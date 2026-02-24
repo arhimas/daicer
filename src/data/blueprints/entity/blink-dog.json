@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["blink-dog-bite", "blink-dog-teleport"]
+  "actions": [
+    "blink-dog-bite",
+    "blink-dog-teleport"
+  ]
 }

@@ -30,11 +30,23 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "scimitar",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "weretiger-human-keen-hearing-and-smell",
-    "weretiger-human-longbow",
     "weretiger-human-multiattack",
-    "weretiger-human-scimitar",
     "weretiger-human-shapechanger"
   ]
 }

@@ -32,5 +32,7 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["poisonous-snake-bite"]
+  "actions": [
+    "poisonous-snake-bite"
+  ]
 }

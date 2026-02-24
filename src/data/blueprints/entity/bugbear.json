@@ -32,5 +32,22 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["bugbear-brute", "bugbear-javelin", "bugbear-morningstar", "bugbear-surprise-attack"]
+  "inventory": [
+    {
+      "item": "javelin",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "morningstar",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "bugbear-brute",
+    "bugbear-surprise-attack"
+  ]
 }

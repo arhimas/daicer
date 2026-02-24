@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["owlbear-beak", "owlbear-claws", "owlbear-keen-sight-and-smell", "owlbear-multiattack"]
+  "actions": [
+    "owlbear-beak",
+    "owlbear-claws",
+    "owlbear-keen-sight-and-smell",
+    "owlbear-multiattack"
+  ]
 }

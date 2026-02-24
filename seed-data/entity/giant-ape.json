@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-ape-fist", "giant-ape-multiattack", "giant-ape-rock"]
+  "actions": [
+    "giant-ape-fist",
+    "giant-ape-multiattack",
+    "giant-ape-rock"
+  ]
 }

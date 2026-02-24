@@ -32,5 +32,12 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["commoner-club"]
+  "inventory": [
+    {
+      "item": "club",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ]
 }

@@ -32,5 +32,21 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["orc-aggressive", "orc-greataxe", "orc-javelin"]
+  "inventory": [
+    {
+      "item": "greataxe",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "javelin",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "orc-aggressive"
+  ]
 }

@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-rat-bite", "giant-rat-diseased-bite", "giant-rat-keen-smell", "giant-rat-pack-tactics"]
+  "actions": [
+    "giant-rat-bite",
+    "giant-rat-diseased-bite",
+    "giant-rat-keen-smell",
+    "giant-rat-pack-tactics"
+  ]
 }

@@ -32,5 +32,11 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["ice-devil-bite", "ice-devil-claws", "ice-devil-multiattack", "ice-devil-tail", "ice-devil-wall-of-ice"]
+  "actions": [
+    "ice-devil-bite",
+    "ice-devil-claws",
+    "ice-devil-multiattack",
+    "ice-devil-tail",
+    "ice-devil-wall-of-ice"
+  ]
 }

@@ -32,5 +32,9 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-sea-horse-charge", "giant-sea-horse-ram", "giant-sea-horse-water-breathing"]
+  "actions": [
+    "giant-sea-horse-charge",
+    "giant-sea-horse-ram",
+    "giant-sea-horse-water-breathing"
+  ]
 }

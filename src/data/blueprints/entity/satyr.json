@@ -32,5 +32,22 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["satyr-magic-resistance", "satyr-ram", "satyr-shortbow", "satyr-shortsword"]
+  "inventory": [
+    {
+      "item": "shortbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "satyr-magic-resistance",
+    "satyr-ram"
+  ]
 }

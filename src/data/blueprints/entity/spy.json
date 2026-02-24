@@ -25,12 +25,32 @@
     "burrowSpeed": 0,
     "hover": false,
     "saves": [],
-    "skills": ["deception", "insight", "investigation", "perception", "persuasion", "stealth"],
+    "skills": [
+      "deception",
+      "insight",
+      "investigation",
+      "perception",
+      "persuasion",
+      "stealth"
+    ],
     "passivePerception": 16,
     "darkvision": 0,
     "blindsight": 0,
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["spy-cunning-action", "spy-hand-crossbow", "spy-multiattack", "spy-shortsword", "spy-sneak-attack-1-turn"]
+  "inventory": [
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
+  "actions": [
+    "spy-cunning-action",
+    "spy-hand-crossbow",
+    "spy-multiattack",
+    "spy-sneak-attack-1-turn"
+  ]
 }

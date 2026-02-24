@@ -38,5 +38,7 @@
     "steam-mephit-innate-spellcasting",
     "steam-mephit-steam-breath"
   ],
-  "spells": ["blur"]
+  "spells": [
+    "blur"
+  ]
 }

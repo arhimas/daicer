@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["constrictor-snake-bite", "constrictor-snake-constrict"]
+  "actions": [
+    "constrictor-snake-bite",
+    "constrictor-snake-constrict"
+  ]
 }

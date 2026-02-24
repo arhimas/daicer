@@ -24,7 +24,12 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["dex", "con", "wis", "cha"],
+    "saves": [
+      "dex",
+      "con",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 12,
     "darkvision": 0,
@@ -32,10 +37,22 @@
     "truesight": 120,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "longbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "erinyes-hellish-weapons",
-    "erinyes-longbow",
-    "erinyes-longsword",
     "erinyes-magic-resistance",
     "erinyes-multiattack"
   ]

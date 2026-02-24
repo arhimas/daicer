@@ -32,6 +32,14 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "war-pick",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "deep-gnome-svirfneblin-blindness-deafness",
     "deep-gnome-svirfneblin-blur",
@@ -39,7 +47,6 @@
     "deep-gnome-svirfneblin-gnome-cunning",
     "deep-gnome-svirfneblin-nondetection",
     "deep-gnome-svirfneblin-poisoned-dart",
-    "deep-gnome-svirfneblin-stone-camouflage",
-    "deep-gnome-svirfneblin-war-pick"
+    "deep-gnome-svirfneblin-stone-camouflage"
   ]
 }

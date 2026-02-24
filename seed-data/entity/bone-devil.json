@@ -24,8 +24,15 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["int", "wis", "cha"],
-    "skills": ["deception", "insight"],
+    "saves": [
+      "int",
+      "wis",
+      "cha"
+    ],
+    "skills": [
+      "deception",
+      "insight"
+    ],
     "passivePerception": 12,
     "darkvision": 120,
     "blindsight": 0,

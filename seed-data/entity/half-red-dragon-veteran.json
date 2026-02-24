@@ -32,11 +32,23 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "longsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "half-red-dragon-veteran-fire-breath",
     "half-red-dragon-veteran-heavy-crossbow",
-    "half-red-dragon-veteran-longsword",
-    "half-red-dragon-veteran-multiattack",
-    "half-red-dragon-veteran-shortsword"
+    "half-red-dragon-veteran-multiattack"
   ]
 }

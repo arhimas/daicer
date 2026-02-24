@@ -32,5 +32,18 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["skeleton-shortbow", "skeleton-shortsword"]
+  "inventory": [
+    {
+      "item": "shortbow",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    },
+    {
+      "item": "shortsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ]
 }

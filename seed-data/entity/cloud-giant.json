@@ -24,7 +24,11 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "wis", "cha"],
+    "saves": [
+      "con",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 17,
     "darkvision": 0,
@@ -32,10 +36,17 @@
     "truesight": 0,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "morningstar",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "cloud-giant-innate-spellcasting",
     "cloud-giant-keen-smell",
-    "cloud-giant-morningstar",
     "cloud-giant-multiattack",
     "cloud-giant-rock"
   ],

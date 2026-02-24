@@ -32,5 +32,10 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["dretch-bite", "dretch-claws", "dretch-fetid-cloud", "dretch-multiattack"]
+  "actions": [
+    "dretch-bite",
+    "dretch-claws",
+    "dretch-fetid-cloud",
+    "dretch-multiattack"
+  ]
 }

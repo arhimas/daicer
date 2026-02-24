@@ -24,7 +24,11 @@
     "climbSpeed": 0,
     "burrowSpeed": 0,
     "hover": false,
-    "saves": ["con", "wis", "cha"],
+    "saves": [
+      "con",
+      "wis",
+      "cha"
+    ],
     "skills": [],
     "passivePerception": 21,
     "darkvision": 0,
@@ -32,10 +36,17 @@
     "truesight": 120,
     "tremorsense": 0
   },
+  "inventory": [
+    {
+      "item": "greatsword",
+      "quantity": 1,
+      "slot": "main_hand",
+      "isEquipped": true
+    }
+  ],
   "actions": [
     "planetar-angelic-weapons",
     "planetar-divine-awareness",
-    "planetar-greatsword",
     "planetar-healing-touch",
     "planetar-innate-spellcasting",
     "planetar-magic-resistance",

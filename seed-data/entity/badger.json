@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["badger-bite", "badger-keen-smell"]
+  "actions": [
+    "badger-bite",
+    "badger-keen-smell"
+  ]
 }

@@ -32,5 +32,8 @@
     "truesight": 0,
     "tremorsense": 0
   },
-  "actions": ["giant-fire-beetle-bite", "giant-fire-beetle-illumination"]
+  "actions": [
+    "giant-fire-beetle-bite",
+    "giant-fire-beetle-illumination"
+  ]
 }
