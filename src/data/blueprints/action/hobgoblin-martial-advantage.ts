@@ -1,0 +1,27 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Martial Advantage',
+  description:
+    "Once per turn, the hobgoblin can deal an extra 7 (2d6) damage to a creature it hits with a weapon attack if that creature is within 5 ft. of an ally of the hobgoblin that isn't incapacitated.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: null,
+      dice_count: 2,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'One Time Trigger',
+    },
+  ],
+  condition_instances: null,
+  slug: 'hobgoblin-martial-advantage',
+});

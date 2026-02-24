@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'chest',
+  name: 'Chest',
+  description: 'A sturdy wooden chest used for storing and transporting items.',
+  type: 'container',
+  rarity: 'common',
+  value: 5,
+  weight: 25,
+  size: 'Medium',
+  width: 120,
+});

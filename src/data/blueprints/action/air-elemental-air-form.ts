@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Air Form',
+  description:
+    "The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing.",
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'air-elemental-air-form',
+});

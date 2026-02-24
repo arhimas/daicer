@@ -1,0 +1,39 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'mage-armor',
+  name: 'Mage Armor',
+  level: 1,
+  school: 'Abjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A piece of cured leather.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Time-Limited',
+    value: 8,
+    unit: 'Hours',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    "You touch a willing creature who isn't wearing armor, and a protective magical force surrounds it until the spell ends. The target's base AC becomes 13 + its Dexterity modifier. The spell ends if the target dons armor or if you dismiss the spell as an action.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

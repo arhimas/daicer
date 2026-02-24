@@ -1,0 +1,47 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description:
+    "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage plus 5 (1d10) poison damage, and the target is grappled (escape DC 13). Until this grapple ends, the target is restrained, and the toad can't bite another target.",
+  type: 'melee',
+  toHit: 4,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 5,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 1,
+      dice_value: 10,
+      flat_bonus: 2,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Poison',
+      dice_count: 1,
+      dice_value: 10,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Grappled',
+      description: 'escape DC 13',
+      chance: 100,
+    },
+    {
+      condition: 'Restrained',
+      description: 'Until this grapple ends',
+      chance: 100,
+    },
+  ],
+  slug: 'giant-toad-bite',
+});

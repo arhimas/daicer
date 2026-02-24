@@ -1,0 +1,20 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Probing Telepathy',
+  description:
+    "If a creature communicates telepathically with the aboleth, the aboleth learns the creature's greatest desires if the aboleth can see the creature.",
+  type: 'utility',
+  toHit: null,
+  range_config: {
+    type: 'Sight',
+    distance: null,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'aboleth-probing-telepathy',
+});

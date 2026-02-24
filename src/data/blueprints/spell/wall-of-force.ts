@@ -1,0 +1,40 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'wall-of-force',
+  name: 'Wall of Force',
+  level: 5,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A pinch of powder made by crushing a clear gemstone.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 120,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 10,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    "An invisible wall of force springs into existence at a point you choose within range. The wall appears in any orientation you choose, as a horizontal or vertical barrier or at an angle. It can be free floating or resting on a solid surface. You can form it into a hemispherical dome or a sphere with a radius of up to 10 feet, or you can shape a flat surface made up of ten 10-foot-by-10-foot panels. Each panel must be contiguous with another panel. In any form, the wall is 1/4 inch thick. It lasts for the duration. If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (your choice which side). Nothing can physically pass through the wall. It is immune to all damage and can't be dispelled by dispel magic. A disintegrate spell destroys the wall instantly, however. The wall also extends into the Ethereal Plane, blocking ethereal travel through the wall.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

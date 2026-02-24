@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'donkey',
+  name: 'Donkey',
+  description:
+    'A donkey is a beast of burden used as a mount or pack animal. It has a carrying capacity of 420 lb. and a speed of 40 ft. per round.',
+  type: 'loot',
+  rarity: 'common',
+  value: 8,
+  weight: 0,
+  size: 'Medium',
+});

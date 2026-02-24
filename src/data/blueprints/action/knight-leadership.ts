@@ -1,0 +1,23 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Leadership',
+  description:
+    'For 1 minute, the knight can utter a special command or warning whenever a nonhostile creature that it can see within 30 ft. of it makes an attack roll or a saving throw. The creature can add a d4 to its roll provided it can hear and understand the knight. A creature can benefit from only one Leadership die at a time. This effect ends if the knight is incapacitated.',
+  type: 'utility',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 30,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'knight-leadership',
+});

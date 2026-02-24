@@ -1,0 +1,14 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Magic Weapons',
+  description: "The unicorn's weapon attacks are magical.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'unicorn-magic-weapons',
+});

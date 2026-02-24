@@ -1,0 +1,9 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Angelic Weapons',
+  description:
+    "The planetar's weapon attacks are magical. When the planetar hits with any weapon, the weapon deals an extra 5d8 radiant damage (included in the attack).",
+  type: 'ability',
+  slug: 'planetar-angelic-weapons',
+});

@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'sled',
+  name: 'Sled',
+  description:
+    'A sled is used for transporting passengers or goods across snow and ice, typically drawn by draft animals.',
+  type: 'tool',
+  rarity: 'common',
+  value: 20,
+  weight: 300,
+  size: 'Medium',
+});

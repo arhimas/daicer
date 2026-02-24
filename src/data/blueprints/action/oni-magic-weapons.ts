@@ -1,0 +1,11 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Magic Weapons',
+  description: "The oni's weapon attacks are magical.",
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'oni-magic-weapons',
+});

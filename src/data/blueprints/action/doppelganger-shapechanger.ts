@@ -1,0 +1,18 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Shapechanger',
+  description:
+    "The doppelganger can use its action to polymorph into a Small or Medium humanoid it has seen, or back into its true form. Its statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'doppelganger-shapechanger',
+});

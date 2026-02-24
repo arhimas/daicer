@@ -1,0 +1,40 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description:
+    'Melee Weapon Attack: +17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage plus 14 (4d6) fire damage.',
+  type: 'melee',
+  toHit: 17,
+  range_config: {
+    type: 'Touch',
+    distance: 15,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 2,
+      dice_value: 10,
+      flat_bonus: 10,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Fire',
+      dice_count: 4,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'ancient-red-dragon-bite',
+});

@@ -1,0 +1,15 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Two-Headed',
+  description:
+    'The dog has advantage on Wisdom (Perception) checks and on saving throws against being blinded, charmed, deafened, frightened, stunned, or knocked unconscious.',
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'death-dog-two-headed',
+});

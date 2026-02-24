@@ -1,0 +1,17 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'spellcasting-druid',
+  name: 'Spellcasting: Druid',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Generated from reference data.',
+  },
+  description:
+    'Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will. At 1st level, you know two cantrips of your choice from the druid spell list. You prepare the list of druid spells that are available for you to cast, choosing from the druid spell list. When you do so, choose a number of druid spells equal to your Wisdom modifier + your druid level (minimum of one spell). The spells must be of a level for which you have spell slots. Wisdom is your spellcasting ability for your druid spells, since your magic draws upon your devotion and attunement to nature. You can cast a druid spell as a ritual if that spell has the ritual tag and you have the spell prepared. You can use a druidic focus as a spellcasting focus for your druid spells.',
+  embedding: {},
+  image: '',
+  level: 1,
+  lore: 'Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will.',
+  tags: ['druid', 'spellcasting'],
+});

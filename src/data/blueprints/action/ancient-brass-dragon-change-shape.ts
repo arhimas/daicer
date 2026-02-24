@@ -1,0 +1,18 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Change Shape',
+  description:
+    "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the dragon's choice). In a new form, the dragon retains its alignment, hit points, Hit Dice, ability to speak, proficiencies, Legendary Resistance, lair actions, and Intelligence, Wisdom, and Charisma scores, as well as this action. Its statistics and capabilities are otherwise replaced by those of the new form, except any class features or legendary actions of that form.",
+  type: 'utility',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'ancient-brass-dragon-change-shape',
+});

@@ -1,0 +1,15 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Innate Spellcasting',
+  description:
+    'The mephit can innately cast sleep, requiring no material components. Its innate spellcasting ability is Charisma.',
+  type: 'spell',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'dust-mephit-innate-spellcasting',
+});

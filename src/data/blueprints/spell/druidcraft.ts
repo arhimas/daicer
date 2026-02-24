@@ -1,0 +1,36 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'druidcraft',
+  name: 'Druidcraft',
+  level: 0,
+  school: 'Transmutation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 30,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    "Whispering to the spirits of nature, you create one of the following effects within 'range': - You create a tiny, harmless sensory effect that predicts what the weather will be at your location for the next 24 hours. The effect might manifest as a golden orb for clear skies, a cloud for rain, falling snowflakes for snow, and so on. This effect persists for 1 round. - You instantly make a flower bloom, a seed pod open, or a leaf bud bloom. - You create an instantaneous, harmless sensory effect, such as falling leaves, a puff of wind, the sound of a small animal, or the faint order of skunk. The effect must fit in a 5-foot cube. - You instantly light or snuff out a candle, a torch, or a small campfire.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

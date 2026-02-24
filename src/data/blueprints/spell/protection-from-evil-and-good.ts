@@ -1,0 +1,53 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'protection-from-evil-and-good',
+  name: 'Protection from Evil and Good',
+  level: 1,
+  school: 'Abjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: true,
+      cost_gp: 0,
+      material: true,
+      material_description: 'Holy water or powdered silver and iron, which the spell consumes.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 10,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  condition_instances: [
+    {
+      condition: 'Charmed',
+      description:
+        "The target can't be charmed by aberrations, celestials, elementals, fey, fiends, and undead. If already charmed, the target has advantage on any new saving throw against the effect.",
+      chance: 100,
+    },
+    {
+      condition: 'Frightened',
+      description:
+        "The target can't be frightened by aberrations, celestials, elementals, fey, fiends, and undead. If already frightened, the target has advantage on any new saving throw against the effect.",
+      chance: 100,
+    },
+  ],
+  description:
+    "Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead. The protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

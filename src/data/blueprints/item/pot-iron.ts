@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'pot-iron',
+  name: 'Pot, iron',
+  description: 'An iron pot, typically used for cooking over a campfire or holding up to 1 gallon of liquid.',
+  type: 'tool',
+  rarity: 'common',
+  value: 2,
+  weight: 10,
+  size: 'Medium',
+  width: 12,
+});

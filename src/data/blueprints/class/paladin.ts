@@ -1,0 +1,14 @@
+import { defineClass } from '../../../features/genesis-core/blueprints';
+
+export default defineClass({
+  slug: 'paladin',
+  name: 'Paladin',
+  description: 'A holy warrior bound by a sacred oath, the paladin is a mixture of martial prowess and divine magic.',
+  hit_die: 'd10',
+  subclasses: ['devotion'],
+  proficiencies: ['all-armor', 'shields', 'simple-weapons', 'martial-weapons', 'saving-throw-wis', 'saving-throw-cha'],
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Imported from reference data.',
+  },
+});

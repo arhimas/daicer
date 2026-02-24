@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'entertainers-pack',
+  name: "Entertainer's Pack",
+  description:
+    'Includes a backpack, a bedroll, 2 costumes, 5 candles, 5 days of rations, a waterskin, and a disguise kit.',
+  type: 'container',
+  rarity: 'common',
+  value: 40,
+  weight: 38,
+  size: 'Medium',
+});

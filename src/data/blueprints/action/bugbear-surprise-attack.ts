@@ -1,0 +1,27 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Surprise Attack',
+  description:
+    'If the bugbear surprises a creature and hits it with an attack during the first round of combat, the target takes an extra 7 (2d6) damage from the attack.',
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: null,
+      dice_count: 2,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'One Time Trigger',
+    },
+  ],
+  condition_instances: null,
+  slug: 'bugbear-surprise-attack',
+});

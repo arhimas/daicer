@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-minions-of-chaos',
+  name: 'Eldritch Invocation: Minions of Chaos',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    "You can cast conjure elemental once using a warlock spell slot. You can't do so again until you finish a long rest.",
+  level: 9,
+  lore: 'By reaching into the primordial heart of the Elemental Chaos, you have learned to bind the very building blocks of the multiverse to your service.',
+  tags: ['warlock', 'eldritch-invocation'],
+});

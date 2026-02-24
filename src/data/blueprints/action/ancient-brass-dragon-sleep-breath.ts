@@ -1,0 +1,33 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Sleep Breath',
+  description:
+    'The dragon exhales sleep gas in a 90-foot cone. Each creature in that area must succeed on a DC 21 Constitution saving throw or fall unconscious for 10 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wake it.',
+  type: 'ability',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 90,
+    aoe_shape: 'Cone',
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 21,
+    attribute: 'con',
+  },
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Unconscious',
+      description: null,
+      chance: 100,
+      duration_rounds: 100,
+    },
+  ],
+  slug: 'ancient-brass-dragon-sleep-breath',
+});

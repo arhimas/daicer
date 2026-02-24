@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'natures-sanctuary',
+  name: "Nature's Sanctuary",
+  compilation_state: {
+    status: 'Valid',
+    hash: '7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description:
+    'When you reach 14th level, creatures of the natural world sense your connection to nature and become hesitant to attack you. When a beast or plant creature attacks you, that creature must make a Wisdom saving throw against your druid spell save DC. On a failed save, the creature must choose a different target, or the attack automatically misses. On a successful save, the creature is immune to this effect for 24 hours. The creature is aware of this effect before it makes its attack against you.',
+  embedding: {},
+  image: '',
+  level: 14,
+  lore: 'The druid becomes a beacon of the wild, respected by the very flora and fauna they protect.',
+  tags: ['druid', 'land', 'class-feature'],
+});

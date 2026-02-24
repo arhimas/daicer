@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'fighting-style-two-weapon-fighting',
+  name: 'Fighting Style: Two-Weapon Fighting',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7f8e9a1b2c3d4e5f',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description:
+    'When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.',
+  embedding: {},
+  image: '',
+  level: 1,
+  lore: 'Mastery of dual-wielding allows a warrior to strike with lethal precision using both hands, ensuring that a secondary strike is just as potent as the first.',
+  tags: ['fighter', 'fighting-style'],
+});

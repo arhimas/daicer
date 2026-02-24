@@ -1,0 +1,30 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'detect magic',
+  description:
+    'For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any.',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: 'Senses the presence of magic within 30 feet.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'mage-detect-magic',
+});

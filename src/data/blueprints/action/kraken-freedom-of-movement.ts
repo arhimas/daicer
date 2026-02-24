@@ -1,0 +1,18 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Freedom of Movement',
+  description:
+    "The kraken ignores difficult terrain, and magical effects can't reduce its speed or cause it to be restrained. It can spend 5 feet of movement to escape from nonmagical restraints or being grappled.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'kraken-freedom-of-movement',
+});

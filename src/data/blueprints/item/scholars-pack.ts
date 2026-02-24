@@ -1,0 +1,17 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'scholars-pack',
+  name: "Scholar's Pack",
+  description:
+    'Includes a backpack, a book, a bottle of ink, an ink pen, 10 sheets of parchment, a little bag of sand, and a small knife.',
+  type: 'container',
+  rarity: 'common',
+  value: 40,
+  weight: 11,
+  size: 'Medium',
+  equipment_data: {
+    properties: [],
+  },
+  width: 10,
+});

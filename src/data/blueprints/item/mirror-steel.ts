@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'mirror-steel',
+  name: 'Mirror, steel',
+  description: 'A small, polished steel mirror used for grooming or seeing around corners.',
+  type: 'loot',
+  rarity: 'common',
+  value: 5,
+  weight: 0.5,
+  size: 'Medium',
+});

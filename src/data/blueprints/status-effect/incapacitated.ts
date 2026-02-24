@@ -1,0 +1,15 @@
+import { defineStatusEffect } from '../../../features/genesis-core/blueprints';
+
+export default defineStatusEffect({
+  slug: 'incapacitated',
+  name: 'Incapacitated',
+  compilation_state: {
+    status: 'Valid',
+    hash: 'd41d8cd98f00b204e9800998ecf8427e',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully compiled incapacitated condition.',
+  },
+  description: "An incapacitated creature can't take actions or reactions.",
+  effects: {},
+  embedding: {},
+});

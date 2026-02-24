@@ -1,0 +1,12 @@
+import { defineDamageType } from '../../../features/genesis-core/blueprints';
+
+export default defineDamageType({
+  slug: 'bludgeoning',
+  name: 'Bludgeoning',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description: 'Blunt force attacks, falling, constriction, and the like deal bludgeoning damage.',
+  embedding: {},
+  image: '/api/2014/damage-types/bludgeoning',
+});

@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'abacus',
+  name: 'Abacus',
+  description: 'A standard tool used for performing mathematical calculations.',
+  type: 'loot',
+  rarity: 'common',
+  value: 2,
+  weight: 2,
+  size: 'Medium',
+  width: 1,
+});

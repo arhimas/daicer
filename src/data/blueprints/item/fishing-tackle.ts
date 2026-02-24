@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'fishing-tackle',
+  name: 'Fishing tackle',
+  description:
+    'This kit includes a wooden rod, silken line, corkwood bobbers, steel hooks, lead sinkers, velvet lures, and narrow netting.',
+  type: 'tool',
+  rarity: 'common',
+  value: 1,
+  weight: 4,
+  size: 'Medium',
+});

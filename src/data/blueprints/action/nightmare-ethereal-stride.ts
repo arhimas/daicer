@@ -1,0 +1,13 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Ethereal Stride',
+  description:
+    'The nightmare and up to three willing creatures within 5 feet of it magically enter the Ethereal Plane from the Material Plane, or vice versa.',
+  type: 'utility',
+  range_config: {
+    type: 'Self',
+    distance: 5,
+  },
+  slug: 'nightmare-ethereal-stride',
+});

@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'sailing-ship',
+  name: 'Sailing ship',
+  description: 'A waterborne vehicle with a speed of 2 mph.',
+  type: 'loot',
+  rarity: 'common',
+  value: 10000,
+  weight: 0,
+  size: 'Medium',
+});

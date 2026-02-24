@@ -1,0 +1,14 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Tail Spike Regrowth',
+  description: 'The manticore has twenty-four tail spikes. Used spikes regrow when the manticore finishes a long rest.',
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'manticore-tail-spike-regrowth',
+});

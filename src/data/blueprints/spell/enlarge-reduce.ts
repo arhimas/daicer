@@ -1,0 +1,9 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'enlarge-reduce',
+  name: 'Enlarge/Reduce',
+  level: 2,
+  school: 'Transmutation',
+  tags: ['sorcerer', 'wizard', 'lore'],
+});

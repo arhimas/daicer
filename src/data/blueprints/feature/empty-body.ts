@@ -1,0 +1,15 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'empty-body',
+  name: 'Empty Body',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully mapped from 5e SRD reference data.',
+  },
+  description:
+    "Beginning at 18th level, you can use your action to spend 4 ki points to become invisible for 1 minute. During that time, you also have resistance to all damage but force damage. Additionally, you can spend 8 ki points to cast the astral projection spell, without needing material components. When you do so, you can't take any other creatures with you.",
+  level: 18,
+  lore: 'By mastering the flow of ki within, you can momentarily detach your spirit from your physical form, allowing you to move through the world unseen or project your soul into the infinite silver of the Astral Plane.',
+  tags: ['monk'],
+});

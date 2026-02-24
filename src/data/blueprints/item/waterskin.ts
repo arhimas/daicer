@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'waterskin',
+  name: 'Waterskin',
+  description: 'A waterskin can hold up to 4 pints of liquid.',
+  type: 'container',
+  rarity: 'common',
+  value: 0,
+  weight: 5,
+  size: 'Medium',
+});

@@ -1,0 +1,48 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description:
+    'Melee Weapon Attack: +8 to hit, reach 5 ft., one creature. Hit: 8 (1d6 + 5) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 24 hours. Until this poison ends, the target is unconscious. Another creature can use an action to shake the target awake.',
+  type: 'melee',
+  toHit: 8,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 13,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 5,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Poisoned',
+      description: 'for 24 hours',
+      chance: 100,
+      duration_rounds: null,
+    },
+    {
+      condition: 'Unconscious',
+      description: 'Until this poison ends',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'couatl-bite',
+});

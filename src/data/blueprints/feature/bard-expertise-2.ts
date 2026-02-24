@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'expertise',
+  name: 'Expertise',
+  compilation_state: {
+    status: 'Valid',
+    hash: '6b86b273ff34fce19d6b804eff5a3f57',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully compiled from reference data.',
+  },
+  description:
+    'At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose another two skill proficiencies to gain this benefit.',
+  embedding: {},
+  image: 'https://media.dndbeyond.com/features/bard-expertise.png',
+  level: 10,
+  lore: "A bard's mastery of their chosen crafts reflects their dedication to the performing and practical arts alike.",
+  tags: ['bard', 'class-feature'],
+});

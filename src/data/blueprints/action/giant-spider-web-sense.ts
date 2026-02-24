@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Web Sense',
+  description:
+    'While in contact with a web, the spider knows the exact location of any other creature in contact with the same web.',
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'giant-spider-web-sense',
+});

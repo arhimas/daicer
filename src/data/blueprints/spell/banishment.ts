@@ -1,0 +1,58 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'banishment',
+  name: 'Banishment',
+  level: 4,
+  school: 'Abjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'An item distasteful to the target.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'Charisma Save',
+    save_effect: 'Negate',
+  },
+  damage_instances: [],
+  condition_instances: [
+    {
+      condition: 'Incapacitated',
+      description:
+        "If the target is native to the plane of existence you're on, you banish the target to a harmless demiplane. While there, the target is incapacitated.",
+      chance: 100,
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Target',
+    method: 'Per Slot Level',
+    dice_count: 0,
+    dice_value: 0,
+  },
+  description:
+    "You attempt to send one creature that you can see within range to another plane of existence. The target must succeed on a charisma saving throw or be banished. If the target is native to the plane of existence you're on, you banish the target to a harmless demiplane. While there, the target is incapacitated. The target remains there until the spell ends, at which point the target reappears in the space it left or in the nearest unoccupied space if that space is occupied. If the target is native to a different plane of existence than the one you're on, the target is banished with a faint popping noise, returning to its home plane. If the spell ends before 1 minute has passed, the target reappears in the space it left or in the nearest unoccupied space if that space is occupied. Otherwise, the target doesn't return. When you cast this spell using a spell slot of 5th level or higher, you can target one additional creature for each slot level above 4th.",
+  compilation_state: {
+    status: 'Valid',
+  },
+  tags: ['cleric', 'paladin', 'sorcerer', 'warlock', 'wizard'],
+});

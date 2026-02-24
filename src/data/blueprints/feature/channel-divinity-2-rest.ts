@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'channel-divinity-2-rest',
+  name: 'Channel Divinity (2/rest)',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    'Beginning at 6th level, you can use your Channel Divinity twice between rests, and beginning at 18th level, you can use it three times between rests. When you finish a short or long rest, you regain your expended uses.',
+  level: 6,
+  tags: ['cleric'],
+});

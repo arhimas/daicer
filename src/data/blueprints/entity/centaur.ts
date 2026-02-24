@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'centaur',
+  name: 'Centaur',
+  description:
+    '### Special Abilities\n[{"name": "Charge", "desc": "If the centaur moves at least 30 ft. straight toward a target and then hits it with a pike attack on the same turn, the target takes an extra 10 (3d6) piercing damage."}]\n\n### Actions\n[{"name": "Multiattack", "desc": "The centaur makes two attacks: one with its pike and one with its hooves or two with its longbow."}, {"name": "Pike", "desc": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 9 (1d10 + 4) piercing damage."}, {"name": "Hooves", "desc": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage."}, {"name": "Longbow", "desc": "Ranged Weapon Attack: +4 to hit, range 150/600 ft., one target. Hit: 6 (1d8 + 2) piercing damage."}]',
+  size: 'Large',
+  type: 'monstrosity',
+  alignment: 'neutral good',
+  level: 2,
+  ac: 12,
+  hp: 45,
+  hit_dice: '6d10+12',
+  challenge_rating: 2,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 50,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 13,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'longbow',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'pike',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['centaur-charge', 'centaur-hooves', 'centaur-multiattack'],
+});

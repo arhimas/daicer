@@ -1,0 +1,36 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description:
+    'Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) piercing damage. If the target is a creature, it must succeed on a DC 11 Strength saving throw or be knocked prone.',
+  type: 'melee',
+  toHit: 3,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  save: {
+    dc: 11,
+    attribute: 'str',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 1,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Prone',
+    },
+  ],
+  slug: 'mastiff-bite',
+});

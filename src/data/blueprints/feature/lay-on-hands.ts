@@ -1,0 +1,17 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'lay-on-hands',
+  name: 'Lay on Hands',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Feature compiled from standard 2014 SRD reference.',
+  },
+  description:
+    'Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level x 5. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one. This feature has no effect on undead and constructs.',
+  embedding: {},
+  image: '',
+  level: 1,
+  lore: "The paladin's hands serve as a conduit for divine grace, capable of mending the broken and purging the impure.",
+  tags: ['paladin'],
+});

@@ -1,0 +1,14 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'galley',
+  name: 'Galley',
+  description:
+    'A galley is a large waterborne vehicle propelled by oars and sails, primarily used for naval warfare and trade. It has a travel speed of 4 miles per hour.',
+  type: 'tool',
+  rarity: 'common',
+  value: 30000,
+  weight: 0,
+  size: 'Medium',
+  tags: ['mounts-and-vehicles', 'waterborne-vehicles'],
+});

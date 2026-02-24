@@ -1,0 +1,18 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'naturally-stealthy',
+  name: 'Naturally Stealthy',
+  compilation_state: {
+    status: 'Valid',
+    hash: 'b8a8e8f8',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Imported from SRD reference',
+  },
+  description:
+    'You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.',
+  embedding: {},
+  image: '',
+  proficiencies: [],
+  races: ['lightfoot-halfling'],
+});

@@ -1,0 +1,53 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'magic-missile',
+  name: 'Magic Missile',
+  level: 1,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 120,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Auto-Hit',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Force',
+      dice_count: 1,
+      dice_value: 4,
+      flat_bonus: 1,
+      timing: 'Instant',
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Target',
+    method: 'Per Slot Level',
+  },
+  description:
+    'You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. A dart deals 1d4 + 1 force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.\n\n**At Higher Levels.** When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot level above 1st.',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Magic Missile spell data compiled from reference.',
+  },
+  tags: ['sorcerer', 'wizard'],
+});

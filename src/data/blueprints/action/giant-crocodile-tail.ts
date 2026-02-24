@@ -1,0 +1,42 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Tail',
+  description:
+    'Melee Weapon Attack: +8 to hit, reach 10 ft., one target not grappled by the crocodile. Hit: 14 (2d8 + 5) bludgeoning damage. If the target is a creature, it must succeed on a DC 16 Strength saving throw or be knocked prone.',
+  type: 'melee',
+  toHit: 8,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 10,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Strength Save',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 16,
+    attribute: 'str',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Bludgeoning',
+      dice_count: 2,
+      dice_value: 8,
+      flat_bonus: 5,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Prone',
+      description: null,
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'giant-crocodile-tail',
+});

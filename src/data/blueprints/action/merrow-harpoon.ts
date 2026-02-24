@@ -1,0 +1,36 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Harpoon',
+  description:
+    'Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 11 (2d6 + 4) piercing damage. If the target is a Huge or smaller creature, it must succeed on a Strength contest against the merrow or be pulled up to 20 feet toward the merrow.',
+  type: 'ranged',
+  toHit: 6,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 2,
+      dice_value: 6,
+      flat_bonus: 4,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description:
+        'If the target is a Huge or smaller creature, it must succeed on a Strength contest against the merrow or be pulled up to 20 feet toward the merrow.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'merrow-harpoon',
+});

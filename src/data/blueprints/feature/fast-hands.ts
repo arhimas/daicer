@@ -1,0 +1,15 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'fast-hands',
+  name: 'Fast Hands',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Feature successfully mapped from SRD reference.',
+  },
+  description:
+    "Starting at 3rd level, you can use the bonus action granted by your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves' tools to disarm a trap or open a lock, or take the Use an Object action.",
+  level: 3,
+  lore: 'Your fingers move with a blur of speed, allowing you to manipulate mechanisms and pilfer pockets in the blink of an eye while others are still reacting.',
+  tags: ['rogue', 'thief', 'class-feature', 'subclass-feature'],
+});

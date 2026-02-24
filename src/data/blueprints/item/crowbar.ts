@@ -1,0 +1,15 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'crowbar',
+  name: 'Crowbar',
+  description: "Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied.",
+  type: 'tool',
+  rarity: 'common',
+  value: 2,
+  weight: 5,
+  size: 'Medium',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

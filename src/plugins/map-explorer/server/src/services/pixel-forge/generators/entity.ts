@@ -1,8 +1,4 @@
-import {
-  createEmptyGrid,
-  fillBox,
-  markBox,
-} from '../grid-utils';
+import { createEmptyGrid, fillBox, markBox } from '../grid-utils';
 import { EntityContext } from '../serializers';
 import { PixelLayer } from '../types';
 import { ZoneType } from '../../../utils/compositor';

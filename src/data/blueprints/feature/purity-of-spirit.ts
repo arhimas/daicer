@@ -1,0 +1,18 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'purity-of-spirit',
+  name: 'Purity of Spirit',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7f8e9d0c1b2a',
+    last_run: '2023-10-27',
+    summary: 'Feature successfully compiled from reference data.',
+  },
+  description: 'Beginning at 15th level, you are always under the effects of a protection from evil and good spell.',
+  embedding: {},
+  image: 'https://example.com/assets/purity_of_spirit.webp',
+  level: 15,
+  lore: 'Your soul has become a bastion of divine light, naturally warding off the influence of extraplanar entities.',
+  tags: ['paladin', 'devotion', 'class-feature'],
+});

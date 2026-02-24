@@ -1,0 +1,57 @@
+import { defineClass } from '../../../features/genesis-core/blueprints';
+
+export default defineClass({
+  slug: 'wizard',
+  name: 'Wizard',
+  description: 'A scholarly magic-user capable of manipulating the structures of reality.',
+  lore: 'Wizards are defined by their use of spells. They are masters of the arcane, using their intelligence to weave magic into reality.',
+  hit_die: 'd6',
+  subclasses: ['evocation'],
+  proficiencies: [
+    'daggers',
+    'darts',
+    'slings',
+    'quarterstaffs',
+    'crossbows-light',
+    'saving-throw-int',
+    'saving-throw-wis',
+    'skill-arcana',
+    'skill-history',
+    'skill-insight',
+    'skill-investigation',
+    'skill-medicine',
+    'skill-religion',
+  ],
+  features: [
+    {
+      name: 'Spellcasting',
+      description:
+        'As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power.',
+      source: 'class',
+    },
+    {
+      name: 'Arcane Recovery',
+      description:
+        'You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover.',
+      source: 'class',
+      usage_max: 1,
+      usage_per: 'day',
+    },
+  ],
+  progression: [
+    {
+      level: 1,
+      class_specifics: {},
+      features: ['spellcasting', 'arcane-recovery'],
+      spell_slots: {},
+    },
+  ],
+  compilation_state: {
+    status: 'Valid',
+    hash: 'wizard-2014-001',
+    last_run: '2023-10-27',
+    summary: 'Wizard class successfully mapped from reference data.',
+  },
+  embedding: {},
+  image: 'https://www.dndbeyond.com/attachments/thumbnails/0/317/400/317/wizard.png',
+});

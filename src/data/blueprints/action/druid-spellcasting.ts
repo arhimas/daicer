@@ -1,0 +1,21 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Spellcasting',
+  description:
+    'The druid is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following druid spells prepared: Cantrips (at will): druidcraft, produce flame, shillelagh; 1st level (4 slots): entangle, longstrider, speak with animals, thunderwave; 2nd level (3 slots): animal messenger, barkskin',
+  type: 'spell',
+  toHit: 4,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: {
+    dc: 12,
+    attribute: 'wis',
+  },
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'druid-spellcasting',
+});

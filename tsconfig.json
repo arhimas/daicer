@@ -27,7 +27,7 @@
       "@types/*": ["types/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.json", "config/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.json", "config/**/*.ts", "types/**/*.ts", "types/**/*.d.ts"],
 
   "exclude": [
     "node_modules/",

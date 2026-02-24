@@ -1,9 +1,0 @@
-{
-  "slug": "bard-college-feature",
-  "name": "Bard College feature",
-  "compilation_state": {
-    "status": "Valid"
-  },
-  "description": "At 6th level, you gain a feature granted by your Bard College choice. Your choice grants you features at 3rd level and again at 6th and 14th level.",
-  "level": 6
-}

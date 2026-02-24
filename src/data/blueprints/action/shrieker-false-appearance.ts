@@ -1,0 +1,14 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'False Appearance',
+  description: 'While the shrieker remains motionless, it is indistinguishable from an ordinary fungus.',
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'shrieker-false-appearance',
+});

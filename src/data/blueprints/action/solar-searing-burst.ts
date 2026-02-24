@@ -1,0 +1,43 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Searing Burst',
+  description:
+    'The solar emits magical, divine energy. Each creature of its choice in a 10 -foot radius must make a DC 23 Dexterity saving throw, taking 14 (4d6) fire damage plus 14 (4d6) radiant damage on a failed save, or half as much damage on a successful one.',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: 'Sphere',
+    aoe_size: 10,
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'Half',
+  },
+  save: {
+    dc: 23,
+    attribute: 'dex',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Fire',
+      dice_count: 4,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Radiant',
+      dice_count: 4,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'solar-searing-burst',
+});

@@ -1,9 +1,0 @@
-{
-  "name": "Legendary Resistance (3/Day)",
-  "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
-  "type": "utility",
-  "mechanics_config": {
-    "action_type": "Auto-Hit"
-  },
-  "slug": "adult-brass-dragon-legendary-resistance-3-day"
-}

@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'thieves-tools',
+  name: "Thieves' Tools",
+  description:
+    'This set of tools includes a small file, a set of lock picks, a small mirror mounted on a metal handle, a set of narrow-bladed scissors, and a pair of pliers. Proficiency with these tools lets you add your proficiency bonus to any ability checks you make to disarm traps or open locks.',
+  type: 'tool',
+  rarity: 'common',
+  value: 25,
+  weight: 1,
+  size: 'Medium',
+});

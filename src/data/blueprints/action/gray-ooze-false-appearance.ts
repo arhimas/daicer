@@ -1,0 +1,14 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'False Appearance',
+  description: 'While the ooze remains motionless, it is indistinguishable from an oily pool or wet rock.',
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'gray-ooze-false-appearance',
+});

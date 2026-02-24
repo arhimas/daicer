@@ -1,0 +1,14 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Blind Senses',
+  description: "The grimlock can't use its blindsight while deafened and unable to smell.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'grimlock-blind-senses',
+});

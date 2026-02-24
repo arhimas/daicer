@@ -1,0 +1,14 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'pole-10-foot',
+  name: 'Pole (10-foot)',
+  description:
+    'A 10-foot long wooden pole, commonly used by adventurers to probe for traps, trigger pressure plates from a safe distance, or vault over small gaps.',
+  type: 'loot',
+  rarity: 'common',
+  value: 5,
+  weight: 7,
+  size: 'Medium',
+  width: 10,
+});

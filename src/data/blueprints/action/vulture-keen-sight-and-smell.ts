@@ -1,0 +1,14 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Keen Sight and Smell',
+  description: 'The vulture has advantage on Wisdom (Perception) checks that rely on sight or smell.',
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'vulture-keen-sight-and-smell',
+});

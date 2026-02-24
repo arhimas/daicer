@@ -1,0 +1,43 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'detect-poison-and-disease',
+  name: 'Detect Poison and Disease',
+  level: 1,
+  school: 'Divination',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: true,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A yew leaf.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Self',
+    distance: 30,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 10,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [],
+  condition_instances: [],
+  description:
+    'For the duration, you can sense the presence and location of poisons, poisonous creatures, and diseases within 30 feet of you. You also identify the kind of poison, poisonous creature, or disease in each case.\n\nThe spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt.',
+  compilation_state: {
+    status: 'Valid',
+  },
+  tags: ['cleric', 'druid', 'paladin', 'ranger'],
+});

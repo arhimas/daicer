@@ -1,0 +1,39 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'instant-summons',
+  name: 'Instant Summons',
+  level: 6,
+  school: 'Conjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Minute',
+    is_ritual: true,
+    is_concentration: false,
+    components: {
+      consumed: true,
+      cost_gp: 1000,
+      material: true,
+      material_description: 'A sapphire worth 1,000 gp.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Until Dispelled',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    "You touch an object weighing 10 pounds or less whose longest dimension is 6 feet or less. The spell leaves an invisible mark on its surface and invisibly inscribes the name of the item on the sapphire you use as the material component. Each time you cast this spell, you must use a different sapphire.\n\nAt any time thereafter, you can use your action to speak the item's name and crush the sapphire. The item instantly appears in your hand regardless of physical or planar distances, and the spell ends.\n\nIf another creature is holding or carrying the item, crushing the sapphire doesn't transport the item to you, but instead you learn who the creature possessing the object is and roughly where that creature is located at that moment.\n\nDispel magic or a similar effect successfully applied to the sapphire ends this spell's effect.",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully parsed Instant Summons spell data.',
+  },
+  tags: ['wizard'],
+});

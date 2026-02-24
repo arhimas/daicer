@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'font-of-inspiration',
+  name: 'Font of Inspiration',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    'Beginning when you reach 5th level, you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest.',
+  embedding: {},
+  level: 5,
+  tags: ['bard'],
+});

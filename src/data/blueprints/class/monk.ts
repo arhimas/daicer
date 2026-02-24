@@ -1,0 +1,48 @@
+import { defineClass } from '../../../features/genesis-core/blueprints';
+
+export default defineClass({
+  slug: 'monk',
+  name: 'Monk',
+  description:
+    'A master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection.',
+  lore: 'Monks make a careful study of a magical energy that most monastic traditions call ki. This energy is an element of the magic that suffuses the multiverse—specifically, the element that flows through living bodies.',
+  hit_die: 'd8',
+  subclasses: ['open-hand'],
+  proficiencies: [
+    'simple-weapons',
+    'shortswords',
+    'saving-throw-dex',
+    'saving-throw-str',
+    'skill-acrobatics',
+    'skill-athletics',
+    'skill-history',
+    'skill-insight',
+    'skill-religion',
+    'skill-stealth',
+  ],
+  features: [
+    {
+      name: 'Unarmored Defense',
+      description:
+        'While you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.',
+      source: 'class',
+    },
+    {
+      name: 'Martial Arts',
+      description:
+        'Your practice of martial arts gives you mastery of combat styles that use unarmed strikes and monk weapons.',
+      source: 'class',
+    },
+  ],
+  progression: [
+    {
+      level: 1,
+      class_specifics: {},
+      features: ['unarmored-defense', 'martial-arts'],
+    },
+  ],
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully mapped from reference data.',
+  },
+});

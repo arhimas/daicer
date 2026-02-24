@@ -112,6 +112,11 @@
       "relation": "oneToMany",
       "target": "api::action.action"
     },
+    "legendary_actions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::action.action"
+    },
     "spells": {
       "type": "relation",
       "relation": "oneToMany",

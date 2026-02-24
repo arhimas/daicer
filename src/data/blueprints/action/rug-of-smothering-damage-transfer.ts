@@ -1,0 +1,9 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Damage Transfer',
+  description:
+    'While it is grappling a creature, the rug takes only half the damage dealt to it, and the creature grappled by the rug takes the other half.',
+  type: 'ability',
+  slug: 'rug-of-smothering-damage-transfer',
+});

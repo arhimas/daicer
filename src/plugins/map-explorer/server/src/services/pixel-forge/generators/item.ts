@@ -1,8 +1,4 @@
-import {
-  createEmptyGrid,
-  fillBox,
-  markBox,
-} from '../grid-utils';
+import { createEmptyGrid, fillBox, markBox } from '../grid-utils';
 import { ItemContext } from '../serializers'; // Universal Contract
 import { ZoneType } from '../../../utils/compositor';
 

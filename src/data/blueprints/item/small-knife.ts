@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'small-knife',
+  name: 'Small knife',
+  description: "A small knife, typically found in a scholar's pack.",
+  type: 'tool',
+  rarity: 'common',
+  value: 0,
+  weight: 0,
+  size: 'Medium',
+});

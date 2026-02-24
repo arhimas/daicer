@@ -1,0 +1,14 @@
+import { defineClass } from '../../../features/genesis-core/blueprints';
+
+export default defineClass({
+  slug: 'cleric',
+  name: 'Cleric',
+  description: 'A priestly champion who wields divine magic in service of a higher power.',
+  hit_die: 'd8',
+  subclasses: ['life'],
+  proficiencies: ['light-armor', 'medium-armor', 'shields', 'simple-weapons', 'saving-throw-wis', 'saving-throw-cha'],
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Mapped from SRD reference data.',
+  },
+});

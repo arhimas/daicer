@@ -1,0 +1,14 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'artificers-lore',
+  name: "Artificer's Lore",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully imported from reference data.',
+  },
+  description:
+    'Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply.',
+  proficiencies: [],
+  races: ['rock-gnome'],
+});

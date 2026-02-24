@@ -1,0 +1,21 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'shortbow',
+  name: 'Shortbow',
+  type: 'weapon',
+  rarity: 'common',
+  value: 25,
+  weight: 2,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d6',
+    damage_type: 'piercing',
+    range_normal: 80,
+    range_long: 320,
+    properties: ['ammunition', 'two-handed'],
+  },
+  compilation_state: {
+    status: 'Valid',
+  },
+});

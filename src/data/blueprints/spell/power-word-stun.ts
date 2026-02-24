@@ -1,0 +1,45 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'power-word-stun',
+  name: 'Power Word Stun',
+  level: 8,
+  school: 'Enchantment',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: false,
+      somatic: false,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Auto-Hit',
+  },
+  condition_instances: [
+    {
+      condition: 'Stunned',
+      description:
+        'If the target has 150 hit points or fewer, it is stunned. The target must make a Constitution saving throw at the end of each of its turns to end the effect.',
+      chance: 100,
+    },
+  ],
+  description:
+    'You speak a word of power that can overwhelm the mind of one creature you can see within range, leaving it dumbfounded. If the target has 150 hit points or fewer, it is stunned. Otherwise, the spell has no effect.\n\nThe stunned target must make a constitution saving throw at the end of each of its turns. On a successful save, this stunning effect ends.',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

@@ -1,0 +1,52 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'cure-wounds',
+  name: 'Cure Wounds',
+  level: 1,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Healing',
+      dice_count: 1,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Dice',
+    method: 'Per Slot Level',
+    dice_count: 1,
+    dice_value: 8,
+  },
+  description:
+    'A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\n\nAt Higher Levels: When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Spell successfully mapped from reference data.',
+  },
+});

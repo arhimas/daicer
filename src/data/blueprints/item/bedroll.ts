@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'bedroll',
+  name: 'Bedroll',
+  description:
+    'A bedroll consists of a warm blanket and a waterproof layer, providing a basic level of comfort and protection from the elements while sleeping outdoors.',
+  type: 'loot',
+  rarity: 'common',
+  value: 1,
+  weight: 7,
+  size: 'Medium',
+});

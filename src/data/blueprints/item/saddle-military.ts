@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'saddle-military',
+  name: 'Saddle, Military',
+  description:
+    'A military saddle braces the rider, helping you keep your seat on an active mount in battle. It gives you advantage on any check you make to remain mounted.',
+  type: 'tool',
+  rarity: 'common',
+  value: 20,
+  weight: 30,
+  size: 'Medium',
+});

@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'evocation-savant',
+  name: 'Evocation Savant',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7d9e2b1a8f4c5d6e',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully mapped from SRD 5.1 reference.',
+  },
+  description:
+    'Beginning when you select this school at 2nd level, the gold and time you must spend to copy an evocation spell into your spellbook is halved.',
+  embedding: {},
+  image: 'https://www.dndbeyond.com/assets/features/wizard/evocation-savant.png',
+  level: 2,
+  lore: 'You have spent countless hours deciphering the complex geometries of destructive energy, making the transcription of such spells second nature to you.',
+  tags: ['wizard', 'evocation', 'subclass-feature'],
+});

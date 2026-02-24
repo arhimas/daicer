@@ -1,0 +1,49 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Hand Crossbow',
+  description:
+    'Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake.',
+  type: 'ranged',
+  toHit: 4,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 120,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: {
+    dc: 13,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 2,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Poisoned',
+      description: 'for 1 hour on a failed DC 13 Constitution saving throw',
+      chance: 100,
+      duration_rounds: null,
+    },
+    {
+      condition: 'Unconscious',
+      description:
+        'while poisoned in this way, if the saving throw fails by 5 or more. Wakes up if takes damage or shaken awake.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'drow-hand-crossbow',
+});

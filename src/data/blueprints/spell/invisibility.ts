@@ -1,0 +1,52 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'invisibility',
+  name: 'Invisibility',
+  level: 2,
+  school: 'Illusion',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'An eyelash encased in gum arabic.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Hours',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  condition_instances: [
+    {
+      condition: 'Invisible',
+      description:
+        "A creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person. The spell ends for a target that attacks or casts a spell.",
+      chance: 100,
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Target',
+    method: 'Per Slot Level',
+  },
+  description:
+    "A creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target's person. The spell ends for a target that attacks or casts a spell.\n\n**At Higher Levels.** When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

@@ -1,0 +1,15 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-whispers-of-the-grave',
+  name: 'Eldritch Invocation: Whispers of the Grave',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description: 'You can cast speak with dead at will, without expending a spell slot.',
+  embedding: {},
+  image: '',
+  level: 9,
+  lore: 'The secrets of the departed are yours to command, as the veil between life and death thins at your touch.',
+  tags: ['warlock', 'eldritch-invocation'],
+});

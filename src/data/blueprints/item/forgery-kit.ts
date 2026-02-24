@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'forgery-kit',
+  name: 'Forgery Kit',
+  description:
+    'This small box contains a variety of papers and parchments, pens and inks, seals and sealing wax, gold and silver leaf, and other supplies necessary to create convincing forgeries of physical documents. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to create a physical forgery of a document.',
+  type: 'tool',
+  rarity: 'common',
+  value: 15,
+  weight: 5,
+  size: 'Medium',
+});

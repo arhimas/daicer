@@ -1,0 +1,22 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Light',
+  description: 'The acolyte casts Light, illuminating an object or an area.',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'acolyte-light',
+});

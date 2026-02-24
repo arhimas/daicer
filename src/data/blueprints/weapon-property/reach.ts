@@ -1,0 +1,9 @@
+import { defineWeaponProperty } from '../../../features/genesis-core/blueprints';
+
+export default defineWeaponProperty({
+  slug: 'reach',
+  name: 'Reach',
+  description:
+    'This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it.',
+  embedding: {},
+});

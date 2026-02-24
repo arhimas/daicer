@@ -1,0 +1,30 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'shield',
+  description:
+    'An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from magic missile.',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: '+5 bonus to AC and immunity to Magic Missile damage until the start of your next turn.',
+      chance: 100,
+      duration_rounds: 1,
+    },
+  ],
+  slug: 'mage-shield',
+});

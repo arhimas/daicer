@@ -1,0 +1,44 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'animate-objects',
+  name: 'Animate Objects',
+  level: 5,
+  school: 'Transmutation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 120,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  scaling_config: {
+    scales: true,
+    type: 'Target',
+    method: 'Per Slot Level',
+  },
+  description:
+    "Objects come to life at your command. Choose up to ten nonmagical objects within range that are not being worn or carried. Medium targets count as two objects, Large targets count as four objects, Huge targets count as eight objects. You can't animate any object larger than Huge. Each target animates and becomes a creature under your control until the spell ends or until reduced to 0 hit points. As a bonus action, you can mentally command any creature you made with this spell if the creature is within 500 feet of you (if you control multiple creatures, you can command any or all of them at the same time, issuing the same command to each one). You decide what action the creature will take and where it will move during its next turn, or you can issue a general command, such as to guard a particular chamber or corridor. If you issue no commands, the creature only defends itself against hostile creatures. Once given an order, the creature continues to follow it until its task is complete. Animated Object Statistics: Tiny (HP 20, AC 18, +8 to hit, 1d4+4 damage, Str 4, Dex 18), Small (HP 25, AC 16, +6 to hit, 1d8+2 damage, Str 6, Dex 14), Medium (HP 40, AC 13, +5 to hit, 2d6+1 damage, Str 10, Dex 12), Large (HP 50, AC 10, +6 to hit, 2d10+2 damage, Str 14, Dex 10), Huge (HP 80, AC 10, +8 to hit, 2d12+4 damage, Str 18, Dex 6). An animated object is a construct with AC, hit points, attacks, Strength, and Dexterity determined by its size. Its Constitution is 10 and its Intelligence and Wisdom are 3, and its Charisma is 1. Its speed is 30 feet; if the object lacks legs or other appendages it can use for locomotion, it instead has a flying speed of 30 feet and can hover. If the object is securely attached to a surface or a larger object, its speed is 0. It has blindsight 30 feet and is blind beyond that distance. If you command an object to attack, it can make a single melee attack against a creature within 5 feet of it. It makes a slam attack with an attack bonus and bludgeoning damage determined by its size. At Higher Levels: If you cast this spell using a spell slot of 6th level or higher, you can animate two additional objects for each slot level above 5th.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

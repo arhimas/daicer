@@ -1,0 +1,43 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'arcane-eye',
+  name: 'Arcane Eye',
+  level: 4,
+  school: 'Divination',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A bit of bat fur.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 30,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Hours',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [],
+  condition_instances: [],
+  description:
+    "You create an invisible, magical eye within range that hovers in the air for the duration.\n\nYou mentally receive visual information from the eye, which has normal vision and darkvision out to 30 feet. The eye can look in every direction.\n\nAs an action, you can move the eye up to 30 feet in any direction. There is no limit to how far away from you the eye can move, but it can't enter another plane of existence. A solid barrier blocks the eye's movement, but the eye can pass through an opening as small as 1 inch in diameter.",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully mapped from reference data.',
+  },
+});

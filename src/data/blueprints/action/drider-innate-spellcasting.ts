@@ -1,0 +1,21 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Innate Spellcasting',
+  description:
+    "The drider's innate spellcasting ability is Wisdom (spell save DC 13). The drider can innately cast the following spells, requiring no material components: At will: dancing lights; 1/day each: darkness, faerie fire",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: {
+    dc: 13,
+    attribute: 'wis',
+  },
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'drider-innate-spellcasting',
+});

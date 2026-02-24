@@ -1,0 +1,39 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Healing Touch',
+  description:
+    'The unicorn touches another creature with its horn. The target magically regains 11 (2d8 + 2) hit points. In addition, the touch removes all diseases and neutralizes all poisons afflicting the target.',
+  type: 'utility',
+  toHit: null,
+  range_config: {
+    type: 'Touch',
+    distance: null,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Healing',
+      damage_type: null,
+      dice_count: 2,
+      dice_value: 8,
+      flat_bonus: 2,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: 'Removes all diseases and neutralizes all poisons.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'unicorn-healing-touch',
+});

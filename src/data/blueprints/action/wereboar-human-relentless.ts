@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Relentless',
+  description:
+    'If the wereboar takes 14 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead.',
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'wereboar-human-relentless',
+});

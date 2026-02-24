@@ -1,0 +1,9 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'shapechange',
+  name: 'Shapechange',
+  level: 9,
+  school: 'Transmutation',
+  tags: ['druid', 'wizard'],
+});

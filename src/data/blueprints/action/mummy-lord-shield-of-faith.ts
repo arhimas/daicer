@@ -1,0 +1,22 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Shield of Faith',
+  description: 'shield of faith',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'mummy-lord-shield-of-faith',
+});

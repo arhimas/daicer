@@ -1,0 +1,47 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'spy',
+  name: 'Spy',
+  description:
+    '### Special Abilities\n["Cunning Action: On each of its turns, the spy can use a bonus action to take the Dash, Disengage, or Hide action.","Sneak Attack (1/Turn): The spy deals an extra 7 (2d6) damage when it hits a target with a weapon attack and has advantage on the attack roll, or when the target is within 5 ft. of an ally of the spy that isn\'t incapacitated and the spy doesn\'t have disadvantage on the attack roll."]\n\n### Actions\n["Multiattack: The spy makes two melee attacks.","Shortsword: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.","Hand Crossbow: Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage."]',
+  size: 'Medium',
+  type: 'humanoid',
+  alignment: 'any alignment',
+  level: 1,
+  ac: 12,
+  hp: 27,
+  hit_dice: '6d8',
+  challenge_rating: 1,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: ['deception', 'insight', 'investigation', 'perception', 'persuasion', 'stealth'],
+    passivePerception: 16,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'shortsword',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['spy-cunning-action', 'spy-hand-crossbow', 'spy-multiattack', 'spy-sneak-attack-1-turn'],
+});

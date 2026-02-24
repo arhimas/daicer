@@ -1,0 +1,52 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'wererat-human',
+  name: 'Wererat, Human Form',
+  description:
+    '### Special Abilities\n["Shapechanger: The wererat can use its action to polymorph into a rat-humanoid hybrid or into a giant rat, or back into its true form, which is humanoid. Its statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn\'t transformed. It reverts to its true form if it dies.","Keen Smell: The wererat has advantage on Wisdom (Perception) checks that rely on smell."]\n\n### Actions\n["Multiattack: The wererat makes two attacks, only one of which can be a bite.","Shortsword: Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.","Hand Crossbow: Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 5 (1d6 + 2) piercing damage."]',
+  size: 'Medium',
+  type: 'humanoid',
+  alignment: 'lawful evil',
+  level: 2,
+  ac: 12,
+  hp: 33,
+  hit_dice: '6d8',
+  challenge_rating: 2,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 12,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'shortsword',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: [
+    'wererat-human-hand-crossbow',
+    'wererat-human-keen-smell',
+    'wererat-human-multiattack',
+    'wererat-human-shapechanger',
+  ],
+});

@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Earth Glide',
+  description:
+    "The xorn can burrow through nonmagical, unworked earth and stone. While doing so, the xorn doesn't disturb the material it moves through.",
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'xorn-earth-glide',
+});

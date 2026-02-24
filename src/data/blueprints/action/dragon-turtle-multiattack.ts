@@ -1,0 +1,9 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Multiattack',
+  description:
+    'The dragon turtle makes three attacks: one with its bite and two with its claws. It can make one tail attack in place of its two claw attacks.',
+  type: 'utility',
+  slug: 'dragon-turtle-multiattack',
+});

@@ -1,0 +1,22 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Silence',
+  description: 'silence',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 120,
+    aoe_shape: 'Sphere',
+    aoe_size: 20,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'mummy-lord-silence',
+});

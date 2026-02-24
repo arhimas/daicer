@@ -1,0 +1,16 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Brave',
+  description: 'The gladiator has advantage on saving throws against being frightened.',
+  type: 'ability',
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: 'Advantage on saving throws against being frightened.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'gladiator-brave',
+});

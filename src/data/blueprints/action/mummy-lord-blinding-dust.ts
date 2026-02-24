@@ -1,0 +1,33 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Blinding Dust',
+  description:
+    "Blinding dust and sand swirls magically around the mummy lord. Each creature within 5 feet of the mummy lord must succeed on a DC 16 Constitution saving throw or be blinded until the end of the creature's next turn.",
+  type: 'ability',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: 'Sphere',
+    aoe_size: 5,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'None',
+  },
+  save: {
+    dc: 16,
+    attribute: 'con',
+  },
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Blinded',
+      description: null,
+      chance: 100,
+      duration_rounds: 1,
+    },
+  ],
+  slug: 'mummy-lord-blinding-dust',
+});

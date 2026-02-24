@@ -1,0 +1,17 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'poisoners-kit',
+  name: "Poisoner's Kit",
+  description:
+    "A poisoner's kit includes the vials, chemicals, and other equipment necessary for the creation of poisons. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to craft or use poisons.",
+  type: 'tool',
+  rarity: 'common',
+  value: 50,
+  weight: 2,
+  size: 'Medium',
+  compilation_state: {
+    status: 'Valid',
+  },
+  width: 100,
+});

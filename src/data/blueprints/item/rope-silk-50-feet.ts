@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'rope-silk-50-feet',
+  name: 'Rope, silk (50 feet)',
+  description: 'Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check.',
+  type: 'tool',
+  rarity: 'common',
+  value: 10,
+  weight: 5,
+  size: 'Medium',
+  tags: ['adventuring-gear', 'standard-gear'],
+});

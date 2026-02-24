@@ -1,0 +1,17 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'carriage',
+  name: 'Carriage',
+  description:
+    'A carriage is a four-wheeled vehicle drawn by horses or other mounts. It typically provides a comfortable way for passengers to travel over long distances, often featuring an enclosed cabin.',
+  type: 'loot',
+  rarity: 'common',
+  value: 100,
+  weight: 600,
+  size: 'Large',
+  equipment_data: {
+    properties: [],
+  },
+  tags: ['mounts-and-vehicles', 'tack-harness-and-drawn-vehicles'],
+});

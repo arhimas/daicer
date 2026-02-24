@@ -1,0 +1,54 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'hold-person',
+  name: 'Hold Person',
+  level: 2,
+  school: 'Enchantment',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A small, straight piece of iron.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'Wisdom Save',
+    save_effect: 'Negate',
+  },
+  damage_instances: [],
+  condition_instances: [
+    {
+      condition: 'Paralyzed',
+      description: 'The target must succeed on a wisdom saving throw or be paralyzed for the duration.',
+      chance: 100,
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Target',
+    method: 'Per Slot Level',
+  },
+  description:
+    'Choose a humanoid that you can see within range. The target must succeed on a wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another wisdom saving throw. On a success, the spell ends on the target.\n\n### At Higher Levels\nWhen you cast this spell using a spell slot of 3rd level or higher, you can target one additional humanoid for each slot level above 2nd. The humanoids must be within 30 feet of each other when you target them.',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

@@ -1,0 +1,16 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'cunning-action',
+  name: 'Cunning Action',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully imported from reference data.',
+  },
+  description:
+    'Starting at 2nd level, your quick thinking and agility allow you to move and act quickly. You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action.',
+  embedding: {},
+  level: 2,
+  lore: "A rogue's survival often depends on staying one step ahead of the enemy.",
+  tags: ['rogue'],
+});

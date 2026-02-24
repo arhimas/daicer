@@ -8,14 +8,14 @@ async function test() {
     serveAdminPanel: false,
   });
   await strapi.load();
-  
+
   try {
     const data = {
       slug: 'monk',
       name: 'Monk',
       type: 'mechanic',
       description: 'Test monk tag',
-      color: '#000000'
+      color: '#000000',
     };
     const created = await strapi.documents('api::tag.tag').create({ data });
     console.log(`Successfully created: ${created.documentId}`);

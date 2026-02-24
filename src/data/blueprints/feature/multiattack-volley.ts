@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'multiattack-volley',
+  name: 'Multiattack: Volley',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    "You can use your action to make a ranged attack against any number of creatures within 10 feet of a point you can see within your weapon's range. You must have ammunition for each target, as normal, and you make a separate attack roll for each target.",
+  level: 11,
+  tags: ['ranger', 'hunter'],
+});

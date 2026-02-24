@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'metamagic-distant-spell',
+  name: 'Metamagic: Distant Spell',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7309995c738e4a9e590458b093121503',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully compiled from SRD reference data.',
+  },
+  description:
+    'When you cast a spell that has a range of 5 feet or greater, you can spend 1 sorcery point to double the range of the spell. When you cast a spell that has a range of touch, you can spend 1 sorcery point to make the range of the spell 30 feet.',
+  embedding: {},
+  image: '',
+  level: 3,
+  lore: "A sorcerer's innate power allows them to stretch the very fabric of the weave, allowing their spells to strike from unexpected distances.",
+  tags: ['sorcerer', 'metamagic'],
+});

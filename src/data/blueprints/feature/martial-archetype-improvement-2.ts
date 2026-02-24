@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'martial-archetype-feature',
+  name: 'Martial Archetype feature',
+  compilation_state: {
+    status: 'Valid',
+    hash: '4e8b2c1a',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description:
+    'At 10th level, you gain a feature granted by your Martial Archetype choice. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.',
+  embedding: {},
+  image: '',
+  level: 10,
+  lore: "Fighters often specialize in specific disciplines, honing their skills to a razor's edge through rigorous training and combat experience.",
+  tags: ['fighter', 'class-feature'],
+});

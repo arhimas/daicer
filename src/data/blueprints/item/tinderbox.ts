@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'tinderbox',
+  name: 'Tinderbox',
+  description:
+    'This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch--or anything else with abundant, exposed fuel--takes an action. Lighting any other fire takes 1 minute.',
+  type: 'tool',
+  rarity: 'common',
+  value: 50,
+  weight: 1,
+  size: 'Medium',
+});

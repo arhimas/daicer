@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Multiattack',
+  description:
+    'In humanoid form, the weretiger makes two scimitar attacks or two longbow attacks. In hybrid form, it can attack like a humanoid or make two claw attacks.',
+  type: 'utility',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'weretiger-human-multiattack',
+});

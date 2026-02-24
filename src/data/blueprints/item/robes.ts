@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'robes',
+  name: 'Robes',
+  description: 'A set of common robes.',
+  type: 'loot',
+  rarity: 'common',
+  value: 1,
+  weight: 4,
+  size: 'Medium',
+});

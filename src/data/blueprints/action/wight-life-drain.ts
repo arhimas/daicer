@@ -1,0 +1,43 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Life Drain',
+  description:
+    "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 5 (1d6 + 2) necrotic damage. The target must succeed on a DC 13 Constitution saving throw or its hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0. A humanoid slain by this attack rises 24 hours later as a zombie under the wight's control, unless the humanoid is restored to life or its body is destroyed. The wight can have no more than twelve zombies under its control at one time.",
+  type: 'melee',
+  toHit: 4,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: {
+    dc: 13,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Necrotic',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 2,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description:
+        "Target's hit point maximum is reduced by damage taken. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0. A humanoid slain by this attack rises 24 hours later as a zombie under the wight's control, unless the humanoid is restored to life or its body is destroyed. The wight can have no more than twelve zombies under its control at one time.",
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'wight-life-drain',
+});

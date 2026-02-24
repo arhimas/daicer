@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'spellcasting-paladin',
+  name: 'Spellcasting: Paladin',
+  compilation_state: {
+    status: 'Valid',
+    hash: '5e-paladin-sc-2014',
+    last_run: '2023-10-27',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description:
+    'By 2nd level, you have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does. You prepare the list of paladin spells that are available for you to cast, choosing from the paladin spell list. When you do so, choose a number of paladin spells equal to your Charisma modifier + half your paladin level, rounded down (minimum of one spell). The spells must be of a level for which you have spell slots. Charisma is your spellcasting ability for your paladin spells. You can use a holy symbol as a spellcasting focus for your paladin spells.',
+  embedding: {},
+  image: '',
+  level: 2,
+  lore: "Divine magic comes from the paladin's commitment to their oath, channeled through prayer and focus.",
+  tags: ['paladin', 'spellcasting'],
+});

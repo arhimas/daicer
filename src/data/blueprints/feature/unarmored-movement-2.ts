@@ -1,0 +1,16 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'unarmored-movement',
+  name: 'Unarmored Movement',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully compiled from reference data.',
+  },
+  description:
+    'Starting at 2nd level, your speed increases by 10 feet while you are not wearing armor or wielding a shield. This bonus increases when you reach certain monk levels, as shown in the Monk table. At 9th level, you gain the ability to move along vertical surfaces and across liquids on your turn without falling during the move.',
+  level: 9,
+  tags: ['monk'],
+});

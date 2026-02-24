@@ -1,0 +1,15 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Blood Frenzy',
+  description:
+    "The swarm has advantage on melee attack rolls against any creature that doesn't have all its hit points.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'swarm-of-quippers-blood-frenzy',
+});

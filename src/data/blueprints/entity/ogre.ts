@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'ogre',
+  name: 'Ogre',
+  description:
+    '### Actions\n[{"name": "Greatclub", "desc": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) bludgeoning damage.", "attack_bonus": 6, "damage": [{"damage_type": "bludgeoning", "damage_dice": "2d8+4"}]}, {"name": "Javelin", "desc": "Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 11 (2d6 + 4) piercing damage.", "attack_bonus": 6, "damage": [{"damage_type": "piercing", "damage_dice": "2d6+4"}]}]',
+  size: 'Large',
+  type: 'giant',
+  alignment: 'chaotic evil',
+  level: 2,
+  ac: 11,
+  hp: 59,
+  hit_dice: '7d10',
+  challenge_rating: 2,
+  xp: 450,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 40,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 8,
+    darkvision: 60,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'greatclub',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'javelin',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['ogre-zombie-morningstar', 'ogre-zombie-undead-fortitude'],
+});

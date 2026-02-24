@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'tranquility',
+  name: 'Tranquility',
+  compilation_state: {
+    status: 'Valid',
+    hash: 'd41d8cd98f00b204e9800998ecf8427e',
+    last_run: '2023-10-27T00:00:00Z',
+    summary: 'Feature compiled from SRD/PHB reference data.',
+  },
+  description:
+    'Beginning at 11th level, you can enter a special meditation that surrounds you with an aura of peace. At the end of a long rest, you gain the effect of a sanctuary spell that lasts until the start of your next long rest (the spell can end early as normal). The saving throw DC for the spell equals 8 + your Wisdom modifier + your proficiency bonus.',
+  embedding: {},
+  image: 'https://media.dndbeyond.com/features/monk-tranquility.webp',
+  level: 11,
+  lore: 'You have achieved a state of inner peace so profound that it radiates outward, making it difficult for others to strike you.',
+  tags: ['monk', 'open-hand', 'way-of-the-open-hand'],
+});

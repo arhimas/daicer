@@ -1,0 +1,33 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Scare',
+  description:
+    "One creature of the quasit's choice within 20 ft. of it must succeed on a DC 10 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, with disadvantage if the quasit is within line of sight, ending the effect on itself on a success.",
+  type: 'ability',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 20,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Wisdom Save',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 10,
+    attribute: 'wis',
+  },
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Frightened',
+      description: null,
+      chance: 100,
+      duration_rounds: 10,
+    },
+  ],
+  slug: 'quasit-scare',
+});

@@ -1,0 +1,39 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Talons',
+  description:
+    "Melee Weapon Attack: +13 to hit, reach 5 ft., one target. Hit: 23 (4d6 + 9) slashing damage, and the target is grappled (escape DC 19). Until this grapple ends, the target is restrained, and the roc can't use its talons on another target.",
+  type: 'melee',
+  toHit: 13,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 5,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Slashing',
+      dice_count: 4,
+      dice_value: 6,
+      flat_bonus: 9,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Grappled',
+      description: 'escape DC 19',
+      chance: 100,
+    },
+    {
+      condition: 'Restrained',
+      description: 'Until this grapple ends',
+      chance: 100,
+    },
+  ],
+  slug: 'roc-talons',
+});

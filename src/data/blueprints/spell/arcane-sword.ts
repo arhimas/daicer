@@ -1,0 +1,9 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'arcane-sword',
+  name: 'Arcane Sword',
+  level: 7,
+  school: 'Evocation',
+  tags: ['bard', 'wizard'],
+});

@@ -1,0 +1,35 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Fire Breath (Recharge 5-6)',
+  description:
+    'The dragon exhales fire in a 60-foot cone. Each creature in that area must make a DC 21 Dexterity saving throw, taking 63 (18d6) fire damage on a failed save, or half as much damage on a successful one.',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: 'Cone',
+    aoe_size: 60,
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'Half',
+  },
+  save: {
+    dc: 21,
+    attribute: 'dex',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Fire',
+      dice_count: 18,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'adult-red-dragon-fire-breath-recharge-5-6',
+});

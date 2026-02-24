@@ -1,0 +1,49 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Swallow',
+  description:
+    "The tarrasque makes one bite attack against a Large or smaller creature it is grappling. If the attack hits, the target takes the bite's damage, the target is swallowed, and the grapple ends. While swallowed, the creature is blinded and restrained, it has total cover against attacks and other effects outside the tarrasque, and it takes 56 (16d6) acid damage at the start of each of the tarrasque's turns.",
+  type: 'melee',
+  toHit: 19,
+  range_config: {
+    type: 'Touch',
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 4,
+      dice_value: 12,
+      flat_bonus: 10,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Acid',
+      dice_count: 16,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Start of Turn',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: 'Swallowed',
+      chance: 100,
+    },
+    {
+      condition: 'Blinded',
+      chance: 100,
+    },
+    {
+      condition: 'Restrained',
+      chance: 100,
+    },
+  ],
+  slug: 'tarrasque-swallow',
+});

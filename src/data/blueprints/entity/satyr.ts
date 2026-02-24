@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'satyr',
+  name: 'Satyr',
+  description:
+    '### Special Abilities\n[{"name":"Magic Resistance","desc":"The satyr has advantage on saving throws against spells and other magical effects."}]\n\n### Actions\n[{"name":"Ram","desc":"Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 6 (2d4 + 1) bludgeoning damage."},{"name":"Shortsword","desc":"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1 d6 + 3) piercing damage."},{"name":"Shortbow","desc":"Ranged Weapon Attack: +5 to hit, range 80/320 ft., one target. Hit: 6 (1d6 + 3) piercing damage."}]',
+  size: 'Medium',
+  type: 'fey',
+  alignment: 'chaotic neutral',
+  level: 1,
+  ac: 14,
+  hp: 31,
+  hit_dice: '7d8',
+  challenge_rating: 0.5,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 40,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 12,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'shortbow',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'shortsword',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['satyr-magic-resistance', 'satyr-ram'],
+});

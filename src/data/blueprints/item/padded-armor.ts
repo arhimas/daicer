@@ -1,0 +1,18 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'padded-armor',
+  name: 'Padded Armor',
+  description: 'Padded armor consists of quilted layers of cloth and batting.',
+  type: 'armor',
+  rarity: 'common',
+  value: 5,
+  weight: 8,
+  size: 'Medium',
+  equipment_data: {
+    armor_class_base: 11,
+    armor_class_dex_bonus: true,
+    str_minimum: 0,
+    stealth_disadvantage: true,
+  },
+});

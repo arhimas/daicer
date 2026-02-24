@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'otherworldly-patron-feature',
+  name: 'Otherworldly Patron feature',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Warlock class feature at level 14.',
+  },
+  description:
+    'At 14th level, you gain a feature granted by your Otherworldly Patron. Your choice of patron at 1st level determines the specific feature you receive at this level.',
+  level: 14,
+  tags: ['warlock'],
+});

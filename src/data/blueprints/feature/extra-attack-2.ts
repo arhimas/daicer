@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'extra-attack-2',
+  name: 'Extra Attack (2)',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    'Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn. The number of attacks increases to three when you reach 11th level in this class and to four when you reach 20th level in this class.',
+  level: 11,
+  tags: ['fighter'],
+});

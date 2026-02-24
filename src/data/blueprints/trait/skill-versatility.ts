@@ -1,0 +1,13 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'skill-versatility',
+  name: 'Skill Versatility',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Imported from SRD reference data.',
+  },
+  description: 'You gain proficiency in two skills of your choice.',
+  proficiencies: [],
+  races: ['half-elf'],
+});

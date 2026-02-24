@@ -1,0 +1,40 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Wing Attack (Costs 2 Actions)',
+  description:
+    'The dragon beats its wings. Each creature within 10 ft. of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.',
+  type: 'ability',
+  range_config: {
+    type: 'Self',
+    distance: 10,
+    aoe_shape: 'Sphere',
+    aoe_size: 10,
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 19,
+    attribute: 'dex',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Bludgeoning',
+      dice_count: 2,
+      dice_value: 6,
+      flat_bonus: 6,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Prone',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'adult-brass-dragon-wing-attack-costs-2-actions',
+});

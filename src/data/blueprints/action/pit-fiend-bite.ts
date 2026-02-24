@@ -1,0 +1,51 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description:
+    "Melee Weapon Attack: +14 to hit, reach 5 ft., one target. Hit: 22 (4d6 + 8) piercing damage. The target must succeed on a DC 21 Constitution saving throw or become poisoned. While poisoned in this way, the target can't regain hit points, and it takes 21 (6d6) poison damage at the start of each of its turns. The poisoned target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+  type: 'melee',
+  toHit: 14,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: {
+    dc: 21,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 4,
+      dice_value: 6,
+      flat_bonus: 8,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Poison',
+      dice_count: 6,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Start of Turn',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Poisoned',
+      description:
+        "While poisoned in this way, the target can't regain hit points, and it takes 21 (6d6) poison damage at the start of each of its turns. The poisoned target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'pit-fiend-bite',
+});

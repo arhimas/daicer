@@ -1,0 +1,33 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Fear Aura',
+  description:
+    "Any creature hostile to the pit fiend that starts its turn within 20 feet of the pit fiend must make a DC 21 Wisdom saving throw, unless the pit fiend is incapacitated. On a failed save, the creature is frightened until the start of its next turn. If a creature's saving throw is successful, the creature is immune to the pit fiend's Fear Aura for the next 24 hours.",
+  type: 'ability',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 20,
+    aoe_shape: 'Sphere',
+    aoe_size: 20,
+  },
+  mechanics_config: {
+    action_type: 'Wisdom Save',
+    save_effect: null,
+  },
+  save: {
+    dc: 21,
+    attribute: 'wis',
+  },
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Frightened',
+      description: null,
+      chance: 100,
+      duration_rounds: 1,
+    },
+  ],
+  slug: 'pit-fiend-fear-aura',
+});

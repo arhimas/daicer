@@ -1,0 +1,18 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'diamond-soul',
+  name: 'Diamond Soul',
+  compilation_state: {
+    status: 'Valid',
+    hash: '5e09f1a2b3c4',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Feature successfully compiled from reference data.',
+  },
+  description:
+    'Beginning at 14th level, your mastery of ki grants you proficiency in all saving throws. Additionally, whenever you make a saving throw and fail, you can spend 1 ki point to reroll it and take the second result.',
+  embedding: {},
+  level: 14,
+  lore: 'Your inner spirit has become as hard and clear as a diamond, shielding your mind and body from all harm.',
+  tags: ['monk'],
+});

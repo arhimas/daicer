@@ -1,0 +1,19 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'breastplate',
+  name: 'Breastplate',
+  description:
+    "This armor consists of a fitted metal chest piece worn with supple leather. Although it leaves the legs and arms relatively unprotected, this armor provides good protection for the wearer's vital organs while leaving the wearer relatively unencumbered.",
+  type: 'armor',
+  rarity: 'common',
+  value: 400,
+  weight: 20,
+  size: 'Medium',
+  equipment_data: {
+    armor_class_base: 14,
+    armor_class_dex_bonus: true,
+    str_minimum: 0,
+    stealth_disadvantage: false,
+  },
+});

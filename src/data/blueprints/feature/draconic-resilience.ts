@@ -1,0 +1,17 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'draconic-resilience',
+  name: 'Draconic Resilience',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Generated from D&D 5e reference data.',
+  },
+  description:
+    "As magic flows through your body, it causes physical traits of your dragon ancestors to emerge. At 1st level, your hit point maximum increases by 1 and increases by 1 again whenever you gain a level in this class. Additionally, parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals 13 + your Dexterity modifier.",
+  embedding: {},
+  image: '',
+  level: 1,
+  lore: "The lingering essence of a dragon's vitality manifests as physical protection and a hardier constitution.",
+  tags: ['sorcerer', 'draconic-bloodline'],
+});

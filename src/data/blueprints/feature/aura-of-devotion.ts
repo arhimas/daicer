@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'aura-of-devotion',
+  name: 'Aura of Devotion',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully generated from reference data.',
+  },
+  description:
+    "Starting at 7th level, you and friendly creatures within 10 feet of you can't be charmed while you are conscious. At 18th level, the range of this aura increases to 30 feet.",
+  level: 7,
+  tags: ['paladin', 'devotion'],
+});

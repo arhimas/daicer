@@ -1,0 +1,16 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'fighting-style-archery',
+  name: 'Fighting Style: Archery',
+  compilation_state: {
+    status: 'Valid',
+    hash: '4e8b3c9a',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description: 'You gain a +2 bonus to attack rolls you make with ranged weapons.',
+  level: 2,
+  lore: "The ranger's eyes narrow as they draw back the string, their focus singular and unwavering. In the wild, a single arrow often determines the boundary between life and death.",
+  tags: ['ranger', 'fighting-style'],
+});

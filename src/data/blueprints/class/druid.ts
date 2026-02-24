@@ -1,0 +1,32 @@
+import { defineClass } from '../../../features/genesis-core/blueprints';
+
+export default defineClass({
+  slug: 'druid',
+  name: 'Druid',
+  description:
+    "Whether calling on the elemental forces of nature or emulating the creatures of the animal world, druids are embodiments of nature's resilience, cunning, and fury. They claim no mastery over nature. Instead, they see themselves as extensions of nature's indomitable will.",
+  hit_die: 'd8',
+  subclasses: ['land'],
+  proficiencies: [
+    'light-armor',
+    'medium-armor',
+    'shields',
+    'clubs',
+    'daggers',
+    'javelins',
+    'maces',
+    'quarterstaffs',
+    'sickles',
+    'spears',
+    'darts',
+    'slings',
+    'scimitars',
+    'herbalism-kit',
+    'saving-throw-int',
+    'saving-throw-wis',
+  ],
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Imported from SRD reference data.',
+  },
+});

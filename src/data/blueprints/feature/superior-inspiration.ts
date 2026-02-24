@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'superior-inspiration',
+  name: 'Superior Inspiration',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7e3b1a2c4d5e6f7g8h9i0j',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Imported from SRD reference data.',
+  },
+  description:
+    'At 20th level, when you roll initiative and have no uses of Bardic Inspiration left, you regain one use.',
+  embedding: {},
+  image: '',
+  level: 20,
+  lore: "The bard's wellspring of creativity is inexhaustible; even when exhausted, the thrill of conflict rekindles their artistic fire.",
+  tags: ['bard'],
+});

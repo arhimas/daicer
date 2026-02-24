@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'explorers-pack',
+  name: "Explorer's Pack",
+  description:
+    'Includes a backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, and a waterskin. The pack also has 50 feet of hempen rope strapped to the side of it.',
+  type: 'container',
+  rarity: 'common',
+  value: 10,
+  weight: 59,
+  size: 'Medium',
+});

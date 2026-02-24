@@ -1,0 +1,39 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'create-food-and-water',
+  name: 'Create Food and Water',
+  level: 3,
+  school: 'Conjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: false,
+      material_description: '',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 30,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    "You create 45 pounds of food and 30 gallons of water on the ground or in containers within range, enough to sustain up to fifteen humanoids or five steeds for 24 hours. The food is bland but nourishing, and spoils if uneaten after 24 hours. The water is clean and doesn't go bad.",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Spell data successfully mapped from reference.',
+  },
+});

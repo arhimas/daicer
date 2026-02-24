@@ -1,0 +1,15 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'savage-attacks',
+  name: 'Savage Attacks',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit.",
+  embedding: {},
+  image: '',
+  proficiencies: [],
+  races: ['half-orc'],
+});

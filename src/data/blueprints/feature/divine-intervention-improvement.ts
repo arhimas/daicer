@@ -1,0 +1,16 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'divine-intervention-improvement',
+  name: 'Divine Intervention Improvement',
+  compilation_state: {
+    status: 'Valid',
+    hash: '5e-cleric-20-div-int-imp',
+    last_run: '2023-10-27',
+    summary: 'Successfully mapped from 5e SRD Cleric feature.',
+  },
+  description: 'At 20th level, your call for intervention succeeds automatically, no roll required.',
+  level: 20,
+  lore: 'The connection between you and your deity has reached its zenith. Your prayers are no longer mere requests, but a direct channel for divine will to manifest upon the material plane.',
+  tags: ['cleric'],
+});

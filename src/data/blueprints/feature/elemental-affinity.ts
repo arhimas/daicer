@@ -1,0 +1,16 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'elemental-affinity',
+  name: 'Elemental Affinity',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully compiled from SRD reference data.',
+  },
+  description:
+    'Starting at 6th level, when you cast a spell that deals damage of the type associated with your draconic ancestry, you can add your Charisma modifier to one damage roll of that spell. At the same time, you can spend 1 sorcery point to gain resistance to that damage type for 1 hour.',
+  embedding: {},
+  level: 6,
+  lore: 'As your power matures, the elemental essence of your draconic bloodline begins to permeate your magic, making your spells more potent and your body more resilient to that same energy.',
+  tags: ['sorcerer', 'draconic-bloodline'],
+});

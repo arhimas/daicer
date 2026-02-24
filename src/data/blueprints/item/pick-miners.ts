@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'pick-miners',
+  name: "Pick, miner's",
+  description: "A miner's pick is a heavy tool used for breaking through stone and hard earth in mining operations.",
+  type: 'tool',
+  rarity: 'common',
+  value: 2,
+  weight: 10,
+  size: 'Medium',
+  width: 1200,
+});

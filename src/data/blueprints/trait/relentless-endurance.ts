@@ -1,0 +1,16 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'relentless-endurance',
+  name: 'Relentless Endurance',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully imported from SRD 5.1 reference.',
+  },
+  description:
+    'When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can’t use this feature again until you finish a long rest.',
+  embedding: {},
+  image: '',
+  proficiencies: [],
+  races: ['half-orc'],
+});

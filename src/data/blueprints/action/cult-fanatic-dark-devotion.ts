@@ -1,0 +1,11 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Dark Devotion',
+  description: 'The fanatic has advantage on saving throws against being charmed or frightened.',
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'cult-fanatic-dark-devotion',
+});

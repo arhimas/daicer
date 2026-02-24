@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'vial',
+  name: 'Vial',
+  description: 'A small glass or ceramic container that can hold up to 4 ounces of liquid.',
+  type: 'container',
+  rarity: 'common',
+  value: 1,
+  weight: 0,
+  size: 'Tiny',
+  width: 1,
+});

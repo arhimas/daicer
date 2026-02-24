@@ -1,0 +1,12 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-armor-of-shadows',
+  name: 'Eldritch Invocation: Armor of Shadows',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description: 'You can cast mage armor on yourself at will, without expending a spell slot or material components.',
+  level: 2,
+  tags: ['warlock', 'eldritch-invocations'],
+});

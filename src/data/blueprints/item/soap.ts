@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'soap',
+  name: 'Soap',
+  description: 'A standard bar of soap used for hygiene and cleaning.',
+  type: 'loot',
+  rarity: 'common',
+  value: 2,
+  weight: 0,
+  size: 'Medium',
+});

@@ -1,0 +1,60 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'sunburst',
+  name: 'Sunburst',
+  level: 8,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'Fire and a piece of sunstone.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 150,
+    aoe_shape: 'Sphere',
+    aoe_size: 60,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Half',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Radiant',
+      dice_count: 12,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Blinded',
+      description:
+        'A creature blinded by this spell makes another constitution saving throw at the end of each of its turns. On a successful save, it is no longer blinded.',
+      chance: 100,
+      duration_rounds: 10,
+    },
+  ],
+  description:
+    "Brilliant sunlight flashes in a 60-foot radius centered on a point you choose within range. Each creature in that light must make a constitution saving throw. On a failed save, a creature takes 12d6 radiant damage and is blinded for 1 minute. On a successful save, it takes half as much damage and isn't blinded by this spell. Undead and oozes have disadvantage on this saving throw. A creature blinded by this spell makes another constitution saving throw at the end of each of its turns. On a successful save, it is no longer blinded. This spell dispels any darkness in its area that was created by a spell.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

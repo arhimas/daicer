@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'ki-empowered-strikes',
+  name: 'Ki Empowered Strikes',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7b8c9d0e1f2a3b4c5d6e7f8g9h0i1j2k',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully mapped Ki Empowered Strikes from reference data.',
+  },
+  description:
+    'Starting at 6th level, your unarmed strikes count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage.',
+  embedding: {},
+  image: '',
+  level: 6,
+  lore: 'By channeling your internal reserves of ki, you imbue your physical strikes with spiritual essence, allowing your blows to strike true against foes that are normally impervious to mundane harm.',
+  tags: ['monk', 'class-feature'],
+});

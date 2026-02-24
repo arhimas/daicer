@@ -1,0 +1,9 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'plant-growth',
+  name: 'Plant Growth',
+  level: 3,
+  school: 'Transmutation',
+  tags: ['bard', 'druid', 'ranger'],
+});

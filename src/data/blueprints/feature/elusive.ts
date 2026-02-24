@@ -1,0 +1,15 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'elusive',
+  name: 'Elusive',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully processed Rogue class feature.',
+  },
+  description:
+    "Beginning at 18th level, you are so evasive that attackers rarely gain the upper hand against you. No attack roll has advantage against you while you aren't incapacitated.",
+  embedding: {},
+  level: 18,
+  tags: ['rogue'],
+});

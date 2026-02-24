@@ -1,0 +1,48 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'mass-heal',
+  name: 'Mass Heal',
+  level: 9,
+  school: 'Conjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Auto-Hit',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Healing',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 700,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [],
+  description:
+    'A flood of healing energy flows from you into injured creatures around you. You restore up to 700 hit points, divided as you choose among any number of creatures that you can see within range. Creatures healed by this spell are also cured of all diseases and any effect making them blinded or deafened. This spell has no effect on undead or constructs.',
+  compilation_state: {
+    status: 'Valid',
+    summary: '9th level healing spell with a 700 HP pool.',
+  },
+  tags: ['cleric'],
+});

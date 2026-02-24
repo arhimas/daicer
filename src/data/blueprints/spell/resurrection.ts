@@ -1,0 +1,47 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'resurrection',
+  name: 'Resurrection',
+  level: 7,
+  school: 'Necromancy',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Hour',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: true,
+      cost_gp: 1000,
+      material: true,
+      material_description: 'A diamond worth at least 1,000gp, which the spell consumes.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  condition_instances: [
+    {
+      condition: 'Special',
+      description:
+        'The target takes a -4 penalty to all attack rolls, saving throws, and ability checks. Every time the target finishes a long rest, the penalty is reduced by 1 until it disappears.',
+      chance: 100,
+    },
+  ],
+  description:
+    "You touch a dead creature that has been dead for no more than a century, that didn't die of old age, and that isn't undead. If its soul is free and willing, the target returns to life with all its hit points.\n\nThis spell neutralizes any poisons and cures normal diseases afflicting the creature when it died. It doesn't, however, remove magical diseases, curses, and the like; if such effects aren't removed prior to casting the spell, they afflict the target on its return to life.\n\nThis spell closes all mortal wounds and restores any missing body parts.\n\nComing back from the dead is an ordeal. The target takes a -4 penalty to all attack rolls, saving throws, and ability checks. Every time the target finishes a long rest, the penalty is reduced by 1 until it disappears.\n\nCasting this spell to restore life to a creature that has been dead for one year or longer taxes you greatly. Until you finish a long rest, you can't cast spells again, and you have disadvantage on all attack rolls, ability checks, and saving throws.",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Resurrection spell data successfully mapped from reference.',
+  },
+  tags: ['bard', 'cleric'],
+});

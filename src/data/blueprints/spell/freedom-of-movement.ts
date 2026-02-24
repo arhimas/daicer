@@ -1,0 +1,9 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'freedom-of-movement',
+  name: 'Freedom of Movement',
+  level: 4,
+  school: 'Abjuration',
+  tags: ['bard', 'cleric', 'druid', 'ranger', 'land', 'devotion'],
+});

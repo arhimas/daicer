@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'orc',
+  name: 'Orc',
+  description:
+    '### Special Abilities\n[{"name":"Aggressive","desc":"As a bonus action, the orc can move up to its speed toward a hostile creature that it can see."}]\n\n### Actions\n[{"name":"Greataxe","desc":"Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 9 (1d12 + 3) slashing damage."},{"name":"Javelin","desc":"Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 6 (1d6 + 3) piercing damage."}]',
+  size: 'Medium',
+  type: 'humanoid',
+  alignment: 'chaotic evil',
+  level: 1,
+  ac: 13,
+  hp: 15,
+  hit_dice: '2d8',
+  challenge_rating: 0.5,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 10,
+    darkvision: 60,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'greataxe',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'javelin',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['orc-aggressive'],
+});

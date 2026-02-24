@@ -1,0 +1,28 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Death Glare',
+  description:
+    'The hag targets one frightened creature she can see within 30 ft. of her. If the target can see the hag, it must succeed on a DC 11 Wisdom saving throw against this magic or drop to 0 hit points.',
+  type: 'spell',
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 30,
+  },
+  mechanics_config: {
+    action_type: 'Wisdom Save',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 11,
+    attribute: 'wis',
+  },
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: 'Target drops to 0 hit points on a failed save.',
+      chance: 100,
+    },
+  ],
+  slug: 'sea-hag-death-glare',
+});

@@ -1,0 +1,57 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description:
+    'Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 7 (1d10 + 2) piercing damage, and the target must make a DC 11 Constitution saving throw, taking 18 (4d8) poison damage on a failed save, or half as much damage on a successful one. If the poison damage reduces the target to 0 hit points, the target is stable but poisoned for 1 hour, even after regaining hit points, and is paralyzed while poisoned in this way. (Damage: 1d10+2 piercing)',
+  type: 'melee',
+  toHit: 4,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Half',
+  },
+  save: {
+    dc: 11,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 1,
+      dice_value: 10,
+      flat_bonus: 2,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Poison',
+      dice_count: 4,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Poisoned',
+      description:
+        'If the poison damage reduces the target to 0 hit points, the target is stable but poisoned for 1 hour, even after regaining hit points',
+      chance: 100,
+      duration_rounds: null,
+    },
+    {
+      condition: 'Paralyzed',
+      description: 'while poisoned in this way',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'phase-spider-bite',
+});

@@ -1,0 +1,37 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'glibness',
+  name: 'Glibness',
+  level: 8,
+  school: 'Transmutation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: false,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Self',
+  },
+  duration_config: {
+    type: 'Time-Limited',
+    value: 1,
+    unit: 'Hours',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    'Until the spell ends, when you make a Charisma check, you can replace the number you roll with a 15. Additionally, no matter what you say, magic that would determine if you are telling the truth indicates that you are being truthful.',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

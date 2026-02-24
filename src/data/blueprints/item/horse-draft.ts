@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'horse-draft',
+  name: 'Horse, draft',
+  description: 'Vehicle Category: Mounts and Other Animals. Speed: 40 ft. Capacity: 540 lb.',
+  type: 'loot',
+  rarity: 'common',
+  value: 50,
+  weight: 0,
+  size: 'Large',
+});

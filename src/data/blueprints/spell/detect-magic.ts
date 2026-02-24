@@ -1,0 +1,40 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'detect-magic',
+  name: 'Detect Magic',
+  level: 1,
+  school: 'Divination',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: true,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Self',
+    aoe_shape: 'Sphere',
+    aoe_size: 30,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 10,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    'For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any. The spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt.',
+  compilation_state: {
+    status: 'Valid',
+  },
+  tags: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'sorcerer', 'wizard'],
+});

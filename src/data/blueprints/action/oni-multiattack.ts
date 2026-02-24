@@ -1,0 +1,11 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Multiattack',
+  description: 'The oni makes two attacks, either with its claws or its glaive.',
+  type: 'utility',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'oni-multiattack',
+});

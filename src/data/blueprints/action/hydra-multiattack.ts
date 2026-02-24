@@ -1,0 +1,11 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Multiattack',
+  description: 'The hydra makes as many bite attacks as it has heads.',
+  type: 'utility',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'hydra-multiattack',
+});

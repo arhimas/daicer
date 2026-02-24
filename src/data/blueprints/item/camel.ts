@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'camel',
+  name: 'Camel',
+  description: 'Vehicle Category: Mounts and Other Animals. Speed: 50 ft/round. Carrying Capacity: 480 lb.',
+  type: 'loot',
+  rarity: 'common',
+  value: 50,
+  weight: 0,
+  size: 'Large',
+  tags: ['mounts-and-vehicles'],
+});

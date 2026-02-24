@@ -1,0 +1,58 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'poison-spray',
+  name: 'Poison Spray',
+  level: 0,
+  school: 'Conjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 10,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Negate',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Poison',
+      dice_count: 1,
+      dice_value: 12,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [],
+  scaling_config: {
+    scales: true,
+    type: 'Dice',
+    method: 'Specific Thresholds',
+    dice_count: 1,
+    dice_value: 12,
+  },
+  description:
+    "You extend your hand toward a creature you can see within range and project a puff of noxious gas from your palm. The creature must succeed on a constitution saving throw or take 1d12 poison damage.\n\nThis spell's damage increases by 1d12 when you reach 5th level (2d12), 11th level (3d12), and 17th level (4d12).",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Spell compiled successfully from SRD data.',
+  },
+  tags: [],
+});

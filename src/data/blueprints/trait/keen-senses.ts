@@ -1,0 +1,17 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'keen-senses',
+  name: 'Keen Senses',
+  compilation_state: {
+    status: 'Valid',
+    hash: '4a896d7c71e2195f123456789abcdef0',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully imported from SRD reference.',
+  },
+  description: 'You have proficiency in the Perception skill.',
+  embedding: {},
+  image: '',
+  proficiencies: ['skill-perception'],
+  races: ['elf'],
+});

@@ -1,0 +1,83 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'symbol',
+  name: 'Symbol',
+  level: 7,
+  school: 'Abjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Minute',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: true,
+      cost_gp: 1000,
+      material: true,
+      material_description:
+        'Mercury, phosphorus, and powdered diamond and opal with a total value of at least 1,000 gp, which the spell consumes.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+    aoe_shape: 'Sphere',
+    aoe_size: 60,
+  },
+  duration_config: {
+    type: 'Until Dispelled',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Necrotic',
+      dice_count: 10,
+      dice_value: 10,
+      flat_bonus: 0,
+      timing: 'One Time Trigger',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Frightened',
+      description:
+        'Target becomes frightened for 1 minute on a failed save. While frightened, the target drops whatever it is holding and must move at least 30 feet away from the glyph on each of its turns.',
+      chance: 100,
+    },
+    {
+      condition: 'Unconscious',
+      description:
+        'Target falls unconscious for 10 minutes on a failed save. A creature awakens if it takes damage or if someone uses an action to shake or slap it awake.',
+      chance: 100,
+      duration_rounds: 100,
+    },
+    {
+      condition: 'Stunned',
+      description: 'Target becomes stunned for 1 minute on a failed save.',
+      chance: 100,
+      duration_rounds: 10,
+    },
+    {
+      condition: 'Incapacitated',
+      description: 'Target becomes incapacitated with excruciating pain for 1 minute on a failed save.',
+      chance: 100,
+      duration_rounds: 10,
+    },
+    {
+      condition: 'Special',
+      description:
+        "Discord: Target bickers and argues for 1 minute, incapable of meaningful communication and has disadvantage on attack rolls and ability checks. Hopelessness: Target can't attack or target any creature with harmful abilities or spells for 1 minute. Insanity: Target can't take actions, understand speech, or read, and speaks in gibberish.",
+      chance: 100,
+    },
+  ],
+  description:
+    'When you cast this spell, you inscribe a harmful glyph either on a surface or within an object that can be closed to conceal the glyph. If you choose a surface, the glyph can cover an area no larger than 10 feet in diameter. If you choose an object, it must remain in its place; if moved more than 10 feet, the glyph is broken. The glyph is nearly invisible, requiring an Intelligence (Investigation) check against your spell save DC to find. You decide the trigger (touching, stepping on, opening, reading, etc.) and can refine it by creature type or physical characteristics. Once triggered, the glyph glows, filling a 60-foot-radius sphere with dim light for 10 minutes. Each creature in the sphere when the glyph activates, or that enters/ends its turn there, is targeted by the chosen effect: Death (10d10 necrotic), Discord (disadvantage/no communication), Fear (frightened/flee), Hopelessness (cannot attack), Insanity (no actions/gibberish), Pain (incapacitated), Sleep (unconscious), or Stunning (stunned).',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

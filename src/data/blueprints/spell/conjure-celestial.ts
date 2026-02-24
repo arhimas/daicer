@@ -1,0 +1,43 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'conjure-celestial',
+  name: 'Conjure Celestial',
+  level: 7,
+  school: 'Conjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Minute',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 90,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Hours',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  scaling_config: {
+    scales: true,
+    type: 'Target',
+    method: 'Per Slot Level',
+  },
+  description:
+    "You summon a celestial of challenge rating 4 or lower, which appears in an unoccupied space that you can see within range. The celestial disappears when it drops to 0 hit points or when the spell ends.\n\nThe celestial is friendly to you and your companions for the duration. Roll initiative for the celestial, which has its own turns. It obeys any verbal commands that you issue to it (no action required by you), as long as they don't violate its alignment. If you don't issue any commands to the celestial, it defends itself from hostile creatures but otherwise takes no actions.\n\nThe GM has the celestial's statistics.\n\n**At Higher Levels.** When you cast this spell using a 9th-level spell slot, you summon a celestial of challenge rating 5 or lower.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

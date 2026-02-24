@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'horse-riding',
+  name: 'Horse, Riding',
+  description:
+    'A riding horse is a standard mount used for travel. Vehicle Category: Mounts and Other Animals. Speed: 60 ft/round. Capacity: 480 lb.',
+  type: 'loot',
+  rarity: 'common',
+  value: 75,
+  weight: 0,
+  size: 'Medium',
+});

@@ -1,0 +1,18 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'hunters-prey-giant-killer',
+  name: "Hunter's Prey: Giant Killer",
+  compilation_state: {
+    status: 'Valid',
+    hash: 'a4f8e2c1',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description:
+    'When a Large or larger creature within 5 feet of you hits or misses you with an attack, you can use your reaction to attack that creature immediately after its attack, provided that you can see the creature.',
+  embedding: {},
+  level: 3,
+  lore: 'The bigger they are, the harder they fall—and the more openings they leave for a seasoned hunter to exploit.',
+  tags: ['ranger', 'hunter', 'combat'],
+});

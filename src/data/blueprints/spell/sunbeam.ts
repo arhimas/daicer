@@ -1,0 +1,62 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'sunbeam',
+  name: 'Sunbeam',
+  level: 6,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A magnifying glass.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Self',
+    distance: 60,
+    aoe_shape: 'Line',
+    aoe_size: 60,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Half',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Radiant',
+      dice_count: 6,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Blinded',
+      description: 'Blinded until the end of your next turn on a failed save.',
+      chance: 100,
+      duration_rounds: 1,
+    },
+  ],
+  description:
+    "A beam of brilliant light flashes out from your hand in a 5-foot-wide, 60-foot-long line. Each creature in the line must make a constitution saving throw. On a failed save, a creature takes 6d8 radiant damage and is blinded until your next turn. On a successful save, it takes half as much damage and isn't blinded by this spell. Undead and oozes have disadvantage on this saving throw.\n\nYou can create a new line of radiance as your action on any turn until the spell ends.\n\nFor the duration, a mote of brilliant radiance shines in your hand. It sheds bright light in a 30-foot radius and dim light for an additional 30 feet. This light is sunlight.",
+  compilation_state: {
+    status: 'Valid',
+  },
+  tags: ['druid', 'sorcerer', 'wizard'],
+});

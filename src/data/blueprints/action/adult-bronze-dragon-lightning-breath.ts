@@ -1,0 +1,33 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Lightning Breath',
+  description:
+    'The dragon exhales lightning in a 90-foot line that is 5 feet wide. Each creature in that line must make a DC 19 Dexterity saving throw, taking 66 (12d10) lightning damage on a failed save, or half as much damage on a successful one.',
+  type: 'ability',
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 90,
+    aoe_shape: 'Line',
+    aoe_size: 5,
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'Half',
+  },
+  save: {
+    dc: 19,
+    attribute: 'dex',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Lightning',
+      dice_count: 12,
+      dice_value: 10,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  slug: 'adult-bronze-dragon-lightning-breath',
+});

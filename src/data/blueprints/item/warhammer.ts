@@ -1,0 +1,20 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'warhammer',
+  name: 'Warhammer',
+  description:
+    'A martial melee weapon. This weapon can be used with one or two hands. When used with two hands to make a melee attack, it deals 1d10 bludgeoning damage.',
+  type: 'weapon',
+  rarity: 'common',
+  value: 15,
+  weight: 2,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d8',
+    versatile_dice: '1d10',
+    damage_type: 'bludgeoning',
+    range_normal: 5,
+    properties: ['versatile'],
+  },
+});

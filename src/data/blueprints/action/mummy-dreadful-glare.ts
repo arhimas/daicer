@@ -1,0 +1,39 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Dreadful Glare',
+  description:
+    "The mummy targets one creature it can see within 60 ft. of it. If the target can see the mummy, it must succeed on a DC 11 Wisdom saving throw against this magic or become frightened until the end of the mummy's next turn. If the target fails the saving throw by 5 or more, it is also paralyzed for the same duration. A target that succeeds on the saving throw is immune to the Dreadful Glare of all mummies (but not mummy lords) for the next 24 hours.",
+  type: 'ability',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Wisdom Save',
+    save_effect: 'None',
+  },
+  save: {
+    dc: 11,
+    attribute: 'wis',
+  },
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Frightened',
+      description: null,
+      chance: 100,
+      duration_rounds: 1,
+    },
+    {
+      condition: 'Paralyzed',
+      description: 'If the target fails the saving throw by 5 or more, it is also paralyzed for the same duration.',
+      chance: 100,
+      duration_rounds: 1,
+    },
+  ],
+  slug: 'mummy-dreadful-glare',
+});

@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'sealing-wax',
+  name: 'Sealing wax',
+  description: 'A stick of wax used to seal letters or documents with a signet ring.',
+  type: 'loot',
+  rarity: 'common',
+  value: 50,
+  weight: 0,
+  size: 'Medium',
+});

@@ -1,0 +1,54 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'heroism',
+  name: 'Heroism',
+  level: 1,
+  school: 'Enchantment',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 1,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'TempHP',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Start of Turn',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Frightened',
+      description: 'The target is immune to being frightened for the duration.',
+      chance: 100,
+    },
+  ],
+  description:
+    'A willing creature you touch is imbued with bravery. Until the spell ends, the creature is immune to being frightened and gains temporary hit points equal to your spellcasting ability modifier at the start of each of its turns. When the spell ends, the target loses any remaining temporary hit points from this spell.',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Spell successfully mapped from reference data.',
+  },
+});

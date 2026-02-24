@@ -1,9 +1,0 @@
-{
-  "name": "False Appearance",
-  "description": "While the mimic remains motionless, it is indistinguishable from an ordinary object.",
-  "type": "ability",
-  "mechanics_config": {
-    "action_type": "None"
-  },
-  "slug": "mimic-false-appearance"
-}

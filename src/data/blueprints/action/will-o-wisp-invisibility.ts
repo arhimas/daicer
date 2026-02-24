@@ -1,0 +1,23 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Invisibility',
+  description:
+    "The will-o'-wisp and its light magically become invisible until it attacks or uses its Consume Life, or until its concentration ends (as if concentrating on a spell).",
+  type: 'spell',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Invisible',
+      description:
+        "The will-o'-wisp and its light magically become invisible until it attacks or uses its Consume Life, or until its concentration ends (as if concentrating on a spell).",
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'will-o-wisp-invisibility',
+});

@@ -1,0 +1,9 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'mirage-arcane',
+  name: 'Mirage Arcane',
+  level: 7,
+  school: 'Illusion',
+  tags: ['bard', 'druid', 'wizard'],
+});

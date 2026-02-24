@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'wild-shape-cr-1-or-below',
+  name: 'Wild Shape (CR 1 or below)',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    "Starting at 2nd level, you can use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest. At 8th level, you can transform into any beast that has a challenge rating of 1 or lower. You can stay in a beast shape for a number of hours equal to half your druid level (rounded down). You then revert to your normal form unless you expend another use of this feature. You can revert to your normal form earlier by using a bonus action on your turn. You automatically revert if you fall unconscious, drop to 0 hit points, or die. While you are transformed, your game statistics are replaced by the statistics of the beast, but you retain your alignment, personality, and Intelligence, Wisdom, and Charisma scores. You also retain all of your skill and saving throw proficiencies, in addition to gaining those of the creature. When you transform, you assume the beast's hit points and Hit Dice. When you revert to your normal form, you return to the number of hit points you had before you transformed. However, if you revert as a result of dropping to 0 hit points, any excess damage carries over to your normal form. You can't cast spells, and your ability to speak or take any action that requires hands is limited to the capabilities of your beast form. Transforming doesn't break your concentration on a spell you've already cast. You retain the benefit of any features from your class, race, or other source if the new form is physically capable. You choose whether your equipment falls to the ground, merges into your new form, or is worn by it.",
+  embedding: {},
+  level: 8,
+  tags: ['druid'],
+});

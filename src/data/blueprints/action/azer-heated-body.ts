@@ -1,0 +1,19 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Heated Body',
+  description:
+    'A creature that touches the azer or hits it with a melee attack while within 5 ft. of it takes 5 (1d10) fire damage.',
+  type: 'ability',
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Fire',
+      dice_count: 1,
+      dice_value: 10,
+      flat_bonus: 0,
+      timing: 'One Time Trigger',
+    },
+  ],
+  slug: 'azer-heated-body',
+});

@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'kobold',
+  name: 'Kobold',
+  description:
+    '### Special Abilities\n[{"name":"Sunlight Sensitivity","desc":"While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."},{"name":"Pack Tactics","desc":"The kobold has advantage on an attack roll against a creature if at least one of the kobold\'s allies is within 5 ft. of the creature and the ally isn\'t incapacitated."}]\n\n### Actions\n[{"name":"Dagger","desc":"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) piercing damage.","attack_bonus":4,"damage":[{"damage_type":"piercing","damage_dice":"1d4+2"}]},{"name":"Sling","desc":"Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 4 (1d4 + 2) bludgeoning damage.","attack_bonus":4,"damage":[{"damage_type":"bludgeoning","damage_dice":"1d4+2"}]}]',
+  size: 'Small',
+  type: 'humanoid',
+  alignment: 'lawful evil',
+  level: 1,
+  ac: 12,
+  hp: 5,
+  hit_dice: '2d6',
+  challenge_rating: 0.125,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 0,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'dagger',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'sling',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['kobold-pack-tactics', 'kobold-sunlight-sensitivity'],
+});

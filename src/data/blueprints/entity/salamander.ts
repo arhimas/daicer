@@ -1,0 +1,47 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'salamander',
+  name: 'Salamander',
+  description:
+    '### Special Abilities\n[{"name": "Heated Body", "desc": "A creature that touches the salamander or hits it with a melee attack while within 5 ft. of it takes 7 (2d6) fire damage."}, {"name": "Heated Weapons", "desc": "Any metal melee weapon the salamander wields deals an extra 3 (1d6) fire damage on a hit (included in the attack)."}]\n\n### Actions\n[{"name": "Multiattack", "desc": "The salamander makes two attacks: one with its spear and one with its tail."}, {"name": "Spear", "desc": "Melee or Ranged Weapon Attack: +7 to hit, reach 5 ft. or range 20 ft./60 ft., one target. Hit: 11 (2d6 + 4) piercing damage, or 13 (2d8 + 4) piercing damage if used with two hands to make a melee attack, plus 3 (1d6) fire damage.", "attack_bonus": 7}, {"name": "Tail", "desc": "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage plus 7 (2d6) fire damage, and the target is grappled (escape DC 14). Until this grapple ends, the target is restrained, the salamander can automatically hit the target with its tail, and the salamander can\'t make tail attacks against other targets.", "attack_bonus": 7}]',
+  size: 'Large',
+  type: 'elemental',
+  alignment: 'neutral evil',
+  level: 5,
+  ac: 15,
+  hp: 90,
+  hit_dice: '12d10',
+  challenge_rating: 5,
+  xp: 1800,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 0,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'spear',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['salamander-heated-body', 'salamander-heated-weapons', 'salamander-multiattack', 'salamander-tail'],
+});

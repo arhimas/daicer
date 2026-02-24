@@ -1,0 +1,35 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'fireball',
+  description:
+    "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot-radius sphere centered on that point must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried.",
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 150,
+    aoe_shape: 'Sphere',
+    aoe_size: 20,
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'Half',
+  },
+  save: {
+    dc: 14,
+    attribute: 'dex',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Fire',
+      dice_count: 8,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'mage-fireball',
+});

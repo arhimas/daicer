@@ -1,0 +1,43 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Spores',
+  description:
+    'A 15-foot-radius cloud of toxic spores extends out from the vrock. The spores spread around corners. Each creature in that area must succeed on a DC 14 Constitution saving throw or become poisoned. While poisoned in this way, a target takes 5 (1d10) poison damage at the start of each of its turns. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Emptying a vial of holy water on the target also ends the effect on it.',
+  type: 'ability',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: 'Sphere',
+    aoe_size: 15,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Negate',
+  },
+  save: {
+    dc: 14,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Poison',
+      dice_count: 1,
+      dice_value: 10,
+      flat_bonus: 0,
+      timing: 'Start of Turn',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Poisoned',
+      description:
+        'While poisoned in this way, a target takes 5 (1d10) poison damage at the start of each of its turns. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Emptying a vial of holy water on the target also ends the effect on it.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'vrock-spores',
+});

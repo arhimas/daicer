@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'sack',
+  name: 'Sack',
+  description: 'A sack can hold up to 1 cubic foot or 30 pounds of gear.',
+  type: 'container',
+  rarity: 'common',
+  value: 1,
+  weight: 0.5,
+  size: 'Medium',
+  width: 12,
+});

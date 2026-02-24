@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-mire-the-mind',
+  name: 'Eldritch Invocation: Mire the Mind',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description: "You can cast slow once using a warlock spell slot. You can't do so again until you finish a long rest.",
+  level: 5,
+  lore: "Through the influence of your patron, you can manifest a field of temporal distortion that hampers your enemies' actions.",
+  tags: ['warlock', 'invocation'],
+});

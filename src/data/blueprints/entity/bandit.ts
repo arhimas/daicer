@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'bandit',
+  name: 'Bandit',
+  description:
+    '### Actions\n[{"name":"Scimitar","desc":"Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) slashing damage.","attack_bonus":3,"damage":[{"damage_type":"slashing","damage_dice":"1d6+1"}]},{"name":"Light Crossbow","desc":"Ranged Weapon Attack: +3 to hit, range 80 ft./320 ft., one target. Hit: 5 (1d8 + 1) piercing damage.","attack_bonus":3,"damage":[{"damage_type":"piercing","damage_dice":"1d8+1"}]}]',
+  size: 'Medium',
+  type: 'humanoid',
+  alignment: 'any non-lawful alignment',
+  level: 1,
+  ac: 12,
+  hp: 11,
+  hit_dice: '2d8',
+  challenge_rating: 0.125,
+  xp: 25,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 0,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'scimitar',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: [
+    'bandit-captain-dagger-melee',
+    'bandit-captain-dagger-ranged',
+    'bandit-captain-multiattack',
+    'bandit-captain-scimitar',
+    'bandit-light-crossbow',
+  ],
+});

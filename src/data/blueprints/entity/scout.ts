@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'scout',
+  name: 'Scout',
+  description:
+    '### Special Abilities\n[{"name":"Keen Hearing and Sight","desc":"The scout has advantage on Wisdom (Perception) checks that rely on hearing or sight."}]\n\n### Actions\n[{"name":"Multiattack","desc":"The scout makes two melee attacks or two ranged attacks."},{"name":"Shortsword","desc":"Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage.","attack_bonus":4,"damage_dice":"1d6+2"},{"name":"Longbow","desc":"Ranged Weapon Attack: +4 to hit, range 150/600 ft., one target. Hit: 6 (1d8 + 2) piercing damage.","attack_bonus":4,"damage_dice":"1d8+2"}]',
+  size: 'Medium',
+  type: 'humanoid',
+  alignment: 'any alignment',
+  level: 1,
+  ac: 13,
+  hp: 16,
+  hit_dice: '3d8',
+  challenge_rating: 0.5,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 15,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'longbow',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'shortsword',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['scout-keen-hearing-and-sight', 'scout-multiattack'],
+});

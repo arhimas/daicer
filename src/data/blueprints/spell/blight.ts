@@ -1,0 +1,63 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'blight',
+  name: 'Blight',
+  level: 4,
+  school: 'Necromancy',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 30,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Half',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Necrotic',
+      dice_count: 8,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description:
+        'Plants have disadvantage on the saving throw and take maximum damage. Nonmagical plants that are not creatures wither and die automatically.',
+      chance: 100,
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Dice',
+    method: 'Per Slot Level',
+    dice_count: 1,
+    dice_value: 8,
+  },
+  description:
+    "Necromantic energy washes over a creature of your choice that you can see within range, draining moisture and vitality from it. The target must make a constitution saving throw. The target takes 8d8 necrotic damage on a failed save, or half as much damage on a successful one. The spell has no effect on undead or constructs. If you target a plant creature or a magical plant, it makes the saving throw with disadvantage, and the spell deals maximum damage to it. If you target a nonmagical plant that isn't a creature, such as a tree or shrub, it doesn't make a saving throw; it simply withers and dies. Higher Level: When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d8 for each slot level above 4th.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

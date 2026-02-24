@@ -1,0 +1,31 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Hooves',
+  description: 'Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) bludgeoning damage.',
+  type: 'melee',
+  toHit: 2,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Bludgeoning',
+      dice_count: 1,
+      dice_value: 4,
+      flat_bonus: 2,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'mule-hooves',
+});

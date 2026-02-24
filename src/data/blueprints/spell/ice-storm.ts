@@ -1,0 +1,64 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'ice-storm',
+  name: 'Ice Storm',
+  level: 4,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A pinch of dust and a few drops of water.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 300,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'Half',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Bludgeoning',
+      dice_count: 2,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Cold',
+      dice_count: 4,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Dice',
+    method: 'Per Slot Level',
+  },
+  description:
+    "A hail of rock-hard ice pounds to the ground in a 20-foot-radius, 40-foot-high cylinder centered on a point within range. Each creature in the cylinder must make a dexterity saving throw. A creature takes 2d8 bludgeoning damage and 4d6 cold damage on a failed save, or half as much damage on a successful one. Hailstones turn the storm's area of effect into difficult terrain until the end of your next turn. At Higher Levels: When you cast this spell using a spell slot of 5th level or higher, the bludgeoning damage increases by 1d8 for each slot level above 4th.",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Ice Storm spell compiled from reference data.',
+  },
+  tags: ['druid', 'sorcerer', 'wizard', 'land'],
+});

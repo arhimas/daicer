@@ -1,0 +1,9 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Relentless',
+  description:
+    'If the boar takes 10 damage or less that would reduce it to 0 hit points, it is reduced to 1 hit point instead.',
+  type: 'utility',
+  slug: 'giant-boar-relentless',
+});

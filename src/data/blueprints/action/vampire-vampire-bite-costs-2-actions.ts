@@ -1,0 +1,55 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite (Costs 2 Actions)',
+  description: 'The vampire makes one bite attack.',
+  type: 'melee',
+  toHit: 9,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Melee Spell Attack',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 4,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Necrotic',
+      dice_count: 3,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Healing',
+      damage_type: null,
+      dice_count: 0,
+      dice_value: 0,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description:
+        "Target's hit point maximum is reduced by an amount equal to the necrotic damage taken. The reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0. A humanoid slain in this way and then buried in the ground rises the following night as a vampire spawn under the vampire's control.",
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'vampire-vampire-bite-costs-2-actions',
+});

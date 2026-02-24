@@ -350,6 +350,7 @@ export interface GameEquipmentData extends Struct.ComponentSchema {
     range_normal: Schema.Attribute.Integer;
     stealth_disadvantage: Schema.Attribute.Boolean;
     str_minimum: Schema.Attribute.Integer;
+    versatile_dice: Schema.Attribute.String;
   };
 }
 
@@ -544,8 +545,8 @@ export interface GameSaveDc extends Struct.ComponentSchema {
     icon: 'shield-alt';
   };
   attributes: {
+    attribute: Schema.Attribute.Enumeration<['str', 'dex', 'con', 'int', 'wis', 'cha']> & Schema.Attribute.Required;
     dc: Schema.Attribute.Integer & Schema.Attribute.Required;
-    stat: Schema.Attribute.Enumeration<['str', 'dex', 'con', 'int', 'wis', 'cha']> & Schema.Attribute.Required;
     success_type: Schema.Attribute.Enumeration<['none', 'half', 'other']> & Schema.Attribute.DefaultTo<'none'>;
   };
 }

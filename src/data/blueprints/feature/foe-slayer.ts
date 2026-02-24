@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'foe-slayer',
+  name: 'Foe Slayer',
+  compilation_state: {
+    status: 'Valid',
+    hash: '8f7e2a1b',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully parsed Ranger capstone feature.',
+  },
+  description:
+    'At 20th level, you become an unparalleled hunter of your enemies. Once on each of your turns, you can add your Wisdom modifier to the attack roll or the damage roll of an attack you make against one of your favored enemies. You can choose to use this feature before or after the roll, but before any effects of the roll are applied.',
+  embedding: {},
+  image: 'https://www.dnd5eapi.co/api/2014/features/foe-slayer/image.png',
+  level: 20,
+  lore: "Through years of tracking and combat, your instincts have sharpened to a razor's edge, allowing you to strike with supernatural precision against your chosen prey.",
+  tags: ['ranger', 'class-feature', 'level-20'],
+});

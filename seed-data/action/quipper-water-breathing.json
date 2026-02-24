@@ -1,6 +1,0 @@
-{
-  "name": "Water Breathing",
-  "description": "The quipper can breathe only underwater.",
-  "type": "ability",
-  "slug": "quipper-water-breathing"
-}

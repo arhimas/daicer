@@ -1,0 +1,51 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'heal',
+  name: 'Heal',
+  level: 6,
+  school: 'Evocation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      material: false,
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  duration_config: {
+    type: 'Instantaneous',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'Auto-Hit',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Healing',
+      dice_count: 1,
+      dice_value: 6,
+      flat_bonus: 70,
+      timing: 'Instant',
+    },
+  ],
+  scaling_config: {
+    scales: true,
+    type: 'Dice',
+    method: 'Per Slot Level',
+  },
+  description:
+    'Choose a creature that you can see within range. A surge of positive energy washes through the creature, causing it to regain 70 hit points. This spell also ends blindness, deafness, and any diseases affecting the target. This spell has no effect on constructs or undead.\n\n**At Higher Levels.** When you cast this spell using a spell slot of 7th level or higher, the amount of healing increases by 10 for each slot level above 6th.',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Spell accurately mapped from reference data.',
+  },
+});

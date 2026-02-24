@@ -1,0 +1,32 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Stomp',
+  description:
+    'Melee Weapon Attack: +10 to hit, reach 5 ft., one prone creature. Hit: 29 (4d10 + 7) bludgeoning damage.',
+  type: 'melee',
+  toHit: 10,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Bludgeoning',
+      dice_count: 4,
+      dice_value: 10,
+      flat_bonus: 7,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'mammoth-stomp',
+});

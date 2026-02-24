@@ -1,0 +1,13 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'rations-1-day',
+  name: 'Rations (1 day)',
+  description:
+    'Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts.',
+  type: 'consumable',
+  rarity: 'common',
+  value: 5,
+  weight: 2,
+  size: 'Medium',
+});

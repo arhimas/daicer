@@ -1,0 +1,47 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'flying-sword',
+  name: 'Flying Sword',
+  description:
+    '### Special Abilities\n[{"name":"Antimagic Susceptibility","description":"The sword is incapacitated while in the area of an antimagic field. If targeted by dispel magic, the sword must succeed on a Constitution saving throw against the caster\'s spell save DC or fall unconscious for 1 minute."},{"name":"False Appearance","description":"While the sword remains motionless and isn\'t flying, it is indistinguishable from a normal sword."}]\n\n### Actions\n[{"name":"Longsword","description":"Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8 + 1) slashing damage.","attack_bonus":3,"damage_dice":"1d8+1"}]',
+  size: 'Small',
+  type: 'construct',
+  alignment: 'unaligned',
+  level: 1,
+  ac: 17,
+  hp: 17,
+  hit_dice: '5d6',
+  challenge_rating: 0.25,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 50,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: true,
+    saves: ['dex'],
+    skills: [],
+    passivePerception: 7,
+    darkvision: 0,
+    blindsight: 60,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'longsword',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['flying-sword-antimagic-susceptibility', 'flying-sword-false-appearance'],
+});

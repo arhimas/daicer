@@ -1,0 +1,26 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Fork',
+  description: 'Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 15 (2d8 + 6) piercing damage.',
+  type: 'melee',
+  toHit: 10,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 10,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 2,
+      dice_value: 8,
+      flat_bonus: 6,
+      timing: 'Instant',
+    },
+  ],
+  slug: 'horned-devil-fork',
+});

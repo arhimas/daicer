@@ -1,0 +1,15 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-chains-of-carceri',
+  name: 'Eldritch Invocation: Chains of Carceri',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully generated from reference data.',
+  },
+  description:
+    'You can cast hold monster at will--targeting a celestial, fiend, or elemental--without expending a spell slot or material components. You must finish a long rest before you can use this invocation on the same creature again.',
+  level: 15,
+  lore: 'Named after the multi-layered prison plane, these spectral chains manifest to bind the most dangerous extraplanar entities.',
+  tags: ['warlock', 'eldritch-invocation', 'pact-of-the-chain'],
+});

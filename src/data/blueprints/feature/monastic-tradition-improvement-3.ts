@@ -1,0 +1,18 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'monastic-tradition-feature',
+  name: 'Monastic Tradition feature',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7f8e12ac',
+    last_run: '2023-11-01T12:00:00Z',
+    summary: 'Successfully generated monastic tradition feature for level 17.',
+  },
+  description: 'At 17th level, you gain a feature granted by your Monastic Tradition.',
+  embedding: {},
+  image: 'https://media.dndbeyond.com/art/monk-tradition.png',
+  level: 17,
+  lore: 'The ultimate mastery of your chosen path is finally within reach, unlocking the most advanced techniques of your monastic order.',
+  tags: ['monk', 'class-feature', 'monastic-tradition'],
+});

@@ -1,0 +1,47 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'azer',
+  name: 'Azer',
+  description:
+    '### Special Abilities\nHeated Body: A creature that touches the azer or hits it with a melee attack while within 5 ft. of it takes 5 (1d10) fire damage. | Heated Weapons: When the azer hits with a metal melee weapon, it deals an extra 3 (1d6) fire damage (included in the attack). | Illumination: The azer sheds bright light in a 10-foot radius and dim light for an additional 10 ft..\n\n### Actions\nWarhammer: Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) bludgeoning damage, or 8 (1d10 + 3) bludgeoning damage if used with two hands to make a melee attack, plus 3 (1d6) fire damage.',
+  size: 'Medium',
+  type: 'elemental',
+  alignment: 'lawful neutral',
+  level: 2,
+  ac: 17,
+  hp: 39,
+  hit_dice: '6d8',
+  challenge_rating: 2,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 30,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: ['con'],
+    skills: [],
+    passivePerception: 11,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'warhammer',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['azer-heated-body', 'azer-heated-weapons', 'azer-illumination'],
+});

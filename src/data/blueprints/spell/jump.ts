@@ -1,0 +1,38 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'jump',
+  name: 'Jump',
+  level: 1,
+  school: 'Transmutation',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: "A grasshopper's hind leg.",
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Time-Limited',
+    value: 1,
+    unit: 'Minutes',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description: "You touch a creature. The creature's jump distance is tripled until the spell ends.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

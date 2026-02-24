@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'slippery-mind',
+  name: 'Slippery Mind',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Feature compiled from SRD data.',
+  },
+  description:
+    'By 15th level, you have acquired greater mental strength. You gain proficiency in Wisdom saving throws.',
+  level: 15,
+  tags: ['rogue'],
+});

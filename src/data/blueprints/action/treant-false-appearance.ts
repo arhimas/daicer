@@ -1,0 +1,11 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'False Appearance',
+  description: 'While the treant remains motionless, it is indistinguishable from a normal tree.',
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'treant-false-appearance',
+});

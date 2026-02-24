@@ -94,7 +94,9 @@ const MemoryMap: Record<string, string> = {};
 function resolveRelationsAndCleanNulls(obj: any, localizedUids: Set<string>): any {
   if (Array.isArray(obj)) {
     // Filter out nulls from arrays just in case, then map
-    const mapped = obj.filter((item) => item !== null).map((item) => resolveRelationsAndCleanNulls(item, localizedUids));
+    const mapped = obj
+      .filter((item) => item !== null)
+      .map((item) => resolveRelationsAndCleanNulls(item, localizedUids));
     return mapped; // arrays of primitives or clean objects
   } else if (obj !== null && typeof obj === 'object') {
     const newObj: any = {};
@@ -222,14 +224,26 @@ async function runSeeder() {
       continue;
     }
 
-    const files = (await fs.readdir(collectionDir)).filter((f) => f.endsWith('.json'));
+    const files = (await fs.readdir(collectionDir)).filter((f) => f.endsWith('.ts'));
     const model = strapi.getModel(step.uid as any);
     const supportsDraftAndPublish = model.options?.draftAndPublish === true;
     const supportsI18n = (model.pluginOptions as any)?.i18n?.localized === true;
 
     for (const file of files) {
-      const raw = await fs.readFile(path.join(collectionDir, file), 'utf-8');
-      let data = JSON.parse(raw);
+      const filePath = path.join(collectionDir, file);
+      let data: any;
+      try {
+        const mod = await import(filePath);
+        data = mod.default;
+      } catch (e) {
+        console.error(`   ❌ Failed to import TypeScript blueprint: ${file}`, e);
+        continue;
+      }
+
+      if (!data) {
+        console.error(`   ⚠️ Skipping ${file} due to missing default export.`);
+        continue;
+      }
 
       // Critical Safety: Resolve explicit relational slugs to Strapi Document IDs
       data = resolveRelationsAndCleanNulls(data, localizedUids);

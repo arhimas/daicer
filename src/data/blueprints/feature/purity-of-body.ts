@@ -1,0 +1,18 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'purity-of-body',
+  name: 'Purity of Body',
+  compilation_state: {
+    status: 'Valid',
+    hash: '8f2a1b3c',
+    last_run: '2023-10-27',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description: 'At 10th level, your mastery of the ki flowing through you makes you immune to disease and poison.',
+  embedding: {},
+  image: '',
+  level: 10,
+  lore: "The monk's internal energy purges all impurities, rendering the physical form untouchable by mundane ailments and toxins.",
+  tags: ['monk'],
+});

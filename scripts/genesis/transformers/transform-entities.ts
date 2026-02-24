@@ -183,10 +183,10 @@ async function transformEntities() {
       try {
         const actionPath = path.join(actionsDir, `${a}.json`);
         const actionData = JSON.parse(await fs.readFile(actionPath, 'utf-8'));
-        
+
         const actionNameLower = actionData.name.toLowerCase();
-        const matchedItem = availableItems.find(item => item.name === actionNameLower);
-        
+        const matchedItem = availableItems.find((item) => item.name === actionNameLower);
+
         // Exclude 'spell' types from being matched as items (e.g. if a spell happens to share a name with an item)
         if (matchedItem && actionData.type !== 'spell') {
           console.log(`🗡️  Converting generic action [${actionData.name}] to Inventory Item for [${fallbackName}]`);
@@ -194,9 +194,9 @@ async function transformEntities() {
             item: matchedItem.slug,
             quantity: 1,
             slot: 'main_hand',
-            isEquipped: true
+            isEquipped: true,
           });
-          
+
           // Clean up the redundant action file to prevent DB bloat
           await fs.unlink(actionPath).catch(() => {});
         } else {

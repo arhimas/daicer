@@ -1,0 +1,15 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'natures-ward',
+  name: "Nature's Ward",
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Feature successfully imported from standard SRD definitions.',
+  },
+  description:
+    "When you reach 10th level, you can't be charmed or frightened by elementals or fey, and you are immune to poison and disease.",
+  level: 10,
+  lore: 'The spirits of the wild recognize your devotion, shielding your mind and body from the unnatural and the toxic.',
+  tags: ['druid', 'circle-of-the-land'],
+});

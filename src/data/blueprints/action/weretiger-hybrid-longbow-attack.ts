@@ -1,0 +1,22 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Longbow Attack',
+  description: 'The weretiger makes two longbow attacks.',
+  type: 'ranged',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: null,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'weretiger-hybrid-longbow-attack',
+});

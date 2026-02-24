@@ -1,0 +1,53 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'sprite',
+  name: 'Sprite',
+  description:
+    '### Actions\n["Longsword: Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 1 slashing damage.","Shortbow: Ranged Weapon Attack: +6 to hit, range 40/160 ft., one target. Hit: 1 piercing damage, and the target must succeed on a DC 10 Constitution saving throw or become poisoned for 1 minute. If its saving throw result is 5 or lower, the poisoned target falls unconscious for the same duration, or until it takes damage or another creature takes an action to shake it awake.","Heart Sight: The sprite touches a creature and magically knows the creature\'s current emotional state. If the target fails a DC 10 Charisma saving throw, the sprite also knows the creature\'s alignment. Celestials, fiends, and undead automatically fail the saving throw.","Invisibility: The sprite magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell). Any equipment the sprite wears or carries is invisible with it."]',
+  size: 'Tiny',
+  type: 'fey',
+  alignment: 'neutral good',
+  level: 1,
+  ac: 15,
+  hp: 2,
+  hit_dice: '1d4',
+  challenge_rating: 0.25,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 10,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 13,
+    darkvision: 0,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'longsword',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+    {
+      item: 'shortbow',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['sprite-heart-sight', 'sprite-invisibility'],
+});

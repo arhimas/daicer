@@ -1,0 +1,15 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'brave',
+  name: 'Brave',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully mapped from SRD reference data.',
+  },
+  description: 'You have advantage on saving throws against being frightened.',
+  embedding: {},
+  image: 'https://www.dndbeyond.com/sources/dnd/basic-rules-2014/races#HalflingTraits',
+  proficiencies: [],
+  races: ['halfling'],
+});

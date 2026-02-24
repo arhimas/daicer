@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'little-bag-of-sand',
+  name: 'Little bag of sand',
+  description: "A small bag of sand, typically found in a scholar's pack.",
+  type: 'loot',
+  rarity: 'common',
+  value: 0,
+  weight: 0,
+  size: 'Medium',
+});

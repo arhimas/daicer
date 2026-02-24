@@ -1,0 +1,42 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bites',
+  description:
+    'Melee Weapon Attack: +2 to hit, reach 5 ft., one creature. Hit: 17 (5d6) piercing damage. If the target is Medium or smaller, it must succeed on a DC 10 Strength saving throw or be knocked prone. If the target is killed by this damage, it is absorbed into the mouther.',
+  type: 'melee',
+  toHit: 2,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Melee Spell Attack',
+    save_effect: null,
+  },
+  save: {
+    dc: 10,
+    attribute: 'str',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 5,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Prone',
+      description: null,
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'gibbering-mouther-bites',
+});

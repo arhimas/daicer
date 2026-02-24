@@ -1,0 +1,19 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'scimitar',
+  name: 'Scimitar',
+  description: 'A martial melee weapon with a curved blade, favored for its balance and slashing capability.',
+  type: 'weapon',
+  rarity: 'common',
+  value: 25,
+  weight: 3,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d6',
+    damage_type: 'slashing',
+    range_normal: 5,
+    str_minimum: 0,
+    stealth_disadvantage: false,
+  },
+});

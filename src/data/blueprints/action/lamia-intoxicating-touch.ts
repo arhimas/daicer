@@ -1,0 +1,31 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Intoxicating Touch',
+  description:
+    'Melee Spell Attack: +5 to hit, reach 5 ft., one creature. Hit: The target is magically cursed for 1 hour. Until the curse ends, the target has disadvantage on Wisdom saving throws and all ability checks.',
+  type: 'spell',
+  toHit: 5,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'Melee Spell Attack',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Special',
+      description:
+        'The target is magically cursed for 1 hour. Until the curse ends, the target has disadvantage on Wisdom saving throws and all ability checks.',
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'lamia-intoxicating-touch',
+});

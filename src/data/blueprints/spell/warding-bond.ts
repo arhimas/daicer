@@ -1,0 +1,40 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'warding-bond',
+  name: 'Warding Bond',
+  level: 2,
+  school: 'Abjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 100,
+      material: true,
+      material_description:
+        'A pair of platinum rings worth at least 50gp each, which you and the target must wear for the duration.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Touch',
+  },
+  duration_config: {
+    type: 'Time-Limited',
+    value: 1,
+    unit: 'Hours',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    'This spell wards a willing creature you touch and creates a mystic connection between you and the target until the spell ends. While the target is within 60 feet of you, it gains a +1 bonus to AC and saving throws, and it has resistance to all damage. Also, each time it takes damage, you take the same amount of damage.\n\nThe spell ends if you drop to 0 hit points or if you and the target become separated by more than 60 feet.\n\nIt also ends if the spell is cast again on either of the connected creatures. You can also dismiss the spell as an action.',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Light Sensitivity',
+  description:
+    'While in bright light, the cloaker has disadvantage on attack rolls and Wisdom (Perception) checks that rely on sight.',
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'cloaker-light-sensitivity',
+});

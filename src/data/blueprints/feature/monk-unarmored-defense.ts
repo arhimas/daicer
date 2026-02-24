@@ -1,0 +1,19 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'unarmored-defense',
+  name: 'Unarmored Defense',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7d8e9f0a',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Compiled from standard 5e monk class features.',
+  },
+  description:
+    'Beginning at 1st level, while you are wearing no armor and not wielding a shield, your AC equals 10 + your Dexterity modifier + your Wisdom modifier.',
+  embedding: {},
+  image: '',
+  level: 1,
+  lore: "A monk's protection comes not from steel, but from the fluid motion of their body and the clarity of their mind.",
+  tags: ['monk', 'defense'],
+});

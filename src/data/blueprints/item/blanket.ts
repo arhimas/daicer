@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'blanket',
+  name: 'Blanket',
+  description: 'A thick, warm blanket used for sleeping and keeping warm during travel.',
+  type: 'loot',
+  rarity: 'common',
+  value: 5,
+  weight: 3,
+  size: 'Medium',
+});

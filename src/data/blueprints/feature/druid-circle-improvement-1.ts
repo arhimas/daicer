@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'druid-circle-feature',
+  name: 'Druid Circle feature',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Generated from reference data.',
+  },
+  description:
+    'At 6th level, you gain a feature granted by your Druid Circle choice. Your choice of circle grants you features at 2nd level and again at 6th, 10th, and 14th level.',
+  level: 6,
+  tags: ['druid'],
+});

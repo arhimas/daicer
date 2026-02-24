@@ -1,0 +1,14 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'expertise',
+  name: 'Expertise',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Expertise feature for Rogue class',
+  },
+  description:
+    "At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit.",
+  level: 1,
+  tags: ['rogue'],
+});

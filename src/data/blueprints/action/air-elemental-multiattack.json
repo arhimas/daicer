@@ -1,9 +1,0 @@
-{
-  "name": "Multiattack",
-  "description": "The elemental makes two slam attacks.",
-  "type": "utility",
-  "mechanics_config": {
-    "action_type": "None"
-  },
-  "slug": "air-elemental-multiattack"
-}

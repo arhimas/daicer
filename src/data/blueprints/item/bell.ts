@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'bell',
+  name: 'Bell',
+  description: 'A small metal bell used for signaling or alarms.',
+  type: 'tool',
+  rarity: 'common',
+  value: 1,
+  weight: 0,
+  size: 'Medium',
+});

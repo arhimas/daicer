@@ -1,0 +1,24 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'crystal',
+  name: 'Crystal',
+  description:
+    'An arcane focus is a special item--an orb, a crystal, a rod, a specially constructed staff, a wand-like length of wood, or some similar item--designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus.',
+  type: 'tool',
+  rarity: 'common',
+  value: 10,
+  weight: 1,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '',
+    range_normal: 0,
+    range_long: 0,
+    properties: [],
+    armor_class_base: 0,
+    armor_class_dex_bonus: false,
+    str_minimum: 0,
+    stealth_disadvantage: false,
+  },
+  tags: ['arcane-foci', 'adventuring-gear'],
+});

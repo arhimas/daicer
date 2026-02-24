@@ -1,0 +1,49 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Engulf',
+  description:
+    "The cube moves up to its speed. While doing so, it can enter Large or smaller creatures' spaces. Whenever the cube enters a creature's space, the creature must make a DC 12 Dexterity saving throw. On a successful save, the creature can choose to be pushed 5 feet back or to the side of the cube. A creature that chooses not to be pushed suffers the consequences of a failed saving throw. On a failed save, the cube enters the creature's space, and the creature takes 10 (3d6) acid damage and is engulfed. The engulfed creature can't breathe, is restrained, and takes 21 (6d6) acid damage at the start of each of the cube's turns. When the cube moves, the engulfed creature moves with it. An engulfed creature can try to escape by taking an action to make a DC 12 Strength check. On a success, the creature escapes and enters a space of its choice within 5 feet of the cube.",
+  type: 'ability',
+  range_config: {
+    type: 'Self',
+  },
+  mechanics_config: {
+    action_type: 'Dexterity Save',
+    save_effect: 'None',
+  },
+  save: {
+    dc: 12,
+    attribute: 'dex',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Acid',
+      dice_count: 3,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+    {
+      effect_type: 'Damage',
+      damage_type: 'Acid',
+      dice_count: 6,
+      dice_value: 6,
+      flat_bonus: 0,
+      timing: 'Start of Turn',
+    },
+  ],
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: "Can't breathe",
+      chance: 100,
+    },
+    {
+      condition: 'Restrained',
+      chance: 100,
+    },
+  ],
+  slug: 'gelatinous-cube-engulf',
+});

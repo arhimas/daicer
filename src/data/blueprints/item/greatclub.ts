@@ -1,0 +1,20 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'greatclub',
+  name: 'Greatclub',
+  type: 'weapon',
+  rarity: 'common',
+  value: 20,
+  weight: 10,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d8',
+    damage_type: 'bludgeoning',
+    range_normal: 5,
+    properties: ['two-handed'],
+  },
+  compilation_state: {
+    status: 'Valid',
+  },
+});

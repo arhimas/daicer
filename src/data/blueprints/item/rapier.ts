@@ -1,0 +1,18 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'rapier',
+  name: 'Rapier',
+  description: 'A martial melee weapon designed for precise thrusting attacks.',
+  type: 'weapon',
+  rarity: 'common',
+  value: 25,
+  weight: 2,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d8',
+    damage_type: 'piercing',
+    range_normal: 5,
+    properties: ['finesse'],
+  },
+});

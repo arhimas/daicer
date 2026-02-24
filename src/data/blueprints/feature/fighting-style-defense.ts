@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'fighting-style-defense',
+  name: 'Fighting Style: Defense',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully mapped from reference data.',
+  },
+  description: 'While you are wearing armor, you gain a +1 bonus to AC.',
+  level: 2,
+  tags: ['paladin'],
+});

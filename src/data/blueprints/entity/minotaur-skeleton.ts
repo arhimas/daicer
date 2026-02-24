@@ -1,0 +1,47 @@
+import { defineEntity } from '../../../features/genesis-core/blueprints';
+
+export default defineEntity({
+  slug: 'minotaur-skeleton',
+  name: 'Minotaur Skeleton',
+  description:
+    '### Special Abilities\n[{"name":"Charge","description":"If the skeleton moves at least 10 feet straight toward a target and then hits it with a gore attack on the same turn, the target takes an extra 9 (2d8) piercing damage. If the target is a creature, it must succeed on a DC 14 Strength saving throw or be pushed up to 10 feet away and knocked prone."}]\n\n### Actions\n[{"name":"Greataxe","description":"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 17 (2d12 + 4) slashing damage."},{"name":"Gore","description":"Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) piercing damage."}]',
+  size: 'Large',
+  type: 'undead',
+  alignment: 'lawful evil',
+  level: 2,
+  ac: 12,
+  hp: 67,
+  hit_dice: '9d10+18',
+  challenge_rating: 2,
+  xp: 0,
+  stats: {
+    strength: 10,
+    dexterity: 10,
+    constitution: 10,
+    intelligence: 10,
+    wisdom: 10,
+    charisma: 10,
+    walkSpeed: 40,
+    flySpeed: 0,
+    swimSpeed: 0,
+    climbSpeed: 0,
+    burrowSpeed: 0,
+    hover: false,
+    saves: [],
+    skills: [],
+    passivePerception: 9,
+    darkvision: 60,
+    blindsight: 0,
+    truesight: 0,
+    tremorsense: 0,
+  },
+  inventory: [
+    {
+      item: 'greataxe',
+      quantity: 1,
+      slot: 'main_hand',
+      isEquipped: true,
+    },
+  ],
+  actions: ['minotaur-skeleton-charge', 'minotaur-skeleton-gore'],
+});

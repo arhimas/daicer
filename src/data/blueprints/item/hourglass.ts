@@ -1,0 +1,16 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'hourglass',
+  name: 'Hourglass',
+  description:
+    'A standard timekeeping device consisting of two glass bulbs connected by a narrow neck that allows a regulated flow of sand from the upper to the lower bulb.',
+  type: 'tool',
+  rarity: 'common',
+  value: 25,
+  weight: 1,
+  size: 'Medium',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

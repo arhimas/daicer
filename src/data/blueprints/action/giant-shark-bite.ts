@@ -1,0 +1,26 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Bite',
+  description: 'Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 22 (3d10 + 6) piercing damage.',
+  type: 'melee',
+  toHit: 9,
+  range_config: {
+    type: 'Touch',
+    distance: 5,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Piercing',
+      dice_count: 3,
+      dice_value: 10,
+      flat_bonus: 6,
+      timing: 'Instant',
+    },
+  ],
+  slug: 'giant-shark-bite',
+});

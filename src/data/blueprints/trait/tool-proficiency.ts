@@ -1,0 +1,14 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'tool-proficiency',
+  name: 'Tool Proficiency',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Successfully imported from SRD reference.',
+  },
+  description:
+    "You gain proficiency with the artisan's tools of your choice: smith's tools, brewer's supplies, or mason's tools.",
+  proficiencies: ['smiths-tools', 'brewers-supplies', 'masons-tools'],
+  races: ['dwarf'],
+});

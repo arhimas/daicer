@@ -1,0 +1,26 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Rotting Touch',
+  description: 'Melee Weapon Attack: +2 to hit, reach 10 ft., one creature. Hit: 4 (1d8) necrotic damage.',
+  type: 'melee',
+  toHit: 2,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 10,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Necrotic',
+      dice_count: 1,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  slug: 'violet-fungus-rotting-touch',
+});

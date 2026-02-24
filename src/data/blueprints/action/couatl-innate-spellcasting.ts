@@ -1,0 +1,21 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Innate Spellcasting',
+  description:
+    "The couatl's spellcasting ability is Charisma (spell save DC 14). It can innately cast the following spells, requiring only verbal components:At will: detect evil and good, detect magic, detect thoughts3/day each: bless, create food and water, cure wounds, lesser restoration, protection from poison, sanctuary, shield1/day each: dream, greater restoration, scrying",
+  type: 'spell',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: {
+    dc: 14,
+    attribute: 'cha',
+  },
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'couatl-innate-spellcasting',
+});

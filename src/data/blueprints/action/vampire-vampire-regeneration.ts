@@ -1,0 +1,27 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Regeneration',
+  description:
+    "The vampire regains 20 hit points at the start of its turn if it has at least 1 hit point and isn't in sunlight or running water. If the vampire takes radiant damage or damage from holy water, this trait doesn't function at the start of the vampire's next turn.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: [
+    {
+      effect_type: 'Healing',
+      damage_type: null,
+      dice_count: 0,
+      dice_value: 0,
+      flat_bonus: 20,
+      timing: 'Start of Turn',
+    },
+  ],
+  condition_instances: null,
+  slug: 'vampire-vampire-regeneration',
+});

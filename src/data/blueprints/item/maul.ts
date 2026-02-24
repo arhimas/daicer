@@ -1,0 +1,18 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'maul',
+  name: 'Maul',
+  description: 'A massive hammer belonging to the martial melee weapons category.',
+  type: 'weapon',
+  rarity: 'common',
+  value: 10,
+  weight: 10,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '2d6',
+    damage_type: 'bludgeoning',
+    range_normal: 5,
+    properties: ['heavy', 'two-handed'],
+  },
+});

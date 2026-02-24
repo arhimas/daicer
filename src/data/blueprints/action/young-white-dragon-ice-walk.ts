@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Ice Walk',
+  description:
+    "The dragon can move across and climb icy surfaces without needing to make an ability check. Additionally, difficult terrain composed of ice or snow doesn't cost it extra moment.",
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'young-white-dragon-ice-walk',
+});

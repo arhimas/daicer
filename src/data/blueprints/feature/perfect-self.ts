@@ -1,0 +1,18 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'perfect-self',
+  name: 'Perfect Self',
+  compilation_state: {
+    status: 'Valid',
+    hash: 'b287561f7e9d7c8a',
+    last_run: '2023-10-27T10:00:00Z',
+    summary: 'Successfully mapped Perfect Self feature for Monk class.',
+  },
+  description: 'At 20th level, when you roll for initiative and have no ki points remaining, you regain 4 ki points.',
+  embedding: {},
+  image: 'https://example.com/images/perfect-self.webp',
+  level: 20,
+  lore: 'The monk has reached a state of spiritual enlightenment where their inner energy flows effortlessly even in the heat of battle.',
+  tags: ['monk', 'class-feature', 'ki'],
+});

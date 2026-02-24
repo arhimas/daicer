@@ -1,0 +1,39 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'comprehend-languages',
+  name: 'Comprehend Languages',
+  level: 1,
+  school: 'Divination',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: true,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A pinch of soot and salt.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Self',
+  },
+  duration_config: {
+    type: 'Time-Limited',
+    value: 1,
+    unit: 'Hours',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    "For the duration, you understand the literal meaning of any spoken language that you hear. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text.\n\nThis spell doesn't decode secret messages in a text or a glyph, such as an arcane sigil, that isn't part of a written language.",
+  compilation_state: {
+    status: 'Valid',
+  },
+});

@@ -1,0 +1,22 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Scimitar Attack',
+  description: 'The weretiger makes two scimitar attacks.',
+  type: 'melee',
+  toHit: null,
+  range_config: {
+    type: 'Touch',
+    distance: null,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'weretiger-hybrid-scimitar-attack',
+});

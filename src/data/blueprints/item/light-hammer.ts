@@ -1,0 +1,19 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'light-hammer',
+  name: 'Light hammer',
+  description: 'A small, balanced hammer suitable for fighting in close quarters or throwing at a distance.',
+  type: 'weapon',
+  rarity: 'common',
+  value: 2,
+  weight: 2,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d4',
+    damage_type: 'bludgeoning',
+    range_normal: 20,
+    properties: ['light', 'thrown', 'monk'],
+    str_minimum: 0,
+  },
+});

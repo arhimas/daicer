@@ -1,0 +1,18 @@
+import { defineTrait } from '../../../features/genesis-core/blueprints';
+
+export default defineTrait({
+  slug: 'high-elf-cantrip',
+  name: 'High Elf Cantrip',
+  compilation_state: {
+    status: 'Valid',
+    hash: '7a8b9c0d1e2f',
+    last_run: '2023-10-27T12:00:00Z',
+    summary: 'Imported from SRD reference.',
+  },
+  description:
+    'You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it.',
+  embedding: {},
+  image: '',
+  proficiencies: [],
+  races: ['high-elf'],
+});

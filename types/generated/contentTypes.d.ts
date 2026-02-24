@@ -804,6 +804,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     hp: Schema.Attribute.Integer;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
     languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
+    legendary_actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     level: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {

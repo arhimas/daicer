@@ -1,0 +1,40 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'shield-of-faith',
+  name: 'Shield of Faith',
+  level: 1,
+  school: 'Abjuration',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Bonus Action',
+    is_ritual: false,
+    is_concentration: true,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A small parchment with a bit of holy text written on it.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+  },
+  duration_config: {
+    type: 'Concentration',
+    value: 10,
+    unit: 'Minutes',
+    concentration: true,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  description:
+    'A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

@@ -1,0 +1,54 @@
+import { defineSpell } from '../../../features/genesis-core/blueprints';
+
+export default defineSpell({
+  slug: 'false-life',
+  name: 'False Life',
+  level: 1,
+  school: 'Necromancy',
+  casting_config: {
+    time_value: 1,
+    time_unit: 'Action',
+    is_ritual: false,
+    is_concentration: false,
+    components: {
+      consumed: false,
+      cost_gp: 0,
+      material: true,
+      material_description: 'A small amount of alcohol or distilled spirits.',
+      somatic: true,
+      verbal: true,
+    },
+  },
+  range_config: {
+    type: 'Self',
+  },
+  duration_config: {
+    type: 'Time-Limited',
+    value: 1,
+    unit: 'Hours',
+    concentration: false,
+  },
+  mechanics_config: {
+    action_type: 'None',
+  },
+  damage_instances: [
+    {
+      effect_type: 'TempHP',
+      dice_count: 1,
+      dice_value: 4,
+      flat_bonus: 4,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: [],
+  scaling_config: {
+    scales: true,
+    type: 'Dice',
+    method: 'Per Slot Level',
+  },
+  description:
+    'Bolstering yourself with a necromantic facsimile of life, you gain 1d4 + 4 temporary hit points for the duration. **At Higher Levels.** When you cast this spell using a spell slot of 2nd level or higher, you gain 5 additional temporary hit points for each slot level above 1st.',
+  compilation_state: {
+    status: 'Valid',
+  },
+});

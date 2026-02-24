@@ -1,0 +1,9 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Pack Tactics',
+  description:
+    "The jackal has advantage on an attack roll against a creature if at least one of the jackal's allies is within 5 ft. of the creature and the ally isn't incapacitated.",
+  type: 'ability',
+  slug: 'jackal-pack-tactics',
+});

@@ -8,20 +8,19 @@ async function check() {
     serveAdminPanel: false,
   });
   await strapi.load();
-  
+
   try {
     const koboldSchema = await strapi.documents('api::entity.entity').findFirst({
       filters: { slug: 'kobold' },
       populate: {
         inventory: {
-          populate: '*'
+          populate: '*',
         },
-        actions: true
+        actions: true,
       },
     });
     console.log('--- KOBOLD ENTITY ---');
     console.log(JSON.stringify(koboldSchema, null, 2));
-
   } catch (e) {
     console.log(e);
   }

@@ -1,0 +1,30 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'counterspell',
+  description:
+    "You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails and has no effect. If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability. The DC equals 10 + the spell's level. On a success, the creature's spell fails and has no effect.",
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Ranged (Feet)',
+    distance: 60,
+    aoe_shape: null,
+    aoe_size: null,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: "Interrupts a creature's spellcasting.",
+      chance: 100,
+      duration_rounds: null,
+    },
+  ],
+  slug: 'mage-counterspell',
+});

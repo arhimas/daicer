@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'path-feature',
+  name: 'Path feature',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    'At 6th level, you gain a feature granted by your Primal Path choice. Your choice of path grants you features at 3rd level and again at 6th, 10th, and 14th levels.',
+  level: 6,
+  tags: ['barbarian'],
+});

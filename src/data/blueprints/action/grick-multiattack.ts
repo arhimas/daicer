@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Multiattack',
+  description:
+    'The grick makes one attack with its tentacles. If that attack hits, the grick can make one beak attack against the same target.',
+  type: 'utility',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'grick-multiattack',
+});

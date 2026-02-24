@@ -1,8 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  generateTerrainGrid,
-  synthesizeTerrainBlueprint,
-} from '../terrain';
+import { generateTerrainGrid, synthesizeTerrainBlueprint } from '../terrain';
 import { TerrainContext } from '../../serializers';
 
 describe('Terrain Generator', () => {

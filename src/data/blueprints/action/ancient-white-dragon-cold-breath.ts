@@ -1,0 +1,35 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Cold Breath',
+  description:
+    'The dragon exhales an icy blast in a 90-foot cone. Each creature in that area must make a DC 22 Constitution saving throw, taking 72 (16d8) cold damage on a failed save, or half as much damage on a successful one.',
+  type: 'spell',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: 'Cone',
+    aoe_size: 90,
+  },
+  mechanics_config: {
+    action_type: 'Constitution Save',
+    save_effect: 'Half',
+  },
+  save: {
+    dc: 22,
+    attribute: 'con',
+  },
+  damage_instances: [
+    {
+      effect_type: 'Damage',
+      damage_type: 'Cold',
+      dice_count: 16,
+      dice_value: 8,
+      flat_bonus: 0,
+      timing: 'Instant',
+    },
+  ],
+  condition_instances: null,
+  slug: 'ancient-white-dragon-cold-breath',
+});

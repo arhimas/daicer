@@ -1,9 +1,0 @@
-{
-  "name": "Legendary Resistance",
-  "description": "If the tarrasque fails a saving throw, it can choose to succeed instead.",
-  "type": "ability",
-  "mechanics_config": {
-    "action_type": "None"
-  },
-  "slug": "tarrasque-legendary-resistance"
-}

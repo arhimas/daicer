@@ -1,0 +1,12 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'bonus-proficiencies',
+  name: 'Bonus Proficiencies',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description: 'When you join the College of Lore at 3rd level, you gain proficiency with three skills of your choice.',
+  level: 3,
+  tags: ['bard', 'lore'],
+});

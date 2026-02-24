@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'divine-health',
+  name: 'Divine Health',
+  compilation_state: {
+    status: 'Valid',
+    summary: 'Standard Paladin class feature.',
+  },
+  description: 'By 3rd level, the divine magic flowing through you makes you immune to disease.',
+  level: 3,
+  tags: ['paladin'],
+});

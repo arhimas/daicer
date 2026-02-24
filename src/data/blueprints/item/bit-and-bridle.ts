@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'bit-and-bridle',
+  name: 'Bit and bridle',
+  description: 'A bit and bridle include the headstall, bit, and reins used to control a mount.',
+  type: 'tool',
+  rarity: 'common',
+  value: 2,
+  weight: 1,
+  size: 'Medium',
+});

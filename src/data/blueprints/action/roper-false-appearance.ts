@@ -1,0 +1,12 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'False Appearance',
+  description:
+    'While the roper remains motionless, it is indistinguishable from a normal cave formation, such as a stalagmite.',
+  type: 'ability',
+  mechanics_config: {
+    action_type: 'None',
+  },
+  slug: 'roper-false-appearance',
+});

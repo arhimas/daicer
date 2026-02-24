@@ -1,0 +1,20 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'javelin',
+  name: 'Javelin',
+  description: 'A javelin is a light spear designed primarily to be thrown at a distance.',
+  type: 'weapon',
+  rarity: 'common',
+  value: 50,
+  weight: 2,
+  size: 'Medium',
+  equipment_data: {
+    damage_dice: '1d6',
+    damage_type: 'piercing',
+    range_normal: 30,
+    properties: ['thrown', 'monk'],
+    str_minimum: 0,
+    stealth_disadvantage: false,
+  },
+});

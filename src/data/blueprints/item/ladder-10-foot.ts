@@ -1,0 +1,12 @@
+import { defineItem } from '../../../features/genesis-core/blueprints';
+
+export default defineItem({
+  slug: 'ladder-10-foot',
+  name: 'Ladder (10-foot)',
+  description: 'A 10-foot ladder used for climbing.',
+  type: 'loot',
+  rarity: 'common',
+  value: 1,
+  weight: 25,
+  size: 'Medium',
+});

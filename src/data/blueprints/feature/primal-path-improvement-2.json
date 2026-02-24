@@ -1,9 +1,0 @@
-{
-  "slug": "path-feature",
-  "name": "Path feature",
-  "compilation_state": {
-    "status": "Valid"
-  },
-  "description": "At 10th level, you gain a feature granted by your Primal Path. Your choice of path grants you features at 3rd, 6th, 10th, and 14th levels.",
-  "level": 10
-}

@@ -1,0 +1,12 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-visions-of-distant-realms',
+  name: 'Eldritch Invocation: Visions of Distant Realms',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description: 'You can cast arcane eye at will, without expending a spell slot.',
+  level: 15,
+  tags: ['warlock', 'eldritch-invocation'],
+});

@@ -1,0 +1,15 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Standing Leap',
+  description:
+    "The frog's long jump is up to 10 ft. and its high jump is up to 5 ft., with or without a running start.",
+  type: 'ability',
+  toHit: null,
+  range_config: null,
+  mechanics_config: null,
+  save: null,
+  damage_instances: null,
+  condition_instances: null,
+  slug: 'frog-standing-leap',
+});

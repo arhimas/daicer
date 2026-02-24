@@ -1,8 +1,0 @@
-{
-  "slug": "deafened",
-  "name": "Deafened",
-  "compilation_state": {
-    "status": "Valid"
-  },
-  "description": "A deafened creature can't hear and automatically fails any ability check that requires hearing."
-}

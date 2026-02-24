@@ -1,0 +1,13 @@
+import { defineFeature } from '../../../features/genesis-core/blueprints';
+
+export default defineFeature({
+  slug: 'eldritch-invocation-sign-of-ill-omen',
+  name: 'Eldritch Invocation: Sign of Ill Omen',
+  compilation_state: {
+    status: 'Valid',
+  },
+  description:
+    "You can cast bestow curse once using a warlock spell slot. You can't do so again until you finish a long rest.",
+  level: 5,
+  tags: ['warlock'],
+});

@@ -1,0 +1,30 @@
+import { defineAction } from '../../../features/genesis-core/blueprints';
+
+export default defineAction({
+  name: 'Ink Cloud',
+  description:
+    'A 5-foot-radius cloud of ink extends all around the octopus if it is underwater. The area is heavily obscured for 1 minute, although a significant current can disperse the ink. After releasing the ink, the octopus can use the Dash action as a bonus action.',
+  type: 'utility',
+  toHit: null,
+  range_config: {
+    type: 'Self',
+    distance: null,
+    aoe_shape: 'Sphere',
+    aoe_size: 5,
+  },
+  mechanics_config: {
+    action_type: 'None',
+    save_effect: null,
+  },
+  save: null,
+  damage_instances: null,
+  condition_instances: [
+    {
+      condition: 'Special',
+      description: 'The area is heavily obscured for 1 minute, although a significant current can disperse the ink.',
+      chance: 100,
+      duration_rounds: 10,
+    },
+  ],
+  slug: 'octopus-ink-cloud',
+});
