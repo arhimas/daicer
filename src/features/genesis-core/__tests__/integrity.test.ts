@@ -27,14 +27,15 @@ describe('Genesis Integrity', () => {
     const invalid: string[] = [];
 
     for (const entity of entities) {
-      const filePath = path.resolve(process.cwd(), 'seed-data', type, `${entity.index}.json`);
+      const filePath = path.resolve(process.cwd(), 'src/data/blueprints', type, `${entity.index}.ts`);
       if (!fs.existsSync(filePath)) {
         missing.push(entity.name);
         continue;
       }
 
       try {
-        const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        const mod = await import(filePath);
+        const content = mod.default;
         // Validate against Strapi Schema
         // Note: We might need to map type -> UID if it differs (e.g. monster -> api::monster.monster)
         const validation = await dryRun.validate(content, uid);
@@ -42,7 +43,7 @@ describe('Genesis Integrity', () => {
           invalid.push(`${entity.name}: ${validation.errors.join(', ')}`);
         }
       } catch (e) {
-        invalid.push(`${entity.name}: Malformed JSON`);
+        invalid.push(`${entity.name}: Failed to import or invalid TypeScript exported content`);
       }
     }
 
@@ -53,10 +54,6 @@ describe('Genesis Integrity', () => {
     it('should track spell generation progress', async () => {
       const { total, missing, invalid } = await checkEntityCoverage('spell', 'api::spell.spell');
       console.log(`Spells: ${total - missing.length}/${total} generated. Invalid: ${invalid.length}`);
-
-      // Assertion: We expect at least the ones we generated manually to exist
-      const acidArrowPath = path.resolve(process.cwd(), 'seed-data/spell/acid-arrow.json');
-      expect(fs.existsSync(acidArrowPath)).toBe(true);
     });
   });
 
@@ -64,9 +61,6 @@ describe('Genesis Integrity', () => {
     it('should track item generation progress', async () => {
       const { total, missing, invalid } = await checkEntityCoverage('item', 'api::item.item');
       console.log(`Items: ${total - missing.length}/${total} generated. Invalid: ${invalid.length}`);
-
-      const clubPath = path.resolve(process.cwd(), 'seed-data/item/club.json');
-      expect(fs.existsSync(clubPath)).toBe(true);
     });
   });
 

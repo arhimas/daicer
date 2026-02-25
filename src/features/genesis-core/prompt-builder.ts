@@ -1,4 +1,4 @@
-import { JsonSchemaBuilder, JsonSchema } from './json-schema-builder';
+import { JsonSchemaBuilder, JsonSchema } from '@/features/genesis-core/json-schema-builder';
 
 export class PromptBuilder {
   constructor(private schemaBuilder: JsonSchemaBuilder) {}

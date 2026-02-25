@@ -1,4 +1,4 @@
-import { EntityMapper, GenerationRequest } from './entity-mapper';
+import { EntityMapper, GenerationRequest } from '@/features/genesis-core/mappers/entity-mapper';
 import { SourceRace } from '@/features/genesis-core/source-types';
 
 export class RaceMapper extends EntityMapper<SourceRace> {

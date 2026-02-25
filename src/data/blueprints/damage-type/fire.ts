@@ -1,4 +1,4 @@
-import { defineDamageType } from '../../../features/genesis-core/blueprints';
+import { defineDamageType } from '@/features/genesis-core/blueprints';
 
 export default defineDamageType({
   slug: 'fire',

@@ -1,4 +1,4 @@
-import { defineEntity } from '../../../features/genesis-core/blueprints';
+import { defineEntity } from '@/features/genesis-core/blueprints';
 
 export default defineEntity({
   slug: 'frost-giant',

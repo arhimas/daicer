@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { SourceLoader } from './source-loader';
+import { SourceLoader } from '@/features/genesis-core/source-loader';
 
 export interface ManifestItem {
   type: string;

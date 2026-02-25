@@ -1,4 +1,4 @@
-import { defineStatusEffect } from '../../../features/genesis-core/blueprints';
+import { defineStatusEffect } from '@/features/genesis-core/blueprints';
 
 export default defineStatusEffect({
   slug: 'deafened',

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { APIReferenceSchema, DCMethodSchema } from './common-schemas';
+import { APIReferenceSchema, DCMethodSchema } from '@/features/genesis-core/data/schemas/common-schemas';
 
 export const MonsterSchema = z.object({
   index: z.string(),

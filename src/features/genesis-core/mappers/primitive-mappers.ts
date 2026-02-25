@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { EntityMapper, GenerationRequest } from './entity-mapper';
+import { EntityMapper, GenerationRequest } from '@/features/genesis-core/mappers/entity-mapper';
 
 // --- Damage Type ---
 export class DamageTypeMapper extends EntityMapper<any> {

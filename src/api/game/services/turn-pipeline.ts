@@ -132,7 +132,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
           // Explicitly cast to unknown first to satisfy strict Strapi document creation types if they don't match exactly
           // but we know it matches GameEvent structure.
           const e = await strapi.documents('api::game-event.game-event').create({
-            data: event as unknown as Record<string, unknown>,
+            data: event as never,
           });
           createdEvents.push(e as unknown as GameEvent & { documentId: string });
         }
@@ -144,7 +144,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
             metadata: {
               events: createdEvents.map((e) => e.documentId),
             },
-            actions: commands as unknown as Record<string, unknown>,
+            actions: commands as never,
             status: 'complete',
             turnNumber: Date.now(), // Temporary, should be incremental
           },
@@ -208,7 +208,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
             actions: e.computedActions || [],
           }));
 
-          const narrPlayers = (room.players || ([] as unknown as Player[])).map((p: Player) => ({
+          const narrPlayers = (room.players || ([] as Record<string, unknown>[])).map((p: Record<string, unknown>) => ({
             ...p,
             character: p.character,
           }));

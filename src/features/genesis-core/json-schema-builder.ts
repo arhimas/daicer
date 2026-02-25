@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-import { ISchemaLoader } from './schema-loader';
+import { ISchemaLoader } from '@/features/genesis-core/schema-loader';
 import zodToJsonSchema from 'zod-to-json-schema';
-import { MonsterBlueprintSchema } from './data/schemas/monster-blueprint-schema';
+import { MonsterBlueprintSchema } from '@/features/genesis-core/data/schemas/monster-blueprint-schema';
 
 export interface JsonSchema {
   type?: string;

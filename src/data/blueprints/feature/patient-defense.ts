@@ -1,4 +1,4 @@
-import { defineFeature } from '../../../features/genesis-core/blueprints';
+import { defineFeature } from '@/features/genesis-core/blueprints';
 
 export default defineFeature({
   slug: 'patient-defense',

@@ -1,4 +1,4 @@
-import { defineBackground } from '../../../features/genesis-core/blueprints';
+import { defineBackground } from '@/features/genesis-core/blueprints';
 
 export default defineBackground({
   slug: 'entertainer',

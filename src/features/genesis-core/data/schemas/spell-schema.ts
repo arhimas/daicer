@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { APIReferenceSchema, DamageSchema, DCMethodSchema } from './common-schemas';
+import { APIReferenceSchema, DamageSchema, DCMethodSchema } from '@/features/genesis-core/data/schemas/common-schemas';
 
 export const SpellSchema = z.object({
   index: z.string(),

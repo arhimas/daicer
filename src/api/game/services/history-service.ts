@@ -51,14 +51,14 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         // But sequence is strictly ordered.
         // Let's rely on Timestamp for粗 filtering and Sequence for Strict ordering.
         timestamp: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          $gt: (timeFrames[0]?.timestamp || 0) as any,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          $lte: targetTimestamp as any,
+           
+          $gt: (timeFrames[0]?.timestamp || 0) as never,
+           
+          $lte: targetTimestamp as never,
         },
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sort: 'sequenceId:asc' as any, // CRITICAL: Replay in order
+       
+      sort: 'sequenceId:asc' as never, // CRITICAL: Replay in order
       limit: 10000, // Safety cap
     });
 
@@ -77,16 +77,14 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       // We might need a "Event -> Action" mapper here.
       // For now, assume strict 1:1 mapping for 'MOVE', 'ATTACK'.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const evt = event as any;
+      const evt = event as Record<string, unknown>;
       const action = {
         type: evt.type,
         actorId: evt.actorId,
         payload: evt.payload,
       };
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      currentState = processor.process(currentState, [action as any]);
+      currentState = processor.process(currentState, [action as never]);
     }
 
     return currentState;
@@ -126,13 +124,13 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   async getTimelineData(roomId: string, limit = 1000) {
     const events = await strapi.documents('api::game-event.game-event').findMany({
       filters: { room: { documentId: roomId } },
-      sort: 'sequenceId:desc',
+      sort: 'sequenceId:desc' as never,
       limit,
     });
 
     const snapshots = await strapi.documents('api::time-frame.time-frame').findMany({
       filters: { room: { documentId: roomId } },
-      sort: 'sequenceId:desc',
+      sort: 'sequenceId:desc' as never,
       limit: Math.ceil(limit / 10), // Heuristic: fewer snapshots than events
     });
 
@@ -140,7 +138,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       events: events.map((e) => ({
         type: 'event',
         id: e.documentId,
-        sequenceId: e.sequenceId,
+        sequenceId: (e as Record<string, unknown>).sequenceId,
         timestamp: e.timestamp,
         eventType: (e as unknown as { type: string }).type,
         summary:
@@ -150,7 +148,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       snapshots: snapshots.map((s) => ({
         type: 'snapshot',
         id: s.documentId,
-        sequenceId: s.sequenceId,
+        sequenceId: (s as Record<string, unknown>).sequenceId,
         timestamp: s.timestamp,
         summary: 'World Snapshot',
       })),

@@ -1,4 +1,4 @@
-import { defineTrait } from '../../../features/genesis-core/blueprints';
+import { defineTrait } from '@/features/genesis-core/blueprints';
 
 export default defineTrait({
   slug: 'infernal-legacy',

@@ -32,7 +32,7 @@ async function generateTextLocalProcessor(
           documentId: targetId as string,
           data: {
             [field]: generatedText,
-          },
+          } as never,
         });
       }
     } catch (saveError) {

@@ -116,21 +116,20 @@ async function updateDerivedData(event: LifecycleEvent) {
   const current = await strapi.documents('api::entity-sheet.entity-sheet').findOne({
     documentId: where.documentId,
     populate: {
-      class: { populate: ['features'] },
-      race: { populate: ['features'] },
+      class: { populate: ['features'] } as never,
+      race: { populate: ['traits'] } as never,
       stats: true,
-      inventory: { populate: ['item'] },
+      inventory: { populate: ['item'] } as never,
       features: true,
       structuredActions: true,
-    },
+    } as never,
   });
 
   if (!current) return;
 
   // 2. Prepare Context for Deriver
-  // Merge data over current
-  const level = data.level ?? current.level ?? 1;
-  const rawStats = data.stats || current.stats || {};
+  const level = ((data as Record<string, unknown>).level as number) ?? ((current as Record<string, unknown>).level as number) ?? 1;
+  const rawStats = ((data as Record<string, unknown>).stats || (current as Record<string, unknown>).stats || {}) as Record<string, number>;
 
   const attributes: EntityStats = {
     strength: rawStats.strength || 10,
@@ -143,7 +142,7 @@ async function updateDerivedData(event: LifecycleEvent) {
     initiativeBonus: 0, // Default
   };
 
-  const inventory = data.inventory || current.inventory || [];
+  const inventory = (data as Record<string, unknown>).inventory || (current as Record<string, unknown>).inventory || [];
   const inventoryResult = InventorySchema.safeParse(inventory);
   const validatedInventory = inventoryResult.success ? inventoryResult.data : [];
 
@@ -158,9 +157,9 @@ async function updateDerivedData(event: LifecycleEvent) {
 
         // If item is just ID/Name string, fetch it
         if (typeof equipDef !== 'object') {
-          const found = await strapi.documents('api::equipment.equipment').findFirst({
-            filters: { name: equipDef as string }, // Assume string is Name
-            populate: ['equipment_category', 'damage_type', 'properties'],
+          const found = await strapi.documents('api::item.item').findFirst({
+            filters: { slug: equipDef as string } as never, // Assume string is Slug
+            populate: { equipment_data: { populate: ['damage_type', 'properties'] } } as never,
           });
 
           if (found) {
@@ -168,9 +167,9 @@ async function updateDerivedData(event: LifecycleEvent) {
           } else {
             // Fallback ID fetch
             try {
-              equipDef = await strapi.documents('api::equipment.equipment').findOne({
+              equipDef = await strapi.documents('api::item.item').findOne({
                 documentId: String(equipDef),
-                populate: ['equipment_category', 'damage_type', 'properties'],
+                populate: { equipment_data: { populate: ['damage_type', 'properties'] } } as never,
               });
             } catch {
               equipDef = null;
@@ -179,10 +178,10 @@ async function updateDerivedData(event: LifecycleEvent) {
         } else if (equipDef) {
           // It's an object, check if deeply populated
           const ed = equipDef as { equipment_category?: unknown; documentId: string };
-          if (!ed.equipment_category) {
-            equipDef = await strapi.documents('api::equipment.equipment').findOne({
+          if (!(ed as Record<string, unknown>).equipment_data) {
+            equipDef = await strapi.documents('api::item.item').findOne({
               documentId: ed.documentId,
-              populate: ['equipment_category', 'damage_type', 'properties'],
+              populate: { equipment_data: { populate: ['damage_type', 'properties'] } } as never,
             });
           }
         }
@@ -202,7 +201,7 @@ async function updateDerivedData(event: LifecycleEvent) {
     proficiencyBonus: 2, // Default
     level,
     equipment: equipmentForDeriver,
-    race: { speed: current.race?.speed || 30 }, // Or fetch new race if data.race changed
+    race: { speed: ((current as Record<string, unknown>).race as Record<string, number>)?.speed || 30 }, // Or fetch new race if data.race changed
     hitDie: 8, // TODO: Fetch from class relation
   });
 
@@ -214,31 +213,31 @@ async function updateDerivedData(event: LifecycleEvent) {
   event.params.data.structuredActions = derived.structuredActions;
 
   // Preserve Hydration of features logic (legacy/separate)
-  let classData = current.class;
-  if (data.class && data.class !== current.class?.documentId) {
+  let classData = (current as Record<string, unknown>).class as Record<string, unknown> | undefined;
+  if ((data as Record<string, unknown>).class && (data as Record<string, unknown>).class !== classData?.documentId) {
     classData = await strapi
       .documents('api::class.class')
-      .findOne({ documentId: data.class as string, populate: ['features'] });
+      .findOne({ documentId: (data as Record<string, unknown>).class as string, populate: ['features'] as never }) as Record<string, unknown> | undefined;
   }
-  let raceData = current.race;
-  if (data.race && data.race !== current.race?.documentId) {
+  let raceData = (current as Record<string, unknown>).race as Record<string, unknown> | undefined;
+  if ((data as Record<string, unknown>).race && (data as Record<string, unknown>).race !== raceData?.documentId) {
     raceData = await strapi
       .documents('api::race.race')
-      .findOne({ documentId: data.race as string, populate: ['features'] });
+      .findOne({ documentId: (data as Record<string, unknown>).race as string, populate: ['traits'] as never }) as Record<string, unknown> | undefined;
   }
 
   const featuresInput = {
     characterLevel: level,
-    classFeatures: (classData?.features || []).map((f: { name: string; description?: string; level?: number }) => ({
+    classFeatures: (((classData?.features as unknown[]) || []) as Array<{ name: string; description?: string; level?: number }>).map((f) => ({
       name: f.name,
       description: f.description || '',
       level: f.level || 1,
     })),
-    raceFeatures: (raceData?.features || []).map((f: { name: string; description?: string }) => ({
+    raceFeatures: (((raceData?.traits as unknown[]) || []) as Array<{ name: string; description?: string }>).map((f) => ({
       name: f.name,
       description: f.description || '',
     })),
   };
 
-  event.params.data.features = FeatureHydrator.hydrateFeatures(featuresInput);
+  (event.params.data as Record<string, unknown>).features = FeatureHydrator.hydrateFeatures(featuresInput as never);
 }

@@ -1,4 +1,4 @@
-import { EntityMapper, GenerationRequest } from './entity-mapper';
+import { EntityMapper, GenerationRequest } from '@/features/genesis-core/mappers/entity-mapper';
 import { SourceSpell } from '@/features/genesis-core/source-types';
 
 export class SpellMapper extends EntityMapper<SourceSpell> {

@@ -11,15 +11,15 @@ import {
   SourceTrait,
   SourceFeature,
   SourceMonster,
-} from './source-types';
-import { SpellSchema } from './data/schemas/spell-schema';
-import { MagicItemSchema } from './data/schemas/magic-item-schema';
-import { MagicSchoolSchema } from './data/schemas/magic-school-schema';
-import { RaceSchema } from './data/schemas/race-schema';
-import { ClassSchema } from './data/schemas/class-schema';
-import { TraitSchema } from './data/schemas/trait-schema';
-import { FeatureSchema } from './data/schemas/feature-schema';
-import { MonsterSchema } from './data/schemas/monster-schema';
+} from '@/features/genesis-core/source-types';
+import { SpellSchema } from '@/features/genesis-core/data/schemas/spell-schema';
+import { MagicItemSchema } from '@/features/genesis-core/data/schemas/magic-item-schema';
+import { MagicSchoolSchema } from '@/features/genesis-core/data/schemas/magic-school-schema';
+import { RaceSchema } from '@/features/genesis-core/data/schemas/race-schema';
+import { ClassSchema } from '@/features/genesis-core/data/schemas/class-schema';
+import { TraitSchema } from '@/features/genesis-core/data/schemas/trait-schema';
+import { FeatureSchema } from '@/features/genesis-core/data/schemas/feature-schema';
+import { MonsterSchema } from '@/features/genesis-core/data/schemas/monster-schema';
 
 export class SourceLoader {
   private basePath: string;

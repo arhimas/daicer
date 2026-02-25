@@ -1,4 +1,4 @@
-import { defineSpell } from '../../../features/genesis-core/blueprints';
+import { defineSpell } from '@/features/genesis-core/blueprints';
 
 export default defineSpell({
   slug: 'barkskin',

@@ -1,4 +1,4 @@
-import { defineMagicSchool } from '../../../features/genesis-core/blueprints';
+import { defineMagicSchool } from '@/features/genesis-core/blueprints';
 
 export default defineMagicSchool({
   slug: 'conjuration',

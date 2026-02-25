@@ -101,7 +101,7 @@ describe('Entity Sheet Granular Logic', () => {
     it.each(races)('should hydrate features for %s', async (raceName) => {
       mockFindOne.mockResolvedValue({
         documentId: 'doc-1',
-        race: { features: [{ name: `${raceName} Trait` }] },
+        race: { traits: [{ name: `${raceName} Trait` }] },
         class: { features: [] },
       });
 

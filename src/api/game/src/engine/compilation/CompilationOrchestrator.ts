@@ -61,7 +61,7 @@ export class CompilationOrchestrator {
 
     // 1. Fetchall
     const entries = await strapi.entityService.findMany(uid as unknown as 'api::entity.entity', {
-      populate,
+      populate: populate as never,
     });
 
     if (Array.isArray(entries)) {

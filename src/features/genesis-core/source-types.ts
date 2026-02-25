@@ -1,12 +1,12 @@
-import { SourceSpell } from './data/schemas/spell-schema';
-import { SourceMagicItem } from './data/schemas/magic-item-schema';
-import { SourceMagicSchool } from './data/schemas/magic-school-schema';
-import { SourceMonster } from './data/schemas/monster-schema';
-import { SourceRace } from './data/schemas/race-schema';
-import { SourceClass } from './data/schemas/class-schema';
-import { SourceTrait } from './data/schemas/trait-schema';
-import { SourceFeature } from './data/schemas/feature-schema';
-import { APIReference } from './data/schemas/common-schemas';
+import { SourceSpell } from '@/features/genesis-core/data/schemas/spell-schema';
+import { SourceMagicItem } from '@/features/genesis-core/data/schemas/magic-item-schema';
+import { SourceMagicSchool } from '@/features/genesis-core/data/schemas/magic-school-schema';
+import { SourceMonster } from '@/features/genesis-core/data/schemas/monster-schema';
+import { SourceRace } from '@/features/genesis-core/data/schemas/race-schema';
+import { SourceClass } from '@/features/genesis-core/data/schemas/class-schema';
+import { SourceTrait } from '@/features/genesis-core/data/schemas/trait-schema';
+import { SourceFeature } from '@/features/genesis-core/data/schemas/feature-schema';
+import { APIReference } from '@/features/genesis-core/data/schemas/common-schemas';
 
 export type SourceRef = APIReference;
 export type {

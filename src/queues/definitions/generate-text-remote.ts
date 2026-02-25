@@ -30,7 +30,7 @@ async function generateTextRemoteProcessor(
     documentId: targetId as string, // Assuming documentId usage
     data: {
       [field]: generatedText,
-    },
+    } as never,
   });
 
   return { success: true, text: generatedText };

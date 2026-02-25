@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import {} from './common-schemas';
+import {} from '@/features/genesis-core/data/schemas/common-schemas';
 
 // Schema matching what monster-loader.ts expects
 export const MonsterBlueprintSchema = z.object({

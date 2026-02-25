@@ -1,4 +1,4 @@
-import { defineWeaponProperty } from '../../../features/genesis-core/blueprints';
+import { defineWeaponProperty } from '@/features/genesis-core/blueprints';
 
 export default defineWeaponProperty({
   slug: 'versatile',

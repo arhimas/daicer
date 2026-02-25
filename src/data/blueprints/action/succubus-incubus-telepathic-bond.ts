@@ -1,4 +1,4 @@
-import { defineAction } from '../../../features/genesis-core/blueprints';
+import { defineAction } from '@/features/genesis-core/blueprints';
 
 export default defineAction({
   name: 'Telepathic Bond',

@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { EntityMapper, GenerationRequest } from './entity-mapper';
+import { EntityMapper, GenerationRequest } from '@/features/genesis-core/mappers/entity-mapper';
 import { DCMethodSchema } from '@/features/genesis-core/data/schemas/common-schemas'; // Using schema types if needed, but here we use manual mapping or source types
 
 // Define SourceAction based on SourceMonster action structure

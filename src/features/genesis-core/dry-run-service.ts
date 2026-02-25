@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { ISchemaLoader } from './schema-loader';
+import { ISchemaLoader } from '@/features/genesis-core/schema-loader';
 
 export interface ValidationResult {
   valid: boolean;

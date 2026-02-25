@@ -261,7 +261,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
     const equipmentData = itemToEquip.item?.equipment_data;
 
     const properties = equipmentData?.properties || [];
-    const isTwoHanded = properties.some((p: { slug: string }) => p.slug === 'two-handed');
+    const isTwoHanded = properties.some((p: { slug?: string }) => p.slug === 'two-handed');
 
     // Logic:
     // 1. If equipping 2H: Unequip Main Hand AND Off Hand.
@@ -288,7 +288,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
     const newInventory = (inventory as InventoryItem[]).map((i) => {
       // The item itself
-      if (i.id === itemToEquip.id || i.documentId === itemToEquip.documentId) {
+      if (i.id === itemToEquip.id || (i.documentId && i.documentId === (itemToEquip as Record<string, unknown>).documentId)) {
         return { ...i, isEquipped: true, slot };
       }
 

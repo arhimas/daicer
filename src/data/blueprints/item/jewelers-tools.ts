@@ -1,4 +1,4 @@
-import { defineItem } from '../../../features/genesis-core/blueprints';
+import { defineItem } from '@/features/genesis-core/blueprints';
 
 export default defineItem({
   slug: 'jewelers-tools',

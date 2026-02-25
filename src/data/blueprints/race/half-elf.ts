@@ -1,4 +1,4 @@
-import { defineRace } from '../../../features/genesis-core/blueprints';
+import { defineRace } from '@/features/genesis-core/blueprints';
 
 export default defineRace({
   slug: 'half-elf',

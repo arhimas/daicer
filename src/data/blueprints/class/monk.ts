@@ -1,4 +1,4 @@
-import { defineClass } from '../../../features/genesis-core/blueprints';
+import { defineClass } from '@/features/genesis-core/blueprints';
 
 export default defineClass({
   slug: 'monk',

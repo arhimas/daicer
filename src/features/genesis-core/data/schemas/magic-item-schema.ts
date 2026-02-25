@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { APIReferenceSchema } from './common-schemas';
+import { APIReferenceSchema } from '@/features/genesis-core/data/schemas/common-schemas';
 
 export const RaritySchema = z.object({
   name: z.enum(['Common', 'Uncommon', 'Rare', 'Very Rare', 'Legendary', 'Artifact', 'Varies']),
