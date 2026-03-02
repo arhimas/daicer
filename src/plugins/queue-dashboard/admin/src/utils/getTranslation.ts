@@ -1,4 +1,4 @@
-import { PLUGIN_ID } from '@/plugins/queue-dashboard/admin/src/pluginId';
+import { PLUGIN_ID } from '../pluginId';
 
 /**
  * Generates a localized translation key for the queue dashboard plugin.

@@ -1,4 +1,0 @@
-{
-  "$ref": "plugin::users-permissions.user",
-  "_warning": "schema_not_found_or_external"
-}

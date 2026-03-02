@@ -1,8 +1,0 @@
-{
-  "slug": "cleric-spellcasting",
-  "name": "Spellcasting",
-  "class": "cleric",
-  "level": 1,
-  "description": "As a conduit for divine power, you can cast cleric spells.",
-  "is_subclass_feature": false
-}

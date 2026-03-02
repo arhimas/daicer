@@ -45,6 +45,14 @@ export default defineConfig({
         '**/vitest.{workspace,projects}.[jt]s?(on)',
         '**/.{eslint,mocha,prettier}rc.{?(c|m)js,yml}',
       ],
+      thresholds: {
+        global: {
+          statements: 85,
+          branches: 77,
+          functions: 83,
+          lines: 85,
+        },
+      },
     },
     exclude: [
       '**/node_modules/**',

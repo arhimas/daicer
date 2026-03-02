@@ -1,9 +1,0 @@
-{
-  "slug": "wand-of-magic-detection",
-  "name": "Wand of Magic Detection",
-  "type": "Wand",
-  "rarity": "Uncommon",
-  "requires_attunement": false,
-  "description": "This wand has 3 charges. While holding it, you can expend 1 charge as an action to cast the [_detect magic_](#detect-magic) spell from it. The wand regains 1d3 expended charges daily at dawn.",
-  "source_type_rarity": "Wand, uncommon"
-}

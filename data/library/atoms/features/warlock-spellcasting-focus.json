@@ -1,8 +1,0 @@
-{
-  "slug": "warlock-spellcasting-focus",
-  "name": "Spellcasting Focus",
-  "class": "warlock",
-  "level": 1,
-  "description": "You can use an arcane focus as a spellcasting focus for your warlock spells.",
-  "is_subclass_feature": true
-}

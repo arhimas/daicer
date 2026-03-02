@@ -1,8 +1,0 @@
-{
-  "slug": "cleric-destroy-undead",
-  "name": "Destroy Undead",
-  "class": "cleric",
-  "level": 5,
-  "description": "Starting at 5th level, when an undead fails its saving throw against your Turn Undead feature, the creature is instantly destroyed if its challenge rating is at or below a certain threshold, as shown in the Destroy Undead table.\n\n<table style=\"width:62%;\">\n<caption>Destroy Undead</caption>\n<colgroup>\n<col width=\"20%\" />\n<col width=\"41%\" />\n</colgroup>\n<thead>\n<tr class=\"header\">\n<th align=\"center\">Cleric Level</th>\n<th align=\"left\">Destroys Undead of CR…</th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td align=\"center\">5th</td>\n<td align=\"left\">1/2 or lower</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\">8th</td>\n<td align=\"left\">1 or lower</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"center\">11th</td>\n<td align=\"left\">2 or lower</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\">14th</td>\n<td align=\"left\">3 or lower</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"center\">17th</td>\n<td align=\"left\">4 or lower</td>\n</tr>\n</tbody>\n</table>",
-  "is_subclass_feature": false
-}

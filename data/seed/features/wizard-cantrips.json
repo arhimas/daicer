@@ -1,8 +1,0 @@
-{
-  "slug": "wizard-cantrips",
-  "name": "Cantrips",
-  "class": "wizard",
-  "level": 1,
-  "description": "At 1st level, you know three cantrips of your choice from the [wizard spell list](#section-wizard-spells). You learn additional wizard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Wizard table.",
-  "is_subclass_feature": true
-}

@@ -1,8 +1,0 @@
-{
-  "slug": "wizard-spellbook",
-  "name": "Spellbook",
-  "class": "wizard",
-  "level": 1,
-  "description": "At 1st level, you have a spellbook containing six 1st-level wizard spells of your choice. Your spellbook is the repository of the wizard spells you know, except your cantrips, which are fixed in your mind.",
-  "is_subclass_feature": true
-}

@@ -76,7 +76,7 @@ const Widget = () => {
   if (queues.length === 0) return <Typography>No queues found.</Typography>;
 
   return (
-    <Box background="neutral0" shadow="filterShadow" padding={6} hasRadius>
+    <Box aria-label="Queue Widget Dashboard" background="neutral0" shadow="filterShadow" padding={6} hasRadius>
       <Typography variant="delta" as="h2" marginBottom={4}>
         Queue Status
       </Typography>

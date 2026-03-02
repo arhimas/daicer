@@ -205,7 +205,7 @@ export const QueueWidget = ({ stats }: { stats: QueueStats }) => {
 
   return (
     <>
-      <Card style={{ height: '100%' }}>
+      <Card aria-label="Queue Widget Dashboard Details" style={{ height: '100%' }}>
         <CardBody>
           <Box padding={6}>
             {/* Header: Name and Status */}

@@ -10,8 +10,8 @@ import {
   Grid,
 } from '@strapi/design-system';
 import { Pencil, PaintBrush, Eye, Magic, Code, Check, Pin } from '@strapi/icons';
-import { useFetchClient } from '@strapi/admin/strapi-admin';
-import { unstable_useContentManagerContext as useContentManagerContext } from '@strapi/content-manager/strapi-admin';
+import { useFetchClient, useForm } from '@strapi/admin/strapi-admin';
+import { useParams } from 'react-router-dom';
 
 interface PixelForgeProps {
   name: string;
@@ -53,14 +53,6 @@ interface PixelForgeMetadata {
   [key: string]: unknown;
 }
 
-interface StrapiContext {
-  form?: {
-    values?: Record<string, unknown>;
-  };
-  model?: string | { uid: string };
-  contentType?: { uid: string };
-}
-
 interface EntityData {
   id?: number | string;
   documentId?: string;
@@ -82,21 +74,17 @@ interface EntityData {
  */
 export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   const { post, get } = useFetchClient();
-  const {
-    form,
-    model: currentModel,
-    contentType,
-  } = useContentManagerContext() as unknown as StrapiContext;
+  const params = useParams<{ slug?: string; id?: string }>();
+  const formValues = useForm('PixelForge', (state) => state.values);
 
   // Resolve Model UID safe
-  const modelUid =
-    (typeof currentModel === 'string' ? currentModel : currentModel?.uid) || contentType?.uid;
+  const modelUid = params.slug;
 
   // Strict Access
-  const modifiedData = (form?.values || {}) as EntityData;
+  const modifiedData = (formValues || {}) as EntityData;
 
   console.log('[PixelForge] Debug Context:', {
-    hasForm: !!form,
+    hasForm: !!formValues,
     valuesKeys: Object.keys(modifiedData),
     id: modifiedData.id,
     docId: modifiedData.documentId,
@@ -537,23 +525,46 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
             }}
           >
             {pixels.map((row, y) =>
-              row.map((pixelColor, x) => (
-                <div
-                  key={`p-${x}-${y}`}
-                  data-testid={`pixel-${x}-${y}`}
-                  onClick={() => handlePixelClick(x, y)}
-                  style={{
-                    backgroundColor:
-                      pixelColor === 'transparent'
-                        ? (x + y) % 2 === 0
-                          ? '#ccc'
-                          : '#fff'
-                        : pixelColor === '#' + '000000'
-                          ? '#1a1a1a'
-                          : pixelColor,
-                  }}
-                />
-              ))
+              row.map((pixelColor, x) => {
+                // SOTA Logic: Handle Raw Symbols vs Hex Colors
+                let finalColor = 'transparent';
+                
+                if (pixelColor === ' ' || pixelColor === 'transparent') {
+                  finalColor = (x + y) % 2 === 0 ? '#ccc' : '#fff';
+                } else if (pixelColor.startsWith('#')) {
+                  finalColor = pixelColor === '#000000' ? '#1a1a1a' : pixelColor;
+                } else {
+                  // It's a symbol! Resolve via mapping and entityZones
+                  const mapping = (modifiedData.mapping as Record<string, string>) || {};
+                  const mappedSlug = mapping[pixelColor];
+                  // If we found a mapped slug, look up the zone color
+                  if (mappedSlug) {
+                    const zone = entityZones.find(z => z.slug === mappedSlug);
+                    if (zone && zone.color) {
+                      finalColor = zone.color;
+                    }
+                  } else {
+                    // Fallback: If no explicit mapping, try matching the symbol directly in zones
+                    const zone = entityZones.find(z => z.symbol === pixelColor);
+                    if (zone && zone.color) {
+                      finalColor = zone.color;
+                    } else if (pixelColor !== '') {
+                       // Unknown symbol rendered as a visible placeholder if not empty
+                       finalColor = '#FF00FF'; 
+                    }
+                  }
+                }
+
+                return (
+                  <div
+                    key={`p-${x}-${y}`}
+                    data-testid={`pixel-${x}-${y}`}
+                    onClick={() => handlePixelClick(x, y)}
+                    style={{ backgroundColor: finalColor }}
+                    title={!pixelColor.startsWith('#') && pixelColor !== ' ' ? `Symbol: ${pixelColor}` : undefined}
+                  />
+                );
+              })
             )}
           </div>
         </Box>
@@ -665,14 +676,14 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                         .map((z: EntityZone) => (
                           <SingleSelectOption
                             key={z.slug}
-                            value={z.color}
+                            value={z.color || '#000000'}
                             startIcon={
                               <div
                                 style={{
                                   width: '12px',
                                   height: '12px',
                                   borderRadius: '2px',
-                                  backgroundColor: z.color,
+                                  backgroundColor: z.color || '#000000',
                                   border: '1px solid #ccc',
                                 }}
                               />
@@ -853,12 +864,32 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                     // Zone Metadata Resolution
                     const isBlueprintMode = modelUid === 'api::blueprint.blueprint';
 
+                    // SOTA Logic: Handle Raw Symbols vs Hex Colors
+                    let resolvedPixelColor = pixelColor;
+                    if (pixelColor !== ' ' && pixelColor !== 'transparent' && !pixelColor.startsWith('#')) {
+                      const mapping = (modifiedData.mapping as Record<string, string>) || {};
+                      const mappedSlug = mapping[pixelColor];
+                      if (mappedSlug) {
+                        const zone = entityZones.find(z => z.slug === mappedSlug);
+                        if (zone && zone.color) {
+                           resolvedPixelColor = zone.color;
+                        }
+                      } else {
+                        const zone = entityZones.find(z => z.symbol === pixelColor);
+                        if (zone && zone.color) {
+                           resolvedPixelColor = zone.color;
+                        } else if (pixelColor !== '') {
+                           resolvedPixelColor = '#FF00FF';
+                        }
+                      }
+                    }
+
                     // In BP Mode, the Pixel Color IS the Zone Color.
                     // In Sprite Mode, the Zone comes from metadata.blueprint.
                     let zoneName = '';
 
                     if (isBlueprintMode) {
-                      const zone = entityZones.find((z) => z.color === pixelColor);
+                      const zone = entityZones.find((z) => z.color === resolvedPixelColor || z.symbol === pixelColor);
                       if (zone) zoneName = zone.name;
                     } else {
                       const blueprintColor = metadata?.blueprint?.[y]?.[x];
@@ -867,15 +898,38 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                     }
 
                     // Visual Layering Logic
-                    // Visual Layering Logic
                     // 1. Base Layer (Checkerboard)
                     const baseColor = (x + y) % 2 === 0 ? '#222' : '#2a2a2a';
 
                     // 2. Determine Layers
-                    const spriteColor = pixelColor === 'transparent' ? null : pixelColor;
+                    const spriteColor = (resolvedPixelColor === 'transparent' || resolvedPixelColor === ' ') ? null : resolvedPixelColor;
+                    
                     const bpPixel = metadata?.blueprint?.[y]?.[x];
+                    let resolvedBpColor = bpPixel;
+                    
+                    if (bpPixel && bpPixel !== ' ' && bpPixel !== 'transparent' && bpPixel !== '.' && !bpPixel.startsWith('#')) {
+                      // Try to resolve symbol to color using entityZones directly
+                      let zone = entityZones.find(z => z.symbol === bpPixel);
+                      
+                      // If fail, try to use selected blueprint's mapping if available
+                      if (!zone) {
+                         const selectedBp = blueprints.find(b => b.documentId === selectedBlueprintId || b.id === selectedBlueprintId);
+                         const mapping = (selectedBp as unknown as { mapping?: Record<string, string> })?.mapping;
+                         if (mapping) {
+                            const mappedSlug = mapping[bpPixel];
+                            zone = entityZones.find(z => z.slug === mappedSlug);
+                         }
+                      }
+                      
+                      if (zone && zone.color) {
+                         resolvedBpColor = zone.color;
+                      } else {
+                         resolvedBpColor = '#FF00FF'; // Magenta for unresolved
+                      }
+                    }
+                    
                     const bpColor =
-                      bpPixel && bpPixel !== 'transparent' && bpPixel !== '.' ? bpPixel : null;
+                      resolvedBpColor && resolvedBpColor !== 'transparent' && resolvedBpColor !== '.' && resolvedBpColor !== ' ' ? resolvedBpColor : null;
 
                     // 3. Composite Final Color based on View Mode
                     let finalColor = baseColor;

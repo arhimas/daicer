@@ -1,4 +1,4 @@
-export default () => ({
+export default {
   type: 'content-api',
   routes: [
     {
@@ -11,4 +11,4 @@ export default () => ({
       },
     },
   ],
-});
+};

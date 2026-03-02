@@ -1,8 +1,0 @@
-{
-  "slug": "paladin-spellcasting-focus",
-  "name": "Spellcasting Focus",
-  "class": "paladin",
-  "level": 1,
-  "description": "You can use a holy symbol as a spellcasting focus for your paladin spells.",
-  "is_subclass_feature": false
-}

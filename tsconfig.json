@@ -20,6 +20,8 @@
       "@daicer/engine/*": ["src/api/game/src/engine/*"],
       "@daicer/shared": ["src/shared/index.ts"],
       "@daicer/shared/*": ["src/shared/*"],
+      "@daicer/llm-core": ["src/libs/llm-core/src/index.ts"],
+      "@daicer/llm-core/*": ["src/libs/llm-core/src/*"],
       "@/*": ["src/*"],
       "@strapi/client": ["../node_modules/@strapi/client/dist/exports.d.ts"],
       "@scripts/*": ["scripts/*"],

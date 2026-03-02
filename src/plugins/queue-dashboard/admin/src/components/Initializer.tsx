@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import { PLUGIN_ID } from '@/plugins/queue-dashboard/admin/src/pluginId';
+import { PLUGIN_ID } from '../pluginId';
 
 type InitializerProps = {
   setPlugin: (id: string) => void;

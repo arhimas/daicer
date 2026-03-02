@@ -1,8 +1,0 @@
-{
-  "slug": "warlock-cantrips",
-  "name": "Cantrips",
-  "class": "warlock",
-  "level": 1,
-  "description": "You know two cantrips of your choice from the [warlock spell list](#section-warlock-spells). You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.",
-  "is_subclass_feature": true
-}

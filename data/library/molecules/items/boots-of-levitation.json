@@ -1,9 +1,0 @@
-{
-  "slug": "boots-of-levitation",
-  "name": "Boots of Levitation",
-  "type": "Wondrous item",
-  "rarity": "Rare",
-  "requires_attunement": true,
-  "description": "While you wear these boots, you can use an action to cast the [_levitate_](#levitate) spell on yourself at will.",
-  "source_type_rarity": "Wondrous item, rare (requires [attunement](#section-attunement))"
-}

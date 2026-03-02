@@ -1,8 +1,0 @@
-{
-  "slug": "sorcerer-spellcasting-focus",
-  "name": "Spellcasting Focus",
-  "class": "sorcerer",
-  "level": 1,
-  "description": "You can use an arcane focus as a spellcasting focus for your sorcerer spells.",
-  "is_subclass_feature": true
-}

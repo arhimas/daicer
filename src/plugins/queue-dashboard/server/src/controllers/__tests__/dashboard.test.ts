@@ -49,7 +49,7 @@ const mockStrapi = {
 global.strapi = mockStrapi as any;
 
 // 4. Import Controller AFTER global setup (Using Factory)
-import dashboardFactory from '@/plugins/queue-dashboard/server/src/controllers/dashboard-controller';
+import dashboardFactory from '../dashboard-controller';
 
 describe('DashboardController', () => {
   let dashboardController: any;

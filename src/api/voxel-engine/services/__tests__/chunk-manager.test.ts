@@ -47,6 +47,7 @@ describe('ChunkManager', () => {
     };
     mockDocuments = {
       findMany: vi.fn(),
+      create: vi.fn(),
     };
 
     mockStrapi = {
@@ -176,7 +177,7 @@ describe('ChunkManager', () => {
 
       await manager.editVoxel(chunkX, chunkY, 0, 0, 0, BlockType.GRASS, 'world-1', 'player');
 
-      expect(mockQuery.create).toHaveBeenCalledWith(
+      expect(mockDocuments.create).toHaveBeenCalledWith(
         expect.objectContaining({
           data: expect.objectContaining({
             chunkX,
@@ -200,7 +201,7 @@ describe('ChunkManager', () => {
       await manager.editVoxel(99, 99, 0, 0, 0, undefined, 'world-1');
 
       expect(spy).toHaveBeenCalled();
-      expect(mockQuery.create).toHaveBeenCalledWith(
+      expect(mockDocuments.create).toHaveBeenCalledWith(
         expect.objectContaining({
           data: expect.objectContaining({
             newType: 'dirt',
@@ -221,7 +222,7 @@ describe('ChunkManager', () => {
       // Request update with NO type (metadata only usually, but here checking type resolution)
       await manager.editVoxel(chunkX, chunkY, 0, 0, 0, undefined, 'world-1', 'meta-upd');
 
-      expect(mockQuery.create).toHaveBeenCalledWith(
+      expect(mockDocuments.create).toHaveBeenCalledWith(
         expect.objectContaining({
           data: expect.objectContaining({
             newType: BlockType.STONE, // Solved from cache

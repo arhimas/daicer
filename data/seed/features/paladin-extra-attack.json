@@ -1,8 +1,0 @@
-{
-  "slug": "paladin-extra-attack",
-  "name": "Extra Attack",
-  "class": "paladin",
-  "level": 5,
-  "description": "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn.",
-  "is_subclass_feature": false
-}

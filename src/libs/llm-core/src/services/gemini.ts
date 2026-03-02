@@ -3,9 +3,9 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { z } from 'zod';
 import { PNG } from 'pngjs';
-import { PromptKey, PromptVariableMap, PromptSchemas } from '@/libs/llm-core/src/prompt-registry';
-import { ContextBuilder } from '@/libs/llm-core/src/context/builder';
-import { StrapiAdapter, LLMCoreConfig } from '@/libs/llm-core/src/types';
+import { PromptKey, PromptVariableMap, PromptSchemas } from '@daicer/llm-core/prompt-registry';
+import { ContextBuilder } from '@daicer/llm-core/context/builder';
+import { StrapiAdapter, LLMCoreConfig } from '@daicer/llm-core/types';
 
 // Types
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
@@ -618,6 +618,9 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
 
       return blueprint.map((row) =>
         row.map((cell) => {
+          // If it's already a valid Hex Color (e.g. user manually painted it in PixelForge)
+          if (/^#[0-9A-Fa-f]{3,8}$/.test(cell)) return cell;
+          
           const key = cell.toLowerCase();
           return ZONE_COLORS[key] || ZONE_COLORS[cell] || 'transparent';
         })

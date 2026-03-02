@@ -1,5 +1,5 @@
-import { StrapiAdapter, LLMCoreConfig } from '@/libs/llm-core/src/types';
-import { SNIPPETS } from '@/libs/llm-core/src/context/snippets';
+import { StrapiAdapter, LLMCoreConfig } from '@daicer/llm-core/types';
+import { SNIPPETS } from './snippets';
 
 export class ContextBuilder {
   constructor(
@@ -44,8 +44,12 @@ export class ContextBuilder {
         const model = this.adapter.getModel(uid);
 
         // D. Build Context String
+        // Sanitize out large noisy grids/pixels to prevent context poisoning & massive network latency
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { grid, pixels, blueprint, localizations, history, ...semanticData } = mergedEntity as Record<string, unknown>;
+
         let contextDataString =
-          `ENTITY TYPE: ${model.info.displayName || uid}\n` + `JSON DATA:\n${JSON.stringify(mergedEntity, null, 2)}`;
+          `ENTITY TYPE: ${model.info.displayName || uid}\n` + `JSON DATA:\n${JSON.stringify(semanticData, null, 2)}`;
 
         this.adapter.log.info(`Pixel Forge: SOTA Deep Context Injected (Merged Draft) for ${uid}:${documentId}`);
 
@@ -117,7 +121,7 @@ export class ContextBuilder {
           const zoneList = zones
             .map((z: unknown) => {
               const zone = z as ZoneEntity;
-              const color = zone.color.toUpperCase();
+              const color = (zone.color || '#000000').toUpperCase();
               const slug = zone.slug.toLowerCase();
               // Map Slug -> Color for blueprintToPixels logic
               dynamicZoneMap[slug] = color;

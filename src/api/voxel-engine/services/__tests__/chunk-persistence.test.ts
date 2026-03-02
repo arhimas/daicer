@@ -67,6 +67,7 @@ describe('ChunkManager Persistence', () => {
     // Mock Strapi Documents API
     (global as any).strapi.documents = vi.fn().mockImplementation(() => ({
       findMany: mockDbFindMany, // Re-use the db mock for documents API too
+      create: mockDbCreate,
     }));
 
     chunkManager = ChunkManager.getInstance();

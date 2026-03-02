@@ -1,9 +1,0 @@
-{
-  "slug": "carpet-of-flying",
-  "name": "Carpet of Flying",
-  "type": "Wondrous item",
-  "rarity": "Very Rare",
-  "requires_attunement": false,
-  "description": "You can speak the carpet's command word as an action to make the carpet hover and fly. It moves according to your spoken directions, provided that you are within 30 feet of it.\n\nFour sizes of carpet of flying exist. The GM chooses the size of a given carpet or determines it randomly.\n\n<table style=\"width:69%;\">\n<colgroup>\n<col width=\"12%\" />\n<col width=\"22%\" />\n<col width=\"15%\" />\n<col width=\"19%\" />\n</colgroup>\n<thead>\n<tr class=\"header\">\n<th align=\"center\">d100</th>\n<th align=\"center\">Size</th>\n<th align=\"center\">Capacity</th>\n<th align=\"center\">Flying Speed</th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td align=\"center\">01–20</td>\n<td align=\"center\">3 ft. × 5 ft.</td>\n<td align=\"center\">200 lb.</td>\n<td align=\"center\">80 feet</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\">21–55</td>\n<td align=\"center\">4 ft. × 6 ft.</td>\n<td align=\"center\">400 lb.</td>\n<td align=\"center\">60 feet</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"center\">56–80</td>\n<td align=\"center\">5 ft. × 7 ft.</td>\n<td align=\"center\">600 lb.</td>\n<td align=\"center\">40 feet</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\">81–100</td>\n<td align=\"center\">6 ft. × 9 ft.</td>\n<td align=\"center\">800 lb.</td>\n<td align=\"center\">30 feet</td>\n</tr>\n</tbody>\n</table>\n\nA carpet can carry up to twice the weight shown on the table, but it flies at half speed if it carries more than its normal capacity.",
-  "source_type_rarity": "Wondrous item, very rare"
-}

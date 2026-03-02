@@ -1,8 +1,0 @@
-{
-  "slug": "bard-spells-known-of-1st-level-and-higher",
-  "name": "Spells Known of 1st Level and Higher",
-  "class": "bard",
-  "level": 3,
-  "description": "You know four 1st-level spells of your choice from the [bard spell list](#section-bard-spells).\n\nThe Spells Known column of the Bard table shows when you learn more bard spells of your choice. Each of these spells must be of a level for which you have spell slots, as shown on the table. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level.\n\nAdditionally, when you gain a level in this class, you can choose one of the bard spells you know and replace it with another spell from the bard spell list, which also must be of a level for which you have spell slots.",
-  "is_subclass_feature": true
-}

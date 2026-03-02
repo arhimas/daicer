@@ -45,6 +45,7 @@ export const TerrainSchema = z
     slug: Slug,
     name: z.string().min(1),
     color: z.string().optional(),
+    texture: z.any().optional(), // Map Explorer Texture Grid
     isWalkable: z.boolean().default(true),
     isTransparent: z.boolean().default(false),
     isLiquid: z.boolean().default(false),
@@ -56,8 +57,20 @@ export const TerrainSchema = z
   })
   .strict();
 
+export const EntityZoneSchema = z
+  .object({
+    slug: Slug,
+    name: z.string().min(1),
+    symbol: z.string().max(1).optional(),
+    color: z.string().optional(),
+    description: RichText.optional(),
+    category: z.enum(['Creature', 'Item', 'Structure', 'Effect', 'Terrain']).default('Creature'),
+  })
+  .strict();
+
 export type SeedTrait = z.infer<typeof TraitSchema>;
 export type SeedTag = z.infer<typeof TagSchema>;
 export type SeedProficiency = z.infer<typeof ProficiencySchema>;
 export type SeedRace = z.infer<typeof RaceSchema>;
 export type SeedTerrain = z.infer<typeof TerrainSchema>;
+export type SeedEntityZone = z.infer<typeof EntityZoneSchema>;

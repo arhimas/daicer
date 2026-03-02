@@ -1,9 +1,0 @@
-{
-  "slug": "elemental-gem",
-  "name": "Elemental Gem",
-  "type": "Wondrous item",
-  "rarity": "Uncommon",
-  "requires_attunement": false,
-  "description": "This gem contains a mote of elemental energy. When you use an action to break the gem, an elemental is summoned as if you had cast the [_conjure elemental_](#conjure-elemental) spell, and the gem's magic is lost. The type of gem determines the elemental summoned by the spell.\n\n<table style=\"width:49%;\">\n<colgroup>\n<col width=\"22%\" />\n<col width=\"26%\" />\n</colgroup>\n<thead>\n<tr class=\"header\">\n<th align=\"left\">Gem</th>\n<th align=\"left\">Summoned Elemental</th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td align=\"left\">Blue sapphire</td>\n<td align=\"left\">Air elemental</td>\n</tr>\n<tr class=\"even\">\n<td align=\"left\">Yellow diamond</td>\n<td align=\"left\">Earth elemental</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"left\">Red corundum</td>\n<td align=\"left\">Fire elemental</td>\n</tr>\n<tr class=\"even\">\n<td align=\"left\">Emerald</td>\n<td align=\"left\">Water elemental</td>\n</tr>\n</tbody>\n</table>",
-  "source_type_rarity": "Wondrous item, uncommon"
-}

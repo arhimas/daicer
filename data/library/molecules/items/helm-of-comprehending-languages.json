@@ -1,9 +1,0 @@
-{
-  "slug": "helm-of-comprehending-languages",
-  "name": "Helm of Comprehending Languages",
-  "type": "Wondrous item",
-  "rarity": "Uncommon",
-  "requires_attunement": false,
-  "description": "While wearing this helm, you can use an action to cast the [_comprehend languages_](#comprehend-languages) spell from it at will.",
-  "source_type_rarity": "Wondrous item, uncommon"
-}

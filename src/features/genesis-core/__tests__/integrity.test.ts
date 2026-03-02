@@ -98,4 +98,47 @@ describe('Genesis Integrity', () => {
       console.log(`Classes: ${total - missing.length}/${total} generated. Invalid: ${invalid.length}`);
     });
   });
+
+  const checkDirectoryCoverage = async (dirName: string, uid: string) => {
+    const dirPath = path.resolve(process.cwd(), 'src/data/blueprints', dirName);
+    if (!fs.existsSync(dirPath)) return { total: 0, invalid: [] };
+    
+    const files = fs.readdirSync(dirPath).filter((f) => f.endsWith('.ts'));
+    const invalid: string[] = [];
+
+    for (const file of files) {
+      try {
+        const mod = await import(path.join(dirPath, file));
+        const validation = await dryRun.validate(mod.default, uid);
+        if (!validation.valid) invalid.push(`${file}: ${validation.errors.join(', ')}`);
+      } catch (e) {
+        invalid.push(`${file}: Failed to import or invalid TypeScript exported content`);
+      }
+    }
+    return { total: files.length, invalid };
+  };
+
+  describe('Terrains Coverage', () => {
+    it('should track terrain generation progress', async () => {
+      const { total, invalid } = await checkDirectoryCoverage('terrain', 'api::terrain.terrain');
+      console.log(`Terrains: ${total} generated. Invalid: ${invalid.length}`);
+      expect(invalid).toEqual([]);
+    });
+  });
+
+  describe('Zones Coverage', () => {
+    it('should track zone generation progress', async () => {
+      const { total, invalid } = await checkDirectoryCoverage('zone', 'api::entity-zone.entity-zone');
+      console.log(`Zones: ${total} generated. Invalid: ${invalid.length}`);
+      expect(invalid).toEqual([]);
+    });
+  });
+
+  describe('Blueprints Coverage', () => {
+    it('should track blueprint generation progress', async () => {
+      const { total, invalid } = await checkDirectoryCoverage('blueprint', 'api::blueprint.blueprint');
+      console.log(`Blueprints: ${total} generated. Invalid: ${invalid.length}`);
+      expect(invalid).toEqual([]);
+    });
+  });
 });

@@ -9,11 +9,16 @@ const mockPost = vi.fn();
 const mockGet = vi.fn();
 const mockModifiedData = { name: 'Test Entity', category: 'Creature' };
 
+vi.mock('react-router-dom', () => ({
+  useParams: () => ({ slug: 'api::creature.creature' }),
+}));
+
 vi.mock('@strapi/admin/strapi-admin', () => ({
   useFetchClient: () => ({
     post: mockPost,
     get: mockGet,
   }),
+  useForm: () => mockModifiedData,
 }));
 
 vi.mock('@strapi/content-manager/strapi-admin', () => ({

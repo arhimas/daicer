@@ -2,6 +2,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@daicer/llm-core/*": [
+        "src/*"
+      ]
+    },
     "declaration": true,
     "module": "commonjs",
     "target": "es2020",

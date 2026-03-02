@@ -467,6 +467,7 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    anchors: Schema.Attribute.JSON;
     category: Schema.Attribute.Enumeration<['Creature', 'Item', 'Structure', 'Effect', 'Terrain']> &
       Schema.Attribute.DefaultTo<'Creature'>;
     createdAt: Schema.Attribute.DateTime;
@@ -486,6 +487,7 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<1>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blueprint.blueprint'> & Schema.Attribute.Private;
+    mapping: Schema.Attribute.JSON;
     name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -736,7 +738,7 @@ export interface ApiEntityZoneEntityZone extends Struct.CollectionTypeSchema {
     category: Schema.Attribute.Enumeration<['Creature', 'Item', 'Structure', 'Effect', 'Terrain']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Creature'>;
-    color: Schema.Attribute.String & Schema.Attribute.Required;
+    color: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.Text;

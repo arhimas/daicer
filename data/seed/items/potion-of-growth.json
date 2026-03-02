@@ -1,9 +1,0 @@
-{
-  "slug": "potion-of-growth",
-  "name": "Potion of Growth",
-  "type": "Potion",
-  "rarity": "Uncommon",
-  "requires_attunement": false,
-  "description": "When you drink this potion, you gain the \"enlarge\" effect of the [_enlarge/reduce_](#enlargereduce) spell for 1d4 hours (no concentration required). The red in the potion's liquid continuously expands from a tiny bead to color the clear liquid around it and then contracts.\n\nShaking the bottle fails to interrupt this process.",
-  "source_type_rarity": "Potion, uncommon"
-}

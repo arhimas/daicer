@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import serviceFactory from '@/plugins/queue-dashboard/server/src/services/service';
+import serviceFactory from '../service';
 
 describe('Queue Dashboard Service', () => {
   it('should return welcome message', () => {

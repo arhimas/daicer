@@ -1,9 +1,0 @@
-{
-  "slug": "slippers-of-spider-climbing",
-  "name": "Slippers of Spider Climbing",
-  "type": "Wondrous item",
-  "rarity": "Uncommon",
-  "requires_attunement": true,
-  "description": "While you wear these light shoes, you can move up, down, and across vertical surfaces and upside down along ceilings, while leaving your hands free. You have a climbing speed equal to your walking speed.\n\nHowever, the slippers don't allow you to move this way on a slippery surface, such as one covered by ice or oil.",
-  "source_type_rarity": "Wondrous item, uncommon (requires [attunement](#section-attunement))"
-}

@@ -1,8 +1,0 @@
-{
-  "slug": "ranger-spellcasting",
-  "name": "Spellcasting",
-  "class": "ranger",
-  "level": 1,
-  "description": "By the time you reach 2nd level, you have learned to use the magical essence of nature to cast spells, much as a druid does. See \"[Spellcasting](#chapter-spellcasting)\" and the [ranger spell list](#section-ranger-spells).",
-  "is_subclass_feature": false
-}

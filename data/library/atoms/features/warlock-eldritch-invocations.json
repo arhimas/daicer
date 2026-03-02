@@ -1,8 +1,0 @@
-{
-  "slug": "warlock-eldritch-invocations",
-  "name": "Eldritch Invocations",
-  "class": "warlock",
-  "level": 2,
-  "description": "In your study of occult lore, you have unearthed [eldritch invocations](#section-eldritch-invocations), fragments of forbidden knowledge that imbue you with an abiding magical ability.\n\nAt 2nd level, you gain two eldritch invocations of your choice. When you gain certain warlock levels, you gain additional invocations of your choice, as shown in the Invocations Known column of the Warlock table.\n\nAdditionally, when you gain a level in this class, you can choose one of the invocations you know and replace it with another invocation that you could learn at that level.",
-  "is_subclass_feature": false
-}

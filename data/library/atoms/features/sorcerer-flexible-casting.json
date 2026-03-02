@@ -1,8 +1,0 @@
-{
-  "slug": "sorcerer-flexible-casting",
-  "name": "Flexible Casting",
-  "class": "sorcerer",
-  "level": 1,
-  "description": "You can use your sorcery points to gain additional spell slots, or sacrifice spell slots to gain additional sorcery points. You learn other ways to use your sorcery points as you reach higher levels.\n\n**_Creating Spell Slots._** You can transform unexpended sorcery points into one spell slot as a bonus action on your turn. The Creating Spell Slots table shows the cost of creating a spell slot of a given level. You can create spell slots no higher in level than 5th.\n\nAny spell slot you create with this feature vanishes when you finish a long rest.\n\n<table style=\"width:39%;\">\n<caption>Creating Spell Slots</caption>\n<colgroup>\n<col width=\"18%\" />\n<col width=\"20%\" />\n</colgroup>\n<thead>\n<tr class=\"header\">\n<th align=\"center\">Spell Slot Level</th>\n<th align=\"center\">Sorcery Point Cost</th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td align=\"center\">1st</td>\n<td align=\"center\">2</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\">2nd</td>\n<td align=\"center\">3</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"center\">3rd</td>\n<td align=\"center\">5</td>\n</tr>\n<tr class=\"even\">\n<td align=\"center\">4th</td>\n<td align=\"center\">6</td>\n</tr>\n<tr class=\"odd\">\n<td align=\"center\">5th</td>\n<td align=\"center\">7</td>\n</tr>\n</tbody>\n</table>\n\n**_Converting a Spell Slot to Sorcery Points._** As a bonus action on your turn, you can expend one spell slot and gain a number of sorcery points equal to the slot's level.",
-  "is_subclass_feature": true
-}

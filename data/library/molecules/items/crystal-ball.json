@@ -1,9 +1,0 @@
-{
-  "slug": "crystal-ball",
-  "name": "Crystal Ball",
-  "type": "Wondrous item",
-  "rarity": "Legendary",
-  "requires_attunement": true,
-  "description": "The typical crystal ball, a very rare item, is about 6 inches in diameter. While touching it, you can cast the [_scrying_](#scrying) spell (save DC 17) with it.\n\nThe following crystal ball variants are legendary items and have additional properties.\n\n**_Crystal Ball of Mind Reading._** You can use an action to cast the [_detect thoughts_](#detect-thoughts) spell (save DC 17) while you are scrying with the crystal ball, targeting creatures you can see within 30 feet of the spell's sensor. You don't need to concentrate on this [_detect thoughts_](#detect-thoughts) to maintain it during its duration, but it ends if [_scrying_](#scrying) ends.\n\n**_Crystal Ball of Telepathy._** While scrying with the crystal ball, you can communicate telepathically with creatures you can see within 30 feet of the spell's sensor. You can also use an action to cast the [_suggestion_](#suggestion) spell (save DC 17) through the sensor on one of those creatures. You don't need to concentrate on this [_suggestion_](#suggestion) to maintain it during its duration, but it ends if [_scrying_](#scrying) ends. Once used, the [_suggestion_](#suggestion) power of the crystal ball can't be used again until the next dawn.\n\n**_Crystal Ball of True Seeing._** While scrying with the crystal ball, you have truesight with a radius of 120 feet centered on the spell's sensor.",
-  "source_type_rarity": "Wondrous item, very rare or legendary (requires [attunement](#section-attunement))"
-}

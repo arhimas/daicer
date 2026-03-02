@@ -43,6 +43,12 @@
       "min": 1,
       "max": 128
     },
+    "mapping": {
+      "type": "json"
+    },
+    "anchors": {
+      "type": "json"
+    },
     "zones": {
       "type": "relation",
       "relation": "manyToMany",

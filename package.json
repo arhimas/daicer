@@ -21,7 +21,7 @@
     "format": "prettier --write .",
     "codegen": "ts-node src/scripts/codegen.ts",
     "typecheck": "ts-node src/scripts/typecheck-all.ts",
-    "seed": "ts-node src/scripts/genesis/canonical-seed.ts",
+    "seed": "ts-node -r tsconfig-paths/register src/scripts/genesis/run-seed.ts",
     "reembed": "ts-node src/scripts/ingest-game-entities.ts",
     "feed:manuals": "ts-node src/scripts/ingest-manuals.ts",
     "feed:code": "ts-node src/scripts/ingest-codebase.ts",

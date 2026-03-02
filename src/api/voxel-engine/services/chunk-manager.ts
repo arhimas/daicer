@@ -214,21 +214,26 @@ export class ChunkManager {
     }
 
     // 2. Persist to DB
-    await strapi.db.query('api::voxel-change.voxel-change').create({
-      data: {
-        world: worldId,
-        chunkX,
-        chunkY,
-        voxelX,
-        voxelY,
-        voxelZ,
-        newType: solvedType,
-        previousType: 'Unknown',
-        reason,
-        timestamp: Date.now(),
-        metadata,
-      },
-    });
+    try {
+      await strapi.documents('api::voxel-change.voxel-change').create({
+        data: {
+          world: worldId,
+          chunkX,
+          chunkY,
+          voxelX,
+          voxelY,
+          voxelZ,
+          newType: String(solvedType),
+          previousType: 'Unknown',
+          reason,
+          timestamp: Date.now(),
+          // @ts-expect-error Strapi typings for JSON fields expect JSONValue which rejects Record<string, unknown>
+          metadata: metadata || null,
+        },
+      });
+    } catch (dbErr) {
+       console.warn('[ChunkManager] Error persisting voxel change to DB', dbErr);
+    }
 
     // 2. Update Cache
     const chunkSize = 16;

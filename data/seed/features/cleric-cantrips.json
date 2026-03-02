@@ -1,8 +1,0 @@
-{
-  "slug": "cleric-cantrips",
-  "name": "Cantrips",
-  "class": "cleric",
-  "level": 1,
-  "description": "At 1st level, you know three cantrips of your choice from the [cleric spell list](#section-cleric-spells). You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.",
-  "is_subclass_feature": true
-}

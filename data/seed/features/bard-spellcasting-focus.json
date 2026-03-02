@@ -1,8 +1,0 @@
-{
-  "slug": "bard-spellcasting-focus",
-  "name": "Spellcasting Focus",
-  "class": "bard",
-  "level": 1,
-  "description": "You can use a [musical instrument](#section-tools) as a spellcasting focus for your bard spells.",
-  "is_subclass_feature": true
-}

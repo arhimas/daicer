@@ -2,6 +2,8 @@ import type { Core } from '@strapi/strapi';
 import { z } from 'zod';
 import * as Vault from '@/genesis/vault';
 import * as Schemas from '@/genesis/schemas';
+import fs from 'fs';
+import path from 'path';
 
 // Mapping: Field Name -> Target UID
 const RELATION_MAP: Record<string, string> = {
@@ -11,6 +13,7 @@ const RELATION_MAP: Record<string, string> = {
   tags: 'api::tag.tag',
   languages: 'api::language.language',
   prompts: 'api::prompt.prompt',
+  zones: 'api::entity-zone.entity-zone',
 
   // Molecules
   subclasses: 'api::subclass.subclass',
@@ -43,7 +46,7 @@ export class GenesisSeeder {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const entity = await this.strapi.documents(uid as any).findFirst({
-        filters: { slug },
+        filters: { slug: { $eq: slug } },
         fields: ['documentId', 'slug'],
       });
       if (entity) {
@@ -51,7 +54,7 @@ export class GenesisSeeder {
         return entity.documentId;
       }
     } catch {
-      // console.warn(`Lookup failed for ${uid}/${slug}`, e);
+      console.warn(`⚠️ DB Lookup failed for ${uid}/${slug}`);
     }
     return null;
   }
@@ -156,12 +159,46 @@ export class GenesisSeeder {
   public async run() {
     console.log('🌱 Starting Genesis Seed...');
 
+    // Dynamic Loader for Blueprint Files
+    const loadFromDir = async (dirName: string) => {
+      const items = [];
+      // Seeder runs from src/genesis/seeder.ts, but when using ts-node it's relative to CWD or the file location.
+      // Easiest is to go from project root (process.cwd()) to avoid __dirname bugs in TS compilations
+      const dirPath = path.resolve(process.cwd(), 'src/data/blueprints', dirName); 
+      console.log(`\n🔍 Looking for blueprints in: ${dirPath}`);
+      if (fs.existsSync(dirPath)) {
+        const files = fs.readdirSync(dirPath).filter((f) => f.endsWith('.ts'));
+        console.log(`📂 Found ${files.length} files in ${dirName}.`);
+        for (const f of files) {
+          try {
+            // Under Node CommonJS with ts-node, dynamic import() on .ts throws ERR_UNKNOWN_FILE_EXTENSION.
+            // require() works correctly with ts-node.
+            // eslint-disable-next-line @typescript-eslint/no-require-imports
+            const mod = require(path.join(dirPath, f));
+            items.push(mod.default);
+          } catch (e) {
+            console.error(`❌ Failed to load ${f}:`, e);
+          }
+        }
+      } else {
+        console.warn(`⚠️ Directory not found: ${dirPath}`);
+      }
+      return items;
+    };
+
+    const dynamicTerrains = await loadFromDir('terrain');
+    const dynamicZones = await loadFromDir('zone');
+    const dynamicBlueprints = await loadFromDir('blueprint');
+
     // 1. Atoms
     console.log(`\nProcessing Tags (${Vault.TAGS.length})...`);
     for (const item of Vault.TAGS) await this.syncEntity('api::tag.tag', item, Schemas.TagSchema);
 
-    console.log(`\nProcessing Terrains (${Vault.TERRAINS.length})...`);
-    for (const item of Vault.TERRAINS) await this.syncEntity('api::terrain.terrain', item, Schemas.TerrainSchema);
+    console.log(`\nProcessing Entity Zones (${dynamicZones.length})...`);
+    for (const item of dynamicZones) await this.syncEntity('api::entity-zone.entity-zone', item, Schemas.EntityZoneSchema);
+
+    console.log(`\nProcessing Terrains (${dynamicTerrains.length})...`);
+    for (const item of dynamicTerrains) await this.syncEntity('api::terrain.terrain', item, Schemas.TerrainSchema);
 
     console.log(`\nProcessing Traits (${Vault.TRAITS.length})...`);
     for (const item of Vault.TRAITS) await this.syncEntity('api::trait.trait', item, Schemas.TraitSchema);
@@ -204,6 +241,10 @@ export class GenesisSeeder {
     // 3. Composites
     console.log(`\nProcessing Entities (${Vault.ENTITIES.length})...`);
     for (const item of Vault.ENTITIES) await this.syncEntity('api::entity.entity', item, Schemas.EntitySchema);
+
+    console.log(`\nProcessing Visual Blueprints (${dynamicBlueprints.length})... [DEBUG] items in array:`, dynamicBlueprints);
+    // Blueprints use 'name' as unique identifier, not 'slug'
+    for (const item of dynamicBlueprints) await this.syncEntity('api::blueprint.blueprint', item, Schemas.BlueprintSchema, 'name');
 
     console.log('\n✨ Genesis Seed Complete!');
   }

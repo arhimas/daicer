@@ -1,8 +1,0 @@
-{
-  "slug": "cleric-spellcasting-focus",
-  "name": "Spellcasting Focus",
-  "class": "cleric",
-  "level": 1,
-  "description": "You can use a [holy symbol](#section-adventuring-gear) as a spellcasting focus for your cleric spells.",
-  "is_subclass_feature": true
-}
