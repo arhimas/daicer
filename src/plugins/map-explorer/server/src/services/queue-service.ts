@@ -38,7 +38,8 @@ export default ({ strapi }) => {
             if (job.data.action === 'generate_voxel') {
               return await service.generateVoxelStructure(job.data);
             }
-            return await service.generatePixelData(job.data);
+            // V2 SWAP: Enforce the new ASCII + RGBA4444 mapping logic
+            return await service.generatePixelDataV2(job.data);
           } catch (error) {
             strapi.log.error(`Pixel Forge [Pixel] Job ${job.id} Failed`, error);
             throw error;

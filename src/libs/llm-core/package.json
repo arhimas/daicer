@@ -4,6 +4,14 @@
   "description": "Core GenAI Logic, Prompt Registry, and Context Builders",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./prompt-registry": "./dist/prompt-registry/index.js",
+    "./context/builder": "./dist/context/builder.js",
+    "./context/*": "./dist/context/*.js",
+    "./types": "./dist/types.js",
+    "./services/*": "./dist/services/*.js"
+  },
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit"

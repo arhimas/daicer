@@ -1,0 +1,4526 @@
+[dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+>>> [Map Explorer] Registering Custom Fields...
+{"level":"\u001b[32minfo\u001b[39m","message":"Semantic Search Plugin: Bootstrapping...","timestamp":"2026-03-02 16:35:24.164"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Pixel Forge Queues Initialized (Pixel: 1, Blueprint: 2)","timestamp":"2026-03-02 16:35:24.166"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"The graphql config playgroundAlways is deprecated. This will be removed in Strapi 6. Please use landingPage instead. ","timestamp":"2026-03-02 16:35:24.857"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"graphql config playgroundAlways:false has no effect, please use landingPage:false to disable Graphql Playground in all environments","timestamp":"2026-03-02 16:35:24.857"}
+{"level":"\u001b[33mwarn\u001b[39m","message":"admin.auth.options.expiresIn is deprecated and will be removed in Strapi 6. Please configure admin.auth.sessions.maxRefreshTokenLifespan and admin.auth.sessions.maxSessionLifespan.","timestamp":"2026-03-02 16:35:24.895"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] Database connection established successfully ⚡","timestamp":"2026-03-02 16:35:25.151"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] Socket.IO initialization skipped (Sockets Disabled).","timestamp":"2026-03-02 16:35:25.151"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] pgvector extension enabled.","timestamp":"2026-03-02 16:35:25.152"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] access control for role j8kkc4v3ye1v006mqhurh0yi confirmed.","timestamp":"2026-03-02 16:35:25.157"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] Configuring public role permissions...","timestamp":"2026-03-02 16:35:25.157"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] Granting missing permissions: api::knowledge-source.knowledge-source.find, api::knowledge-source.knowledge-source.findOne, api::knowledge-snippet.knowledge-snippet.find, api::knowledge-snippet.knowledge-snippet.findOne","timestamp":"2026-03-02 16:35:25.160"}
+[dotenv@17.2.3] injecting env (0) from dist/.env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+{"level":"\u001b[32minfo\u001b[39m","message":"Starting workers for 7 queues...","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.170"}
+{"level":"\u001b[32minfo\u001b[39m","message":"[Bootstrap] Background Queues & Workers Initialized 🚀","timestamp":"2026-03-02 16:35:25.170"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: embedding (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.212"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: generate-text-remote (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.212"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: generate-text-local (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.212"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: maintenance (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.213"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: genesis (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.213"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: compile (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.213"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Initializing native BullMQ Worker for: translate-entity (Concurrency: 1)","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.213"}
+__JSON_START__
+{
+  "meta": {
+    "type": "api::entity.entity",
+    "action": "find",
+    "filters": {},
+    "pagination": {
+      "page": 1,
+      "pageSize": 10,
+      "total": 334,
+      "pageCount": 34
+    }
+  },
+  "data": [
+    {
+      "id": 6499,
+      "documentId": "qqqtcuozcj5gkn79o8xbtu12",
+      "slug": "aboleth",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Aboleth",
+      "description": "### Special Abilities\nAmphibious: The aboleth can breathe air and water. Mucous Cloud: While underwater, the aboleth is surrounded by transformative mucus. A creature that touches the aboleth or that hits it with a melee attack while within 5 ft. of it m",
+      "size": "Large",
+      "type": "aberration",
+      "alignment": "lawful evil",
+      "level": 10,
+      "ac": 17,
+      "hp": 135,
+      "hit_dice": "18d10+36",
+      "challenge_rating": 10,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.277Z",
+      "updatedAt": "2026-02-24T17:46:45.277Z",
+      "publishedAt": "2026-02-24T17:46:45.270Z",
+      "locale": "en",
+      "stats": {
+        "id": 7626,
+        "strength": 21,
+        "dexterity": 9,
+        "constitution": 15,
+        "intelligence": 18,
+        "wisdom": 15,
+        "charisma": 18,
+        "walkSpeed": 10,
+        "flySpeed": 0,
+        "swimSpeed": 40,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "con",
+          "int",
+          "wis"
+        ],
+        "skills": [],
+        "passivePerception": 20,
+        "darkvision": 120,
+        "blindsight": 0,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27746,
+          "documentId": "wg9egdc8agaxnvo7lm6gnjwa",
+          "name": "Amphibious",
+          "slug": "aboleth-amphibious",
+          "description": "The aboleth can breathe air and water.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.744Z",
+          "updatedAt": "2026-02-24T17:46:19.744Z",
+          "publishedAt": "2026-02-24T17:46:19.742Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27748,
+          "documentId": "r6p0ng6kajk8kcq7nvg7fxp0",
+          "name": "Enslave",
+          "slug": "aboleth-enslave",
+          "description": "The aboleth targets one creature it can see within 30 ft. of it. The target must succeed on a DC 14 Wisdom saving throw or be magically charmed by the aboleth until the aboleth dies or until it is on a different plane of existence from the target. The ch",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.769Z",
+          "updatedAt": "2026-02-24T17:46:19.769Z",
+          "publishedAt": "2026-02-24T17:46:19.766Z",
+          "locale": null,
+          "range_config": {
+            "id": 21059,
+            "type": "Ranged (Feet)",
+            "distance": 30,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27825,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8729,
+              "condition": "Charmed",
+              "description": "under the aboleth's control and can't take reactions, and the aboleth and the target can communicate telepathically with each other over any distance. Whenever the charmed target takes damage, the target can repeat the saving throw. On a success, the eff",
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27749,
+          "documentId": "lx56j5bursf3gft3z16hov66",
+          "name": "Mucous Cloud",
+          "slug": "aboleth-mucous-cloud",
+          "description": "While underwater, the aboleth is surrounded by transformative mucus. A creature that touches the aboleth or that hits it with a melee attack while within 5 ft. of it must make a DC 14 Constitution saving throw. On a failure, the creature is diseased for ",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.785Z",
+          "updatedAt": "2026-02-24T17:46:19.785Z",
+          "publishedAt": "2026-02-24T17:46:19.782Z",
+          "locale": null,
+          "range_config": {
+            "id": 21060,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Sphere",
+            "aoe_size": 5,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27826,
+            "action_type": "Constitution Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8730,
+              "condition": "Special",
+              "description": "diseased for 1d4 hours. The diseased creature can breathe only underwater.",
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27750,
+          "documentId": "ed2sipxvja4vyz3azsvwrsvg",
+          "name": "Multiattack",
+          "slug": "aboleth-multiattack",
+          "description": "The aboleth makes three tentacle attacks.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.795Z",
+          "updatedAt": "2026-02-24T17:46:19.795Z",
+          "publishedAt": "2026-02-24T17:46:19.794Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27751,
+          "documentId": "gw2qh3ylkbi45gzq4570v3r7",
+          "name": "Probing Telepathy",
+          "slug": "aboleth-probing-telepathy",
+          "description": "If a creature communicates telepathically with the aboleth, the aboleth learns the creature's greatest desires if the aboleth can see the creature.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.806Z",
+          "updatedAt": "2026-02-24T17:46:19.806Z",
+          "publishedAt": "2026-02-24T17:46:19.803Z",
+          "locale": null,
+          "range_config": {
+            "id": 21061,
+            "type": "Sight",
+            "distance": null,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27755,
+          "documentId": "z7e56itkyxu24rco694kss7k",
+          "name": "Tentacle",
+          "slug": "aboleth-tentacle",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage. If the target is a creature, it must succeed on a DC 14 Constitution saving throw or become diseased. The disease has no effect for 1 minute and can be remove",
+          "type": "melee",
+          "toHit": 9,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.864Z",
+          "updatedAt": "2026-02-24T17:46:19.864Z",
+          "publishedAt": "2026-02-24T17:46:19.860Z",
+          "locale": null,
+          "range_config": {
+            "id": 21065,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27830,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16384,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 5,
+              "timing": "Instant"
+            },
+            {
+              "id": 16385,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 1,
+              "dice_value": 12,
+              "flat_bonus": 0,
+              "timing": "One Time Trigger"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8731,
+              "condition": "Special",
+              "description": "diseased. The disease has no effect for 1 minute and can be removed by any magic that cures disease. After 1 minute, the diseased creature's skin becomes translucent and slimy, the creature can't regain hit points unless it is underwater, and the disease",
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [
+        {
+          "id": 27747,
+          "documentId": "t8anzwbtm8f33f178dzoafnq",
+          "name": "Detect",
+          "slug": "aboleth-detect",
+          "description": "The aboleth makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.754Z",
+          "updatedAt": "2026-02-24T17:46:19.754Z",
+          "publishedAt": "2026-02-24T17:46:19.753Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27752,
+          "documentId": "u4lerdf53gkegy6cp8o387le",
+          "name": "Psychic Drain",
+          "slug": "aboleth-psychic-drain",
+          "description": "One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the aboleth regains hit points equal to the damage the creature takes.",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.820Z",
+          "updatedAt": "2026-02-24T17:46:19.820Z",
+          "publishedAt": "2026-02-24T17:46:19.816Z",
+          "locale": null,
+          "range_config": {
+            "id": 21062,
+            "type": "Ranged (Feet)",
+            "distance": null,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27827,
+            "action_type": "Auto-Hit",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16380,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 3,
+              "dice_value": 6,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            },
+            {
+              "id": 16381,
+              "effect_type": "Healing",
+              "damage_type": null,
+              "dice_count": 3,
+              "dice_value": 6,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27753,
+          "documentId": "d9wrlgf8oy1q7r8zawwdj7av",
+          "name": "Tail Swipe",
+          "slug": "aboleth-tail-swipe",
+          "description": "The aboleth makes one tail attack.",
+          "type": "melee",
+          "toHit": 9,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.833Z",
+          "updatedAt": "2026-02-24T17:46:19.833Z",
+          "publishedAt": "2026-02-24T17:46:19.830Z",
+          "locale": null,
+          "range_config": {
+            "id": 21063,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27828,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16382,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 3,
+              "dice_value": 6,
+              "flat_bonus": 5,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27754,
+          "documentId": "ncz17tgsr17jsmq03a93fa2e",
+          "name": "Tail",
+          "slug": "aboleth-tail",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 15 (3d6 + 5) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 9,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.848Z",
+          "updatedAt": "2026-02-24T17:46:19.848Z",
+          "publishedAt": "2026-02-24T17:46:19.845Z",
+          "locale": null,
+          "range_config": {
+            "id": 21064,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27829,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16383,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 3,
+              "dice_value": 6,
+              "flat_bonus": 5,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6501,
+      "documentId": "eew12n8wrap7iai6wef4e9cl",
+      "slug": "adult-black-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Adult Black Dragon",
+      "description": "### Special Abilities\nAmphibious: The dragon can breathe air and water.; Legendary Resistance (3/Day): If the dragon fails a saving throw, it can choose to succeed instead.\n\n### Actions\nMultiattack: The dragon can use its Frightful Presence. It then make",
+      "size": "Huge",
+      "type": "dragon",
+      "alignment": "chaotic evil",
+      "level": 14,
+      "ac": 19,
+      "hp": 195,
+      "hit_dice": "17d12+85",
+      "challenge_rating": 14,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.327Z",
+      "updatedAt": "2026-02-24T17:46:45.327Z",
+      "publishedAt": "2026-02-24T17:46:45.320Z",
+      "locale": "en",
+      "stats": {
+        "id": 7628,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 21,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27762,
+          "documentId": "k61ou1bs6sg3udzrcg2f6xfo",
+          "name": "Acid Breath (Recharge 5-6)",
+          "slug": "adult-black-dragon-acid-breath-recharge-5-6",
+          "description": "The dragon exhales acid in a 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 54 (12d8) acid damage on a failed save, or half as much damage on a successful one.",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.960Z",
+          "updatedAt": "2026-02-24T17:46:19.960Z",
+          "publishedAt": "2026-02-24T17:46:19.955Z",
+          "locale": null,
+          "range_config": {
+            "id": 21072,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Line",
+            "aoe_size": 60,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27837,
+            "action_type": "Dexterity Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16388,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 12,
+              "dice_value": 8,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27763,
+          "documentId": "h6v6nvilp3wry6nbrt8oa0d0",
+          "name": "Amphibious",
+          "slug": "adult-black-dragon-amphibious",
+          "description": "The dragon can breathe air and water.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.971Z",
+          "updatedAt": "2026-02-24T17:46:19.971Z",
+          "publishedAt": "2026-02-24T17:46:19.968Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27838,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27764,
+          "documentId": "bjnzi4yo6q9uru84qwzg9pu8",
+          "name": "Bite",
+          "slug": "adult-black-dragon-bite",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage plus 4 (1d8) acid damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.985Z",
+          "updatedAt": "2026-02-24T17:46:19.985Z",
+          "publishedAt": "2026-02-24T17:46:19.981Z",
+          "locale": null,
+          "range_config": {
+            "id": 21073,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27839,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16389,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            },
+            {
+              "id": 16390,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 1,
+              "dice_value": 8,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27765,
+          "documentId": "b22dc1adfxwvuk5av000pat6",
+          "name": "Claw",
+          "slug": "adult-black-dragon-claw",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:19.997Z",
+          "updatedAt": "2026-02-24T17:46:19.997Z",
+          "publishedAt": "2026-02-24T17:46:19.994Z",
+          "locale": null,
+          "range_config": {
+            "id": 21074,
+            "type": "Ranged (Feet)",
+            "distance": 5,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27840,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16391,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27767,
+          "documentId": "c2fphhb7kugmga1w04cnx0r2",
+          "name": "Frightful Presence",
+          "slug": "adult-black-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.030Z",
+          "updatedAt": "2026-02-24T17:46:20.030Z",
+          "publishedAt": "2026-02-24T17:46:20.019Z",
+          "locale": null,
+          "range_config": {
+            "id": 21075,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27842,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8732,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27768,
+          "documentId": "hhq41h81n7w8cm9xmsmy5v37",
+          "name": "Legendary Resistance (3/Day)",
+          "slug": "adult-black-dragon-legendary-resistance-3-day",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.042Z",
+          "updatedAt": "2026-02-24T17:46:20.042Z",
+          "publishedAt": "2026-02-24T17:46:20.039Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27843,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27769,
+          "documentId": "d94ilosqk76g38osuzkmqahb",
+          "name": "Multiattack",
+          "slug": "adult-black-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.052Z",
+          "updatedAt": "2026-02-24T17:46:20.052Z",
+          "publishedAt": "2026-02-24T17:46:20.050Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27844,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [
+        {
+          "id": 27766,
+          "documentId": "d1lank3up2hjm0zzkku93o40",
+          "name": "Detect",
+          "slug": "adult-black-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.010Z",
+          "updatedAt": "2026-02-24T17:46:20.010Z",
+          "publishedAt": "2026-02-24T17:46:20.008Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27841,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27770,
+          "documentId": "lbu4722m1t2bz2hef8a88omx",
+          "name": "Tail Attack",
+          "slug": "adult-black-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.065Z",
+          "updatedAt": "2026-02-24T17:46:20.065Z",
+          "publishedAt": "2026-02-24T17:46:20.062Z",
+          "locale": null,
+          "range_config": {
+            "id": 21076,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27845,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16392,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27771,
+          "documentId": "eh8jq2e12slececkx0vcnook",
+          "name": "Tail",
+          "slug": "adult-black-dragon-tail",
+          "description": "Melee Weapon Attack: +11 to hit, reach 15 ft., one target. Hit: 15 (2d8 + 6) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.079Z",
+          "updatedAt": "2026-02-24T17:46:20.079Z",
+          "publishedAt": "2026-02-24T17:46:20.075Z",
+          "locale": null,
+          "range_config": {
+            "id": 21077,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27846,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16393,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27772,
+          "documentId": "hehzndj4rybf7dredw8u9tg4",
+          "name": "Wing Attack (Costs 2 Actions)",
+          "slug": "adult-black-dragon-wing-attack-costs-2-actions",
+          "description": "The dragon beats its wings. Each creature within 10 ft. of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.093Z",
+          "updatedAt": "2026-02-24T17:46:20.093Z",
+          "publishedAt": "2026-02-24T17:46:20.089Z",
+          "locale": null,
+          "range_config": {
+            "id": 21078,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Sphere",
+            "aoe_size": 10,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27847,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16394,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8733,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6503,
+      "documentId": "z729y5kcqfh17qoc64xzdcek",
+      "slug": "adult-brass-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Adult Brass Dragon",
+      "description": "### Special Abilities\n[\"{\\\"name\\\": \\\"Legendary Resistance (3/Day)\\\", \\\"desc\\\": \\\"If the dragon fails a saving throw, it can choose to succeed instead.\\\"}\"]\n\n### Actions\n[\"{\\\"name\\\": \\\"Multiattack\\\", \\\"desc\\\": \\\"The dragon can use its Frightful Presence. ",
+      "size": "Huge",
+      "type": "dragon",
+      "alignment": "chaotic good",
+      "level": 13,
+      "ac": 18,
+      "hp": 172,
+      "hit_dice": "15d12+75",
+      "challenge_rating": 13,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.371Z",
+      "updatedAt": "2026-02-24T17:46:45.371Z",
+      "publishedAt": "2026-02-24T17:46:45.365Z",
+      "locale": "en",
+      "stats": {
+        "id": 7630,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 21,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27783,
+          "documentId": "mrpni0gbcmrpr90x3k4j8z4i",
+          "name": "Bite",
+          "slug": "adult-brass-dragon-bite",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.242Z",
+          "updatedAt": "2026-02-24T17:46:20.242Z",
+          "publishedAt": "2026-02-24T17:46:20.239Z",
+          "locale": null,
+          "range_config": {
+            "id": 21086,
+            "type": "Touch",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27858,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16402,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27784,
+          "documentId": "lsj0k1d7emkft4b0mky0ud32",
+          "name": "Claw",
+          "slug": "adult-brass-dragon-claw",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.255Z",
+          "updatedAt": "2026-02-24T17:46:20.255Z",
+          "publishedAt": "2026-02-24T17:46:20.252Z",
+          "locale": null,
+          "range_config": {
+            "id": 21087,
+            "type": "Touch",
+            "distance": 5,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27859,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16403,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27785,
+          "documentId": "gafgwfn6clp9o8eeyhie5glc",
+          "name": "Detect",
+          "slug": "adult-brass-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.267Z",
+          "updatedAt": "2026-02-24T17:46:20.267Z",
+          "publishedAt": "2026-02-24T17:46:20.265Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27860,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27786,
+          "documentId": "p19l9yq3mlggd2hjk9ny6pr0",
+          "name": "Fire Breath",
+          "slug": "adult-brass-dragon-fire-breath",
+          "description": "The dragon exhales fire in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 45 (13d6) fire damage on a failed save, or half as much damage on a successful one. (Recharge 5-6)",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.279Z",
+          "updatedAt": "2026-02-24T17:46:20.279Z",
+          "publishedAt": "2026-02-24T17:46:20.276Z",
+          "locale": null,
+          "range_config": {
+            "id": 21088,
+            "type": "Ranged (Feet)",
+            "distance": 60,
+            "aoe_shape": "Line",
+            "aoe_size": 5,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27861,
+            "action_type": "Dexterity Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16404,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 13,
+              "dice_value": 6,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27787,
+          "documentId": "y4cj9mow4orytsvemj0psafk",
+          "name": "Frightful Presence",
+          "slug": "adult-brass-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.295Z",
+          "updatedAt": "2026-02-24T17:46:20.295Z",
+          "publishedAt": "2026-02-24T17:46:20.291Z",
+          "locale": null,
+          "range_config": {
+            "id": 21089,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27862,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8736,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27788,
+          "documentId": "fqnmoi6oejz5m0veqsie0kut",
+          "name": "Legendary Resistance (3/Day)",
+          "slug": "adult-brass-dragon-legendary-resistance-3-day",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.307Z",
+          "updatedAt": "2026-02-24T17:46:20.307Z",
+          "publishedAt": "2026-02-24T17:46:20.305Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27863,
+            "action_type": "Auto-Hit",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27789,
+          "documentId": "wb8fwdcd0wnmt0apqz75f7n1",
+          "name": "Multiattack",
+          "slug": "adult-brass-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.317Z",
+          "updatedAt": "2026-02-24T17:46:20.317Z",
+          "publishedAt": "2026-02-24T17:46:20.315Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27864,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27790,
+          "documentId": "rw2b5ktb69jw9mpe0cxe1942",
+          "name": "Sleep Breath",
+          "slug": "adult-brass-dragon-sleep-breath",
+          "description": "The dragon exhales sleep gas in a 60-foot cone. Each creature in that area must succeed on a DC 18 Constitution saving throw or fall unconscious for 10 minutes. This effect ends for a creature if the creature takes damage or someone uses an action to wak",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.330Z",
+          "updatedAt": "2026-02-24T17:46:20.330Z",
+          "publishedAt": "2026-02-24T17:46:20.326Z",
+          "locale": null,
+          "range_config": {
+            "id": 21090,
+            "type": "Ranged (Feet)",
+            "distance": 60,
+            "aoe_shape": "Cone",
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27865,
+            "action_type": "Constitution Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8737,
+              "condition": "Unconscious",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 100
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27791,
+          "documentId": "ebm01cr8zbgiv5bc23ooalvj",
+          "name": "Tail Attack",
+          "slug": "adult-brass-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.343Z",
+          "updatedAt": "2026-02-24T17:46:20.343Z",
+          "publishedAt": "2026-02-24T17:46:20.340Z",
+          "locale": null,
+          "range_config": {
+            "id": 21091,
+            "type": "Touch",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27866,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16405,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27792,
+          "documentId": "yprn5gw7kqj4wdrraa9ut78f",
+          "name": "Tail",
+          "slug": "adult-brass-dragon-tail",
+          "description": "Melee Weapon Attack: +11 to hit, reach 15 ft., one target. Hit: 15 (2d8 + 6) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.355Z",
+          "updatedAt": "2026-02-24T17:46:20.355Z",
+          "publishedAt": "2026-02-24T17:46:20.352Z",
+          "locale": null,
+          "range_config": {
+            "id": 21092,
+            "type": "Touch",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27867,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16406,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [
+        {
+          "id": 27793,
+          "documentId": "zt7b0l8b5j2pno3zptgkjbcf",
+          "name": "Wing Attack (Costs 2 Actions)",
+          "slug": "adult-brass-dragon-wing-attack-costs-2-actions",
+          "description": "The dragon beats its wings. Each creature within 10 ft. of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.370Z",
+          "updatedAt": "2026-02-24T17:46:20.370Z",
+          "publishedAt": "2026-02-24T17:46:20.366Z",
+          "locale": null,
+          "range_config": {
+            "id": 21093,
+            "type": "Self",
+            "distance": 10,
+            "aoe_shape": "Sphere",
+            "aoe_size": 10,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27868,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16407,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8738,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6505,
+      "documentId": "i0dv9caul8jv9vp09ga4bdrt",
+      "slug": "adult-copper-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Adult Copper Dragon",
+      "description": "### Actions\n[\"Multiattack. The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.\",\"Bite. Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage.\",\"Claw. Me",
+      "size": "Huge",
+      "type": "dragon",
+      "alignment": "chaotic good",
+      "level": 14,
+      "ac": 18,
+      "hp": 184,
+      "hit_dice": "16d12+80",
+      "challenge_rating": 14,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.413Z",
+      "updatedAt": "2026-02-24T17:46:45.413Z",
+      "publishedAt": "2026-02-24T17:46:45.407Z",
+      "locale": "en",
+      "stats": {
+        "id": 7632,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [],
+        "skills": [],
+        "passivePerception": 22,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27806,
+          "documentId": "b4hzj3p0qu550v79crrnfxf4",
+          "name": "Acid Breath",
+          "slug": "adult-copper-dragon-acid-breath",
+          "description": "The dragon exhales acid in an 60-foot line that is 5 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw, taking 54 (12d8) acid damage on a failed save, or half as much damage on a successful one. (Recharge 5-6)",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.540Z",
+          "updatedAt": "2026-02-24T17:46:20.540Z",
+          "publishedAt": "2026-02-24T17:46:20.536Z",
+          "locale": null,
+          "range_config": {
+            "id": 21101,
+            "type": "Ranged (Feet)",
+            "distance": 60,
+            "aoe_shape": "Line",
+            "aoe_size": 5,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27881,
+            "action_type": "Dexterity Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16413,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 12,
+              "dice_value": 8,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27807,
+          "documentId": "sx9sel0qxtsfjwu5p6xc6f2i",
+          "name": "Bite",
+          "slug": "adult-copper-dragon-bite",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.556Z",
+          "updatedAt": "2026-02-24T17:46:20.556Z",
+          "publishedAt": "2026-02-24T17:46:20.551Z",
+          "locale": null,
+          "range_config": {
+            "id": 21102,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27882,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16414,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27808,
+          "documentId": "w226fv0oud6a9hhego7pbtt7",
+          "name": "Claw",
+          "slug": "adult-copper-dragon-claw",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.568Z",
+          "updatedAt": "2026-02-24T17:46:20.568Z",
+          "publishedAt": "2026-02-24T17:46:20.565Z",
+          "locale": null,
+          "range_config": {
+            "id": 21103,
+            "type": "Ranged (Feet)",
+            "distance": 5,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27883,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16415,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27809,
+          "documentId": "zrsbsw6oe734sia1yngvp31c",
+          "name": "Detect",
+          "slug": "adult-copper-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.579Z",
+          "updatedAt": "2026-02-24T17:46:20.579Z",
+          "publishedAt": "2026-02-24T17:46:20.577Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27884,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27810,
+          "documentId": "yy0kvkbcdlcm253aejuk4gv6",
+          "name": "Frightful Presence",
+          "slug": "adult-copper-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.594Z",
+          "updatedAt": "2026-02-24T17:46:20.594Z",
+          "publishedAt": "2026-02-24T17:46:20.590Z",
+          "locale": null,
+          "range_config": {
+            "id": 21104,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27885,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8742,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27811,
+          "documentId": "uen8qgbecmmddrdqwwfj87ai",
+          "name": "Multiattack",
+          "slug": "adult-copper-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.604Z",
+          "updatedAt": "2026-02-24T17:46:20.604Z",
+          "publishedAt": "2026-02-24T17:46:20.602Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27886,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27812,
+          "documentId": "dm7csiml1qp4cilj4zihiq66",
+          "name": "Slowing Breath",
+          "slug": "adult-copper-dragon-slowing-breath",
+          "description": "The dragon exhales gas in a 60-foot cone. Each creature in that area must succeed on a DC 18 Constitution saving throw. On a failed save, the creature can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In additi",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.619Z",
+          "updatedAt": "2026-02-24T17:46:20.619Z",
+          "publishedAt": "2026-02-24T17:46:20.614Z",
+          "locale": null,
+          "range_config": {
+            "id": 21105,
+            "type": "Ranged (Feet)",
+            "distance": 60,
+            "aoe_shape": "Cone",
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27887,
+            "action_type": "Constitution Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8743,
+              "condition": "Special",
+              "description": "Can't use reactions, speed is halved, can't make more than one attack, can use either an action or a bonus action but not both.",
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27813,
+          "documentId": "a2sudy02b01osgu6cqhxwi56",
+          "name": "Tail Attack",
+          "slug": "adult-copper-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.632Z",
+          "updatedAt": "2026-02-24T17:46:20.632Z",
+          "publishedAt": "2026-02-24T17:46:20.629Z",
+          "locale": null,
+          "range_config": {
+            "id": 21106,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27888,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16416,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27814,
+          "documentId": "eybklez2hva5pabejjf24635",
+          "name": "Tail",
+          "slug": "adult-copper-dragon-tail",
+          "description": "Melee Weapon Attack: +11 to hit, reach 15 ft., one target. Hit: 15 (2d8 + 6) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.645Z",
+          "updatedAt": "2026-02-24T17:46:20.645Z",
+          "publishedAt": "2026-02-24T17:46:20.642Z",
+          "locale": null,
+          "range_config": {
+            "id": 21107,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27889,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16417,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27815,
+          "documentId": "esq9mx8h5x0ujylk9laxsi9e",
+          "name": "Wing Attack",
+          "slug": "adult-copper-dragon-wing-attack",
+          "description": "The dragon beats its wings. Each creature within 10 ft. of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed. (Costs 2 Actions)",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.661Z",
+          "updatedAt": "2026-02-24T17:46:20.661Z",
+          "publishedAt": "2026-02-24T17:46:20.657Z",
+          "locale": null,
+          "range_config": {
+            "id": 21108,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": "Sphere",
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27890,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16418,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8744,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6507,
+      "documentId": "b0kuc9n3mj61a3s0muzrhzgp",
+      "slug": "adult-green-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Adult Green Dragon",
+      "description": "### Special Abilities\n[{\"name\":\"Amphibious\",\"desc\":\"The dragon can breathe air and water.\"},{\"name\":\"Legendary Resistance\",\"desc\":\"If the dragon fails a saving throw, it can choose to succeed instead.\",\"usage\":{\"type\":\"per day\",\"times\":3}}]\n\n### Actions\n",
+      "size": "Huge",
+      "type": "dragon",
+      "alignment": "lawful evil",
+      "level": 15,
+      "ac": 19,
+      "hp": 207,
+      "hit_dice": "18d12+90",
+      "challenge_rating": 15,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.456Z",
+      "updatedAt": "2026-02-24T17:46:45.456Z",
+      "publishedAt": "2026-02-24T17:46:45.449Z",
+      "locale": "en",
+      "stats": {
+        "id": 7634,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 22,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27828,
+          "documentId": "d15ro11q3kh3xeuhou7aljuk",
+          "name": "Amphibious",
+          "slug": "adult-green-dragon-amphibious",
+          "description": "The dragon can breathe air and water.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.831Z",
+          "updatedAt": "2026-02-24T17:46:20.831Z",
+          "publishedAt": "2026-02-24T17:46:20.830Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27903,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27829,
+          "documentId": "mnazcm7irerrzs1ztt3io973",
+          "name": "Bite",
+          "slug": "adult-green-dragon-bite",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage plus 7 (2d6) poison damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.847Z",
+          "updatedAt": "2026-02-24T17:46:20.847Z",
+          "publishedAt": "2026-02-24T17:46:20.844Z",
+          "locale": null,
+          "range_config": {
+            "id": 21117,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27904,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16425,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            },
+            {
+              "id": 16426,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27830,
+          "documentId": "obfrogo2rywy2cytal5d5606",
+          "name": "Claw",
+          "slug": "adult-green-dragon-claw",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.860Z",
+          "updatedAt": "2026-02-24T17:46:20.860Z",
+          "publishedAt": "2026-02-24T17:46:20.857Z",
+          "locale": null,
+          "range_config": {
+            "id": 21118,
+            "type": "Ranged (Feet)",
+            "distance": 5,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27905,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16427,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27832,
+          "documentId": "ff5zqvgl3r941fdmmcmc1ic9",
+          "name": "Frightful Presence",
+          "slug": "adult-green-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 16 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.884Z",
+          "updatedAt": "2026-02-24T17:46:20.884Z",
+          "publishedAt": "2026-02-24T17:46:20.881Z",
+          "locale": null,
+          "range_config": {
+            "id": 21119,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27907,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8748,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27833,
+          "documentId": "t6o1lvlzof6bwx4hfmfrqlwr",
+          "name": "Legendary Resistance",
+          "slug": "adult-green-dragon-legendary-resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.894Z",
+          "updatedAt": "2026-02-24T17:46:20.894Z",
+          "publishedAt": "2026-02-24T17:46:20.892Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27908,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27834,
+          "documentId": "sgcudp6y9xgtdzzxxvfcbvru",
+          "name": "Multiattack",
+          "slug": "adult-green-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.905Z",
+          "updatedAt": "2026-02-24T17:46:20.905Z",
+          "publishedAt": "2026-02-24T17:46:20.903Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27909,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27835,
+          "documentId": "ljkh5mcsmrhm7lrb0yu6ksev",
+          "name": "Poison Breath",
+          "slug": "adult-green-dragon-poison-breath",
+          "description": "The dragon exhales poisonous gas in a 60-foot cone. Each creature in that area must make a DC 18 Constitution saving throw, taking 56 (16d6) poison damage on a failed save, or half as much damage on a successful one.",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.917Z",
+          "updatedAt": "2026-02-24T17:46:20.917Z",
+          "publishedAt": "2026-02-24T17:46:20.914Z",
+          "locale": null,
+          "range_config": {
+            "id": 21120,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Cone",
+            "aoe_size": 60,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27910,
+            "action_type": "Constitution Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16428,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 16,
+              "dice_value": 6,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [
+        {
+          "id": 27831,
+          "documentId": "vrv4hk6tbzdo2p7rhthr4c3n",
+          "name": "Detect",
+          "slug": "adult-green-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.872Z",
+          "updatedAt": "2026-02-24T17:46:20.872Z",
+          "publishedAt": "2026-02-24T17:46:20.869Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27906,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27836,
+          "documentId": "qqy0swv3sfb3aoobpb9ftax3",
+          "name": "Tail Attack",
+          "slug": "adult-green-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.931Z",
+          "updatedAt": "2026-02-24T17:46:20.931Z",
+          "publishedAt": "2026-02-24T17:46:20.926Z",
+          "locale": null,
+          "range_config": {
+            "id": 21121,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27911,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16429,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27837,
+          "documentId": "ymuzc86b76139lamyvpnj8ti",
+          "name": "Tail",
+          "slug": "adult-green-dragon-tail",
+          "description": "Melee Weapon Attack: +11 to hit, reach 15 ft., one target. Hit: 15 (2d8 + 6) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 11,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.946Z",
+          "updatedAt": "2026-02-24T17:46:20.946Z",
+          "publishedAt": "2026-02-24T17:46:20.942Z",
+          "locale": null,
+          "range_config": {
+            "id": 21122,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27912,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16430,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27838,
+          "documentId": "uykny3qe8leu8qhv3o6jucb8",
+          "name": "Wing Attack (Costs 2 Actions)",
+          "slug": "adult-green-dragon-wing-attack-costs-2-actions",
+          "description": "The dragon beats its wings. Each creature within 10 ft. of the dragon must succeed on a DC 19 Dexterity saving throw or take 13 (2d6 + 6) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:20.961Z",
+          "updatedAt": "2026-02-24T17:46:20.961Z",
+          "publishedAt": "2026-02-24T17:46:20.957Z",
+          "locale": null,
+          "range_config": {
+            "id": 21123,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Sphere",
+            "aoe_size": 10,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27913,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16431,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 6,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8749,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6509,
+      "documentId": "y3xlx7etkkf4bu74li4axb1e",
+      "slug": "adult-silver-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Adult Silver Dragon",
+      "description": "### Special Abilities\n[\"Legendary Resistance (3/Day): If the dragon fails a saving throw, it can choose to succeed instead.\"]\n\n### Actions\n[\"Multiattack: The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two wi",
+      "size": "Huge",
+      "type": "dragon",
+      "alignment": "lawful good",
+      "level": 16,
+      "ac": 19,
+      "hp": 243,
+      "hit_dice": "18d12+126",
+      "challenge_rating": 16,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.499Z",
+      "updatedAt": "2026-02-24T17:46:45.499Z",
+      "publishedAt": "2026-02-24T17:46:45.492Z",
+      "locale": "en",
+      "stats": {
+        "id": 7636,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 21,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27849,
+          "documentId": "s3gqh86n049nuagwhxmf5vbl",
+          "name": "Bite",
+          "slug": "adult-silver-dragon-bite",
+          "description": "Melee Weapon Attack: +13 to hit, reach 10 ft., one target. Hit: 19 (2d10 + 8) piercing damage.",
+          "type": "melee",
+          "toHit": 13,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.106Z",
+          "updatedAt": "2026-02-24T17:46:21.106Z",
+          "publishedAt": "2026-02-24T17:46:21.103Z",
+          "locale": null,
+          "range_config": {
+            "id": 21131,
+            "type": "Touch",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27924,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16439,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 8,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27850,
+          "documentId": "yqjrc28qgj8x5fu3mksdb8a9",
+          "name": "Claw",
+          "slug": "adult-silver-dragon-claw",
+          "description": "Melee Weapon Attack: +13 to hit, reach 5 ft., one target. Hit: 15 (2d6 + 8) slashing damage.",
+          "type": "melee",
+          "toHit": 13,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.119Z",
+          "updatedAt": "2026-02-24T17:46:21.119Z",
+          "publishedAt": "2026-02-24T17:46:21.116Z",
+          "locale": null,
+          "range_config": {
+            "id": 21132,
+            "type": "Touch",
+            "distance": 5,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27925,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16440,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 8,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27851,
+          "documentId": "svp4krzicxezoiomfclhz3g3",
+          "name": "Cold Breath",
+          "slug": "adult-silver-dragon-cold-breath",
+          "description": "The dragon exhales an icy blast in a 60-foot cone. Each creature in that area must make a DC 20 Constitution saving throw, taking 58 (13d8) cold damage on a failed save, or half as much damage on a successful one. (Recharge 5–6)",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.133Z",
+          "updatedAt": "2026-02-24T17:46:21.133Z",
+          "publishedAt": "2026-02-24T17:46:21.130Z",
+          "locale": null,
+          "range_config": {
+            "id": 21133,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Cone",
+            "aoe_size": 60,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27926,
+            "action_type": "Constitution Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16441,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 13,
+              "dice_value": 8,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27852,
+          "documentId": "a5nhr96kwiwwgbof6pt05889",
+          "name": "Detect",
+          "slug": "adult-silver-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.142Z",
+          "updatedAt": "2026-02-24T17:46:21.142Z",
+          "publishedAt": "2026-02-24T17:46:21.141Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27927,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27853,
+          "documentId": "u2e76ph9xaf886c4m0o8yz6g",
+          "name": "Frightful Presence",
+          "slug": "adult-silver-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 18 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.155Z",
+          "updatedAt": "2026-02-24T17:46:21.155Z",
+          "publishedAt": "2026-02-24T17:46:21.151Z",
+          "locale": null,
+          "range_config": {
+            "id": 21134,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27928,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8752,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27854,
+          "documentId": "vlu65gwlwl0d8tf3vfs4nowf",
+          "name": "Legendary Resistance",
+          "slug": "adult-silver-dragon-legendary-resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.167Z",
+          "updatedAt": "2026-02-24T17:46:21.167Z",
+          "publishedAt": "2026-02-24T17:46:21.165Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27929,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27855,
+          "documentId": "exlk9wpnuvdql4tmselgahrx",
+          "name": "Multiattack",
+          "slug": "adult-silver-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.177Z",
+          "updatedAt": "2026-02-24T17:46:21.177Z",
+          "publishedAt": "2026-02-24T17:46:21.175Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27930,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27856,
+          "documentId": "svstff9oz57x80r67w1o5x67",
+          "name": "Paralyzing Breath",
+          "slug": "adult-silver-dragon-paralyzing-breath",
+          "description": "The dragon exhales paralyzing gas in a 60-foot cone. Each creature in that area must succeed on a DC 20 Constitution saving throw or be paralyzed for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on i",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.190Z",
+          "updatedAt": "2026-02-24T17:46:21.190Z",
+          "publishedAt": "2026-02-24T17:46:21.186Z",
+          "locale": null,
+          "range_config": {
+            "id": 21135,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Cone",
+            "aoe_size": 60,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27931,
+            "action_type": "Constitution Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8753,
+              "condition": "Paralyzed",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27857,
+          "documentId": "tphtxhbhm7e4j7l93eva20z3",
+          "name": "Tail Attack",
+          "slug": "adult-silver-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 13,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.206Z",
+          "updatedAt": "2026-02-24T17:46:21.206Z",
+          "publishedAt": "2026-02-24T17:46:21.203Z",
+          "locale": null,
+          "range_config": {
+            "id": 21136,
+            "type": "Touch",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27932,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16442,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 8,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27858,
+          "documentId": "idnm0oyo2d3vi5hr1vwmtqaq",
+          "name": "Tail",
+          "slug": "adult-silver-dragon-tail",
+          "description": "Melee Weapon Attack: +13 to hit, reach 15 ft., one target. Hit: 17 (2d8 + 8) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 13,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.219Z",
+          "updatedAt": "2026-02-24T17:46:21.219Z",
+          "publishedAt": "2026-02-24T17:46:21.216Z",
+          "locale": null,
+          "range_config": {
+            "id": 21137,
+            "type": "Touch",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27933,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16443,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 8,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27859,
+          "documentId": "otzlodpgnmxr9210h4mjpjjw",
+          "name": "Wing Attack",
+          "slug": "adult-silver-dragon-wing-attack",
+          "description": "The dragon beats its wings. Each creature within 10 ft. of the dragon must succeed on a DC 22 Dexterity saving throw or take 15 (2d6 + 8) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed. (Costs 2 Actions)",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.234Z",
+          "updatedAt": "2026-02-24T17:46:21.234Z",
+          "publishedAt": "2026-02-24T17:46:21.230Z",
+          "locale": null,
+          "range_config": {
+            "id": 21138,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Sphere",
+            "aoe_size": 10,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27934,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16444,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 8,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8754,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6511,
+      "documentId": "t7bf269wmeugiko7pdtk3rg6",
+      "slug": "air-elemental",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Air Elemental",
+      "description": "### Special Abilities\n[{\"name\":\"Air Form\",\"description\":\"The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing.\"}]\n\n### Actions\n[{\"name\":\"Multiattack\",\"description\":\"The ",
+      "size": "Large",
+      "type": "elemental",
+      "alignment": "neutral",
+      "level": 5,
+      "ac": 15,
+      "hp": 90,
+      "hit_dice": "12d10+24",
+      "challenge_rating": 5,
+      "xp": 1800,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.539Z",
+      "updatedAt": "2026-02-24T17:46:45.539Z",
+      "publishedAt": "2026-02-24T17:46:45.534Z",
+      "locale": "en",
+      "stats": {
+        "id": 7638,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 90,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": true,
+        "saves": [],
+        "skills": [],
+        "passivePerception": 10,
+        "darkvision": 60,
+        "blindsight": 0,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27871,
+          "documentId": "fumu3ape6mc21zfqfk1vjhtj",
+          "name": "Air Form",
+          "slug": "air-elemental-air-form",
+          "description": "The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.387Z",
+          "updatedAt": "2026-02-24T17:46:21.387Z",
+          "publishedAt": "2026-02-24T17:46:21.385Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27946,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27872,
+          "documentId": "jgs6kbg0a33epi0o4fctrgxx",
+          "name": "Multiattack",
+          "slug": "air-elemental-multiattack",
+          "description": "The elemental makes two slam attacks.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.397Z",
+          "updatedAt": "2026-02-24T17:46:21.397Z",
+          "publishedAt": "2026-02-24T17:46:21.395Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27947,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27873,
+          "documentId": "iwx84rm6mg7gs3j4qdex1s7o",
+          "name": "Slam",
+          "slug": "air-elemental-slam",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 8,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.413Z",
+          "updatedAt": "2026-02-24T17:46:21.413Z",
+          "publishedAt": "2026-02-24T17:46:21.408Z",
+          "locale": null,
+          "range_config": {
+            "id": 21146,
+            "type": "Touch",
+            "distance": 5,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27948,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16452,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 5,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27874,
+          "documentId": "qp8hedh99blpiiuxegu99cpk",
+          "name": "Whirlwind",
+          "slug": "air-elemental-whirlwind",
+          "description": "Each creature in the elemental's space must make a DC 13 Strength saving throw. On a failure, a target takes 15 (3d8 + 2) bludgeoning damage and is flung up 20 feet away from the elemental in a random direction and knocked prone. If a thrown target strik",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.427Z",
+          "updatedAt": "2026-02-24T17:46:21.427Z",
+          "publishedAt": "2026-02-24T17:46:21.423Z",
+          "locale": null,
+          "range_config": {
+            "id": 21147,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Sphere",
+            "aoe_size": 5,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27949,
+            "action_type": "Strength Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16453,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 3,
+              "dice_value": 8,
+              "flat_bonus": 2,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8757,
+              "condition": "Prone",
+              "description": "Knocked prone on a failed save and flung 20 feet.",
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6513,
+      "documentId": "pm2mb242pgo632bgzztbpegb",
+      "slug": "ancient-blue-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Ancient Blue Dragon",
+      "description": "### Special Abilities\nLegendary Resistance (3/Day): If the dragon fails a saving throw, it can choose to succeed instead.\n\n### Actions\nMultiattack: The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its",
+      "size": "Gargantuan",
+      "type": "dragon",
+      "alignment": "lawful evil",
+      "level": 23,
+      "ac": 15,
+      "hp": 481,
+      "hit_dice": "26d20",
+      "challenge_rating": 23,
+      "xp": 50000,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.575Z",
+      "updatedAt": "2026-02-24T17:46:45.575Z",
+      "publishedAt": "2026-02-24T17:46:45.569Z",
+      "locale": "en",
+      "stats": {
+        "id": 7640,
+        "strength": 29,
+        "dexterity": 10,
+        "constitution": 27,
+        "intelligence": 18,
+        "wisdom": 17,
+        "charisma": 21,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 27,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27875,
+          "documentId": "jb1xq0lbqeryl2v8so99mioo",
+          "name": "Bite",
+          "slug": "ancient-blue-dragon-bite",
+          "description": "Melee Weapon Attack: +16 to hit, reach 15 ft., one target. Hit: 20 (2d10 + 9) piercing damage plus 11 (2d10) lightning damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.444Z",
+          "updatedAt": "2026-02-24T17:46:21.444Z",
+          "publishedAt": "2026-02-24T17:46:21.438Z",
+          "locale": null,
+          "range_config": {
+            "id": 21148,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27950,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16454,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            },
+            {
+              "id": 16455,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27876,
+          "documentId": "fyqaqx9b9s8b0ujur67kql2b",
+          "name": "Claw",
+          "slug": "ancient-blue-dragon-claw",
+          "description": "Melee Weapon Attack: +16 to hit, reach 10 ft., one target. Hit: 16 (2d6 + 9) slashing damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.461Z",
+          "updatedAt": "2026-02-24T17:46:21.461Z",
+          "publishedAt": "2026-02-24T17:46:21.457Z",
+          "locale": null,
+          "range_config": {
+            "id": 21149,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27951,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16456,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27878,
+          "documentId": "vb855yd8hnljpht0mx3wik6i",
+          "name": "Frightful Presence",
+          "slug": "ancient-blue-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 20 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.493Z",
+          "updatedAt": "2026-02-24T17:46:21.493Z",
+          "publishedAt": "2026-02-24T17:46:21.490Z",
+          "locale": null,
+          "range_config": {
+            "id": 21150,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": "Sphere",
+            "aoe_size": 120,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27953,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8758,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27879,
+          "documentId": "pruksqj0vt47km7pyu9gj4c2",
+          "name": "Legendary Resistance",
+          "slug": "ancient-blue-dragon-legendary-resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.505Z",
+          "updatedAt": "2026-02-24T17:46:21.505Z",
+          "publishedAt": "2026-02-24T17:46:21.503Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27954,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27880,
+          "documentId": "l3tjgcjd579swjr8r0teth9q",
+          "name": "Lightning Breath",
+          "slug": "ancient-blue-dragon-lightning-breath",
+          "description": "The dragon exhales lightning in a 120-foot line that is 10 feet wide. Each creature in that line must make a DC 23 Dexterity saving throw, taking 88 (16d10) lightning damage on a failed save, or half as much damage on a successful one.",
+          "type": "ranged",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.519Z",
+          "updatedAt": "2026-02-24T17:46:21.519Z",
+          "publishedAt": "2026-02-24T17:46:21.515Z",
+          "locale": null,
+          "range_config": {
+            "id": 21151,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": "Line",
+            "aoe_size": 120,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27955,
+            "action_type": "Dexterity Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16457,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 16,
+              "dice_value": 10,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27881,
+          "documentId": "p83maleu28z4udzpg79ygz9x",
+          "name": "Multiattack",
+          "slug": "ancient-blue-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.530Z",
+          "updatedAt": "2026-02-24T17:46:21.530Z",
+          "publishedAt": "2026-02-24T17:46:21.528Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27956,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [
+        {
+          "id": 27877,
+          "documentId": "bgf1fpjk9wfg6dtn8wd7ziby",
+          "name": "Detect",
+          "slug": "ancient-blue-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.473Z",
+          "updatedAt": "2026-02-24T17:46:21.473Z",
+          "publishedAt": "2026-02-24T17:46:21.471Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27952,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27882,
+          "documentId": "ph240jg8c7tvnu8o73q8463x",
+          "name": "Tail Attack",
+          "slug": "ancient-blue-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.542Z",
+          "updatedAt": "2026-02-24T17:46:21.542Z",
+          "publishedAt": "2026-02-24T17:46:21.539Z",
+          "locale": null,
+          "range_config": {
+            "id": 21152,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27957,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16458,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27883,
+          "documentId": "v7xo69vvbptt2yppuew34pw1",
+          "name": "Tail",
+          "slug": "ancient-blue-dragon-tail",
+          "description": "Melee Weapon Attack: +16 to hit, reach 20 ft., one target. Hit: 18 (2d8 + 9) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.558Z",
+          "updatedAt": "2026-02-24T17:46:21.558Z",
+          "publishedAt": "2026-02-24T17:46:21.555Z",
+          "locale": null,
+          "range_config": {
+            "id": 21153,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27958,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16459,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27884,
+          "documentId": "sev0q6nfc58fpm4dyyv9pqey",
+          "name": "Wing Attack",
+          "slug": "ancient-blue-dragon-wing-attack",
+          "description": "The dragon beats its wings. Each creature within 15 ft. of the dragon must succeed on a DC 24 Dexterity saving throw or take 16 (2d6 + 9) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.572Z",
+          "updatedAt": "2026-02-24T17:46:21.572Z",
+          "publishedAt": "2026-02-24T17:46:21.568Z",
+          "locale": null,
+          "range_config": {
+            "id": 21154,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": "Sphere",
+            "aoe_size": 15,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27959,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16460,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8759,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6515,
+      "documentId": "cgcbkalq95d9rry6u9cayobk",
+      "slug": "ancient-bronze-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Ancient Bronze Dragon",
+      "description": "### Special Abilities\nAmphibious: The dragon can breathe air and water. Legendary Resistance (3/Day): If the dragon fails a saving throw, it can choose to succeed instead.\n\n### Actions\nMultiattack: The dragon can use its Frightful Presence. It then makes",
+      "size": "Gargantuan",
+      "type": "dragon",
+      "alignment": "lawful good",
+      "level": 22,
+      "ac": 22,
+      "hp": 444,
+      "hit_dice": "24d20+192",
+      "challenge_rating": 22,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.622Z",
+      "updatedAt": "2026-02-24T17:46:45.622Z",
+      "publishedAt": "2026-02-24T17:46:45.614Z",
+      "locale": "en",
+      "stats": {
+        "id": 7642,
+        "strength": 29,
+        "dexterity": 10,
+        "constitution": 27,
+        "intelligence": 18,
+        "wisdom": 17,
+        "charisma": 21,
+        "walkSpeed": 40,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 27,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27897,
+          "documentId": "xzof14j9l8l80g5b3ykna83s",
+          "name": "Amphibious",
+          "slug": "ancient-bronze-dragon-amphibious",
+          "description": "The dragon can breathe air and water.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.739Z",
+          "updatedAt": "2026-02-24T17:46:21.739Z",
+          "publishedAt": "2026-02-24T17:46:21.737Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27898,
+          "documentId": "y6uqfd65g5ys7osi2p114tei",
+          "name": "Bite",
+          "slug": "ancient-bronze-dragon-bite",
+          "description": "Melee Weapon Attack: +16 to hit, reach 15 ft., one target. Hit: 20 (2d10 + 9) piercing damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.752Z",
+          "updatedAt": "2026-02-24T17:46:21.752Z",
+          "publishedAt": "2026-02-24T17:46:21.749Z",
+          "locale": null,
+          "range_config": {
+            "id": 21163,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27972,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16467,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27899,
+          "documentId": "xhyak6hgicms8d853j32k3fm",
+          "name": "Change Shape",
+          "slug": "ancient-bronze-dragon-change-shape",
+          "description": "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form ",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.764Z",
+          "updatedAt": "2026-02-24T17:46:21.764Z",
+          "publishedAt": "2026-02-24T17:46:21.762Z",
+          "locale": null,
+          "range_config": {
+            "id": 21164,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27973,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27900,
+          "documentId": "o0pgcnunxatao203jwdkz8h1",
+          "name": "Claw",
+          "slug": "ancient-bronze-dragon-claw",
+          "description": "Melee Weapon Attack: +16 to hit, reach 10 ft., one target. Hit: 16 (2d6 + 9) slashing damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.778Z",
+          "updatedAt": "2026-02-24T17:46:21.778Z",
+          "publishedAt": "2026-02-24T17:46:21.775Z",
+          "locale": null,
+          "range_config": {
+            "id": 21165,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27974,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16468,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27902,
+          "documentId": "pget79w9yo3147t0v4i01yei",
+          "name": "Frightful Presence",
+          "slug": "ancient-bronze-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 20 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.805Z",
+          "updatedAt": "2026-02-24T17:46:21.805Z",
+          "publishedAt": "2026-02-24T17:46:21.799Z",
+          "locale": null,
+          "range_config": {
+            "id": 21166,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27976,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8763,
+              "condition": "Frightened",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27903,
+          "documentId": "dmixhq4pp5cb7pmz52p7cii8",
+          "name": "Legendary Resistance",
+          "slug": "ancient-bronze-dragon-legendary-resistance",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead. (3/Day)",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.815Z",
+          "updatedAt": "2026-02-24T17:46:21.815Z",
+          "publishedAt": "2026-02-24T17:46:21.813Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27904,
+          "documentId": "wzneiny7opczdzh9nv80azr7",
+          "name": "Lightning Breath",
+          "slug": "ancient-bronze-dragon-lightning-breath",
+          "description": "The dragon exhales lightning in a 120-foot line that is 10 feet wide. Each creature in that line must make a DC 23 Dexterity saving throw, taking 88 (16d10) lightning damage on a failed save, or half as much damage on a successful one.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.827Z",
+          "updatedAt": "2026-02-24T17:46:21.827Z",
+          "publishedAt": "2026-02-24T17:46:21.823Z",
+          "locale": null,
+          "range_config": {
+            "id": 21167,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": "Line",
+            "aoe_size": 10,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27977,
+            "action_type": "Dexterity Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16469,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 16,
+              "dice_value": 10,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27905,
+          "documentId": "e6716thg7241bpkmyp315myc",
+          "name": "Multiattack",
+          "slug": "ancient-bronze-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.837Z",
+          "updatedAt": "2026-02-24T17:46:21.837Z",
+          "publishedAt": "2026-02-24T17:46:21.836Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": null,
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27906,
+          "documentId": "dqxhx604n2luklkkd8ibukgg",
+          "name": "Repulsion Breath",
+          "slug": "ancient-bronze-dragon-repulsion-breath",
+          "description": "The dragon exhales repulsion energy in a 30-foot cone. Each creature in that area must succeed on a DC 23 Strength saving throw. On a failed save, the creature is pushed 60 feet away from the dragon.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.849Z",
+          "updatedAt": "2026-02-24T17:46:21.849Z",
+          "publishedAt": "2026-02-24T17:46:21.846Z",
+          "locale": null,
+          "range_config": {
+            "id": 21168,
+            "type": "Ranged (Feet)",
+            "distance": 30,
+            "aoe_shape": "Cone",
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27978,
+            "action_type": "Strength Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8764,
+              "condition": "Special",
+              "description": "Pushed 60 feet away from the dragon",
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [
+        {
+          "id": 27901,
+          "documentId": "fzm1jqiteb0zxgo3yvsuoa70",
+          "name": "Detect",
+          "slug": "ancient-bronze-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.789Z",
+          "updatedAt": "2026-02-24T17:46:21.789Z",
+          "publishedAt": "2026-02-24T17:46:21.787Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27975,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27907,
+          "documentId": "q7syqzb0qj1zg3ds0fwosj56",
+          "name": "Tail Attack (Legendary Action)",
+          "slug": "ancient-bronze-dragon-tail-attack-legendary-action",
+          "description": "The dragon makes a tail attack. Melee Weapon Attack: +16 to hit, reach 20 ft., one target. Hit: 18 (2d8 + 9) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.862Z",
+          "updatedAt": "2026-02-24T17:46:21.862Z",
+          "publishedAt": "2026-02-24T17:46:21.859Z",
+          "locale": null,
+          "range_config": {
+            "id": 21169,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27979,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16470,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27908,
+          "documentId": "u8tq0qauf0fssbw958pqmufc",
+          "name": "Tail Attack",
+          "slug": "ancient-bronze-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.877Z",
+          "updatedAt": "2026-02-24T17:46:21.877Z",
+          "publishedAt": "2026-02-24T17:46:21.874Z",
+          "locale": null,
+          "range_config": {
+            "id": 21170,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27980,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16471,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27909,
+          "documentId": "v8boep1xwjaz4xb8n5050mmc",
+          "name": "Tail",
+          "slug": "ancient-bronze-dragon-tail",
+          "description": "Melee Weapon Attack: +16 to hit, reach 20 ft., one target. Hit: 18 (2d8 + 9) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 16,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.890Z",
+          "updatedAt": "2026-02-24T17:46:21.890Z",
+          "publishedAt": "2026-02-24T17:46:21.887Z",
+          "locale": null,
+          "range_config": {
+            "id": 21171,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27981,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16472,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27910,
+          "documentId": "iu816a3dc6639zf8q557tg2u",
+          "name": "Wing Attack",
+          "slug": "ancient-bronze-dragon-wing-attack",
+          "description": "The dragon beats its wings. Each creature within 15 ft. of the dragon must succeed on a DC 24 Dexterity saving throw or take 16 (2d6 + 9) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:21.906Z",
+          "updatedAt": "2026-02-24T17:46:21.906Z",
+          "publishedAt": "2026-02-24T17:46:21.902Z",
+          "locale": null,
+          "range_config": {
+            "id": 21172,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": "Sphere",
+            "aoe_size": 15,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27982,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16473,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 9,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8765,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    },
+    {
+      "id": 6517,
+      "documentId": "o3hyvy4lphjrlf8ews60t8x7",
+      "slug": "ancient-gold-dragon",
+      "embedding": null,
+      "embeddingMetadata": null,
+      "name": "Ancient Gold Dragon",
+      "description": "### Special Abilities\n[\"Amphibious: The dragon can breathe air and water.\",\"Legendary Resistance (3/Day): If the dragon fails a saving throw, it can choose to succeed instead.\"]\n\n### Actions\n[\"Multiattack: The dragon can use its Frightful Presence. It th",
+      "size": "Gargantuan",
+      "type": "dragon",
+      "alignment": "lawful good",
+      "level": 24,
+      "ac": 22,
+      "hp": 546,
+      "hit_dice": "28d20+252",
+      "challenge_rating": 24,
+      "xp": 0,
+      "background": null,
+      "width": 1,
+      "height": 1,
+      "pixel_generator": null,
+      "createdAt": "2026-02-24T17:46:45.663Z",
+      "updatedAt": "2026-02-24T17:46:45.663Z",
+      "publishedAt": "2026-02-24T17:46:45.656Z",
+      "locale": "en",
+      "stats": {
+        "id": 7644,
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10,
+        "walkSpeed": 0,
+        "flySpeed": 0,
+        "swimSpeed": 0,
+        "climbSpeed": 0,
+        "burrowSpeed": 0,
+        "hover": false,
+        "saves": [
+          "dex",
+          "con",
+          "wis",
+          "cha"
+        ],
+        "skills": [],
+        "passivePerception": 27,
+        "darkvision": 120,
+        "blindsight": 60,
+        "truesight": 0,
+        "tremorsense": 0,
+        "languages": []
+      },
+      "languages": [],
+      "features": [],
+      "traits": [],
+      "proficiencies": [],
+      "inventory": [],
+      "actions": [
+        {
+          "id": 27923,
+          "documentId": "rjvclmi2tamqwy0j7tu98987",
+          "name": "Amphibious",
+          "slug": "ancient-gold-dragon-amphibious",
+          "description": "The dragon can breathe air and water.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.076Z",
+          "updatedAt": "2026-02-24T17:46:22.076Z",
+          "publishedAt": "2026-02-24T17:46:22.074Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27995,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27924,
+          "documentId": "xunbd5n7v41t4ehec9nzxhhm",
+          "name": "Bite",
+          "slug": "ancient-gold-dragon-bite",
+          "description": "Melee Weapon Attack: +17 to hit, reach 15 ft., one target. Hit: 21 (2d10 + 10) piercing damage.",
+          "type": "melee",
+          "toHit": 17,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.090Z",
+          "updatedAt": "2026-02-24T17:46:22.090Z",
+          "publishedAt": "2026-02-24T17:46:22.085Z",
+          "locale": null,
+          "range_config": {
+            "id": 21181,
+            "type": "Ranged (Feet)",
+            "distance": 15,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27996,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16480,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 10,
+              "flat_bonus": 10,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27925,
+          "documentId": "kkl45r3we8ypcpys4qzd2432",
+          "name": "Change Shape",
+          "slug": "ancient-gold-dragon-change-shape",
+          "description": "The dragon magically polymorphs into a humanoid or beast that has a challenge rating no higher than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form ",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.103Z",
+          "updatedAt": "2026-02-24T17:46:22.103Z",
+          "publishedAt": "2026-02-24T17:46:22.100Z",
+          "locale": null,
+          "range_config": {
+            "id": 21182,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27997,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27926,
+          "documentId": "mbvqbwf906n6tyae82z9ioud",
+          "name": "Claw",
+          "slug": "ancient-gold-dragon-claw",
+          "description": "Melee Weapon Attack: +17 to hit, reach 10 ft., one target. Hit: 17 (2d6 + 10) slashing damage.",
+          "type": "melee",
+          "toHit": 17,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.115Z",
+          "updatedAt": "2026-02-24T17:46:22.115Z",
+          "publishedAt": "2026-02-24T17:46:22.112Z",
+          "locale": null,
+          "range_config": {
+            "id": 21183,
+            "type": "Ranged (Feet)",
+            "distance": 10,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 27998,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16481,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 10,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27927,
+          "documentId": "gnnhrn1h8kt0yjnqadm7zz6f",
+          "name": "Detect",
+          "slug": "ancient-gold-dragon-detect",
+          "description": "The dragon makes a Wisdom (Perception) check.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.127Z",
+          "updatedAt": "2026-02-24T17:46:22.127Z",
+          "publishedAt": "2026-02-24T17:46:22.125Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 27999,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27928,
+          "documentId": "wwiy51taf4lmuu0kwvwhh06h",
+          "name": "Fire Breath",
+          "slug": "ancient-gold-dragon-fire-breath",
+          "description": "The dragon exhales fire in a 90-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 71 (13d10) fire damage on a failed save, or half as much damage on a successful one.",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.140Z",
+          "updatedAt": "2026-02-24T17:46:22.140Z",
+          "publishedAt": "2026-02-24T17:46:22.137Z",
+          "locale": null,
+          "range_config": {
+            "id": 21184,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Cone",
+            "aoe_size": 90,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 28000,
+            "action_type": "Dexterity Save",
+            "save_effect": "Half"
+          },
+          "damage_instances": [
+            {
+              "id": 16482,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 13,
+              "dice_value": 10,
+              "flat_bonus": 0,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27929,
+          "documentId": "o0mgkwf666rbfrn5t8azj13c",
+          "name": "Frightful Presence",
+          "slug": "ancient-gold-dragon-frightful-presence",
+          "description": "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 24 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the e",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.154Z",
+          "updatedAt": "2026-02-24T17:46:22.154Z",
+          "publishedAt": "2026-02-24T17:46:22.149Z",
+          "locale": null,
+          "range_config": {
+            "id": 21185,
+            "type": "Ranged (Feet)",
+            "distance": 120,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 28001,
+            "action_type": "Wisdom Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8769,
+              "condition": "Frightened",
+              "description": "for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presenc",
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27930,
+          "documentId": "j6a7tyrp0lieh8jr3nbvnbhd",
+          "name": "Legendary Resistance (3/Day)",
+          "slug": "ancient-gold-dragon-legendary-resistance-3-day",
+          "description": "If the dragon fails a saving throw, it can choose to succeed instead.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.165Z",
+          "updatedAt": "2026-02-24T17:46:22.165Z",
+          "publishedAt": "2026-02-24T17:46:22.163Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 28002,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27931,
+          "documentId": "zz2495ueixiw854sergnun9k",
+          "name": "Multiattack",
+          "slug": "ancient-gold-dragon-multiattack",
+          "description": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
+          "type": "utility",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.175Z",
+          "updatedAt": "2026-02-24T17:46:22.175Z",
+          "publishedAt": "2026-02-24T17:46:22.173Z",
+          "locale": null,
+          "range_config": null,
+          "mechanics_config": {
+            "id": 28003,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27932,
+          "documentId": "cc0gxzxiy0idhy1pjcy0pw9v",
+          "name": "Tail Attack",
+          "slug": "ancient-gold-dragon-tail-attack",
+          "description": "The dragon makes a tail attack.",
+          "type": "melee",
+          "toHit": 17,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.188Z",
+          "updatedAt": "2026-02-24T17:46:22.188Z",
+          "publishedAt": "2026-02-24T17:46:22.183Z",
+          "locale": null,
+          "range_config": {
+            "id": 21186,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 28004,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16483,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 10,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27933,
+          "documentId": "o17tec6yw14x0krf0opd41xf",
+          "name": "Tail",
+          "slug": "ancient-gold-dragon-tail",
+          "description": "Melee Weapon Attack: +17 to hit, reach 20 ft., one target. Hit: 19 (2d8 + 10) bludgeoning damage.",
+          "type": "melee",
+          "toHit": 17,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.203Z",
+          "updatedAt": "2026-02-24T17:46:22.203Z",
+          "publishedAt": "2026-02-24T17:46:22.200Z",
+          "locale": null,
+          "range_config": {
+            "id": 21187,
+            "type": "Ranged (Feet)",
+            "distance": 20,
+            "aoe_shape": null,
+            "aoe_size": null,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 28005,
+            "action_type": "None",
+            "save_effect": null
+          },
+          "damage_instances": [
+            {
+              "id": 16484,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 8,
+              "flat_bonus": 10,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27934,
+          "documentId": "fa0ndtgjzmmfidsd04wvb3uo",
+          "name": "Weakening Breath",
+          "slug": "ancient-gold-dragon-weakening-breath",
+          "description": "The dragon exhales gas in a 90-foot cone. Each creature in that area must succeed on a DC 24 Strength saving throw or have disadvantage on Strength-based attack rolls, Strength checks, and Strength saving throws for 1 minute. A creature can repeat the sa",
+          "type": "spell",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.217Z",
+          "updatedAt": "2026-02-24T17:46:22.217Z",
+          "publishedAt": "2026-02-24T17:46:22.214Z",
+          "locale": null,
+          "range_config": {
+            "id": 21188,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Cone",
+            "aoe_size": 90,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 28006,
+            "action_type": "Strength Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [],
+          "condition_instances": [
+            {
+              "id": 8770,
+              "condition": "Special",
+              "description": "disadvantage on Strength-based attack rolls, Strength checks, and Strength saving throws",
+              "chance": 100,
+              "duration_rounds": 10
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        },
+        {
+          "id": 27935,
+          "documentId": "rvkff0r197uwfmbyfzygwtz4",
+          "name": "Wing Attack",
+          "slug": "ancient-gold-dragon-wing-attack",
+          "description": "The dragon beats its wings. Each creature within 15 ft. of the dragon must succeed on a DC 25 Dexterity saving throw or take 17 (2d6 + 10) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed.",
+          "type": "ability",
+          "toHit": null,
+          "embedding": null,
+          "createdAt": "2026-02-24T17:46:22.235Z",
+          "updatedAt": "2026-02-24T17:46:22.235Z",
+          "publishedAt": "2026-02-24T17:46:22.231Z",
+          "locale": null,
+          "range_config": {
+            "id": 21189,
+            "type": "Self",
+            "distance": null,
+            "aoe_shape": "Sphere",
+            "aoe_size": 15,
+            "aoe_height": null
+          },
+          "mechanics_config": {
+            "id": 28007,
+            "action_type": "Dexterity Save",
+            "save_effect": "Negate"
+          },
+          "damage_instances": [
+            {
+              "id": 16485,
+              "effect_type": "Damage",
+              "damage_type": null,
+              "dice_count": 2,
+              "dice_value": 6,
+              "flat_bonus": 10,
+              "timing": "Instant"
+            }
+          ],
+          "condition_instances": [
+            {
+              "id": 8771,
+              "condition": "Prone",
+              "description": null,
+              "chance": 100,
+              "duration_rounds": null
+            }
+          ],
+          "save": null,
+          "compilation_state": null
+        }
+      ],
+      "legendary_actions": [],
+      "spells": [],
+      "appearance": null,
+      "race": null,
+      "classes": [],
+      "resources": [],
+      "compilation_state": null,
+      "tags": []
+    }
+  ]
+}
+__JSON_END__
+{"level":"\u001b[32minfo\u001b[39m","message":"Shutting down Strapi","timestamp":"2026-03-02 16:35:25.270"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Gracefully shutting down workers...","scope":"WorkerManager","timestamp":"2026-03-02 16:35:25.271"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Strapi has been shut down","timestamp":"2026-03-02 16:35:25.278"}

@@ -6,6 +6,7 @@ import { PNG } from 'pngjs';
 import { PromptKey, PromptVariableMap, PromptSchemas } from '@daicer/llm-core/prompt-registry';
 import { ContextBuilder } from '@daicer/llm-core/context/builder';
 import { StrapiAdapter, LLMCoreConfig } from '@daicer/llm-core/types';
+import { PixelTransformer } from './pixel-transformer';
 
 // Types
 export type ZoneType = 'core' | 'head' | 'hand_l' | 'hand_r' | 'weapon' | 'back' | 'legs' | 'accessory' | 'none';
@@ -211,7 +212,11 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
       // Render Vision Input
       let visionBuffer: Buffer;
 
-      if (genConfig.inputPixels && genConfig.inputPixels.length > 0) {
+      const hasDrawnPixels = genConfig.inputPixels && genConfig.inputPixels.some(row => 
+        Array.isArray(row) && row.some(cell => typeof cell === 'string' && cell !== 'transparent' && cell !== 'none' && cell !== ' ' && cell !== '')
+      );
+
+      if (hasDrawnPixels && genConfig.inputPixels) {
         visionBuffer = service.pixelsToPng(genConfig.inputPixels, 2);
       } else if (genConfig.blueprint) {
         const blueprintPixels = service.blueprintToPixels(genConfig.blueprint, dynamicZoneMap);
@@ -262,6 +267,133 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
         return { pixelData: cleanData, effectivePrompt: enhancedPrompt };
       } catch (error) {
         adapter.log.error('Gemini Forge LangChain Error', error);
+        throw error;
+      }
+    },
+
+    /**
+     * V2 Sprite Generation Pipeline 
+     * Uses ASCII String Matrix + RGBA4444 Hex Palettes.
+     * Enforces strict D&D Scale Padding and Cropping.
+     */
+    async generatePixelDataV2(genConfig: GenerationConfig) {
+      if (genConfig.type === 'Blueprint' || genConfig.action === 'generate_blueprint') {
+        return service.generateBlueprint(genConfig);
+      }
+
+      const TARGET_SIZE = genConfig.width || 32; // This is externally enforced by Strapi Forge controller logic based on D&D rules
+      const modelId = genConfig.model || 'gemini-3-flash-preview';
+      const contextBuilder = new ContextBuilder(adapter, config);
+
+      const isTerrain = TERMS.TERRAIN.includes(genConfig.archetype) || genConfig.type === 'Terrain' || genConfig.type === 'Environment';
+      const isItem = TERMS.ITEM.includes(genConfig.archetype) || genConfig.type === 'Item';
+
+      const enhancedPrompt = genConfig.prompt;
+      let specificInstruction = '';
+
+      if (isTerrain) {
+        specificInstruction = `
+        MODE: TERRAIN / TEXTURE GENERATION
+        - Scale constraint: Must seamlessly tile.
+        - '#' = Surface to fill.
+        1. Fill the target canvas area completely with your texture pattern.
+        2. Create a top-down surface tile.
+        `;
+      } else if (isItem) {
+        specificInstruction = `
+        MODE: ITEM / OBJECT GENERATION
+        - Draw the item filling the visible center, pad edges with empty space (.).
+        CRITICAL: FILL blueprinted pixels if matching zones exist. Keep transparency outside the object.
+        `;
+      } else {
+        specificInstruction = `
+        MODE: CREATURE / ENTITY GENERATION
+        - Scale: Fit the creature strictly inside the canvas bounds. 
+        - CENTERING: Feet anchored near the bottom edge.
+        CRITICAL: Fill the anatomy with detailed 4-bit RGBA Hex colors.
+        `;
+      }
+
+      // 3. SOTA Context Injection
+      const contextDataString = await contextBuilder.buildEntityContext({
+        entityContext: genConfig.entityContext,
+        entityData: genConfig.entityData,
+        prompt: genConfig.prompt,
+        type: genConfig.type,
+        archetype: genConfig.archetype,
+        width: TARGET_SIZE,
+        height: TARGET_SIZE,
+        size: genConfig.size || 'Medium',
+      });
+
+      // 4. Vision Pipeline
+      const { instruction: visionInstruction, zoneMap: dynamicZoneMap } = await contextBuilder.buildVisionContext();
+
+      let visionBuffer: Buffer;
+      const hasDrawnPixels = genConfig.inputPixels && genConfig.inputPixels.some(row => 
+        Array.isArray(row) && row.some(cell => typeof cell === 'string' && cell !== 'transparent' && cell !== 'none' && cell !== ' ' && cell !== '')
+      );
+
+      if (hasDrawnPixels && genConfig.inputPixels) {
+        visionBuffer = service.pixelsToPng(genConfig.inputPixels, 2);
+      } else if (genConfig.blueprint) {
+        const blueprintPixels = service.blueprintToPixels(genConfig.blueprint, dynamicZoneMap);
+        visionBuffer = service.pixelsToPng(blueprintPixels, 2);
+      } else {
+        visionBuffer = service.pixelsToPng(Array(TARGET_SIZE).fill(Array(TARGET_SIZE).fill('transparent')));
+      }
+
+      const contentParts: { type: 'text' | 'image_url'; text?: string; image_url?: string }[] = [
+        { type: 'text', text: 'Manifest this sprite based on the visual input structure and prompt details.' },
+        {
+          type: 'image_url',
+          image_url: `data:image/png;base64,${visionBuffer.toString('base64')}`,
+        },
+      ];
+
+      // Format golden prompt
+      const formattedSystemPrompt = await service.formatPrompt('pixel-forge-system', {
+        width: TARGET_SIZE,
+        height: TARGET_SIZE,
+        specificInstruction,
+        enhancedPrompt: enhancedPrompt,
+        visionInstruction,
+        contextData: contextDataString,
+      });
+
+      try {
+        const model = await service.getModel(modelId);
+        
+        // Temperature forced extremely low for spatial JSON safety
+        model.temperature = 0.1;
+        model.topP = 0.1;
+
+        // The New Golden V2 JSON Schema
+        const V2Schema = z.object({
+          palette: z.record(
+              z.string().length(1), 
+              z.string().length(4).regex(/^[0-9A-Fa-f]{4}$/, { message: "Must be 4-bit RGBA hex like f00f" })
+            )
+            .describe("Map single ASCII characters to 4-character RGBA4444 hex codes. e.g. { 'M': 'f00f', 'S': '0f0f' }. Use exactly 4 characters."),
+          asciiGrid: z.array(z.string())
+            .describe(`An array of strings mapping the sprite. Represents a ${TARGET_SIZE}x${TARGET_SIZE} canvas. Use '.' or ' ' for transparent empty space. Use the characters defined in 'palette' for colored pixels.`),
+        });
+
+        const modelWithStructure = model.withStructuredOutput(V2Schema);
+
+        const response = await modelWithStructure.invoke([
+          new SystemMessage(formattedSystemPrompt),
+          new HumanMessage({ content: contentParts }),
+        ]);
+
+        const squaredColoredGrid = PixelTransformer.processAndSquareSprite({
+          asciiGrid: response.asciiGrid,
+          palette: response.palette
+        }, TARGET_SIZE);
+
+        return { pixelData: squaredColoredGrid, effectivePrompt: enhancedPrompt };
+      } catch (error) {
+        adapter.log.error('Gemini Forge LangChain V2 Error', error);
         throw error;
       }
     },

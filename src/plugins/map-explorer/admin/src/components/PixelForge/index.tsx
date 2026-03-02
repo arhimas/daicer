@@ -83,20 +83,24 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   // Strict Access
   const modifiedData = (formValues || {}) as EntityData;
 
-  console.log('[PixelForge] Debug Context:', {
-    hasForm: !!formValues,
-    valuesKeys: Object.keys(modifiedData),
-    id: modifiedData.id,
-    docId: modifiedData.documentId,
-    model: modelUid,
-  });
+  // SOTA D&D Sizing Mapping
+  // Default to 1 (32x32) if anything goes wrong
+  let widthTiles = 1;
+  let heightTiles = 1;
 
-  // Dynamic Sizing (Tiles -> Pixels)
-  const widthTiles = modifiedData.width || 1;
-  const heightTiles = modifiedData.height || 1;
-  // Default to 32x32 if no explicit sizing (Standard Blueprint Size)
-  const gridWidth = modifiedData.width ? widthTiles * 32 : 32;
-  const gridHeight = modifiedData.height ? heightTiles * 32 : 32;
+  if (modifiedData.size) {
+    const s = String(modifiedData.size).toLowerCase();
+    if (s === 'large') widthTiles = 2;
+    else if (s === 'huge') widthTiles = 3;
+    else if (s === 'gargantuan' || s === 'colossal') widthTiles = 4;
+  } else if (modifiedData.width) {
+     widthTiles = Number(modifiedData.width);
+  }
+
+  heightTiles = widthTiles; // Always square
+
+  const gridWidth = widthTiles * 32;
+  const gridHeight = heightTiles * 32;
 
   // Data State
   const [pixels, setPixels] = useState<string[][]>(
@@ -597,7 +601,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                       : `Pixel Forge`}
                   </Typography>
                   <Typography variant="pi" textColor="neutral600">
-                    {widthTiles}x{heightTiles} Tiles ({gridWidth}x{gridHeight}px)
+                    {gridWidth / 32}x{gridWidth / 32} Tiles ({gridWidth}x{gridHeight}px)
                   </Typography>
                 </Flex>
                 <Button variant="tertiary" onClick={() => setIsModalOpen(false)}>

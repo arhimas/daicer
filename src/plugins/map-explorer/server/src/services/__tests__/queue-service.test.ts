@@ -235,7 +235,7 @@ describe('Queue Service', () => {
 
       mockStrapi.plugin.mockReturnValue({
         service: vi.fn(() => ({
-          generatePixelData: mockGeneratePixel,
+          generatePixelDataV2: mockGeneratePixel,
           generateVoxelStructure: mockGenerateVoxel,
         })),
       });
@@ -272,7 +272,7 @@ describe('Queue Service', () => {
     it('should handle pixel worker errors', async () => {
       const mockGeneratePixel = vi.fn().mockRejectedValue(new Error('Pixel Fail'));
       mockStrapi.plugin.mockReturnValue({
-        service: vi.fn(() => ({ generatePixelData: mockGeneratePixel })),
+        service: vi.fn(() => ({ generatePixelDataV2: mockGeneratePixel })),
       });
 
       await service.initialize();
