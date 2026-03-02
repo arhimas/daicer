@@ -139,10 +139,24 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         const parsed = typeof value === 'string' ? JSON.parse(value) : value;
         let loadedPixels: string[][] = [];
 
-        if (Array.isArray(parsed) && Array.isArray(parsed[0])) {
-          loadedPixels = parsed;
+        const inflateIfNeeded = (arr: unknown[]): string[][] => {
+           if (!arr || arr.length === 0) return [];
+           if (Array.isArray(arr[0])) return arr as string[][];
+           if (typeof arr[0] === 'string') {
+              const size = Math.sqrt(arr.length);
+              if (Number.isInteger(size)) {
+                 const inflated: string[][] = [];
+                 for (let i = 0; i < size; i++) inflated.push(arr.slice(i * size, (i + 1) * size) as string[]);
+                 return inflated;
+              }
+           }
+           return [];
+        };
+
+        if (Array.isArray(parsed)) {
+          loadedPixels = inflateIfNeeded(parsed);
         } else if (parsed.pixels) {
-          loadedPixels = parsed.pixels;
+          loadedPixels = inflateIfNeeded(parsed.pixels);
           if (parsed.prompt) setPrompt(parsed.prompt);
           if (parsed.metadata) {
             setMetadata(parsed.metadata);
@@ -233,21 +247,30 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     if (!prompt) return;
 
     // Dynamic Archetype Mapping
+    // `category` is used by Blueprint content-type, but Entity/Item use `type`
     const category = modifiedData.category || 'Creature';
     let type: 'Sprite' | 'Terrain' | 'Item' | 'Environment' | 'Blueprint' = 'Sprite';
-    let archetype = 'Humanoid';
+    let archetype = String(modifiedData.type || 'Humanoid');
 
     if (modelUid === 'api::blueprint.blueprint') {
       type = 'Blueprint';
-      archetype = 'Structure';
+      archetype = String(modifiedData.type || 'Structure');
     } else if (
-      ['Terrain', 'Environment', 'Landscape', 'Floor', 'Wall'].includes(category as string)
+      ['Terrain', 'Environment', 'Landscape', 'Floor', 'Wall'].includes(category as string) ||
+      modelUid === 'api::terrain.terrain'
     ) {
       type = 'Terrain';
-      archetype = 'Landscape';
-    } else if (['Item', 'Equipment', 'Weapon', 'Armor'].includes(category as string)) {
+      archetype = String(modifiedData.type || 'Landscape');
+    } else if (
+      ['Item', 'Equipment', 'Weapon', 'Armor'].includes(category as string) ||
+      modelUid === 'api::item.item'
+    ) {
       type = 'Item';
-      archetype = 'Item';
+      archetype = String(modifiedData.type || 'Item');
+    } else {
+      // Default for entities
+      type = 'Sprite';
+      archetype = String(modifiedData.type || 'Humanoid');
     }
 
     setIsGenerating(true);
@@ -289,11 +312,23 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     newPrompt: string,
     newMetadata?: Record<string, unknown>
   ) => {
+    // Deflate from 2D workspace cache to 1D PNG Hex Array backing
+    const flatPixels: string[] = [];
+    if (newPixels && newPixels.length > 0) {
+      for (const row of newPixels) {
+        if (Array.isArray(row)) {
+          for (const col of row) {
+            flatPixels.push(col);
+          }
+        }
+      }
+    }
+
     onChange({
       target: {
         name,
         value: JSON.stringify({
-          pixels: newPixels,
+          pixels: flatPixels,
           prompt: newPrompt,
           metadata: newMetadata || metadata,
         }),

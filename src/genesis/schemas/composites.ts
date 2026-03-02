@@ -39,6 +39,8 @@ export const EntitySchema = z
       .optional(),
 
     tags: RelationMany,
+    blueprint: RelationMany,
+    spriteData: z.array(z.string()).optional(),
   })
   .strict();
 

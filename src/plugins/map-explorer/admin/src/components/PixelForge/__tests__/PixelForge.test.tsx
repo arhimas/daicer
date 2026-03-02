@@ -238,7 +238,7 @@ describe('PixelForge SOTA', () => {
     // Verify the value passed contains the new pixel color (red by default)
     const lastCall = onChange.mock.calls[0][0];
     const parsed = JSON.parse(lastCall.target.value);
-    expect(parsed.pixels[0][0]).toBe('#FF0000');
+    expect(parsed.pixels[0]).toBe('#FF0000');
   });
 
   it.skip('should use picker tool', async () => {

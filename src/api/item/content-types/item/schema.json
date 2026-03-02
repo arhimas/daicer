@@ -123,7 +123,13 @@
       "target": "api::tag.tag",
       "inversedBy": "items"
     },
-    "pixel_generator": {
+    "blueprint": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blueprint.blueprint",
+      "inversedBy": "items"
+    },
+    "spriteData": {
       "type": "customField",
       "customField": "plugin::map-explorer.pixel-forge"
     }

@@ -159,16 +159,35 @@ export class RenderEngine {
 
         if (pixels && Array.isArray(pixels)) {
           // RENDER TEXTURE
-          // Case 1: Matrix (32x32 string[][])
-          if (pixels.length === 32 && Array.isArray(pixels[0])) {
+          // Case 1: Matrix (Legacy string[][])
+          if (pixels.length > 0 && Array.isArray(pixels[0])) {
+            const dimY = pixels.length;
             pixels.forEach((rowPx: string[], py: number) => {
+              const dimX = rowPx.length;
               rowPx.forEach((colPx: string, px: number) => {
-                if (colPx && colPx !== 'transparent') {
+                if (colPx && colPx !== 'transparent' && colPx !== '#00000000') {
+                  const scaleX = TILE_SIZE / dimX;
+                  const scaleY = TILE_SIZE / dimY;
                   ctx.fillStyle = colPx;
-                  ctx.fillRect(tile.x * TILE_SIZE + px, tile.y * TILE_SIZE + py, 1, 1);
+                  ctx.fillRect(tile.x * TILE_SIZE + (px * scaleX), tile.y * TILE_SIZE + (py * scaleY), scaleX, scaleY);
                 }
               });
             });
+          }
+          // Case 2: Flat Hex Array (1D string[] from PNG)
+          else if (pixels.length > 0 && typeof pixels[0] === 'string') {
+            const dim = Math.sqrt(pixels.length);
+            if (Number.isInteger(dim)) {
+              const scale = TILE_SIZE / dim;
+              (pixels as string[]).forEach((colPx: string, index: number) => {
+                if (colPx && colPx !== 'transparent' && colPx !== '#00000000') {
+                  const px = index % dim;
+                  const py = Math.floor(index / dim);
+                  ctx.fillStyle = colPx;
+                  ctx.fillRect(tile.x * TILE_SIZE + (px * scale), tile.y * TILE_SIZE + (py * scale), scale, scale);
+                }
+              });
+            }
           }
           // Case 2: Flattened Voxel List (from TextureInput)
           else if (pixels.length > 0 && typeof pixels[0] === 'object') {

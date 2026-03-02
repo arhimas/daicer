@@ -55,7 +55,8 @@ const BASE_ARCHETYPES = [
 
 const TARGET_SIZES = ['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan'];
 
-const BLUEPRINTS_DIR = path.resolve(process.cwd(), 'src/data/blueprints/blueprint');
+// Paths to your template files
+const DEST_DIR = path.join(process.cwd(), 'src', 'genesis', 'blueprints', 'blueprint');
 
 async function generateBlueprint(
   archetypeData: (typeof BASE_ARCHETYPES)[0],
@@ -115,8 +116,20 @@ Ensure the anatomy scales properly to match the massive or tiny sizes in D&D rul
   }
 }
 
-function writeBlueprintToFile(blueprint: GenerativeBlueprint) {
-  const filePath = path.join(BLUEPRINTS_DIR, `${blueprint.slug}.ts`);
+// Hex code default definitions (Normally fetched from DB)
+const ZONE_COLORS: Record<string, string> = {
+  head: '#FFCCCC',
+  core: '#CCFFCC',
+  legs: '#CCCCFF',
+  tail: '#FFFFCC',
+  'hand-l': '#FFCCFF',
+  'hand-r': '#CCFFFF',
+  accessory: '#DDDDDD'
+};
+
+function writeBlueprintToFile(blueprint: GenerativeBlueprint, finalGridSize: number) {
+  const filePathTs = path.join(DEST_DIR, `${blueprint.slug}.ts`);
+  const filePathPng = path.join(process.cwd(), 'src/genesis/sprites/blueprints', `${blueprint.slug}.png`);
 
   // Map the array objects back to records for the blueprint file
   const mappingRecord: Record<string, string> = {};
@@ -131,21 +144,39 @@ function writeBlueprintToFile(blueprint: GenerativeBlueprint) {
 
   const fileContent = `import { defineBlueprint } from '@/features/genesis-core/blueprints';
 
-const grid = ${JSON.stringify(blueprint.grid, null, 2)}.map(row => row.split(''));
-
 export default defineBlueprint({
   name: '${blueprint.name}',
   slug: '${blueprint.slug}',
   category: '${blueprint.category}',
-  grid,
+  gridUrl: '/src/genesis/sprites/blueprints/${blueprint.slug}.png',
   zones: ${JSON.stringify(blueprint.zones)},
   mapping: ${JSON.stringify(mappingRecord, null, 4)},
   anchors: ${JSON.stringify(anchorRecord, null, 4)}
 });
 `;
 
-  fs.writeFileSync(filePath, fileContent);
-  console.log(`✅ Saved ${blueprint.slug}.ts to ${filePath}`);
+  fs.writeFileSync(filePathTs, fileContent);
+  console.log(`✅ Saved ${blueprint.slug}.ts to ${filePathTs}`);
+  
+  // Create raw Hex Array logic
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { hexArrayToPng } = require('../../scripts/png-to-hex.js');
+  
+  const hexArray: string[] = [];
+  for (const row of blueprint.grid) {
+     for (const char of row) {
+        if (char === ' ') {
+           hexArray.push('#00000000');
+        } else {
+           const slug = mappingRecord[char];
+           hexArray.push(ZONE_COLORS[slug] || '#FF00FF'); 
+        }
+     }
+  }
+
+  hexArrayToPng(hexArray, finalGridSize, filePathPng)
+    .then(() => console.log(`🖼️ Saved Blueprint Image to ${filePathPng}`))
+    .catch((e: Error) => console.error(`❌ Failed to save PNG: ${e.message}`));
 }
 
 async function run() {
@@ -196,7 +227,7 @@ async function run() {
           a.coords.y = Math.floor(a.coords.y * multiplier);
         }
 
-        writeBlueprintToFile(bp);
+        writeBlueprintToFile(bp, finalGridSize);
       }
     }
   }

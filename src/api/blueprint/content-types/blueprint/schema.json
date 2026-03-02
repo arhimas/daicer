@@ -25,11 +25,9 @@
       "enum": ["Creature", "Item", "Structure", "Effect", "Terrain"],
       "default": "Creature"
     },
-    "grid": {
+    "spriteData": {
       "type": "customField",
-      "customField": "plugin::map-explorer.pixel-forge",
-      "required": true,
-      "description": "Visual Layout"
+      "customField": "plugin::map-explorer.pixel-forge"
     },
     "width": {
       "type": "integer",
@@ -54,6 +52,24 @@
       "relation": "manyToMany",
       "target": "api::entity-zone.entity-zone",
       "inversedBy": "blueprints"
+    },
+    "entities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::entity.entity",
+      "mappedBy": "blueprint"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::item.item",
+      "mappedBy": "blueprint"
+    },
+    "terrains": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::terrain.terrain",
+      "mappedBy": "blueprint"
     }
   }
 }

@@ -23,10 +23,11 @@ export type EntityZoneInput = Omit<Modules.Documents.Params.Data.Input<'api::ent
   color?: string;
 };
 
-export type BlueprintInput = Omit<Modules.Documents.Params.Data.Input<'api::blueprint.blueprint'>, 'category'> & 
+export type BlueprintInput = Partial<Omit<Modules.Documents.Params.Data.Input<'api::blueprint.blueprint'>, 'category'>> & 
   BaseInput & { 
     category?: string; 
-    grid: string[][]; 
+    grid?: string[][]; 
+    gridUrl?: string;
     zones?: string[];
     mapping?: Record<string, string>;
     anchors?: Record<string, [number, number]>;

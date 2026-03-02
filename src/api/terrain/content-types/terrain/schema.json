@@ -68,6 +68,15 @@
       "repeatable": false,
       "component": "world.noise-config"
     },
+    "blueprint": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blueprint.blueprint",
+      "inversedBy": "terrains"
+    },
+    "spriteData": {
+      "type": "json"
+    },
     "texture": {
       "type": "customField",
       "customField": "plugin::map-explorer.texture-grid"

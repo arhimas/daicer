@@ -75,6 +75,8 @@ export const ItemSchema = z
     equipment_data: EquipmentDataSchema.optional(),
 
     tags: RelationMany,
+    blueprint: RelationMany,
+    spriteData: z.array(z.string()).optional(),
   })
   .strict();
 
@@ -115,7 +117,9 @@ export const BlueprintSchema = z
     name: z.string().min(1),
     description: RichText.optional(),
     category: z.enum(['Creature', 'Item', 'Structure', 'Effect', 'Terrain']).default('Creature'),
-    grid: z.array(z.array(z.string()).min(32)).min(32).describe('A 2D array of string symbols representing the blueprint. Must be at least 32x32.'),
+    gridUrl: z.string().optional().describe('Local URI to the master PNG image file used for spatial logic'),
+    grid: z.array(z.array(z.string()).min(32)).min(32).optional().describe('Legacy 2D array of string symbols representing the blueprint. Must be at least 32x32.'),
+    spriteData: z.array(z.string()).optional().describe('Raw 1D hex array representing the PNG matrix'),
     zones: RelationMany,
     mapping: z.record(z.string(), z.string()).optional().describe('Dictionary mapping symbols in grid to zone slugs (e.g. { "O": "head" })'),
     anchors: z.record(z.string(), z.tuple([z.number(), z.number()])).optional().describe('Explicit [x, y] coordinates for zone attachment points, overriding auto-centroids'),

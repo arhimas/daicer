@@ -54,6 +54,8 @@ export const TerrainSchema = z
     moisture: z.number().default(0),
     temperature: z.number().default(0),
     tags: RelationMany,
+    blueprint: RelationMany,
+    spriteData: z.array(z.string()).optional(),
   })
   .strict();
 

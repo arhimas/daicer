@@ -3,11 +3,9 @@
 import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
-import { SchemaLoader } from '@/features/genesis-core/schema-loader';
-import { DryRunService } from '@/features/genesis-core/dry-run-service';
-import { GenesisManifest } from '@/features/genesis-core/audit-service';
 
 describe('Genesis Integrity', () => {
+
   const manifestPath = path.resolve(process.cwd(), 'genesis-manifest.json');
 
   if (!fs.existsSync(manifestPath)) {
@@ -100,7 +98,7 @@ describe('Genesis Integrity', () => {
   });
 
   const checkDirectoryCoverage = async (dirName: string, uid: string) => {
-    const dirPath = path.resolve(process.cwd(), 'src/data/blueprints', dirName);
+    const dirPath = path.resolve(process.cwd(), 'src/genesis/blueprints', dirName);
     if (!fs.existsSync(dirPath)) return { total: 0, invalid: [] };
     
     const files = fs.readdirSync(dirPath).filter((f) => f.endsWith('.ts'));
