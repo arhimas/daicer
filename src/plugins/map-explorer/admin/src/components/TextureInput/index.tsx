@@ -9,7 +9,7 @@ import {
   SingleSelectOption,
   Textarea,
 } from '@strapi/design-system';
-import { useFetchClient } from '@strapi/admin/strapi-admin';
+import { useFetchClient, useForm } from '@strapi/admin/strapi-admin';
 import { useIntl } from 'react-intl';
 import { Trash, Drag, Pencil, Magic, Code, Check } from '@strapi/icons';
 import { Chunk } from '../../types';
@@ -32,8 +32,18 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
   const { post, get } = useFetchClient();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Access Parent Entity Context (Mocked/Empty safely)
-  const modifiedData: Record<string, unknown> = {};
+  // Bulletproof Extraction for Strapi 5 Nested Routes
+  const pathParts = typeof window !== 'undefined' ? window.location.pathname.split('/') : [];
+  const fallbackId = pathParts.pop(); // The last part is the document ID (or 'create')
+  const fallbackUid = pathParts.pop(); // The second to last is the Model UID
+
+  const formState = useForm('TextureInput', (state) => state);
+  const formValues = formState?.values;
+
+  // Access Parent Entity Context
+  const modifiedData = (formValues || {}) as Record<string, unknown>;
+  const finalDocumentId = modifiedData?.documentId || modifiedData?.id || (fallbackId !== 'create' ? fallbackId : undefined);
+  const modelUid = fallbackUid; // Typically api::terrain.terrain
 
   // State
   const [chunk, setChunk] = useState<Chunk | null>(null);
@@ -484,7 +494,11 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
         model,
         inputPixels,
         blueprint: metadata?.blueprint,
-        entityData: modifiedData,
+        entityData: { ...modifiedData },
+        entityContext: {
+          uid: modelUid,
+          documentId: finalDocumentId,
+        },
       });
 
       if (data.jobId) setJobId(data.jobId);

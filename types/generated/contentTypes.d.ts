@@ -473,9 +473,7 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    grid: Schema.Attribute.JSON &
-      Schema.Attribute.Required &
-      Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
+    entities: Schema.Attribute.Relation<'oneToMany', 'api::entity.entity'>;
     height: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -485,11 +483,15 @@ export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<1>;
+    items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blueprint.blueprint'> & Schema.Attribute.Private;
     mapping: Schema.Attribute.JSON;
     name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
+    terrains: Schema.Attribute.Relation<'oneToMany', 'api::terrain.terrain'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     width: Schema.Attribute.Integer &
@@ -780,6 +782,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     alignment: Schema.Attribute.String;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     background: Schema.Attribute.RichText;
+    blueprint: Schema.Attribute.Relation<'manyToOne', 'api::blueprint.blueprint'>;
     challenge_rating: Schema.Attribute.Decimal;
     classes: Schema.Attribute.Component<'game.character-class', true>;
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
@@ -824,7 +827,6 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     proficiencies: Schema.Attribute.Relation<'manyToMany', 'api::proficiency.proficiency'>;
     publishedAt: Schema.Attribute.DateTime;
     race: Schema.Attribute.Relation<'manyToOne', 'api::race.race'>;
@@ -835,6 +837,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'Medium'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
+    spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
@@ -1019,6 +1022,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    blueprint: Schema.Attribute.Relation<'manyToOne', 'api::blueprint.blueprint'>;
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1054,7 +1058,6 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    pixel_generator: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     publishedAt: Schema.Attribute.DateTime;
     rarity: Schema.Attribute.Enumeration<['common', 'uncommon', 'rare', 'very_rare', 'legendary', 'artifact']> &
       Schema.Attribute.DefaultTo<'common'>;
@@ -1064,6 +1067,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'Medium'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spell_data: Schema.Attribute.Component<'game.spell-data', false>;
+    spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     type: Schema.Attribute.Enumeration<
       [
@@ -1782,6 +1786,7 @@ export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    blueprint: Schema.Attribute.Relation<'manyToOne', 'api::blueprint.blueprint'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     damagePerTick: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
@@ -1812,6 +1817,7 @@ export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
     noise_config: Schema.Attribute.Component<'world.noise-config', false>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    spriteData: Schema.Attribute.JSON;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     temperature: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<

@@ -263,6 +263,8 @@ export class GenesisSeeder {
            const parsed = await pngToHexArray(spritePath);
            if (parsed && parsed.hexArray) {
               result.spriteData = parsed.hexArray;
+              if (parsed.width) result.width = parsed.width / 32;
+              if (parsed.height) result.height = parsed.height / 32;
            }
         } catch (e) {
            console.warn(`⚠️ Failed to parse sprite for ${result.slug}: ${e}`);

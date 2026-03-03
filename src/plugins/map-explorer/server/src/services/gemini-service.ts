@@ -1,5 +1,8 @@
 import type { Core } from '@strapi/strapi';
 import { GeminiService, StrapiAdapter, LLMCoreConfig, GenerationConfig } from '@daicer/llm-core';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 export default ({ strapi }: { strapi: Core.Strapi }) => {
   // 1. Define Adapter
@@ -94,11 +97,81 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
       } // Closes if (!finalBlueprintMatrix)
 
       // 5. Dispatch actual Sprite Generation with Hydrated Blueprint
-      return coreService.generatePixelDataV2({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const result: any = await coreService.generatePixelDataV2({
         ...genConfig,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         blueprint: (finalBlueprintMatrix || genConfig.blueprint) as any
       });
+
+      // 6. SOTA PNG Media Persistance: Convert Base64 GenAI payload to Media Library Items
+      if (
+        result &&
+        result.base64Processed &&
+        genConfig.entityContext?.uid &&
+        genConfig.entityContext?.documentId
+      ) {
+        try {
+          const uploadService = strapi.plugin('upload').service('upload');
+          const uid = genConfig.entityContext.uid;
+          const docId = genConfig.entityContext.documentId;
+          const slugName = genConfig.archetype || 'sprite';
+          const now = Date.now();
+
+          strapi.log.info(`[GeminiService] Persisting base64 sprites to Media Library for ${uid}:${docId}...`);
+
+          const tmpDir = os.tmpdir();
+          
+          let origUploadObj = null;
+          let procUploadObj = null;
+
+          // Process Original (If Available)
+          if (result.base64Original) {
+             const origBuffer = Buffer.from(result.base64Original.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+             const origPath = path.join(tmpDir, `orig-${slugName}-${now}.png`);
+             fs.writeFileSync(origPath, origBuffer);
+             const origStat = fs.statSync(origPath);
+             
+             const origUpload = await uploadService.upload({
+               data: { fileInfo: { name: `${slugName}-original`, caption: 'Raw LLM Image' } },
+               files: { path: origPath, name: `orig-${slugName}-${now}.png`, type: 'image/png', size: origStat.size }
+             });
+             origUploadObj = origUpload[0];
+             fs.unlinkSync(origPath);
+          }
+
+          // Process Quantized/Transparent
+          const procBuffer = Buffer.from(result.base64Processed.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+          const procPath = path.join(tmpDir, `proc-${slugName}-${now}.png`);
+          fs.writeFileSync(procPath, procBuffer);
+          const procStat = fs.statSync(procPath);
+
+          const procUpload = await uploadService.upload({
+             data: { fileInfo: { name: `${slugName}-processed`, caption: 'Quantized Sprite' } },
+             files: { path: procPath, name: `proc-${slugName}-${now}.png`, type: 'image/png', size: procStat.size }
+          });
+          procUploadObj = procUpload[0];
+          fs.unlinkSync(procPath);
+
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await strapi.documents(uid as any).update({
+            documentId: docId,
+            data: {
+              spriteOriginal: origUploadObj?.id || null,
+              spriteProcessed: procUploadObj?.id || null,
+              spriteData: result.pixelData ? result.pixelData.flat() : null,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any,
+            status: 'draft', // Ensure we don't accidentally auto-publish something in draft state? The UI triggers saves anyway.
+          });
+
+          strapi.log.info(`[GeminiService] Successfully attached Media Sprites to ${uid}:${docId}`);
+        } catch (uploadErr) {
+          strapi.log.error(`[GeminiService] Failed to upload/attach Media generated image...`, uploadErr);
+        }
+      }
+
+      return result;
     }
   };
 };

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Slug, RichText, RelationMany } from '@/genesis/schemas/common';
+import { Slug, RichText, RelationMany, RelationOne } from '@/genesis/schemas/common';
 
 export const TraitSchema = z
   .object({
@@ -25,7 +25,7 @@ export const ProficiencySchema = z
   .object({
     slug: Slug,
     name: z.string().min(1),
-    type: z.enum(['armor', 'weapon', 'tool', 'saving_throw', 'skill']).default('skill'),
+    type: z.enum(['Armor', 'Weapons', 'Tools', "Artisan's Tools", 'Gaming Sets', 'Musical Instruments', 'Vehicles', 'Other', 'Saving Throws', 'Skills']).default('Skills'),
   })
   .strict();
 
@@ -54,7 +54,7 @@ export const TerrainSchema = z
     moisture: z.number().default(0),
     temperature: z.number().default(0),
     tags: RelationMany,
-    blueprint: RelationMany,
+    blueprint: RelationOne,
     spriteData: z.array(z.string()).optional(),
   })
   .strict();

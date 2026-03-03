@@ -14,6 +14,38 @@ const RAW_TAGS = [
   { name: 'Underdark', category: 'thematic', color: '#800080' },
   { name: 'Underwater', category: 'thematic', color: '#000080' },
   { name: 'Urban', category: 'thematic', color: '#778899' },
+  { name: 'Natural', category: 'thematic', color: '#2E8B57' },
+  { name: 'Artificial', category: 'thematic', color: '#A9A9A9' },
+
+  // --- Physical / Composition ---
+  { name: 'Liquid', category: 'thematic', color: '#00BFFF' },
+  { name: 'Gas', category: 'thematic', color: '#E0FFFF' },
+  { name: 'Ore', category: 'thematic', color: '#8B4513' },
+  { name: 'Mineral', category: 'thematic', color: '#D2B48C' },
+  { name: 'Soil', category: 'thematic', color: '#8B4513' },
+  { name: 'Vegetation', category: 'thematic', color: '#228B22' },
+  { name: 'Fungi', category: 'thematic', color: '#800080' },
+  { name: 'Volcanic', category: 'thematic', color: '#FF4500' },
+  { name: 'Hazard', category: 'thematic', color: '#FF0000' },
+  { name: 'Trap', category: 'thematic', color: '#CD5C5C' },
+  { name: 'Furniture', category: 'thematic', color: '#D2691E' },
+  { name: 'Storage', category: 'thematic', color: '#8B4513' },
+  { name: 'Tech', category: 'thematic', color: '#C0C0C0' },
+  { name: 'Industrial', category: 'thematic', color: '#708090' },
+  { name: 'Core', category: 'thematic', color: '#FFD700' },
+  { name: 'Decay', category: 'thematic', color: '#556B2F' },
+  
+  // --- Modifiers ---
+  { name: 'Religious', category: 'meta', color: '#FFD700' },
+  { name: 'Magical', category: 'meta', color: '#9370DB' },
+  { name: 'Indestructible', category: 'meta', color: '#000000' },
+  { name: 'Dungeon', category: 'thematic', color: '#696969' },
+  { name: 'Jungle', category: 'thematic', color: '#006400' },
+  { name: 'Hot', category: 'thematic', color: '#FF4500' },
+  { name: 'Savanna', category: 'thematic', color: '#DAA520' },
+  { name: 'Royal', category: 'thematic', color: '#FFD700' },
+  { name: 'Light', category: 'thematic', color: '#FFFFE0' },
+  { name: 'Dark', category: 'thematic', color: '#2F4F4F' },
 
   // --- Magic Schools ---
   { name: 'Abjuration', category: 'mechanic', color: '#6495ED' },
@@ -134,6 +166,20 @@ const RAW_TAGS = [
   { name: 'Staff', category: 'mechanic', color: '#8B4513' },
   { name: 'Wand', category: 'mechanic', color: '#D2691E' },
   { name: 'Tool', category: 'mechanic', color: '#808080' },
+
+  // --- Classes ---
+  { name: 'Class Barbarian', category: 'meta', color: '#FF4500' },
+  { name: 'Class Bard', category: 'meta', color: '#FF69B4' },
+  { name: 'Class Cleric', category: 'meta', color: '#F0E68C' },
+  { name: 'Class Druid', category: 'meta', color: '#228B22' },
+  { name: 'Class Fighter', category: 'meta', color: '#A52A2A' },
+  { name: 'Class Monk', category: 'meta', color: '#4682B4' },
+  { name: 'Class Paladin', category: 'meta', color: '#FFD700' },
+  { name: 'Class Ranger', category: 'meta', color: '#556B2F' },
+  { name: 'Class Rogue', category: 'meta', color: '#2F4F4F' },
+  { name: 'Class Sorcerer', category: 'meta', color: '#9932CC' },
+  { name: 'Class Warlock', category: 'meta', color: '#8B008B' },
+  { name: 'Class Wizard', category: 'meta', color: '#0000CD' },
 
   // --- Monster Types ---
   { name: 'Aberration', category: 'mechanic', color: '#800080' },

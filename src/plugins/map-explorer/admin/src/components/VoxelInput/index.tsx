@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useFetchClient } from '@strapi/admin/strapi-admin';
+import { useFetchClient, useForm } from '@strapi/admin/strapi-admin';
 import {
   Box,
   Typography,
@@ -40,9 +40,20 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
   const { get, post } = useFetchClient();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Dynamic Grid Size
   const DEFAULT_SIZE = 16;
   const gridSize = attribute.options?.size || DEFAULT_SIZE;
+
+  // Bulletproof Extraction for Strapi 5 Nested Routes
+  const pathParts = typeof window !== 'undefined' ? window.location.pathname.split('/') : [];
+  const fallbackId = pathParts.pop();
+  const fallbackUid = pathParts.pop();
+
+  const formState = useForm('VoxelInput', (state) => state);
+  const formValues = formState?.values;
+
+  const modifiedData = (formValues || {}) as Record<string, unknown>;
+  const finalDocumentId = modifiedData?.documentId || modifiedData?.id || (fallbackId !== 'create' ? fallbackId : undefined);
+  const modelUid = fallbackUid;
 
   const [chunk, setChunk] = useState<Chunk | null>(null);
   const [currentZ, setCurrentZ] = useState(3);
@@ -142,7 +153,11 @@ export const VoxelInput = React.forwardRef<HTMLInputElement, VoxelInputProps>((p
         action: 'generate_voxel',
         width: gridSize,
         model,
-        entityData: { gridSize },
+        entityData: { ...modifiedData },
+        entityContext: {
+          uid: modelUid,
+          documentId: finalDocumentId,
+        },
       });
 
       if (data.jobId) setJobId(data.jobId);

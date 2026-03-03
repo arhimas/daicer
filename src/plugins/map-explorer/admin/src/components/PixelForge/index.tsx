@@ -74,21 +74,37 @@ interface EntityData {
  */
 export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   const { post, get } = useFetchClient();
-  const params = useParams<{ slug?: string; id?: string }>();
-  const formValues = useForm('PixelForge', (state) => state.values);
+  const params = useParams<{ slug?: string; id?: string; collectionType?: string; model?: string }>();
+  
+  // Bulletproof Extraction for Strapi 5 Nested Routes where `useParams` loses scope
+  const pathParts = typeof window !== 'undefined' ? window.location.pathname.split('/') : [];
+  // Typically: /admin/content-manager/collection-types/api::terrain.terrain/documentId
+  const fallbackId = pathParts.pop(); // The last part is the document ID (or 'create')
+  const fallbackUid = pathParts.pop(); // The second to last is the Model UID
+
+  const formState = useForm('PixelForge', (state) => state);
+  const formValues = formState?.values;
+  
+  // DEBUG LOG
+  console.log("PIXEL FORGE DEBUG STATE:", formState);
 
   // Resolve Model UID safe
-  const modelUid = params.slug;
+  const modelUid = params.slug || params.collectionType || params.model || fallbackUid;
 
   // Strict Access
   const modifiedData = (formValues || {}) as EntityData;
+  const finalDocumentId = modifiedData?.documentId || modifiedData?.id || params?.id || (fallbackId !== 'create' ? fallbackId : undefined);
+
 
   // SOTA D&D Sizing Mapping
   // Default to 1 (32x32) if anything goes wrong
   let widthTiles = 1;
-  let heightTiles = 1;
 
-  if (modifiedData.size) {
+  if (modelUid === 'api::blueprint.blueprint') {
+    // Blueprints use distinct width/height properties
+    if (modifiedData.width) widthTiles = Number(modifiedData.width);
+  } else if (modifiedData.size) {
+    // Entities use semantic sizes
     const s = String(modifiedData.size).toLowerCase();
     if (s === 'large') widthTiles = 2;
     else if (s === 'huge') widthTiles = 3;
@@ -97,7 +113,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
      widthTiles = Number(modifiedData.width);
   }
 
-  heightTiles = widthTiles; // Always square
+  const heightTiles = widthTiles; // Always square currently
 
   const gridWidth = widthTiles * 32;
   const gridHeight = heightTiles * 32;
@@ -115,7 +131,6 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
 
   // AI State
   const [prompt, setPrompt] = useState('');
-  const [model, setModel] = useState('gemini-3-flash-preview'); // Default to Gemini 3 Flash
   const [isGenerating, setIsGenerating] = useState(false);
   const [jobId, setJobId] = useState<string | null>(null);
   const [jobStatus, setJobStatus] = useState<'queued' | 'active' | 'completed' | 'failed' | null>(
@@ -281,7 +296,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         type,
         archetype,
         size: 'Custom',
-        model,
+        model: 'gemini-3.1-flash-image-preview', // Hardcoded master Image pipeline
 
         // Pass Blueprint DNA if available
         blueprint: metadata?.blueprint,
@@ -296,7 +311,7 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         entityContext: {
           uid: modelUid,
           // If new, this will be undefined, triggering the backend Fallback to entityData
-          documentId: modifiedData?.documentId || modifiedData?.id,
+          documentId: finalDocumentId,
         },
       });
 
@@ -338,10 +353,11 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   };
 
   const handlePixelClick = (x: number, y: number) => {
-    // Allow Reference tools (Pin, Picker) OR Drawing tools (Pencil, Eraser)
-    // The previous guard `!isDrawing` prevented single clicks.
-    // We remove it to support click-to-draw.
-    // if (!isDrawing && tool !== 'pin' && tool !== 'picker') return;
+    // SOTA Enforce Blueprint Mastery: Prevent raw editing if no blueprint is loaded for physical instances
+    if (modelUid !== 'api::blueprint.blueprint' && !metadata?.blueprint) {
+       alert("SOTA Blueprint Constraint: You must load a Blueprint before editing or generating an instance.");
+       return;
+    }
 
     // Clone grid for mutation
     const newPixels = pixels.map((row) => [...row]);
@@ -1087,25 +1103,16 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                 </Grid.Item>
                 <Grid.Item col={4} s={12}>
                   <Flex direction="column" gap={2} height="100%" justifyContent="center">
-                    <SingleSelect placeholder="Model" size="S" value={model} onChange={setModel}>
-                      <SingleSelectOption value="gemini-3-flash-preview">
-                        Gemini 3 Flash Preview
-                      </SingleSelectOption>
-                      <SingleSelectOption value="gemini-3-pro-preview">
-                        Gemini 3 Pro Preview
-                      </SingleSelectOption>
-                    </SingleSelect>
-
                     <Flex gap={2}>
                       <Button
                         onClick={handleGenerate}
-                        disabled={isGenerating || !prompt}
+                        disabled={isGenerating || !prompt || (modelUid !== 'api::blueprint.blueprint' && !metadata?.blueprint)}
                         fullWidth
                         startIcon={<Magic />}
                         loading={isGenerating}
                         size="S"
                       >
-                        Generate
+                        Generate Image
                       </Button>
                     </Flex>
                   </Flex>

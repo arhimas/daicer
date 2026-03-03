@@ -27,7 +27,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'paladin'],
+    tags: ['class-bard', 'class-cleric', 'class-paladin'],
   },
   {
     slug: 'word-of-recall',
@@ -54,7 +54,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'wish',
@@ -81,7 +81,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'wind-wall',
@@ -109,7 +109,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'wind-walk',
@@ -137,7 +137,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'weird',
@@ -165,7 +165,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'web',
@@ -193,7 +193,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'water-walk',
@@ -221,7 +221,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'ranger', 'sorcerer'],
+    tags: ['class-cleric', 'class-druid', 'class-ranger', 'class-sorcerer'],
   },
   {
     slug: 'water-breathing',
@@ -249,7 +249,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'warding-bond',
@@ -277,7 +277,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'wall-of-thorns',
@@ -305,7 +305,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'wall-of-stone',
@@ -333,7 +333,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'wall-of-ice',
@@ -361,7 +361,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'wall-of-force',
@@ -389,7 +389,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'wall-of-fire',
@@ -417,7 +417,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'vicious-mockery',
@@ -444,7 +444,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard'],
+    tags: ['class-bard'],
   },
   {
     slug: 'vampiric-touch',
@@ -472,7 +472,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock', 'wizard'],
+    tags: ['class-warlock', 'class-wizard'],
   },
   {
     slug: 'unseen-servant',
@@ -500,7 +500,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'true-strike',
@@ -528,7 +528,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'true-seeing',
@@ -556,7 +556,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'true-resurrection',
@@ -583,7 +583,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'true-polymorph',
@@ -611,7 +611,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'tree-stride',
@@ -639,7 +639,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'transport-via-plants',
@@ -667,7 +667,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'tongues',
@@ -695,7 +695,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'tiny-hut',
@@ -723,7 +723,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'time-stop',
@@ -750,7 +750,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'thunderwave',
@@ -777,7 +777,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'thaumaturgy',
@@ -805,7 +805,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'teleportation-circle',
@@ -833,7 +833,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'teleport',
@@ -860,7 +860,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'telepathic-bond',
@@ -888,7 +888,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'telekinesis',
@@ -916,7 +916,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'symbol',
@@ -943,7 +943,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-wizard'],
   },
   {
     slug: 'sunburst',
@@ -970,7 +970,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'sunbeam',
@@ -998,7 +998,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'suggestion',
@@ -1026,7 +1026,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'storm-of-vengeance',
@@ -1054,7 +1054,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'stoneskin',
@@ -1082,7 +1082,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'stone-shape',
@@ -1109,7 +1109,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'wizard'],
+    tags: ['class-cleric', 'class-druid', 'class-wizard'],
   },
   {
     slug: 'stinking-cloud',
@@ -1137,7 +1137,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'spiritual-weapon',
@@ -1165,7 +1165,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'spirit-guardians',
@@ -1193,7 +1193,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'spike-growth',
@@ -1221,7 +1221,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'spider-climb',
@@ -1249,7 +1249,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'speak-with-plants',
@@ -1277,7 +1277,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'speak-with-dead',
@@ -1305,7 +1305,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric'],
+    tags: ['class-bard', 'class-cleric'],
   },
   {
     slug: 'speak-with-animals',
@@ -1333,7 +1333,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'spare-the-dying',
@@ -1360,7 +1360,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'slow',
@@ -1388,7 +1388,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'sleet-storm',
@@ -1416,7 +1416,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'sleep',
@@ -1444,7 +1444,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'simulacrum',
@@ -1471,7 +1471,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'silent-image',
@@ -1499,7 +1499,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'silence',
@@ -1527,7 +1527,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'ranger'],
+    tags: ['class-bard', 'class-cleric', 'class-ranger'],
   },
   {
     slug: 'shocking-grasp',
@@ -1554,7 +1554,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'shillelagh',
@@ -1582,7 +1582,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'shield',
@@ -1610,7 +1610,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'shield-of-faith',
@@ -1638,7 +1638,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'shatter',
@@ -1665,7 +1665,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'shapechange',
@@ -1693,7 +1693,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'wizard'],
+    tags: ['class-druid', 'class-wizard'],
   },
   {
     slug: 'sequester',
@@ -1720,7 +1720,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'sending',
@@ -1748,7 +1748,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-wizard'],
   },
   {
     slug: 'seeming',
@@ -1776,7 +1776,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'see-invisibility',
@@ -1804,7 +1804,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'secret-chest',
@@ -1831,7 +1831,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'scrying',
@@ -1859,7 +1859,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'scorching-ray',
@@ -1886,7 +1886,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'sanctuary',
@@ -1914,7 +1914,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'sacred-flame',
@@ -1941,7 +1941,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'rope-trick',
@@ -1969,7 +1969,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'revivify',
@@ -1996,7 +1996,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'reverse-gravity',
@@ -2024,7 +2024,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'resurrection',
@@ -2051,7 +2051,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric'],
+    tags: ['class-bard', 'class-cleric'],
   },
   {
     slug: 'resistance',
@@ -2079,7 +2079,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'resilient-sphere',
@@ -2107,7 +2107,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'remove-curse',
@@ -2134,7 +2134,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-paladin', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'reincarnate',
@@ -2161,7 +2161,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'regenerate',
@@ -2189,7 +2189,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid'],
+    tags: ['class-bard', 'class-cleric', 'class-druid'],
   },
   {
     slug: 'ray-of-frost',
@@ -2216,7 +2216,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'ray-of-enfeeblement',
@@ -2244,7 +2244,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock', 'wizard'],
+    tags: ['class-warlock', 'class-wizard'],
   },
   {
     slug: 'raise-dead',
@@ -2271,7 +2271,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'paladin'],
+    tags: ['class-bard', 'class-cleric', 'class-paladin'],
   },
   {
     slug: 'purify-food-and-drink',
@@ -2298,7 +2298,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'paladin'],
+    tags: ['class-cleric', 'class-druid', 'class-paladin'],
   },
   {
     slug: 'protection-from-poison',
@@ -2326,7 +2326,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'paladin', 'ranger'],
+    tags: ['class-cleric', 'class-druid', 'class-paladin', 'class-ranger'],
   },
   {
     slug: 'protection-from-evil-and-good',
@@ -2354,7 +2354,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-paladin', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'protection-from-energy',
@@ -2382,7 +2382,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-cleric', 'class-druid', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'project-image',
@@ -2410,7 +2410,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'programmed-illusion',
@@ -2437,7 +2437,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'produce-flame',
@@ -2465,7 +2465,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'private-sanctum',
@@ -2493,7 +2493,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'prismatic-wall',
@@ -2521,7 +2521,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'prismatic-spray',
@@ -2548,7 +2548,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'prestidigitation',
@@ -2576,7 +2576,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'prayer-of-healing',
@@ -2603,7 +2603,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'power-word-stun',
@@ -2630,7 +2630,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'power-word-kill',
@@ -2657,7 +2657,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'polymorph',
@@ -2685,7 +2685,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'poison-spray',
@@ -2712,7 +2712,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'plant-growth',
@@ -2739,7 +2739,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'plane-shift',
@@ -2766,7 +2766,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-druid', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'planar-binding',
@@ -2794,7 +2794,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-wizard'],
   },
   {
     slug: 'planar-ally',
@@ -2821,7 +2821,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'phantom-steed',
@@ -2849,7 +2849,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'phantasmal-killer',
@@ -2877,7 +2877,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'passwall',
@@ -2905,7 +2905,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'pass-without-trace',
@@ -2933,7 +2933,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'nondetection',
@@ -2961,7 +2961,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'ranger', 'wizard'],
+    tags: ['class-bard', 'class-ranger', 'class-wizard'],
   },
   {
     slug: 'move-earth',
@@ -2989,7 +2989,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'moonbeam',
@@ -3017,7 +3017,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'modify-memory',
@@ -3045,7 +3045,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'misty-step',
@@ -3072,7 +3072,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'mislead',
@@ -3100,7 +3100,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'mirror-image',
@@ -3128,7 +3128,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'mirage-arcane',
@@ -3156,7 +3156,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-wizard'],
   },
   {
     slug: 'minor-illusion',
@@ -3184,7 +3184,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'mind-blank',
@@ -3212,7 +3212,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'meteor-swarm',
@@ -3239,7 +3239,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'message',
@@ -3267,7 +3267,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'mending',
@@ -3294,7 +3294,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'meld-into-stone',
@@ -3322,7 +3322,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'maze',
@@ -3350,7 +3350,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'mass-suggestion',
@@ -3378,7 +3378,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'mass-healing-word',
@@ -3405,7 +3405,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'mass-heal',
@@ -3432,7 +3432,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'mass-cure-wounds',
@@ -3459,7 +3459,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid'],
+    tags: ['class-bard', 'class-cleric', 'class-druid'],
   },
   {
     slug: 'major-image',
@@ -3487,7 +3487,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'magnificent-mansion',
@@ -3515,7 +3515,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'magic-weapon',
@@ -3543,7 +3543,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['paladin', 'wizard'],
+    tags: ['class-paladin', 'class-wizard'],
   },
   {
     slug: 'magic-mouth',
@@ -3570,7 +3570,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'magic-missile',
@@ -3597,7 +3597,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'magic-jar',
@@ -3624,7 +3624,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'magic-circle',
@@ -3652,7 +3652,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-paladin', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'mage-hand',
@@ -3680,7 +3680,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'mage-armor',
@@ -3708,7 +3708,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'longstrider',
@@ -3736,7 +3736,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-ranger', 'class-wizard'],
   },
   {
     slug: 'locate-object',
@@ -3764,7 +3764,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-ranger', 'class-wizard'],
   },
   {
     slug: 'locate-creature',
@@ -3792,7 +3792,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-ranger', 'class-wizard'],
   },
   {
     slug: 'locate-animals-or-plants',
@@ -3819,7 +3819,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'lightning-bolt',
@@ -3846,7 +3846,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'light',
@@ -3874,7 +3874,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'levitate',
@@ -3902,7 +3902,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'lesser-restoration',
@@ -3929,7 +3929,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'ranger'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-ranger'],
   },
   {
     slug: 'legend-lore',
@@ -3956,7 +3956,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-wizard'],
   },
   {
     slug: 'knock',
@@ -3983,7 +3983,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'jump',
@@ -4010,7 +4010,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'irresistible-dance',
@@ -4038,7 +4038,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'invisibility',
@@ -4066,7 +4066,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'instant-summons',
@@ -4093,7 +4093,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'insect-plague',
@@ -4121,7 +4121,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'sorcerer'],
+    tags: ['class-cleric', 'class-druid', 'class-sorcerer'],
   },
   {
     slug: 'inflict-wounds',
@@ -4148,7 +4148,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'incendiary-cloud',
@@ -4176,7 +4176,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'imprisonment',
@@ -4203,7 +4203,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock', 'wizard'],
+    tags: ['class-warlock', 'class-wizard'],
   },
   {
     slug: 'illusory-script',
@@ -4231,7 +4231,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'identify',
@@ -4258,7 +4258,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'ice-storm',
@@ -4285,7 +4285,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'hypnotic-pattern',
@@ -4313,7 +4313,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'hunters-mark',
@@ -4341,7 +4341,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['ranger'],
+    tags: ['class-ranger'],
   },
   {
     slug: 'holy-aura',
@@ -4369,7 +4369,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'hold-person',
@@ -4397,7 +4397,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'hold-monster',
@@ -4425,7 +4425,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'hideous-laughter',
@@ -4453,7 +4453,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'heroism',
@@ -4481,7 +4481,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'paladin'],
+    tags: ['class-bard', 'class-paladin'],
   },
   {
     slug: 'heroes-feast',
@@ -4508,7 +4508,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'hellish-rebuke',
@@ -4535,7 +4535,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock'],
+    tags: ['class-warlock'],
   },
   {
     slug: 'heat-metal',
@@ -4563,7 +4563,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid'],
+    tags: ['class-bard', 'class-druid'],
   },
   {
     slug: 'healing-word',
@@ -4590,7 +4590,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid'],
+    tags: ['class-bard', 'class-cleric', 'class-druid'],
   },
   {
     slug: 'heal',
@@ -4617,7 +4617,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'haste',
@@ -4645,7 +4645,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'harm',
@@ -4672,7 +4672,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'hallucinatory-terrain',
@@ -4700,7 +4700,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'hallow',
@@ -4727,7 +4727,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'gust-of-wind',
@@ -4755,7 +4755,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'guiding-bolt',
@@ -4783,7 +4783,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'guidance',
@@ -4811,7 +4811,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'guards-and-wards',
@@ -4839,7 +4839,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'guardian-of-faith',
@@ -4867,7 +4867,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'greater-restoration',
@@ -4894,7 +4894,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid'],
+    tags: ['class-bard', 'class-cleric', 'class-druid'],
   },
   {
     slug: 'greater-invisibility',
@@ -4922,7 +4922,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'grease',
@@ -4950,7 +4950,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'goodberry',
@@ -5004,7 +5004,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-wizard'],
   },
   {
     slug: 'globe-of-invulnerability',
@@ -5032,7 +5032,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'glibness',
@@ -5060,7 +5060,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock'],
+    tags: ['class-bard', 'class-warlock'],
   },
   {
     slug: 'giant-insect',
@@ -5088,7 +5088,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'gentle-repose',
@@ -5116,7 +5116,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'wizard'],
+    tags: ['class-cleric', 'class-wizard'],
   },
   {
     slug: 'geas',
@@ -5144,7 +5144,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-wizard'],
   },
   {
     slug: 'gate',
@@ -5172,7 +5172,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'sorcerer', 'wizard'],
+    tags: ['class-cleric', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'gaseous-form',
@@ -5200,7 +5200,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'freezing-sphere',
@@ -5227,7 +5227,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'freedom-of-movement',
@@ -5255,7 +5255,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'foresight',
@@ -5283,7 +5283,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'forcecage',
@@ -5311,7 +5311,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'forbiddance',
@@ -5339,7 +5339,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'fog-cloud',
@@ -5367,7 +5367,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'fly',
@@ -5395,7 +5395,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'floating-disk',
@@ -5423,7 +5423,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'flesh-to-stone',
@@ -5451,7 +5451,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock', 'wizard'],
+    tags: ['class-warlock', 'class-wizard'],
   },
   {
     slug: 'flaming-sphere',
@@ -5479,7 +5479,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'wizard'],
+    tags: ['class-druid', 'class-wizard'],
   },
   {
     slug: 'flame-strike',
@@ -5506,7 +5506,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'flame-blade',
@@ -5534,7 +5534,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'fireball',
@@ -5561,7 +5561,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'fire-storm',
@@ -5588,7 +5588,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'sorcerer'],
+    tags: ['class-cleric', 'class-druid', 'class-sorcerer'],
   },
   {
     slug: 'fire-shield',
@@ -5616,7 +5616,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'fire-bolt',
@@ -5643,7 +5643,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'finger-of-death',
@@ -5670,7 +5670,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'find-traps',
@@ -5697,7 +5697,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'ranger'],
+    tags: ['class-cleric', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'find-the-path',
@@ -5725,7 +5725,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid'],
+    tags: ['class-bard', 'class-cleric', 'class-druid'],
   },
   {
     slug: 'find-steed',
@@ -5752,7 +5752,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['paladin'],
+    tags: ['class-paladin'],
   },
   {
     slug: 'find-familiar',
@@ -5779,7 +5779,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'feeblemind',
@@ -5806,7 +5806,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'feather-fall',
@@ -5834,7 +5834,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'fear',
@@ -5862,7 +5862,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'false-life',
@@ -5890,7 +5890,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'faithful-hound',
@@ -5918,7 +5918,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'faerie-fire',
@@ -5946,7 +5946,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid'],
+    tags: ['class-bard', 'class-druid'],
   },
   {
     slug: 'fabricate',
@@ -5973,7 +5973,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'eyebite',
@@ -6001,7 +6001,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'expeditious-retreat',
@@ -6029,7 +6029,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'etherealness',
@@ -6057,7 +6057,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'enthrall',
@@ -6085,7 +6085,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock'],
+    tags: ['class-bard', 'class-warlock'],
   },
   {
     slug: 'entangle',
@@ -6113,7 +6113,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'enlargereduce',
@@ -6141,7 +6141,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'enhance-ability',
@@ -6169,7 +6169,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'sorcerer'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-sorcerer'],
   },
   {
     slug: 'eldritch-blast',
@@ -6224,7 +6224,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'sorcerer'],
+    tags: ['class-cleric', 'class-druid', 'class-sorcerer'],
   },
   {
     slug: 'druidcraft',
@@ -6251,7 +6251,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'dream',
@@ -6279,7 +6279,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'dominate-person',
@@ -6307,7 +6307,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'dominate-monster',
@@ -6335,7 +6335,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'dominate-beast',
@@ -6363,7 +6363,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer'],
+    tags: ['class-druid', 'class-sorcerer'],
   },
   {
     slug: 'divine-word',
@@ -6390,7 +6390,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'divine-favor',
@@ -6418,7 +6418,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['paladin'],
+    tags: ['class-paladin'],
   },
   {
     slug: 'divination',
@@ -6445,7 +6445,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'dispel-magic',
@@ -6472,7 +6472,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'dispel-evil-and-good',
@@ -6500,7 +6500,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'disintegrate',
@@ -6527,7 +6527,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'disguise-self',
@@ -6555,7 +6555,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'dimension-door',
@@ -6582,7 +6582,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'detect-thoughts',
@@ -6610,7 +6610,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'detect-poison-and-disease',
@@ -6638,7 +6638,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'paladin', 'ranger'],
+    tags: ['class-cleric', 'class-druid', 'class-paladin', 'class-ranger'],
   },
   {
     slug: 'detect-magic',
@@ -6666,7 +6666,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'detect-evil-and-good',
@@ -6694,7 +6694,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'demiplane',
@@ -6722,7 +6722,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock', 'wizard'],
+    tags: ['class-warlock', 'class-wizard'],
   },
   {
     slug: 'delayed-blast-fireball',
@@ -6750,7 +6750,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'death-ward',
@@ -6778,7 +6778,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'daylight',
@@ -6806,7 +6806,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'paladin', 'ranger', 'sorcerer'],
+    tags: ['class-cleric', 'class-druid', 'class-paladin', 'class-ranger', 'class-sorcerer'],
   },
   {
     slug: 'darkvision',
@@ -6834,7 +6834,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger', 'sorcerer', 'wizard'],
+    tags: ['class-druid', 'class-ranger', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'darkness',
@@ -6862,7 +6862,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'dancing-lights',
@@ -6890,7 +6890,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'cure-wounds',
@@ -6917,7 +6917,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'druid', 'paladin', 'ranger'],
+    tags: ['class-bard', 'class-cleric', 'class-druid', 'class-paladin', 'class-ranger'],
   },
   {
     slug: 'creation',
@@ -6944,7 +6944,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'create-undead',
@@ -6971,7 +6971,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'create-or-destroy-water',
@@ -6998,7 +6998,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'create-food-and-water',
@@ -7025,7 +7025,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'counterspell',
@@ -7052,7 +7052,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'control-weather',
@@ -7080,7 +7080,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'wizard'],
+    tags: ['class-cleric', 'class-druid', 'class-wizard'],
   },
   {
     slug: 'control-water',
@@ -7108,7 +7108,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid', 'wizard'],
+    tags: ['class-cleric', 'class-druid', 'class-wizard'],
   },
   {
     slug: 'continual-flame',
@@ -7135,7 +7135,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'wizard'],
+    tags: ['class-cleric', 'class-wizard'],
   },
   {
     slug: 'contingency',
@@ -7163,7 +7163,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'contagion',
@@ -7191,7 +7191,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'druid'],
+    tags: ['class-cleric', 'class-druid'],
   },
   {
     slug: 'contact-other-plane',
@@ -7219,7 +7219,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['warlock', 'wizard'],
+    tags: ['class-warlock', 'class-wizard'],
   },
   {
     slug: 'conjure-woodland-beings',
@@ -7247,7 +7247,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'conjure-minor-elementals',
@@ -7275,7 +7275,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'wizard'],
+    tags: ['class-druid', 'class-wizard'],
   },
   {
     slug: 'conjure-fey',
@@ -7303,7 +7303,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'warlock'],
+    tags: ['class-druid', 'class-warlock'],
   },
   {
     slug: 'conjure-elemental',
@@ -7331,7 +7331,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'wizard'],
+    tags: ['class-druid', 'class-wizard'],
   },
   {
     slug: 'conjure-celestial',
@@ -7359,7 +7359,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'conjure-animals',
@@ -7387,7 +7387,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'confusion',
@@ -7415,7 +7415,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'cone-of-cold',
@@ -7442,7 +7442,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'compulsion',
@@ -7470,7 +7470,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard'],
+    tags: ['class-bard'],
   },
   {
     slug: 'comprehend-languages',
@@ -7498,7 +7498,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'commune',
@@ -7526,7 +7526,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'commune-with-nature',
@@ -7553,7 +7553,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'command',
@@ -7581,7 +7581,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'color-spray',
@@ -7609,7 +7609,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'cloudkill',
@@ -7637,7 +7637,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'clone',
@@ -7664,7 +7664,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'clairvoyance',
@@ -7692,7 +7692,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'circle-of-death',
@@ -7719,7 +7719,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'chill-touch',
@@ -7747,7 +7747,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'warlock', 'wizard'],
+    tags: ['class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'charm-person',
@@ -7775,7 +7775,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-bard', 'class-druid', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'chain-lightning',
@@ -7802,7 +7802,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'calm-emotions',
@@ -7830,7 +7830,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric'],
+    tags: ['class-bard', 'class-cleric'],
   },
   {
     slug: 'call-lightning',
@@ -7858,7 +7858,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'burning-hands',
@@ -7885,7 +7885,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'branding-smite',
@@ -7913,7 +7913,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['paladin'],
+    tags: ['class-paladin'],
   },
   {
     slug: 'blur',
@@ -7941,7 +7941,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'blink',
@@ -7969,7 +7969,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'blindnessdeafness',
@@ -7997,7 +7997,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'blight',
@@ -8024,7 +8024,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-druid', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'bless',
@@ -8052,7 +8052,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'blade-barrier',
@@ -8080,7 +8080,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'black-tentacles',
@@ -8108,7 +8108,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'bestow-curse',
@@ -8136,7 +8136,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric', 'wizard'],
+    tags: ['class-bard', 'class-cleric', 'class-wizard'],
   },
   {
     slug: 'beacon-of-hope',
@@ -8164,7 +8164,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'barkskin',
@@ -8192,7 +8192,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'ranger'],
+    tags: ['class-druid', 'class-ranger'],
   },
   {
     slug: 'banishment',
@@ -8220,7 +8220,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin', 'sorcerer', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-paladin', 'class-sorcerer', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'bane',
@@ -8248,7 +8248,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'cleric'],
+    tags: ['class-bard', 'class-cleric'],
   },
   {
     slug: 'awaken',
@@ -8275,7 +8275,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid'],
+    tags: ['class-bard', 'class-druid'],
   },
   {
     slug: 'augury',
@@ -8302,7 +8302,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric'],
+    tags: ['class-cleric'],
   },
   {
     slug: 'astral-projection',
@@ -8329,7 +8329,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'warlock', 'wizard'],
+    tags: ['class-cleric', 'class-warlock', 'class-wizard'],
   },
   {
     slug: 'arcanists-magic-aura',
@@ -8357,7 +8357,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'arcane-sword',
@@ -8385,7 +8385,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'wizard'],
+    tags: ['class-bard', 'class-wizard'],
   },
   {
     slug: 'arcane-lock',
@@ -8412,7 +8412,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'arcane-hand',
@@ -8440,7 +8440,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'arcane-eye',
@@ -8468,7 +8468,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
   {
     slug: 'antipathysympathy',
@@ -8496,7 +8496,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid', 'wizard'],
+    tags: ['class-druid', 'class-wizard'],
   },
   {
     slug: 'antimagic-field',
@@ -8524,7 +8524,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'wizard'],
+    tags: ['class-cleric', 'class-wizard'],
   },
   {
     slug: 'antilife-shell',
@@ -8552,7 +8552,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'animate-objects',
@@ -8580,7 +8580,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'sorcerer', 'wizard'],
+    tags: ['class-bard', 'class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'animate-dead',
@@ -8607,7 +8607,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'wizard'],
+    tags: ['class-cleric', 'class-wizard'],
   },
   {
     slug: 'animal-shapes',
@@ -8635,7 +8635,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['druid'],
+    tags: ['class-druid'],
   },
   {
     slug: 'animal-messenger',
@@ -8663,7 +8663,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'animal-friendship',
@@ -8691,7 +8691,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['bard', 'druid', 'ranger'],
+    tags: ['class-bard', 'class-druid', 'class-ranger'],
   },
   {
     slug: 'alter-self',
@@ -8719,7 +8719,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'alarm',
@@ -8747,7 +8747,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['ranger', 'wizard'],
+    tags: ['class-ranger', 'class-wizard'],
   },
   {
     slug: 'aid',
@@ -8775,7 +8775,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['cleric', 'paladin'],
+    tags: ['class-cleric', 'class-paladin'],
   },
   {
     slug: 'acid-splash',
@@ -8802,7 +8802,7 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['sorcerer', 'wizard'],
+    tags: ['class-sorcerer', 'class-wizard'],
   },
   {
     slug: 'acid-arrow',
@@ -8829,6 +8829,6 @@ export const SPELLS: SeedSpell[] = [
     mechanics_config: {
       action_type: 'None',
     },
-    tags: ['wizard'],
+    tags: ['class-wizard'],
   },
 ];

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Slug, RichText, RelationMany, SizeEnum } from '@/genesis/schemas/common';
+import { Slug, RichText, RelationMany, SizeEnum, RelationOne } from '@/genesis/schemas/common';
 import { StatsSchema } from '@/genesis/schemas/components';
 
 export const EntitySchema = z
@@ -39,7 +39,7 @@ export const EntitySchema = z
       .optional(),
 
     tags: RelationMany,
-    blueprint: RelationMany,
+    blueprint: RelationOne,
     spriteData: z.array(z.string()).optional(),
   })
   .strict();

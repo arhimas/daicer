@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Slug, RichText, RelationMany } from '@/genesis/schemas/common';
+import { Slug, RichText, RelationMany, RelationOne } from '@/genesis/schemas/common';
 import {
   CastingConfigSchema,
   RangeConfigSchema,
@@ -75,7 +75,7 @@ export const ItemSchema = z
     equipment_data: EquipmentDataSchema.optional(),
 
     tags: RelationMany,
-    blueprint: RelationMany,
+    blueprint: RelationOne,
     spriteData: z.array(z.string()).optional(),
   })
   .strict();
@@ -118,6 +118,8 @@ export const BlueprintSchema = z
     description: RichText.optional(),
     category: z.enum(['Creature', 'Item', 'Structure', 'Effect', 'Terrain']).default('Creature'),
     gridUrl: z.string().optional().describe('Local URI to the master PNG image file used for spatial logic'),
+    width: z.number().int().min(1).max(128).optional().describe('Grid width in tiles (1 tile = 32px)'),
+    height: z.number().int().min(1).max(128).optional().describe('Grid height in tiles (1 tile = 32px)'),
     grid: z.array(z.array(z.string()).min(32)).min(32).optional().describe('Legacy 2D array of string symbols representing the blueprint. Must be at least 32x32.'),
     spriteData: z.array(z.string()).optional().describe('Raw 1D hex array representing the PNG matrix'),
     zones: RelationMany,

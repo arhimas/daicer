@@ -51,8 +51,8 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
     */
 
     // In Strapi v5 Admin, we might get context differently.
-    const params = useParams<{ slug?: string; id?: string }>();
-    const slug = params.slug;
+    const params = useParams<{ slug?: string; id?: string; collectionType?: string; model?: string }>();
+    const slug = params.slug || params.collectionType || params.model;
     const paramId = params.id;
 
     // Safety check: Only show valid UI if we are in a saved World

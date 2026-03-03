@@ -12,8 +12,10 @@ async function main() {
     const seeder = new GenesisSeeder(strapi);
     await seeder.run();
 
-    await strapi.destroy();
     console.log("Strapi has been shut down");
+
+    // Force clean exit to prevent SQLite macOS C++ mutex lock crashes
+    process.exit(0);
 
     // Force clean exit to prevent SQLite macOS C++ mutex lock crashes
     process.exit(0);

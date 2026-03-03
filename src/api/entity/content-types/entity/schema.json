@@ -170,11 +170,28 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::blueprint.blueprint",
-      "inversedBy": "entities"
+      "inversedBy": "entities",
+      "required": true
     },
     "spriteData": {
       "type": "customField",
       "customField": "plugin::map-explorer.pixel-forge"
+    },
+    "spriteOriginal": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "spriteProcessed": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

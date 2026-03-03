@@ -1,5 +1,12 @@
 import { test, expect, vi } from 'vitest';
 import createGeminiService from '@daicer/llm-core/services/gemini';
+import { ImageGenerator } from '@daicer/llm-core/services/image-generator';
+
+vi.mock('@daicer/llm-core/services/image-generator', () => ({
+  ImageGenerator: {
+    generate: vi.fn()
+  }
+}));
 
 test('generatePixelDataV2 executes without formatting crash', async () => {
   const mockAdapter: any = {
@@ -13,23 +20,17 @@ test('generatePixelDataV2 executes without formatting crash', async () => {
 
   const service = createGeminiService({ adapter: mockAdapter, config: mockConfig });
   
-  // Create a spy to bypass actual LLM invocation, but test Zod schemas
-  service.getModel = vi.fn().mockResolvedValue({
-      withStructuredOutput: vi.fn().mockReturnValue({
-          invoke: vi.fn().mockResolvedValue({
-              palette: { 'x': 'f00f', '#': '0f0f' },
-              asciiGrid: [
-                  'x # x',
-                  '  #  ',
-                  'x # x'
-              ]
-          })
-      }),
-      temperature: 0.1,
-      topP: 0.1,
+  vi.mocked(ImageGenerator.generate).mockResolvedValue({
+    base64Original: 'data:image/png;base64,mock',
+    base64Processed: 'data:image/png;base64,mock2',
+    hexArray: [
+      ['transparent', 'transparent', 'transparent', 'transparent', 'transparent'],
+      ['transparent', 'transparent', 'transparent', 'transparent', 'transparent'],
+      ['transparent', 'transparent', '#00FF00FF', 'transparent', 'transparent'],
+      ['transparent', 'transparent', 'transparent', 'transparent', 'transparent'],
+      ['transparent', 'transparent', 'transparent', 'transparent', 'transparent']
+    ]
   });
-
-  service.formatPrompt = vi.fn().mockResolvedValue('MOCK SYSTEM PROMPT');
 
   const configParams = {
       prompt: 'Test target prompt',

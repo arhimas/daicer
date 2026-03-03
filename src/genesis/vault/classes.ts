@@ -29,7 +29,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['wizard-arcane-tradition-feature'],
       },
       {
         level: 7,
@@ -45,7 +44,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 10,
-        features: ['wizard-arcane-tradition-feature'],
       },
       {
         level: 11,
@@ -61,7 +59,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 14,
-        features: ['wizard-arcane-tradition-feature'],
       },
       {
         level: 15,
@@ -118,7 +115,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['warlock-otherworldly-patron-feature'],
       },
       {
         level: 7,
@@ -134,7 +130,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 10,
-        features: ['warlock-otherworldly-patron-feature'],
       },
       {
         level: 11,
@@ -150,7 +145,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 14,
-        features: ['warlock-otherworldly-patron-feature'],
       },
       {
         level: 15,
@@ -207,7 +201,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['sorcerer-sorcerous-origin-feature'],
       },
       {
         level: 7,
@@ -239,7 +232,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 14,
-        features: ['sorcerer-sorcerous-origin-feature'],
       },
       {
         level: 15,
@@ -255,7 +247,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 18,
-        features: ['sorcerer-sorcerous-origin-feature'],
       },
       {
         level: 19,
@@ -318,7 +309,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 9,
-        features: ['rogue-roguish-archetype-feature'],
       },
       {
         level: 10,
@@ -334,7 +324,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 13,
-        features: ['rogue-roguish-archetype-feature'],
       },
       {
         level: 14,
@@ -350,7 +339,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 17,
-        features: ['rogue-roguish-archetype-feature'],
       },
       {
         level: 18,
@@ -407,11 +395,10 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 7,
-        features: ['ranger-ranger-archetype-feature'],
       },
       {
         level: 8,
-        features: ['ranger-ability-score-improvement', 'ranger-lands-stride'],
+        features: ['ranger-ability-score-improvement', ],
       },
       {
         level: 9,
@@ -423,7 +410,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 11,
-        features: ['ranger-ranger-archetype-feature'],
       },
       {
         level: 12,
@@ -439,7 +425,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 15,
-        features: ['ranger-ranger-archetype-feature'],
       },
       {
         level: 16,
@@ -496,7 +481,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 7,
-        features: ['paladin-sacred-oath-feature'],
       },
       {
         level: 8,
@@ -528,7 +512,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 15,
-        features: ['paladin-sacred-oath-feature'],
       },
       {
         level: 16,
@@ -548,7 +531,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 20,
-        features: ['paladin-sacred-oath-feature'],
       },
     ],
     description: 'Character Class: Paladin',
@@ -560,7 +542,6 @@ export const CLASSES: SeedClass[] = [
     proficiencies: [
       'simple-weapons',
       'shortswords',
-      'choose-one-type-of-artisans-tools-or-one-musical-instrument',
       'strength',
       'dexterity',
     ],
@@ -587,7 +568,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['monk-ki-empowered-strikes', 'monk-monastic-tradition-feature'],
       },
       {
         level: 7,
@@ -607,7 +587,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 11,
-        features: ['monk-monastic-tradition-feature'],
       },
       {
         level: 12,
@@ -631,7 +610,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 17,
-        features: ['monk-monastic-tradition-feature'],
       },
       {
         level: 18,
@@ -680,7 +658,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 7,
-        features: ['fighter-martial-archetype-feature'],
       },
       {
         level: 8,
@@ -692,7 +669,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 10,
-        features: ['fighter-martial-archetype-feature'],
       },
       {
         level: 11,
@@ -712,7 +688,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 15,
-        features: ['fighter-martial-archetype-feature'],
       },
       {
         level: 16,
@@ -724,7 +699,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 18,
-        features: ['fighter-martial-archetype-feature'],
       },
       {
         level: 19,
@@ -782,7 +756,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['druid-druid-circle-feature'],
       },
       {
         level: 7,
@@ -798,7 +771,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 10,
-        features: ['druid-druid-circle-feature'],
       },
       {
         level: 11,
@@ -814,7 +786,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 14,
-        features: ['druid-druid-circle-feature'],
       },
       {
         level: 15,
@@ -855,7 +826,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 2,
-        features: ['cleric-channel-divinity', 'cleric-divine-domain-feature'],
       },
       {
         level: 3,
@@ -871,7 +841,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['cleric-channel-divinity', 'cleric-divine-domain-feature'],
       },
       {
         level: 7,
@@ -879,7 +848,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 8,
-        features: ['cleric-ability-score-improvement', 'cleric-destroy-undead', 'cleric-divine-domain-feature'],
       },
       {
         level: 9,
@@ -915,7 +883,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 17,
-        features: ['cleric-destroy-undead', 'cleric-divine-domain-feature'],
       },
       {
         level: 18,
@@ -970,7 +937,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['bard-countercharm', 'bard-bard-college-feature'],
       },
       {
         level: 7,
@@ -1002,7 +968,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 14,
-        features: ['bard-magical-secrets', 'bard-bard-college-feature'],
       },
       {
         level: 15,
@@ -1067,7 +1032,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 6,
-        features: ['barbarian-path-feature'],
       },
       {
         level: 7,
@@ -1083,7 +1047,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 10,
-        features: ['barbarian-path-feature'],
       },
       {
         level: 11,
@@ -1099,7 +1062,6 @@ export const CLASSES: SeedClass[] = [
       },
       {
         level: 14,
-        features: ['barbarian-path-feature'],
       },
       {
         level: 15,
