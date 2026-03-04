@@ -51,6 +51,13 @@ const register = ({ strapi }: { strapi: Core.Strapi }) => {
       isResizable: false,
     },
   });
+
+  strapi.customFields.register({
+    name: 'inventory-composer',
+    plugin: 'map-explorer',
+    // @ts-expect-error Strapi does not officially type 'component' for custom fields natively
+    type: 'component',
+  });
 };
 
 export default register;

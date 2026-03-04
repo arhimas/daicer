@@ -133,6 +133,28 @@ export default {
       },
       options: {},
     });
+
+    app.customFields.register({
+      name: 'inventory-composer',
+      pluginId: PLUGIN_ID,
+      type: 'component',
+      intlLabel: {
+        id: 'map-explorer.inventory-composer.label',
+        defaultMessage: 'Inventory Composer',
+      },
+      intlDescription: {
+        id: 'map-explorer.inventory-composer.description',
+        defaultMessage: 'Visual Drag-and-Drop Slot UI',
+      },
+      icon: PluginIcon,
+      components: {
+        Input: async () =>
+          import('./components/InventoryComposer').then((module) => ({
+            default: module.InventoryComposer,
+          })),
+      },
+      options: {},
+    });
   },
 
   async registerTrads({ locales }: { locales: string[] }) {

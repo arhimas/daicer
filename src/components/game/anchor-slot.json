@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_game_anchor_slots",
+  "info": {
+    "displayName": "Anchor Slot",
+    "icon": "pin-map",
+    "description": "Pixel coordinate mapping to an Anchor"
+  },
+  "options": {},
+  "attributes": {
+    "anchor_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::anchor.anchor"
+    },
+    "x": {
+      "type": "integer",
+      "required": true
+    },
+    "y": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

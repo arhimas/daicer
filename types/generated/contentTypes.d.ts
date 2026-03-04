@@ -410,6 +410,31 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAnchorAnchor extends Struct.CollectionTypeSchema {
+  collectionName: 'anchors';
+  info: {
+    description: 'Standardized Anchor Types (Sockets)';
+    displayName: 'Anchor';
+    pluralName: 'anchors';
+    singularName: 'anchor';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::anchor.anchor'> & Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBackgroundBackground extends Struct.CollectionTypeSchema {
   collectionName: 'backgrounds';
   info: {
@@ -692,7 +717,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     ac: Schema.Attribute.Integer;
     actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     alignment: Schema.Attribute.String;
-    anchors: Schema.Attribute.JSON;
+    anchors: Schema.Attribute.Component<'game.anchor-slot', true>;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     background: Schema.Attribute.RichText;
     challenge_rating: Schema.Attribute.Decimal;
@@ -935,7 +960,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    anchors: Schema.Attribute.JSON;
+    anchor: Schema.Attribute.Component<'game.anchor-slot', false>;
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1700,7 +1725,7 @@ export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    anchors: Schema.Attribute.JSON;
+    anchor: Schema.Attribute.Component<'game.anchor-slot', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     damagePerTick: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
@@ -2421,6 +2446,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
+      'api::anchor.anchor': ApiAnchorAnchor;
       'api::background.background': ApiBackgroundBackground;
       'api::class.class': ApiClassClass;
       'api::construction.construction': ApiConstructionConstruction;

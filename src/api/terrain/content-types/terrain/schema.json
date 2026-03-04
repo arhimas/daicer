@@ -68,8 +68,10 @@
       "repeatable": false,
       "component": "world.noise-config"
     },
-    "anchors": {
-      "type": "json"
+    "anchor": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.anchor-slot"
     },
     "spriteData": {
       "type": "customField",

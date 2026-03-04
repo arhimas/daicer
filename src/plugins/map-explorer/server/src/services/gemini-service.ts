@@ -47,7 +47,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           const uploadService = strapi.plugin('upload').service('upload');
           const uid = genConfig.entityContext.uid;
           const docId = genConfig.entityContext.documentId;
-          const slugName = genConfig.archetype || 'sprite';
+          const rawName = genConfig.entityData?.slug || genConfig.entityData?.name || genConfig.archetype || 'sprite';
+          const safeSlug = String(rawName).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          
+          // Extract content type from uid (e.g., "api::terrain.terrain" -> "terrain")
+          const contentTypeMatch = uid?.split('.')[1] || genConfig.type.toLowerCase();
+          const slugName = `${contentTypeMatch}_${safeSlug}_sprite`;
           const now = Date.now();
 
           strapi.log.info(`[GeminiService] Persisting base64 sprites to Media Library for ${uid}:${docId}...`);
@@ -73,8 +78,13 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           const procStat = fs.statSync(procPath);
 
           const procUpload = await uploadService.upload({
-             data: { fileInfo: { name: `${slugName}-processed`, caption: 'Quantized Sprite' } },
-             files: { path: procPath, name: `proc-${slugName}-${now}.png`, type: 'image/png', size: procStat.size }
+             data: { fileInfo: { name: slugName, caption: 'Generated Sprite' } },
+             files: { 
+                filepath: procPath, 
+                originalFilename: `${slugName}-${now}.png`, 
+                mimetype: 'image/png', 
+                size: procStat.size 
+             }
           });
           procUploadObj = procUpload[0];
           fs.unlinkSync(procPath);
@@ -91,6 +101,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           });
 
           strapi.log.info(`[GeminiService] Successfully attached Media Sprites to ${uid}:${docId}`);
+          
+          // Inject the full upload object so the UI can update its Media component
+          if (procUploadObj?.id) {
+             result.uploadId = procUploadObj.id;
+             result.uploadMedia = procUploadObj;
+          }
         } catch (uploadErr) {
           strapi.log.error(`[GeminiService] Failed to upload/attach Media generated image...`, uploadErr);
         }

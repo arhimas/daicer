@@ -119,8 +119,8 @@ describe('Gemini Service', () => {
       expect(mockUploadService.upload).toHaveBeenCalledTimes(1);
 
       const uploadArgs = mockUploadService.upload.mock.calls[0][0];
-      expect(uploadArgs.data.fileInfo.name).toBe('goblin-processed');
-      expect(uploadArgs.files.type).toBe('image/png');
+      expect(uploadArgs.data.fileInfo.name).toBe('entity_goblin_sprite');
+      expect(uploadArgs.files.mimetype).toBe('image/png');
 
       // Verify the document was updated with the sprite
       expect(mockDocumentsUpdate).toHaveBeenCalledWith({

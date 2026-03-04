@@ -35,6 +35,20 @@ export interface GameAction extends Struct.ComponentSchema {
   };
 }
 
+export interface GameAnchorSlot extends Struct.ComponentSchema {
+  collectionName: 'components_game_anchor_slots';
+  info: {
+    description: 'Pixel coordinate mapping to an Anchor';
+    displayName: 'Anchor Slot';
+    icon: 'pin-map';
+  };
+  attributes: {
+    anchor_type: Schema.Attribute.Relation<'oneToOne', 'api::anchor.anchor'>;
+    x: Schema.Attribute.Integer & Schema.Attribute.Required;
+    y: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
 export interface GameAppearance extends Struct.ComponentSchema {
   collectionName: 'components_game_appearances';
   info: {
@@ -799,6 +813,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'game.action': GameAction;
+      'game.anchor-slot': GameAnchorSlot;
       'game.appearance': GameAppearance;
       'game.area-effect': GameAreaEffect;
       'game.casting-config': GameCastingConfig;

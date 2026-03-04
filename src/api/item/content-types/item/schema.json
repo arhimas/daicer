@@ -123,8 +123,10 @@
       "target": "api::tag.tag",
       "inversedBy": "items"
     },
-    "anchors": {
-      "type": "json"
+    "anchor": {
+      "type": "component",
+      "repeatable": false,
+      "component": "game.anchor-slot"
     },
     "spriteData": {
       "type": "customField",

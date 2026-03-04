@@ -17,22 +17,9 @@
       "min": 1
     },
     "slot": {
-      "type": "enumeration",
-      "enum": [
-        "backpack",
-        "main_hand",
-        "off_hand",
-        "armor",
-        "head",
-        "feet",
-        "neck",
-        "hands",
-        "cloak",
-        "ring_1",
-        "ring_2",
-        "accessory"
-      ],
-      "default": "backpack"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::anchor.anchor"
     },
     "isEquipped": {
       "type": "boolean",

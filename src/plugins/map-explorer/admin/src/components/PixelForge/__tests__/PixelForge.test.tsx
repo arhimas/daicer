@@ -9,8 +9,11 @@ const mockPost = vi.fn();
 const mockGet = vi.fn();
 const mockModifiedData = { name: 'Test Entity', category: 'Creature', documentId: 'doc-123' };
 
+import { useParams } from 'react-router-dom';
+import { useForm } from '@strapi/admin/strapi-admin';
+
 vi.mock('react-router-dom', () => ({
-  useParams: () => ({ slug: 'api::creature.creature' }),
+  useParams: vi.fn(),
 }));
 
 vi.mock('@strapi/admin/strapi-admin', () => ({
@@ -18,7 +21,7 @@ vi.mock('@strapi/admin/strapi-admin', () => ({
     post: mockPost,
     get: mockGet,
   }),
-  useForm: () => ({ values: mockModifiedData }),
+  useForm: vi.fn(),
 }));
 
 vi.mock('@strapi/content-manager/strapi-admin', () => ({
@@ -45,6 +48,13 @@ vi.mock('@strapi/design-system', () => {
     Textarea: ({ onChange, value, placeholder }: any) => (
       <textarea onChange={onChange} value={value} placeholder={placeholder} />
     ),
+    SingleSelect: ({ children, onChange, placeholder }: any) => (
+      <select onChange={(e) => onChange(e.target.value)} defaultValue="">
+        <option value="" disabled>{placeholder}</option>
+        {children}
+      </select>
+    ),
+    SingleSelectOption: ({ children, value }: any) => <option value={value}>{children}</option>,
   };
 });
 
@@ -52,6 +62,7 @@ vi.mock('@strapi/icons', () => ({
   Magic: () => <span>Icon-Magic</span>,
   Pin: () => <span>Icon-Pin</span>,
   Trash: () => <span>Icon-Trash</span>,
+  Check: () => <span>Icon-Check</span>,
 }));
 
 describe('PixelForge SOTA', () => {
@@ -61,6 +72,9 @@ describe('PixelForge SOTA', () => {
     vi.spyOn(console, 'log').mockImplementation(() => {});
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
+    
+    vi.mocked(useParams).mockReturnValue({ slug: 'api::creature.creature' });
+    vi.mocked(useForm).mockReturnValue({ values: mockModifiedData } as any);
   });
 
   afterEach(() => {
@@ -78,7 +92,7 @@ describe('PixelForge SOTA', () => {
   it('should auto-center terrain on mount', async () => {
     const onChange = vi.fn();
     // Temporarily mock useParams to return terrain
-    vi.mocked(require('react-router-dom').useParams).mockReturnValueOnce({ slug: 'api::terrain.terrain' });
+    vi.mocked(useParams).mockReturnValue({ slug: 'api::terrain.terrain' });
     
     render(<PixelForge name="test" value="{}" onChange={onChange} />);
     
@@ -108,9 +122,9 @@ describe('PixelForge SOTA', () => {
       expect(mockPost).toHaveBeenCalledWith(
         '/map-explorer/forge/dispatch',
         expect.objectContaining({
-          prompt: 'A golden dragon',
+          prompt: '[Creature] - Test Entity',
           archetype: 'Humanoid', // Default for Sprite logic in code
-          action: 'generate_pixel',
+          action: 'generate_image',
         })
       );
     });
@@ -119,7 +133,7 @@ describe('PixelForge SOTA', () => {
   it('should parse an existing sprite image URL and render it', () => {
     // Form is mocked to return mockModifiedData, we need to sneak in a sprite object
     const mockSpriteData = { ...mockModifiedData, sprite: { url: 'http://test.image' } };
-    vi.mocked(require('@strapi/admin/strapi-admin').useForm).mockReturnValueOnce({ values: mockSpriteData });
+    vi.mocked(useForm).mockReturnValue({ values: mockSpriteData } as any);
 
     render(<PixelForge name="test" value="{}" onChange={vi.fn()} />);
     
@@ -128,21 +142,24 @@ describe('PixelForge SOTA', () => {
     expect((img as HTMLImageElement).src).toBe('http://test.image/');
   });
   
-  it('should add an anchor when clicking the image', () => {
+  it('should add an anchor when clicking the image', async () => {
     const onChange = vi.fn();
     // provide a sprite so the image renders and we can click it
     const mockSpriteData = { ...mockModifiedData, sprite: { url: 'http://test.image' } };
-    vi.mocked(require('@strapi/admin/strapi-admin').useForm).mockReturnValue({ values: mockSpriteData });
+    vi.mocked(useForm).mockReturnValue({ values: mockSpriteData } as any);
+    
+    // Provide a mocked dictionary result
+    mockGet.mockResolvedValue({ data: { results: [{ id: 1, name: 'head', slug: 'head' }] } });
 
     // Mock naturalWidth/Height for the click math
     Object.defineProperty(HTMLImageElement.prototype, 'naturalWidth', { get: () => 32 });
     Object.defineProperty(HTMLImageElement.prototype, 'naturalHeight', { get: () => 32 });
     
-    // Mock the prompt dialog
-    vi.spyOn(window, 'prompt').mockReturnValue('head');
-
     render(<PixelForge name="test" value="{}" onChange={onChange} />);
     
+    // Wait for the dict fetch on mount
+    await waitFor(() => expect(mockGet).toHaveBeenCalled());
+
     const img = screen.getByAltText('Asset Sprite');
     
     // Mock getBoundingClientRect
@@ -160,7 +177,16 @@ describe('PixelForge SOTA', () => {
 
     fireEvent.click(img, { clientX: 128, clientY: 128 });
     
-    expect(window.prompt).toHaveBeenCalled();
+    // Validate overlay
+    expect(screen.getByText('Link Anchor at [16, 16]')).toBeDefined();
+    
+    // Interact with Select
+    const select = screen.getByDisplayValue('Select Anchor Dictionary');
+    fireEvent.change(select, { target: { value: '1' } });
+    
+    // Confirm Selection
+    fireEvent.click(screen.getByText('Confirm'));
+    
     expect(onChange).toHaveBeenCalled();
     
     const lastCall = onChange.mock.calls[0][0];
@@ -170,5 +196,6 @@ describe('PixelForge SOTA', () => {
     expect(parsed.metadata.sockets[0].x).toBe(16);
     expect(parsed.metadata.sockets[0].y).toBe(16);
     expect(parsed.metadata.sockets[0].label).toBe('head');
+    expect(parsed.metadata.sockets[0].id).toBe(1);
   });
 });

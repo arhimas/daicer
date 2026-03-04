@@ -5,8 +5,10 @@ import {
   Button,
   Flex,
   Textarea,
+  SingleSelect,
+  SingleSelectOption,
 } from '@strapi/design-system';
-import { Magic, Pin, Trash } from '@strapi/icons';
+import { Magic, Pin, Trash, Check } from '@strapi/icons';
 import { useFetchClient, useForm } from '@strapi/admin/strapi-admin';
 import { useParams } from 'react-router-dom';
 
@@ -20,6 +22,7 @@ interface Socket {
   x: number;
   y: number;
   label: string;
+  id?: number; // DB ID of the dictionary anchor
 }
 
 interface PixelForgeMetadata {
@@ -61,6 +64,14 @@ interface EntityData {
   };
   [key: string]: unknown;
 }
+
+interface AnchorDictionary {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+}
+
 /**
  * **Image & Anchor Forge (Replaces PixelForge)**
  *
@@ -92,8 +103,16 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
   
   // Ephemeral preview image from Generation via Base64 before DB refresh
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  
+  // UI Hover state for coordinates mapping
+  const [hoverCoords, setHoverCoords] = useState<{ x: number; y: number } | null>(null);
 
   const imageRef = useRef<HTMLImageElement>(null);
+
+  // Dictionary State
+  const [dictionaryAnchors, setDictionaryAnchors] = useState<AnchorDictionary[]>([]);
+  const [activePicker, setActivePicker] = useState<{ x: number; y: number } | null>(null);
+  const [pickerSelection, setPickerSelection] = useState<string | null>(null);
 
   // Initialize Data
   useEffect(() => {
@@ -146,6 +165,38 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     }
   }, [modifiedData, prompt]);
 
+  // Fetch Anchor Dictionary
+  useEffect(() => {
+    const fetchAnchors = async () => {
+       try {
+         const { data } = await get('/content-manager/collection-types/api::anchor.anchor');
+         if (data?.results) setDictionaryAnchors(data.results);
+       } catch (e) {
+         console.error('Failed to fetch anchors', e);
+       }
+    };
+    fetchAnchors();
+  }, [get]);
+
+  // Sync internal Sockets array to the Strapi Relational Form Components
+  const syncToStrapiForm = (sockets: Socket[]) => {
+      // Map to Strapi Component Structure representing the dictionary relations
+      const componentData = sockets.map(s => ({
+          __component: 'game.anchor-slot',
+          x: s.x,
+          y: s.y,
+          anchor_type: s.id ? { connect: [{ id: s.id, position: { end: true } }] } : null
+      }));
+
+      // Entity has Repeatable Component (Array)
+      if (modelUid === 'api::entity.entity') {
+          onChange({ target: { name: 'anchors', value: componentData, type: 'component' } } as unknown as React.ChangeEvent<HTMLInputElement>);
+      } 
+      // Item/Terrain have Single Component (Object)
+      else if (['api::item.item', 'api::terrain.terrain'].includes(modelUid || '')) {
+          onChange({ target: { name: 'anchor', value: componentData.length > 0 ? componentData[0] : null, type: 'component' } } as unknown as React.ChangeEvent<HTMLInputElement>);
+      }
+  };
 
   // Handle Generate
   const handleGenerate = async () => {
@@ -225,6 +276,25 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
           }
 
           propagateChange(data.result.enhancedPrompt || prompt, newMetadata);
+          
+          // CRITICAL: We need to update the actual `sprite` field in the Strapi Form
+          // so that the user doesn't overwrite it with null if they click Save.
+          // The backend service will return the media ID / Object if it uploaded successfully.
+          if (data.result.uploadMedia || data.result.uploadId) {
+             const mediaObj = data.result.uploadMedia || { id: data.result.uploadId };
+             console.log(`[PixelForge] Injecting Sprite Object:`, mediaObj);
+             // Strapi 5 uses a full array format for the payload of relation changes (e.g., adding/removing).
+             // But for single Media fields, setting it to the object or array of the object usually works.
+             // Best practice for single media widget is to provide the object.
+             onChange({
+                 target: {
+                     name: 'sprite',
+                     value: mediaObj,
+                     type: 'media'
+                 }
+             });
+          }
+
           setIsGenerating(false);
           setJobId(null);
         } else if (data.state === 'failed') {
@@ -251,6 +321,10 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
         type: 'json',
       },
     });
+    // Trigger external component sync whenever metadata sockets change
+    if (newMetadata.sockets) {
+       syncToStrapiForm(newMetadata.sockets);
+    }
   };
 
   const handleImageClick = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -261,26 +335,32 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const scaleX = imageRef.current.naturalWidth / rect.width;
     const scaleY = imageRef.current.naturalHeight / rect.height;
     
-    // Optional: Snap to Grid if needed, but absolute pixel coordinates are cleaner for now.
+    // Absolute pixel coordinates map.
     const x = Math.round((e.clientX - rect.left) * scaleX);
     const y = Math.round((e.clientY - rect.top) * scaleY);
 
-    const label = window.prompt("Enter Anchor Name (e.g., 'main_hand', 'head', 'handle'):", "anchor");
+    setActivePicker({ x, y });
+  };
+
+  const confirmSocketSelection = () => {
+    if (!activePicker || !pickerSelection) return;
+    const selectedAnchor = dictionaryAnchors.find(a => String(a.id) === pickerSelection);
+    if (!selectedAnchor) return;
+
+    const newSockets = [...(metadata.sockets || [])];
+    const existingIdx = newSockets.findIndex(s => s.id === selectedAnchor.id);
     
-    if (label) {
-      const newSockets = [...(metadata.sockets || [])];
-      // Override if same label
-      const existingIdx = newSockets.findIndex(s => s.label === label);
-      if (existingIdx >= 0) {
-        newSockets[existingIdx] = { x, y, label };
-      } else {
-        newSockets.push({ x, y, label });
-      }
-      
-      const newMeta = { ...metadata, sockets: newSockets };
-      setMetadata(newMeta);
-      propagateChange(prompt, newMeta);
+    if (existingIdx >= 0) {
+      newSockets[existingIdx] = { x: activePicker.x, y: activePicker.y, label: selectedAnchor.name, id: selectedAnchor.id };
+    } else {
+      newSockets.push({ x: activePicker.x, y: activePicker.y, label: selectedAnchor.name, id: selectedAnchor.id });
     }
+    
+    const newMeta = { ...metadata, sockets: newSockets };
+    setMetadata(newMeta);
+    propagateChange(prompt, newMeta);
+    setActivePicker(null);
+    setPickerSelection(null);
   };
 
   const removeSocket = (label: string) => {
@@ -289,6 +369,20 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
     const newMeta = { ...metadata, sockets: newSockets };
     setMetadata(newMeta);
     propagateChange(prompt, newMeta);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
+    if (!imageRef.current) return;
+    const rect = imageRef.current.getBoundingClientRect();
+    const scaleX = imageRef.current.naturalWidth / rect.width;
+    const scaleY = imageRef.current.naturalHeight / rect.height;
+    const x = Math.round((e.clientX - rect.left) * scaleX);
+    const y = Math.round((e.clientY - rect.top) * scaleY);
+    setHoverCoords({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setHoverCoords(null);
   };
 
   // Resolve Image to display
@@ -330,8 +424,10 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
           <Box
             background="neutral150"
             borderColor="neutral200"
-            style={{ 
-              width: '256px', 
+            style={{
+              flex: '1 1 auto',
+              width: '100%',
+              maxWidth: 'min(100%, 65vh)', 
               aspectRatio: '1/1',
               border: '1px solid #dcdce4',
               position: 'relative',
@@ -349,6 +445,8 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                   src={displayUrl} 
                   alt="Asset Sprite" 
                   onClick={handleImageClick}
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
                   style={{
                      width: '100%',
                      height: '100%',
@@ -360,6 +458,27 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
               </>
             ) : (
               <Typography textColor="neutral500" variant="pi">No Image (Upload or Generate)</Typography>
+            )}
+
+            {/* Hover Coordinates Overlay */}
+            {hoverCoords && (
+              <div style={{
+                position: 'absolute',
+                top: '8px',
+                right: '8px',
+                background: 'rgba(0,0,0,0.8)',
+                color: '#49ff68', // HSL tailored Matrix green
+                padding: '4px 8px',
+                borderRadius: '4px',
+                fontSize: '12px',
+                pointerEvents: 'none',
+                fontFamily: 'monospace',
+                zIndex: 10,
+                boxShadow: '0 0 4px rgba(0,0,0,0.5)',
+                fontWeight: 'bold'
+              }}>
+                [ {hoverCoords.x}, {hoverCoords.y} ]
+              </div>
             )}
 
             {/* Overlay Sockets */}
@@ -402,6 +521,39 @@ export const PixelForge = ({ name, value, onChange }: PixelForgeProps) => {
                 </div>
               );
             })}
+
+            {/* Inline Anchor Picker Overlay */}
+            {activePicker && (
+               <Box style={{
+                 position: 'absolute',
+                 top: '50%',
+                 left: '50%',
+                 transform: 'translate(-50%, -50%)',
+                 background: 'white',
+                 padding: '16px',
+                 borderRadius: '8px',
+                 boxShadow: '0 8px 16px rgba(0,0,0,0.5)',
+                 zIndex: 100,
+                 width: '240px'
+               }}>
+                 <Typography variant="pi" fontWeight="bold">Link Anchor at [{activePicker.x}, {activePicker.y}]</Typography>
+                 <Box marginTop={2} marginBottom={4}>
+                    <SingleSelect
+                      placeholder="Select Anchor Dictionary"
+                      value={pickerSelection}
+                      onChange={(val: string) => setPickerSelection(val)}
+                    >
+                      {dictionaryAnchors.map(a => (
+                        <SingleSelectOption key={a.id} value={String(a.id)}>{a.name}</SingleSelectOption>
+                      ))}
+                    </SingleSelect>
+                 </Box>
+                 <Flex gap={2}>
+                    <Button size="S" variant="secondary" onClick={() => setActivePicker(null)}>Cancel</Button>
+                    <Button size="S" startIcon={<Check />} disabled={!pickerSelection} onClick={confirmSocketSelection}>Confirm</Button>
+                 </Flex>
+               </Box>
+            )}
           </Box>
 
           {/* Panel Controls */}

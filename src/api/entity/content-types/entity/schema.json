@@ -105,7 +105,8 @@
     "inventory": {
       "type": "component",
       "repeatable": true,
-      "component": "game.inventory-item"
+      "component": "game.inventory-item",
+      "customField": "plugin::map-explorer.inventory-composer"
     },
     "actions": {
       "type": "relation",
@@ -167,7 +168,9 @@
       "inversedBy": "entities"
     },
     "anchors": {
-      "type": "json"
+      "type": "component",
+      "repeatable": true,
+      "component": "game.anchor-slot"
     },
     "spriteData": {
       "type": "customField",
