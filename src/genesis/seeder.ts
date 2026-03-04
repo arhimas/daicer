@@ -187,15 +187,11 @@ export class GenesisSeeder {
     };
 
     const dynamicTerrains = await loadFromDir('terrain');
-    const dynamicZones = await loadFromDir('zone');
-    const dynamicBlueprints = await loadFromDir('blueprint');
-
+    const dynamicEntities = await loadFromDir('entity');
+    
     // 1. Atoms
     console.log(`\nProcessing Tags (${Vault.TAGS.length})...`);
     for (const item of Vault.TAGS) await this.syncEntity('api::tag.tag', item, Schemas.TagSchema);
-
-    console.log(`\nProcessing Entity Zones (${dynamicZones.length})...`);
-    for (const item of dynamicZones) await this.syncEntity('api::entity-zone.entity-zone', item, Schemas.EntityZoneSchema);
 
     console.log(`\nProcessing Terrains (${dynamicTerrains.length})...`);
     for (const item of dynamicTerrains) await this.syncEntity('api::terrain.terrain', item, Schemas.TerrainSchema);
@@ -235,10 +231,9 @@ export class GenesisSeeder {
     console.log(`\nProcessing Classes (${Vault.CLASSES.length})...`);
     for (const item of Vault.CLASSES) await this.syncEntity('api::class.class', item, Schemas.ClassSchema);
 
-    // 3. Composites (Blueprints mapped first so Entities/Items can link them)
-    console.log(`\nProcessing Visual Blueprints (${dynamicBlueprints.length})...`);
+    // 3. Composites
     
-    // Dynamic Image Hydration Helper for Entities, Items, Terrains, Blueprints
+    // Dynamic Image Hydration Helper for Entities, Items, Terrains
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { pngToHexArray } = require(path.resolve(process.cwd(), 'src/scripts/png-to-hex.js'));
 
@@ -246,15 +241,6 @@ export class GenesisSeeder {
     const hydrateWithAssets = async (typeSlug: string, itemData: any) => {
       const result = { ...itemData };
       if (!result.slug) return result;
-
-      // Map Blueprint relation
-      // We look for a blueprint whose slug matches the entity's slug (or a defined fallback rule)
-      // Since blueprints use 'name' as unique field in seeder history, we lookup by slug against the raw files
-      const matchingBlueprint = dynamicBlueprints.find((b: { slug: string; name: string; type?: string }) => b.slug === result.slug || b.slug === result.type);
-      if (matchingBlueprint) {
-        const bpId = await this.getDocumentId('api::blueprint.blueprint', matchingBlueprint.name);
-        if (bpId) result.blueprint = bpId;
-      }
 
       // Check for PNG Sprite
       const spritePath = path.resolve(process.cwd(), `src/genesis/sprites/${typeSlug}/${result.slug}.png`);
@@ -274,10 +260,6 @@ export class GenesisSeeder {
       return result;
     };
 
-    for (const item of dynamicBlueprints) {
-      const hydratedBP = await hydrateWithAssets('blueprints', item);
-      await this.syncEntity('api::blueprint.blueprint', hydratedBP, Schemas.BlueprintSchema, 'name');
-    }
 
     console.log(`\nProcessing Items (${Vault.ITEMS.length})...`);
     for (const item of Vault.ITEMS) {
@@ -285,8 +267,8 @@ export class GenesisSeeder {
        await this.syncEntity('api::item.item', hydratedItem, Schemas.ItemSchema);
     }
 
-    console.log(`\nProcessing Entities (${Vault.ENTITIES.length})...`);
-    for (const item of Vault.ENTITIES) {
+    console.log(`\nProcessing Entities (${dynamicEntities.length})...`);
+    for (const item of dynamicEntities) {
        const hydratedEntity = await hydrateWithAssets('entities', item);
        await this.syncEntity('api::entity.entity', hydratedEntity, Schemas.EntitySchema);
     }

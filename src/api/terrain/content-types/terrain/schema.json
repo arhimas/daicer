@@ -68,29 +68,14 @@
       "repeatable": false,
       "component": "world.noise-config"
     },
-    "blueprint": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::blueprint.blueprint",
-      "inversedBy": "terrains",
-      "required": true
-    },
-    "spriteData": {
+    "anchors": {
       "type": "json"
     },
-    "texture": {
+    "spriteData": {
       "type": "customField",
-      "customField": "plugin::map-explorer.texture-grid"
+      "customField": "plugin::map-explorer.pixel-forge"
     },
-    "spriteOriginal": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "spriteProcessed": {
+    "sprite": {
       "type": "media",
       "multiple": false,
       "required": false,

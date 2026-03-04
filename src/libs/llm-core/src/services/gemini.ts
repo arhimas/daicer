@@ -129,7 +129,7 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
 
     async generatePixelData(genConfig: GenerationConfig) {
       // Dispatcher
-      if (genConfig.type === 'Blueprint' || genConfig.action === 'generate_blueprint') {
+      if (genConfig.action === 'generate_blueprint') {
         return service.generateBlueprint(genConfig);
       }
 
@@ -278,7 +278,7 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
      * back to standard RGBA4444 nested grids for backwards UI compatibility.
      */
     async generatePixelDataV2(genConfig: GenerationConfig) {
-      if (genConfig.type === 'Blueprint' || genConfig.action === 'generate_blueprint') {
+      if (genConfig.action === 'generate_blueprint') {
         return service.generateBlueprint(genConfig);
       }
 
@@ -304,6 +304,7 @@ export default (init: { adapter: StrapiAdapter; config: LLMCoreConfig }) => {
           size: TARGET_SIZE,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           blueprintMatrix: (genConfig.blueprint as any) as string[][],
+          inputPixels: genConfig.inputPixels,
           contextData: contextDataString,
         });
 

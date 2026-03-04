@@ -30,79 +30,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
   return {
     ...coreService,
-    // Intercept V2 generation to guarantee Blueprint Hydration
+    // Generate Sprite Image natively
     async generatePixelDataV2(genConfig: GenerationConfig) {
-      if (genConfig.type === 'Blueprint' || genConfig.action === 'generate_blueprint') {
-         return coreService.generatePixelDataV2(genConfig);
-      }
-
-      // 1. If the user explicitly provided a blueprint matrix from the UI, ALWAYS respect it
-      let finalBlueprintMatrix: string[][] | undefined = genConfig.blueprint;
-
-      // 2. Format slug correctly respecting hyphens (e.g. "beast-quadruped", "weapon-ranged")
-      const safeType = (genConfig.archetype || 'unknown').toLowerCase().replace(/[^a-z0-9-]/g, '');
-      const safeSize = (genConfig.size || 'medium').toLowerCase().replace(/[^a-z0-9-]/g, '');
-      
-      // Determine expected slug based on type
-      let targetSlug = `${safeType}-${safeSize}`;
-      
-      // Items and Terrains often don't have size variants, so try the base type as slug fallback
-      const baseSlug = safeType;
-
-      if (!finalBlueprintMatrix) {
-        // 3. Lookup existing blueprint in DB using size-specific OR base slug
-        const existingBlueprints = await strapi.db.query('api::blueprint.blueprint').findMany({
-          where: { 
-            $or: [
-              { slug: targetSlug },
-              { slug: baseSlug }
-            ]
-          },
-          limit: 1,
-        });
-
-        if (existingBlueprints.length > 0) {
-          strapi.log.info(`[GeminiService] Found existing blueprint for ${existingBlueprints[0].slug}, hydrating...`);
-          finalBlueprintMatrix = existingBlueprints[0].matrix;
-          targetSlug = existingBlueprints[0].slug; // Ensure we cache under right name if we use base
-        } else {
-          // 4. Auto-Generate Blueprint if missing
-          strapi.log.info(`[GeminiService] Blueprint ${targetSlug} missing. Auto-generating...`);
-          try {
-            const bpResult = await coreService.generateBlueprint({
-              ...genConfig,
-              action: 'generate_blueprint'
-            });
-
-            if (bpResult && bpResult.pixelData) {
-              finalBlueprintMatrix = bpResult.pixelData;
-              
-              // 5. Persist to DB for future caching
-            await strapi.db.query('api::blueprint.blueprint').create({
-              data: {
-                slug: targetSlug,
-                type: genConfig.archetype || 'unknown',
-                size: genConfig.size || 'medium',
-                matrix: finalBlueprintMatrix,
-                spriteData: bpResult.pixelData ? bpResult.pixelData.flat() : null,
-                publishedAt: new Date()
-              }
-            });
-            strapi.log.info(`[GeminiService] Successfully cached new blueprint: ${targetSlug}`);
-          }
-        } catch (bpError) {
-          strapi.log.warn(`[GeminiService] Failed to auto-generate blueprint ${targetSlug}. Proceeding without it. Error: ${bpError.message}`);
-        }
-      }
-      } // Closes if (!finalBlueprintMatrix)
-
-      // 5. Dispatch actual Sprite Generation with Hydrated Blueprint
+      // 1. Dispatch actual Sprite Generation
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const result: any = await coreService.generatePixelDataV2({
-        ...genConfig,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        blueprint: (finalBlueprintMatrix || genConfig.blueprint) as any
-      });
+      const result: any = await coreService.generatePixelDataV2(genConfig);
 
       // 6. SOTA PNG Media Persistance: Convert Base64 GenAI payload to Media Library Items
       if (
@@ -122,7 +54,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
 
           const tmpDir = os.tmpdir();
           
-          let origUploadObj = null;
           let procUploadObj = null;
 
           // Process Original (If Available)
@@ -130,13 +61,8 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
              const origBuffer = Buffer.from(result.base64Original.replace(/^data:image\/\w+;base64,/, ''), 'base64');
              const origPath = path.join(tmpDir, `orig-${slugName}-${now}.png`);
              fs.writeFileSync(origPath, origBuffer);
-             const origStat = fs.statSync(origPath);
              
-             const origUpload = await uploadService.upload({
-               data: { fileInfo: { name: `${slugName}-original`, caption: 'Raw LLM Image' } },
-               files: { path: origPath, name: `orig-${slugName}-${now}.png`, type: 'image/png', size: origStat.size }
-             });
-             origUploadObj = origUpload[0];
+             // We drop the upload of the original to save DB space and strictly enforce the 1-field rule.
              fs.unlinkSync(origPath);
           }
 
@@ -157,8 +83,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => {
           await strapi.documents(uid as any).update({
             documentId: docId,
             data: {
-              spriteOriginal: origUploadObj?.id || null,
-              spriteProcessed: procUploadObj?.id || null,
+              sprite: procUploadObj?.id || null,
               spriteData: result.pixelData ? result.pixelData.flat() : null,
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any,

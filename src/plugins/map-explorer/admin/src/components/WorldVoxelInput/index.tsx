@@ -21,6 +21,7 @@ import { Chunk, TerrainType } from '../../types';
 // import { TILE_SIZE, BLOCK_TYPES } from '../../constants';
 // import { getShapePixels } from '../../utils/shape-tools'; // Unused?
 import { RenderEngine } from '../../utils/render-engine';
+import { HoverInspector } from '../HoverInspector';
 
 interface WorldVoxelInputProps {
   name: string;
@@ -74,8 +75,13 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
     const [isPanning, setIsPanning] = useState(false);
     const [lastMouse, setLastMouse] = useState({ x: 0, y: 0 });
     const [tool, setTool] = useState<'brush' | 'pan'>('brush');
+    
+    // Hover Inspector State
+    const [hoveredCell, setHoveredCell] = useState<{chunkX: number, chunkY: number, tileX: number, tileY: number, mouseX: number, mouseY: number} | null>(null);
 
     const [terrains, setTerrains] = useState<TerrainType[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [entities, setEntities] = useState<any[]>([]);
 
     // Load Terrains once
     useEffect(() => {
@@ -91,8 +97,34 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
           console.error(e);
         }
       };
+      
+      const fetchEntities = async () => {
+        if (!worldId) return;
+        try {
+          // Fetch Entity Sheets mapped to this World's Room
+          const { data } = await get(
+            `/content-manager/collection-types/api::entity-sheet.entity-sheet?filters[room][world][id]=${worldId}&populate=entity,position&pagination[pageSize]=1000`
+          );
+          if (data && data.results) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const mappedEntities = data.results.map((sheet: any) => ({
+              id: sheet.id,
+              name: sheet.name || sheet.entity?.name,
+              position: sheet.position,
+              width: sheet.entity?.width || 1,
+              height: sheet.entity?.height || 1,
+              spriteData: sheet.entity?.spriteData,
+            }));
+            setEntities(mappedEntities);
+          }
+        } catch (e) {
+          console.error('Failed to fetch entities for hover inspector', e);
+        }
+      };
+
       fetchTerrains();
-    }, []);
+      fetchEntities();
+    }, [worldId]);
 
     // Fetch World Chunk State (Live Preview or Saved)
     const refreshChunks = async () => {
@@ -229,12 +261,18 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
           1, // Internal scale 1, we handled zoom on ctx
           { x: 0, y: 0 }, // No internal pan
           terrains,
-          { showGrid: true, ghostLowerLayers: true, preventClear: true }
+          { 
+            showGrid: true, 
+            ghostLowerLayers: true, 
+            preventClear: true,
+            entities: entities,
+            items: [] 
+          }
         );
 
         ctx.restore();
       });
-    }, [chunks, currentZ, scale, pan, terrains, viewPos]);
+    }, [chunks, currentZ, scale, pan, terrains, entities, viewPos]);
 
     // Interaction Handlers (Simplified Brush Only for now)
     const handleMouseDown = (e: React.MouseEvent) => {
@@ -300,6 +338,9 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
       if (e.buttons === 1 && tool === 'brush') {
         handleBrushAction(e);
       }
+      
+      const coords = getTileCoords(e);
+      setHoveredCell(coords);
     };
 
     const getTileCoords = (e: React.MouseEvent) => {
@@ -345,6 +386,8 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
         chunkY: viewPos.y + chunkDy,
         tileX: localTileX,
         tileY: localTileY,
+        mouseX: e.clientX,
+        mouseY: e.clientY,
       };
     };
 
@@ -518,6 +561,14 @@ export const WorldVoxelInput = React.forwardRef<HTMLInputElement, WorldVoxelInpu
             </Grid.Item>
           </Grid.Root>
         </Box>
+        <HoverInspector 
+          hoveredCell={hoveredCell} 
+          chunks={chunks} 
+          terrains={terrains} 
+          entities={entities} 
+          items={[]}    // To be hydrated in future PR
+          currentZ={currentZ} 
+        />
       </React.Fragment>
     );
   }

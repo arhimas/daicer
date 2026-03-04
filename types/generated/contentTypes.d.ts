@@ -455,58 +455,6 @@ export interface ApiBackgroundBackground extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiBlueprintBlueprint extends Struct.CollectionTypeSchema {
-  collectionName: 'blueprints';
-  info: {
-    description: 'Anatomy/Structure definitions for PixelForge Sprites';
-    displayName: 'Blueprint';
-    pluralName: 'blueprints';
-    singularName: 'blueprint';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    anchors: Schema.Attribute.JSON;
-    category: Schema.Attribute.Enumeration<['Creature', 'Item', 'Structure', 'Effect', 'Terrain']> &
-      Schema.Attribute.DefaultTo<'Creature'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    entities: Schema.Attribute.Relation<'oneToMany', 'api::entity.entity'>;
-    height: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 128;
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
-    items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::blueprint.blueprint'> & Schema.Attribute.Private;
-    mapping: Schema.Attribute.JSON;
-    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
-    terrains: Schema.Attribute.Relation<'oneToMany', 'api::terrain.terrain'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    width: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 128;
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
-    zones: Schema.Attribute.Relation<'manyToMany', 'api::entity-zone.entity-zone'>;
-  };
-}
-
 export interface ApiClassClass extends Struct.CollectionTypeSchema {
   collectionName: 'classes';
   info: {
@@ -724,42 +672,6 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiEntityZoneEntityZone extends Struct.CollectionTypeSchema {
-  collectionName: 'entity_zones';
-  info: {
-    description: 'Semantic zones for visual blueprints (e.g. Head, Weapon) mapped to fixed colors.';
-    displayName: 'Entity Zone';
-    pluralName: 'entity-zones';
-    singularName: 'entity-zone';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    blueprints: Schema.Attribute.Relation<'manyToMany', 'api::blueprint.blueprint'>;
-    category: Schema.Attribute.Enumeration<['Creature', 'Item', 'Structure', 'Effect', 'Terrain']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Creature'>;
-    color: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::entity-zone.entity-zone'> & Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.Unique;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    symbol: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 1;
-      }> &
-      Schema.Attribute.DefaultTo<'#'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
-  };
-}
-
 export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
   collectionName: 'entities';
   info: {
@@ -780,9 +692,9 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     ac: Schema.Attribute.Integer;
     actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     alignment: Schema.Attribute.String;
+    anchors: Schema.Attribute.JSON;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     background: Schema.Attribute.RichText;
-    blueprint: Schema.Attribute.Relation<'manyToOne', 'api::blueprint.blueprint'>;
     challenge_rating: Schema.Attribute.Decimal;
     classes: Schema.Attribute.Component<'game.character-class', true>;
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
@@ -837,6 +749,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'Medium'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spells: Schema.Attribute.Relation<'oneToMany', 'api::spell.spell'>;
+    sprite: Schema.Attribute.Media<'images'>;
     spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
@@ -1022,7 +935,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    blueprint: Schema.Attribute.Relation<'manyToOne', 'api::blueprint.blueprint'>;
+    anchors: Schema.Attribute.JSON;
     compilation_state: Schema.Attribute.Component<'game.compilation-state', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
@@ -1067,6 +980,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'Medium'>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     spell_data: Schema.Attribute.Component<'game.spell-data', false>;
+    sprite: Schema.Attribute.Media<'images'>;
     spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     type: Schema.Attribute.Enumeration<
@@ -1786,7 +1700,7 @@ export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    blueprint: Schema.Attribute.Relation<'manyToOne', 'api::blueprint.blueprint'>;
+    anchors: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
     damagePerTick: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
@@ -1817,7 +1731,8 @@ export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
     noise_config: Schema.Attribute.Component<'world.noise-config', false>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
-    spriteData: Schema.Attribute.JSON;
+    sprite: Schema.Attribute.Media<'images'>;
+    spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     temperature: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
@@ -1828,7 +1743,6 @@ export interface ApiTerrainTerrain extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<0.5>;
-    texture: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.texture-grid'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
   };
@@ -2508,13 +2422,11 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
       'api::background.background': ApiBackgroundBackground;
-      'api::blueprint.blueprint': ApiBlueprintBlueprint;
       'api::class.class': ApiClassClass;
       'api::construction.construction': ApiConstructionConstruction;
       'api::damage-type.damage-type': ApiDamageTypeDamageType;
       'api::dm-setting.dm-setting': ApiDmSettingDmSetting;
       'api::entity-sheet.entity-sheet': ApiEntitySheetEntitySheet;
-      'api::entity-zone.entity-zone': ApiEntityZoneEntityZone;
       'api::entity.entity': ApiEntityEntity;
       'api::equipment-category.equipment-category': ApiEquipmentCategoryEquipmentCategory;
       'api::feature.feature': ApiFeatureFeature;

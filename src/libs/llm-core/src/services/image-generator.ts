@@ -13,6 +13,7 @@ export class ImageGenerator {
     prompt: string;
     size: number;
     blueprintMatrix?: string[][]; // Injected Silhouette
+    inputPixels?: string[][]; // Injected existing state
     contextData?: string; // Additional LLM lore data or context
   }): Promise<{ base64Original: string; base64Processed: string; hexArray: string[][] }> {
     const apiKey = process.env.GEMINI_API_KEY;
@@ -42,6 +43,19 @@ export class ImageGenerator {
         parts.push({
           inlineData: {
             data: blueprintBase64.split(',')[1],
+            mimeType: 'image/png',
+          },
+        });
+      }
+    }
+
+    if (opts.inputPixels && opts.inputPixels.length > 0) {
+      const inputBase64 = await ImageProcessor.hexArrayToPng(opts.inputPixels);
+      if (inputBase64) {
+        fullPrompt += ` Use the provided second image as the CURRENT VISUAL STATE of the canvas. You must modify or extend this canvas according to the prompt exactly.`;
+        parts.push({
+          inlineData: {
+            data: inputBase64.split(',')[1],
             mimeType: 'image/png',
           },
         });

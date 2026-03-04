@@ -4,9 +4,6 @@ import {
   Typography,
   Button,
   Flex,
-  // Grid,
-  SingleSelect,
-  SingleSelectOption,
   Textarea,
 } from '@strapi/design-system';
 import { useFetchClient, useForm } from '@strapi/admin/strapi-admin';
@@ -57,7 +54,7 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
     null
   );
   const [isGenerating, setIsGenerating] = useState(false);
-  const [model, setModel] = useState('gemini-3-pro-preview'); // Default to Gemini 3 Pro
+  const [model, _setModel] = useState('gemini-3.1-flash-image-preview'); // Locked to SOTA Image Pipeline
 
   // Viewport
   const [scale, setScale] = useState(1);
@@ -72,50 +69,6 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
   // Data I/O State
   const [isDataModalOpen, setIsDataModalOpen] = useState(false);
   const [dataJson, setDataJson] = useState('');
-
-  // Blueprint Interface
-  interface Blueprint {
-    id: number;
-    documentId: string;
-    name: string;
-    grid: string[][];
-    category: string;
-    description?: string;
-  }
-
-  // Blueprint State
-  const [blueprints, setBlueprints] = useState<Blueprint[]>([]);
-  const [selectedBlueprintId, setSelectedBlueprintId] = useState<string | number | null>(null);
-  const [metadata, setMetadata] = useState<{ blueprint?: string[][]; loadedBlueprint?: string }>(
-    {}
-  );
-  const [viewMode, setViewMode] = useState<'sprite' | 'mix' | 'blueprint'>('sprite');
-  const [blueprintOpacity, setBlueprintOpacity] = useState(0.5);
-
-  // Fetch Blueprints
-  useEffect(() => {
-    const fetchBlueprints = async () => {
-      try {
-        const bpRes = await get(
-          '/content-manager/collection-types/api::blueprint.blueprint?page=1&pageSize=100&sort=name:ASC'
-        );
-        if (bpRes.data.results) setBlueprints(bpRes.data.results);
-      } catch (err) {
-        console.error('Failed to fetch blueprints', err);
-      }
-    };
-    fetchBlueprints();
-  }, []);
-
-  const handleLoadBlueprint = () => {
-    const bp = blueprints.find(
-      (b) => b.id === selectedBlueprintId || b.documentId === selectedBlueprintId
-    );
-    if (!bp || !bp.grid) return;
-
-    setMetadata({ ...metadata, blueprint: bp.grid, loadedBlueprint: bp.name });
-    setViewMode('mix'); // Auto-switch to mix to see overlay
-  };
 
   // Helpers
   const getRgba = (hex: string, alpha: number) => {
@@ -311,39 +264,8 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
           else color = '#888888';
         }
 
-        // Overlay Logic
-        const bpPixel = metadata?.blueprint?.[y]?.[x];
-        const bpColor = bpPixel && bpPixel !== 'transparent' && bpPixel !== '.' ? bpPixel : null;
-
-        let finalColor = 'transparent';
-
-        if (viewMode === 'blueprint') {
-          // SHOW ONLY BLUEPRINT
-          finalColor = bpColor || 'transparent'; // Show transparent if no BP
-        } else if (viewMode === 'sprite') {
-          // SHOW ONLY SPRITE
-          finalColor = color;
-        } else if (viewMode === 'mix') {
-          // MIX: Draw Sprite, then Overlay
-          // 1. Draw Sprite First
-          if (color !== 'transparent') {
-            ctx.fillStyle = color;
-            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-          }
-
-          // 2. Draw Overlay?
-          if (bpColor) {
-            ctx.globalAlpha = blueprintOpacity;
-            ctx.fillStyle = bpColor;
-            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-            ctx.globalAlpha = 1.0; // Reset
-            return; // Done
-          }
-          return; // No overlay, and sprite already drawn
-        }
-
-        if (finalColor !== 'transparent') {
-          ctx.fillStyle = finalColor;
+        if (color !== 'transparent') {
+          ctx.fillStyle = color;
           ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
       });
@@ -360,7 +282,7 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
       ctx.lineTo(512, i * CELL_SIZE);
     }
     ctx.stroke();
-  }, [chunk, scale, pan, viewMode, blueprintOpacity, metadata]);
+  }, [chunk, scale, pan]);
 
   // Handlers
   const handleWheel = (e: React.WheelEvent) => {
@@ -486,6 +408,11 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
         );
       }
 
+      // Sanitize heavy arrays out of the text metadata prompt
+      const payloadEntityData = { ...modifiedData };
+      delete payloadEntityData.texture;
+      delete payloadEntityData.spriteData;
+
       const { data } = await post('/map-explorer/forge/dispatch', {
         prompt: `${prompt} texture, ${size} size`,
         type: 'Terrain',
@@ -493,8 +420,7 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
         size,
         model,
         inputPixels,
-        blueprint: metadata?.blueprint,
-        entityData: { ...modifiedData },
+        entityData: payloadEntityData,
         entityContext: {
           uid: modelUid,
           documentId: finalDocumentId,
@@ -609,6 +535,17 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
         </Typography>
       </Flex>
 
+      {/* STYLES HIDE: We hide the redundant sprite data fields from the UI cleanly here. */}
+      <style>
+        {`
+          div:has(> div > div > [name="spriteData"]),
+          div:has(> div > div > [name="spriteOriginal"]),
+          div:has(> div > div > [name="spriteProcessed"]) {
+            display: none !important;
+          }
+        `}
+      </style>
+
       <Box paddingTop={2} background="neutral100" hasRadius shadow="tableShadow" padding={4}>
         <Flex direction="column" gap={4}>
           {/* 1. Top Toolbar */}
@@ -635,73 +572,7 @@ export const TextureInput = React.forwardRef<HTMLInputElement, TextureInputProps
               </Button>
             </Flex>
 
-            {/* View Mode Controls */}
             <Flex gap={2} alignItems="center">
-              {blueprints.length > 0 && (
-                <SingleSelect
-                  placeholder="Load BP..."
-                  size="S"
-                  value={selectedBlueprintId}
-                  onChange={setSelectedBlueprintId}
-                  style={{ width: '120px' }}
-                >
-                  {blueprints.map((bp) => (
-                    <SingleSelectOption key={bp.id} value={bp.id}>
-                      {bp.name}
-                    </SingleSelectOption>
-                  ))}
-                </SingleSelect>
-              )}
-              <Button
-                variant="secondary"
-                onClick={handleLoadBlueprint}
-                disabled={!selectedBlueprintId}
-                size="S"
-              >
-                Load
-              </Button>
-
-              <Box width="1px" background="neutral200" height="24px" margin={2} />
-
-              <SingleSelect
-                value={viewMode}
-                onChange={setViewMode}
-                size="S"
-                style={{ width: '100px' }}
-              >
-                <SingleSelectOption value="sprite">Sprite</SingleSelectOption>
-                <SingleSelectOption value="mix">Mix</SingleSelectOption>
-                <SingleSelectOption value="blueprint">Blueprint</SingleSelectOption>
-              </SingleSelect>
-
-              {viewMode === 'mix' && (
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value={blueprintOpacity}
-                  onChange={(e) => setBlueprintOpacity(parseFloat(e.target.value))}
-                  style={{ width: '60px' }}
-                />
-              )}
-            </Flex>
-
-            <Flex gap={2} alignItems="center">
-              <SingleSelect
-                placeholder="Model"
-                size="S"
-                value={model}
-                onChange={setModel}
-                style={{ width: '150px' }}
-              >
-                <SingleSelectOption value="gemini-3-flash-preview">
-                  Gemini 3 Flash Preview
-                </SingleSelectOption>
-                <SingleSelectOption value="gemini-3-pro-preview">
-                  Gemini 3 Pro Preview
-                </SingleSelectOption>
-              </SingleSelect>
               <Button
                 variant="tertiary"
                 onClick={handleGenerate}

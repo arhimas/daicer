@@ -123,26 +123,14 @@
       "target": "api::tag.tag",
       "inversedBy": "items"
     },
-    "blueprint": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::blueprint.blueprint",
-      "inversedBy": "items",
-      "required": true
+    "anchors": {
+      "type": "json"
     },
     "spriteData": {
       "type": "customField",
       "customField": "plugin::map-explorer.pixel-forge"
     },
-    "spriteOriginal": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "spriteProcessed": {
+    "sprite": {
       "type": "media",
       "multiple": false,
       "required": false,

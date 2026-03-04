@@ -29,6 +29,16 @@ export const DamageTypeEnum = z.enum([
   'thunder',
 ]);
 
-export const SizeEnum = z.enum(['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan']);
+export const SizeEnum = z.enum([
+  'Fine',
+  'Diminutive',
+  'Tiny',
+  'Small',
+  'Medium',
+  'Large',
+  'Huge',
+  'Gargantuan',
+  'Colossal',
+]);
 
 export const AbilityScoreEnum = z.enum(['str', 'dex', 'con', 'int', 'wis', 'cha']);

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createSolidTexture, defineEntity, defineAction, defineItem, defineSpell, defineFeature, defineTrait, defineClass, defineSubclass, defineRace, defineDamageType, defineStatusEffect, defineMagicSchool, defineBackground, defineWeaponProperty, defineEntityZone, defineBlueprint, defineTerrain } from '@/features/genesis-core/blueprints';
+import { createSolidTexture, defineEntity, defineAction, defineItem, defineSpell, defineFeature, defineTrait, defineClass, defineSubclass, defineRace, defineDamageType, defineStatusEffect, defineMagicSchool, defineBackground, defineWeaponProperty, defineTerrain } from '@/features/genesis-core/blueprints';
 
 describe('Genesis Core Blueprints - createSolidTexture', () => {
   it('should generate a 32x32 array of voxels with the specified payload', () => {
@@ -45,8 +45,6 @@ describe('Genesis Core Blueprints - define* Helpers', () => {
     expect(defineMagicSchool(mockData)).toEqual(mockData);
     expect(defineBackground(mockData)).toEqual(mockData);
     expect(defineWeaponProperty(mockData)).toEqual(mockData);
-    expect(defineEntityZone(mockData)).toEqual(mockData);
-    expect(defineBlueprint(mockData)).toEqual(mockData);
     expect(defineTerrain(mockData)).toEqual(mockData);
   });
 });

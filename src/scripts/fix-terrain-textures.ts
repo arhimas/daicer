@@ -46,7 +46,7 @@ async function run() {
       console.log(`Checking ${terrain.name} (${terrain.documentId})...`);
 
       let needsUpdate = false;
-      const textureData = terrain.texture;
+      const textureData = (terrain as any).texture;
 
       // Check if empty or invalid
       if (!textureData || (Array.isArray(textureData) && textureData.length === 0)) {
@@ -84,7 +84,7 @@ async function run() {
         await strapi.documents('api::terrain.terrain').update({
           documentId: terrain.documentId,
           data: {
-            texture: flattened,
+            spriteData: flattened,
           } as unknown as Record<string, unknown>,
           status: 'draft', // Keep it draft if it was draft? Or publish?
           // Documents API update usually keeps status unless specified?

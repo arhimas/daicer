@@ -91,6 +91,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         'updatedAt',
         'localizations',
         'locale',
+        'texture',
+        'spriteData',
+        'matrix',
+        'grid',
       ];
 
       for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
