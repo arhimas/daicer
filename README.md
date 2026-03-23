@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🎲 Daicer Backend (Monolithic V5)
+<img width="800" alt="Daicer Logo" src="./public/logo.png" />
+
+# Daicer Backend
 
 **The Brain, The Heart, and The Soul.**
 
