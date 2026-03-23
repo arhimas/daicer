@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'javelin',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['ogre-zombie-morningstar', 'ogre-zombie-undead-fortitude'],

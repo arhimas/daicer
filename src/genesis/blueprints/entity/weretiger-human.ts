@@ -42,8 +42,8 @@ export default defineEntity({
     {
       item: 'scimitar',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['weretiger-human-keen-hearing-and-smell', 'weretiger-human-multiattack', 'weretiger-human-shapechanger'],

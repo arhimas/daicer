@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'longsword',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['hobgoblin-martial-advantage'],

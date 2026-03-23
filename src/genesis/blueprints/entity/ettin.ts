@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'morningstar',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['ettin-multiattack', 'ettin-two-heads', 'ettin-wakeful'],

@@ -171,6 +171,18 @@
       "type": "component",
       "repeatable": false,
       "component": "game.compilation-state"
+    },
+    "spriteData": {
+      "type": "customField",
+      "customField": "plugin::map-explorer.pixel-forge"
+    },
+    "sprite": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

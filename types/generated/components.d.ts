@@ -402,23 +402,7 @@ export interface GameInventoryItem extends Struct.ComponentSchema {
         number
       > &
       Schema.Attribute.DefaultTo<1>;
-    slot: Schema.Attribute.Enumeration<
-      [
-        'backpack',
-        'main_hand',
-        'off_hand',
-        'armor',
-        'head',
-        'feet',
-        'neck',
-        'hands',
-        'cloak',
-        'ring_1',
-        'ring_2',
-        'accessory',
-      ]
-    > &
-      Schema.Attribute.DefaultTo<'backpack'>;
+    slot: Schema.Attribute.String;
   };
 }
 

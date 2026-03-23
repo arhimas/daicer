@@ -17,9 +17,7 @@
       "min": 1
     },
     "slot": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::anchor.anchor"
+      "type": "string"
     },
     "isEquipped": {
       "type": "boolean",

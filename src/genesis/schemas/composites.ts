@@ -33,7 +33,8 @@ export const EntitySchema = z
         z.object({
           item: z.string(), // slug of item
           quantity: z.number().int().default(1),
-          equipped: z.boolean().default(false),
+          slot: z.string().optional(), // anchor slug or default backpack
+          isEquipped: z.boolean().default(false),
         })
       )
       .optional(),

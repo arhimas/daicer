@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'pike',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['centaur-charge', 'centaur-hooves', 'centaur-multiattack'],

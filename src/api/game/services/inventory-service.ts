@@ -277,7 +277,7 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       id: number;
       documentId?: string;
       isEquipped?: boolean;
-      slot?: string;
+      slot?: { slug?: string; documentId?: string } | string | null;
       item?: {
         name: string;
         equipment_data?: {
@@ -286,7 +286,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       };
     }
 
-    const newInventory = (inventory as InventoryItem[]).map((i) => {
+    const getSlotSlug = (s: InventoryItem['slot']): string | undefined => {
+      if (!s) return undefined;
+      return typeof s === 'string' ? s : s.slug;
+    };
+
+    const newInventory = (inventory as unknown as InventoryItem[]).map((i) => {
       // The item itself
       if (i.id === itemToEquip.id || (i.documentId && i.documentId === (itemToEquip as Record<string, unknown>).documentId)) {
         return { ...i, isEquipped: true, slot };
@@ -294,10 +299,12 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
       // Validation Checks against OTHER items
       if (i.isEquipped) {
+        const iSlotSlug = getSlotSlug(i.slot);
+
         // Case A: Target is 2H Main Hand.
         if (isTwoHanded && slot === 'main_hand') {
           // Conflict if item is in Main OR Off hand
-          if (i.slot === 'main_hand' || i.slot === 'off_hand') {
+          if (iSlotSlug === 'main_hand' || iSlotSlug === 'off_hand') {
             return { ...i, isEquipped: false };
           }
         }
@@ -305,10 +312,10 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         // Case B: Target is Off Hand.
         if (slot === 'off_hand') {
           // Conflict if item is Off Hand
-          if (i.slot === 'off_hand') return { ...i, isEquipped: false };
+          if (iSlotSlug === 'off_hand') return { ...i, isEquipped: false };
 
           // Conflict if item is Main Hand AND Two Handed
-          if (i.slot === 'main_hand') {
+          if (iSlotSlug === 'main_hand') {
             const iProps = i.item?.equipment_data?.properties || [];
             const iIs2H = iProps.some((p: { slug: string }) => p.slug === 'two-handed');
             if (iIs2H) return { ...i, isEquipped: false };
@@ -317,11 +324,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
 
         // Case C: Target is Main Hand (1H).
         if (slot === 'main_hand' && !isTwoHanded) {
-          if (i.slot === 'main_hand') return { ...i, isEquipped: false };
+          if (iSlotSlug === 'main_hand') return { ...i, isEquipped: false };
         }
 
         // Case D: Standard Slot Swap (Head, Armor, etc)
-        if (i.slot === slot) {
+        if (iSlotSlug === slot) {
           return { ...i, isEquipped: false };
         }
       }

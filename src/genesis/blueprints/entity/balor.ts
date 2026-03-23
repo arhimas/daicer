@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'whip',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: [

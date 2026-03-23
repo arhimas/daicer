@@ -42,8 +42,8 @@ export default defineEntity({
     {
       item: 'war-pick',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['duergar-duergar-resilience', 'duergar-enlarge', 'duergar-invisibility', 'duergar-sunlight-sensitivity'],

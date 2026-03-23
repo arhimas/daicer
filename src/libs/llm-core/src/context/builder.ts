@@ -58,6 +58,24 @@ export class ContextBuilder {
           contextDataString += SNIPPETS.PROMPT_OVERRIDE_WARNING(config.prompt);
         }
 
+        // F. Explicit Equipment/Inventory Injection for Sprite Generation
+        if (semanticData && (semanticData as any).inventory && Array.isArray((semanticData as any).inventory)) {
+            const inventory = (semanticData as any).inventory;
+            if (inventory.length > 0) {
+               contextDataString += `\n\n=== EQUIPPED ITEMS / INVENTORY ===\n`;
+               contextDataString += `The entity is wearing/holding the following items. You MUST incorporate these items into the generated sprite visually:\n`;
+               
+               inventory.forEach((item: any) => {
+                  if (item.item) {
+                     const name = item.item.name || 'Unknown Item';
+                     const slot = item.slot || 'Unknown Slot';
+                     const desc = item.item.description ? ` - ${item.item.description}` : '';
+                     contextDataString += `- [${slot}] ${name}${desc}\n`;
+                  }
+               });
+            }
+        }
+
         return contextDataString;
       } catch (e) {
         this.adapter.log.warn('Pixel Forge: Deep Context Fetch Failed/Skipped, using Shallow Data.', e);

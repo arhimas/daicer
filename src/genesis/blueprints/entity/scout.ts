@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'shortsword',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['scout-keen-hearing-and-sight', 'scout-multiattack'],

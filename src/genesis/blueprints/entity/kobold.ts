@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'sling',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['kobold-pack-tactics', 'kobold-sunlight-sensitivity'],

@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'spear',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['gnoll-bite', 'gnoll-rampage'],

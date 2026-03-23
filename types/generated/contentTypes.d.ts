@@ -688,6 +688,8 @@ export interface ApiEntitySheetEntitySheet extends Struct.CollectionTypeSchema {
     resources: Schema.Attribute.Component<'game.resource-pool', true>;
     room: Schema.Attribute.Relation<'manyToOne', 'api::room.room'>;
     spellbook: Schema.Attribute.Component<'game.spellbook', false>;
+    sprite: Schema.Attribute.Media<'images'>;
+    spriteData: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.pixel-forge'>;
     stats: Schema.Attribute.Component<'game.stats', false>;
     tempHp: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     traits: Schema.Attribute.Relation<'manyToMany', 'api::trait.trait'>;
@@ -717,7 +719,6 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     ac: Schema.Attribute.Integer;
     actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     alignment: Schema.Attribute.String;
-    anchors: Schema.Attribute.Component<'game.anchor-slot', true>;
     appearance: Schema.Attribute.Component<'game.appearance', false>;
     background: Schema.Attribute.RichText;
     challenge_rating: Schema.Attribute.Decimal;
@@ -745,6 +746,7 @@ export interface ApiEntityEntity extends Struct.CollectionTypeSchema {
     hit_dice: Schema.Attribute.String;
     hp: Schema.Attribute.Integer;
     inventory: Schema.Attribute.Component<'game.inventory-item', true>;
+    inventory_ui: Schema.Attribute.JSON & Schema.Attribute.CustomField<'plugin::map-explorer.inventory-composer'>;
     languages: Schema.Attribute.Relation<'manyToMany', 'api::language.language'>;
     legendary_actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     level: Schema.Attribute.Integer &

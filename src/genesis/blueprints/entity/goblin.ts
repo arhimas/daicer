@@ -45,8 +45,8 @@ export default defineEntity({
     {
       item: 'shortbow',
       quantity: 1,
-      slot: 'main_hand',
-      isEquipped: true,
+      slot: 'backpack',
+      isEquipped: false,
     },
   ],
   actions: ['goblin-nimble-escape'],

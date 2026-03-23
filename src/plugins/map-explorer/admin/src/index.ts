@@ -137,7 +137,7 @@ export default {
     app.customFields.register({
       name: 'inventory-composer',
       pluginId: PLUGIN_ID,
-      type: 'component',
+      type: 'json',
       intlLabel: {
         id: 'map-explorer.inventory-composer.label',
         defaultMessage: 'Inventory Composer',

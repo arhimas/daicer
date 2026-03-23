@@ -98,6 +98,29 @@ export class GenesisSeeder {
         }
         result[key] = progression;
       }
+
+      // Special handling for Entity Inventory (Component)
+      if (key === 'inventory' && Array.isArray(data[key])) {
+        const inventory = [];
+        for (const entry of data[key]) {
+          const newEntry = { ...entry };
+          
+          if (typeof entry.item === 'string') {
+            const itemId = await this.getDocumentId('api::item.item', entry.item);
+            if (itemId) newEntry.item = itemId;
+            else console.warn(`⚠️  Missing item in inventory: ${entry.item}`);
+          }
+          
+          if (typeof entry.slot === 'string') {
+            const anchorId = await this.getDocumentId('api::anchor.anchor', entry.slot);
+            if (anchorId) newEntry.slot = anchorId;
+            else console.warn(`⚠️  Missing anchor in inventory slot: ${entry.slot}`);
+          }
+          
+          inventory.push(newEntry);
+        }
+        result[key] = inventory;
+      }
     }
     return result;
   }
@@ -137,7 +160,8 @@ export class GenesisSeeder {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await this.strapi.documents(uid as any).update({
           documentId: existing.documentId,
-          data: { ...processedData, publishedAt: new Date() },
+          data: { ...processedData },
+          status: 'published',
         });
         // Update Cache
         if (!this.lookupCache[uid]) this.lookupCache[uid] = new Map();
@@ -145,7 +169,8 @@ export class GenesisSeeder {
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const created = await this.strapi.documents(uid as any).create({
-          data: { ...processedData, publishedAt: new Date() },
+          data: { ...processedData },
+          status: 'published',
         });
         if (!this.lookupCache[uid]) this.lookupCache[uid] = new Map();
         this.lookupCache[uid].set(identifier, created.documentId);
@@ -268,9 +293,17 @@ export class GenesisSeeder {
     }
 
     console.log(`\nProcessing Entities (${dynamicEntities.length})...`);
+    let entityCount = 0;
     for (const item of dynamicEntities) {
-       const hydratedEntity = await hydrateWithAssets('entities', item);
-       await this.syncEntity('api::entity.entity', hydratedEntity, Schemas.EntitySchema);
+       entityCount++;
+       try {
+          const hydratedEntity = await hydrateWithAssets('entities', item);
+          await this.syncEntity('api::entity.entity', hydratedEntity, Schemas.EntitySchema);
+          if (entityCount % 10 === 0) console.log(`Processed ${entityCount}/${dynamicEntities.length} entities...`);
+       } catch(e) {
+          console.error(`💥 FATAL ERROR on Entity ${item.slug} (${entityCount}):`, e);
+          break; // Stop further to isolate
+       }
     }
 
     // Refresh dynamic terrains with assets
