@@ -1,5 +1,5 @@
 export default ({ env }) => ({
-  upload: {
+  upload: env('GCS_BUCKET_NAME') ? {
     config: {
       provider: '@strapi-community/strapi-provider-upload-google-cloud-storage',
       providerOptions: {
@@ -10,6 +10,8 @@ export default ({ env }) => ({
         serviceAccount: env.json('GCS_SERVICE_ACCOUNT'),
       },
     },
+  } : {
+    enabled: true,
   },
   'semantic-search': {
     enabled: true,
