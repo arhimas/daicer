@@ -33,8 +33,7 @@
     "cocov": "cocov run \"vitest run --coverage --config vitest.coverage.config.ts\"",
     "seed:test": "node scripts/seed-test-db.js",
     "db:dump": "node scripts/dump-db.js",
-    "cli": "ts-node -T src/cli/index.ts",
-    "prepare": "husky"
+    "cli": "ts-node -T src/cli/index.ts"
   },
   "dependencies": {
     "@bull-board/api": "^6.16.2",
@@ -123,7 +122,6 @@
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.2",
-    "husky": "^9.1.7",
     "jsdom": "^27.4.0",
     "jsonwebtoken": "^9.0.3",
     "pino-pretty": "^13.1.3",
